@@ -14,6 +14,8 @@
     --text-dim:#9fb0d0;
     --accent:#5ee6c7;
     --accent-2:#7c9bff;
+    --bad:#ff8585;
+    --good:#5ee6c7;
   }
   *{box-sizing:border-box;}
   body{
@@ -36,10 +38,11 @@
   h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
   .lead{color:var(--text-dim);font-size:18px;max-width:620px;margin:0 auto 30px;}
   .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;}
   .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081019;}
   .btn-ghost{color:var(--text);border-color:var(--border);background:var(--bg-soft);}
   .btn:hover{filter:brightness(1.08);}
+  .btn:disabled{opacity:.45;cursor:not-allowed;filter:none;}
 
   section{padding:44px 0;}
   .section-head{margin-bottom:26px;}
@@ -63,6 +66,29 @@
   .about-card p{color:var(--text-dim);margin:0 0 12px;}
   .about-card p:last-child{margin-bottom:0;}
 
+  /* Testlar */
+  .quiz-topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .topic-btn{text-align:left;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;color:var(--text);cursor:pointer;font-family:inherit;}
+  .topic-btn:hover{border-color:rgba(124,155,255,.5);}
+  .topic-btn .emoji{font-size:20px;margin-bottom:6px;display:block;}
+  .topic-btn .t-name{font-weight:700;font-size:15px;}
+  .topic-btn .t-count{display:block;color:var(--text-dim);font-size:12px;margin-top:3px;}
+
+  .quiz-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:26px;}
+  .quiz-progress{font-size:13px;color:var(--text-dim);margin-bottom:12px;}
+  .quiz-question{font-size:18px;font-weight:600;margin:0 0 18px;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+  .opt{display:block;width:100%;text-align:left;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-family:inherit;font-size:15px;}
+  .opt:hover{border-color:var(--accent-2);}
+  .opt.correct{border-color:var(--good);background:rgba(94,230,199,.12);}
+  .opt.wrong{border-color:var(--bad);background:rgba(255,133,133,.12);}
+  .opt:disabled{cursor:default;}
+  .quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+  .quiz-result{text-align:center;}
+  .quiz-result .score{font-size:40px;font-weight:800;margin:6px 0;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hidden{display:none !important;}
+  .back-link{background:none;border:none;color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:13px;padding:0;margin-bottom:16px;text-decoration:underline;}
+
   footer{border-top:1px solid var(--border);padding:28px 0;color:var(--text-dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
   footer a{color:var(--accent);text-decoration:none;}
 
@@ -80,6 +106,7 @@
     <nav>
       <a href="#mavzular">Mavzular</a>
       <a href="#davrlar">Davrlar</a>
+      <a href="#testlar">Testlar</a>
       <a href="#haqida">Loyiha haqida</a>
     </nav>
   </header>
@@ -174,6 +201,32 @@
     </div>
   </section>
 
+  <section id="testlar">
+    <div class="section-head">
+      <h2>Mavzulashtirilgan testlar</h2>
+      <p>Har bir yo'nalish bo'yicha 3 tadan savol — o'zingizni sinab ko'ring.</p>
+    </div>
+
+    <div id="quiz-topics" class="quiz-topics"></div>
+
+    <div id="quiz-box" class="quiz-box hidden">
+      <button class="back-link" id="quiz-back">← Mavzular ro'yxatiga qaytish</button>
+      <div id="quiz-question-view">
+        <div class="quiz-progress" id="quiz-progress"></div>
+        <p class="quiz-question" id="quiz-question"></p>
+        <div class="quiz-options" id="quiz-options"></div>
+      </div>
+      <div id="quiz-result-view" class="quiz-result hidden">
+        <p style="color:var(--text-dim);margin:0;">Natijangiz</p>
+        <div class="score" id="quiz-score"></div>
+        <div class="cta-row" style="margin-top:10px;">
+          <button class="btn btn-primary" id="quiz-retry">Qayta urinish</button>
+          <button class="btn btn-ghost" id="quiz-other">Boshqa mavzu</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="haqida">
     <div class="section-head">
       <h2>Loyiha haqida</h2>
@@ -185,9 +238,9 @@
         Postlar avtomatik tayyorlanadi va kunlik ravishda Telegram kanalga chiqariladi.
       </p>
       <p>
-        Bu sahifa — loyihaning birinchi versiyasi: kanal mavzulari va davrlar xaritasini
-        ko'rsatib beradi. Keyingi bosqichda har bir post shu saytda alohida sahifa sifatida
-        arxivlanadi — qidiruv va filtrlash imkoniyati bilan.
+        Bu sahifa — loyihaning birinchi versiyasi: kanal mavzulari, davrlar xaritasi va
+        mavzulashtirilgan testlarni ko'rsatib beradi. Keyingi bosqichda har bir post shu saytda
+        alohida sahifa sifatida arxivlanadi — qidiruv va filtrlash imkoniyati bilan.
       </p>
     </div>
     <p class="note">Ushbu sayt GitHub Pages orqali joylashtirilgan va bepul, statik tarzda ishlaydi.</p>
@@ -203,6 +256,252 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- Testlar ----------
+  const QUIZ_DATA = {
+    algebra: {
+      name: "Algebra",
+      emoji: "➗",
+      questions: [
+        {
+          q: "x² − 5x + 6 = 0 tenglamaning ildizlari yig'indisi nechaga teng?",
+          options: ["5", "6", "−5", "1"],
+          correct: 0,
+        },
+        {
+          q: "log₂8 qiymati nechaga teng?",
+          options: ["2", "3", "4", "8"],
+          correct: 1,
+        },
+        {
+          q: "Arifmetik progressiyada birinchi had a=2, ayirma d=3 bo'lsa, 4-had (a₄) nechaga teng?",
+          options: ["8", "9", "11", "14"],
+          correct: 2,
+        },
+      ],
+    },
+    geometriya: {
+      name: "Geometriya",
+      emoji: "📐",
+      questions: [
+        {
+          q: "To'g'ri burchakli uchburchakning katetlari 3 va 4 bo'lsa, gipotenuza nechaga teng?",
+          options: ["5", "6", "7", "25"],
+          correct: 0,
+        },
+        {
+          q: "Radiusi 7 bo'lgan doiraning yuzi (π ≈ 22/7) taxminan nechaga teng?",
+          options: ["132", "144", "154", "164"],
+          correct: 2,
+        },
+        {
+          q: "Har qanday uchburchakning ichki burchaklari yig'indisi necha gradus?",
+          options: ["90°", "180°", "270°", "360°"],
+          correct: 1,
+        },
+      ],
+    },
+    olimpiada: {
+      name: "Olimpiada masalasi",
+      emoji: "🏆",
+      questions: [
+        {
+          q: "1 dan 100 gacha bo'lgan butun sonlar yig'indisi nechaga teng?",
+          options: ["4950", "5000", "5050", "10000"],
+          correct: 2,
+        },
+        {
+          q: "Yig'indisi 24 ga teng bo'lgan ikkita ketma-ket tub son qaysilar?",
+          options: ["7 va 17", "11 va 13", "5 va 19", "13 va 11"],
+          correct: 1,
+        },
+        {
+          q: "5! (5 faktorial) nechaga teng?",
+          options: ["20", "60", "100", "120"],
+          correct: 3,
+        },
+      ],
+    },
+    qiziqarli: {
+      name: "Qiziqarli fakt",
+      emoji: "✨",
+      questions: [
+        {
+          q: "π sonining taxminiy qiymati qaysi?",
+          options: ["2.72", "3.14", "1.61", "4.13"],
+          correct: 1,
+        },
+        {
+          q: "\"Oltin nisbat\" odatda qaysi yunon harfi bilan belgilanadi?",
+          options: ["π (pi)", "Δ (delta)", "φ (fi)", "Σ (sigma)"],
+          correct: 2,
+        },
+        {
+          q: "Eyler soni (e) taxminan nechaga teng?",
+          options: ["1.41", "2.72", "3.14", "1.61"],
+          correct: 1,
+        },
+      ],
+    },
+    tarix: {
+      name: "Matematika tarixi",
+      emoji: "🏛",
+      questions: [
+        {
+          q: "\"Algebra\" so'zi qaysi olimning asari nomidan kelib chiqqan?",
+          options: ["Evklid", "Pifagor", "Al-Xorazmiy", "Nyuton"],
+          correct: 2,
+        },
+        {
+          q: "\"Nol\" (0) raqami tushunchasi qadimda birinchi bo'lib qayerda rivojlantirilgan deb hisoblanadi?",
+          options: ["Qadimgi Misr", "Qadimgi Hindiston", "Qadimgi Yunoniston", "Qadimgi Xitoy"],
+          correct: 1,
+        },
+        {
+          q: "Mashhur \"Elementlar\" asarining muallifi kim?",
+          options: ["Arximed", "Evklid", "Pifagor", "Fales"],
+          correct: 1,
+        },
+      ],
+    },
+    fanlar: {
+      name: "Boshqa fanlar bilan bog'liqlik",
+      emoji: "🔬",
+      questions: [
+        {
+          q: "Nyutonning ikkinchi qonuni qaysi formulaga mos keladi?",
+          options: ["E = mc²", "F = ma", "a² + b² = c²", "V = IR"],
+          correct: 1,
+        },
+        {
+          q: "Fibonachchi ketma-ketligi tabiatda ko'pincha nimada kuzatiladi?",
+          options: ["Yulduzlar harakatida", "Gul barglari sonida", "Dengiz suvi bosimida", "Momaqaldiroq tovushida"],
+          correct: 1,
+        },
+        {
+          q: "Musiqada bitta oktava ichidagi chastota nisbati qanday?",
+          options: ["1:1", "2:1", "3:2", "5:4"],
+          correct: 1,
+        },
+      ],
+    },
+    hayot: {
+      name: "Hayot uchun matematika",
+      emoji: "💡",
+      questions: [
+        {
+          q: "1 000 000 so'mlik tovarga 20% chegirma qilinsa, yangi narx qancha bo'ladi?",
+          options: ["700 000", "750 000", "800 000", "900 000"],
+          correct: 2,
+        },
+        {
+          q: "Yillik 12% oddiy foiz bilan 1 000 000 so'm qo'yilsa, 1 yildan keyin jami qancha bo'ladi?",
+          options: ["1 012 000", "1 100 000", "1 112 000", "1 120 000"],
+          correct: 3,
+        },
+        {
+          q: "Mashina 60 km/soat tezlikda yursa, 150 km yo'lni bosib o'tishga necha soat ketadi?",
+          options: ["2 soat", "2.5 soat", "3 soat", "3.5 soat"],
+          correct: 1,
+        },
+      ],
+    },
+  };
+
+  const topicsEl = document.getElementById('quiz-topics');
+  const boxEl = document.getElementById('quiz-box');
+  const questionViewEl = document.getElementById('quiz-question-view');
+  const resultViewEl = document.getElementById('quiz-result-view');
+  const progressEl = document.getElementById('quiz-progress');
+  const questionEl = document.getElementById('quiz-question');
+  const optionsEl = document.getElementById('quiz-options');
+  const scoreEl = document.getElementById('quiz-score');
+
+  let currentTopic = null;
+  let currentIndex = 0;
+  let currentScore = 0;
+  let answered = false;
+
+  function renderTopics() {
+    topicsEl.innerHTML = '';
+    Object.entries(QUIZ_DATA).forEach(([key, topic]) => {
+      const btn = document.createElement('button');
+      btn.className = 'topic-btn';
+      btn.innerHTML =
+        '<span class="emoji">' + topic.emoji + '</span>' +
+        '<span class="t-name">' + topic.name + '</span>' +
+        '<span class="t-count">' + topic.questions.length + ' ta savol</span>';
+      btn.addEventListener('click', () => startQuiz(key));
+      topicsEl.appendChild(btn);
+    });
+  }
+
+  function startQuiz(key) {
+    currentTopic = key;
+    currentIndex = 0;
+    currentScore = 0;
+    boxEl.classList.remove('hidden');
+    questionViewEl.classList.remove('hidden');
+    resultViewEl.classList.add('hidden');
+    renderQuestion();
+    boxEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderQuestion() {
+    answered = false;
+    const topic = QUIZ_DATA[currentTopic];
+    const q = topic.questions[currentIndex];
+    progressEl.textContent = topic.emoji + ' ' + topic.name + ' — savol ' + (currentIndex + 1) + ' / ' + topic.questions.length;
+    questionEl.textContent = q.q;
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.textContent = opt;
+      b.addEventListener('click', () => selectAnswer(i));
+      optionsEl.appendChild(b);
+    });
+  }
+
+  function selectAnswer(i) {
+    if (answered) return;
+    answered = true;
+    const topic = QUIZ_DATA[currentTopic];
+    const q = topic.questions[currentIndex];
+    const buttons = optionsEl.querySelectorAll('.opt');
+    buttons.forEach((b, idx) => {
+      b.disabled = true;
+      if (idx === q.correct) b.classList.add('correct');
+      else if (idx === i) b.classList.add('wrong');
+    });
+    if (i === q.correct) currentScore++;
+    setTimeout(() => {
+      if (currentIndex < topic.questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }, 900);
+  }
+
+  function showResult() {
+    const topic = QUIZ_DATA[currentTopic];
+    questionViewEl.classList.add('hidden');
+    resultViewEl.classList.remove('hidden');
+    scoreEl.textContent = currentScore + ' / ' + topic.questions.length;
+  }
+
+  document.getElementById('quiz-retry').addEventListener('click', () => startQuiz(currentTopic));
+  document.getElementById('quiz-other').addEventListener('click', () => {
+    boxEl.classList.add('hidden');
+    document.getElementById('testlar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  document.getElementById('quiz-back').addEventListener('click', () => {
+    boxEl.classList.add('hidden');
+  });
+
+  renderTopics();
 </script>
 
 </body>
