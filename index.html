@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matematika tarixi — ensiklopediya</title>
+<style>
+  :root{
+    --bg:#0b1220;
+    --bg-soft:#111a2e;
+    --card:#141f38;
+    --border:#243252;
+    --text:#eef2ff;
+    --text-dim:#9fb0d0;
+    --accent:#5ee6c7;
+    --accent-2:#7c9bff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:radial-gradient(circle at 20% 0%, #16213f 0%, var(--bg) 55%);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px;}
+  header{padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;}
+  .brand-badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#08131f;font-weight:800;}
+  nav a{color:var(--text-dim);text-decoration:none;margin-left:20px;font-size:14px;}
+  nav a:hover{color:var(--text);}
+
+  .hero{padding:64px 0 48px;text-align:center;}
+  .kicker{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(94,230,199,.35);background:rgba(94,230,199,.08);padding:5px 12px;border-radius:999px;margin-bottom:18px;}
+  h1{font-size:clamp(30px,5vw,48px);margin:0 0 16px;letter-spacing:-0.02em;}
+  h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .lead{color:var(--text-dim);font-size:18px;max-width:620px;margin:0 auto 30px;}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081019;}
+  .btn-ghost{color:var(--text);border-color:var(--border);background:var(--bg-soft);}
+  .btn:hover{filter:brightness(1.08);}
+
+  section{padding:44px 0;}
+  .section-head{margin-bottom:26px;}
+  .section-head h2{font-size:26px;margin:0 0 8px;}
+  .section-head p{color:var(--text-dim);margin:0;font-size:15px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:transform .15s ease, border-color .15s ease;}
+  .card:hover{transform:translateY(-3px);border-color:rgba(124,155,255,.5);}
+  .card .emoji{font-size:26px;margin-bottom:10px;display:block;}
+  .card h3{margin:0 0 6px;font-size:17px;}
+  .card p{margin:0;color:var(--text-dim);font-size:14px;}
+
+  .timeline{border-left:2px solid var(--border);margin-left:6px;padding-left:24px;display:flex;flex-direction:column;gap:22px;}
+  .t-item{position:relative;}
+  .t-item::before{content:"";position:absolute;left:-31px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(94,230,199,.15);}
+  .t-item h4{margin:0 0 4px;font-size:15px;}
+  .t-item p{margin:0;color:var(--text-dim);font-size:14px;}
+
+  .about-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:28px;}
+  .about-card p{color:var(--text-dim);margin:0 0 12px;}
+  .about-card p:last-child{margin-bottom:0;}
+
+  footer{border-top:1px solid var(--border);padding:28px 0;color:var(--text-dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  footer a{color:var(--accent);text-decoration:none;}
+
+  .note{margin-top:10px;font-size:13px;color:var(--text-dim);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="brand-badge">π</span>
+      Matematika tarixi
+    </div>
+    <nav>
+      <a href="#mavzular">Mavzular</a>
+      <a href="#davrlar">Davrlar</a>
+      <a href="#haqida">Loyiha haqida</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <span class="kicker">Tosh asridan hozirgi kungacha</span>
+    <h1>Matematikaning <span>butun tarixi</span>,<br>bitta manbada</h1>
+    <p class="lead">
+      Bu sayt — Telegram'dagi <strong>Matematika tarixi</strong> kanalining ensiklopedik arxivi.
+      Har kuni chiqadigan postlar shu yerda davrlar va mavzular bo'yicha to'planib boradi.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://t.me/mqm199" target="_blank" rel="noopener">Telegram kanalga o'tish</a>
+      <a class="btn btn-ghost" href="https://t.me/deltaikki" target="_blank" rel="noopener">Muhokama guruhi</a>
+    </div>
+  </div>
+
+  <section id="mavzular">
+    <div class="section-head">
+      <h2>Mavzu yo'nalishlari</h2>
+      <p>Kanalda har kuni shu 7 ta yo'nalishdan biri bo'yicha post chiqadi.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="emoji">➗</span>
+        <h3>Algebra</h3>
+        <p>Kvadrat tenglamalar, progressiyalar, logarifmlar, funksiyalar, kompleks sonlar.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">📐</span>
+        <h3>Geometriya</h3>
+        <p>Uchburchaklar, aylana va doira, trigonometriya, vektorlar, stereometriya.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🏆</span>
+        <h3>Olimpiada masalalari</h3>
+        <p>Sonlar nazariyasi, kombinatorika, geometrik va algebraik masalalar.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">✨</span>
+        <h3>Qiziqarli faktlar</h3>
+        <p>Tarixiy faktlar, qiziqarli sonlar (π, e, oltin nisbat), matematik paradokslar.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🏛</span>
+        <h3>Matematika tarixi</h3>
+        <p>Tosh asridan XX asrgacha — kashfiyotlar, olimlar, g'oyalar.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🔬</span>
+        <h3>Boshqa fanlar bilan bog'liqlik</h3>
+        <p>Fizika, astronomiya, me'morchilik, musiqa, biologiya, iqtisodiyot.</p>
+      </div>
+      <div class="card">
+        <span class="emoji">💡</span>
+        <h3>Hayot uchun matematika</h3>
+        <p>Foiz hisoblash, byudjet, sport statistikasi, GPS va shifrlash.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="davrlar">
+    <div class="section-head">
+      <h2>Davrlar bo'yicha yo'l xaritasi</h2>
+      <p>Kanal shu tartibda — tosh asridan zamonaviy davrgacha — ilgarilaydi.</p>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <h4>Tosh asri</h4>
+        <p>Sanoq tizimlari va suyak buyumlar (Ishango suyagi).</p>
+      </div>
+      <div class="t-item">
+        <h4>Qadimgi Misr va Mesopotamiya</h4>
+        <p>Piramidalar geometriyasi, Bobil sanoq tizimi va astronomiya.</p>
+      </div>
+      <div class="t-item">
+        <h4>Qadimgi Yunoniston</h4>
+        <p>Pifagor, Evklid, Arximed — geometriya va isbotlash an'anasi.</p>
+      </div>
+      <div class="t-item">
+        <h4>O'rta Osiyo uyg'onish davri</h4>
+        <p>Xorazmiy va boshqa olimlarning algebra sohasidagi kashfiyotlari; hind-arab raqamlari.</p>
+      </div>
+      <div class="t-item">
+        <h4>Renessans va Nyuton-Leybnits davri</h4>
+        <p>Perspektiva geometriyasi, differensial-integral hisob.</p>
+      </div>
+      <div class="t-item">
+        <h4>XIX–XX asr</h4>
+        <p>Gauss, Eyler, Lobachevskiy geometriyasi, Eynshteyn, Tyuring va algoritmlar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="haqida">
+    <div class="section-head">
+      <h2>Loyiha haqida</h2>
+    </div>
+    <div class="about-card">
+      <p>
+        <strong>Matematika tarixi</strong> — matematikaning tosh asridan hozirgi kungacha bo'lgan
+        yo'lini o'zbek tilida, tushunarli va vizual boy formatda hikoya qiluvchi loyiha.
+        Postlar avtomatik tayyorlanadi va kunlik ravishda Telegram kanalga chiqariladi.
+      </p>
+      <p>
+        Bu sahifa — loyihaning birinchi versiyasi: kanal mavzulari va davrlar xaritasini
+        ko'rsatib beradi. Keyingi bosqichda har bir post shu saytda alohida sahifa sifatida
+        arxivlanadi — qidiruv va filtrlash imkoniyati bilan.
+      </p>
+    </div>
+    <p class="note">Ushbu sayt GitHub Pages orqali joylashtirilgan va bepul, statik tarzda ishlaydi.</p>
+  </section>
+
+  <footer>
+    <div>&copy; <span id="year"></span> Matematika tarixi</div>
+    <div>
+      <a href="https://t.me/mqm199" target="_blank" rel="noopener">Telegram: @mqm199</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
