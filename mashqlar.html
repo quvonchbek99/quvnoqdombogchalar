@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mavzular va mashqlar — Matematika tarixi</title>
+<style>
+  :root{
+    --bg:#0b1220;
+    --bg-soft:#111a2e;
+    --card:#141f38;
+    --border:#243252;
+    --text:#eef2ff;
+    --text-dim:#9fb0d0;
+    --accent:#5ee6c7;
+    --accent-2:#7c9bff;
+    --bad:#ff8585;
+    --good:#5ee6c7;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:radial-gradient(circle at 20% 0%, #16213f 0%, var(--bg) 55%);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px;}
+  header{padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none;color:var(--text);}
+  .brand-badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#08131f;font-weight:800;}
+  nav a{color:var(--text-dim);text-decoration:none;margin-left:20px;font-size:14px;}
+  nav a:hover{color:var(--text);}
+
+  .hero{padding:48px 0 32px;text-align:center;}
+  .kicker{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(94,230,199,.35);background:rgba(94,230,199,.08);padding:5px 12px;border-radius:999px;margin-bottom:18px;}
+  h1{font-size:clamp(26px,4.5vw,40px);margin:0 0 14px;letter-spacing:-0.02em;}
+  h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .lead{color:var(--text-dim);font-size:17px;max-width:640px;margin:0 auto;}
+
+  section{padding:34px 0;}
+  .section-head h2{font-size:24px;margin:0 0 8px;}
+
+  /* Topic picker (colorful grid) */
+  .picker-wrap{background:linear-gradient(135deg,#7b6ef6 0%,#a06ee8 45%,#6a8bf0 100%);border-radius:24px;padding:36px 26px;margin:30px 0;}
+  .picker-card{background:#ffffff;border-radius:20px;padding:28px 24px 32px;max-width:920px;margin:0 auto;box-shadow:0 20px 50px rgba(20,10,60,.25);}
+  .picker-card h2{margin:0 0 4px;font-size:22px;color:#1e1b3a;text-align:center;}
+  .picker-card .sub{margin:0 0 22px;text-align:center;color:#726f96;font-size:14px;}
+  .topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;list-style:none;padding:0;margin:0;}
+  .topic-chip{display:flex;align-items:center;gap:10px;padding:14px 14px;border-radius:14px;color:#fff;text-decoration:none;font-weight:700;font-size:13px;line-height:1.25;box-shadow:0 6px 14px rgba(0,0,0,.12);transition:transform .12s ease;}
+  .topic-chip:hover{transform:translateY(-3px);}
+  .topic-chip .ico{font-size:18px;flex:none;}
+  .topic-chip .tc-name{font-size:12.5px;}
+  .topic-grid li{list-style:none;}
+  .topic-chip:nth-child(10n+1){background:linear-gradient(135deg,#6a5af9,#8b5cf6);}
+  .topic-chip:nth-child(10n+2){background:linear-gradient(135deg,#ec4899,#f472b6);}
+  .topic-chip:nth-child(10n+3){background:linear-gradient(135deg,#3b82f6,#60a5fa);}
+  .topic-chip:nth-child(10n+4){background:linear-gradient(135deg,#10b981,#34d399);}
+  .topic-chip:nth-child(10n+5){background:linear-gradient(135deg,#fb7185,#fb923c);}
+  .topic-chip:nth-child(10n+6){background:linear-gradient(135deg,#14b8a6,#2dd4bf);}
+  .topic-chip:nth-child(10n+7){background:linear-gradient(135deg,#f43f5e,#ef4444);}
+  .topic-chip:nth-child(10n+8){background:linear-gradient(135deg,#334155,#1e293b);}
+  .topic-chip:nth-child(10n+9){background:linear-gradient(135deg,#22c55e,#4ade80);}
+  .topic-chip:nth-child(10n){background:linear-gradient(135deg,#d946ef,#c026d3);}
+
+  /* Topic sections */
+  .topic{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 26px;margin-bottom:22px;scroll-margin-top:16px;}
+  .topic h2{margin:0 0 4px;font-size:19px;color:var(--text);}
+  .topic .t-num{color:var(--accent);font-weight:800;margin-right:8px;}
+
+  .xossa{border-top:1px solid var(--border);margin-top:16px;padding-top:16px;}
+  .xossa h3{margin:0 0 8px;font-size:15.5px;color:var(--accent-2);}
+  .formula{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:0 0 12px;font-size:14.5px;color:var(--text);}
+
+  .namunaviy{background:rgba(94,230,199,.06);border:1px solid rgba(94,230,199,.25);border-radius:10px;padding:12px 14px;margin-bottom:12px;}
+  .namunaviy .tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--good);font-weight:700;margin-bottom:6px;}
+  .namunaviy .savol{font-weight:600;margin:0 0 6px;font-size:14.5px;}
+  .namunaviy .yechim{color:var(--text-dim);font-size:14px;white-space:pre-line;margin:0;}
+
+  .mashqlar{margin:0;padding-left:20px;color:var(--text);font-size:14.5px;}
+  .mashqlar li{margin-bottom:5px;}
+
+  .back-top{display:inline-block;margin-top:6px;font-size:12.5px;color:var(--text-dim);text-decoration:none;}
+  .back-top:hover{color:var(--accent);}
+
+  footer{border-top:1px solid var(--border);padding:28px 0;color:var(--text-dim);font-size:13px;text-align:center;}
+  footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="index.html">
+      <span class="brand-badge">π</span>
+      Matematika tarixi
+    </a>
+    <nav>
+      <a href="index.html">Bosh sahifa</a>
+      <a href="index.html#testlar">Testlar</a>
+      <a href="#toc">Mundarija</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <span class="kicker">11-sinf / kollej dasturi</span>
+    <h1>Mavzular, xossalar <span>va misollar</span></h1>
+    <p class="lead">
+      50 ta mavzu bo'yicha asosiy xossalar (qoidalar), har biri uchun namunaviy yechim va mustaqil ishlash uchun misollar.
+    </p>
+  </div>
+
+  <div class="picker-wrap" id="toc">
+    <div class="picker-card">
+      <h2>📘 Mavzular va mashqlar</h2>
+      <p class="sub">Mavzuni tanlang va o'qishni boshlang — 50 ta mavzu</p>
+      <ul class="topic-grid">
+        <li><a class="topic-chip" href="#t1"><span class="ico">📈</span><span class="tc-name">1. Kvadrat funksiya va grafigi</span></a></li>
+        <li><a class="topic-chip" href="#t2"><span class="ico">📉</span><span class="tc-name">2. Kvadrat tengsizlik</span></a></li>
+        <li><a class="topic-chip" href="#t3"><span class="ico">🧮</span><span class="tc-name">3. Trigonometrik ayniyatlar</span></a></li>
+        <li><a class="topic-chip" href="#t4"><span class="ico">🔢</span><span class="tc-name">4. Progressiyalar</span></a></li>
+        <li><a class="topic-chip" href="#t5"><span class="ico">ƒ</span><span class="tc-name">5. Funksiya tushunchasi</span></a></li>
+        <li><a class="topic-chip" href="#t6"><span class="ico">📊</span><span class="tc-name">6. Funksiya xossalari</span></a></li>
+        <li><a class="topic-chip" href="#t7"><span class="ico">🔀</span><span class="tc-name">7. Grafik almashtirishlar</span></a></li>
+        <li><a class="topic-chip" href="#t8"><span class="ico">📐</span><span class="tc-name">8. Chiziqli/kvadratik modellashtirish</span></a></li>
+        <li><a class="topic-chip" href="#t9"><span class="ico">🗂️</span><span class="tc-name">9. Loyiha ishi</span></a></li>
+        <li><a class="topic-chip" href="#t10"><span class="ico">➗</span><span class="tc-name">10. Sodda ratsional tenglamalar</span></a></li>
+        <li><a class="topic-chip" href="#t11"><span class="ico">🧩</span><span class="tc-name">11. Ratsional tenglamalar sistemasi</span></a></li>
+        <li><a class="topic-chip" href="#t12"><span class="ico">⚖️</span><span class="tc-name">12. Ratsional tengsizliklar</span></a></li>
+        <li><a class="topic-chip" href="#t13"><span class="ico">🧩</span><span class="tc-name">13. Ratsional tengsizliklar sistemasi</span></a></li>
+        <li><a class="topic-chip" href="#t14"><span class="ico">📝</span><span class="tc-name">14. Ratsional tenglamalarga misollar</span></a></li>
+        <li><a class="topic-chip" href="#t15"><span class="ico">√</span><span class="tc-name">15. Sodda irratsional tenglamalar</span></a></li>
+        <li><a class="topic-chip" href="#t16"><span class="ico">📝</span><span class="tc-name">16. Irratsional tenglamalarga misollar</span></a></li>
+        <li><a class="topic-chip" href="#t17"><span class="ico">🧩</span><span class="tc-name">17. Irratsional tenglamalar sistemasi</span></a></li>
+        <li><a class="topic-chip" href="#t18"><span class="ico">📝</span><span class="tc-name">18. Ratsional/irratsional misollar</span></a></li>
+        <li><a class="topic-chip" href="#t19"><span class="ico">⚡</span><span class="tc-name">19. Ko'rsatkichli funksiya</span></a></li>
+        <li><a class="topic-chip" href="#t20"><span class="ico">📘</span><span class="tc-name">20. Logarifmik funksiya</span></a></li>
+        <li><a class="topic-chip" href="#t21"><span class="ico">✂️</span><span class="tc-name">21. Ko'rsatkichli/logarifmik soddalashtirish</span></a></li>
+        <li><a class="topic-chip" href="#t22"><span class="ico">⚡</span><span class="tc-name">22. Sodda ko'rsatkichli tenglamalar</span></a></li>
+        <li><a class="topic-chip" href="#t23"><span class="ico">📘</span><span class="tc-name">23. Sodda logarifmik tenglamalar</span></a></li>
+        <li><a class="topic-chip" href="#t24"><span class="ico">🧩</span><span class="tc-name">24. Ko'rsatkichli/logarifmik sistema</span></a></li>
+        <li><a class="topic-chip" href="#t25"><span class="ico">⚖️</span><span class="tc-name">25. Ko'rsatkichli tengsizliklar</span></a></li>
+        <li><a class="topic-chip" href="#t26"><span class="ico">⚖️</span><span class="tc-name">26. Logarifmik tengsizliklar</span></a></li>
+        <li><a class="topic-chip" href="#t27"><span class="ico">📊</span><span class="tc-name">27. Ko'rsatkichli modellashtirish</span></a></li>
+        <li><a class="topic-chip" href="#t28"><span class="ico">📝</span><span class="tc-name">28. Ko'rsatkichli/logarifmik misollar</span></a></li>
+        <li><a class="topic-chip" href="#t29"><span class="ico">🌊</span><span class="tc-name">29. Trigonometrik funksiyalar</span></a></li>
+        <li><a class="topic-chip" href="#t30"><span class="ico">🔄</span><span class="tc-name">30. Teskari trig funksiyalar</span></a></li>
+        <li><a class="topic-chip" href="#t31"><span class="ico">📝</span><span class="tc-name">31. Trig funksiyalarga misollar</span></a></li>
+        <li><a class="topic-chip" href="#t32"><span class="ico">🔬</span><span class="tc-name">32. STEM topshiriq</span></a></li>
+        <li><a class="topic-chip" href="#t33"><span class="ico">🌊</span><span class="tc-name">33. sinx=a, cosx=a tenglamalar</span></a></li>
+        <li><a class="topic-chip" href="#t34"><span class="ico">🌊</span><span class="tc-name">34. tgx=a, ctgx=a tenglamalar</span></a></li>
+        <li><a class="topic-chip" href="#t35"><span class="ico">🌊</span><span class="tc-name">35. Trig tenglamalarni yechish</span></a></li>
+        <li><a class="topic-chip" href="#t36"><span class="ico">⚖️</span><span class="tc-name">36. Sodda trig tengsizliklar</span></a></li>
+        <li><a class="topic-chip" href="#t37"><span class="ico">🎲</span><span class="tc-name">37. Tasodifiy hodisalar</span></a></li>
+        <li><a class="topic-chip" href="#t38"><span class="ico">🎲</span><span class="tc-name">38. Ehtimollik va kombinatorika</span></a></li>
+        <li><a class="topic-chip" href="#t39"><span class="ico">🎲</span><span class="tc-name">39. Teng ehtimolli hodisalar</span></a></li>
+        <li><a class="topic-chip" href="#t40"><span class="ico">📐</span><span class="tc-name">40. Planimetriya tuzilishi</span></a></li>
+        <li><a class="topic-chip" href="#t41"><span class="ico">📐</span><span class="tc-name">41. Geometrik masalalar yechish</span></a></li>
+        <li><a class="topic-chip" href="#t42"><span class="ico">🧊</span><span class="tc-name">42. Stereometriya tushunchalari</span></a></li>
+        <li><a class="topic-chip" href="#t43"><span class="ico">🧊</span><span class="tc-name">43. To'g'ri chiziqlar va tekisliklar</span></a></li>
+        <li><a class="topic-chip" href="#t44"><span class="ico">🔷</span><span class="tc-name">44. Ko'pyoqlar</span></a></li>
+        <li><a class="topic-chip" href="#t45"><span class="ico">🔷</span><span class="tc-name">45. Ko'pyoqni tasvirlash</span></a></li>
+        <li><a class="topic-chip" href="#t46"><span class="ico">📏</span><span class="tc-name">46. Chiziqlar joylashuvi</span></a></li>
+        <li><a class="topic-chip" href="#t47"><span class="ico">📏</span><span class="tc-name">47. Ayqash to'g'ri chiziqlar</span></a></li>
+        <li><a class="topic-chip" href="#t48"><span class="ico">📏</span><span class="tc-name">48. Chiziq va tekislik joylashuvi</span></a></li>
+        <li><a class="topic-chip" href="#t49"><span class="ico">🧊</span><span class="tc-name">49. Tekisliklar joylashuvi</span></a></li>
+        <li><a class="topic-chip" href="#t50"><span class="ico">🧊</span><span class="tc-name">50. Parallel proyeksiyalash</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <main>
+<!-- TOPICS_START -->
+<section class="topic" id="t1">
+  <h2><span class="t-num">1.</span> Kvadrat funksiya va uning grafigi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — umumiy ko'rinishi va uchi (vertex)</h3>
+    <p class="formula">y = ax&sup2; + bx + c (a&ne;0); uchi: x&#8320; = -b/(2a), y&#8320; = f(x&#8320;). a&gt;0 — shoxlari yuqoriga, a&lt;0 — pastga.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: y = x&sup2; - 4x + 3 funksiyaning uchini toping.</p>
+      <p class="yechim">x&#8320; = -(-4)/(2&middot;1) = 2
+y&#8320; = f(2) = 4 - 8 + 3 = -1
+Javob: uchi (2; -1), a=1&gt;0 bo'lgani uchun shoxlari yuqoriga qaragan.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>y = 2x&sup2; - 8x + 5 funksiyaning uchini toping.</li>
+      <li>y = -x&sup2; + 6x - 8 funksiyaning uchini toping.</li>
+      <li>y = 3x&sup2; + 6x + 2 funksiyaning uchini toping.</li>
+      <li>y = -2x&sup2; - 4x + 1 funksiyaning uchini toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — nollari (ildizlari)</h3>
+    <p class="formula">D = b&sup2; - 4ac. D&gt;0 — ikkita ildiz x = (-b&plusmn;&radic;D)/(2a); D=0 — bitta ildiz; D&lt;0 — haqiqiy ildiz yo'q.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: y = x&sup2; - 5x + 6 funksiyaning nollarini toping.</p>
+      <p class="yechim">D = 25 - 24 = 1
+x = (5&plusmn;1)/2
+x&#8321; = 3, x&#8322; = 2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>x&sup2; - 7x + 12 = 0 tenglamani yeching.</li>
+      <li>2x&sup2; - 3x - 2 = 0 tenglamani yeching.</li>
+      <li>x&sup2; + 4x + 4 = 0 tenglamani yeching.</li>
+      <li>x&sup2; - 2x + 5 = 0 tenglamaning haqiqiy ildizlari bor-yo'qligini aniqlang.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t2">
+  <h2><span class="t-num">2.</span> Kvadrat tengsizlik va uning yechimi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — parabola (interval) metodi</h3>
+    <p class="formula">ax&sup2;+bx+c &gt; 0 (yoki &lt;0) ni yechish: ildizlarni topib, son o'qida a ning ishorasiga qarab intervallarni aniqlaymiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: x&sup2; - 5x + 6 &gt; 0 tengsizlikni yeching.</p>
+      <p class="yechim">Ildizlar: x=2, x=3 (D=1)
+a=1&gt;0 — ildizlar orasida manfiy, tashqarisida musbat
+Javob: x &lt; 2 yoki x &gt; 3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>x&sup2; - x - 6 &lt; 0 tengsizlikni yeching.</li>
+      <li>2x&sup2; - 3x - 2 &ge; 0 tengsizlikni yeching.</li>
+      <li>-x&sup2; + 4x - 3 &gt; 0 tengsizlikni yeching.</li>
+      <li>x&sup2; + 2x + 5 &gt; 0 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — D&le;0 bo'lgan holatlar</h3>
+    <p class="formula">D&lt;0 va a&gt;0 bo'lsa ifoda barcha x uchun musbat; D=0 bo'lsa bitta nuqtadan tashqari bir xil ishorali.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: x&sup2; + 2x + 3 &gt; 0 tengsizlikni yeching.</p>
+      <p class="yechim">D = 4 - 12 = -8 &lt; 0, a=1&gt;0
+Demak ifoda barcha haqiqiy x uchun musbat
+Javob: x &isin; R</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>-x&sup2; + 2x - 5 &gt; 0 tengsizlikni yeching.</li>
+      <li>x&sup2; - 6x + 9 &gt; 0 tengsizlikni yeching.</li>
+      <li>x&sup2; - 4x + 4 &le; 0 tengsizlikni yeching.</li>
+      <li>4x&sup2; + 4x + 1 &lt; 0 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t3">
+  <h2><span class="t-num">3.</span> Trigonometrik ayniyatlar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — asosiy trigonometrik ayniyat</h3>
+    <p class="formula">sin&sup2;x + cos&sup2;x = 1;  tgx = sinx/cosx;  ctgx = cosx/sinx;  tgx&middot;ctgx = 1</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sinx = 3/5, x — I chetverakda. cosx va tgx ni toping.</p>
+      <p class="yechim">cos&sup2;x = 1 - 9/25 = 16/25
+cosx = 4/5 (I chetverakda cosx&gt;0)
+tgx = (3/5)/(4/5) = 3/4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>cosx = 12/13, x — I chetverak. sinx va tgx ni toping.</li>
+      <li>sinx = 0.6, x — II chetverak. cosx ni toping.</li>
+      <li>tgx = 3/4, x — I chetverak. sinx va cosx ni toping.</li>
+      <li>sinx = -1/2, cosx &gt; 0. tgx ni toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — qo'shish formulalari</h3>
+    <p class="formula">sin(a&plusmn;b) = sina&middot;cosb &plusmn; cosa&middot;sinb;  cos(a&plusmn;b) = cosa&middot;cosb &#8723; sina&middot;sinb</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sin75&deg; ni toping (75&deg;=45&deg;+30&deg;).</p>
+      <p class="yechim">sin75&deg; = sin45&deg;cos30&deg; + cos45&deg;sin30&deg;
+= (&radic;2/2)(&radic;3/2) + (&radic;2/2)(1/2)
+= (&radic;6 + &radic;2)/4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>cos15&deg; ni toping (15&deg;=45&deg;-30&deg;).</li>
+      <li>sin105&deg; ni toping.</li>
+      <li>cos75&deg; ni toping.</li>
+      <li>tg15&deg; ni tg(a-b) formulasi orqali toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 3 — ikkilangan burchak formulalari</h3>
+    <p class="formula">sin2x = 2sinx&middot;cosx;  cos2x = cos&sup2;x - sin&sup2;x = 2cos&sup2;x - 1 = 1 - 2sin&sup2;x</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sinx=3/5 (I chetverak). sin2x va cos2x ni toping.</p>
+      <p class="yechim">cosx = 4/5
+sin2x = 2&middot;(3/5)&middot;(4/5) = 24/25
+cos2x = 1 - 2&middot;(9/25) = 7/25</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>cosx = 5/13 (I chetverak). sin2x va cos2x ni toping.</li>
+      <li>sinx = 0.6 bo'lganda cos2x ni toping.</li>
+      <li>tgx = 2 bo'lganda tg2x ni toping (tg2x = 2tgx/(1-tg&sup2;x)).</li>
+      <li>sin30&deg; dan foydalanib sin2&middot;15&deg; ni hisoblab tekshiring.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t4">
+  <h2><span class="t-num">4.</span> Arifmetik va geometrik progressiya</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — arifmetik progressiya</h3>
+    <p class="formula">a(n) = a&#8321; + (n-1)d;  S(n) = n/2&middot;(2a&#8321;+(n-1)d) = n/2&middot;(a&#8321;+a(n))</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: a&#8321;=3, d=4. a&#8321;&#8320; va S&#8321;&#8320; ni toping.</p>
+      <p class="yechim">a&#8321;&#8320; = 3 + 9&middot;4 = 39
+S&#8321;&#8320; = 10/2&middot;(3+39) = 210</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>a&#8321;=5, d=-2. a&#8321;&#8325; ni toping.</li>
+      <li>a&#8321;=-3, d=6. S&#8322;&#8320; ni toping.</li>
+      <li>a&#8324;=25, d=3. a&#8321; ni toping.</li>
+      <li>a&#8321;=2, d=5. Qaysi had 47 ga teng?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — geometrik progressiya</h3>
+    <p class="formula">a(n) = a&#8321;&middot;q^(n-1);  S(n) = a&#8321;&middot;(q^n-1)/(q-1), q&ne;1</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: a&#8321;=2, q=3. a&#8325; va S&#8325; ni toping.</p>
+      <p class="yechim">a&#8325; = 2&middot;3&#8308; = 162
+S&#8325; = 2&middot;(3&#8309;-1)/(3-1) = 2&middot;242/2 = 242</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>a&#8321;=5, q=2. a&#8326; ni toping.</li>
+      <li>a&#8321;=100, q=0.5. S&#8324; ni toping.</li>
+      <li>a&#8321;=3, q=-2. a&#8324; ni toping.</li>
+      <li>a&#8322;=6, q=3. a&#8321; va S&#8325; ni toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t5">
+  <h2><span class="t-num">5.</span> Funksiya tushunchasi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — aniqlanish sohasi (domain)</h3>
+    <p class="formula">D(f) — x ning ruxsat etilgan qiymatlari: maxraj &ne; 0, juft ildiz ostidagi ifoda &ge; 0.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: f(x) = 1/(x-3) ning aniqlanish sohasini toping.</p>
+      <p class="yechim">x - 3 &ne; 0  =&gt;  x &ne; 3
+Javob: D(f) = (-&infin;;3)&cup;(3;+&infin;)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>f(x) = &radic;(x-2) ning D(f) ni toping.</li>
+      <li>f(x) = 1/(x&sup2;-4) ning D(f) ni toping.</li>
+      <li>f(x) = &radic;(4-x&sup2;) ning D(f) ni toping.</li>
+      <li>f(x) = 1/&radic;(x-1) ning D(f) ni toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — qiymatlar sohasi (range)</h3>
+    <p class="formula">E(f) — funksiya qabul qiladigan barcha y qiymatlari to'plami.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: y = x&sup2; funksiyaning qiymatlar sohasini toping.</p>
+      <p class="yechim">x&sup2; &ge; 0 barcha x uchun
+Javob: E(f) = [0;+&infin;)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>y = &radic;x ning E(f) ni toping.</li>
+      <li>y = -x&sup2;+4 ning E(f) ni toping.</li>
+      <li>y = 1/x (x&ne;0) ning E(f) ni toping.</li>
+      <li>y = |x|-2 ning E(f) ni toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t6">
+  <h2><span class="t-num">6.</span> Funksiya xossalari</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — juft va toq funksiyalar</h3>
+    <p class="formula">f(-x)=f(x) — juft funksiya (OY o'qiga simmetrik); f(-x)=-f(x) — toq funksiya (koordinata boshiga simmetrik).</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: f(x) = x&sup2;-3 juft funksiyami?</p>
+      <p class="yechim">f(-x) = (-x)&sup2;-3 = x&sup2;-3 = f(x)
+Javob: ha, juft funksiya.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>f(x) = x&sup3; toq funksiyami?</li>
+      <li>f(x) = x&sup2;+x — juft, toq yoki hech qaysimi?</li>
+      <li>f(x) = |x| juft funksiyami?</li>
+      <li>f(x) = 1/x toq funksiyami?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — o'suvchi va kamayuvchi funksiya</h3>
+    <p class="formula">x&#8321;&lt;x&#8322; bo'lganda f(x&#8321;)&lt;f(x&#8322;) — o'suvchi; f(x&#8321;)&gt;f(x&#8322;) — kamayuvchi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: y=x&sup2; ning [0;+&infin;) dagi monotonligini aniqlang.</p>
+      <p class="yechim">x&#8321;=1, x&#8322;=2 (x&#8321;&lt;x&#8322;)
+f(1)=1, f(2)=4, f(1)&lt;f(2)
+Javob: [0;+&infin;) da o'suvchi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>y=x&sup2; ning (-&infin;;0] dagi monotonligini aniqlang.</li>
+      <li>y=-2x+5 o'suvchimi yoki kamayuvchimi?</li>
+      <li>y=1/x ning (0;+&infin;) dagi monotonligini aniqlang.</li>
+      <li>y=x&sup3; ning R dagi monotonligini aniqlang.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t7">
+  <h2><span class="t-num">7.</span> Funksiya grafiklarini sodda almashtirishlar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — parallel ko'chirish</h3>
+    <p class="formula">y=f(x)+a — OY bo'ylab a birlik; y=f(x+a) — OX bo'ylab -a birlikka ko'chirish.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: y=x&sup2; grafigidan y=x&sup2;+3 grafigini qanday hosil qilish mumkin?</p>
+      <p class="yechim">y=x&sup2; grafigini OY o'qi bo'ylab 3 birlik yuqoriga ko'chiramiz.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>y=(x-2)&sup2; grafigini y=x&sup2; dan qanday hosil qilish mumkin?</li>
+      <li>y=&radic;x+1 grafigini tasvirlang.</li>
+      <li>y=&radic;(x-4) grafigini tasvirlang.</li>
+      <li>y=x&sup2;-5 grafigini tasvirlang.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — cho'zish, siqish va aks ettirish</h3>
+    <p class="formula">y=k&middot;f(x): k&gt;1 — OY bo'ylab cho'ziladi, 0&lt;k&lt;1 — siqiladi; y=-f(x) — OX ga nisbatan aks ettirish; y=f(-x) — OY ga nisbatan aks ettirish.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: y=2x&sup2; grafigi y=x&sup2; dan qanday hosil bo'ladi?</p>
+      <p class="yechim">Har bir ordinata 2 marta orttiriladi — grafik OY bo'ylab 2 marta cho'ziladi (tikroq bo'ladi).</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>y=0.5x&sup2; grafigi y=x&sup2; dan qanday hosil bo'ladi?</li>
+      <li>y=-x&sup2; grafigini tasvirlang.</li>
+      <li>y=-&radic;x grafigini tasvirlang.</li>
+      <li>y=(-x)&sup2; grafigi y=x&sup2; bilan bir xil ekanligini tushuntiring.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t8">
+  <h2><span class="t-num">8.</span> Chiziqli va kvadratik modellashtirish</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — chiziqli model</h3>
+    <p class="formula">y = kx + b; ikki nuqta orqali: k = (y&#8322;-y&#8321;)/(x&#8322;-x&#8321;)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Taksi xizmati 5000 so'm boshlang'ich narx + har km uchun 2000 so'm oladi. 10 km uchun narxni toping.</p>
+      <p class="yechim">y = 2000x + 5000
+x=10: y = 2000&middot;10+5000 = 25000 so'm</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(1;3) va (3;9) nuqtalardan o'tuvchi to'g'ri chiziq tenglamasini tuzing.</li>
+      <li>Ish haqi 2 000 000 so'm + soatiga 15000 so'm. 20 soatlik qo'shimcha ish uchun jami summani toping.</li>
+      <li>Harorat 0-daqiqada 20&deg;, har daqiqada 0.5&deg; pasayadi. 40 daqiqadan keyingi haroratni toping.</li>
+      <li>(0;4) va (5;14) nuqtalar orqali o'tuvchi chiziq tenglamasini tuzing.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — kvadratik model (eng katta/eng kichik qiymat)</h3>
+    <p class="formula">Kvadratik modelning ekstremal qiymati uchi (vertex) orqali topiladi: t&#8320;=-b/(2a).</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Jism otilish balandligi h(t) = -5t&sup2;+20t (t — soniya). Eng katta balandlikni toping.</p>
+      <p class="yechim">t&#8320; = -20/(2&middot;(-5)) = 2
+h(2) = -5&middot;4+40 = 20 metr</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>h(t) = -4.9t&sup2;+30t — eng katta balandlik va vaqtini toping.</li>
+      <li>P(x) = -2x&sup2;+40x-150 (foyda funksiyasi) — maksimal foydani toping.</li>
+      <li>S(x) = x(20-x) — maksimal maydonni toping.</li>
+      <li>h(t) = -5t&sup2;+15t+2 — maksimal balandlikni toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t9">
+  <h2><span class="t-num">9.</span> Loyiha ishi. Munosabatlar va funksiyalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — munosabat va funksiya farqi</h3>
+    <p class="formula">Har qanday funksiya munosabat, lekin har qanday munosabat funksiya emas — funksiyada har bir x ga faqat bitta y mos keladi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {(1;2),(2;3),(3;4)} to'plam funksiyami?</p>
+      <p class="yechim">Har bir x qiymatiga faqat bitta y mos keladi (1&rarr;2, 2&rarr;3, 3&rarr;4)
+Javob: ha, funksiya.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{(1;2),(1;3),(2;4)} to'plam funksiyami?</li>
+      <li>x&sup2;+y&sup2;=9 (aylana tenglamasi) funksiyami?</li>
+      <li>{(2;5),(3;5),(4;5)} to'plam funksiyami?</li>
+      <li>y&sup2;=x tenglamasi funksiyami?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — real hodisani funksiya sifatida ifodalash</h3>
+    <p class="formula">Amaliy masalada bog'liq miqdorlarni x (erkin o'zgaruvchi) va y=f(x) (bog'liq o'zgaruvchi) orqali ifodalash.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Bitta kitob narxi 25000 so'm. x ta kitob uchun umumiy narx y ni ifodalovchi funksiyani yozing.</p>
+      <p class="yechim">y = 25000x</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Avtomobil 90 km/soat tezlikda harakatlanmoqda — masofa-vaqt funksiyasini yozing.</li>
+      <li>Idish soatiga 3 litr suv bilan to'lmoqda — hajm-vaqt funksiyasini yozing.</li>
+      <li>Ish haqi 1 500 000 so'm + har mahsulot uchun 5000 so'm bonus — funksiyani yozing.</li>
+      <li>Tarif rejasi: 20000 so'm obuna + har daqiqa 500 so'm — funksiyani yozing.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t10">
+  <h2><span class="t-num">10.</span> Sodda ratsional tenglamalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — bitta kasrli tenglama</h3>
+    <p class="formula">Maxrajni noldan farqli deb, ikkala tomonni maxrajga ko'paytirib, chiziqli tenglamaga keltiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (x+1)/(x-2) = 3 tenglamani yeching.</p>
+      <p class="yechim">x+1 = 3(x-2)
+x+1 = 3x-6
+-2x = -7  =&gt;  x = 3.5
+Tekshirish: x&ne;2, mos keladi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(2x-1)/(x+3) = 1 tenglamani yeching.</li>
+      <li>x/(x-1) = 2 tenglamani yeching.</li>
+      <li>(3x+2)/(x-4) = 5 tenglamani yeching.</li>
+      <li>(x-5)/(2x+1) = -1 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — ikki kasrli tenglama</h3>
+    <p class="formula">a/x + b/(x-c) = d ko'rinishidagi tenglamani umumiy maxrajga keltirib, kvadrat tenglamaga olib kelamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 1/x + 1/(x+2) = 3/4 tenglamani yeching.</p>
+      <p class="yechim">Umumiy maxraj: x(x+2)
+4(x+2)+4x = 3x(x+2)
+8x+8 = 3x&sup2;+6x
+3x&sup2;-2x-8 = 0, D=4+96=100
+x = (2&plusmn;10)/6  =&gt;  x&#8321;=2, x&#8322;=-4/3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>2/x - 1/(x-1) = 1 tenglamani yeching.</li>
+      <li>1/(x-2) + 1/(x+2) = 1/3 tenglamani yeching.</li>
+      <li>3/x + 2/(x+1) = 5 tenglamani yeching.</li>
+      <li>1/(x+1) - 1/(x-1) = 2/3 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t11">
+  <h2><span class="t-num">11.</span> Sodda ratsional tenglamalar sistemasi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — o'rniga qo'yish usuli</h3>
+    <p class="formula">Bir tenglamadan bitta o'zgaruvchini ikkinchisi orqali ifodalab, boshqa tenglamaga qo'yamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {x+y=5; 1/x+1/y=5/6} sistemani yeching.</p>
+      <p class="yechim">y=5-x
+1/x + 1/(5-x) = 5/6
+5/(x(5-x)) = 5/6  =&gt;  x(5-x)=6
+x&sup2;-5x+6=0  =&gt;  x=2 yoki x=3
+Javob: (2;3) va (3;2)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{x-y=1; 1/x+1/y=5/6} sistemani yeching.</li>
+      <li>{x+y=7; 1/x-1/y=1/12} sistemani yeching.</li>
+      <li>{2x+y=5; 1/x+2/y=3} sistemani yeching.</li>
+      <li>{xy=6; 1/x+1/y=5/6} sistemani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — qo'shish/ayirish usuli</h3>
+    <p class="formula">1/x va 1/y ni yangi o'zgaruvchi sifatida qarab, tenglamalarni qo'shish yoki ayirish orqali yechamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {1/x+1/y=3; 1/x-1/y=1} sistemani yeching.</p>
+      <p class="yechim">Qo'shamiz: 2/x=4  =&gt;  x=1/2
+Ayiramiz: 2/y=2  =&gt;  y=1
+Javob: x=1/2, y=1</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{1/x+1/y=5; 1/x-1/y=1} sistemani yeching.</li>
+      <li>{2/x+3/y=7; 2/x-3/y=1} sistemani yeching.</li>
+      <li>{1/x+1/y=7/12; 1/x-1/y=1/12} sistemani yeching.</li>
+      <li>{3/x+1/y=5; 3/x-1/y=1} sistemani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t12">
+  <h2><span class="t-num">12.</span> Sodda ratsional tengsizliklar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — interval (oraliqlar) usuli</h3>
+    <p class="formula">(x-a)/(x-b) ko'rinishidagi tengsizlikda hal etuvchi nuqtalarni son o'qiga qo'yib, har oraliqda ishorani tekshiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (x-3)/(x+2) &gt; 0 tengsizlikni yeching.</p>
+      <p class="yechim">Hal etuvchi nuqtalar: x=-2, x=3
+x=-3: 6&gt;0 &#10003;;  x=0: -1.5&lt;0 &#10007;;  x=4: 0.17&gt;0 &#10003;
+Javob: x&lt;-2 yoki x&gt;3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(x+1)/(x-4) &lt; 0 tengsizlikni yeching.</li>
+      <li>(2x-3)/(x+5) &ge; 0 tengsizlikni yeching.</li>
+      <li>(x-1)/(x+1) &le; 0 tengsizlikni yeching.</li>
+      <li>(3-x)/(x+2) &gt; 0 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — bir nechta ko'paytuvchili tengsizlik</h3>
+    <p class="formula">(x-a)(x-b)/(x-c) &ge;/&le; 0 ko'rinishida barcha hal etuvchi nuqtalarni belgilab, ishorani navbatma-navbat tekshiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (x-1)(x+3)/(x-2) &le; 0 tengsizlikni yeching.</p>
+      <p class="yechim">Hal etuvchi nuqtalar: -3, 1, 2 (x&ne;2)
+Tekshirish orqali: x&le;-3 yoki 1&le;x&lt;2
+Javob: x&isin;(-&infin;;-3]&cup;[1;2)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(x+2)(x-5)/(x+1) &ge; 0 tengsizlikni yeching.</li>
+      <li>(x-3)(x+4)/(x-1) &lt; 0 tengsizlikni yeching.</li>
+      <li>(2x-1)(x+2)/(x-3) &le; 0 tengsizlikni yeching.</li>
+      <li>(x-6)(x+1)/(x-2) &gt; 0 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t13">
+  <h2><span class="t-num">13.</span> Sodda ratsional tengsizliklar sistemasi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ikkita tengsizlikni alohida yechib kesishtirish</h3>
+    <p class="formula">Har bir tengsizlikni alohida yechib, javoblarning kesishmasi (umumiy qismi) sistemaning yechimi bo'ladi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {x&sup2;-4&gt;0; x-1&lt;0} sistemani yeching.</p>
+      <p class="yechim">1) x&sup2;-4&gt;0  =&gt;  x&lt;-2 yoki x&gt;2
+2) x-1&lt;0  =&gt;  x&lt;1
+Kesishma: x&lt;-2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{x&sup2;-9&le;0; x+2&gt;0} sistemani yeching.</li>
+      <li>{x&sup2;-1&gt;0; x&lt;3} sistemani yeching.</li>
+      <li>{x&sup2;-4x&lt;0; x&gt;0} sistemani yeching.</li>
+      <li>{x&sup2;-5x+6&le;0; x&ne;2} sistemani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — kasrli va kvadrat tengsizliklar sistemasi</h3>
+    <p class="formula">Kasrli va kvadrat tengsizliklarni alohida-alohida yechib, natijalarning kesishmasini topamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {(x-1)/(x+3)&gt;0; x&sup2;-4&le;0} sistemani yeching.</p>
+      <p class="yechim">1) (x-1)/(x+3)&gt;0  =&gt;  x&lt;-3 yoki x&gt;1
+2) x&sup2;-4&le;0  =&gt;  -2&le;x&le;2
+Kesishma: 1&lt;x&le;2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{(x+2)/(x-1)&lt;0; x&sup2;-9&lt;0} sistemani yeching.</li>
+      <li>{x&sup2;-1&ge;0; (x-2)/(x+1)&gt;0} sistemani yeching.</li>
+      <li>{(x-4)/(x+1)&le;0; x&sup2;-16&lt;0} sistemani yeching.</li>
+      <li>{x&sup2;+x-6&lt;0; x/(x-1)&gt;0} sistemani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t14">
+  <h2><span class="t-num">14.</span> Ratsional tenglamalarga doir misollar yechish</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ODZ (aniqlanish sohasi)ni hisobga olish</h3>
+    <p class="formula">Kasrli ifodani soddalashtirishdan oldin maxrajni nolga tenglashtiruvchi qiymatlarni (ODZ) aniqlab olamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (x&sup2;-4)/(x-2) = 3 tenglamani yeching.</p>
+      <p class="yechim">ODZ: x&ne;2
+(x-2)(x+2)/(x-2) = 3  =&gt;  x+2 = 3  =&gt;  x=1 (ODZ ga mos)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(x&sup2;-9)/(x+3) = x-1 tenglamani yeching.</li>
+      <li>(x&sup2;-1)/(x-1) = x+3 tenglamani yeching.</li>
+      <li>(x&sup2;-16)/(x-4) = 2x tenglamani yeching.</li>
+      <li>(x&sup2;-25)/(x+5) = x-2 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — ikki ratsional ifodani tenglashtirish</h3>
+    <p class="formula">a/b = c/d ko'rinishidagi tenglamani "xoch ko'paytirish" (a&middot;d=c&middot;b) orqali yechamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (2x-1)/(x+1) = (x+3)/(x-1) tenglamani yeching.</p>
+      <p class="yechim">(2x-1)(x-1) = (x+3)(x+1)
+2x&sup2;-3x+1 = x&sup2;+4x+3
+x&sup2;-7x-2 = 0, D=49+8=57
+x = (7&plusmn;&radic;57)/2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(x+2)/(x-3) = (x-1)/(x+2) tenglamani yeching.</li>
+      <li>(3x-1)/(x+2) = x/(x-4) tenglamani yeching.</li>
+      <li>(x+5)/(x-1) = 2x/(x+1) tenglamani yeching.</li>
+      <li>(x-2)/(x+3) = (x+1)/(x-2) tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t15">
+  <h2><span class="t-num">15.</span> Sodda irratsional tenglamalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ikkala tomonni kvadratga ko'tarish</h3>
+    <p class="formula">&radic;f(x)=a (a&ge;0) tenglamani ikkala tomonni kvadratga ko'tarib yechamiz: f(x)=a&sup2;, ODZ: f(x)&ge;0.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: &radic;(x+3) = 2 tenglamani yeching.</p>
+      <p class="yechim">ODZ: x&ge;-3
+x+3 = 4  =&gt;  x=1
+Tekshirish: &radic;4=2 &#10003;</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>&radic;(2x-1) = 3 tenglamani yeching.</li>
+      <li>&radic;(x-2) = 4 tenglamani yeching.</li>
+      <li>&radic;(3x+4) = 5 tenglamani yeching.</li>
+      <li>&radic;(5-x) = 2 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — &radic;f(x)=g(x) ko'rinishi (yolg'on ildizni tekshirish)</h3>
+    <p class="formula">Kvadratga ko'tarilgach topilgan ildizlarni albatta asl tenglamaga qo'yib tekshirish shart — yolg'on ildiz chiqishi mumkin.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: &radic;(x+1) = x-1 tenglamani yeching.</p>
+      <p class="yechim">ODZ: x&ge;-1, x&ge;1 (o'ng tomon &ge;0 bo'lishi kerak)
+x+1=(x-1)&sup2;  =&gt;  x&sup2;-3x=0  =&gt;  x=0 yoki x=3
+Tekshirish: x=0 — yolg'on ildiz (rad etiladi); x=3 — &radic;4=2=3-1 &#10003;
+Javob: x=3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>&radic;(2x+3) = x tenglamani yeching (yolg'on ildizni tekshiring).</li>
+      <li>&radic;(x+4) = x-2 tenglamani yeching.</li>
+      <li>&radic;(3x-2) = x-2 tenglamani yeching.</li>
+      <li>&radic;(x-1) = x-3 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t16">
+  <h2><span class="t-num">16.</span> Irratsional tenglamalarga doir misollar yechish</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — &radic;f(x) = &radic;g(x) ko'rinishi</h3>
+    <p class="formula">Ikkala tomonni kvadratga ko'tarib f(x)=g(x) tenglamaga o'tamiz, so'ng ODZ bo'yicha tekshiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: &radic;(2x+1) = &radic;(x+4) tenglamani yeching.</p>
+      <p class="yechim">ODZ: x&ge;-1/2
+2x+1 = x+4  =&gt;  x=3
+Tekshirish: &radic;7=&radic;7 &#10003;</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>&radic;(3x-2) = &radic;(x+6) tenglamani yeching.</li>
+      <li>&radic;(x+9) = &radic;(2x-3) tenglamani yeching.</li>
+      <li>&radic;(4x-1) = &radic;(2x+5) tenglamani yeching.</li>
+      <li>&radic;(5x+2) = &radic;(3x+8) tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — ikkita ildiz yig'indisi (ikki marta kvadratga ko'tarish)</h3>
+    <p class="formula">&radic;f(x)+&radic;g(x)=c ko'rinishida bitta ildizni yolg'iz qoldirib, ketma-ket ikki marta kvadratga ko'taramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: &radic;(x+2) + &radic;(x-1) = 3 tenglamani yeching.</p>
+      <p class="yechim">&radic;(x+2) = 3-&radic;(x-1)
+x+2 = 9-6&radic;(x-1)+(x-1)
+6&radic;(x-1) = 6  =&gt;  &radic;(x-1)=1  =&gt;  x=2
+Tekshirish: &radic;4+&radic;1=2+1=3 &#10003;</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>&radic;(x+3) + &radic;x = 3 tenglamani yeching.</li>
+      <li>&radic;(2x+1) + &radic;(x-1) = 4 tenglamani yeching.</li>
+      <li>&radic;(x+5) - &radic;x = 1 tenglamani yeching.</li>
+      <li>&radic;(x+6) + &radic;(x-2) = 4 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t17">
+  <h2><span class="t-num">17.</span> Sodda irratsional tenglamalar sistemalari</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — yangi o'zgaruvchi kiritish (u=&radic;x, v=&radic;y)</h3>
+    <p class="formula">u=&radic;x, v=&radic;y almashtirish orqali sistemani ratsional sistemaga keltiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {&radic;x+&radic;y=5; x+y=13} sistemani yeching.</p>
+      <p class="yechim">u=&radic;x, v=&radic;y: u+v=5, u&sup2;+v&sup2;=13
+(u+v)&sup2;=25=13+2uv  =&gt;  uv=6
+t&sup2;-5t+6=0  =&gt;  t=2 yoki t=3
+Javob: (x;y)=(4;9) yoki (9;4)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{&radic;x+&radic;y=7; x+y=25} sistemani yeching.</li>
+      <li>{&radic;x-&radic;y=2; x-y=8} sistemani yeching.</li>
+      <li>{&radic;x+&radic;y=6; x+y=20} sistemani yeching.</li>
+      <li>{&radic;x-&radic;y=1; x-y=5} sistemani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — ildiz ostidagi ifodani birgalikda almashtirish</h3>
+    <p class="formula">&radic;(f(x,y))=c ko'rinishidagi tenglamani kvadratga ko'tarib, chiziqli tenglamalar sistemasiga keltiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {&radic;(x+y)=3; x-y=2} sistemani yeching.</p>
+      <p class="yechim">x+y=9, x-y=2
+Qo'shib: 2x=11  =&gt;  x=5.5, y=3.5</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{&radic;(2x+y)=4; x-y=1} sistemani yeching.</li>
+      <li>{&radic;(x+2y)=5; x-y=4} sistemani yeching.</li>
+      <li>{&radic;(x-y)=2; x+y=10} sistemani yeching.</li>
+      <li>{&radic;(3x+y)=5; x-y=2} sistemani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t18">
+  <h2><span class="t-num">18.</span> Ratsional va irratsional ifodalarga doir misollar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — maxrajni ratsionallashtirish</h3>
+    <p class="formula">Maxrajdagi ildizdan qutulish uchun surat va maxrajni qo'shma ifodaga ko'paytiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 1/(&radic;5-2) ifodani ratsionallashtiring.</p>
+      <p class="yechim">1/(&radic;5-2) &middot; (&radic;5+2)/(&radic;5+2) = (&radic;5+2)/(5-4) = &radic;5+2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>1/(&radic;3-1) ifodani ratsionallashtiring.</li>
+      <li>2/(&radic;7+2) ifodani ratsionallashtiring.</li>
+      <li>3/(&radic;5+&radic;2) ifodani ratsionallashtiring.</li>
+      <li>1/(&radic;6-&radic;2) ifodani ratsionallashtiring.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — aralash (ratsional+irratsional) ifodalarni soddalashtirish</h3>
+    <p class="formula">a-b&sup2;=(&radic;a-b)(&radic;a+b) ayniyatidan foydalanib kasrni qisqartiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (x-4)/(&radic;x-2) ifodani soddalashtiring (x&ge;0, x&ne;4).</p>
+      <p class="yechim">x-4 = (&radic;x-2)(&radic;x+2)
+Demak ifoda = &radic;x+2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(x-9)/(&radic;x-3) ifodani soddalashtiring.</li>
+      <li>(x-1)/(&radic;x+1) ifodani soddalashtiring.</li>
+      <li>(x-16)/(&radic;x-4) ifodani soddalashtiring.</li>
+      <li>(x-25)/(&radic;x+5) ifodani soddalashtiring.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t19">
+  <h2><span class="t-num">19.</span> Ko'rsatkichli funksiya</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — asosiy xossalar</h3>
+    <p class="formula">y=a^x (a&gt;0, a&ne;1): D(f)=R, E(f)=(0;+&infin;). a&gt;1 — o'suvchi, 0&lt;a&lt;1 — kamayuvchi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: f(x)=2^x va g(x)=(1/2)^x funksiyalarning monotonligini solishtiring.</p>
+      <p class="yechim">f(x): a=2&gt;1  =&gt;  o'suvchi
+g(x): a=1/2&lt;1  =&gt;  kamayuvchi</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>f(x)=3^x funksiyaning monotonligini aniqlang.</li>
+      <li>f(x)=(1/3)^x funksiyaning monotonligini aniqlang.</li>
+      <li>f(x)=5^x va f(x)=(1/5)^x grafiklari bir-biridan qanday farq qiladi?</li>
+      <li>Har qanday a&gt;0, a&ne;1 uchun f(0) va E(f) nimaga teng?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — daraja xossalari</h3>
+    <p class="formula">a^m&middot;a^n=a^(m+n);  a^m/a^n=a^(m-n);  (a^m)^n=a^(mn);  a&#8304;=1;  a^(-n)=1/a^n</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 2&sup3;&middot;2&#8309; ni hisoblang.</p>
+      <p class="yechim">2&sup3;&middot;2&#8309;=2&#8312;=256</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>3&#8308;&middot;3&sup2; ni hisoblang.</li>
+      <li>5&#8311;/5&#8308; ni hisoblang.</li>
+      <li>(2&sup3;)&sup2; ni hisoblang.</li>
+      <li>2&#8304; va 5&#8315;&sup2; ni hisoblang.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t20">
+  <h2><span class="t-num">20.</span> Logarifmik funksiya</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ta'rif va asosiy xossalar</h3>
+    <p class="formula">y=log&#7522;x (a&gt;0, a&ne;1, x&gt;0): D(f)=(0;+&infin;), E(f)=R. a&gt;1 — o'suvchi, 0&lt;a&lt;1 — kamayuvchi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8322;8 ni hisoblang.</p>
+      <p class="yechim">2^x=8=2&sup3;  =&gt;  x=3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8323;81 ni hisoblang.</li>
+      <li>log&#8325;125 ni hisoblang.</li>
+      <li>log&#8321;&#8260;&#8322;8 ni hisoblang.</li>
+      <li>log&#8321;&#8320;1000 ni hisoblang.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — logarifm xossalari</h3>
+    <p class="formula">log&#7522;(xy)=log&#7522;x+log&#7522;y;  log&#7522;(x/y)=log&#7522;x-log&#7522;y;  log&#7522;(x^k)=k&middot;log&#7522;x</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8322;12 - log&#8322;3 ni hisoblang.</p>
+      <p class="yechim">log&#8322;(12/3) = log&#8322;4 = 2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8323;6 + log&#8323;(3/2) ni hisoblang.</li>
+      <li>log&#8325;50 - log&#8325;2 ni hisoblang.</li>
+      <li>log&#8322;(x&sup3;) ni log&#8322;x orqali ifodalang.</li>
+      <li>2log&#8323;x + log&#8323;y ni bitta logarifm ko'rinishida yozing.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t21">
+  <h2><span class="t-num">21.</span> Ko'rsatkichli va logarifmik ifodalarni soddalashtirish</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — asos almashtirish formulasi</h3>
+    <p class="formula">log&#7522;b = log&#7690;b / log&#7690;a  (c &mdash; istalgan qulay asos)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8324;8 ni hisoblang.</p>
+      <p class="yechim">log&#8324;8 = log&#8322;8 / log&#8322;4 = 3/2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8329;27 ni hisoblang.</li>
+      <li>log&#8328;4 ni hisoblang.</li>
+      <li>log&#8322;&#8327;9 ni hisoblang.</li>
+      <li>log&#8322;3 &middot; log&#8323;2 ni hisoblang.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — asosiy logarifmik ayniyat</h3>
+    <p class="formula">a^(log&#7522;x) = x</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 3^(log&#8323;7) ni hisoblang.</p>
+      <p class="yechim">a^(log&#7522;x)=x formulasiga ko'ra javob: 7</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>5^(log&#8325;12) ni hisoblang.</li>
+      <li>2^(log&#8322;9) ni hisoblang.</li>
+      <li>10^(log&#8321;&#8320;45) ni hisoblang.</li>
+      <li>7^(log&#8324;3) ni hisoblang.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t22">
+  <h2><span class="t-num">22.</span> Sodda ko'rsatkichli tenglamalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — asoslarni tenglashtirish</h3>
+    <p class="formula">a^x = a^y  &#8658;  x = y  (a&gt;0, a&ne;1)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 2^(x+1) = 32 tenglamani yeching.</p>
+      <p class="yechim">32=2&#8309;
+x+1=5  =&gt;  x=4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>3^(2x-1) = 81 tenglamani yeching.</li>
+      <li>5^(x+2) = 125 tenglamani yeching.</li>
+      <li>2^(3x) = 64 tenglamani yeching.</li>
+      <li>4^(x-1) = 16 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — t=a^x almashtirish</h3>
+    <p class="formula">Kvadrat ko'rsatkichli tenglamani t=a^x almashtirish bilan kvadrat tenglamaga keltiramiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 4^x - 5&middot;2^x + 4 = 0 tenglamani yeching.</p>
+      <p class="yechim">t=2^x: t&sup2;-5t+4=0  =&gt;  t=1 yoki t=4
+2^x=1  =&gt;  x=0;  2^x=4  =&gt;  x=2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>9^x - 4&middot;3^x + 3 = 0 tenglamani yeching.</li>
+      <li>25^x - 6&middot;5^x + 5 = 0 tenglamani yeching.</li>
+      <li>4^x - 3&middot;2^x - 4 = 0 tenglamani yeching.</li>
+      <li>9^x - 10&middot;3^x + 9 = 0 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t23">
+  <h2><span class="t-num">23.</span> Sodda logarifmik tenglamalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — log&#7522;f(x)=log&#7522;g(x) ko'rinishi</h3>
+    <p class="formula">log&#7522;f(x)=log&#7522;g(x)  &#8658;  f(x)=g(x), ODZ: f(x)&gt;0, g(x)&gt;0</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8322;(x+1) = log&#8322;5 tenglamani yeching.</p>
+      <p class="yechim">x+1=5  =&gt;  x=4
+ODZ: x&gt;-1, mos keladi</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8323;(2x-1) = log&#8323;7 tenglamani yeching.</li>
+      <li>log&#8325;(x+4) = log&#8325;9 tenglamani yeching.</li>
+      <li>log&#8322;(3x) = log&#8322;12 tenglamani yeching.</li>
+      <li>log&#8324;(x-2) = log&#8324;6 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — log&#7522;f(x)=b ko'rinishi</h3>
+    <p class="formula">log&#7522;f(x)=b  &#8658;  f(x)=a^b</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8323;(x-1) = 2 tenglamani yeching.</p>
+      <p class="yechim">x-1 = 3&sup2; = 9  =&gt;  x=10</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8322;(x+3) = 4 tenglamani yeching.</li>
+      <li>log&#8325;(2x) = 2 tenglamani yeching.</li>
+      <li>log&#8324;(x-1) = 3 tenglamani yeching.</li>
+      <li>log&#8323;(x+2) = 0 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t24">
+  <h2><span class="t-num">24.</span> Ko'rsatkichli va logarifmik tenglamalar sistemasi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ko'rsatkichli sistema</h3>
+    <p class="formula">a^x&middot;a^y=a^(x+y) va a^x/a^y=a^(x-y) xossalaridan foydalanib, x+y va x-y ni topamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {2^x&middot;2^y=32; 2^x/2^y=2} sistemani yeching.</p>
+      <p class="yechim">2^(x+y)=32=2&#8309;  =&gt;  x+y=5
+2^(x-y)=2  =&gt;  x-y=1
+Qo'shib: 2x=6  =&gt;  x=3, y=2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{3^x&middot;3^y=81; 3^x/3^y=3} sistemani yeching.</li>
+      <li>{2^(x+y)=16; 2^(x-y)=4} sistemani yeching.</li>
+      <li>{5^x&middot;5^y=625; 5^x/5^y=25} sistemani yeching.</li>
+      <li>{2^x&middot;2^y=64; x-y=1} sistemani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — logarifmik sistema</h3>
+    <p class="formula">log&#7522;x+log&#7522;y va log&#7522;x-log&#7522;y larni qo'shish/ayirish orqali log&#7522;x va log&#7522;y ni topamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: {log&#8322;x+log&#8322;y=5; log&#8322;x-log&#8322;y=1} sistemani yeching.</p>
+      <p class="yechim">Qo'shib: 2log&#8322;x=6  =&gt;  log&#8322;x=3  =&gt;  x=8
+Ayirib: 2log&#8322;y=4  =&gt;  log&#8322;y=2  =&gt;  y=4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>{log&#8323;x+log&#8323;y=4; log&#8323;x-log&#8323;y=2} sistemani yeching.</li>
+      <li>{log&#8322;x+log&#8322;y=7; log&#8322;x-log&#8322;y=1} sistemani yeching.</li>
+      <li>{lgx+lgy=3; lgx-lgy=1} sistemani yeching.</li>
+      <li>{log&#8325;x+log&#8325;y=3; log&#8325;x-log&#8325;y=1} sistemani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t25">
+  <h2><span class="t-num">25.</span> Sodda ko'rsatkichli tengsizliklar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — a&gt;1 holat (tengsizlik yo'nalishi saqlanadi)</h3>
+    <p class="formula">a&gt;1 bo'lganda a^x &gt; a^y  &#8658;  x &gt; y</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 2^x &gt; 8 tengsizlikni yeching.</p>
+      <p class="yechim">8=2&sup3;, a=2&gt;1
+Javob: x &gt; 3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>3^x &lt; 27 tengsizlikni yeching.</li>
+      <li>5^(x+1) &gt; 125 tengsizlikni yeching.</li>
+      <li>2^(2x) &lt; 16 tengsizlikni yeching.</li>
+      <li>4^x &gt; 64 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — 0&lt;a&lt;1 holat (belgi teskarilanadi)</h3>
+    <p class="formula">0&lt;a&lt;1 bo'lganda a^x &gt; a^y  &#8658;  x &lt; y</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (1/2)^x &lt; 8 tengsizlikni yeching.</p>
+      <p class="yechim">8=(1/2)^(-3), a=1/2&lt;1
+Javob: x &gt; -3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(1/3)^x &gt; 9 tengsizlikni yeching.</li>
+      <li>(1/2)^(x-1) &lt; 4 tengsizlikni yeching.</li>
+      <li>(1/5)^x &gt; 25 tengsizlikni yeching.</li>
+      <li>(1/4)^(2x) &lt; 16 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t26">
+  <h2><span class="t-num">26.</span> Sodda logarifmik tengsizliklar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — a&gt;1 holat</h3>
+    <p class="formula">a&gt;1 bo'lganda log&#7522;f(x) &gt; log&#7522;g(x)  &#8658;  f(x) &gt; g(x) &gt; 0</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8322;(x-1) &gt; log&#8322;3 tengsizlikni yeching.</p>
+      <p class="yechim">ODZ: x&gt;1
+x-1&gt;3  =&gt;  x&gt;4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8323;(x+2) &gt; log&#8323;5 tengsizlikni yeching.</li>
+      <li>log&#8325;(2x) &gt; log&#8325;10 tengsizlikni yeching.</li>
+      <li>log&#8322;(x-3) &gt; log&#8322;4 tengsizlikni yeching.</li>
+      <li>log&#8324;(3x) &gt; log&#8324;12 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — 0&lt;a&lt;1 holat (belgi teskarilanadi)</h3>
+    <p class="formula">0&lt;a&lt;1 bo'lganda log&#7522;f(x) &gt; log&#7522;g(x)  &#8658;  0&lt;f(x)&lt;g(x)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8321;&#8260;&#8322;x &gt; log&#8321;&#8260;&#8322;4 tengsizlikni yeching.</p>
+      <p class="yechim">a=1/2&lt;1  =&gt;  0&lt;x&lt;4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8321;&#8260;&#8323;(x-1) &gt; log&#8321;&#8260;&#8323;2 tengsizlikni yeching.</li>
+      <li>log&#8321;&#8260;&#8322;(2x) &lt; log&#8321;&#8260;&#8322;6 tengsizlikni yeching.</li>
+      <li>log&#8321;&#8260;&#8325;(x+1) &gt; log&#8321;&#8260;&#8325;3 tengsizlikni yeching.</li>
+      <li>log&#8321;&#8260;&#8324;x &lt; log&#8321;&#8260;&#8324;8 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t27">
+  <h2><span class="t-num">27.</span> Ko'rsatkichli modellashtirish</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — o'sish modeli</h3>
+    <p class="formula">N(t) = N&#8320;&middot;(1+r)^t  (r &mdash; o'sish tezligi, t &mdash; vaqt)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Bankda 1 000 000 so'm, yillik 10% foiz. 3 yildan keyingi summani toping.</p>
+      <p class="yechim">N = 1 000 000&middot;(1.1)&sup3; = 1 000 000&middot;1.331 = 1 331 000 so'm</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Aholi soni 50 000, yillik o'sish 2%. 5 yildan keyingi sonini ifodalovchi formulani yozib, hisoblang.</li>
+      <li>Bakteriya soni 200, har soatda 2 marta ko'payadi. 4 soatdan keyingi sonini toping.</li>
+      <li>Investitsiya 5 000 000 so'm, yillik 8% foiz. 2 yildan keyingi summani toping.</li>
+      <li>Shahar aholisi 100 000, yillik 3% o'sish. 10 yildan keyingi sonini ifodalovchi formulani yozing.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — kamayish (parchalanish) modeli</h3>
+    <p class="formula">N(t) = N&#8320;&middot;(1-r)^t  (r &mdash; kamayish tezligi)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Avtomobil narxi 200 000 000 so'm, har yili 15% qadrsizlanadi. 2 yildan keyingi narxni toping.</p>
+      <p class="yechim">N = 200 000 000&middot;(0.85)&sup2; = 200 000 000&middot;0.7225 = 144 500 000 so'm</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Radioaktiv modda 100 g, har yili 20% kamayadi. 3 yildan keyingi massasini toping.</li>
+      <li>Dori konsentratsiyasi 80 mg, soatiga 10% kamayadi. 5 soatdan keyingi formulani yozing.</li>
+      <li>Texnika narxi 50 000 000 so'm, yiliga 12% qadrsizlanadi. 3 yildan keyingi narxni toping.</li>
+      <li>O'rmon maydoni 10 000 gektar, yiliga 5% kamayadi. 4 yildan keyingi formulani yozing.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t28">
+  <h2><span class="t-num">28.</span> Ko'rsatkichli va logarifmik ifodalarga doir misollar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — aralash ifodalarni soddalashtirish</h3>
+    <p class="formula">log&#7522;(x^k)=k&middot;log&#7522;x va daraja xossalaridan birgalikda foydalanamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8322;(4&sup3;) ni hisoblang.</p>
+      <p class="yechim">4&sup3;=2&#8310;
+log&#8322;(2&#8310;) = 6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8323;(9&sup2;) ni hisoblang.</li>
+      <li>log&#8325;(25&sup3;) ni hisoblang.</li>
+      <li>2^(log&#8324;16) ni hisoblang.</li>
+      <li>3^(log&#8329;81) ni hisoblang.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — bir necha amalni birlashtirish</h3>
+    <p class="formula">log&#7522;(xy)=log&#7522;x+log&#7522;y va log&#7522;(x/y)=log&#7522;x-log&#7522;y qoidalarini ketma-ket qo'llaymiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: log&#8322;32 - log&#8322;4 + log&#8322;1 ni hisoblang.</p>
+      <p class="yechim">= 5 - 2 + 0 = 3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>log&#8323;27 + log&#8323;9 - log&#8323;1 ni hisoblang.</li>
+      <li>2&middot;log&#8325;25 - log&#8325;5 ni hisoblang.</li>
+      <li>log&#8322;16 / log&#8322;4 ni hisoblang.</li>
+      <li>log&#8324;64 + log&#8322;8 ni hisoblang.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t29">
+  <h2><span class="t-num">29.</span> Trigonometrik funksiyalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — davr va qiymatlar sohasi</h3>
+    <p class="formula">y=sinx, y=cosx — davri T=2&pi;, E(f)=[-1;1]. y=tgx, y=ctgx — davri T=&pi;.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: y=sinx funksiyaning davri va qiymatlar sohasini ko'rsating.</p>
+      <p class="yechim">Davri: T=2&pi;
+Qiymatlar sohasi: E(f)=[-1;1]</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>y=cosx funksiyaning D(f) va E(f) sini ko'rsating.</li>
+      <li>y=tgx funksiyaning davri va D(f) sini ko'rsating.</li>
+      <li>y=ctgx funksiyaning davrini ko'rsating.</li>
+      <li>y=sin2x funksiyaning davrini toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — maxsus burchaklar jadvali</h3>
+    <p class="formula">0&deg;, 30&deg;, 45&deg;, 60&deg;, 90&deg; burchaklar uchun sin, cos, tg qiymatlarini yodda tutish kerak.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sin30&deg;, cos30&deg;, tg30&deg; larni toping.</p>
+      <p class="yechim">sin30&deg;=1/2
+cos30&deg;=&radic;3/2
+tg30&deg;=&radic;3/3</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>sin45&deg;, cos45&deg;, tg45&deg; larni toping.</li>
+      <li>sin60&deg;, cos60&deg;, tg60&deg; larni toping.</li>
+      <li>sin90&deg;, cos90&deg; larni toping.</li>
+      <li>sin0&deg;, cos0&deg; larni toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t30">
+  <h2><span class="t-num">30.</span> Teskari trigonometrik funksiyalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — arcsin va arccos ta'riflari</h3>
+    <p class="formula">arcsin: [-1;1]&rarr;[-&pi;/2;&pi;/2];  arccos: [-1;1]&rarr;[0;&pi;]</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: arcsin(1/2) ni toping.</p>
+      <p class="yechim">sin(&pi;/6)=1/2, &pi;/6&isin;[-&pi;/2;&pi;/2]
+Javob: arcsin(1/2)=&pi;/6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>arccos(1/2) ni toping.</li>
+      <li>arcsin(&radic;2/2) ni toping.</li>
+      <li>arccos(&radic;3/2) ni toping.</li>
+      <li>arcsin(-1/2) ni toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — arctg, arcctg va asosiy ayniyatlar</h3>
+    <p class="formula">arcsinx+arccosx=&pi;/2;  arctgx+arcctgx=&pi;/2</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: arctg(1) ni toping.</p>
+      <p class="yechim">tg(&pi;/4)=1
+Javob: arctg(1)=&pi;/4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>arcctg(1) ni toping.</li>
+      <li>arctg(&radic;3) ni toping.</li>
+      <li>arcsin(0.5)+arccos(0.5) ni ayniyatdan foydalanib hisoblang.</li>
+      <li>arctg(1)+arcctg(1) ni hisoblang.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t31">
+  <h2><span class="t-num">31.</span> Trigonometrik funksiyalarga doir misollar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ifodalarni ayniyatlar yordamida soddalashtirish</h3>
+    <p class="formula">sin&sup2;x+cos&sup2;x=1;  sinx&middot;ctgx=cosx;  (1-cos2x)/sin2x=tgx</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sin&sup2;x + cos&sup2;x + tgx&middot;ctgx ni soddalashtiring (x&ne;&pi;n/2).</p>
+      <p class="yechim">sin&sup2;x+cos&sup2;x=1, tgx&middot;ctgx=1
+Javob: 1+1=2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>(1-cos2x)/sin2x ifodani soddalashtiring.</li>
+      <li>sinx&middot;ctgx ifodani soddalashtiring.</li>
+      <li>(sinx+cosx)&sup2; - 1 ifodani soddalashtiring.</li>
+      <li>cos&sup2;x - sin&sup2;x ifodani cos2x orqali yozing.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — berilgan burchakda ifoda qiymatini topish</h3>
+    <p class="formula">Maxsus burchaklar jadvalidan foydalanib, ifodaga qiymat qo'yamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: x=&pi;/3 da 2sinx&middot;cosx ni hisoblang.</p>
+      <p class="yechim">sin60&deg;=&radic;3/2, cos60&deg;=1/2
+2&middot;(&radic;3/2)&middot;(1/2) = &radic;3/2</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>x=&pi;/4 da sin&sup2;x+cos&sup2;x ni hisoblang.</li>
+      <li>x=&pi;/6 da tgx+ctgx ni hisoblang.</li>
+      <li>x=&pi;/3 da cos2x ni hisoblang.</li>
+      <li>x=&pi;/2 da sinx+cosx ni hisoblang.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t32">
+  <h2><span class="t-num">32.</span> STEM topshiriq</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — davriy jarayonlarni trigonometrik funksiya bilan modellashtirish</h3>
+    <p class="formula">Davriy hodisa: f(t) = A&middot;sin(&omega;t) + B  (A &mdash; amplituda, B &mdash; o'rtacha qiymat)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Kunlik harorat T(t)=15+10sin(&pi;t/12) (t &mdash; soat). t=6 dagi haroratni toping.</p>
+      <p class="yechim">T(6) = 15+10sin(&pi;/2) = 15+10&middot;1 = 25&deg;</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>T(t)=20+5cos(&pi;t/12) formulada t=0 dagi haroratni toping.</li>
+      <li>To'lqin balandligi h(t)=2sin(&pi;t/6) formulada t=3 dagi qiymatni hisoblang.</li>
+      <li>Mayatnik burchagi &theta;(t)=10cos(2&pi;t) formulada t=0.25 dagi qiymatni hisoblang.</li>
+      <li>f(t)=8sin(&pi;t/4)+2 formulaning davrini toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — maksimal/minimal qiymatlarni topish</h3>
+    <p class="formula">f(t)=A&middot;sin(&omega;t)+B ning maksimal qiymati A+B, minimal qiymati B-A ga teng.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Charx aylanishida h(t)=5+5sin(2&pi;t/10). Maksimal va minimal balandlikni toping.</p>
+      <p class="yechim">Maksimal: 5+5=10
+Minimal: 5-5=0</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>h(t)=3+2cos(&pi;t/4) — maksimal va minimal qiymatini toping.</li>
+      <li>S(t)=1.5sin(&pi;t/6)+2 — maksimal va minimal qiymatini toping.</li>
+      <li>A(t)=4sin(100&pi;t) — amplitudasini toping.</li>
+      <li>I(t)=10sin(120&pi;t) — maksimal qiymatini toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t33">
+  <h2><span class="t-num">33.</span> sinx=a, cosx=a trigonometrik tenglamalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — sinx=a tenglamaning yechimi</h3>
+    <p class="formula">sinx=a (|a|&le;1)  &#8658;  x=(-1)&#8319;&middot;arcsin(a)+&pi;n, n&isin;Z</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sinx = 1/2 tenglamani yeching.</p>
+      <p class="yechim">arcsin(1/2)=&pi;/6
+Javob: x=(-1)&#8319;&middot;&pi;/6+&pi;n, n&isin;Z</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>sinx = &radic;2/2 tenglamani yeching.</li>
+      <li>sinx = -1/2 tenglamani yeching.</li>
+      <li>sinx = 1 tenglamani yeching.</li>
+      <li>sinx = 0 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — cosx=a tenglamaning yechimi</h3>
+    <p class="formula">cosx=a (|a|&le;1)  &#8658;  x=&plusmn;arccos(a)+2&pi;n, n&isin;Z</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: cosx = 1/2 tenglamani yeching.</p>
+      <p class="yechim">arccos(1/2)=&pi;/3
+Javob: x=&plusmn;&pi;/3+2&pi;n, n&isin;Z</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>cosx = &radic;3/2 tenglamani yeching.</li>
+      <li>cosx = -1/2 tenglamani yeching.</li>
+      <li>cosx = 0 tenglamani yeching.</li>
+      <li>cosx = -1 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t34">
+  <h2><span class="t-num">34.</span> tgx=a, ctgx=a trigonometrik tenglamalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — tgx=a tenglamaning yechimi</h3>
+    <p class="formula">tgx=a  &#8658;  x=arctg(a)+&pi;n, n&isin;Z</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: tgx = 1 tenglamani yeching.</p>
+      <p class="yechim">arctg(1)=&pi;/4
+Javob: x=&pi;/4+&pi;n, n&isin;Z</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>tgx = &radic;3 tenglamani yeching.</li>
+      <li>tgx = -1 tenglamani yeching.</li>
+      <li>tgx = 0 tenglamani yeching.</li>
+      <li>tgx = 1/&radic;3 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — ctgx=a tenglamaning yechimi</h3>
+    <p class="formula">ctgx=a  &#8658;  x=arcctg(a)+&pi;n, n&isin;Z</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: ctgx = 1 tenglamani yeching.</p>
+      <p class="yechim">arcctg(1)=&pi;/4
+Javob: x=&pi;/4+&pi;n, n&isin;Z</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>ctgx = &radic;3 tenglamani yeching.</li>
+      <li>ctgx = -1 tenglamani yeching.</li>
+      <li>ctgx = 0 tenglamani yeching.</li>
+      <li>ctgx = 1/&radic;3 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t35">
+  <h2><span class="t-num">35.</span> Trigonometrik tenglamalarni yechish</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ko'paytuvchilarga ajratish usuli</h3>
+    <p class="formula">Tenglamani A(x)&middot;B(x)=0 ko'rinishiga keltirib, har bir ko'paytuvchini alohida nolga tenglaymiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sin2x = sinx tenglamani yeching.</p>
+      <p class="yechim">2sinx&middot;cosx - sinx = 0
+sinx(2cosx-1) = 0
+sinx=0  =&gt;  x=&pi;n
+cosx=1/2  =&gt;  x=&plusmn;&pi;/3+2&pi;n</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>cos2x = cosx tenglamani yeching.</li>
+      <li>sin2x = cosx tenglamani yeching.</li>
+      <li>cos2x + sinx = 0 tenglamani yeching.</li>
+      <li>sin2x - sinx = 0 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — yig'indini ko'paytmaga aylantirish</h3>
+    <p class="formula">sina+sinb = 2sin((a+b)/2)cos((a-b)/2);  cosa+cosb = 2cos((a+b)/2)cos((a-b)/2)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sinx + sin3x = 0 tenglamani yeching.</p>
+      <p class="yechim">2sin2x&middot;cosx = 0
+sin2x=0  =&gt;  x=&pi;n/2
+cosx=0  =&gt;  x=&pi;/2+&pi;n</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>cosx + cos3x = 0 tenglamani yeching.</li>
+      <li>sin3x - sinx = 0 tenglamani yeching.</li>
+      <li>cos2x - cosx = 0 tenglamani yeching.</li>
+      <li>sinx - sin3x = 0 tenglamani yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t36">
+  <h2><span class="t-num">36.</span> Eng sodda trigonometrik tengsizliklar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — sinx&gt;a va cosx&gt;a ko'rinishi</h3>
+    <p class="formula">Birlik aylanada mos yoyni belgilab, tengsizlikni qanoatlantiruvchi burchaklar oralig'ini topamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: sinx &gt; 1/2 tengsizlikni [0;2&pi;] oralig'ida yeching.</p>
+      <p class="yechim">sinx=1/2 nuqtalari: x=&pi;/6 va x=5&pi;/6
+Javob: &pi;/6 &lt; x &lt; 5&pi;/6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>cosx &gt; 1/2 tengsizlikni [0;2&pi;] oralig'ida yeching.</li>
+      <li>sinx &lt; -1/2 tengsizlikni [0;2&pi;] oralig'ida yeching.</li>
+      <li>cosx &lt; -1/2 tengsizlikni [0;2&pi;] oralig'ida yeching.</li>
+      <li>sinx &ge; &radic;2/2 tengsizlikni [0;2&pi;] oralig'ida yeching.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — tgx&gt;a ko'rinishi</h3>
+    <p class="formula">tgx funksiyaning har bir (-&pi;/2+&pi;n; &pi;/2+&pi;n) oralig'ida monotonligidan foydalanamiz.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: tgx &gt; 1 tengsizlikni yeching.</p>
+      <p class="yechim">Javob: &pi;/4+&pi;n &lt; x &lt; &pi;/2+&pi;n, n&isin;Z</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>tgx &lt; 1 tengsizlikni yeching.</li>
+      <li>tgx &gt; &radic;3 tengsizlikni yeching.</li>
+      <li>tgx &lt; -1 tengsizlikni yeching.</li>
+      <li>tgx &ge; 0 tengsizlikni yeching.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t37">
+  <h2><span class="t-num">37.</span> Tasodifiy hodisalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — klassik ehtimollik ta'rifi</h3>
+    <p class="formula">P(A) = m/n  (m &mdash; qulay holatlar soni, n &mdash; barcha teng imkoniyatli holatlar soni)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Soqqa tashlanganda 4 raqami tushish ehtimolini toping.</p>
+      <p class="yechim">n=6 (1 dan 6 gacha), m=1
+P = 1/6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Tanga 2 marta tashlanganda ikkalasida ham gerb tushish ehtimolini toping.</li>
+      <li>52 talik karta to'plamidan 1 ta tuz (as) chiqarish ehtimolini toping.</li>
+      <li>Qutida 5 qizil va 3 ko'k shar bor. Tasodifiy tanlangan sharning qizil bo'lish ehtimolini toping.</li>
+      <li>Soqqa tashlanganda juft son tushish ehtimolini toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — qarama-qarshi hodisa ehtimoli</h3>
+    <p class="formula">P(A') = 1 - P(A)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Soqqa tashlanganda 6 tushmasligi ehtimolini toping.</p>
+      <p class="yechim">P(6)=1/6
+P(6 emas) = 1 - 1/6 = 5/6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Tanga tashlanganda gerb tushmasligi ehtimolini toping.</li>
+      <li>Qutida 10 ta buyumdan 2 tasi nosoz. Tasodifiy tanlanganda nosoz chiqmasligi ehtimolini toping.</li>
+      <li>Loto o'yinida yutish ehtimoli 0.02. Yutmaslik ehtimolini toping.</li>
+      <li>Soqqa tashlanganda 1 yoki 2 tushmasligi ehtimolini toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t38">
+  <h2><span class="t-num">38.</span> Ehtimollikni hisoblashda kombinatorika formulalaridan foydalanish</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — o'rin almashtirish va joylashtirish</h3>
+    <p class="formula">P&#8345;=n!;  A&#8345;&#7480;=n!/(n-k)!</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 5 ta kitobni tokchaga necha xil usulda joylashtirish mumkin?</p>
+      <p class="yechim">P&#8325;=5!=120</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>4 ta talabadan 2 tasini navbat bilan (tartib muhim) tanlash usullari sonini toping (A&#8324;&sup2;).</li>
+      <li>6 xil harfdan iborat so'zni necha xil tartibda yozish mumkin?</li>
+      <li>7 kishidan rais, o'rinbosar va kotibni tanlash usullari sonini toping.</li>
+      <li>3 xil rangli 5 ta sharni qatorga necha xil tartibda terish mumkin?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — kombinatsiya (tartib muhim emas)</h3>
+    <p class="formula">C&#8345;&#7480; = n!/(k!(n-k)!)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 5 ta o'quvchidan 2 tasini (tartibsiz) tanlash necha usul bilan mumkin?</p>
+      <p class="yechim">C&#8325;&sup2; = 5!/(2!&middot;3!) = 10</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>7 ta kitobdan 3 tasini tanlash usullari sonini toping (C&#8324;&#8323;&sup3;).</li>
+      <li>10 ta shar orasidan 4 tasini tanlash usullari sonini toping.</li>
+      <li>8 kishidan 5 kishilik guruh tanlash usullari sonini toping.</li>
+      <li>6 ta rangdan 2 tasini tanlash usullari sonini toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t39">
+  <h2><span class="t-num">39.</span> Teng ehtimolli hodisalar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — teng ehtimolli hodisalar ta'rifi</h3>
+    <p class="formula">Agar tajribaning barcha natijalari bir xil imkoniyatga ega bo'lsa, ular teng ehtimolli hodisalar deyiladi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Soqqa tashlashda har bir yoqning tushish ehtimoli tengmi?</p>
+      <p class="yechim">Ha, "adolatli" soqqada barcha 6 yoq bir xil imkoniyatga ega
+Har biri uchun P=1/6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Tanga tashlashda gerb va raqam tushish ehtimollari tengmi?</li>
+      <li>Loto barabanida har bir raqamning chiqish ehtimoli tengmi?</li>
+      <li>Qutida 10 ta bir xil shakldagi raqamlangan (1-10) shar bor. Har birining tanlanish ehtimoli qanday?</li>
+      <li>52 talik karta to'plamida har bir kartaning chiqish ehtimoli qanday?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — mustaqil hodisalarning birgalikda ehtimoli</h3>
+    <p class="formula">Mustaqil hodisalar uchun: P(A va B) = P(A)&middot;P(B)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Ikki marta tanga tashlanganda ikkalasida ham gerb tushish ehtimolini toping.</p>
+      <p class="yechim">P = 1/2 &middot; 1/2 = 1/4</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ikki soqqa tashlanganda ikkalasida ham 6 tushish ehtimolini toping.</li>
+      <li>Uch marta tanga tashlanganda barchasida raqam tushish ehtimolini toping.</li>
+      <li>Ikki karta ketma-ket (qaytarib qo'yib) tortilganda ikkalasi ham tuz bo'lish ehtimolini toping.</li>
+      <li>Ikki soqqa tashlanganda ikkalasida ham juft son tushish ehtimolini toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t40">
+  <h2><span class="t-num">40.</span> Planimetriyaning mantiqiy tuzilishi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — aksioma, ta'rif va teorema tushunchalari</h3>
+    <p class="formula">Aksioma — isbotsiz qabul qilinadigan tasdiq; ta'rif — tushunchaning ma'nosini ochib beradi; teorema — isbotlanadigan tasdiq.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: "Ikki nuqta orqali faqat bitta to'g'ri chiziq o'tkazish mumkin" — bu aksiomami yoki teoremami?</p>
+      <p class="yechim">Bu aksioma — isbotsiz qabul qilinadigan asosiy tasdiq.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Pifagor teoremasi aksiomami yoki teoremami?</li>
+      <li>"Uchburchak — uchta nuqta va ularni tutashtiruvchi kesmalardan iborat figura" — bu ta'rifmi?</li>
+      <li>"Parallel to'g'ri chiziqlar kesishmaydi" — aksiomami?</li>
+      <li>Teorema isboti nima uchun kerak (aksiomadan farqini tushuntiring)?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — teskari va qarama-qarshi teorema</h3>
+    <p class="formula">"Agar A bo'lsa, B bo'ladi" teoremaning teskarisi — "Agar B bo'lsa, A bo'ladi" (har doim ham to'g'ri bo'lavermaydi).</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: "Agar uchburchak teng yonli bo'lsa, asosidagi burchaklari teng" teoremaning teskarisini ayting.</p>
+      <p class="yechim">Teskari teorema: "Agar uchburchakning asosidagi ikki burchagi teng bo'lsa, u teng yonli"</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>"Agar to'rtburchak kvadrat bo'lsa, barcha tomonlari teng" tasdig'ining teskarisi to'g'rimi?</li>
+      <li>"Vertikal burchaklar teng" teoremasining teskarisi qanday bo'ladi?</li>
+      <li>To'g'ri teorema va uning teskarisi doim ikkalasi ham to'g'ri bo'ladimi? Misol bilan tushuntiring.</li>
+      <li>"Agar son 4 ga bo'linsa, u juft son" tasdig'ining teskarisini ayting va to'g'riligini tekshiring.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t41">
+  <h2><span class="t-num">41.</span> Geometrik masalalar va ularni yechish usullari</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — Pifagor teoremasi</h3>
+    <p class="formula">To'g'ri burchakli uchburchakda: c&sup2; = a&sup2; + b&sup2; (c &mdash; gipotenuza, a,b &mdash; katetlar)</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Katetlari 3 va 4 bo'lgan to'g'ri burchakli uchburchakning gipotenuzasini toping.</p>
+      <p class="yechim">c = &radic;(3&sup2;+4&sup2;) = &radic;25 = 5</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Katetlari 6 va 8 bo'lgan uchburchakning gipotenuzasini toping.</li>
+      <li>Gipotenuza 13, bitta katet 5. Ikkinchi katetni toping.</li>
+      <li>Katetlari 5 va 12 bo'lgan uchburchakning gipotenuzasini toping.</li>
+      <li>Gipotenuza 10, bitta katet 6. Ikkinchi katetni toping.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — yuzlarni hisoblash formulalari</h3>
+    <p class="formula">Uchburchak: S=1/2&middot;a&middot;h;  Trapetsiya: S=1/2&middot;(a+b)&middot;h;  Romb: S=d&#8321;&middot;d&#8322;/2</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Asosi 8, balandligi 5 bo'lgan uchburchakning yuzini toping.</p>
+      <p class="yechim">S = 1/2&middot;8&middot;5 = 20</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Tomonlari 6 va 9 bo'lgan to'g'ri to'rtburchakning yuzini toping.</li>
+      <li>Diagonallari 6 va 8 bo'lgan rombning yuzini toping.</li>
+      <li>Tomoni 5 bo'lgan kvadratning yuzini toping.</li>
+      <li>Asoslari 4 va 10, balandligi 6 bo'lgan trapetsiyaning yuzini toping.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t42">
+  <h2><span class="t-num">42.</span> Stereometriyaning asosiy tushunchalari</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — nuqta, to'g'ri chiziq, tekislik aksiomalari</h3>
+    <p class="formula">Bir to'g'ri chiziqda yotmagan 3 ta nuqta orqali yagona tekislik o'tkazish mumkin.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Nechta nuqta (bir to'g'ri chiziqda yotmasa) bitta tekislikni aniqlaydi?</p>
+      <p class="yechim">3 ta nuqta</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ikki kesishuvchi to'g'ri chiziq nechta tekislikni aniqlaydi?</li>
+      <li>Bitta to'g'ri chiziq va unga tegishli bo'lmagan nuqta nechta tekislikni aniqlaydi?</li>
+      <li>Ikki parallel to'g'ri chiziq nechta tekislikni aniqlaydi?</li>
+      <li>Bir to'g'ri chiziqda yotgan nuqtalar orqali nechta tekislik o'tkazish mumkin?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — tegishlilik va kesishish aksiomalari</h3>
+    <p class="formula">Ikki har xil tekislik kesishsa, ularning kesishmasi to'g'ri chiziq bo'ladi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: To'g'ri chiziqning ikki nuqtasi tekislikka tegishli bo'lsa, chiziqning o'zi tekislikka tegishlimi?</p>
+      <p class="yechim">Ha, aksiomaga ko'ra butun to'g'ri chiziq tekislikka tegishli bo'ladi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ikki har xil tekislik kesishsa, kesishma qanday shakl bo'ladi?</li>
+      <li>Bir to'g'ri chiziqda yotmagan uch nuqta orqali nechta tekislik o'tadi?</li>
+      <li>Bitta tekislikda yotgan ikki to'g'ri chiziq nima bo'lishi mumkin?</li>
+      <li>Ikki tekislik kesishmasa, ular qanday deyiladi?</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t43">
+  <h2><span class="t-num">43.</span> Fazoda to'g'ri chiziqlar va tekisliklar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — to'g'ri chiziqning tekislikka nisbatan joylashuvi</h3>
+    <p class="formula">To'g'ri chiziq tekislikka nisbatan 3 xil joylashishi mumkin: tekislikda yotadi, kesib o'tadi yoki parallel.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: To'g'ri chiziq tekislikka nisbatan qanday joylashishi mumkin?</p>
+      <p class="yechim">1) Tekislikda yotadi
+2) Bitta nuqtada kesib o'tadi
+3) Tekislikka parallel (umumiy nuqtasi yo'q)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>To'g'ri chiziq tekislikni bitta nuqtada kesib o'tsa, bu nuqta nima deyiladi?</li>
+      <li>To'g'ri chiziq tekislikka parallel bo'lish shartini ayting.</li>
+      <li>To'g'ri chiziqning tekislikka perpendikulyarligi ta'rifini ayting.</li>
+      <li>To'g'ri chiziq tekislikdagi ikkita kesishuvchi chiziqqa perpendikulyar bo'lsa, u tekislikka nisbatan qanday joylashadi?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — proyeksiya va masofa</h3>
+    <p class="formula">Nuqtadan tekislikkacha bo'lgan masofa — nuqtadan tekislikka tushirilgan perpendikulyar kesma uzunligi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Nuqtadan tekislikkacha bo'lgan masofa qanday aniqlanadi?</p>
+      <p class="yechim">Nuqtadan tekislikka tushirilgan perpendikulyar kesmaning uzunligi orqali.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>To'g'ri chiziqdan unga parallel tekislikkacha bo'lgan masofa qanday topiladi?</li>
+      <li>Nuqtaning tekislikdagi proyeksiyasi nima?</li>
+      <li>Tekislikka perpendikulyar to'g'ri chiziqning proyeksiyasi nimaga aylanadi?</li>
+      <li>Qiyalik chiziq va uning proyeksiyasi orasidagi burchak qanday nomlanadi?</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t44">
+  <h2><span class="t-num">44.</span> Fazoviy geometrik shakllar. Ko'pyoqlar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ko'pyoq elementlari va Eyler formulasi</h3>
+    <p class="formula">Eyler formulasi: Yoq + Uch - Qirra = 2</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Kubning yoq, qirra va uch sonini toping.</p>
+      <p class="yechim">6 ta yoq, 12 ta qirra, 8 ta uch
+Tekshirish: 6+8-12=2 &#10003;</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Tetraedr (uchburchakli piramida)ning yoq, qirra, uch sonini toping.</li>
+      <li>Parallelepipedning yoq, qirra, uch sonini toping.</li>
+      <li>Beshburchakli prizmaning yoq sonini toping.</li>
+      <li>Oktaedrning yoq, qirra, uch soni uchun Eyler formulasini tekshiring (8 yoq, 12 qirra, 6 uch).</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — muntazam ko'pyoqlar (Platon jismlari)</h3>
+    <p class="formula">Jami 5 ta muntazam ko'pyoq mavjud: tetraedr, kub, oktaedr, dodekaedr, ikosaedr.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Nechta muntazam ko'pyoq (Platon jismi) mavjud?</p>
+      <p class="yechim">5 ta: tetraedr, kub, oktaedr, dodekaedr, ikosaedr</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Kubning har bir yoqi qanday shakl?</li>
+      <li>Tetraedrning har bir yoqi qanday shakl?</li>
+      <li>Oktaedrning nechta yoqi bor?</li>
+      <li>Muntazam ko'pyoq deb qanday ko'pyoqqa aytilishini tushuntiring.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t45">
+  <h2><span class="t-num">45.</span> Ko'pyoqlarni tasvirlash va modelini yasash</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — parallel proyeksiyalash orqali tasvirlash</h3>
+    <p class="formula">Fazoviy shaklni tekislikda tasvirlashda ko'rinmas qirralar punktir chiziq bilan ko'rsatiladi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Kubni tekislikda tasvirlashda old yoq qanday shaklda chiziladi?</p>
+      <p class="yechim">Old yoq to'g'ri kvadrat shaklda, orqa qirralar esa siljitilgan (parallelogramm ko'rinishida) chiziladi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Prizmani tasvirlashda asoslar qanday chiziladi?</li>
+      <li>Piramidani tasvirlashda uchdan asosga qanday chiziqlar tortiladi?</li>
+      <li>Silindrni tasvirlashda asoslar qanday shaklda ko'rsatiladi?</li>
+      <li>Kub yoyilmasida nechta kvadrat bo'lishini ayting.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — yoyilma (razvyortka) orqali model yasash</h3>
+    <p class="formula">Ko'pyoqning yoyilmasi — uning yoqlarini bir tekislikda burmasdan yozib chiqish.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Kubning yoyilmasi nechta kvadratdan iborat?</p>
+      <p class="yechim">6 ta kvadrat (kubning 6 ta yoqiga mos)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Tetraedrning yoyilmasi nechta uchburchakdan iborat?</li>
+      <li>Asosi uchburchak bo'lgan to'g'ri prizmaning yoyilmasi qanday shakllardan iborat?</li>
+      <li>Asosi kvadrat bo'lgan piramidaning yoyilmasi qanday shakllardan iborat?</li>
+      <li>Silindrning yoyilmasi qanday shakllardan iborat?</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t46">
+  <h2><span class="t-num">46.</span> Fazoda to'g'ri chiziqlarning o'zaro joylashuvi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — kesishuvchi va parallel to'g'ri chiziqlar</h3>
+    <p class="formula">Bitta tekislikda yotgan ikki to'g'ri chiziq: kesishadi yoki parallel bo'ladi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Bitta tekislikda yotgan ikki to'g'ri chiziq umumiy nuqtaga ega bo'lmasa, ular qanday deyiladi?</p>
+      <p class="yechim">Parallel to'g'ri chiziqlar deyiladi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ikki to'g'ri chiziq bir nuqtada kesishsa va bitta tekislikda yotsa, bu qanday holat?</li>
+      <li>Ikki to'g'ri chiziqning parallelligi qanday belgilanadi?</li>
+      <li>Kesishuvchi ikki to'g'ri chiziq nechta umumiy nuqtaga ega?</li>
+      <li>Bir tekislikda yotgan ikki to'g'ri chiziq necha xil holatda joylashishi mumkin?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — to'g'ri chiziqlar orasidagi burchak</h3>
+    <p class="formula">Kesishuvchi to'g'ri chiziqlar orasidagi burchak — ular hosil qilgan kichik burchak (0&deg; dan 90&deg; gacha).</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Ikki kesishuvchi to'g'ri chiziq orasidagi burchak qanday aniqlanadi?</p>
+      <p class="yechim">Ular hosil qilgan ikki juft burchakdan kichigi (0&deg;-90&deg; oralig'ida) orqali aniqlanadi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ikki parallel to'g'ri chiziq orasidagi burchak nechaga teng?</li>
+      <li>Ikki to'g'ri chiziq perpendikulyar bo'lsa, ular orasidagi burchak nechaga teng?</li>
+      <li>Fazoda ikki to'g'ri chiziq bitta tekislikda yotmasligi mumkinmi?</li>
+      <li>Ayqash to'g'ri chiziqlar orasidagi burchak qanday topilishini tushuntiring.</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t47">
+  <h2><span class="t-num">47.</span> Ayqash to'g'ri chiziqlar</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ayqash to'g'ri chiziqlar ta'rifi</h3>
+    <p class="formula">Bitta tekislikda yotmaydigan — na kesishadigan, na parallel bo'lgan to'g'ri chiziqlar ayqash deyiladi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Ayqash to'g'ri chiziqlar qanday to'g'ri chiziqlar deyiladi?</p>
+      <p class="yechim">Bitta tekislikda yotmaydigan, kesishmaydigan va parallel bo'lmagan to'g'ri chiziqlar.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Kubning AB qirrasi va CD&#8321; diagonali ayqashligini tushuntiring.</li>
+      <li>Ayqash to'g'ri chiziqlar umumiy nuqtaga ega bo'la oladimi?</li>
+      <li>Fazoda tasodifiy tanlangan ikki to'g'ri chiziq ko'pincha qanday joylashadi?</li>
+      <li>Ayqash to'g'ri chiziqlar bitta tekislikka tegishli bo'lishi mumkinmi?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — ayqash chiziqlar orasidagi masofa va burchak</h3>
+    <p class="formula">Ayqash to'g'ri chiziqlar orasidagi masofa — ularga perpendikulyar umumiy kesma (umumiy perpendikulyar) uzunligi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Ayqash to'g'ri chiziqlar orasidagi masofa qanday aniqlanadi?</p>
+      <p class="yechim">Ikkala chiziqqa ham perpendikulyar bo'lgan umumiy kesmaning uzunligi orqali.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ayqash to'g'ri chiziqlar orasidagi burchak qanday topiladi?</li>
+      <li>Umumiy perpendikulyar tushunchasini tushuntiring.</li>
+      <li>Kub qirralaridan ayqash juftlikka misol keltiring.</li>
+      <li>Ayqash to'g'ri chiziqlardan biriga parallel tekislik o'tkazish mumkinmi?</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t48">
+  <h2><span class="t-num">48.</span> Fazoda to'g'ri chiziqlar va tekisliklarning o'zaro joylashuvi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — uch xil joylashuv holati</h3>
+    <p class="formula">To'g'ri chiziq va tekislik: 1) chiziq tekislikda yotadi, 2) bitta nuqtada kesishadi, 3) parallel.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: To'g'ri chiziq va tekislik o'zaro qanday joylashishi mumkin?</p>
+      <p class="yechim">1) To'g'ri chiziq tekislikda yotadi
+2) Bitta nuqtada kesishadi
+3) Parallel (umumiy nuqtaga ega emas)</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>To'g'ri chiziq tekislikka parallel bo'lish shartini ayting.</li>
+      <li>To'g'ri chiziq tekislikni kesib o'tganda hosil bo'lgan nuqta nima deyiladi?</li>
+      <li>To'g'ri chiziq tekislikda yotishi uchun qanday shart bajarilishi kerak?</li>
+      <li>Tekislikka perpendikulyar to'g'ri chiziq ta'rifini ayting.</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — perpendikulyarlik alomati</h3>
+    <p class="formula">To'g'ri chiziq tekislikka perpendikulyar bo'lishi uchun tekislikdagi ikkita kesishuvchi chiziqqa perpendikulyar bo'lishi kifoya.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: To'g'ri chiziq tekislikka perpendikulyar bo'lishi uchun qanday shart bajarilishi kerak?</p>
+      <p class="yechim">Tekislikdagi ikkita kesishuvchi to'g'ri chiziqqa perpendikulyar bo'lishi kerak.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Agar to'g'ri chiziq tekislikka perpendikulyar bo'lsa, u tekislikdagi barcha chiziqlarga perpendikulyarmi?</li>
+      <li>Uch perpendikulyar teoremasini ayting.</li>
+      <li>Nuqtadan tekislikka nechta perpendikulyar o'tkazish mumkin?</li>
+      <li>Ikki parallel to'g'ri chiziqdan biri tekislikka perpendikulyar bo'lsa, ikkinchisi haqida nima deyish mumkin?</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t49">
+  <h2><span class="t-num">49.</span> Fazoda tekisliklarning o'zaro joylashuvi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — parallel va kesishuvchi tekisliklar</h3>
+    <p class="formula">Ikki tekislik umumiy nuqtaga ega bo'lmasa — parallel; ega bo'lsa — to'g'ri chiziq bo'ylab kesishadi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Ikki tekislik umumiy nuqtaga ega bo'lmasa, ular qanday deyiladi?</p>
+      <p class="yechim">Parallel tekisliklar deyiladi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ikki tekislik kesishsa, kesishma qanday shakl bo'ladi?</li>
+      <li>Ikki tekislikning parallelligi qanday belgilanadi?</li>
+      <li>Uchta tekislik bitta to'g'ri chiziqda kesishishi mumkinmi?</li>
+      <li>Parallel tekisliklar orasidagi masofa qanday aniqlanadi?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — ikki yoqli burchak</h3>
+    <p class="formula">Ikki yoqli burchak — kesishish chizig'iga perpendikulyar, har bir tekislikda yotuvchi nurlar orasidagi burchak.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Ikki kesishuvchi tekislik orasidagi burchak qanday aniqlanadi?</p>
+      <p class="yechim">Kesishish chizig'iga perpendikulyar bo'lgan va har bir tekislikda yotuvchi nurlar orasidagi burchak orqali.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Ikki tekislik perpendikulyar bo'lishi uchun qanday shart bajarilishi kerak?</li>
+      <li>Ikki yoqli burchakning yoqlari nima deyiladi?</li>
+      <li>Ikki yoqli burchakning qirrasi nima?</li>
+      <li>Parallel tekisliklar orasidagi burchak nechaga teng?</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+
+<section class="topic" id="t50">
+  <h2><span class="t-num">50.</span> Fazoda parallel proyeksiyalash</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — parallel proyeksiyalash ta'rifi va xossalari</h3>
+    <p class="formula">Parallel proyeksiyalashda parallellik va kesma nisbatlari saqlanadi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Parallel proyeksiyalashda to'g'ri chiziqning proyeksiyasi odatda nima bo'ladi?</p>
+      <p class="yechim">To'g'ri chiziq bo'ladi (agar u proyeksiyalash yo'nalishiga parallel bo'lmasa).</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Parallel kesmalarning proyeksiyalari qanday nisbatda bo'ladi?</li>
+      <li>Parallel proyeksiyalashda figuraning yuzi saqlanadimi?</li>
+      <li>Kesmaning o'rta nuqtasi proyeksiyalanganda nimaga aylanadi?</li>
+      <li>Proyeksiyalash yo'nalishiga parallel to'g'ri chiziqning proyeksiyasi nima bo'ladi?</li>
+    </ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — tekis shakllarning parallel proyeksiyasi</h3>
+    <p class="formula">Parallelogrammning parallel proyeksiyasi яна parallelogramm bo'ladi (parallellik va nisbatlar saqlanadi).</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Parallelogrammning parallel proyeksiyasi qanday shakl bo'ladi?</p>
+      <p class="yechim">Yana parallelogramm bo'ladi, chunki parallellik va tomon nisbatlari saqlanadi.</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2">
+      <li>Uchburchakning parallel proyeksiyasi qanday shakl bo'ladi?</li>
+      <li>Aylananing parallel proyeksiyasi odatda qanday shakl bo'ladi?</li>
+      <li>Kvadratning parallel proyeksiyasi har doim kvadrat bo'ladimi?</li>
+      <li>Parallel to'g'ri chiziqlarning proyeksiyalari ham parallel bo'ladimi?</li>
+    </ol>
+  </div>
+  <a class="back-top" href="#toc">&uarr; Mundarijaga qaytish</a>
+</section>
+<!-- TOPICS_END -->
+  </main>
+
+  <footer>
+    <div>Matematika tarixi loyihasi &middot; <a href="index.html">Bosh sahifaga qaytish</a></div>
+  </footer>
+</div>
+
+</body>
+</html>
