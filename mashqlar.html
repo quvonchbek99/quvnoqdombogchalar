@@ -2878,7 +2878,7 @@ async function finishTest() {
   try {
     const res = await fetch(RESULTS_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     });
     statusEl.textContent = res.ok
@@ -2979,7 +2979,7 @@ async function uploadAdminTopic() {
 
     const res = await fetch(RESULTS_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ action: 'addTopic', password: password, topicName: topicName, questions: questions })
     });
     const result = await res.json();
