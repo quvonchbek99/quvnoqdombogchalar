@@ -5,523 +5,1028 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matematika tarixi — ensiklopediya</title>
 <style>
-  :root{
-    --bg:#0b1220;
-    --bg-soft:#111a2e;
-    --card:#141f38;
-    --border:#243252;
-    --text:#eef2ff;
-    --text-dim:#9fb0d0;
-    --accent:#5ee6c7;
-    --accent-2:#7c9bff;
-    --bad:#ff8585;
-    --good:#5ee6c7;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:radial-gradient(circle at 20% 0%, #16213f 0%, var(--bg) 55%);
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.55;
-  }
-  .wrap{max-width:1040px;margin:0 auto;padding:0 20px;}
-  header{padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;}
-  .brand-badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#08131f;font-weight:800;}
-  nav a{color:var(--text-dim);text-decoration:none;margin-left:20px;font-size:14px;}
-  nav a:hover{color:var(--text);}
+:root{
+--bg:#0b1220;
+--bg-soft:#111a2e;
+--card:#141f38;
+--border:#243252;
+--text:#eef2ff;
+--text-dim:#9fb0d0;
+--accent:#5ee6c7;
+--accent-2:#7c9bff;
+--bad:#ff8585;
+--good:#5ee6c7;
+}
+*{box-sizing:border-box;}
+body{
+margin:0;
+background:radial-gradient(circle at 20% 0%, #16213f 0%, var(--bg) 55%);
+color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+line-height:1.55;
+}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px;}
+header{padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;}
+.brand-badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#08131f;font-weight:800;}
+nav a{color:var(--text-dim);text-decoration:none;margin-left:20px;font-size:14px;}
+nav a:hover{color:var(--text);}
 
-  .hero{padding:64px 0 48px;text-align:center;}
-  .kicker{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(94,230,199,.35);background:rgba(94,230,199,.08);padding:5px 12px;border-radius:999px;margin-bottom:18px;}
-  h1{font-size:clamp(30px,5vw,48px);margin:0 0 16px;letter-spacing:-0.02em;}
-  h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .lead{color:var(--text-dim);font-size:18px;max-width:620px;margin:0 auto 30px;}
-  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;}
-  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081019;}
-  .btn-ghost{color:var(--text);border-color:var(--border);background:var(--bg-soft);}
-  .btn:hover{filter:brightness(1.08);}
-  .btn:disabled{opacity:.45;cursor:not-allowed;filter:none;}
+.hero{padding:64px 0 48px;text-align:center;}
+.kicker{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(94,230,199,.35);background:rgba(94,230,199,.08);padding:5px 12px;border-radius:999px;margin-bottom:18px;}
+h1{font-size:clamp(30px,5vw,48px);margin:0 0 16px;letter-spacing:-0.02em;}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.lead{color:var(--text-dim);font-size:18px;max-width:620px;margin:0 auto 30px;}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081019;}
+.btn-ghost{color:var(--text);border-color:var(--border);background:var(--bg-soft);}
+.btn:hover{filter:brightness(1.08);}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none;}
 
-  section{padding:44px 0;}
-  .section-head{margin-bottom:26px;}
-  .section-head h2{font-size:26px;margin:0 0 8px;}
-  .section-head p{color:var(--text-dim);margin:0;font-size:15px;}
+section{padding:44px 0;}
+.section-head{margin-bottom:26px;}
+.section-head h2{font-size:26px;margin:0 0 8px;}
+.section-head p{color:var(--text-dim);margin:0;font-size:15px;}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:transform .15s ease, border-color .15s ease;}
-  .card:hover{transform:translateY(-3px);border-color:rgba(124,155,255,.5);}
-  .card .emoji{font-size:26px;margin-bottom:10px;display:block;}
-  .card h3{margin:0 0 6px;font-size:17px;}
-  .card p{margin:0;color:var(--text-dim);font-size:14px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:transform .15s ease, border-color .15s ease;}
+.card:hover{transform:translateY(-3px);border-color:rgba(124,155,255,.5);}
+.card .emoji{font-size:26px;margin-bottom:10px;display:block;}
+.card h3{margin:0 0 6px;font-size:17px;}
+.card p{margin:0;color:var(--text-dim);font-size:14px;}
 
-  .timeline{border-left:2px solid var(--border);margin-left:6px;padding-left:24px;display:flex;flex-direction:column;gap:22px;}
-  .t-item{position:relative;}
-  .t-item::before{content:"";position:absolute;left:-31px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(94,230,199,.15);}
-  .t-item h4{margin:0 0 4px;font-size:15px;}
-  .t-item p{margin:0;color:var(--text-dim);font-size:14px;}
+/* Davrlar / voqealar tarixnomasi */
+.era-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.era-nav a{font-size:12.5px;color:var(--text-dim);text-decoration:none;border:1px solid var(--border);background:var(--bg-soft);padding:6px 12px;border-radius:999px;white-space:nowrap;}
+.era-nav a:hover{color:var(--text);border-color:rgba(124,155,255,.5);}
+.era{margin-bottom:40px;scroll-margin-top:20px;}
+.era:last-child{margin-bottom:0;}
+.era-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.era-num{font-size:12.5px;font-weight:700;color:#08131f;background:linear-gradient(135deg,var(--accent),var(--accent-2));width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.era-head h3{margin:0;font-size:19px;}
+.era-range{font-size:12.5px;color:var(--accent);background:rgba(94,230,199,.08);border:1px solid rgba(94,230,199,.35);padding:3px 10px;border-radius:999px;white-space:nowrap;}
+.era-desc{color:var(--text-dim);font-size:14px;margin:0 0 16px;max-width:760px;}
+.era-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.ev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s ease, border-color .15s ease;}
+.ev-card:hover{transform:translateY(-3px);border-color:rgba(124,155,255,.5);}
+.ev-img{width:100%;height:120px;object-fit:cover;display:block;background:var(--bg-soft);}
+.ev-icon{width:100%;height:120px;display:flex;align-items:center;justify-content:center;font-size:40px;background:linear-gradient(135deg,rgba(94,230,199,.12),rgba(124,155,255,.12));}
+.ev-body{padding:13px 15px 15px;}
+.ev-year{display:block;font-size:11.5px;font-weight:700;color:var(--accent-2);margin-bottom:5px;letter-spacing:.02em;text-transform:uppercase;}
+.ev-card h4{margin:0 0 6px;font-size:14.5px;line-height:1.3;}
+.ev-card p{margin:0;color:var(--text-dim);font-size:13px;}
 
-  .about-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:28px;}
-  .about-card p{color:var(--text-dim);margin:0 0 12px;}
-  .about-card p:last-child{margin-bottom:0;}
+.about-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:28px;}
+.about-card p{color:var(--text-dim);margin:0 0 12px;}
+.about-card p:last-child{margin-bottom:0;}
 
-  .author-card{display:flex;align-items:center;gap:20px;background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:16px;flex-wrap:wrap;}
-  .author-card img{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);flex-shrink:0;}
-  .author-card h3{margin:0 0 4px;font-size:17px;}
-  .author-card .role{color:var(--text-dim);font-size:14px;margin:0 0 10px;}
-  .author-card a{color:var(--accent);text-decoration:none;font-size:14px;}
-  .author-card a:hover{text-decoration:underline;}
-  @media (max-width:480px){.author-card{flex-direction:column;text-align:center;}}
+.author-card{display:flex;align-items:center;gap:20px;background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:16px;flex-wrap:wrap;}
+.author-card img{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);flex-shrink:0;}
+.author-card h3{margin:0 0 4px;font-size:17px;}
+.author-card .role{color:var(--text-dim);font-size:14px;margin:0 0 10px;}
+.author-card a{color:var(--accent);text-decoration:none;font-size:14px;}
+.author-card a:hover{text-decoration:underline;}
+@media (max-width:480px){.author-card{flex-direction:column;text-align:center;}}
 
-  /* Testlar */
-  .quiz-topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
-  .topic-btn{text-align:left;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;color:var(--text);cursor:pointer;font-family:inherit;}
-  .topic-btn:hover{border-color:rgba(124,155,255,.5);}
-  .topic-btn .emoji{font-size:20px;margin-bottom:6px;display:block;}
-  .topic-btn .t-name{font-weight:700;font-size:15px;}
-  .topic-btn .t-count{display:block;color:var(--text-dim);font-size:12px;margin-top:3px;}
+/* Testlar */
+.quiz-topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.topic-btn{text-align:left;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;color:var(--text);cursor:pointer;font-family:inherit;}
+.topic-btn:hover{border-color:rgba(124,155,255,.5);}
+.topic-btn .emoji{font-size:20px;margin-bottom:6px;display:block;}
+.topic-btn .t-name{font-weight:700;font-size:15px;}
+.topic-btn .t-count{display:block;color:var(--text-dim);font-size:12px;margin-top:3px;}
 
-  .quiz-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:26px;}
-  .quiz-progress{font-size:13px;color:var(--text-dim);margin-bottom:12px;}
-  .quiz-question{font-size:18px;font-weight:600;margin:0 0 18px;}
-  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
-  .opt{display:block;width:100%;text-align:left;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-family:inherit;font-size:15px;}
-  .opt:hover{border-color:var(--accent-2);}
-  .opt.correct{border-color:var(--good);background:rgba(94,230,199,.12);}
-  .opt.wrong{border-color:var(--bad);background:rgba(255,133,133,.12);}
-  .opt:disabled{cursor:default;}
-  .quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
-  .quiz-result{text-align:center;}
-  .quiz-result .score{font-size:40px;font-weight:800;margin:6px 0;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .hidden{display:none !important;}
-  .back-link{background:none;border:none;color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:13px;padding:0;margin-bottom:16px;text-decoration:underline;}
+.quiz-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:16px;padding:26px;}
+.quiz-progress{font-size:13px;color:var(--text-dim);margin-bottom:12px;}
+.quiz-question{font-size:18px;font-weight:600;margin:0 0 18px;}
+.quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.opt{display:block;width:100%;text-align:left;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-family:inherit;font-size:15px;}
+.opt:hover{border-color:var(--accent-2);}
+.opt.correct{border-color:var(--good);background:rgba(94,230,199,.12);}
+.opt.wrong{border-color:var(--bad);background:rgba(255,133,133,.12);}
+.opt:disabled{cursor:default;}
+.quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.quiz-result{text-align:center;}
+.quiz-result .score{font-size:40px;font-weight:800;margin:6px 0;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hidden{display:none !important;}
+.back-link{background:none;border:none;color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:13px;padding:0;margin-bottom:16px;text-decoration:underline;}
 
-  footer{border-top:1px solid var(--border);padding:28px 0;color:var(--text-dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-  footer a{color:var(--accent);text-decoration:none;}
+footer{border-top:1px solid var(--border);padding:28px 0;color:var(--text-dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+footer a{color:var(--accent);text-decoration:none;}
 
-  .note{margin-top:10px;font-size:13px;color:var(--text-dim);}
+.note{margin-top:10px;font-size:13px;color:var(--text-dim);}
 </style>
 </head>
 <body>
 
 <div class="wrap">
-  <header>
-    <div class="brand">
-      <span class="brand-badge">π</span>
-      Matematika tarixi
-    </div>
-    <nav>
-      <a href="#mavzular">Mavzular</a>
-      <a href="#davrlar">Davrlar</a>
-      <a href="#testlar">Testlar</a>
-      <a href="mashqlar.html">Mashqlar</a>
-      <a href="#haqida">Loyiha haqida</a>
-    </nav>
-  </header>
+<header>
+<div class="brand">
+<span class="brand-badge">π</span>
+Matematika tarixi
+</div>
+<nav>
+<a href="#mavzular">Mavzular</a>
+<a href="#davrlar">Davrlar</a>
+<a href="#testlar">Testlar</a>
+<a href="mashqlar.html">Mashqlar</a>
+<a href="#haqida">Loyiha haqida</a>
+</nav>
+</header>
 
-  <div class="hero">
-    <span class="kicker">Tosh asridan hozirgi kungacha</span>
-    <h1>Matematikaning <span>butun tarixi</span>,<br>bitta manbada</h1>
-    <p class="lead">
-      Bu sayt — Telegram'dagi <strong>Matematika tarixi</strong> kanalining ensiklopedik arxivi.
-      Har kuni chiqadigan postlar shu yerda davrlar va mavzular bo'yicha to'planib boradi.
-    </p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://t.me/mqm199" target="_blank" rel="noopener">Telegram kanalga o'tish</a>
-      <a class="btn btn-ghost" href="mashqlar.html">📘 50 mavzu bo'yicha mashqlar</a>
-      <a class="btn btn-ghost" href="https://t.me/deltaikki" target="_blank" rel="noopener">Muhokama guruhi</a>
-    </div>
-  </div>
+<div class="hero">
+<span class="kicker">Tosh asridan hozirgi kungacha</span>
+<h1>Matematikaning <span>butun tarixi</span>,<br>bitta manbada</h1>
+<p class="lead">
+Bu sayt — Telegram'dagi <strong>Matematika tarixi</strong> kanalining ensiklopedik arxivi.
+Har kuni chiqadigan postlar shu yerda davrlar va mavzular bo'yicha to'planib boradi.
+</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="https://t.me/mqm199" target="_blank" rel="noopener">Telegram kanalga o'tish</a>
+<a class="btn btn-ghost" href="mashqlar.html">📘 50 mavzu bo'yicha mashqlar</a>
+<a class="btn btn-ghost" href="https://t.me/deltaikki" target="_blank" rel="noopener">Muhokama guruhi</a>
+</div>
+</div>
 
-  <section id="mavzular">
-    <div class="section-head">
-      <h2>Mavzu yo'nalishlari</h2>
-      <p>Kanalda har kuni shu 7 ta yo'nalishdan biri bo'yicha post chiqadi.</p>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <span class="emoji">➗</span>
-        <h3>Algebra</h3>
-        <p>Kvadrat tenglamalar, progressiyalar, logarifmlar, funksiyalar, kompleks sonlar.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">📐</span>
-        <h3>Geometriya</h3>
-        <p>Uchburchaklar, aylana va doira, trigonometriya, vektorlar, stereometriya.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🏆</span>
-        <h3>Olimpiada masalalari</h3>
-        <p>Sonlar nazariyasi, kombinatorika, geometrik va algebraik masalalar.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">✨</span>
-        <h3>Qiziqarli faktlar</h3>
-        <p>Tarixiy faktlar, qiziqarli sonlar (π, e, oltin nisbat), matematik paradokslar.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🏛</span>
-        <h3>Matematika tarixi</h3>
-        <p>Tosh asridan XX asrgacha — kashfiyotlar, olimlar, g'oyalar.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🔬</span>
-        <h3>Boshqa fanlar bilan bog'liqlik</h3>
-        <p>Fizika, astronomiya, me'morchilik, musiqa, biologiya, iqtisodiyot.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">💡</span>
-        <h3>Hayot uchun matematika</h3>
-        <p>Foiz hisoblash, byudjet, sport statistikasi, GPS va shifrlash.</p>
-      </div>
-    </div>
-  </section>
+<section id="mavzular">
+<div class="section-head">
+<h2>Mavzu yo'nalishlari</h2>
+<p>Kanalda har kuni shu 7 ta yo'nalishdan biri bo'yicha post chiqadi.</p>
+</div>
+<div class="grid">
+<div class="card">
+<span class="emoji">➗</span>
+<h3>Algebra</h3>
+<p>Kvadrat tenglamalar, progressiyalar, logarifmlar, funksiyalar, kompleks sonlar.</p>
+</div>
+<div class="card">
+<span class="emoji">📐</span>
+<h3>Geometriya</h3>
+<p>Uchburchaklar, aylana va doira, trigonometriya, vektorlar, stereometriya.</p>
+</div>
+<div class="card">
+<span class="emoji">🏆</span>
+<h3>Olimpiada masalalari</h3>
+<p>Sonlar nazariyasi, kombinatorika, geometrik va algebraik masalalar.</p>
+</div>
+<div class="card">
+<span class="emoji">✨</span>
+<h3>Qiziqarli faktlar</h3>
+<p>Tarixiy faktlar, qiziqarli sonlar (π, e, oltin nisbat), matematik paradokslar.</p>
+</div>
+<div class="card">
+<span class="emoji">🏛</span>
+<h3>Matematika tarixi</h3>
+<p>Tosh asridan XX asrgacha — kashfiyotlar, olimlar, g'oyalar.</p>
+</div>
+<div class="card">
+<span class="emoji">🔬</span>
+<h3>Boshqa fanlar bilan bog'liqlik</h3>
+<p>Fizika, astronomiya, me'morchilik, musiqa, biologiya, iqtisodiyot.</p>
+</div>
+<div class="card">
+<span class="emoji">💡</span>
+<h3>Hayot uchun matematika</h3>
+<p>Foiz hisoblash, byudjet, sport statistikasi, GPS va shifrlash.</p>
+</div>
+</div>
+</section>
 
-  <section id="davrlar">
-    <div class="section-head">
-      <h2>Davrlar bo'yicha yo'l xaritasi</h2>
-      <p>Kanal shu tartibda — tosh asridan zamonaviy davrgacha — ilgarilaydi.</p>
-    </div>
-    <div class="timeline">
-      <div class="t-item">
-        <h4>Tosh asri</h4>
-        <p>Sanoq tizimlari va suyak buyumlar (Ishango suyagi).</p>
-      </div>
-      <div class="t-item">
-        <h4>Qadimgi Misr va Mesopotamiya</h4>
-        <p>Piramidalar geometriyasi, Bobil sanoq tizimi va astronomiya.</p>
-      </div>
-      <div class="t-item">
-        <h4>Qadimgi Yunoniston</h4>
-        <p>Pifagor, Evklid, Arximed — geometriya va isbotlash an'anasi.</p>
-      </div>
-      <div class="t-item">
-        <h4>O'rta Osiyo uyg'onish davri</h4>
-        <p>Xorazmiy va boshqa olimlarning algebra sohasidagi kashfiyotlari; hind-arab raqamlari.</p>
-      </div>
-      <div class="t-item">
-        <h4>Renessans va Nyuton-Leybnits davri</h4>
-        <p>Perspektiva geometriyasi, differensial-integral hisob.</p>
-      </div>
-      <div class="t-item">
-        <h4>XIX–XX asr</h4>
-        <p>Gauss, Eyler, Lobachevskiy geometriyasi, Eynshteyn, Tyuring va algoritmlar.</p>
-      </div>
-    </div>
-  </section>
+<section id="davrlar">
+<div class="section-head">
+<h2>Davrlar bo'yicha yo'l xaritasi</h2>
+<p>Insoniyat paydo bo'lgan davrdan 2026-yilgacha — matematika tarixidagi 10 ta davr, har biridagi asosiy kashfiyotlar, olimlar va voqealar.</p>
+</div>
 
-  <section id="testlar">
-    <div class="section-head">
-      <h2>Mavzulashtirilgan testlar</h2>
-      <p>Har bir yo'nalish bo'yicha 3 tadan savol — o'zingizni sinab ko'ring.</p>
-    </div>
+<div class="era-nav">
+<a href="#era-1">1. Tosh davri</a>
+<a href="#era-2">2. Misr va Mesopotamiya</a>
+<a href="#era-3">3. Hindiston va Xitoy</a>
+<a href="#era-4">4. Qadimgi Yunoniston</a>
+<a href="#era-5">5. Islom oltin davri</a>
+<a href="#era-6">6. O'rta asr Yevropa va Renessans</a>
+<a href="#era-7">7. Ilmiy inqilob</a>
+<a href="#era-8">8. Ma'rifat va XIX asr</a>
+<a href="#era-9">9. XX asr</a>
+<a href="#era-10">10. XXI asr</a>
+</div>
 
-    <div id="quiz-topics" class="quiz-topics"></div>
+<div class="era" id="era-1">
+<div class="era-head">
+<span class="era-num">1</span>
+<h3>Tosh davri</h3>
+<span class="era-range">mil. av. ~35 000 — 3000</span>
+</div>
+<p class="era-desc">Yozuv paydo bo'lishidan ancha oldin odamlar hisob-kitob yuritishning ilk usullarini — kesiklar, tugunlar va tosh belgilar orqali — topgan. Bular keyinchalik sanoq tizimlarining ildizi bo'ldi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Ishango_bone_%28cropped%29.jpg/330px-Ishango_bone_%28cropped%29.jpg" alt="Ishango suyagi" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~20 000</span>
+<h4>Ishango suyagi</h4>
+<p>Kongoda topilgan bu babun suyagiga tushirilgan kesiklar guruhlari — sonlarni yozib borishning eng qadimgi izlaridan biri, ehtimol tub sonlar yoki oy kalendari bilan bog'liq.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Medieval_tally_sticks.jpg/330px-Medieval_tally_sticks.jpg" alt="Tugunli tayoqchalar" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mingyilliklar davomida</span>
+<h4>Tugunli tayoqchalar (tally stick)</h4>
+<p>Yog'och yoki suyakka tushirilgan kesiklar — chorva, oziq-ovqat yoki qarzni hisoblash uchun ishlatilgan eng sodda "yozma" sanoq usuli.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Stonehenge2007_07_30.jpg/330px-Stonehenge2007_07_30.jpg" alt="Stounxendj" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~2500</span>
+<h4>Stounxendj</h4>
+<p>Buyuk Britaniyadagi bu tosh majmuasi quyosh va oy harakatini kuzatish uchun aniq geometrik va astronomik hisob-kitoblar asosida qurilgan deb taxmin qilinadi.</p>
+</div>
+</div>
+<div class="ev-card">
+<div class="ev-icon">🖐️</div>
+<div class="ev-body">
+<span class="ev-year">yozuvdan oldin</span>
+<h4>Barmoq va tosh bilan sanash</h4>
+<p>Yozuv paydo bo'lishidan oldin odamlar barmoq, tosh yoki tugunlar yordamida sonlarni "saqlab" borishgan — bu pozitsion sanoq tizimlarining uzoq ildizi bo'ldi.</p>
+</div>
+</div>
+</div>
+</div>
 
-    <div id="quiz-box" class="quiz-box hidden">
-      <button class="back-link" id="quiz-back">← Mavzular ro'yxatiga qaytish</button>
-      <div id="quiz-question-view">
-        <div class="quiz-progress" id="quiz-progress"></div>
-        <p class="quiz-question" id="quiz-question"></p>
-        <div class="quiz-options" id="quiz-options"></div>
-      </div>
-      <div id="quiz-result-view" class="quiz-result hidden">
-        <p style="color:var(--text-dim);margin:0;">Natijangiz</p>
-        <div class="score" id="quiz-score"></div>
-        <div class="cta-row" style="margin-top:10px;">
-          <button class="btn btn-primary" id="quiz-retry">Qayta urinish</button>
-          <button class="btn btn-ghost" id="quiz-other">Boshqa mavzu</button>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="era" id="era-2">
+<div class="era-head">
+<span class="era-num">2</span>
+<h3>Qadimgi Misr va Mesopotamiya</h3>
+<span class="era-range">mil. av. 3000 — 500</span>
+</div>
+<p class="era-desc">Daryo bo'yidagi ilk sivilizatsiyalar — piramidalar geometriyasidan tortib Bobilning 60 asosli sanoq tizimigacha — amaliy matematikaning ilk yirik yutuqlarini yaratdi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Great_Pyramid_of_Giza_-_Pyramid_of_Khufu.jpg/330px-Great_Pyramid_of_Giza_-_Pyramid_of_Khufu.jpg" alt="Giza piramidasi" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~2560</span>
+<h4>Buyuk Giza piramidasi</h4>
+<p>Piramidaning nisbatlari va burchaklari qadimgi misrliklarning yuqori darajadagi amaliy geometriya bilimiga ega bo'lganini ko'rsatadi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Rhind_Mathematical_Papyrus.jpg/330px-Rhind_Mathematical_Papyrus.jpg" alt="Rind papirusi" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~1650</span>
+<h4>Rind papirusi</h4>
+<p>Misr matematikasi haqidagi eng to'liq manbalardan biri — kasrlar, tenglamalar va yuzlarni hisoblashga oid 80 dan ortiq masala saqlangan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/YBC-7289-OBV-labeled.jpg/330px-YBC-7289-OBV-labeled.jpg" alt="Bobil gil lavhasi" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~1800</span>
+<h4>Bobil matematikasi (YBC 7289)</h4>
+<p>Bobilliklar 60 asosli (seksagezimal) sanoq tizimidan foydalanib, gil lavhaga √2 ning juda aniq qiymatini bitib qoldirishgan — bu tizim bugun ham vaqt va burchak o'lchashda saqlanib qolgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Plimpton_322.jpg/330px-Plimpton_322.jpg" alt="Plimpton 322 lavhasi" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~1800</span>
+<h4>Plimpton 322 lavhasi</h4>
+<p>Ushbu Bobil gil lavhasida Pifagor uchliklari (masalan, 3-4-5) jadval shaklida yozilgan — Pifagor teoremasidan taxminan 1000 yil oldin!</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_%28PSF%29.png" alt="Abak" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~2700 dan</span>
+<h4>Abak</h4>
+<p>Qadimgi hisoblash quroli abak — donalarni surish orqali qo'shish va ayirishni tezlashtirgan, hozirgi kalkulyatorlarning uzoq "ajdodi".</p>
+</div>
+</div>
+</div>
+</div>
 
-  <section id="haqida">
-    <div class="section-head">
-      <h2>Loyiha haqida</h2>
-    </div>
-    <div class="about-card">
-      <p>
-        <strong>Matematika tarixi</strong> — matematikaning tosh asridan hozirgi kungacha bo'lgan
-        yo'lini o'zbek tilida, tushunarli va vizual boy formatda hikoya qiluvchi loyiha.
-        Postlar avtomatik tayyorlanadi va kunlik ravishda Telegram kanalga chiqariladi.
-      </p>
-      <p>
-        Bu sahifa — loyihaning birinchi versiyasi: kanal mavzulari, davrlar xaritasi va
-        mavzulashtirilgan testlarni ko'rsatib beradi. Keyingi bosqichda har bir post shu saytda
-        alohida sahifa sifatida arxivlanadi — qidiruv va filtrlash imkoniyati bilan.
-      </p>
-    </div>
+<div class="era" id="era-3">
+<div class="era-head">
+<span class="era-num">3</span>
+<h3>Qadimgi Hindiston va Xitoy</h3>
+<span class="era-range">mil. av. 1000 — milodiy 700</span>
+</div>
+<p class="era-desc">Bir-biridan mustaqil ravishda rivojlangan ikki buyuk an'ana: Hindistonda nol va pozitsion sanoq, Xitoyda esa tenglamalar sistemasi va amaliy hisoblash usullari.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Aryabhatta_of_Bihar.jpg/330px-Aryabhatta_of_Bihar.jpg" alt="Aryabhata" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">476 — 550</span>
+<h4>Aryabhata</h4>
+<p>Hind olimi trigonometriya asoslarini ishlab chiqdi va π sonini yuqori aniqlik bilan hisobladi, shuningdek pozitsion sanoqda nol tushunchasidan foydalandi.</p>
+</div>
+</div>
+<div class="ev-card">
+<div class="ev-icon">0️⃣</div>
+<div class="ev-body">
+<span class="ev-year">598 — 668</span>
+<h4>Brahmagupta</h4>
+<p>Nol bilan arifmetik amallar (qo'shish, ayirish, ko'paytirish) qoidalarini birinchi bo'lib aniq shaklda yozgan olim; manfiy sonlar bilan ham ishlagan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Sun_Zi_Suanjing.JPG/330px-Sun_Zi_Suanjing.JPG" alt="Sun Szi suanjing" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">milodiy III—V asr</span>
+<h4>Sun Szi suanjing</h4>
+<p>Xitoy matematik traktatida "Xitoy qoldiq teoremasi" deb nomlangan mashhur masala birinchi marta qayd etilgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg/330px-%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg" alt="To'qqiz bob" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~200</span>
+<h4>"To'qqiz bob" (Jiuzhang Suanshu)</h4>
+<p>Qadimgi Xitoyning eng muhim matematik risolasi — chiziqli tenglamalar sistemasi, yuza va hajm hisoblash usullarini o'z ichiga oladi.</p>
+</div>
+</div>
+</div>
+</div>
 
-    <div class="author-card">
-      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAIwAaQDASIAAhEBAxEB/8QAHQABAAEFAQEBAAAAAAAAAAAAAAMCBAUGBwgBCf/EAEkQAAEDAgQCBAsGAwUHBQEAAAEAAgMEEQUGITESQQcTUWEIFBUiNHFzgZOy0TJSVJGhsSNCwRYkM0NiRFNygpKi4SY1Y4PwF//EABoBAQADAQEBAAAAAAAAAAAAAAABAgMEBQb/xAApEQEBAAICAwACAgEEAwEAAAAAAQIRAzEEEiEiQRNRBSMyYYEUQkOR/9oADAMBAAIRAxEAPwD01QUFIaGnJpYP8Jv+W3sHcrjyfR/hYPht+iYf6DT+yZ8oU6CDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6IIPJ9H+Fg+G36J5Po/wsHw2/RTogg8n0f4WD4bfonk+j/CwfDb9FOiCDyfR/hYPht+ieT6P8LB8Nv0U6INTzHRUra5gFNB/hD/Lb2nuRT5l9Oj9kPmKIM9h/oNP7JnyhTqDD/Qaf2TPlCnQEREBERAREQEREBERAREQEREBERAREQEXxzg0FziABqSeS1vMfSNlnK0BlxHFqVptcRskDnu5iwHamxsqLg2O+FLhEVU+LCaSaeEHh6x7bG4O9r6gj1EFajUeFNjpY5gpqVjnR8HGG3DTf7XCq+8Tp6nReMcM8IvOGEzcTK6OZt78M7eMEdnq7Ofes1hfhR5lowRUw01SQ/iaJL6ixu0ke79O9R7w9XrRF5Sw7wpsbgdUNkpoHReMOkia8cTmxkkmMu7r6FbphHhVYK8sGJUUsWg4izW5PMDkB/VT7w1XeUWi5S6Z8pZvl6mkr208xdwNjqCGucdNh7/0K3oODhcEH1KZdoERFIIiICIiAiIgIiICIiAiIgIiICIiAiIgIiINazL6dH7IfMUTMvp0fsh8xRBnsP9Bp/ZM+UKdQYf6DT+yZ8oU6AiIgIiICIiAiIgIiICIiAiIgIiwGa87YNlCjfPiNXGyRrbtiv5zuzYG3rKbGdkkZEx0j3BrWi5J2AWgZ36a8rZTw6SSLEIa6r4zE2CneHOafvEc2jtC4Fnzp8x3MkclHA80cLJXGOWE8Lyy+nENuIdoPuXI6mvnmLn+c8uJuXHcrO5/0t6/26ln3whcxZkhigp5Dh3Ul7etpHuZ17Tp5wO3qXKcQxurxEg1E8swAsOJxJH5q3ex0ou5vnb9qp6sAabW1vzVNrafG1Lv5bi+9+akLzIzSLhuLXvuqGMF9AFOyMmzRfXe6bJFrw9WbG5KreeJgJ9/ap+oMj+G35bqsUbmgOcx3Cb8lG0zFZNJa4AD13X3rXAnzbDkrySmZwaaknTT9FG+lc1pFtzcEJs9UUFfLTStfFI9habhzTYg9q6PkXpyzLlGqgPjklVS8fFLFO4v4xz1PM9vcFzt1C98T32Nh3KDgJGpPcplRY9wZA6ecsZ3NPRvm8RxOVjnmCT7AtuA7bZdKY9sjQ5jg5p1BBuCvzYgqZ6WQOje9ruRBsusdGHT9jeSphBXF1fh3DwmBx84EbcLifN3/AC5LSZ/2rp7QRYLKOdMHzrhra/CKjrYiSCDobjfTeyzquqIiICIiAiIgIiICIiAiIgIiICIiAiIg1rMvp0fsh8xRMy+nR+yHzFEGew/0Gn9kz5Qp1Bh/oNP7JnyhToCIiAiIgIiICIiAiIgIiIC+OcGAucQANyVDXV9NhlJJV1czYYIm8T3u5BeeOlbponxgy4Xg0klLQtJa+VjiHT/QKuWWkybdC6TemrCsnUz6XDKinrcUOnC13EyHvcR+wXl3OWe8WzniXjuK1Tqibh4G8LeFrR2ABYzEax9TfznXJ5m5KtaHC6iueA2/CdFlll+60xx/UWEjC53DG0lxO97lXkGEPeBwtIJ3ut/wXIREQlkZcgfzBZp2VREwNjjBPaeXeubLyJPkdeHi3W65WcNETDxAH16LFVMRYSALDkV0XMOBmkjLncTe481olbE7juDrfmr4Z+ynJx+vxj2ttcedqriAOLtXtGnNUsjudANP5iVkKKFoPGXgEdhBWlrGR8FMCGue4OPZz+qu4oZXN4GO806HQm6tp5DG8cIc6+tm23WRpqirbGzhg4L31JsT+SrVppVLhwDW9czhB1OmoVjU08bQOMcJJHL3K7qp3xyCNzjJJoOE+aLBW04DmjrAA7cKItUFTG5lPwsdbrDbVWr6QRPc1p1trzWTtHKYGuLdNfP2svlVA4OdJGWancdncplRZtgnUzjqAbXUXV8Lt7DndbHDh7nMZIbAE3sq35fkkuSLNJuNFPvFf499LXKecsXybisWIYRWSQzRnbi8147HDYjuK9VdE/T9Q5xLcMx0xUWKHVr2jhhlHIC5Nj3c15GxDCnUj3BzRa+llRR1E1PMC0uFttbLTHL+meWP9v0dRedeg7pwkke3Bsz4k+SN3DHSzSWJaex7uzvK9Ese2VjXscHMcLhwNwR2hay7Us0+oiKUCIiAiIgIiICIiAiIgIiICIiDWsy+nR+yHzFEzL6dH7IfMUQZ7D/Qaf2TPlCnUGH+g0/smfKFOgIiICIiAiIgIiICIiAvjnNY0uc4NaBckmwAX1cs6bukWfKtDHh2HSMbU1TXCRxseFm35qLdRMm2i9MfS1V4pUT4Jhs3UYew8L3R6mo13vb7PcN1xSonfUP1HDzNzrZXNXVSTudK8kE/zHd30VrFFxm+pWFv7rSRRS4e6rnDWs0doF0/KeUmRRxySMF+QsrLJeWi/hqZ2eoLo9NTiFgAtdcPPzbuo9TxuDX5V8ZQsaAOEW7FW+jY1mjRdSl1rJq5cVyd3q0rNeECaOwsHE6kDl3Lk+NYU6CZwEL3HsAvZehqyhbMw+b53atUxTKnjhIADR2Abrfi5vVz8vDM3BXUkjpNAfUBsryKMxwESHU7NaNV02s6PusOjAAPujU+9YWsyNNTXs9xJ2DWrrx58a4cvGynTUWU4cB5rgb7BX7aaaKO8lm2Ghc5ZUZSqoiC2J7yD2E6/wBSrPFMPr47dYBHENLk/a7h/wCFf3lUvHZ+mLtBG4ulIv8Ae3J9ymaPHGsHAA3QAFxvvuvkdLPY9TE5xdu8t5dyvBgVc+McQDGW1s66m5RWYZf0xlXwitkghAcG2s8juV/BQ1MzQ2waDoTe91fYdlOqqZuMec0aW7VvWD5JMLBJLcOAsDa5WefLJ00w4Mr21nDMDDg2Nzb8VgAVuFLlaOems6MXte43WXwjLcdLI57mk37d1sEcIjaABouXLl3XZhxac1xnI7JqdwbHdwGhsuW41gctFUOJaQ4aL00+NpaRYEFaTnHKTKuJ88TRfe3YteLmsv1Tl8eZT44bTSyU8wPIi/rXfehvpoxGhmiwWvZFNRuIHWPcQYR26A39S4lieGyUc7mEEf0KtaeQxSB2zr8l3Y5fuPMyx18r9D4pWTRslYbseA4G1rgqpcA6BOlaaYxZaxNkHVXPU1F+F1+x1913/dby7ZWaERFKBERAREQEREBERAREQEREGtZl9Oj9kPmKJmX06P2Q+Yogz2H+g0/smfKFOoMP9Bp/ZM+UKdAREQEREBERAREQEREGHzZmGnyxgdRiM80UZYLR9YbBzuQXjrOGaqzNGMz4lWzGSWR2nY0cgF2nwksfhoo6TDw0vnkjLgSbiMX3A7TsvOrA5zy55uTr6ljnfrTCJAHPu6/PQLYcrYQa2paXj+G23vWEhiMjgBrfzQF0zKmHinpmvc3Uhc3Nyesdfj8e8vrZsPp2U8bWNFgFkWuHDurGJ1lcB1xYFeZnk9fGJdzuriLRWjX23/VSskA1WO2i9IBG6NhjduFbtnB3KuY332B2WkRYClicLBo9ahfgsDyPNGvMq7idfZtv6K5aSbDht3rSVSxh34FG94aGN1025K0myRT1VQZHQNuNASfs+rsW0Mu27tNe/ZViRrSTqb72C0lUuLUXZKpInj+E02Vx/ZijD2nqWkjmRsVsMkjZHXadu3RUF1ruum1fViYsDpoD5kYHuVz4sxp2PqV07TZ3Ow1VEgtc8Wyzq8xWr2taSA1QOcOSmfck9ytXkXVLVtPpdpZQTM42lpA4SvvGQvhdfdWxyVsc6zrlhkoNREzVp1AXMa6jMLzcWXofEKVlRA5hG4XIM04P4rVSNDSG3uF28HJ/61weTxb/ACjD5YxfyZiEU5aHtadWEkX941C9m9G2bKbNeWqWoiLxKxgbKHu4vO9a8QTw9S8Pbe97Gy7n4O+dXUdfLhc7m9W9l2MLy3iN+V9L29XrXdhdV52Uel0Rp4mg9oui2ZiIiAiIgIiICIiAiIgIiINazL6dH7IfMUTMvp0fsh8xRBnsP9Bp/ZM+UKdQYf6DT+yZ8oU6AiIgIiICIiAiIgIixuZK4YZgVdWE2EML3mx10Gw7zt70HlHpwxgYhn3EXB/GIZOqbzGg5LQoXEtv2ndT4/WyYjjFVNJw8ckheQ37Iudh3BW8QJcAOey5bXRjGZweASTMJ1I/qul4SOGnaOQFlzrA9ZgQNL2C6DQP4YBY7Lh569LxsfjLsk0UrZwBusZ412KSKXi964snoYxk2z8SnZqBclWMR02V3C7s/VU2svYgFcxCw0Vm19hpzV1C8ki/NXlVq8Z51ztca25qZl3c9AOZUDSdLN7lPFctFhr3laxnU7HBp1Gmw0VTw151IBso2tPZr61IxpcQLK8V2hexvCbC9+duS+RtaW3Fxa9+xSTAm+g7td1SIrNIJAF1Bat3RAuvpdRSh7RqB2aK4ewgnz9OVhsraXTc6qq0WcspafXuoHvuN9FJORxczord57Oazq2lDjr2qlz7KlzlE+TTVIiq3ycQ71pubqNjz1they2gyWN1hswRtmgdcbjdb4XV2w5JuVyvEKM3LAPUVd5OxZ+BY1TVZsereOMHZzb6hXOIwASdpCwvD1NYCRodSvTwu48jOar3fg1fTYnhVLWUj2vglja5hHZbZXi0joengqMkUT4ZzIS0cbC4HgNrW09y3ddM6c1ERFIIiICIiAiIgIiICIiDWsy+nR+yHzFEzL6dH7IfMUQZ7D/Qaf2TPlCnUGH+g0/smfKFOgIiICIiAiIgIiICwGfB/wCk8RNwLRE3Jta2t78vX2LPrT+lyo8X6PcZd4wYA6AsLgLkg7j3i4UXpMeLHOD6qVzXcTSTZ33h2+9SwD+Le2ytISS7iOnFfRXsR4TrqSR7tFy5OrGM9g38Mja5PJb1RO/u4Wi4Y0/w221LrWW8UYtA0HmFwcz0+CfEouXK7iAAF91aNIvcq5icD61yZu3BkIXggaq6iPfZY+IEK9iuAsl17GeI6q8h2VlAddd1kYo+MjVXxRYuIRp3XV4yM6HtUcUQZa+/YVdNifIAAb20W+MY5DeIcgL9qlaA8fzAjfsXx0JFgLWO9+S+hhabi11rplUcl+IEXPeqLAgk8tdSrgh7Q2wuLbkqFzHk6WI5hRYb2tJWlzb3Fjr3q0nB7fcsmYS8kXNzpYDdWtRTBo0GhPPdZ2VpjWHm5kkbK2k05q/njFibbclYvYLaLKtFtK7VW8z7Xtop5hYKymukRUTpdVaYm5slOQeQUrzYq1rHDq3epbYufPppNeLyvusPVREP4/cVmcSt4wXcr2IWNqNyDsvS4r8eXy4/XpvoBjh/seJGOvLx8Mg01G4OnrO/Yunrjvg1yh+XMQbxecyo4XsI2NtCD3jkuxLsx6cd7ERFKBERAREQEREBERAREQa1mX06P2Q+YomZfTo/ZD5iiDPYf6DT+yZ8oU6gw/0Gn9kz5Qp0BERAREQEREBERAXL/COrHUnRjVsbw8VRURQ672Lrm3uC6guNeFFVthyTQ0928U1aCBz81pNx+n5quXSZ28wxNsGF32QC5XtJAXXe4AX5dit4RxRxstqW2/VbBhmFSVsjGN+zuSuTO6d3Djushl6kfLIHlun7Bbdw8DdtOxU4bhsdHAGtFu1SSC7rALz+TLdenx46UNYXu0V/TwcI13VFNBYXIVzxtiDnPIACxuO20y0njitqdlMCG6dixsuLRNFi8C3erKTG2i9ngBXx4lLytjZIAd9lkIKppA11stGbjgc42JsFPDjYaf8AE/8ACt/Fo/ldCbW8XCQVdRVdxqd9gFotPmKK4DpRptqsg3G4w/zZLi17K2tIl23MVRDRbS25vuojU8L9wsBDisTxcv8A1RmJOL7OfudVGWRMY2UTtIHDp/pPYqXVDWg6B1z+Swzq+w1eNu1WVRirG3BeABvdT7ExZ6atbc2IVpNiFg48/WtYqMwRs2cD71jZ80gXaXW7D3qO0/I2uWpaWAG17dqtA9pJ27QtS/tNDI4jrQbaHXmphj8RaC2Sx7zun8Sl5WxysD2mxVjLFobLFuzE1gFyDdXNNjMFQ4AkG/MHZReKwnLEUrSCoJouuYWrKTQh44m2IVkGFshupkRbto+OUTqebiAuCbELBVRs8gbi5XTcSwplbC4EDi5Fc8xrDpKOch4s0g2XVw5/dOLyOP5uO4eDE4SUWM6kPZJHex0cCDa47rb+tdyXn7wY5T45ikYa0jqmku5jVegV6OPTzMuxERWQIiICIiAiIgIiICIiDWsy+nR+yHzFEzL6dH7IfMUQZ7D/AEGn9kz5Qp1Bh/oNP7JnyhToCIiAiIgIiICIiAuE+FW4eR8BjDvOfUykjtAYP6ld2XEPCkgc7A8EnABa2qfG421F2XH7FVz6Tj288YZTiWoiZbmunYLhjaaIPLbE8loOXmCTE2gCxuAV1VjOCMepedz39PV8afNqHEAKADzrhTubcgLG4riLaGB5Z9oBc0m3XctMk6rihbZ72g95WqY3mkOeYYHizdytexDGqqZpawvcXbnksT1FVJpY2JuT2la48c7rHPkv6X9VmWQacR4TuSsbUZpLL8LiTb1AKZmESzGzmb876qcZTpyLyNJK29sMe3P6Z5dME/N9WDwtJ/5SvseZq1zuGR0gB5XsFmX5cgh+zGFbOwpoP2dlH82H9LTgz/dTUWMVEY42vftcguuthpcwvcWNc46AA2WtNoywWGylja6P7KyyyxrpxxyjoVDjznD7RtyWTixZxI85c+wyoc2wG/NZ+B0nCHG9lzZdunFskuMOZHYuuFgsRzA9l+Fxv61BWyvDPNJ2WtVcj3OPEVOM+/UZX4uqvHJp28fGR/RY6txioe43duArZw5aqkQl24XRLjHLnMqxFbidWyQ9XxEdyU+YauMXeXD/AE2Wbjomu04AVdxYPCdXQs/Jazmxn6YXx8u5WEjzLVP808QA5grLUOP1DS10heBf7QCuZMFgLfNjY33L4zC2sba9h6lb3xqs4s8W54LnCIxtjncCTpdZ7jiq4xNTvBB3suTPpHwOu3ZbHlXFpYKnqQ8ljjs66yuE7jSZ2X63qPzmWO4WsZxw0S0jp2jVuq2oN0BGzlZ4zTCfDqiM82Gypj8rTP8ALFf+DK6ZmN4nG1rTE6maXOtqDxf/AL9F6IXnvwZW3xvGbg3bTMA7rvXoReth08bLsREVlRERAREQEREBERAREQa1mX06P2Q+YomZfTo/ZD5iiDPYf6DT+yZ8oU6gw/0Gn9kz5Qp0BERAREQEREBERAXF/CgY85XwiQf4ba4gm/Mxutp7iu0LkPhMx8eSaF1r8Ne3Xs/hvVc+k49vP2UWCXF2W7AV1E7DXkubdH8Jkxpx3DIyT3LpLt7rzeft7Hjf7UMzhFEXErScwVUlVJ1EZ4W3uSOa2fFZTwED1aLU6kgSOcQb9qwxsjfKMeyjayxcbqZrGM3Kx1fihgNmgk8lhpcVJcTUTOJO0UZ/cq35ZdI1jh9rbfHKaIgPmY33q8gnppGkt654H3IiVo0k2JChmqqWk6mKNt+IjUhYKHHa2SpHjOJywMs43aC65DSWiw2ubC/K9+S0x8a3usc/LxnTplVieGsJa6SZpH3onD+isjVUcx/gzMf6lqWVZMXzBX+K+MF3mk3cLi4V7ikE+F1RirIC142ezmoy4Nftfj8iZNhaxkmy++KXOyxmAYgysnFP1nFIRdt9C5bXDRm4uNVz5T1dUu/qjC8NHG2zdVvWG5e8YjBETn6cm3WGwijPWt00XScAbw8DQDY72WXt9aauttDxjBHwwycUTmgdostBr6azyLLtuZ4ON8otoORXLsTw09c420Vt/VbPjVupHYvrWM3c4NaNydFf1tM2kp5J5TwsYLlac7EanE6jgigeGh1g06AevvW2GFy6Y5ZevbaKfEMPjdYdZKf/AI2/1KyzKqncy4pyNL2dKwH91qOM4DiFFgb650pGoADOQJWmPq/7u8uq6h9R1gszUNDLanivvfS1ttb8l0YeN7fduTk8r1+adYnxCBt7QTD1Wd+ytW4lTyOs1wDuw6FaNlqDFMTM/i08hMQDrE3HqV/VVNRSvEOJ0xJOzgLH1gqL4+ulsfJl7bg17ZN9VWyERyMlj0cDdaxQ1r4yOCZ0kfIO+0Fs2Hy9e0FU3ce17jvp0DCKzxmlZxGzwLWKu6mPrKaRg3LSFgsBkMbeH8lssdntHYVEstRrUR+Di+SLNeLxNaCx9Ld3aLP0/cr0MvP/AIPUQiznjzXmzo6ctt/9mv7LrNX0i4FTTmJkstQAbGSFt2j1G+vuXpzPHHGXKvKvHlllZjNtnRWuG4pR4vTCoo5myx7G2haewjkrpaS7+xlZZdUREUoEREBERAREQEREGtZl9Oj9kPmKJmX06P2Q+Yogz2H+g0/smfKFOoMP9Bp/ZM+UKdAREQEREBERAXN+lTpCZlupp8JZVeLyTR9ZI9t7gE2Avy2Oq6QSACSbAc15a6SMQ/tHmitribsc7giB5MGg/QX965fL5PTDU/b0P8b485uX71GzU+YsQpnCppMQnjfuC2Qm/rB0PvTpLzrBnLIEtJVPZT4nQ3qJItmy2HCHMvv9o6DUHuWh4FWTUrOpc7ija6zb8u5XGaooq3DTJYXDS71Lg4ubLC6/Ver5Xi8eeO9fYxXRrCHVFdUfca1n5rd3OutV6OY+qwuqlIA6yewPaAFtF7q3Pfrm8eaxWdXD1wssJW4UXAhrdStmawOOoVfiody0XJ7OqRzaryvLIXF19exYp2VWQyh5jdcG911qXDg4HRYmqwt4vZvuWmPLYXjmTXKOshdTupKuIPje3gPK4Wk12R5hVuFII5qdzvML3AFo7O9dHkw15J/gAntskeFTkgNiDe+y2x8ixll4mN+sBk/BX5a62dwZJUyaDhPmsCyNZQ1eJ1cdQ+URyRuDmFjQbEG43WwU+BTSayO/RZekwRkdrj3peW36Y8OGLSaHJNNTzRTAudMw8TSeS2duHi4uFlpKURWu3UqhkYc9cvJnbXThhNJMPpQ1w0W54DGXyMB0sbLWqdoZwracDlEZYdTY3VOOfl9WyusVrmWnMdW5pBPFvfdaTXUTTI4ELomZCJ5et0LnNWn10QN3WsVPJjrK6Rjd4zbVK/AY8RpnQvboeQWDbkmGldxRufG699O1b3TtHWDsWRdQRVDdAO8lacWdjLPCOdVdC6ehkoal/XQSN4TpYjvWjzdHjo3Ax1kNrn/EYb/ouz1uANcXWbblcLDVGBVEZPAQ4d66ZzXFjeDHLtqOCUMOXqI01OzrZXHiklsfOPd3KOpwibFZQ+WMuttxcltrcMqhb+G38le0mDTPN3j8lW89qZwY49NOp8mkkcIse5ZzD8tOpW6hbhS4YIwPNV06lAGwAWWWdva0x18a9S0j4PsjVZumN2i++yoewMdayqi0da6nC/VM58a1h1TXYVmzGaOhlMQxCMNlLdD1ZIcQDy5j1ErLYziLMGoXyAAmJmjfvHYBWGIf3TOMFRympHC9uYKwuaKp9QGt4rtDgT6+S05rblFvExn2f8tw6F86V8GbWUlbUOfFXHq3NOwJ+zb1HT3r0avH2UpDS4/TTXsWjjB7CDcfsvX0MgmiZI3Z7Q4e8Ls8LLeNx/pyf5fhmHJjlP3FaIi7XkCIiAiIgIiICIiDWsy+nR+yHzFEzL6dH7IfMUQZ7D/Qaf2TPlCnUGH+g0/smfKFOgIiICIiAiIgwGeMW8kZdqXtJEsw6hhHIuBufyuvN9ZD4xUyEcl6Oz5gzsby1VQxX6+EdfFbm5vL3i4968+uh4JJHnYi4Xl+dv3m+n0X+GywnHlrtiRSlkJA+8TdR1ExloJGuJuAQQsjIeriC1utxQsr2QusI5fMv38lyY3ddnLNxmcjtMeX4t7ue4396zzX3JurTC6QUOHRQC2gv+ZupSfPtyW/N9u3BxTU0vYjqr6AcWtvzWNicB6leRTgLkrpxZJsLXjkvhoGP1te6oin0uFdRT66qNr+q1OFMJ+yF9GFsG7Ask1xPLRT2BAu0bK8LGMZh9gSQLcgpXQsa0GwFlfOADeE+tWFSSCTr71OVRIxlYW3J/JW1N9q90rqhrX25FUwSNNrLLtf9L9rtln8GmtI250Wvts5qyWGlzXtcNLbaq2Py7V1uMxijuJovy2WuVIve62XE4yadkgA21Ws1QIvdXz7UnTGjzZAD2rL0svmix02WEllAfcK/oZg4dqpPi0+ssWB4vbTdQeJscb2H5KaKQADise5VucCbcNiNd1eVGlr4gzSwHqUraZjOQA7lWXkWvb1hRSTgA9ii1Pqkc1gBVtK4AEBQzVRvuLK0lq+zdRsuOoTv1so432KgknvzXyF93LXCOfNa5kYA+iq/ul7D7xf+iwVRB43TSaed9pZ/MsXXYM4g2Mb2v8AdcD+qxmFRGVtgL6K/N80t40+WrXB6LhxKNwBNoibDv0XrKijMVJBGd2xtafcAvOeU8J8dxyGAD7UscXu4tV6SXX4M/3Vyf5jPeWMERF3vGEREBERAREQEREGtZl9Oj9kPmKJmX06P2Q+Yogz2H+g0/smfKFOoMP9Bp/ZM+UKdAREQEREBERAOoXnbOOHtwnG8QpGizY5nBo/0nUfoV6JXE+l+k6nMkkttJ4Y3/ldp/ZcXnY7wlen/i89ctx/uNAxGMtpwe0LW6bCDiWJxiRtmNPGfdqtvxBgNIw25KyoS2NwdoLLzsHv5XWNrIudbzdrKIktO6qmf511G9wcFvnPjy8KkEvYVMyYjbkrFrlIJNRYrkyjrwrLQVFgNd1ewyG6wkctlf081+Y2VGzN08l7DdXkbw4bEd6xFPU6g63V6yYuKtKirl+jRxO4gNbrG1tSeE3Hvurp8twRqPWsLidRwXAcD2hKiMLiE5e8gE3V1hlPK4cbrhY+h/vlc5pI4Wm5WzRS08TQC9t1EuotpVELAArJ0DC4ggLGeNwX0cFe0+JMitZzfzSTdV6bDWADC23te/vstWrAddVmMSrw2CJzzGA8XAa4FYCoxGFzrAg6a3WufbKdMZUU7iSRzF1Fh9bZxjPJZRvVz3LTYrB1kPimJ+ZbhcL+orOr4xtNLOCLueSp3SsI9/bcrDUkoe25cLgWA/qrvrBYk3/NNrLqWoHLb1qynqhqbKKaewsRYKzmlF739yrtMiuWoabhWkk5uRdQy1ABNlbumJ5qYrl0vBKTup6Y6rHxvJO9+9XsDw0E35rq459cfJU+Is8Yw2pi7Y/6gqLL9BbfmFI6S0MhOxCymBQ3AfawG55Kef8AUX8a/jWT6OKQOzbE07tmc78mErtq5F0bta7Nz3N2DZCPyAXXV2+FNcby/wDI5b5f+hERdjgEREBERAREQEREGtZl9Oj9kPmKJmX06P2Q+Yogz2H+g0/smfKFOoMP9Bp/ZM+UKdAREQEREBERAXKOmmmcaugmA0kgfHfvDgf6rq60zpTwo12X21bG8T6OUSH/AIDof6H3LDycfbjsdXhZzDmxtcXoqyOogdBNHct7eSxuKUooIDUx8RB14TtZZiXDm9e2Zml9wpK6OOopjDI3cady8X7PsfS7+6YOhrW19BDUs2eLeog2P7KQOVthtIKCOalb9hshe0dl9/1VwRYrql3NvOzx9c7HwusjX6qh2qo4uFY54/W/Hl8XTX8O1iFcwTW1uFjQ+yrbP2rCx0ys9DUWAPF7lexV3COHRa0yqDBvoqxXE6XJUJ02ObEOOPha8XWJqpRM0niuf6q161r9fOv61IPs8J/NNnTAtr/EJagXs8kWWlZpz3jNDPwUMTbW+2+5/RbXmGmPEZI78S1SdsUziyeI37wtuOTe7NqZ7s1LpTlrpOkrphS4jH1EztGyNPmE/wBFu0OPEtsXke9aI3B6YghsI17lciSopmhhBc0aBw7FrnjjbuTTDHLLH5ldt4GOENP8TT1rC4tnWlwpvWVNQGE7Dcn1BYJ1bK5nC0HiWKmweCacz1DTLIf5napjxze6ZZ5X5G04T0mRVswjhZUD/U5pAW0Q4p5SfG46uGq57SRtBbHT09gOYFgt4y/RmOLjdqSs+TGTppjWfp5OA2VyZx963K91ZOHCLEaKB0pGl7hYWte1/LOACS+/YFYT1N7gad6oklJ56K2kIfz052UJVPkvuVSDcWUHEXO02UzAVrhGXJU0biHjvWQZ9m3fqsZGbkFZKPkurjmnDyXa5u4ujaBcueBZZDFPGYKQCAniJA4W9qsIJAypj0vYXWegYDHxHW+pWXLd56b8GOsJWc6LKR9PjMLXkueIJHPPebLra530bUhOK1NRa7WQ8APeXf8AhdEXp+JNcceT5+Uy5roREXS4hERAREQEREBERBrWZfTo/ZD5iiZl9Oj9kPmKIM9h/oNP7JnyhTqDD/Qaf2TPlCnQEREBERAREQFHU08dXTyU8zA+OVpY5p5gixUiIOD5lwp+AYrLh8huGasd95p2KxUsXWM3XZs75JhzZTMeyQQVsIIjlI0I+67u/ZccxvLuZMCldFV4bUOYNpYml7CPWF5HkePcbuT49/w/Lxzx1lfrBSNEVVa+r7hfHa7K8w7KGY8bnkrIqCaKjpI3TSSzNLAQBezb7lWz2Fjy08lHHjZj9ObPG5/Kt3DkVE5TvbqVA8bqmS2CPisqet11K+SXsVbOfZc9dONXBk71PBJe11jeIlXNOTpfRUtbM3TlrrcIsVeBjWNuSCefcsXDUCIDXVVyVthfi/JMZayzyk+LbEWNkuCAsNNh8LgSGarMPJlueS+NgaBc/mtcfil3l0191Bwi4H5KzqYOG1xotplbALjrI7+u6xtXhkk+sZa4dxW0zV/iy7YQUoc3QL4aS/JZiLD3Qi0sjGk8lNHSxO+zIwn1qffSLxZa2xtHS2cBZblhcQZEB3LF01AGPBI2WTZK2DQLPO7Vm8e17LGCLrGzix00Vw6saW2J1VnLLxLDKabYZyoJHqEyX02SVw1UQOuqrGtqZtyRtZStVEYJCqB88juuujBy55bTU7eJwWTjb5re0q0o49llqWHrZGgDc2C6sPrk5Kgw2oifWTMeR5hsszLikEdo2m5K2PEOgnrZ21eGYu6mdK0OminZxDjtqWkbC/JbHlXonwzAZmVddM7EqpmreNto2HtDefvT/wATkuX3paebw44TV3f6XvRvh9RS4PJU1LDGap4cxpFjwgWB9+q21ALIvTwx9ZMY8fkzueVyv7ERFZQREQEREBERAREQa1mX06P2Q+YomZfTo/ZD5iiDPYf6DT+yZ8oU6gw/0Gn9kz5Qp0BERAREQEREBERAREQUyRtljdG4Xa4FpHcV5vx3D3YditVSuFjDI6M+4r0kuLdK2G+J5kfOG2ZVRtlHrGh/b9Vh5GO8dunxstZac/cNQVC8K4kFioXnS1l5mcethVrK3RWrm6q+kb5uyt3CxXPk6cat2sN1K27dlXwc72UE8nCDbRZfttb8H1XA4guIsqRiMV/OkFjyWAxTEHgOAPndwWAlpcbqHcbGtY07Bx1XVjx7jk3923mqzHS0bbRkOd+iwdZmqSodYy2HYNlh4MsV9Yf7xWFoPJgV+3o+Mo/h1czj2ErScWMdGGWX6j75cdbRwVYzBM37Mg2VL+jmqYB/enk7aOUbsg1rdBVv3tbt0utNRrbmqGNynUyXv3r55dLdSQpIOjbEJz6aWX119and0YCKMOqcSkJI+yCo9Je1Mssoqoc5PhIDn8TfukrMjMtNUx8TXcLuwrV6jIlPGLQ1U3EOZcsecsYyzzYZWuHIuVLxY3qsM88v3G8R4syXZ4urqKcya3utKosLxWi82cBxvu0rYaGWRgDX6HvWWWGppnjfu2WeL6hfGNuUabtCkY0X0WE7dFvxLGNVM2HhcXblUMBB96uBtqt8Y58quKcWOi2LLEDarG6CB20k7Af+oLXqbdbt0YUorM1wuLbtgY6T1WFh+pXZwzdji58vlrtaIi9J5QiIgIiICIiAiIgIiICIiDWsy+nR+yHzFEzL6dH7IfMUQZ7D/Qaf2TPlCnUGH+g0/smfKFOgIiICIiAiIgIiICIiAtA6YMNE+DU1e0edTS8Dv+F3/kBb+rDHsMbjODVlA4D+PE5rb8ncj+dlXObli2GXrlK80TFQu3Utax9PK+KVpa+NxY4HkQdVbOcF5WeL2uOkh0KtyQpnG4UDxbVc2UdWN+I3PIarKYGYloJU8xOtlAy5dus5Pu2lu5pXHhrCLutdQ1EJh2Fwr6KQjQr7Oxsjf6KPe7aY4zXxiRUNjKkZiwjffjsrerpHalqw9RRVLiSzi/JbYZbT767jav7RxgAlwuonY/EXBxIvutJmpKwHWV7QoBTVTtppit+/2j+fGdYuhNzI0N+1dWVTj3Wkedf3rTY6OtJt1svvCvoMNrCdS5yXrtW80vUZ6OtMrtTdZGkeSsNRUUrSL3WapRwO2XNnkb2v2xNcOIgH1hY+sgbE/iGlzsr/AMZaG2VnVv4tbKkyvSuePwhlHCNVdNdtZY2F1iddVfROu3vV5iyuXxdMdqpmvubK1YTqe9TMPnXW2EY5VkIHcLSfyXTuhelL6rEawtNmxtiB7ybn9guVNfs0duq770X4UcNynBI9vDJVuM59R0b+g/Vd3j4/Xn+TlrFtqIi7XAIiICIiAiIgIiICIiAiIg1rMvp0fsh8xRMy+nR+yHzFEGew/wBBp/ZM+UKdQYf6DT+yZ8oU6AiIgIiICIiAiIgIiICIiDhvTFl3yZjRxCFloK4ceg0Eg+1+eh96502TiFj6l6P6SsKhxTKFd1jA59Ozro3c2kb/AKXXmie8MpB0XDz4ayej43JvHVT8SON2q3E+2q+9cCN1w54vQ48lEvcoWMud1O57SblUhzQ4H8ysbG0r5Z7SAAfWrhsbnWU0DonAXtqrqONosQBus63lWrcPL9SL3Ugw1oGsYN+1ZWJjeEm2qkHCN7BTjkX/AJYE5YFXJfhaLmyyEOToI2tIaOaykc2mgt3qU4hpcuAW2Klv9MM/J8ZsRYKpuXGxXb5pssya3QHS2yo8aaSST3quVRN1hX4MxmnDy5K1koQzYLYHSB5JuLK2nDTyHrWdWa++nIdprzVvJA476BZh/DxkaAq0qOEDRIrnfjGCLhcNN1dRjhbqNVQXCyq6wcyt5HPalabc91Kx9je6tOsAubhBLcgBb4YufkybDlrCpcexmlw+LV08gBPYOZ9wuvTtPAymgjgiHDHG0MaOwAWC4r0G0sRx2omkaDI2ncWHs84A/ou3L0eDHWO3meRlvLQiItmAiIgIiICIiAiIgIiICIiDWsy+nR+yHzFEzL6dH7IfMUQZ7D/Qaf2TPlCnUGH+g0/smfKFOgIiICIiAiIgIiICIiAiIgssbiE+D10RFw+nkb/2leS8Sd5x7l68q2dZSzM+8xw/ReQ8Zb1c8jexxC5PKutO7w5vbEms4TYlVtrWkDVY6rubkFY81T43WOq5Lqu37GxirB5qVk7bHvWstrjxK5hrwDus7g0memywPDANQLK9bXNb/Ndayyu4hvqq/Gu+yxy4285W1w4kAfOcLKU4ix3817dq1FtZbS5t2qsV4tvqFX0W/k/tszcR4Xb3A5Eqg4hxOJJWt+PbWchrz971q/rUe8bL4+S3hJ0TyiQFrRxEjXiKoOI6fauFHpS5tn8pk6XXw4hcEF3vWr+UTfQo7EXDS6fx1X+TbYX1ex4r8lbTVQI0ddYR+J214lay4oNLO1CvjxM8uVmZK0dtlGay5OqwLsQJJ85G1rn81rjiyuVZzxriA1V1SP43ArCQyXA1WWojstN6Zeu3ZOhKX/1DMztpXfM1dtXB+hWThzSwfegkH6A/0XeF3cF3g8/yZrMREWzAREQEREBERAREQEREBERBrWZfTo/ZD5iiZl9Oj9kPmKIM9h/oNP7JnyhTqDD/AEGn9kz5Qp0BERAREQEREBERAREQEREAi4IXkXMLQ3EqtnISvH6les6+qZRUctRI6zWNJXkrG3ceIVLjfzpHH9Vx+Z1Hf4Hda3Ux2J7Fi6iMEG6zlQziB0WLqI+5efMnp5YsNLxRnQqgVBGl1c1LN+0KykbZbS7YXGxcNrHi1yphiB0NysWSW96+cXYU0jdjMNxAnT+qkbXX30WFD3civoe4qNRPszhrABuvnjfIOWHbI4jdVh7xzTRuskas66qk1gaOd1YdY8hRuce0qdG6yHj417VQ6u03KxxJ718JtrdNRG6vTVknclUGck6q04yToqmmx53UoXIeTorqDUhWkTb+tX9PHYahVtTJtkKbSyzFHoAsTTttYrK02yptpI6X0R1raTNdG932XcUZ97SF6IXmLo7eXY/TAHW5P6L0nhdZ49Qxz2AcRZw7CN16fjT/AE9vL8ufmukRFu5RERAREQEREBERAREQEREGtZl9Oj9kPmKJmX06P2Q+Yogz2H+g0/smfKFOoMP9Bp/ZM+UKdAREQEREBERAREQEREBEWFzjm/CcjZfqscxmobDS07b2/mkdya0cyUGuZozAMQz7hmUKeUHgppK6sYDs2xbGD77lcAxxhjxCoY7cSOB/NZfwfc01mfuk7NucawcLqljWsZe/Vxg2aweoWX3pNwzyVmurjDbRykSs7wR9VxeZ1t6Pg2S6ae/ex5qyqYlkNxqopowRsvM29XtgpohezlYzQW71m54Lk81Zywq+OSmWLCuhN9lE6IhZd0AOtrKJ1ODfRazJj6sXwuC+30V66m1tZROpz2J7I9UTHaqviN9hbtQwEck6t1tkNaC+wKjL79yrMLj2oKbVSaqA3dzVXBfYE+tXLacA7KXqLAaJtGlkIypGRm6vW03aFIylbfbVNmkVPD3LIwxWVMMNiA0K+jY1g7+1Z5VpjFcMYZvur2I2VpHdxV1HoFSVexuHR24/2kpAN7n9l1vBM/UuD9Jc+Sa94jOIQCsoHuNg5wAD4/Wdx71zjohww1eOS1Lm3bBHcHsJWn+FfTVFLiWAZio5JIZo+KITRu4XNcDcEEbbL2vEn+luvI8y7z09govGeQPDCzDgkcdHmejZjMDQGiZp6uUDvP8AN716CyV4QuQc7BkdPi7KGrcBenrP4Zv2Bx0K0cjpSKmKWOeNskT2yMcLhzTcH3qpAREQEREBERAREQEREGtZl9Oj9kPmKJmX06P2Q+Yogz2H+g0/smfKFOoMP9Bp/ZM+UKdAREQEREBERARF8e9sbC97mta0XLnGwAQfULg0EkgAaknkuR9I3hL5MyM2SmpKgY1iIuBDSOuxp/1P2HuXl7P/AIQ+eM/ukgkrvJmHuv8A3WkPCCO925TY9W9I3hC5OyBBLEKxmKYk24bS0rg6zv8AU7YLx50o9L+YelDEBPi0wjpIiTBSRaRxd9uZ71pEkheblxceZJuSoC65PYq72np6h8ESkdDg2M1zhZskojB7bWW+9NeEGow+ixeNvnQ3hkI7DqCsH4NFF4r0Xxz2A6+pc71rrOJYZDjuE1OGzjzJ4y0HsPI/msuTD3ljq4svSyvMQKqOoU2K4bPg+Iz0NS0tlheWkdveoAV42Xyvbxu5uIpIw4XCsJorE6LJE2uoZWB2miiUrGGMKhzLjZXUsdioHBaSqWIHRd2/NUOh01Vxt3r5oVG0yLYU9ynipA1AV00cXL9FMGC30U7R6sc2m0OnNVNp2gbK9LABpuoJTYKdosQlgGgAX1rBcc189SqjJ7FKukjWgbqRkQLrnQKlthqV8dNbmp2TFdNc1os2ykZqrSC7jcq+jBWdXiRgA9auI9Be3uVEcYA4nfktgyVl+XNOYKeijaeqaQ+V1tGtG6nDG5ZTGIysk3XWuizAnYPlh1ZM3hlq/P8A+XkudeEzRir6PIqm1zBVg37L3XdK5rKOiZTwgNY1oaAOwLkPhAwh3RVXEgXZK1y+ix4/TCYz9PB5M/fK5PG6rZuCHWI2VCLJm3zJfTTnjIcjfJeMzupwfRp3ccR/5SvQmRPDKwmvMVLm3DH0EhsDVU3nR+stJuPcvIAcRzRB+n2Xc14Hm2hbXYHidLXwOF+KF4JHrG496yq/MLLubMbynXsr8FxKpoahmz4nkfpsV6Q6OfDHkijios60Rm4QG+O0w8897m7fkpHq1FqGVelvJWcg0YRj9HJM7aCR4ZJ/0lbfe6gEREBERAREQa1mX06P2Q+YomZfTo/ZD5iiDPYf6DT+yZ8oU6gw/wBBp/ZM+UKdAREQERYvH80YLlejdV4ziVNQwt/mlfYn1DcoMoo6ipgpIXTVE0cMTRdz5HBoHvK87588MDB8NMtLlShdiEouBUz6R37Q3c+9edc7dMmcM9SuOK4rKYSbtgjPDG33KNp09ZdIHhQZPye2Wnw1zsarm3AZCeGMHvcd/cvMPSH4QOdOkB8kNRXuw/D3HzaSlJY23YSDd3vXNHzOcbl1zzKjc66jdTrSRzy8k3uTzO6+g8DO9QtuhPemhUXGxVCX0QKYi17d6BqfxfoiwYffLn/uujwO0Ft1pvRPAIOi/LjALAwcWi3CDQ2VY3aD0u5NdiVO3H6GLiniHDUMaNXN5O9y4ydCvV7ACLOaHNIsWnYhcK6Tsjuy7iDq+jYTQVDiRb/Ld2Lh8zx//pj/ANu/w+ff4VovFqvjxcaL6Bcr7w6LznoVZzC26tXNuSr+VncrOSMjUK0qtWztPWqOKymPnaEKhzLKR8ZLY6q5jeHKyI5I2QsO5Upi+kc1o/8ACsJXXOh0X0ztVHFxJEZf8PrWqoG10AX3hUs5HzVyqjiudVWyMuV3FEBY7pakgg2V4xrWKljSdAFMyK584qlW0pDH1EgjaCS42AG5Xorouya3KuACapjDa6r8+S+7G8mrVeiXo5DxHmLFI/Mab0sJH2j949y6zUyHbmV6/geNr/UyeX5nkb/DFi693WydwXLvCBaP/wCW4oLbFp/VdUkZ5p0XLOn2UM6MsWuNwB+q9PJwPFqIi5UCIiAiIglgqZqWQSQSvieNnMcQR7wumZM8I7pAya1kMWLOrqVunU1g60W7idQuXImx7NyN4YuXMYMdNmehlwiY2HXxnrIifVuF3PAs04HmambUYPitJXRuFx1MgJHrG4X5frIYPj+K4BVNqsKr6iinabiSF5af0Uj9REXivI3hf5qwIMpsw08WNUzQBxnzZv8Aq2PvXfsmeEv0f5uayN+InCqp3+TWaa9zhomv6HVkUdNUwVkDJ6eaOaJ4u17HBzXDuIUiga1mX06P2Q+YomZfTo/ZD5iiDPYf6DT+yZ8oU6taOVkOGwPke1jGxNJc42A80c1z/PHhB5FyQ2SObEm4hVtGlPR+fr2Fw0CDpS1XOHSflTI9O+TGMWgZK0aU8bg6V3/KP6ryl0geFZmnMwlpsGAwaidoOqN5HDvdv+S4pX4tWYnO+orKmWeRxuXPcSf1UbTp6L6QfC8xKt62kyrTCghOgqX+dKf6BefswZtxjMtY+rxXEairlebl0jyVh3vuN1Qk+nSsvJ15qkkr5dfE0bfV8RFKH0m4RfEQF9G6+Ig97dFjg7o0y5blTi62pp4HBaP0IVJq+irAHk3LYi39St5IVZ26F/F5wBUWI4ZS4vRSUVZE2SGUWIP7r7Tu0AKuRstpNzSm7LuPO2e8hVmUa0uaHS0Ejv4UwG3ce9asBovV1fhtJi9FLRVsLZYJRZzTy7x2FcAz5kGryjVl7QZaGQ/w5QP0PevG8vxLx32x6et43lTk/HLtpskdxcK0ljsskGG2oUMsN76LidjFFg9SpcxXcsJB2UIaQrSq6Wj2dyhc03WQMd+xU9SL7KdjHmPXYqtrCr3qB2IIwL6BNosWzIyphD2hSAWVQBcm0aI49BYK4Y0DkqWNVxGzXa6jaX1l+QsujdF3R4/MdUMRxGNzcNhN7EW609gVh0ddH0+bKwT1AdFh8RBkf9/uC9D0lHBh9LHSU0TYoYmhrGtGgC9Dw/E97759OLyvJ9J6Y9nCyGJscbGsYwBrWtFg0DkoJBc3KuHixuFbyajRe3HkLOoPCxx2XHvCEcG9F+IE/wA0jQuvVbtCFxrwkZBF0XTDm+qYFGXQ8fIiLlBERAREQEREBERAX1rnNN2kg9xXxEG5ZQ6XM5ZIc3yPjdVFEP8AJc7iYfcV3DKPhoVcTGQ5mwaOewsZqZ3C4+7ZeXUU7HtKu8KDIOLOiqOurYD1fC6N8WrTc9/ei8XX7giDdM09Kmcs51QmxbHKosa0MZTwvMcTG2tYMGi1R0g4iXG7jz5qDrHbqk/qqat7SkdKL9qjLiV8RTIjYiIpBERAREQEREBERB7U8HGpFR0VUDL/AODI5p/MrqAAcFxTwVK3xjINZTk3MFQdOy67XHqFH7bTpPDoQrpvJW0e4Vy1bYoqVhuLdijxDDqXFqKWirIWzQSCzmnl3jsKkboNFI25CtZLNVXeunnnPeQ6rKVYZIwZaGR38OW2w7CtRe2+1l6txHDaXFqSSkrIWywyCzmuH6rgmfOj+ryrUumhD5qB5uyQD7PcV4nl+JeO+2HT1/F8qZz1y7aJJHfXmoHR67K+e1Qvb3Lg27Vp1Y2sU6oKewCGyttGkBiuLWVHU2urj818J7kLFuYlU1oG9vepQAbBVCmbKRcDRNokVxRgi9luuQuj6pzbWB8gdFQRG8klt+4Kbo+6O6nNFS2adrocPjPnyfe7gvQOH4dS4VSR0lHC2GGMWa1o/Uru8TxLyfnn04vK8qYfjj2owzDKXCKKKjo4mxQxiwaOfeVcndVFUnZe5JqajyLd/ajftZQP2KmkOihkNleIYurOhN9lxDwo6gRdHtFDexlqwbfmu3V5s0heefCyreDBcDogR5z3SEKuXVHmRERcoIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiD034IVbx0eO0N+bZAvREZ0C8q+CPXiHN+JUZNuvprgeor1SzRtlLWdLmM81dMPNWcR2V3E66viVM1SDTZRs3UgK0iioHVRVlHBiFM+mqYmyRPFnNcLqUKoJfpLrpwXpC6N58vyursPY6WhcbkDUx/+Fzx4N9F65qaeOqhfFKxr2PFnBwuCFxPpE6MX4WX4lhTS+lcbvjA1jP0Xj+X4Xr+fH09bxfL9p659uXEFUEK5eyxIIsVSGglea7luWmyo4HG6vOrTgARK3igcNzdb70d9Hc+aKkVNS10OHxHznkfb7gqejzIM+aqwTztdHQRHz3/AH+4L0DQUFPh1LHS0sTYoYxZrW//ALdeh4fie/559OHyvK9Pxx7VUFDT4dSR0tLE2KGMcLWtGyuF8vol17UmvkeNbuhKpX26pKsKH6FW0p0Vw833VvP9lWGJxI6kDmvK3hWYkJ8z4bQtdpBTkkdhK9S1p4pWtHMrxh4Qlea3pNxFl7tgDIx+Spn0OaIiLmBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQdP8HPFfJfSbQAmzZ2ujP5L2pa5PcV+f/R3XOw7OuEVDXcJbUNF/WV7/AKZ/Wwsf95oKt+mmPSWM6K6hParVrdO5XMOynFNXLddQpWqGOwUoutIpVa+r5uvoUofSqJWNe0tewOadHNI0IVZ7lUGF+w07exCOQdI3RaXGTFsDiuPtSwNG3eFyR8L43FrmkOB1B5L0XnLpVyjkNo8rYnE6Ym3UxuBd+S4/nXPXRnmCUYjhWLw0lRILyxO0BPaO9eV5fiS324//AMel43ma/DkaqGknQarackZInzNXNMgcykYbyPtv3BYXLGM5JxKqLazMVPCxp+zzcu+5UrMuuo44MExKima0aNY8XWfjeHcst8nTXm8vGTWF+s7hmH02F0cVLSxiOKMWDQr0G6ja1wAuLKte1JNajybd3dVBAgRSqKgqtUOPNBHJcq3qDZpU7t9FbT2sVYYeY8U7TyBuV4R6U68Yjn/G6gG48Zc38tF7pq39XBVSf7uJ7v0X5+ZhnNTjuIzHd9RI7/uKz5OhjkRFzgiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIL3BZTBi9FKN2TsP/AHBfoXgU3X4RSS3vxwtP6L866Z/V1ETxu14P6r9Bch1PjeUsKm34qdv7BXnS+LYgNApYtlSBdSMFtkxWTMUg7FEzkVLfW60ilVX00VY10tc9ipjaXnzdhqSdguOdL/hJ4P0fPkwjAmx4njFiHvDgY4D39qjLLSHRs69IGXOjvDjW5hrmREj+HTtN5H+obryf0neFJmTNk81HgLzheGXIbwf4jx3nkuT5rzfjOdMWkxTGq2SpqHkkcR0YOwDkFhVlcrUbT1ddVV8plq6iWeQ6l0ji4/qoERQPoNtlfYdj2KYTM2ahr6iB7dix5CsEQd/6M/CsxjLjYcPzLCcTogbGW9nsH9V6oydnTAM+4azEMAr46hhbd0V7PZ6xuvzYWYy1m7G8oVwrcFxCejlBBd1biA+3IjmrTKxL9KyCNCCCORXw6Lz50SeFZh+ONp8Gzo1tHWEBja5ujHnlccl6CjliqIGT08rJoHi7JGG4IWuOcqA9yodsq7WVBK0ER1FlbVOjVclWtSdVIwGLAjDcRINj4tJ8pX584p/7jVX365/7lfoRjXm4XiTuymf+xX574mb4jVH/AOV/7lZcvUFqiIsAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREH0L3r0OT+N9HWCyX16oBeCV7k8H+Xrei/CrnVtwr4/tbF0toUrAqGgqVvJIvVQVVw1hc5wa1ouSeQVDnsjaXvcGtAuXHkuc5zzNVYs44dhjnR0wNpJBu/uWkMcblWB6WelavqGT5cym4s6xhZNWD+U7WBXk7NeUcXy9I2oxAOlZOSeuuTc957V6wpctQSxWEQDhubalWmK5QpMQpJKHEads1NJoQRq3vCzuNdGfFjlNY9vHCLa+knJwyVmWXD43mSB7eticR/KeXuWqKjjs18EREQIiICIvoBJAAuSg+sDi4BoJcTYAL070RdKmOZPw6gwyp46ygDQHtfqW+pc+yF0VTMoo8WxOAiSVvFFE4fZHaV0TDsAEEjRwWtysretdvj8U1cs3pDBccocxUDK2gkDmH7TDu0q7f2riGBVddgVSyeje5gablnIrruCY7T45TdZGQ2Zo89nYVtjWHLxev2dL467q1qLlXR2Ctqkc1oxYPMAtgeJHb+7P/Yr89MR/wDcKn2rv3X6FZrd1eVcXk24KOQ/9pX54Tv6yaR/3nErLm/QjREWAIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAvaPgyVZq+jOnbfWKYtXi5euvBMqetyPWwcX+FU3V8Ex3tuyOe1jeN5DWjcqOWoipYusmeGs/dY50kuIOLiC2EfZHar447XkWGL1s2KcVPECyn2uN3LEDBmRsAAsFtDoGNZ5rRorOWPzTcLTWmkuumEZC2CThGymngbMy9gqMQjczzgvtJMHtAJWeTXX7cl6eMixY3lKXFaeG9dh3n3A1dHzXlte/aijjqopKaVodHM0xuB2IIsvD+ecBflnNmJ4W8f4MzuH/AITqFnlGHNPu2BREVWIiIgLrnQb0VHNVV/aHEmgYZSSANYf8545eoLlFNTS1lRHTwMdJLI4Ma0DUkr2x0eZablbJ+G4UWBszYg+Uf6zur8eO6vx47rKswpkzi7qwGtFmgDQDsVBy82/EG2JWxQwhrWst3lX8VMwt21XRp03OtImwow7DVfMPq5sLqRPCS1w3H3lus2HMluOELA4pgjg3jjbt2KukzLfytswnFocYpRNEbPGj2cwVczN4gucUFdUYTWCWIlpH2m8it/wzE6fGKQTQuFxo5vMFTK5+TDX2MJnwmPIuYZBu2gk+Ur871+hfSc/qOjjMzufibgPyK/PNZcvbIREWQIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAvTngl4i2lwPHPGHcMMcjT6zbZeY12fwfMRfEcQo+LzHPa/h7Vfj7Wxm7p6iEs+MVDaiou2Bv+HGs3E7zQALWCxFI+8LCfuhZWlFxfktl9pLG3coZovNOqugANlS9gLSFZMa/iDDwnmFiaZ5ZIQs/XsuDZYGVnA82WWTow60v2SBzeI7jVeXvCfwtlD0gsqY2cIq6ZshPaRovTcElmWO65H4TuVZMXy3Q5ip2AuoD1c2mvAeapemXLj8eX0RFRzCIpKeF9RPHDGLvkcGgd5Qek/Bh6NqLyZPnLFKZs0xcY6JjxcADd35ruFJH1sjnne+qpyZgkeXcm4RhccYj6qlaXD/URc/urikjMbXk/wAxXXjjqR04TWK8gaTJtur+NtrK3gZw2VyzdSipgLi6jfEHCxGikabr6UQ13F8BbK0yQizlhMBfU4XjDwS5otq3kVvZtsRdWNTh8T5et4QH23T12i5XWmudLmL0h6J8enZMzjkhMYbfUFeAl6p6aIZ6DCsXYJX9S5n2L6XXlZc/J2zymhERZqiIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgLqXQFLbMs0P3mA/quWrofQZMY88wMBsJGEFWw7Ww7eyaRl4o7bWCzNO2zFjaNvmRj/SFmIbcGm63/axw2G2i+FoIKr/AJVQ42BVloxlawEdywdWwA35LPVbS5qw1U03IWeTXBbw6lWec8OZi2ScWo3t4mup3ut3gXV8zQhXFVF4xhVTCP8AMie0e8FUXv34/P5wLXEHcGy+K9xmldRYtWUzvtRTPYfcVZLNwi2joywZ+O57waiY3ivUse4dwNytXXTvBypn1HSthfC0kMD3O7hZTO0x7SeRI8tboGtDQOywsrfqxxBvIbq4iaOukttc/uqQy7zouyumpoW6BTObYqiLSyuHC57lEqtUMdrZSbiygPm7clK1wIUqbfTuFG++mikOpFlHK6zSTyCRFcI6fngYBijv9IH6ryWvU/hAyXyjiEt/tSNaPzXlhcvJ2jP9CIiooIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAty6JKnxbPmGkm3E/hWmrOZIqTSZswuYH7M7VOPcTj2960TwYoiD/AChZinN47rXMLlDqGB/awLP0rrxi66L2unuQBoqSSBsqnDzVS7b1hW2tFlUascsPUt84lZuRmjgsVVRHiKzyaY1jiLOushEL0405H9lYS+ar+iIfTjXe7fzFlRo8I54t/bDGeHbxyT5lg1s/SVglTgGd8Woqsgyde6QEcw43C1hZuGi3/oKxx2A9J2DTh1mzS9Q/vDtFoC2rotpnVXSDgUbd/G2H8ipnaY98izah4Gy+N5lUtN5z2jRVs+0QuyuipGDUKdtwbKNugUlyTc7KqHx7bqgHhKlvcFUPapilfWuBVricnVUz3dykvbRYrMdR1dDe6m9IjhfhBvLciPP+8qWj9V5hXo/wiKq2SqGP/eVRP6LzguXPtHJ2IiKigiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICu8Jm8XxOll+5K0/qrRSQ+bI13YQVMI96Zan6/BKSQHQxtP6LZ6NwLWgrQuj3Eqeoynh0hqIQTC3QvHZ61udHW0waAamD4jfquitf2zJsWKMnZUsrKYx+lU4/+1v1XzxqkNv7zB8Vv1RMqN4+0Vj6ptw49yyD6qkubVMHxG/VWdVUUrWkiog2/wB636qLNrRr1a8sse5XuDygUT5XnzYw559wJWGxWtpw6wqIT6pB9VdYbWU7sFrWmohH8F/+YPunvWc7dGXzF4pz3jE2PZuxWvmeXukqH2J5NB0CwKvMYAbitYAbgTP196s1m88WydHOMR4DnfB8Qmt1UVSzjJ5Am11raqaDfRB+jMD2yyMljcHMmaHtcOYKnabSELnXQnnenzZkPDnzTxMq6Fvi8zXPAOmx1W/x1lKZHO8Zg+K36rrmW5t073Nr9muikcLaK1jrKUf7TT39q36qbxylO9TT/Fb9VNVlShu6+OCiFXTD/aqf4rfqvvjlLf0qn+K36qIVHILFaznGYx4ffldbLJVUx/2mn+K36rVM8zU7sJdw1EBIPKRv1U3pSdvPXhCVnHl/BYb6ulc79Fwlda6cq0Tx4TAHtd1YcdDdcmK5cu0cnb4iIqqCIiAiIgIiICIiAiIgIiICIiD/2Q==" alt="Mashrapov Quvonchbek">
-      <div>
-        <h3>Mashrapov Quvonchbek</h3>
-        <p class="role">Magistrant &middot; loyiha muallifi</p>
-        <a href="https://t.me/miir1999" target="_blank" rel="noopener">Telegram: @miir1999</a>
-      </div>
-    </div>
+<div class="era" id="era-4">
+<div class="era-head">
+<span class="era-num">4</span>
+<h3>Qadimgi Yunoniston</h3>
+<span class="era-range">mil. av. 600 — milodiy 300</span>
+</div>
+<p class="era-desc">Yunon olimlari matematikani birinchi bo'lib mantiqiy isbotlash san'atiga aylantirdi — "nima to'g'ri" emas, balki "nega to'g'ri" savolini qo'yishdi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Pythagoras_in_the_Roman_Forum%2C_Colosseum.jpg/330px-Pythagoras_in_the_Roman_Forum%2C_Colosseum.jpg" alt="Pifagor" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~570 — 495</span>
+<h4>Pifagor</h4>
+<p>Pifagor teoremasi va sonlar haqidagi falsafiy qarashlari bilan mashhur — o'z atrofida matematik-diniy maktab tashkil etgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Italian_-_Euclid_-_Google_Art_Project.jpg/330px-Italian_-_Euclid_-_Google_Art_Project.jpg" alt="Evklid" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. ~300</span>
+<h4>Evklid</h4>
+<p>"Elementlar" asari 13 kitobdan iborat bo'lib, geometriyani aksiomalar va isbotlar asosida qurishning namunasiga aylandi — 2000 yildan ortiq darslik bo'lib xizmat qilgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Domenico-Fetti_Archimedes_1620.jpg/330px-Domenico-Fetti_Archimedes_1620.jpg" alt="Arximed" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">mil. av. 287 — 212</span>
+<h4>Arximed</h4>
+<p>Doira yuzi, shar hajmi va π ning aniq baholarini hisoblagan, shuningdek integral hisobning dastlabki g'oyalarini kashf etgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<div class="ev-icon">📜</div>
+<div class="ev-body">
+<span class="ev-year">milodiy III asr</span>
+<h4>Diofant</h4>
+<p>"Arifmetika" asari orqali algebraik tenglamalarni belgilar bilan yozishga birinchi qadamlarni qo'ygan — shuning uchun uni "algebra otasi" deb ham atashadi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Ptolemy_1476_with_armillary_sphere_model.jpg/330px-Ptolemy_1476_with_armillary_sphere_model.jpg" alt="Ptolemey" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">milodiy ~100 — 170</span>
+<h4>Ptolemey</h4>
+<p>"Almagest" asarida trigonometrik jadvallar va geosentrik dunyoqarashga asoslangan matematik astronomiya modelini yaratdi.</p>
+</div>
+</div>
+</div>
+</div>
 
-    <p class="note">Ushbu sayt GitHub Pages orqali joylashtirilgan va bepul, statik tarzda ishlaydi.</p>
-  </section>
+<div class="era" id="era-5">
+<div class="era-head">
+<span class="era-num">5</span>
+<h3>Islom oltin davri (O'rta Osiyo Uyg'onish davri)</h3>
+<span class="era-range">milodiy 800 — 1500</span>
+</div>
+<p class="era-desc">Bag'dod va Movarounnahrda algebra fan sifatida shakllandi, hind-arab raqamlari dunyoga tarqaldi, Samarqand esa astronomiya va aniq hisob-kitoblar markaziga aylandi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/330px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg" alt="Al-Xorazmiy" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">~780 — 850</span>
+<h4>Al-Xorazmiy</h4>
+<p>"Al-jabr" asari "algebra" so'ziga asos bo'ldi, uning nomidan esa "algoritm" so'zi kelib chiqqan — hind-arab raqamlarini dunyoga tanitgan olim.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Biruni-russian.jpg/330px-Biruni-russian.jpg" alt="Al-Beruniy" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">973 — 1048</span>
+<h4>Al-Beruniy</h4>
+<p>Matematika, astronomiya va geodeziyani birlashtirib, Yer radiusini yuqori aniqlik bilan hisoblagan qomusiy olim.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Hakim_Omar_Khayam_-_panoramio.jpg/330px-Hakim_Omar_Khayam_-_panoramio.jpg" alt="Umar Xayyom" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1048 — 1131</span>
+<h4>Umar Xayyom</h4>
+<p>Kub tenglamalarni konussimon kesimlar yordamida geometrik yechish usulini ishlab chiqqan, shuningdek aniq taqvim tuzgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Jamshid_bin_Mas%27ud_bin_Mahmud_al-Tabib_al-Kashi%2C_known_as_Ghiyath_%28d._1429%29%3B_Miftah_al-Hisab_signed_ibn_Muhammad_Mu%27min_Taj_al-Din_al-Shirazi%2C_Iran%2C_dated_31_May_1656.jpg/330px-thumbnail.jpg" alt="Al-Koshiy" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">~1380 — 1429</span>
+<h4>G'iyosiddin Jamshid al-Koshiy</h4>
+<p>Samarqandda π sonini 16 xonagacha aniqlik bilan hisoblagan — o'sha davr uchun dunyodagi eng aniq natija edi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Ulugh_Beg%2C_Timurid_painting_1425-50.jpg/330px-Ulugh_Beg%2C_Timurid_painting_1425-50.jpg" alt="Ulug'bek" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1394 — 1449</span>
+<h4>Ulug'bek</h4>
+<p>Samarqanddagi observatoriyasida yuzlab yulduzlar joylashuvini yuqori matematik aniqlik bilan qayd etib, "Ziji Ko'ragoniy" jadvalini tuzgan.</p>
+</div>
+</div>
+</div>
+</div>
 
-  <footer>
-    <div>&copy; <span id="year"></span> Matematika tarixi</div>
-    <div>
-      <a href="https://t.me/mqm199" target="_blank" rel="noopener">Telegram: @mqm199</a>
-    </div>
-  </footer>
+<div class="era" id="era-6">
+<div class="era-head">
+<span class="era-num">6</span>
+<h3>O'rta asr Yevropa va Renessans</h3>
+<span class="era-range">1200 — 1600</span>
+</div>
+<p class="era-desc">Hind-arab raqamlari Yevropaga kirib keldi, savdo va san'at rivoji algebra hamda perspektiva geometriyasiga talab uyg'otdi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Leonardo_Fibonacci.JPG/330px-Leonardo_Fibonacci.JPG" alt="Fibonachchi" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">~1170 — 1250</span>
+<h4>Fibonachchi</h4>
+<p>"Liber Abaci" kitobi orqali hind-arab raqamlarini Yevropaga olib kirdi va bugun uning nomi bilan atalgan mashhur sonlar ketma-ketligini tavsifladi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Pacioli.jpg/330px-Pacioli.jpg" alt="Luka Pacholi" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1445 — 1517</span>
+<h4>Luka Pacholi</h4>
+<p>Qo'sh yozuvli buxgalteriya usulini tizimlashtirgan "Summa" asari, shuningdek oltin nisbat haqidagi kitobi bilan mashhur.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Girolamo_Cardano._Stipple_engraving_by_R._Cooper._Wellcome_V0001004.jpg/330px-Girolamo_Cardano._Stipple_engraving_by_R._Cooper._Wellcome_V0001004.jpg" alt="Jerolamo Kardano" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1501 — 1576</span>
+<h4>Jerolamo Kardano</h4>
+<p>Kub tenglamalarni yechish formulasini nashr etgan va matematik ehtimollik nazariyasi haqidagi birinchi asarlardan birini yozgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Francois_Viete.jpg/330px-Francois_Viete.jpg" alt="Fransua Viet" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1540 — 1603</span>
+<h4>Fransua Viet</h4>
+<p>Algebrada harflardan (a, b, c, x, y kabi) foydalanish tizimini joriy etib, zamonaviy algebraik belgilash tiliga asos solgan.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="era" id="era-7">
+<div class="era-head">
+<span class="era-num">7</span>
+<h3>Ilmiy inqilob (Nyuton-Leybnits davri)</h3>
+<span class="era-range">1600 — 1700</span>
+</div>
+<p class="era-desc">Koordinatalar, ehtimollar nazariyasi va differensial-integral hisobning kashf etilishi — matematika fizikaning "tili"ga aylandi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg/330px-Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg" alt="Rene Dekart" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1596 — 1650</span>
+<h4>Rene Dekart</h4>
+<p>Koordinatalar tekisligini kiritib, geometriya va algebrani birlashtirdi — bu "analitik geometriya"ning tug'ilishi bo'ldi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Pierre_de_Fermat.jpg" alt="Per Ferma" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1601 — 1665</span>
+<h4>Per Ferma</h4>
+<p>Sonlar nazariyasiga asos solgan; mashhur "Ferma teoremasi"ning isboti esa 358 yildan keyin, 1994-yilda topilgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Blaise_Pascal_Versailles.JPG/330px-Blaise_Pascal_Versailles.JPG" alt="Blez Paskal" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1623 — 1662</span>
+<h4>Blez Paskal</h4>
+<p>Paskal uchburchagi va ehtimollar nazariyasi asoslarini yaratdi, shuningdek birinchi mexanik hisoblash mashinalaridan birini yasadi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg/330px-Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg" alt="Isaak Nyuton" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1643 — 1727</span>
+<h4>Isaak Nyuton</h4>
+<p>Differensial va integral hisobni mustaqil ravishda ishlab chiqib, uni fizik qonunlarni (masalan, tortishish kuchini) tasvirlash uchun qo'lladi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg/330px-Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_%28ca._1695%29.jpg" alt="Gotfrid Leybnits" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1646 — 1716</span>
+<h4>Gotfrid Leybnits</h4>
+<p>Nyuton bilan bir vaqtda integral-differensial hisobni kashf etdi; bugun ishlatiladigan dx, ∫ kabi belgilar aynan unga tegishli.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="era" id="era-8">
+<div class="era-head">
+<span class="era-num">8</span>
+<h3>Ma'rifat davri va XIX asr</h3>
+<span class="era-range">1700 — 1900</span>
+</div>
+<p class="era-desc">Matematika mustaqil, qat'iy asoslangan fanga aylandi — yangi geometriyalar, to'plamlar nazariyasi va birinchi dasturlash g'oyalari shu davrda tug'ildi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Leonhard_Euler_-_Jakob_Emanuel_Handmann_%28Kunstmuseum_Basel%29.jpg/330px-Leonhard_Euler_-_Jakob_Emanuel_Handmann_%28Kunstmuseum_Basel%29.jpg" alt="Leonard Eyler" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1707 — 1783</span>
+<h4>Leonard Eyler</h4>
+<p>Tarixdagi eng mahsuldor matematik — e sonini, funksiya tushunchasini va zamonaviy belgilashlarning (f(x), Σ, i) ko'pini kiritgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Carl_Friedrich_Gauss_1840_by_Jensen.jpg/330px-Carl_Friedrich_Gauss_1840_by_Jensen.jpg" alt="Karl Fridrix Gauss" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1777 — 1855</span>
+<h4>Karl Fridrix Gauss</h4>
+<p>"Matematiklar shohi" deb atalgan Gauss sonlar nazariyasi, statistika va geometriyada tub kashfiyotlar qilgan; normal taqsimot uning nomi bilan bog'liq.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Lobachevsky_03_crop.jpg/330px-Lobachevsky_03_crop.jpg" alt="Nikolay Lobachevskiy" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1792 — 1856</span>
+<h4>Nikolay Lobachevskiy</h4>
+<p>Yevklidning parallellik aksiomasini rad etib, birinchi bo'lib Yevklidsiz (giperbolik) geometriyani yaratdi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Evariste_galois.jpg/330px-Evariste_galois.jpg" alt="Evarist Galua" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1811 — 1832</span>
+<h4>Evarist Galua</h4>
+<p>21 yoshida dueldan oldin yozib qoldirgan xatlarida guruhlar nazariyasi asoslarini yaratib, tenglamalarning yechilishini butunlay yangicha tushuntirdi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png/330px-Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png" alt="Ada Lavleys" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1815 — 1852</span>
+<h4>Ada Lavleys</h4>
+<p>Betbidj analitik mashinasi uchun algoritm yozib, dunyodagi birinchi kompyuter dasturchisi hisoblanadi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Georg_Cantor_%28Portr%C3%A4t%29.jpg/330px-Georg_Cantor_%28Portr%C3%A4t%29.jpg" alt="Georg Kantor" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1845 — 1918</span>
+<h4>Georg Kantor</h4>
+<p>To'plamlar nazariyasini yaratib, turli xil "cheksizlik" darajalari mavjudligini matematik jihatdan isbotladi.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="era" id="era-9">
+<div class="era-head">
+<span class="era-num">9</span>
+<h3>XX asr</h3>
+<span class="era-range">1900 — 2000</span>
+</div>
+<p class="era-desc">Matematikaning mantiqiy asoslari qayta ko'rib chiqildi, hisoblash nazariyasi tug'ildi va kompyuterlar davri boshlandi.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Hilbert.jpg/330px-Hilbert.jpg" alt="Devid Gilbert" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1862 — 1943</span>
+<h4>Devid Gilbert</h4>
+<p>1900-yilda XX asr matematikasi yo'nalishini belgilagan 23 ta ochiq muammoni e'lon qildi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://upload.wikimedia.org/wikipedia/commons/4/42/Kurt_g%C3%B6del.jpg" alt="Kurt Gyodel" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1906 — 1978</span>
+<h4>Kurt Gyodel</h4>
+<p>To'liqsizlik teoremalari orqali har qanday yetarlicha kuchli matematik sistemada isbotlab bo'lmaydigan haqiqiy tasdiqlar mavjudligini ko'rsatdi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Alan_turing_header.jpg/330px-Alan_turing_header.jpg" alt="Alan Tyuring" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1912 — 1954</span>
+<h4>Alan Tyuring</h4>
+<p>Tyuring mashinasi g'oyasi bilan zamonaviy hisoblash nazariyasiga asos soldi va Ikkinchi jahon urushida Enigma shifrini yechishga yordam berdi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Emmy_Noether_%283x4_cropped%29.jpg/330px-Emmy_Noether_%283x4_cropped%29.jpg" alt="Emmi Neter" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1882 — 1935</span>
+<h4>Emmi Neter</h4>
+<p>Abstrakt algebraga tub hissa qo'shgan, fizikadagi saqlanish qonunlarini simmetriya bilan bog'lovchi mashhur teoremaning muallifi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Benoit_Mandelbrot%2C_TED_2010_%283x4_cropped%29.jpg/330px-Benoit_Mandelbrot%2C_TED_2010_%283x4_cropped%29.jpg" alt="Benua Mandelbrot" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1924 — 2010 (kashfiyot ~1975)</span>
+<h4>Benua Mandelbrot</h4>
+<p>"Fraktal" so'zini kiritib, tabiatdagi murakkab shakllarni (qirg'oq chizig'i, momaqaldiroq) tasvirlovchi yangi geometriya sohasiga asos soldi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Andrew_wiles1-3.jpg/330px-Andrew_wiles1-3.jpg" alt="Endryu Uayls" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">1994-yilda isbotladi</span>
+<h4>Endryu Uayls</h4>
+<p>358 yil davomida yechilmagan Ferma teoremasini nihoyat isbotlab, matematika tarixidagi eng mashhur voqealardan biriga imzo chekdi.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="era" id="era-10">
+<div class="era-head">
+<span class="era-num">10</span>
+<h3>XXI asr — zamonaviy davr</h3>
+<span class="era-range">2000 — 2026</span>
+</div>
+<p class="era-desc">Yechilishi mumkin emasdek tuyulgan masalalar yechilmoqda, sun'iy intellekt esa matematikaning o'zini yangi vositaga aylantirmoqda.</p>
+<div class="era-grid">
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Grigori_Perelman%2C_1993_%28re-scanned%29_%28cropped%29.jpg/330px-Grigori_Perelman%2C_1993_%28re-scanned%29_%28cropped%29.jpg" alt="Grigoriy Perelman" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">2002 — 2003</span>
+<h4>Grigoriy Perelman</h4>
+<p>Puankare gipotezasini isbotlab, Millennium masalalaridan birini birinchi bo'lib yechdi — ammo 1 million dollarlik mukofot va Filds medalidan voz kechdi.</p>
+</div>
+</div>
+<div class="ev-card">
+<div class="ev-icon">💠</div>
+<div class="ev-body">
+<span class="ev-year">2000-yildan</span>
+<h4>Millennium masalalari</h4>
+<p>Clay Matematika instituti eng murakkab 7 ta masala uchun har biriga 1 million dollar mukofot e'lon qildi; hozircha faqat bittasi — Puankare gipotezasi — yechilgan.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://upload.wikimedia.org/wikipedia/commons/0/0c/FieldsMedalFront.jpg" alt="Filds medali" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">har 4 yilda</span>
+<h4>Filds medali</h4>
+<p>40 yoshgacha bo'lgan matematiklarga topshiriladigan bu medal matematikadagi "Nobel mukofoti" hisoblanadi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/T1044-alphafold3-layey-by-layer.gif/330px-T1044-alphafold3-layey-by-layer.gif" alt="AlphaFold" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">2020 — 2024</span>
+<h4>AlphaFold</h4>
+<p>Sun'iy intellekt va chuqur o'rganish algoritmlari oqsil strukturasini bashorat qilish kabi murakkab matematik-biologik masalalarni yechishda inqilob qildi.</p>
+</div>
+</div>
+<div class="ev-card">
+<img class="ev-img" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/IBM_Quantum_Computer_Demo_at_ITUWTSA_2024%2C_Delhi_2.jpg/330px-IBM_Quantum_Computer_Demo_at_ITUWTSA_2024%2C_Delhi_2.jpg" alt="Kvant hisoblash" loading="lazy">
+<div class="ev-body">
+<span class="ev-year">2020-yillar</span>
+<h4>Kvant hisoblash</h4>
+<p>Kvant mexanikasi qonunlariga asoslangan yangi hisoblash modeli klassik kompyuterlar uchun amalda yechib bo'lmaydigan masalalarni yechish salohiyatiga ega.</p>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+
+<section id="testlar">
+<div class="section-head">
+<h2>Mavzulashtirilgan testlar</h2>
+<p>Har bir yo'nalish bo'yicha 3 tadan savol — o'zingizni sinab ko'ring.</p>
+</div>
+
+<div id="quiz-topics" class="quiz-topics"></div>
+
+<div id="quiz-box" class="quiz-box hidden">
+<button class="back-link" id="quiz-back">← Mavzular ro'yxatiga qaytish</button>
+<div id="quiz-question-view">
+<div class="quiz-progress" id="quiz-progress"></div>
+<p class="quiz-question" id="quiz-question"></p>
+<div class="quiz-options" id="quiz-options"></div>
+</div>
+<div id="quiz-result-view" class="quiz-result hidden">
+<p style="color:var(--text-dim);margin:0;">Natijangiz</p>
+<div class="score" id="quiz-score"></div>
+<div class="cta-row" style="margin-top:10px;">
+<button class="btn btn-primary" id="quiz-retry">Qayta urinish</button>
+<button class="btn btn-ghost" id="quiz-other">Boshqa mavzu</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="haqida">
+<div class="section-head">
+<h2>Loyiha haqida</h2>
+</div>
+<div class="about-card">
+<p>
+<strong>Matematika tarixi</strong> — matematikaning tosh asridan hozirgi kungacha bo'lgan
+yo'lini o'zbek tilida, tushunarli va vizual boy formatda hikoya qiluvchi loyiha.
+Postlar avtomatik tayyorlanadi va kunlik ravishda Telegram kanalga chiqariladi.
+</p>
+<p>
+Bu sahifa — loyihaning birinchi versiyasi: kanal mavzulari, davrlar xaritasi va
+mavzulashtirilgan testlarni ko'rsatib beradi. Keyingi bosqichda har bir post shu saytda
+alohida sahifa sifatida arxivlanadi — qidiruv va filtrlash imkoniyati bilan.
+</p>
+</div>
+
+<div class="author-card">
+<img src="data:image/jpeg;base64,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" alt="Mashrapov Quvonchbek">
+<div>
+<h3>Mashrapov Quvonchbek</h3>
+<p class="role">Magistrant &middot; loyiha muallifi</p>
+<a href="https://t.me/miir1999" target="_blank" rel="noopener">Telegram: @miir1999</a>
+</div>
+</div>
+
+<p class="note">Ushbu sayt GitHub Pages orqali joylashtirilgan va bepul, statik tarzda ishlaydi.</p>
+</section>
+
+<footer>
+<div>&copy; <span id="year"></span> Matematika tarixi</div>
+<div>
+<a href="https://t.me/mqm199" target="_blank" rel="noopener">Telegram: @mqm199</a>
+</div>
+</footer>
 </div>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ---------- Testlar ----------
-  const QUIZ_DATA = {
-    algebra: {
-      name: "Algebra",
-      emoji: "➗",
-      questions: [
-        {
-          q: "x² − 5x + 6 = 0 tenglamaning ildizlari yig'indisi nechaga teng?",
-          options: ["5", "6", "−5", "1"],
-          correct: 0,
-        },
-        {
-          q: "log₂8 qiymati nechaga teng?",
-          options: ["2", "3", "4", "8"],
-          correct: 1,
-        },
-        {
-          q: "Arifmetik progressiyada birinchi had a=2, ayirma d=3 bo'lsa, 4-had (a₄) nechaga teng?",
-          options: ["8", "9", "11", "14"],
-          correct: 2,
-        },
-      ],
-    },
-    geometriya: {
-      name: "Geometriya",
-      emoji: "📐",
-      questions: [
-        {
-          q: "To'g'ri burchakli uchburchakning katetlari 3 va 4 bo'lsa, gipotenuza nechaga teng?",
-          options: ["5", "6", "7", "25"],
-          correct: 0,
-        },
-        {
-          q: "Radiusi 7 bo'lgan doiraning yuzi (π ≈ 22/7) taxminan nechaga teng?",
-          options: ["132", "144", "154", "164"],
-          correct: 2,
-        },
-        {
-          q: "Har qanday uchburchakning ichki burchaklari yig'indisi necha gradus?",
-          options: ["90°", "180°", "270°", "360°"],
-          correct: 1,
-        },
-      ],
-    },
-    olimpiada: {
-      name: "Olimpiada masalasi",
-      emoji: "🏆",
-      questions: [
-        {
-          q: "1 dan 100 gacha bo'lgan butun sonlar yig'indisi nechaga teng?",
-          options: ["4950", "5000", "5050", "10000"],
-          correct: 2,
-        },
-        {
-          q: "Yig'indisi 24 ga teng bo'lgan ikkita ketma-ket tub son qaysilar?",
-          options: ["7 va 17", "11 va 13", "5 va 19", "13 va 11"],
-          correct: 1,
-        },
-        {
-          q: "5! (5 faktorial) nechaga teng?",
-          options: ["20", "60", "100", "120"],
-          correct: 3,
-        },
-      ],
-    },
-    qiziqarli: {
-      name: "Qiziqarli fakt",
-      emoji: "✨",
-      questions: [
-        {
-          q: "π sonining taxminiy qiymati qaysi?",
-          options: ["2.72", "3.14", "1.61", "4.13"],
-          correct: 1,
-        },
-        {
-          q: "\"Oltin nisbat\" odatda qaysi yunon harfi bilan belgilanadi?",
-          options: ["π (pi)", "Δ (delta)", "φ (fi)", "Σ (sigma)"],
-          correct: 2,
-        },
-        {
-          q: "Eyler soni (e) taxminan nechaga teng?",
-          options: ["1.41", "2.72", "3.14", "1.61"],
-          correct: 1,
-        },
-      ],
-    },
-    tarix: {
-      name: "Matematika tarixi",
-      emoji: "🏛",
-      questions: [
-        {
-          q: "\"Algebra\" so'zi qaysi olimning asari nomidan kelib chiqqan?",
-          options: ["Evklid", "Pifagor", "Al-Xorazmiy", "Nyuton"],
-          correct: 2,
-        },
-        {
-          q: "\"Nol\" (0) raqami tushunchasi qadimda birinchi bo'lib qayerda rivojlantirilgan deb hisoblanadi?",
-          options: ["Qadimgi Misr", "Qadimgi Hindiston", "Qadimgi Yunoniston", "Qadimgi Xitoy"],
-          correct: 1,
-        },
-        {
-          q: "Mashhur \"Elementlar\" asarining muallifi kim?",
-          options: ["Arximed", "Evklid", "Pifagor", "Fales"],
-          correct: 1,
-        },
-      ],
-    },
-    fanlar: {
-      name: "Boshqa fanlar bilan bog'liqlik",
-      emoji: "🔬",
-      questions: [
-        {
-          q: "Nyutonning ikkinchi qonuni qaysi formulaga mos keladi?",
-          options: ["E = mc²", "F = ma", "a² + b² = c²", "V = IR"],
-          correct: 1,
-        },
-        {
-          q: "Fibonachchi ketma-ketligi tabiatda ko'pincha nimada kuzatiladi?",
-          options: ["Yulduzlar harakatida", "Gul barglari sonida", "Dengiz suvi bosimida", "Momaqaldiroq tovushida"],
-          correct: 1,
-        },
-        {
-          q: "Musiqada bitta oktava ichidagi chastota nisbati qanday?",
-          options: ["1:1", "2:1", "3:2", "5:4"],
-          correct: 1,
-        },
-      ],
-    },
-    hayot: {
-      name: "Hayot uchun matematika",
-      emoji: "💡",
-      questions: [
-        {
-          q: "1 000 000 so'mlik tovarga 20% chegirma qilinsa, yangi narx qancha bo'ladi?",
-          options: ["700 000", "750 000", "800 000", "900 000"],
-          correct: 2,
-        },
-        {
-          q: "Yillik 12% oddiy foiz bilan 1 000 000 so'm qo'yilsa, 1 yildan keyin jami qancha bo'ladi?",
-          options: ["1 012 000", "1 100 000", "1 112 000", "1 120 000"],
-          correct: 3,
-        },
-        {
-          q: "Mashina 60 km/soat tezlikda yursa, 150 km yo'lni bosib o'tishga necha soat ketadi?",
-          options: ["2 soat", "2.5 soat", "3 soat", "3.5 soat"],
-          correct: 1,
-        },
-      ],
-    },
-  };
+// ---------- Testlar ----------
+const QUIZ_DATA = {
+algebra: {
+name: "Algebra",
+emoji: "➗",
+questions: [
+{
+q: "x² − 5x + 6 = 0 tenglamaning ildizlari yig'indisi nechaga teng?",
+options: ["5", "6", "−5", "1"],
+correct: 0,
+},
+{
+q: "log₂8 qiymati nechaga teng?",
+options: ["2", "3", "4", "8"],
+correct: 1,
+},
+{
+q: "Arifmetik progressiyada birinchi had a=2, ayirma d=3 bo'lsa, 4-had (a₄) nechaga teng?",
+options: ["8", "9", "11", "14"],
+correct: 2,
+},
+],
+},
+geometriya: {
+name: "Geometriya",
+emoji: "📐",
+questions: [
+{
+q: "To'g'ri burchakli uchburchakning katetlari 3 va 4 bo'lsa, gipotenuza nechaga teng?",
+options: ["5", "6", "7", "25"],
+correct: 0,
+},
+{
+q: "Radiusi 7 bo'lgan doiraning yuzi (π ≈ 22/7) taxminan nechaga teng?",
+options: ["132", "144", "154", "164"],
+correct: 2,
+},
+{
+q: "Har qanday uchburchakning ichki burchaklari yig'indisi necha gradus?",
+options: ["90°", "180°", "270°", "360°"],
+correct: 1,
+},
+],
+},
+olimpiada: {
+name: "Olimpiada masalasi",
+emoji: "🏆",
+questions: [
+{
+q: "1 dan 100 gacha bo'lgan butun sonlar yig'indisi nechaga teng?",
+options: ["4950", "5000", "5050", "10000"],
+correct: 2,
+},
+{
+q: "Yig'indisi 24 ga teng bo'lgan ikkita ketma-ket tub son qaysilar?",
+options: ["7 va 17", "11 va 13", "5 va 19", "13 va 11"],
+correct: 1,
+},
+{
+q: "5! (5 faktorial) nechaga teng?",
+options: ["20", "60", "100", "120"],
+correct: 3,
+},
+],
+},
+qiziqarli: {
+name: "Qiziqarli fakt",
+emoji: "✨",
+questions: [
+{
+q: "π sonining taxminiy qiymati qaysi?",
+options: ["2.72", "3.14", "1.61", "4.13"],
+correct: 1,
+},
+{
+q: "\"Oltin nisbat\" odatda qaysi yunon harfi bilan belgilanadi?",
+options: ["π (pi)", "Δ (delta)", "φ (fi)", "Σ (sigma)"],
+correct: 2,
+},
+{
+q: "Eyler soni (e) taxminan nechaga teng?",
+options: ["1.41", "2.72", "3.14", "1.61"],
+correct: 1,
+},
+],
+},
+tarix: {
+name: "Matematika tarixi",
+emoji: "🏛",
+questions: [
+{
+q: "\"Algebra\" so'zi qaysi olimning asari nomidan kelib chiqqan?",
+options: ["Evklid", "Pifagor", "Al-Xorazmiy", "Nyuton"],
+correct: 2,
+},
+{
+q: "\"Nol\" (0) raqami tushunchasi qadimda birinchi bo'lib qayerda rivojlantirilgan deb hisoblanadi?",
+options: ["Qadimgi Misr", "Qadimgi Hindiston", "Qadimgi Yunoniston", "Qadimgi Xitoy"],
+correct: 1,
+},
+{
+q: "Mashhur \"Elementlar\" asarining muallifi kim?",
+options: ["Arximed", "Evklid", "Pifagor", "Fales"],
+correct: 1,
+},
+],
+},
+fanlar: {
+name: "Boshqa fanlar bilan bog'liqlik",
+emoji: "🔬",
+questions: [
+{
+q: "Nyutonning ikkinchi qonuni qaysi formulaga mos keladi?",
+options: ["E = mc²", "F = ma", "a² + b² = c²", "V = IR"],
+correct: 1,
+},
+{
+q: "Fibonachchi ketma-ketligi tabiatda ko'pincha nimada kuzatiladi?",
+options: ["Yulduzlar harakatida", "Gul barglari sonida", "Dengiz suvi bosimida", "Momaqaldiroq tovushida"],
+correct: 1,
+},
+{
+q: "Musiqada bitta oktava ichidagi chastota nisbati qanday?",
+options: ["1:1", "2:1", "3:2", "5:4"],
+correct: 1,
+},
+],
+},
+hayot: {
+name: "Hayot uchun matematika",
+emoji: "💡",
+questions: [
+{
+q: "1 000 000 so'mlik tovarga 20% chegirma qilinsa, yangi narx qancha bo'ladi?",
+options: ["700 000", "750 000", "800 000", "900 000"],
+correct: 2,
+},
+{
+q: "Yillik 12% oddiy foiz bilan 1 000 000 so'm qo'yilsa, 1 yildan keyin jami qancha bo'ladi?",
+options: ["1 012 000", "1 100 000", "1 112 000", "1 120 000"],
+correct: 3,
+},
+{
+q: "Mashina 60 km/soat tezlikda yursa, 150 km yo'lni bosib o'tishga necha soat ketadi?",
+options: ["2 soat", "2.5 soat", "3 soat", "3.5 soat"],
+correct: 1,
+},
+],
+},
+};
 
-  const topicsEl = document.getElementById('quiz-topics');
-  const boxEl = document.getElementById('quiz-box');
-  const questionViewEl = document.getElementById('quiz-question-view');
-  const resultViewEl = document.getElementById('quiz-result-view');
-  const progressEl = document.getElementById('quiz-progress');
-  const questionEl = document.getElementById('quiz-question');
-  const optionsEl = document.getElementById('quiz-options');
-  const scoreEl = document.getElementById('quiz-score');
+const topicsEl = document.getElementById('quiz-topics');
+const boxEl = document.getElementById('quiz-box');
+const questionViewEl = document.getElementById('quiz-question-view');
+const resultViewEl = document.getElementById('quiz-result-view');
+const progressEl = document.getElementById('quiz-progress');
+const questionEl = document.getElementById('quiz-question');
+const optionsEl = document.getElementById('quiz-options');
+const scoreEl = document.getElementById('quiz-score');
 
-  let currentTopic = null;
-  let currentIndex = 0;
-  let currentScore = 0;
-  let answered = false;
+let currentTopic = null;
+let currentIndex = 0;
+let currentScore = 0;
+let answered = false;
 
-  function renderTopics() {
-    topicsEl.innerHTML = '';
-    Object.entries(QUIZ_DATA).forEach(([key, topic]) => {
-      const btn = document.createElement('button');
-      btn.className = 'topic-btn';
-      btn.innerHTML =
-        '<span class="emoji">' + topic.emoji + '</span>' +
-        '<span class="t-name">' + topic.name + '</span>' +
-        '<span class="t-count">' + topic.questions.length + ' ta savol</span>';
-      btn.addEventListener('click', () => startQuiz(key));
-      topicsEl.appendChild(btn);
-    });
-  }
+function renderTopics() {
+topicsEl.innerHTML = '';
+Object.entries(QUIZ_DATA).forEach(([key, topic]) => {
+const btn = document.createElement('button');
+btn.className = 'topic-btn';
+btn.innerHTML =
+'<span class="emoji">' + topic.emoji + '</span>' +
+'<span class="t-name">' + topic.name + '</span>' +
+'<span class="t-count">' + topic.questions.length + ' ta savol</span>';
+btn.addEventListener('click', () => startQuiz(key));
+topicsEl.appendChild(btn);
+});
+}
 
-  function startQuiz(key) {
-    currentTopic = key;
-    currentIndex = 0;
-    currentScore = 0;
-    boxEl.classList.remove('hidden');
-    questionViewEl.classList.remove('hidden');
-    resultViewEl.classList.add('hidden');
-    renderQuestion();
-    boxEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+function startQuiz(key) {
+currentTopic = key;
+currentIndex = 0;
+currentScore = 0;
+boxEl.classList.remove('hidden');
+questionViewEl.classList.remove('hidden');
+resultViewEl.classList.add('hidden');
+renderQuestion();
+boxEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-  function renderQuestion() {
-    answered = false;
-    const topic = QUIZ_DATA[currentTopic];
-    const q = topic.questions[currentIndex];
-    progressEl.textContent = topic.emoji + ' ' + topic.name + ' — savol ' + (currentIndex + 1) + ' / ' + topic.questions.length;
-    questionEl.textContent = q.q;
-    optionsEl.innerHTML = '';
-    q.options.forEach((opt, i) => {
-      const b = document.createElement('button');
-      b.className = 'opt';
-      b.textContent = opt;
-      b.addEventListener('click', () => selectAnswer(i));
-      optionsEl.appendChild(b);
-    });
-  }
+function renderQuestion() {
+answered = false;
+const topic = QUIZ_DATA[currentTopic];
+const q = topic.questions[currentIndex];
+progressEl.textContent = topic.emoji + ' ' + topic.name + ' — savol ' + (currentIndex + 1) + ' / ' + topic.questions.length;
+questionEl.textContent = q.q;
+optionsEl.innerHTML = '';
+q.options.forEach((opt, i) => {
+const b = document.createElement('button');
+b.className = 'opt';
+b.textContent = opt;
+b.addEventListener('click', () => selectAnswer(i));
+optionsEl.appendChild(b);
+});
+}
 
-  function selectAnswer(i) {
-    if (answered) return;
-    answered = true;
-    const topic = QUIZ_DATA[currentTopic];
-    const q = topic.questions[currentIndex];
-    const buttons = optionsEl.querySelectorAll('.opt');
-    buttons.forEach((b, idx) => {
-      b.disabled = true;
-      if (idx === q.correct) b.classList.add('correct');
-      else if (idx === i) b.classList.add('wrong');
-    });
-    if (i === q.correct) currentScore++;
-    setTimeout(() => {
-      if (currentIndex < topic.questions.length - 1) {
-        currentIndex++;
-        renderQuestion();
-      } else {
-        showResult();
-      }
-    }, 900);
-  }
+function selectAnswer(i) {
+if (answered) return;
+answered = true;
+const topic = QUIZ_DATA[currentTopic];
+const q = topic.questions[currentIndex];
+const buttons = optionsEl.querySelectorAll('.opt');
+buttons.forEach((b, idx) => {
+b.disabled = true;
+if (idx === q.correct) b.classList.add('correct');
+else if (idx === i) b.classList.add('wrong');
+});
+if (i === q.correct) currentScore++;
+setTimeout(() => {
+if (currentIndex < topic.questions.length - 1) {
+currentIndex++;
+renderQuestion();
+} else {
+showResult();
+}
+}, 900);
+}
 
-  function showResult() {
-    const topic = QUIZ_DATA[currentTopic];
-    questionViewEl.classList.add('hidden');
-    resultViewEl.classList.remove('hidden');
-    scoreEl.textContent = currentScore + ' / ' + topic.questions.length;
-  }
+function showResult() {
+const topic = QUIZ_DATA[currentTopic];
+questionViewEl.classList.add('hidden');
+resultViewEl.classList.remove('hidden');
+scoreEl.textContent = currentScore + ' / ' + topic.questions.length;
+}
 
-  document.getElementById('quiz-retry').addEventListener('click', () => startQuiz(currentTopic));
-  document.getElementById('quiz-other').addEventListener('click', () => {
-    boxEl.classList.add('hidden');
-    document.getElementById('testlar').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-  document.getElementById('quiz-back').addEventListener('click', () => {
-    boxEl.classList.add('hidden');
-  });
+document.getElementById('quiz-retry').addEventListener('click', () => startQuiz(currentTopic));
+document.getElementById('quiz-other').addEventListener('click', () => {
+boxEl.classList.add('hidden');
+document.getElementById('testlar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+document.getElementById('quiz-back').addEventListener('click', () => {
+boxEl.classList.add('hidden');
+});
 
-  renderTopics();
+renderTopics();
 </script>
 
 </body>
