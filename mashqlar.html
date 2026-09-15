@@ -148,6 +148,16 @@
   .tm-opt input{accent-color:var(--accent);width:20px;height:20px;flex-shrink:0;}
   .tm-score{font-size:clamp(34px,6vw,56px);font-weight:800;text-align:center;color:var(--accent);margin:6px 0 4px;}
   .tm-verdict{text-align:center;font-size:clamp(16px,2.4vw,22px);margin:0 0 16px;color:var(--text);}
+  .tm-grade-panel{border-radius:18px;padding:22px 16px 6px;margin:0 0 4px;border:1px solid var(--border);background:var(--bg-soft);transition:background .25s,border-color .25s;}
+  .tm-grade-label{text-align:center;font-weight:800;font-size:clamp(15px,2vw,19px);margin:0 0 14px;letter-spacing:.02em;}
+  .tm-grade-panel.grade-5{background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.4);}
+  .tm-grade-panel.grade-5 .tm-score,.tm-grade-panel.grade-5 .tm-grade-label{color:#4ade80;}
+  .tm-grade-panel.grade-4{background:rgba(124,155,255,.12);border-color:rgba(124,155,255,.4);}
+  .tm-grade-panel.grade-4 .tm-score,.tm-grade-panel.grade-4 .tm-grade-label{color:#7c9bff;}
+  .tm-grade-panel.grade-3{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.4);}
+  .tm-grade-panel.grade-3 .tm-score,.tm-grade-panel.grade-3 .tm-grade-label{color:#fbbf24;}
+  .tm-grade-panel.grade-2{background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.4);}
+  .tm-grade-panel.grade-2 .tm-score,.tm-grade-panel.grade-2 .tm-grade-label{color:#f87171;}
   .tm-send-status{text-align:center;font-size:clamp(12.5px,1.6vw,15px);color:var(--text-dim);margin-bottom:16px;min-height:16px;}
   .tm-identity-note{font-size:clamp(12.5px,1.6vw,15px);color:var(--text-dim);margin:-6px 0 16px;}
   .tm-change-identity{background:none;border:none;color:var(--accent-2);font-size:12.5px;cursor:pointer;padding:0;margin-bottom:14px;text-decoration:underline;}
@@ -2770,8 +2780,11 @@ Javob: 4200</p>
     </div>
 
     <div id="tm-result" hidden>
-      <p class="tm-score" id="tm-score"></p>
-      <p class="tm-verdict" id="tm-verdict"></p>
+      <div class="tm-grade-panel" id="tm-grade-panel">
+        <p class="tm-score" id="tm-score"></p>
+        <p class="tm-grade-label" id="tm-grade-label"></p>
+        <p class="tm-verdict" id="tm-verdict"></p>
+      </div>
       <p class="tm-send-status" id="tm-send-status"></p>
       <button class="tm-btn" onclick="retakeTest()">Qayta topshirish</button>
       <button class="tm-btn-secondary" onclick="changeIdentity()">F.I.Sh / guruhni o'zgartirish</button>
@@ -2922,6 +2935,14 @@ async function finishTest() {
   else if (pct >= 60) verdict = "🙂 O'rtacha natija.";
   else verdict = '📚 Mavzuni qayta ko\'rib chiqishni tavsiya qilamiz.';
   document.getElementById('tm-verdict').textContent = verdict;
+
+  var grade, gradeClass;
+  if (pct >= 90) { grade = 5; gradeClass = 'grade-5'; }
+  else if (pct >= 70) { grade = 4; gradeClass = 'grade-4'; }
+  else if (pct >= 50) { grade = 3; gradeClass = 'grade-3'; }
+  else { grade = 2; gradeClass = 'grade-2'; }
+  document.getElementById('tm-grade-panel').className = 'tm-grade-panel ' + gradeClass;
+  document.getElementById('tm-grade-label').textContent = 'Baho: ' + grade;
 
   const identity = getIdentity() || { name: '', group: '' };
   const payload = {
