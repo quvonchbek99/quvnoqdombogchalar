@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mavzular va mashqlar — Matematika tarixi</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#5ee6c7">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
   :root{
     --bg:#0b1220;
@@ -3198,6 +3202,13 @@ loadDynamicTopics();
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closeTest();
 });
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 </script>
 
 </body>
