@@ -218,6 +218,20 @@
   .admin-results-table th{color:var(--text-dim);font-weight:600;position:sticky;top:0;background:#1c1f2e;}
   .admin-results-wrap{max-height:420px;overflow:auto;border:1px solid var(--border);border-radius:12px;}
   .admin-results-empty{color:var(--text-dim);font-size:13px;padding:10px 2px;}
+
+/* ====== Mavzularni yig'ib/yoyib ko'rsatish (akkordeon) ====== */
+.topic-toolbar{display:flex;justify-content:flex-end;margin:0 0 14px;}
+.topic-toolbar button{
+background:var(--bg-soft);border:1px solid var(--border);color:var(--text-dim);
+font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointer;
+}
+.topic-toolbar button:hover{color:var(--text);border-color:var(--accent-2);}
+.topic>h2{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;user-select:none;}
+.topic>h2::after{content:"+";color:var(--accent);font-weight:800;font-size:20px;flex:none;line-height:1;}
+.topic:not(.collapsed)>h2::after{content:"\2212";}
+.topic-body{overflow:hidden;}
+.topic.collapsed .topic-body{display:none;}
+.topic:not(.collapsed) .topic-body{margin-top:4px;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -3211,5 +3225,96 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+
+<script>
+/* ====== Mavzularni yig'ib/yoyib ko'rsatish (akkordeon) ======
+   Har bir mavzu (section.topic) sarlavhasi (h2) doim ko'rinadi,
+   qolgan qismi esa "topic-body" ichiga o'raladi va boshida yopiq turadi.
+   Shu tufayli sahifa juda uzun bo'lib ko'rinmaydi. */
+(function () {
+  function initAccordion() {
+    var topics = document.querySelectorAll('main section.topic');
+    topics.forEach(function (section) {
+      if (section.querySelector(':scope > .topic-body')) return; // allaqachon o'ralgan
+      var heading = section.querySelector(':scope > h2');
+      if (!heading) return;
+      var body = document.createElement('div');
+      body.className = 'topic-body';
+      var node = heading.nextSibling;
+      while (node) {
+        var next = node.nextSibling;
+        body.appendChild(node);
+        node = next;
+      }
+      section.appendChild(body);
+      section.classList.add('collapsed');
+      heading.setAttribute('role', 'button');
+      heading.setAttribute('tabindex', '0');
+      heading.setAttribute('aria-expanded', 'false');
+      heading.addEventListener('click', function () {
+        toggleTopic(section);
+      });
+      heading.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleTopic(section);
+        }
+      });
+    });
+
+    // Mavzular ustidagi "Hammasini yoyish / yig'ish" tugmalari
+    var main = document.querySelector('main');
+    if (main && !document.getElementById('topicToolbar')) {
+      var toolbar = document.createElement('div');
+      toolbar.className = 'topic-toolbar';
+      toolbar.id = 'topicToolbar';
+      toolbar.innerHTML =
+        '<button type="button" id="expandAllBtn">Hammasini yoyish</button>' +
+        '<button type="button" id="collapseAllBtn" style="margin-left:8px;">Hammasini yig\'ish</button>';
+      main.insertBefore(toolbar, main.firstChild);
+      document.getElementById('expandAllBtn').addEventListener('click', function () {
+        document.querySelectorAll('main section.topic').forEach(function (s) {
+          s.classList.remove('collapsed');
+          var h = s.querySelector(':scope > h2');
+          if (h) h.setAttribute('aria-expanded', 'true');
+        });
+      });
+      document.getElementById('collapseAllBtn').addEventListener('click', function () {
+        document.querySelectorAll('main section.topic').forEach(function (s) {
+          s.classList.add('collapsed');
+          var h = s.querySelector(':scope > h2');
+          if (h) h.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  }
+
+  function toggleTopic(section) {
+    var collapsed = section.classList.toggle('collapsed');
+    var heading = section.querySelector(':scope > h2');
+    if (heading) heading.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  }
+
+  function openTopicFromHash() {
+    var id = (location.hash || '').replace('#', '');
+    if (!id) return;
+    var section = document.getElementById(id);
+    if (section && section.classList.contains('topic')) {
+      section.classList.remove('collapsed');
+      var heading = section.querySelector(':scope > h2');
+      if (heading) heading.setAttribute('aria-expanded', 'true');
+      setTimeout(function () {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 30);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initAccordion();
+    openTopicFromHash();
+  });
+  window.addEventListener('hashchange', openTopicFromHash);
+})();
+</script>
 </body>
 </html>
