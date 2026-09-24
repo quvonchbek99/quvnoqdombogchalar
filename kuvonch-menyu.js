@@ -913,6 +913,7 @@
     .ka-t-flash{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 28px/1 var(--ka-font);padding:8px 16px;border-radius:12px;pointer-events:none;opacity:0;transition:opacity .2s}
     .ka-t-flash.show{opacity:1}
     @media (max-width:640px){.ka-t-field{height:110px}.ka-t-arena{gap:6px;padding:6px}.ka-t-side{padding:6px}.ka-t-ans{font-size:22px;min-height:40px;padding:6px}}
+    @media (max-height:640px){.ka-t{overflow-y:auto}.ka-t-arena{flex:1 0 auto}.ka-t-field{height:84px;margin-top:4px}.ka-t-top{padding:4px 10px}.ka-t-q{font-size:22px;padding:0}.ka-t-ans{font-size:20px;min-height:34px;padding:4px}.ka-t-pad{flex:0 0 auto;grid-template-columns:repeat(6,1fr)}.ka-t-pad button{min-height:36px;font-size:18px}.ka-t-card{padding:14px;margin:auto}.ka-t-card p{margin:4px 0 8px}.ka-t-over{position:fixed;overflow-y:auto;align-items:flex-start}}
     `;
 
     function rnd(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
