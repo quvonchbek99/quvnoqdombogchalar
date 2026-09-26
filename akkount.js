@@ -311,7 +311,10 @@
   function modalVisible() { if (!modal) return false; var cs = getComputedStyle(modal); return cs.display !== "none" && cs.visibility !== "hidden" && modal.getClientRects().length > 0 && modal.offsetHeight > 0 && !modal.hidden; }
   function testsObj() { try { return typeof TESTS !== "undefined" ? TESTS : null; } catch (e) { return null; } }
   function modalTitle() {
-    var h = modal && $("h1,h2,h3,.test-title", modal);
+    if (!modal) return "Test";
+    var m = /([^\n]{3,90}?)\s+[—-]\s+savol\s+\d+/i.exec(modal.innerText || "");
+    if (m) return m[1].trim();
+    var h = $("h1,h2,h3,.test-title", modal);
     return h ? h.textContent.replace(/\s+/g, " ").trim().slice(0, 80) : "Test";
   }
   function startSession() {
