@@ -287,6 +287,21 @@
       return { q: "Qutida " + tot + " ta shar bor, ulardan " + fav + " tasi qizil. Tasodifan olingan shar qizil bo'lish ehtimolini toping.", a: fav / tot, hint: "kasr, masalan 3/10",
         steps: ["P = qulay / hammasi = " + fav + "/" + tot + " = " + frac(fav, tot)] };
     },
+    bezu: function () {
+      var a = RNZ(-2, 3), b = R(-5, 5), c = R(-6, 6), d = R(-9, 9), k = RNZ(-3, 3), v = a * k * k * k + b * k * k + c * k + d;
+      return { q: "P(x) = " + poly([a, b, c, d]) + " ko'phadni (x " + sgn(-k) + ") ga bo'lgandagi qoldiqni toping.", a: v, hint: "son",
+        steps: ["Bezu teoremasi: qoldiq = P(" + k + ")", "Gorner sxemasi yoki bevosita hisoblash: P(" + k + ") = " + v] };
+    },
+    stereo: function () {
+      var t = pick([[1, 2, 2, 3], [2, 3, 6, 7], [1, 4, 8, 9], [2, 6, 9, 11], [4, 4, 7, 9], [6, 6, 7, 11]]), k = R(0, 2);
+      if (k === 0) return { q: "To'g'ri burchakli parallelepiped o'lchamlari " + t[0] + ", " + t[1] + " va " + t[2] + ". Diagonalini toping.", a: t[3], hint: "son",
+        steps: ["d² = a² + b² + c² = " + (t[0] * t[0]) + " + " + (t[1] * t[1]) + " + " + (t[2] * t[2]) + " = " + (t[3] * t[3]), "d = " + t[3]] };
+      if (k === 1) { var x = R(-4, 4), y = R(-4, 4), z = R(-4, 4);
+        return { q: "Fazoda A(" + x + "; " + y + "; " + z + ") va B(" + (x + t[0]) + "; " + (y + t[1]) + "; " + (z + t[2]) + ") nuqtalar orasidagi masofani toping.", a: t[3], hint: "son",
+          steps: ["AB = √((Δx)² + (Δy)² + (Δz)²) = √(" + (t[0] * t[0]) + " + " + (t[1] * t[1]) + " + " + (t[2] * t[2]) + ")", "AB = " + t[3]] }; }
+      var a = R(2, 9), b = R(2, 9), c = R(2, 9);
+      return { q: "To'g'ri burchakli parallelepiped o'lchamlari " + a + ", " + b + " va " + c + " sm. Hajmini toping (sm³).", a: a * b * c, hint: "son", steps: ["V = a·b·c = " + a + "·" + b + "·" + c + " = " + a * b * c] };
+    },
     // Asosiy amallar
     add: function () { var a = R(100, 999), b = R(100, 999); return { q: a + " + " + b + " ni hisoblang.", a: a + b, hint: "son", steps: [a + " + " + b + " = " + (a + b)] }; },
     sub: function () { var a = R(-60, 400), b = R(-80, 300); return { q: a + " − " + par(b) + " ni hisoblang.", a: a - b, hint: "son", steps: [a + " − " + par(b) + " = " + (a - b)] }; },
@@ -325,6 +340,9 @@
     [/pifagor|uchburchak/i, ["pythag", "area"]],
     [/yuz|hajm|perimetr|geometri|figura|ko'pburchak|to'rtburchak/i, ["area", "pythag"]],
     [/kombinator|ehtimol|faktorial/i, ["comb"]],
+    [/bezu|gorner/i, ["bezu"]],
+    [/tasodifiy|hodisa/i, ["comb"]],
+    [/fazo|stereometr|planimetr|tekislik|proyeksiya|to'g'ri\s+chiziq/i, ["stereo", "pythag"]],
     [/chiziqli\s+tenglama|tenglama/i, ["linEq", "quadEq"]],
     [/tengsizlik/i, ["ineqSystem", "quadIneq"]],
     [/qo'shish/i, ["add"]], [/ayirish/i, ["sub"]], [/karra/i, ["times"]],
