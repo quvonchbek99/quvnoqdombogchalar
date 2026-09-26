@@ -42,6 +42,29 @@
     } catch (e) { var h = 0; for (var i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0; return "h" + h; }
   }
 
+  // Qurilma nomi (telefon markasi/modeli) — akkountga "pasport" sifatida bir marta yoziladi
+  function parseUAModel() {
+    var ua = navigator.userAgent || "";
+    var m;
+    if (/iPad/.test(ua)) return "iPad";
+    if (/iPhone/.test(ua)) return "iPhone";
+    if (m = /Android[^;]*;\s*([^;)]+?)\s*(?:Build\/|\))/i.exec(ua)) { var s = m[1].trim(); if (s && !/^wv$/i.test(s)) return s; }
+    if (/Android/.test(ua)) return "Android qurilma";
+    if (/Macintosh/.test(ua)) return "Mac";
+    if (/Windows/.test(ua)) return "Windows kompyuter";
+    if (/Linux/.test(ua)) return "Linux kompyuter";
+    return "Noma'lum qurilma";
+  }
+  async function deviceInfo() {
+    try {
+      if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+        var d = await navigator.userAgentData.getHighEntropyValues(["model"]);
+        if (d && d.model) return d.model; // masalan: "Pixel 7", "SM-G991B" — telefon markasi/modeli
+      }
+    } catch (e) {}
+    return parseUAModel();
+  }
+
   // ---------- Avatarlar ----------
   var AVATARS = [["🦊", "#ff9f43"], ["🐼", "#8395a7"], ["🦁", "#feca57"], ["🐯", "#ff6b6b"], ["🐸", "#1dd1a1"], ["🐧", "#54a0ff"],
     ["🦉", "#a55eea"], ["🐬", "#48dbfb"], ["🚀", "#5f27cd"], ["⭐", "#f6b93b"], ["🧠", "#ff7f9f"], ["📐", "#10ac84"]];
@@ -204,6 +227,7 @@
 
   function login(id) {
     setCur(id); DB[id].last = Date.now(); save(); renderChip();
+    if (!DB[id].device) deviceInfo().then(function (d) { if (DB[id]) { DB[id].device = d; save(); } });
     toast("Xush kelibsiz, " + DB[id].name.split(" ")[0] + "! 👋");
     if (gate) { var g = gate; gate = null; close(); g(); } else showProfile();
   }
@@ -251,6 +275,7 @@
       var rec = DB[id] || { coins: 0, correct: 0, answered: 0, tests: 0, history: [], created: Date.now(), done: {} };
       rec.name = name; rec.group = f.group.value.trim(); rec.av = draft.av; rec.photo = draft.photo;
       if (pin) rec.pin = await hashPin(pin);
+      if (!rec.device) rec.device = await deviceInfo();
       DB[id] = rec; save();
       if (editId) { renderChip(); showProfile(); toast("Saqlandi ✅"); }
       else login(id);
@@ -276,7 +301,7 @@
       '<div class="acc-list"></div>' +
       '<div class="acc-btns"><button class="acc-btn" type="button" data-a="edit">✏️ Tahrirlash / rasm</button><button class="acc-btn" type="button" data-a="switch">🔄 Boshqa akkount</button>' +
       '<button class="acc-btn" type="button" data-a="logout">🚪 Chiqish</button><button class="acc-btn danger" type="button" data-a="del">🗑 O\'chirish</button></div>' +
-      '<div style="font-size:12px;color:#9fb0d0">Har bir testdagi to\'g\'ri javob uchun +' + COIN_PER_CORRECT + " 🪙. Akkount shu qurilmadagi brauzerda saqlanadi.</div></div>";
+      '<div style="font-size:12px;color:#9fb0d0">📱 Qurilma: ' + esc(u.device || "Noma'lum qurilma") + '<br>Har bir testdagi to\'g\'ri javob uchun +' + COIN_PER_CORRECT + " 🪙. Akkount shu qurilmada avtomatik saqlanib, keyingi safar saytga kirganda o'zi tanib oladi.</div></div>";
     $$(".acc-tab", card).forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-t") === tab ? "true" : "false"); b.onclick = function () { showProfile(b.getAttribute("data-t")); }; });
     var list = $(".acc-list", card);
     if (tab === "tarix") {
@@ -398,4 +423,8 @@
   };
   renderChip();
   if (location.hash === "#akkount") setTimeout(function () { window.kaAccount.open(); }, 300);
+  (function backfillDevice() {
+    var u = me();
+    if (u && !u.device) deviceInfo().then(function (d) { var u2 = me(); if (u2) { u2.device = d; save(); } });
+  })();
 })();
