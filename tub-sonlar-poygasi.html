@@ -1,0 +1,1194 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tub Sonlar Poygasi — Kuvonch Academy</title>
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  :root{
+    --bg:#12151b;
+    --panel:#1b212b;
+    --panel-2:#232a36;
+    --line:#323b49;
+    --accent:#f4c430;
+    --accent-ink:#3a2c02;
+    --cobalt:#3b6fe0;
+    --nexia:#e0483b;
+    --text:#f2f1ec;
+    --muted:#8b93a3;
+    --good:#3fbf7f;
+    --bad:#e0483b;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f4f1ea;
+      --panel:#ffffff;
+      --panel-2:#eeebe2;
+      --line:#dcd6c8;
+      --accent-ink:#3a2c02;
+      --text:#1c1f26;
+      --muted:#6b6456;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#f4f1ea;
+    --panel:#ffffff;
+    --panel-2:#eeebe2;
+    --line:#dcd6c8;
+    --accent-ink:#3a2c02;
+    --text:#1c1f26;
+    --muted:#6b6456;
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151b;
+    --panel:#1b212b;
+    --panel-2:#232a36;
+    --line:#323b49;
+    --text:#f2f1ec;
+    --muted:#8b93a3;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif;
+    padding-inline:16px;
+    padding-block:24px;
+  }
+  .wrap{max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+  h1,h2,h3{font-family:'Rajdhani',system-ui,sans-serif;text-wrap:balance;margin:0;letter-spacing:.02em}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+  /* --- grand header --- */
+  .flagstrip{
+    height:10px;border-radius:6px;
+    background-image:repeating-conic-gradient(var(--text) 0% 25%, transparent 0% 50%);
+    background-size:16px 16px;
+    opacity:.22;
+  }
+  header.top{display:flex;flex-direction:column;gap:8px}
+  header.top .titlerow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  h1{
+    font-size:clamp(28px,5vw,42px);font-weight:700;
+    background:linear-gradient(92deg, var(--accent), var(--cobalt) 45%, var(--nexia) 85%, var(--accent));
+    background-size:300% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:titleshift 7s ease-in-out infinite;
+  }
+  @keyframes titleshift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .sub{color:var(--muted);font-size:15px;max-width:65ch}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+
+  /* --- start screen --- */
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .field input, .field select{
+    font:inherit;font-size:16px;padding:10px 12px;border-radius:10px;
+    border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+  }
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row > *{flex:1;min-width:160px}
+
+  .car-pick{display:flex;gap:14px;flex-wrap:wrap}
+  .car-card{
+    flex:1;min-width:180px;border:2px solid var(--line);border-radius:14px;padding:16px;
+    background:var(--panel-2);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px;
+    transition:border-color .15s, transform .15s, box-shadow .2s;
+  }
+  .car-card:hover{transform:translateY(-2px)}
+  .car-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 22px color-mix(in srgb, var(--accent) 35%, transparent)}
+  .car-card svg{width:100%;height:auto;max-width:120px}
+  .car-card .name{font-family:'Rajdhani';font-weight:700;font-size:18px}
+  .car-card .tag{font-size:12px;color:var(--muted)}
+
+  .diff-pick{display:flex;gap:14px;flex-wrap:wrap}
+  .diff-card{
+    flex:1;min-width:140px;border:2px solid var(--line);border-radius:14px;padding:14px;
+    background:var(--panel-2);cursor:pointer;display:flex;flex-direction:column;gap:4px;
+    transition:border-color .15s, transform .15s, box-shadow .2s;
+  }
+  .diff-card:hover{transform:translateY(-2px)}
+  .diff-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent)}
+  .diff-card .name{font-family:'Rajdhani';font-weight:700;font-size:17px;display:flex;align-items:center;gap:6px}
+  .diff-card .tag{font-size:12px;color:var(--muted);line-height:1.4}
+
+  .btn{
+    font:inherit;font-weight:800;font-size:15px;letter-spacing:.02em;padding:13px 22px;border-radius:12px;
+    border:none;cursor:pointer;background:var(--accent);color:var(--accent-ink);
+    transition:transform .1s, filter .15s, box-shadow .2s;
+    box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+  .btn:hover{filter:brightness(1.06)}
+  .btn:active{transform:scale(.98)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text);box-shadow:none}
+  .btn.pulse{animation:btnpulse 2.2s ease-in-out infinite}
+  @keyframes btnpulse{
+    0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent)}
+    50%{box-shadow:0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent)}
+  }
+
+  .rules{color:var(--muted);font-size:13.5px;line-height:1.6}
+  .rules b{color:var(--text)}
+
+  /* --- game screen --- */
+  .hud{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .hud-group{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .stat{display:flex;flex-direction:column;gap:2px}
+  .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+  .stat .v{font-family:'JetBrains Mono';font-weight:700;font-size:20px;font-variant-numeric:tabular-nums}
+  .lives{display:flex;gap:4px;font-size:18px;letter-spacing:2px}
+  .life-lost{opacity:.25}
+
+  .mute-btn{
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);
+    color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;transition:background .15s;
+  }
+  .mute-btn:hover{background:var(--line)}
+
+  .road-wrap{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:inset 0 0 40px rgba(0,0,0,.35)}
+  canvas{display:block;width:100%;background:#20242b;touch-action:none;cursor:pointer;user-select:none}
+
+  /* --- route strip (Namangan -> Qoraqalpog'iston) --- */
+  .route-strip{
+    display:flex;gap:6px;overflow-x:auto;padding:10px 4px;margin-bottom:10px;
+    scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+  }
+  .route-strip::-webkit-scrollbar{height:4px}
+  .route-pill{
+    flex:0 0 auto;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--muted);white-space:nowrap;
+    transition:all .25s;
+  }
+  .route-pill.done{background:color-mix(in srgb, var(--good) 20%, transparent);color:var(--good);border-color:transparent}
+  .route-pill.active{
+    background:var(--accent);color:var(--accent-ink);border-color:transparent;
+    box-shadow:0 0 14px color-mix(in srgb, var(--accent) 60%, transparent);transform:scale(1.08);
+  }
+
+  /* --- streak / mukofot badge --- */
+  .streak-badge{
+    display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono';font-weight:700;font-size:13px;
+    padding:4px 10px;border-radius:999px;background:color-mix(in srgb, var(--accent) 20%, transparent);color:var(--accent);
+    opacity:0;transform:translateY(-6px);transition:all .25s;
+  }
+  .streak-badge.show{opacity:1;transform:translateY(0)}
+  .medal{font-size:16px}
+
+  .lane-controls{display:flex;gap:10px;margin-top:12px}
+  .lane-btn{
+    flex:1;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--panel-2);
+    color:var(--text);font-family:'JetBrains Mono';font-weight:700;font-size:18px;cursor:pointer;
+    transition:background .12s, transform .08s;
+  }
+  .lane-btn:active{background:var(--accent);color:var(--accent-ink);transform:scale(.97)}
+  .hint{color:var(--muted);font-size:12.5px;text-align:center;margin-top:8px}
+
+  .flash{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'Rajdhani';font-weight:700;font-size:15vw;pointer-events:none;opacity:0;
+  }
+  .flash.show{animation:flashpop .5s ease-out}
+  @keyframes flashpop{0%{opacity:0;transform:scale(.7)}25%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.1)}}
+  .flash.good{color:var(--good)}
+  .flash.bad{color:var(--bad)}
+
+  /* --- gameover --- */
+  .grade-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:88px;height:88px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
+    font-family:'Rajdhani';font-weight:700;font-size:44px;flex-shrink:0;position:relative;overflow:hidden;
+    box-shadow:0 0 26px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .grade-badge::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+    background-size:220% 100%;
+    animation:shine 2.6s ease-in-out infinite;
+  }
+  @keyframes shine{0%{background-position:140% 0}100%{background-position:-40% 0}}
+  .result-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;flex:1}
+  .rmini .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .rmini .v{font-family:'JetBrains Mono';font-size:22px;font-weight:700}
+
+  /* --- leaderboard --- */
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  td.num{font-family:'JetBrains Mono';font-variant-numeric:tabular-nums}
+  .board-wrap{overflow-x:auto}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700}
+  .pill.g5{background:color-mix(in srgb, var(--good) 22%, transparent);color:var(--good)}
+  .pill.g4{background:color-mix(in srgb, var(--cobalt) 22%, transparent);color:var(--cobalt)}
+  .pill.g3{background:color-mix(in srgb, var(--accent) 30%, transparent);color:var(--accent-ink)}
+  .pill.g2{background:color-mix(in srgb, var(--bad) 22%, transparent);color:var(--bad)}
+  .filterbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+  .filterbar select,.filterbar input{font:inherit;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--text)}
+  .empty{color:var(--muted);font-size:14px;padding:14px 0}
+  [hidden]{display:none!important}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--good);display:inline-block;margin-right:6px;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a href="mashqlar.html" style="color:var(--muted);text-decoration:none;font-weight:700;font-size:14px">← Kuvonch Academy — Mavzular</a>
+    <div class="flagstrip"></div>
+    <div class="titlerow">
+      <div class="eyebrow">Matematika &middot; Tub sonlar</div>
+    </div>
+    <h1>🏁 Tub Sonlar Poygasi</h1>
+    <p class="sub">Mashinangizni tanlang, yo'lda tub sonlarni topib yig'ib boring — noto'g'ri son jon oladi, natijangiz avtomatik elektron bahoga aylanadi va pastdagi jadvalga tushadi.</p>
+  </header>
+
+  <!-- START SCREEN -->
+  <section id="screen-start" class="panel">
+    <h3 style="margin-bottom:14px">O'yinga tayyorlanish</h3>
+    <div class="row" style="margin-bottom:16px">
+      <div class="field">
+        <label for="inp-name">Ismingiz</label>
+        <input id="inp-name" type="text" placeholder="Masalan: Aziza Karimova" maxlength="40">
+      </div>
+      <div class="field">
+        <label for="inp-group">Guruhingiz</label>
+        <input id="inp-group" type="text" list="group-options" placeholder="Masalan: 05-25" maxlength="24" autocomplete="off">
+        <datalist id="group-options"></datalist>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px">
+      <label>Qiyinlik darajasi</label>
+      <div class="diff-pick">
+        <div class="diff-card" data-diff="oson" tabindex="0">
+          <div class="name">🟢 Oson</div>
+          <div class="tag">Sekinroq, ko'proq jon (12 ta), o'ylab javob berishga vaqt yetarli</div>
+        </div>
+        <div class="diff-card sel" data-diff="orta" tabindex="0">
+          <div class="name">🟡 O'rta</div>
+          <div class="tag">Standart tezlik, 10 ta jon, muvozanatli sonlar</div>
+        </div>
+        <div class="diff-card" data-diff="qiyin" tabindex="0">
+          <div class="name">🔴 Qiyin</div>
+          <div class="tag">Tezroq, 8 ta jon, tub songa yaqin "aldamchi" sonlar, +2 ball</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px">
+      <label>Mashinangizni tanlang</label>
+      <div class="car-pick">
+        <div class="car-card sel" data-car="cobalt" tabindex="0">
+          <svg viewBox="0 0 120 60"><rect x="10" y="26" width="100" height="20" rx="8" fill="#3b6fe0"/><rect x="26" y="14" width="60" height="18" rx="7" fill="#3b6fe0"/><rect x="32" y="17" width="20" height="11" rx="2" fill="#cfe0ff"/><rect x="56" y="17" width="20" height="11" rx="2" fill="#cfe0ff"/><circle cx="34" cy="47" r="9" fill="#12151b"/><circle cx="34" cy="47" r="4" fill="#8b93a3"/><circle cx="88" cy="47" r="9" fill="#12151b"/><circle cx="88" cy="47" r="4" fill="#8b93a3"/></svg>
+          <div class="name">Cobalt</div>
+          <div class="tag">Tez va barqaror</div>
+        </div>
+        <div class="car-card" data-car="nexia" tabindex="0">
+          <svg viewBox="0 0 120 60"><rect x="8" y="27" width="104" height="19" rx="8" fill="#e0483b"/><rect x="24" y="15" width="64" height="18" rx="7" fill="#e0483b"/><rect x="30" y="18" width="22" height="10" rx="2" fill="#ffd9d4"/><rect x="56" y="18" width="24" height="10" rx="2" fill="#ffd9d4"/><circle cx="33" cy="47" r="9" fill="#12151b"/><circle cx="33" cy="47" r="4" fill="#8b93a3"/><circle cx="90" cy="47" r="9" fill="#12151b"/><circle cx="90" cy="47" r="4" fill="#8b93a3"/></svg>
+          <div class="name">Nexia</div>
+          <div class="tag">Ishonchli klassika</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules panel" style="background:var(--panel-2);border:1px solid var(--line);margin-bottom:16px">
+      <b>Qoidalar:</b> Yo'lda <b>1 dan 1000 gacha</b> aralash sonlar chiqadi. Har safar 3 ta yo'lakda 3 ta son turadi.
+      Sizning vazifangiz &mdash; ular orasidan <b>tub sonni</b> topib, mashinangizni o'sha yo'lakka olib o'tish.
+      Agar 3 ta sondan <b>ikkitasi</b> ham tub bo'lsa, ikkalasidan qaysi birini tanlasangiz ham &mdash; <b>to'g'ri</b> hisoblanadi.
+      To'g'ri topsangiz &mdash; ball qo'shiladi; adashsangiz (tub bo'lmagan sonni tansangiz) &mdash; 1 ta jon ketadi.
+      Ketma-ket <b>5 ta</b> to'g'ri javobdan so'ng &mdash; <b>bonus ball</b> beriladi. Qiyinlik darajasini tanlang: oson darajada vaqt ko'proq va jon ko'p, qiyin darajada tezroq va har bir to'g'ri javob uchun ko'proq ball beriladi.
+      Barcha bosqichlar tugaguncha poyga davom etadi. Natijangiz asosida elektron baho qo'yiladi.
+    </div>
+
+    <button id="btn-start" class="btn pulse">Poygani boshlash 🏁</button>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="screen-game" class="panel" hidden>
+    <div class="hud" style="margin-bottom:12px">
+      <div class="hud-group">
+        <div class="stat"><div class="k">Ball</div><div class="v" id="hud-score">0</div></div>
+        <div class="stat"><div class="k">Bosqich</div><div class="v" id="hud-number">1/40</div></div>
+        <div class="stat"><div class="k">Manzil</div><div class="v" id="hud-city" style="font-size:15px">Namangan</div></div>
+        <span class="streak-badge" id="streak-badge">🏆 Seriya x0</span>
+      </div>
+      <div class="hud-group">
+        <div class="stat">
+          <div class="k">Jonlar</div>
+          <div class="lives" id="hud-lives"></div>
+        </div>
+        <button id="btn-mute" class="mute-btn" title="Ovozni o'chirish/yoqish">🔊</button>
+      </div>
+    </div>
+
+    <div class="route-strip" id="route-strip"></div>
+
+    <div class="road-wrap">
+      <canvas id="road" width="880" height="420"></canvas>
+      <div class="flash" id="flash"></div>
+    </div>
+
+    <div class="lane-controls">
+      <button class="lane-btn" data-lane="0">◀ Chap</button>
+      <button class="lane-btn" data-lane="1">▲ O'rta</button>
+      <button class="lane-btn" data-lane="2">O'ng ▶</button>
+    </div>
+    <p class="hint">🖱️ Sichqoncha/barmoq bilan yo'lni bosing yoki suring &middot; ⌨️ ← → tugmalari yoki yuqoridagi tugmalar</p>
+  </section>
+
+  <!-- GAME OVER SCREEN -->
+  <section id="screen-over" class="panel" hidden>
+    <h3 style="margin-bottom:16px" id="over-title">Poyga yakunlandi!</h3>
+    <div class="result-row" style="margin-bottom:18px">
+      <div class="grade-badge" id="over-grade">5</div>
+      <div class="result-stats">
+        <div class="rmini"><div class="k">To'g'ri javob</div><div class="v" id="over-score">0</div></div>
+        <div class="rmini"><div class="k">Aniqlik</div><div class="v" id="over-acc">0%</div></div>
+        <div class="rmini"><div class="k">O'tilgan bosqich</div><div class="v" id="over-dist">0</div></div>
+        <div class="rmini"><div class="k">Qolgan jon</div><div class="v" id="over-lives">0</div></div>
+        <div class="rmini"><div class="k">Eng uzun seriya</div><div class="v" id="over-streak">0</div></div>
+      </div>
+    </div>
+    <div class="row">
+      <button id="btn-save" class="btn">Natijani jadvalga yozish ✅</button>
+      <button id="btn-again" class="btn ghost">Qayta o'ynash</button>
+    </div>
+    <p class="hint" id="save-status" style="text-align:left"></p>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section class="panel">
+    <div class="filterbar">
+      <h3 style="margin-right:auto">Natijalar jadvali</h3>
+      <input id="filter-group" type="text" list="group-options" placeholder="Guruh bo'yicha filtr (bo'sh = hammasi)" autocomplete="off">
+      <button id="btn-csv" class="btn ghost" type="button" style="padding:8px 12px;font-size:13px">⬇ Excel (CSV)</button>
+      <button id="btn-clear" class="btn ghost" type="button" style="padding:8px 12px;font-size:13px">🗑 Tozalash</button>
+    </div>
+    <div class="board-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Ism</th><th>Guruh</th><th>Mashina</th><th>Ball</th><th>Aniqlik</th><th>Baho</th></tr>
+        </thead>
+        <tbody id="board-body"></tbody>
+      </table>
+      <p class="empty" id="board-empty" hidden>Hali natijalar yo'q. Birinchi bo'lib poyga qiling!</p>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- prime helpers ----------
+  function isPrime(n){
+    if(n<2) return false;
+    if(n%2===0) return n===2;
+    for(let i=3;i*i<=n;i+=2){ if(n%i===0) return false; }
+    return true;
+  }
+
+  // ---------- state ----------
+  const LIMIT = 1000;
+  // Faqat haqiqiy tub sonlar ro'yxati (2 dan 1000gacha) — tanlov uchun pool sifatida ishlatiladi
+  const PRIMES = (function(){
+    const arr = [];
+    for(let n=2; n<=LIMIT; n++){ if(isPrime(n)) arr.push(n); }
+    return arr;
+  })();
+  const ROUNDS = 40; // umumiy bosqichlar soni
+  const ROUTE = ["Namangan","Andijon","Farg'ona","Toshkent","Sirdaryo","Jizzax","Samarqand","Qashqadaryo","Surxondaryo","Navoiy","Buxoro","Xorazm","Qoraqalpog'iston"];
+
+  // ---------- qiyinlik darajalari (sekinroq, bosqichma-bosqich qiyinlashadi) ----------
+  const DIFFICULTY = {
+    oson:  { commitMs:2600, lives:12, pointsPerCorrect:1, decoyMode:"far",   roadSpeed:0.24 },
+    orta:  { commitMs:2000, lives:10, pointsPerCorrect:1, decoyMode:"mixed", roadSpeed:0.30 },
+    qiyin: { commitMs:1500, lives:8,  pointsPerCorrect:2, decoyMode:"near",  roadSpeed:0.38 }
+  };
+
+  // ---------- group options (01-25..10-25 va 01-26..10-26) ----------
+  const GROUP_OPTIONS = (function(){
+    const out = [];
+    ["25","26"].forEach(yy=>{
+      for(let i=1;i<=10;i++){
+        out.push(String(i).padStart(2,"0")+"-"+yy);
+      }
+    });
+    return out;
+  })();
+
+  let state = {
+    car:"cobalt",
+    name:"",
+    group:"05-25",
+    difficulty:"orta",
+    score:0,
+    lives:10,
+    maxLives:10,
+    roundIndex:0,        // 0-based joriy bosqich raqami
+    laneNumbers:[2,3,4],
+    carLane:1,
+    running:false,
+    correctCount:0,
+    attempts:0,
+    streak:0,
+    bestStreak:0
+  };
+
+  function diffCfg(){ return DIFFICULTY[state.difficulty] || DIFFICULTY.orta; }
+
+  function routeIndexFor(idx){
+    const pct = Math.max(0, Math.min(1, idx/(ROUNDS-1)));
+    return Math.min(ROUTE.length-1, Math.floor(pct*ROUTE.length));
+  }
+
+  function renderRoute(){
+    const idx = routeIndexFor(state.roundIndex);
+    els.routeStrip.innerHTML = "";
+    ROUTE.forEach((city,i)=>{
+      const pill = document.createElement("span");
+      pill.className = "route-pill" + (i<idx?" done":"") + (i===idx?" active":"");
+      pill.textContent = (i===0?"🏁 ":"") + city + (i===ROUTE.length-1?" 🏆":"");
+      els.routeStrip.appendChild(pill);
+    });
+    els.hudCity.textContent = ROUTE[idx];
+    const activeEl = els.routeStrip.querySelector(".active");
+    if(activeEl) activeEl.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+  }
+
+  const els = {
+    startScreen: document.getElementById("screen-start"),
+    gameScreen: document.getElementById("screen-game"),
+    overScreen: document.getElementById("screen-over"),
+    name: document.getElementById("inp-name"),
+    group: document.getElementById("inp-group"),
+    groupOptions: document.getElementById("group-options"),
+    btnStart: document.getElementById("btn-start"),
+    hudScore: document.getElementById("hud-score"),
+    hudNumber: document.getElementById("hud-number"),
+    hudCity: document.getElementById("hud-city"),
+    hudLives: document.getElementById("hud-lives"),
+    routeStrip: document.getElementById("route-strip"),
+    streakBadge: document.getElementById("streak-badge"),
+    canvas: document.getElementById("road"),
+    flash: document.getElementById("flash"),
+    laneBtns: document.querySelectorAll(".lane-btn"),
+    overTitle: document.getElementById("over-title"),
+    overGrade: document.getElementById("over-grade"),
+    overScore: document.getElementById("over-score"),
+    overAcc: document.getElementById("over-acc"),
+    overDist: document.getElementById("over-dist"),
+    overLives: document.getElementById("over-lives"),
+    overStreak: document.getElementById("over-streak"),
+    btnSave: document.getElementById("btn-save"),
+    btnAgain: document.getElementById("btn-again"),
+    saveStatus: document.getElementById("save-status"),
+    boardBody: document.getElementById("board-body"),
+    boardEmpty: document.getElementById("board-empty"),
+    filterGroup: document.getElementById("filter-group"),
+    liveDot: document.getElementById("live-dot"),
+    btnMute: document.getElementById("btn-mute")
+  };
+
+  // populate group datalist (free-text input still accepts anything typed)
+  GROUP_OPTIONS.forEach(g=>{
+    const opt = document.createElement("option");
+    opt.value = g;
+    els.groupOptions.appendChild(opt);
+  });
+
+  // ---------- car selection ----------
+  document.querySelectorAll(".car-card").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      document.querySelectorAll(".car-card").forEach(c=>c.classList.remove("sel"));
+      card.classList.add("sel");
+      state.car = card.dataset.car;
+    });
+  });
+
+  // ---------- difficulty selection ----------
+  document.querySelectorAll(".diff-card").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      document.querySelectorAll(".diff-card").forEach(c=>c.classList.remove("sel"));
+      card.classList.add("sel");
+      state.difficulty = card.dataset.diff;
+    });
+  });
+
+  // ================= AUDIO ENGINE =================
+  let audioCtx=null, masterGain=null, musicGain=null, sfxGain=null;
+  let engineOsc=null, engineFilter=null, engineGain=null;
+  let musicTimer=null, melodyIdx=0;
+  let muted=false;
+  const MELODY=[523,587,659,523,659,784,880,784,659,587,659,784,523,659,587,494];
+
+  function ensureAudio(){
+    if(audioCtx) return;
+    try{
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      masterGain = audioCtx.createGain(); masterGain.gain.value = muted?0:0.75; masterGain.connect(audioCtx.destination);
+      musicGain = audioCtx.createGain(); musicGain.gain.value = 0.34; musicGain.connect(masterGain);
+      sfxGain = audioCtx.createGain(); sfxGain.gain.value = 0.6; sfxGain.connect(masterGain);
+    }catch(e){ audioCtx=null; }
+  }
+
+  function beep(freq,dur,type,bus,delay,peak){
+    if(!audioCtx) return;
+    const t0 = audioCtx.currentTime + (delay||0);
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = type||"sine";
+    osc.frequency.setValueAtTime(freq,t0);
+    g.gain.setValueAtTime(0.0001,t0);
+    g.gain.linearRampToValueAtTime(peak||0.3, t0+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+    osc.connect(g); g.connect(bus||sfxGain);
+    osc.start(t0); osc.stop(t0+dur+0.03);
+  }
+
+  function sfxMove(){ beep(420,0.06,"square",sfxGain,0,0.18); }
+  function sfxCorrect(){
+    beep(660,0.11,"triangle",sfxGain,0,0.4);
+    beep(880,0.16,"triangle",sfxGain,0.07,0.36);
+    beep(1320,0.14,"sine",sfxGain,0.1,0.2);
+    burstParticles(true);
+  }
+  function sfxWrong(){
+    beep(180,0.24,"sawtooth",sfxGain,0,0.42);
+    beep(110,0.3,"square",sfxGain,0.05,0.32);
+    burstParticles(false);
+    shakeScreen();
+  }
+  function sfxStreak(){
+    [880,1108,1318,1760].forEach((f,i)=>beep(f,0.18,"triangle",sfxGain,i*0.07,0.34));
+  }
+  function sfxStart(){ [523,659,784,1046].forEach((f,i)=>beep(f,0.16,"triangle",sfxGain,i*0.09,0.36)); }
+  function sfxWin(){ [784,988,1175,1568,1975].forEach((f,i)=>beep(f,0.22,"triangle",sfxGain,i*0.12,0.4)); }
+  function sfxLose(){ [392,349,293,220].forEach((f,i)=>beep(f,0.28,"sawtooth",sfxGain,i*0.15,0.32)); }
+
+  function scheduleMusicStep(){
+    clearTimeout(musicTimer);
+    if(!state.running){ return; }
+    const note = MELODY[melodyIdx % MELODY.length];
+    beep(note, 0.28, "sine", musicGain, 0, 0.24);
+    if(melodyIdx % 2 === 0){
+      beep(note/2, 0.34, "triangle", musicGain, 0, 0.14); // bass harmony an octave down
+    }
+    melodyIdx++;
+    musicTimer = setTimeout(scheduleMusicStep, 240);
+  }
+  function stopMusic(){ clearTimeout(musicTimer); musicTimer=null; }
+
+  function startEngineHum(){
+    if(!audioCtx) return;
+    stopEngineHum();
+    engineOsc = audioCtx.createOscillator();
+    engineOsc.type = "sawtooth";
+    engineOsc.frequency.value = 60;
+    engineFilter = audioCtx.createBiquadFilter();
+    engineFilter.type = "lowpass";
+    engineFilter.frequency.value = 260;
+    engineGain = audioCtx.createGain();
+    engineGain.gain.value = 0.1;
+    engineOsc.connect(engineFilter); engineFilter.connect(engineGain); engineGain.connect(masterGain);
+    engineOsc.start();
+  }
+  function stopEngineHum(){
+    if(engineOsc){ try{ engineOsc.stop(); }catch(e){} engineOsc=null; }
+  }
+
+  function setMuted(m){
+    muted = m;
+    if(masterGain) masterGain.gain.setTargetAtTime(muted?0:0.55, audioCtx.currentTime, 0.05);
+    els.btnMute.textContent = muted ? "🔇" : "🔊";
+  }
+  els.btnMute.addEventListener("click", ()=>{ ensureAudio(); setMuted(!muted); });
+
+  // ================= PARTICLES / SCREEN SHAKE =================
+  let particles = [];
+  function burstParticles(good, big){
+    const color = good ? "#3fbf7f" : "#e0483b";
+    const cx = state.carLaneAnim!=null ? (state.carLaneAnim*laneW+laneW/2) : (state.carLane*laneW+laneW/2);
+    const cy = CH-140;
+    const count = big ? 40 : 26;
+    for(let i=0;i<count;i++){
+      const ang = Math.random()*Math.PI*2;
+      const spd = 2+Math.random()*(big?6:4.5);
+      particles.push({
+        x:cx, y:cy,
+        vx:Math.cos(ang)*spd, vy:Math.sin(ang)*spd - (good?1.8:0),
+        life:1, color: big ? (Math.random()<0.5?"#f4c430":color) : color, size:2.5+Math.random()*(big?5:4)
+      });
+    }
+  }
+  let shakeAmt = 0;
+  function shakeScreen(){ shakeAmt = 9; }
+
+  // ---------- lives render ----------
+  function renderLives(){
+    els.hudLives.innerHTML = "";
+    for(let i=0;i<state.maxLives;i++){
+      const span = document.createElement("span");
+      span.textContent = "🚗";
+      if(i>=state.lives) span.classList.add("life-lost");
+      els.hudLives.appendChild(span);
+    }
+  }
+
+  function flash(kind, text){
+    els.flash.textContent = text;
+    els.flash.className = "flash show " + kind;
+    setTimeout(()=>{ els.flash.className = "flash " + kind; }, 480);
+  }
+
+  // ---------- road drawing ----------
+  const ctx = els.canvas.getContext("2d");
+  const CW = els.canvas.width, CH = els.canvas.height;
+  const LANES = 3;
+  const laneW = CW/LANES;
+
+  let roadOffset = 0;
+  state.carLaneAnim = 1;
+
+  function drawRoad(){
+    ctx.save();
+    if(shakeAmt>0.2){
+      ctx.translate((Math.random()-0.5)*shakeAmt, (Math.random()-0.5)*shakeAmt);
+      shakeAmt *= 0.85;
+    } else { shakeAmt = 0; }
+
+    ctx.clearRect(-20,-20,CW+40,CH+40);
+
+    // sky / distance gradient
+    const sky = ctx.createLinearGradient(0,0,0,150);
+    sky.addColorStop(0, "#2b3446");
+    sky.addColorStop(1, "#20242b");
+    ctx.fillStyle = sky;
+    ctx.fillRect(0,0,CW,150);
+    ctx.fillStyle = "#20242b";
+    ctx.fillRect(0,150,CW,CH-150);
+
+    // side speed streaks (motion feel)
+    ctx.strokeStyle = "rgba(244,196,48,0.18)";
+    ctx.lineWidth = 3;
+    for(let i=0;i<7;i++){
+      const y = ((i*70 + roadOffset*2) % (CH+60)) - 30;
+      ctx.beginPath(); ctx.moveTo(6, y); ctx.lineTo(6, y+26); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(CW-6, y+18); ctx.lineTo(CW-6, y+44); ctx.stroke();
+    }
+
+    // lane dividers (scrolling dashes = constant driving motion)
+    ctx.strokeStyle = "rgba(244,196,48,0.35)";
+    ctx.lineWidth = 4;
+    ctx.setLineDash([22,18]);
+    ctx.lineDashOffset = -roadOffset;
+    for(let i=1;i<LANES;i++){
+      ctx.beginPath();
+      ctx.moveTo(i*laneW, 0);
+      ctx.lineTo(i*laneW, CH);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // finish line checkered pattern when close to the last round
+    const remaining = ROUNDS - state.roundIndex;
+    if(remaining <= 6){
+      const alpha = Math.max(0, Math.min(1, 1 - remaining/6));
+      ctx.save();
+      ctx.globalAlpha = alpha*0.9;
+      const sq = 18;
+      for(let x=0; x<CW; x+=sq){
+        for(let r=0; r<2; r++){
+          const on = (Math.round(x/sq)+r)%2===0;
+          ctx.fillStyle = on ? "#f2f1ec" : "#12151b";
+          ctx.fillRect(x, 4+r*sq, sq, sq);
+        }
+      }
+      ctx.restore();
+    }
+
+    // number tiles near top
+    for(let i=0;i<LANES;i++){
+      const n = state.laneNumbers[i];
+      const cx = i*laneW + laneW/2;
+      const cy = 90;
+      ctx.fillStyle = "rgba(255,255,255,0.06)";
+      roundRect(ctx, cx-46, cy-34, 92, 68, 14);
+      ctx.fill();
+      ctx.fillStyle = "#f2f1ec";
+      ctx.font = "700 34px 'JetBrains Mono', monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(String(n), cx, cy+2);
+    }
+
+    // smooth car motion toward target lane
+    state.carLaneAnim += (state.carLane - state.carLaneAnim) * 0.22;
+    const bounce = Math.sin(roadOffset*0.35) * 1.6;
+    const carX = state.carLaneAnim*laneW + laneW/2;
+    const carY = CH-90 + bounce;
+    const tilt = (state.carLane - state.carLaneAnim) * 0.35;
+    drawCar(carX, carY, state.car, tilt);
+
+    // exhaust puffs
+    if(state.running && Math.random()<0.4){
+      particles.push({
+        x: carX + (Math.random()-0.5)*18, y: carY+40,
+        vx:(Math.random()-0.5)*0.4, vy:1.2+Math.random(),
+        life:1, color:"rgba(200,200,210,0.5)", size:3+Math.random()*3, smoke:true
+      });
+    }
+
+    // update + draw particles
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy; p.vy += p.smoke?0:0.08; p.life -= p.smoke?0.02:0.035;
+    });
+    particles = particles.filter(p=>p.life>0);
+    particles.forEach(p=>{
+      ctx.globalAlpha = Math.max(0,p.life);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    ctx.restore();
+  }
+
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+
+  function drawCar(cx, cy, kind, tilt){
+    const bodyMain = kind==="cobalt" ? "#3b6fe0" : "#e0483b";
+    const bodyDark = kind==="cobalt" ? "#25488f" : "#8f2c22";
+    const bodyLight = kind==="cobalt" ? "#7aa3f5" : "#f28a7d";
+    const glass = kind==="cobalt" ? "#bcd6ff" : "#ffd9d4";
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(tilt||0);
+
+    // ground shadow
+    ctx.fillStyle = "rgba(0,0,0,0.32)";
+    ctx.beginPath(); ctx.ellipse(0,54,50,10,0,0,Math.PI*2); ctx.fill();
+
+    // rear spoiler
+    ctx.fillStyle = bodyDark;
+    roundRect(ctx,-46,-6,10,20,3); ctx.fill();
+    roundRect(ctx,-52,-12,20,7,3); ctx.fill();
+
+    // lower body (glossy gradient)
+    const bodyGrad = ctx.createLinearGradient(0,6,0,46);
+    bodyGrad.addColorStop(0, bodyLight);
+    bodyGrad.addColorStop(0.35, bodyMain);
+    bodyGrad.addColorStop(1, bodyDark);
+    ctx.fillStyle = bodyGrad;
+    roundRect(ctx,-52,10,104,32,14); ctx.fill();
+
+    // side skirt accent line
+    ctx.strokeStyle = "rgba(255,255,255,0.35)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(-44,20); ctx.lineTo(44,20); ctx.stroke();
+
+    // cabin / roof (gradient)
+    const cabinGrad = ctx.createLinearGradient(0,-24,0,10);
+    cabinGrad.addColorStop(0, bodyLight);
+    cabinGrad.addColorStop(1, bodyMain);
+    ctx.fillStyle = cabinGrad;
+    roundRect(ctx,-30,-24,60,34,11); ctx.fill();
+
+    // windshield + windows
+    ctx.fillStyle = glass;
+    roundRect(ctx,-24,-18,22,20,4); ctx.fill();
+    roundRect(ctx,2,-18,22,20,4); ctx.fill();
+    // glass shine
+    ctx.fillStyle = "rgba(255,255,255,0.45)";
+    ctx.beginPath(); ctx.moveTo(-22,-16); ctx.lineTo(-14,-16); ctx.lineTo(-19,-2); ctx.lineTo(-22,-2); ctx.closePath(); ctx.fill();
+
+    // headlights (front = right side)
+    ctx.fillStyle = "#fff6c8";
+    roundRect(ctx,40,14,10,8,3); ctx.fill();
+    ctx.save();
+    ctx.globalAlpha = 0.35;
+    ctx.fillStyle = "#fff6c8";
+    ctx.beginPath(); ctx.ellipse(66,18,22,9,0,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // taillights (rear = left side)
+    ctx.fillStyle = "#ff5d4d";
+    roundRect(ctx,-50,14,8,8,3); ctx.fill();
+
+    // door seam + handle
+    ctx.strokeStyle = "rgba(0,0,0,0.18)";
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(-4,12); ctx.lineTo(-4,40); ctx.stroke();
+    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    roundRect(ctx,-14,22,10,3,1.5); ctx.fill();
+
+    // wheels with rims
+    drawWheel(-32,47);
+    drawWheel(30,47);
+
+    ctx.restore();
+  }
+
+  function drawWheel(x,y){
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.fillStyle = "#0d0f13";
+    ctx.beginPath(); ctx.arc(0,0,15,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = "#c7cdd6";
+    ctx.beginPath(); ctx.arc(0,0,7.5,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle = "#6b7280";
+    ctx.lineWidth = 1.6;
+    for(let i=0;i<5;i++){
+      const a = (i/5)*Math.PI*2;
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.lineTo(Math.cos(a)*7, Math.sin(a)*7);
+      ctx.stroke();
+    }
+    ctx.fillStyle = "#8b93a3";
+    ctx.beginPath(); ctx.arc(0,0,2.2,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+
+  // ---------- lane numbers: 1-1000 aralash sonlar, orasida 1 yoki 2 ta tub son ----------
+  function randomInt(min,max){ return min + Math.floor(Math.random()*(max-min+1)); }
+
+  function pickPrimeValues(count, used){
+    const out = [];
+    let guard = 0;
+    while(out.length < count && guard < 500){
+      guard++;
+      const p = PRIMES[randomInt(0, PRIMES.length-1)];
+      if(!used.has(p)){ used.add(p); out.push(p); }
+    }
+    return out;
+  }
+
+  function pickCompositeValues(count, used, mode, anchor){
+    const out = [];
+    let guard = 0;
+    while(out.length < count && guard < 1500){
+      guard++;
+      let n;
+      if(mode==="near" && anchor!=null){
+        // "qiyin": tub songa juda yaqin, chalg'ituvchi sonlar
+        n = anchor + (randomInt(0,1)===0 ? -1 : 1) * randomInt(1,7);
+        n = Math.max(2, Math.min(LIMIT, n));
+      } else if(mode==="far"){
+        // "oson": butunlay tasodifiy, ko'zga farqi aniq ko'rinadigan sonlar
+        n = randomInt(2, LIMIT);
+      } else {
+        // "o'rta": aralash
+        n = Math.random()<0.5 && anchor!=null ? Math.max(2, Math.min(LIMIT, anchor + randomInt(-15,15))) : randomInt(2, LIMIT);
+      }
+      if(isPrime(n) || used.has(n)) continue;
+      used.add(n); out.push(n);
+    }
+    return out;
+  }
+
+  function fillLaneNumbers(){
+    // Har bosqichda: 65% - 1 ta tub son, 30% - 2 ta tub son, 5% - 3 ta tub son (hammasi tub)
+    const roll = Math.random();
+    const primeCount = roll < 0.65 ? 1 : (roll < 0.95 ? 2 : 3);
+    const used = new Set();
+    const primeVals = pickPrimeValues(primeCount, used);
+    const mode = diffCfg().decoyMode;
+    const anchor = primeVals[0];
+    const compositeVals = pickCompositeValues(LANES - primeVals.length, used, mode, anchor);
+    const values = primeVals.concat(compositeVals);
+    // Fisher-Yates aralashtirish — tub son(lar) tasodifiy yo'lakda turadi
+    for(let i=values.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [values[i],values[j]] = [values[j],values[i]];
+    }
+    for(let i=0;i<LANES;i++){ state.laneNumbers[i] = values[i]; }
+  }
+
+  function moveTo(lane){
+    if(!state.running) return;
+    if(lane!==state.carLane) sfxMove();
+    state.carLane = lane;
+  }
+
+  els.laneBtns.forEach(btn=>{
+    btn.addEventListener("click", ()=> moveTo(parseInt(btn.dataset.lane,10)));
+  });
+  document.addEventListener("keydown", (e)=>{
+    if(!state.running) return;
+    if(e.key==="ArrowLeft"){ moveTo(Math.max(0,state.carLane-1)); }
+    else if(e.key==="ArrowRight"){ moveTo(Math.min(2,state.carLane+1)); }
+    else if(e.key===" "||e.key==="ArrowUp"||e.key==="Enter"){ commit(); }
+  });
+
+  // ---------- mouse / touch control on the road ----------
+  let pointerDown = false;
+  function pointerToLane(e){
+    const rect = els.canvas.getBoundingClientRect();
+    const scaleX = CW / rect.width;
+    const x = (e.clientX - rect.left) * scaleX;
+    return Math.max(0, Math.min(LANES-1, Math.floor(x/laneW)));
+  }
+  els.canvas.addEventListener("pointerdown", (e)=>{
+    if(!state.running) return;
+    pointerDown = true;
+    try{ els.canvas.setPointerCapture(e.pointerId); }catch(err){}
+    moveTo(pointerToLane(e));
+  });
+  els.canvas.addEventListener("pointermove", (e)=>{
+    if(!pointerDown || !state.running) return;
+    moveTo(pointerToLane(e));
+  });
+  els.canvas.addEventListener("pointerup", ()=>{ pointerDown = false; });
+  els.canvas.addEventListener("pointercancel", ()=>{ pointerDown = false; });
+  els.canvas.addEventListener("pointerleave", ()=>{ pointerDown = false; });
+
+  let commitTimer = null;
+  function scheduleCommit(){
+    clearTimeout(commitTimer);
+    commitTimer = setTimeout(commit, diffCfg().commitMs);
+  }
+
+  function showStreakBadge(){
+    els.streakBadge.textContent = "🏆 Seriya x" + state.streak;
+    els.streakBadge.classList.add("show");
+    clearTimeout(showStreakBadge._t);
+    showStreakBadge._t = setTimeout(()=> els.streakBadge.classList.remove("show"), 1600);
+  }
+
+  function commit(){
+    if(!state.running) return;
+    const chosen = state.laneNumbers[state.carLane];
+    const correct = isPrime(chosen);
+    state.attempts++;
+    if(correct){
+      const pts = diffCfg().pointsPerCorrect;
+      state.score += pts;
+      state.correctCount++;
+      state.streak++;
+      if(state.streak > state.bestStreak) state.bestStreak = state.streak;
+      let bonusTxt = "+" + pts + "  " + chosen + " tub!";
+      if(state.streak>0 && state.streak%5===0){
+        const bonus = 3;
+        state.score += bonus;
+        sfxStreak();
+        burstParticles(true, true);
+        bonusTxt = "🏆 x" + state.streak + " seriya! +" + bonus + " bonus ball";
+        showStreakBadge();
+      } else {
+        sfxCorrect();
+      }
+      flash("good", bonusTxt);
+    } else {
+      state.lives--;
+      state.streak = 0;
+      const otherPrime = state.laneNumbers.find(n=>isPrime(n));
+      flash("bad", chosen + " tub emas" + (otherPrime? " (tub: "+otherPrime+")" : ""));
+      sfxWrong();
+      renderLives();
+    }
+    state.roundIndex++;
+    if(state.roundIndex >= ROUNDS || state.lives<=0){
+      endGame();
+      return;
+    }
+    fillLaneNumbers();
+    updateHud();
+    scheduleCommit();
+  }
+
+  function updateHud(){
+    els.hudScore.textContent = state.score;
+    els.hudNumber.textContent = (state.roundIndex+1) + "/" + ROUNDS;
+    renderRoute();
+  }
+
+  // ---------- continuous animation loop (driving feel) ----------
+  let lastFrame = null;
+  function frameLoop(ts){
+    if(lastFrame==null) lastFrame = ts;
+    const dt = Math.min(48, ts-lastFrame);
+    lastFrame = ts;
+    if(state.running){
+      roadOffset = (roadOffset + dt*diffCfg().roadSpeed) % 1000;
+    } else if(particles.length){
+      roadOffset += dt*0.05;
+    }
+    if(state.running || particles.length || shakeAmt>0){
+      drawRoad();
+    }
+    requestAnimationFrame(frameLoop);
+  }
+  requestAnimationFrame(frameLoop);
+
+  // ---------- flow ----------
+  els.btnStart.addEventListener("click", ()=>{
+    const nm = els.name.value.trim();
+    if(!nm){ els.name.focus(); els.name.style.borderColor = "var(--bad)"; return; }
+    const grp = els.group.value.trim();
+    if(!grp){ els.group.focus(); els.group.style.borderColor = "var(--bad)"; return; }
+    ensureAudio();
+    state.name = nm;
+    state.group = grp;
+    const cfg = diffCfg();
+    state.score = 0; state.maxLives = cfg.lives; state.lives = cfg.lives; state.roundIndex = 0; state.carLane = 1;
+    state.carLaneAnim = 1;
+    state.correctCount = 0; state.attempts = 0;
+    state.streak = 0; state.bestStreak = 0;
+    fillLaneNumbers();
+    renderLives();
+    updateHud();
+    els.startScreen.hidden = true;
+    els.overScreen.hidden = true;
+    els.gameScreen.hidden = false;
+    state.running = true;
+    sfxStart();
+    startEngineHum();
+    melodyIdx = 0;
+    scheduleMusicStep();
+    drawRoad();
+    scheduleCommit();
+  });
+
+  function endGame(){
+    state.running = false;
+    clearTimeout(commitTimer);
+    stopMusic();
+    stopEngineHum();
+    els.gameScreen.hidden = true;
+    els.overScreen.hidden = false;
+    const acc = state.attempts ? Math.round(state.correctCount/state.attempts*100) : 0;
+    let grade, gLabel;
+    if(state.lives<=0){
+      els.overTitle.textContent = "Jonlar tugadi — poyga to'xtadi";
+      sfxLose();
+    } else {
+      els.overTitle.textContent = "Barcha bosqichlar tugadi! Poyga yakunlandi 🏁";
+      sfxWin();
+    }
+    if(acc>=90) grade=5; else if(acc>=75) grade=4; else if(acc>=60) grade=3; else grade=2;
+    els.overGrade.textContent = grade;
+    els.overScore.textContent = state.correctCount;
+    els.overAcc.textContent = acc + "%";
+    els.overDist.textContent = Math.min(state.roundIndex, ROUNDS) + "/" + ROUNDS;
+    els.overLives.textContent = state.lives;
+    els.overStreak.textContent = state.bestStreak;
+    els.saveStatus.textContent = "";
+    els.btnSave.disabled = false;
+    els.btnSave.dataset.grade = grade;
+    els.btnSave.dataset.acc = acc;
+  }
+
+  els.btnAgain.addEventListener("click", ()=>{
+    els.overScreen.hidden = true;
+    els.startScreen.hidden = false;
+  });
+
+  // ---------- natijalar jadvali (shu qurilmada saqlanadi) ----------
+  const LS_KEY = "tubPoyga.natijalar.v1";
+  function loadResults(){
+    try{ const r = JSON.parse(localStorage.getItem(LS_KEY) || "[]"); return Array.isArray(r) ? r : []; }
+    catch(e){ return []; }
+  }
+  function saveResults(list){
+    try{ localStorage.setItem(LS_KEY, JSON.stringify(list.slice(-500))); return true; }
+    catch(e){ return false; }
+  }
+
+  function gradePill(g){
+    const cls = g>=5?"g5":g===4?"g4":g===3?"g3":"g2";
+    return '<span class="pill '+cls+'">'+g+'</span>';
+  }
+
+  function renderBoard(){
+    const docs = loadResults();
+    const filter = els.filterGroup.value.trim().toLowerCase();
+    const rows = docs.filter(d=>!filter || String(d.guruh||"").toLowerCase()===filter)
+      .sort((a,b)=> (b.ball||0)-(a.ball||0) || (b.aniqlik||0)-(a.aniqlik||0)).slice(0,100);
+    els.boardBody.innerHTML = "";
+    if(!rows.length){ els.boardEmpty.hidden=false; return; }
+    els.boardEmpty.hidden = true;
+    const medals = ["🥇","🥈","🥉"];
+    rows.forEach((d,i)=>{
+      const tr = document.createElement("tr");
+      const acc = d.aniqlik!=null ? d.aniqlik+"%" : "—";
+      const rankCell = i<3 ? "<span class='medal'>"+medals[i]+"</span>" : String(i+1);
+      tr.innerHTML = "<td class='num'>"+rankCell+"</td>"+
+        "<td>"+escapeHtml(d.ism||"—")+"</td>"+
+        "<td>"+escapeHtml(d.guruh||"—")+"</td>"+
+        "<td>"+escapeHtml(d.mashina||"—")+"</td>"+
+        "<td class='num'>"+(d.ball!=null?d.ball:0)+"</td>"+
+        "<td class='num'>"+acc+"</td>"+
+        "<td>"+gradePill(d.baho||2)+"</td>";
+      els.boardBody.appendChild(tr);
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  els.filterGroup.addEventListener("input", renderBoard);
+
+  els.btnSave.addEventListener("click", ()=>{
+    els.btnSave.disabled = true;
+    const grade = parseInt(els.btnSave.dataset.grade,10);
+    const acc = parseInt(els.btnSave.dataset.acc,10);
+    const list = loadResults();
+    list.push({
+      ism: state.name, guruh: state.group, mashina: state.car, ball: state.correctCount,
+      aniqlik: acc, baho: grade, jon: state.lives, masofa: Math.min(state.roundIndex, ROUNDS),
+      seriya: state.bestStreak, qiyinlik: state.difficulty, vaqt: Date.now()
+    });
+    if(saveResults(list)){
+      els.saveStatus.textContent = "Natija jadvalga yozildi ✅ (shu kompyuter/telefonda saqlanadi)";
+      renderBoard();
+    } else {
+      els.saveStatus.textContent = "Brauzer natijani saqlashga ruxsat bermadi (maxfiy oyna?). Bahoni daftarga yozib qo'ying.";
+      els.btnSave.disabled = false;
+    }
+  });
+
+  // O'qituvchi uchun: Excel (CSV) yuklab olish va tozalash
+  document.getElementById("btn-csv").addEventListener("click", ()=>{
+    const rows = loadResults();
+    if(!rows.length){ alert("Hali natijalar yo'q."); return; }
+    const head = ["Ism","Guruh","Mashina","Qiyinlik","Ball","Aniqlik %","Baho","Qolgan jon","Bosqich","Seriya","Sana"];
+    const q = v => '"' + String(v==null?"":v).replace(/"/g,'""') + '"';
+    const lines = [head.map(q).join(";")].concat(rows.map(d=>[d.ism,d.guruh,d.mashina,d.qiyinlik||"",d.ball,d.aniqlik,d.baho,d.jon,d.masofa,d.seriya,new Date(d.vaqt).toLocaleString("uz-UZ")].map(q).join(";")));
+    const blob = new Blob(["﻿"+lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "tub-sonlar-poygasi-natijalar.csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  });
+  document.getElementById("btn-clear").addEventListener("click", ()=>{
+    if(!confirm("Shu qurilmadagi barcha natijalar o'chirilsinmi?")) return;
+    saveResults([]); renderBoard();
+  });
+
+  // ---------- boot ----------
+  function start(hotData){
+    renderLives();
+    renderRoute();
+    setMuted(false);
+    renderBoard();
+    drawRoad();
+  }
+  start({});
+})();
+</script>
+
+</body></html>
