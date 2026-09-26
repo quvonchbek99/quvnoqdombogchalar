@@ -100,7 +100,7 @@
   var css = `
   .acc-av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;overflow:hidden;flex:0 0 auto;line-height:1;box-shadow:0 0 0 2px rgba(255,255,255,.15)}
   .acc-av img{width:100%;height:100%;object-fit:cover}
-  .acc-chip{display:inline-flex;align-items:center;gap:8px;background:#141f38;border:1px solid #243252;border-radius:999px;padding:4px 12px 4px 4px;color:#eef2ff;cursor:pointer;font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;white-space:nowrap}
+  .acc-chip{display:inline-flex;align-items:center;gap:8px;background:#141f38;border:1px solid #243252;border-radius:999px;padding:4px 12px 4px 4px;color:#eef2ff;cursor:pointer;font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;white-space:nowrap;align-self:flex-start;flex:0 0 auto;width:max-content}
   .acc-chip:hover{border-color:#7c9bff}
   .acc-chip .coin{color:#ffd479}
   .acc-bg{position:fixed;inset:0;z-index:3000;background:rgba(3,7,16,.78);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 12px}
