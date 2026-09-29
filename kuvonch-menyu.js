@@ -903,6 +903,16 @@
     .ka-t-pad button:active{transform:scale(.95)}
     .ka-t-pad .ok{background:#5ee6c7;color:#0b1220;border-color:transparent}
     .ka-t-pad .del{background:#2a1c2c}
+    .ka-t-mcq{display:none;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0;align-content:start}
+    .ka-t.mcq .ka-t-pad,.ka-t.mcq .ka-t-ans{display:none}
+    .ka-t.mcq .ka-t-mcq{display:grid}
+    .ka-t.mcq .ka-t-q{font-size:clamp(16px,2.4vw,24px);text-align:left}
+    .ka-t-q svg{display:block;max-width:100%;height:auto;max-height:190px;margin:4px auto}
+    .ka-t-mcq button{text-align:left;padding:12px 12px;font-size:clamp(15px,2.1vw,20px);line-height:1.25;border-radius:12px;touch-action:manipulation;white-space:normal}
+    .ka-t-mcq button b{color:#ffd479;margin-right:6px}
+    .ka-t-mcq button.right{background:#10a37f;border-color:#10a37f}
+    .ka-t-topic{display:block;margin:0 0 6px;font-size:13px;color:#ffd479;text-align:center}
+    @media (max-width:640px){.ka-t-mcq{grid-template-columns:1fr}}
     .ka-t-over{position:absolute;inset:0;background:rgba(5,9,18,.82);display:flex;align-items:center;justify-content:center;z-index:5;padding:16px}
     .ka-t-card{background:#141f38;border:1px solid #243252;border-radius:20px;padding:22px;max-width:460px;width:100%;text-align:center}
     .ka-t-card h3{margin:0 0 8px;font-size:24px}
@@ -972,6 +982,7 @@
         if (e.target.tagName === "INPUT") return;
         // Klaviatura: 1-jamoa — raqamlar + Enter; 2-jamoa — Numpad
         var k = e.key, s = e.code && e.code.indexOf("Numpad") === 0 ? "r" : "l";
+        if (st.mode === "mcq") { if (/^[1-4]$/.test(k)) { answerMCQ(s, +k - 1); e.preventDefault(); } return; }
         if (/^[0-9]$/.test(k)) key(s, k);
         else if (k === "-" || k === "Subtract") key(s, "-");
         else if (k === "Backspace") key(s, "del");
@@ -984,7 +995,7 @@
     function side(s, name) {
       var keys = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "-", "0", "del"];
       return '<div class="ka-t-side ' + s + '"><div class="ka-t-name"><input value="' + name + '" aria-label="Jamoa nomi"><span class="pts"></span></div>' +
-        '<div class="ka-t-q">—</div><div class="ka-t-ans"></div><div class="ka-t-pad">' +
+        '<div class="ka-t-q">—</div><div class="ka-t-ans"></div><div class="ka-t-mcq"></div><div class="ka-t-pad">' +
         keys.map(function (k) { return '<button data-k="' + k + '"' + (k === "del" ? ' class="del"' : "") + ">" + (k === "del" ? "⌫" : k === "-" ? "±" : k) + "</button>"; }).join("") +
         '<button data-k="ok" class="ok" style="grid-column:1/-1">✔ Javob</button></div></div>';
     }
@@ -1015,25 +1026,42 @@
       var set = st && st.set || { min: 5, lvl: "orta", steps: 5 };
       return { set: set, over: false, pos: 0, left: set.min * 60, running: false, paused: false, q: null, ans: { l: "", r: "" }, pts: { l: 0, r: 0 }, lock: { l: 0, r: 0 }, round: 0 };
     }
+    function topicOptions() {
+      var sel = (st && st.set && st.set.topic) || "mix";
+      var o = '<option value="mix">🔢 Aralash hisob (raqam tugmalari)</option>';
+      if (window.kaGeo) o += '<option value="geo">📐 Geometriya (chizmali masalalar)</option>';
+      if (window.kaBank) window.kaBank.topics().forEach(function (t) { o += '<option value="' + t.id + '">' + t.title.replace(/</g, "&lt;") + "</option>"; });
+      return o.replace('value="' + sel + '"', 'value="' + sel + '" selected');
+    }
+    function fillPool() {
+      var t = st.set.topic, got = [];
+      try { if (window.kaBank) got = window.kaBank.get(t, 30); } catch (e) {}
+      if (!got.length) try { got = window.kaBank.get(t, 30, { allowSeen: true }); } catch (e) {}
+      st.pool = got;
+    }
     function showSetup() {
       st = newState();
       var ov = $(".ka-t-over", root);
       ov.style.display = "flex";
       ov.innerHTML = '<div class="ka-t-card"><h3>🪢 Arqon tortish</h3>' +
         "<p>Ikki jamoa bir xil misolni yechadi. <b>Kim birinchi to'g'ri topsa</b> — arqon o'sha tomonga bir qadam siljiydi, keyin yangi misol chiqadi. Arqonni oxirgi chiziqqacha tortgan yoki vaqt tugaganda ustun turgan jamoa g'olib!</p>" +
+        '<div class="row"><label style="flex:1 1 100%">Mavzu (har safar yangi savollar)<select data-s="topic">' + topicOptions() + '</select></label></div>' +
         '<div class="row"><label>Vaqt<select data-s="min"><option value="3">3 daqiqa</option><option value="5" selected>5 daqiqa</option><option value="7">7 daqiqa</option><option value="10">10 daqiqa</option></select></label>' +
         '<label>Qiyinlik<select data-s="lvl"><option value="oson">Oson (+ − × :)</option><option value="orta" selected>O\'rta</option><option value="qiyin">Qiyin (tenglama, log, √)</option></select></label>' +
         '<label>G\'alaba uchun<select data-s="steps"><option value="3">3 qadam</option><option value="5" selected>5 qadam</option><option value="7">7 qadam</option><option value="99">faqat vaqt</option></select></label></div>' +
         '<p style="font-size:12px">Klaviatura: 1-jamoa — yuqoridagi raqamlar + Enter, 2-jamoa — o\'ng tomondagi Numpad. Aqlli doskada tugmalarni bosish kifoya.</p>' +
         '<button class="go">▶ Boshlash</button></div>';
       $(".go", ov).onclick = function () {
-        st.set = { min: +$('[data-s="min"]', ov).value, lvl: $('[data-s="lvl"]', ov).value, steps: +$('[data-s="steps"]', ov).value };
+        st.set = { min: +$('[data-s="min"]', ov).value, lvl: $('[data-s="lvl"]', ov).value, steps: +$('[data-s="steps"]', ov).value, topic: $('[data-s="topic"]', ov).value };
         start();
       };
       render();
     }
     function start() {
       var set = st.set; st = newState(); st.set = set; st.left = set.min * 60;
+      st.mode = set.topic && set.topic !== "mix" && window.kaBank ? "mcq" : "num";
+      if (st.mode === "mcq") { fillPool(); if (!st.pool.length) st.mode = "num"; }
+      root.classList.toggle("mcq", st.mode === "mcq");
       $(".ka-t-over", root).style.display = "none";
       st.running = true;
       next();
@@ -1048,12 +1076,35 @@
       renderTime();
     }
     function next() {
+      if (st.mode === "mcq") return nextMCQ();
       var q, tries = 0;
       do { q = GEN[st.set.lvl](); tries++; } while (st.q && q.q === st.q.q && tries < 5);
       st.q = q; st.ans = { l: "", r: "" }; st.round++;
       $$(".ka-t-q", root).forEach(function (e) { e.innerHTML = q.q + " = ?"; });
       $$(".ka-t-side", root).forEach(function (e) { e.classList.remove("win"); });
       renderAns();
+    }
+    function esc(t) { return String(t).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+    function nextMCQ() {
+      if (!st.pool.length) fillPool();
+      var q = st.pool.shift();
+      if (!q) { st.mode = "num"; root.classList.remove("mcq"); return next(); }
+      try { window.kaBank.markSeen(st.set.topic, [q]); } catch (e) {}
+      st.q = q; st.round++; st.lock = { l: 0, r: 0 };
+      $$(".ka-t-q", root).forEach(function (e) { e.innerHTML = q.html ? q.q : esc(q.q); });
+      $$(".ka-t-side", root).forEach(function (sd) {
+        sd.classList.remove("win", "lock");
+        var s = sd.classList.contains("l") ? "l" : "r", box = $(".ka-t-mcq", sd);
+        box.innerHTML = q.options.map(function (o, i) { return '<button type="button" data-i="' + i + '"><b>' + "ABCD"[i] + ")</b>" + esc(o) + "</button>"; }).join("");
+        $$("button", box).forEach(function (b) { b.addEventListener("pointerdown", function (ev) { ev.preventDefault(); answerMCQ(s, +b.dataset.i); }); });
+      });
+    }
+    function answerMCQ(s, i) {
+      if (!st || !st.running || st.paused || st.lock[s] > Date.now() || !st.q || st.q.options == null) return;
+      if (i >= st.q.options.length) return;
+      var ok = i === st.q.correct;
+      if (ok) $$('.ka-t-side.' + s + ' .ka-t-mcq button', root)[i].classList.add("right");
+      result(s, ok);
     }
     function key(s, k) {
       if (!st || !st.running || st.paused || st.lock[s] > Date.now()) return;
@@ -1067,8 +1118,11 @@
     function submit(s) {
       var a = st.ans[s];
       if (a === "" || a === "-") return;
+      result(s, +a === st.q.a);
+    }
+    function result(s, ok) {
       var sd = $(".ka-t-side." + s, root);
-      if (+a === st.q.a) {
+      if (ok) {
         st.pts[s]++;
         st.pos += s === "l" ? -1 : 1;
         sd.classList.add("win");
@@ -1108,7 +1162,7 @@
       if (a === "pause" && st && st.running) {
         st.paused = !st.paused;
         $('[data-a="pause"]', root).textContent = st.paused ? "▶" : "⏸";
-        $$(".ka-t-q", root).forEach(function (e) { e.innerHTML = st.paused ? "⏸ Pauza" : st.q.q + " = ?"; });
+        $$(".ka-t-q", root).forEach(function (e) { e.innerHTML = st.paused ? "⏸ Pauza" : (st.mode === "mcq" ? (st.q.html ? st.q.q : esc(st.q.q)) : st.q.q + " = ?"); });
       }
     }
     function renderTime() {
