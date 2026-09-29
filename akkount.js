@@ -202,16 +202,27 @@
     setTimeout(function () { inp.focus(); }, 50);
   }
 
+  // Saytdagi test tizimi ismni "mq_identity" da saqlaydi — akkount bilan sinxronlaymiz
+  function syncIdentity() {
+    var u = me();
+    try {
+      if (u) localStorage.setItem("mq_identity", JSON.stringify({ name: u.name, group: u.group || "—" }));
+      else localStorage.removeItem("mq_identity");
+    } catch (e) {}
+  }
+  function siteIdentity() { try { return JSON.parse(localStorage.getItem("mq_identity") || "null"); } catch (e) { return null; } }
+
   function login(id) {
-    setCur(id); DB[id].last = Date.now(); save(); renderChip();
+    setCur(id); DB[id].last = Date.now(); save(); syncIdentity(); renderChip();
     toast("Xush kelibsiz, " + DB[id].name.split(" ")[0] + "! 👋");
     if (gate) { var g = gate; gate = null; close(); g(); } else showProfile();
   }
-  function logout() { setCur(""); renderChip(); showLogin(); }
+  function logout() { setCur(""); syncIdentity(); renderChip(); showLogin(); }
 
   // Yangi akkount / tahrirlash
   function showForm(editId) {
-    var u = editId ? DB[editId] : { name: "", group: "", av: Math.floor(Math.random() * AVATARS.length), photo: null };
+    var si = !editId && siteIdentity();
+    var u = editId ? DB[editId] : { name: (si && si.name) || "", group: (si && si.group && si.group !== "—") ? si.group : "", av: Math.floor(Math.random() * AVATARS.length), photo: null };
     var draft = { av: u.av || 0, photo: u.photo || null };
     card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button">✕</button></div>' +
       '<div class="acc-top"><span class="pv"></span><div class="acc-name"><h3>' + (editId ? "Akkountni tahrirlash" : "Yangi akkount") + '</h3><div class="sub">Rasm yuklang yoki avatar tanlang</div></div></div>' +
@@ -252,7 +263,7 @@
       rec.name = name; rec.group = f.group.value.trim(); rec.av = draft.av; rec.photo = draft.photo;
       if (pin) rec.pin = await hashPin(pin);
       DB[id] = rec; save();
-      if (editId) { renderChip(); showProfile(); toast("Saqlandi ✅"); }
+      if (editId) { syncIdentity(); renderChip(); showProfile(); toast("Saqlandi ✅"); }
       else login(id);
     };
     setTimeout(function () { f.name.focus(); }, 50);
@@ -305,21 +316,18 @@
     open();
   }
 
-  // ---------- Test oynasini kuzatish ----------
+  // ---------- Saytdagi test oynasi bilan integratsiya ----------
+  // Test oynasi (#testModal) ochilganda akkount so'raladi; har bir savolga "Keyingisi/Yakunlash"
+  // bosilganda tanlangan javob tekshiriladi va to'g'ri bo'lsa +10 coin beriladi.
   var modal = document.getElementById("testModal");
-  var session = null; // {title, answered:{}, correct, coins}
-  function modalVisible() { if (!modal) return false; var cs = getComputedStyle(modal); return cs.display !== "none" && cs.visibility !== "hidden" && modal.getClientRects().length > 0 && modal.offsetHeight > 0 && !modal.hidden; }
+  var session = null; // { topicId, title, n, correct, coins, user }
+  function modalVisible() { if (!modal) return false; var cs = getComputedStyle(modal); return !modal.hidden && cs.display !== "none" && cs.visibility !== "hidden" && modal.offsetHeight > 0; }
   function testsObj() { try { return typeof TESTS !== "undefined" ? TESTS : null; } catch (e) { return null; } }
-  function modalTitle() {
-    if (!modal) return "Test";
-    var m = /([^\n]{3,90}?)\s+[—-]\s+savol\s+\d+/i.exec(modal.innerText || "");
-    if (m) return m[1].trim();
-    var h = $("h1,h2,h3,.test-title", modal);
-    return h ? h.textContent.replace(/\s+/g, " ").trim().slice(0, 80) : "Test";
-  }
+  function cur() { try { return typeof currentTest !== "undefined" ? currentTest : null; } catch (e) { return null; } }
+  function siteCall(fn) { try { if (typeof window[fn] === "function") window[fn](); } catch (e) {} }
   function startSession() {
-    if (session) return;
-    session = { title: modalTitle(), answered: {}, correct: 0, n: 0, coins: 0, user: curId() };
+    var ct = cur();
+    session = { topicId: ct && ct.topicId, title: (ct && ct.topicTitle) || "Test", n: 0, correct: 0, coins: 0, user: curId() };
   }
   function endSession() {
     if (!session) return;
@@ -330,66 +338,80 @@
     u.history = (u.history || []).concat([{ test: s.title, at: Date.now(), answered: s.n, correct: s.correct, coins: s.coins }]).slice(-60);
     save();
   }
+  function identityStepVisible() { var el = document.getElementById("tm-identity"); return !!(el && !el.hidden); }
+  function afterLogin() {
+    startSession();
+    // Akkount tanlangani uchun saytning "F.I.Sh kiriting" qadamini o'tkazib yuboramiz
+    if (identityStepVisible()) siteCall("showQuestionStep");
+  }
   function skipGate() { var g = gate; gate = null; close(); if (g) g(); }
 
   function onModalChange() {
     var vis = modalVisible();
-    if (vis && !session) {
-      if (!me() && !gate) {
-        // Test ochildi, lekin akkount tanlanmagan — avval kirish
-        gate = function () { startSession(); };
-        showLogin();
-      } else if (!gate) startSession();
-    } else if (!vis && session) endSession();
-    else if (!vis && gate) { gate = null; close(); }
+    if (vis && !session && !gate) {
+      if (!me()) { gate = function () { if (me()) afterLogin(); else startSession(); }; showLogin(); }
+      else { syncIdentity(); if (identityStepVisible()) siteCall("showQuestionStep"); startSession(); }
+    } else if (!vis) {
+      if (session) endSession();
+      if (gate) { gate = null; close(); }
+    }
   }
   if (modal) {
-    new MutationObserver(onModalChange).observe(modal, { attributes: true, childList: true, subtree: false, attributeFilter: ["class", "style", "hidden", "open"] });
+    new MutationObserver(onModalChange).observe(modal, { attributes: true, attributeFilter: ["class", "style", "hidden", "open"] });
     setInterval(onModalChange, 800);
   }
 
-  // Javobni aniqlash: bosilgan matn savolning variantlaridan biriga mosmi?
-  function stripLabel(t) { return norm(t).replace(/^[a-dа-г]\s*[).:\]]\s*/i, "").replace(/\s*[✓✔✗✘]\s*$/, ""); }
-  function findQuestion(target) {
-    var T = testsObj(); if (!T) return null;
-    var all = [];
-    Object.keys(T).forEach(function (k) { if (Array.isArray(T[k])) T[k].forEach(function (q) { if (q && q.q && Array.isArray(q.options)) all.push(q); }); });
-    var node = target;
-    while (node && node !== modal.parentNode) {
-      var txt = norm(node.textContent);
-      var hits = all.filter(function (q) { var nq = norm(q.q); return nq.length > 2 && txt.indexOf(nq) > -1; });
-      if (hits.length) {
-        // eng uzun mos savol (qisqa savol boshqasining ichida bo'lishi mumkin)
-        hits.sort(function (a, b) { return norm(b.q).length - norm(a.q).length; });
-        return hits[0];
-      }
-      node = node.parentNode;
-    }
-    return null;
+  // "Keyingisi / Yakunlash" — javobni hisoblash
+  function wrapNext() {
+    var orig = window.nextQuestion;
+    if (typeof orig !== "function" || orig.__kaWrapped) return;
+    var w = function () {
+      try {
+        var sel = document.querySelector('input[name="tm-opt"]:checked'), ct = cur(), T = testsObj();
+        if (sel && ct && T && session) {
+          var q = (T[ct.topicId] || [])[ct.qIndex];
+          if (q) {
+            var ok = parseInt(sel.value, 10) === q.correct, u = session.user && DB[session.user];
+            session.n++;
+            if (ok) session.correct++;
+            if (u) {
+              u.answered = (u.answered || 0) + 1;
+              if (ok) {
+                u.correct = (u.correct || 0) + 1;
+                // Bir xil savol uchun coin faqat bir marta (sonlari o'zgargan savol — yangi savol)
+                u.done = u.done || {};
+                var key = String(ct.topicId) + "|" + norm(q.q);
+                if (!u.done[key]) { u.done[key] = 1; u.coins = (u.coins || 0) + COIN_PER_CORRECT; session.coins += COIN_PER_CORRECT; toast("+" + COIN_PER_CORRECT + " 🪙"); }
+                else toast("✔ To'g'ri (bu savol uchun coin avval olingan)");
+              }
+              save(); renderChip();
+            }
+          }
+        }
+      } catch (e) {}
+      return orig.apply(this, arguments);
+    };
+    w.__kaWrapped = true;
+    window.nextQuestion = w;
   }
-  document.addEventListener("click", function (e) {
-    if (!modal || !session || !modal.contains(e.target)) return;
-    var t = e.target.closest("button, li, label, .option, [data-index], [role=button], a, div");
-    if (!t) return;
-    var chosen = stripLabel(t.textContent);
-    if (!chosen || chosen.length > 120) return;
-    var q = findQuestion(t);
-    if (!q) return;
-    var opts = q.options.map(stripLabel), idx = opts.indexOf(chosen);
-    if (idx < 0) return;
-    var key = norm(q.q);
-    if (session.answered[key]) return; // har savolga faqat birinchi tanlov
-    session.answered[key] = 1;
-    session.n++;
-    var u = session.user && DB[session.user];
-    var ok = idx === q.correct;
-    if (u) {
-      u.answered = (u.answered || 0) + 1;
-      if (ok) { u.correct = (u.correct || 0) + 1; u.coins = (u.coins || 0) + COIN_PER_CORRECT; session.coins += COIN_PER_CORRECT; }
-      save(); renderChip();
-    }
-    if (ok) { session.correct++; if (u) toast("+" + COIN_PER_CORRECT + " 🪙"); }
-  }, true);
+  wrapNext();
+  // Qayta topshirish — yangi sessiya; "Bu men emasman" — akkountni almashtirish
+  if (typeof window.retakeTest === "function") {
+    var origRetake = window.retakeTest;
+    window.retakeTest = function () { endSession(); var r = origRetake.apply(this, arguments); startSession(); return r; };
+  }
+  if (typeof window.changeIdentity === "function") {
+    var origChange = window.changeIdentity;
+    window.changeIdentity = function () {
+      var r = origChange.apply(this, arguments);
+      endSession();
+      setCur(""); syncIdentity(); renderChip();
+      gate = function () { if (me()) afterLogin(); else startSession(); };
+      showLogin();
+      return r;
+    };
+  }
+  if (me()) syncIdentity();
 
   // Boshqa modullar uchun
   window.kaAccount = {
