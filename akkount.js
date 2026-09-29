@@ -48,7 +48,7 @@
   function avatarHTML(u, size) {
     size = size || 40;
     var st = "width:" + size + "px;height:" + size + "px;font-size:" + Math.round(size * 0.55) + "px";
-    if (u && u.photo) return '<span class="acc-av" style="' + st + '"><img src="' + u.photo + '" alt=""></span>';
+    if (u && u.photo && /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+\/=]+$/.test(u.photo)) return '<span class="acc-av" style="' + st + '"><img src="' + u.photo + '" alt=""></span>';
     var a = AVATARS[(u && u.av) || 0] || AVATARS[0];
     return '<span class="acc-av" style="' + st + ";background:" + a[1] + '">' + a[0] + "</span>";
   }
