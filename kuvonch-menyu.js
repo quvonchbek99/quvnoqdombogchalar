@@ -994,7 +994,7 @@
     }
     function side(s, name) {
       var keys = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "-", "0", "del"];
-      return '<div class="ka-t-side ' + s + '"><div class="ka-t-name"><input value="' + name + '" aria-label="Jamoa nomi"><span class="pts"></span></div>' +
+      return '<div class="ka-t-side ' + s + '"><div class="ka-t-name"><input value="' + name + '" maxlength="30" aria-label="Jamoa nomi"><span class="pts"></span></div>' +
         '<div class="ka-t-q">—</div><div class="ka-t-ans"></div><div class="ka-t-mcq"></div><div class="ka-t-pad">' +
         keys.map(function (k) { return '<button data-k="' + k + '"' + (k === "del" ? ' class="del"' : "") + ">" + (k === "del" ? "⌫" : k === "-" ? "±" : k) + "</button>"; }).join("") +
         '<button data-k="ok" class="ok" style="grid-column:1/-1">✔ Javob</button></div></div>';
@@ -1139,7 +1139,7 @@
         setTimeout(function () { sd.classList.remove("lock"); }, 2000);
       }
     }
-    function teamName(s) { return $(".ka-t-side." + s + " input", root).value || (s === "l" ? "1-jamoa" : "2-jamoa"); }
+    function teamName(s) { return esc(($(".ka-t-side." + s + " input", root).value || "").slice(0, 30) || (s === "l" ? "1-jamoa" : "2-jamoa")); }
     function flash(t, col) {
       var f = $(".ka-t-flash", root);
       f.textContent = t; f.style.background = col; f.style.color = "#0b1220";
