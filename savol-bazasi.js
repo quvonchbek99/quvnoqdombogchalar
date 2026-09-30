@@ -217,8 +217,22 @@
     try {
       if (typeof TESTS !== "undefined" && (TESTS[topicId] || titleOf(topicId))) {
         var qs = getQuestions(topicId, n);
-        if (qs.length) { TESTS[topicId] = qs; markSeen(topicId, qs); }
+        if (qs.length) { TESTS[topicId] = qs; markSeen(topicId, qs); pushToBank(topicId, qs); }
       }
+    } catch (e) {}
+  }
+  // Generator yaratgan yangi savollarni Google jadvaliga (savollar bazasiga) yuborish — baza o'sib boradi
+  function pushToBank(topicId, qs) {
+    try {
+      var url = typeof RESULTS_ENDPOINT !== "undefined" ? RESULTS_ENDPOINT : "";
+      if (!url || !/^[a-z0-9]{1,8}$/i.test(topicId)) return;
+      var inBank = {};
+      ((BANK && BANK[topicId]) || []).forEach(function (q) { inBank[norm(q.q)] = 1; });
+      var fresh = qs.filter(function (q) { return q.src === "gen" && q.options.length === 4 && !inBank[norm(q.q)]; })
+        .map(function (q) { return { topicId: topicId, topic: titleOf(topicId), q: q.q, options: q.options, correct: q.correct }; });
+      if (!fresh.length) return;
+      fetch(url, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: "addQuestions", questions: fresh }) }).catch(function () {});
     } catch (e) {}
   }
   var chosen = PER_TEST;
