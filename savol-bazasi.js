@@ -3,7 +3,7 @@
  * - Savollar Google Sheets jadvalidan olinadi (o'qituvchi jadvalga qator qo'shsa, saytda darhol chiqadi)
  * - Jadval ochilmasa: mavzu generatori yangi savollar yaratadi (internet shart emas)
  * - Har bir o'quvchi (akkount) uchun ko'rilgan savollar eslab qolinadi — takror chiqmaydi
- * - Test ochilganda 5 ta yangi savol tanlanadi; Arqon tortish ham shu bazadan foydalanadi
+ * - Test ochilganda o'quvchi savollar sonini tanlaydi (20 / 30 / 50); Arqon tortish ham shu bazadan foydalanadi
  * Ulash: mashq-generator.js dan keyin <script src="savol-bazasi.js"></script>
  */
 (function () {
@@ -15,7 +15,9 @@
   var SHEET_ID = "1xleCHy1Wo0mZnnmftHwMJI2BLvC3UiHLpdQUKKEdTL0";
   var SHEET_NAME = ""; // bo'sh = birinchi varaq
   var SHEET_GID = ""; // bo'sh = birinchi varaq
-  var PER_TEST = 5;
+  var PER_TEST = 20;
+  var COUNTS = [20, 30, 50]; // test boshlashdan oldin tanlanadigan savollar soni
+  var LS_COUNT = "ka.test.count.v1";
   var LS_BANK = "ka.bank.cache.v1", LS_SEEN = "ka.bank.seen.v1";
 
   function R(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
@@ -180,21 +182,56 @@
     } catch (e) {}
   }
   snapshotOrig();
+  // ---------- Savollar sonini tanlash oynasi (20 / 30 / 50) ----------
+  function lastCount() { try { var v = +localStorage.getItem(LS_COUNT); return COUNTS.indexOf(v) >= 0 ? v : PER_TEST; } catch (e) { return PER_TEST; } }
+  function injectCss() {
+    if (document.getElementById("ka-count-css")) return;
+    var st = document.createElement("style"); st.id = "ka-count-css";
+    st.textContent = ".ka-count{position:fixed;inset:0;z-index:200;background:rgba(5,8,14,.72);display:flex;align-items:center;justify-content:center;padding:16px}" +
+      ".ka-count-card{background:#151a24;color:#e8eefc;border:1px solid #2f4a7a;border-radius:18px;padding:24px 20px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.45)}" +
+      ".ka-count-card h3{margin:0 0 6px;font-size:20px}.ka-count-card p{margin:0 0 18px;color:#9fb0cf;font-size:14px}" +
+      ".ka-count-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}" +
+      ".ka-count-row button{flex:1 1 90px;min-height:64px;border:none;border-radius:14px;cursor:pointer;font-weight:800;font-size:22px;color:#08131f;background:linear-gradient(135deg,#5ee6c7,#7c9bff)}" +
+      ".ka-count-row button small{display:block;font-size:12px;font-weight:700;opacity:.8}" +
+      ".ka-count-row button.last{outline:3px solid #ffd166;outline-offset:2px}" +
+      ".ka-count-x{margin-top:16px;background:none;border:none;color:#9fb0cf;cursor:pointer;font-size:14px;text-decoration:underline}";
+    document.head.appendChild(st);
+  }
+  function askCount(title, cb) {
+    injectCss();
+    var old = document.getElementById("ka-count"); if (old) old.remove();
+    var last = lastCount(), box = document.createElement("div");
+    box.className = "ka-count"; box.id = "ka-count";
+    box.innerHTML = '<div class="ka-count-card" role="dialog" aria-modal="true"><h3>📝 Nechta savol?</h3><p></p><div class="ka-count-row">' +
+      COUNTS.map(function (c) { return '<button type="button" data-n="' + c + '"' + (c === last ? ' class="last"' : "") + ">" + c + "<small>ta savol</small></button>"; }).join("") +
+      '</div><button type="button" class="ka-count-x">Bekor qilish</button></div>';
+    box.querySelector("p").textContent = title || "";
+    box.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-n]");
+      if (b) { var n = +b.getAttribute("data-n"); try { localStorage.setItem(LS_COUNT, String(n)); } catch (er) {} box.remove(); cb(n); return; }
+      if (e.target === box || e.target.classList.contains("ka-count-x")) box.remove();
+    });
+    document.body.appendChild(box);
+  }
+  function fill(topicId, n) {
+    try {
+      if (typeof TESTS !== "undefined" && (TESTS[topicId] || titleOf(topicId))) {
+        var qs = getQuestions(topicId, n);
+        if (qs.length) { TESTS[topicId] = qs; markSeen(topicId, qs); }
+      }
+    } catch (e) {}
+  }
+  var chosen = PER_TEST;
   if (typeof window.openTest === "function") {
     var origOpen = window.openTest;
-    window.openTest = function (topicId) {
-      try {
-        if (typeof TESTS !== "undefined" && (TESTS[topicId] || titleOf(topicId))) {
-          var qs = getQuestions(topicId, PER_TEST);
-          if (qs.length) { TESTS[topicId] = qs; markSeen(topicId, qs); }
-        }
-      } catch (e) {}
-      return origOpen.apply(this, arguments);
+    window.openTest = function (topicId, topicTitle) {
+      var self = this, args = arguments;
+      askCount(topicTitle || titleOf(topicId), function (n) { chosen = n; fill(topicId, n); origOpen.apply(self, args); });
     };
     if (typeof window.retakeTest === "function") {
       var origRetake = window.retakeTest;
       window.retakeTest = function () {
-        try { var ct = typeof currentTest !== "undefined" ? currentTest : null; if (ct && ct.topicId) { var qs = getQuestions(ct.topicId, PER_TEST); if (qs.length) { TESTS[ct.topicId] = qs; markSeen(ct.topicId, qs); } } } catch (e) {}
+        try { var ct = typeof currentTest !== "undefined" ? currentTest : null; if (ct && ct.topicId) fill(ct.topicId, chosen); } catch (e) {}
         return origRetake.apply(this, arguments);
       };
     }

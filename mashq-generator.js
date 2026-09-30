@@ -303,11 +303,62 @@
       return { q: "To'g'ri burchakli parallelepiped o'lchamlari " + a + ", " + b + " va " + c + " sm. Hajmini toping (sm³).", a: a * b * c, hint: "son", steps: ["V = a·b·c = " + a + "·" + b + "·" + c + " = " + a * b * c] };
     },
     // Asosiy amallar
-    add: function () { var a = R(100, 999), b = R(100, 999); return { q: a + " + " + b + " ni hisoblang.", a: a + b, hint: "son", steps: [a + " + " + b + " = " + (a + b)] }; },
-    sub: function () { var a = R(-60, 400), b = R(-80, 300); return { q: a + " − " + par(b) + " ni hisoblang.", a: a - b, hint: "son", steps: [a + " − " + par(b) + " = " + (a - b)] }; },
-    mul: function () { var a = R(12, 99), b = R(3, 25); return { q: a + " × " + b + " ni hisoblang.", a: a * b, hint: "son", steps: [a + " × " + b + " = " + a * b] }; },
-    div: function () { var b = R(3, 25), q = R(4, 60); return { q: b * q + " : " + b + " ni hisoblang.", a: q, hint: "son", steps: [b * q + " : " + b + " = " + q] }; },
-    times: function () { var a = R(2, 9), b = R(2, 9); return { q: a + " × " + b + " = ?", a: a * b, hint: "son", steps: [a + " × " + b + " = " + a * b] }; }
+    add: function () {
+      var k = R(0, 3), a, b;
+      if (k === 0) { a = R(100, 999); b = R(100, 999); }
+      else if (k === 1) { a = R(1000, 9999); b = R(1000, 9999); }
+      else if (k === 2) { a = R(-60, 60); b = R(-60, 60); return { q: a + " + " + par(b) + " ni hisoblang.", a: a + b, hint: "son", steps: [a + " + " + par(b) + " = " + (a + b)] }; }
+      else { a = R(10, 99); b = R(10, 99); var c = R(10, 99); return { q: a + " + " + b + " + " + c + " ni hisoblang.", a: a + b + c, hint: "son", steps: [a + " + " + b + " = " + (a + b), (a + b) + " + " + c + " = " + (a + b + c)] }; }
+      return { q: a + " + " + b + " ni hisoblang.", a: a + b, hint: "son", steps: [a + " + " + b + " = " + (a + b)] };
+    },
+    sub: function () {
+      var k = R(0, 2), a, b;
+      if (k === 0) { a = R(500, 9999); b = R(100, a); }
+      else if (k === 1) { a = R(-60, 400); b = R(-80, 300); }
+      else { a = R(100, 999); b = R(10, 99); var c = R(10, 99); return { q: a + " − " + b + " − " + c + " ni hisoblang.", a: a - b - c, hint: "son", steps: [a + " − " + b + " = " + (a - b), (a - b) + " − " + c + " = " + (a - b - c)] }; }
+      return { q: a + " − " + par(b) + " ni hisoblang.", a: a - b, hint: "son", steps: [a + " − " + par(b) + " = " + (a - b)] };
+    },
+    mul: function () {
+      var k = R(0, 2), a, b;
+      if (k === 0) { a = R(12, 99); b = R(3, 25); }
+      else if (k === 1) { a = R(101, 999); b = R(2, 9); }
+      else { a = RNZ(-15, 15); b = RNZ(-12, 12); return { q: par(a) + " × " + par(b) + " ni hisoblang.", a: a * b, hint: "son", steps: [par(a) + " × " + par(b) + " = " + a * b] }; }
+      return { q: a + " × " + b + " ni hisoblang.", a: a * b, hint: "son", steps: [a + " × " + b + " = " + a * b] };
+    },
+    div: function () {
+      var k = R(0, 2), b, q;
+      if (k === 0) { b = R(3, 25); q = R(4, 60); }
+      else if (k === 1) { b = R(2, 9); q = R(101, 999); }
+      else { b = RNZ(-12, 12); q = RNZ(-15, 15); return { q: par(b * q) + " : " + par(b) + " ni hisoblang.", a: q, hint: "son", steps: [par(b * q) + " : " + par(b) + " = " + q] }; }
+      return { q: b * q + " : " + b + " ni hisoblang.", a: q, hint: "son", steps: [b * q + " : " + b + " = " + q] };
+    },
+    times: function () { var a = R(2, 12), b = R(2, 12); return { q: a + " × " + b + " = ?", a: a * b, hint: "son", steps: [a + " × " + b + " = " + a * b] }; },
+    // Sonlar: xona birliklari, yaxlitlash, juft/toq, qarama-qarshi son, modul, Rim raqamlari
+    numbers: function () {
+      var k = R(0, 11), n, XN = ["birlar", "o'nlar", "yuzlar", "minglar"];
+      function roman(x) { var v = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], r = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"], o = ""; for (var i = 0; i < v.length; i++) while (x >= v[i]) { o += r[i]; x -= v[i]; } return o; }
+      if (k === 0) { n = R(1000, 9999); var p = R(0, 3), d = Math.floor(n / Math.pow(10, p)) % 10;
+        return { q: n + " sonining " + XN[p] + " xonasidagi raqamni toping.", a: d, hint: "son", steps: [n + " → " + XN[p] + " xonasida " + d + " turibdi"] }; }
+      if (k === 1) { n = R(1000, 99999); var m = pick([10, 100, 1000]), r = Math.round(n / m) * m, nm = { 10: "o'nlar", 100: "yuzlar", 1000: "minglar" }[m];
+        return { q: n + " sonini " + nm + " xonasigacha yaxlitlang.", a: r, hint: "son", steps: ["Keyingi xona raqami 5 dan kichik bo'lsa pastga, aks holda yuqoriga yaxlitlanadi", n + " ≈ " + r] }; }
+      if (k === 2) { var a = R(1, 40), b = a + R(10, 40), c = 0; for (var i = a; i <= b; i++) if (i % 2 === 0) c++;
+        return { q: a + " dan " + b + " gacha (ikkalasi ham kiradi) nechta juft son bor?", a: c, hint: "son", steps: ["Juft sonlar 2 ga qoldiqsiz bo'linadi", "Javob: " + c + " ta"] }; }
+      if (k === 3) { var a2 = R(1, 40), b2 = a2 + R(10, 40), c2 = 0; for (var j = a2; j <= b2; j++) if (j % 2 === 1) c2++;
+        return { q: a2 + " dan " + b2 + " gacha (ikkalasi ham kiradi) nechta toq son bor?", a: c2, hint: "son", steps: ["Toq sonlar 2 ga bo'linmaydi", "Javob: " + c2 + " ta"] }; }
+      if (k === 4) { n = RNZ(-99, 99); return { q: par(n) + " soniga qarama-qarshi sonni toping.", a: -n, hint: "son", steps: ["Qarama-qarshi son ishorasi bilan farq qiladi: −(" + n + ") = " + (-n)] }; }
+      if (k === 5) { n = R(-150, -1); return { q: "|" + n + "| ni hisoblang.", a: -n, hint: "son", steps: ["Manfiy sonning moduli unga qarama-qarshi son: |" + n + "| = " + (-n)] }; }
+      if (k === 6) { n = R(1000, 99999); var s = String(n).split("").reduce(function (x, y) { return x + +y; }, 0);
+        return { q: n + " sonining raqamlari yig'indisini toping.", a: s, hint: "son", steps: [String(n).split("").join(" + ") + " = " + s] }; }
+      if (k === 7) { var dg = R(2, 6), small = Math.random() < .5, ans = small ? Math.pow(10, dg - 1) : Math.pow(10, dg) - 1;
+        return { q: "Eng " + (small ? "kichik" : "katta") + " " + dg + " xonali natural sonni toping.", a: ans, hint: "son", steps: [small ? "1 va undan keyin " + (dg - 1) + " ta nol: " + ans : dg + " ta 9 raqami: " + ans] }; }
+      if (k === 8) { n = R(1, 49); return { q: "Rim raqamida yozilgan " + roman(n) + " sonini arab raqamida yozing.", a: n, hint: "son", steps: [roman(n) + " = " + n] }; }
+      if (k === 9) { var xs = [R(-50, 50), R(-50, 50), R(-50, 50), R(-50, 50)], big = Math.random() < .5, v2 = big ? Math.max.apply(null, xs) : Math.min.apply(null, xs);
+        return { q: xs.map(par).join("; ") + " sonlaridan eng " + (big ? "kattasini" : "kichigini") + " toping.", a: v2, hint: "son", steps: ["Son o'qida o'ngdagi son katta, chapdagi kichik", "Javob: " + v2] }; }
+      if (k === 10) { var t = R(1, 9), u = R(0, 9), h = R(1, 9); n = h * 100 + t * 10 + u;
+        return { q: h + " ta yuzlik, " + t + " ta o'nlik va " + u + " ta birlikdan iborat sonni toping.", a: n, hint: "son", steps: [h + "·100 + " + t + "·10 + " + u + " = " + n] }; }
+      var a3 = R(10, 90), b3 = a3 + R(5, 30); var cnt = b3 - a3 - 1;
+      return { q: a3 + " va " + b3 + " orasida (ular kirmaydi) nechta natural son bor?", a: cnt, hint: "son", steps: [b3 + " − " + a3 + " − 1 = " + cnt] };
+    }
   };
 
   // Mavzu nomi → generatorlar (kalit so'zlar bo'yicha). Birinchi mos kelgan qator olinadi.
@@ -346,6 +397,7 @@
     [/tasodifiy|hodisa/i, ["comb"]],
     [/chiziqli\s+tenglama|tenglama/i, ["linEq", "quadEq"]],
     [/tengsizlik/i, ["ineqSystem", "quadIneq"]],
+    [/^\s*a8\b|\bsonlar\b/i, ["numbers"]],
     [/qo'shish/i, ["add"]], [/ayirish/i, ["sub"]], [/karra/i, ["times"]],
     [/ko'paytirish/i, ["mul"]], [/bo'lish/i, ["div"]]
   ];
