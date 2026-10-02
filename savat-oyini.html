@@ -95,13 +95,27 @@
   @media (max-width:640px){
     .stats{grid-template-columns:repeat(2,1fr)}
     .score{font-size:30px}
-    .rule{top:112px;max-width:calc(100% - 24px);width:calc(100% - 24px)}
+    .rule{top:142px;max-width:calc(100% - 24px);width:calc(100% - 24px)}
     .rule .t{font-size:20px;padding:8px 12px}
     .fields{grid-template-columns:1fr}
     .pad button{width:68px;height:68px;font-size:28px}
     .pad .fire{width:80px;height:80px}
   }
+
+  /* iPhone (Safari) uchun: menyu oynasi suriladi, matn maydonlari yoziladi */
+  html,body{touch-action:manipulation!important;-webkit-text-size-adjust:100%}
+  canvas,#stage{touch-action:none}
+  .overlay{touch-action:pan-y!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;align-items:flex-start!important}
+  .overlay .card{margin:auto}
+  input,textarea,select{-webkit-user-select:text!important;user-select:text!important;font-size:16px!important}
 </style>
+<script>
+/* Eski iPhone (iOS 15 va undan past) uchun canvas roundRect o'rnini bosuvchi */
+if(window.CanvasRenderingContext2D&&!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){ r=Math.min(Array.isArray(r)?r[0]:(r||0),Math.abs(w)/2,Math.abs(h)/2);
+    this.moveTo(x+r,y); this.arcTo(x+w,y,x+w,y+h,r); this.arcTo(x+w,y+h,x,y+h,r); this.arcTo(x,y+h,x,y,r); this.arcTo(x,y,x+w,y,r); this.closePath(); return this; };
+}
+</script>
 </head>
 <body>
 <div id="stage"><video id="vid" playsinline muted></video><canvas id="cv"></canvas></div>
@@ -392,7 +406,7 @@ const HUES=[[255,138,61],[79,209,197],[155,140,255],[255,122,198],[96,165,250],[
 const B={tx:0,tvx:0,th:0,om:0,target:0,L:300,rail:6,bw:140,bh:58,recoil:0,cool:0,pile:[]};
 function layout(){
   B.bw=clamp(W*.17,104,170); B.bh=clamp(B.bw*.42,44,64);
-  const bottom=H-B.bh-(W<640?26:22);
+  const bottom=H-B.bh-(ctrl==='btn'&&W<640?96:W<640?26:22);
   B.L=Math.max(160,bottom-B.rail);
 }
 function basketPos(){ return {x:B.tx+B.L*Math.sin(B.th), y:B.rail+B.L*Math.cos(B.th)}; }
