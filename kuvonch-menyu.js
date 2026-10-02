@@ -215,7 +215,7 @@
 
     pickers.forEach(function (p, i) {
       var h = $("h2", p);
-      var label = h ? h.textContent.trim() : "Bo'lim " + (i + 1);
+      var label = p.getAttribute("data-tab") || (h ? h.textContent.trim() : "Bo'lim " + (i + 1));
       var tab = el("button", { class: "ka-tab", role: "tab", type: "button" }, label);
       tab.onclick = function () { selectPane(i); };
       tabs.appendChild(tab);
@@ -280,6 +280,12 @@
     inp.addEventListener("input", doFilter);
     var saved = parseInt(store("ka-tab"), 10);
     selectPane(saved >= 0 && saved < panes.length ? saved : 0);
+    panes.forEach(function (o, i) {
+      if (location.hash && location.hash === "#" + o.pane.id) {
+        selectPane(i);
+        setTimeout(function () { hub.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300);
+      }
+    });
 
     // Header'dagi #toc... havolalari endi tab'ni ochadi
     $$("header nav a").forEach(function (a) {
