@@ -1108,6 +1108,17 @@
     els.startScreen.hidden = false;
   });
 
+  // ---------- natijani o'qituvchining Google jadvaliga yuborish ----------
+  const RESULTS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxeBUPBTqpJ8rw9PH4mW8dlonvIJCjeP9ijTfq84R6MrFqCeIjf04uoQsEgVqne2xYBTA/exec";
+  function sendToSheet(grade, acc){
+    const payload = { name: state.name, group: state.group,
+      topic: "🏁 Tub Sonlar Poygasi (" + (state.car||"") + ", baho " + grade + ", aniqlik " + acc + "%, seriya " + state.bestStreak + ")",
+      correct: state.correctCount, total: Math.max(state.correctCount, state.attempts||0), date: new Date().toLocaleString("uz-UZ") };
+    fetch(RESULTS_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+      .then(r => { if(r.ok) els.saveStatus.textContent += "  ·  Google jadvalga ham yuborildi ☁️"; })
+      .catch(() => { els.saveStatus.textContent += "  ·  Google jadvalga yuborilmadi (internet yo'q)"; });
+  }
+
   // ---------- natijalar jadvali (shu qurilmada saqlanadi) ----------
   const LS_KEY = "tubPoyga.natijalar.v1";
   function loadResults(){
@@ -1164,6 +1175,7 @@
       aniqlik: acc, baho: grade, jon: state.lives, masofa: Math.min(state.roundIndex, ROUNDS),
       seriya: state.bestStreak, qiyinlik: state.difficulty, vaqt: Date.now()
     });
+    sendToSheet(grade, acc);
     if(saveResults(list)){
       els.saveStatus.textContent = "Natija jadvalga yozildi ✅ (shu kompyuter/telefonda saqlanadi)";
       renderBoard();
