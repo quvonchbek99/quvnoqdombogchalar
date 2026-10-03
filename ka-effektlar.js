@@ -48,7 +48,7 @@
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   if (!reduce && "IntersectionObserver" in window) {
-    var SEL = ".picker-card,.card,.era-card,.topic-chip,section>h2,section>p,.hero,article,.test-start-btn,main h2,main h3,.timeline-item,.grid>*,.cards>*,figure,blockquote,table";
+    var SEL = ".ev-link,.picker-card,.card,.era-card,.topic-chip,section>h2,section>p,.hero,article,.test-start-btn,main h2,main h3,.timeline-item,.grid>*,.cards>*,figure,blockquote,table";
     var kinds = ["up", "zoom", "left", "right", "flip"];
     var io = new IntersectionObserver(function (ents) {
       var batch = 0;
