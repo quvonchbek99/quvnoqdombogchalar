@@ -155,6 +155,7 @@ Kuvonch Academy
 <a href="chempionat.html">🏆 Chempionat</a>
 <a href="yurak.html">❤️ Puls</a>
 <a href="#haqida">Loyiha haqida</a>
+<a href="#qollab">&#128153; Qo'llab-quvvatlash</a>
 </nav>
 </header>
 
@@ -782,6 +783,62 @@ alohida sahifa sifatida arxivlanadi — qidiruv va filtrlash imkoniyati bilan.
 </div>
 
 <p class="note">Ushbu sayt GitHub Pages orqali joylashtirilgan va bepul, statik tarzda ishlaydi.</p>
+</section>
+
+<section id="qollab">
+<div class="section-head">
+<h2>&#128153; Loyihani qo'llab-quvvatlash</h2>
+</div>
+<div class="about-card">
+<p>Kuvonch Academy — bepul loyiha. Obuna bo'ling, do'stlaringizga ulashing yoki loyiha rivojiga hissa qo'shing — har bir yordam yangi o'yin, mashq va darslarga aylanadi.</p>
+<div class="qq-soc">
+<a class="qq-btn qq-tg" href="https://t.me/mqm199" target="_blank" rel="noopener"><span>&#9992;</span>Telegram<small>@mqm199</small></a>
+<a class="qq-btn qq-yt" href="https://www.youtube.com/@miirsp" target="_blank" rel="noopener"><span>&#9654;</span>YouTube<small>@miirsp</small></a>
+<a class="qq-btn qq-tt" href="https://www.tiktok.com/@vabankjoys9" target="_blank" rel="noopener"><span>&#9834;</span>TikTok<small>@vabankjoys9</small></a>
+<a class="qq-btn qq-ig" href="https://www.instagram.com/kuvonch_academy/" target="_blank" rel="noopener"><span>&#9673;</span>Instagram<small>@kuvonch_academy</small></a>
+</div>
+<div class="qq-karta" id="qqKarta">
+<div class="qq-k-top"><span>&#128179; Karta orqali hissa qo'shish</span><span class="qq-k-chip"></span></div>
+<div class="qq-k-num" id="qqNum"></div>
+<div class="qq-k-bot"><span id="qqEgasi">Mashrapov Quvonchbek</span><button type="button" class="qq-copy" id="qqCopy">Nusxa olish</button></div>
+</div>
+</div>
+<style>
+.qq-soc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.qq-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 10px;border-radius:14px;color:#fff;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s}
+.qq-btn span{font-size:1.6rem;line-height:1}
+.qq-btn small{font-weight:400;opacity:.85;font-size:.8rem}
+.qq-btn:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.qq-tg{background:linear-gradient(135deg,#2aabee,#1e88d0)}
+.qq-yt{background:linear-gradient(135deg,#ff3b3b,#c4000a)}
+.qq-tt{background:#111;border:1px solid #fe2c55}
+.qq-ig{background:linear-gradient(135deg,#feda75,#fa7e1e 25%,#d62976 55%,#962fbf 80%,#4f5bd5)}
+.qq-karta{max-width:420px;margin:8px auto 0;padding:20px 22px;border-radius:18px;background:linear-gradient(135deg,#1d3b6e,#0f6b5c);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.qq-k-top{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;opacity:.9}
+.qq-k-chip{width:38px;height:28px;border-radius:6px;background:linear-gradient(135deg,#f5d77a,#c9a227)}
+.qq-k-num{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1.45rem;letter-spacing:2px;margin:22px 0 16px}
+.qq-k-bot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.85rem;letter-spacing:1px}
+.qq-copy{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:600}
+.qq-copy:hover{background:rgba(255,255,255,.3)}
+@media(max-width:420px){.qq-k-num{font-size:1.1rem;letter-spacing:1px}}
+</style>
+<script>
+(function(){
+  /* ===== Karta raqamini shu yerga yozing ===== */
+  var KARTA = "";
+  /* ========================================== */
+  var box=document.getElementById('qqKarta');
+  if(!KARTA){box.style.display='none';return;}
+  document.getElementById('qqNum').textContent=KARTA;
+  var b=document.getElementById('qqCopy');
+  b.onclick=function(){
+    var t=KARTA.split(' ').join('');
+    var ok=function(){b.textContent='Nusxalandi';setTimeout(function(){b.textContent='Nusxa olish'},1800)};
+    if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){prompt('Karta raqami:',t)});
+    else prompt('Karta raqami:',t);
+  };
+})();
+</script>
 </section>
 
 <footer>
