@@ -2,7 +2,7 @@
  * Kuvonch Academy — "jonli" rasmlar
  *  - Har bir kartadagi rasm sekin harakatlanadi (kamera yaqinlashib-uzoqlashadi), yorug'lik o'tadi,
  *    sichqoncha / telefon egilishiga qarab 3D burilish
- *  - "🔊 Tinglash": diktor ovozi kartadagi matnni o'qiydi, rasm "gapirayotgandek" jonlanadi,
+ *  - "🔊 Tinglash": o'zbekcha neyron ovoz (ovoz/*.mp3; bo'lmasa brauzer ovozi) kartadagi matnni o'qiydi, rasm "gapirayotgandek" jonlanadi,
  *    pastda subtitr va so'zlar birma-bir yonadi
  *  - "▶ Davrni tinglash": shu davrdagi hamma kartani ketma-ket o'qib beradi
  * Ulash: </body> dan oldin <script src="ka-jonli.js"></script>
@@ -105,7 +105,7 @@
     img.style.animationDelay = (-Math.random() * 10).toFixed(1) + "s";
     var sub = document.createElement("div"); sub.className = "kj-sub"; fr.appendChild(sub);
     var wv = document.createElement("div"); wv.className = "kj-waves"; wv.innerHTML = "<i></i><i></i><i></i><i></i>"; fr.appendChild(wv);
-    if (synth) {
+    if (true) {
       var b = document.createElement("span"); b.className = "kj-btn"; b.setAttribute("role", "button"); b.tabIndex = 0; b.textContent = "🔊 Tinglash";
       var go = function (e) { e.preventDefault(); e.stopPropagation(); if (cur === card) stop(); else speak(card); };
       b.addEventListener("click", go); b.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") go(e); });
@@ -145,10 +145,48 @@
   }
 
   var queue = [], timer = 0;
+  /* ---------- tayyor o'zbekcha ovoz (ovoz/*.mp3, neyron ovoz) ---------- */
+  var BASE = (document.currentScript && document.currentScript.src || location.href).replace(/[^/]*$/, "");
+  var manP = null, audio = null;
+  function manifest() { if (!manP) manP = fetch(BASE + "ovoz/ovoz.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }); return manP; }
+  function slug(t) { return t.toLowerCase().replace(/[ʻʼ‘’`']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+  function wordsHtml(ws, wi) {
+    var s = Math.max(0, wi - 6); while (s > 0 && ws[s][0][0] === "-") s--; var e = Math.min(ws.length, s + 14), out = "";
+    for (var i = s; i < e; i++) { var w = ws[i][0].replace(/[&<>]/g, ""); out += (w[0] === "-" || i === s ? "" : " ") + (i === wi ? "<b>" + w + "</b>" : w); }
+    return out;
+  }
+  function playAudio(card, ent, key) {
+    var a = audio = new Audio(BASE + "ovoz/" + key + ".mp3"); a.preload = "auto";
+    var ws = ent.w, shown = -1;
+    cur = card; card.classList.add("kj-talk"); if (card.__btn) card.__btn.textContent = "⏹ To'xtatish";
+    card.__sub.innerHTML = wordsHtml(ws, 0);
+    a.ontimeupdate = function () {
+      var ms = a.currentTime * 1000, wi = 0; while (wi + 1 < ws.length && ws[wi + 1][1] <= ms) wi++;
+      if (wi === shown) return; shown = wi; card.__sub.innerHTML = wordsHtml(ws, wi);
+      var im = card.__img; im.classList.add("kj-beat"); im.style.transform = "scale(1.2) translateY(-1%)";
+      setTimeout(function () { im.style.transform = "scale(1.17)"; }, 120);
+    };
+    a.onended = function () { if (cur !== card) return; finish(card); next(); };
+    a.onerror = function () { if (cur !== card) return; finish(card); speakSynth(card); };
+    var pr = a.play(); if (pr && pr.catch) pr.catch(function () { if (cur === card) { finish(card); speakSynth(card); } });
+  }
+  function next() {
+    if (queue.length) { var n = queue.shift(); n.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function () { speak(n, true); }, 700); }
+    else updateAllBtns();
+  }
   function speak(card, fromQueue) {
-    if (!synth) return;
     if (!fromQueue) queue = [];
     stop(true);
+    var h = card.querySelector("h4"), key = h ? slug(h.textContent.trim()) : "";
+    cur = card; card.classList.add("kj-talk"); if (card.__btn) card.__btn.textContent = "⏳";
+    manifest().then(function (m) {
+      if (cur !== card) return;
+      finish(card);
+      if (m[key]) playAudio(card, m[key], key); else speakSynth(card);
+    });
+  }
+  function speakSynth(card) {
+    if (!synth) { next(); return; }
     if (!voice) pickVoice();
     var text = cardText(card), words = text.split(" "), say = spoken(text);
     var u = new SpeechSynthesisUtterance(say);
@@ -176,9 +214,7 @@
     };
     u.onend = u.onerror = function () {
       if (cur !== card) return;
-      finish(card);
-      if (queue.length) { var n = queue.shift(); n.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function () { speak(n, true); }, 700); }
-      else updateAllBtns();
+      finish(card); next();
     };
     synth.speak(u);
     // ba'zi Android brauzerlarida uzun matn o'z-o'zidan to'xtab qolmasligi uchun
@@ -193,6 +229,7 @@
   function stop(keepQueue) {
     if (!keepQueue) queue = [];
     var c = cur; cur = null; if (c) finish(c);
+    if (audio) { try { audio.pause(); } catch (e) {} audio.onended = audio.onerror = audio.ontimeupdate = null; audio = null; }
     if (synth) synth.cancel();
     if (!keepQueue) updateAllBtns();
   }
@@ -201,7 +238,7 @@
   var allBtns = [];
   function updateAllBtns() { allBtns.forEach(function (b) { b.textContent = b.__on && (cur || queue.length) ? "⏹ To'xtatish" : "▶ Davrni tinglash"; if (!(cur || queue.length)) b.__on = false; }); }
   function setupGrid(g) {
-    if (g.__kj || !synth) return; g.__kj = 1;
+    if (g.__kj) return; g.__kj = 1;
     var cards = g.querySelectorAll(".ev-card"); if (cards.length < 2) return;
     var b = document.createElement("button"); b.type = "button"; b.className = "kj-all"; b.textContent = "▶ Davrni tinglash";
     b.onclick = function () {
@@ -219,7 +256,7 @@
     Array.prototype.forEach.call(document.querySelectorAll(".era-grid"), setupGrid);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
-  addEventListener("pagehide", function () { if (synth) synth.cancel(); });
+  addEventListener("pagehide", function () { stop(); });
   document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); });
 
   // Telefon egilganda rasmlar biroz siljiydi (Android)
