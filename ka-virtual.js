@@ -201,6 +201,19 @@
     g.topic = g.m === "xotira" ? PAIRN[g.k] : (SRC[g.m][g.k] || {}).n || g.k;
   });
 
+  /* --- Mavzu uchun maxsus o'yin (mavzu-oyin.html) --- */
+  if (window.KAV_TOPIC && typeof window.KAV_TOPIC.q === "function") {
+    TOPICS.mavzu = { n: window.KAV_TOPIC.n || "Mavzu savollari", q: window.KAV_TOPIC.q };
+  }
+  if (window.KAV_GAME) {
+    var cg = window.KAV_GAME;
+    cg.k = cg.k || "mavzu"; cg.m = cg.m || "pufak"; cg.th = cg.th || "neon";
+    cg.id = GAMES.length + 1;
+    cg.topic = ((SRC[cg.m] || {})[cg.k] || {}).n || cg.k;
+    GAMES.push(cg);
+    window.KAV_ID = cg.id;
+  }
+
   window.KAV = { GAMES: GAMES, MECH: MECH, THEMES: THEMES };
   if (window.KAV_HUB || !window.KAV_ID) return;
 
