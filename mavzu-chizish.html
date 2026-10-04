@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grafikni qo'l bilan chizish — Kuvonch Academy</title>
+<meta name="description" content="Kuvonch Academy: funksiya grafigini havoda qo'l bilan chizing — kamera barmog'ingizni kuzatadi, kompyuter chizmani baholaydi.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#0b1220;color:#eef2ff;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;overscroll-behavior:none}
+  .wrap{max-width:860px;margin:0 auto;padding:16px 14px 40px}
+  a.back{color:#7c9bff;text-decoration:none;font-weight:700;font-size:14px}
+  h1{font-size:clamp(19px,4.6vw,25px);margin:12px 0 4px}
+  .sub{color:#9fb0d0;font-size:14px;margin:0 0 14px}
+  .task{background:#0e1628;border:1px solid #3a5a9a;border-radius:14px;padding:13px 15px;margin-bottom:12px}
+  .task b{color:#5ee6c7;font-size:19px}
+  .task .hint{color:#9fb0d0;font-size:13px;margin-top:5px}
+  .stage{position:relative;border:1px solid #243252;border-radius:16px;overflow:hidden;background:#070c17;touch-action:none}
+  canvas{display:block;width:100%;height:auto}
+  #cam{position:absolute;right:8px;bottom:8px;width:132px;max-width:34%;border-radius:10px;border:1px solid #243252;transform:scaleX(-1);opacity:.75;background:#000}
+  #cam.off{display:none}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  button.b{background:#111a2e;color:#eef2ff;border:1px solid #243252;border-radius:12px;padding:11px 15px;font:700 14px/1 inherit;cursor:pointer}
+  button.b.on{background:#7c9bff;color:#0b1220;border-color:transparent}
+  button.go{background:#5ee6c7;color:#06231d;border:0}
+  #msg{margin-top:12px;font:700 15px/1.5 inherit;min-height:1.5em}
+  #msg.ok{color:#5ee6c7}#msg.mid{color:#ffd479}#msg.bad{color:#ff8585}
+  #msg ul{margin:6px 0 0;padding-left:18px;font-weight:500;font-size:14px;color:#c9d4ff}
+  .note{color:#9fb0d0;font-size:13px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="mashqlar.html">← Mavzular va mashqlar</a>
+  <h1 id="ttl">✍️ Grafikni qo'l bilan chizish</h1>
+  <p class="sub">Barmog'ingizni kameraga ko'rsatib havoda chizing: <b>bosh barmoq va ko'rsatkich barmoqni qisganda</b> qalam yozadi, ochganda to'xtaydi. Kamera bo'lmasa sichqoncha yoki barmoq bilan ham chizish mumkin.</p>
+
+  <div class="task"><div>Chizing: <b id="fq">y = x²</b></div><div class="hint" id="fh"></div></div>
+
+  <div class="stage">
+    <canvas id="c" width="900" height="620"></canvas>
+    <video id="cam" class="off" playsinline muted></video>
+  </div>
+
+  <div class="row">
+    <button class="b go" id="kam">📷 Kamerani yoqish</button>
+    <button class="b" id="tozala">🧹 Tozalash</button>
+    <button class="b" id="tekshir">✅ Tekshirish</button>
+    <button class="b" id="yangi">🔄 Yangi topshiriq</button>
+  </div>
+  <div id="msg"></div>
+  <div class="note">Baho: chizig'ingiz haqiqiy grafikka qancha yaqin bo'lsa, foiz shuncha yuqori. Yo'l-yo'riq: avval uchini (vertex) toping, keyin ikki tomonga simmetrik chizing.</div>
+</div>
+
+<script src="ka-savollar.js"></script>
+<script src="ka-savollar-2.js"></script>
+<script src="ka-savollar-3.js"></script>
+<script src="ka-savollar-4.js"></script>
+<script src="ka-savollar-5.js"></script>
+<script src="ka-savollar-6.js"></script>
+<script>
+(function(){
+  var qp=new URLSearchParams(location.search);
+  var id=qp.get("mavzu")||"t1";
+  if(window.kaSavol&&window.kaSavol.has(id)){
+    var t=window.kaSavol.title(id);
+    document.getElementById("ttl").textContent="✍️ "+t+" — qo'lda chizish";
+    document.title=t+" — qo'lda chizish | Kuvonch Academy";
+  }
+  var c=document.getElementById("c"),g=c.getContext("2d");
+  var W=c.width,H=c.height;
+  var X0=-8,X1=8,Y0=-10,Y1=10;
+  function px(x){return (x-X0)/(X1-X0)*W;}
+  function py(y){return H-(y-Y0)/(Y1-Y0)*H;}
+  function wx(p){return X0+p/W*(X1-X0);}
+  function wy(p){return Y0+(H-p)/H*(Y1-Y0);}
+
+  var R=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+  var pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+  function ms(n){return n<0?"−"+(-n):String(n);}
+
+  /* ---------- topshiriq ---------- */
+  var F=null;
+  function poly(cs){var deg=cs.length-1,out="";cs.forEach(function(k,i){var p=deg-i;if(!k)return;
+    var s=k<0?(out?" − ":"−"):(out?" + ":"");var ac=Math.abs(k),co=(ac===1&&p>0)?"":String(ac);
+    out+=s+(p===0?String(ac):co+"x"+(p===1?"":"²"));});return out||"0";}
+  // mavzuga qarab qanday grafik chizish kerakligini tanlaymiz
+  function kindsFor(id){
+    if(/^t(1|2|8|63)$/.test(id)) return ["kvadrat","kvadrat","kanonik"];
+    if(/^t(5|6|7)$/.test(id)) return ["kvadrat","kanonik","chiziqli","modul"];
+    if(/^t(19|22|25|27)$/.test(id)) return ["korsatkichli","korsatkichli","chiziqli"];
+    if(/^t(20|23|26|67)$/.test(id)) return ["logarifmik","logarifmik","korsatkichli"];
+    if(/^t(3|29|30|31|33|34|35|36|68|69)$/.test(id)) return ["sinus","kosinus","sinus"];
+    if(/^t53$/.test(id)) return ["modul","modul","kvadrat"];
+    if(/^t(10|12|14|65)$/.test(id)) return ["giperbola","giperbola","chiziqli"];
+    if(/^t(4|54|55)$/.test(id)) return ["chiziqli","korsatkichli"];
+    if(/^t(59|60|70)$/.test(id)) return ["kvadrat","kubik","chiziqli"];
+    if(/^t(41|58)$/.test(id)) return ["chiziqli","chiziqli","kvadrat"];
+    if(/^a/.test(id)) return ["chiziqli","kvadrat"];
+    return ["kvadrat","kanonik","chiziqli","modul"];
+  }
+  function newTask(){
+    var kind=pick(kindsFor(id));
+    if(kind==="korsatkichli"){var ab=pick([2,2,3]),sh=R(-3,2);
+      F={f:function(x){return Math.pow(ab,x)+sh;},txt:"y = "+ab+"ˣ"+(sh===0?"":sh>0?" + "+sh:" − "+(-sh)),
+        hint:"x = 0 da y = "+(1+sh)+"; chapga ketganda y → "+sh+" ga yaqinlashadi, o'ngda tez o'sadi."};return;}
+    if(kind==="logarifmik"){var lb=pick([2,2,10]);
+      F={f:function(x){return x>0?Math.log(x)/Math.log(lb):NaN;},txt:"y = log"+(lb===2?"₂":"₁₀")+" x",
+        hint:"x = 1 da y = 0, x = "+lb+" da y = 1; x → 0 da grafik pastga ketadi, x < 0 da aniqlanmagan."};return;}
+    if(kind==="sinus"){var am=pick([1,1,2,3]),sh2=R(-2,2);
+      F={f:function(x){return am*Math.sin(x*Math.PI/4)+sh2;},txt:"y = "+(am===1?"":am)+"sin(πx/4)"+(sh2===0?"":sh2>0?" + "+sh2:" − "+(-sh2)),
+        hint:"Davri 8 birlik, amplituda "+am+"; x = 0; 4; 8 nuqtalarda y = "+sh2+"."};return;}
+    if(kind==="kosinus"){var am2=pick([1,2,3]);
+      F={f:function(x){return am2*Math.cos(x*Math.PI/4);},txt:"y = "+(am2===1?"":am2)+"cos(πx/4)",
+        hint:"x = 0 da eng katta qiymat "+am2+", davri 8 birlik."};return;}
+    if(kind==="giperbola"){var kk2=pick([1,2,3,-2,-4,6]),mv=R(-3,3);
+      F={f:function(x){return Math.abs(x-mv)<0.12?NaN:kk2/(x-mv);},txt:"y = "+kk2+"/(x"+(mv>0?" − "+mv:mv<0?" + "+(-mv):"")+")",
+        hint:"x = "+mv+" da aniqlanmagan (vertikal asimptota), x → ±∞ da y → 0."};return;}
+    if(kind==="kubik"){var ac=pick([1,-1]),sc=R(-3,3);
+      F={f:function(x){return ac*x*x*x/6+sc;},txt:"y = "+(ac===1?"":"−")+"x³/6"+(sc===0?"":sc>0?" + "+sc:" − "+(-sc)),
+        hint:"Markazi (0; "+sc+") da, "+(ac===1?"o'suvchi":"kamayuvchi")+" S shaklli egri chiziq."};return;}
+    if(kind==="chiziqli"){var k=pick([-2,-1,1,2,3,-3]),b=R(-5,5);
+      F={f:function(x){return k*x+b;},txt:"y = "+poly([k,b]),hint:"To'g'ri chiziq: Oy o'qini (0; "+ms(b)+") nuqtada kesadi, qiyaligi k = "+ms(k)+"."};return;}
+    if(kind==="modul"){var a=pick([1,2,-1]),m=R(-4,4),n=R(-5,5);
+      var mt=m===0?"|x|":"|x "+(m>0?"− "+m:"+ "+(-m))+"|";
+      var nt=n===0?"":(n>0?" + "+n:" − "+(-n));
+      F={f:function(x){return a*Math.abs(x-m)+n;},txt:"y = "+(a===1?"":a===-1?"−":ms(a))+mt+nt,hint:"Uchi ("+ms(m)+"; "+ms(n)+") da, ikki nur bilan \"V\" shakli."};return;}
+    if(kind==="kanonik"){var a2=pick([1,1,2,-1,-2]),m2=R(-4,4),n2=R(-6,6);
+      var mt2=m2===0?"x²":"(x "+(m2>0?"− "+m2:"+ "+(-m2))+")²";
+      var nt2=n2===0?"":(n2>0?" + "+n2:" − "+(-n2));
+      F={f:function(x){return a2*(x-m2)*(x-m2)+n2;},txt:"y = "+(a2===1?"":a2===-1?"−":ms(a2))+mt2+nt2,
+        hint:"Uchi ("+ms(m2)+"; "+ms(n2)+"), shoxlari "+(a2>0?"yuqoriga":"pastga")+" qaragan."};return;}
+    var a=pick([1,1,-1,2,-2]),x0=R(-4,4),y0=R(-6,6),b3=-2*a*x0,c3=a*x0*x0+y0;
+    F={f:function(x){return a*x*x+b3*x+c3;},txt:"y = "+poly([a,b3,c3]),
+      hint:"x₀ = −b/(2a) = "+ms(x0)+", y₀ = "+ms(y0)+" → uchi ("+ms(x0)+"; "+ms(y0)+"), shoxlari "+(a>0?"yuqoriga":"pastga")+"."};
+  }
+
+  /* ---------- chizma ---------- */
+  var drawn=new Float64Array(W); drawn.fill(NaN);
+  var showTarget=false, cursor=null, pen=false, lastP=null;
+
+  function grid(){
+    g.fillStyle="#070c17";g.fillRect(0,0,W,H);
+    g.lineWidth=1;
+    for(var x=Math.ceil(X0);x<=X1;x++){g.strokeStyle=(x===0)?"#4e6ba6":"#15213a";g.beginPath();g.moveTo(px(x),0);g.lineTo(px(x),H);g.stroke();}
+    for(var y=Math.ceil(Y0);y<=Y1;y++){g.strokeStyle=(y===0)?"#4e6ba6":"#15213a";g.beginPath();g.moveTo(0,py(y));g.lineTo(W,py(y));g.stroke();}
+    g.fillStyle="#6d82ad";g.font="12px ui-monospace,monospace";
+    for(var x2=Math.ceil(X0)+1;x2<X1;x2+=2) g.fillText(String(x2),px(x2)+3,py(0)+14);
+    for(var y2=Math.ceil(Y0)+1;y2<Y1;y2+=2) if(y2) g.fillText(String(y2),px(0)+5,py(y2)-3);
+  }
+  function curve(col,wd,dash){
+    g.save();g.strokeStyle=col;g.lineWidth=wd;if(dash)g.setLineDash(dash);
+    g.beginPath();var started=false;
+    for(var p=0;p<=W;p+=2){var y=F.f(wx(p));var q=py(y);
+      if(!isFinite(q)||q<-2000||q>2000){started=false;continue;}
+      if(!started){g.moveTo(p,q);started=true;}else g.lineTo(p,q);}
+    g.stroke();g.restore();
+  }
+  function render(){
+    grid();
+    if(showTarget) curve("#5ee6c7",3,null);
+    // o'quvchi chizig'i
+    g.strokeStyle="#ffd479";g.lineWidth=4;g.lineJoin="round";g.lineCap="round";
+    g.beginPath();var on=false;
+    for(var p=0;p<W;p++){var v=drawn[p];
+      if(isNaN(v)){on=false;continue;}
+      if(!on){g.moveTo(p,v);on=true;}else g.lineTo(p,v);}
+    g.stroke();
+    if(cursor){
+      g.beginPath();g.arc(cursor[0],cursor[1],pen?13:9,0,7);
+      g.fillStyle=pen?"rgba(255,212,121,.35)":"rgba(124,155,255,.25)";g.fill();
+      g.strokeStyle=pen?"#ffd479":"#7c9bff";g.lineWidth=2;g.stroke();
+    }
+    g.fillStyle="#9fb0d0";g.font="13px system-ui";
+    g.fillText(F.txt+(showTarget?"  (yashil — to'g'ri grafik)":""),12,22);
+  }
+  function put(x,y){
+    x=Math.round(x); if(x<0||x>=W) return;
+    if(lastP&&Math.abs(x-lastP[0])>1){ // oraliqni to'ldirish
+      var x1=lastP[0],y1=lastP[1],st=x>x1?1:-1;
+      for(var i=x1;i!==x;i+=st){var tt=(i-x1)/(x-x1);drawn[i]=y1+(y-y1)*tt;}
+    }
+    drawn[x]=y; lastP=[x,y];
+  }
+  function clearDraw(){drawn.fill(NaN);lastP=null;showTarget=false;document.getElementById("msg").textContent="";render();}
+
+  /* ---------- baholash ---------- */
+  function check(){
+    var N=0,good=0,sumErr=0,cov=0,tot=0;
+    for(var s=0;s<120;s++){
+      var x=X0+(X1-X0)*(s+.5)/120, yt=F.f(x);
+      if(yt<Y0||yt>Y1) continue;
+      tot++;
+      var p=Math.round(px(x)), v=drawn[p];
+      if(isNaN(v)) continue;
+      cov++;
+      var err=Math.abs(wy(v)-yt); sumErr+=err; N++;
+      if(err<=0.9) good++;
+    }
+    var msg=document.getElementById("msg");
+    showTarget=true;render();
+    if(!tot||cov<tot*0.35){
+      msg.className="bad";
+      msg.innerHTML="Chizma juda qisqa — grafikni kamida o'rtasidan ko'proq qismini chizing. (Yashil chiziq — to'g'ri javob.)";
+      return;
+    }
+    var acc=good/cov, covr=cov/tot, score=Math.round(100*(acc*0.75+covr*0.25));
+    var avg=(sumErr/Math.max(1,N)).toFixed(2);
+    var cls=score>=80?"ok":score>=55?"mid":"bad";
+    msg.className=cls;
+    msg.innerHTML="Natija: <b>"+score+"%</b> — o'rtacha xatolik "+avg+" birlik, qoplangan qism "+Math.round(covr*100)+"%."+
+      "<ul><li>"+(score>=80?"Ajoyib! Shakl va joylashuv to'g'ri.":score>=55?"Yaqin. Uch nuqtasini aniqroq joylashtiring.":"Shaklni qaytadan ko'rib chiqing.")+"</li><li>"+F.hint+"</li></ul>";
+    try{if(window.kaAkkount&&window.kaAkkount.addCoins&&score>=70)window.kaAkkount.addCoins(3,"Qo'lda chizish");}catch(e){}
+  }
+
+  /* ---------- sichqoncha / barmoq ---------- */
+  function rel(e){var r=c.getBoundingClientRect();return [ (e.clientX-r.left)/r.width*W, (e.clientY-r.top)/r.height*H ];}
+  c.addEventListener("pointerdown",function(e){c.setPointerCapture(e.pointerId);pen=true;lastP=null;var p=rel(e);cursor=p;put(p[0],p[1]);render();});
+  c.addEventListener("pointermove",function(e){var p=rel(e);cursor=p;if(pen)put(p[0],p[1]);render();});
+  c.addEventListener("pointerup",function(){pen=false;lastP=null;render();});
+  c.addEventListener("pointerleave",function(){pen=false;lastP=null;});
+
+  /* ---------- kamera + qo'l ---------- */
+  var MP="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/";
+  function load(src){return new Promise(function(res,rej){var s=document.createElement("script");s.src=src;s.crossOrigin="anonymous";s.onload=res;s.onerror=rej;document.body.appendChild(s);});}
+  var camOn=false;
+  document.getElementById("kam").onclick=async function(){
+    var btn=this;
+    if(camOn){return;}
+    btn.textContent="⏳ Yuklanmoqda…";btn.disabled=true;
+    try{
+      var v=document.getElementById("cam");
+      var st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user",width:640,height:480},audio:false});
+      v.srcObject=st;await v.play();v.classList.remove("off");
+      if(!window.Hands) await load(MP+"hands.js");
+      var hands=new window.Hands({locateFile:function(f){return MP+f;}});
+      hands.setOptions({maxNumHands:1,modelComplexity:/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)?0:1,minDetectionConfidence:.6,minTrackingConfidence:.5});
+      hands.onResults(function(r){
+        var L=r.multiHandLandmarks&&r.multiHandLandmarks[0];
+        if(!L){pen=false;lastP=null;cursor=null;render();return;}
+        var ix=L[8],th=L[4];
+        var X=(1-ix.x)*W, Y=ix.y*H;
+        // qisish masofasi (qo'l o'lchamiga nisbatan)
+        var span=Math.hypot(L[0].x-L[9].x,L[0].y-L[9].y)||.2;
+        var d=Math.hypot(ix.x-th.x,ix.y-th.y)/span;
+        var np=d<0.55;
+        if(np&&!pen) lastP=null;
+        pen=np;cursor=[X,Y];
+        if(pen) put(X,Y);
+        render();
+      });
+      (function loop(){ if(v.readyState>=2) hands.send({image:v}); requestAnimationFrame(loop); })();
+      camOn=true;btn.textContent="📷 Kamera yoniq — barmoqni qisib chizing";btn.classList.add("on");
+    }catch(e){
+      btn.disabled=false;btn.textContent="📷 Kamerani yoqish";
+      document.getElementById("msg").className="bad";
+      document.getElementById("msg").textContent="Kamerani ochib bo'lmadi ("+(e&&e.name||e)+"). Sichqoncha yoki barmoq bilan chizishingiz mumkin.";
+    }
+  };
+
+  document.getElementById("tozala").onclick=clearDraw;
+  document.getElementById("tekshir").onclick=check;
+  document.getElementById("yangi").onclick=function(){newTask();document.getElementById("fq").textContent=F.txt;document.getElementById("fh").textContent="";clearDraw();};
+
+  newTask();
+  document.getElementById("fq").textContent=F.txt;
+  document.getElementById("fh").textContent="Uchini o'zingiz hisoblang — tekshirgandan keyin yo'l-yo'riq ko'rsatiladi.";
+  render();
+})();
+</script>
+<script src="akkount.js" defer></script>
+</body>
+</html>
