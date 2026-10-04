@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mavzu o'yini — Kuvonch Academy</title>
+<meta name="description" content="Kuvonch Academy: mavzu savollari bilan kamerali qo'l o'yini. Qo'lingizni kamera sezadi — to'g'ri javobni qo'l bilan ushlang.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:#0b1220;color:#eef2ff;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:720px;margin:0 auto;padding:26px 16px 60px}
+  a.back{color:#7c9bff;text-decoration:none;font-weight:700;font-size:14px}
+  h1{font-size:clamp(21px,5vw,28px);margin:14px 0 4px}
+  .sub{color:#9fb0d0;font-size:14.5px;margin:0 0 22px}
+  .grp{margin:18px 0}
+  .grp>span{display:block;font:700 12px/1 inherit;letter-spacing:.05em;text-transform:uppercase;color:#9fb0d0;margin-bottom:8px}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  button.b{background:#111a2e;color:#eef2ff;border:1px solid #243252;border-radius:12px;padding:11px 15px;font:700 14px/1 inherit;cursor:pointer}
+  button.b.on{background:#7c9bff;color:#0b1220;border-color:transparent}
+  button.go{background:#5ee6c7;color:#06231d;border:0;border-radius:14px;padding:15px 24px;font:800 16px/1 inherit;cursor:pointer;width:100%}
+  .card{background:#0e1628;border:1px solid #243252;border-radius:16px;padding:16px;margin:18px 0}
+  .card h3{margin:0 0 8px;font-size:15px}
+  .card li{color:#c9d4ff;font-size:14px;margin-bottom:5px}
+  .warn{color:#ffd479;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap" id="ui">
+  <a class="back" href="mashqlar.html">← Mavzular va mashqlar</a>
+  <h1 id="ttl">Mavzu o'yini</h1>
+  <p class="sub">Savollar mavzu generatoridan olinadi — har safar yangi. Javobni <b>qo'lingiz bilan</b> ushlaysiz: kamera barmoqlaringizni kuzatadi, video hech qayerga yuborilmaydi.</p>
+
+  <div class="grp"><span>Qiyinlik darajasi</span><div class="row" id="lv"></div></div>
+  <div class="grp"><span>O'yin ko'rinishi</span><div class="row" id="mk"></div></div>
+  <div class="grp"><span>Qo'llar soni</span><div class="row" id="hd"></div></div>
+  <div class="grp"><button class="go" id="start">🎮 O'yinni boshlash</button></div>
+
+  <div class="card">
+    <h3>Qanday o'ynaladi</h3>
+    <ul style="margin:0;padding-left:18px">
+      <li>Yuqorida savol chiqadi, ekranda bir nechta javob suzib yuradi.</li>
+      <li>Qo'lingizni kameraga ko'rsatib, <b>to'g'ri javobga tegsangiz</b> ochko qo'shiladi.</li>
+      <li>Ikki qo'l rejimida ikki o'quvchi bir vaqtda bellashadi.</li>
+      <li>Yaxshi natija uchun yorug' joyda, kameradan 1–1.5 m masofada turing.</li>
+    </ul>
+    <p class="warn" id="noq" style="display:none">Bu mavzu uchun hali o'yin savollari tayyorlanmagan.</p>
+  </div>
+</div>
+
+<script src="ka-savollar.js"></script>
+<script src="ka-savollar-2.js"></script>
+<script src="ka-savollar-3.js"></script>
+<script src="ka-savollar-4.js"></script>
+<script src="ka-savollar-5.js"></script>
+<script src="ka-savollar-6.js"></script>
+<script>
+(function(){
+  var qp=new URLSearchParams(location.search);
+  var id=qp.get("mavzu")||"t1", lvl=+(qp.get("daraja")||0);
+  var S=window.kaSavol;
+  var title=S.title(id);
+  document.getElementById("ttl").textContent="🎮 "+title;
+  document.title=title+" — kamerali o'yin | Kuvonch Academy";
+  if(!S.has(id)){document.getElementById("noq").style.display="block";document.getElementById("start").disabled=true;return;}
+
+  var LV=[[0,"Aralash"],[1,"Oson"],[2,"O'rta"],[3,"Murakkab"]];
+  var MK=[["pufak","🫧 Pufaklar","zarra"],["yomgir","🌧 Yomg'ir","neon"],["orbita","🪐 Orbita","galaktika"],["nishon","🎯 Nishon","olov"],["pianino","⌨️ Terminal","terminal"]];
+  var HD=[[1,"1 qo'l"],[2,"2 qo'l"],[4,"4 qo'l (jamoa)"]];
+  var sel={lv:lvl,mk:"pufak",hd:2};
+  function build(host,items,key,get){
+    host.innerHTML=items.map(function(it){return '<button class="b" data-v="'+it[0]+'">'+it[1]+'</button>';}).join("");
+    Array.prototype.forEach.call(host.children,function(b){
+      b.onclick=function(){sel[key]=isNaN(+b.dataset.v)?b.dataset.v:+b.dataset.v;sync();};
+    });
+  }
+  function sync(){
+    [["lv","lv"],["mk","mk"],["hd","hd"]].forEach(function(p){
+      Array.prototype.forEach.call(document.getElementById(p[0]).children,function(b){
+        b.classList.toggle("on",String(sel[p[1]])===b.dataset.v);
+      });
+    });
+  }
+  build(document.getElementById("lv"),LV,"lv");
+  build(document.getElementById("mk"),MK,"mk");
+  build(document.getElementById("hd"),HD,"hd");
+  sync();
+
+  // Savolni o'yin dvigateli kutgan ko'rinishga keltiramiz: qisqa matn + 3-6 noto'g'ri variant
+  function strip(h){var d=document.createElement("div");d.innerHTML=h;return (d.textContent||"").replace(/\s+/g," ").trim();}
+  function short(t){
+    return t.replace(/\s*(funksiyaning|parabolaning|parabola|funksiya)\s*/g," ")
+            .replace(/\s*(ni|ning)?\s*toping\.?$/i,"")
+            .replace(/\?$/,"?").replace(/\s{2,}/g," ").trim();
+  }
+  function topicQ(l){
+    var p=S.get(id, sel.lv? sel.lv : (l? Math.min(3,l):0));
+    var w=(p.w||[]).map(String).filter(function(x){return x!==String(p.a);});
+    if(w.length<4){ var base=parseFloat(p.a); if(!isNaN(base)) w=w.concat(S.H.nearW(base,4-w.length).map(String)); }
+    var seen={},uw=[]; w.forEach(function(x){if(!seen[x]){seen[x]=1;uw.push(x);}});
+    return { q: short(strip(p.q)), a: String(p.a).replace(/-/g,"−"), w: uw.slice(0,6).map(function(x){return String(x).replace(/-/g,"−");}) };
+  }
+
+  document.getElementById("start").onclick=function(){
+    var th=(MK.filter(function(m){return m[0]===sel.mk;})[0]||MK[0])[2];
+    window.KAV_TOPIC={n:title,q:topicQ};
+    window.KAV_GAME={t:title,m:sel.mk,k:"mavzu",th:th,i:"Mavzu: "+title};
+    try{var c=JSON.parse(localStorage.getItem("kav.cfg")||"{}");c.hands=sel.hd;localStorage.setItem("kav.cfg",JSON.stringify(c));}catch(e){}
+    document.getElementById("ui").remove();
+    var s=document.createElement("script");s.src="ka-virtual.js";document.body.appendChild(s);
+    var s2=document.createElement("script");s2.src="akkount.js";s2.defer=true;document.body.appendChild(s2);
+  };
+})();
+</script>
+</body>
+</html>
