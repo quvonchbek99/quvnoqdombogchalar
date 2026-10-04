@@ -227,10 +227,7 @@
     $('[data-a="start"]', box).onclick = function () { run(id, title, level, count, mode); };
     $('[data-a="oyin"]', box).onclick = function () { location.href = "mavzu-oyin.html?mavzu=" + encodeURIComponent(id) + "&daraja=" + level; };
     $('[data-a="chiz"]', box).onclick = function () { location.href = "mavzu-chizish.html?mavzu=" + encodeURIComponent(id); };
-    try {
-      var cap = window.kaSavol.sig ? window.kaSavol.sig(id, 500) : 0;
-      if (cap && cap < 60) $(".kt-note", box).innerHTML += " Bu mavzuda " + cap + " xil savol turi tayyor — 100 ta tanlasangiz yondosh mavzulardan ham savol qo'shiladi.";
-    } catch (e) {}
+    $(".kt-note", box).innerHTML += " Savol turi kam bo'lgan mavzularda 100 ta tanlansa, yondosh mavzulardan ham savol qo'shiladi.";
     try {
       var last = JSON.parse(localStorage.getItem("kt.last." + id) || "null");
       if (last) $(".kt-last", box).textContent = "Oxirgi natija: " + last.pc + "% (" + last.ok + "/" + last.n + ")";
