@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Virtual o'yinlar — Kuvonch Academy</title>
-<meta name="description" content="47 ta virtual matematik o'yin: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
+<meta name="description" content="48 ta virtual matematik o'yin: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
 <meta name="theme-color" content="#0b1220">
 <link rel="icon" href="icon-192.png">
 <style>
@@ -41,6 +41,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 .g .t{font-size:13px;color:var(--text-dim)}
 .g .b{margin-top:auto;display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);padding-top:8px}
 .g .b .best{color:#ffd479;font-weight:700}
+.race{display:flex;align-items:center;gap:16px;margin:4px 0 6px;padding:16px 20px;border-radius:20px;text-decoration:none;background:linear-gradient(110deg,#3b0a06,#7a1208 45%,#1b0f2e);border:1px solid #ff5a3c;box-shadow:0 10px 40px -14px #ff3d00}.race .re{font-size:44px}.race b{font-size:18px}.race small{display:block;color:#ffd9cf;font-size:13px;margin-top:2px}.race .rg{margin-left:auto;background:#ff3d00;color:#fff;font-weight:800;border-radius:12px;padding:10px 16px;white-space:nowrap}@media(max-width:600px){.race{flex-wrap:wrap}.race .rg{margin-left:0}}
 .note{margin-top:26px;font-size:13px;color:var(--text-dim);border-top:1px solid var(--border);padding-top:16px}
 @media(max-width:600px){nav{gap:10px;overflow-x:auto;flex-wrap:nowrap;width:100%}nav a{white-space:nowrap}.hero{padding:24px 18px}}
 </style>
@@ -63,7 +64,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 <canvas id="hc"></canvas>
 <span class="kicker">Kamera + qo'l kuzatuvi</span>
 <h1><span>Virtual</span> matematik o'yinlar</h1>
-<p class="lead">47 ta o'yin — hech narsa bosmaysiz, kamera qo'llaringizni sezadi. Bitta, ikkita yoki to'rttagacha qo'l bir vaqtda ishlaydi: do'stingiz bilan <b>duel</b> qilib o'ynash ham mumkin.</p>
+<p class="lead">48 ta o'yin — hech narsa bosmaysiz, kamera qo'llaringizni sezadi. Bitta, ikkita yoki to'rttagacha qo'l bir vaqtda ishlaydi: do'stingiz bilan <b>duel</b> qilib o'ynash ham mumkin.</p>
 <div class="steps">
 <div class="step"><b>1. O'yinni tanlang</b>Mavzu va o'yin turi har bir kartada yozilgan.</div>
 <div class="step"><b>2. Kameraga ruxsat bering</b>Video faqat qurilmangizda qayta ishlanadi.</div>
@@ -71,6 +72,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 </div>
 </div>
 
+<a class="race" href="virtual-48.html"><span class="re">🏎️</span><span><b>YANGI: Sport mashina poygasi</b><small>Qo'l bilan boshqaring · <b style="color:#5ee67a">+</b> darvoza tezlashtiradi, <b style="color:#ff6b6b">−</b> sekinlashtiradi · V12 motor ovozi · 2 kishilik duel</small></span><span class="rg">▶ Poygaga</span></a>
 <div class="filters" id="f"></div>
 <div class="grid" id="g"></div>
 
@@ -92,7 +94,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
     }).join("");
   }
   var used = {}; K.GAMES.forEach(function (x) { used[x.m] = (used[x.m] || 0) + 1; });
-  f.innerHTML = '<button class="chip on" data-m="all">Hammasi (47)</button>' + Object.keys(K.MECH).filter(function (m) { return used[m]; }).map(function (m) { return '<button class="chip" data-m="' + m + '">' + K.MECH[m].e + " " + K.MECH[m].n + " (" + used[m] + ")</button>"; }).join("");
+  f.innerHTML = '<button class="chip on" data-m="all">Hammasi (' + K.GAMES.length + ')</button>' + Object.keys(K.MECH).filter(function (m) { return used[m]; }).map(function (m) { return '<button class="chip" data-m="' + m + '">' + K.MECH[m].e + " " + K.MECH[m].n + " (" + used[m] + ")</button>"; }).join("");
   f.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (!b) return; cur = b.getAttribute("data-m"); Array.prototype.forEach.call(f.children, function (c) { c.classList.toggle("on", c === b); }); render(); });
   render();
 

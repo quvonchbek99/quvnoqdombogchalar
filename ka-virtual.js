@@ -1,6 +1,6 @@
 /*!
  * Kuvonch Academy — VIRTUAL o'yinlar (kamera + qo'l kuzatuvi)
- * 47 ta matematik o'yin. Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
+ * 48 ta matematik o'yin (47 + poyga). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
  * Qo'l kuzatuvi: MediaPipe Hands (brauzerda ishlaydi, video hech qayerga yuborilmaydi).
  * O'yin sahifasi:  <script>window.KAV_ID=5</script><script src="ka-virtual.js"></script>
  * Ro'yxat sahifasi: <script>window.KAV_HUB=1</script><script src="ka-virtual.js"></script>
@@ -138,6 +138,7 @@
     xotira: { e: "🃏", n: "Xotira juftlari", how: "Kartani barmoq bilan tekkizib oching. Bir-biriga teng juftlarni toping." },
     tartib: { e: "📶", n: "Tartiblash", how: "Sonlarni kichigidan kattasiga qarab ketma-ket barmoq bilan bosing." },
     sonoq: { e: "📏", n: "Son o'qi", how: "Barmog'ingizni son o'qi ustida yurgizing va berilgan sonning joyida ushlab turing." },
+    poyga: { e: "🏎️", n: "Poyga", how: "Qo'lingizni chapga-o'ngga suring — mashina shunday yuradi. Yo'ldagi yashil <b>+</b> darvozalar tezlikni oshiradi, qizil <b>−</b> darvozalar kamaytiradi: misolni tez yechib, eng katta qo'shuvli darvozani tanlang! Musht qilsangiz — tormoz. Kamerasiz: ← → tugmalari (2-o'yinchi A / D)." },
     burchak: { e: "📐", n: "Burchak", how: "Ikki qo'lning ko'rsatkich barmoqlari bilan chiziq hosil qiling (bitta qo'l bo'lsa — bilakdan barmoq uchigacha). Chiziq gorizontal bilan kerakli burchak hosil qilsin va ushlab turing." }
   };
 
@@ -190,9 +191,10 @@
     { t: "AG: manfiy sonlar", m: "yomgir", k: "manfiy", th: "neon", i: "AG" },
     { t: "Kosmik sayohat: ildiz son o'qida", m: "sonoq", k: "ildiz", th: "galaktika", i: "Kinematik 3D" },
     { t: "Zarra matn: tenglama juftlari", m: "xotira", k: "tenglama", th: "zarra", i: "Particle Text Effect" },
-    { t: "Final duel: o'nli kasrlar tartibi", m: "tartib", k: "onli", th: "kamalak", i: "Final", duel: 1 }
+    { t: "Final duel: o'nli kasrlar tartibi", m: "tartib", k: "onli", th: "kamalak", i: "Final", duel: 1 },
+    { t: "Sport mashina poygasi", m: "poyga", k: "poyga", th: "olov", i: "Poyga" }
   ];
-  var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS };
+  var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS, poyga: { poyga: { n: "Qo'shish va ayirish (tezlik)" } } };
   var PAIRN = { kopaytirish: "Ko'paytma juftlari", kasrFoiz: "Kasr = foiz", tenglama: "Tenglama = yechim" };
   GAMES.forEach(function (g, i) {
     g.id = i + 1;
@@ -1045,6 +1047,228 @@
     };
   };
 
+  // ---------- Poyga (sport mashina, V12 ovozi) ----------
+  M.poyga = function () {
+    var LANES = [-0.62, 0, 0.62], CAMD = 9, VIEW = 320, GAP = 230;
+    var racers = [], rows = [], keys = {}, engines = [], stopped = false;
+    var COLORS = ["#e10600", "#1e88ff", "#ffd400", "#22c55e", "#ff6ad5"];
+    function mkRacer(i, human, sp, d) { return { i: i, human: human, x: human ? 0 : LANES[i % 3], tx: 0, sp: sp, dist: d, col: COLORS[i % COLORS.length], gear: 1, boost: 0, hit: 0, last: null, nextRow: GAP }; }
+    function nPlayers() { return CFG.duel && !mouseMode ? 2 : 1; }
+    // Yo'ldagi amal: belgi, matn, qiymat
+    function op(l, sign) {
+      var v, s;
+      if (l < 2) { v = R(2, 6) * 5; s = String(v); }
+      else if (l < 4) { var a = R(2, 9), b = R(2, 6); v = a * b; s = a + "×" + b; }
+      else { var t = R(0, 2); if (t === 0) { var c = R(2, 9), d = R(2, 9); v = c + d; s = c + "+" + d; } else if (t === 1) { var e = R(2, 9), f = R(2, 9); v = e * f; s = e + "×" + f; } else { var g = R(2, 9), h = R(2, 9); v = g * h / g * 1; s = (g * h) + ":" + g; v = h; } }
+      return { sign: sign, v: v, s: (sign > 0 ? "+" : "−") + (s.length > 2 ? "(" + s + ")" : s) };
+    }
+    function makeRow(z) {
+      var l = lvl(), ops = [op(l, 1), op(l, R(0, 2) ? -1 : 1), op(l, -1)];
+      return { z: z, ops: shuffle(ops), done: {} };
+    }
+    // ---- V12 dvigatel ovozi (WebAudio sintez) ----
+    function mkEngine(pan) {
+      try {
+        AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume();
+        var out = AC.createGain(); out.gain.value = 0;
+        var pn = AC.createStereoPanner ? AC.createStereoPanner() : null; if (pn) { pn.pan.value = pan; out.connect(pn); pn.connect(AC.destination); } else out.connect(AC.destination);
+        var lp = AC.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 4; lp.connect(out);
+        var ws = AC.createWaveShaper(), cur = new Float32Array(1024); for (var i = 0; i < 1024; i++) { var x = i / 512 - 1; cur[i] = Math.tanh(x * 2.4); } ws.curve = cur; ws.connect(lp);
+        var o1 = AC.createOscillator(), o2 = AC.createOscillator(), o3 = AC.createOscillator(), g1 = AC.createGain(), g2 = AC.createGain(), g3 = AC.createGain();
+        o1.type = "sawtooth"; o2.type = "square"; o3.type = "sawtooth"; g1.gain.value = 0.5; g2.gain.value = 0.25; g3.gain.value = 0.18;
+        o1.connect(g1); o2.connect(g2); o3.connect(g3); g1.connect(ws); g2.connect(ws); g3.connect(ws);
+        var lfo = AC.createOscillator(), lg = AC.createGain(); lfo.frequency.value = 28; lg.gain.value = 6; lfo.connect(lg); lg.connect(o1.frequency); lg.connect(o3.frequency);
+        [o1, o2, o3, lfo].forEach(function (o) { o.start(); });
+        return { out: out, lp: lp, o1: o1, o2: o2, o3: o3, lfo: lfo, set: function (rpm, load) {
+          var t = AC.currentTime, f = rpm / 10; // V12: rpm*12/120
+          o1.frequency.setTargetAtTime(f, t, 0.04); o2.frequency.setTargetAtTime(f / 2, t, 0.04); o3.frequency.setTargetAtTime(f * 2.005, t, 0.04);
+          lfo.frequency.setTargetAtTime(f / 12, t, 0.05);
+          lp.frequency.setTargetAtTime(600 + rpm * 0.55 + load * 900, t, 0.05);
+          out.gain.setTargetAtTime(SND ? 0.05 + 0.06 * load + rpm / 9000 * 0.06 : 0, t, 0.08);
+        }, stop: function () { try { out.gain.setTargetAtTime(0, AC.currentTime, 0.1); var self = this; setTimeout(function () { [self.o1, self.o2, self.o3, self.lfo].forEach(function (o) { try { o.stop(); } catch (e) {} }); out.disconnect(); }, 500); } catch (e) {} } };
+      } catch (e) { return null; }
+    }
+    var GEARS = [0, 60, 110, 160, 210, 260, 310, 999];
+    function rpmOf(r) {
+      var g = 1; while (g < 7 && r.sp > GEARS[g]) g++;
+      if (g !== r.gear) { r.shift = 0.12; r.gear = g; }
+      var lo = GEARS[g - 1], hi = Math.min(GEARS[g], 380), k = clamp((r.sp - lo) / (hi - lo), 0, 1);
+      var rpm = 3500 + k * 5200; if (r.shift > 0) rpm -= 1800 * r.shift / 0.12;
+      return rpm;
+    }
+    function whoosh(up) { beep(up ? 520 : 300, 0.12, "triangle", 0.1); setTimeout(function () { beep(up ? 880 : 180, 0.18, up ? "triangle" : "sawtooth", 0.08); }, 70); }
+
+    // ---- chizish yordamchilari ----
+    function curveAt(r, z) { return Math.sin((r.dist + z) / 900) * 0.000012 * z * z + Math.sin((r.dist + z) / 370) * 0.000004 * z * z; }
+    function proj(V, r, wx, z) { var p = CAMD / (Math.max(0.1, z) + CAMD), hy = V.y + V.h * 0.4; return { x: V.x + V.w / 2 + (wx + curveAt(r, z) - r.x * 0.75) * p * V.w * 0.62, y: hy + p * (V.h - (V.h * 0.4)) * 1.0, p: p }; }
+    function drawCar(cx, cy, s, col, me) {
+      ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s);
+      ctx.fillStyle = "rgba(0,0,0,.45)"; ctx.beginPath(); ctx.ellipse(0, 6, 62, 10, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = "#111"; rrc(-60, -16, 22, 26, 5); rrc(38, -16, 22, 26, 5);            // g'ildiraklar
+      var gr = ctx.createLinearGradient(0, -48, 0, 8); gr.addColorStop(0, "#fff"); gr.addColorStop(0.12, col); gr.addColorStop(1, shade(col));
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(-54, 4); ctx.lineTo(-56, -14); ctx.quadraticCurveTo(-50, -30, -30, -34); ctx.lineTo(-20, -50); ctx.quadraticCurveTo(0, -56, 20, -50); ctx.lineTo(30, -34); ctx.quadraticCurveTo(50, -30, 56, -14); ctx.lineTo(54, 4); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = "#0b1020"; ctx.beginPath(); ctx.moveTo(-17, -47); ctx.quadraticCurveTo(0, -52, 17, -47); ctx.lineTo(24, -35); ctx.lineTo(-24, -35); ctx.closePath(); ctx.fill(); // orqa oyna
+      ctx.fillStyle = "#151515"; rrc(-58, -40, 116, 6, 2); ctx.fillRect(-40, -36, 4, 6); ctx.fillRect(36, -36, 4, 6);       // qanot
+      ctx.fillStyle = "#ff2a2a"; ctx.shadowColor = "#ff0000"; ctx.shadowBlur = me && keyBrake ? 25 : 10;
+      [-44, -32, 32, 44].forEach(function (x) { ctx.beginPath(); ctx.arc(x, -20, 5, 0, 7); ctx.fill(); }); ctx.shadowBlur = 0;
+      ctx.fillStyle = "#222"; rrc(-30, -12, 60, 12, 3);
+      ctx.fillStyle = "#999"; [-12, -5, 5, 12].forEach(function (x) { ctx.beginPath(); ctx.arc(x, -2, 2.6, 0, 7); ctx.fill(); });           // 4 ta chiqindi quvur
+      ctx.restore();
+    }
+    var keyBrake = false;
+    function rrc(x, y, w, h, r) { rr(x, y, w, h, r); ctx.fill(); }
+    function shade(c) { var n = parseInt(c.slice(1), 16), r = (n >> 16) * 0.45 | 0, g = ((n >> 8) & 255) * 0.45 | 0, b = (n & 255) * 0.45 | 0; return "rgb(" + r + "," + g + "," + b + ")"; }
+
+    function views() { var n = nPlayers(); return n === 1 ? [{ x: 0, y: 0, w: W, h: H }] : [{ x: 0, y: 0, w: W / 2, h: H }, { x: W / 2, y: 0, w: W / 2, h: H }]; }
+
+    function renderView(V, me) {
+      ctx.save(); ctx.beginPath(); ctx.rect(V.x, V.y, V.w, V.h); ctx.clip();
+      var hy = V.y + V.h * 0.4;
+      // osmon
+      var sk = ctx.createLinearGradient(0, V.y, 0, hy); sk.addColorStop(0, "#0b1330"); sk.addColorStop(0.7, "#ff6a3d"); sk.addColorStop(1, "#ffb36b");
+      ctx.fillStyle = sk; ctx.fillRect(V.x, V.y, V.w, hy - V.y);
+      var sx = V.x + V.w / 2 - Math.sin(me.dist / 900) * V.w * 0.3;
+      ctx.fillStyle = "#ffe08a"; ctx.shadowColor = "#ffcf5a"; ctx.shadowBlur = 40; ctx.beginPath(); ctx.arc(sx, hy - V.h * 0.07, V.h * 0.06, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+      // tog'lar
+      ctx.fillStyle = "#3a1d3f"; ctx.beginPath(); ctx.moveTo(V.x, hy); for (var i = 0; i <= 24; i++) { var mx = V.x + i * V.w / 24; ctx.lineTo(mx, hy - V.h * (0.04 + 0.05 * Math.abs(Math.sin(i * 1.7 + me.dist / 2500)))); } ctx.lineTo(V.x + V.w, hy); ctx.fill();
+      // o't
+      ctx.fillStyle = "#123d1d"; ctx.fillRect(V.x, hy, V.w, V.y + V.h - hy);
+      // yo'l bo'laklari (uzoqdan yaqinga)
+      var seg = 8, off = me.dist % (seg * 2);
+      for (var z = VIEW; z > -2; z -= seg) {
+        var z1 = z - off, z2 = z1 + seg; if (z2 < 0) continue;
+        var a1 = proj(V, me, -1.1, Math.max(z1, 0)), b1 = proj(V, me, 1.1, Math.max(z1, 0)), a2 = proj(V, me, -1.1, z2), b2 = proj(V, me, 1.1, z2);
+        var alt = Math.floor((me.dist + z1 + 1000) / seg) % 2;
+        ctx.fillStyle = alt ? "#165a28" : "#124a21"; ctx.fillRect(V.x, a2.y, V.w, a1.y - a2.y + 1);
+        // bordyur
+        var k1 = proj(V, me, -1.22, Math.max(z1, 0)), k2 = proj(V, me, -1.22, z2), l1 = proj(V, me, 1.22, Math.max(z1, 0)), l2 = proj(V, me, 1.22, z2);
+        ctx.fillStyle = alt ? "#e10600" : "#f2f2f2";
+        quad(k1.x, k1.y, a1.x, a1.y, a2.x, a2.y, k2.x, k2.y); quad(b1.x, b1.y, l1.x, l1.y, l2.x, l2.y, b2.x, b2.y);
+        ctx.fillStyle = alt ? "#34373d" : "#3b3f46"; quad(a1.x, a1.y, b1.x, b1.y, b2.x, b2.y, a2.x, a2.y);
+        if (alt) [-0.31, 0.31].forEach(function (lx) { var c1 = proj(V, me, lx - 0.012, Math.max(z1, 0)), d1 = proj(V, me, lx + 0.012, Math.max(z1, 0)), c2 = proj(V, me, lx - 0.012, z2), d2 = proj(V, me, lx + 0.012, z2); ctx.fillStyle = "#eaeaea"; quad(c1.x, c1.y, d1.x, d1.y, d2.x, d2.y, c2.x, c2.y); });
+      }
+      // obyektlar: amal darvozalari va boshqa mashinalar (uzoqdan yaqinga)
+      var objs = [];
+      rows.forEach(function (rw) { var z = rw.z - me.dist; if (z > 1 && z < VIEW) objs.push({ z: z, row: rw }); });
+      racers.forEach(function (o) { if (o === me) return; var z = o.dist - me.dist; if (z > 2 && z < VIEW) objs.push({ z: z, car: o }); });
+      objs.sort(function (a, b) { return b.z - a.z; });
+      objs.forEach(function (ob) {
+        if (ob.row) ob.row.ops.forEach(function (o, li) {
+          var L = proj(V, me, LANES[li] - 0.27, ob.z), Rr = proj(V, me, LANES[li] + 0.27, ob.z), hgt = (Rr.x - L.x) * 0.55, done = ob.row.done[me.i];
+          if (done === li) return;
+          ctx.globalAlpha = done != null ? 0.35 : 1;
+          var col = o.sign > 0 ? "#22c55e" : "#ef4444";
+          ctx.fillStyle = "#ddd"; ctx.fillRect(L.x - 2, L.y - hgt * 1.6, Math.max(2, (Rr.x - L.x) * 0.04), hgt * 1.6); ctx.fillRect(Rr.x - Math.max(2, (Rr.x - L.x) * 0.04) + 2, Rr.y - hgt * 1.6, Math.max(2, (Rr.x - L.x) * 0.04), hgt * 1.6);
+          ctx.fillStyle = col + "cc"; ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1, hgt * 0.05); rr(L.x, L.y - hgt * 1.6, Rr.x - L.x, hgt * 0.75, Math.max(2, hgt * 0.12)); ctx.fill(); ctx.stroke();
+          ctx.fillStyle = col + "33"; ctx.fillRect(L.x, L.y - hgt * 0.85, Rr.x - L.x, hgt * 0.85);
+          if (hgt > 6) { ctx.fillStyle = "#fff"; ctx.font = "900 " + Math.min(hgt * 0.55, (Rr.x - L.x) / Math.max(3, o.s.length * 0.6)) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(o.s, (L.x + Rr.x) / 2, L.y - hgt * 1.22); }
+          ctx.globalAlpha = 1;
+        });
+        else { var P = proj(V, me, ob.car.x, ob.z); drawCar(P.x, P.y, P.p * V.w / 380, ob.car.col, false); if (ob.car.human && P.p > 0.08) { ctx.fillStyle = "#fff"; ctx.font = "800 12px " + FONT; ctx.textAlign = "center"; ctx.fillText(ob.car.i ? "2-o'yinchi" : "1-o'yinchi", P.x, P.y - P.p * V.w / 380 * 60); } }
+      });
+      // o'yinchi mashinasi
+      var mp = proj(V, me, me.x, 3.2), sh = me.hit > 0 ? Math.sin(tGlobal * 60) * 6 : 0;
+      keyBrake = me.braking;
+      drawCar(mp.x + sh, mp.y, mp.p * V.w / 380, me.col, true);
+      if (me.boost > 0) for (var f = 0; f < 3; f++) addP({ x: mp.x + (Math.random() - 0.5) * 20 * mp.p * V.w / 380, y: mp.y, vx: (Math.random() - 0.5) * 40, vy: 80 + Math.random() * 80, life: 0, max: 0.35, r: 3 + Math.random() * 3, c: pick(["#ff9100", "#ffd600", "#4dd2ff"]), g: 0, t: "dot" });
+      // tezlik o'lchagich
+      var gx = V.x + V.w - 92, gy = V.y + V.h - 92, gr2 = 70;
+      ctx.fillStyle = "rgba(0,0,0,.55)"; ctx.beginPath(); ctx.arc(gx, gy, gr2 + 10, 0, 7); ctx.fill();
+      ctx.lineWidth = 8; ctx.strokeStyle = "#ffffff22"; ctx.beginPath(); ctx.arc(gx, gy, gr2, Math.PI * 0.75, Math.PI * 2.25); ctx.stroke();
+      var fr = clamp(me.sp / 400, 0, 1); ctx.strokeStyle = fr > 0.75 ? "#ff3d00" : fr > 0.45 ? "#ffd400" : "#22c55e"; ctx.shadowColor = ctx.strokeStyle; ctx.shadowBlur = 14;
+      ctx.beginPath(); ctx.arc(gx, gy, gr2, Math.PI * 0.75, Math.PI * 0.75 + fr * Math.PI * 1.5); ctx.stroke(); ctx.shadowBlur = 0;
+      ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.font = "900 30px " + FONT; ctx.fillText(Math.round(me.sp), gx, gy - 4);
+      ctx.font = "700 11px " + FONT; ctx.fillStyle = "#cfd8ef"; ctx.fillText("km/soat · " + me.gear + "-uzatma", gx, gy + 20);
+      // o'rin va masofa
+      var place = 1 + racers.filter(function (o) { return o !== me && o.dist > me.dist; }).length;
+      ctx.textAlign = "left"; ctx.fillStyle = "#fff"; ctx.font = "900 " + (V.w < 500 ? 22 : 28) + "px " + FONT; ctx.shadowColor = "#000"; ctx.shadowBlur = 8;
+      ctx.fillText(place + "-o'rin / " + racers.length, V.x + 16, V.y + V.h - 64);
+      ctx.font = "700 15px " + FONT; ctx.fillText("🏁 " + (me.dist / 1000).toFixed(2) + " km", V.x + 16, V.y + V.h - 36); ctx.shadowBlur = 0;
+      if (nPlayers() === 2) { ctx.fillStyle = me.i ? "#ff5c8a" : "#4dd2ff"; ctx.font = "800 14px " + FONT; ctx.textAlign = "center"; ctx.fillText(me.i ? "2-o'yinchi (o'ng qo'l tomoni)" : "1-o'yinchi (chap qo'l tomoni)", V.x + V.w / 2, V.y + 96); }
+      ctx.restore();
+    }
+    function quad(x1, y1, x2, y2, x3, y3, x4, y4) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.lineTo(x3, y3); ctx.lineTo(x4, y4); ctx.closePath(); ctx.fill(); }
+
+    function onKey(e) { keys[e.key.toLowerCase()] = e.type === "keydown"; if (["arrowleft", "arrowright", "arrowdown", "arrowup", " "].indexOf(e.key.toLowerCase()) >= 0) e.preventDefault(); }
+    window.addEventListener("keydown", onKey); window.addEventListener("keyup", onKey);
+
+    return {
+      start: function () {
+        racers = []; rows = [];
+        var n = nPlayers();
+        for (var i = 0; i < n; i++) racers.push(mkRacer(i, true, 120, 0));
+        [[170, 60], [205, 140], [235, 230]].forEach(function (a, j) { racers.push(mkRacer(n + j, false, a[0], a[1])); });
+        for (var z = 160; z < 160 + GAP * 6; z += GAP) rows.push(makeRow(z));
+        engines = []; for (var e = 0; e < n; e++) engines.push(mkEngine(n === 2 ? (e ? 0.6 : -0.6) : 0));
+        setQ(""); qEl.style.display = "none";
+        if (!$("kv-snd")) { var sb = document.createElement("span"); sb.className = "kv-pill"; sb.id = "kv-snd"; sb.style.cursor = "pointer"; sb.textContent = "🔊 Motor"; sb.onclick = function () { SND = !SND; sb.textContent = SND ? "🔊 Motor" : "🔇 Motor"; }; hud.appendChild(sb); }
+      },
+      stop: function () { stopped = true; engines.forEach(function (en) { en && en.stop(); }); engines = []; window.removeEventListener("keydown", onKey); window.removeEventListener("keyup", onKey); qEl.style.display = ""; },
+      update: function (dt) {
+        var n = nPlayers(), l = lvl();
+        racers.forEach(function (r) {
+          if (r.human) {
+            // boshqaruv: shu o'yinchiga tegishli qo'l
+            var my = pointers.filter(function (p) { return n === 1 || p.player === r.i; })[0];
+            var V = views()[r.i];
+            r.braking = false;
+            if (my) {
+              r.tx = clamp(((my.palm.x - V.x) / V.w - 0.5) * 2.6, -1.15, 1.15);
+              if (my.hand && my.hand.fingers === 0 && my.hand.fingersStable > 3) r.braking = true;
+            } else {
+              var L = r.i ? keys.a : keys.arrowleft, Rk = r.i ? keys.d : keys.arrowright;
+              if (L) r.tx = clamp(r.tx - dt * 2.4, -1.15, 1.15); if (Rk) r.tx = clamp(r.tx + dt * 2.4, -1.15, 1.15);
+              if (r.i ? keys.s : keys.arrowdown) r.braking = true;
+            }
+            r.x += (r.tx - r.x) * Math.min(1, dt * 6);
+            if (r.braking) r.sp -= 90 * dt;
+            if (Math.abs(r.x) > 1.05) r.sp -= 70 * dt;           // yo'ldan chiqsa sekinlashadi
+            r.sp += (r.sp < 100 ? 12 : 2) * dt;                   // sekin tezlanish
+          } else {
+            r.sp += (Math.min(330, (r.base = r.base || r.sp) + l * 12) - r.sp) * dt * 0.3;
+            r.x += (LANES[(Math.floor(r.dist / 600) + r.i) % 3] - r.x) * dt * 0.8;
+          }
+          r.sp = clamp(r.sp, 40, 400);
+          if (r.boost > 0) r.boost -= dt; if (r.hit > 0) r.hit -= dt; if (r.shift > 0) r.shift -= dt;
+          var prev = r.dist; r.dist += r.sp / 3.6 * dt;
+          if (!r.human) return;
+          S.score[r.i] = Math.round(r.dist / 10);
+          // darvozadan o'tish
+          rows.forEach(function (rw) {
+            if (rw.done[r.i] != null) return;
+            if (prev + 3.2 <= rw.z && r.dist + 3.2 > rw.z) {
+              var li = 0, bd = 9; LANES.forEach(function (lx, k) { var d = Math.abs(r.x - lx); if (d < bd) { bd = d; li = k; } });
+              rw.done[r.i] = li;
+              if (bd > 0.36) return; // darvozalar orasidan o'tdi
+              var o = rw.ops[li], V = views()[r.i], P = proj(V, r, r.x, 6);
+              r.sp = clamp(r.sp + o.sign * o.v, 40, 400);
+              if (o.sign > 0) { S.ok++; S.streak++; r.boost = 0.9; whoosh(true); burst(P.x, P.y - 40, 30, ["#22c55e", "#b6ff00", "#ffffff"], 1); }
+              else { S.bad++; S.streak = 0; r.hit = 0.4; whoosh(false); burst(P.x, P.y - 40, 20, ["#ef4444", "#ff8a80"], 0.8); }
+              ftext(P.x, P.y - 90, o.s + " → " + Math.round(r.sp) + " km/soat", o.sign > 0 ? "#5ee67a" : "#ff6b6b");
+            }
+          });
+          // raqib mashinaga urilish
+          racers.forEach(function (o) { if (o === r || o.human) return; var dz = o.dist - r.dist; if (dz > -1 && dz < 4 && Math.abs(o.x - r.x) < 0.38 && r.hit <= 0) { r.sp *= 0.72; r.hit = 0.6; sBad(); var V = views()[r.i]; ftext(V.x + V.w / 2, V.h * 0.6, "Urildingiz! −28%", "#ff6b6b"); } });
+          if (engines[r.i]) engines[r.i].set(rpmOf(r), r.boost > 0 ? 1 : r.braking ? 0.1 : 0.6);
+        });
+        // yangi darvozalar
+        var minD = Math.min.apply(null, racers.filter(function (r) { return r.human; }).map(function (r) { return r.dist; }));
+        var maxD = Math.max.apply(null, racers.filter(function (r) { return r.human; }).map(function (r) { return r.dist; }));
+        rows = rows.filter(function (rw) { return rw.z > minD - 20; });
+        var lastZ = rows.length ? rows[rows.length - 1].z : maxD + 100;
+        while (lastZ < maxD + VIEW + GAP) { lastZ += GAP; rows.push(makeRow(lastZ)); }
+      },
+      draw: function () {
+        if (!racers.length) return;
+        var V = views();
+        V.forEach(function (v, i) { renderView(v, racers[i]); });
+        if (V.length === 2) { ctx.fillStyle = "#000"; ctx.fillRect(W / 2 - 2, 0, 4, H); }
+        if (!S.run && S.cd > 0) racers.forEach(function (r, i) { if (r.human && engines[i]) engines[i].set(2500 + Math.random() * 400, 0.2); });
+      }
+    };
+  };
+  var SND = true;
+
   /* ======================= ASOSIY TSIKL ======================= */
   var mech = null, last = performance.now();
   function frame(now) {
@@ -1093,7 +1317,7 @@
   function showStart(err) {
     ov.style.display = "flex";
     ov.innerHTML = '<div class="kv-card">' +
-      '<span class="kv-tag">Virtual · ' + G.id + '/47</span><span class="kv-tag">' + MK.e + " " + MK.n + '</span><span class="kv-tag">' + G.topic + "</span>" +
+      '<span class="kv-tag">Virtual · ' + G.id + '/' + GAMES.length + '</span><span class="kv-tag">' + MK.e + " " + MK.n + '</span><span class="kv-tag">' + G.topic + "</span>" +
       "<h1>" + G.t + "</h1>" +
       "<p>" + MK.how + "</p>" +
       '<div class="kv-opts">' +
@@ -1122,14 +1346,15 @@
     $("kv-mouse").onclick = function () { mouseMode = true; CFG.duel = CFG.duel && false; begin(); };
   }
   function begin() {
+    if (mech && mech.stop) mech.stop();
     ov.style.display = "none"; parts = [];
     S.score = [0, 0]; S.ok = 0; S.bad = 0; S.streak = 0; S.left = CFG.time; S.run = false; S.cd = 3.2;
-    mech = M[G.m](); mech.start(); subEl.textContent = MK.how;
+    mech = M[G.m](); mech.start(); subEl.innerHTML = MK.how;
     setTimeout(function () { subEl.textContent = ""; }, 9000);
     beep(440, 0.1); setTimeout(function () { beep(440, 0.1); }, 1000); setTimeout(function () { beep(440, 0.1); }, 2000); setTimeout(function () { beep(880, 0.3); }, 3000);
   }
   function endGame() {
-    S.run = false; var tot = S.score[0] + S.score[1], b = best(), rec = false;
+    S.run = false; if (mech && mech.stop) mech.stop(); var tot = S.score[0] + S.score[1], b = best(), rec = false;
     var my = CFG.duel ? Math.max(S.score[0], S.score[1]) : S.score[0];
     if (my > b) { rec = true; try { localStorage.setItem(LS_BEST, my); } catch (e) {} }
     var coins = Math.floor(tot / 10), gave = false;
@@ -1143,7 +1368,7 @@
       "<p>✅ To'g'ri: <b>" + S.ok + "</b> &nbsp; ❌ Xato: <b>" + S.bad + "</b> &nbsp; 🏅 Rekord: <b>" + Math.max(b, my) + "</b></p>" +
       (gave ? "<p>🪙 Akkountingizga <b>+" + coins + "</b> coin yozildi</p>" : (coins > 0 ? '<p class="kv-note">Coin yig\'ish uchun bosh sahifada akkountga kiring.</p>' : "")) +
       '<button class="kv-btn" id="kv-again">🔁 Yana o\'ynash</button>' +
-      '<div class="kv-row">' + (G.id < 47 ? '<a class="kv-btn gh" href="virtual-' + (G.id + 1) + '.html">➡ Keyingi o\'yin</a>' : "") + '<a class="kv-btn gh" href="virtual.html">📋 Barcha o\'yinlar</a></div>' +
+      '<div class="kv-row">' + (G.id < GAMES.length ? '<a class="kv-btn gh" href="virtual-' + (G.id + 1) + '.html">➡ Keyingi o\'yin</a>' : "") + '<a class="kv-btn gh" href="virtual.html">📋 Barcha o\'yinlar</a></div>' +
       '<button class="kv-btn gh" id="kv-set">⚙️ Sozlamalar</button></div>';
     sGood();
     $("kv-again").onclick = begin; $("kv-set").onclick = function () { showStart(); };
