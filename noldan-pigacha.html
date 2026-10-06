@@ -1,252 +1,204 @@
-/*!
- * Kuvonch Academy — "Noldan π gacha" bo'limi
- * Khan Academy uslubidagi kurs daraxti + akam.uz uslubidagi mavzuli testlar.
- * Savollar: Google Sheets bazasi (bo'lsa) + mashq-generator.js (har safar yangi sonlar).
- */
-(function () {
-  "use strict";
-  if (window.__kaNP) return; window.__kaNP = true;
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noldan π gacha — Kuvonch Academy</title>
+<meta name="description" content="Noldan π gacha — sanashdan oliy matematikagacha 11 ta kurs, 90 ta mavzu va har safar yangilanadigan mavzuli testlar. Kuvonch Academy.">
+<link rel="canonical" href="https://quvonchbek99.github.io/quvnoqdombogchalar/noldan-pigacha.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Noldan π gacha — Kuvonch Academy">
+<meta property="og:description" content="11 ta kurs, 90 ta mavzu, cheksiz mavzuli test. Har safar yangi savollar.">
+<meta property="og:image" content="https://quvonchbek99.github.io/quvnoqdombogchalar/og-image.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#5ee6c7">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--bg:#0b1220;--bg-soft:#111a2e;--card:#141f38;--border:#243252;--text:#eef2ff;--text-dim:#9fb0d0;--accent:#5ee6c7;--accent-2:#7c9bff;--bad:#ff8585;--good:#5ee6c7}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 20% 0%,#16213f 0%,var(--bg) 55%);color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px 80px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;position:sticky;top:0;z-index:50;
+ background:rgba(11,18,32,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
+ margin:0 -20px;padding-left:20px;padding-right:20px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;text-decoration:none;color:var(--text);flex:0 0 auto}
+.brand b{background:linear-gradient(135deg,#6a5af9,#8b5cf6);width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:16px}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0}
+nav::-webkit-scrollbar{display:none}
+nav a{color:var(--text-dim);text-decoration:none;font-size:14px;font-weight:600;padding:6px 8px;border-radius:8px;white-space:nowrap}
+nav a:hover,nav a.cur{color:var(--text);background:var(--bg-soft)}
+.hero{padding:26px 0 10px}
+.kicker{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:34px;line-height:1.15;margin:8px 0 10px}
+h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--text-dim);max-width:700px;margin:0 0 14px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px 14px;min-width:96px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--text-dim)}
+.toolbar{display:flex;gap:8px;margin:18px 0 6px;flex-wrap:wrap}
+.toolbar input{flex:1;min-width:200px;background:var(--bg-soft);border:1px solid var(--border);color:var(--text);
+ border-radius:12px;padding:11px 14px;font-size:15px;outline:none}
+.toolbar input:focus{border-color:var(--accent-2)}
+.btn{border:1px solid var(--border);background:var(--bg-soft);color:var(--text);border-radius:12px;padding:11px 16px;
+ font:700 14px/1 inherit;cursor:pointer;white-space:nowrap}
+.btn.pri{background:linear-gradient(135deg,#6a5af9,#8b5cf6);border-color:transparent;color:#fff}
+.btn.acc{background:var(--accent);border-color:transparent;color:#07261f}
+.btn:disabled{opacity:.4;cursor:default}
+.courses{display:grid;gap:14px;margin-top:14px}
+.course{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;position:relative;overflow:hidden}
+.course::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--cc,#7c9bff)}
+.chead{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.cico{width:44px;height:44px;flex:0 0 44px;border-radius:13px;display:grid;place-items:center;font-size:21px;background:color-mix(in srgb,var(--cc) 18%,transparent);border:1px solid color-mix(in srgb,var(--cc) 40%,transparent)}
+.chead h2{margin:0;font-size:19px}
+.chead .sub{color:var(--text-dim);font-size:13px;margin-top:2px}
+.ring{margin-left:auto;flex:0 0 auto;display:flex;align-items:center;gap:10px}
+.ring .pct{font-weight:800;font-size:14px;color:var(--cc)}
+.ring .arw{color:var(--text-dim);font-size:14px;transition:transform .2s}
+.course.open .ring .arw{transform:rotate(90deg)}
+.bar{height:5px;border-radius:99px;background:var(--bg-soft);margin-top:12px;overflow:hidden;border:1px solid var(--border)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cc),var(--accent));width:0}
+.units{display:none;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;margin-top:14px}
+.course.open .units{display:grid}
+.unit{text-align:left;background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:11px 12px;
+ cursor:pointer;color:var(--text);font:600 14px/1.3 inherit;display:flex;align-items:center;gap:9px;min-width:0}
+.unit:hover{border-color:var(--cc)}
+.unit .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unit .m{flex:0 0 auto;font-size:11px;font-weight:800;padding:3px 7px;border-radius:99px;background:var(--border);color:var(--text-dim)}
+.unit .m.ok{background:rgba(94,230,199,.16);color:var(--accent)}
+.unit .m.mid{background:rgba(250,204,21,.16);color:#facc15}
+.empty{color:var(--text-dim);padding:20px 2px}
+/* ---- Modal ---- */
+.ov{position:fixed;inset:0;background:rgba(5,9,18,.72);backdrop-filter:blur(4px);z-index:900;display:none;align-items:center;justify-content:center;padding:16px}
+.ov.on{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:440px;width:100%;padding:20px;max-height:90vh;overflow:auto}
+.modal h3{margin:4px 0 4px;font-size:20px}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-2)}
+.meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--text-dim);font-size:13px;margin:10px 0 14px}
+.levels{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}
+.lv{background:var(--bg-soft);border:1px solid var(--border);border-radius:13px;padding:11px;cursor:pointer;color:var(--text);font:700 14px/1.2 inherit;text-align:left}
+.lv small{display:block;color:var(--text-dim);font-weight:600;font-size:12px;margin-top:3px}
+.lv[aria-pressed=true]{border-color:var(--accent);background:rgba(94,230,199,.1)}
+.note{background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--text-dim);margin:10px 0}
+.row{display:flex;gap:8px;margin-top:14px}
+.row .btn{flex:1}
+/* ---- Test ---- */
+.test{position:fixed;inset:0;z-index:950;background:var(--bg);display:none;flex-direction:column}
+.test.on{display:flex}
+.thead{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);flex:0 0 auto}
+.thead .tt{font-weight:800;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.thead .cnt{color:var(--text-dim);font-size:13px;font-weight:700;flex:0 0 auto}
+.tprog{height:4px;background:var(--bg-soft);flex:0 0 auto}
+.tprog i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0;transition:width .25s}
+.tbody{flex:1;min-height:0;overflow:auto;padding:18px 14px 110px}
+.tinner{max-width:720px;margin:0 auto}
+.q{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;font-size:17px;font-weight:600;margin-bottom:14px;white-space:pre-wrap}
+.opts{display:grid;gap:9px}
+.opt{display:flex;align-items:center;gap:11px;background:var(--bg-soft);border:1px solid var(--border);border-radius:13px;
+ padding:13px 14px;cursor:pointer;color:var(--text);font:600 16px/1.3 inherit;text-align:left;width:100%}
+.opt .k{flex:0 0 26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--card);border:1px solid var(--border);font-size:13px;font-weight:800;color:var(--text-dim)}
+.opt[aria-pressed=true]{border-color:var(--accent-2);background:rgba(124,155,255,.12)}
+.opt.ok{border-color:var(--good);background:rgba(94,230,199,.13)}
+.opt.no{border-color:var(--bad);background:rgba(255,133,133,.12)}
+.opt:disabled{cursor:default}
+.sol{margin-top:12px;background:var(--bg-soft);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;padding:12px;font-size:14px;color:var(--text-dim);display:none}
+.sol.on{display:block}
+.sol b{color:var(--text)}
+.tfoot{position:fixed;left:0;right:0;bottom:0;background:rgba(11,18,32,.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);
+ padding:12px 14px;display:flex;gap:9px;z-index:2}
+.tfoot .in{max-width:720px;margin:0 auto;display:flex;gap:9px;width:100%}
+.tfoot .btn{flex:1}
+.btn.ghost{background:transparent;color:var(--bad);border-color:rgba(255,133,133,.4)}
+/* ---- Natija ---- */
+.res{text-align:center;padding:10px 0}
+.res .big{font-size:52px;font-weight:900;line-height:1;margin:10px 0 4px}
+.res .lbl{color:var(--text-dim);margin-bottom:16px}
+.res .xp{display:inline-block;background:rgba(94,230,199,.14);color:var(--accent);border-radius:99px;padding:6px 14px;font-weight:800;font-size:14px}
+.review{text-align:left;margin-top:20px;display:grid;gap:8px}
+.rv{background:var(--bg-soft);border:1px solid var(--border);border-left:3px solid var(--bad);border-radius:12px;padding:11px 13px;font-size:14px}
+.rv .a1{color:var(--bad)}.rv .a2{color:var(--good);font-weight:700}
+@media(max-width:620px){h1{font-size:26px}.levels{grid-template-columns:1fr}.chead h2{font-size:17px}}
+#np-bank{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="brand" href="index.html"><b>π</b> Kuvonch Academy</a>
+  <nav>
+    <a href="index.html">Bosh sahifa</a>
+    <a href="noldan-pigacha.html" class="cur">π Noldan π gacha</a>
+    <a href="mashqlar.html">Mashqlar</a>
+    <a href="virtual.html">🖐 Virtual</a>
+    <a href="chempionat.html">🏆 Chempionat</a>
+    <a href="jamoa.html">👥 Jamoa</a>
+  </nav>
+</header>
 
-  var R = function (a, b) { return a + Math.floor(Math.random() * (b - a + 1)); };
-  var RNZ = function (a, b) { var v; do { v = R(a, b); } while (!v); return v; };
-  var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
-  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = R(0, i), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
-  function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = b; b = a % b; a = t; } return a; }
-  function fr(n, d) { var g = gcd(n, d) || 1; n /= g; d /= g; if (d < 0) { n = -n; d = -d; } return d === 1 ? String(n) : n + "/" + d; }
-  function rnd(x, k) { var p = Math.pow(10, k == null ? 2 : k); return Math.round(x * p) / p; }
-  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]; }); }
+<div class="hero">
+  <span class="kicker">To'liq o'quv yo'li</span>
+  <h1>Noldan <span>π gacha</span></h1>
+  <p class="lead">Sanashdan boshlab oliy matematikagacha — 11 ta kurs, 90 ta mavzu.
+  Har bir mavzuda mavzuli test bor: savollarning qolipi bir xil qoladi, sonlar esa har safar yangidan tanlanadi,
+  shuning uchun test hech qachon takrorlanmaydi va yodlab bo'lmaydi.</p>
+  <div class="stats">
+    <div class="stat"><b id="s-kurs">11</b><span>kurs</span></div>
+    <div class="stat"><b id="s-mavzu">90</b><span>mavzu</span></div>
+    <div class="stat"><b id="s-xp">0</b><span>XP</span></div>
+    <div class="stat"><b id="s-pct">0%</b><span>o'zlashtirish</span></div>
+  </div>
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="Mavzu qidirish: kasrlar, logarifm, vektor…" autocomplete="off">
+    <button class="btn" id="btn-cont" style="display:none"></button>
+    <button class="btn" id="btn-rand">🎲 Tasodifiy mavzu</button>
+  </div>
+</div>
 
-  /* ===================== Qo'shimcha generatorlar ===================== */
-  var XG = {
-    sanash: function () {
-      var t = R(0, 2);
-      if (t === 0) { var a = R(3, 12), d = R(2, 5), n = R(4, 7); return { q: a + ", " + (a + d) + ", " + (a + 2 * d) + ", … ketma-ketlikning " + n + "-hadi nechaga teng?", a: a + (n - 1) * d }; }
-      if (t === 1) { var b = R(20, 90); return { q: b + " sonidan oldin keladigan son nechaga teng?", a: b - 1 }; }
-      var c = R(2, 9), m = R(3, 9); return { q: c + " ta savatning har birida " + m + " tadan olma bor. Hammasi bo'lib nechta olma?", a: c * m };
-    },
-    olchov: function () {
-      var t = R(0, 3);
-      if (t === 0) { var m = R(2, 9); return { q: m + " metr necha santimetrga teng?", a: m * 100 }; }
-      if (t === 1) { var k = R(2, 9); return { q: k + " kilogramm necha grammga teng?", a: k * 1000 }; }
-      if (t === 2) { var s = R(2, 9); return { q: s + " soat necha minutga teng?", a: s * 60 }; }
-      var l = R(2, 9); return { q: l + " litr necha millilitrga teng?", a: l * 1000 };
-    },
-    kasr: function () {
-      var a, b, c, d, t = R(0, 3);
-      do { a = R(1, 8); b = R(2, 9); } while (a >= b || a % b === 0 || b % a === 0);
-      do { c = R(1, 8); d = R(2, 9); } while (c >= d || d % c === 0 || (c === a && d === b));
-      if (t === 0) return { q: a + "/" + b + " + " + c + "/" + d + " ni hisoblang (qisqartirilgan holda).", a: a / b + c / d, fmt: fr(a * d + c * b, b * d), nd: [a * d + c * b, b * d] };
-      if (t === 1) return { q: a + "/" + b + " − " + c + "/" + d + " ni hisoblang (qisqartirilgan holda).", a: a / b - c / d, fmt: fr(a * d - c * b, b * d), nd: [a * d - c * b, b * d] };
-      if (t === 2) return { q: a + "/" + b + " · " + c + "/" + d + " ni hisoblang.", a: (a * c) / (b * d), fmt: fr(a * c, b * d), nd: [a * c, b * d] };
-      return { q: "(" + a + "/" + b + ") : (" + c + "/" + d + ") ni hisoblang.", a: (a * d) / (b * c), fmt: fr(a * d, b * c), nd: [a * d, b * c] };
-    },
-    onli: function () {
-      var a = rnd(R(11, 99) / 10, 1), b = rnd(R(11, 99) / 10, 1), t = R(0, 2);
-      if (t === 0) return { q: a + " + " + b + " ni hisoblang.", a: rnd(a + b, 2) };
-      if (t === 1) return { q: a + " · " + b + " ni hisoblang.", a: rnd(a * b, 2) };
-      var c = R(2, 9); return { q: (a * c).toFixed(1) + " : " + c + " ni hisoblang.", a: rnd(a, 2) };
-    },
-    kophad: function () {
-      var a = RNZ(-4, 5), b = RNZ(-6, 6), c = RNZ(-6, 6), x = RNZ(-4, 4), t = R(0, 2);
-      function P(k, l, m) { return (k === 1 ? "" : k === -1 ? "−" : k) + "x²" + (l < 0 ? " − " + (-l) : " + " + l) + "x" + (m < 0 ? " − " + (-m) : " + " + m); }
-      if (t === 0) return { q: "P(x) = " + P(a, b, c) + " bo'lsa, P(" + x + ") ni toping.", a: a * x * x + b * x + c };
-      if (t === 1) { var p = RNZ(-5, 5), q = RNZ(-5, 5); return { q: "(x " + (p < 0 ? "− " + -p : "+ " + p) + ")(x " + (q < 0 ? "− " + -q : "+ " + q) + ") yoyilmasida x ning oldidagi koeffitsiyent nechaga teng?", a: p + q }; }
-      return { q: "P(x) = " + P(a, b, c) + " ko'phadning erkin hadi nechaga teng?", a: c };
-    },
-    ildiz: function () {
-      var t = R(0, 2);
-      if (t === 0) { var n = pick([4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144]); return { q: "√" + n + " ni hisoblang.", a: Math.sqrt(n) }; }
-      if (t === 1) { var m = pick([8, 27, 64, 125, 216, 343]); return { q: "∛" + m + " ni hisoblang.", a: Math.round(Math.cbrt(m)) }; }
-      var a = pick([4, 9, 16, 25, 36]), k = pick([1, 2, 3]); return { q: a + "^(" + k + "/2) ni hisoblang.", a: Math.pow(Math.sqrt(a), k) };
-    },
-    koordinata: function () {
-      var x1 = RNZ(-8, 8), y1 = RNZ(-8, 8), dx = pick([3, 4, 6, 8, 5, 12]), dy = pick([4, 3, 8, 6, 12, 5]);
-      var x2 = x1 + dx, y2 = y1 + dy, t = R(0, 2);
-      if (t === 0) return { q: "A(" + x1 + "; " + y1 + ") va B(" + x2 + "; " + y2 + ") nuqtalar orasidagi masofani toping.", a: rnd(Math.sqrt(dx * dx + dy * dy), 3) };
-      if (t === 1) return { q: "A(" + x1 + "; " + y1 + ") va B(" + x2 + "; " + y2 + ") kesma o'rtasining abssissasini toping.", a: (x1 + x2) / 2 };
-      return { q: "A(" + x1 + "; " + y1 + ") va B(" + x2 + "; " + y2 + ") orqali o'tuvchi to'g'ri chiziq burchak koeffitsiyentini toping.", a: rnd(dy / dx, 4) };
-    },
-    aylana: function () {
-      var r = R(2, 12), t = R(0, 2);
-      if (t === 0) return { q: "Radiusi " + r + " bo'lgan aylananing uzunligini toping (π ≈ 3,14).", a: rnd(2 * 3.14 * r, 2) };
-      if (t === 1) return { q: "Radiusi " + r + " bo'lgan doiraning yuzini toping (π ≈ 3,14).", a: rnd(3.14 * r * r, 2) };
-      var g = pick([30, 45, 60, 90, 120, 180]); return { q: "Radiusi " + r + ", markaziy burchagi " + g + "° bo'lgan yoy uzunligini toping (π ≈ 3,14).", a: rnd(2 * 3.14 * r * g / 360, 3) };
-    },
-    konus: function () {
-      var a = RNZ(-6, 6), b = RNZ(-6, 6), r = R(2, 9), t = R(0, 2);
-      if (t === 0) return { q: "(x " + (a > 0 ? "− " + a : "+ " + -a) + ")² + (y " + (b > 0 ? "− " + b : "+ " + -b) + ")² = " + (r * r) + " aylananing radiusini toping.", a: r };
-      if (t === 1) return { q: "x² + y² " + (a < 0 ? "+ " + -2 * a : "− " + 2 * a) + "x = " + (r * r - a * a) + " aylana markazining abssissasini toping.", a: a };
-      var p = R(1, 6); return { q: "y² = " + (4 * p) + "x parabolaning fokusi abssissasini toping.", a: p };
-    },
-    vektor: function () {
-      var x1 = RNZ(-7, 7), y1 = RNZ(-7, 7), x2 = RNZ(-7, 7), y2 = RNZ(-7, 7), t = R(0, 2);
-      if (t === 0) { var a = pick([3, 6, 4, 8, 5]), b = pick([4, 8, 3, 6, 12]); return { q: "a(" + a + "; " + b + ") vektorning uzunligini toping.", a: rnd(Math.sqrt(a * a + b * b), 3) }; }
-      if (t === 1) return { q: "a(" + x1 + "; " + y1 + ") va b(" + x2 + "; " + y2 + ") vektorlarning skalyar ko'paytmasini toping.", a: x1 * x2 + y1 * y2 };
-      return { q: "a(" + x1 + "; " + y1 + ") va b(" + x2 + "; " + y2 + ") bo'lsa, a + b vektorning abssissasini toping.", a: x1 + x2 };
-    },
-    kompleks: function () {
-      var a = RNZ(-6, 6), b = RNZ(-6, 6), c = RNZ(-6, 6), d = RNZ(-6, 6), t = R(0, 2);
-      function z(p, q) { return p + (q < 0 ? " − " + -q : " + " + q) + "i"; }
-      if (t === 0) return { q: "z = " + z(a, b) + " kompleks sonning moduli |z| ni toping.", a: rnd(Math.sqrt(a * a + b * b), 3) };
-      if (t === 1) return { q: "(" + z(a, b) + ") · (" + z(c, d) + ") ko'paytmaning haqiqiy qismini toping.", a: a * c - b * d };
-      return { q: "(" + z(a, b) + ") · (" + z(c, d) + ") ko'paytmaning mavhum qismi koeffitsiyentini toping.", a: a * d + b * c };
-    },
-    oxshashlik: function () {
-      var k = pick([2, 3, 4, 5]), a = R(3, 12), t = R(0, 2);
-      if (t === 0) return { q: "Ikki o'xshash uchburchakning o'xshashlik koeffitsiyenti " + k + ". Kichigining tomoni " + a + " bo'lsa, kattasining mos tomonini toping.", a: a * k };
-      if (t === 1) return { q: "O'xshashlik koeffitsiyenti " + k + " bo'lsa, yuzalar nisbati nechaga teng?", a: k * k };
-      var S = R(4, 20); return { q: "Kichik uchburchak yuzi " + S + ", o'xshashlik koeffitsiyenti " + k + ". Katta uchburchak yuzini toping.", a: S * k * k };
-    },
-    limit: function () {
-      var a = RNZ(-5, 5), b = RNZ(-6, 6), t = R(0, 2);
-      if (t === 0) return { q: "lim(x→" + a + ") (x² " + (b < 0 ? "− " + -b : "+ " + b) + "x) limitni hisoblang.", a: a * a + b * a };
-      if (t === 1) { var c = RNZ(-6, 6); return { q: "lim(x→" + c + ") (x² − " + (c * c) + ")/(x − " + c + ") limitni hisoblang.", a: 2 * c }; }
-      var p = RNZ(2, 7), q = RNZ(2, 7); return { q: "lim(x→∞) (" + p + "x² + 3x)/(" + q + "x² − 1) limitni hisoblang.", a: rnd(p / q, 4) };
-    },
-    algebraAsos: function () {
-      var a = RNZ(-6, 6), b = RNZ(-9, 9), x = RNZ(-6, 6), t = R(0, 2);
-      if (t === 0) return { q: "x = " + x + " bo'lsa, " + a + "x " + (b < 0 ? "− " + -b : "+ " + b) + " ifodaning qiymatini toping.", a: a * x + b };
-      if (t === 1) { var c = RNZ(-5, 5); return { q: a + "x " + (b < 0 ? "− " + -b : "+ " + b) + " " + (c < 0 ? "− " + -c : "+ " + c) + "x ifodani soddalashtirgandagi x oldidagi koeffitsiyent?", a: a + c }; }
-      return { q: "x = " + x + " bo'lsa, |" + a + "x " + (b < 0 ? "− " + -b : "+ " + b) + "| ifodaning qiymatini toping.", a: Math.abs(a * x + b) };
-    },
-    tartib: function () {
-      var a = R(1, 9), d = RNZ(2, 7), n = R(5, 15), t = R(0, 1);
-      if (t === 0) return { q: "a₁ = " + a + ", d = " + d + " bo'lgan arifmetik progressiyaning " + n + "-hadini toping.", a: a + (n - 1) * d };
-      return { q: "a₁ = " + a + ", d = " + d + " bo'lgan arifmetik progressiyaning dastlabki " + n + " ta hadi yig'indisini toping.", a: n * (2 * a + (n - 1) * d) / 2 };
-    }
-  };
+<div class="courses" id="courses"></div>
+<p class="empty" id="nores" style="display:none">Bunday mavzu topilmadi.</p>
+</div>
 
-  /* ===================== Kurslar va mavzular ===================== */
-  var KURS = [
-    { t: "Boshlang'ich matematika", i: "🧮", c: "#f59e0b", d: "Sanashdan 1000 ichida hisoblashgacha", u: [
-      ["Sanash", ["sanash"]], ["Qo'shish va ayirish bilan tanishuv", ["add", "sub"]], ["Sonlar xonasi (o'nliklar va yuzliklar)", ["numbers", "add"]],
-      ["20 gacha bo'lgan sonlarni qo'shish va ayirish", ["add", "sub"]], ["100 ichida qo'shish va ayirish", ["add", "sub"]],
-      ["1 000 ichida sonlarni qo'shish va ayirish", ["add", "sub"]], ["O'lchovlar va ma'lumotlar", ["olchov", "means"]], ["Geometriya", ["area"]] ] },
-    { t: "Arifmetika", i: "➗", c: "#10b981", d: "To'rt amal, kasrlar va manfiy sonlar", u: [
-      ["Qo'shish va ayirish", ["add", "sub"]], ["Ko'paytirish va bo'lish", ["mul", "div"]], ["Manfiy sonlar", ["add", "sub", "mul"]],
-      ["Kasrlar", ["kasr"]], ["O'nli kasrlar", ["onli"]] ] },
-    { t: "Boshlang'ich algebra", i: "📐", c: "#06b6d4", d: "Nisbat, foiz, ifoda va tengsizliklar", u: [
-      ["Arifmetik xossalar", ["add", "mul"]], ["Bo'luvchilar va karralilar", ["gcdlcm"]], ["Ma'lumotni o'qish va uni talqin qilish", ["means"]],
-      ["O'lchovlar", ["olchov"]], ["Kasrlar", ["kasr"]], ["O'nli kasrlar", ["onli"]], ["Manfiy sonlar va koordinatalar tekisligi", ["koordinata"]],
-      ["Nisbat, sur'at va proporsiya", ["percent"]], ["Ifoda, tenglama va tengsizliklar", ["linEq", "algebraAsos"]], ["Daraja, ildiz va sonning standart shakli", ["power", "ildiz"]] ] },
-    { t: "Algebra I", i: "🔢", c: "#7c9bff", d: "Tenglama, funksiya va kvadrat tenglamalar", u: [
-      ["Algebra asoslari", ["algebraAsos"]], ["Tenglamalarni yechish", ["linEq"]], ["Tengsizliklarni yechish", ["quadIneq", "ineqSystem"]],
-      ["O'lchov birliklari bilan ishlash", ["olchov"]], ["Chiziqli tenglamalar va grafiklar", ["linEq", "koordinata"]], ["Funksiyalar", ["fvalue", "zeros"]],
-      ["Chiziqli funksiyaga oid matnli masalalar", ["linearModel"]], ["Sonli ketma-ketliklar", ["tartib", "progression"]], ["Tenglamalar sistemasi", ["system"]],
-      ["Tengsizliklar (sistemalar va grafiklar)", ["ineqSystem"]], ["Absolyut qiymat va bo'lakli funksiyalar", ["modulus"]],
-      ["Ratsional ko'rsatkichlar va ildizlar", ["ildiz", "power"]], ["Eksponensial o'sish va kamayish", ["expEq", "power"]],
-      ["Ko'phadlar", ["kophad", "shortMul"]], ["Chiziqli funksiyalar ko'paytmasiga yoyish", ["factor"]], ["Kvadrat tenglamalar", ["quadEq", "vieta"]], ["Irratsional sonlar", ["irrational", "ildiz"]] ] },
-    { t: "Algebra II", i: "📈", c: "#a78bfa", d: "Logarifm, kompleks sonlar, progressiyalar", u: [
-      ["Funksiyalar", ["fvalue", "zeros"]], ["Kompleks sonlar", ["kompleks"]], ["Ko'phadlar ustida arifmetik amallar", ["kophad"]],
-      ["Ko'phadlar", ["kophad", "bezu"]], ["Irratsional munosabatlar", ["irrational"]], ["Ratsional munosabatlar", ["ratEq", "ratIneq"]],
-      ["Eksponensial o'sish va kamayish", ["expEq"]], ["Ko'rsatkichli funksiyalar va logarifmlar", ["log", "expEq"]], ["Trigonometriya", ["trig"]],
-      ["Murakkab tenglamalar va funksiyalar", ["quadEq", "ratEq", "modulus"]], ["Progressiyalar", ["progression", "tartib"]],
-      ["Modellashtirish", ["linearModel"]], ["Konus kesimlari", ["konus"]] ] },
-    { t: "Geometriya asoslari", i: "📏", c: "#34d399", d: "Burchak, yuza, hajm va Pifagor teoremasi", u: [
-      ["To'g'ri chiziqlar", ["koordinata"]], ["Burchaklar", ["trig"]], ["Shakllar", ["area"]], ["Koordinatalar tekisligi", ["koordinata"]],
-      ["Yuza va perimetr", ["area"]], ["Hajm va sirt yuzi", ["stereo"]], ["Pifagor teoremasi", ["pythag"]], ["Geometrik almashtirishlar, tenglik va o'xshashlik", ["oxshashlik"]] ] },
-    { t: "Geometriya", i: "🔺", c: "#22d3ee", d: "O'xshashlik, trigonometriya, stereometriya", u: [
-      ["Almashtirishlarni qo'llash", ["shift"]], ["Almashtirish xossalari", ["shift", "oxshashlik"]], ["Tenglik", ["oxshashlik", "area"]],
-      ["O'xshashlik", ["oxshashlik"]], ["To'g'ri burchakli uchburchaklar & trigonometriya", ["pythag", "trig"]],
-      ["To'g'ri burchakli bo'lmagan uchburchaklar & trigonometriya", ["trig", "area"]], ["Analitik geometriya", ["koordinata"]],
-      ["Konus kesimlari", ["konus"]], ["Aylana", ["aylana"]], ["Stereometriya", ["stereo"]] ] },
-    { t: "Trigonometriya", i: "📡", c: "#f472b6", d: "Birlik aylana, grafiklar, ayniyatlar", u: [
-      ["To'g'ri burchakli uchburchaklar trigonometriyasi", ["pythag", "trig"]], ["Ixtiyoriy uchburchaklar uchun trigonometriya", ["trig", "area"]],
-      ["Birlik aylanada sinus, kosinus va tangenslarning ta'rifi", ["trig"]], ["Trigonometrik funksiyalarning grafiklari", ["trig", "shift"]],
-      ["Trigonometrik tenglamalar va ayniyatlar", ["trig"]] ] },
-    { t: "Matematik analiz asoslari", i: "∫", c: "#fb923c", d: "Vektor, matritsa, ehtimollik", u: [
-      ["Trigonometriya", ["trig"]], ["Konus kesimlari", ["konus"]], ["Vektorlar", ["vektor"]], ["Matritsalar", ["det", "system"]],
-      ["Kompleks sonlar", ["kompleks"]], ["Ehtimollik va kombinatorikalar", ["comb"]], ["Progressiyalar", ["progression", "tartib"]] ] },
-    { t: "Chiziqli algebra", i: "⬛", c: "#94a3b8", d: "Vektor fazolari va matritsa almashtirishlari", u: [
-      ["Vektorlar va fazo", ["vektor"]], ["Matritsa almashtirishlari", ["det"]], ["Muqobil koordinata sistemalari (asoslar)", ["vektor", "koordinata"]] ] },
-    { t: "Oliy matematika", i: "🎓", c: "#e879f9", d: "Limit, hosila va integral", u: [
-      ["Limitlar", ["limit"]], ["Hosila", ["derivative"]], ["Integral", ["integral"]], ["Funksiyani tekshirish", ["derivative", "zeros"]] ] }
-  ];
+<!-- Mavzu oynasi -->
+<div class="ov" id="ov">
+  <div class="modal">
+    <span class="tag" id="m-kurs"></span>
+    <h3 id="m-title"></h3>
+    <div class="meta" id="m-meta"></div>
+    <div class="levels" id="m-levels"></div>
+    <div class="note">⭐ Har bir to'g'ri javob uchun <b>2 XP</b>. Savollar har safar yangidan yaratiladi.</div>
+    <div class="row">
+      <button class="btn" id="m-close">← Ortga</button>
+      <button class="btn pri" id="m-start">Boshlash →</button>
+    </div>
+  </div>
+</div>
 
-  function slug(s) {
-    return s.toLowerCase().replace(/[ʻʼ‘’'`]/g, "").replace(/[^a-z0-9а-яoʻ]+/gi, "-")
-      .replace(/-+/g, "-").replace(/^-|-$/g, "").slice(0, 32);
-  }
-  KURS.forEach(function (k, ki) {
-    k.id = "k" + (ki + 1);
-    k.u = k.u.map(function (u, ui) { return { id: "np-" + (ki + 1) + "-" + slug(u[0]) + "-" + (ui + 1), t: u[0], g: u[1] }; });
-  });
-  window.kaNPdata = KURS;
+<!-- Test -->
+<div class="test" id="test">
+  <div class="thead">
+    <button class="btn" id="t-exit" style="padding:8px 12px">✕</button>
+    <div class="tt" id="t-title"></div>
+    <div class="cnt" id="t-cnt"></div>
+  </div>
+  <div class="tprog"><i id="t-bar"></i></div>
+  <div class="tbody"><div class="tinner" id="t-inner"></div></div>
+  <div class="tfoot" id="t-foot"><div class="in">
+    <button class="btn ghost" id="t-fin">Yakunlash</button>
+    <button class="btn acc" id="t-next" disabled>Tekshirish</button>
+  </div></div>
+</div>
 
-  /* ===================== Savollar ===================== */
-  function gensOf(u) {
-    var K = window.kaGen, out = [];
-    (u.g || []).forEach(function (n) {
-      if (XG[n]) out.push(XG[n]);
-      else if (K && K.generators[n]) out.push(K.generators[n]);
-    });
-    if (!out.length && K) { var g = K.gensFor(u.t); if (g) g.forEach(function (n) { if (K.generators[n]) out.push(K.generators[n]); }); }
-    if (!out.length) out.push(XG.algebraAsos);
-    return out;
-  }
-  function fmtA(p) {
-    if (p.fmt) return p.fmt;
-    var a = p.a;
-    if (Array.isArray(a)) return a.join("; ");
-    if (typeof a === "number" && !Number.isInteger(a)) return String(rnd(a, 4)).replace(".", ",");
-    return String(a);
-  }
-  function wrongs(p, n) {
-    var right = fmtA(p), key = {}, out = []; key[right] = 1;
-    function add(v) { var s = (typeof v === "number" && !Number.isInteger(v)) ? String(rnd(v, 4)).replace(".", ",") : (Array.isArray(v) ? v.join("; ") : String(v)); if (!key[s] && s !== "NaN") { key[s] = 1; out.push(s); } }
-    var a = p.a, tries = 0;
-    if (p.nd) {
-      var N = p.nd[0], D = p.nd[1], t2 = 0;
-      while (out.length < n && t2++ < 60) {
-        var v2 = pick([[N + D, D], [N - D, D], [D, N], [N, D + 1], [N + 1, D], [-N, D], [N * 2, D], [N, D * 2]]);
-        if (v2[1]) add(fr(v2[0], v2[1]));
-      }
-      while (out.length < n) add(fr(N + out.length + 3, D));
-      return out.slice(0, n);
-    }
-    while (out.length < n && tries++ < 80) {
-      if (Array.isArray(a)) { var b = a.slice(), k = R(0, 3); if (k === 0) b = b.map(function (x) { return -x; }); else if (k === 1) b[R(0, b.length - 1)] += RNZ(-3, 3); else if (k === 2 && b.length === 2) b = [b[1], b[0]]; else b = b.map(function (x) { return x + 1; }); add(b); }
-      else { var d = pick([1, -1, 2, -2, 3, 10, -10]); var v = R(0, 3) === 0 ? -a : (R(0, 3) === 1 ? a * 2 : a + d); add(v); }
-    }
-    while (out.length < n) add(Array.isArray(a) ? a.map(function (x) { return x + out.length + 7; }) : a + out.length * 7 + 3);
-    return out.slice(0, n);
-  }
-  function genQ(u) {
-    var g = pick(gensOf(u)), p;
-    try { p = g(); } catch (e) { p = XG.algebraAsos(); }
-    var right = fmtA(p);
-    var opts = shuffle([right].concat(wrongs(p, 3)));
-    return { q: String(p.q).replace(/<[^>]+>/g, ""), options: opts, correct: opts.indexOf(right), steps: p.steps || null, src: "gen" };
-  }
-  // Google Sheets (savol-bazasi.js orqali) — mavzu_id ustunida mavzu id'si bo'lsa, shu savollar birinchi bo'ladi
-  function sheetQ(u, n) {
-    try {
-      if (!window.kaBank || !window.kaBank.get) return [];
-      var r = window.kaBank.get(u.id, n, { allowSeen: false }) || [];
-      return r.filter(function (q) { return q.src === "sheet"; });
-    } catch (e) { return []; }
-  }
-  function makeTest(u, n) {
-    var out = sheetQ(u, n).slice(0, n), seen = {};
-    out.forEach(function (q) { seen[q.q] = 1; });
-    var guard = 0;
-    while (out.length < n && guard++ < n * 25) { var q = genQ(u); if (!seen[q.q]) { seen[q.q] = 1; out.push(q); } }
-    return shuffle(out).slice(0, n);
-  }
+<!-- savol-bazasi.js uchun mavzular ro'yxati (Google Sheets'dagi mavzu_id shu id'lar bilan mos keladi) -->
+<main id="np-bank"></main>
 
-  /* ===================== Natijalar (localStorage) ===================== */
-  var LS = "ka.np.progress.v1";
-  function prog() { try { return JSON.parse(localStorage.getItem(LS) || "{}"); } catch (e) { return {}; } }
-  function saveProg(p) { try { localStorage.setItem(LS, JSON.stringify(p)); } catch (e) {} }
-  function unitProg(id) { return prog()[id] || { best: 0, done: 0, xp: 0 }; }
-  function record(id, pct, right) {
-    var p = prog(), c = p[id] || { best: 0, done: 0, xp: 0 };
-    c.best = Math.max(c.best, pct); c.done++; c.xp += right * 2; p[id] = c; saveProg(p);
-  }
-  function totalXP() { var p = prog(), s = 0; Object.keys(p).forEach(function (k) { s += p[k].xp || 0; }); return s; }
-  function courseAvg(k) {
-    var s = 0; k.u.forEach(function (u) { s += unitProg(u.id).best; });
-    return Math.round(s / k.u.length);
-  }
-  window.kaNP = { data: KURS, makeTest: makeTest, unitProg: unitProg, totalXP: totalXP, record: record, courseAvg: courseAvg, genQ: genQ };
-})();
+<script src="mashq-generator.js"></script>
+<script src="noldan-pi.js"></script>
+<script src="savol-bazasi.js"></script>
+<script src="ka-effektlar.js"></script>
+<script src="noldan-pi-ui.js"></script>
+</body>
+</html>
