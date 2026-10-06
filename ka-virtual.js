@@ -35,28 +35,28 @@
   /* ======================= SAVOL MAVZULARI ======================= */
   // q(lvl) -> {q: savol matni, a: to'g'ri javob, w: [noto'g'ri variantlar]}
   var TOPICS = {
-    qoshish: { n: "Qo'shish", q: function (l) { var m = 10 + l * 8, a = R(1, m), b = R(1, m); return { q: a + " + " + b, a: a + b, w: near(a + b, 6) }; } },
-    qoshish2: { n: "Ikki xonali qo'shish", q: function (l) { var a = R(10, 49 + l * 5), b = R(10, 49); return { q: a + " + " + b, a: a + b, w: near(a + b, 6, 11) }; } },
-    ayirish: { n: "Ayirish", q: function (l) { var m = 15 + l * 8, a = R(5, m), b = R(1, a); return { q: a + " − " + b, a: a - b, w: near(a - b, 6) }; } },
-    kopaytirish: { n: "Ko'paytirish jadvali", q: function (l) { var a = R(2, Math.min(9, 4 + l)), b = R(2, 9); return { q: a + " × " + b, a: a * b, w: near(a * b, 6, Math.max(a, b) + 2) }; } },
-    bolish: { n: "Bo'lish", q: function (l) { var b = R(2, 9), c = R(2, Math.min(12, 5 + l)); return { q: (b * c) + " : " + b, a: c, w: near(c, 6, 4) }; } },
-    kvadrat: { n: "Kvadratlar", q: function (l) { var n = R(2, Math.min(20, 9 + l * 2)); return { q: n + sup(2), a: n * n, w: [(n - 1) * (n - 1), (n + 1) * (n + 1), n * 2, n * n + n, n * n - 1, n * n + 10] }; } },
-    ildiz: { n: "Kvadrat ildiz", q: function (l) { var n = R(2, Math.min(20, 9 + l * 2)); return { q: "√" + (n * n), a: n, w: near(n, 6, 4) }; } },
-    ildizKichik: { n: "Kvadrat ildiz (≤10)", q: function () { var n = R(0, 10); return { q: "√" + (n * n), a: n, w: [] }; } },
-    daraja: { n: "Darajalar", q: function (l) { var b = pick([2, 2, 3, 3, 4, 5, 10]), k = b === 2 ? R(2, Math.min(10, 5 + l)) : b === 10 ? R(1, 4) : R(2, b === 3 ? 4 : 3); var v = Math.pow(b, k); return { q: b + sup(k), a: v, w: [b * k, Math.pow(b, k - 1), Math.pow(b, k + 1), v + b, v - b].filter(function (x) { return x !== v && x > 0; }) }; } },
-    foiz: { n: "Foizlar", q: function (l) { var p = pick([10, 20, 25, 50, 75, 5, 30, 40]), N = pick([20, 40, 60, 80, 100, 120, 200, 300, 400, 500]); var v = N * p / 100; if (v !== Math.round(v)) { N = 100; v = p; } return { q: N + " ning " + p + "%", a: v, w: near(v, 6, Math.max(5, Math.round(v / 2))) }; } },
-    tenglama: { n: "Tenglamalar", q: function (l) { var x = R(1, 9 + l), a = R(2, Math.min(9, 3 + l)), b = R(1, 20); return { q: a + "x + " + b + " = " + (a * x + b), a: x, w: near(x, 6, 4) }; } },
-    ekub: { n: "EKUB", q: function () { var g = pick([2, 3, 4, 5, 6, 7, 8, 9, 10, 12]), a = g * R(1, 6), b = g * R(1, 6); while (gcd(a / g, b / g) !== 1 || a === b) { a = g * R(1, 6); b = g * R(2, 7); } return { q: "EKUB(" + a + "; " + b + ")", a: g, w: near(g, 6, 4).concat([a, b]) }; } },
-    ekuk: { n: "EKUK", q: function () { var a = R(2, 12), b = R(2, 12); while (a === b) b = R(2, 12); var v = lcm(a, b); return { q: "EKUK(" + a + "; " + b + ")", a: v, w: [a * b, gcd(a, b), v * 2, v + a, Math.max(a, b)].filter(function (x) { return x !== v; }) }; } },
-    kasr: { n: "Kasrni qisqartirish", q: function () { var b = R(2, 9), a = R(1, b - 1); while (gcd(a, b) !== 1) a = R(1, b - 1); var k = R(2, 6); var w = []; for (var i = 0; i < 8; i++) { var bb = R(2, 9), aa = R(1, bb - 1); var s = frac(aa, bb); if (s !== a + "/" + b && w.indexOf(s) < 0) w.push(s); } return { q: (a * k) + "/" + (b * k) + " = ?", a: a + "/" + b, w: w }; } },
-    yuza: { n: "Yuzalar", q: function (l) { var t = R(0, 2), a = R(2, 9 + l), b = R(2, 9); if (t === 0) return { q: "To'rtburchak " + a + "×" + b + " yuzi", a: a * b, w: [2 * (a + b), a + b, a * b + a, a * b - b].filter(function (x) { return x !== a * b; }) }; if (t === 1) return { q: "Kvadrat tomoni " + a + ", yuzi", a: a * a, w: [4 * a, 2 * a, a * a + a, (a + 1) * (a + 1)] }; var h = 2 * R(1, 6); return { q: "Uchburchak: asos " + a + ", balandlik " + h + ", yuzi", a: a * h / 2, w: [a * h, a + h, a * h / 2 + a, a * h / 2 - 2].filter(function (x) { return x > 0; }) }; } },
-    rim: { n: "Rim raqamlari", q: function (l) { var n = R(4, 30 + l * 20); return { q: roman(n) + " = ?", a: n, w: near(n, 6, 6) }; } },
-    yaxlitlash: { n: "Yaxlitlash", q: function () { var t = R(0, 1); if (t) { var n = R(11, 989); var v = Math.round(n / 10) * 10; return { q: n + " → o'nliklargacha", a: v, w: [v + 10, v - 10, Math.floor(n / 10) * 10 === v ? v + 10 : Math.floor(n / 10) * 10, Math.round(n / 100) * 100].filter(function (x) { return x !== v && x >= 0; }) }; } var d = R(10, 99) / 10 + R(0, 9); d = Math.round(d * 10) / 10; var r = Math.round(d); return { q: String(d).replace(".", ",") + " → butungacha", a: r, w: [r + 1, r - 1, Math.floor(d) === r ? r + 1 : Math.floor(d), r + 2].filter(function (x) { return x !== r && x >= 0; }) }; } },
-    ketma: { n: "Ketma-ketliklar", q: function (l) { var t = R(0, 2), a = R(1, 9), d = R(2, 4 + l), s = []; if (t === 2) { d = R(2, 3); a = R(1, 3); for (var i = 0; i < 4; i++) s.push(a * Math.pow(d, i)); return { q: s.join(", ") + ", ?", a: a * Math.pow(d, 4), w: near(a * Math.pow(d, 4), 6, 10) }; } if (t === 1) { a = R(40, 90); for (var j = 0; j < 4; j++) s.push(a - d * j); return { q: s.join(", ") + ", ?", a: a - 4 * d, w: near(a - 4 * d, 6, 5) }; } for (var k = 0; k < 4; k++) s.push(a + d * k); return { q: s.join(", ") + ", ?", a: a + 4 * d, w: near(a + 4 * d, 6, 5) }; } },
-    manfiy: { n: "Manfiy sonlar", q: function (l) { var a = R(-15, 15), b = R(-15, 15), o = R(0, 1); var v = o ? a + b : a - b; return { q: mstr(a) + (o ? " + " : " − ") + neg(b), a: v, w: near(v, 6, 6).concat([-v]) }; } },
+    qoshish: { n: "Qo'shish", q: function (l) { var m = 10 + l * 8, a = R(1, m), b = R(1, m); return { q: a + " + " + b, a: a + b, w: near(a + b, 6), e: a + " + " + b + " = " + (a + b) + (a > 9 && b > 9 ? "  (o'nliklar: " + (a - a % 10) + "+" + (b - b % 10) + "=" + (a - a % 10 + b - b % 10) + ", birliklar: " + (a % 10) + "+" + (b % 10) + "=" + (a % 10 + b % 10) + ")" : "") }; } },
+    qoshish2: { n: "Ikki xonali qo'shish", q: function (l) { var a = R(10, 49 + l * 5), b = R(10, 49); return { q: a + " + " + b, a: a + b, w: near(a + b, 6, 11), e: a + " + " + b + " = " + (a - a % 10) + " + " + (b - b % 10) + " + " + (a % 10) + " + " + (b % 10) + " = " + (a + b) }; } },
+    ayirish: { n: "Ayirish", q: function (l) { var m = 15 + l * 8, a = R(5, m), b = R(1, a); return { q: a + " − " + b, a: a - b, w: near(a - b, 6), e: a + " − " + b + " = " + (a - b) + "   tekshiruv: " + (a - b) + " + " + b + " = " + a }; } },
+    kopaytirish: { n: "Ko'paytirish jadvali", q: function (l) { var a = R(2, Math.min(9, 4 + l)), b = R(2, 9); return { q: a + " × " + b, a: a * b, w: near(a * b, 6, Math.max(a, b) + 2), e: a + " × " + b + " = " + (a * b) + "   (" + Array(a + 1).join(b + "+").slice(0, -1).replace(/\+/g, " + ") + ")" }; } },
+    bolish: { n: "Bo'lish", q: function (l) { var b = R(2, 9), c = R(2, Math.min(12, 5 + l)); return { q: (b * c) + " : " + b, a: c, w: near(c, 6, 4), e: (b * c) + " : " + b + " = " + c + ",  chunki " + b + " × " + c + " = " + (b * c) }; } },
+    kvadrat: { n: "Kvadratlar", q: function (l) { var n = R(2, Math.min(20, 9 + l * 2)); return { q: n + sup(2), a: n * n, w: [(n - 1) * (n - 1), (n + 1) * (n + 1), n * 2, n * n + n, n * n - 1, n * n + 10], e: n + sup(2) + " = " + n + " × " + n + " = " + (n * n) + (n !== 2 ? "   (" + n + "·2 = " + (2 * n) + " emas!)" : "") }; } },
+    ildiz: { n: "Kvadrat ildiz", q: function (l) { var n = R(2, Math.min(20, 9 + l * 2)); return { q: "√" + (n * n), a: n, w: near(n, 6, 4), e: "√" + (n * n) + " = " + n + ",  chunki " + n + sup(2) + " = " + (n * n) }; } },
+    ildizKichik: { n: "Kvadrat ildiz (≤10)", q: function () { var n = R(0, 10); return { q: "√" + (n * n), a: n, w: [], e: "√" + (n * n) + " = " + n + ",  chunki " + n + " × " + n + " = " + (n * n) }; } },
+    daraja: { n: "Darajalar", q: function (l) { var b = pick([2, 2, 3, 3, 4, 5, 10]), k = b === 2 ? R(2, Math.min(10, 5 + l)) : b === 10 ? R(1, 4) : R(2, b === 3 ? 4 : 3); var v = Math.pow(b, k); return { q: b + sup(k), a: v, w: [b * k, Math.pow(b, k - 1), Math.pow(b, k + 1), v + b, v - b].filter(function (x) { return x !== v && x > 0; }), e: b + sup(k) + " = " + Array(k + 1).join(b + "·").slice(0, -1) + " = " + v + (b * k !== v ? "   (" + b + "×" + k + " = " + (b * k) + " emas!)" : "") }; } },
+    foiz: { n: "Foizlar", q: function (l) { var p = pick([10, 20, 25, 50, 75, 5, 30, 40]), N = pick([20, 40, 60, 80, 100, 120, 200, 300, 400, 500]); var v = N * p / 100; if (v !== Math.round(v)) { N = 100; v = p; } return { q: N + " ning " + p + "%", a: v, w: near(v, 6, Math.max(5, Math.round(v / 2))), e: N + " ning " + p + "% = " + N + " : 100 × " + p + " = " + (N / 100) + " × " + p + " = " + v }; } },
+    tenglama: { n: "Tenglamalar", q: function (l) { var x = R(1, 9 + l), a = R(2, Math.min(9, 3 + l)), b = R(1, 20); return { q: a + "x + " + b + " = " + (a * x + b), a: x, w: near(x, 6, 4), e: a + "x = " + (a * x + b) + " − " + b + " = " + (a * x) + "  →  x = " + (a * x) + " : " + a + " = " + x }; } },
+    ekub: { n: "EKUB", q: function () { var g = pick([2, 3, 4, 5, 6, 7, 8, 9, 10, 12]), a = g * R(1, 6), b = g * R(1, 6); while (gcd(a / g, b / g) !== 1 || a === b) { a = g * R(1, 6); b = g * R(2, 7); } return { q: "EKUB(" + a + "; " + b + ")", a: g, w: near(g, 6, 4).concat([a, b]), e: a + " = " + g + "·" + (a / g) + ",  " + b + " = " + g + "·" + (b / g) + "  →  eng katta umumiy bo'luvchi " + g }; } },
+    ekuk: { n: "EKUK", q: function () { var a = R(2, 12), b = R(2, 12); while (a === b) b = R(2, 12); var v = lcm(a, b); return { q: "EKUK(" + a + "; " + b + ")", a: v, w: [a * b, gcd(a, b), v * 2, v + a, Math.max(a, b)].filter(function (x) { return x !== v; }), e: a + " ning karralilari: " + [1, 2, 3, 4].map(function (k) { return a * k; }).join(", ") + "…  →  " + b + " ga bo'linadigan eng kichigi " + v }; } },
+    kasr: { n: "Kasrni qisqartirish", q: function () { var b = R(2, 9), a = R(1, b - 1); while (gcd(a, b) !== 1) a = R(1, b - 1); var k = R(2, 6); var w = []; for (var i = 0; i < 8; i++) { var bb = R(2, 9), aa = R(1, bb - 1); var s = frac(aa, bb); if (s !== a + "/" + b && w.indexOf(s) < 0) w.push(s); } return { q: (a * k) + "/" + (b * k) + " = ?", a: a + "/" + b, w: w, e: (a * k) + "/" + (b * k) + " = " + (a * k) + ":" + k + " / " + (b * k) + ":" + k + " = " + a + "/" + b + "   (surat va maxraj " + k + " ga bo'lindi)" }; } },
+    yuza: { n: "Yuzalar", q: function (l) { var t = R(0, 2), a = R(2, 9 + l), b = R(2, 9); if (t === 0) return { q: "To'rtburchak " + a + "×" + b + " yuzi", a: a * b, w: [2 * (a + b), a + b, a * b + a, a * b - b].filter(function (x) { return x !== a * b; }), e: "S = a · b = " + a + " · " + b + " = " + (a * b) + "   (perimetr " + 2 * (a + b) + " — boshqa narsa!)" }; if (t === 1) return { q: "Kvadrat tomoni " + a + ", yuzi", a: a * a, w: [4 * a, 2 * a, a * a + a, (a + 1) * (a + 1)], e: "S = a² = " + a + " · " + a + " = " + (a * a) }; var h = 2 * R(1, 6); return { q: "Uchburchak: asos " + a + ", balandlik " + h + ", yuzi", a: a * h / 2, w: [a * h, a + h, a * h / 2 + a, a * h / 2 - 2].filter(function (x) { return x > 0; }), e: "S = ½ · a · h = ½ · " + a + " · " + h + " = " + (a * h / 2) }; } },
+    rim: { n: "Rim raqamlari", q: function (l) { var n = R(4, 30 + l * 20); return { q: roman(n) + " = ?", a: n, w: near(n, 6, 6), e: roman(n) + " = " + n + "   (I=1, V=5, X=10, L=50, C=100; kichigi chapda bo'lsa ayiriladi: IV=4, IX=9, XL=40)" }; } },
+    yaxlitlash: { n: "Yaxlitlash", q: function () { var t = R(0, 1); if (t) { var n = R(11, 989); var v = Math.round(n / 10) * 10; return { q: n + " → o'nliklargacha", a: v, w: [v + 10, v - 10, Math.floor(n / 10) * 10 === v ? v + 10 : Math.floor(n / 10) * 10, Math.round(n / 100) * 100].filter(function (x) { return x !== v && x >= 0; }), e: n + ": birlik raqami " + (n % 10) + (n % 10 >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + v }; } var d = R(10, 99) / 10 + R(0, 9); d = Math.round(d * 10) / 10; var r = Math.round(d); return { q: String(d).replace(".", ",") + " → butungacha", a: r, w: [r + 1, r - 1, Math.floor(d) === r ? r + 1 : Math.floor(d), r + 2].filter(function (x) { return x !== r && x >= 0; }), e: String(d).replace(".", ",") + ": o'ndan biri " + Math.round((d % 1) * 10) + (Math.round((d % 1) * 10) >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + r }; } },
+    ketma: { n: "Ketma-ketliklar", q: function (l) { var t = R(0, 2), a = R(1, 9), d = R(2, 4 + l), s = []; if (t === 2) { d = R(2, 3); a = R(1, 3); for (var i = 0; i < 4; i++) s.push(a * Math.pow(d, i)); return { q: s.join(", ") + ", ?", a: a * Math.pow(d, 4), w: near(a * Math.pow(d, 4), 6, 10), e: "Har safar " + d + " ga ko'paytiriladi: " + s[3] + " × " + d + " = " + a * Math.pow(d, 4) }; } if (t === 1) { a = R(40, 90); for (var j = 0; j < 4; j++) s.push(a - d * j); return { q: s.join(", ") + ", ?", a: a - 4 * d, w: near(a - 4 * d, 6, 5), e: "Har safar " + d + " ayiriladi: " + s[3] + " − " + d + " = " + (a - 4 * d) }; } for (var k = 0; k < 4; k++) s.push(a + d * k); return { q: s.join(", ") + ", ?", a: a + 4 * d, w: near(a + 4 * d, 6, 5), e: "Har safar " + d + " qo'shiladi: " + s[3] + " + " + d + " = " + (a + 4 * d) }; } },
+    manfiy: { n: "Manfiy sonlar", q: function (l) { var a = R(-15, 15), b = R(-15, 15), o = R(0, 1); var v = o ? a + b : a - b; return { q: mstr(a) + (o ? " + " : " − ") + neg(b), a: v, w: near(v, 6, 6).concat([-v]), e: mstr(a) + (o ? " + " : " − ") + neg(b) + " = " + (o ? mstr(a) + (b < 0 ? " − " + (-b) : " + " + b) : mstr(a) + (b < 0 ? " + " + (-b) : " − " + b)) + " = " + mstr(v) + (o ? "" : "   (minus × minus = plyus)") }; } },
     aralash: { n: "Aralash misollar", q: function (l) { return TOPICS[pick(["qoshish", "ayirish", "kopaytirish", "bolish"])].q(l); } },
-    kichik: { n: "10 gacha qo'shish/ayirish", q: function () { if (R(0, 1)) { var a = R(0, 10), b = R(0, 10 - a); return { q: a + " + " + b, a: a + b, w: [] }; } var c = R(1, 10), d = R(0, c); return { q: c + " − " + d, a: c - d, w: [] }; } },
-    kichikAralash: { n: "10 gacha aralash", q: function () { var t = R(0, 3); if (t === 0) { var a = R(1, 5), b = R(1, 2); return { q: a + " × " + b, a: a * b, w: [] }; } if (t === 1) { var n = R(1, 10), d = pick([1, 2]); return { q: (n * d) + " : " + d, a: n, w: [] }; } if (t === 2) { var r = R(0, 3); return { q: "√" + (r * r), a: r, w: [] }; } return TOPICS.kichik.q(); } }
+    kichik: { n: "10 gacha qo'shish/ayirish", q: function () { if (R(0, 1)) { var a = R(0, 10), b = R(0, 10 - a); return { q: a + " + " + b, a: a + b, w: [], e: a + " + " + b + " = " + (a + b) }; } var c = R(1, 10), d = R(0, c); return { q: c + " − " + d, a: c - d, w: [], e: c + " − " + d + " = " + (c - d) }; } },
+    kichikAralash: { n: "10 gacha aralash", q: function () { var t = R(0, 3); if (t === 0) { var a = R(1, 5), b = R(1, 2); return { q: a + " × " + b, a: a * b, w: [], e: a + " × " + b + " = " + (a * b) }; } if (t === 1) { var n = R(1, 10), d = pick([1, 2]); return { q: (n * d) + " : " + d, a: n, w: [], e: (n * d) + " : " + d + " = " + n }; } if (t === 2) { var r = R(0, 3); return { q: "√" + (r * r), a: r, w: [], e: "√" + (r * r) + " = " + r + ", chunki " + r + "·" + r + " = " + (r * r) }; } return TOPICS.kichik.q(); } }
   };
 
   // Juftlar (xotira o'yini): [chap, o'ng]
@@ -106,6 +106,22 @@
   // Ketma-ket tutashtirish
   var CHAINS = {
     karrali: { n: "Karralilarni tartib bilan tutashtir", gen: function () { var k = R(3, 9), s = []; for (var i = 1; i <= 6; i++) s.push(k * i); var w = []; while (w.length < 3) { var x = R(k + 1, k * 6); if (x % k && w.indexOf(x) < 0) w.push(x); } return { q: k + " ga karralilarni o'sish tartibida tutashtiring: " + k + ", " + (2 * k) + ", …", seq: s, wrong: w }; } }
+  };
+
+
+  /* ---- Tushuntirishlar (xatodan keyin ko'rsatiladi — esda qolishi uchun) ---- */
+  function divisor(v) { for (var d = 2; d * d <= v; d++) if (v % d === 0) return d; return 0; }
+  function dsum(v) { return String(Math.abs(v)).split("").reduce(function (a, c) { return a + (+c); }, 0); }
+  var EXR = {
+    tub: function (v) { var d = divisor(v); return d ? v + " = " + d + " · " + (v / d) + " → tub emas (murakkab)" : v + " — tub son: faqat 1 ga va o'ziga bo'linadi"; },
+    karra3: function (v) { var s = dsum(v); return v + ": raqamlar yig'indisi " + String(v).split("").join("+") + " = " + s + (s % 3 ? " → 3 ga bo'linmaydi" : " → 3 ga bo'linadi"); },
+    kvadratSon: function (v) { var r = Math.floor(Math.sqrt(v)); return r * r === v ? v + " = " + r + "² → to'liq kvadrat" : r + "² = " + (r * r) + " < " + v + " < " + ((r + 1) * (r + 1)) + " = " + (r + 1) + "² → to'liq kvadrat emas"; },
+    manfiy: function (v) { return v < 0 ? mstr(v) + " < 0 → manfiy son" : v + (v === 0 ? " — na musbat, na manfiy" : " > 0 → musbat son"); },
+    karra5: function (v) { return v + ": oxirgi raqami " + (v % 10) + (v % 5 ? " → 5 ga bo'linmaydi (0 yoki 5 bo'lishi kerak)" : " → 5 ga bo'linadi"); },
+    juft: function (v) { return v + ": oxirgi raqami " + (v % 10) + (v % 2 ? " → toq" : " → juft"); },
+    juftToq: function (g) { return g.v + ": oxirgi raqami " + (g.v % 10) + (g.v % 2 ? " → TOQ (2 ga bo'linmaydi)" : " → JUFT (2 ga bo'linadi)"); },
+    tubMurakkab: function (g) { var d = divisor(g.v); return d ? g.v + " = " + d + " · " + (g.v / d) + " → MURAKKAB" : g.v + " faqat 1 va o'ziga bo'linadi → TUB"; },
+    yarim: function (g) { var p = g.s.split("/"); return g.s + " va ½ ni solishtiramiz: 2·" + p[0] + " = " + (2 * p[0]) + (2 * p[0] < +p[1] ? " < " : " > ") + p[1] + " → " + g.s + (2 * p[0] < +p[1] ? " < ½" : " > ½"); }
   };
 
   /* ======================= MAVZULAR (VIZUAL) ======================= */
@@ -259,6 +275,17 @@
     ".kv-load{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:15;color:" + TH.acc + ";font-weight:700;letter-spacing:2px;font-size:14px;pointer-events:none;flex-direction:column;gap:12px}",
     ".kv-spin{width:46px;height:46px;border-radius:50%;border:3px solid " + TH.acc + "33;border-top-color:" + TH.acc + ";animation:kvs 1s linear infinite}@keyframes kvs{to{transform:rotate(360deg)}}",
     ".acc-fixed{display:none!important}",
+    ".kv-teach{position:fixed;left:50%;bottom:58px;transform:translate(-50%,30px);opacity:0;max-width:min(760px,94vw);padding:12px 18px;border-radius:16px;font-weight:700;font-size:clamp(15px,2.4vw,21px);line-height:1.35;text-align:center;z-index:8;pointer-events:none;transition:.25s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}",
+    ".kv-teach.on{opacity:1;transform:translate(-50%,0)}",
+    ".kv-teach.no{background:rgba(40,8,12,.88);border:2px solid #ff6b6b;color:#fff;box-shadow:0 0 30px #ff6b6b55}",
+    ".kv-teach.ok{background:rgba(6,30,18,.85);border:2px solid #5ee67a;color:#eafff0}",
+    ".kv-teach b{color:#ffd479}",
+    ".kv-teach.hint{background:rgba(40,32,6,.88);border:2px solid #ffd479;color:#fff}",
+    ".kv-banner{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%) scale(.6);opacity:0;font-weight:900;font-size:clamp(26px,6vw,58px);text-shadow:0 0 24px currentColor,0 4px 0 #000;z-index:7;pointer-events:none;transition:transform .3s cubic-bezier(.2,1.6,.4,1),opacity .3s;white-space:nowrap}",
+    ".kv-banner.on{opacity:1;transform:translate(-50%,-50%) scale(1)}",
+    ".kv-rep{display:inline-block;font-size:.45em;vertical-align:middle;background:#ffd479;color:#000;border-radius:999px;padding:3px 10px;text-shadow:none;margin-right:6px}",
+    ".kv-miss{text-align:left;background:rgba(255,255,255,.04);border:1px solid #3a2a40;border-radius:12px;padding:10px 12px;margin:10px 0;max-height:190px;overflow:auto;font-size:14px;color:#e8ecff}",
+    ".kv-miss div{padding:4px 0;border-bottom:1px dashed #ffffff18}.kv-miss div:last-child{border:0}",
     "@media(max-width:520px){.kv-opts{grid-template-columns:1fr}.kv-pill{font-size:13px;padding:5px 10px}}"
   ].join("\n");
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
@@ -270,8 +297,9 @@
   var ctx = cv.getContext("2d");
   var video = document.createElement("video"); video.id = "kv-v"; video.setAttribute("playsinline", ""); video.muted = true; video.autoplay = true; body.appendChild(video);
   var hud = document.createElement("div"); hud.className = "kv-hud";
-  hud.innerHTML = '<a class="kv-pill" href="virtual.html">← Virtual</a><span class="kv-pill" id="kv-s">⭐ 0</span><span class="kv-pill" id="kv-t">⏱ 60</span><span class="kv-pill" id="kv-h">✋ 0</span>';
+  hud.innerHTML = '<a class="kv-pill" href="virtual.html">← Virtual</a><span class="kv-pill" id="kv-s">⭐ 0</span><span class="kv-pill" id="kv-t">⏱ 60</span><span class="kv-pill" id="kv-h">✋ 0</span><span class="kv-pill" id="kv-mus" style="cursor:pointer">🎵</span>';
   body.appendChild(hud);
+  setTimeout(function () { var mb = document.getElementById("kv-mus"); if (!mb) return; if (G.m === "poyga") { mb.style.display = "none"; return; } var upd = function () { mb.textContent = MUS ? "🎵 Musiqa" : "🔇 Musiqa"; }; upd(); mb.onclick = function () { MUS = !MUS; try { localStorage.setItem("kav.music", MUS ? "1" : "0"); } catch (e) {} upd(); if (MUS) musicStart(); else musicStop(); }; }, 0);
   var qEl = document.createElement("div"); qEl.className = "kv-q"; body.appendChild(qEl);
   var subEl = document.createElement("div"); subEl.className = "kv-sub"; body.appendChild(subEl);
   var loadEl = document.createElement("div"); loadEl.className = "kv-load"; loadEl.innerHTML = '<div class="kv-spin"></div><div id="kv-lt">KAMERA YUKLANMOQDA…</div>'; body.appendChild(loadEl);
@@ -298,8 +326,66 @@
     } catch (e) {}
   }
   var sGood = function () { beep(660, 0.1, "triangle"); setTimeout(function () { beep(990, 0.16, "triangle"); }, 80); };
-  var sBad = function () { beep(180, 0.25, "sawtooth", 0.08); };
+  var sBad = function () { beep(180, 0.25, "sawtooth", 0.08); setTimeout(function () { beep(140, 0.3, "sawtooth", 0.07); }, 120); };
   var sTick = function (f) { beep(f || 520, 0.06, "square", 0.05); };
+  function ac() { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); return AC; } catch (e) { return null; } }
+  // f0→f1 chastota siljishi bilan ton
+  function tone(f0, f1, d, type, vol, delay) {
+    var A = ac(); if (!A) return; var t = A.currentTime + (delay || 0);
+    var o = A.createOscillator(), g = A.createGain(); o.type = type || "sine";
+    o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(Math.max(20, f1), t + d);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    o.connect(g); g.connect(A.destination); o.start(t); o.stop(t + d + 0.05);
+  }
+  var NOISE = null;
+  function noise(d, type, f0, f1, vol, delay) {
+    var A = ac(); if (!A) return; var t = A.currentTime + (delay || 0);
+    if (!NOISE) { NOISE = A.createBuffer(1, A.sampleRate, A.sampleRate); var ch = NOISE.getChannelData(0); for (var i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1; }
+    var s = A.createBufferSource(), f = A.createBiquadFilter(), g = A.createGain(); s.buffer = NOISE; f.type = type || "bandpass"; f.Q.value = 2;
+    f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(Math.max(30, f1), t + d);
+    g.gain.setValueAtTime(vol || 0.2, t); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    s.connect(f); f.connect(g); g.connect(A.destination); s.start(t); s.stop(t + d + 0.05);
+  }
+  var NOTE = function (n) { return 440 * Math.pow(2, (n - 9) / 12); }; // n=0 → C4
+  function arp(steps, base, type) { (steps || [0, 4, 7]).forEach(function (s, i) { tone(NOTE((base || 12) + s), NOTE((base || 12) + s), 0.18, type || "triangle", 0.09, i * 0.07); }); }
+  // Har bir o'yin turiga mos "to'g'ri" ovozi
+  var SFX = {
+    pufak: function () { noise(0.08, "highpass", 2500, 6000, 0.25); tone(900, 1800, 0.12, "sine", 0.12); arp([0, 7], 19); },
+    yomgir: function () { tone(1400, 300, 0.18, "sine", 0.18); tone(700, 1400, 0.15, "triangle", 0.08, 0.12); },
+    orbita: function () { tone(523, 523, 0.6, "sine", 0.1); tone(659, 659, 0.6, "sine", 0.08, 0.08); tone(784, 790, 0.8, "sine", 0.08, 0.16); noise(0.6, "bandpass", 4000, 800, 0.05); },
+    nishon: function () { noise(0.4, "lowpass", 2000, 80, 0.4); tone(160, 40, 0.35, "sawtooth", 0.12); arp([0, 4, 7], 14, "square"); },
+    pianino: function () { [0, 4, 7, 12].forEach(function (s) { tone(NOTE(12 + s), NOTE(12 + s), 0.5, "triangle", 0.07); }); },
+    barmoq: function () { arp([0, 4, 7, 12, 7, 12], 12); },
+    kesish: function () { noise(0.18, "bandpass", 800, 5000, 0.3); tone(1800, 2400, 0.25, "sine", 0.08, 0.05); },
+    tutish: function () { tone(300, 600, 0.08, "sine", 0.15); tone(1300, 1300, 0.12, "square", 0.05, 0.06); tone(1700, 1700, 0.2, "square", 0.05, 0.12); },
+    savat: function () { noise(0.12, "lowpass", 600, 100, 0.35); tone(1300, 1300, 0.12, "square", 0.05, 0.08); tone(1700, 1700, 0.25, "square", 0.05, 0.16); },
+    tutash: function () { arp([0, 4, 7, 11, 14, 19], 12, "sine"); },
+    xotira: function () { noise(0.05, "highpass", 3000, 3000, 0.15); arp([0, 7, 12], 17, "sine"); },
+    tartib: function () { arp([0, 2, 4, 5, 7, 9, 11, 12], 12, "triangle"); },
+    sonoq: function () { tone(1046, 1046, 0.4, "sine", 0.12); tone(1568, 1568, 0.5, "sine", 0.07, 0.1); },
+    burchak: function () { noise(0.03, "highpass", 4000, 4000, 0.2); arp([0, 4, 7, 12], 14, "sine"); },
+    poyga: function () { arp([0, 7, 12], 19); }
+  };
+  function sfxGood() { (SFX[G.m] || sGood)(); }
+
+  /* --- Fon musiqasi (har bir mavzuga mos sokin sintez) --- */
+  var MUS = (function () { try { return localStorage.getItem("kav.music") !== "0"; } catch (e) { return true; } })();
+  var SCALES = { neon: [0, 3, 7, 10, 12, 15], terminal: [0, 3, 5, 7, 10, 12], olov: [0, 1, 4, 5, 7, 8], oltin: [0, 2, 4, 7, 9, 12], galaktika: [0, 2, 7, 9, 11, 14], saturn: [0, 2, 7, 9, 14, 16], kamalak: [0, 4, 7, 9, 12, 16], yurak: [0, 4, 7, 11, 12, 16], tutun: [0, 3, 7, 8, 12, 15], suv: [0, 2, 4, 7, 9, 12], zarra: [0, 2, 5, 7, 9, 12] };
+  var musT = null, musStep = 0;
+  function musicStart() {
+    musicStop(); if (!MUS || G.m === "poyga") return;
+    var sc = SCALES[G.th] || SCALES.neon, chords = [0, 5, 3, 7], bpm = 96 + (G.m === "kesish" || G.m === "yomgir" ? 20 : 0);
+    musT = setInterval(function () {
+      if (!S.run && !(S.cd > 0)) return;
+      var bar = Math.floor(musStep / 8) % 4, root = chords[bar], st = musStep % 8;
+      if (st === 0 || st === 4) tone(NOTE(root - 24), NOTE(root - 24), 0.5, "triangle", 0.05);
+      var n = sc[(st * 3 + bar) % sc.length] + root;
+      if (st % 2 === 0 || Math.random() < 0.35) tone(NOTE(n), NOTE(n), 0.22, "sine", 0.022 + (S.left < 10 ? 0.01 : 0));
+      if (S.left < 10 && S.run && st % 2 === 0) noise(0.03, "highpass", 6000, 6000, 0.04);
+      musStep++;
+    }, 60000 / bpm / 2);
+  }
+  function musicStop() { if (musT) clearInterval(musT); musT = null; }
 
   /* ----------------------- ZARRACHALAR ----------------------- */
   var parts = [];
@@ -494,16 +580,61 @@
   window.addEventListener("pointerup", function (e) { mouse.down = false; if (e.pointerType !== "mouse") setTimeout(function () { if (!mouse.down) mouse.inside = false; }, 60); }); cv.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") mouse.inside = false; });
 
   /* ----------------------- O'YIN HOLATI ----------------------- */
-  var S = { run: false, score: [0, 0], ok: 0, bad: 0, streak: 0, left: 60, lvl: 1 };
+  var S = { run: false, score: [0, 0], ok: 0, bad: 0, streak: 0, left: 60, lvl: 1, pause: 0, miss: [], retry: [], since: 0, best: 0 };
   var HOLD = 0.55;
   function lvl() { return 1 + Math.floor(S.ok / 5); }
-  function setQ(t) { qEl.textContent = t; qEl.classList.add("bump"); setTimeout(function () { qEl.classList.remove("bump"); }, 160); }
-  function good(x, y, pl, pts) {
-    S.ok++; S.streak++; var add = (pts || 10) + Math.min(10, Math.max(0, S.streak - 2) * 2);
-    S.score[pl || 0] += add; burst(x, y, 40, null, 1.2); burst(x, y, 6, null, 0.6, TH.tr === "heart" ? "heart" : "star");
-    ftext(x, y - 20, "+" + add, TH.acc); sGood(); if (navigator.vibrate) try { navigator.vibrate(20); } catch (e) {}
+  function setQ(t, rep) { qEl.innerHTML = (rep ? '<span class="kv-rep">🔁 Takror</span> ' : "") + String(t).replace(/</g, "&lt;"); qEl.classList.add("bump"); setTimeout(function () { qEl.classList.remove("bump"); }, 160); }
+
+  /* --- Eslab qolish: xatolar takrorlanadi --- */
+  // Xato qilingan savol 2–4 savoldan keyin yana so'raladi
+  function askQ(tp, accept) {
+    S.since++;
+    if (S.retry.length && S.since >= 2 && Math.random() < 0.6) {
+      var r = S.retry.shift(); if (!accept || accept(r)) { r.rep = true; S.since = 0; return r; }
+    }
+    var q, t = 0; do { q = tp.q(lvl()); } while (accept && !accept(q) && t++ < 60);
+    if (q && !q.e) q.e = q.q + " = " + (typeof q.a === "number" ? mstr(q.a) : q.a);
+    return q;
   }
-  function bad(x, y, pl) { S.bad++; S.streak = 0; S.score[pl || 0] = Math.max(0, S.score[pl || 0] - 5); burst(x, y, 18, ["#ff4d4d", "#ff8a80", "#ffffff"], 0.7); ftext(x, y - 20, "−5", "#ff6b6b"); sBad(); }
+  function logMiss(q, e) {
+    if (q && S.retry.indexOf(q) < 0 && S.retry.length < 6) { S.retry.push(q); S.since = 0; }
+    var line = e || (q ? q.e : "");
+    if (line && !S.miss.some(function (m) { return m === line; })) S.miss.push(line);
+  }
+
+  /* --- Dars kartasi (xatodan keyin to'g'ri yechim) --- */
+  var teachEl = document.createElement("div"); teachEl.className = "kv-teach"; body.appendChild(teachEl);
+  var teachT = null;
+  function teach(txt, ok, ms) {
+    if (!txt) return;
+    teachEl.className = "kv-teach on " + (ok === "hint" ? "hint" : ok ? "ok" : "no");
+    teachEl.innerHTML = (ok === "hint" ? "💡 <b>Maslahat:</b> " : ok ? "✅ " : "💡 <b>To'g'risi:</b> ") + String(txt).replace(/</g, "&lt;");
+    clearTimeout(teachT); teachT = setTimeout(function () { teachEl.className = "kv-teach"; }, ms || (ok ? 1400 : 3200));
+    if (!ok) S.pause = Math.max(S.pause, 1.5);
+  }
+
+  /* --- Ketma-ketlik va daraja e'lonlari --- */
+  var bannerEl = document.createElement("div"); bannerEl.className = "kv-banner"; body.appendChild(bannerEl);
+  var bannerT = null;
+  function banner(t, c) { bannerEl.textContent = t; bannerEl.style.color = c || "#fff"; bannerEl.className = "kv-banner on"; clearTimeout(bannerT); bannerT = setTimeout(function () { bannerEl.className = "kv-banner"; }, 1300); }
+  var STREAK_TXT = { 3: "🔥 3 ketma-ket!", 5: "⚡ 5 ketma-ket! Zo'r!", 8: "🚀 8 ketma-ket!", 10: "🏆 10 ketma-ket! CHEMPION!", 15: "👑 15 ketma-ket! Afsona!", 20: "🌟 20! Matematika ustasi!" };
+
+  function good(x, y, pl, pts, eq) {
+    var L0 = lvl();
+    S.ok++; S.streak++; S.best = Math.max(S.best, S.streak);
+    var add = (pts || 10) + Math.min(10, Math.max(0, S.streak - 2) * 2);
+    S.score[pl || 0] += add; burst(x, y, 40, null, 1.2); burst(x, y, 6, null, 0.6, TH.tr === "heart" ? "heart" : "star");
+    ftext(x, y - 20, "+" + add, TH.acc);
+    if (eq) ftext(x, y + 26, eq, "#ffffff");
+    sfxGood(); if (navigator.vibrate) try { navigator.vibrate(20); } catch (e) {}
+    if (STREAK_TXT[S.streak]) { banner(STREAK_TXT[S.streak], TH.acc); arp([0, 4, 7, 12, 16]); }
+    else if (lvl() > L0) { banner("⬆ " + lvl() + "-daraja! Misollar qiyinlashdi", TH.acc2); arp([0, 5, 9, 12]); }
+  }
+  function bad(x, y, pl, lesson, q) {
+    S.bad++; S.streak = 0; S.score[pl || 0] = Math.max(0, S.score[pl || 0] - 5);
+    burst(x, y, 18, ["#ff4d4d", "#ff8a80", "#ffffff"], 0.7); ftext(x, y - 20, "−5", "#ff6b6b"); sBad();
+    if (lesson || q) { logMiss(q, lesson); teach(lesson || q.e, false); }
+  }
   function updHud() {
     $("kv-s").textContent = CFG.duel ? "🔵 " + S.score[0] + " : " + S.score[1] + " 🔴" : "⭐ " + S.score[0];
     $("kv-t").textContent = "⏱ " + Math.max(0, Math.ceil(S.left));
@@ -567,7 +698,7 @@
   M.pufak = function () {
     var tp = TOPICS[G.k], b = [], q;
     function nq() {
-      q = tp.q(lvl()); setQ(q.q + " = ?");
+      q = askQ(tp); setQ(q.q + " = ?", q.rep);
       var o = makeOpts(q, 4), lanes = shuffle([0, 1, 2, 3]), r = Math.max(34, Math.min(W / 10, H / 7.5));
       b = o.map(function (op, i) { var bx = W * (0.14 + lanes[i] * 0.24); return { x: bx, bx: bx, y: H + r + Math.random() * H * 0.35, r: r, s: op.s, ok: op.ok, ph: Math.random() * 6, v: H / (7 - Math.min(3, lvl() * 0.3)) * (0.8 + Math.random() * 0.4) }; });
     }
@@ -578,7 +709,7 @@
           var t = b[i]; t.y -= t.v * dt; t.x = t.bx + Math.sin(tGlobal * 1.6 + t.ph) * U * 3;
           if (t.y < -t.r) t.y = H + t.r;
           var p = holdPick(t, dt, inCircle(t));
-          if (p) { if (t.ok) { good(t.x, t.y, p.player); nq(); return; } bad(t.x, t.y, p.player); b.splice(i, 1); }
+          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
         }
       },
       draw: function (dt) { b.forEach(function (t) { var sx = shx(t, dt); drawBall(t.x + sx, t.y, t.r, t.s); drawHoldRing(t.x, t.y, t.r, t.hold); }); }
@@ -589,7 +720,7 @@
   M.yomgir = function () {
     var tp = TOPICS[G.k], b = [], q;
     function nq() {
-      q = tp.q(lvl()); setQ(q.q + " = ?");
+      q = askQ(tp); setQ(q.q + " = ?", q.rep);
       var o = makeOpts(q, 5), lanes = shuffle([0, 1, 2, 3, 4]), r = Math.max(30, Math.min(W / 12, H / 9));
       b = o.map(function (op, i) { return { x: W * (0.12 + lanes[i] * 0.19), y: -r - i * H * 0.16 - Math.random() * 40, r: r, s: op.s, ok: op.ok, v: H / (6.5 - Math.min(3, lvl() * 0.35)) }; });
     }
@@ -598,9 +729,9 @@
       update: function (dt) {
         for (var i = b.length - 1; i >= 0; i--) {
           var t = b[i]; t.y += t.v * dt;
-          if (t.y > H + t.r) { if (t.ok) { bad(t.x, H - 30, 0); nq(); return; } b.splice(i, 1); continue; }
+          if (t.y > H + t.r) { if (t.ok) { bad(t.x, H - 30, 0, null, q); nq(); return; } b.splice(i, 1); continue; }
           var p = holdPick(t, dt, inCircle(t, 1.15), false, 0.35);
-          if (p) { if (t.ok) { good(t.x, t.y, p.player); nq(); return; } bad(t.x, t.y, p.player); b.splice(i, 1); }
+          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
         }
       },
       draw: function () {
@@ -616,7 +747,7 @@
   M.orbita = function () {
     var tp = TOPICS[G.k], b = [], q, ang = 0;
     function geo() { var cx = W / 2, cy = H * 0.56, R0 = Math.min(W * 0.42, H * 0.62), rx = R0, ry = R0 * 0.36, pr = Math.min(W, H) * 0.12; return { cx: cx, cy: cy, rx: rx, ry: ry, pr: pr }; }
-    function nq() { q = tp.q(lvl()); setQ(q.q + " = ?"); var o = makeOpts(q, 5); b = o.map(function (op, i) { return { s: op.s, ok: op.ok, a0: i * Math.PI * 2 / 5, x: 0, y: 0, r: 30 }; }); }
+    function nq() { q = askQ(tp); setQ(q.q + " = ?", q.rep); var o = makeOpts(q, 5); b = o.map(function (op, i) { return { s: op.s, ok: op.ok, a0: i * Math.PI * 2 / 5, x: 0, y: 0, r: 30 }; }); }
     function planet(g) {
       var gr = ctx.createRadialGradient(g.cx - g.pr * 0.4, g.cy - g.pr * 0.4, g.pr * 0.1, g.cx, g.cy, g.pr);
       gr.addColorStop(0, "#ffffff"); gr.addColorStop(0.25, TH.acc); gr.addColorStop(1, TH.acc2 + "44");
@@ -633,7 +764,7 @@
         for (var i = 0; i < b.length; i++) {
           var t = b[i], a = ang + t.a0; t.x = g.cx + Math.cos(a) * g.rx; t.y = g.cy + Math.sin(a) * g.ry; t.z = Math.sin(a); t.r = Math.max(26, Math.min(W, H) * 0.075) * (0.8 + 0.25 * (t.z + 1) / 2);
           var p = holdPick(t, dt, inCircle(t, 1.1));
-          if (p) { if (t.ok) { good(t.x, t.y, p.player); nq(); return; } bad(t.x, t.y, p.player); b.splice(i, 1); return; }
+          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); return; }
         }
       },
       draw: function () {
@@ -649,7 +780,7 @@
   M.nishon = function () {
     var tp = TOPICS[G.k], b = [], q, lasers = [];
     function nq() {
-      q = tp.q(lvl()); setQ("🎯 " + q.q + " = ?"); var o = makeOpts(q, 5), r = Math.max(32, Math.min(W / 11, H / 9));
+      q = askQ(tp); setQ("🎯 " + q.q + " = ?", q.rep); var o = makeOpts(q, 5), r = Math.max(32, Math.min(W / 11, H / 9));
       b = o.map(function (op, i) { var row = i % 3, dir = row % 2 ? -1 : 1; return { s: op.s, ok: op.ok, r: r, x: Math.random() * W, y: H * (0.32 + row * 0.2), v: dir * (W / 9) * (0.7 + Math.random() * 0.6) * (1 + lvl() * 0.08) }; });
     }
     return {
@@ -660,10 +791,10 @@
           if (!p.pinchStart) return;
           var aim = p.hand ? { x: p.hand.pts[7].x, y: p.hand.pts[7].y } : p;
           var from = CFG.duel ? { x: p.player ? W * 0.85 : W * 0.15, y: H } : { x: W / 2, y: H };
-          lasers.push({ a: from, b: { x: aim.x, y: aim.y }, l: 0.25, c: p.col }); beep(900, 0.05, "square", 0.05);
+          lasers.push({ a: from, b: { x: aim.x, y: aim.y }, l: 0.25, c: p.col }); tone(1600, 180, 0.18, "square", 0.06);
           for (var i = 0; i < b.length; i++) {
             var t = b[i]; if (Math.hypot(aim.x - t.x, aim.y - t.y) < t.r * 1.25) {
-              if (t.ok) { good(t.x, t.y, p.player); nq(); } else { bad(t.x, t.y, p.player); b.splice(i, 1); }
+              if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); } else { bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
               return;
             }
           }
@@ -692,13 +823,13 @@
       var x0 = (W - kw * cols) / 2, y0 = two ? H * 0.5 : H * 0.58;
       keys = labels.map(function (l, i) { var c = i % cols, r = Math.floor(i / cols); return { l: l, x: x0 + c * kw + 3, y: y0 + r * (kh + 8), w: kw - 6, h: kh, hold: 0, lock: false, flash: 0, hue: i * 30 }; });
     }
-    function nq() { q = tp.q(lvl()); ans = mstr(q.a); typed = ""; setQ(q.q + " = ?"); }
+    function nq() { q = askQ(tp); ans = mstr(q.a); typed = ""; setQ(q.q + " = ?", q.rep); }
     function press(k, p) {
       k.flash = 0.25; var f = 260 * Math.pow(2, keys.indexOf(k) / 12); beep(f, 0.25, "triangle", 0.1);
       burst(k.x + k.w / 2, k.y, 10, null, 0.5);
       if (k.l === "⌫") typed = typed.slice(0, -1); else if (k.l === "−") { if (!typed) typed = "−"; } else typed += k.l;
-      if (typed === ans) { good(W / 2, H * 0.32, p.player); nq(); }
-      else if (typed.replace("−", "").length >= ans.replace("−", "").length && typed.length >= ans.length) { bad(W / 2, H * 0.32, p.player); msgT = 1.2; msg = "Javob: " + ans; typed = ""; nq(); }
+      if (typed === ans) { good(W / 2, H * 0.32, p.player, 0, q.q + " = " + ans); nq(); }
+      else if (typed.replace("−", "").length >= ans.replace("−", "").length && typed.length >= ans.length) { msgT = 1.6; msg = "Siz yozdingiz: " + typed; bad(W / 2, H * 0.32, p.player, null, q); typed = ""; nq(); }
     }
     var msg = "";
     return {
@@ -731,21 +862,24 @@
   // ---------- Barmoq bilan sanash ----------
   M.barmoq = function () {
     var tp = TOPICS[G.k], q, holdT = [0, 0], btns = [], maxA = 10;
-    function nq() { maxA = mouseMode ? 10 : Math.min(10, CFG.hands * 5); var t = 0; do { q = tp.q(lvl()); } while ((q.a > maxA || q.a < 0) && t++ < 50); setQ(q.q + " = ?"); holdT = [0, 0]; }
+    function nq() { maxA = mouseMode ? 10 : Math.min(10, CFG.hands * 5); var t = 0; q = askQ(tp, function (x) { return x.a <= maxA && x.a >= 0; }); setQ(q.q + " = ?", q.rep); holdT = [0, 0]; wrongT = 0; }
+    var wrongT = 0;
     function counts() { var c = [0, 0]; hands.forEach(function (h) { var pl = CFG.duel && h.pts[0].x >= W / 2 ? 1 : 0; c[pl] += h.fingers; }); return c; }
     function layout() { var n = 11, w = Math.min(70, W * 0.9 / n); btns = []; for (var i = 0; i < n; i++) btns.push({ v: i, x: W / 2 - w * n / 2 + i * w + 3, y: H - w - 50, w: w - 6, h: w - 6 }); }
     return {
       start: function () { layout(); nq(); }, resize: layout,
       update: function (dt) {
         if (mouseMode) {
-          pointers.forEach(function (p) { if (!p.pinchStart) return; btns.forEach(function (b) { if (p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h) { if (b.v === q.a) { good(b.x + b.w / 2, b.y, 0); nq(); } else bad(b.x + b.w / 2, b.y, 0); } }); });
+          pointers.forEach(function (p) { if (!p.pinchStart) return; btns.forEach(function (b) { if (p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h) { if (b.v === q.a) { good(b.x + b.w / 2, b.y, 0, 0, q.e); nq(); } else bad(b.x + b.w / 2, b.y, 0, null, q); } }); });
           return;
         }
         var c = counts();
         for (var pl = 0; pl < (CFG.duel ? 2 : 1); pl++) {
-          if (c[pl] === q.a && hands.length) { holdT[pl] += dt; if (holdT[pl] > 0.9) { good(CFG.duel ? (pl ? W * 0.75 : W * 0.25) : W / 2, H * 0.45, pl); nq(); return; } }
+          if (c[pl] === q.a && hands.length) { holdT[pl] += dt; if (holdT[pl] > 0.9) { good(CFG.duel ? (pl ? W * 0.75 : W * 0.25) : W / 2, H * 0.45, pl, 0, q.e); nq(); return; } }
           else holdT[pl] = Math.max(0, holdT[pl] - dt * 2);
         }
+        // 9 soniyada topilmasa — maslahat
+        wrongT += dt; if (wrongT > 9) { wrongT = -99; teach(q.e + " → " + q.a + " ta barmoq ko'rsating", "hint", 3500); logMiss(q); }
       },
       draw: function () {
         if (!q) return;
@@ -781,7 +915,7 @@
           for (var j = 0; j < pointers.length; j++) {
             var p = pointers[j], fast = mouseMode ? (mouse.down && p.speed > 250) : p.speed > 650;
             if (fast && segDist(t.x, t.y, p.px, p.py, p.x, p.y) < t.r) {
-              if (t.ok) good(t.x, t.y, p.player); else bad(t.x, t.y, p.player);
+              if (t.ok) good(t.x, t.y, p.player, 0, t.s + " ✓"); else bad(t.x, t.y, p.player, EXR[G.k](t.v));
               var ang = Math.atan2(p.y - p.py, p.x - p.px);
               halves.push({ x: t.x, y: t.y, vx: -Math.sin(ang) * 120 + t.vx * 0.3, vy: -100, s: t.s, r: t.r, side: -1, a: ang, l: 0.9, ok: t.ok }, { x: t.x, y: t.y, vx: Math.sin(ang) * 120 + t.vx * 0.3, vy: -60, s: t.s, r: t.r, side: 1, a: ang, l: 0.9, ok: t.ok });
               items.splice(i, 1); break;
@@ -812,7 +946,7 @@
         for (var i = items.length - 1; i >= 0; i--) {
           var t = items[i], py = t.y; t.y += t.vy * dt;
           if (py < by && t.y >= by) {
-            for (var j = 0; j < pointers.length; j++) { var p = pointers[j]; if (Math.abs(t.x - p.palm.x) < bw / 2 + t.r * 0.4) { if (t.ok) good(t.x, by, p.player); else bad(t.x, by, p.player); items.splice(i, 1); break; } }
+            for (var j = 0; j < pointers.length; j++) { var p = pointers[j]; if (Math.abs(t.x - p.palm.x) < bw / 2 + t.r * 0.4) { if (t.ok) good(t.x, by, p.player, 0, t.s + " ✓"); else bad(t.x, by, p.player, EXR[G.k](t.v)); items.splice(i, 1); break; } }
             continue;
           }
           if (t.y > H + t.r) items.splice(i, 1);
@@ -852,7 +986,7 @@
           if (t.held) { // qo'yib yuborildi
             if (p) p.grab = null; t.held = null;
             var inb = null; B.forEach(function (b) { if (t.x > b.x && t.x < b.x + b.w && t.y > b.y - t.r && t.y < b.y + b.h) inb = b; });
-            if (inb) { var pl = p ? p.player : 0; if (inb.left === t.g.left) { good(t.x, t.y, pl); items.splice(i, 1); spawn(); continue; } bad(t.x, t.y, pl); shake(t); }
+            if (inb) { var pl = p ? p.player : 0; if (inb.left === t.g.left) { good(t.x, t.y, pl, 0, t.s + " → " + inb.l); items.splice(i, 1); spawn(); continue; } bad(t.x, t.y, pl, EXR[G.k](t.g)); shake(t); }
           }
           t.x += (t.hx - t.x) * Math.min(1, dt * 3); t.y += (t.hy + Math.sin(tGlobal * 2 + i) * 6 - t.y) * Math.min(1, dt * 3);
         }
@@ -885,8 +1019,8 @@
           var d = dots[i]; if (d.done) continue;
           var p = holdPick(d, dt, inCircle(d, 1.1), false, 0.35);
           if (p) {
-            if (d.v === seq[next]) { d.done = true; path.push(d); next++; sTick(400 + next * 80); burst(d.x, d.y, 14, null, 0.6); if (next === seq.length) { good(d.x, d.y, p.player, 30); setTimeout(nq, 500); next = -99; } }
-            else { bad(d.x, d.y, p.player); shake(d); }
+            if (d.v === seq[next]) { d.done = true; path.push(d); next++; sTick(400 + next * 80); burst(d.x, d.y, 14, null, 0.6); if (next === seq.length) { good(d.x, d.y, p.player, 30, seq.join(" → ")); setTimeout(nq, 500); next = -99; } }
+            else { bad(d.x, d.y, p.player, d.v + (d.v % seq[0] ? " " + seq[0] + " ga bo'linmaydi" : " — hali erta") + ". Navbatdagisi: " + seq[next] + " = " + seq[0] + " × " + (next + 1)); shake(d); }
           }
         }
       },
@@ -921,8 +1055,8 @@
           if (p && open.length < 2) {
             c.st = 1; open.push(c); sTick(600);
             if (open.length === 2) {
-              if (open[0].id === open[1].id) { open.forEach(function (o) { o.st = 2; }); good(c.x + c.w / 2, c.y + c.h / 2, p.player); open = []; matched++; if (matched === 6) { ftext(W / 2, H / 2, "ZO'R! +20", TH.acc); S.score[p.player] += 20; setTimeout(nq, 900); } }
-              else { waitT = 0.9; S.streak = 0; }
+              if (open[0].id === open[1].id) { open.forEach(function (o) { o.st = 2; }); good(c.x + c.w / 2, c.y + c.h / 2, p.player, 0, open[0].s + "  =  " + open[1].s); teach(open[0].s + "  =  " + open[1].s, true, 1500); open = []; matched++; if (matched === 6) { ftext(W / 2, H / 2, "ZO'R! +20", TH.acc); S.score[p.player] += 20; setTimeout(nq, 900); } }
+              else { waitT = 1.1; S.streak = 0; tone(300, 200, 0.2, "triangle", 0.07); teach(open[0].s + "  ≠  " + open[1].s + " — eslab qoling, qayerda turganini!", "hint", 1500); }
             }
           }
         });
@@ -957,8 +1091,8 @@
           var t = items[i]; if (t.n) continue;
           var p = holdPick(t, dt, inCircle(t, 1.1), false, 0.4);
           if (p) {
-            if (Math.abs(t.v - sorted[next].v) < 1e-9) { next++; t.n = next; sTick(400 + next * 90); burst(t.x, t.y, 14, null, 0.6); if (next === sorted.length) { good(t.x, t.y, p.player, 25); setTimeout(nq, 600); } }
-            else { bad(t.x, t.y, p.player); shake(t); }
+            if (Math.abs(t.v - sorted[next].v) < 1e-9) { next++; t.n = next; sTick(400 + next * 90); burst(t.x, t.y, 14, null, 0.6); if (next === sorted.length) { good(t.x, t.y, p.player, 25); teach(sorted.map(function (o) { return o.s; }).join("  <  "), true, 2200); setTimeout(nq, 600); } }
+            else { bad(t.x, t.y, p.player, t.s + " emas — navbatdagisi " + sorted[next].s + ".  Tartib: " + sorted.map(function (o) { return o.s; }).join(" < ") + (G.k === "kasr" ? "  (kasrni bo'lib solishtiring: " + sorted[next].s + " = " + (Math.round(sorted[next].v * 100) / 100).toString().replace(".", ",") + ")" : "")); shake(t); }
           }
         }
       },
@@ -982,7 +1116,11 @@
     function nq() { tg = L.gen(); setQ(tg.s + " sonini son o'qida ko'rsating"); still = {}; }
     function submit(p, v) {
       var g = geo(); lastGuess = { x: xOf(v), t: 1.4 }; reveal = 1.4; var rv = tg;
-      if (Math.abs(v - tg.v) <= L.tol) good(xOf(tg.v), g.y, p.player); else bad(xOf(v), g.y, p.player);
+      var fmt = function (x) { return (Math.round(x * 100) / 100).toString().replace(".", ","); };
+      var ex = tg.s + " ≈ " + fmt(tg.v);
+      if (G.k === "ildiz") { var n = Math.round(tg.v * tg.v), r0 = Math.floor(tg.v); ex = r0 + "² = " + (r0 * r0) + " < " + n + " < " + ((r0 + 1) * (r0 + 1)) + " = " + (r0 + 1) + "²  →  " + tg.s + " ≈ " + fmt(tg.v) + " (" + r0 + " va " + (r0 + 1) + " orasida)"; }
+      if (G.k === "kasr") { var pq = tg.s.split("/"); ex = tg.s + " = " + pq[0] + " : " + pq[1] + " = " + fmt(tg.v) + (tg.v > 1 ? "  (1 dan katta — maxraj suratdan kichik)" : ""); }
+      if (Math.abs(v - tg.v) <= L.tol) good(xOf(tg.v), g.y, p.player, 0, tg.s + " ≈ " + fmt(tg.v)); else bad(xOf(v), g.y, p.player, ex + "   (siz " + fmt(v) + " ni ko'rsatdingiz)");
       lastTarget = rv; nq();
     }
     var lastTarget = null;
@@ -1024,7 +1162,9 @@
   // ---------- Burchak ----------
   M.burchak = function () {
     var A = ANGLES[G.k], tg, holdT = 0, cur = null;
-    function nq() { tg = A.gen(); setQ(tg.q + (G.k === "trig" ? "  →  α ni yasang" : "")); holdT = 0; }
+    var hintT = 0;
+    function nq() { tg = A.gen(); setQ(tg.q + (G.k === "trig" ? "  →  α ni yasang" : "")); holdT = 0; hintT = 0; }
+    function angEx() { return G.k === "trig" ? tg.q.replace("α", tg.a + "°") + "  →  α = " + tg.a + "°" : tg.a + "°" + (tg.a < 90 ? " — o'tkir burchak (90° dan kichik)" : tg.a === 90 ? " — to'g'ri burchak" : " — o'tmas burchak (90° dan katta)"); }
     function line() {
       if (mouseMode) { if (!pointers[0]) return null; return { a: { x: W / 2, y: H * 0.68 }, b: pointers[0] }; }
       if (pointers.length >= 2) { var p = pointers.slice().sort(function (x, y) { return x.x - y.x; }); return { a: p[0], b: p[1] }; }
@@ -1038,7 +1178,8 @@
         var l = line(); cur = l ? deg(l) : null;
         var tol = Math.max(3, 6 - lvl() * 0.5);
         var diff = cur == null ? 99 : Math.min(Math.abs(cur - tg.a), Math.abs(cur - tg.a - 180), Math.abs(cur - tg.a + 180));
-        if (diff <= tol) { holdT += dt; if (holdT > 1) { var m = l ? { x: (l.a.x + l.b.x) / 2, y: (l.a.y + l.b.y) / 2 } : { x: W / 2, y: H / 2 }; good(m.x, m.y, 0); nq(); } }
+        if (diff <= tol) { holdT += dt; if (holdT > 1) { var m = l ? { x: (l.a.x + l.b.x) / 2, y: (l.a.y + l.b.y) / 2 } : { x: W / 2, y: H / 2 }; good(m.x, m.y, 0, 0, angEx()); nq(); } }
+        hintT += dt; if (hintT > 10 && hintT < 50) { hintT = 99; logMiss(null, angEx()); teach(angEx() + (G.k === "trig" ? "" : ".  0° — gorizontal, 45° — diagonal, 90° — tik"), "hint", 4000); }
         else holdT = Math.max(0, holdT - dt * 2);
       },
       draw: function () {
@@ -1257,7 +1398,9 @@
               r.sp = clamp(r.sp + o.sign * o.v, 40, 400);
               if (o.sign > 0) { S.ok++; S.streak++; r.boost = 0.9; whoosh(true); burst(P.x, P.y - 40, 30, ["#22c55e", "#b6ff00", "#ffffff"], 1); }
               else { S.bad++; S.streak = 0; r.hit = 0.4; whoosh(false); burst(P.x, P.y - 40, 20, ["#ef4444", "#ff8a80"], 0.8); }
-              ftext(P.x, P.y - 90, o.s + " → " + Math.round(r.sp) + " km/soat", o.sign > 0 ? "#5ee67a" : "#ff6b6b");
+              ftext(P.x, P.y - 90, o.s + (/[×:+(]/.test(o.s.slice(1)) ? " = " + (o.sign > 0 ? "+" : "−") + o.v : "") + " → " + Math.round(r.sp) + " km/soat", o.sign > 0 ? "#5ee67a" : "#ff6b6b");
+              var bestOp = rw.ops.reduce(function (a, b) { return a.sign * a.v >= b.sign * b.v ? a : b; });
+              if (bestOp !== o) { var bx = bestOp.s + (/[×:+(]/.test(bestOp.s.slice(1)) ? " = +" + bestOp.v : ""); teach("Eng yaxshisi " + bx + " edi" + (o.sign < 0 ? ", siz " + o.s + " ni oldingiz" : ""), "hint", 2200); if (o.sign < 0) logMiss(null, o.s + " tezlikni kamaytiradi; eng yaxshisi " + bx); }
             }
           });
           // raqib mashinaga urilish
@@ -1295,8 +1438,8 @@
     drawBg(dt);
     buildPointers(dt);
     if (S.run && mech) {
-      S.left -= rdt; if (S.left <= 0) { S.left = 0; endGame(); }
-      else mech.update(dt);
+      if (S.pause > 0) { S.pause -= rdt; }
+      else { S.left -= rdt; if (S.left <= 0) { S.left = 0; endGame(); } else mech.update(dt); }
     }
     if (mech && (S.run || S.cd > 0)) mech.draw(dt);
     drawHands(); drawPointers(); drawParts(dt);
@@ -1333,6 +1476,7 @@
       '<span class="kv-tag">Virtual · ' + G.id + '/' + GAMES.length + '</span><span class="kv-tag">' + MK.e + " " + MK.n + '</span><span class="kv-tag">' + G.topic + "</span>" +
       "<h1>" + G.t + "</h1>" +
       "<p>" + MK.how + "</p>" +
+      '<p style="font-size:13px;color:#ffd479;margin:6px 0 0">🧠 Xato qilsangiz — to\'g\'ri yechim ko\'rsatiladi va o\'sha misol keyinroq yana so\'raladi. O\'yin oxirida xatolaringiz ro\'yxati chiqadi.</p>' +
       '<div class="kv-opts">' +
       '<div class="kv-opt"><b>✋ Qo\'llar soni (kamera sezadi)</b>' + segHTML("hands", [1, 2, 3, 4], ["1", "2", "3", "4"]) + "</div>" +
       '<div class="kv-opt"><b>👥 Rejim</b>' + segHTML("duel", [false, true], ["Yakka", "Duel (2 kishi)"]) + "</div>" +
@@ -1361,13 +1505,14 @@
   function begin() {
     if (mech && mech.stop) mech.stop();
     ov.style.display = "none"; parts = [];
-    S.score = [0, 0]; S.ok = 0; S.bad = 0; S.streak = 0; S.left = CFG.time; S.run = false; S.cd = 3.2;
+    S.score = [0, 0]; S.ok = 0; S.bad = 0; S.streak = 0; S.best = 0; S.left = CFG.time; S.run = false; S.cd = 3.2; S.pause = 0; S.miss = []; S.retry = []; S.since = 0;
+    musicStart();
     mech = M[G.m](); mech.start(); subEl.innerHTML = MK.how;
     setTimeout(function () { subEl.textContent = ""; }, 9000);
     beep(440, 0.1); setTimeout(function () { beep(440, 0.1); }, 1000); setTimeout(function () { beep(440, 0.1); }, 2000); setTimeout(function () { beep(880, 0.3); }, 3000);
   }
   function endGame() {
-    S.run = false; if (mech && mech.stop) mech.stop(); var tot = S.score[0] + S.score[1], b = best(), rec = false;
+    S.run = false; if (mech && mech.stop) mech.stop(); musicStop(); teachEl.className = "kv-teach"; var tot = S.score[0] + S.score[1], b = best(), rec = false;
     var my = CFG.duel ? Math.max(S.score[0], S.score[1]) : S.score[0];
     if (my > b) { rec = true; try { localStorage.setItem(LS_BEST, my); } catch (e) {} }
     var coins = Math.floor(tot / 10), gave = false;
@@ -1378,7 +1523,8 @@
       : '<div class="kv-big">⭐ ' + S.score[0] + "</div>";
     ov.style.display = "flex";
     ov.innerHTML = '<div class="kv-card"><span class="kv-tag">' + G.t + "</span><h1>" + (rec ? "🎉 Yangi rekord!" : "O'yin tugadi") + "</h1>" + res +
-      "<p>✅ To'g'ri: <b>" + S.ok + "</b> &nbsp; ❌ Xato: <b>" + S.bad + "</b> &nbsp; 🏅 Rekord: <b>" + Math.max(b, my) + "</b></p>" +
+      "<p>✅ To'g'ri: <b>" + S.ok + "</b> &nbsp; ❌ Xato: <b>" + S.bad + "</b> &nbsp; 🔥 Eng uzun seriya: <b>" + S.best + "</b> &nbsp; 🏅 Rekord: <b>" + Math.max(b, my) + "</b></p>" +
+      (S.miss.length ? '<p style="margin:12px 0 0;color:#ffd479;font-weight:800">📒 Esda tuting — xato qilgan misollaringiz:</p><div class="kv-miss">' + S.miss.slice(0, 10).map(function (m) { return "<div>" + String(m).replace(/</g, "&lt;") + "</div>"; }).join("") + "</div>" : (S.ok ? '<p style="color:#5ee67a;font-weight:800">🌟 Birorta ham xato yo\'q — barakalla!</p>' : "")) +
       (gave ? "<p>🪙 Akkountingizga <b>+" + coins + "</b> coin yozildi</p>" : (coins > 0 ? '<p class="kv-note">Coin yig\'ish uchun bosh sahifada akkountga kiring.</p>' : "")) +
       '<button class="kv-btn" id="kv-again">🔁 Yana o\'ynash</button>' +
       '<div class="kv-row">' + (G.id < GAMES.length ? '<a class="kv-btn gh" href="virtual-' + (G.id + 1) + '.html">➡ Keyingi o\'yin</a>' : "") + '<a class="kv-btn gh" href="virtual.html">📋 Barcha o\'yinlar</a></div>' +
