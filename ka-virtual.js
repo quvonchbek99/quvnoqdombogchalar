@@ -1,6 +1,6 @@
 /*!
  * Kuvonch Academy — VIRTUAL o'yinlar (kamera + qo'l kuzatuvi)
- * 48 ta matematik o'yin (47 + poyga). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
+ * 49 ta matematik o'yin (47 + poyga + grafik doskasi). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
  * Qo'l kuzatuvi: MediaPipe Hands (brauzerda ishlaydi, video hech qayerga yuborilmaydi).
  * O'yin sahifasi:  <script>window.KAV_ID=5</script><script src="ka-virtual.js"></script>
  * Ro'yxat sahifasi: <script>window.KAV_HUB=1</script><script src="ka-virtual.js"></script>
@@ -47,8 +47,8 @@
     foiz: { n: "Foizlar", q: function (l) { var p = pick([10, 20, 25, 50, 75, 5, 30, 40]), N = pick([20, 40, 60, 80, 100, 120, 200, 300, 400, 500]); var v = N * p / 100; if (v !== Math.round(v)) { N = 100; v = p; } return { q: N + " ning " + p + "%", a: v, w: near(v, 6, Math.max(5, Math.round(v / 2))), e: N + " ning " + p + "% = " + N + " : 100 × " + p + " = " + (N / 100) + " × " + p + " = " + v }; } },
     tenglama: { n: "Tenglamalar", q: function (l) { var x = R(1, 9 + l), a = R(2, Math.min(9, 3 + l)), b = R(1, 20); return { q: a + "x + " + b + " = " + (a * x + b), a: x, w: near(x, 6, 4), e: a + "x = " + (a * x + b) + " − " + b + " = " + (a * x) + "  →  x = " + (a * x) + " : " + a + " = " + x }; } },
     ekub: { n: "EKUB", q: function () { var g = pick([2, 3, 4, 5, 6, 7, 8, 9, 10, 12]), a = g * R(1, 6), b = g * R(1, 6); while (gcd(a / g, b / g) !== 1 || a === b) { a = g * R(1, 6); b = g * R(2, 7); } return { q: "EKUB(" + a + "; " + b + ")", a: g, w: near(g, 6, 4).concat([a, b]), e: a + " = " + g + "·" + (a / g) + ",  " + b + " = " + g + "·" + (b / g) + "  →  eng katta umumiy bo'luvchi " + g }; } },
-    ekuk: { n: "EKUK", q: function () { var a = R(2, 12), b = R(2, 12); while (a === b) b = R(2, 12); var v = lcm(a, b); return { q: "EKUK(" + a + "; " + b + ")", a: v, w: [a * b, gcd(a, b), v * 2, v + a, Math.max(a, b)].filter(function (x) { return x !== v; }), e: a + " ning karralilari: " + [1, 2, 3, 4].map(function (k) { return a * k; }).join(", ") + "…  →  " + b + " ga bo'linadigan eng kichigi " + v }; } },
-    kasr: { n: "Kasrni qisqartirish", q: function () { var b = R(2, 9), a = R(1, b - 1); while (gcd(a, b) !== 1) a = R(1, b - 1); var k = R(2, 6); var w = []; for (var i = 0; i < 8; i++) { var bb = R(2, 9), aa = R(1, bb - 1); var s = frac(aa, bb); if (s !== a + "/" + b && w.indexOf(s) < 0) w.push(s); } return { q: (a * k) + "/" + (b * k) + " = ?", a: a + "/" + b, w: w, e: (a * k) + "/" + (b * k) + " = " + (a * k) + ":" + k + " / " + (b * k) + ":" + k + " = " + a + "/" + b + "   (surat va maxraj " + k + " ga bo'lindi)" }; } },
+    ekuk: { n: "EKUK", q: function (l) { var M2 = Math.min(20, 6 + (l || 2) * 2), a = R(2, M2), b = R(2, M2); while (a === b) b = R(2, M2); var v = lcm(a, b); return { q: "EKUK(" + a + "; " + b + ")", a: v, w: [a * b, gcd(a, b), v * 2, v + a, Math.max(a, b)].filter(function (x) { return x !== v; }), e: a + " ning karralilari: " + [1, 2, 3, 4].map(function (k) { return a * k; }).join(", ") + "…  →  " + b + " ga bo'linadigan eng kichigi " + v }; } },
+    kasr: { n: "Kasrni qisqartirish", q: function (l) { var b = R(2, 9), a = R(1, b - 1); while (gcd(a, b) !== 1) a = R(1, b - 1); var k = R(2, Math.min(15, 3 + (l || 2))); var w = []; for (var i = 0; i < 8; i++) { var bb = R(2, 9), aa = R(1, bb - 1); var s = frac(aa, bb); if (s !== a + "/" + b && w.indexOf(s) < 0) w.push(s); } return { q: (a * k) + "/" + (b * k) + " = ?", a: a + "/" + b, w: w, e: (a * k) + "/" + (b * k) + " = " + (a * k) + ":" + k + " / " + (b * k) + ":" + k + " = " + a + "/" + b + "   (surat va maxraj " + k + " ga bo'lindi)" }; } },
     yuza: { n: "Yuzalar", q: function (l) { var t = R(0, 2), a = R(2, 9 + l), b = R(2, 9); if (t === 0) return { q: "To'rtburchak " + a + "×" + b + " yuzi", a: a * b, w: [2 * (a + b), a + b, a * b + a, a * b - b].filter(function (x) { return x !== a * b; }), e: "S = a · b = " + a + " · " + b + " = " + (a * b) + "   (perimetr " + 2 * (a + b) + " — boshqa narsa!)" }; if (t === 1) return { q: "Kvadrat tomoni " + a + ", yuzi", a: a * a, w: [4 * a, 2 * a, a * a + a, (a + 1) * (a + 1)], e: "S = a² = " + a + " · " + a + " = " + (a * a) }; var h = 2 * R(1, 6); return { q: "Uchburchak: asos " + a + ", balandlik " + h + ", yuzi", a: a * h / 2, w: [a * h, a + h, a * h / 2 + a, a * h / 2 - 2].filter(function (x) { return x > 0; }), e: "S = ½ · a · h = ½ · " + a + " · " + h + " = " + (a * h / 2) }; } },
     rim: { n: "Rim raqamlari", q: function (l) { var n = R(4, 30 + l * 20); return { q: roman(n) + " = ?", a: n, w: near(n, 6, 6), e: roman(n) + " = " + n + "   (I=1, V=5, X=10, L=50, C=100; kichigi chapda bo'lsa ayiriladi: IV=4, IX=9, XL=40)" }; } },
     yaxlitlash: { n: "Yaxlitlash", q: function () { var t = R(0, 1); if (t) { var n = R(11, 989); var v = Math.round(n / 10) * 10; return { q: n + " → o'nliklargacha", a: v, w: [v + 10, v - 10, Math.floor(n / 10) * 10 === v ? v + 10 : Math.floor(n / 10) * 10, Math.round(n / 100) * 100].filter(function (x) { return x !== v && x >= 0; }), e: n + ": birlik raqami " + (n % 10) + (n % 10 >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + v }; } var d = R(10, 99) / 10 + R(0, 9); d = Math.round(d * 10) / 10; var r = Math.round(d); return { q: String(d).replace(".", ",") + " → butungacha", a: r, w: [r + 1, r - 1, Math.floor(d) === r ? r + 1 : Math.floor(d), r + 2].filter(function (x) { return x !== r && x >= 0; }), e: String(d).replace(".", ",") + ": o'ndan biri " + Math.round((d % 1) * 10) + (Math.round((d % 1) * 10) >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + r }; } },
@@ -68,26 +68,26 @@
 
   // Qoidalar (kesish, tutish, savat, tartib) — son + shart
   var RULES = {
-    tub: { n: "Tub sonlarni kes!", gen: function () { return R(2, 60); }, ok: isPrime },
-    karra3: { n: "3 ga bo'linuvchilarni kes!", gen: function () { return R(1, 60); }, ok: function (v) { return v % 3 === 0; } },
-    kvadratSon: { n: "To'liq kvadratlarni kes!", gen: function () { return R(0, 1) ? Math.pow(R(1, 12), 2) : R(2, 120); }, ok: function (v) { var r = Math.round(Math.sqrt(v)); return r * r === v; } },
-    manfiy: { n: "Faqat manfiy sonlarni ushla!", gen: function () { return R(-20, 20); }, ok: function (v) { return v < 0; }, s: mstr },
-    karra5: { n: "5 ga karrali sonlarni ushla!", gen: function () { return R(0, 1) ? 5 * R(1, 20) : R(1, 99); }, ok: function (v) { return v % 5 === 0; } },
-    juft: { n: "Juft sonlarni ushla!", gen: function () { return R(1, 99); }, ok: function (v) { return v % 2 === 0; } }
+    tub: { n: "Tub sonlarni kes!", gen: function (l) { return R(2, 20 + (l || 2) * 15); }, ok: isPrime },
+    karra3: { n: "3 ga bo'linuvchilarni kes!", gen: function (l) { return R(1, 30 + (l || 2) * 20); }, ok: function (v) { return v % 3 === 0; } },
+    kvadratSon: { n: "To'liq kvadratlarni kes!", gen: function (l) { l = l || 2; return R(0, 1) ? Math.pow(R(1, Math.min(25, 8 + l * 2)), 2) : R(2, 60 + l * 30); }, ok: function (v) { var r = Math.round(Math.sqrt(v)); return r * r === v; } },
+    manfiy: { n: "Faqat manfiy sonlarni ushla!", gen: function (l) { l = l || 2; return R(-10 - l * 5, 10 + l * 5); }, ok: function (v) { return v < 0; }, s: mstr },
+    karra5: { n: "5 ga karrali sonlarni ushla!", gen: function (l) { l = l || 2; return R(0, 1) ? 5 * R(1, 10 + l * 5) : R(1, 50 + l * 25); }, ok: function (v) { return v % 5 === 0; } },
+    juft: { n: "Juft sonlarni ushla!", gen: function (l) { return R(1, 50 + (l || 2) * 40); }, ok: function (v) { return v % 2 === 0; } }
   };
 
   // Savat (ikki savatga ajratish)
   var BINS = {
-    juftToq: { n: "Juft yoki toq?", L: "JUFT", Rt: "TOQ", gen: function () { var v = R(1, 199); return { v: v, s: String(v), left: v % 2 === 0 }; } },
-    tubMurakkab: { n: "Tub yoki murakkab?", L: "TUB", Rt: "MURAKKAB", gen: function () { var v = R(2, 80); return { v: v, s: String(v), left: isPrime(v) }; } },
-    yarim: { n: "½ dan kichik yoki katta?", L: "< ½", Rt: "> ½", gen: function () { var b = R(3, 12), a = R(1, b - 1); while (2 * a === b) a = R(1, b - 1); return { v: a / b, s: a + "/" + b, left: 2 * a < b }; } }
+    juftToq: { n: "Juft yoki toq?", L: "JUFT", Rt: "TOQ", gen: function (l) { var v = R(1, 50 + (l || 2) * 60); return { v: v, s: String(v), left: v % 2 === 0 }; } },
+    tubMurakkab: { n: "Tub yoki murakkab?", L: "TUB", Rt: "MURAKKAB", gen: function (l) { var v = R(2, 30 + (l || 2) * 15); return { v: v, s: String(v), left: isPrime(v) }; } },
+    yarim: { n: "½ dan kichik yoki katta?", L: "< ½", Rt: "> ½", gen: function (l) { var b = R(3, Math.min(20, 6 + (l || 2) * 2)), a = R(1, b - 1); while (2 * a === b) a = R(1, b - 1); return { v: a / b, s: a + "/" + b, left: 2 * a < b }; } }
   };
 
   // Tartiblash (o'sish tartibida bosish)
   var ORDERS = {
-    butun: { n: "Kichigidan kattasiga bos!", gen: function () { var s = []; while (s.length < 6) { var v = R(-30, 60); if (s.indexOf(v) < 0) s.push(v); } return s.map(function (v) { return { v: v, s: mstr(v) }; }); } },
-    kasr: { n: "Kasrlarni o'sish tartibida bos!", gen: function () { var s = [], vals = []; while (s.length < 5) { var b = R(2, 10), a = R(1, b + 3); var v = a / b; if (vals.some(function (x) { return Math.abs(x - v) < 1e-6; })) continue; vals.push(v); s.push({ v: v, s: a + "/" + b }); } return s; } },
-    onli: { n: "O'nli kasrlarni o'sish tartibida bos!", gen: function () { var s = [], vals = []; while (s.length < 6) { var v = R(1, 99) / (R(0, 1) ? 10 : 100); if (vals.indexOf(v) >= 0) continue; vals.push(v); s.push({ v: v, s: String(v).replace(".", ",") }); } return s; } }
+    butun: { n: "Kichigidan kattasiga bos!", gen: function (l) { l = l || 2; var s = [], N = 4 + Math.min(3, Math.floor(l / 2)); while (s.length < N) { var v = R(-10 - l * 6, 20 + l * 12); if (s.indexOf(v) < 0) s.push(v); } return s.map(function (v) { return { v: v, s: mstr(v) }; }); } },
+    kasr: { n: "Kasrlarni o'sish tartibida bos!", gen: function (l) { var s = [], vals = [], N = 3 + Math.min(3, Math.floor((l || 2) / 2)); while (s.length < N) { var b = R(2, 10), a = R(1, b + 3); var v = a / b; if (vals.some(function (x) { return Math.abs(x - v) < 1e-6; })) continue; vals.push(v); s.push({ v: v, s: a + "/" + b }); } return s; } },
+    onli: { n: "O'nli kasrlarni o'sish tartibida bos!", gen: function (l) { var s = [], vals = [], N = 4 + Math.min(3, Math.floor((l || 2) / 2)); while (s.length < N) { var v = R(1, 99) / (R(0, 1) ? 10 : 100); if (vals.indexOf(v) >= 0) continue; vals.push(v); s.push({ v: v, s: String(v).replace(".", ",") }); } return s; } }
   };
 
   // Son o'qi (nuqtani to'g'ri joyga qo'yish)
@@ -105,7 +105,7 @@
 
   // Ketma-ket tutashtirish
   var CHAINS = {
-    karrali: { n: "Karralilarni tartib bilan tutashtir", gen: function () { var k = R(3, 9), s = []; for (var i = 1; i <= 6; i++) s.push(k * i); var w = []; while (w.length < 3) { var x = R(k + 1, k * 6); if (x % k && w.indexOf(x) < 0) w.push(x); } return { q: k + " ga karralilarni o'sish tartibida tutashtiring: " + k + ", " + (2 * k) + ", …", seq: s, wrong: w }; } }
+    karrali: { n: "Karralilarni tartib bilan tutashtir", gen: function (l) { var k = R(3, Math.min(19, 5 + (l || 2) * 2)), s = []; for (var i = 1; i <= 6; i++) s.push(k * i); var w = []; while (w.length < 3) { var x = R(k + 1, k * 6); if (x % k && w.indexOf(x) < 0) w.push(x); } return { q: k + " ga karralilarni o'sish tartibida tutashtiring: " + k + ", " + (2 * k) + ", …", seq: s, wrong: w }; } }
   };
 
 
@@ -146,7 +146,7 @@
     orbita: { e: "🪐", n: "Orbita", how: "Javoblar sayyora atrofida aylanadi. To'g'ri javobni barmoq bilan ushlang (tekkizib turing yoki chimdang)." },
     nishon: { e: "🎯", n: "Snayper", how: "Ko'rsatkich barmoq — nishon. To'g'ri javobni mo'ljalga oling va bosh barmoq bilan ko'rsatkichni chimdab o'q uzing." },
     pianino: { e: "🎹", n: "Klaviatura", how: "Havodagi klaviaturadan raqamlarni barmoq bilan bosib javobni yozing. Javob to'g'ri bo'lsa o'zi qabul qilinadi." },
-    barmoq: { e: "✋", n: "Barmoq bilan sanash", how: "Javobni barmoqlaringiz bilan ko'rsating! Ikki qo'l = 10 gacha. Kamerada barcha qo'llar barmoqlari qo'shib sanaladi." },
+    barmoq: { e: "✋", n: "Barmoq bilan sanash", how: "Javobni barmoqlaringiz bilan ko'rsating! 10 gacha — barcha barmoqlar qo'shib sanaladi. <b>10 dan katta javob</b> xona-xona ko'rsatiladi: avval o'nliklar raqamini (masalan 37 → 3 barmoq), 1 soniya ushlang, keyin birliklarni (7 barmoq). Musht = 0. O'rta va Qiyin darajada misollar 99 / 999 gacha." },
     kesish: { e: "⚔️", n: "Kesish", how: "Sonlar uchib chiqadi. Shartga mos sonlarni qo'lni tez silkitib kesing, mos kelmaganlariga tegmang." },
     tutish: { e: "🧺", n: "Savat bilan tutish", how: "Har bir qo'l — alohida savat. Shartga mos sonlarni tuting, mos kelmaganlaridan qoching." },
     savat: { e: "📦", n: "Ajratish", how: "Sonni chimdab (bosh+ko'rsatkich) ushlang va to'g'ri savatga olib borib qo'yib yuboring. Ikki qo'l bilan ikkita sonni bir vaqtda olsa bo'ladi." },
@@ -155,6 +155,7 @@
     tartib: { e: "📶", n: "Tartiblash", how: "Sonlarni kichigidan kattasiga qarab ketma-ket barmoq bilan bosing." },
     sonoq: { e: "📏", n: "Son o'qi", how: "Barmog'ingizni son o'qi ustida yurgizing va berilgan sonning joyida ushlab turing." },
     poyga: { e: "🏎️", n: "Poyga", how: "Qo'lingizni chapga-o'ngga suring — mashina shunday yuradi. Yashil <b>+</b> / <b>×2</b> darvozalar tezlikni oshiradi, qizil <b>−</b> / <b>:2</b> kamaytiradi — tezlikning <b>chegarasi yo'q</b>! Yo'ldagi 🔶 konus, ⛔ to'siq, 🛢 moy dog'i va chuqurlardan qoching, ⚡ ko'k yo'lak tezlashtiradi. Ketma-ket 3 ta to'g'ri darvoza = 🔥 nitro (chimdang 🤏). Musht — tormoz. <b>1–4 o'yinchi</b>: kamera kengligi o'yinchilar soniga teng bo'laklarga bo'linadi. Klaviatura: ←→↓↑ · A D S W · J L K I · 4 6 5 8." },
+    grafik: { e: "📈", n: "Grafik doskasi", how: "Koordinata doskasida funksiya grafigini barmoq bilan chizing: <b>☝ ko'rsatkich barmoqni</b> ko'tarib yurgizing (yoki 🤏 chimdang) — chiziladi, <b>✋ ochiq kaft</b> — o'chirg'ich. Tugmalarni 0,8 s ushlab turib bosing. <b>Vazifa</b> rejimida aniqlik foizda baholanadi va to'g'ri grafik ko'rsatiladi; <b>Erkin doska</b>da xohlagancha chizasiz va formulani yozib (masalan x^2−3) grafigini doskaga chiqarasiz." },
     burchak: { e: "📐", n: "Burchak", how: "Ikki qo'lning ko'rsatkich barmoqlari bilan chiziq hosil qiling (bitta qo'l bo'lsa — bilakdan barmoq uchigacha). Chiziq gorizontal bilan kerakli burchak hosil qilsin va ushlab turing." }
   };
 
@@ -208,9 +209,10 @@
     { t: "Kosmik sayohat: ildiz son o'qida", m: "sonoq", k: "ildiz", th: "galaktika", i: "Kinematik 3D" },
     { t: "Zarra matn: tenglama juftlari", m: "xotira", k: "tenglama", th: "zarra", i: "Particle Text Effect" },
     { t: "Final duel: o'nli kasrlar tartibi", m: "tartib", k: "onli", th: "kamalak", i: "Final", duel: 1 },
-    { t: "Sport mashina poygasi", m: "poyga", k: "poyga", th: "olov", i: "Poyga" }
+    { t: "Sport mashina poygasi", m: "poyga", k: "poyga", th: "olov", i: "Poyga" },
+    { t: "Grafik doskasi", m: "grafik", k: "grafik", th: "neon", i: "Grafik doska" }
   ];
-  var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS, poyga: { poyga: { n: "Qo'shish va ayirish (tezlik)" } } };
+  var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS, poyga: { poyga: { n: "Qo'shish va ayirish (tezlik)" } }, grafik: { grafik: { n: "Funksiya grafiklari" } } };
   var PAIRN = { kopaytirish: "Ko'paytma juftlari", kasrFoiz: "Kasr = foiz", tenglama: "Tenglama = yechim" };
   GAMES.forEach(function (g, i) {
     g.id = i + 1;
@@ -241,10 +243,11 @@
   var MK = MECH[G.m];
   var FONT = TH.mono ? "'JetBrains Mono','Fira Code',Consolas,monospace" : "'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif";
   var LS_BEST = "kav.best." + G.id;
-  var CFG = { hands: 2, duel: false, video: true, time: 60, racers: 1 };
+  var CFG = { hands: 2, duel: false, video: true, time: 60, racers: 1, diff: 2, gmode: "vazifa" };
   try { var sv = JSON.parse(localStorage.getItem("kav.cfg") || "{}"); for (var k in sv) if (k in CFG && k !== "time") CFG[k] = sv[k]; } catch (e) {}
   if (G.m === "barmoq" && CFG.hands < 2) CFG.hands = 2;
   if (G.duel) CFG.duel = true;
+  if (G.m === "grafik") CFG.time = 180;
 
   /* ----------------------- DOM ----------------------- */
   var css = [
@@ -582,7 +585,10 @@
   /* ----------------------- O'YIN HOLATI ----------------------- */
   var S = { run: false, score: [0, 0], ok: 0, bad: 0, streak: 0, left: 60, lvl: 1, pause: 0, miss: [], retry: [], since: 0, best: 0 };
   var HOLD = 0.55;
-  function lvl() { return 1 + Math.floor(S.ok / 5); }
+  function lvl() { var d = CFG.diff | 0 || 2; return d === 1 ? Math.min(2, 1 + Math.floor(S.ok / 10)) : d === 2 ? 1 + Math.floor(S.ok / 5) : 4 + Math.floor(S.ok / 4); }
+  // Qiyinlik: harakatlanuvchi o'yinlarda tezlik ko'paytuvchisi
+  var MOVE = { yomgir: 1, orbita: 1, kesish: 1, tutish: 1, pufak: 1, nishon: 1 };
+  function spd() { return MOVE[G.m] ? [0.72, 1, 1.3][(CFG.diff | 0 || 2) - 1] : 1; }
   function setQ(t, rep) { qEl.innerHTML = (rep ? '<span class="kv-rep">🔁 Takror</span> ' : "") + String(t).replace(/</g, "&lt;"); qEl.classList.add("bump"); setTimeout(function () { qEl.classList.remove("bump"); }, 160); }
 
   /* --- Eslab qolish: xatolar takrorlanadi --- */
@@ -861,36 +867,94 @@
 
   // ---------- Barmoq bilan sanash ----------
   M.barmoq = function () {
-    var tp = TOPICS[G.k], q, holdT = [0, 0], btns = [], maxA = 10;
-    function nq() { maxA = mouseMode ? 10 : Math.min(10, CFG.hands * 5); var t = 0; q = askQ(tp, function (x) { return x.a <= maxA && x.a >= 0; }); setQ(q.q + " = ?", q.rep); holdT = [0, 0]; wrongT = 0; }
-    var wrongT = 0;
-    function counts() { var c = [0, 0]; hands.forEach(function (h) { var pl = CFG.duel && h.pts[0].x >= W / 2 ? 1 : 0; c[pl] += h.fingers; }); return c; }
-    function layout() { var n = 11, w = Math.min(70, W * 0.9 / n); btns = []; for (var i = 0; i < n; i++) btns.push({ v: i, x: W / 2 - w * n / 2 + i * w + 3, y: H - w - 50, w: w - 6, h: w - 6 }); }
+    // 10 dan katta javoblar "xona-xona" ko'rsatiladi: avval o'nliklar (0–9 barmoq), keyin birliklar.
+    var BIG = { kichik: "qoshish", ildizKichik: "ildiz", kichikAralash: "aralash" };
+    var tp = TOPICS[(CFG.diff > 1 && BIG[G.k]) || G.k], q, st = [], btns = [], typed = "", wrongT = 0;
+    var XONA = ["birliklar", "o'nliklar", "yuzliklar"];
+    function NP() { return CFG.duel && !mouseMode ? 2 : 1; }
+    function maxA() { return CFG.diff === 1 ? 10 : CFG.diff === 2 ? 99 : 999; }
+    function reset() { st = []; for (var i = 0; i < 2; i++) st.push({ dg: [], hold: 0, last: -1, cool: 0 }); typed = ""; }
+    function nq() { q = askQ(tp, function (x) { return typeof x.a === "number" && x.a >= 0 && x.a <= maxA() && x.a === Math.round(x.a); }); setQ(q.q + " = ?", q.rep); reset(); wrongT = 0; }
+    function digitMode() { return q && (q.a > 10 || (mouseMode && CFG.diff > 1)); }
+    function plOf(h) { return CFG.duel && h.pts[0].x >= W / 2 ? 1 : 0; }
+    function counts() { var c = [0, 0], n = [0, 0]; hands.forEach(function (h) { var pl = plOf(h); c[pl] += h.fingers; n[pl]++; }); return { c: c, n: n }; }
+    function cxOf(pl) { return CFG.duel ? (pl ? W * 0.75 : W * 0.25) : W / 2; }
+    function layout() {
+      var vals = CFG.diff === 1 ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1];
+      var n = vals.length, w = Math.min(70, W * 0.9 / n); btns = [];
+      vals.forEach(function (v, i) { btns.push({ v: v, x: W / 2 - w * n / 2 + i * w + 3, y: H - w - 50, w: w - 6, h: w - 6 }); });
+    }
+    function check(pl, val) {
+      if (val === q.a) { good(cxOf(pl), H * 0.45, pl, q.a > 10 ? 15 : 0, q.e); nq(); return true; }
+      bad(cxOf(pl), H * 0.45, pl, null, q); st[pl].dg = []; typed = ""; return false;
+    }
     return {
       start: function () { layout(); nq(); }, resize: layout,
       update: function (dt) {
         if (mouseMode) {
-          pointers.forEach(function (p) { if (!p.pinchStart) return; btns.forEach(function (b) { if (p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h) { if (b.v === q.a) { good(b.x + b.w / 2, b.y, 0, 0, q.e); nq(); } else bad(b.x + b.w / 2, b.y, 0, null, q); } }); });
+          pointers.forEach(function (p) {
+            if (!p.pinchStart) return;
+            btns.forEach(function (b) {
+              if (!(p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h)) return;
+              if (!digitMode()) { if (b.v === q.a) { good(b.x + b.w / 2, b.y, 0, 0, q.e); nq(); } else bad(b.x + b.w / 2, b.y, 0, null, q); return; }
+              if (b.v < 0) { typed = typed.slice(0, -1); return; }
+              typed += b.v; beep(520 + b.v * 30, 0.05);
+              if (typed.length >= String(q.a).length) check(0, +typed);
+            });
+          });
           return;
         }
-        var c = counts();
-        for (var pl = 0; pl < (CFG.duel ? 2 : 1); pl++) {
-          if (c[pl] === q.a && hands.length) { holdT[pl] += dt; if (holdT[pl] > 0.9) { good(CFG.duel ? (pl ? W * 0.75 : W * 0.25) : W / 2, H * 0.45, pl, 0, q.e); nq(); return; } }
-          else holdT[pl] = Math.max(0, holdT[pl] - dt * 2);
+        var C = counts();
+        for (var pl = 0; pl < NP(); pl++) {
+          var s = st[pl], v = C.c[pl];
+          if (!digitMode()) {
+            if (v === q.a && C.n[pl]) { s.hold += dt; if (s.hold > 0.9) { check(pl, v); return; } }
+            else s.hold = Math.max(0, s.hold - dt * 2);
+            continue;
+          }
+          // xona-xona kiritish
+          if (s.cool > 0) { s.cool -= dt; s.hold = 0; continue; }
+          if (C.n[pl] && v <= 9 && v === s.last) {
+            s.hold += dt;
+            if (s.hold > 1.1) {
+              s.dg.push(v); s.hold = 0; s.last = -1; s.cool = 0.7; beep(600 + v * 40, 0.08, "triangle");
+              ftext(cxOf(pl), H - 200, String(v), TH.acc);
+              if (s.dg.length >= String(q.a).length) { if (check(pl, +s.dg.join(""))) return; }
+            }
+          } else { s.hold = 0; s.last = C.n[pl] && v <= 9 ? v : -1; }
         }
-        // 9 soniyada topilmasa — maslahat
-        wrongT += dt; if (wrongT > 9) { wrongT = -99; teach(q.e + " → " + q.a + " ta barmoq ko'rsating", "hint", 3500); logMiss(q); }
+        wrongT += dt;
+        if (wrongT > 10) {
+          wrongT = -99;
+          var D = String(q.a);
+          teach(q.e + (D.length > 1 ? " → avval " + D.split("").map(function (d, i) { return d + " ta (" + XONA[D.length - 1 - i] + ")"; }).join(", keyin ") + " barmoq ko'rsating" : " → " + q.a + " ta barmoq ko'rsating"), "hint", 4500);
+          logMiss(q);
+        }
       },
       draw: function () {
         if (!q) return;
-        if (mouseMode) { btns.forEach(function (b) { drawBox(b.x, b.y, b.w, b.h, String(b.v)); }); ctx.fillStyle = "#cfd8ef"; ctx.font = "600 14px " + FONT; ctx.textAlign = "center"; ctx.fillText("Kamerasiz rejim: javob tugmasini bosing", W / 2, H - 24); return; }
+        var D = String(q.a), dm = digitMode();
+        if (mouseMode) {
+          btns.forEach(function (b) { drawBox(b.x, b.y, b.w, b.h, b.v < 0 ? "⌫" : String(b.v)); });
+          if (dm) { var sw = 56, x0 = W / 2 - D.length * (sw + 8) / 2; for (var i = 0; i < D.length; i++) drawBox(x0 + i * (sw + 8), H * 0.42, sw, sw * 1.2, typed[i] != null ? typed[i] : "", { c: i === typed.length ? TH.acc2 : TH.acc, fs: 34 }); }
+          ctx.fillStyle = "#cfd8ef"; ctx.font = "600 14px " + FONT; ctx.textAlign = "center"; ctx.fillText(dm ? "Kamerasiz rejim: javob raqamlarini ketma-ket bosing" : "Kamerasiz rejim: javob tugmasini bosing", W / 2, H - 24); return;
+        }
         hands.forEach(function (h) { var x = h.pts[0].x, y = Math.min(h.pts[12].y, h.pts[8].y) - 40; ctx.font = "900 " + (U * 7 + 10) + "px " + FONT; ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.shadowColor = TH.acc; ctx.shadowBlur = 18; ctx.fillText(h.fingers, x, y); ctx.shadowBlur = 0; });
-        var c = counts();
-        for (var pl = 0; pl < (CFG.duel ? 2 : 1); pl++) {
-          var cx = CFG.duel ? (pl ? W * 0.75 : W * 0.25) : W / 2, cy = H - 90, r = 52;
-          drawBall(cx, cy, r, String(c[pl]), { c: CFG.duel ? (pl ? "#ff5c8a" : "#4dd2ff") : TH.acc, max: 48 });
-          drawHoldRing(cx, cy, r, holdT[pl], 0.9);
-          ctx.fillStyle = "#cfd8ef"; ctx.font = "600 13px " + FONT; ctx.textAlign = "center"; ctx.fillText(CFG.duel ? (pl ? "2-o'yinchi" : "1-o'yinchi") + " barmoqlari" : "Jami barmoqlar", cx, cy - r - 12);
+        var C = counts();
+        for (var pl = 0; pl < NP(); pl++) {
+          var cx = cxOf(pl), cy = H - 90, r = 52, s = st[pl], pc = CFG.duel ? (pl ? "#ff5c8a" : "#4dd2ff") : TH.acc;
+          drawBall(cx, cy, r, String(C.c[pl]), { c: C.c[pl] > 9 && dm ? "#ff6b6b" : pc, max: 48 });
+          drawHoldRing(cx, cy, r, s.hold, dm ? 1.1 : 0.9);
+          ctx.fillStyle = "#cfd8ef"; ctx.font = "600 13px " + FONT; ctx.textAlign = "center";
+          ctx.fillText((CFG.duel ? (pl ? "2-o'yinchi" : "1-o'yinchi") + " barmoqlari" : "Jami barmoqlar"), cx, cy - r - 12);
+          if (dm) {
+            var k = s.dg.length, sw = Math.min(64, W * 0.08), x0 = cx - D.length * (sw + 8) / 2 + 4, y0 = cy - r - 40 - sw * 1.25;
+            for (var i = 0; i < D.length; i++) drawBox(x0 + i * (sw + 8), y0, sw, sw * 1.2, s.dg[i] != null ? String(s.dg[i]) : (i === k && C.n[pl] && C.c[pl] <= 9 ? String(C.c[pl]) : "?"), { c: i === k ? TH.acc2 : i < k ? "#5ee67a" : "#556", fs: sw * 0.6, tc: i === k && s.dg[i] == null ? "#ffffff88" : "#fff" });
+            ctx.fillStyle = "#fff"; ctx.font = "800 " + (U * 1.6 + 9) + "px " + FONT; ctx.shadowColor = "#000"; ctx.shadowBlur = 6;
+            ctx.fillText(k < D.length ? "👉 " + XONA[D.length - 1 - k] + " xonasini ko'rsating (0–9) · " + D.length + " xonali son" : "", cx, y0 - 14);
+            if (C.c[pl] > 9) ctx.fillText("Bitta xonaga 0–9 barmoq! (musht = 0)", cx, cy + r + 22);
+            ctx.shadowBlur = 0;
+          }
         }
         if (CFG.duel) { ctx.strokeStyle = "#ffffff33"; ctx.setLineDash([8, 8]); ctx.beginPath(); ctx.moveTo(W / 2, 100); ctx.lineTo(W / 2, H); ctx.stroke(); ctx.setLineDash([]); }
       }
@@ -901,7 +965,7 @@
   M.kesish = function () {
     var rule = RULES[G.k], items = [], spawnT = 0, halves = [];
     function spawn() {
-      var v = rule.gen(), r = Math.max(30, Math.min(W / 13, H / 9)), g = H * 1.25, h = H * (0.5 + Math.random() * 0.3), x = W * (0.15 + Math.random() * 0.7);
+      var v = rule.gen(lvl()), r = Math.max(30, Math.min(W / 13, H / 9)), g = H * 1.25, h = H * (0.5 + Math.random() * 0.3), x = W * (0.15 + Math.random() * 0.7);
       items.push({ v: v, s: (rule.s || String)(v), ok: rule.ok(v), x: x, y: H + r, vx: (W / 2 - x) * (0.2 + Math.random() * 0.3), vy: -Math.sqrt(2 * g * h), g: g, r: r, rot: 0, vr: (Math.random() - 0.5) * 3 });
     }
     function segDist(px, py, ax, ay, bx, by) { var dx = bx - ax, dy = by - ay, l = dx * dx + dy * dy || 1, t = clamp(((px - ax) * dx + (py - ay) * dy) / l, 0, 1); return Math.hypot(px - (ax + t * dx), py - (ay + t * dy)); }
@@ -941,7 +1005,7 @@
     return {
       start: function () { setQ(rule.n); },
       update: function (dt) {
-        spawnT -= dt; if (spawnT <= 0) { var v = rule.gen(), r = Math.max(26, Math.min(W / 16, H / 11)); items.push({ v: v, s: (rule.s || String)(v), ok: rule.ok(v), x: W * (0.08 + Math.random() * 0.84), y: -r, r: r, vy: H / (4.8 - Math.min(2.2, lvl() * 0.2)) * (0.8 + Math.random() * 0.4) }); spawnT = Math.max(0.45, 1.1 - lvl() * 0.06); }
+        spawnT -= dt; if (spawnT <= 0) { var v = rule.gen(lvl()), r = Math.max(26, Math.min(W / 16, H / 11)); items.push({ v: v, s: (rule.s || String)(v), ok: rule.ok(v), x: W * (0.08 + Math.random() * 0.84), y: -r, r: r, vy: H / (4.8 - Math.min(2.2, lvl() * 0.2)) * (0.8 + Math.random() * 0.4) }); spawnT = Math.max(0.45, 1.1 - lvl() * 0.06); }
         var by = H - 9 * U - 40, bw = basketW();
         for (var i = items.length - 1; i >= 0; i--) {
           var t = items[i], py = t.y; t.y += t.vy * dt;
@@ -970,7 +1034,7 @@
     function bins() { var w = W * 0.3, h = H * 0.3; return [{ x: W * 0.03, y: H - h - 20, w: w, h: h, l: bin.L, left: true }, { x: W * 0.97 - w, y: H - h - 20, w: w, h: h, l: bin.Rt, left: false }]; }
     function spawn() {
       var n = Math.max(1, Math.min(2, mouseMode ? 1 : CFG.hands)); var r = Math.max(34, Math.min(W / 12, H / 9));
-      while (items.length < n) { var g = bin.gen(), hx = W * (n === 1 ? 0.5 : items.length ? 0.62 : 0.38); items.push({ g: g, s: g.s, hx: hx, hy: H * 0.38, x: hx, y: -r, r: r, held: null }); }
+      while (items.length < n) { var g = bin.gen(lvl()), hx = W * (n === 1 ? 0.5 : items.length ? 0.62 : 0.38); items.push({ g: g, s: g.s, hx: hx, hy: H * 0.38, x: hx, y: -r, r: r, held: null }); }
     }
     function ptrById(id) { for (var i = 0; i < pointers.length; i++) if (pointers[i].id === id) return pointers[i]; return null; }
     return {
@@ -1006,7 +1070,7 @@
   M.tutash = function () {
     var ch = CHAINS[G.k], dots = [], seq, next = 0, path = [];
     function nq() {
-      var c = ch.gen(); seq = c.seq; next = 0; path = []; setQ(c.q);
+      var c = ch.gen(lvl()); seq = c.seq; next = 0; path = []; setQ(c.q);
       var vals = shuffle(c.seq.map(function (v) { return { v: v, ok: true }; }).concat(c.wrong.map(function (v) { return { v: v, ok: false }; })));
       var r = Math.max(28, Math.min(W / 16, H / 11)), pos = scatter(vals.length, r);
       dots = vals.map(function (o, i) { return { v: o.v, s: String(o.v), x: pos[i].x, y: pos[i].y, r: r, done: false }; });
@@ -1036,9 +1100,9 @@
     var gen = PAIRS[G.k], cards = [], open = [], waitT = 0, matched = 0;
     function nq() {
       var pairs = [], used = {};
-      while (pairs.length < 6) { var pr = gen(); if (used[pr[0]] || used[pr[1]]) continue; used[pr[0]] = used[pr[1]] = 1; pairs.push(pr); }
+      var NPR = [4, 6, 8][(CFG.diff | 0 || 2) - 1]; while (pairs.length < NPR) { var pr = gen(); if (used[pr[0]] || used[pr[1]]) continue; used[pr[0]] = used[pr[1]] = 1; pairs.push(pr); }
       var list = []; pairs.forEach(function (pr, i) { list.push({ s: pr[0], id: i }, { s: pr[1], id: i }); });
-      list = shuffle(list); var port = H > W, cols = port ? 3 : 4, rows = port ? 4 : 3;
+      list = shuffle(list); var port = H > W, cols = port ? (list.length > 12 ? 4 : list.length > 8 ? 3 : 2) : 4, rows = Math.ceil(list.length / cols);
       var aw = W * 0.92, ah = H * 0.72, cw = Math.min(aw / cols, ah / rows * 1.3), chh = Math.min(ah / rows, cw / 1.3);
       var x0 = (W - cw * cols) / 2, y0 = H * 0.22 + (ah - chh * rows) / 2;
       cards = list.map(function (c, i) { return { s: c.s, id: c.id, x: x0 + (i % cols) * cw + 5, y: y0 + Math.floor(i / cols) * chh + 5, w: cw - 10, h: chh - 10, st: 0, flip: 0 }; });
@@ -1079,7 +1143,7 @@
   M.tartib = function () {
     var ord = ORDERS[G.k], items = [], sorted = [], next = 0;
     function nq() {
-      var list = ord.gen(), r = Math.max(32, Math.min(W / 13, H / 9.5)), pos = scatter(list.length, r);
+      var list = ord.gen(lvl()), r = Math.max(32, Math.min(W / 13, H / 9.5)), pos = scatter(list.length, r);
       items = list.map(function (o, i) { return { v: o.v, s: o.s, x: pos[i].x, y: pos[i].y, r: r, n: 0 }; });
       sorted = items.slice().sort(function (a, b) { return a.v - b.v; }); next = 0; setQ(ord.n);
     }
@@ -1120,7 +1184,7 @@
       var ex = tg.s + " ≈ " + fmt(tg.v);
       if (G.k === "ildiz") { var n = Math.round(tg.v * tg.v), r0 = Math.floor(tg.v); ex = r0 + "² = " + (r0 * r0) + " < " + n + " < " + ((r0 + 1) * (r0 + 1)) + " = " + (r0 + 1) + "²  →  " + tg.s + " ≈ " + fmt(tg.v) + " (" + r0 + " va " + (r0 + 1) + " orasida)"; }
       if (G.k === "kasr") { var pq = tg.s.split("/"); ex = tg.s + " = " + pq[0] + " : " + pq[1] + " = " + fmt(tg.v) + (tg.v > 1 ? "  (1 dan katta — maxraj suratdan kichik)" : ""); }
-      if (Math.abs(v - tg.v) <= L.tol) good(xOf(tg.v), g.y, p.player, 0, tg.s + " ≈ " + fmt(tg.v)); else bad(xOf(v), g.y, p.player, ex + "   (siz " + fmt(v) + " ni ko'rsatdingiz)");
+      if (Math.abs(v - tg.v) <= L.tol * [1.6, 1, 0.6][(CFG.diff | 0 || 2) - 1]) good(xOf(tg.v), g.y, p.player, 0, tg.s + " ≈ " + fmt(tg.v)); else bad(xOf(v), g.y, p.player, ex + "   (siz " + fmt(v) + " ni ko'rsatdingiz)");
       lastTarget = rv; nq();
     }
     var lastTarget = null;
@@ -1197,6 +1261,192 @@
         ctx.fillStyle = "#fff"; ctx.font = "900 " + (U * 5 + 12) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.shadowColor = TH.acc; ctx.shadowBlur = 14;
         ctx.fillText(Math.round(cur) + "°", c.x + Math.cos(ang / 2) * R0 * 1.05, c.y - Math.sin(ang / 2) * R0 * 1.05 - 10); ctx.shadowBlur = 0;
         drawHoldRing(c.x, c.y, 18, holdT, 1);
+      }
+    };
+  };
+
+  // ---------- Grafik doskasi (barmoq bilan chizish) ----------
+  M.grafik = function () {
+    var FREE = CFG.gmode === "erkin";
+    var strokes = [], live = {}, task = null, showT = 0, idleT = 0, hintT = 0, plots = [], penCol = 0, lastRes = null;
+    var PENS = ["#ffd400", "#4dd2ff", "#ff5c8a", "#5ee67a", "#ffffff"], PLOTC = ["#22c55e", "#4dd2ff", "#ff9100", "#c084fc", "#ff5c8a"];
+    var BT = { chk: { l: "✔ Tekshirish" }, clr: { l: "🗑 Tozalash" }, undo: { l: "↩ Bekor" }, col: { l: "🎨 Rang" } };
+    // --- geometriya: doska va koordinatalar ---
+    function geo() {
+      var bx = Math.max(12, W * 0.03), by = FREE ? 60 : 118, side = W > 700 ? 150 : 0, bw = W - bx * 2 - side, bh = H - by - (side ? (FREE ? 70 : 18) : (FREE ? 205 : 92));
+      var u = Math.min(bw / 12, bh / 10); if (u * 10 > bh) u = bh / 10;
+      var X = bw / u / 2, Y = bh / u / 2;
+      return { x: bx, y: by, w: bw, h: bh, u: u, cx: bx + bw / 2, cy: by + bh / 2, X: X, Y: Y, side: side };
+    }
+    function sx(g, x) { return g.cx + x * g.u; } function sy(g, y) { return g.cy - y * g.u; }
+    function wx(g, X) { return (X - g.cx) / g.u; } function wy(g, Y) { return (g.cy - Y) / g.u; }
+    function btnRects(g) {
+      var keys = FREE ? ["undo", "clr", "col"] : ["chk", "clr", "undo"], out = [];
+      keys.forEach(function (k, i) {
+        var r = g.side ? { x: g.x + g.w + 12, y: g.y + i * 74, w: g.side - 18, h: 62 } : { x: g.x + i * (g.w / keys.length), y: g.y + g.h + 14, w: g.w / keys.length - 8, h: 58 };
+        r.k = k; out.push(r);
+      });
+      return out;
+    }
+    // --- funksiyalar (daraja bo'yicha) ---
+    function fmtK(k) { return k === 1 ? "" : k === -1 ? "−" : k === 0.5 ? "½" : k === -0.5 ? "−½" : mstr(k); }
+    function lin(k, b) { return { f: function (x) { return k * x + b; }, s: "y = " + (k ? fmtK(k) + "x" : "") + (b ? (k ? (b > 0 ? " + " : " − ") + Math.abs(b) : mstr(b)) : (k ? "" : "0")), kp: [[0, b], [k === 0.5 || k === -0.5 ? 2 : 1, k * (k === 0.5 || k === -0.5 ? 2 : 1) + b]], ex: "Chiziqli funksiya: x = 0 da y = " + mstr(b) + ", x ga 1 qo'shilsa y " + (k >= 0 ? k + " ga oshadi" : (-k) + " ga kamayadi") + ". Ikki nuqtani belgilab, to'g'ri chiziq o'tkazing." }; }
+    function sh(a) { return a ? (a > 0 ? "(x − " + a + ")" : "(x + " + (-a) + ")") : "x"; }
+    function tail(b) { return b ? (b > 0 ? " + " + b : " − " + (-b)) : ""; }
+    function newTask() {
+      var d = CFG.diff | 0 || 2, l = lvl(), t;
+      if (d === 1) { t = R(0, 5) ? lin(pick([-2, -1, 1, 2]), R(-3, 3)) : lin(0, R(-4, 4)); }
+      else if (d === 2) {
+        var c = R(0, 3);
+        if (c === 0) t = lin(pick([-3, -2, -1, -0.5, 0.5, 1, 2, 3]), R(-4, 4));
+        else if (c === 1) { var b = R(-4, 2); t = { f: function (x) { return x * x + b; }, s: "y = x²" + tail(b), kp: [[0, b], [1, 1 + b], [-1, 1 + b], [2, 4 + b], [-2, 4 + b]], ex: "Parabola: uchi (0; " + mstr(b) + "), x = ±1 da y = " + mstr(1 + b) + ", x = ±2 da y = " + mstr(4 + b) + ". Shoxlari yuqoriga." }; }
+        else if (c === 2) { var b2 = R(-3, 2); t = { f: function (x) { return Math.abs(x) + b2; }, s: "y = |x|" + tail(b2), kp: [[0, b2], [2, 2 + b2], [-2, 2 + b2]], ex: "y = |x| — «V» shakli: uchi (0; " + mstr(b2) + "), ikki tomonga 45° bilan ko'tariladi." }; }
+        else { var b3 = R(0, 4); t = { f: function (x) { return -x * x + b3; }, s: "y = −x²" + tail(b3), kp: [[0, b3], [1, b3 - 1], [-1, b3 - 1], [2, b3 - 4], [-2, b3 - 4]], ex: "y = −x² — shoxlari pastga qaragan parabola, uchi (0; " + b3 + ")." }; }
+      } else {
+        var c2 = R(0, 4 + (l > 6 ? 1 : 0)), a = R(-3, 3), bb = R(-3, 3);
+        if (c2 === 0) t = { f: function (x) { return (x - a) * (x - a) + bb; }, s: "y = " + sh(a) + "²" + tail(bb), kp: [[a, bb], [a + 1, bb + 1], [a - 1, bb + 1], [a + 2, bb + 4], [a - 2, bb + 4]], ex: "y = (x − a)² + b: y = x² grafigi " + (a ? (a > 0 ? "o'ngga " + a : "chapga " + (-a)) : "") + (a && bb ? " va " : "") + (bb ? (bb > 0 ? "yuqoriga " + bb : "pastga " + (-bb)) : "") + " birlik suriladi. Uchi (" + mstr(a) + "; " + mstr(bb) + ")." };
+        else if (c2 === 1) t = { f: function (x) { return -(x - a) * (x - a) + bb; }, s: "y = −" + sh(a) + "²" + tail(bb), kp: [[a, bb], [a + 1, bb - 1], [a - 1, bb - 1], [a + 2, bb - 4], [a - 2, bb - 4]], ex: "Shoxlari pastga qaragan parabola, uchi (" + mstr(a) + "; " + mstr(bb) + ")." };
+        else if (c2 === 2) t = { f: function (x) { return Math.abs(x - a) + bb; }, s: "y = |" + (a ? sh(a).slice(1, -1) : "x") + "|" + tail(bb), kp: [[a, bb], [a + 2, bb + 2], [a - 2, bb + 2]], ex: "«V» shakli, uchi (" + mstr(a) + "; " + mstr(bb) + ")." };
+        else if (c2 === 3) t = { f: function (x) { return 0.5 * x * x + bb; }, s: "y = ½x²" + tail(bb), kp: [[0, bb], [2, bb + 2], [-2, bb + 2], [4, bb + 8], [-4, bb + 8]], ex: "y = ½x² — keng parabola: x = ±2 da y = " + mstr(bb + 2) + "." };
+        else if (c2 === 4) t = { f: function (x) { return x * x * x / 4; }, s: "y = x³/4", kp: [[0, 0], [2, 2], [-2, -2]], ex: "Kubik parabola: (0;0) nuqtadan o'tadi, x = 2 da y = 2, x = −2 da y = −2." };
+        else t = lin(pick([-3, -2, 2, 3, -0.5, 0.5]), R(-5, 5));
+      }
+      task = t; strokes = []; live = {}; showT = 0; idleT = 0; hintT = 0; lastRes = null;
+      setQ(t.s + "  grafigini chizing");
+    }
+    // --- formulani xavfsiz o'qish (erkin doska) ---
+    function parseF(src) {
+      var s = String(src || "").toLowerCase().replace(/\s+/g, "").replace(/^y=/, "").replace(/,/g, ".").replace(/−/g, "-").replace(/×/g, "*").replace(/÷|:/g, "/").replace(/²/g, "^2").replace(/³/g, "^3").replace(/√/g, "sqrt");
+      if (!s || !/^(?:[0-9x+\-*/^().|]|sin|cos|tan|sqrt|abs|log|pi)+$/.test(s)) return null;
+      s = s.replace(/\|([^|]+)\|/g, "abs($1)");
+      if (/\|/.test(s)) return null;
+      s = s.replace(/(\d|x|\))(?=(x|\(|sin|cos|tan|sqrt|abs|log|pi))/g, "$1*").replace(/(x|pi)(?=\d)/g, "$1*");
+      s = s.replace(/\^/g, "**").replace(/(sin|cos|tan|sqrt|abs|log)/g, "Math.$1").replace(/pi/g, "Math.PI");
+      try { var f = new Function("x", "return " + s + ";"); f(1); return f; } catch (e) { return null; }
+    }
+    function addPlot(src) { var f = parseF(src); if (!f) return false; plots.push({ f: f, s: "y = " + String(src).replace(/^\s*y\s*=\s*/i, ""), c: PLOTC[plots.length % PLOTC.length] }); return true; }
+    var ui = null;
+    function mkUI() {
+      ui = document.createElement("div");
+      ui.style.cssText = "position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:6;display:flex;gap:6px;align-items:center;background:rgba(0,0,0,.6);border:1px solid " + TH.acc + "66;border-radius:14px;padding:6px 8px;width:min(640px,96vw);flex-wrap:wrap;justify-content:center";
+      ui.innerHTML = '<b style="color:#fff">y =</b><input id="kg-f" placeholder="2x+1,  x^2-3,  |x|,  sin(x)" style="flex:1 1 150px;min-width:0;font:inherit;font-size:16px;padding:7px 10px;border-radius:9px;border:1px solid #3a4c74;background:#0b1220;color:#fff">' +
+        '<button id="kg-add" class="kv-pill" style="cursor:pointer">📈 Grafik</button><button id="kg-pclr" class="kv-pill" style="cursor:pointer">✖ Grafiklarni o\'chirish</button>';
+      body.appendChild(ui);
+      var inp = $("kg-f");
+      function go() { if (addPlot(inp.value)) { inp.value = ""; inp.style.borderColor = "#3a4c74"; } else { inp.style.borderColor = "#ff6b6b"; teach("Formulani tushunmadim. Misollar: 2x+1, x^2-3, |x-2|, sqrt(x), sin(x)", "hint", 2600); } }
+      $("kg-add").onclick = go; inp.addEventListener("keydown", function (e) { e.stopPropagation(); if (e.key === "Enter") go(); });
+      $("kg-pclr").onclick = function () { plots = []; };
+    }
+    // --- baholash ---
+    function evaluate() {
+      var g = geo(), f = task.f, pts = [];
+      strokes.forEach(function (s) { s.p.forEach(function (p) { pts.push(p); }); });
+      // ko'rinadigan oraliq (y doskada bo'lgan x lar)
+      var bins = {}, total = 0, step = 0.5;
+      for (var x = -g.X; x <= g.X; x += step) { var y = f(x); if (isFinite(y) && Math.abs(y) < g.Y) { total++; bins[Math.round(x / step)] = 0; } }
+      var err = 0, n = 0;
+      pts.forEach(function (p) { var y = f(p.x); if (!isFinite(y)) return; var e = Math.min(3, Math.abs(p.y - y)); err += e; n++; var k = Math.round(p.x / step); if (k in bins && e < 1.2) bins[k] = 1; });
+      var cov = total ? Object.keys(bins).filter(function (k) { return bins[k]; }).length / total : 0, me = n ? err / n : 9;
+      var acc = Math.max(0, 1 - me / 1.4) * Math.min(1, cov / 0.75);
+      return { acc: acc, cov: cov, me: me };
+    }
+    function finish() {
+      if (!strokes.length) { teach("Avval grafikni chizing: ko'rsatkich barmoqni ko'tarib (☝) yurgizing yoki chimdang 🤏", "hint", 2500); return; }
+      var r = evaluate(), g = geo(), pc = Math.round(r.acc * 100); lastRes = r;
+      if (r.acc >= 0.55) { good(g.cx, g.cy, 0, 5 + Math.round(r.acc * 20), task.s + " ✓ aniqlik " + pc + "%"); }
+      else { bad(g.cx, g.cy, 0, task.s + ": " + task.ex + "  (aniqlik " + pc + "%" + (r.cov < 0.5 ? ", grafikning katta qismi chizilmagan" : "") + ")"); }
+      showT = 2.6;
+    }
+    function penOf(p) {
+      if (mouseMode) return mouse.down ? "pen" : null;
+      var h = p.hand; if (!h) return null;
+      if (h.fingers >= 5 && h.fingersStable > 2) return "erase";
+      if (p.pinch || (h.fingers === 1 && h.fingersStable > 1)) return "pen";
+      return null;
+    }
+    function penXY(p) { if (p.hand && p.pinch) return { x: (p.hand.pts[4].x + p.hand.pts[8].x) / 2, y: (p.hand.pts[4].y + p.hand.pts[8].y) / 2 }; return { x: p.x, y: p.y }; }
+    function plotCurve(g, f, col, w, dash) {
+      ctx.save(); ctx.beginPath(); ctx.rect(g.x, g.y, g.w, g.h); ctx.clip();
+      ctx.strokeStyle = col; ctx.lineWidth = w; ctx.shadowColor = col; ctx.shadowBlur = 10; if (dash) ctx.setLineDash(dash);
+      ctx.beginPath(); var pen = false, st = 1 / g.u * 2;
+      for (var x = -g.X; x <= g.X + st; x += st) { var y = f(x); if (!isFinite(y) || Math.abs(y) > g.Y * 3) { pen = false; continue; } var X = sx(g, x), Y = sy(g, y); if (pen) ctx.lineTo(X, Y); else ctx.moveTo(X, Y); pen = true; }
+      ctx.stroke(); ctx.restore();
+    }
+    return {
+      start: function () {
+        window.__KAV_GRAF = function () { return { task: task, geo: geo() }; };
+        if (FREE) { S.left = 3600; qEl.style.display = "none"; mkUI(); setQ(""); }
+        else newTask();
+      },
+      stop: function () { if (ui) { ui.remove(); ui = null; } qEl.style.display = ""; },
+      update: function (dt) {
+        var g = geo(), seen = {}, drew = false;
+        if (showT > 0) { showT -= dt; if (showT <= 0 && !FREE) newTask(); return; }
+        pointers.forEach(function (p) {
+          seen[p.id] = 1;
+          var m = penOf(p), q = penXY(p), L = live[p.id] || (live[p.id] = { sx: q.x, sy: q.y, s: null });
+          L.sx += (q.x - L.sx) * 0.55; L.sy += (q.y - L.sy) * 0.55;
+          var inB = L.sx > g.x && L.sx < g.x + g.w && L.sy > g.y && L.sy < g.y + g.h;
+          if (m === "pen" && inB) {
+            var P = { x: wx(g, L.sx), y: wy(g, L.sy) };
+            if (!L.s) { L.s = { p: [], c: FREE ? PENS[penCol] : TH.acc }; strokes.push(L.s); }
+            var lp = L.s.p[L.s.p.length - 1];
+            if (!lp || Math.hypot(lp.x - P.x, lp.y - P.y) > 0.04) L.s.p.push(P);
+            drew = true;
+          } else L.s = null;
+          if (m === "erase" && inB) {
+            var E = { x: wx(g, p.palm.x), y: wy(g, p.palm.y) }, rad = 0.8;
+            strokes.forEach(function (s) { s.p = s.p.filter(function (pt) { return Math.hypot(pt.x - E.x, pt.y - E.y) > rad; }); });
+            strokes = strokes.filter(function (s) { return s.p.length > 1 || s === L.s; });
+          }
+        });
+        Object.keys(live).forEach(function (k) { if (!seen[k]) delete live[k]; });
+        // tugmalar
+        btnRects(g).forEach(function (b) {
+          var t = BT[b.k], pk = holdPick(t, dt, function (p) { return p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h; }, false, 0.8);
+          if (!pk) return; beep(700, 0.06);
+          if (b.k === "chk") finish();
+          else if (b.k === "clr") { strokes = []; live = {}; }
+          else if (b.k === "undo") strokes.pop();
+          else if (b.k === "col") penCol = (penCol + 1) % PENS.length;
+        });
+        if (FREE || !task) return;
+        // avto-tekshirish: grafik deyarli to'liq chizilib, qalam 1.6 s ko'tarilsa
+        idleT = drew ? 0 : idleT + dt; hintT += dt;
+        if (strokes.length && idleT > 1.6) { var r = evaluate(); if (r.cov > 0.85) finish(); idleT = -99; }
+        if (drew) idleT = 0;
+      },
+      draw: function () {
+        var g = geo();
+        // doska
+        ctx.fillStyle = "rgba(6,14,24,.88)"; ctx.strokeStyle = TH.acc + "88"; ctx.lineWidth = 2; rr(g.x, g.y, g.w, g.h, 14); ctx.fill(); ctx.stroke();
+        ctx.save(); ctx.beginPath(); ctx.rect(g.x, g.y, g.w, g.h); ctx.clip();
+        ctx.lineWidth = 1;
+        for (var i = Math.ceil(-g.X); i <= g.X; i++) { ctx.strokeStyle = i ? "#ffffff14" : "#ffffffaa"; ctx.lineWidth = i ? 1 : 2; ctx.beginPath(); ctx.moveTo(sx(g, i), g.y); ctx.lineTo(sx(g, i), g.y + g.h); ctx.stroke(); }
+        for (var j = Math.ceil(-g.Y); j <= g.Y; j++) { ctx.strokeStyle = j ? "#ffffff14" : "#ffffffaa"; ctx.lineWidth = j ? 1 : 2; ctx.beginPath(); ctx.moveTo(g.x, sy(g, j)); ctx.lineTo(g.x + g.w, sy(g, j)); ctx.stroke(); }
+        ctx.fillStyle = "#9fb0d0"; ctx.font = "600 " + Math.round(clamp(g.u * 0.32, 9, 13)) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "top";
+        for (i = Math.ceil(-g.X); i <= g.X; i++) if (i) ctx.fillText(mstr(i), sx(g, i), sy(g, 0) + 3);
+        ctx.textAlign = "right"; ctx.textBaseline = "middle";
+        for (j = Math.ceil(-g.Y); j <= g.Y; j++) if (j) ctx.fillText(mstr(j), sx(g, 0) - 4, sy(g, j));
+        ctx.fillStyle = "#fff"; ctx.font = "800 15px " + FONT; ctx.fillText("x", g.x + g.w - 8, sy(g, 0) - 12); ctx.textAlign = "left"; ctx.fillText("y", sx(g, 0) + 8, g.y + 14);
+        ctx.restore();
+        // erkin doskadagi formulalar
+        plots.forEach(function (pl, k) { plotCurve(g, pl.f, pl.c, 3); ctx.fillStyle = pl.c; ctx.font = "800 15px " + FONT; ctx.textAlign = "left"; ctx.textBaseline = "top"; ctx.fillText(pl.s, g.x + 10, g.y + 10 + k * 20); });
+        // yordamchi nuqtalar: oson — darhol, o'rta — 8 s dan keyin
+        if (task && !FREE && (CFG.diff === 1 || (CFG.diff === 2 && hintT > 8) || showT > 0)) task.kp.forEach(function (k) { if (Math.abs(k[0]) > g.X || Math.abs(k[1]) > g.Y) return; ctx.fillStyle = showT > 0 ? "#22c55e" : "#ffd47999"; ctx.beginPath(); ctx.arc(sx(g, k[0]), sy(g, k[1]), 6, 0, 7); ctx.fill(); ctx.fillStyle = "#ffd479"; ctx.font = "700 11px " + FONT; ctx.textAlign = "left"; ctx.fillText("(" + mstr(k[0]) + "; " + mstr(k[1]) + ")", sx(g, k[0]) + 8, sy(g, k[1]) - 10); });
+        // chizilgan chiziqlar
+        ctx.save(); ctx.beginPath(); ctx.rect(g.x, g.y, g.w, g.h); ctx.clip(); ctx.lineCap = "round"; ctx.lineJoin = "round";
+        strokes.forEach(function (s) { if (s.p.length < 2) return; ctx.strokeStyle = s.c; ctx.shadowColor = s.c; ctx.shadowBlur = 12; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(sx(g, s.p[0].x), sy(g, s.p[0].y)); for (var k = 1; k < s.p.length; k++) ctx.lineTo(sx(g, s.p[k].x), sy(g, s.p[k].y)); ctx.stroke(); });
+        ctx.shadowBlur = 0; ctx.restore();
+        // natija: to'g'ri grafik
+        if (showT > 0 && task) { plotCurve(g, task.f, "#22c55e", 4, [12, 8]); if (lastRes) { ctx.fillStyle = "#fff"; ctx.font = "900 " + Math.round(U * 4 + 14) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.shadowColor = "#000"; ctx.shadowBlur = 10; ctx.fillText("Aniqlik: " + Math.round(lastRes.acc * 100) + "%", g.cx, g.y + 40); ctx.shadowBlur = 0; } }
+        // qalam kursorlari
+        pointers.forEach(function (p) { var m = penOf(p), L = live[p.id]; if (!L) return; if (m === "erase") { ctx.strokeStyle = "#ff6b6b"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(p.palm.x, p.palm.y, 0.8 * g.u, 0, 7); ctx.stroke(); ctx.fillStyle = "#ff6b6b"; ctx.font = "700 12px " + FONT; ctx.textAlign = "center"; ctx.fillText("🧽 o'chirg'ich", p.palm.x, p.palm.y - 0.8 * g.u - 8); } else { ctx.fillStyle = m === "pen" ? (FREE ? PENS[penCol] : TH.acc) : "#ffffff66"; ctx.beginPath(); ctx.arc(L.sx, L.sy, m === "pen" ? 7 : 5, 0, 7); ctx.fill(); } });
+        // tugmalar
+        btnRects(g).forEach(function (b) { var t = BT[b.k]; drawBox(b.x, b.y, b.w, b.h, b.k === "col" ? "🎨" : t.l, { c: b.k === "chk" ? "#22c55e" : b.k === "clr" ? "#ff6b6b" : TH.acc, fs: Math.min(16, b.h * 0.3) }); if (b.k === "col") { ctx.fillStyle = PENS[penCol]; ctx.beginPath(); ctx.arc(b.x + b.w * 0.72, b.y + b.h / 2, 9, 0, 7); ctx.fill(); } drawHoldRing(b.x + b.w / 2, b.y + b.h / 2, Math.min(b.w, b.h) / 2 - 4, t.hold, 0.8); });
+        // yo'riqnoma
+        ctx.fillStyle = "#cfd8ef"; ctx.font = "600 12px " + FONT; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+        ctx.fillText(mouseMode ? "🖱 Sichqonchani bosib chizing" : "☝ ko'rsatkich barmoq yoki 🤏 chimdash — chizish · ✋ ochiq kaft — o'chirg'ich · tugmani 0,8 s ushlab turing", g.x + 6, g.y + g.h - 8);
       }
     };
   };
@@ -1618,7 +1868,7 @@
     buildPointers(dt);
     if (S.run && mech) {
       if (S.pause > 0) { S.pause -= rdt; }
-      else { S.left -= rdt; if (S.left <= 0) { S.left = 0; endGame(); } else mech.update(dt); }
+      else { S.left -= rdt; if (S.left <= 0) { S.left = 0; endGame(); } else mech.update(dt * spd()); }
     }
     if (mech && (S.run || S.cd > 0)) mech.draw(dt);
     drawHands(); drawPointers(); drawParts(dt);
@@ -1641,9 +1891,9 @@
     Array.prototype.forEach.call(root.querySelectorAll(".kv-seg"), function (sg) {
       sg.addEventListener("click", function (e) {
         var b = e.target.closest("button"); if (!b) return; var k = sg.getAttribute("data-k"), v = b.getAttribute("data-v");
-        CFG[k] = v === "true" ? true : v === "false" ? false : +v;
+        CFG[k] = v === "true" ? true : v === "false" ? false : isNaN(+v) ? v : +v;
         Array.prototype.forEach.call(sg.children, function (x) { x.classList.toggle("on", x === b); });
-        try { localStorage.setItem("kav.cfg", JSON.stringify({ hands: CFG.hands, duel: CFG.duel, video: CFG.video, racers: CFG.racers })); } catch (er) {}
+        try { localStorage.setItem("kav.cfg", JSON.stringify({ hands: CFG.hands, duel: CFG.duel, video: CFG.video, racers: CFG.racers, diff: CFG.diff, gmode: CFG.gmode })); } catch (er) {}
         if (k === "hands" && handsObj) handsObj.setOptions({ maxNumHands: CFG.hands });
       });
     });
@@ -1658,9 +1908,10 @@
       '<p style="font-size:13px;color:#ffd479;margin:6px 0 0">🧠 Xato qilsangiz — to\'g\'ri yechim ko\'rsatiladi va o\'sha misol keyinroq yana so\'raladi. O\'yin oxirida xatolaringiz ro\'yxati chiqadi.</p>' +
       '<div class="kv-opts">' +
       '<div class="kv-opt"><b>✋ Qo\'llar soni (kamera sezadi)</b>' + segHTML("hands", [1, 2, 3, 4], ["1", "2", "3", "4"]) + "</div>" +
-      (G.m === "poyga" ? '<div class="kv-opt"><b>🏎 O\'yinchilar soni</b>' + segHTML("racers", [1, 2, 3, 4], ["1", "2", "3", "4"]) + "</div>" : '<div class="kv-opt"><b>👥 Rejim</b>') + (G.m === "poyga" ? "" : segHTML("duel", [false, true], ["Yakka", "Duel (2 kishi)"]) + "</div>") +
+      '<div class="kv-opt" style="grid-column:1/-1"><b>🎚 Qiyinlik darajasi</b>' + segHTML("diff", [1, 2, 3], ["🟢 Oson", "🟡 O\'rta", "🔴 Qiyin"]) + "</div>" +
+      (G.m === "poyga" ? '<div class="kv-opt"><b>🏎 O\'yinchilar soni</b>' + segHTML("racers", [1, 2, 3, 4], ["1", "2", "3", "4"]) + "</div>" : G.m === "grafik" ? '<div class="kv-opt"><b>📝 Doska rejimi</b>' + segHTML("gmode", ["vazifa", "erkin"], ["Vazifa", "Erkin doska"]) + "</div>" : '<div class="kv-opt"><b>👥 Rejim</b>' + segHTML("duel", [false, true], ["Yakka", "Duel (2 kishi)"]) + "</div>") +
       '<div class="kv-opt"><b>📷 Kamera tasviri</b>' + segHTML("video", [true, false], ["Ko'rinsin", "Faqat skelet"]) + "</div>" +
-      '<div class="kv-opt"><b>⏱ Vaqt</b>' + (G.m === "poyga" ? segHTML("time", [60, 120, 180], ["60 s", "120 s", "180 s"]) : segHTML("time", [60, 90, 120], ["60 s", "90 s", "120 s"])) + "</div>" +
+      '<div class="kv-opt"><b>⏱ Vaqt</b>' + (G.m === "poyga" ? segHTML("time", [60, 120, 180], ["60 s", "120 s", "180 s"]) : G.m === "grafik" ? segHTML("time", [120, 180, 300], ["2 daq", "3 daq", "5 daq"]) : segHTML("time", [60, 90, 120], ["60 s", "90 s", "120 s"])) + "</div>" +
       "</div>" +
       (err ? '<div class="kv-err">' + err + "</div>" : "") +
       '<button class="kv-btn" id="kv-go">▶ Kamera bilan boshlash</button>' +
@@ -1686,7 +1937,7 @@
     ov.style.display = "none"; parts = [];
     S.score = [0, 0]; S.ok = 0; S.bad = 0; S.streak = 0; S.best = 0; S.left = CFG.time; S.run = false; S.cd = 3.2; S.pause = 0; S.miss = []; S.retry = []; S.since = 0;
     musicStart();
-    mech = M[G.m](); mech.start(); subEl.innerHTML = MK.how;
+    mech = M[G.m](); mech.start(); subEl.innerHTML = G.m === "grafik" ? "" : MK.how;
     setTimeout(function () { subEl.textContent = ""; }, 9000);
     beep(440, 0.1); setTimeout(function () { beep(440, 0.1); }, 1000); setTimeout(function () { beep(440, 0.1); }, 2000); setTimeout(function () { beep(880, 0.3); }, 3000);
   }

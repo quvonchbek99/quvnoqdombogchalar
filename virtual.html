@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Virtual o'yinlar — Kuvonch Academy</title>
-<meta name="description" content="48 ta virtual matematik o'yin: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
+<meta name="description" content="49 ta virtual matematik o'yin: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
 <meta name="theme-color" content="#0b1220">
 <link rel="icon" href="icon-192.png">
 <style>
@@ -42,6 +42,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 .g .b{margin-top:auto;display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);padding-top:8px}
 .g .b .best{color:#ffd479;font-weight:700}
 .race{display:flex;align-items:center;gap:16px;margin:4px 0 6px;padding:16px 20px;border-radius:20px;text-decoration:none;background:linear-gradient(110deg,#3b0a06,#7a1208 45%,#1b0f2e);border:1px solid #ff5a3c;box-shadow:0 10px 40px -14px #ff3d00}.race .re{font-size:44px}.race b{font-size:18px}.race small{display:block;color:#ffd9cf;font-size:13px;margin-top:2px}.race .rg{margin-left:auto;background:#ff3d00;color:#fff;font-weight:800;border-radius:12px;padding:10px 16px;white-space:nowrap}@media(max-width:600px){.race{flex-wrap:wrap}.race .rg{margin-left:0}}
+.lvl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:16px;background:var(--bg-soft);font-size:14px}.lvl span{flex-basis:100%;font-size:12px;color:var(--text-dim)}
 .note{margin-top:26px;font-size:13px;color:var(--text-dim);border-top:1px solid var(--border);padding-top:16px}
 @media(max-width:600px){nav{gap:10px;overflow-x:auto;flex-wrap:nowrap;width:100%}nav a{white-space:nowrap}.hero{padding:24px 18px}}
 </style>
@@ -64,7 +65,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 <canvas id="hc"></canvas>
 <span class="kicker">Kamera + qo'l kuzatuvi</span>
 <h1><span>Virtual</span> matematik o'yinlar</h1>
-<p class="lead">48 ta o'yin — hech narsa bosmaysiz, kamera qo'llaringizni sezadi. Bitta, ikkita yoki to'rttagacha qo'l bir vaqtda ishlaydi: do'stingiz bilan <b>duel</b> qilib o'ynash ham mumkin.</p>
+<p class="lead">49 ta o'yin — hech narsa bosmaysiz, kamera qo'llaringizni sezadi. Bitta, ikkita yoki to'rttagacha qo'l bir vaqtda ishlaydi: do'stingiz bilan <b>duel</b> qilib o'ynash ham mumkin.</p>
 <div class="steps">
 <div class="step"><b>1. O'yinni tanlang</b>Mavzu va o'yin turi har bir kartada yozilgan.</div>
 <div class="step"><b>2. Kameraga ruxsat bering</b>Video faqat qurilmangizda qayta ishlanadi.</div>
@@ -74,6 +75,8 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 </div>
 
 <a class="race" href="virtual-48.html"><span class="re">🏎️</span><span><b>YANGI: Sport mashina poygasi</b><small>Qo'l bilan boshqaring · tezlik chegarasiz · <b style="color:#5ee67a">+ ×2</b> tezlashtiradi, <b style="color:#ff6b6b">− :2</b> sekinlashtiradi · yo'lda to'siqlar · nitro · 1–4 o'yinchi</small></span><span class="rg">▶ Poygaga</span></a>
+<a class="race" href="virtual-49.html" style="background:linear-gradient(110deg,#032a2a,#0b4a5a 45%,#101a3a);border-color:#00e5ff;box-shadow:0 10px 40px -14px #00e5ff"><span class="re">📈</span><span><b>YANGI: Grafik doskasi</b><small>Funksiya grafigini barmoq bilan chizing — aniqlik foizda baholanadi · ✋ kaft = o'chirg'ich · Erkin doska: formulani yozing, grafigi chiqadi</small></span><span class="rg" style="background:#00e5ff;color:#032a2a">▶ Doskaga</span></a>
+<div class="lvl" id="lv"><b>🎚 Qiyinlik darajasi (barcha o'yinlar uchun):</b> <button class="chip" data-d="1">🟢 Oson</button><button class="chip" data-d="2">🟡 O'rta</button><button class="chip" data-d="3">🔴 Qiyin</button><span>Oson — sekinroq, kichik sonlar · O'rta — odatiy · Qiyin — tez, katta sonlar, ko'proq variant</span></div>
 <div class="filters" id="f"></div>
 <div class="grid" id="g"></div>
 
@@ -98,6 +101,12 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
   f.innerHTML = '<button class="chip on" data-m="all">Hammasi (' + K.GAMES.length + ')</button>' + Object.keys(K.MECH).filter(function (m) { return used[m]; }).map(function (m) { return '<button class="chip" data-m="' + m + '">' + K.MECH[m].e + " " + K.MECH[m].n + " (" + used[m] + ")</button>"; }).join("");
   f.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (!b) return; cur = b.getAttribute("data-m"); Array.prototype.forEach.call(f.children, function (c) { c.classList.toggle("on", c === b); }); render(); });
   render();
+  // Qiyinlik darajasi — barcha o'yinlar uchun saqlanadi (kav.cfg.diff)
+  var lv = document.getElementById("lv");
+  function getCfg() { try { return JSON.parse(localStorage.getItem("kav.cfg") || "{}"); } catch (e) { return {}; } }
+  function showLv() { var d = getCfg().diff || 2; Array.prototype.forEach.call(lv.querySelectorAll(".chip"), function (b) { b.classList.toggle("on", +b.getAttribute("data-d") === d); }); }
+  lv.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (!b) return; var c = getCfg(); c.diff = +b.getAttribute("data-d"); try { localStorage.setItem("kav.cfg", JSON.stringify(c)); } catch (er) {} showLv(); });
+  showLv();
 
   // Hero fonida "skelet qo'l" animatsiyasi
   var c = document.getElementById("hc"), x = c.getContext("2d"), t = 0;
