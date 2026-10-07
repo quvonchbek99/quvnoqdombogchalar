@@ -57,7 +57,7 @@
       var t = R(0, 2);
       if (t === 0) { var n = pick([4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144]); return { q: "√" + n + " ni hisoblang.", a: Math.sqrt(n) }; }
       if (t === 1) { var m = pick([8, 27, 64, 125, 216, 343]); return { q: "∛" + m + " ni hisoblang.", a: Math.round(Math.cbrt(m)) }; }
-      var a = pick([4, 9, 16, 25, 36]), k = pick([1, 2, 3]); return { q: a + "^(" + k + "/2) ni hisoblang.", a: Math.pow(Math.sqrt(a), k) };
+      var a = pick([4, 9, 16, 25, 36]), k = pick([1, 3]); return { q: a + "^(" + k + "/2) ni hisoblang.", a: Math.pow(Math.sqrt(a), k) };
     },
     koordinata: function () {
       var x1 = RNZ(-8, 8), y1 = RNZ(-8, 8), dx = pick([3, 4, 6, 8, 5, 12]), dy = pick([4, 3, 8, 6, 12, 5]);
@@ -211,12 +211,23 @@
     while (out.length < n) add(Array.isArray(a) ? a.map(function (x) { return x + out.length + 7; }) : a + out.length * 7 + 3);
     return out.slice(0, n);
   }
+  // <sup>/<sub> teglarini unicode belgilarga aylantirish (aks holda 3⁴ "34" bo'lib qoladi)
+  var SUPM = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻", "−": "⁻", "+": "⁺", "(": "⁽", ")": "⁾", "x": "ˣ", "n": "ⁿ", "m": "ᵐ", "k": "ᵏ", "/": "ᐟ", " ": "" };
+  var SUBM = { "0": "₀", "1": "₁", "2": "₂", "3": "₃", "4": "₄", "5": "₅", "6": "₆", "7": "₇", "8": "₈", "9": "₉", "-": "₋", "−": "₋", "+": "₊", "x": "ₓ", "n": "ₙ", " ": "" };
+  function conv(t, map, pre) { t = String(t); var ok = t.split("").every(function (c) { return map[c] != null; }); return ok ? t.split("").map(function (c) { return map[c]; }).join("") : pre + "(" + t + ")"; }
+  function plain(v) {
+    return String(v == null ? "" : v)
+      .replace(/<sup>([\s\S]*?)<\/sup>/gi, function (m, t) { return conv(t.replace(/<[^>]+>/g, ""), SUPM, "^"); })
+      .replace(/<sub>([\s\S]*?)<\/sub>/gi, function (m, t) { return conv(t.replace(/<[^>]+>/g, ""), SUBM, "_"); })
+      .replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "")
+      .replace(/ˣ⁺⁰/g, "ˣ").replace(/&nbsp;/g, " ").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+  }
   function genQ(u) {
     var g = pick(gensOf(u)), p;
     try { p = g(); } catch (e) { p = XG.algebraAsos(); }
     var right = fmtA(p);
     var opts = shuffle([right].concat(wrongs(p, 3)));
-    return { q: String(p.q).replace(/<[^>]+>/g, ""), options: opts, correct: opts.indexOf(right), steps: p.steps || null, src: "gen" };
+    return { q: plain(p.q), options: opts.map(plain), correct: opts.indexOf(right), steps: p.steps ? p.steps.map(plain) : null, src: "gen" };
   }
   // Google Sheets (savol-bazasi.js orqali) — mavzu_id ustunida mavzu id'si bo'lsa, shu savollar birinchi bo'ladi
   function sheetQ(u, n) {

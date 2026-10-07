@@ -84,8 +84,136 @@
     } catch (e) {}
   }
 
+  /* --- Dars sahifasi (mavzu nima haqida, tushunchalar, formulalar, misollar, tarix) --- */
+  var LS_FS = "ka.np.fs.v1";
+  var fs = 1; try { fs = parseFloat(localStorage.getItem(LS_FS)) || 1; } catch (e) {}
+  function applyFs() { document.documentElement.style.setProperty("--fs", fs); var v = $("#d-fsv"); if (v) v.textContent = Math.round(fs * 100) + "%"; }
+  applyFs();
+  function setFs(d) { fs = Math.max(0.85, Math.min(1.6, Math.round((fs + d) * 100) / 100)); try { localStorage.setItem(LS_FS, fs); } catch (e) {} applyFs(); }
+
+  function lessonOf(u) { var D = window.kaNPDars; return D && D[u.t] ? D[u.t] : null; }
+
+  function sampleBox(u) {
+    var box = el("div", { class: "d-sample" });
+    function fill() {
+      var q = NP.genQ(u); box.innerHTML = "";
+      box.appendChild(el("div", { class: "d-sq" }, esc(q.q)));
+      var ol = el("div", { class: "d-sopts" });
+      q.options.forEach(function (o, i) {
+        var b = el("button", { class: "d-sopt", type: "button" }, "<b>" + "abcd".charAt(i) + ")</b> " + esc(o));
+        b.addEventListener("click", function () {
+          Array.prototype.forEach.call(ol.children, function (x, j) { x.disabled = true; if (j === q.correct) x.classList.add("ok"); });
+          if (i !== q.correct) b.classList.add("no");
+          ans.classList.add("on");
+        });
+        ol.appendChild(b);
+      });
+      box.appendChild(ol);
+      var ans = el("div", { class: "d-sans" }, "<b>To'g'ri javob:</b> " + esc(q.options[q.correct]) +
+        (q.steps && q.steps.length ? "<br><b>Yechim:</b><br>" + q.steps.map(esc).join("<br>") : ""));
+      box.appendChild(ans);
+      var row = el("div", { class: "d-srow" });
+      var sh = el("button", { class: "btn", type: "button" }, "👁 Javobni ko'rsatish");
+      sh.addEventListener("click", function () { ans.classList.add("on"); });
+      var nx = el("button", { class: "btn", type: "button" }, "🔄 Boshqa savol");
+      nx.addEventListener("click", fill);
+      row.appendChild(sh); row.appendChild(nx); box.appendChild(row);
+    }
+    fill();
+    return box;
+  }
+
+  function openLesson(k, u) {
+    var D = lessonOf(u); cur = { k: k, u: u };
+    var root = $("#dars"), body = $("#d-body");
+    $("#d-kurs").textContent = k.i + " " + k.t;
+    $("#d-title").textContent = u.t;
+    body.innerHTML = "";
+    var secs = [];
+    function sec(id, ico, title) { var s = el("section", { class: "d-sec", id: "ds-" + id }); s.appendChild(el("h2", null, "<span>" + ico + "</span>" + esc(title))); body.appendChild(s); secs.push([id, ico, title]); return s; }
+
+    var head = el("div", { class: "d-hero" });
+    head.style.setProperty("--cc", k.c);
+    head.innerHTML = "<div class='d-tag'>" + esc(k.i + " " + k.t) + "</div><h1>" + esc(u.t) + "</h1>";
+    body.appendChild(head);
+    var toc = el("nav", { class: "d-toc", "aria-label": "Bo'limlar" }); body.appendChild(toc);
+
+    if (D.n) { var s1 = sec("n", "📌", "Mavzu nima haqida"); s1.appendChild(el("p", { class: "d-lead" }, esc(D.n))); }
+    if (D.tu && D.tu.length) {
+      var s2 = sec("tu", "🔑", "Asosiy tushunchalar"), dl = el("dl", { class: "d-terms" });
+      D.tu.forEach(function (t) { dl.appendChild(el("dt", null, esc(t[0]))); dl.appendChild(el("dd", null, esc(t[1]))); });
+      s2.appendChild(dl);
+    }
+    if (D.q && D.q.length) {
+      var s3 = sec("q", "📐", "Qoidalar va formulalar"), fl = el("div", { class: "d-formulas" });
+      D.q.forEach(function (f) { fl.appendChild(el("div", { class: "d-f" }, esc(f))); });
+      s3.appendChild(fl);
+    }
+    if (D.m && D.m.length) {
+      var s4 = sec("m", "✍️", "Yechib ko'rsatilgan misollar");
+      D.m.forEach(function (m, i) {
+        var c = el("div", { class: "d-ex" });
+        c.appendChild(el("div", { class: "d-exq" }, "<b>" + (i + 1) + "-misol.</b> " + esc(m.s)));
+        var ol = el("ol", { class: "d-steps" });
+        (m.y || []).forEach(function (st) { ol.appendChild(el("li", null, esc(st))); });
+        c.appendChild(ol);
+        c.appendChild(el("div", { class: "d-exa" }, "✅ Javob: <b>" + esc(m.j) + "</b>"));
+        s4.appendChild(c);
+      });
+    }
+    if (D.x && D.x.length) {
+      var s5 = sec("x", "⚠️", "Ko'p uchraydigan xatolar"), ul = el("ul", { class: "d-warn" });
+      D.x.forEach(function (t) { ul.appendChild(el("li", null, esc(t))); });
+      s5.appendChild(ul);
+    }
+    var s6 = sec("s", "🧪", "Testdagi savolga namuna");
+    s6.appendChild(el("p", { class: "d-note" }, "Testda aynan shunday savollar chiqadi — sonlar har safar yangidan tanlanadi. Javobni tanlab ko'ring."));
+    s6.appendChild(sampleBox(u));
+    if (D.h) { var s7 = sec("h", "🏛", "Tarixi"); s7.appendChild(el("p", null, esc(D.h))); }
+    if (D.o && D.o.length) {
+      var s8 = sec("o", "👤", "Hissa qo'shgan olimlar"), g = el("div", { class: "d-people" });
+      D.o.forEach(function (p) {
+        g.appendChild(el("div", { class: "d-person" }, "<div class='d-pn'>" + esc(p[0]) + "</div><div class='d-py'>" + esc(p[1]) + "</div><div class='d-pc'>" + esc(p[2]) + "</div>"));
+      });
+      s8.appendChild(g);
+    }
+    // Test bo'limi
+    var s9 = sec("t", "🎯", "Bilimingizni sinang");
+    var pr = NP.unitProg(u.id);
+    s9.appendChild(el("div", { class: "meta d-meta" }, "<span>⭐ Eng yaxshi: <b>" + pr.best + "%</b></span><span>🔁 Urinishlar: <b>" + pr.done + "</b></span><span>💎 <b>" + pr.xp + " XP</b></span>"));
+    var lv = el("div", { class: "levels d-levels" });
+    LEVELS.forEach(function (L) {
+      var b = el("button", { class: "lv", type: "button", "aria-pressed": L.n === curLevel ? "true" : "false" }, L.t + "<small>" + L.d + "</small>");
+      b.addEventListener("click", function () { curLevel = L.n; Array.prototype.forEach.call(lv.children, function (x) { x.setAttribute("aria-pressed", "false"); }); b.setAttribute("aria-pressed", "true"); });
+      lv.appendChild(b);
+    });
+    s9.appendChild(lv);
+    var go = el("button", { class: "btn pri d-go", type: "button" }, "🎯 Testni boshlash →");
+    go.addEventListener("click", function () {
+      root.classList.remove("on"); document.body.style.overflow = "";
+      try { localStorage.setItem(LS_LAST, JSON.stringify({ id: u.id, t: u.t })); } catch (e) {}
+      startTest(k, u, curLevel);
+    });
+    s9.appendChild(go);
+
+    secs.forEach(function (s) {
+      var a = el("button", { class: "d-chip", type: "button" }, s[1] + " " + esc(s[2]));
+      a.addEventListener("click", function () { var t = $("#ds-" + s[0]); if (t) $("#d-scroll").scrollTo({ top: t.offsetTop - 70, behavior: "smooth" }); });
+      toc.appendChild(a);
+    });
+    root.classList.add("on"); document.body.style.overflow = "hidden";
+    $("#d-scroll").scrollTop = 0;
+    try { localStorage.setItem(LS_LAST, JSON.stringify({ id: u.id, t: u.t })); } catch (e) {}
+  }
+  function closeLesson() { $("#dars").classList.remove("on"); document.body.style.overflow = ""; render($("#q").value); }
+  $("#d-back").addEventListener("click", closeLesson);
+  $("#d-minus").addEventListener("click", function () { setFs(-0.1); });
+  $("#d-plus").addEventListener("click", function () { setFs(0.1); });
+  $("#d-test").addEventListener("click", function () { var t = $("#ds-t"); if (t) $("#d-scroll").scrollTo({ top: t.offsetTop - 70, behavior: "smooth" }); });
+
   /* --- Mavzu oynasi --- */
   function openUnit(k, u) {
+    if (lessonOf(u)) { openLesson(k, u); return; }
     cur = { k: k, u: u };
     $("#m-kurs").textContent = k.i + "  " + k.t;
     $("#m-title").textContent = u.t;
@@ -209,6 +337,11 @@
     back.addEventListener("click", endTestUI);
     row.appendChild(back); row.appendChild(again);
     inner.appendChild(row);
+    if (lessonOf(u)) {
+      var rd = el("button", { class: "btn", type: "button", style: "width:100%;margin-top:10px" }, "📖 Mavzuni qayta o'qish");
+      rd.addEventListener("click", function () { $("#test").classList.remove("on"); T = null; openLesson(k, u); });
+      inner.appendChild(rd);
+    }
     $("#t-foot").style.display = "none";
     $("#t-bar").style.width = "100%";
     $(".tbody").scrollTop = 0;
@@ -222,7 +355,7 @@
     openUnit(k, k.u[Math.floor(Math.random() * k.u.length)]);
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { if ($("#ov").classList.contains("on")) $("#ov").classList.remove("on"); }
+    if (e.key === "Escape") { if ($("#ov").classList.contains("on")) $("#ov").classList.remove("on"); else if ($("#dars").classList.contains("on") && !T) closeLesson(); }
     if (T && $("#test").classList.contains("on")) {
       var i = "abcd".indexOf((e.key || "").toLowerCase());
       if (i >= 0) { var b = $("#t-inner").querySelectorAll(".opt")[i]; if (b && !b.disabled) b.click(); }
