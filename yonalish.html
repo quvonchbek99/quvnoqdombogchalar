@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mavzu yo'nalishlari — Kuvonch Academy</title>
+<meta name="description" content="Algebra, geometriya, olimpiada masalalari, qiziqarli faktlar, matematika tarixi, boshqa fanlar, hayot uchun matematika va o'yinlar nazariyasi — tushuntirishlar, misollar, interaktiv o'yinlar va tez testlar.">
+<link rel="canonical" href="https://quvonchbek99.github.io/quvnoqdombogchalar/yonalish.html">
+<meta property="og:title" content="Mavzu yo'nalishlari — Kuvonch Academy">
+<meta property="og:description" content="8 ta yo'nalish: tushuntirish, misol, interaktiv o'yin va tez test. Yangi: O'yinlar nazariyasi — nega ba'zi o'yinlar tugamaydi?">
+<meta property="og:image" content="https://quvonchbek99.github.io/quvnoqdombogchalar/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220">
+<style>
+:root{--bg:#0b1220;--soft:#111a2e;--card:#141f38;--line:#243252;--text:#eef2ff;--dim:#9fb0d0;--acc:#5ee6c7;--acc2:#7c9bff;--bad:#ff8585;--gold:#f4c430}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 20% 0%,#16213f 0%,var(--bg) 55%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+a{color:var(--acc)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none;color:var(--text)}
+.badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;color:#08131f;font-weight:800}
+header nav a{color:var(--dim);text-decoration:none;font-size:14px;margin-left:16px}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:8px;overflow-x:auto;padding:12px 0;background:linear-gradient(var(--bg) 75%,transparent);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--soft);color:var(--dim);font:600 14px inherit;font-family:inherit;cursor:pointer;white-space:nowrap;text-decoration:none}
+.tab.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#08131f;border-color:transparent}
+.tab.new::after{content:"YANGI";font-size:9px;font-weight:800;background:var(--gold);color:#3a2c02;padding:1px 5px;border-radius:6px;margin-left:4px}
+.hero{padding:22px 0 8px}
+.hero .ico{font-size:46px}
+.hero h1{margin:4px 0 6px;font-size:clamp(26px,4vw,38px)}
+.hero p{color:var(--dim);max-width:760px;margin:0;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;margin-top:18px}
+.k{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.k h3{margin:0;font-size:18px;display:flex;gap:8px;align-items:center}
+.k p{margin:0;color:#cdd7f0;font-size:15px}
+.f{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:19px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:8px 12px;text-align:center;color:#fff;overflow-x:auto}
+.ex{font-size:14px;color:var(--dim);border-left:3px solid var(--acc2);padding-left:10px}
+.ex b{color:var(--text)}
+.fact{font-size:14px;background:rgba(244,196,48,.08);border:1px solid rgba(244,196,48,.25);border-radius:10px;padding:8px 10px;color:#f6e7b0}
+.wide{grid-column:1/-1}
+.demo{background:linear-gradient(135deg,#17224a,#1b1838);border-color:#3a3f6b}
+.demo h3::after{content:"interaktiv";font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:var(--acc);color:#08131f;padding:2px 7px;border-radius:6px;margin-left:auto}
+button,.btn{font:700 14px inherit;font-family:inherit;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--text);padding:9px 14px;cursor:pointer;text-decoration:none;display:inline-block}
+button.main,.btn.main{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#08131f;border:0}
+button:disabled{opacity:.45;cursor:default}
+input,select{font:inherit;font-size:15px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--text);width:100%}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row label{font-size:13px;color:var(--dim)}
+.out{font-size:15px;min-height:22px}
+.out b{color:var(--acc)}
+table.pm{border-collapse:collapse;font-size:14px;margin:4px auto}
+table.pm td,table.pm th{border:1px solid var(--line);padding:6px 10px;text-align:center}
+table.pm th{color:var(--dim);font-weight:600}
+.heaps{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:6px 0}
+.heap{display:flex;flex-direction:column-reverse;align-items:center;gap:3px;min-width:44px;cursor:pointer;padding:6px;border-radius:10px;border:1px dashed transparent}
+.heap:hover{border-color:var(--line)}
+.heap i{width:30px;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--gold),#ff8a5c);display:block}
+.heap i.sel{background:var(--bad)}
+.heap span{font-size:12px;color:var(--dim)}
+canvas.world{width:100%;height:170px;border-radius:12px;background:#0d1a33;display:block;touch-action:pan-y}
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:18px}
+.quiz h2{margin:0 0 10px;font-size:20px}
+.qq{margin:12px 0}
+.qq .t{font-weight:700;margin-bottom:6px}
+.qo{display:flex;flex-wrap:wrap;gap:8px}
+.qo button.ok{background:#1f6f4f;border-color:#3fbf7f}
+.qo button.no{background:#6a2430;border-color:var(--bad)}
+.next{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.erag{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.erag a{display:block;padding:10px 12px;border-radius:12px;background:var(--soft);border:1px solid var(--line);text-decoration:none;color:var(--text);font-size:14px}
+.erag a:hover{border-color:var(--acc)}
+footer{margin-top:40px;color:var(--dim);font-size:13px;text-align:center}
+@media (max-width:560px){header nav{display:none}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="brand" href="index.html"><span class="badge">π</span>Kuvonch Academy</a>
+  <nav><a href="index.html">Bosh sahifa</a><a href="mashqlar.html">Mashqlar</a><a href="jamoa.html">👥 Jamoa</a></nav>
+</header>
+<div class="tabs" id="tabs"></div>
+<main id="main"></main>
+<footer>© Kuvonch Academy · Matematika — hamma joyda</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ======================= MAZMUN ======================= */
+const D={
+algebra:{ico:"➗",name:"Algebra",intro:"Algebra — noma'lum sonlar bilan ishlash san'ati. Nomi Muhammad al-Xorazmiyning “Al-jabr” asaridan olingan. Bu yerda tenglama, progressiya, logarifm, funksiya va kompleks sonlarning eng muhim g'oyalari.",
+ cards:[
+  {t:"Kvadrat tenglama",p:"ax² + bx + c = 0 ko'rinishidagi tenglama. Ildizlar soni diskriminantga bog'liq: D > 0 — ikkita, D = 0 — bitta, D < 0 — haqiqiy ildiz yo'q.",f:"x = (−b ± √D) / 2a,   D = b² − 4ac",ex:"<b>Misol:</b> x² − 5x + 6 = 0 → D = 25 − 24 = 1 → x₁ = 3, x₂ = 2.",fact:"Viyet teoremasi: x₁ + x₂ = −b/a, x₁·x₂ = c/a — ko'pincha ildizni og'zaki topish mumkin."},
+  {t:"Arifmetik progressiya",p:"Har bir had oldingisiga bir xil son (ayirma d) qo'shib hosil qilinadi.",f:"aₙ = a₁ + (n−1)d,   Sₙ = (a₁ + aₙ)·n / 2",ex:"<b>Misol:</b> 1 + 2 + … + 100 = (1 + 100)·100/2 = 5050.",fact:"Gauss bu yig'indini maktabda bir necha soniyada topgan deyishadi — sonlarni juft-juft qo'shib."},
+  {t:"Geometrik progressiya",p:"Har bir had oldingisini bir xil q songa ko'paytirib hosil qilinadi. Bakteriyalar ko'payishi, murakkab foiz — shu qonun.",f:"bₙ = b₁·qⁿ⁻¹,   Sₙ = b₁(qⁿ − 1)/(q − 1)",ex:"<b>Misol:</b> 2, 6, 18, 54 … → q = 3, b₅ = 162.",fact:"Shaxmat taxtasidagi donlar afsonasi: 1 + 2 + 4 + … + 2⁶³ = 2⁶⁴ − 1 ≈ 18,4 kvintillion don!"},
+  {t:"Logarifm",p:"Logarifm — “qaysi darajaga ko'tarsam, shu son chiqadi?” degan savolning javobi. Ko'paytirishni qo'shishga aylantiradi.",f:"log_a b = c  ⇔  aᶜ = b,   log(xy) = log x + log y",ex:"<b>Misol:</b> log₂ 32 = 5, chunki 2⁵ = 32.",fact:"Zilzila kuchi (Rixter shkalasi) va tovush balandligi (detsibel) logarifmik: Rixter bo'yicha 1 ball farq — tebranish 10 marta kattaroq degani."},
+  {t:"Funksiya",p:"Har bir x ga bitta y mos qo'yiladigan qoida. Grafik — funksiyaning “surati”.",f:"y = kx + b   ·   y = ax² + bx + c   ·   y = aˣ",ex:"<b>Misol:</b> taksi narxi = 5000 + 2500·km — bu chiziqli funksiya: k = 2500, b = 5000.",fact:"Saytdagi “Funksiya ovchisi” o'yinida grafiklarni formulasi bilan tanib olishni mashq qilishingiz mumkin."},
+  {t:"Kompleks sonlar",p:"x² = −1 tenglamaning yechimi sifatida mavhum birlik i kiritildi. Kompleks son — tekislikdagi nuqta.",f:"i² = −1,   z = a + bi,   e^{iπ} + 1 = 0",ex:"<b>Misol:</b> (2 + 3i)(2 − 3i) = 4 + 9 = 13.",fact:"Eyler ayniyati e^{iπ} + 1 = 0 matematikadagi eng go'zal formula deb ataladi — unda 5 ta asosiy son bor."}],
+ quiz:[["x² − 7x + 12 = 0 ning ildizlari?",["3 va 4","2 va 6","−3 va −4","1 va 12"],0],["2, 5, 8, 11 … progressiyaning 10-hadi?",["29","30","32","27"],0],["log₃ 81 = ?",["4","3","27","9"]]],
+ link:"mashqlar.html"},
+geometriya:{ico:"📐",name:"Geometriya",intro:"Geometriya — “yerni o'lchash” degani. Qadimgi Misrda Nil toshqinidan keyin dalalarni qayta o'lchash uchun paydo bo'lgan. Bugun u me'morchilik, o'yinlar grafikasi va GPS ning asosi.",
+ cards:[
+  {t:"Pifagor teoremasi",p:"To'g'ri burchakli uchburchakda gipotenuza kvadrati katetlar kvadratlari yig'indisiga teng.",f:"c² = a² + b²",ex:"<b>Misol:</b> katetlar 6 va 8 → c = √(36 + 64) = 10.",fact:"Bobilliklar bu munosabatni Pifagordan 1000 yil oldin bilgan — “Plimpton 322” lavhasida Pifagor uchliklari yozilgan."},
+  {t:"Aylana va doira",p:"Har qanday aylana uzunligining diametrga nisbati bir xil son — π ≈ 3,14159.",f:"C = 2πr,   S = πr²",ex:"<b>Misol:</b> r = 10 sm → C ≈ 62,8 sm, S ≈ 314 sm².",fact:"Jamshid al-Koshiy 1424-yilda Samarqandda π ni 16 xona aniqlikda hisoblagan."},
+  {t:"Uchburchak burchaklari",p:"Har qanday uchburchakda ichki burchaklar yig'indisi 180°. n-burchakda — (n − 2)·180°.",f:"α + β + γ = 180°",ex:"<b>Misol:</b> oltiburchak ichki burchaklari yig'indisi 4·180° = 720°, muntazam bo'lsa har biri 120°.",fact:"Shar sirtida (masalan, Yer globusida) uchburchak burchaklari yig'indisi 180° dan katta bo'ladi — bu Lobachevskiy va Riman geometriyalariga olib kelgan g'oya."},
+  {t:"Trigonometriya",p:"To'g'ri burchakli uchburchakda tomonlar nisbatlari burchakka bog'liq: sin, cos, tg.",f:"sin α = qarshi katet / gipotenuza,   sin²α + cos²α = 1",ex:"<b>Misol:</b> 30° burchak qarshisidagi katet gipotenuzaning yarmiga teng (sin 30° = 1/2).",fact:"Beruniy trigonometriya yordamida tog' cho'qqisidan ufqqa qarab Yer radiusini hisoblagan."},
+  {t:"Vektorlar",p:"Vektor — yo'nalishga ega kesma: kuch, tezlik, siljish. Koordinatalar bilan qo'shiladi.",f:"a + b = (a₁ + b₁; a₂ + b₂),   |a| = √(a₁² + a₂²)",ex:"<b>Misol:</b> (3; 4) vektorning uzunligi √(9 + 16) = 5.",fact:"Kompyuter o'yinlarida qahramonning har bir harakati — vektorlar qo'shilishi."},
+  {t:"Fazoviy jismlar",p:"Kub, prizma, silindr, konus, shar — ularning hajmi va sirti formulalar bilan hisoblanadi.",f:"V_kub = a³,   V_silindr = πr²h,   V_shar = 4/3·πr³",ex:"<b>Misol:</b> r = 3 sm sharning hajmi ≈ 113 sm³.",fact:"Arximed silindr ichiga joylashgan sharning hajmi silindrnikining aynan 2/3 qismi ekanini isbotlab, buni qabr toshiga chizdirishni so'ragan."}],
+ quiz:[["Katetlari 5 va 12 bo'lgan uchburchakning gipotenuzasi?",["13","17","15","11"],0],["Beshburchak ichki burchaklari yig'indisi?",["540°","360°","720°","450°"],0],["sin 30° = ?",["1/2","√3/2","1","0"],0]],
+ link:"mashqlar.html"},
+olimpiada:{ico:"🏆",name:"Olimpiada masalalari",intro:"Olimpiada masalasi formulani yodlashni emas, g'oya topishni talab qiladi. Quyida eng ko'p ishlatiladigan 6 ta “kalit g'oya” — har biri yuzlab masalani ochadi.",
+ cards:[
+  {t:"Dirixle (kabutarxona) prinsipi",p:"Agar n + 1 ta kabutar n ta uyaga joylashsa, kamida bitta uyada 2 ta kabutar bo'ladi.",f:"n + 1 ta narsa, n ta quti ⇒ bitta qutida ≥ 2",ex:"<b>Misol:</b> 13 kishi orasida kamida ikkitasi bir oyda tug'ilgan.",fact:"Oddiy ko'ringan bu g'oya bilan hatto “Toshkentda sochlari soni bir xil ikki odam bor” ekanini isbotlash mumkin."},
+  {t:"Juft-toqlik va invariant",p:"Jarayon davomida o'zgarmaydigan miqdorni (invariant) topsangiz, ko'p “mumkinmi?” savollariga javob tayyor.",f:"juft ± juft = juft,  toq + toq = juft",ex:"<b>Misol:</b> 1 dan 10 gacha sonlar oldiga + yoki − qo'yib 0 hosil qilib bo'lmaydi: yig'indi 55 toq, ishora almashtirish juft-toqlikni o'zgartirmaydi.",fact:"Shaxmat taxtasining ikki qarama-qarshi burchagi kesilsa, uni 31 ta domino bilan qoplab bo'lmaydi — ranglar invarianti."},
+  {t:"Kombinatorika",p:"“Nechta usulda?” degan savollar. Tartib muhim bo'lsa — o'rinlashtirish, muhim bo'lmasa — guruhlash.",f:"n! = 1·2·…·n,   C(n,k) = n! / (k!(n−k)!)",ex:"<b>Misol:</b> 30 o'quvchidan 3 kishilik navbatchilar guruhi: C(30,3) = 4060 usul.",fact:"52 talik kartani aralashtirish usullari soni 52! ≈ 8·10⁶⁷ — har bir yaxshi aralashtirilgan dasta tarixda hech qachon takrorlanmagan bo'lishi deyarli aniq."},
+  {t:"Qoldiqlar (modul arifmetikasi)",p:"Sonlarni bo'lingandagi qoldiq bo'yicha solishtirish — “soat arifmetikasi”.",f:"a ≡ b (mod m)  ⇔  m | (a − b)",ex:"<b>Misol:</b> 7¹⁰⁰ ning oxirgi raqami: 7, 9, 3, 1 takrorlanadi, 100 = 4·25 → oxirgi raqam 1.",fact:"Bank kartasi raqamining oxirgi raqami (Luhn algoritmi) aynan mod 10 hisobi bilan xatoni tekshiradi."},
+  {t:"Matematik induksiya",p:"Domino effekti: 1-hol to'g'ri, k-hol to'g'ri bo'lsa (k+1)-hol ham to'g'ri ⇒ hamma hol to'g'ri.",f:"P(1) va P(k) ⇒ P(k+1)  ⇒  ∀n P(n)",ex:"<b>Misol:</b> 1 + 3 + 5 + … + (2n−1) = n² — induksiya bilan oson isbotlanadi.",fact:"Ko'p olimpiada masalalarida avval kichik hollarni (n = 1, 2, 3) qo'lda tekshirib, qonuniyatni ko'rish yarim yechim hisoblanadi."},
+  {t:"Ekstremal prinsip",p:"Eng katta, eng kichik, eng chetdagi elementga qarang — u ko'pincha yechim kalitidir.",f:"max / min elementni tanlash",ex:"<b>Misol:</b> tekislikdagi nuqtalar orasida eng yaqin juftlik qaralsa, ko'p masalalar soddalashadi.",fact:"Xalqaro matematika olimpiadasi (IMO) 1959-yildan beri o'tkaziladi; har yili 6 ta masala, 2 kun, har kuni 4,5 soat."}],
+ quiz:[["367 kishi orasida bir kunda tug'ilganlar albatta bormi?",["Ha, Dirixle bo'yicha","Yo'q","Faqat kabisa yilda","Aniqlab bo'lmaydi"],0],["5! = ?",["120","25","60","720"],0],["2²⁰²⁶ ning oxirgi raqami?",["4","2","6","8"],0]],
+ link:"mashqlar.html"},
+faktlar:{ico:"✨",name:"Qiziqarli faktlar",intro:"Matematikada intuitsiyani aldaydigan paradokslar va hamma joyda uchraydigan “sehrli” sonlar bor. Ularni bilish — matematikani sevishning eng tez yo'li.",
+ cards:[
+  {t:"π soni",p:"Aylana uzunligining diametrga nisbati. Cheksiz va takrorlanmaydigan kasr (irratsional son).",f:"π = 3,14159 26535 89793 …",ex:"<b>Misol:</b> 22/7 ≈ 3,1428 va 355/113 ≈ 3,1415929 — π ning mashhur yaqinlashishlari.",fact:"14-mart (3/14) butun dunyoda “π kuni” sifatida nishonlanadi."},
+  {t:"e soni",p:"Uzluksiz o'sish soni: murakkab foiz, aholi o'sishi, radioaktiv parchalanishda paydo bo'ladi.",f:"e = lim (1 + 1/n)ⁿ ≈ 2,71828",ex:"<b>Misol:</b> 100% yillik foiz har lahza qo'shib borilsa, 1 so'm yil oxirida e ≈ 2,72 so'mga aylanadi.",fact:"e va π ikkalasi ham transsendent son — hech qanday butun koeffitsiyentli tenglamaning ildizi emas."},
+  {t:"Oltin nisbat φ",p:"Kesmani shunday bo'lish: butun / katta qism = katta qism / kichik qism.",f:"φ = (1 + √5)/2 ≈ 1,618",ex:"<b>Misol:</b> Fibonachchi sonlari 1, 1, 2, 3, 5, 8, 13 … ketma-ket nisbati φ ga yaqinlashadi: 13/8 = 1,625.",fact:"Kungaboqar urug'lari va qarag'ay qubbalaridagi spirallar soni ko'pincha qo'shni Fibonachchi sonlari (34 va 55 kabi)."},
+  {t:"Monti Xoll paradoksi",p:"3 ta eshik: birining ortida mashina. Siz birini tanlaysiz, boshlovchi bo'sh eshiklardan birini ochadi. Tanlovni almashtirish kerakmi?",f:"Almashtirsangiz: 2/3,  almashtirmasangiz: 1/3",ex:"<b>Nega?</b> Birinchi tanlovingiz 1/3 ehtimol bilan to'g'ri. Qolgan 2/3 ehtimol boshlovchi ochmagan yagona eshikka “yig'iladi”.",fact:"Bu masala 1990-yilda jurnalda chiqqanda minglab o'quvchi, jumladan matematiklar ham javobni noto'g'ri deb xat yozgan."},
+  {t:"Tug'ilgan kunlar paradoksi",p:"Atigi 23 kishilik guruhda ikki kishining tug'ilgan kuni bir xil bo'lish ehtimoli 50% dan oshadi.",f:"P = 1 − (365·364·…·343)/365²³ ≈ 50,7%",ex:"<b>Guruhingizda 30 kishi bo'lsa</b> — ehtimol ≈ 70%. 50 kishida ≈ 97%.",fact:"Sababi: biz bir odamni emas, barcha juftliklarni solishtiramiz — 23 kishida 253 ta juftlik bor."},
+  {t:"Gilbert mehmonxonasi",p:"Cheksiz xonali to'la mehmonxona yangi mehmonni qabul qila oladi: har kim n-xonadan n+1-xonaga o'tadi.",f:"∞ + 1 = ∞,   ∞ + ∞ = ∞",ex:"<b>Hatto cheksiz avtobus</b> mehmonlari ham joylashadi: eskilar 2n-xonaga o'tadi, toq xonalar bo'shaydi.",fact:"Georg Kantor cheksizliklarning ham har xil “o'lchami” borligini isbotlagan: haqiqiy sonlar natural sonlardan “ko'proq”."}],
+ quiz:[["23 kishida bir xil tug'ilgan kun ehtimoli taxminan?",["50%","6%","23%","99%"],0],["Monti Xoll masalasida almashtirgan yutish ehtimoli?",["2/3","1/2","1/3","1"],0],["13/8 qaysi songa yaqin?",["φ ≈ 1,618","π","e","√2"],0]],
+ link:"mashqlar.html"},
+tarix:{ico:"🏛",name:"Matematika tarixi",intro:"Tosh asridagi kesiklardan sun'iy intellektgacha — matematika 35 000 yildan ortiq tarixga ega. Saytda har bir davr alohida sahifada: rasmlar, olimlar va ularni ovozli tinglash mumkin.",
+ cards:[
+  {t:"Sanoqning boshlanishi",p:"Ishango suyagi (~20 000 yil avval) — sonlarni yozib borishning eng qadimgi izlaridan biri.",ex:"<b>Batafsil:</b> <a href='era-1.html'>1-davr: Tosh davri →</a>"},
+  {t:"Misr va Bobil",p:"Misrliklar piramidalar qurdi, Bobilliklar 60 lik sanoq tizimini yaratdi — soat 60 daqiqaligi shundan.",ex:"<b>Batafsil:</b> <a href='era-2.html'>2-davr →</a>"},
+  {t:"Hindiston: nol",p:"Nol raqami va o'nlik pozitsion sanoq tizimi Hindistonda shakllandi.",ex:"<b>Batafsil:</b> <a href='era-3.html'>3-davr →</a>"},
+  {t:"Yunoniston: isbot",p:"Evklid “Negizlar”ida matematikani aksioma va isbotlar asosiga qurdi.",ex:"<b>Batafsil:</b> <a href='era-4.html'>4-davr →</a>"},
+  {t:"Movarounnahr: algebra",p:"Al-Xorazmiy algebraga asos soldi, Ulug'bek Samarqandda aniq yulduzlar jadvalini tuzdi.",ex:"<b>Batafsil:</b> <a href='era-5.html'>5-davr →</a>"},
+  {t:"Hozirgi davr",p:"Kompyuterlar, kriptografiya, sun'iy intellekt — barchasi matematikaga tayanadi.",ex:"<b>Batafsil:</b> <a href='era-9.html'>9-davr</a> · <a href='era-10.html'>10-davr →</a>"}],
+ eras:true,
+ quiz:[["“Algoritm” so'zi kimning nomidan kelib chiqqan?",["Al-Xorazmiy","Beruniy","Evklid","Pifagor"],0],["Soatda 60 daqiqa bo'lishi qaysi xalq sanoq tizimidan?",["Bobilliklar","Misrliklar","Rimliklar","Xitoyliklar"],0],["Nol raqami qayerda shakllangan?",["Hindiston","Yunoniston","Misr","Rim"],0]],
+ link:"index.html#davrlar"},
+fanlar:{ico:"🔬",name:"Boshqa fanlar bilan bog'liqlik",intro:"Galiley aytgan: “Tabiat kitobi matematika tilida yozilgan.” Fizika, astronomiya, me'morchilik, musiqa, biologiya va iqtisodiyot — hammasining ichida formulalar yashiringan.",
+ cards:[
+  {t:"Fizika",p:"Harakat, kuch, energiya — hammasi funksiya va tenglamalar bilan ifodalanadi.",f:"s = v·t,   F = m·a,   E = mc²",ex:"<b>Misol:</b> 72 km/soat tezlikdagi avtobus 15 daqiqada 18 km yuradi.",fact:"Erkin tushishda bosib o'tilgan yo'l vaqt kvadratiga proporsional: s = gt²/2 — bu parabola."},
+  {t:"Astronomiya",p:"Kepler qonuniga ko'ra sayyoraning aylanish davri kvadrati orbita radiusi kubiga proporsional.",f:"T² ~ a³",ex:"<b>Misol:</b> Yupiter Quyoshdan ~5,2 marta uzoq → T ≈ √(5,2³) ≈ 11,9 yil.",fact:"Ulug'bek rasadxonasida yil uzunligi 365 kun 6 soat 10 daqiqa deb o'lchangan — haqiqiydan ~1 daqiqagina farq."},
+  {t:"Me'morchilik",p:"Registon va Shohi Zinda naqshlari — simmetriya va geometrik qurilmalar (girih) san'ati.",f:"burilish simmetriyasi: 360° / n",ex:"<b>Misol:</b> 8 nurli yulduz naqshi 45° ga burilganda o'ziga ustma-ust tushadi.",fact:"Ba'zi O'rta asr Sharq naqshlarida zamonaviy matematika 1970-yillarda kashf qilgan “kvazikristall” tuzilmalar topilgan."},
+  {t:"Musiqa",p:"Ohanglar uyg'unligi — chastotalarning oddiy nisbatlari. Pifagor buni tor uzunliklarida kashf etgan.",f:"oktava 2 : 1,   kvinta 3 : 2,   kvarta 4 : 3",ex:"<b>Misol:</b> “La” notasi 440 Hz, bir oktava yuqori “La” — 880 Hz.",fact:"Zamonaviy 12 tonli sozlashda qo'shni notalar chastotasi ¹²√2 ≈ 1,0595 marta farq qiladi."},
+  {t:"Biologiya",p:"Hujayralar bo'linishi — eksponensial o'sish; tabiatdagi spirallar — Fibonachchi sonlari.",f:"N = N₀·2^(t/T)",ex:"<b>Misol:</b> har 20 daqiqada ikkiga bo'linadigan bakteriya 3 soatda 2⁹ = 512 marta ko'payadi.",fact:"Epidemiyalarni bashorat qilish modellari (SIR) differensial tenglamalarga asoslangan."},
+  {t:"Iqtisodiyot",p:"Foiz, inflyatsiya, talab va taklif — hammasi funksiyalar va grafiklar.",f:"S = S₀·(1 + r)ⁿ",ex:"<b>Misol:</b> 10 mln so'm yiliga 20% bilan 3 yilda ≈ 17,28 mln bo'ladi.",fact:"“72 qoidasi”: pul necha yilda ikki baravar bo'lishini topish uchun 72 ni foiz stavkasiga bo'ling (20% → ~3,6 yil)."}],
+ quiz:[["Kvinta qaysi chastotalar nisbati?",["3 : 2","2 : 1","4 : 3","5 : 4"],0],["60 km/soat bilan 2,5 soatda necha km?",["150","120","125","160"],0],["Har 30 daqiqada ikkilanuvchi bakteriya 2 soatda necha marta ko'payadi?",["16","8","4","32"],0]],
+ link:"mashqlar.html"},
+hayot:{ico:"💡",name:"Hayot uchun matematika",intro:"Do'konda chegirma, bankda kredit, telefonda GPS, messenjerda shifrlash — har kuni matematikadan foydalanasiz. Bu bo'lim aynan shu kundalik matematikani ochib beradi.",
+ cards:[
+  {t:"Foiz va chegirma",p:"Foiz — yuzdan bir ulush. Ketma-ket chegirmalar qo'shilmaydi, ko'paytiriladi!",f:"narx · (1 − p/100)",ex:"<b>Misol:</b> 20% + yana 10% chegirma = 28% (40% emas!): 0,8 · 0,9 = 0,72.",fact:"Narx 50% oshib, keyin 50% tushsa, boshlang'ich narxning 75% i qoladi."},
+  {t:"Kredit va murakkab foiz",p:"Foiz faqat asosiy summaga emas, to'plangan foizga ham hisoblansa — murakkab foiz.",f:"S = S₀·(1 + r/n)^(n·t)",ex:"<b>Misol:</b> oyiga 3% li qarz yiliga 36% emas, (1,03)¹² − 1 ≈ 42,6% ga teng!",fact:"Kredit olishdan oldin “yillik samarali foiz stavkasi”ni so'rang — u haqiqiy narxni ko'rsatadi."},
+  {t:"Byudjet: 50/30/20",p:"Mashhur qoida: daromadning 50% — zarur xarajatlar, 30% — xohishlar, 20% — jamg'arma.",f:"zarur 50% · xohish 30% · jamg'arma 20%",ex:"<b>Misol:</b> 4 mln so'm → 2 mln zarur, 1,2 mln xohish, 800 ming jamg'arma.",fact:"Har oy daromadning 20% ini jamg'arib borgan odam taxminan 5 yilda bir yillik daromadiga teng zaxira to'playdi."},
+  {t:"Sport statistikasi",p:"O'rtacha, foiz, ehtimollik — futbolda xG (kutilayotgan gollar), basketbolda zarbalar aniqligi.",f:"aniqlik = to'g'ri / jami · 100%",ex:"<b>Misol:</b> 25 ta zarbadan 9 tasi gol → aniqlik 36%.",fact:"Zamonaviy futbol klublari o'yinchilarni tanlashda ma'lumotlar tahlilchilari va matematik modellardan foydalanadi."},
+  {t:"GPS qanday ishlaydi?",p:"Telefon kamida 4 ta sun'iy yo'ldoshgacha masofani signal vaqti orqali o'lchaydi va sferalar kesishmasidan joyni topadi (trilateratsiya).",f:"masofa = yorug'lik tezligi × vaqt",ex:"<b>Misol:</b> vaqtdagi 1 mikrosekund xato ≈ 300 metr joy xatosi.",fact:"Sun'iy yo'ldosh soatlari nisbiylik nazariyasi tufayli kuniga ~38 mikrosekund tez yuradi — tuzatilmasa GPS kuniga ~10 km xatoga ketardi."},
+  {t:"Shifrlash",p:"Messenjer va bank xabarlari katta tub sonlarga asoslangan shifrlash bilan himoyalanadi (RSA kabi).",f:"n = p · q  (p, q — juda katta tub sonlar)",ex:"<b>G'oya:</b> ikki tub sonni ko'paytirish oson, lekin 600 xonali sonni ko'paytuvchilarga ajratish hozirgi kompyuterlarga amalda imkonsiz.",fact:"Shuning uchun “Tub sonlar poygasi” shunchaki o'yin emas — tub sonlar internet xavfsizligining poydevori."}],
+ quiz:[["30% chegirmadan keyin yana 10% — jami chegirma?",["37%","40%","33%","30%"],0],["5 mln so'mning 20% i?",["1 mln","500 ming","2 mln","250 ming"],0],["GPS da 1 mikrosekund vaqt xatosi taxminan necha metr?",["300 m","3 m","30 km","1 m"],0]],
+ link:"mashqlar.html"},
+oyinlar:{ico:"🎮",name:"O'yinlar nazariyasi",isNew:true,intro:"O'yinlar nazariyasi — raqiblar bir-birining qarorini hisobga olib harakat qiladigan vaziyatlar matematikasi. U shaxmatdan tortib iqtisodiyot, sport va zamonaviy kompyuter o'yinlarigacha ishlaydi. Bu yerda nega ba'zi o'yinlar hech qachon tugamasligi, “cheksiz dunyo” qanday yaratilishi va g'alaba strategiyalari haqida — interaktiv o'yinlar bilan.",
+ cards:[
+  {t:"O'yinlar nazariyasi nima?",p:"Jon fon Neyman 1928-yilda ikki kishilik o'yinlar uchun minimaks teoremasini isbotladi, 1944-yilda O.Morgenshtern bilan “O'yinlar nazariyasi va iqtisodiy xulq” kitobini yozdi. Jon Nesh 1950-yilda “Nesh muvozanati”ni kiritdi va 1994-yilda iqtisodiyot bo'yicha Nobel mukofotini oldi.",f:"Nesh muvozanati: hech kim yolg'iz o'zi strategiyasini o'zgartirib yutmaydi",ex:"<b>Misol:</b> “Tosh-qaychi-qog'oz”da muvozanat — har birini 1/3 ehtimol bilan tasodifiy tanlash. Har qanday qonuniyatni raqib payqab, foydalanadi.",fact:"Penalti tepishda ham shunday: darvozabon va o'yinchi tomonni tasodifiy tanlashi kerak — tadqiqotlar professional futbolchilar haqiqatan shunga yaqin harakat qilishini ko'rsatgan."},
+  {t:"Nega shaxmat cheksiz emas?",p:"Shaxmatda mumkin bo'lgan partiyalar soni taxminan 10¹²⁰ (Shennon soni) — bu koinotdagi atomlar sonidan (~10⁸⁰) ham ko'p. Lekin qoidalar o'yinni cheklaydi: pozitsiya 5 marta takrorlansa yoki 75 yurish davomida hech bir dona urilmasa va piyoda yurmasa, o'yin avtomatik durang bilan tugaydi.",f:"≈ 10¹²⁰ partiya  >  10⁸⁰ atom",ex:"<b>Natija:</b> shaxmat — chekli o'yin. Nazariy jihatdan “mukammal o'yin” mavjud, lekin uni hisoblash uchun hech bir kompyuter yetmaydi.",fact:"Shashka (dama) 2007-yilda to'liq “yechilgan”: ikki tomon mukammal o'ynasa — durang. Shaxmat hali yechilmagan."},
+  {t:"Cheksiz dunyolar: seed va tasodif",p:"Minecraft yoki No Man's Sky kabi o'yinlarda dunyo oldindan chizilmaydi — u bitta son (seed) dan formula bilan “o'stiriladi”. Bir xil seed — doim bir xil dunyo.",f:"xₙ₊₁ = (a·xₙ + c) mod m   (psevdo-tasodifiy sonlar)",ex:"<b>Qanday?</b> Kompyuterdagi “tasodif” aslida formula: seed dan boshlab ketma-ket sonlar hisoblanadi, ular tog', daryo va o'rmonlarga aylanadi. Pastdagi interaktiv dunyoni sinab ko'ring.",fact:"Minecraft'da seed 64 bitli son — 2⁶⁴ ≈ 18 kvintillion xil dunyo. No Man's Sky'da 18 kvintillion sayyora bor."},
+  {t:"Nega “cheksiz yuguruvchi” tugamaydi?",p:"Subway Surfers, Temple Run kabi o'yinlarda yo'l tayyor bo'laklardan tasodifiy ulanadi — oxiri yo'q. Tezlik esa asta oshadi, shuning uchun o'yin “sizning” xatoingiz bilan tugaydi.",f:"tezlik(t) = v₀ + k·ln(1 + t)",ex:"<b>Matematika:</b> tezlik logarifmik oshsa, boshida tez qiyinlashadi, keyin sekin — o'yinchi uzoq o'ynaydi, lekin baribir chegara bor: inson reaksiyasi ~0,2–0,25 soniya.",fact:"O'yin dizaynerlari “oqim” (flow) holatini matematik moslaydi: qiyinlik mahorat bilan birga oshib borsa, o'yinchi zerikmaydi ham, asabiylashmaydi ham."},
+  {t:"Tetris va Pac-Man: “tugamas” o'yinlar oxiri",p:"Tetrisni uzoq vaqt cheksiz deb o'ylashgan. 1997-yilda Xeydi Burgiel isbotladi: S va Z shakllar navbatma-navbat yetarlicha uzoq tushsa, yutqazish muqarrar. Pac-Man'da esa 256-bosqich “buziladi”: bosqich raqami 8 bitda saqlanadi, 255 + 1 = 0 bo'lib qoladi.",f:"8 bit: 0 … 255,   255 + 1 → 0 (to'lib ketish)",ex:"<b>Rekord:</b> 2023-yil dekabrida 13 yoshli Uillis Gibson (Blue Scuti) klassik NES Tetris'ni birinchi bo'lib “yengdi” — 157-bosqichda o'yin dasturi to'xtab qoldi.",fact:"Ko'p eski o'yinlardagi “kill screen”lar sonlar xotirada cheklangan bitlar bilan saqlanishidan kelib chiqadi — bu sof matematika."},
+  {t:"Reyting: Elo formulasi",p:"Shaxmatchilar, onlayn o'yinlar va hatto FIFA terma jamoalari reytingi Elo tizimiga asoslanadi: kuchli raqibni yutsangiz ko'p ball olasiz, kuchsizga yutqazsangiz ko'p yo'qotasiz.",f:"E = 1 / (1 + 10^((R_b − R_a)/400)),   R' = R + K·(S − E)",ex:"<b>Misol:</b> 1500 reytingli o'yinchi 1700 li raqibni yutsa (K = 32): E ≈ 0,24, yangi reyting ≈ 1524.",fact:"Onlayn o'yinlarda sizni teng kuchli raqib bilan uchrashtirish (matchmaking) ham shu kabi formulalar bilan ishlaydi."},
+  {t:"Sandiq va “gacha” ehtimoli",p:"O'yindagi sovg'a sandig'idan noyob buyum chiqish ehtimoli p bo'lsa, o'rtacha 1/p ta sandiq ochish kerak. Lekin “omad navbati” yo'q — har ochish mustaqil.",f:"P(n ta urinishda kamida 1 marta) = 1 − (1 − p)ⁿ",ex:"<b>Misol:</b> p = 1% bo'lsa, 100 ta sandiqda ham noyob buyum chiqish ehtimoli atigi ≈ 63%.",fact:"Ko'p davlatlarda o'yin kompaniyalari sandiq ehtimollarini ochiq e'lon qilishi talab qilinadi — chunki bu tasodifiy o'yinga o'xshaydi."}],
+ demos:["mahbus","nim","dunyo","sandiq","elo"],
+ quiz:[["Nim o'yinida g'alaba strategiyasi qaysi amalga asoslangan?",["XOR (⊕)","Qo'shish","Ko'paytirish","O'rtacha"],0],["Pac-Man nega 256-bosqichda buziladi?",["8 bitli son to'lib ketadi","Dasturchi shunday xohlagan","Xotira yetmaydi","Tasodifan"],0],["Tosh-qaychi-qog'ozda eng yaxshi strategiya?",["Har birini 1/3 ehtimol bilan tasodifiy","Doim tosh","Raqibni takrorlash","Doim qog'oz"],0]],
+ link:"jamoa.html"}
+};
+const ORDER=["algebra","geometriya","olimpiada","faktlar","tarix","fanlar","hayot","oyinlar"];
+
+/* ======================= RENDER ======================= */
+function tabs(cur){
+  $('#tabs').innerHTML=ORDER.map(k=>`<a class="tab${k===cur?' on':''}${D[k].isNew?' new':''}" href="#${k}">${D[k].ico} ${esc(D[k].name)}</a>`).join('');
+  const on=$('#tabs .on'); if(on) on.scrollIntoView({inline:'center',block:'nearest'});
+}
+function card(c){
+  return `<div class="k"><h3>${esc(c.t)}</h3><p>${esc(c.p)}</p>${c.f?`<div class="f">${esc(c.f)}</div>`:''}${c.ex?`<div class="ex">${c.ex}</div>`:''}${c.fact?`<div class="fact">💡 ${esc(c.fact)}</div>`:''}</div>`;
+}
+function render(){
+  let k=(location.hash||'').slice(1); if(!D[k]) k='algebra';
+  const d=D[k]; tabs(k); document.title=d.name+" — Kuvonch Academy";
+  let h=`<section class="hero"><div class="ico">${d.ico}</div><h1>${esc(d.name)}</h1><p>${esc(d.intro)}</p></section><div class="grid">`;
+  h+=d.cards.map(card).join('');
+  if(d.demos) h+=d.demos.map(x=>`<div class="k demo${x==='dunyo'||x==='nim'?' wide':''}" id="demo-${x}"></div>`).join('');
+  if(d.eras) h+=`<div class="k wide"><h3>📜 10 ta davr</h3><div class="erag">${["Tosh davri","Misr va Mesopotamiya","Hindiston va Xitoy","Qadimgi Yunoniston","Islom oltin davri","O'rta asr Yevropa va Renessans","Ilmiy inqilob","Ma'rifat va XIX asr","XX asr","XXI asr"].map((n,i)=>`<a href="era-${i+1}.html">${i+1}. ${esc(n)}</a>`).join('')}</div></div>`;
+  h+=`</div>`;
+  h+=`<div class="quiz"><h2>🧠 Tez test</h2>${d.quiz.map((q,i)=>{const ord=shuffleIdx(q[1].length);return `<div class="qq" data-i="${i}"><div class="t">${i+1}. ${esc(q[0])}</div><div class="qo">${ord.map(j=>`<button data-j="${j}">${esc(q[1][j])}</button>`).join('')}</div></div>`}).join('')}<div class="out" id="qres"></div></div>`;
+  const ni=ORDER.indexOf(k), nx=ORDER[(ni+1)%ORDER.length];
+  h+=`<div class="next"><a class="btn main" href="${d.link}">${k==='oyinlar'?'👥 Do\'stlar bilan o\'ynash':k==='tarix'?'📜 Davrlar xaritasi':'✏️ Mashq qilish'} →</a><a class="btn" href="#${nx}">Keyingi: ${D[nx].ico} ${esc(D[nx].name)} →</a><a class="btn" href="index.html#mavzular">← Bosh sahifa</a></div>`;
+  $('#main').innerHTML=h;
+  bindQuiz(d);
+  if(d.demos) d.demos.forEach(x=>DEMO[x]($('#demo-'+x)));
+  scrollTo({top:0});
+}
+function shuffleIdx(n){const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function bindQuiz(d){
+  let right=0,done=0;
+  document.querySelectorAll('.qq').forEach(qq=>{
+    const q=d.quiz[+qq.dataset.i], ans=q[2]||0;
+    qq.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+      if(qq.dataset.done) return; qq.dataset.done=1; done++;
+      const j=+b.dataset.j; if(j===ans){b.classList.add('ok');right++;} else {b.classList.add('no'); qq.querySelector(`[data-j="${ans}"]`).classList.add('ok');}
+      if(done===d.quiz.length) $('#qres').innerHTML=right===done?`🎉 <b>${right}/${done}</b> — a'lo!`:`Natija: <b>${right}/${done}</b>. Yuqoridagi kartochkalarni yana bir o'qib chiqing.`;
+    });
+  });
+}
+
+/* ======================= INTERAKTIV O'YINLAR ======================= */
+const DEMO={
+/* --- Mahbuslar dilemmasi --- */
+mahbus(el){
+  const pay={HH:[3,3],HX:[0,5],XH:[5,0],XX:[1,1]}; // H=hamkorlik, X=xiyonat; [siz, kompyuter]
+  let me=0,cpu=0,round=0,last='H',hist=[];
+  const N=8;
+  el.innerHTML=`<h3>🤝 Mahbuslar dilemmasi</h3><p>Siz va kompyuter har raundda tanlaysiz: <b>hamkorlik</b> yoki <b>xiyonat</b>. Kompyuter mashhur “Ko'zga ko'z” (Tit-for-Tat) strategiyasida: birinchi raund hamkorlik qiladi, keyin sizning oldingi yurishingizni takrorlaydi. ${N} raund ichida ko'proq ball to'plang!</p>
+  <table class="pm"><tr><th></th><th>Kompyuter: hamkor</th><th>Kompyuter: xiyonat</th></tr><tr><th>Siz: hamkor</th><td>3 / 3</td><td>0 / 5</td></tr><tr><th>Siz: xiyonat</th><td>5 / 0</td><td>1 / 1</td></tr></table>
+  <div class="row"><button class="main" data-c="H">🤝 Hamkorlik</button><button data-c="X">🗡 Xiyonat</button><button data-r>↺ Qaytadan</button></div><div class="out"></div>`;
+  const out=el.querySelector('.out'), bs=el.querySelectorAll('[data-c]');
+  function draw(msg){ out.innerHTML=`Raund ${round}/${N} · Siz: <b>${me}</b> · Kompyuter: <b>${cpu}</b><br>${hist.map(h=>h[0]+h[1]).join(' ').replace(/H/g,'🤝').replace(/X/g,'🗡')}${msg?'<br>'+msg:''}`; }
+  bs.forEach(b=>b.onclick=()=>{
+    if(round>=N) return;
+    const c=b.dataset.c, k=last; const p=pay[c+k]; me+=p[0]; cpu+=p[1]; round++; hist.push([c,k]); last=c;
+    let msg='';
+    if(round===N){ msg = me>cpu?`Siz yutdingiz! Lekin e'tibor bering: ikkalangiz doim hamkorlik qilsangiz, har biri ${3*N} ball olardi.`:me===cpu?`Durang. Doimiy hamkorlik bilan ikkalangiz ham ${3*N} ball olardingiz — bu eng yaxshi umumiy natija.`:`Kompyuter yutdi. “Ko'zga ko'z” xiyonatni jazolaydi, hamkorlikni esa mukofotlaydi.`;
+      msg+=` <i>1980-yilda R.Akselrod turnirida aynan shu oddiy strategiya g'olib bo'lgan.</i>`; bs.forEach(x=>x.disabled=true);}
+    draw(msg);
+  });
+  el.querySelector('[data-r]').onclick=()=>{me=cpu=round=0;last='H';hist=[];bs.forEach(x=>x.disabled=false);draw();};
+  draw();
+},
+/* --- Nim --- */
+nim(el){
+  let heaps=[],turn='me',sel={h:-1,n:0},over=false;
+  el.innerHTML=`<h3>🔥 Nim o'yini</h3><p>Uyumlardan navbat bilan gugurt olinadi: bir yurishda <b>faqat bitta uyumdan</b> istalgancha (kamida 1 ta). <b>Oxirgi gugurtni olgan yutadi.</b> Uyumdagi gugurtni bosing — shu gugurt va undan yuqoridagilar olinadi. Kompyuter mukammal o'ynaydi: uning siri — uyumlar sonining XOR (⊕) yig'indisi. Yig'indi 0 bo'lgan holatni raqibga qoldirsangiz, yutasiz!</p>
+  <div class="heaps"></div><div class="row"><button class="main" data-go disabled>✅ Olish</button><button data-new>🎲 Yangi o'yin</button><button data-hint>💡 Maslahat</button></div><div class="out"></div>`;
+  const H=el.querySelector('.heaps'), out=el.querySelector('.out'), go=el.querySelector('[data-go]');
+  const xor=()=>heaps.reduce((a,b)=>a^b,0);
+  function bin(){ return heaps.map(h=>h.toString(2).padStart(3,'0')).join(' ⊕ ')+' = '+xor().toString(2).padStart(3,'0'); }
+  function draw(msg){
+    H.innerHTML=heaps.map((h,i)=>`<div class="heap" data-h="${i}">${'<i></i>'.repeat(h)}<span>${h}</span></div>`).join('');
+    H.querySelectorAll('.heap').forEach(d=>{ const sticks=[...d.querySelectorAll('i')];
+      sticks.forEach((s,j)=>{ if(sel.h===+d.dataset.h && j>=heaps[sel.h]-sel.n) s.classList.add('sel');
+        s.onclick=e=>{ e.stopPropagation(); if(turn!=='me'||over) return; sel={h:+d.dataset.h,n:heaps[+d.dataset.h]-j}; go.disabled=false; draw(`Olinadi: ${sel.n} ta (${sel.h+1}-uyumdan)`); }; });
+    });
+    out.innerHTML=(msg||'')+`<br><span style="color:var(--dim);font-size:13px">Ikkilikda: ${bin()}</span>`;
+  }
+  function newGame(){ heaps=[3+Math.floor(Math.random()*3),4+Math.floor(Math.random()*3),5+Math.floor(Math.random()*3)]; if(Math.random()<.5) heaps.push(1+Math.floor(Math.random()*4)); turn='me';over=false;sel={h:-1,n:0};go.disabled=true; draw(xor()===0?'Siz boshlaysiz… (pst: holat siz uchun noqulay!)':'Siz boshlaysiz. Yutish mumkin — XOR ni 0 ga keltiring!'); }
+  function cpuMove(){
+    const x=xor(); let h=-1,n=1;
+    if(x){ for(let i=0;i<heaps.length;i++){ const t=heaps[i]^x; if(t<heaps[i]){h=i;n=heaps[i]-t;break;} } }
+    else { h=heaps.findIndex(v=>v>0); n=1; }
+    heaps[h]-=n; if(heaps.every(v=>v===0)){ over=true; draw(`Kompyuter ${h+1}-uyumdan ${n} ta oldi va <b>yutdi</b>. Yana urinib ko'ring!`); return; }
+    turn='me'; draw(`Kompyuter ${h+1}-uyumdan ${n} ta oldi. Sizning navbatingiz.`);
+  }
+  go.onclick=()=>{ if(sel.h<0) return; heaps[sel.h]-=sel.n; sel={h:-1,n:0}; go.disabled=true;
+    if(heaps.every(v=>v===0)){ over=true; draw('🎉 <b>Siz yutdingiz!</b> Kompyuterni yengish oson emas — tabriklaymiz.'); return; }
+    turn='cpu'; draw('Kompyuter o\'ylamoqda…'); setTimeout(cpuMove,700); };
+  el.querySelector('[data-new]').onclick=newGame;
+  el.querySelector('[data-hint]').onclick=()=>{ if(over||turn!=='me') return; const x=xor(); if(!x){ draw('Hozirgi XOR = 0 — bu yomon holat, istalgan yurish qiling va kompyuter xato qilishini kuting 🙂'); return; }
+    for(let i=0;i<heaps.length;i++){ const t=heaps[i]^x; if(t<heaps[i]){ draw(`Maslahat: ${i+1}-uyumdan ${heaps[i]-t} ta oling — shunda XOR 0 bo'ladi.`); return; } } };
+  newGame();
+},
+/* --- Seed bilan cheksiz dunyo --- */
+dunyo(el){
+  el.innerHTML=`<h3>🌍 Seed'dan cheksiz dunyo</h3><p>Bu dunyo hech qayerda saqlanmagan — u bitta son (seed) va formuladan har lahza hisoblanadi. Seed'ni o'zgartiring: butunlay yangi dunyo. Seed'ni qaytarsangiz — aynan o'sha dunyo qaytadi. Dunyo cheksiz: o'ngga yuravering!</p>
+  <canvas class="world"></canvas><div class="row" style="margin-top:8px"><label>Seed:</label><input type="number" value="2026" style="width:120px" data-seed><button data-rnd>🎲 Tasodifiy seed</button><button class="main" data-run>▶ Yurish</button><span class="out" data-pos></span></div>`;
+  const cv=el.querySelector('canvas'), ctx=cv.getContext('2d'), si=el.querySelector('[data-seed]'), pos=el.querySelector('[data-pos]');
+  let seed=2026, x=0, run=true, raf=0;
+  // butun sonlar uchun xesh (psevdo-tasodif) va silliq shovqin
+  function hash(i,s){ let h=(i*374761393 + s*668265263)|0; h=(h^(h>>>13))*1274126177|0; h^=h>>>16; return (h>>>0)/4294967295; }
+  function noise(t,s){ const i=Math.floor(t), f=t-i, u=f*f*(3-2*f); return hash(i,s)*(1-u)+hash(i+1,s)*u; }
+  function height(t){ return noise(t/120,seed)*0.6+noise(t/40,seed+7)*0.3+noise(t/12,seed+13)*0.1; }
+  function draw(){
+    const d=Math.min(devicePixelRatio||1,2), W=cv.clientWidth, H=cv.clientHeight; if(cv.width!==W*d){cv.width=W*d;cv.height=H*d;} ctx.setTransform(d,0,0,d,0,0);
+    const g=ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#1b2f5e'); g.addColorStop(1,'#0d1a33'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    for(let px=0;px<W;px+=2){ const t=x+px, hgt=height(t), y=H-hgt*H*0.85-8; const sea=H*0.62;
+      ctx.fillStyle=hgt>0.62?'#e9eef7':hgt>0.48?'#6b7a8f':hgt>0.3?'#3fae52':'#d9c27a'; ctx.fillRect(px,y,2,H-y);
+      if(y>sea){ ctx.fillStyle='rgba(60,140,230,.75)'; ctx.fillRect(px,sea,2,y-sea); }
+      if(hgt>0.3&&hgt<0.48&&hash(Math.floor(t/2),seed+99)>0.93){ ctx.fillStyle='#1f6b3a'; ctx.beginPath(); ctx.moveTo(px,y-14); ctx.lineTo(px-5,y); ctx.lineTo(px+5,y); ctx.fill(); }
+    }
+    pos.textContent=`x = ${Math.floor(x)} m`;
+  }
+  function loop(){ if(run){ x+=2.2; } draw(); raf=requestAnimationFrame(loop); }
+  si.oninput=()=>{ seed=parseInt(si.value)||0; x=0; };
+  el.querySelector('[data-rnd]').onclick=()=>{ seed=Math.floor(Math.random()*1e6); si.value=seed; x=0; };
+  const rb=el.querySelector('[data-run]'); rb.onclick=()=>{ run=!run; rb.textContent=run?'⏸ To\'xtash':'▶ Yurish'; }; rb.textContent='⏸ To\'xtash';
+  let dragX=null; cv.addEventListener('pointerdown',e=>{dragX=e.clientX;}); addEventListener('pointerup',()=>dragX=null);
+  cv.addEventListener('pointermove',e=>{ if(dragX!==null){ x-= (e.clientX-dragX)*1.5; dragX=e.clientX; } });
+  new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting){ if(!raf) loop(); } else { cancelAnimationFrame(raf); raf=0; } }); }).observe(cv);
+},
+/* --- Sandiq ehtimoli --- */
+sandiq(el){
+  el.innerHTML=`<h3>🎁 Sandiq ehtimoli kalkulyatori</h3><p>Noyob buyum chiqish ehtimoli va sandiqlar sonini kiriting.</p>
+  <div class="row"><label>Ehtimol, %</label><input type="number" value="1" step="0.1" min="0.01" max="100" data-p style="width:90px"><label>Sandiqlar</label><input type="number" value="100" min="1" max="100000" data-n style="width:100px"><button class="main" data-sim>🎲 1000 marta simulyatsiya</button></div><div class="out"></div>`;
+  const out=el.querySelector('.out'), P=el.querySelector('[data-p]'), Nn=el.querySelector('[data-n]');
+  function calc(sim){ const p=Math.min(1,Math.max(0.0001,(+P.value||1)/100)), n=Math.max(1,Math.floor(+Nn.value||1));
+    const pr=1-Math.pow(1-p,n), need50=Math.ceil(Math.log(.5)/Math.log(1-p)), need90=Math.ceil(Math.log(.1)/Math.log(1-p));
+    let s=`${n} ta sandiqda kamida bitta noyob buyum: <b>${(pr*100).toFixed(1)}%</b> · o'rtacha kerak: <b>${Math.round(1/p)}</b> ta · 50% ishonch uchun: <b>${need50}</b> · 90% uchun: <b>${need90}</b>`;
+    if(sim){ let ok=0; for(let k=0;k<1000;k++){ for(let i=0;i<n;i++) if(Math.random()<p){ok++;break;} } s+=`<br>Simulyatsiya: 1000 o'yinchidan <b>${ok}</b> tasiga chiqdi (${(ok/10).toFixed(1)}%) — formula bilan deyarli bir xil!`; }
+    out.innerHTML=s; }
+  P.oninput=Nn.oninput=()=>calc(false); el.querySelector('[data-sim]').onclick=()=>calc(true); calc(false);
+},
+/* --- Elo --- */
+elo(el){
+  el.innerHTML=`<h3>♟ Elo reyting kalkulyatori</h3><p>Ikki o'yinchi reytingini va natijani tanlang.</p>
+  <div class="row"><label>Siz</label><input type="number" value="1500" data-a style="width:90px"><label>Raqib</label><input type="number" value="1700" data-b style="width:90px"><label>K</label><input type="number" value="32" data-k style="width:64px"></div>
+  <div class="row" style="margin-top:8px"><button class="main" data-s="1">🏆 Yutdim</button><button data-s="0.5">🤝 Durang</button><button data-s="0">😔 Yutqazdim</button></div><div class="out"></div>`;
+  const out=el.querySelector('.out'), A=el.querySelector('[data-a]'), B=el.querySelector('[data-b]'), K=el.querySelector('[data-k]');
+  function show(S){ const ra=+A.value||0, rb=+B.value||0, k=+K.value||32, E=1/(1+Math.pow(10,(rb-ra)/400));
+    let s=`Yutish ehtimolingiz (kutilma): <b>${(E*100).toFixed(1)}%</b>`;
+    if(S!=null){ const d=k*(S-E); s+=`<br>Yangi reyting: <b>${Math.round(ra+d)}</b> (${d>=0?'+':''}${d.toFixed(1)}), raqib: <b>${Math.round(rb-d)}</b>`; }
+    out.innerHTML=s; }
+  el.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>show(+b.dataset.s)); A.oninput=B.oninput=K.oninput=()=>show(null); show(null);
+}
+};
+
+addEventListener('hashchange',render);
+render();
+})();
+</script>
+<script src="ka-effektlar.js"></script>
+</body>
+</html>
