@@ -271,6 +271,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
       <a href="#toc3">Qo'shimcha mavzular</a>
       <a href="#toc4">Milliy sertifikat</a>
       <a href="#toc5">📐 Geometriya</a>
+      <a href="#toc6">🎲 Kombinatorika</a>
       <a href="noldan-pigacha.html" style="color:#a78bfa;font-weight:700">π Noldan π gacha</a>
 <a href="virtual.html">🖐 Virtual</a>
       <a href="#game">🎮 O'yinlar</a>
@@ -504,6 +505,36 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
           <li><a class="topic-chip" href="#t86"><span class="ico">🔍</span><span class="tc-name">86. Shakllar o'xshashligi</span></a></li>
           <li><a class="topic-chip" href="#t87"><span class="ico">📐</span><span class="tc-name">87. Fazoda burchak va masofalar</span></a></li>
           <li><a class="topic-chip" href="#t88"><span class="ico">✂️</span><span class="tc-name">88. Jismlarning kesimlari</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="picker-wrap" id="toc6">
+    <div class="picker-card">
+      <h2>🎲 Kombinatorika, ehtimollik va to'plamlar</h2>
+      <p class="sub">Faktorial, sanash qoidalari, ehtimollik, to'plamlar va binom — xossalar, formulalar va mashqlar</p>
+      <div class="bolim-group">
+        <p class="bolim-group-title">Kombinatorika</p>
+        <ul class="topic-grid">
+          <li><a class="topic-chip" href="#t89"><span class="ico">❗</span><span class="tc-name">89. Faktorial</span></a></li>
+          <li><a class="topic-chip" href="#t90"><span class="ico">✖️</span><span class="tc-name">90. Kombinatorikaning asosiy qoidalari</span></a></li>
+          <li><a class="topic-chip" href="#t91"><span class="ico">🔀</span><span class="tc-name">91. O'rin almashtirish, o'rinlashtirish va guruhlash</span></a></li>
+        </ul>
+      </div>
+      <div class="bolim-group">
+        <p class="bolim-group-title">Ehtimollik</p>
+        <ul class="topic-grid">
+          <li><a class="topic-chip" href="#t92"><span class="ico">🎲</span><span class="tc-name">92. Ehtimollik: klassik ta'rif</span></a></li>
+          <li><a class="topic-chip" href="#t93"><span class="ico">🎯</span><span class="tc-name">93. Ehtimollik qoidalari</span></a></li>
+        </ul>
+      </div>
+      <div class="bolim-group">
+        <p class="bolim-group-title">To'plamlar va binom</p>
+        <ul class="topic-grid">
+          <li><a class="topic-chip" href="#t94"><span class="ico">🔵</span><span class="tc-name">94. To'plamlar nazariyasi asoslari</span></a></li>
+          <li><a class="topic-chip" href="#t95"><span class="ico">⭕</span><span class="tc-name">95. Eyler–Venn doiralari va inkluziya-eksklyuziya</span></a></li>
+          <li><a class="topic-chip" href="#t96"><span class="ico">🔺</span><span class="tc-name">96. Nyuton binomi</span></a></li>
         </ul>
       </div>
     </div>
@@ -4416,6 +4447,147 @@ x = &plusmn;&pi;/4 + 2&pi;n,  n&isin;Z</p>
   <a class="back-top" href="#toc5">&uarr; Mundarijaga qaytish</a>
 </section>
 
+<section class="topic" id="t89">
+  <h2><span class="t-num">89.</span> Faktorial</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ta'rif va xossalari</h3>
+    
+    <p class="formula">n! = 1·2·3·…·n; 0! = 1; 1! = 1; (n+1)! = (n+1)·n!; n!/(n−k)! = n(n−1)…(n−k+1). Faktorial tez o'sadi: 5! = 120, 6! = 720, 7! = 5040.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 7!/5! ni hisoblang.</p>
+      <p class="yechim">7·6 = 42</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>6! ni hisoblang.</li><li>8!/6! ni hisoblang.</li><li>(n+1)!/n! = ?</li><li>n!/(n−2)! = 20 bo'lsa, n?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t90">
+  <h2><span class="t-num">90.</span> Kombinatorikaning asosiy qoidalari</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — qo'shish va ko'paytirish qoidasi</h3>
+    
+    <p class="formula">Qo'shish qoidasi: A ni m usulda YOKI B ni n usulda tanlash — m + n usul (variantlar kesishmasa). Ko'paytirish qoidasi: A ni m usulda, KEYIN B ni n usulda tanlash — m·n usul.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 3 xil ko'ylak va 4 xil shimdan necha xil to'plam tuzish mumkin?</p>
+      <p class="yechim">3·4 = 12</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>5 xil qalam yoki 3 xil ruchkadan bittasini necha usulda tanlaymiz?</li><li>Raqamlari takrorlanmaydigan 1, 2, 3, 4 dan nechta uch xonali son tuzish mumkin?</li><li>4 ta savolga ha/yo'q javoblari necha xil bo'ladi?</li><li>0, 1, 2, 3 dan raqamlari takrorlanmaydigan nechta uch xonali son bor?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t91">
+  <h2><span class="t-num">91.</span> O'rin almashtirish, o'rinlashtirish va guruhlash</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — formulalar</h3>
+    
+    <p class="formula">Pₙ = n! (o'rin almashtirish). Aₙᵏ = n!/(n−k)! (o'rinlashtirish, tartib muhim). Cₙᵏ = n!/(k!(n−k)!) (guruhlash, tartib muhim emas). Cₙᵏ = Cₙⁿ⁻ᵏ; Cₙ⁰ = Cₙⁿ = 1; Cₙᵏ = Aₙᵏ / k!.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 8 kishidan 3 kishilik guruh necha usulda tanlanadi?</p>
+      <p class="yechim">C(8,3) = 8·7·6/6 = 56</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>5 ta kitobni javonga necha usulda joylashtirish mumkin?</li><li>A(7,2) = ?</li><li>C(10,2) = ?</li><li>6 yigit va 4 qizdan 2 yigit va 1 qizni necha usulda tanlash mumkin?</li></ol>
+  </div>
+  <div class="xossa">
+    <h3>Xossa 2 — qaysi formulani tanlash</h3>
+    
+    <p class="formula">Tartib muhim bo'lsa (sardor, o'rinbosar, kotib) — o'rinlashtirish. Tartib muhim bo'lmasa (komissiya a'zolari) — guruhlash. Hamma elementlar ishtirok etsa — o'rin almashtirish.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: 10 o'quvchidan sardor va o'rinbosarni necha usulda tanlash mumkin?</p>
+      <p class="yechim">Tartib muhim: A(10,2) = 90</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>10 o'quvchidan 2 kishilik komissiya?</li><li>4 ta turli harfdan so'zlar soni?</li><li>Aylana stolda 5 kishi necha usulda o'tiradi?</li><li>C(6,0) + C(6,6) = ?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t92">
+  <h2><span class="t-num">92.</span> Ehtimollik: klassik ta'rif</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — klassik ehtimollik</h3>
+    
+    <p class="formula">P(A) = m/n, bunda n — barcha teng imkoniyatli natijalar soni, m — A uchun qulay natijalar soni. 0 ≤ P ≤ 1; muqarrar hodisa P = 1, mumkin bo'lmagan hodisa P = 0.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: O'yin kubigi tashlandi. 5 dan katta ochko tushish ehtimolligi?</p>
+      <p class="yechim">Qulay: 6 — 1 ta; P = 1/6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>Qutida 3 oq va 5 qora shar. Oq shar olish ehtimolligi?</li><li>Ikki tanga tashlanganda ikkalasida gerb tushish ehtimolligi?</li><li>Ikki kub tashlanganda yig'indi 7 bo'lish ehtimolligi?</li><li>1 dan 20 gacha sondan tasodifiy son 5 ga karrali bo'lish ehtimolligi?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t93">
+  <h2><span class="t-num">93.</span> Ehtimollik qoidalari</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — qo'shish va ko'paytirish</h3>
+    
+    <p class="formula">P(Ā) = 1 − P(A). Birgalikda bo'lmagan hodisalar: P(A yoki B) = P(A) + P(B). Umumiy: P(A∪B) = P(A) + P(B) − P(A∩B). Bog'liq bo'lmaganlar: P(A va B) = P(A)·P(B). Bog'liq: P(A va B) = P(A)·P(B|A).</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Tanga ketma-ket 3 marta tashlanganda hammasida gerb tushish ehtimolligi?</p>
+      <p class="yechim">(1/2)³ = 1/8</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>P(A) = 0,3 bo'lsa P(Ā)?</li><li>P(A) = 1/2, P(B) = 1/3, P(A∩B) = 1/6. P(A∪B)?</li><li>3 oq, 2 qora shardan ketma-ket (qaytarmasdan) 2 oq shar olish ehtimolligi?</li><li>Ikki kubda kamida bittasida 6 tushish ehtimolligi?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t94">
+  <h2><span class="t-num">94.</span> To'plamlar nazariyasi asoslari</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — belgilar va amallar</h3>
+    
+    <p class="formula">a ∈ A — tegishli; A ⊂ B — qism to'plam; ∅ — bo'sh to'plam. Birlashma A ∪ B (yoki), kesishma A ∩ B (va), ayirma A \ B. n elementli to'plamning qism to'plamlari soni 2ⁿ. Dekart ko'paytma: |A×B| = |A|·|B|.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: A = {1,2,3,4}, B = {3,4,5}. A∪B, A∩B, A\B ni toping.</p>
+      <p class="yechim">A∪B = {1,2,3,4,5}; A∩B = {3,4}; A\B = {1,2}</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>4 elementli to'plamning qism to'plamlari soni?</li><li>|A| = 3, |B| = 5 bo'lsa, |A×B|?</li><li>{1,2,3} to'plamning 2 elementli qism to'plamlari soni?</li><li>1 dan 30 gacha sonlar to'plamida 3 ga karralilar soni?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t95">
+  <h2><span class="t-num">95.</span> Eyler–Venn doiralari va inkluziya-eksklyuziya</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — ikki va uch to'plam</h3>
+    
+    <p class="formula">|A ∪ B| = |A| + |B| − |A ∩ B|. Uch to'plam: |A∪B∪C| = |A|+|B|+|C| − |A∩B| − |B∩C| − |A∩C| + |A∩B∩C|. Hech qaysisiga tegishli bo'lmaganlar = umumiy son − |A ∪ B|.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: Sinfda 30 o'quvchi: 18 tasi ingliz, 15 tasi rus tilini o'rganadi, 8 tasi ikkalasini. Hech birini o'rganmaydiganlar?</p>
+      <p class="yechim">Kamida bittasi 18 + 15 − 8 = 25; 30 − 25 = 5</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>|A| = 12, |B| = 9, |A∩B| = 4. |A∪B|?</li><li>1 dan 100 gacha 2 ga yoki 5 ga bo'linadiganlar soni?</li><li>|A∪B| = 20, |A| = 12, |B| = 11 bo'lsa, |A∩B|?</li><li>1 dan 60 gacha 2 ga ham 3 ga ham bo'linmaydiganlar soni?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+<section class="topic" id="t96">
+  <h2><span class="t-num">96.</span> Nyuton binomi</h2>
+  <div class="xossa">
+    <h3>Xossa 1 — yoyilma va koeffitsiyentlar</h3>
+    
+    <p class="formula">(a+b)ⁿ = Σ Cₙᵏ aⁿ⁻ᵏ bᵏ. Hadlar soni n+1. Umumiy had T(k+1) = Cₙᵏ aⁿ⁻ᵏ bᵏ. Koeffitsiyentlar yig'indisi 2ⁿ; ishorali yig'indi 0. Paskal uchburchagi: har son yuqoridagi ikki sonning yig'indisi.</p>
+    <div class="namunaviy">
+      <span class="tag">Namunaviy yechim</span>
+      <p class="savol">1-misol: (x + 1)⁴ da x² oldidagi koeffitsiyent?</p>
+      <p class="yechim">C(4,2) = 6</p>
+    </div>
+    <p>Mustaqil ishlash uchun:</p>
+    <ol class="mashqlar" start="2"><li>(a+b)⁸ da nechta had bor?</li><li>(a+b)⁵ koeffitsiyentlari yig'indisi?</li><li>(2 + x)³ da x² oldidagi koeffitsiyent?</li><li>(x − 1)⁶ da barcha koeffitsiyentlar yig'indisi?</li></ol>
+  </div>
+  <a class="back-top" href="#toc6">&uarr; Mundarijaga qaytish</a>
+</section>
+
 <!-- TOPICS_END -->
   </main>
 
@@ -4933,6 +5105,7 @@ if ('serviceWorker' in navigator) {
 <script src="ka-savollar-7.js"></script>
 <script src="ka-savollar-8.js"></script>
 <script src="ka-savollar-9.js"></script>
+<script src="ka-savollar-10.js"></script>
 <script src="ka-test.js"></script>
 <script src="savol-bazasi.js"></script>
 <script src="geometriya.js"></script>
