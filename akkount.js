@@ -182,7 +182,7 @@
   .acc-banner{background:rgba(255,212,121,.12);border:1px solid rgba(255,212,121,.4);color:#ffe4a3;border-radius:12px;padding:10px 12px;font-size:13.5px}
   .acc-toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-30px);z-index:4000;background:#ffd479;color:#2b1d00;font:800 16px/1 -apple-system,BlinkMacSystemFont,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;transition:all .25s;pointer-events:none}
   .acc-toast.on{opacity:1;transform:translate(-50%,0)}
-  .acc-fixed{position:fixed;right:16px;top:12px;z-index:960}
+  .acc-fixed{position:fixed;left:10px;top:8px;z-index:960;box-shadow:0 4px 14px rgba(0,0,0,.35)}
   `;
   document.head.appendChild(el("style", null, css));
 
@@ -205,8 +205,9 @@
   // Header'dagi chip
   var chip = el("button", { class: "acc-chip", type: "button", title: "Akkount" });
   chip.onclick = function () { me() ? showProfile() : showLogin(); };
-  var header = $(".wrap > header");
-  if (header) header.appendChild(chip); else { chip.classList.add("acc-fixed"); document.body.appendChild(chip); }
+  chip.classList.add("acc-fixed"); document.body.appendChild(chip);
+  // chip logotip/menyuni yopmasligi uchun tepada joy qoldiramiz (o'yin canvas sahifalaridan tashqari)
+  try { if (!document.querySelector("canvas")) { var pt = parseFloat(getComputedStyle(document.body).paddingTop) || 0; document.body.style.paddingTop = (pt + 44) + "px"; } } catch (e) {}
   function renderChip() {
     var u = me();
     chip.innerHTML = u ? avatarHTML(u, 28) + '<span>' + esc(u.name.split(" ")[0]) + '</span><span class="coin">🪙 ' + (u.coins || 0) + "</span>"
