@@ -254,7 +254,7 @@
       <div class="eyebrow">Matematika &middot; Tub sonlar</div>
     </div>
     <h1>🏁 Tub Sonlar Poygasi</h1>
-    <p class="sub">Mashinangizni tanlang, yo'lda tub sonlarni topib yig'ib boring — noto'g'ri son jon oladi, natijangiz avtomatik elektron bahoga aylanadi va pastdagi jadvalga tushadi.</p>
+    <p class="sub">Poyga turini tanlang (tub, karrali, kvadrat, kub...), mashinangizni haydab to'g'ri sonlarni yig'ib boring — noto'g'ri son jon oladi, natijangiz avtomatik elektron bahoga aylanadi va pastdagi jadvalga tushadi.</p>
   </header>
 
   <!-- START SCREEN -->
@@ -273,8 +273,20 @@
     </div>
 
     <div class="field" style="margin-bottom:16px">
+      <label>Poyga turi</label>
+      <div class="diff-pick" id="rule-pick">
+        <div class="diff-card sel" data-rule="tub" tabindex="0"><div class="name">🔢 Tub sonlar</div><div class="tag">Faqat 1 va o'ziga bo'linadigan sonni toping</div></div>
+        <div class="diff-card" data-rule="karra3" tabindex="0"><div class="name">3️⃣ 3 ga karrali</div><div class="tag">3 ga qoldiqsiz bo'linadigan sonni toping</div></div>
+        <div class="diff-card" data-rule="karra7" tabindex="0"><div class="name">7️⃣ 7 ga karrali</div><div class="tag">7 ga qoldiqsiz bo'linadigan sonni toping</div></div>
+        <div class="diff-card" data-rule="kvadrat" tabindex="0"><div class="name">⬛ To'la kvadrat</div><div class="tag">4, 9, 16, 25 kabi sonlarni toping</div></div>
+        <div class="diff-card" data-rule="kub" tabindex="0"><div class="name">🧊 To'la kub</div><div class="tag">8, 27, 64, 125 kabi sonlarni toping</div></div>
+        <div class="diff-card" data-rule="toqtub" tabindex="0"><div class="name">🎯 5 ga qoldiqli</div><div class="tag">5 ga bo'lganda qoldiq 2 chiqadigan sonni toping</div></div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px">
       <label>Qiyinlik darajasi</label>
-      <div class="diff-pick">
+      <div class="diff-pick" id="diff-pick">
         <div class="diff-card" data-diff="oson" tabindex="0">
           <div class="name">🟢 Oson</div>
           <div class="tag">Sekinroq, ko'proq jon (12 ta), o'ylab javob berishga vaqt yetarli</div>
@@ -308,9 +320,9 @@
 
     <div class="rules panel" style="background:var(--panel-2);border:1px solid var(--line);margin-bottom:16px">
       <b>Qoidalar:</b> Yo'lda <b>1 dan 1000 gacha</b> aralash sonlar chiqadi. Har safar 3 ta yo'lakda 3 ta son turadi.
-      Sizning vazifangiz &mdash; ular orasidan <b>tub sonni</b> topib, mashinangizni o'sha yo'lakka olib o'tish.
-      Agar 3 ta sondan <b>ikkitasi</b> ham tub bo'lsa, ikkalasidan qaysi birini tanlasangiz ham &mdash; <b>to'g'ri</b> hisoblanadi.
-      To'g'ri topsangiz &mdash; ball qo'shiladi; adashsangiz (tub bo'lmagan sonni tansangiz) &mdash; 1 ta jon ketadi.
+      Sizning vazifangiz &mdash; ular orasidan <b id="rule-word">tub sonni</b> topib, mashinangizni o'sha yo'lakka olib o'tish.
+      Agar 3 ta sondan <b>ikkitasi</b> ham shartga mos kelsa, ikkalasidan qaysi birini tanlasangiz ham &mdash; <b>to'g'ri</b> hisoblanadi.
+      To'g'ri topsangiz &mdash; ball qo'shiladi; adashsangiz (shartga mos kelmaydigan sonni tansangiz) &mdash; 1 ta jon ketadi.
       Ketma-ket <b>5 ta</b> to'g'ri javobdan so'ng &mdash; <b>bonus ball</b> beriladi. Qiyinlik darajasini tanlang: oson darajada vaqt ko'proq va jon ko'p, qiyin darajada tezroq va har bir to'g'ri javob uchun ko'proq ball beriladi.
       Barcha bosqichlar tugaguncha poyga davom etadi. Natijangiz asosida elektron baho qo'yiladi.
     </div>
@@ -406,11 +418,23 @@
   // ---------- state ----------
   const LIMIT = 1000;
   // Faqat haqiqiy tub sonlar ro'yxati (2 dan 1000gacha) — tanlov uchun pool sifatida ishlatiladi
-  const PRIMES = (function(){
+  // Poyga turlari: har birida "to'g'ri son" sharti test() orqali tekshiriladi
+  const isSquare = n => { const r = Math.round(Math.sqrt(n)); return r*r===n; };
+  const isCube = n => { const r = Math.round(Math.cbrt(n)); return r*r*r===n; };
+  const RULES = {
+    tub:     { label:"Tub sonlar",       word:"tub sonni",           ok:"tub!",              no:"tub emas",              test:isPrime },
+    karra3:  { label:"3 ga karrali",     word:"3 ga karrali sonni",  ok:"3 ga karrali!",     no:"3 ga bo'linmaydi",      test:n=>n%3===0 },
+    karra7:  { label:"7 ga karrali",     word:"7 ga karrali sonni",  ok:"7 ga karrali!",     no:"7 ga bo'linmaydi",      test:n=>n%7===0 },
+    kvadrat: { label:"To'la kvadrat",    word:"to'la kvadrat sonni", ok:"to'la kvadrat!",    no:"to'la kvadrat emas",    test:isSquare },
+    kub:     { label:"To'la kub",        word:"to'la kub sonni",     ok:"to'la kub!",        no:"to'la kub emas",        test:isCube },
+    toqtub:  { label:"5 ga qoldiq 2",    word:"5 ga bo'lganda 2 qoldiq qoladigan sonni", ok:"qoldiq 2!", no:"qoldiq 2 emas", test:n=>n%5===2 }
+  };
+  Object.keys(RULES).forEach(k=>{
     const arr = [];
-    for(let n=2; n<=LIMIT; n++){ if(isPrime(n)) arr.push(n); }
-    return arr;
-  })();
+    for(let n=2; n<=LIMIT; n++){ if(RULES[k].test(n)) arr.push(n); }
+    RULES[k].pool = arr;
+  });
+  const RULE = () => RULES[state.rule] || RULES.tub;
   const ROUNDS = 40; // umumiy bosqichlar soni
   const ROUTE = ["Namangan","Andijon","Farg'ona","Toshkent","Sirdaryo","Jizzax","Samarqand","Qashqadaryo","Surxondaryo","Navoiy","Buxoro","Xorazm","Qoraqalpog'iston"];
 
@@ -434,6 +458,7 @@
 
   let state = {
     car:"cobalt",
+    rule:"tub",
     name:"",
     group:"05-25",
     difficulty:"orta",
@@ -522,13 +547,20 @@
   });
 
   // ---------- difficulty selection ----------
-  document.querySelectorAll(".diff-card").forEach(card=>{
-    card.addEventListener("click", ()=>{
-      document.querySelectorAll(".diff-card").forEach(c=>c.classList.remove("sel"));
-      card.classList.add("sel");
-      state.difficulty = card.dataset.diff;
+  function bindPick(sel, key, apply){
+    document.querySelectorAll(sel+" .diff-card").forEach(card=>{
+      const pick = ()=>{
+        document.querySelectorAll(sel+" .diff-card").forEach(c=>c.classList.remove("sel"));
+        card.classList.add("sel");
+        state[key] = card.dataset[key==="difficulty" ? "diff" : "rule"];
+        if(apply) apply();
+      };
+      card.addEventListener("click", pick);
+      card.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(); } });
     });
-  });
+  }
+  bindPick("#diff-pick", "difficulty");
+  bindPick("#rule-pick", "rule", ()=>{ const w=document.getElementById("rule-word"); if(w) w.textContent = RULE().word; });
 
   // ================= AUDIO ENGINE =================
   let audioCtx=null, masterGain=null, musicGain=null, sfxGain=null;
@@ -881,9 +913,10 @@
   function pickPrimeValues(count, used){
     const out = [];
     let guard = 0;
+    const POOL = RULE().pool;
     while(out.length < count && guard < 500){
       guard++;
-      const p = PRIMES[randomInt(0, PRIMES.length-1)];
+      const p = POOL[randomInt(0, POOL.length-1)];
       if(!used.has(p)){ used.add(p); out.push(p); }
     }
     return out;
@@ -906,16 +939,17 @@
         // "o'rta": aralash
         n = Math.random()<0.5 && anchor!=null ? Math.max(2, Math.min(LIMIT, anchor + randomInt(-15,15))) : randomInt(2, LIMIT);
       }
-      if(isPrime(n) || used.has(n)) continue;
+      if(RULE().test(n) || used.has(n)) continue;
       used.add(n); out.push(n);
     }
     return out;
   }
 
   function fillLaneNumbers(){
-    // Har bosqichda: 65% - 1 ta tub son, 30% - 2 ta tub son, 5% - 3 ta tub son (hammasi tub)
+    // Har bosqichda: 65% - 1 ta to'g'ri son, 30% - 2 ta, 5% - 3 ta (hammasi mos)
     const roll = Math.random();
-    const primeCount = roll < 0.65 ? 1 : (roll < 0.95 ? 2 : 3);
+    let primeCount = roll < 0.65 ? 1 : (roll < 0.95 ? 2 : 3);
+    primeCount = Math.min(primeCount, RULE().pool.length);
     const used = new Set();
     const primeVals = pickPrimeValues(primeCount, used);
     const mode = diffCfg().decoyMode;
@@ -984,7 +1018,7 @@
   function commit(){
     if(!state.running) return;
     const chosen = state.laneNumbers[state.carLane];
-    const correct = isPrime(chosen);
+    const correct = RULE().test(chosen);
     state.attempts++;
     if(correct){
       const pts = diffCfg().pointsPerCorrect;
@@ -992,7 +1026,7 @@
       state.correctCount++;
       state.streak++;
       if(state.streak > state.bestStreak) state.bestStreak = state.streak;
-      let bonusTxt = "+" + pts + "  " + chosen + " tub!";
+      let bonusTxt = "+" + pts + "  " + chosen + " " + RULE().ok;
       if(state.streak>0 && state.streak%5===0){
         const bonus = 3;
         state.score += bonus;
@@ -1007,8 +1041,8 @@
     } else {
       state.lives--;
       state.streak = 0;
-      const otherPrime = state.laneNumbers.find(n=>isPrime(n));
-      flash("bad", chosen + " tub emas" + (otherPrime? " (tub: "+otherPrime+")" : ""));
+      const otherPrime = state.laneNumbers.find(n=>RULE().test(n));
+      flash("bad", chosen + " " + RULE().no + (otherPrime? " (to'g'ri: "+otherPrime+")" : ""));
       sfxWrong();
       renderLives();
     }
@@ -1113,7 +1147,7 @@
   const RESULTS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxeBUPBTqpJ8rw9PH4mW8dlonvIJCjeP9ijTfq84R6MrFqCeIjf04uoQsEgVqne2xYBTA/exec";
   function sendToSheet(grade, acc){
     const payload = { name: state.name, group: state.group,
-      topic: "🏁 Tub Sonlar Poygasi (" + (state.car||"") + ", baho " + grade + ", aniqlik " + acc + "%, seriya " + state.bestStreak + ")",
+      topic: "🏁 Poyga: " + RULE().label + " (" + (state.car||"") + ", baho " + grade + ", aniqlik " + acc + "%, seriya " + state.bestStreak + ")",
       correct: state.correctCount, total: Math.max(state.correctCount, state.attempts||0), date: new Date().toLocaleString("uz-UZ") };
     fetch(RESULTS_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
       .then(r => { if(r.ok) els.saveStatus.textContent += "  ·  Google jadvalga ham yuborildi ☁️"; })
@@ -1174,9 +1208,18 @@
     list.push({
       ism: state.name, guruh: state.group, mashina: state.car, ball: state.correctCount,
       aniqlik: acc, baho: grade, jon: state.lives, masofa: Math.min(state.roundIndex, ROUNDS),
-      seriya: state.bestStreak, qiyinlik: state.difficulty, vaqt: Date.now()
+      seriya: state.bestStreak, qiyinlik: state.difficulty, tur: state.rule, vaqt: Date.now()
     });
-    sendToSheet(grade, acc);
+    // Akkauntga kirgan bo'lsa: Google jadval + o'qituvchi paneli (Firestore) + tangalar; aks holda faqat jadval
+    const topicTxt = "🏁 Poyga: " + RULE().label + " (baho " + grade + ", aniqlik " + acc + "%, seriya " + state.bestStreak + ")";
+    let viaAcc = false;
+    try {
+      if(window.kaAccount && window.kaAccount.me()){
+        viaAcc = window.kaAccount.sendResult(topicTxt, state.correctCount, Math.max(state.correctCount, state.attempts||0));
+        window.kaAccount.addCoins(Math.min(8, Math.ceil(state.correctCount/5)), "poyga");
+      }
+    } catch(e) {}
+    if(!viaAcc) sendToSheet(grade, acc);
     if(saveResults(list)){
       els.saveStatus.textContent = "Natija jadvalga yozildi ✅ (shu kompyuter/telefonda saqlanadi)";
       renderBoard();
@@ -1217,4 +1260,6 @@
 })();
 </script>
 
+<script src="ka-bulut.js"></script>
+<script src="akkount.js"></script>
 </body></html>
