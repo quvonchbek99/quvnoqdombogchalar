@@ -151,6 +151,13 @@ if(window.CanvasRenderingContext2D&&!CanvasRenderingContext2D.prototype.roundRec
       <button class="opt" data-c="touch"><b>🖱️</b>Sichqoncha / ekran<small>bosib otish</small></button>
     </div>
 
+    <div class="sec">Otish usuli (qo'l rejimida)</div>
+    <div class="opts" id="fireOpts">
+      <button class="opt on" data-c="pinch"><b>🤏</b>Chimdash<small>barmoqlarni chimdang</small></button>
+      <button class="opt" data-c="voice"><b>🎙</b>“Ot” deng<small>nishonga olib ayting</small></button>
+      <button class="opt" data-c="puff"><b>💨</b>Puflang<small>mikrofonga puflang</small></button>
+    </div>
+
     <div class="how">
       <div><b>☝️ Nishonga olish:</b> ko'rsatkich barmog'ingizni nishonga qarating.</div>
       <div><b>💥 Otish:</b> barmoqni tez tepaga silkiting yoki bosh va ko'rsatkich barmoqni chimdang.</div>
@@ -230,6 +237,8 @@ const TOPIC_NAMES = {add:"Qo'shish",sub:"Ayirish",mul:"Ko'paytirish",div:"Bo'lis
 function showBest(){ $('bestTxt').textContent = '🏆 Rekord ('+TOPIC_NAMES[topic]+'): ' + (store.get('ka_snayper_best_'+topic) || 0); }
 bindOpts('topicOpts','t', v => { topic=v; showBest(); });
 bindOpts('ctrlOpts','c', v => { ctrl=v; });
+let fireMode='pinch';
+bindOpts('fireOpts','c', v => { fireMode=v; });
 showBest();
 
 /* ---------- Sound ---------- */
@@ -580,7 +589,15 @@ async function start(){
       return;
     }
     $('startBtn').disabled=false; $('startBtn').textContent='▶ Boshlash';
-  } else { stopCam(); $('cross').style.display='none'; }
+    if(window.kaControl) kaControl.stop();
+    if(fireMode!=='pinch' && window.kaControl){
+      const shot=()=>{ if(running&&!paused&&aim.ok&&canShoot) fire(aim.x,aim.y); };
+      try{
+        if(fireMode==='voice') await kaControl.start('voice',{add:true,words:{ot:shot,otish:shot,fire:shot,pah:shot,огонь:shot},hint:'🎙 Nishonga olib “ot” deng'});
+        else await kaControl.start('puff',{add:true,onPuff:shot,hint:'💨 Nishonga olib puflang'});
+      }catch(e){ $('err').textContent='Mikrofon ishga tushmadi — chimdab otish ishlaydi.'; }
+    }
+  } else { stopCam(); if(window.kaControl) kaControl.stop(); $('cross').style.display='none'; }
   newGame();
   ['startScr','overScr','pauseScr'].forEach(id=>$(id).hidden=true);
   ['hud','qbox','status'].forEach(id=>$(id).hidden=false);
@@ -589,7 +606,7 @@ async function start(){
 }
 function gameOver(){
   if(!running) return;
-  running=false;
+  running=false; if(window.kaControl) kaControl.stop();
   const key='ka_snayper_best_'+topic, prev=+(store.get(key)||0), rec=S.score>prev;
   if(rec) store.set(key,S.score);
   $('sScore').textContent=S.score; $('sRight').textContent=S.right;
@@ -608,7 +625,7 @@ function pause(on){
 }
 $('startBtn').onclick=start;
 $('againBtn').onclick=start;
-$('menuBtn').onclick=()=>{ $('overScr').hidden=true; $('startScr').hidden=false; stopCam(); };
+$('menuBtn').onclick=()=>{ $('overScr').hidden=true; $('startScr').hidden=false; stopCam(); if(window.kaControl) kaControl.stop(); };
 $('pauseBtn').onclick=()=>pause(true);
 $('resumeBtn').onclick=()=>pause(false);
 $('quitBtn').onclick=()=>{ $('pauseScr').hidden=true; paused=false; gameOver(); };
@@ -616,5 +633,6 @@ window.addEventListener('keydown',e=>{ if(e.key==='Escape'||e.key==='p') pause(!
 document.addEventListener('visibilitychange',()=>{ if(document.hidden) pause(true); });
 })();
 </script>
+<script src="ka-boshqaruv.js"></script>
 </body>
 </html>
