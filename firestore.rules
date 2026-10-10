@@ -6,6 +6,12 @@ service cloud.firestore {
     function isAdmin() {
       return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
+    // Premium: premium/{uid} hujjati bor va muddati tugamagan
+    function isPremium() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/premium/$(request.auth.uid))
+        && get(/databases/$(database)/documents/premium/$(request.auth.uid)).data.until > request.time;
+    }
     function str(v, n) { return v is string && v.size() >= 1 && v.size() <= n; }
     function validProfile(d) {
       return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated'])
@@ -57,6 +63,25 @@ service cloud.firestore {
     match /admins/{uid} {
       allow read: if signedIn() && request.auth.uid == uid;
       allow write: if false;
+    }
+
+    // Premium obuna: egasi o'zinikini ko'radi, yozish faqat o'qituvchiga
+    match /premium/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    // Premium test katalogi (nom, savollar soni, narx): kirgan hamma ko'radi
+    match /premiumCatalog/{id} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    // Premium testlar: bepul namunalar hamma kirganga, qolgani faqat obunachiga
+    match /premiumTests/{id} {
+      allow read: if isAdmin()
+        || (signedIn() && resource.data.published == true && (resource.data.free == true || isPremium()));
+      allow write: if isAdmin();
     }
   }
 }

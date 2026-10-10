@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>Premium testlar — Kuvonch Academy</title>
+<meta name="description" content="Kuvonch Academy premium testlari: DTM va imtihonga tayyorlov uchun maxsus savollar to'plami. Bepul namunalar bilan sinab ko'ring.">
+<link rel="canonical" href="https://quvonchbek99.github.io/quvnoqdombogchalar/premium.html">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<meta property="og:title" content="Premium testlar — Kuvonch Academy">
+<meta property="og:image" content="https://quvonchbek99.github.io/quvnoqdombogchalar/og-image.jpg">
+<style>
+:root{--bg:#0b1220;--soft:#111a2e;--card:#141f38;--bd:#243252;--tx:#eef2ff;--dim:#9fb0d0;--ac:#5ee6c7;--ac2:#7c9bff;--gold:#ffd479;--bad:#ff8585}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px 70px}
+header{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+header a{color:var(--dim);text-decoration:none;font-weight:600}
+h1{font-size:26px;margin:20px 0 4px}
+.sub{color:var(--dim);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin:14px 0}
+.badge{display:inline-block;font:800 11px/1 inherit;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:5px 9px;background:#0e1628;border:1px solid var(--bd);color:var(--gold)}
+.badge.ok{color:var(--ac)} .badge.free{color:var(--ac2)}
+button,.btn{background:var(--soft);border:1px solid var(--bd);color:var(--tx);border-radius:12px;padding:11px 16px;font:700 14px/1 inherit;cursor:pointer;text-decoration:none;display:inline-block}
+button.pri,.btn.pri{background:linear-gradient(135deg,#6a5af9,#8b5cf6);border-color:transparent;color:#fff}
+button.go{background:var(--ac);color:#06231d;border-color:transparent}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--bd)}
+.row:first-child{border-top:0}
+.row b{display:block} .row span{color:var(--dim);font-size:13px}
+code{background:rgba(255,255,255,.08);padding:3px 7px;border-radius:7px;word-break:break-all}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:13px 14px;font-weight:600}
+.opt.right{background:#0f3b31;border-color:var(--ac)} .opt.wrong{background:#3b1717;border-color:var(--bad)}
+.bar{height:5px;background:#121c32;border-radius:9px;overflow:hidden;margin:6px 0 16px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#7c9bff,#5ee6c7);width:0}
+.msg{color:var(--bad);font-size:14px;min-height:1.2em}
+[hidden]{display:none!important}
+</style>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header><a href="index.html">← Kuvonch Academy</a><a href="mashqlar.html">Mashqlar</a></header>
+<h1>💎 Premium testlar</h1>
+<p class="sub">Imtihonga tayyorlov uchun maxsus savollar to'plami. Bepul namunalar bilan avval sinab ko'ring.</p>
+
+<section class="card" id="state"></section>
+<section id="list"></section>
+
+<section class="card" id="quiz" hidden>
+  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+    <b id="qtitle"></b><span class="badge" id="qcount"></span>
+  </div>
+  <div class="bar"><i id="qbar"></i></div>
+  <div id="qbody"></div>
+</section>
+</div>
+
+<script>
+/* To'lov ma'lumotlari — o'qituvchi shu yerni to'ldiradi. Bo'sh qoldirilsa "tez orada" deb ko'rsatiladi. */
+var PAY = { price: "", card: "", telegram: "" };
+</script>
+<script src="ka-bulut.js"></script>
+<script src="akkount.js"></script>
+<script>
+(function () {
+  "use strict";
+  var K = window.kaCloud, $ = function (s) { return document.querySelector(s); };
+  var st = null, lastKey = "";
+
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  function fmtD(d) { return d ? d.toLocaleDateString("uz-UZ") : ""; }
+
+  function renderState() {
+    var box = $("#state"); box.innerHTML = "";
+    if (!st.signed) {
+      box.appendChild(el("b", "", "Boshlash uchun akkauntga kiring"));
+      box.appendChild(el("p", "sub", "Natijalaringiz saqlanishi va premium obuna sizga biriktirilishi uchun bulutli akkaunt kerak."));
+      var b = el("button", "pri", "Kirish / akkaunt ochish"); b.onclick = function () { window.kaAccount && window.kaAccount.open(); };
+      box.appendChild(b); return;
+    }
+    if (st.active) {
+      var bd = el("span", "badge ok", "Premium faol"); box.appendChild(bd);
+      box.appendChild(el("p", "sub", fmtD(st.until) + " gacha barcha premium testlar ochiq."));
+      return;
+    }
+    box.appendChild(el("span", "badge", "Obuna yo'q"));
+    box.appendChild(el("p", "sub", "Bepul namunalar ochiq. Hammasini ochish uchun premium obuna oling."));
+    var info = el("div"); 
+    if (PAY.card || PAY.telegram) {
+      var t = "To'lov" + (PAY.price ? " (" + PAY.price + ")" : "") + (PAY.card ? ": karta " + PAY.card : "") + ". ";
+      info.appendChild(el("p", "", t + "So'ng chekni" + (PAY.telegram ? " Telegram " + PAY.telegram + " ga" : " o'qituvchiga") + " va quyidagi kodingizni yuboring:"));
+      var c = el("code", "", st.uid); info.appendChild(c);
+      var cb = el("button", "", "Kodni nusxalash"); cb.style.marginLeft = "8px";
+      cb.onclick = function () { try { navigator.clipboard.writeText(st.uid); cb.textContent = "Nusxalandi ✓"; } catch (e) {} };
+      info.appendChild(cb);
+      info.appendChild(el("p", "sub", "O'qituvchi to'lovni tasdiqlagach, premium shu akkauntingizda ochiladi."));
+    } else {
+      info.appendChild(el("p", "sub", "To'lov usullari tez orada qo'shiladi. Hozircha o'qituvchingizga murojaat qiling va shu kodingizni ayting:"));
+      info.appendChild(el("code", "", st.uid));
+    }
+    box.appendChild(info);
+  }
+
+  function renderList(cat, tests) {
+    var list = $("#list"); list.innerHTML = "";
+    var open = {}; tests.forEach(function (t) { open[t.id] = t; });
+    var card = el("div", "card");
+    if (!cat.length) card.appendChild(el("p", "sub", "Hozircha testlar qo'shilmagan."));
+    cat.forEach(function (c) {
+      var row = el("div", "row"), left = el("div");
+      var title = el("b", "", c.title);
+      var meta = el("span", "", c.n + " ta savol" + (c.price ? " • " + c.price : ""));
+      left.appendChild(title); left.appendChild(meta); row.appendChild(left);
+      var right = el("div");
+      if (c.free) right.appendChild(el("span", "badge free", "Bepul namuna"));
+      var t = open[c.id];
+      var btn = el("button", t ? "go" : "", t ? "Boshlash" : "🔒 Premium");
+      if (t) btn.onclick = function () { startQuiz(t); }; else btn.disabled = true;
+      btn.style.marginLeft = "8px"; right.appendChild(btn); row.appendChild(right); card.appendChild(row);
+    });
+    list.appendChild(card);
+  }
+
+  async function refresh() {
+    await K.session();
+    st = await K.premiumStatus();
+    var key = (st.signed ? st.uid : "-") + "|" + st.active;
+    if (key === lastKey && $("#list").children.length) return;
+    lastKey = key;
+    renderState();
+    if (!st.signed) { $("#list").innerHTML = ""; return; }
+    try {
+      var cat = await K.premiumCatalog();
+      var tests = await K.premiumTests(!st.active);
+      renderList(cat, tests);
+    } catch (e) {
+      $("#list").innerHTML = ""; var m = el("p", "msg", "Testlarni yuklab bo'lmadi (" + (e && e.code || "xato") + ")."); $("#list").appendChild(m);
+    }
+  }
+
+  /* ---- Test o'ynatish ---- */
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function startQuiz(t) {
+    var qs = shuffle(t.questions || []).map(function (q) {
+      var opts = q.o.map(function (txt, i) { return { txt: txt, ok: i === q.c }; });
+      return { q: q.q, o: shuffle(opts) };
+    });
+    var i = 0, ok = 0, done = false;
+    $("#quiz").hidden = false; $("#list").hidden = true; $("#state").hidden = true;
+    $("#qtitle").textContent = t.title;
+    window.scrollTo(0, 0);
+    function show() {
+      var body = $("#qbody"); body.innerHTML = "";
+      if (i >= qs.length) return finish();
+      $("#qcount").textContent = (i + 1) + " / " + qs.length;
+      $("#qbar").style.width = (i / qs.length * 100) + "%";
+      var h = el("h3", "", qs[i].q); h.style.margin = "0 0 10px"; body.appendChild(h);
+      var locked = false;
+      qs[i].o.forEach(function (o) {
+        var b = el("button", "opt", o.txt);
+        b.onclick = function () {
+          if (locked) return; locked = true;
+          if (o.ok) ok++;
+          Array.prototype.forEach.call(body.querySelectorAll(".opt"), function (x, k) { x.classList.add(qs[i].o[k].ok ? "right" : (x === b ? "wrong" : "")); });
+          var nx = el("button", "pri", i + 1 >= qs.length ? "Natijani ko'rish" : "Keyingisi →"); nx.style.marginTop = "10px";
+          nx.onclick = function () { i++; show(); }; body.appendChild(nx);
+        };
+        body.appendChild(b);
+      });
+    }
+    function finish() {
+      if (done) return; done = true;
+      $("#qbar").style.width = "100%";
+      var pct = qs.length ? Math.round(ok / qs.length * 100) : 0;
+      var body = $("#qbody"); body.innerHTML = "";
+      body.appendChild(el("h2", "", ok + " / " + qs.length + " (" + pct + "%)"));
+      try {
+        if (window.kaAccount) {
+          window.kaAccount.addCoins(Math.round(ok / 2), "Premium: " + t.title);
+          window.kaAccount.sendResult("Premium: " + t.title, ok, qs.length);
+        }
+      } catch (e) {}
+      var again = el("button", "go", "Qayta urinish"); again.onclick = function () { startQuiz(t); };
+      var back = el("button", "", "Testlar ro'yxati"); back.style.marginLeft = "8px";
+      back.onclick = function () { $("#quiz").hidden = true; $("#list").hidden = false; $("#state").hidden = false; };
+      body.appendChild(again); body.appendChild(back);
+    }
+    show();
+  }
+
+  refresh();
+  // Firestore'ni behuda o'qimaslik uchun: faqat kirish holati o'zgarsa yoki sahifa qayta ochilsa yangilaymiz
+  var seenUid = null;
+  setInterval(async function () {
+    if (!$("#quiz").hidden) return;
+    var u = await K.session();
+    if (u !== seenUid) { seenUid = u; lastKey = ""; refresh(); }
+  }, 2500);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && $("#quiz").hidden) { lastKey = ""; refresh(); } });
+})();
+</script>
+</body>
+</html>

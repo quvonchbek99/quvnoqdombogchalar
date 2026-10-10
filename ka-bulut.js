@@ -162,6 +162,68 @@
     idToken: async function () {
       try { var c = await load(); await c.auth.authStateReady(); return c.auth.currentUser ? await c.auth.currentUser.getIdToken() : null; } catch (e) { return null; }
     },
+    // ---- Premium ----
+    premiumStatus: async function () {
+      try {
+        var c = await load(), u = c.auth.currentUser;
+        if (!u) return { signed: false, active: false };
+        var s = await c.F.getDoc(c.F.doc(c.db, "premium", u.uid));
+        var until = s.exists() && s.data().until && s.data().until.toDate ? s.data().until.toDate() : null;
+        return { signed: true, uid: u.uid, active: !!until && until > new Date(), until: until };
+      } catch (e) { return { signed: true, active: false, error: e && e.code }; }
+    },
+    premiumCatalog: async function () {
+      var c = await load(), out = [];
+      var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "premiumCatalog"), c.F.limit(100)));
+      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, title: x.title, n: x.n | 0, free: !!x.free, price: x.price || "" }); });
+      return out;
+    },
+    // freeOnly=true: faqat bepul namunalar (obunasizlar uchun), aks holda obunachiga hammasi
+    premiumTests: async function (freeOnly) {
+      var c = await load(), out = [];
+      var cons = [c.F.where("published", "==", true)];
+      if (freeOnly) cons.push(c.F.where("free", "==", true));
+      cons.push(c.F.limit(60));
+      var s = await c.F.getDocs(c.F.query.apply(null, [c.F.collection(c.db, "premiumTests")].concat(cons)));
+      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, title: x.title, free: !!x.free, questions: x.questions || [] }); });
+      return out;
+    },
+    // ---- Premium: faqat o'qituvchi (qoidalar tekshiradi) ----
+    addPremiumTest: async function (t) {
+      var c = await load(), id = "t" + Date.now().toString(36);
+      var qs = (t.questions || []).slice(0, 300).map(function (q) {
+        return { q: String(q.q).slice(0, 400), o: q.o.map(function (x) { return String(x).slice(0, 160); }), c: q.c | 0 };
+      });
+      var b = c.F.writeBatch(c.db);
+      b.set(c.F.doc(c.db, "premiumTests", id), { title: String(t.title).slice(0, 120), free: !!t.free, published: true, questions: qs, n: qs.length, at: c.F.serverTimestamp() });
+      b.set(c.F.doc(c.db, "premiumCatalog", id), { title: String(t.title).slice(0, 120), free: !!t.free, n: qs.length, price: String(t.price || "").slice(0, 40), at: c.F.serverTimestamp() });
+      await b.commit();
+      return id;
+    },
+    removePremiumTest: async function (id) {
+      var c = await load(), b = c.F.writeBatch(c.db);
+      b.delete(c.F.doc(c.db, "premiumTests", id)); b.delete(c.F.doc(c.db, "premiumCatalog", id));
+      await b.commit();
+    },
+    grantPremium: async function (uid, days) {
+      var c = await load(), ref = c.F.doc(c.db, "premium", uid), base = Date.now();
+      var s = await c.F.getDoc(ref);
+      if (s.exists() && s.data().until && s.data().until.toMillis() > base) base = s.data().until.toMillis();
+      await c.F.setDoc(ref, { until: c.F.Timestamp.fromMillis(base + days * 86400000), by: c.auth.currentUser.uid, at: c.F.serverTimestamp() });
+    },
+    revokePremium: async function (uid) { var c = await load(); await c.F.deleteDoc(c.F.doc(c.db, "premium", uid)); },
+    listPremium: async function () {
+      var c = await load(), out = [];
+      var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "premium"), c.F.limit(500)));
+      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, until: x.until && x.until.toDate ? x.until.toDate() : null }); });
+      return out;
+    },
+    listUsers: async function (n) {
+      var c = await load(), out = [];
+      var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "users"), c.F.limit(n || 500)));
+      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, name: x.name, group: x.group }); });
+      return out;
+    },
     deleteProfile: async function () {
       try { var c = await load(), u = c.auth.currentUser; if (u) await c.F.deleteDoc(c.F.doc(c.db, "users", u.uid)); } catch (e) {}
     },

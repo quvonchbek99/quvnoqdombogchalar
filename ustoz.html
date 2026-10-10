@@ -94,6 +94,34 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
     <h3 style="margin:0 0 10px">🕘 So'nggi urinishlar</h3>
     <div class="tw"><table id="t2"><thead><tr><th>Vaqt</th><th>O'quvchi</th><th>Guruh</th><th>Mavzu</th><th>Natija</th></tr></thead><tbody></tbody></table></div>
   </section>
+
+  <section class="card" id="pm">
+    <h3 style="margin:0 0 4px">💎 Premium obuna</h3>
+    <p class="hint">To'lov kelgach, o'quvchini ism bo'yicha toping yoki UID ni kiriting va muddat bering.</p>
+    <div class="row" style="align-items:end">
+      <label>Ism bo'yicha qidirish<input id="pq" placeholder="masalan: Aziza"></label>
+      <label>yoki UID<input id="pu" placeholder="o'quvchi bergan kod"></label>
+      <button id="pgo" type="button">Qidirish</button>
+    </div>
+    <div id="pres" style="margin-top:10px"></div>
+    <h4 style="margin:16px 0 6px">Faol obunalar</h4>
+    <div class="tw"><table id="t3"><thead><tr><th>O'quvchi</th><th>Gacha</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="msg" id="pmsg"></div>
+  </section>
+
+  <section class="card" id="pt">
+    <h3 style="margin:0 0 4px">📚 Premium test qo'shish</h3>
+    <p class="hint">Har qator bitta savol: <code>Savol | To'g'ri javob | Xato 1 | Xato 2 | Xato 3</code></p>
+    <div class="row">
+      <label>Test nomi<input id="ptt" maxlength="120"></label>
+      <label>Narx (ixtiyoriy)<input id="ptp" maxlength="40" placeholder="masalan: 30 000 so'm / oy"></label>
+      <label>Turi<select id="ptf"><option value="0">Premium (pulli)</option><option value="1">Bepul namuna</option></select></label>
+    </div>
+    <label style="margin-top:10px">Savollar<textarea id="ptq" rows="8" style="background:#0b1220;border:1px solid var(--bd);color:var(--tx);border-radius:10px;padding:10px 12px;font:14px/1.4 ui-monospace,monospace;width:100%"></textarea></label>
+    <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="pri" id="ptgo" type="button">Testni qo'shish</button><span class="msg" id="ptmsg"></span></div>
+    <h4 style="margin:16px 0 6px">Mavjud testlar</h4>
+    <div class="tw"><table id="t4"><thead><tr><th>Nomi</th><th>Savol</th><th>Turi</th><th></th></tr></thead><tbody></tbody></table></div>
+  </section>
 </div>
 </div>
 
@@ -209,6 +237,91 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 
   // Sahifa ochilganda oldingi sessiyani tiklash
   K.session().then(function (uid) { if (uid) afterSignIn(uid); else show("#login", true); });
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var K = window.kaCloud, $ = function (s) { return document.querySelector(s); };
+  var users = null, names = {};
+  function cell(tr, t) { var e = document.createElement("td"); e.textContent = t; tr.appendChild(e); return e; }
+  function btn(t, fn) { var b = document.createElement("button"); b.type = "button"; b.textContent = t; b.style.marginRight = "6px"; b.onclick = fn; return b; }
+  function say(id, t, ok) { var m = $(id); m.className = "msg" + (ok ? " ok" : ""); m.textContent = t; }
+
+  async function loadUsers() { if (!users) { users = await K.listUsers(1000); users.forEach(function (u) { names[u.uid] = u.name + (u.group ? " (" + u.group + ")" : ""); }); } return users; }
+
+  async function loadPremium() {
+    try {
+      await loadUsers();
+      var list = await K.listPremium(), tb = $("#t3 tbody"); tb.innerHTML = "";
+      list.forEach(function (p) {
+        var tr = document.createElement("tr"); cell(tr, names[p.uid] || p.uid);
+        var active = p.until && p.until > new Date();
+        cell(tr, (p.until ? p.until.toLocaleDateString("uz-UZ") : "—") + (active ? "" : " (tugagan)"));
+        var td = document.createElement("td");
+        td.appendChild(btn("+30 kun", function () { grant(p.uid, 30); }));
+        td.appendChild(btn("Bekor qilish", async function () { await K.revokePremium(p.uid); loadPremium(); }));
+        tr.appendChild(td); tb.appendChild(tr);
+      });
+      if (!list.length) { var e = document.createElement("tr"); cell(e, "Hozircha obunachi yo'q."); tb.appendChild(e); }
+    } catch (e) { say("#pmsg", "Yuklab bo'lmadi: " + (e && e.code || "xato")); }
+  }
+  async function grant(uid, days) {
+    try { await K.grantPremium(uid, days); say("#pmsg", "✅ " + (names[uid] || uid) + ": +" + days + " kun berildi", true); loadPremium(); }
+    catch (e) { say("#pmsg", "Bo'lmadi: " + (e && e.code || "xato")); }
+  }
+  $("#pgo").onclick = async function () {
+    var uid = $("#pu").value.trim(), q = $("#pq").value.trim().toLowerCase(), res = $("#pres"); res.innerHTML = "";
+    if (uid) { res.appendChild(btn("UID ga 30 kun berish", function () { grant(uid, 30); })); res.appendChild(btn("90 kun", function () { grant(uid, 90); })); return; }
+    if (!q) { say("#pmsg", "Ism yoki UID kiriting."); return; }
+    try {
+      var found = (await loadUsers()).filter(function (u) { return (u.name || "").toLowerCase().indexOf(q) >= 0; }).slice(0, 10);
+      if (!found.length) { res.textContent = "Topilmadi."; return; }
+      found.forEach(function (u) {
+        var d = document.createElement("div"); d.style.margin = "6px 0";
+        var s = document.createElement("span"); s.textContent = u.name + (u.group ? " (" + u.group + ") " : " "); s.style.marginRight = "8px"; d.appendChild(s);
+        d.appendChild(btn("30 kun", function () { grant(u.uid, 30); })); d.appendChild(btn("90 kun", function () { grant(u.uid, 90); }));
+        res.appendChild(d);
+      });
+    } catch (e) { say("#pmsg", "Qidirib bo'lmadi: " + (e && e.code || "xato")); }
+  };
+
+  async function loadTests() {
+    try {
+      var cat = await K.premiumCatalog(), tb = $("#t4 tbody"); tb.innerHTML = "";
+      cat.forEach(function (c) {
+        var tr = document.createElement("tr"); cell(tr, c.title); cell(tr, String(c.n)); cell(tr, c.free ? "Bepul" : "Premium");
+        var td = document.createElement("td");
+        td.appendChild(btn("O'chirish", async function () { if (confirm("«" + c.title + "» testi o'chirilsinmi?")) { await K.removePremiumTest(c.id); loadTests(); } }));
+        tr.appendChild(td); tb.appendChild(tr);
+      });
+    } catch (e) {}
+  }
+  $("#ptgo").onclick = async function () {
+    var title = $("#ptt").value.trim(), lines = $("#ptq").value.split(/\r?\n/), qs = [], bad = 0;
+    lines.forEach(function (ln) {
+      if (!ln.trim()) return;
+      var p = ln.split("|").map(function (x) { return x.trim(); });
+      if (p.length !== 5 || p.some(function (x) { return !x; })) { bad++; return; }
+      var o = [p[1], p[2], p[3], p[4]], correct = p[1];
+      // javob o'rni aralashtiriladi; to'g'ri javob indeksi saqlanadi
+      var idx = [0, 1, 2, 3].sort(function () { return Math.random() - .5; });
+      var sh = idx.map(function (i) { return o[i]; });
+      qs.push({ q: p[0], o: sh, c: sh.indexOf(correct) });
+    });
+    if (!title) return say("#ptmsg", "Test nomini kiriting.");
+    if (!qs.length) return say("#ptmsg", "To'g'ri formatdagi savol topilmadi.");
+    if (bad) return say("#ptmsg", bad + " ta qator noto'g'ri formatda (5 ta qism kerak). Tuzating.");
+    try {
+      await K.addPremiumTest({ title: title, price: $("#ptp").value.trim(), free: $("#ptf").value === "1", questions: qs });
+      say("#ptmsg", "✅ Qo'shildi: " + qs.length + " ta savol", true);
+      $("#ptq").value = ""; $("#ptt").value = ""; loadTests();
+    } catch (e) { say("#ptmsg", "Bo'lmadi: " + (e && e.code || "xato")); }
+  };
+
+  // Panel ochilganda (o'qituvchi tasdiqlangach) yuklash
+  var t = setInterval(function () { if (!$("#app").hidden) { clearInterval(t); loadPremium(); loadTests(); } }, 500);
 })();
 </script>
 </body>
