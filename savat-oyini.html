@@ -172,6 +172,8 @@ if(window.CanvasRenderingContext2D&&!CanvasRenderingContext2D.prototype.roundRec
     <div class="sec">Boshqaruv</div>
     <div class="opts" id="ctrlOpts">
       <button class="opt on" data-c="hand"><span class="ic">✋</span><span>Kamera (qo'l)<small>kaftni suring, chimdab oting</small></span></button>
+      <button class="opt" data-c="eye"><span class="ic">👁</span><span>Ko'z qarashi<small>qarang — savat yuradi · puflang yoki “ot” deng</small></span></button>
+      <button class="opt" data-c="voice"><span class="ic">🎙</span><span>Ovoz<small>“chap”, “o'ng”, “o'rta” · “ot” — zambarak</small></span></button>
       <button class="opt" data-c="btn"><span class="ic">🎮</span><span>Tugmalar<small>◀ ▶ va 💥 · klaviatura</small></span></button>
       <button class="opt" data-c="touch"><span class="ic">🖱️</span><span>Sichqoncha / ekran<small>suring, bosib oting</small></span></button>
     </div>
@@ -746,17 +748,31 @@ async function start(){
     try{ await startHands(); }
     catch(e){ b.disabled=false; b.textContent='▶ Boshlash'; $('err').textContent='Kamera yoki model ishga tushmadi. Kameraga ruxsat bering yoki "Tugmalar" rejimini tanlang.'; return; }
     b.disabled=false; b.textContent='▶ Boshlash';
-  } else stopCam();
+  } else if(ctrl==='eye'||ctrl==='voice'){
+    stopCam();
+    const b=$('startBtn'); b.disabled=true; b.textContent='⏳ Tayyorlanmoqda…';
+    const fireWords={ot:fire,otish:fire,fire:fire,pah:fire,огонь:fire};
+    const mv=dx=>{ if(running&&!paused) B.target=clamp(B.target+dx*W,B.bw/2+30,W-B.bw/2-10); };
+    try{
+      if(ctrl==='eye'){
+        await kaControl.start('eye',{onPos:t=>{ if(running&&!paused) B.target=clamp(t*W,B.bw/2+30,W-B.bw/2-10); },onStatus:t=>setStatus(t,'#ffc94a')});
+        try{ await kaControl.start('puff',{add:true,onPuff:fire,hint:'💨 Puflang — zambarak otadi'}); }catch(e){}
+      } else {
+        await kaControl.start('voice',{words:Object.assign({'chap':()=>mv(-.22),'chapga':()=>mv(-.22),'left':()=>mv(-.22),'ong':()=>mv(.22),"o'ng":()=>mv(.22),'ongga':()=>mv(.22),"o'ngga":()=>mv(.22),'right':()=>mv(.22),'orta':()=>{ if(running&&!paused) B.target=W/2; },"o'rta":()=>{ if(running&&!paused) B.target=W/2; },'markaz':()=>{ if(running&&!paused) B.target=W/2; }},fireWords),hint:'🎙 “chap” · “o\'ng” · “o\'rta” · “ot”'});
+      }
+    }catch(e){ kaControl.stop(); b.disabled=false; b.textContent='▶ Boshlash'; $('err').textContent='Kamera/mikrofon ishga tushmadi ('+(e&&e.message||e)+'). Ruxsat bering yoki "Tugmalar" rejimini tanlang.'; return; }
+    b.disabled=false; b.textContent='▶ Boshlash';
+  } else { stopCam(); if(window.kaControl) kaControl.stop(); }
   newGame();
   ['startScr','overScr','pauseScr'].forEach(id=>$(id).hidden=true);
   ['hud','rule','status'].forEach(id=>$(id).hidden=false);
   $('pad').hidden=ctrl!=='btn';
   seen=false;
-  setStatus(ctrl==='hand'?"✋ Qo'lingizni kameraga ko'rsating":ctrl==='btn'?'◀ ▶ yurish · 💥 otish':'Suring — savat yuradi · bosing — otish', ctrl==='hand'?'#ffc94a':'#4ade80');
+  setStatus(ctrl==='hand'?"✋ Qo'lingizni kameraga ko'rsating":ctrl==='eye'?"👁 Qarang — savat yuradi · 💨 puflang — otish":ctrl==='voice'?'🎙 “chap” · “o\'ng” · “ot”':ctrl==='btn'?'◀ ▶ yurish · 💥 otish':'Suring — savat yuradi · bosing — otish', ctrl==='hand'?'#ffc94a':'#4ade80');
   running=true; paused=false;
 }
 function gameOver(quit){
-  if(!running) return; running=false; S.ended=true;
+  if(!running) return; running=false; if(window.kaControl) kaControl.stop(); S.ended=true;
   const key='ka_savat_best_'+topic, prev=+(store.get(key)||0), rec=S.score>prev; if(rec) store.set(key,S.score);
   const total=S.right+S.wrong+S.missed+S.shotGood, acc=total?Math.round(S.right/total*100):0;
   $('sScore').textContent=S.score; $('sRight').textContent=S.right; $('sAcc').textContent=acc+'%'; $('sShot').textContent=S.shotBad;
@@ -779,12 +795,13 @@ function gameOver(quit){
 }
 function pause(on){ if(!running) return; paused=on; $('pauseScr').hidden=!on; }
 $('startBtn').onclick=start; $('againBtn').onclick=start;
-$('menuBtn').onclick=()=>{ $('overScr').hidden=true; $('startScr').hidden=false; stopCam(); S=null; };
+$('menuBtn').onclick=()=>{ if(window.kaControl) kaControl.stop(); $('overScr').hidden=true; $('startScr').hidden=false; stopCam(); S=null; };
 $('pauseBtn').onclick=()=>pause(true); $('resumeBtn').onclick=()=>pause(false);
 $('quitBtn').onclick=()=>{ $('pauseScr').hidden=true; paused=false; gameOver(true); };
 document.addEventListener('visibilitychange',()=>{ if(document.hidden) pause(true); });
 addEventListener('resize',()=>{ layout(); });
 })();
 </script>
+<script src="ka-boshqaruv.js"></script>
 </body>
 </html>

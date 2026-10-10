@@ -10,7 +10,7 @@
   var VISION = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
   var MODEL = "https://storage.googleapis.com/mediapipe-models/";
   var visionP = null;
-  var cur = null;
+  var cur = [];
 
   function loadVision() {
     if (!visionP) visionP = import(VISION + "/vision_bundle.mjs").then(function (m) {
@@ -52,7 +52,7 @@
   M.voice = function (o) {
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition, rec = null, on = true;
     if (!SR) return Promise.reject(new Error("Bu brauzer ovozni tanimaydi (Chrome/Edge kerak)"));
-    var n = o.lanes;
+    var n = o.lanes || 3, lastW = {};
     var W = [
       [["chap", "chapga", "chapda", "left", "лево", "налево", "левый", "birinchi", "bir", "1", "one"]],
       [["o'rta", "orta", "o'rtaga", "markaz", "markazga", "center", "centre", "центр", "ikkinchi", "ikki", "2", "two"]],
@@ -72,19 +72,24 @@
     rec.onresult = function (ev) {
       var t = ""; for (var i = ev.resultIndex; i < ev.results.length; i++) t += ev.results[i][0].transcript + " ";
       var words = norm(t).split(/\s+/), hit = -1;
-      for (var j = words.length - 1; j >= 0; j--) { var l = lane(words[j]); if (l > -1) { hit = l; break; } }
       if (o.onStatus) o.onStatus("🎙 “" + t.trim().slice(0, 24) + "”");
+      if (o.words) {
+        var now = Date.now();
+        words.slice(-3).forEach(function (w) { if (o.words[w] && now - (lastW[w] || 0) > 900) { lastW[w] = now; o.words[w](); } });
+      }
+      if (!o.onLane) return;
+      for (var j = words.length - 1; j >= 0; j--) { var l = lane(words[j]); if (l > -1) { hit = l; break; } }
       if (hit > -1) o.onLane(hit);
     };
     rec.onerror = function (e) { if (e.error === "not-allowed" || e.error === "service-not-allowed") { on = false; if (o.onStatus) o.onStatus("Mikrofon ruxsati berilmadi"); } };
     rec.onend = function () { if (on) { try { rec.start(); } catch (e) {} } };
     try { rec.start(); } catch (e) { return Promise.reject(e); }
-    if (o.onStatus) o.onStatus("🎙 Ayting: “chap”, “o'rta” yoki “o'ng”");
+    if (o.onStatus) o.onStatus(o.hint || "🎙 Ayting: “chap”, “o'rta” yoki “o'ng”");
     return Promise.resolve({ stop: function () { on = false; try { rec.stop(); } catch (e) {} } });
   };
 
   M.puff = function (o) {
-    var n = o.lanes;
+    var n = o.lanes || 3;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return Promise.reject(new Error("Mikrofon qo'llab-quvvatlanmaydi"));
     return navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }).then(function (s) {
       var ac = new (window.AudioContext || window.webkitAudioContext)(), src = ac.createMediaStreamSource(s), an = ac.createAnalyser();
@@ -93,7 +98,7 @@
       function loop() {
         raf = requestAnimationFrame(loop); var v = rms(), now = performance.now();
         if (calib) { samples.push(v); return; }
-        if (v > thr && !hi && now - last > 320) { hi = true; last = now; lane = (lane + 1) % n; o.onLane(lane); if (o.onStatus) o.onStatus("💨 Puflandi → " + (lane + 1) + "-yo'lak"); }
+        if (v > thr && !hi && now - last > 320) { hi = true; last = now; if (o.onPuff) { o.onPuff(); if (o.onStatus) o.onStatus("💨 Puflandi!"); } else { lane = (lane + 1) % n; o.onLane(lane); if (o.onStatus) o.onStatus("💨 Puflandi → " + (lane + 1) + "-yo'lak"); } }
         if (v < thr * 0.6) hi = false;
       }
       raf = requestAnimationFrame(loop);
@@ -102,7 +107,7 @@
         setTimeout(function () {
           calib = false; samples.sort(function (a, b) { return a - b; });
           var base = samples.length ? samples[Math.floor(samples.length * 0.9)] : 0.02; thr = Math.max(0.07, base * 4);
-          if (o.onStatus) o.onStatus("💨 Mikrofonga puflang — mashina bir yo'lak o'ngga suriladi (oxirgisidan keyin yana chapga)");
+          if (o.onStatus) o.onStatus(o.hint || "💨 Mikrofonga puflang — mashina bir yo'lak o'ngga suriladi (oxirgisidan keyin yana chapga)");
           res({ stop: function () { cancelAnimationFrame(raf); try { s.getTracks().forEach(function (t) { t.stop(); }); ac.close(); } catch (e) {} } });
         }, 1300);
       });
@@ -110,7 +115,7 @@
   };
 
   M.hand = function (o) {
-    var n = o.lanes, stream, view, lm, loop = true, raf = 0;
+    var n = o.lanes || 3, stream, view, lm, loop = true, raf = 0;
     return getCam().then(function (s) { stream = s; view = camView(s); return loadVision(); }).then(function (v) {
       return v.m.HandLandmarker.createFromOptions(v.fs, { baseOptions: { modelAssetPath: MODEL + "hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task" }, runningMode: "VIDEO", numHands: 1 });
     }).then(function (h) {
@@ -127,7 +132,8 @@
           sx = sx == null ? x : sx * 0.6 + x * 0.4;
           var lane = clamp(Math.floor(clamp((sx - 0.15) / 0.7, 0, 0.999) * n), 0, n - 1);
           c.fillStyle = "#5ee6c7"; hnd.forEach(function (p) { c.beginPath(); c.arc(p.x * view.canvas.width, p.y * view.canvas.height, 3, 0, 7); c.fill(); });
-          if (lane !== lastLane) { lastLane = lane; o.onLane(lane); }
+          if (o.onPos) o.onPos(clamp((sx - 0.15) / 0.7, 0, 1));
+          if (o.onLane && lane !== lastLane) { lastLane = lane; o.onLane(lane); }
           if (o.onStatus) o.onStatus("✋ Qo'l → " + (lane + 1) + "-yo'lak");
         } else if (o.onStatus) o.onStatus("✋ Qo'lingizni kameraga ko'rsating va chapga-o'ngga suring");
       }
@@ -137,7 +143,7 @@
   };
 
   M.eye = function (o) {
-    var n = o.lanes, stream, view, fl, loop = true, raf = 0, collecting = null, sm = null, cal = null, ui = null;
+    var n = o.lanes || 3, stream, view, fl, loop = true, raf = 0, collecting = null, sm = null, cal = null, ui = null;
     function feat(L) {
       function rx(i, a, b) { return (L[i].x - L[a].x) / ((L[b].x - L[a].x) || 1e-6); }
       var ix = (rx(468, 33, 133) + rx(473, 362, 263)) / 2;
@@ -161,7 +167,8 @@
         if (!cal) return;
         var t = (sm - cal.lo) / (cal.hi - cal.lo || 1e-6);
         var lane = clamp(Math.floor(clamp(t, 0, 0.999) * n), 0, n - 1);
-        if (lane !== lastLane) { lastLane = lane; o.onLane(lane); }
+        if (o.onPos) o.onPos(clamp(t, 0, 1));
+        if (o.onLane && lane !== lastLane) { lastLane = lane; o.onLane(lane); }
         if (o.onStatus) o.onStatus("👁 Qarash → " + (lane + 1) + "-yo'lak");
       }
       frame();
@@ -188,11 +195,13 @@
 
   window.kaControl = {
     modes: { tap: "Teginish / klaviatura", voice: "Ovoz", eye: "Ko'z qarashi", hand: "Qo'l holati", puff: "Puflash" },
+    // opts.add = true — oldingi usullarni to'xtatmasdan yana bittasini qo'shadi (masalan: ko'z + puflash)
     start: function (mode, opts) {
-      window.kaControl.stop();
+      opts = opts || {};
+      if (!opts.add) window.kaControl.stop();
       if (!mode || mode === "tap" || !M[mode]) return Promise.resolve();
-      return M[mode](opts).then(function (h) { cur = h; });
+      return M[mode](opts).then(function (h) { cur.push(h); });
     },
-    stop: function () { if (cur) { try { cur.stop(); } catch (e) {} cur = null; } }
+    stop: function () { cur.forEach(function (h) { try { h.stop(); } catch (e) {} }); cur = []; }
   };
 })();
