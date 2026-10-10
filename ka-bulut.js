@@ -47,7 +47,13 @@
     if (c === "auth/weak-password") return "Parol kamida 6 ta belgidan iborat bo'lsin.";
     if (c === "auth/too-many-requests") return "Juda ko'p urinish. Bir ozdan keyin qayta urinib ko'ring.";
     if (c === "auth/network-request-failed" || c === "unavailable") return "Internet bilan aloqa yo'q. Keyinroq urinib ko'ring.";
-    if (c === "auth/operation-not-allowed") return "Parol bilan kirish hali yoqilmagan.";
+    if (c === "auth/operation-not-allowed") return "Bu kirish usuli hali yoqilmagan (o'qituvchi Firebase'da yoqishi kerak).";
+    if (c === "auth/unauthorized-domain") return "Bu sayt manzili Google kirishi uchun ruxsat etilmagan (Firebase → Authorized domains).";
+    if (c === "auth/popup-closed-by-user" || c === "auth/cancelled-popup-request") return "Google oynasi yopildi.";
+    if (c === "auth/popup-blocked") return "Brauzer Google oynasini blokladi. Popup'ga ruxsat bering.";
+    if (c === "auth/credential-already-in-use" || c === "auth/email-already-in-use-google") return "Bu Gmail boshqa akkountga allaqachon ulangan.";
+    if (c === "auth/provider-already-linked") return "Gmail allaqachon ulangan.";
+    if (c === "no-profile") return "Bu Gmail hali hech bir akkountga ulanmagan. Avval parol bilan kiring va profilda «Gmail ulash» ni bosing.";
     if (c === "permission-denied") return "Ruxsat yo'q.";
     return "Xatolik yuz berdi. Qayta urinib ko'ring.";
   }
@@ -136,6 +142,25 @@
       window.__kaCloudAuth = c.auth; cloudState = null;
       var snap = await c.F.getDoc(c.F.doc(c.db, "users", cred.user.uid));
       return { uid: cred.user.uid, data: snap.exists() ? snap.data() : null };
+    },
+    // ---- Gmail (Google) ulash ----
+    googleEmail: async function () {
+      try { var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser; if (!u) return null;
+        var g = (u.providerData || []).filter(function (x) { return x.providerId === "google.com"; })[0]; return g ? (g.email || "ulangan") : null; } catch (e) { return null; }
+    },
+    linkGoogle: async function () {
+      var c = await load(); await c.auth.authStateReady(); if (!c.auth.currentUser) throw { code: "auth/requires-recent-login" };
+      var r = await c.A.linkWithPopup(c.auth.currentUser, new c.A.GoogleAuthProvider());
+      var g = (r.user.providerData || []).filter(function (x) { return x.providerId === "google.com"; })[0]; return g ? g.email : "ulangan";
+    },
+    unlinkGoogle: async function () { var c = await load(); await c.A.unlink(c.auth.currentUser, "google.com"); },
+    loginGoogle: async function () {
+      var c = await load();
+      var r = await c.A.signInWithPopup(c.auth, new c.A.GoogleAuthProvider());
+      var snap = await c.F.getDoc(c.F.doc(c.db, "users", r.user.uid));
+      if (!snap.exists()) { try { await r.user.delete(); } catch (e) { try { await c.A.signOut(c.auth); } catch (e2) {} } throw { code: "no-profile" }; }
+      window.__kaCloudAuth = c.auth; cloudState = null;
+      return { uid: r.user.uid, data: snap.data() };
     },
     signOut: async function () { try { var c = await load(); cloudState = null; await c.A.signOut(c.auth); } catch (e) {} },
     push: push,

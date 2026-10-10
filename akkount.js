@@ -182,6 +182,7 @@
   .acc-banner{background:rgba(255,212,121,.12);border:1px solid rgba(255,212,121,.4);color:#ffe4a3;border-radius:12px;padding:10px 12px;font-size:13.5px}
   .acc-toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-30px);z-index:4000;background:#ffd479;color:#2b1d00;font:800 16px/1 -apple-system,BlinkMacSystemFont,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;transition:all .25s;pointer-events:none}
   .acc-toast.on{opacity:1;transform:translate(-50%,0)}
+  .acc-links{background:#0e1730;border:1px solid #243252;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;font-size:13px}.acc-lrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.acc-links .ig-in{background:#111a2e;border:1px solid #243252;color:#eef2ff;border-radius:8px;padding:6px 8px;width:130px;font-size:13px}
   .acc-fixed{position:fixed;left:10px;top:8px;z-index:960;box-shadow:0 4px 14px rgba(0,0,0,.35)}
   `;
   document.head.appendChild(el("style", null, css));
@@ -225,6 +226,7 @@
         : '<div class="acc-empty">Bu qurilmada hali akkount yo\'q.</div>') +
       '<div class="acc-btns"><button class="acc-btn primary" type="button" data-a="new">➕ Yangi akkount ochish</button>' +
       '<button class="acc-btn" type="button" data-a="cloud">☁️ Boshqa qurilmadan kirish</button>' +
+      '<button class="acc-btn" type="button" data-a="google">🔵 Gmail bilan kirish</button>' +
       (gate ? '<button class="acc-btn" type="button" data-a="skip">Akkountsiz davom etish</button>' : "") + "</div>" +
       (memOnly ? '<div class="acc-banner">Brauzer ma\'lumot saqlashga ruxsat bermayapti (maxfiy oyna?). Akkount sahifa yopilguncha ishlaydi.</div>' : "") +
       "</div>";
@@ -232,6 +234,13 @@
     $('[data-a="new"]', card).onclick = function () { showForm(); };
     $('[data-a="cloud"]', card).onclick = function () { showCloudLogin(); };
     var sk = $('[data-a="skip"]', card); if (sk) sk.onclick = skipGate;
+    $('[data-a="google"]', card).onclick = async function () {
+      var b = this; b.disabled = true; b.textContent = "Google oynasi…";
+      try {
+        var K = await cloud(); if (!K) throw 0;
+        var r = await K.loginGoogle(); var id = adoptCloud(r.uid, r.data.name, r.data.group, r.data); login(id);
+      } catch (er) { showLogin(window.kaCloud ? window.kaCloud.uzError(er) : "Gmail bilan kirib bo'lmadi."); }
+    };
     $$(".acc-user", card).forEach(function (b) { b.onclick = function () { askPin(b.getAttribute("data-id")); }; });
     open();
   }
@@ -400,6 +409,9 @@
       '<div><div style="display:flex;justify-content:space-between;font-size:12px;color:#9fb0d0;margin-bottom:4px"><span>' + lv + "-daraja</span><span>" + pct + " / 100 🪙 → " + (lv + 1) + "-daraja</span></div>" +
       '<div class="acc-bar"><i style="width:' + pct + '%"></i></div></div>' +
       (u.cloud ? "" : '<div class="acc-banner">☁️ Akkaunt faqat shu qurilmada. <a href="#" data-a="tocloud" style="color:#ffd479;font-weight:700">Parol qo\'yib bulutga ulang</a> — tangalar yo\'qolmaydi, boshqa qurilmadan ham kirasiz.</div>') +
+      '<div class="acc-links"><div class="acc-lrow"><span>📧 Gmail</span><span class="g-st">…</span></div>' +
+      '<div class="acc-lrow"><span>📸 Instagram</span><span><input class="ig-in" maxlength="30" placeholder="@foydalanuvchi" value="' + esc(u.instagram ? "@" + u.instagram : "") + '"> <button class="acc-btn ig-save" type="button" style="padding:6px 10px;font-size:12px">Saqlash</button></span></div>' +
+      '<div class="acc-lmsg" style="font-size:12px;color:#9fb0d0"></div></div>' +
       '<div class="acc-tabs"><button class="acc-tab" data-t="tarix" type="button">📜 Tarix</button><button class="acc-tab" data-t="reyting" type="button">🏆 Reyting</button></div>' +
       '<div class="acc-list"></div>' +
       '<div class="acc-btns"><button class="acc-btn" type="button" data-a="edit">✏️ Tahrirlash / rasm</button><button class="acc-btn" type="button" data-a="switch">🔄 Boshqa akkount</button>' +
@@ -434,6 +446,24 @@
     }
     $(".acc-x", card).onclick = close;
     $('[data-a="edit"]', card).onclick = function () { showForm(curId()); };
+    (function () {
+      var st = $(".g-st", card), lm = $(".acc-lmsg", card), ig = $(".ig-in", card);
+      function say(t) { lm.textContent = t || ""; }
+      function paintG(email) {
+        if (!u.cloud) { st.innerHTML = '<small style="color:#9fb0d0">avval bulutga ulang (parol)</small>'; return; }
+        if (email) { st.innerHTML = '<b style="color:#10a37f">✔ ' + esc(email) + '</b> <button class="acc-btn g-un" type="button" style="padding:6px 10px;font-size:12px">Uzish</button>';
+          $(".g-un", card).onclick = async function () { try { var K = await cloud(); await K.unlinkGoogle(); paintG(null); say("Gmail uzildi."); } catch (er) { say(window.kaCloud ? window.kaCloud.uzError(er) : "Xatolik"); } }; }
+        else { st.innerHTML = '<button class="acc-btn primary g-ln" type="button" style="padding:6px 10px;font-size:12px">🔵 Gmail ulash</button>';
+          $(".g-ln", card).onclick = async function () { say("Google oynasi ochilmoqda…"); try { var K = await cloud(); var em = await K.linkGoogle(); paintG(em); say("Gmail ulandi ✅ — endi «Gmail bilan kirish» ishlaydi."); } catch (er) { say(window.kaCloud ? window.kaCloud.uzError(er) : "Xatolik"); } }; }
+      }
+      paintG(null);
+      if (u.cloud) cloud().then(function (K) { return K ? K.googleEmail() : null; }).then(paintG);
+      $(".ig-save", card).onclick = function () {
+        var v = ig.value.trim().replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/\/.*$/, "");
+        if (v && !/^[A-Za-z0-9._]{1,30}$/.test(v)) { say("Instagram nomi noto'g'ri (faqat harf, raqam, nuqta, _)."); return; }
+        u.instagram = v; save(); say(v ? "Instagram saqlandi: @" + v + " (shu qurilmada saqlanadi; ulanish tasdiqlanmaydi)." : "Instagram olib tashlandi.");
+      };
+    })();
     var tc = $('[data-a="tocloud"]', card); if (tc) tc.onclick = function (e) { e.preventDefault(); showForm(curId()); };
     $('[data-a="switch"]', card).onclick = function () { showLogin(); };
     $('[data-a="logout"]', card).onclick = logout;
