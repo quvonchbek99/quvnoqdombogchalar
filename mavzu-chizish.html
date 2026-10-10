@@ -212,7 +212,7 @@
     msg.className=cls;
     msg.innerHTML="Natija: <b>"+score+"%</b> — o'rtacha xatolik "+avg+" birlik, qoplangan qism "+Math.round(covr*100)+"%."+
       "<ul><li>"+(score>=80?"Ajoyib! Shakl va joylashuv to'g'ri.":score>=55?"Yaqin. Uch nuqtasini aniqroq joylashtiring.":"Shaklni qaytadan ko'rib chiqing.")+"</li><li>"+F.hint+"</li></ul>";
-    try{if(window.kaAkkount&&window.kaAkkount.addCoins&&score>=70)window.kaAkkount.addCoins(3,"Qo'lda chizish");}catch(e){}
+    try{if(window.kaAccount&&score>=70)window.kaAccount.addCoins(3,"Qo'lda chizish");}catch(e){}
   }
 
   /* ---------- sichqoncha / barmoq ---------- */

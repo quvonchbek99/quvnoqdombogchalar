@@ -1947,6 +1947,7 @@
     if (my > b) { rec = true; try { localStorage.setItem(LS_BEST, my); } catch (e) {} }
     var coins = Math.floor(tot / 10), gave = false;
     try { if (coins > 0 && window.kaAccount && window.kaAccount.me()) gave = window.kaAccount.addCoins(coins, "Virtual: " + G.t); } catch (e) {}
+    try { if (window.kaAccount && window.kaAccount.me() && (S.ok + S.bad) > 0) window.kaAccount.sendResult("Virtual: " + G.t, S.ok, S.ok + S.bad); } catch (e) {}
     qEl.textContent = "";
     var res = CFG.duel
       ? '<div class="kv-big">🔵 ' + S.score[0] + " : " + S.score[1] + ' 🔴</div><p style="font-size:20px;font-weight:800;color:#fff">' + (S.score[0] === S.score[1] ? "Durang! 🤝" : (S.score[0] > S.score[1] ? "1-o'yinchi" : "2-o'yinchi") + " g'olib! 🏆") + "</p>"

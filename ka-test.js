@@ -189,7 +189,7 @@
         if (pc > best) localStorage.setItem(key, pc);
         localStorage.setItem("kt.last." + topicId, JSON.stringify({ pc: pc, ok: ok, n: count, t: sec, d: Date.now() }));
       } catch (e) {}
-      try { if (window.kaAkkount && window.kaAkkount.addCoins) window.kaAkkount.addCoins(Math.round(ok / 2), "Test: " + title); } catch (e) {}
+      try { if (window.kaAccount) { window.kaAccount.addCoins(Math.round(ok / 2), "Test: " + title); window.kaAccount.sendResult("Test: " + title + " (" + count + " ta)", ok, count); } } catch (e) {}
       document.dispatchEvent(new CustomEvent("ka:test-done", { detail: { topic: topicId, pc: pc, ok: ok, n: count } }));
     }
     show();

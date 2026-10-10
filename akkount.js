@@ -416,7 +416,18 @@
   // Boshqa modullar uchun
   window.kaAccount = {
     me: me, open: function () { me() ? showProfile() : showLogin(); },
-    addCoins: function (n, why) { var u = me(); if (!u) return false; u.coins = (u.coins || 0) + n; save(); renderChip(); toast("+" + n + " 🪙"); return true; }
+    addCoins: function (n, why) { var u = me(); if (!u) return false; n = Math.max(0, Math.min(200, Math.floor(+n || 0))); if (!n) return false; u.coins = (u.coins || 0) + n; save(); renderChip(); toast("+" + n + " 🪙"); return true; },
+    // O'qituvchi jadvaliga natija yuborish (faqat akkauntga kirgan o'quvchi uchun)
+    sendResult: function (topic, correct, total) {
+      var u = me(); if (!u || !total) return false;
+      try {
+        fetch("https://script.google.com/macros/s/AKfycbxeBUPBTqpJ8rw9PH4mW8dlonvIJCjeP9ijTfq84R6MrFqCeIjf04uoQsEgVqne2xYBTA/exec", {
+          method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ name: u.name, group: u.group || "—", topic: String(topic || "").slice(0, 120), correct: correct | 0, total: total | 0, date: new Date().toLocaleString("uz-UZ") })
+        }).catch(function () {});
+      } catch (e) {}
+      return true;
+    }
   };
   renderChip();
   if (location.hash === "#akkount") setTimeout(function () { window.kaAccount.open(); }, 300);
