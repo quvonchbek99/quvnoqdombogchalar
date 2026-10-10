@@ -4,7 +4,7 @@
  * - Test oynasi ochilganda akkount tanlanmagan bo'lsa, avval kirish so'raladi
  * - Testdagi har bir to'g'ri javob uchun +10 coin (har savolga bir marta, birinchi tanlov hisoblanadi)
  * - Tarix, daraja, shu qurilmadagi reyting
- * Ma'lumotlar shu brauzerda (localStorage) saqlanadi — server kerak emas.
+ * Ma'lumotlar shu brauzerda (localStorage) saqlanadi; parol bilan ochilgan akkaunt bulutga (Firebase, ka-bulut.js) ham yoziladi.
  * Ulash: <script src="akkount.js"></script>
  */
 (function () {
@@ -13,6 +13,55 @@
   window.__kaAcc = true;
 
   var COIN_PER_CORRECT = 10;
+
+  // ---------- Bulut (Firebase) — ixtiyoriy; yuklanmasa sayt avvalgidek ishlaydi ----------
+  var CLOUD_SRC = (function () { var s = document.currentScript && document.currentScript.src; return s ? s.replace(/[^\/]*(\?.*)?$/, "ka-bulut.js") : "ka-bulut.js"; })();
+  var cloudP = null;
+  function cloud() {
+    if (cloudP) return cloudP;
+    cloudP = new Promise(function (ok) {
+      if (window.kaCloud) return ok(window.kaCloud);
+      var s = document.createElement("script"); s.src = CLOUD_SRC; s.async = true;
+      s.onload = function () { ok(window.kaCloud || null); };
+      s.onerror = function () { cloudP = null; ok(null); };
+      document.head.appendChild(s);
+    });
+    return cloudP;
+  }
+  var pushT = null;
+  function cloudSched() {
+    var u = me(); if (!u || !u.cloud) return;
+    clearTimeout(pushT);
+    pushT = setTimeout(function () {
+      cloud().then(function (K) {
+        var cu = me(); if (!K || !cu || !cu.cloud) return;
+        K.session().then(function (uid) { if (uid && uid === cu.cloud) K.push(cu); });
+      });
+    }, 2500);
+  }
+  // Bulutdan kelgan profilni shu qurilmadagi yozuv bilan birlashtirish (hisoblagichlar kamaymaydi)
+  function adoptCloud(uid, name, group, data) {
+    var rec = DB[uid] || { coins: 0, correct: 0, answered: 0, tests: 0, history: [], created: Date.now(), done: {} };
+    Object.keys(DB).forEach(function (id) {
+      var o = DB[id];
+      if (id !== uid && !o.cloud && norm(o.name) === norm(name) && norm(o.group) === norm(group)) {
+        rec.coins = Math.max(rec.coins || 0, o.coins || 0); rec.correct = Math.max(rec.correct || 0, o.correct || 0);
+        rec.answered = Math.max(rec.answered || 0, o.answered || 0); rec.tests = Math.max(rec.tests || 0, o.tests || 0);
+        rec.history = (o.history || []).concat(rec.history || []).slice(-60);
+        rec.done = Object.assign({}, o.done || {}, rec.done || {}); if (o.photo && !rec.photo) rec.photo = o.photo;
+        if (curId() === id) setCur(uid);
+        delete DB[id];
+      }
+    });
+    rec.cloud = uid; rec.name = (data && data.name) || name; rec.group = (data && data.group != null) ? data.group : group;
+    if (data) {
+      rec.av = data.av | 0;
+      rec.coins = Math.max(rec.coins || 0, data.coins | 0); rec.correct = Math.max(rec.correct || 0, data.correct | 0);
+      rec.answered = Math.max(rec.answered || 0, data.answered | 0); rec.tests = Math.max(rec.tests || 0, data.tests | 0);
+    } else if (rec.av == null) rec.av = 0;
+    DB[uid] = rec; save();
+    return uid;
+  }
   var LS = "ka.akkountlar.v1", LS_CUR = "ka.joriy.v1";
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -29,7 +78,7 @@
   function load() { try { var d = JSON.parse(localStorage.getItem(LS) || "{}"); return d && typeof d === "object" ? d : {}; } catch (e) { return {}; } }
   var DB = load();
   var memOnly = false;
-  function save() { try { localStorage.setItem(LS, JSON.stringify(DB)); } catch (e) { memOnly = true; } }
+  function save() { try { localStorage.setItem(LS, JSON.stringify(DB)); } catch (e) { memOnly = true; } cloudSched(); }
   function curId() { try { return localStorage.getItem(LS_CUR) || ""; } catch (e) { return window.__kaCur || ""; } }
   function setCur(id) { window.__kaCur = id; try { if (id) localStorage.setItem(LS_CUR, id); else localStorage.removeItem(LS_CUR); } catch (e) {} }
   function me() { var id = curId(); return id && DB[id] ? DB[id] : null; }
@@ -174,11 +223,13 @@
       (ids.length ? '<div class="acc-users">' + ids.map(function (id) { var u = DB[id]; return '<button class="acc-user" type="button" data-id="' + id + '">' + avatarHTML(u, 56) + "<span>" + esc(u.name) + "</span><small>🪙 " + (u.coins || 0) + "</small></button>"; }).join("") + "</div>"
         : '<div class="acc-empty">Bu qurilmada hali akkount yo\'q.</div>') +
       '<div class="acc-btns"><button class="acc-btn primary" type="button" data-a="new">➕ Yangi akkount ochish</button>' +
+      '<button class="acc-btn" type="button" data-a="cloud">☁️ Boshqa qurilmadan kirish</button>' +
       (gate ? '<button class="acc-btn" type="button" data-a="skip">Akkountsiz davom etish</button>' : "") + "</div>" +
       (memOnly ? '<div class="acc-banner">Brauzer ma\'lumot saqlashga ruxsat bermayapti (maxfiy oyna?). Akkount sahifa yopilguncha ishlaydi.</div>' : "") +
       "</div>";
     $(".acc-x", card).onclick = function () { gate ? skipGate() : close(); };
     $('[data-a="new"]', card).onclick = function () { showForm(); };
+    $('[data-a="cloud"]', card).onclick = function () { showCloudLogin(); };
     var sk = $('[data-a="skip"]', card); if (sk) sk.onclick = skipGate;
     $$(".acc-user", card).forEach(function (b) { b.onclick = function () { askPin(b.getAttribute("data-id")); }; });
     open();
@@ -186,6 +237,7 @@
 
   function askPin(id) {
     var u = DB[id];
+    if (u.cloud) return askCloudPass(id);
     if (!u.pin) return login(id);
     card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button">✕</button></div>' +
       '<div class="acc-top">' + avatarHTML(u, 96) + '<div class="acc-name"><h3>' + esc(u.name) + '</h3><div class="sub">' + esc(u.group || "") + "</div></div></div>" +
@@ -200,6 +252,56 @@
       else { $(".acc-msg", f).textContent = "PIN noto'g'ri."; inp.value = ""; inp.focus(); }
     };
     setTimeout(function () { inp.focus(); }, 50);
+  }
+
+  // Bulutdagi akkaunt: sessiya saqlangan bo'lsa parolsiz, aks holda parol so'raladi
+  function askCloudPass(id) {
+    var u = DB[id];
+    cloud().then(function (K) { return K ? K.session() : null; }).then(function (uid) {
+      if (uid && uid === u.cloud) return login(id);
+      card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button">✕</button></div>' +
+        '<div class="acc-top">' + avatarHTML(u, 96) + '<div class="acc-name"><h3>' + esc(u.name) + '</h3><div class="sub">' + esc(u.group || "") + "</div></div></div>" +
+        '<div class="acc-body"><form class="acc-form"><label>Parol<input type="password" autocomplete="current-password" required></label>' +
+        '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Kirish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
+      var f = $("form", card), inp = $("input", f), msg = $(".acc-msg", f);
+      $(".acc-x", card).onclick = function () { gate ? skipGate() : close(); };
+      $('[data-a="back"]', card).onclick = function () { showLogin(); };
+      f.onsubmit = async function (e) {
+        e.preventDefault(); msg.textContent = "Tekshirilmoqda…";
+        try {
+          var K = await cloud(); if (!K) { msg.textContent = "Internet bilan aloqa yo'q."; return; }
+          var r = await K.login(u.name, u.group, inp.value);
+          adoptCloud(r.uid, u.name, u.group, r.data); login(r.uid);
+        } catch (er) { msg.textContent = (window.kaCloud ? window.kaCloud.uzError(er) : "Xatolik."); inp.value = ""; inp.focus(); }
+      };
+      setTimeout(function () { inp.focus(); }, 50);
+    });
+  }
+
+  // Boshqa qurilmadan kirish: ism + guruh + parol
+  function showCloudLogin() {
+    card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button">✕</button></div>' +
+      '<div class="acc-body" style="padding-top:18px"><h3 style="margin:0;font-size:22px">☁️ Boshqa qurilmadan kirish</h3>' +
+      '<div class="acc-banner">Akkauntni ochgan paytdagi ism, guruh va parolni kiriting — tangalaringiz va natijalaringiz shu qurilmaga keladi.</div>' +
+      '<form class="acc-form"><div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required></label>' +
+      '<label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25"></label></div>' +
+      '<label>Parol<input name="pw" type="password" autocomplete="current-password" required></label>' +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Kirish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
+    var f = $("form", card), msg = $(".acc-msg", f);
+    $(".acc-x", card).onclick = function () { gate ? skipGate() : close(); };
+    $('[data-a="back"]', card).onclick = function () { showLogin(); };
+    f.onsubmit = async function (e) {
+      e.preventDefault();
+      var name = f.name.value.trim().replace(/\s+/g, " "), group = f.group.value.trim();
+      msg.textContent = "Tekshirilmoqda…";
+      try {
+        var K = await cloud(); if (!K) { msg.textContent = "Internet bilan aloqa yo'q."; return; }
+        var r = await K.login(name, group, f.pw.value);
+        var id = adoptCloud(r.uid, name, group, r.data); login(id);
+      } catch (er) { msg.textContent = (window.kaCloud ? window.kaCloud.uzError(er) : "Xatolik."); }
+    };
+    setTimeout(function () { f.name.focus(); }, 50);
+    open();
   }
 
   // Saytdagi test tizimi ismni "mq_identity" da saqlaydi — akkount bilan sinxronlaymiz
@@ -217,13 +319,14 @@
     toast("Xush kelibsiz, " + DB[id].name.split(" ")[0] + "! 👋");
     if (gate) { var g = gate; gate = null; close(); g(); } else showProfile();
   }
-  function logout() { setCur(""); syncIdentity(); renderChip(); showLogin(); }
+  function logout() { cloud().then(function (K) { if (K) K.signOut(); }); setCur(""); syncIdentity(); renderChip(); showLogin(); }
 
   // Yangi akkount / tahrirlash
   function showForm(editId) {
     var si = !editId && siteIdentity();
     var u = editId ? DB[editId] : { name: (si && si.name) || "", group: (si && si.group && si.group !== "—") ? si.group : "", av: Math.floor(Math.random() * AVATARS.length), photo: null };
     var draft = { av: u.av || 0, photo: u.photo || null };
+    var cloudAcc = !!(editId && u.cloud);
     card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button">✕</button></div>' +
       '<div class="acc-top"><span class="pv"></span><div class="acc-name"><h3>' + (editId ? "Akkountni tahrirlash" : "Yangi akkount") + '</h3><div class="sub">Rasm yuklang yoki avatar tanlang</div></div></div>' +
       '<div class="acc-body"><form class="acc-form">' +
@@ -232,11 +335,14 @@
       '<div class="acc-avpick">' + AVATARS.map(function (a, i) { return '<button type="button" data-av="' + i + '" aria-label="Avatar">' + avatarHTML({ av: i }, 40) + "</button>"; }).join("") + "</div>" +
       '<div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required placeholder="Masalan: Aziza Karimova"></label>' +
       '<label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25"></label></div>' +
-      '<label>PIN kod (4 ta raqam, ixtiyoriy)<input name="pin" type="password" inputmode="numeric" maxlength="4" pattern="\\d{4}" autocomplete="new-password" placeholder="' + (editId && u.pin ? "o'zgartirmaslik uchun bo'sh qoldiring" : "boshqalar kira olmasligi uchun") + '"></label>' +
+      (cloudAcc ? '<div class="acc-banner">☁️ Akkaunt bulutda. Ism va guruhni o\'zgartirib bo\'lmaydi (kirish shularga bog\'langan).</div>' :
+        '<label>' + (editId ? "Bulutga ulash uchun parol (kamida 6 ta belgi)" : "Parol (kamida 6 ta belgi)") + '<input name="pw" type="password" autocomplete="new-password" minlength="6" maxlength="64"' + (editId ? "" : " required") +
+        ' placeholder="' + (editId ? "bo\'sh qoldirsangiz akkaunt faqat shu qurilmada qoladi" : "boshqa qurilmadan kirish uchun kerak") + '"></label>') +
       '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">' + (editId ? "Saqlash" : "Akkount ochish") + '</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div>' +
       "</form></div>";
     var f = $("form", card), pv = $(".pv", card), msg = $(".acc-msg", f);
     f.name.value = u.name || ""; f.group.value = u.group || "";
+    if (cloudAcc) { f.name.readOnly = true; f.group.readOnly = true; }
     function redraw() {
       pv.innerHTML = avatarHTML({ av: draft.av, photo: draft.photo }, 110);
       $$(".acc-avpick button", f).forEach(function (b) { b.setAttribute("aria-pressed", !draft.photo && +b.getAttribute("data-av") === draft.av ? "true" : "false"); });
@@ -253,15 +359,24 @@
     $('[data-a="back"]', card).onclick = function () { editId ? showProfile() : showLogin(); };
     f.onsubmit = async function (e) {
       e.preventDefault();
-      var name = f.name.value.trim().replace(/\s+/g, " "), pin = f.pin.value.trim();
+      var name = f.name.value.trim().replace(/\s+/g, " "), pw = f.pw ? f.pw.value : "";
       if (name.length < 2) { msg.textContent = "Ismni yozing."; return; }
-      if (pin && !/^\d{4}$/.test(pin)) { msg.textContent = "PIN 4 ta raqamdan iborat bo'lsin."; return; }
+      if (f.pw && (pw || !editId) && pw.length < 6) { msg.textContent = "Parol kamida 6 ta belgidan iborat bo'lsin."; return; }
       var dup = Object.keys(DB).some(function (id) { return id !== editId && norm(DB[id].name) === norm(name) && norm(DB[id].group) === norm(f.group.value); });
       if (dup) { msg.textContent = "Bu ism va guruh bilan akkount allaqachon bor — ro'yxatdan tanlang."; return; }
       var id = editId || ("u" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6));
       var rec = DB[id] || { coins: 0, correct: 0, answered: 0, tests: 0, history: [], created: Date.now(), done: {} };
       rec.name = name; rec.group = f.group.value.trim(); rec.av = draft.av; rec.photo = draft.photo;
-      if (pin) rec.pin = await hashPin(pin);
+      if (f.pw && pw) {
+        msg.className = "acc-msg ok"; msg.textContent = "Bulutga ulanmoqda…";
+        var K = await cloud();
+        if (!K) { msg.className = "acc-msg"; msg.textContent = "Internet bilan aloqa yo'q — keyinroq urinib ko'ring."; return; }
+        try {
+          var uid = await K.register({ name: rec.name, group: rec.group, av: rec.av, coins: rec.coins, correct: rec.correct, answered: rec.answered, tests: rec.tests }, pw);
+          if (uid !== id) { if (DB[id]) delete DB[id]; if (curId() === id) setCur(uid); id = uid; }
+          rec.cloud = uid;
+        } catch (er) { msg.className = "acc-msg"; msg.textContent = K.uzError(er); return; }
+      }
       DB[id] = rec; save();
       if (editId) { syncIdentity(); renderChip(); showProfile(); toast("Saqlandi ✅"); }
       else login(id);
@@ -283,11 +398,12 @@
       '<div class="acc-stat"><b>' + (u.correct || 0) + '</b><span>To\'g\'ri javob</span></div><div class="acc-stat"><b>' + acc + '%</b><span>Aniqlik</span></div></div>' +
       '<div><div style="display:flex;justify-content:space-between;font-size:12px;color:#9fb0d0;margin-bottom:4px"><span>' + lv + "-daraja</span><span>" + pct + " / 100 🪙 → " + (lv + 1) + "-daraja</span></div>" +
       '<div class="acc-bar"><i style="width:' + pct + '%"></i></div></div>' +
+      (u.cloud ? "" : '<div class="acc-banner">☁️ Akkaunt faqat shu qurilmada. <a href="#" data-a="tocloud" style="color:#ffd479;font-weight:700">Parol qo\'yib bulutga ulang</a> — tangalar yo\'qolmaydi, boshqa qurilmadan ham kirasiz.</div>') +
       '<div class="acc-tabs"><button class="acc-tab" data-t="tarix" type="button">📜 Tarix</button><button class="acc-tab" data-t="reyting" type="button">🏆 Reyting</button></div>' +
       '<div class="acc-list"></div>' +
       '<div class="acc-btns"><button class="acc-btn" type="button" data-a="edit">✏️ Tahrirlash / rasm</button><button class="acc-btn" type="button" data-a="switch">🔄 Boshqa akkount</button>' +
       '<button class="acc-btn" type="button" data-a="logout">🚪 Chiqish</button><button class="acc-btn danger" type="button" data-a="del">🗑 O\'chirish</button></div>' +
-      '<div style="font-size:12px;color:#9fb0d0">Har bir testdagi to\'g\'ri javob uchun +' + COIN_PER_CORRECT + " 🪙. Akkount shu qurilmadagi brauzerda saqlanadi.</div></div>";
+      '<div style="font-size:12px;color:#9fb0d0">Har bir testdagi to\'g\'ri javob uchun +' + COIN_PER_CORRECT + (u.cloud ? " 🪙. Akkount bulutda saqlanadi — istalgan qurilmadan kirish mumkin." : " 🪙. Akkount shu qurilmadagi brauzerda saqlanadi.") + "</div></div>";
     $$(".acc-tab", card).forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-t") === tab ? "true" : "false"); b.onclick = function () { showProfile(b.getAttribute("data-t")); }; });
     var list = $(".acc-list", card);
     if (tab === "tarix") {
@@ -295,6 +411,17 @@
       list.innerHTML = h.length ? h.map(function (r) {
         return '<div class="acc-row"><div class="grow"><div class="t">' + esc(r.test) + '</div><div class="d">' + new Date(r.at).toLocaleString("uz-UZ") + " · " + r.correct + "/" + r.answered + ' to\'g\'ri</div></div><div class="c">+' + r.coins + " 🪙</div></div>";
       }).join("") : '<div class="acc-empty">Hali test yechilmagan. Mavzudagi testni oching — har bir to\'g\'ri javob +' + COIN_PER_CORRECT + " 🪙.</div>";
+    } else if (u.cloud) {
+      list.innerHTML = '<div class="acc-empty">Reyting yuklanmoqda…</div>';
+      cloud().then(function (K) { return K ? K.session().then(function () { return K.top(50); }) : null; }).then(function (rows) {
+        if (!rows) throw 0;
+        if (!$('.acc-tab[data-t="reyting"][aria-selected="true"]', card)) return;
+        var medal = ["🥇", "🥈", "🥉"];
+        list.innerHTML = rows.length ? rows.map(function (x, i) {
+          return '<div class="acc-row' + (x.id === u.cloud ? " me" : "") + '"><b style="width:26px;text-align:center">' + (medal[i] || i + 1) + "</b>" + avatarHTML({ av: x.av }, 34) +
+            '<div class="grow"><div class="t">' + esc(x.name) + '</div><div class="d">' + esc(x.group || "") + " · " + level(x.coins) + '-daraja</div></div><div class="c">' + x.coins + " 🪙</div></div>";
+        }).join("") : '<div class="acc-empty">Hali hech kim yo\'q.</div>';
+      }).catch(function () { list.innerHTML = '<div class="acc-empty">Reytingni yuklab bo\'lmadi (internet yoki kirish muddati tugagan). «Chiqish» va qayta kiring.</div>'; });
     } else {
       var ids = Object.keys(DB).sort(function (a, b) { return (DB[b].coins || 0) - (DB[a].coins || 0); });
       var medal = ["🥇", "🥈", "🥉"], cid = curId();
@@ -306,11 +433,16 @@
     }
     $(".acc-x", card).onclick = close;
     $('[data-a="edit"]', card).onclick = function () { showForm(curId()); };
+    var tc = $('[data-a="tocloud"]', card); if (tc) tc.onclick = function (e) { e.preventDefault(); showForm(curId()); };
     $('[data-a="switch"]', card).onclick = function () { showLogin(); };
     $('[data-a="logout"]', card).onclick = logout;
     $('[data-a="del"]', card).onclick = function () {
       var b = this;
-      if (b.dataset.sure) { delete DB[curId()]; save(); setCur(""); renderChip(); showLogin(); return; }
+      if (b.dataset.sure) {
+        var cu = me();
+        if (cu && cu.cloud) cloud().then(function (K) { if (K) K.session().then(function () { return K.deleteProfile(); }).then(function () { K.signOut(); }); });
+        delete DB[curId()]; save(); setCur(""); renderChip(); showLogin(); return;
+      }
       b.dataset.sure = "1"; b.textContent = "Rostdan o'chirilsinmi? Yana bosing";
     };
     open();
@@ -412,6 +544,7 @@
     };
   }
   if (me()) syncIdentity();
+  if (me() && me().cloud) cloudSched();
 
   // Boshqa modullar uchun
   window.kaAccount = {
@@ -426,6 +559,7 @@
           body: JSON.stringify({ name: u.name, group: u.group || "—", topic: String(topic || "").slice(0, 120), correct: correct | 0, total: total | 0, date: new Date().toLocaleString("uz-UZ") })
         }).catch(function () {});
       } catch (e) {}
+      try { if (u.cloud) cloud().then(function (K) { if (K) K.session().then(function () { return K.sendResult(topic, correct, total, u); }); }); } catch (e) {}
       return true;
     }
   };

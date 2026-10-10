@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    function str(v, n) { return v is string && v.size() >= 1 && v.size() <= n; }
+    function validProfile(d) {
+      return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated'])
+        && str(d.name, 40)
+        && d.group is string && d.group.size() <= 20
+        && d.av is int && d.av >= 0 && d.av < 12
+        && d.coins is int && d.coins >= 0 && d.coins <= 100000
+        && d.correct is int && d.correct >= 0
+        && d.answered is int && d.answered >= 0
+        && d.tests is int && d.tests >= 0
+        && d.updated == request.time;
+    }
+
+    // O'quvchi profili: hamma kirgan foydalanuvchi reytingni ko'ra oladi, o'zgartirish faqat egasiga
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.auth.uid == uid
+        && validProfile(request.resource.data)
+        && request.resource.data.coins <= 5000;
+      allow update: if signedIn() && request.auth.uid == uid
+        && validProfile(request.resource.data)
+        && request.resource.data.coins >= resource.data.coins
+        && request.resource.data.coins - resource.data.coins <= 200
+        && request.resource.data.correct >= resource.data.correct
+        && request.resource.data.answered >= resource.data.answered
+        && request.resource.data.tests >= resource.data.tests
+        && (request.resource.data.coins == resource.data.coins
+            || request.time > resource.data.updated + duration.value(2, 's'));
+      allow delete: if signedIn() && request.auth.uid == uid;
+    }
+
+    // Test natijalari: o'quvchi faqat qo'sha oladi, o'qish va o'chirish faqat o'qituvchiga
+    match /results/{id} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid','name','group','topic','correct','total','at'])
+        && request.resource.data.uid == request.auth.uid
+        && str(request.resource.data.name, 40)
+        && request.resource.data.group is string && request.resource.data.group.size() <= 20
+        && str(request.resource.data.topic, 120)
+        && request.resource.data.correct is int && request.resource.data.total is int
+        && request.resource.data.correct >= 0
+        && request.resource.data.correct <= request.resource.data.total
+        && request.resource.data.total <= 200
+        && request.resource.data.at == request.time;
+      allow read, delete: if isAdmin();
+    }
+
+    // O'qituvchilar ro'yxati: faqat Firebase konsolidan qo'lda to'ldiriladi
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}
