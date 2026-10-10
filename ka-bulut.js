@@ -158,6 +158,10 @@
         return true;
       } catch (e) { return false; }
     },
+    // Apps Script o'qituvchini tekshirishi uchun qisqa muddatli kirish tokeni
+    idToken: async function () {
+      try { var c = await load(); await c.auth.authStateReady(); return c.auth.currentUser ? await c.auth.currentUser.getIdToken() : null; } catch (e) { return null; }
+    },
     deleteProfile: async function () {
       try { var c = await load(), u = c.auth.currentUser; if (u) await c.F.deleteDoc(c.F.doc(c.db, "users", u.uid)); } catch (e) {}
     },

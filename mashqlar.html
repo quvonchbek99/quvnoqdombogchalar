@@ -553,10 +553,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
       <code>A</code> — Savol, <code>B</code> — To'g'ri javob, <code>C</code> — Noto'g'ri javob 1, <code>D</code> — Noto'g'ri javob 2, <code>E</code> — Noto'g'ri javob 3.<br>
       Tizim har bir savol uchun to'g'ri javobni qolgan 3 tasi bilan aralashtirib, tasodifiy o'ringa qo'yadi — shuning uchun faylda to'g'ri javobni doim B ustunga yozsangiz bo'ldi.
     </p>
-    <div class="tm-field">
-      <label for="admin-password">Admin parol</label>
-      <input type="password" id="admin-password" placeholder="Parolni kiriting">
-    </div>
+    <p class="admin-note">Savol yuklash uchun o'qituvchi akkaunti bilan kirgan bo'lishingiz kerak (parol endi so'ralmaydi).</p>
     <div class="tm-field">
       <label for="admin-topic-name">Mavzu nomi</label>
       <input type="text" id="admin-topic-name" placeholder="Masalan: Nazorat ishi 3 — savollar">
@@ -4108,14 +4105,20 @@ async function uploadAdminTopic() {
   statusEl.className = 'admin-status';
   statusEl.textContent = '';
 
-  const password = document.getElementById('admin-password').value;
   const topicName = document.getElementById('admin-topic-name').value.trim();
   const fileInput = document.getElementById('admin-file');
   const file = fileInput.files[0];
 
-  if (!password) {
+  if (!window.kaCloud) {
     statusEl.className = 'admin-status err';
-    statusEl.textContent = "Iltimos, admin parolni kiriting.";
+    statusEl.textContent = "Bulut moduli yuklanmadi. Sahifani qayta yuklang.";
+    return;
+  }
+  await window.kaCloud.session();
+  const idToken = await window.kaCloud.idToken();
+  if (!idToken) {
+    statusEl.className = 'admin-status err';
+    statusEl.textContent = "Avval o'qituvchi akkaunti bilan kiring (yuqoridagi «Akkaunt» orqali).";
     return;
   }
   if (!topicName) {
@@ -4166,7 +4169,7 @@ async function uploadAdminTopic() {
     const res = await fetch(RESULTS_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'addTopic', password: password, topicName: topicName, questions: questions })
+      body: JSON.stringify({ action: 'addTopic', idToken: idToken, topicName: topicName, questions: questions })
     });
     const result = await res.json();
     if (result && result.ok) {
@@ -4177,7 +4180,7 @@ async function uploadAdminTopic() {
       await loadDynamicTopics();
     } else {
       statusEl.className = 'admin-status err';
-      statusEl.textContent = "⚠️ Xatolik: " + ((result && result.error) || "parol noto'g'ri yoki server xatosi.");
+      statusEl.textContent = "⚠️ Xatolik: " + ((result && result.error) || "ruxsat yo'q yoki server xatosi.");
     }
   } catch (e) {
     statusEl.className = 'admin-status err';
@@ -4341,6 +4344,7 @@ if ('serviceWorker' in navigator) {
 <script src="ka-test.js"></script>
 <script src="savol-bazasi.js"></script>
 <script src="geometriya.js"></script>
+<script src="ka-bulut.js"></script>
 <script src="akkount.js"></script>
 <script src="ka-effektlar.js"></script>
 </body>
