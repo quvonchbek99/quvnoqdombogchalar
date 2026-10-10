@@ -303,6 +303,17 @@
     </div>
 
     <div class="field" style="margin-bottom:16px">
+      <label>Boshqaruv usuli</label>
+      <div class="diff-pick" id="ctrl-pick">
+        <div class="diff-card sel" data-ctrl="tap" tabindex="0"><div class="name">🖱 Teginish</div><div class="tag">Barmoq, sichqoncha yoki ← → tugmalari</div></div>
+        <div class="diff-card" data-ctrl="voice" tabindex="0"><div class="name">🎙 Ovoz</div><div class="tag">“chap”, “o'rta”, “o'ng” deb ayting</div></div>
+        <div class="diff-card" data-ctrl="eye" tabindex="0"><div class="name">👁 Ko'z qarashi</div><div class="tag">Qaysi tomonga qarasangiz, mashina shu yerga o'tadi</div></div>
+        <div class="diff-card" data-ctrl="hand" tabindex="0"><div class="name">✋ Qo'l</div><div class="tag">Qo'lingizni kamera oldida chapga-o'ngga suring</div></div>
+        <div class="diff-card" data-ctrl="puff" tabindex="0"><div class="name">💨 Puflash</div><div class="tag">Har bir puflashda mashina bir yo'lak o'ngga suriladi</div></div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px">
       <label>Mashinangizni tanlang</label>
       <div class="car-pick">
         <div class="car-card sel" data-car="cobalt" tabindex="0">
@@ -332,6 +343,7 @@
 
   <!-- GAME SCREEN -->
   <section id="screen-game" class="panel" hidden>
+    <div id="ctrl-status" style="color:var(--muted);font-size:13px;min-height:18px;margin-bottom:6px"></div>
     <div class="hud" style="margin-bottom:12px">
       <div class="hud-group">
         <div class="stat"><div class="k">Ball</div><div class="v" id="hud-score">0</div></div>
@@ -459,6 +471,7 @@
   let state = {
     car:"cobalt",
     rule:"tub",
+    ctrl:"tap",
     name:"",
     group:"05-25",
     difficulty:"orta",
@@ -560,6 +573,14 @@
     });
   }
   bindPick("#diff-pick", "difficulty");
+  document.querySelectorAll("#ctrl-pick .diff-card").forEach(card=>{
+    const pick = ()=>{
+      document.querySelectorAll("#ctrl-pick .diff-card").forEach(c=>c.classList.remove("sel"));
+      card.classList.add("sel"); state.ctrl = card.dataset.ctrl;
+    };
+    card.addEventListener("click", pick);
+    card.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(); } });
+  });
   bindPick("#rule-pick", "rule", ()=>{ const w=document.getElementById("rule-word"); if(w) w.textContent = RULE().word; });
 
   // ================= AUDIO ENGINE =================
@@ -1081,12 +1102,23 @@
   requestAnimationFrame(frameLoop);
 
   // ---------- flow ----------
-  els.btnStart.addEventListener("click", ()=>{
+  els.btnStart.addEventListener("click", async ()=>{
     const nm = els.name.value.trim();
     if(!nm){ els.name.focus(); els.name.style.borderColor = "var(--bad)"; return; }
     const grp = els.group.value.trim();
     if(!grp){ els.group.focus(); els.group.style.borderColor = "var(--bad)"; return; }
     ensureAudio();
+    const stEl = document.getElementById("ctrl-status");
+    if(state.ctrl!=="tap" && window.kaControl){
+      els.btnStart.disabled = true; const oldTxt = els.btnStart.textContent; els.btnStart.textContent = "Tayyorlanmoqda…";
+      try{
+        await window.kaControl.start(state.ctrl, { lanes:LANES, start:1, lang:"uz-UZ",
+          onLane:(l)=>moveTo(l), onStatus:(t)=>{ if(stEl) stEl.textContent = t; } });
+      }catch(err){
+        if(stEl) stEl.textContent = "⚠️ " + ((err&&err.name==="NotAllowedError")?"Ruxsat berilmadi":(err&&err.message||"Ishga tushmadi")) + " — teginish bilan davom eting.";
+      }
+      els.btnStart.disabled = false; els.btnStart.textContent = oldTxt;
+    } else if(stEl) stEl.textContent = "";
     state.name = nm;
     state.group = grp;
     const cfg = diffCfg();
@@ -1111,6 +1143,7 @@
 
   function endGame(){
     state.running = false;
+    if(window.kaControl) window.kaControl.stop();
     clearTimeout(commitTimer);
     stopMusic();
     stopEngineHum();
@@ -1260,6 +1293,7 @@
 })();
 </script>
 
+<script src="ka-boshqaruv.js"></script>
 <script src="ka-bulut.js"></script>
 <script src="akkount.js"></script>
 </body></html>
