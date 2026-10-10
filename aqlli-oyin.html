@@ -82,6 +82,9 @@
       <button class="pick" data-m="puff"><b>💨 Puflash</b><small>Mikrofonga 1–4 marta puflang: 1=A … 4=D.</small></button>
     </div>
 
+    <span class="lbl">Savollar mavzusi</span>
+    <select id="topic" style="width:100%"><option value="">🧠 Mantiq o'yinlari (aralash)</option></select>
+
     <span class="lbl">Daraja</span>
     <div class="grid" id="levels">
       <button class="pick" data-l="1"><b>🟢 Oson</b><small>Oddiy ketma-ketlik va xulosa. 45 soniya.</small></button>
@@ -141,6 +144,12 @@
   <p id="ctext" style="color:var(--mut);max-width:420px;margin:0"></p>
 </div>
 
+<script src="ka-savollar.js"></script>
+<script src="ka-savollar-2.js"></script>
+<script src="ka-savollar-3.js"></script>
+<script src="ka-savollar-4.js"></script>
+<script src="ka-savollar-5.js"></script>
+<script src="ka-savollar-6.js"></script>
 <script>
 (function(){
 "use strict";
@@ -148,7 +157,7 @@ var $=function(id){return document.getElementById(id);};
 var LETTERS=["A","B","C","D"];
 var TL={1:45,2:35,3:30};
 var ROUNDS=10;
-var st={mode:"tap",level:2,round:0,score:0,q:null,locked:true,tLeft:0,tStart:0,history:[]};
+var st={mode:"tap",topic:"",level:2,round:0,score:0,q:null,locked:true,tLeft:0,tStart:0,history:[]};
 
 /* ---------------- yordamchilar ---------------- */
 function ri(a,b){return a+Math.floor(Math.random()*(b-a+1));}
@@ -220,8 +229,21 @@ var BANK=[
 G.bank=function(){var b=pick(BANK);return mk(b.q,b.a,b.w,b.ex);};
 
 var SETS={1:["arith","geom","odd","order3","bank","letters"],2:["alt","fib","sq","day","letters","odd","bank","order3","geom"],3:["diff2","muladd","age","order4","alt","fib","bank","day"]};
-var lastType="";
+var lastType="",seenQ={};
+function strip(h){var d=document.createElement("div");d.innerHTML=h;return (d.textContent||"").replace(/\s+/g," ").trim();}
+function topicQ(){
+  var S=window.kaSavol,p=null,g=0;
+  do{p=S.get(st.topic,st.level);g++;}while(p&&seenQ[p.q]&&g<25);
+  if(!p)return G.bank();
+  seenQ[p.q]=1;
+  var fx=function(x){return String(x).replace(/-/g,"−");};
+  var correct=fx(p.a),wr=(p.w||[]).map(fx).filter(function(x){return x!==correct;});
+  var uniq={},w=[];wr.forEach(function(x){if(!uniq[x]){uniq[x]=1;w.push(x);}});
+  var o=shuffle([correct].concat(shuffle(w).slice(0,3)));
+  return {q:strip(p.q),o:o,a:o.indexOf(correct),ex:"To'g'ri javob: "+correct+"."};
+}
 function makeQ(){
+  if(st.topic)return topicQ();
   var list=SETS[st.level],t;
   do{t=pick(list);}while(t===lastType&&list.length>1);
   lastType=t;return G[t]();
@@ -235,7 +257,7 @@ function render(){
   $("qtext").textContent=q.q;
   var h="";
   q.o.forEach(function(o,i){h+='<button class="opt" data-i="'+i+'"><span class="k">'+LETTERS[i]+'</span><span class="t"></span></button>';});
-  $("opts").innerHTML=h;
+  $("opts").innerHTML=h;$("opts").style.gridTemplateColumns=q.o.length===2?"1fr 1fr":"1fr 1fr";
   var ts=$("opts").querySelectorAll(".t");q.o.forEach(function(o,i){ts[i].textContent=o;});
   Array.prototype.forEach.call($("opts").children,function(b){b.onclick=function(){choose(+b.dataset.i,"tap");};});
   $("ex").textContent="";$("big").textContent="";
@@ -382,7 +404,7 @@ modules.hand=function(){
     }
     if(paused||st.locked)return;
     var now=performance.now();
-    if(cnt>=1&&cnt<=4){
+    if(cnt>=1&&cnt<=st.q.o.length){
       $("big").style.fontSize="";$("big").textContent=cnt+" → "+LETTERS[cnt-1];
       if(cnt!==lastC){lastC=cnt;since=now;clearP();}
       var p=Math.min(1,(now-since)/DW);hot(cnt-1);setP(cnt-1,p);
@@ -425,7 +447,8 @@ modules.eye=function(){
     c.fillStyle="#ffd479";[468,473].forEach(function(i){c.beginPath();c.arc(L[i].x*cam.ov.width,L[i].y*cam.ov.height,3,0,7);c.fill();});
     if(collecting){collecting.push({x:f.x,y:f.y});return;}
     if(paused||st.locked||!cal)return;
-    var qx=(sm.x-cal.mx)*cal.sx>0?1:0,qy=(sm.y-cal.my)*cal.sy>0?1:0,qd=qy*2+qx;
+    var qx=(sm.x-cal.mx)*cal.sx>0?1:0,qy=(sm.y-cal.my)*cal.sy>0?1:0,qd=qy*2+qx,nO=st.q.o.length;
+    if(nO===2)qd=qx;else if(qd>=nO)qd=quad>=0&&quad<nO?quad:0;
     var now=performance.now();
     $("big").style.fontSize="";$("big").textContent=LETTERS[qd];
     if(qd!==quad){quad=qd;since=now;clearP();}
@@ -481,8 +504,8 @@ modules.puff=function(){
     if(v<thr*0.6)hi=false;
     if(count>0&&!hi&&now-last>1700){
       var n=count;count=0;
-      if(n>=1&&n<=4){paused=true;choose(n-1,"puff");}
-      else{$("big").textContent="Ko'p!";setHint("💨 Juda ko'p puflandi. <b>1–4</b> marta puflang.");hot(-1);}
+      if(n>=1&&n<=st.q.o.length){paused=true;choose(n-1,"puff");}
+      else{$("big").textContent="Ko'p!";setHint("💨 Juda ko'p puflandi. <b>1–"+st.q.o.length+"</b> marta puflang.");hot(-1);}
     }
   }
   return {
@@ -510,10 +533,23 @@ var MODE_NAMES={tap:"🖱 Teginish",voice:"🎙 Ovoz",eye:"👁 Ko'z",hand:"✋ 
 $("modes").addEventListener("click",function(e){var b=e.target.closest(".pick");if(!b)return;st.mode=b.dataset.m;Array.prototype.forEach.call($("modes").children,function(x){x.classList.toggle("sel",x===b);});$("voiceOpt").hidden=st.mode!=="voice";});
 $("levels").addEventListener("click",function(e){var b=e.target.closest(".pick");if(!b)return;st.level=+b.dataset.l;Array.prototype.forEach.call($("levels").children,function(x){x.classList.toggle("sel",x===b);});});
 
+(function(){
+  var S=window.kaSavol,sel=$("topic");
+  if(S){
+    S.ids().sort(function(a,b){var x=S.title(a),y=S.title(b);return x<y?-1:x>y?1:0;}).forEach(function(id){
+      var o=document.createElement("option");o.value=id;o.textContent=S.title(id);sel.appendChild(o);
+    });
+  }
+  sel.onchange=function(){st.topic=sel.value;};
+  var qp=new URLSearchParams(location.search),m=qp.get("mavzu"),d=+qp.get("daraja");
+  if(m&&S&&S.has(m)){sel.value=m;st.topic=m;}
+  if(d>=1&&d<=3){st.level=d;Array.prototype.forEach.call($("levels").children,function(x){x.classList.toggle("sel",+x.dataset.l===d);});}
+})();
+
 if(!(window.SpeechRecognition||window.webkitSpeechRecognition))$("supportNote").textContent="Eslatma: bu brauzerda ovozni tanish ishlamaydi (Chrome/Edge tavsiya etiladi).";
 
 function startGame(){
-  st.round=0;st.score=0;lastType="";st.locked=true;
+  st.round=0;st.score=0;lastType="";seenQ={};st.locked=true;
   $("setup").hidden=true;$("end").hidden=true;$("game").hidden=false;
   $("hMode").textContent=MODE_NAMES[st.mode];
   $("qtext").textContent="Tayyorlanmoqda…";$("opts").innerHTML="";
@@ -534,7 +570,8 @@ function finish(){
   var p=Math.round(st.score/ROUNDS*100),g=p>=90?5:p>=75?4:p>=60?3:2;
   $("rScore").textContent=st.score+"/"+ROUNDS;
   $("rText").textContent="Baho: "+g+" · aniqlik "+p+"% · usul: "+MODE_NAMES[st.mode];
-  var topic="🧠 Aqlli kontrol: "+MODE_NAMES[st.mode]+" (daraja "+st.level+", baho "+g+")";
+  var tt=st.topic&&window.kaSavol?window.kaSavol.title(st.topic):"Mantiq";
+  var topic="🧠 "+tt+" — "+MODE_NAMES[st.mode]+" (baho "+g+")";
   $("login").hidden=true;$("rSave").textContent="";
   try{
     if(window.kaAccount&&window.kaAccount.me()){

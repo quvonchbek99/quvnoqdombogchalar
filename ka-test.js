@@ -206,6 +206,7 @@
       '<div class="kt-grp"><span>Rejim</span><button class="kt-b" type="button" data-k="m" data-v="variant">Variantli (A–D)</button><button class="kt-b" type="button" data-k="m" data-v="yoz">Javobni yozish</button></div>' +
       '<div class="kt-grp"><button class="kt-b go" type="button" data-a="start">▶ Testni boshlash</button>' +
       '<button class="kt-b" type="button" data-a="oyin">🎮 Kamerali qo\'l o\'yini</button>' +
+      '<button class="kt-b" type="button" data-a="aqlli">🧠 Aqlli kontrol (ovoz · ko\'z · barmoq · puflash)</button>' +
       '<button class="kt-b" type="button" data-a="chiz">✍️ Qo\'l bilan chizish</button></div>' +
       '<div class="kt-note">Savollar har safar qaytadan tuziladi — bir xil variant ikki marta chiqmaydi. Xatolar oxirida yechimi bilan ko\'rsatiladi.</div>' +
       '<div class="kt-last"></div>';
@@ -226,6 +227,7 @@
     sync();
     $('[data-a="start"]', box).onclick = function () { run(id, title, level, count, mode); };
     $('[data-a="oyin"]', box).onclick = function () { location.href = "mavzu-oyin.html?mavzu=" + encodeURIComponent(id) + "&daraja=" + level; };
+    $('[data-a="aqlli"]', box).onclick = function () { location.href = "aqlli-oyin.html?mavzu=" + encodeURIComponent(id) + "&daraja=" + level; };
     $('[data-a="chiz"]', box).onclick = function () { location.href = "mavzu-chizish.html?mavzu=" + encodeURIComponent(id); };
     $(".kt-note", box).innerHTML += " Savol turi kam bo'lgan mavzularda 100 ta tanlansa, yondosh mavzulardan ham savol qo'shiladi.";
     try {
