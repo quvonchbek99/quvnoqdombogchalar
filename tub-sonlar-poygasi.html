@@ -281,6 +281,12 @@
         <div class="diff-card" data-rule="kvadrat" tabindex="0"><div class="name">⬛ To'la kvadrat</div><div class="tag">4, 9, 16, 25 kabi sonlarni toping</div></div>
         <div class="diff-card" data-rule="kub" tabindex="0"><div class="name">🧊 To'la kub</div><div class="tag">8, 27, 64, 125 kabi sonlarni toping</div></div>
         <div class="diff-card" data-rule="toqtub" tabindex="0"><div class="name">🎯 5 ga qoldiqli</div><div class="tag">5 ga bo'lganda qoldiq 2 chiqadigan sonni toping</div></div>
+        <div class="diff-card" data-rule="karra9" tabindex="0"><div class="name">9️⃣ 9 ga karrali</div><div class="tag">9 ga qoldiqsiz bo'linadigan sonni toping</div></div>
+        <div class="diff-card" data-rule="karra11" tabindex="0"><div class="name">🔟 11 ga karrali</div><div class="tag">11 ga qoldiqsiz bo'linadigan sonni toping</div></div>
+        <div class="diff-card" data-rule="daraja2" tabindex="0"><div class="name">⚡ 2 ning darajasi</div><div class="tag">2, 4, 8, 16, 32 kabi sonlarni toping</div></div>
+        <div class="diff-card" data-rule="fibo" tabindex="0"><div class="name">🌀 Fibonachchi</div><div class="tag">1, 2, 3, 5, 8, 13, 21 kabi sonlarni toping</div></div>
+        <div class="diff-card" data-rule="palin" tabindex="0"><div class="name">🪞 Palindrom</div><div class="tag">Ikki tomondan bir xil o'qiladigan son (121, 454)</div></div>
+        <div class="diff-card" data-rule="raqam10" tabindex="0"><div class="name">➕ Raqamlar yig'indisi 10</div><div class="tag">Raqamlari yig'indisi 10 bo'lgan sonni toping</div></div>
       </div>
     </div>
 
@@ -439,7 +445,13 @@
     karra7:  { label:"7 ga karrali",     word:"7 ga karrali sonni",  ok:"7 ga karrali!",     no:"7 ga bo'linmaydi",      test:n=>n%7===0 },
     kvadrat: { label:"To'la kvadrat",    word:"to'la kvadrat sonni", ok:"to'la kvadrat!",    no:"to'la kvadrat emas",    test:isSquare },
     kub:     { label:"To'la kub",        word:"to'la kub sonni",     ok:"to'la kub!",        no:"to'la kub emas",        test:isCube },
-    toqtub:  { label:"5 ga qoldiq 2",    word:"5 ga bo'lganda 2 qoldiq qoladigan sonni", ok:"qoldiq 2!", no:"qoldiq 2 emas", test:n=>n%5===2 }
+    toqtub:  { label:"5 ga qoldiq 2",    word:"5 ga bo'lganda 2 qoldiq qoladigan sonni", ok:"qoldiq 2!", no:"qoldiq 2 emas", test:n=>n%5===2 },
+    karra9:  { label:"9 ga karrali",     word:"9 ga karrali sonni",  ok:"9 ga karrali!",     no:"9 ga bo'linmaydi",      test:n=>n%9===0 },
+    karra11: { label:"11 ga karrali",    word:"11 ga karrali sonni", ok:"11 ga karrali!",    no:"11 ga bo'linmaydi",     test:n=>n%11===0 },
+    daraja2: { label:"2 ning darajasi",  word:"2 ning darajasi bo'lgan sonni", ok:"2 ning darajasi!", no:"2 ning darajasi emas", test:n=>(n&(n-1))===0 },
+    fibo:    { label:"Fibonachchi",      word:"Fibonachchi sonini",  ok:"Fibonachchi!",      no:"Fibonachchi emas",      test:n=>[1,2,3,5,8,13,21,34,55,89,144,233,377,610,987].includes(n) },
+    palin:   { label:"Palindrom",        word:"palindrom sonni",     ok:"palindrom!",        no:"palindrom emas",        test:n=>n>=11&&String(n)===String(n).split("").reverse().join("") },
+    raqam10: { label:"Raqamlar yig'indisi 10", word:"raqamlari yig'indisi 10 bo'lgan sonni", ok:"yig'indi 10!", no:"yig'indi 10 emas", test:n=>String(n).split("").reduce((a,b)=>a+ +b,0)===10 }
   };
   Object.keys(RULES).forEach(k=>{
     const arr = [];
