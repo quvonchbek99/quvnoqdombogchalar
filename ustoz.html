@@ -95,6 +95,13 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
     <div class="tw"><table id="t2"><thead><tr><th>Vaqt</th><th>O'quvchi</th><th>Guruh</th><th>Mavzu</th><th>Natija</th></tr></thead><tbody></tbody></table></div>
   </section>
 
+  <section class="card" id="pay">
+    <h3 style="margin:0 0 4px">🧾 To'lov cheklari</h3>
+    <p class="hint">O'quvchilar yuborgan cheklar. Chekni ko'rib, «✅ 1 yilga tasdiqlash» ni bosing — Pro obuna o'quvchida o'zi ochiladi.</p>
+    <div id="payl"></div>
+    <div class="msg" id="paymsg"></div>
+  </section>
+
   <section class="card" id="pm">
     <h3 style="margin:0 0 4px">💎 Premium obuna</h3>
     <p class="hint">To'lov kelgach, o'quvchini ism bo'yicha toping yoki UID ni kiriting va muddat bering.</p>
@@ -251,6 +258,42 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 
   async function loadUsers() { if (!users) { users = await K.listUsers(1000); users.forEach(function (u) { names[u.uid] = u.name + (u.group ? " (" + u.group + ")" : ""); }); } return users; }
 
+  async function loadPayments() {
+    var box = $("#payl"); box.textContent = "Yuklanmoqda…";
+    try {
+      var list = await K.listPayments(); box.innerHTML = "";
+      var pend = list.filter(function (x) { return x.status === "pending"; });
+      if (!pend.length) box.textContent = "Kutilayotgan chek yo'q.";
+      pend.forEach(function (x) { box.appendChild(payCard(x, true)); });
+      var done = list.filter(function (x) { return x.status !== "pending"; }).slice(0, 8);
+      if (done.length) {
+        var h = document.createElement("h4"); h.textContent = "Oxirgi ko'rib chiqilganlar"; h.style.margin = "14px 0 6px"; box.appendChild(h);
+        done.forEach(function (x) { box.appendChild(payCard(x, false)); });
+      }
+    } catch (e) { box.textContent = "Cheklarni yuklab bo'lmadi: " + (e && e.code || "xato") + " (Firestore qoidalari yangilanganmi?)"; }
+  }
+  function payCard(x, actions) {
+    var d = document.createElement("div"); d.style.cssText = "display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;border:1px solid var(--bd);border-radius:12px;padding:10px;margin:8px 0";
+    var a = document.createElement("a"); a.href = x.img; a.target = "_blank"; a.rel = "noopener";
+    var im = document.createElement("img"); im.src = x.img; im.alt = "chek"; im.style.cssText = "width:120px;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--bd)"; a.appendChild(im); d.appendChild(a);
+    var t = document.createElement("div"); t.style.flex = "1"; t.style.minWidth = "180px";
+    var b = document.createElement("b"); b.textContent = (x.name || x.uid) + (x.group ? " (" + x.group + ")" : ""); t.appendChild(b);
+    var m = document.createElement("div"); m.className = "hint"; m.textContent = (x.at ? x.at.toLocaleString("uz-UZ") : "") + (x.note ? " · " + x.note : "") + (actions ? "" : " · " + (x.status === "approved" ? "✅ tasdiqlangan" : "❌ rad etilgan" + (x.reason ? ": " + x.reason : ""))); t.appendChild(m);
+    if (actions) {
+      var row = document.createElement("div"); row.style.marginTop = "8px";
+      row.appendChild(btn("✅ 1 yilga tasdiqlash", async function () {
+        try { await K.approvePayment(x.id, x.uid, 365); say("#paymsg", "✅ " + (x.name || x.uid) + ": Pro obuna 1 yilga ochildi", true); loadPayments(); loadPremium(); }
+        catch (e) { say("#paymsg", "Bo'lmadi: " + (e && e.code || "xato")); }
+      }));
+      row.appendChild(btn("❌ Rad etish", async function () {
+        var r = prompt("Rad etish sababi (o'quvchi ko'radi):", "Chek aniq emas yoki summa mos kelmadi"); if (r === null) return;
+        try { await K.rejectPayment(x.id, r); say("#paymsg", "Rad etildi.", true); loadPayments(); } catch (e) { say("#paymsg", "Bo'lmadi: " + (e && e.code || "xato")); }
+      }));
+      t.appendChild(row);
+    }
+    d.appendChild(t); return d;
+  }
+
   async function loadPremium() {
     try {
       await loadUsers();
@@ -260,7 +303,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
         var active = p.until && p.until > new Date();
         cell(tr, (p.until ? p.until.toLocaleDateString("uz-UZ") : "—") + (active ? "" : " (tugagan)"));
         var td = document.createElement("td");
-        td.appendChild(btn("+30 kun", function () { grant(p.uid, 30); }));
+        td.appendChild(btn("+30 kun", function () { grant(p.uid, 30); })); td.appendChild(btn("+1 yil", function () { grant(p.uid, 365); }));
         td.appendChild(btn("Bekor qilish", async function () { await K.revokePremium(p.uid); loadPremium(); }));
         tr.appendChild(td); tb.appendChild(tr);
       });
@@ -281,7 +324,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
       found.forEach(function (u) {
         var d = document.createElement("div"); d.style.margin = "6px 0";
         var s = document.createElement("span"); s.textContent = u.name + (u.group ? " (" + u.group + ") " : " "); s.style.marginRight = "8px"; d.appendChild(s);
-        d.appendChild(btn("30 kun", function () { grant(u.uid, 30); })); d.appendChild(btn("90 kun", function () { grant(u.uid, 90); }));
+        d.appendChild(btn("30 kun", function () { grant(u.uid, 30); })); d.appendChild(btn("90 kun", function () { grant(u.uid, 90); })); d.appendChild(btn("1 yil", function () { grant(u.uid, 365); }));
         res.appendChild(d);
       });
     } catch (e) { say("#pmsg", "Qidirib bo'lmadi: " + (e && e.code || "xato")); }
@@ -321,7 +364,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
   };
 
   // Panel ochilganda (o'qituvchi tasdiqlangach) yuklash
-  var t = setInterval(function () { if (!$("#app").hidden) { clearInterval(t); loadPremium(); loadTests(); } }, 500);
+  var t = setInterval(function () { if (!$("#app").hidden) { clearInterval(t); loadPayments(); loadPremium(); loadTests(); } }, 500);
 })();
 </script>
 </body>

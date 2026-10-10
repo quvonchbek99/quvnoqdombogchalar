@@ -236,6 +236,37 @@
       if (s.exists() && s.data().until && s.data().until.toMillis() > base) base = s.data().until.toMillis();
       await c.F.setDoc(ref, { until: c.F.Timestamp.fromMillis(base + days * 86400000), by: c.auth.currentUser.uid, at: c.F.serverTimestamp() });
     },
+    // ---- To'lov cheklari (sayt ichida tasdiqlash) ----
+    submitPayment: async function (img, note) {
+      var c = await load(), u = c.auth.currentUser; if (!u) throw { code: "auth/requires-recent-login" };
+      var ps = await c.F.getDoc(c.F.doc(c.db, "users", u.uid)); var pr = ps.exists() ? ps.data() : {};
+      var id = u.uid + "_" + Date.now().toString(36);
+      await c.F.setDoc(c.F.doc(c.db, "payments", id), { uid: u.uid, name: String(pr.name || "").slice(0, 40), group: String(pr.group || "").slice(0, 20), note: String(note || "").slice(0, 200), img: String(img), status: "pending", at: c.F.serverTimestamp() });
+      return id;
+    },
+    myPayment: async function () {
+      try {
+        var c = await load(), u = c.auth.currentUser; if (!u) return null;
+        var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "payments"), c.F.where("uid", "==", u.uid), c.F.limit(20)));
+        var best = null;
+        s.forEach(function (d) { var x = d.data(), t = x.at && x.at.toMillis ? x.at.toMillis() : 0; if (!best || t > best.t) best = { id: d.id, status: x.status, reason: x.reason || "", t: t }; });
+        return best;
+      } catch (e) { return null; }
+    },
+    listPayments: async function () {
+      var c = await load(), out = [];
+      var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "payments"), c.F.orderBy("at", "desc"), c.F.limit(60)));
+      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, uid: x.uid, name: x.name, group: x.group, note: x.note || "", img: x.img, status: x.status, reason: x.reason || "", at: x.at && x.at.toDate ? x.at.toDate() : null }); });
+      return out;
+    },
+    approvePayment: async function (id, uid, days) {
+      var c = await load(); await window.kaCloud.grantPremium(uid, days || 365);
+      await c.F.updateDoc(c.F.doc(c.db, "payments", id), { status: "approved", reviewed: c.F.serverTimestamp() });
+    },
+    rejectPayment: async function (id, reason) {
+      var c = await load(); await c.F.updateDoc(c.F.doc(c.db, "payments", id), { status: "rejected", reason: String(reason || "").slice(0, 120), reviewed: c.F.serverTimestamp() });
+    },
+    deletePaymentImage: async function (id) { var c = await load(); await c.F.deleteDoc(c.F.doc(c.db, "payments", id)); },
     revokePremium: async function (uid) { var c = await load(); await c.F.deleteDoc(c.F.doc(c.db, "premium", uid)); },
     listPremium: async function () {
       var c = await load(), out = [];

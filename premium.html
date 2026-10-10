@@ -34,6 +34,17 @@ code{background:rgba(255,255,255,.08);padding:3px 7px;border-radius:7px;word-bre
 .opt{display:block;width:100%;text-align:left;margin:8px 0;padding:13px 14px;font-weight:600}
 .opt.right{background:#0f3b31;border-color:var(--ac)} .opt.wrong{background:#3b1717;border-color:var(--bad)}
 .bar{height:5px;background:#121c32;border-radius:9px;overflow:hidden;margin:6px 0 16px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#7c9bff,#5ee6c7);width:0}
+.price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:6px 0 4px}
+.price s{color:var(--dim);font-size:20px;text-decoration-thickness:2px;text-decoration-color:var(--bad)}
+.price b{font-size:34px;color:var(--gold)} .price small{color:var(--ac);font-weight:800}
+table.cmp{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+table.cmp th,table.cmp td{padding:9px 8px;border-bottom:1px solid var(--bd);text-align:center}
+table.cmp th:first-child,table.cmp td:first-child{text-align:left}
+table.cmp th{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+table.cmp th.pro{color:var(--gold)} .y{color:var(--ac);font-weight:800}.n{color:var(--dim)}
+.chek input[type=file]{display:block;margin:8px 0;color:var(--dim)} .chek img{max-width:100%;max-height:260px;border-radius:12px;border:1px solid var(--bd);margin:6px 0}
+.chek textarea{width:100%;background:var(--soft);border:1px solid var(--bd);color:var(--tx);border-radius:10px;padding:9px;font:inherit}
+.msg.ok{color:var(--ac)}
 .msg{color:var(--bad);font-size:14px;min-height:1.2em}
 [hidden]{display:none!important}
 </style>
@@ -45,6 +56,19 @@ code{background:rgba(255,255,255,.08);padding:3px 7px;border-radius:7px;word-bre
 <h1>💎 Premium testlar</h1>
 <p class="sub">Imtihonga tayyorlov uchun maxsus savollar to'plami. Bepul namunalar bilan avval sinab ko'ring.</p>
 
+<section class="card" id="plan">
+  <span class="badge">💎 Pro obuna</span>
+  <div class="price"><s>300 000 so'm</s><b>30 000 so'm</b><span>/ 1 yil</span><small>−90% chegirma</small></div>
+  <p class="sub" style="margin:0 0 6px">Bir yillik Pro obuna — oyiga atigi 2 500 so'm. Oddiy narx 300 000 so'm, hozir 1 yilga 30 000 so'm.</p>
+  <table class="cmp"><thead><tr><th>Imkoniyat</th><th>Oddiy (bepul)</th><th class="pro">Pro</th></tr></thead><tbody>
+    <tr><td>Barcha mavzular, xossalar va mashqlar</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>O'yinlar va akkount, coinlar</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>Natijalar o'qituvchiga yuboriladi</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>Bepul namuna testlar</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>Barcha premium testlar (to'liq to'plam)</td><td class="n">—</td><td class="y">✔</td></tr>
+    <tr><td>Yangi qo'shiladigan premium testlar</td><td class="n">—</td><td class="y">✔</td></tr>
+  </tbody></table>
+</section>
 <section class="card" id="state"></section>
 <section id="list"></section>
 
@@ -59,7 +83,7 @@ code{background:rgba(255,255,255,.08);padding:3px 7px;border-radius:7px;word-bre
 
 <script>
 /* To'lov ma'lumotlari — o'qituvchi shu yerni to'ldiradi. Bo'sh qoldirilsa "tez orada" deb ko'rsatiladi. */
-var PAY = { price: "30 000 so'm / oy", card: "Humo 9860 1301 3808 2859 yoki Visa 4916 9909 0854 3579 (Quvonchbek Mashrapov)", telegram: "@miir1999" };
+var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "Humo 9860 1301 3808 2859 yoki Visa 4916 9909 0854 3579 (Quvonchbek Mashrapov)", telegram: "@miir1999" };
 </script>
 <script src="ka-bulut.js"></script>
 <script src="akkount.js"></script>
@@ -95,12 +119,65 @@ var PAY = { price: "30 000 so'm / oy", card: "Humo 9860 1301 3808 2859 yoki Visa
       var cb = el("button", "", "Kodni nusxalash"); cb.style.marginLeft = "8px";
       cb.onclick = function () { try { navigator.clipboard.writeText(st.uid); cb.textContent = "Nusxalandi ✓"; } catch (e) {} };
       info.appendChild(cb);
-      info.appendChild(el("p", "sub", "O'qituvchi to'lovni tasdiqlagach, premium shu akkauntingizda ochiladi."));
+      info.appendChild(el("p", "sub", "Yoki chekni shu yerning o'zida yuboring — o'qituvchi ko'rib chiqib tasdiqlaydi va Pro obuna shu akkauntingizda avtomatik ochiladi."));
     } else {
       info.appendChild(el("p", "sub", "To'lov usullari tez orada qo'shiladi. Hozircha o'qituvchingizga murojaat qiling va shu kodingizni ayting:"));
       info.appendChild(el("code", "", st.uid));
     }
     box.appendChild(info);
+    box.appendChild(chekBox());
+  }
+
+  /* ---- Chek yuborish (sayt ichida) ---- */
+  function compress(file) {
+    return new Promise(function (ok, bad) {
+      var fr = new FileReader();
+      fr.onerror = function () { bad(); };
+      fr.onload = function () {
+        var im = new Image();
+        im.onerror = function () { bad(); };
+        im.onload = function () {
+          var W = 1000, sc = Math.min(1, W / Math.max(im.width, im.height)), cv = document.createElement("canvas");
+          cv.width = Math.round(im.width * sc); cv.height = Math.round(im.height * sc);
+          var cx = cv.getContext("2d"); cx.fillStyle = "#fff"; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(im, 0, 0, cv.width, cv.height);
+          var q = 0.75, d = cv.toDataURL("image/jpeg", q);
+          while (d.length > 600000 && q > 0.3) { q -= 0.1; d = cv.toDataURL("image/jpeg", q); }
+          d.length > 650000 ? bad() : ok(d);
+        };
+        im.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
+  function chekBox() {
+    var box = el("div", "chek"); box.style.marginTop = "12px";
+    var wrap = el("div"); box.appendChild(wrap);
+    function draw(pay) {
+      wrap.innerHTML = "";
+      if (pay && pay.status === "pending") { wrap.appendChild(el("span", "badge", "⏳ Chek ko'rib chiqilmoqda")); wrap.appendChild(el("p", "sub", "O'qituvchi tasdiqlagach shu sahifa o'zi yangilanadi (sahifani qayta oching).")); return; }
+      if (pay && pay.status === "rejected") wrap.appendChild(el("p", "msg", "❌ Oldingi chek rad etildi" + (pay.reason ? ": " + pay.reason : "") + ". Qaytadan yuboring."));
+      wrap.appendChild(el("b", "", "🧾 To'lov chekini yuborish"));
+      var f = el("input"); f.type = "file"; f.accept = "image/*"; wrap.appendChild(f);
+      var pv = el("img"); pv.hidden = true; wrap.appendChild(pv);
+      var note = el("textarea"); note.rows = 2; note.maxLength = 200; note.placeholder = "Izoh (ixtiyoriy): to'lov vaqti, karta oxirgi raqamlari..."; wrap.appendChild(note);
+      var send = el("button", "pri", "Chekni yuborish"); send.style.marginTop = "8px"; send.disabled = true; wrap.appendChild(send);
+      var msg = el("div", "msg"); wrap.appendChild(msg);
+      var data = null;
+      f.onchange = async function () {
+        data = null; send.disabled = true; msg.className = "msg"; msg.textContent = "";
+        if (!f.files[0]) return;
+        try { data = await compress(f.files[0]); pv.src = data; pv.hidden = false; send.disabled = false; }
+        catch (e) { msg.textContent = "Rasmni o'qib bo'lmadi yoki juda katta. Boshqa rasm tanlang."; }
+      };
+      send.onclick = async function () {
+        if (!data) return; send.disabled = true; msg.className = "msg"; msg.textContent = "Yuborilmoqda…";
+        try { await K.submitPayment(data, note.value.trim()); draw({ status: "pending" }); }
+        catch (e) { send.disabled = false; msg.textContent = "Yuborib bo'lmadi (" + ((e && e.code) || "xato") + "). Qayta urinib ko'ring."; }
+      };
+    }
+    draw(null);
+    K.myPayment().then(function (p) { if (p) draw(p); });
+    return box;
   }
 
   function renderList(cat, tests) {
