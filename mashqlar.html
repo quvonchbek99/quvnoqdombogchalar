@@ -570,10 +570,8 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
 
     <hr style="border:none;border-top:1px solid var(--border);margin:24px 0;">
     <h3 style="margin:0 0 4px;font-size:16px;">📊 O'quvchilar natijalari</h3>
-    <p class="admin-note" style="margin-top:0;">Yuqoridagi admin parolni kiritib, barcha o'quvchilarning barcha mavzulardagi natijalarini shu yerda ko'rishingiz mumkin.</p>
-    <button class="tm-btn" onclick="loadAdminResults()">Natijalarni yuklash</button>
-    <p class="admin-status" id="admin-results-status"></p>
-    <div id="admin-results-wrap"></div>
+    <p class="admin-note" style="margin-top:0;">Natijalar endi xavfsiz o'qituvchi panelida ko'rsatiladi (parol manzilga yozilmaydi). Eski natijalar Google Jadvalda saqlanib qoladi.</p>
+    <a class="tm-btn" href="ustoz.html" style="display:inline-block;text-decoration:none">Natijalar panelini ochish →</a>
   </div>
 
   <main>
@@ -4187,75 +4185,7 @@ async function uploadAdminTopic() {
   }
 }
 
-/* ====== Admin panel: barcha o'quvchilar natijalarini ko'rish ====== */
-async function loadAdminResults() {
-  const statusEl = document.getElementById('admin-results-status');
-  const wrapEl = document.getElementById('admin-results-wrap');
-  const password = document.getElementById('admin-password').value;
-
-  statusEl.className = 'admin-status';
-  wrapEl.innerHTML = '';
-
-  if (!password) {
-    statusEl.className = 'admin-status err';
-    statusEl.textContent = "Iltimos, admin parolni kiriting.";
-    return;
-  }
-
-  statusEl.textContent = 'Yuklanmoqda...';
-
-  try {
-    const res = await fetch(RESULTS_ENDPOINT + '?action=listResults&password=' + encodeURIComponent(password));
-    const data = await res.json();
-    if (!data || !data.ok) {
-      statusEl.className = 'admin-status err';
-      statusEl.textContent = '⚠️ ' + ((data && data.error) || "Natijalarni yuklab bo'lmadi.");
-      return;
-    }
-    const results = Array.isArray(data.results) ? data.results : [];
-    if (results.length === 0) {
-      statusEl.className = 'admin-status ok';
-      statusEl.textContent = "Hozircha hech qanday natija yo'q.";
-      return;
-    }
-    statusEl.className = 'admin-status ok';
-    statusEl.textContent = "Jami " + results.length + " ta natija.";
-
-    const table = document.createElement('table');
-    table.className = 'admin-results-table';
-    const thead = document.createElement('thead');
-    thead.innerHTML = '<tr><th>Vaqt</th><th>F.I.Sh</th><th>Guruh</th><th>Mavzu</th><th>Natija</th></tr>';
-    table.appendChild(thead);
-    const tbody = document.createElement('tbody');
-    results.forEach(function (r) {
-      const tr = document.createElement('tr');
-      let vaqtText = r.vaqt || '';
-      const parsed = new Date(vaqtText);
-      if (!isNaN(parsed.getTime())) {
-        vaqtText = parsed.toLocaleString('uz-UZ');
-      }
-      const total = r.jami || 0;
-      const correct = r.togri || 0;
-      const pct = total ? Math.round((correct / total) * 100) : 0;
-      const cells = [vaqtText, r.fish || '', r.guruh || '', r.mavzu || '', correct + '/' + total + ' (' + pct + '%)'];
-      cells.forEach(function (val) {
-        const td = document.createElement('td');
-        td.textContent = val;
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-    });
-    table.appendChild(tbody);
-
-    const wrapDiv = document.createElement('div');
-    wrapDiv.className = 'admin-results-wrap';
-    wrapDiv.appendChild(table);
-    wrapEl.appendChild(wrapDiv);
-  } catch (e) {
-    statusEl.className = 'admin-status err';
-    statusEl.textContent = "⚠️ Natijalarni yuklashda xatolik yuz berdi.";
-  }
-}
+/* Natijalar paneli ustoz.html ga ko'chirildi (parol URL'da yuborilmaydi). */
 
 /* ====== Sahifa ochilganda admin qo'shgan mavzularni yuklab, TESTS ga qo'shish ====== */
 async function loadDynamicTopics() {
