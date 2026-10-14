@@ -11,6 +11,7 @@
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
   var css = `
+  html{overflow-x:hidden}@supports (overflow-x:clip){html{overflow-x:clip}}
   .ka-prog{position:fixed;left:0;top:0;height:3px;width:0;z-index:99999;background:linear-gradient(90deg,#5ee6c7,#7c9bff,#ff5c7a);box-shadow:0 0 10px rgba(94,230,199,.6);pointer-events:none}
   .ka-rv{opacity:0;transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s;will-change:opacity,transform}
   .ka-rv.up{transform:translateY(46px)}
@@ -19,6 +20,7 @@
   .ka-rv.zoom{transform:scale(.86);filter:blur(6px)}
   .ka-rv.flip{transform:perspective(800px) rotateX(18deg) translateY(30px);transform-origin:50% 100%}
   .ka-rv.in{opacity:1;transform:none;filter:none}
+  @media (max-width:760px){.ka-rv.left,.ka-rv.right{transform:translateY(40px)}}
   .ka-kuvi{position:fixed;bottom:calc(6px + var(--kb,0px));left:0;width:76px;height:96px;z-index:900;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
   .ka-kuvi svg{width:100%;height:100%;overflow:visible;display:block}
   .ka-kuvi .bd{transform-origin:38px 92px}
