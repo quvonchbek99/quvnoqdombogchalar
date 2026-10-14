@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ezop masallari — mantiq o'yini | Kuvonch Academy</title>
+<meta name="description" content="Ezop masallari asosida qisqa mantiqiy savollar: ovoz, telefon sensorlari (egilish) yoki kamera harakati bilan javob bering.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<style>
+  *{box-sizing:border-box}
+  :root{--bg:#0b1220;--panel:#0e1628;--line:#243252;--txt:#eef2ff;--mut:#9fb0d0;--acc:#7c9bff;--ok:#5ee6c7;--bad:#ff7a8a;--warn:#ffd479}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--txt);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:22px 16px 60px}
+  a.back{color:var(--acc);text-decoration:none;font-weight:700;font-size:14px}
+  h1{font-size:clamp(22px,5.5vw,30px);margin:12px 0 4px}
+  .sub{color:var(--mut);font-size:14.5px;margin:0 0 16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:#111a2e;border:1px solid var(--line);color:var(--txt);border-radius:999px;padding:7px 12px;font:600 13px/1 inherit;cursor:pointer}
+  .chip.on{border-color:var(--acc);background:#1a2a52}
+  .ctl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .btn{background:#1a2a52;border:1px solid var(--acc);color:var(--txt);border-radius:12px;padding:9px 14px;font:700 14px/1 inherit;cursor:pointer}
+  .btn[aria-pressed="true"]{background:var(--acc);color:#0b1220}
+  .tag{display:inline-block;font:700 12px/1 inherit;color:var(--warn);text-transform:uppercase;letter-spacing:.05em}
+  .matn{font-size:17px;margin:10px 0 14px}
+  .savol{font-weight:700;font-size:17px;margin:4px 0 12px}
+  .opt{display:block;width:100%;text-align:left;background:#111a2e;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;color:var(--txt);font:inherit;cursor:pointer}
+  .opt.sel{border-color:var(--warn);background:#1f2a14}
+  .opt.ok{border-color:var(--ok);background:#0f2a26}
+  .opt.bad{border-color:var(--bad);background:#2a1119}
+  .opt kbd{float:right;color:var(--mut);font-size:12px}
+  .fb{margin-top:8px;color:var(--mut)}
+  .stat{color:var(--mut);font-size:14px}
+  video{width:160px;height:120px;border-radius:10px;background:#000;display:none}
+  .live{color:var(--mut);font-size:13px;margin-top:6px}
+  .heard{color:var(--ok);font-size:14px;margin-top:6px;min-height:20px}
+  .tilt{height:8px;border-radius:99px;background:#111a2e;position:relative;margin-top:8px;overflow:hidden}
+  .tilt i{position:absolute;top:0;bottom:0;width:20px;left:50%;background:var(--warn);transition:left .1s}
+  .note{font-size:13px;color:var(--mut);margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Bosh sahifa</a>
+  <h1>🦊 Ezop masallari — mantiq o'yini</h1>
+  <p class="sub">Qisqa masalni o'qing va savolga javob tanlang. Javobni ovoz bilan, telefonni egib yoki kamera oldida qo'l harakati bilan belgilang.</p>
+
+  <div class="card">
+    <span class="lbl" style="font-size:12px;color:var(--mut);text-transform:uppercase">Mavzu</span>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="card" id="game">
+    <span class="tag" id="mavzu"></span>
+    <div class="savol" id="sarlavha" style="font-size:20px"></div>
+    <div class="matn" id="matn"></div>
+    <div class="savol" id="savol"></div>
+    <div id="opts"></div>
+    <div class="ctl">
+      <button class="btn" id="btnCheck" type="button">Tekshirish</button>
+      <button class="btn" id="btnNext" type="button">Keyingi masal →</button>
+      <button class="btn" id="btnRead" type="button">🔊 O'qib ber</button>
+    </div>
+    <div class="fb" id="fb"></div>
+  </div>
+
+  <div class="card">
+    <div class="stat" id="stat"></div>
+    <div class="ctl">
+      <button class="btn" id="btnVoice" type="button" aria-pressed="false">🎤 Ovoz: o'chiq</button>
+      <button class="btn" id="btnTilt" type="button" aria-pressed="false">📱 Egilish: o'chiq</button>
+      <button class="btn" id="btnCam" type="button" aria-pressed="false">📷 Kamera: o'chiq</button>
+    </div>
+    <div class="tilt" aria-hidden="true"><i id="tiltBar"></i></div>
+    <div class="heard" id="heard"></div>
+    <div class="live" id="camInfo"></div>
+    <video id="vid" autoplay muted playsinline></video>
+    <canvas id="cv" width="32" height="24" style="display:none"></canvas>
+    <p class="note">Ovoz buyruqlari: "a", "b", "c" (yoki "birinchi", "ikkinchi", "uchinchi") — javobni tanlash; "tekshir" — tekshirish; "keyingi" — keyingi masal; "takrorla" — masalni qayta o'qish. Egilish: telefonni chapga/o'ngga egib tanlang, qisqa silkitsangiz tasdiqlanadi (yoki "Tekshirish" tugmasi). Kamera: qo'lingizni chapga yoki o'ngga siljiting.</p>
+  </div>
+</div>
+
+<script src="ezop-masallar.js"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var all = window.EZOP_MASALLAR || [];
+  var topic = "hammasi", list = [], idx = 0, sel = -1, score = 0, done = 0, answered = false;
+  var LET = ["A", "B", "C"];
+
+  /* ---- mavzular va ro'yxat ---- */
+  function topics() {
+    var t = ["hammasi"], seen = {};
+    all.forEach(function (m) { if (!seen[m.mavzu]) { seen[m.mavzu] = 1; t.push(m.mavzu); } });
+    return t;
+  }
+  function build() {
+    list = all.filter(function (m) { return topic === "hammasi" || m.mavzu === topic; });
+    idx = 0; sel = -1; answered = false; show();
+  }
+  function renderChips() {
+    var box = $("chips"); box.innerHTML = "";
+    topics().forEach(function (t) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chip" + (t === topic ? " on" : "");
+      b.textContent = t === "hammasi" ? "Hammasi" : t;
+      b.onclick = function () { topic = t; renderChips(); build(); };
+      box.appendChild(b);
+    });
+  }
+
+  /* ---- ko'rsatish ---- */
+  function show() {
+    if (!list.length) { $("game").innerHTML = "<p>Bu mavzuda masal yo'q.</p>"; return; }
+    var m = list[idx % list.length];
+    $("mavzu").textContent = m.mavzu;
+    $("sarlavha").textContent = m.sarlavha;
+    $("matn").textContent = m.matn;
+    $("savol").textContent = m.savol;
+    var box = $("opts"); box.innerHTML = "";
+    m.variantlar.forEach(function (v, i) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt" + (i === sel ? " sel" : "");
+      b.innerHTML = "<kbd>" + LET[i] + "</kbd>" + escapeHTML(v);
+      b.onclick = function () { if (!answered) { sel = i; show(); } };
+      box.appendChild(b);
+    });
+    $("fb").textContent = "";
+    $("stat").textContent = "Savol " + (idx % list.length + 1) + "/" + list.length + " · To'g'ri: " + score + " · Jami: " + done;
+    if (voiceOn) speak(m.sarlavha + ". " + m.matn + " " + m.savol);
+  }
+  function escapeHTML(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  function check() {
+    if (answered) return;
+    if (sel < 0) { $("fb").textContent = "Avval javobni tanlang."; return; }
+    var m = list[idx % list.length];
+    answered = true; done++;
+    var ok = sel === m.javob;
+    if (ok) score++;
+    var opts = document.querySelectorAll(".opt");
+    opts.forEach(function (o, i) { if (i === m.javob) o.classList.add("ok"); else if (i === sel) o.classList.add("bad"); });
+    $("fb").textContent = (ok ? "✔ To'g'ri! " : "✘ Noto'g'ri. ") + m.izoh;
+    $("stat").textContent = "Savol " + (idx % list.length + 1) + "/" + list.length + " · To'g'ri: " + score + " · Jami: " + done;
+    if (voiceOn) speak(ok ? "To'g'ri" : "Noto'g'ri. " + m.izoh);
+  }
+  function next() { idx++; sel = -1; answered = false; show(); }
+
+  /* ---- ovoz (matn o'qish va tanish) ---- */
+  var voiceOn = false, rec = null, speakOn = true;
+  function speak(t) {
+    try { if (!window.speechSynthesis) return; speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.lang = "uz-UZ"; u.rate = 0.95; speechSynthesis.speak(u); } catch (e) {}
+  }
+  function heard(t) { $("heard").textContent = "Eshitildi: " + t; }
+  function handleVoice(t) {
+    t = t.toLowerCase();
+    heard(t);
+    if (/takror|qayta|o'qib|o'qi/.test(t)) { var m = list[idx % list.length]; speak(m.matn + " " + m.savol); return; }
+    if (/keyingi|o'tkaz/.test(t)) { next(); return; }
+    if (/tekshir|tasdiq/.test(t)) { check(); return; }
+    if (/\b(a|birinchi|1)\b/.test(t)) { pick(0); return; }
+    if (/\b(b|ikkinchi|2)\b/.test(t)) { pick(1); return; }
+    if (/\b(c|uchinchi|3)\b/.test(t)) { pick(2); return; }
+  }
+  function pick(i) { if (!answered) { sel = i; show(); } }
+  function startVoice() {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { $("heard").textContent = "Bu brauzerda ovoz tanish yo'q (Chrome tavsiya)."; return false; }
+    rec = new SR(); rec.lang = "uz-UZ"; rec.continuous = true; rec.interimResults = false;
+    rec.onresult = function (e) { var r = e.results[e.results.length - 1]; handleVoice(r[0].transcript || ""); };
+    rec.onend = function () { if (voiceOn) { try { rec.start(); } catch (x) {} } };
+    try { rec.start(); return true; } catch (x) { return false; }
+  }
+  function toggleVoice() {
+    voiceOn = !voiceOn;
+    if (voiceOn) { if (!startVoice()) voiceOn = false; }
+    else { try { rec && rec.stop(); } catch (x) {} }
+    $("btnVoice").setAttribute("aria-pressed", String(voiceOn));
+    $("btnVoice").textContent = "🎤 Ovoz: " + (voiceOn ? "yoqiq" : "o'chiq");
+  }
+
+  /* ---- sensor: telefon egilishi ---- */
+  var tiltOn = false, tiltDir = 0, tiltBase = null, lastFlick = 0, tiltSel = -1;
+  function onOrient(e) {
+    var g = e.gamma; if (g == null) return;
+    if (tiltBase == null) tiltBase = g;
+    var d = g - tiltBase;
+    var dir = d < -12 ? -1 : d > 12 ? 1 : 0;
+    var pos = Math.max(0, Math.min(100, 50 + d * 2.5));
+    $("tiltBar").style.left = pos + "%";
+    if (dir !== tiltDir) {
+      tiltDir = dir;
+      if (dir === -1) pick(0); else if (dir === 1) pick(2); else pick(1);
+    }
+    var a = e.beta, now = Date.now();
+    if (a != null && now - lastFlick > 1200 && Math.abs(d) > 35) { lastFlick = now; check(); }
+  }
+  function toggleTilt() {
+    var DO = window.DeviceOrientationEvent;
+    if (!tiltOn) {
+      if (!DO) { $("heard").textContent = "Bu qurilmada egilish sensori yo'q."; return; }
+      var go = function () { tiltOn = true; tiltBase = null; window.addEventListener("deviceorientation", onOrient); };
+      if (typeof DO.requestPermission === "function") DO.requestPermission().then(function (s) { if (s === "granted") go(); }).catch(function () {});
+      else go();
+    } else { tiltOn = false; window.removeEventListener("deviceorientation", onOrient); tiltBase = null; }
+    $("btnTilt").setAttribute("aria-pressed", String(tiltOn));
+    $("btnTilt").textContent = "📱 Egilish: " + (tiltOn ? "yoqiq" : "o'chiq");
+  }
+
+  /* ---- kamera: qo'l harakati (chap/o'ng) ---- */
+  var camOn = false, stream = null, prev = null, camTimer = null, lastCam = 0;
+  function toggleCam() {
+    if (!camOn) {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { $("camInfo").textContent = "Kamera bu brauzerda yo'q."; return; }
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: 160, height: 120 }, audio: false }).then(function (s) {
+        stream = s; var v = $("vid"); v.srcObject = s; v.style.display = "block"; camOn = true;
+        setCam(true);
+        camTimer = setInterval(scanCam, 120);
+      }).catch(function () { $("camInfo").textContent = "Kameraga ruxsat berilmadi."; });
+    } else {
+      camOn = false; clearInterval(camTimer); prev = null;
+      if (stream) stream.getTracks().forEach(function (t) { t.stop(); });
+      $("vid").style.display = "none"; setCam(false);
+    }
+  }
+  function setCam(on) {
+    $("btnCam").setAttribute("aria-pressed", String(on));
+    $("btnCam").textContent = "📷 Kamera: " + (on ? "yoqiq" : "o'chiq");
+  }
+  function scanCam() {
+    var v = $("vid"), c = $("cv"), x = c.getContext("2d");
+    if (v.readyState < 2) return;
+    x.drawImage(v, 0, 0, c.width, c.height);
+    var cur = x.getImageData(0, 0, c.width, c.height).data, W = c.width, H = c.height;
+    if (prev) {
+      var sumL = 0, sumR = 0, sumX = 0, tot = 0;
+      for (var y = 0; y < H; y++) for (var xx = 0; xx < W; xx++) {
+        var i = (y * W + xx) * 4, d = Math.abs(cur[i] - prev[i]) + Math.abs(cur[i + 1] - prev[i + 1]) + Math.abs(cur[i + 2] - prev[i + 2]);
+        if (d > 90) { tot++; sumX += xx; if (xx < W / 2) sumL += 1; else sumR += 1; }
+      }
+      var now = Date.now();
+      if (tot > 25 && now - lastCam > 900) {
+        var cx = sumX / tot;
+        var dirTxt = cx < W * 0.4 ? "chap" : cx > W * 0.6 ? "o'ng" : "";
+        if (dirTxt === "chap") { pick(0); lastCam = now; }
+        else if (dirTxt === "o'ng") { pick(2); lastCam = now; }
+        $("camInfo").textContent = "Harakat: " + (dirTxt || "markaz");
+      }
+    }
+    prev = cur;
+  }
+
+  /* ---- boshqaruv ---- */
+  $("btnCheck").onclick = check;
+  $("btnNext").onclick = next;
+  $("btnRead").onclick = function () { var m = list[idx % list.length]; if (m) speak(m.matn + " " + m.savol); };
+  $("btnVoice").onclick = toggleVoice;
+  $("btnTilt").onclick = toggleTilt;
+  $("btnCam").onclick = toggleCam;
+  document.addEventListener("keydown", function (e) {
+    if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if (e.key === "a" || e.key === "1") pick(0); else if (e.key === "b" || e.key === "2") pick(1); else if (e.key === "c" || e.key === "3") pick(2);
+    else if (e.key === "Enter") check(); else if (e.key === "ArrowRight") next();
+  });
+
+  renderChips(); build();
+  if (!all.length) $("game").innerHTML = "<p>Masallar topilmadi.</p>";
+})();
+</script>
+</body>
+</html>
