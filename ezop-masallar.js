@@ -79,6 +79,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u o'zini kattaroq ko'rsatish uchun haddan tashqari shishib ketdi", "Chunki ho'kiz unga hujum qildi", "Chunki u suvga cho'kib ketdi"],
     javob: 0,
     izoh: "Haqiqatda bo'lmagan kattalikka intilish qurbaqani shu holatga soldi. Ortiqcha da'vo va kibr o'zini halokatga olib keladi."
+  },
+  {
+    id: "ez-011", mavzu: "sabr", sarlavha: "G'oz va oltin tuxum",
+    matn: "Bir dehqonning g'ozi har kuni bittadan oltin tuxum qo'yardi. Dehqon tezroq boy bo'lish uchun g'ozni bir kunda so'yib, ichidagi oltinni olmoqchi bo'ldi. G'ozning ichida oltin topilmadi va endi tuxum ham kelmaydigan bo'ldi.",
+    savol: "Dehqon nega endi oltin tuxum ololmaydigan bo'ldi?",
+    variantlar: ["Chunki g'oz kasal bo'lib qoldi", "Chunki g'ozni so'yib, kunlik tuxum manbaini yo'qotdi", "Chunki g'oz uchib ketdi"],
+    javob: 1,
+    izoh: "Tez boylik orttirish uchun barqaror manbani yo'q qilish oxir-oqibat hech narsa bermaydi. Sabr va muntazamlik uzoq muddatda ko'proq foyda beradi."
   }
 ];
-
