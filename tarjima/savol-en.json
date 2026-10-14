@@ -257,5 +257,145 @@
   "Find the zero of the function y = x + #.",
   "Find the zero of the function y = x − #.",
   "Is the function y = x + # increasing or decreasing?"
+ ],
+ "t7": [
+  "How is the graph of y = x² shifted to y = (x + #)²?",
+  "direction and unit",
+  "y = f(x − a): the graph shifts right by a (a > #)",
+  "Answer: left by #",
+  "How is the graph of y = x² shifted to y = x² − #?",
+  "y = f(x) + b: the graph shifts up by b (b > #)",
+  "Answer: down by #",
+  "How is the graph of y = x² shifted to y = x² + #?",
+  "Answer: up by #",
+  "How is the graph of y = #x² obtained from y = x²?",
+  "y = a·f(x): |a| > # — stretch, a < # — reflection about Ox",
+  "a = # → symmetric reflection about the x-axis",
+  "Symmetric reflection about the x-axis",
+  "Stretched along Oy by a factor of #",
+  "shifts right",
+  "shifts down",
+  "a = # → stretch along Oy by a factor of #",
+  "a = # → reflection and stretch by a factor of #",
+  "Reflected and stretched by a factor of #",
+  "How is the graph of y = x² shifted to y = (x − #)²?",
+  "Answer: right by #"
+ ],
+ "t8": [
+  "A taxi charges # so'm base fare and # so'm per km. How much for # km?",
+  "A reservoir has # m³ of water, # m³ is added each day. How much water after # days?",
+  "What is the largest area of a rectangle with perimeter # m (m²)?",
+  "For the largest area, a = b = #",
+  "A body is thrown vertically upward at # m/s (g = # m/s²). How long to reach the highest point (s)?"
+ ],
+ "t9": [
+  "D = {#; #; #; #} and f(x) = #x − #. Find the largest element of the value set.",
+  "Largest: #",
+  "f(x) = #x + # and D = {#; #; #; #}. Find the smallest element of the value set.",
+  "Smallest: #",
+  "f(x) = #x − # and D = {#; #; #; #}. Find the smallest element of the value set.",
+  "D = {#; #; #; #} and f(x) = −x − #. Find the largest element of the value set.",
+  "D = {#; #; #; #} and f(x) = #x + #. Find the largest element of the value set.",
+  "How many different functions can be built from set A with # elements to set B with # elements?",
+  "For each x, # choices",
+  "D = {#; #; #; #} and f(x) = −x + #. Find the largest element of the value set.",
+  "f(x) = x + # and D = {#; #; #; #}. Find the smallest element of the value set.",
+  "f(x) = −x + # and D = {#; #; #; #}. Find the smallest element of the value set.",
+  "D = {#; #; #; #} and f(x) = x − #. Find the largest element of the value set.",
+  "f(x) = x − # and D = {#; #; #; #}. Find the smallest element of the value set.",
+  "D = {#; #; #; #} and f(x) = x + #. Find the largest element of the value set.",
+  "f(x) = −x − # and D = {#; #; #; #}. Find the smallest element of the value set."
+ ],
+ "t12": [
+  "Solve the inequality (x + #)/(x − #) < #.",
+  "Zeros: x = # (numerator), x = # (denominator, excluded)",
+  "Signs on intervals: negative between the roots",
+  "Solve the inequality (x − #)/(x − #) > #.",
+  "Signs on intervals: positive outside the roots",
+  "Solve the inequality (x + #)/(x + #) < #.",
+  "Solve the inequality (x + #)/(x − #) > #.",
+  "Solve the inequality (x − #)/(x − #) < #.",
+  "Solve the inequality (x + #)/(x + #) > #."
+ ],
+ "t13": [
+  "How many integer solutions does the system x ≥ # and x ≤ # have?",
+  "Integers: # … #",
+  "Solve the system: x ≥ # ; x ≤ #",
+  "Both conditions must hold at the same time"
+ ],
+ "t15": [
+  "Solve the equation √(x + #) = #.",
+  "Square both sides: x + # = #",
+  "Solve the equation √(#x + #) = #.",
+  "Square both sides: #x + # = #",
+  "Solve the equation √(#x − #) = #.",
+  "Square both sides: #x − # = #",
+  "Solve the equation √(x − #) = #.",
+  "Square both sides: x − # = #",
+  "Solve the equation √(x − #) + # = #.",
+  "Solve the equation √(#x) = #.",
+  "Square both sides: #x = #"
+ ],
+ "t16": [
+  "Write √# · √# under a single root.",
+  "Calculate (#√#)².",
+  "Calculate √#.",
+  "Calculate √# · √#."
+ ],
+ "t17": [
+  "Solve the system: √x + √y = # ; √x − √y = # (x, y ≥ #). Find x.",
+  "Solve the system: √x + √y = # ; √x · √y = # (x ≤ y). Find y.",
+  "√x and √y are the roots of the equation t² − #t + # = #"
+ ],
+ "t18": [
+  "Reduce the fraction #/#.",
+  "Divide the numerator and denominator by #",
+  "Simplify √# by taking the factor out of the root.",
+  "Reduce the fraction #.",
+  "Calculate (# + √#)(# − √#).",
+  "If x = #, y = #, calculate (x² − y²)/(x − y) (x ≠ y)."
+ ],
+ "t20": [
+  "Calculate log₂ #.",
+  "Calculate log₅ #.",
+  "Calculate log₃ #.",
+  "Find the domain of y = log₁₀(x − #).",
+  "Find the domain of y = log₃(x − #).",
+  "Find the domain of y = log₂(x − #).",
+  "Find the domain of y = log₅ x.",
+  "The expression under the logarithm must be positive: x > #",
+  "Calculate log₁₀ #.",
+  "Find the domain of y = log₂ x.",
+  "Find the domain of y = log₅(x − #).",
+  "Find the domain of y = log₃ x.",
+  "Find the domain of y = log₁₀ x."
+ ],
+ "t24": [
+  "Solve the system: log₅ x = # ; log₅ y = #. Find x·y.",
+  "Solve the system: log₂ x = # ; log₂ y = #. Find x·y.",
+  "Solve the system: log₃ x = # ; log₃ y = #. Find x·y.",
+  "Solve the system: #x = # ; #y = #. Find x + y."
+ ],
+ "t26": [
+  "Solve the inequality log₂ x > #.",
+  "Solve the inequality log₃ x > #.",
+  "Solve the inequality log₅ x < #.",
+  "Solve the inequality log₃ x < #.",
+  "Solve the inequality log₅ x > #.",
+  "Solve the inequality log₁₀ x > #.",
+  "Solve the inequality log₂ x < #.",
+  "Solve the inequality log₁₀ x < #."
+ ],
+ "t27": [
+  "The half-life of a radioactive substance is # years. How much of # g remains after # years (g)?",
+  "# years = # half-life periods",
+  "The number of bacteria increases # times every hour. Initially there are #; how many after # hours?",
+  "# so'm was deposited at #% per year. How much after # years (so'm)?"
+ ],
+ "t31": [
+  "cos #° = −cos(#° − #°) = −cos #°",
+  "Calculate tg #° · #.",
+  "Simplify: sin²#° + cos²#° + # = ?",
+  "sin #° = sin(#° − #°) = sin #°"
  ]
 }
