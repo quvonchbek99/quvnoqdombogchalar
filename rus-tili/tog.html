@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOG lug'ati — ТЕТРАДЬ</title>
+<meta name="description" content="Eng ko'p ishlatiladigan ruscha so'zlar TOG usulida: tarjima, obraz (rasm), garmoniya (o'zbekcha ohangdosh so'z) va kulgili tasavvur. Grammatika, ovoz, kartochka va test bilan.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F6F52'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23F4FBF6'%3EТ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/tetrad.css">
+<style>
+  /* ---- TOG sahifasi ---- */
+  .tog-steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:18px;}
+  .tog-step{background:var(--paper-line); border-radius:12px; box-shadow:var(--card-shadow); padding:14px 16px;}
+  .tog-step b.l{display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%; background:var(--accent); color:var(--accent-ink); font-family:var(--font-display); margin-right:8px;}
+  .tog-step p{font-size:14.5px; color:var(--ink-soft); margin-top:6px;}
+  .cat-row{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px;}
+  .cat-row button{border:1.5px solid var(--paper-alt); background:var(--paper-line); border-radius:999px; padding:6px 12px; cursor:pointer; font-size:13.5px; font-weight:700; color:var(--ink-soft);}
+  .cat-row button[aria-pressed="true"]{border-color:var(--accent); color:var(--accent); background:var(--accent-soft);}
+  .cat-row button small{font-weight:400; opacity:.8; margin-left:4px;}
+  .tg-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:12px;}
+  @media (max-width:420px){ .tg-grid{grid-template-columns:1fr;} }
+  .tg{position:relative; background:var(--paper-line); border-radius:14px; box-shadow:var(--card-shadow); padding:24px 16px 14px 18px; display:flex; flex-direction:column; gap:9px; overflow:hidden;}
+  .tg::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent); opacity:.55;}
+  .tg.known{opacity:.62;}
+  .tg-top{display:flex; align-items:center; gap:12px;}
+  .tg-em{flex:none; width:54px; height:54px; border-radius:14px; background:var(--paper-alt); display:grid; place-items:center; font-size:30px; line-height:1;}
+  .tg-w{flex:1; min-width:0;}
+  .tg-w .r{font-family:var(--font-display); font-weight:700; font-size:21px; line-height:1.15; overflow-wrap:break-word;}
+  .tg-w .r.long{font-size:17px;}
+  .tg-w .u{font-family:var(--font-hand); font-size:22px; color:var(--accent-strong); line-height:1.1;}
+  .tg-n{position:absolute; top:8px; right:12px; font-size:11.5px; color:var(--ink-soft);}
+  .tg .k{border:none; background:none; cursor:pointer; font-size:20px; color:var(--ink-soft); flex:none; padding:4px;}
+  .tg.known .k{color:var(--accent);}
+  .tg-g{font-size:13.5px; line-height:1.5; background:color-mix(in srgb, var(--rule) 13%, transparent); border-radius:8px; padding:7px 10px;}
+  .tg-g::before{content:"Grammatika  "; font-weight:700; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--rule); margin-right:4px;}
+  .tg-h{font-size:14.5px; line-height:1.5; background:color-mix(in srgb, var(--gold) 13%, transparent); border:1px dashed color-mix(in srgb, var(--gold) 60%, transparent); border-radius:8px; padding:8px 10px;}
+  .tg-h .hw{font-weight:700; letter-spacing:.03em; color:var(--gold);}
+  .tg-h .lab{font-weight:700; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--gold); margin-right:6px;}
+  .tg-sa{display:flex; flex-direction:column; gap:3px; font-size:13.5px; line-height:1.45;}
+  .tg-sa .lab{display:inline-block; min-width:22px; font-weight:700;}
+  .tg-sa .sy .lab{color:var(--accent);} .tg-sa .an .lab{color:var(--margin);}
+  .tg-sa .ru-w{font-family:var(--font-display);}
+  .tg-ex{display:flex; gap:8px; align-items:flex-start; font-size:14.5px;}
+  .tg-ex .er{font-family:var(--font-display);}
+  .tg-ex .eu{color:var(--ink-soft); font-size:13.5px;}
+  .flash.tog{aspect-ratio:auto; height:380px; width:min(520px,100%);}
+  .flash.tog .face{justify-content:center; gap:10px;}
+  .flash.tog .em{font-size:56px; line-height:1;}
+  .flash.tog .gr{font-size:13px; color:var(--ink-soft); max-width:42ch;}
+  .flash.tog .hh{font-size:15px; max-width:44ch; line-height:1.45;}
+  .flash.tog .hh b{color:var(--gold);}
+  .gram h3{font-size:21px; margin-bottom:10px;}
+  .gram .rule-box + .rule-box{margin-top:14px;}
+  .gram .tbl-wrap{margin-top:10px;}
+  .gram ul{margin:8px 0 0; padding-left:20px;}
+  .gram li{margin:3px 0;}
+  .dl-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
+  .pager-row{display:flex; justify-content:center; margin-top:18px;}
+</style>
+</head>
+<body>
+<div class="binding" aria-hidden="true"></div>
+
+<header class="site">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">ТЕТРАДЬ</span><span class="brand-tag">Rus tili onlayn</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navLinks">Menyu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://kuvonch.uz/" class="ka-home" title="Kuvonch Academy — bosh sahifa">🏠 Kuvonch Academy</a></li>
+      <li><a href="index.html">Bosh sahifa</a></li>
+      <li><a href="darslar.html">Darslar</a></li>
+      <li><a href="padejlar.html">Kelishiklar</a></li>
+      <li><a href="lugat.html">Lug'at</a></li>
+      <li><a href="tog.html" aria-current="page">TOG</a></li>
+      <li><a href="mashqlar.html">Mashqlar</a></li>
+      <li><a href="kitoblar.html">Kitoblar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">TOG usulida so'z yodlash</p>
+      <h1>TOG lug'ati: eng kerakli ruscha so'zlar</h1>
+      <p class="lead">Har bir so'z — <b>tarjima</b>, <b>obraz</b> (rasm), <b>garmoniya</b> (o'zbekcha ohangdosh so'z) va tasavvurga sig'maydigan <b>kulgili manzara</b> bilan. Yonida grammatik shakllari, <b>ma'nodosh (≈)</b> va <b>antonim (↔)</b>, misol gap va ovozi. So'zlar eng ko'p ishlatilishi bo'yicha kamayish tartibida.</p>
+      <p style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px"><span class="chip soft" id="statAll">— so'z</span><span class="chip soft" id="statKnown">0 ta o'rganildi</span><span class="chip soft" id="statStage">1–2-bosqich</span><a class="chip" href="assets/tog-lugat.pdf" download>⬇ PDF yuklab olish</a></p>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-bottom:72px">
+    <div class="tabs" role="tablist" aria-label="Rejim">
+      <button type="button" role="tab" aria-selected="true" data-tab="list">So'zlar</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="cards">Kartochkalar</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="quiz">Test</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="gram">Grammatika</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="method">TOG usuli</button>
+    </div>
+
+    <div id="filters">
+      <div class="cat-row" id="cats" aria-label="So'z turkumi"></div>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Qidirish: ruscha, o'zbekcha, garmoniya, ma'nodosh…" aria-label="Qidirish">
+        <select id="stage" aria-label="Bosqich"><option value="all">Barcha bosqichlar</option></select>
+        <label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="onlyNew"> faqat o'rganilmaganlar</label>
+      </div>
+    </div>
+
+    <!-- ===== So'zlar ===== -->
+    <section id="tab-list">
+      <p class="muted" id="listInfo" style="margin:4px 0 12px"></p>
+      <div class="tg-grid" id="list"></div>
+      <div class="pager-row"><button type="button" class="btn btn-ghost" id="more" hidden>Yana ko'rsatish</button></div>
+    </section>
+
+    <!-- ===== Kartochkalar ===== -->
+    <section id="tab-cards" hidden>
+      <div class="fc-area">
+        <p class="muted" id="fcInfo" style="margin-bottom:10px"></p>
+        <button type="button" class="flash tog" id="flash" aria-label="Kartochkani aylantirish">
+          <span class="inner">
+            <span class="face front"><span class="em" id="fEm"></span><span class="big" id="fRu"></span><span class="gr" id="fGr"></span><span class="hand" style="font-size:18px">bosing — TOG kaliti</span></span>
+            <span class="face back"><span class="uzw" id="bUz"></span><span class="hh" id="bH"></span><span class="gr" id="bEx"></span></span>
+          </span>
+        </button>
+        <div class="fc-ctrl">
+          <button type="button" class="btn btn-ghost" id="fcSay">🔊 Tinglash</button>
+          <button type="button" class="btn btn-ghost" id="fcAgain">↻ Takrorlayman</button>
+          <button type="button" class="btn btn-primary" id="fcKnow">✓ Bilaman</button>
+        </div>
+        <div class="fc-ctrl">
+          <label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="fcRev"> O'zbekcha → Ruscha</label>
+          <button type="button" class="btn btn-ghost btn-sm" id="fcShuffle">Aralashtirish</button>
+        </div>
+        <p class="muted" style="font-size:13.5px">Klaviatura: probel — aylantirish, → bilaman, ← takrorlayman</p>
+      </div>
+    </section>
+
+    <!-- ===== Test ===== -->
+    <section id="tab-quiz" hidden>
+      <p class="muted">Tanlangan turkumdan 10 ta tasodifiy savol. Besh xil rejim: tarjima (ikki tomonga), TOG kaliti, ma'nodosh va antonim.</p>
+      <div class="toolbar">
+        <select id="qMode" aria-label="Test turi">
+          <option value="ru">Ruscha → o'zbekcha</option>
+          <option value="uz">O'zbekcha → ruscha</option>
+          <option value="tog">TOG manzarasi → ruscha so'z</option>
+          <option value="sy">Ma'nodoshini top</option>
+          <option value="an">Antonimini top</option>
+        </select>
+        <button type="button" class="btn btn-primary" id="newQuiz">Yangi test</button>
+      </div>
+      <div id="quiz"></div>
+    </section>
+
+    <!-- ===== Grammatika ===== -->
+    <section id="tab-gram" class="gram" hidden>
+      <p class="lead" style="margin:6px 0 18px">Kartochkalardagi qisqartmalar va har bir turkumning asosiy qoidalari. To'liq kelishik jadvallari — <a href="padejlar.html">Kelishiklar</a> sahifasida.</p>
+
+      <div class="rule-box">
+        <h3>Qisqartmalar</h3>
+        <div class="tbl-wrap"><table class="t">
+          <tbody>
+            <tr><td class="ru">м.р. / ж.р. / ср.р.</td><td>erkak / ayol / o'rta jins (род)</td></tr>
+            <tr><td class="ru">мн.</td><td>ko'plik (множественное число)</td></tr>
+            <tr><td class="ru">Им · Р · Д · В · Т · П</td><td>Bosh · Qaratqich · Jo'nalish · Tushum · Vosita · Predlogli kelishik</td></tr>
+            <tr><td class="ru">нсв / св</td><td>tugallanmagan / tugallangan tur (несовершенный / совершенный вид)</td></tr>
+            <tr><td class="ru">I tus. / II tus.</td><td>I / II tuslanish (спряжение)</td></tr>
+            <tr><td class="ru">qiyos</td><td>qiyosiy daraja: нове́е — yangiroq</td></tr>
+            <tr><td class="ru">(!)</td><td>istisno — alohida yodlang</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="rule-box">
+        <h3>1. Otning jinsi (род)</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th>Jins</th><th>Oxiri</th><th>Misollar</th></tr></thead>
+          <tbody>
+            <tr><td>Erkak (м.р.) — он</td><td class="ru">undosh, -й, -ь</td><td class="ru">стол, чай, день</td></tr>
+            <tr><td>Ayol (ж.р.) — она</td><td class="ru">-а, -я, -ь</td><td class="ru">книга, неделя, ночь</td></tr>
+            <tr><td>O'rta (ср.р.) — оно</td><td class="ru">-о, -е, -мя</td><td class="ru">окно, море, время</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note"><b>Diqqat:</b> -ь bilan tugagan so'zning jinsini yodlang (день — м.р., ночь — ж.р.). Erkaklarni bildiruvchi -а so'zlar erkak jinsda: мужчина, папа, дедушка.</p>
+      </div>
+
+      <div class="rule-box">
+        <h3>2. Olti kelishik (падежи) — birlik</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th>Kelishik</th><th>Savol</th><th>O'zbekcha</th><th>м.р.</th><th>ж.р.</th><th>ср.р.</th><th>Predloglar</th></tr></thead>
+          <tbody>
+            <tr><td>Им</td><td class="ru">кто? что?</td><td>bosh</td><td class="ru">стол</td><td class="ru">книга</td><td class="ru">окно</td><td>—</td></tr>
+            <tr><td>Р</td><td class="ru">кого? чего?</td><td>-ning, -siz, -dan</td><td class="ru">стола</td><td class="ru">книги</td><td class="ru">окна</td><td class="ru">у, из, от, без, для, до, после</td></tr>
+            <tr><td>Д</td><td class="ru">кому? чему?</td><td>-ga</td><td class="ru">столу</td><td class="ru">книге</td><td class="ru">окну</td><td class="ru">к, по</td></tr>
+            <tr><td>В</td><td class="ru">кого? что? куда?</td><td>-ni; -ga (harakat)</td><td class="ru">стол</td><td class="ru">книгу</td><td class="ru">окно</td><td class="ru">в, на, через, про</td></tr>
+            <tr><td>Т</td><td class="ru">кем? чем?</td><td>bilan, orqali</td><td class="ru">столом</td><td class="ru">книгой</td><td class="ru">окном</td><td class="ru">с, над, под, за, перед, между</td></tr>
+            <tr><td>П</td><td class="ru">о ком? о чём? где?</td><td>-da; haqida</td><td class="ru">о столе</td><td class="ru">о книге</td><td class="ru">об окне</td><td class="ru">в, на, о (об)</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>Ko'plik Им: м.р. <span class="ru">столы</span>, ж.р. <span class="ru">книги</span>, ср.р. <span class="ru">окна</span>; Р.мн: <span class="ru">столов, книг, окон</span>.</li>
+          <li>Jonli erkak jinsdagi otlarda В = Р: <span class="ru">вижу брата</span> (lekin <span class="ru">вижу стол</span>).</li>
+          <li>Г, к, х, ж, ш, щ, ч dan keyin -ы yozilmaydi, -и yoziladi: <span class="ru">книги, врачи</span>.</li>
+        </ul>
+      </div>
+
+      <div class="rule-box">
+        <h3>3. Sifat otga moslashadi</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th>Kelishik</th><th>м.р.</th><th>ж.р.</th><th>ср.р.</th><th>мн.</th></tr></thead>
+          <tbody>
+            <tr><td>Им</td><td class="ru">новый</td><td class="ru">новая</td><td class="ru">новое</td><td class="ru">новые</td></tr>
+            <tr><td>Р</td><td class="ru">нового</td><td class="ru">новой</td><td class="ru">нового</td><td class="ru">новых</td></tr>
+            <tr><td>Д</td><td class="ru">новому</td><td class="ru">новой</td><td class="ru">новому</td><td class="ru">новым</td></tr>
+            <tr><td>В</td><td class="ru">новый / нового</td><td class="ru">новую</td><td class="ru">новое</td><td class="ru">новые / новых</td></tr>
+            <tr><td>Т</td><td class="ru">новым</td><td class="ru">новой</td><td class="ru">новым</td><td class="ru">новыми</td></tr>
+            <tr><td>П</td><td class="ru">о новом</td><td class="ru">о новой</td><td class="ru">о новом</td><td class="ru">о новых</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>Urg'u oxirida bo'lsa: <span class="ru">большой, молодой</span> (-ой).</li>
+          <li>Yumshoq sifatlar: <span class="ru">синий, синяя, синее, синие</span>.</li>
+          <li>-ого ichidagi «г» [в] o'qiladi: <span class="ru">нового</span> [но́вова].</li>
+        </ul>
+      </div>
+
+      <div class="rule-box">
+        <h3>4. Fe'l: zamonlar va tuslanish</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th>Shaxs</th><th>I tuslanish: читать</th><th>II tuslanish: говорить</th></tr></thead>
+          <tbody>
+            <tr><td class="ru">я</td><td class="ru">читаю</td><td class="ru">говорю</td></tr>
+            <tr><td class="ru">ты</td><td class="ru">читаешь</td><td class="ru">говоришь</td></tr>
+            <tr><td class="ru">он / она</td><td class="ru">читает</td><td class="ru">говорит</td></tr>
+            <tr><td class="ru">мы</td><td class="ru">читаем</td><td class="ru">говорим</td></tr>
+            <tr><td class="ru">вы</td><td class="ru">читаете</td><td class="ru">говорите</td></tr>
+            <tr><td class="ru">они</td><td class="ru">читают</td><td class="ru">говорят</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li><b>O'tgan zamon:</b> o'zak + -л / -ла / -ло / -ли — <span class="ru">читал, читала, читало, читали</span> (jinsga qarab!).</li>
+          <li><b>Kelasi zamon (нсв):</b> буду / будешь / будут + infinitiv — <span class="ru">буду читать</span>.</li>
+          <li><b>Kelasi zamon (св):</b> hozirgi zamon qo'shimchalari, lekin ma'no kelasi — <span class="ru">прочитаю</span> = o'qib chiqaman.</li>
+          <li><b>Buyruq:</b> <span class="ru">читай(те)!, говори(те)!, пиши(те)!</span></li>
+          <li><b>Tur (вид):</b> нсв — jarayon, takror (<span class="ru">делал</span> — qilardim); св — natija, bir marta (<span class="ru">сделал</span> — qilib bo'ldim). Kartochkalarda juftligi ko'rsatilgan.</li>
+          <li>Kartochkada <span class="ru">я … ты … они</span> berilgan — qolganlari shulardan yasaladi: ты-shakldan <span class="ru">он, мы, вы</span>.</li>
+        </ul>
+      </div>
+
+      <div class="rule-box">
+        <h3>5. Son va ot</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th>Son (oxirgi raqam)</th><th>Ot shakli</th><th>Misol</th></tr></thead>
+          <tbody>
+            <tr><td>1, 21, 31 … (11 dan tashqari)</td><td>Им. birlik</td><td class="ru">один стол, двадцать одна книга</td></tr>
+            <tr><td>2, 3, 4, 22 … (12–14 dan tashqari)</td><td>Р. birlik</td><td class="ru">два стола, три книги</td></tr>
+            <tr><td>5–20, 25 …, 0</td><td>Р. ko'plik</td><td class="ru">пять столов, десять книг</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>Yosh: <span class="ru">Мне двадцать один год / двадцать два года / двадцать пять лет</span>.</li>
+          <li><span class="ru">два</span> — м/ср.р., <span class="ru">две</span> — ж.р.: <span class="ru">два брата, две сестры</span>.</li>
+          <li><span class="ru">много, мало, сколько, несколько</span> + Р.мн: <span class="ru">много людей</span>.</li>
+        </ul>
+      </div>
+
+      <div class="rule-box">
+        <h3>6. Kishilik olmoshlari kelishikda</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th></th><th>я</th><th>ты</th><th>он / оно</th><th>она</th><th>мы</th><th>вы</th><th>они</th></tr></thead>
+          <tbody>
+            <tr><td>Р</td><td class="ru">меня</td><td class="ru">тебя</td><td class="ru">его</td><td class="ru">её</td><td class="ru">нас</td><td class="ru">вас</td><td class="ru">их</td></tr>
+            <tr><td>Д</td><td class="ru">мне</td><td class="ru">тебе</td><td class="ru">ему</td><td class="ru">ей</td><td class="ru">нам</td><td class="ru">вам</td><td class="ru">им</td></tr>
+            <tr><td>В</td><td class="ru">меня</td><td class="ru">тебя</td><td class="ru">его</td><td class="ru">её</td><td class="ru">нас</td><td class="ru">вас</td><td class="ru">их</td></tr>
+            <tr><td>Т</td><td class="ru">мной</td><td class="ru">тобой</td><td class="ru">им</td><td class="ru">ей</td><td class="ru">нами</td><td class="ru">вами</td><td class="ru">ими</td></tr>
+            <tr><td>П</td><td class="ru">обо мне</td><td class="ru">о тебе</td><td class="ru">о нём</td><td class="ru">о ней</td><td class="ru">о нас</td><td class="ru">о вас</td><td class="ru">о них</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">Predlogdan keyin он/она/они olmoshlariga <b>н-</b> qo'shiladi: <span class="ru">у него, к ней, с ними</span>.</p>
+      </div>
+
+      <div class="rule-box">
+        <h3>7. Shaharlar: qayerda? qayerga? qayerdan?</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th>Savol</th><th>Kelishik</th><th>Москва</th><th>Ташкент</th></tr></thead>
+          <tbody>
+            <tr><td class="ru">где? — qayerda</td><td>в / на + П</td><td class="ru">в Москве</td><td class="ru">в Ташкенте</td></tr>
+            <tr><td class="ru">куда? — qayerga</td><td>в / на + В</td><td class="ru">в Москву</td><td class="ru">в Ташкент</td></tr>
+            <tr><td class="ru">откуда? — qayerdan</td><td>из / с + Р</td><td class="ru">из Москвы</td><td class="ru">из Ташкента</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">«на» bilan ishlatiladigan joylar: <span class="ru">на вокзале, на почте, на рынке, на заводе, на работе, на улице</span> — ular «из» emas, «с» oladi: <span class="ru">с работы</span>.</p>
+      </div>
+    </section>
+
+    <!-- ===== TOG usuli ===== -->
+    <section id="tab-method" hidden>
+      <div class="rule-box">
+        <h3 style="font-size:22px">TOG usuli nima?</h3>
+        <p style="margin-top:8px">Miya quruq ro'yxatni tez unutadi, lekin <b>g'alati, kulgili, rangli manzarani</b> uzoq eslaydi. TOG har bir ruscha so'zni o'zbekcha ohangdosh so'zga bog'lab, uni tasavvurga sig'maydigan sahnaga aylantiradi.</p>
+        <div class="tog-steps">
+          <div class="tog-step"><b class="l">T</b><b>Tarjima</b><p>So'zning aniq ma'nosi va turkumi. Masalan: <span class="ru">дом</span> — uy.</p></div>
+          <div class="tog-step"><b class="l">O</b><b>Obraz</b><p>So'zni ko'z oldingizga keltiradigan rasm (🏠). Rasmga 3 soniya qarang.</p></div>
+          <div class="tog-step"><b class="l">G</b><b>Garmoniya</b><p>Ruscha so'zga ohangdosh o'zbekcha so'z: <span class="ru">дом</span> → <b>DUMBA</b>.</p></div>
+          <div class="tog-step"><b class="l">K</b><b>Kulgi + absurd</b><p>Ikkalasini bog'laydigan aql bovar qilmas manzara: «Uyning tomida ulkan dumba osilib turibdi».</p></div>
+        </div>
+      </div>
+      <div class="rule-box">
+        <h3>Bir so'z — 30 soniya</h3>
+        <ol style="margin:8px 0 0;padding-left:20px">
+          <li>So'zni 🔊 tinglang va urg'u bilan 3 marta ovoz chiqarib ayting.</li>
+          <li>Garmoniya so'zini ayting va sahnani ko'zingizni yumib 5 soniya tasavvur qiling — qancha g'alati bo'lsa, shuncha yaxshi.</li>
+          <li>Grammatika satridan bitta shaklni ayting (masalan, Р kelishigini yoki «я»-shaklni).</li>
+          <li>Misol gapni o'qing va o'zingiz shunga o'xshash bitta gap tuzing.</li>
+        </ol>
+      </div>
+      <div class="rule-box">
+        <h3>Takrorlash jadvali</h3>
+        <div class="tbl-wrap"><table class="t">
+          <thead><tr><th>Qachon</th><th>Nima qilish</th></tr></thead>
+          <tbody>
+            <tr><td>1-kun</td><td>20–30 ta yangi so'z, «So'zlar» bo'limida TOG bilan</td></tr>
+            <tr><td>2-kun</td><td>Kechagi so'zlar — «Kartochkalar»</td></tr>
+            <tr><td>4-kun</td><td>«Test» — TOG manzarasi → ruscha so'z</td></tr>
+            <tr><td>7-kun</td><td>«Test» — O'zbekcha → ruscha</td></tr>
+            <tr><td>21-kun</td><td>Barcha belgilangan so'zlar bo'yicha aralash test</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">O'zingizning garmoniya so'zingiz kelsa — uni ishlating! Shaxsiy bog'lanish har doim kuchliroq.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span><span class="brand-mark" style="font-size:15px">ТЕТРАДЬ</span> · © <span id="year"></span></span>
+    <span>TOG lug'ati · bosqichma-bosqich to'ldiriladi</span>
+  </div>
+</footer>
+
+<script src="assets/tetrad.js"></script>
+<script src="assets/tog-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var T = window.Tetrad, C = window.TOG_CATS, esc = T.esc;
+  var $ = function(id){ return document.getElementById(id); };
+  var known = T.load('tog-known', {});
+  var ALL = [];
+  C.forEach(function(c){ c.w.forEach(function(w, i){ w.cat = c.k; w.catUz = c.uz; w.n = i + 1; ALL.push(w); }); });
+  var cat = T.load('tog-cat', 'ot');
+  if (cat !== 'all' && !C.some(function(c){ return c.k === cat; })) cat = 'ot';
+  var q = $('q'), onlyNew = $('onlyNew'), stageSel = $('stage');
+  var stages = [];
+  ALL.forEach(function(w){ if (stages.indexOf(w.b) < 0) stages.push(w.b); });
+  stages.sort();
+  stageSel.innerHTML += stages.map(function(b){ return '<option value="' + b + '">' + b + '-bosqich (' + ALL.filter(function(w){ return w.b === b; }).length + ')</option>'; }).join('');
+  var stage = String(T.load('tog-stage', 'all'));
+  if (stage !== 'all' && stages.indexOf(+stage) < 0) stage = 'all';
+  stageSel.value = stage;
+  $('statStage').textContent = stages.length > 1 ? stages[0] + '–' + stages[stages.length - 1] + '-bosqich' : stages[0] + '-bosqich';
+
+  $('statAll').textContent = ALL.length + ' so\'z';
+  function stats(){ $('statKnown').textContent = Object.keys(known).filter(function(k){ return known[k]; }).length + ' ta o\'rganildi'; }
+
+  /* turkum tugmalari */
+  function inStage(w){ return stage === 'all' || String(w.b) === stage; }
+  function renderCats(){
+    var h = '<button type="button" data-cat="all" aria-pressed="' + (cat === 'all') + '">Hammasi<small>' + ALL.filter(inStage).length + '</small></button>';
+    h += C.map(function(c){
+      return '<button type="button" data-cat="' + c.k + '" aria-pressed="' + (cat === c.k) + '">' + esc(c.uz) + '<small>' + c.w.filter(inStage).length + '</small></button>';
+    }).join('');
+    $('cats').innerHTML = h;
+  }
+  $('cats').addEventListener('click', function(e){
+    var b = e.target.closest('[data-cat]'); if (!b) return;
+    cat = b.getAttribute('data-cat'); T.save('tog-cat', cat); renderCats(); refresh();
+  });
+
+  function filtered(){
+    var s = T.norm(q.value || '');
+    return ALL.filter(function(w){
+      if (cat !== 'all' && w.cat !== cat) return false;
+      if (!inStage(w)) return false;
+      if (onlyNew.checked && known[w.id]) return false;
+      if (s && T.norm(w.ru).indexOf(s) < 0 && w.uz.toLowerCase().indexOf(s) < 0 && w.h.toLowerCase().indexOf(s) < 0 && T.norm((w.sy || '') + ' ' + (w.an || '')).indexOf(s) < 0) return false;
+      return true;
+    });
+  }
+
+  /* ---- so'zlar ---- */
+  var shown = 60, cur = [];
+  function saBlock(w){
+    if (!w.sy && !w.an) return '';
+    return '<div class="tg-sa">' +
+      (w.sy ? '<div class="sy" title="Ma\'nodosh"><span class="lab">≈</span><span class="ru-w">' + esc(w.sy) + '</span></div>' : '') +
+      (w.an ? '<div class="an" title="Antonim"><span class="lab">↔</span><span class="ru-w">' + esc(w.an) + '</span></div>' : '') +
+    '</div>';
+  }
+  function card(w){
+    return '<article class="tg' + (known[w.id] ? ' known' : '') + '">' +
+      '<span class="tg-n">' + esc(w.catUz) + ' · ' + w.n + ' · ' + w.b + '-b</span>' +
+      '<div class="tg-top"><div class="tg-em" aria-hidden="true">' + esc(w.em) + '</div>' +
+        '<div class="tg-w"><div class="r' + (T.clean(w.ru).length > 15 ? ' long' : '') + '">' + esc(w.ru) + '</div><div class="u">' + esc(w.uz) + '</div></div>' +
+        T.sayBtn(w.ru) +
+        '<button type="button" class="k" data-id="' + w.id + '" aria-pressed="' + (known[w.id] ? 'true' : 'false') + '" title="O\'rgandim">' + (known[w.id] ? '✓' : '○') + '</button></div>' +
+      '<div class="tg-g ru">' + esc(w.g) + '</div>' +
+      '<div class="tg-h"><span class="lab">TOG</span><span class="hw">' + esc(w.h) + '</span> — ' + esc(w.s) + '</div>' +
+      saBlock(w) +
+      '<div class="tg-ex">' + T.sayBtn(w.er) + '<div><div class="er">' + esc(w.er) + '</div><div class="eu">' + esc(w.eu) + '</div></div></div>' +
+    '</article>';
+  }
+  function renderList(reset){
+    if (reset !== false){ cur = filtered(); shown = 60; }
+    $('list').innerHTML = cur.slice(0, shown).map(card).join('') || '<p class="muted" style="padding:20px 0">Hech narsa topilmadi.</p>';
+    $('listInfo').textContent = cur.length + ' ta so\'z' + (cur.length > shown ? ' · ' + shown + ' tasi ko\'rsatilgan' : '');
+    $('more').hidden = cur.length <= shown;
+  }
+  $('more').addEventListener('click', function(){ shown += 60; renderList(false); });
+  $('list').addEventListener('click', function(e){
+    var b = e.target.closest('.k'); if (!b) return;
+    var id = b.getAttribute('data-id');
+    known[id] = !known[id]; if (!known[id]) delete known[id];
+    T.save('tog-known', known); stats();
+    var el = b.closest('.tg');
+    el.classList.toggle('known', !!known[id]);
+    b.textContent = known[id] ? '✓' : '○';
+    b.setAttribute('aria-pressed', known[id] ? 'true' : 'false');
+  });
+
+  /* ---- kartochkalar ---- */
+  var deck = [], pos = 0;
+  function buildDeck(shuf){ deck = filtered(); if (shuf) deck = T.shuffle(deck); pos = 0; showCard(); }
+  function showCard(){
+    var flash = $('flash'); flash.classList.remove('flipped');
+    if (!deck.length){
+      $('fEm').textContent = '🎉'; $('fRu').textContent = ''; $('fGr').textContent = 'Bu to\'plamdagi hamma so\'zni bilasiz!';
+      $('bUz').textContent = ''; $('bH').innerHTML = ''; $('bEx').textContent = ''; $('fcInfo').textContent = '0 ta so\'z'; return;
+    }
+    if (pos >= deck.length) pos = 0;
+    var w = deck[pos], rev = $('fcRev').checked;
+    $('fEm').textContent = w.em;
+    $('fRu').textContent = rev ? w.uz : w.ru;
+    $('fGr').textContent = rev ? '' : w.g;
+    $('bUz').textContent = rev ? w.ru : w.uz;
+    $('bH').innerHTML = '<b>' + esc(w.h) + '</b> — ' + esc(w.s);
+    $('bEx').textContent = (w.sy ? '≈ ' + w.sy + '   ' : '') + (w.an ? '↔ ' + w.an : '');
+    if (!w.sy && !w.an) $('bEx').textContent = w.er + ' — ' + w.eu;
+    $('fcInfo').textContent = (pos + 1) + ' / ' + deck.length + ' · ' + w.catUz;
+    if (!rev) T.speak(w.ru);
+  }
+  $('flash').addEventListener('click', function(){
+    this.classList.toggle('flipped');
+    if (this.classList.contains('flipped') && $('fcRev').checked && deck[pos]) T.speak(deck[pos].ru);
+  });
+  $('fcSay').addEventListener('click', function(){ if (deck[pos]) T.speak(deck[pos].ru); });
+  $('fcAgain').addEventListener('click', function(){
+    if (!deck.length) return;
+    var w = deck.splice(pos, 1)[0]; deck.splice(Math.min(deck.length, pos + 4), 0, w); showCard();
+  });
+  $('fcKnow').addEventListener('click', function(){
+    if (!deck.length) return;
+    known[deck[pos].id] = true; T.save('tog-known', known); stats();
+    if (onlyNew.checked) deck.splice(pos, 1); else pos++;
+    showCard();
+  });
+  $('fcRev').addEventListener('change', showCard);
+  $('fcShuffle').addEventListener('click', function(){ buildDeck(true); });
+  document.addEventListener('keydown', function(e){
+    if ($('tab-cards').hidden || /input|select|textarea/i.test(e.target.tagName)) return;
+    if (e.key === ' '){ e.preventDefault(); $('flash').click(); }
+    if (e.key === 'ArrowRight') $('fcKnow').click();
+    if (e.key === 'ArrowLeft') $('fcAgain').click();
+  });
+
+  /* ---- test ---- */
+  function newQuiz(){
+    var mode = $('qMode').value;
+    var pool = filtered();
+    if (mode === 'sy' || mode === 'an'){
+      pool = pool.filter(function(w){ return w[mode]; });
+      if (pool.length < 4) pool = ALL.filter(function(w){ return w[mode]; });
+    }
+    if (pool.length < 4) pool = ALL.slice();
+    var pick = T.shuffle(pool).slice(0, Math.min(10, pool.length));
+    var items = pick.map(function(w){
+      var same = ALL.filter(function(x){ return x.cat === w.cat && x.id !== w.id && x.uz !== w.uz; });
+      if (same.length < 3) same = ALL.filter(function(x){ return x.id !== w.id && x.uz !== w.uz; });
+      var opts = [w].concat(T.shuffle(same).slice(0, 3));
+      if (mode === 'sy' || mode === 'an'){
+        var cand = ALL.filter(function(x){ return x[mode] && x.id !== w.id && x[mode] !== w[mode] && x.cat === w.cat; });
+        if (cand.length < 3) cand = ALL.filter(function(x){ return x[mode] && x.id !== w.id && x[mode] !== w[mode]; });
+        var oth = T.shuffle(cand).slice(0, 3);
+        return {t:'c', q:w.em + '  ' + w.ru + ' (' + w.uz + ') — ' + (mode === 'sy' ? 'ma\'nodoshi:' : 'antonimi:'), o:[w[mode]].concat(oth.map(function(x){ return x[mode]; })), a:0, say:w.ru, x:w.h};
+      }
+      if (mode === 'uz') return {t:'c', q:w.em + '  ' + w.uz + ' — ruschasi:', o:opts.map(function(x){ return x.ru; }), a:0, say:w.ru, x:w.h};
+      if (mode === 'tog') return {t:'c', q:'TOG: ' + w.h + ' — ' + w.s, o:opts.map(function(x){ return x.ru; }), a:0, say:w.ru, x:w.uz};
+      return {t:'c', q:w.em + '  ' + w.ru, o:opts.map(function(x){ return x.uz; }), a:0, say:w.ru, x:w.h};
+    });
+    T.renderExercises($('quiz'), items, {onScore:function(ok, total){ T.toast('Natija: ' + ok + ' / ' + total); }});
+  }
+  $('newQuiz').addEventListener('click', newQuiz);
+  $('qMode').addEventListener('change', newQuiz);
+
+  /* ---- tablar ---- */
+  var current = 'list';
+  document.querySelectorAll('[data-tab]').forEach(function(b){
+    b.addEventListener('click', function(){
+      current = b.getAttribute('data-tab');
+      document.querySelectorAll('[data-tab]').forEach(function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      ['list','cards','quiz','gram','method'].forEach(function(t){ $('tab-' + t).hidden = t !== current; });
+      $('filters').hidden = (current === 'gram' || current === 'method');
+      refresh();
+    });
+  });
+  function refresh(){
+    if (current === 'list') renderList();
+    if (current === 'cards') buildDeck(false);
+    if (current === 'quiz') newQuiz();
+  }
+  onlyNew.addEventListener('change', refresh);
+  stageSel.addEventListener('change', function(){ stage = stageSel.value; T.save('tog-stage', stage); renderCats(); refresh(); });
+  var tm; q.addEventListener('input', function(){ clearTimeout(tm); tm = setTimeout(refresh, 180); });
+
+  renderCats(); stats(); renderList();
+})();
+</script>
+</body>
+</html>

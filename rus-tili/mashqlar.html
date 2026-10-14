@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mashqlar — ТЕТРАДЬ</title>
+<meta name="description" content="Rus tili mashqlari: aralash yakuniy test, olmoshlar bo'yicha 40 ta mashq va so'zlashuv iboralari.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F6F52'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23F4FBF6'%3EТ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/tetrad.css">
+</head>
+<body>
+<div class="binding" aria-hidden="true"></div>
+
+<header class="site">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">ТЕТРАДЬ</span><span class="brand-tag">Rus tili onlayn</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navLinks">Menyu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://kuvonch.uz/" class="ka-home" title="Kuvonch Academy — bosh sahifa">🏠 Kuvonch Academy</a></li>
+      <li><a href="index.html">Bosh sahifa</a></li>
+      <li><a href="darslar.html">Darslar</a></li>
+      <li><a href="padejlar.html">Kelishiklar</a></li>
+      <li><a href="lugat.html">Lug'at</a></li>
+      <li><a href="tog.html">TOG</a></li>
+      <li><a href="mashqlar.html" aria-current="page">Mashqlar</a></li>
+      <li><a href="kitoblar.html">Kitoblar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Tekshirib ko'ring</p>
+      <h1>Mashqlar va testlar</h1>
+      <p class="lead">A0 dan C1 gacha 32 darsdagi 320 ta topshiriqdan aralash test, olmoshlar bo'yicha 40 ta mashq va har kuni kerak bo'ladigan iboralar.</p>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-bottom:72px">
+    <div class="tabs" role="tablist" aria-label="Bo'lim">
+      <button type="button" role="tab" aria-selected="true" data-tab="test">Aralash test</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="ex1">Olmoshlar · 1-mashq</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="ex2">Olmoshlar · 2-mashq</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="phr">Iboralar</button>
+    </div>
+
+    <section id="tab-test">
+      <div class="toolbar">
+        <select id="scope" aria-label="Mavzu"></select>
+        <select id="count" aria-label="Savollar soni"><option value="10">10 savol</option><option value="20" selected>20 savol</option><option value="30">30 savol</option></select>
+        <button type="button" class="btn btn-primary" id="go">Yangi test</button>
+      </div>
+      <p class="muted" id="best"></p>
+      <div id="test" style="margin-top:12px"></div>
+    </section>
+
+    <section id="tab-ex1" hidden>
+      <div class="block" style="margin-top:8px"><h3>Olmoshning to'g'ri shaklini qo'ying <span class="tag">30 ta</span></h3>
+        <p class="muted">Вставьте правильную форму местоимения. Qavs ichidagi olmoshni kerakli kelishikka qo'ying. Tarjima — yordam uchun.</p>
+        <div class="tbl-wrap" style="margin:14px 0"><table class="t">
+          <thead><tr><th>Bosh</th><th>Vin. / Rod.</th><th>Dat.</th><th>Tvor.</th><th>Predl.</th></tr></thead>
+          <tbody>
+            <tr><td class="ru">я</td><td class="ru">меня</td><td class="ru">мне</td><td class="ru">мной</td><td class="ru">обо мне</td></tr>
+            <tr><td class="ru">ты</td><td class="ru">тебя</td><td class="ru">тебе</td><td class="ru">тобой</td><td class="ru">о тебе</td></tr>
+            <tr><td class="ru">он</td><td class="ru">его / (н)его</td><td class="ru">ему / (н)ему</td><td class="ru">им / (н)им</td><td class="ru">о нём</td></tr>
+            <tr><td class="ru">она</td><td class="ru">её / (н)её</td><td class="ru">ей / (н)ей</td><td class="ru">ей / (н)ей</td><td class="ru">о ней</td></tr>
+            <tr><td class="ru">мы</td><td class="ru">нас</td><td class="ru">нам</td><td class="ru">нами</td><td class="ru">о нас</td></tr>
+            <tr><td class="ru">вы</td><td class="ru">вас</td><td class="ru">вам</td><td class="ru">вами</td><td class="ru">о вас</td></tr>
+            <tr><td class="ru">они</td><td class="ru">их / (н)их</td><td class="ru">им / (н)им</td><td class="ru">ими / (н)ими</td><td class="ru">о них</td></tr>
+          </tbody></table></div>
+        <p class="note"><b>(н)</b> — old ko'makchidan keyin <span class="ru">он, она, они</span> shakllari «н» oladi: <span class="ru">к нему, с ней, у них, о нём</span>.</p>
+      </div>
+      <div id="ex1" style="margin-top:18px"></div>
+    </section>
+
+    <section id="tab-ex2" hidden>
+      <div class="block" style="margin-top:8px"><h3>To'g'ri variantni tanlang <span class="tag">10 ta</span></h3>
+        <p class="muted">Выберите правильный вариант.</p></div>
+      <div id="ex2" style="margin-top:14px"></div>
+    </section>
+
+    <section id="tab-phr" hidden>
+      <div class="block" style="margin-top:8px"><h3>So'zlashuv uchun iboralar</h3>
+        <p class="muted">Har birini tinglang va o'zingiz haqingizda bitta gap tuzing.</p></div>
+      <div class="grid c2" id="phr" style="margin-top:14px"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span><span class="brand-mark" style="font-size:15px">ТЕТРАДЬ</span> · © <span id="year"></span></span>
+    <span><a href="darslar.html">Darslarga qaytish</a></span>
+  </div>
+</footer>
+
+<script src="assets/tetrad.js"></script>
+<script src="assets/darslar-data.js"></script>
+<script src="assets/darslar-yuqori.js"></script>
+<script src="assets/mashq-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var T = window.Tetrad, L = window.TETRAD_LESSONS, G = window.TETRAD_GROUPS, P = window.TETRAD_PRON, esc = T.esc;
+  var $ = function(id){ return document.getElementById(id); };
+
+  $('scope').innerHTML = '<option value="all">Barcha mavzular</option>' +
+    G.map(function(g){ return '<option value="g:' + g.id + '">Daraja ' + esc(g.title) + '</option>'; }).join('') +
+    L.map(function(l, i){ return '<option value="l:' + l.id + '">' + (i + 1) + '. ' + esc(l.title) + '</option>'; }).join('');
+
+  var best = T.load('testBest', null);
+  function showBest(){ $('best').textContent = best ? 'Eng yaxshi natijangiz: ' + best.ok + ' / ' + best.total + ' (' + Math.round(best.ok / best.total * 100) + '%)' : ''; }
+
+  function newTest(){
+    var sc = $('scope').value, pool = [];
+    L.forEach(function(l){
+      if (sc === 'all' || sc === 'g:' + l.g || sc === 'l:' + l.id){
+        l.tasks.forEach(function(t){
+          var c = {}; for (var k in t) c[k] = t[k];
+          c.h = (t.h ? t.h + ' · ' : '') + 'Mavzu: ' + l.title;
+          pool.push(c);
+        });
+      }
+    });
+    var items = T.shuffle(pool).slice(0, +$('count').value);
+    T.renderExercises($('test'), items, {onScore:function(ok, total){
+      if (sc === 'all' && (!best || ok / total > best.ok / best.total)){ best = {ok:ok, total:total}; T.save('testBest', best); showBest(); }
+      T.toast('Natija: ' + ok + ' / ' + total);
+    }});
+  }
+  $('go').addEventListener('click', newTest);
+  $('scope').addEventListener('change', newTest);
+  $('count').addEventListener('change', newTest);
+
+  var rendered = {};
+  function show(tab){
+    document.querySelectorAll('[data-tab]').forEach(function(x){ x.setAttribute('aria-selected', x.getAttribute('data-tab') === tab ? 'true' : 'false'); });
+    ['test','ex1','ex2','phr'].forEach(function(t){ $('tab-' + t).hidden = t !== tab; });
+    if (rendered[tab]) return;
+    rendered[tab] = true;
+    if (tab === 'ex1') T.renderExercises($('ex1'), P.ex1, {});
+    if (tab === 'ex2') T.renderExercises($('ex2'), P.ex2, {});
+    if (tab === 'phr'){
+      $('phr').innerHTML = P.phrases.map(function(p){
+        return '<div class="card"><div style="display:flex;gap:10px;align-items:center">' + T.sayBtn(p[0]) +
+          '<div><div class="ru" style="font-size:19px;font-weight:700">' + esc(p[0]) + '</div><div class="muted" style="font-size:14.5px">' + esc(p[1]) + '</div></div></div>' +
+          '<div style="margin-top:12px;display:flex;gap:10px;align-items:flex-start">' + T.sayBtn(p[2]) + '<div><div class="ru">' + esc(p[2]) + '</div><div class="muted" style="font-size:14.5px">' + esc(p[3]) + '</div></div></div></div>';
+      }).join('');
+    }
+  }
+  document.querySelectorAll('[data-tab]').forEach(function(b){
+    b.addEventListener('click', function(){ show(b.getAttribute('data-tab')); history.replaceState(null, '', '#' + b.getAttribute('data-tab')); });
+  });
+
+  showBest();
+  newTest();
+  rendered.test = true;
+  var h = location.hash.replace('#','');
+  if (['ex1','ex2','phr'].indexOf(h) >= 0) show(h);
+})();
+</script>
+</body>
+</html>

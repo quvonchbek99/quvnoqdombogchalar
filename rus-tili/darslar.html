@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Darslar — ТЕТРАДЬ</title>
+<meta name="description" content="Rus tili darslari: alifbodan qo'shma gaplargacha 18 ta mavzu, qoidalar, misollar, dialoglar va avtomatik tekshiriladigan mashqlar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F6F52'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23F4FBF6'%3EТ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/tetrad.css">
+</head>
+<body>
+<div class="binding" aria-hidden="true"></div>
+
+<header class="site">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">ТЕТРАДЬ</span><span class="brand-tag">Rus tili onlayn</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navLinks">Menyu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://kuvonch.uz/" class="ka-home" title="Kuvonch Academy — bosh sahifa">🏠 Kuvonch Academy</a></li>
+      <li><a href="index.html">Bosh sahifa</a></li>
+      <li><a href="darslar.html" aria-current="page">Darslar</a></li>
+      <li><a href="padejlar.html">Kelishiklar</a></li>
+      <li><a href="lugat.html">Lug'at</a></li>
+      <li><a href="tog.html">TOG</a></li>
+      <li><a href="mashqlar.html">Mashqlar</a></li>
+      <li><a href="kitoblar.html">Kitoblar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">32 mavzu · A0 → C1</p>
+      <h1>Darslar</h1>
+      <p class="lead">Noldan C1 gacha olti daraja. Har bir mavzuda qisqa qoida, jadval, misollar, ovozli talaffuz va avtomatik tekshiriladigan mashqlar bor. A0–B1 tartibi 5 ta mashhur darslik dasturiga tayangan — <a href="kitoblar.html">kitoblar va darajalar haqida</a>.</p>
+      <div class="levels" id="levels" aria-label="Darajalar"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="lessons">
+      <aside class="toc collapsed" id="toc" aria-label="Mavzular">
+        <button type="button" class="btn btn-ghost toc-toggle" id="tocToggle" aria-expanded="false"><span>Mavzular ro'yxati</span><span aria-hidden="true">▾</span></button>
+        <div class="toc-body">
+          <div style="display:flex;justify-content:space-between;font-size:14px" class="muted"><span>Umumiy natija</span><span id="progTxt">0 / 32</span></div>
+          <div class="progress" aria-hidden="true"><i id="progBar"></i></div>
+          <div id="tocList"></div>
+        </div>
+      </aside>
+      <article class="lesson" id="lesson" aria-live="polite"></article>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span><span class="brand-mark" style="font-size:15px">ТЕТРАДЬ</span> · © <span id="year"></span></span>
+    <span>Savollar bo'yicha: <a href="https://t.me/miir1999" target="_blank" rel="noopener">Telegram @miir1999</a></span>
+  </div>
+</footer>
+
+<script src="assets/tetrad.js"></script>
+<script src="assets/darslar-data.js"></script>
+<script src="assets/darslar-yuqori.js"></script>
+<script>
+(function(){
+  "use strict";
+  var T = window.Tetrad, L = window.TETRAD_LESSONS, G = window.TETRAD_GROUPS, B = window.TETRAD_BOOKS;
+  var progress = T.load('progress', {});
+  var tocList = document.getElementById('tocList');
+  var view = document.getElementById('lesson');
+  var esc = T.esc;
+
+  function renderToc(current){
+    var html = '';
+    var n = 0;
+    G.forEach(function(g){
+      var cnt = L.filter(function(l){ return l.g === g.id; }).length;
+      var dn = L.filter(function(l){ return l.g === g.id && progress[l.id]; }).length;
+      html += '<div class="toc-group" id="lv-' + g.id + '"><h4>' + esc(g.title) + ' <span style="float:right;font-weight:400">' + dn + '/' + cnt + '</span></h4><ol>';
+      L.forEach(function(l){
+        if (l.g !== g.id) return;
+        n++;
+        l.n = n;
+        var done = progress[l.id] ? ' done' : '';
+        html += '<li><a href="#' + l.id + '" class="' + done + '"' + (l.id === current ? ' aria-current="true"' : '') + '><span class="num">' + (progress[l.id] ? '✓' : n) + '</span><span>' + esc(l.title) + '</span></a></li>';
+      });
+      html += '</ol></div>';
+    });
+    tocList.innerHTML = html;
+    var done = L.filter(function(l){ return progress[l.id]; }).length;
+    document.getElementById('progTxt').textContent = done + ' / ' + L.length;
+    document.getElementById('progBar').style.width = (done / L.length * 100) + '%';
+  }
+
+  function table(t){
+    var h = '<div class="tbl-wrap"><table class="t">';
+    if (t.head && t.head.some(function(x){ return x; })) h += '<thead><tr>' + t.head.map(function(x){ return '<th>' + x + '</th>'; }).join('') + '</tr></thead>';
+    h += '<tbody>' + t.rows.map(function(r){
+      return '<tr>' + r.map(function(c, i){
+        var plain = !/[<]/.test(c) && /[а-яё]/i.test(c);
+        return '<td' + (plain && i === 0 ? ' class="ru"' : '') + '>' + c + '</td>';
+      }).join('') + '</tr>';
+    }).join('') + '</tbody></table></div>';
+    return h;
+  }
+
+  function render(id){
+    var idx = 0;
+    L.forEach(function(l, i){ if (l.id === id) idx = i; });
+    var l = L[idx];
+    renderToc(l.id);
+    T.save('last', l.id);
+    document.title = l.title + ' — Darslar — ТЕТРАДЬ';
+
+    var h = '';
+    h += '<p class="eyebrow">' + l.n + '-dars · ' + esc(l.level) + '</p>';
+    h += '<h2>' + esc(l.title) + '</h2>';
+    h += '<p class="ru-title">' + esc(l.ru) + '</p>';
+    h += '<div class="meta">' + (l.books.length ? '' : '<span class="chip gold" title="Bu mavzu 5 ta asosiy darslik doirasidan yuqori">' + esc(l.level) + ' · qo\'shimcha mavzu</span>') + l.books.map(function(b){
+      return '<a class="chip" href="kitoblar.html#' + b + '" style="color:' + B[b].color + ';border-color:' + B[b].color + '" title="Bu mavzu shu kitobda ham bor">📘 ' + esc(B[b].short) + '</a>';
+    }).join('') + '</div>';
+    h += '<p class="goal"><b>Maqsad:</b> ' + esc(l.goal) + '</p>';
+
+    l.blocks.forEach(function(b){
+      h += '<section class="block"><h3>' + esc(b.h) + (b.tag ? ' <span class="tag">' + esc(b.tag) + '</span>' : '') + '</h3>';
+      if (b.html) h += b.html;
+      if (b.table) h += table(b.table);
+      if (b.note) h += '<p class="note">' + b.note + '</p>';
+      h += '</section>';
+    });
+
+    if (l.examples){
+      h += '<section class="block"><h3>Misollar <span class="tag">tinglang</span></h3><ul class="examples">' + l.examples.map(function(e){
+        return '<li>' + T.sayBtn(e[0]) + '<div class="txt"><div class="r">' + esc(e[0]) + '</div><div class="u">' + esc(e[1]) + '</div></div></li>';
+      }).join('') + '</ul></section>';
+    }
+    if (l.dialog){
+      h += '<section class="block"><h3>Dialog</h3><div class="dialog">' + l.dialog.map(function(d){
+        return '<div class="line ' + (d[0] === 'A' ? 'a' : 'b') + '"><span class="who">' + d[0] + '</span><div><div class="ru" style="font-size:17px">' + esc(d[1]) + '</div><div class="muted" style="font-size:14.5px">' + esc(d[2]) + '</div></div>' + T.sayBtn(d[1]) + '</div>';
+      }).join('') + '</div><p style="margin-top:10px"><button type="button" class="btn btn-ghost btn-sm" id="playDlg">▶ Dialogni to\'liq tinglash</button></p></section>';
+    }
+    if (l.words){
+      h += '<section class="block"><h3>Yangi so\'zlar</h3><div class="words">' + l.words.map(function(w){
+        return '<div class="w">' + T.sayBtn(w[0]) + '<div><div class="r">' + esc(w[0]) + '</div><div class="u">' + esc(w[1]) + '</div></div></div>';
+      }).join('') + '</div></section>';
+    }
+
+    var prevScore = progress[l.id];
+    h += '<section class="block" id="mashq"><h3>Mashqlar <span class="tag">' + l.tasks.length + ' ta</span></h3>' +
+         (prevScore ? '<p class="muted" style="margin-bottom:10px">Oldingi natijangiz: <b>' + prevScore.ok + ' / ' + prevScore.total + '</b></p>' : '<p class="muted" style="margin-bottom:10px">Javobni tanlang yoki yozing — darhol tekshiriladi. Kirill harflari uchun «Аа» tugmasi bor.</p>') +
+         '<div id="tasks"></div></section>';
+
+    var prev = L[idx - 1], next = L[idx + 1];
+    h += '<nav class="pager" aria-label="Darslar bo\'ylab">' +
+         (prev ? '<a class="btn btn-ghost" href="#' + prev.id + '">← ' + esc(prev.title) + '</a>' : '<span></span>') +
+         (next ? '<a class="btn btn-primary" href="#' + next.id + '">' + esc(next.title) + ' →</a>' : '<a class="btn btn-primary" href="mashqlar.html">Yakuniy test →</a>') +
+         '</nav>';
+
+    view.innerHTML = h;
+
+    T.renderExercises(document.getElementById('tasks'), l.tasks, {
+      onScore: function(ok, total){
+        var best = progress[l.id];
+        if (!best || ok >= best.ok){ progress[l.id] = {ok:ok, total:total}; T.save('progress', progress); }
+        renderToc(l.id);
+        T.toast(ok + ' / ' + total + ' — natija saqlandi');
+      }
+    });
+
+    var pd = document.getElementById('playDlg');
+    if (pd) pd.addEventListener('click', function(){ T.speak(l.dialog.map(function(d){ return d[1]; }).join(' … ')); });
+  }
+
+  document.getElementById('levels').innerHTML = G.map(function(g){
+    var first = L.filter(function(l){ return l.g === g.id; })[0];
+    var cnt = L.filter(function(l){ return l.g === g.id; }).length;
+    return first ? '<a class="lv" href="#' + first.id + '" title="' + esc(g.desc) + '"><b>' + esc(g.level) + '</b><span>' + esc(g.title.split('· ')[1] || '') + ' · ' + cnt + ' dars</span></a>' : '';
+  }).join('');
+
+  function route(){
+    var id = location.hash.replace('#','');
+    var exists = L.some(function(l){ return l.id === id; });
+    if (!exists) id = T.load('last', L[0].id);
+    if (!L.some(function(l){ return l.id === id; })) id = L[0].id;
+    render(id);
+    var toc = document.getElementById('toc');
+    if (window.innerWidth <= 900 && location.hash){
+      toc.classList.add('collapsed');
+      document.getElementById('tocToggle').setAttribute('aria-expanded','false');
+      view.scrollIntoView({block:'start'});
+    } else if (location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  document.getElementById('tocToggle').addEventListener('click', function(){
+    var toc = document.getElementById('toc');
+    var c = toc.classList.toggle('collapsed');
+    this.setAttribute('aria-expanded', c ? 'false' : 'true');
+  });
+
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body>
+</html>

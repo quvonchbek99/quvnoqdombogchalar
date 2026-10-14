@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lug'at — ТЕТРАДЬ</title>
+<meta name="description" content="Kunlik 50 ta ruscha so'z: ro'yxat, kartochkalar va test. Jami 500 so'z, transliteratsiya va o'zbekcha tarjima bilan.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F6F52'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23F4FBF6'%3EТ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/tetrad.css">
+</head>
+<body>
+<div class="binding" aria-hidden="true"></div>
+
+<header class="site">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">ТЕТРАДЬ</span><span class="brand-tag">Rus tili onlayn</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navLinks">Menyu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://kuvonch.uz/" class="ka-home" title="Kuvonch Academy — bosh sahifa">🏠 Kuvonch Academy</a></li>
+      <li><a href="index.html">Bosh sahifa</a></li>
+      <li><a href="darslar.html">Darslar</a></li>
+      <li><a href="padejlar.html">Kelishiklar</a></li>
+      <li><a href="lugat.html" aria-current="page">Lug'at</a></li>
+      <li><a href="tog.html">TOG</a></li>
+      <li><a href="mashqlar.html">Mashqlar</a></li>
+      <li><a href="kitoblar.html">Kitoblar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Kunlik 50 so'z</p>
+      <h1>Lug'at daftari</h1>
+      <p class="lead">Har kuni 50 ta yangi so'z — transliteratsiya, tarjima va misol gaplar bilan. Bilgan so'zlaringizni ✓ bilan belgilang: bu brauzeringizda saqlanadi.</p>
+      <p style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px"><span class="chip soft" id="statAll">500 so'z</span><span class="chip soft" id="statKnown">0 ta o'rganildi</span><span class="chip soft" id="statDays">10 kun</span></p>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-bottom:72px">
+    <div class="tabs" role="tablist" aria-label="Rejim">
+      <button type="button" role="tab" aria-selected="true" data-tab="list">Ro'yxat</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="cards">Kartochkalar</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="quiz">Test</button>
+    </div>
+
+    <div class="toolbar">
+      <select id="day" aria-label="Kun bo'yicha"></select>
+      <input type="search" id="q" placeholder="Qidirish: ruscha yoki o'zbekcha…" aria-label="Qidirish">
+      <label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="onlyNew"> faqat o'rganilmaganlar</label>
+    </div>
+
+    <section id="tab-list"><div id="list"></div></section>
+
+    <section id="tab-cards" hidden>
+      <div class="fc-area">
+        <p class="muted" id="fcInfo" style="margin-bottom:10px"></p>
+        <button type="button" class="flash" id="flash" aria-label="Kartochkani aylantirish">
+          <span class="inner">
+            <span class="face front"><span class="big" id="fcFront"></span><span class="tr" id="fcTr"></span><span class="hand" style="font-size:18px">bosing — tarjima</span></span>
+            <span class="face back"><span class="uzw" id="fcBack"></span><span class="tr" id="fcBack2"></span></span>
+          </span>
+        </button>
+        <div class="fc-ctrl">
+          <button type="button" class="btn btn-ghost" id="fcSay">🔊 Tinglash</button>
+          <button type="button" class="btn btn-ghost" id="fcAgain">↻ Takrorlayman</button>
+          <button type="button" class="btn btn-primary" id="fcKnow">✓ Bilaman</button>
+        </div>
+        <div class="fc-ctrl">
+          <label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="fcRev"> O'zbekcha → Ruscha</label>
+          <button type="button" class="btn btn-ghost btn-sm" id="fcShuffle">Aralashtirish</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-quiz" hidden>
+      <p class="muted">Tanlangan kun so'zlaridan 10 ta tasodifiy savol. Har safar yangi.</p>
+      <div class="toolbar"><button type="button" class="btn btn-primary" id="newQuiz">Yangi test</button>
+        <label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="qRev"> O'zbekcha → Ruscha</label></div>
+      <div id="quiz"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span><span class="brand-mark" style="font-size:15px">ТЕТРАДЬ</span> · © <span id="year"></span></span>
+    <span>So'zlar har kuni yangilanadigan «Rus tili — kunlik 50 so'z» daftaridan</span>
+  </div>
+</footer>
+
+<script src="assets/tetrad.js"></script>
+<script src="assets/lugat-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var T = window.Tetrad, D = window.TETRAD_DAYS, W = window.TETRAD_WORDS, esc = T.esc;
+  var known = T.load('known', {});
+  var $ = function(id){ return document.getElementById(id); };
+  var daySel = $('day'), q = $('q'), onlyNew = $('onlyNew');
+
+  daySel.innerHTML = '<option value="all">Barcha kunlar (' + W.length + ')</option>' + D.map(function(d, i){
+    return '<option value="' + i + '">' + d.d + ' — ' + esc(d.th) + '</option>';
+  }).join('');
+  $('statAll').textContent = W.length + ' so\'z';
+  $('statDays').textContent = D.length + ' kun';
+
+  function stats(){ $('statKnown').textContent = Object.keys(known).filter(function(k){ return known[k]; }).length + ' ta o\'rganildi'; }
+
+  function filtered(){
+    var s = T.norm(q.value || '');
+    return W.filter(function(w){
+      if (daySel.value !== 'all' && String(w.di) !== daySel.value) return false;
+      if (onlyNew.checked && known[w.id]) return false;
+      if (s && T.norm(w.ru).indexOf(s) < 0 && w.uz.toLowerCase().indexOf(s) < 0 && w.tr.toLowerCase().indexOf(s) < 0) return false;
+      return true;
+    });
+  }
+
+  /* ---- ro'yxat ---- */
+  function renderList(){
+    var ws = filtered();
+    var h = '';
+    D.forEach(function(d, di){
+      var part = ws.filter(function(w){ return w.di === di; });
+      if (!part.length) return;
+      h += '<div class="day-head"><h3>' + d.d + '</h3><span class="muted">' + esc(d.th) + ' · ' + part.length + ' so\'z</span></div><div class="vocab-list">';
+      h += part.map(function(w){
+        return '<div class="w' + (known[w.id] ? ' known' : '') + '">' + T.sayBtn(w.ru) +
+          '<div class="t"><div class="r">' + esc(w.ru) + '</div><div class="x">[' + esc(w.tr) + ']</div><div class="u">' + esc(w.uz) + '</div></div>' +
+          '<button type="button" class="k" data-id="' + esc(w.id) + '" aria-pressed="' + (known[w.id] ? 'true' : 'false') + '" title="O\'rgandim">' + (known[w.id] ? '✓' : '○') + '</button></div>';
+      }).join('');
+      h += '</div>';
+      if (!q.value && !onlyNew.checked){
+        h += '<ul class="examples" style="margin-top:10px">' + d.ex.map(function(e){
+          return '<li>' + T.sayBtn(e[0]) + '<div class="txt"><div class="r">' + esc(e[0]) + '</div><div class="u">' + esc(e[1]) + '</div></div></li>';
+        }).join('') + '</ul>';
+      }
+    });
+    $('list').innerHTML = h || '<p class="muted" style="padding:20px 0">Hech narsa topilmadi.</p>';
+  }
+  $('list').addEventListener('click', function(e){
+    var b = e.target.closest('.k');
+    if (!b) return;
+    var id = b.getAttribute('data-id');
+    known[id] = !known[id];
+    if (!known[id]) delete known[id];
+    T.save('known', known); stats();
+    var row = b.parentNode;
+    row.classList.toggle('known', !!known[id]);
+    b.textContent = known[id] ? '✓' : '○';
+    b.setAttribute('aria-pressed', known[id] ? 'true' : 'false');
+  });
+
+  /* ---- kartochkalar ---- */
+  var deck = [], pos = 0;
+  function buildDeck(shuf){
+    deck = filtered();
+    if (shuf) deck = T.shuffle(deck);
+    pos = 0; showCard();
+  }
+  function showCard(){
+    var flash = $('flash');
+    flash.classList.remove('flipped');
+    if (!deck.length){
+      $('fcFront').textContent = '🎉'; $('fcTr').textContent = 'Bu to\'plamdagi hamma so\'zni bilasiz!';
+      $('fcBack').textContent = ''; $('fcBack2').textContent = '';
+      $('fcInfo').textContent = '0 ta so\'z';
+      return;
+    }
+    if (pos >= deck.length) pos = 0;
+    var w = deck[pos], rev = $('fcRev').checked;
+    $('fcFront').textContent = rev ? w.uz : w.ru;
+    $('fcTr').textContent = rev ? '' : '[' + w.tr + ']';
+    $('fcBack').textContent = rev ? w.ru : w.uz;
+    $('fcBack2').textContent = rev ? '[' + w.tr + ']' : '';
+    $('fcInfo').textContent = (pos + 1) + ' / ' + deck.length + ' · ' + w.day;
+    if (!rev) T.speak(w.ru);
+  }
+  $('flash').addEventListener('click', function(){
+    this.classList.toggle('flipped');
+    if (this.classList.contains('flipped') && $('fcRev').checked && deck[pos]) T.speak(deck[pos].ru);
+  });
+  $('fcSay').addEventListener('click', function(){ if (deck[pos]) T.speak(deck[pos].ru); });
+  $('fcAgain').addEventListener('click', function(){
+    if (!deck.length) return;
+    var w = deck.splice(pos, 1)[0];
+    deck.splice(Math.min(deck.length, pos + 4), 0, w);
+    showCard();
+  });
+  $('fcKnow').addEventListener('click', function(){
+    if (!deck.length) return;
+    var w = deck[pos];
+    known[w.id] = true; T.save('known', known); stats();
+    if (onlyNew.checked){ deck.splice(pos, 1); } else { pos++; }
+    showCard();
+  });
+  $('fcRev').addEventListener('change', showCard);
+  $('fcShuffle').addEventListener('click', function(){ buildDeck(true); });
+  document.addEventListener('keydown', function(e){
+    if ($('tab-cards').hidden || /input|select|textarea/i.test(e.target.tagName)) return;
+    if (e.key === ' '){ e.preventDefault(); $('flash').click(); }
+    if (e.key === 'ArrowRight'){ $('fcKnow').click(); }
+    if (e.key === 'ArrowLeft'){ $('fcAgain').click(); }
+  });
+
+  /* ---- test ---- */
+  function newQuiz(){
+    var pool = filtered();
+    if (pool.length < 4) pool = W.slice();
+    var pick = T.shuffle(pool).slice(0, Math.min(10, pool.length));
+    var rev = $('qRev').checked;
+    var items = pick.map(function(w){
+      var others = T.shuffle(W.filter(function(x){ return x.id !== w.id && x.uz !== w.uz; })).slice(0, 3);
+      var opts = [w].concat(others);
+      return rev
+        ? {t:'c', q:w.uz + ' — ruschasi:', o:opts.map(function(x){ return x.ru; }), a:0, say:w.ru}
+        : {t:'c', q:w.ru + ' [' + w.tr + ']', o:opts.map(function(x){ return x.uz; }), a:0, say:w.ru};
+    });
+    T.renderExercises($('quiz'), items, {onScore:function(ok, total){ T.toast('Natija: ' + ok + ' / ' + total); }});
+  }
+  $('newQuiz').addEventListener('click', newQuiz);
+  $('qRev').addEventListener('change', newQuiz);
+
+  /* ---- tablar ---- */
+  var current = 'list';
+  document.querySelectorAll('[data-tab]').forEach(function(b){
+    b.addEventListener('click', function(){
+      current = b.getAttribute('data-tab');
+      document.querySelectorAll('[data-tab]').forEach(function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      ['list','cards','quiz'].forEach(function(t){ $('tab-' + t).hidden = t !== current; });
+      refresh();
+    });
+  });
+  function refresh(){
+    if (current === 'list') renderList();
+    if (current === 'cards') buildDeck(false);
+    if (current === 'quiz') newQuiz();
+  }
+  daySel.addEventListener('change', refresh);
+  onlyNew.addEventListener('change', refresh);
+  var t; q.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(refresh, 180); });
+
+  stats();
+  renderList();
+})();
+</script>
+</body>
+</html>
