@@ -63,6 +63,14 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u suvdagi aksini haqiqiy it deb o'ylab, og'zini ochdi", "Chunki daryo juda chuqur edi va go'sht og'ir edi", "Chunki u go'shtni o'zi tashlab yubormoqchi bo'lgan edi"],
     javob: 0,
     izoh: "Suvdagi aks haqiqiy emas edi. Ko'rinishga ishonib, harakat qilish o'zida borini ham yo'qotishga olib keldi."
+  },
+  {
+    id: "ez-009", mavzu: "mantiq", sarlavha: "Shamol va quyosh",
+    matn: "Shamol bilan quyosh kim kuchliroq ekanini bahslashishdi. Yo'lda ketayotgan bir yo'lovchini ko'rib, kim uning plashini yechtirsa, o'sha g'olib bo'lishga kelishishdi. Shamol qattiq esib, yo'lovchi plashini yanada mahkam o'radi. Quyosh esa yumshoq isitdi, yo'lovchi terlab, plashini o'zi yechib tashladi.",
+    savol: "Yo'lovchining plashini nima yechdirdi?",
+    variantlar: ["Shamolning qattiq esishi", "Quyoshning yumshoq isitishi", "Yomg'irning tinimsiz yog'ishi"],
+    javob: 1,
+    izoh: "Majbur qilish ko'pincha qarshilik tug'diradi, iliqlik esa o'zi qaror qildiradi. Shamol kuchaygani sari yo'lovchi plashini mahkamroq ushladi."
   }
 ];
 
