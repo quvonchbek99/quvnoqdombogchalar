@@ -181,11 +181,48 @@
     return p;
   }
 
+  /* ---------- tarjima: savol matnini tanlangan tilga o'tkazish ---------- */
+  var TRL = {}, TRL_BASE = (function () {
+    try { var sc = document.currentScript || document.querySelector('script[src*="ka-savollar.js"]'); return sc && sc.src ? sc.src.replace(/[^\/]*$/, "") : ""; } catch (e) { return ""; }
+  })();
+  function curLang() {
+    try {
+      if (window.kaTil && kaTil.get) return kaTil.get();
+      var m = /[?&]til=(uz|ru|en|kk|ky)\b/.exec(location.search);
+      return (m && m[1]) || localStorage.getItem("ka.til") || "uz";
+    } catch (e) { return "uz"; }
+  }
+  function normTpl(q) { return String(q).replace(/\d+/g, "#").replace(/\s+/g, " ").trim(); }
+  // Til fayli yuklanadi (ka-savol-tr-<til>.js); uz uchun hech narsa kerak emas
+  function loadLang(l) {
+    return new Promise(function (ok) {
+      if (!l || l === "uz" || TRL[l]) return ok();
+      var s = document.createElement("script");
+      s.src = TRL_BASE + "ka-savol-tr-" + l + ".js";
+      s.onload = function () { TRL[l] = (window.KA_SAVOL_TR && window.KA_SAVOL_TR[l]) || {}; ok(); };
+      s.onerror = function () { TRL[l] = {}; ok(); };
+      document.head.appendChild(s);
+    });
+  }
+  // p.q (o'zbekcha, raqamlar bilan) → tanlangan til. Shablon topilmasa o'zbekcha qoladi.
+  function localize(p) {
+    var L = curLang();
+    if (!p || L === "uz" || !TRL[L] || !p.topic) return p;
+    var tpl = (TRL[L][p.topic] || {})[normTpl(p.q)];
+    if (!tpl) return p;
+    var nums = String(p.q).match(/\d+/g) || [], k = 0;
+    if ((tpl.match(/#/g) || []).length !== nums.length) return p;
+    p.q_uz = p.q;
+    p.q = tpl.replace(/#/g, function () { return nums[k++]; });
+    p.lang = L;
+    return p;
+  }
+
   function get(id, level) {
     var f = REG[id]; if (!f) return null;
     var L = level ? level : pick([1, 2, 3]);
     var p = clean(f(L)); p.level = L; p.topic = id;
-    return p;
+    return localize(p);
   }
   // Yondosh mavzular: mavzuning o'z savollari tugasa, shu guruhdan savol qo'shiladi
   var GROUPS = {
@@ -225,6 +262,7 @@
       var L = lvlFor(), p = clean(f(L)); p.level = L; p.topic = id; out.push(p);
     }
     if (!level) out.sort(function (a, b) { return a.level - b.level; });
+    out.forEach(localize);
     return out;
   }
 
@@ -236,6 +274,14 @@
     return c;
   }
 
+  // til o'zgarganda tarjima faylini yuklaymiz (ka-til.js dispatch qiladi)
+  window.addEventListener("ka-til", function (e) {
+    var l = e && e.detail;
+    loadLang(l).then(function () { try { window.dispatchEvent(new CustomEvent("ka-savol-lang", { detail: l })); } catch (x) {} });
+  });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { loadLang(curLang()); });
+  else loadLang(curLang());
+
   window.kaSavol = {
     H: H,
     has: function (id) { return !!REG[id]; },
@@ -245,6 +291,9 @@
     registerAll: function (obj, titles) { for (var k in obj) REG[k] = obj[k]; if (titles) for (var t in titles) TITLES[t] = titles[t]; },
     get: get,
     pack: pack,
+    setLang: loadLang,
+    lang: curLang,
+    ready: function () { return loadLang(curLang()); },
     sig: sig
   };
 })();
