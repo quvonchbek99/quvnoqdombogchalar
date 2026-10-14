@@ -55,5 +55,14 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chigirtka", "Chumoli", "Ikkalasi ham"],
     javob: 1,
     izoh: "Oldindan rejalashtirish va mehnat qiyin paytda yordam beradi."
+  },
+  {
+    id: "ez-008", mavzu: "mantiq", sarlavha: "It va uning aksi",
+    matn: "It og'zida go'sht ko'tarib, daryo ustidagi tor ko'prikdan o'tardi. Suvda o'z aksini ko'rib, uni boshqa it deb o'yladi va aksidagi go'shtni olish uchun og'zini ochdi. Shu zahoti o'zining go'shti suvga tushib ketdi.",
+    savol: "It nima uchun go'shtini yo'qotdi?",
+    variantlar: ["Chunki u suvdagi aksini haqiqiy it deb o'ylab, og'zini ochdi", "Chunki daryo juda chuqur edi va go'sht og'ir edi", "Chunki u go'shtni o'zi tashlab yubormoqchi bo'lgan edi"],
+    javob: 0,
+    izoh: "Suvdagi aks haqiqiy emas edi. Ko'rinishga ishonib, harakat qilish o'zida borini ham yo'qotishga olib keldi."
   }
 ];
+
