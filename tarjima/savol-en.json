@@ -1,0 +1,37 @@
+{
+ "a1": [
+  "Add by place value"
+ ],
+ "a2": [
+  "Subtract by place value",
+  "Subtracting a negative number is the same as adding: # + #"
+ ],
+ "t3": [
+  "Calculate sin #°.",
+  "Table value: sin #° = #",
+  "Calculate tg #°.",
+  "Table value: tg #° = #",
+  "sin α = #/#, and α is a first-quadrant angle. Find cos α.",
+  "sin²α + cos²α = #",
+  "cos α = #/# (positive in quadrant #)",
+  "cos α = #/#, α ∈ (#°; #°). Find sin α.",
+  "sin²α = # − cos²α = #/#",
+  "sin α = #/#, α — quadrant #. Find tg α.",
+  "tg α = sin α / cos α = #/# : #/# = #/#",
+  "Table value: sin #° = #/#",
+  "Simplify: (# − cos²α)·# + #·cos²α = ?",
+  "#(# − cos²α) + #cos²α = #(# − cos²α + cos²α) = #·# = #",
+  "Simplify: #·(sin²α + cos²α) + # = ?",
+  "If tg α = #/#, find ctg α.",
+  "tg α · ctg α = #",
+  "ctg α = # / tg α = #/#",
+  "Calculate cos #°.",
+  "Table value: cos #° = √#/#",
+  "Table value: tg #° = √#",
+  "Table value: tg #° = √#/#",
+  "Table value: cos #° = #",
+  "Table value: cos #° = #/#",
+  "Table value: sin #° = √#/#",
+  "Table value: tg #° = undefined"
+ ]
+}
