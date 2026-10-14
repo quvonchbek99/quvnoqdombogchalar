@@ -71,6 +71,14 @@ window.EZOP_MASALLAR = [
     variantlar: ["Shamolning qattiq esishi", "Quyoshning yumshoq isitishi", "Yomg'irning tinimsiz yog'ishi"],
     javob: 1,
     izoh: "Majbur qilish ko'pincha qarshilik tug'diradi, iliqlik esa o'zi qaror qildiradi. Shamol kuchaygani sari yo'lovchi plashini mahkamroq ushladi."
+  },
+  {
+    id: "ez-010", mavzu: "ahloq", sarlavha: "Qurbaqa va ho'kiz",
+    matn: "Qurbaqa katta ho'kizni ko'rib, undek katta bo'lmoqchi bo'ldi. U qornini shishirib-shishirib borar, bolalariga: \"Qarang, men ham uning kattaligidaman!\" deb maqtanardi. Oxiri u shunchalik ko'p havo to'ldirdiki, qorni yorilib ketdi.",
+    savol: "Qurbaqa nima uchun halok bo'ldi?",
+    variantlar: ["Chunki u o'zini kattaroq ko'rsatish uchun haddan tashqari shishib ketdi", "Chunki ho'kiz unga hujum qildi", "Chunki u suvga cho'kib ketdi"],
+    javob: 0,
+    izoh: "Haqiqatda bo'lmagan kattalikka intilish qurbaqani shu holatga soldi. Ortiqcha da'vo va kibr o'zini halokatga olib keladi."
   }
 ];
 
