@@ -87,5 +87,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki g'oz kasal bo'lib qoldi", "Chunki g'ozni so'yib, kunlik tuxum manbaini yo'qotdi", "Chunki g'oz uchib ketdi"],
     javob: 1,
     izoh: "Tez boylik orttirish uchun barqaror manbani yo'q qilish oxir-oqibat hech narsa bermaydi. Sabr va muntazamlik uzoq muddatda ko'proq foyda beradi."
+  },
+  {
+    id: "ez-012", mavzu: "ahloq", sarlavha: "Ayiq va ikki sayohatchi",
+    matn: "Ikki sayohatchi birga yo'lga chiqdi. Yo'lda katta ayiq paydo bo'ldi. Bir sayohatchi darhol daraxtga chiqib yashirindi, ikkinchisi esa do'stiga qaramay o'zi qochib ketdi. Ayiq ketgach, daraxtdagi sayohatchi pastga tushib, do'stiga kulib qaradi.",
+    savol: "Ikkinchi sayohatchi nima uchun xato qildi?",
+    variantlar: ["Chunki u do'stini xavf ichida tashlab ketdi", "Chunki u ayiqdan qochishni bilmasdi", "Chunki daraxt juda baland edi"],
+    javob: 0,
+    izoh: "Xavf paytida do'stni tashlab ketish ishonchni yo'qotadi. Haqiqiy do'st qiyin paytda ham yonida bo'ladi."
   }
 ];
