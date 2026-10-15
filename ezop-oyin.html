@@ -129,7 +129,7 @@
     });
     $("fb").textContent = "";
     $("stat").textContent = "Savol " + (idx % list.length + 1) + "/" + list.length + " · To'g'ri: " + score + " · Jami: " + done;
-    if (voiceOn) speak(m.sarlavha + ". " + m.matn + " " + m.savol);
+    if (voiceOn) speak(m.sarlavha + ". " + m.matn + " " + m.savol, m.id);
   }
   function escapeHTML(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
@@ -144,20 +144,36 @@
     opts.forEach(function (o, i) { if (i === m.javob) o.classList.add("ok"); else if (i === sel) o.classList.add("bad"); });
     $("fb").textContent = (ok ? "✔ To'g'ri! " : "✘ Noto'g'ri. ") + m.izoh;
     $("stat").textContent = "Savol " + (idx % list.length + 1) + "/" + list.length + " · To'g'ri: " + score + " · Jami: " + done;
-    if (voiceOn) speak(ok ? "To'g'ri" : "Noto'g'ri. " + m.izoh);
+    if (voiceOn) (ok ? speak("To'g'ri", "togri") : speak("Noto'g'ri. " + m.izoh, m.id + "-izoh"));
   }
   function next() { idx++; sel = -1; answered = false; show(); }
 
   /* ---- ovoz (matn o'qish va tanish) ---- */
   var voiceOn = false, rec = null, speakOn = true;
-  function speak(t) {
+  var curAudio = null;
+  function speakSynth(t) {
     try { if (!window.speechSynthesis) return; speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.lang = "uz-UZ"; u.rate = 0.95; speechSynthesis.speak(u); } catch (e) {}
+  }
+  /* Tayyor neyron ovoz (ezop-ovoz/<kalit>.mp3) bo'lsa shuni ijro etadi, bo'lmasa brauzer ovozi. */
+  function speak(t, key) {
+    try {
+      if (curAudio) { curAudio.pause(); curAudio = null; }
+      if (window.speechSynthesis) speechSynthesis.cancel();
+      if (key) {
+        var a = new Audio("ezop-ovoz/" + key + ".mp3");
+        curAudio = a;
+        a.onerror = function () { if (curAudio === a) { curAudio = null; speakSynth(t); } };
+        var pr = a.play(); if (pr && pr.catch) pr.catch(function () { if (curAudio === a) { curAudio = null; speakSynth(t); } });
+        return;
+      }
+      speakSynth(t);
+    } catch (e) {}
   }
   function heard(t) { $("heard").textContent = "Eshitildi: " + t; }
   function handleVoice(t) {
     t = t.toLowerCase();
     heard(t);
-    if (/takror|qayta|o'qib|o'qi/.test(t)) { var m = list[idx % list.length]; speak(m.matn + " " + m.savol); return; }
+    if (/takror|qayta|o'qib|o'qi/.test(t)) { var m = list[idx % list.length]; speak(m.matn + " " + m.savol, m.id + "-takror"); return; }
     if (/keyingi|o'tkaz/.test(t)) { next(); return; }
     if (/tekshir|tasdiq/.test(t)) { check(); return; }
     if (/\b(a|birinchi|1)\b/.test(t)) { pick(0); return; }
@@ -255,7 +271,7 @@
   /* ---- boshqaruv ---- */
   $("btnCheck").onclick = check;
   $("btnNext").onclick = next;
-  $("btnRead").onclick = function () { var m = list[idx % list.length]; if (m) speak(m.matn + " " + m.savol); };
+  $("btnRead").onclick = function () { var m = list[idx % list.length]; if (m) speak(m.matn + " " + m.savol, m.id + "-takror"); };
   $("btnVoice").onclick = toggleVoice;
   $("btnTilt").onclick = toggleTilt;
   $("btnCam").onclick = toggleCam;
