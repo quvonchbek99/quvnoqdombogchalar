@@ -103,5 +103,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u sher terisini yaxshi kiymagan edi", "Chunki u ovoz chiqarib, o'zining haqiqiy xulqini ko'rsatdi", "Chunki sher terisi juda og'ir edi"],
     javob: 1,
     izoh: "Tashqi qiyofani o'zgartirish aldovni yashirmaydi. Haqiqiy xulq-atvor oxir-oqibat o'zini ko'rsatadi."
+  },
+  {
+    id: "ez-014", mavzu: "ahloq", sarlavha: "Tulki va qarg'a",
+    matn: "Qarg'a daraxt shoxida pishloq ushlab o'tirardi. Tulki uni ko'rib, qushning ovozi juda chiroyli ekan, deb maqtadi. Qarg'a maqtovdan mamnun bo'lib, qo'shiq aytmoqchi bo'lib og'zini ochdi. Pishloq tushib ketdi va tulki uni olib qochdi.",
+    savol: "Qarg'a nima uchun pishloqni yo'qotdi?",
+    variantlar: ["Chunki u tulkining maqtoviga ishonib, og'zini ochdi", "Chunki pishloq juda og'ir edi va shoxdan sirg'alib ketdi", "Chunki u pishloqni tulkiga o'zi berib yubordi"],
+    javob: 0,
+    izoh: "Ortiqcha maqtov ko'pincha biror narsa olish niyatida aytiladi. Gapning yoqimliligiga emas, niyatiga qarash kerak."
   }
 ];
