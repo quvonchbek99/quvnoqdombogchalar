@@ -95,5 +95,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u do'stini xavf ichida tashlab ketdi", "Chunki u ayiqdan qochishni bilmasdi", "Chunki daraxt juda baland edi"],
     javob: 0,
     izoh: "Xavf paytida do'stni tashlab ketish ishonchni yo'qotadi. Haqiqiy do'st qiyin paytda ham yonida bo'ladi."
+  },
+  {
+    id: "ez-013", mavzu: "mantiq", sarlavha: "Eshak va sher terisi",
+    matn: "Eshak sher terisini kiyib olib, o'rmon hayvonlarini qo'rqitdi. Hamma uni sher deb o'yladi. Lekin eshak bir kuni baland ovozda bo'kirib yubordi.",
+    savol: "Eshakning aldovi nima uchun oshkor bo'ldi?",
+    variantlar: ["Chunki u sher terisini yaxshi kiymagan edi", "Chunki u ovoz chiqarib, o'zining haqiqiy xulqini ko'rsatdi", "Chunki sher terisi juda og'ir edi"],
+    javob: 1,
+    izoh: "Tashqi qiyofani o'zgartirish aldovni yashirmaydi. Haqiqiy xulq-atvor oxir-oqibat o'zini ko'rsatadi."
   }
 ];
