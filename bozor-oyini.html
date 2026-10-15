@@ -1,0 +1,727 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bozor O'yini — Kuvonch Academy</title>
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  :root{
+    --bg:#12151b;
+    --panel:#1b212b;
+    --panel-2:#232a36;
+    --line:#323b49;
+    --accent:#f4c430;
+    --accent-ink:#3a2c02;
+    --cobalt:#3b6fe0;
+    --nexia:#e0483b;
+    --text:#f2f1ec;
+    --muted:#8b93a3;
+    --good:#3fbf7f;
+    --bad:#e0483b;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f4f1ea;
+      --panel:#ffffff;
+      --panel-2:#eeebe2;
+      --line:#dcd6c8;
+      --accent-ink:#3a2c02;
+      --text:#1c1f26;
+      --muted:#6b6456;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#f4f1ea;--panel:#ffffff;--panel-2:#eeebe2;--line:#dcd6c8;--accent-ink:#3a2c02;--text:#1c1f26;--muted:#6b6456;
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151b;--panel:#1b212b;--panel-2:#232a36;--line:#323b49;--text:#f2f1ec;--muted:#8b93a3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Manrope',system-ui,sans-serif;padding-inline:16px;padding-block:24px}
+  .wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+  h1,h2,h3{font-family:'Rajdhani',system-ui,sans-serif;text-wrap:balance;margin:0;letter-spacing:.02em}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .flagstrip{height:10px;border-radius:6px;background-image:repeating-conic-gradient(var(--text) 0% 25%, transparent 0% 50%);background-size:16px 16px;opacity:.22}
+  header.top{display:flex;flex-direction:column;gap:8px}
+  header.top .titlerow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  h1{font-size:clamp(28px,5vw,42px);font-weight:700;background:linear-gradient(92deg, var(--accent), var(--good) 45%, var(--cobalt) 85%, var(--accent));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:titleshift 7s ease-in-out infinite}
+  @keyframes titleshift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .sub{color:var(--muted);font-size:15px;max-width:68ch}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .field input,.field select{font:inherit;font-size:16px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel-2);color:var(--text)}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row > *{flex:1;min-width:160px}
+
+  .pick{display:flex;gap:14px;flex-wrap:wrap}
+  .pick-card{flex:1;min-width:150px;border:2px solid var(--line);border-radius:14px;padding:14px;background:var(--panel-2);cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:border-color .15s, transform .15s, box-shadow .2s}
+  .pick-card:hover{transform:translateY(-2px)}
+  .pick-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent)}
+  .pick-card .name{font-family:'Rajdhani';font-weight:700;font-size:17px;display:flex;align-items:center;gap:6px}
+  .pick-card .tag{font-size:12px;color:var(--muted);line-height:1.4}
+
+  .btn{font:inherit;font-weight:800;font-size:15px;letter-spacing:.02em;padding:13px 22px;border-radius:12px;border:none;cursor:pointer;background:var(--accent);color:var(--accent-ink);transition:transform .1s, filter .15s, box-shadow .2s;box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent)}
+  .btn:hover{filter:brightness(1.06)}
+  .btn:active{transform:scale(.98)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text);box-shadow:none}
+  .btn.pulse{animation:btnpulse 2.2s ease-in-out infinite}
+  @keyframes btnpulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent)}50%{box-shadow:0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent)}}
+
+  .rules{color:var(--muted);font-size:13.5px;line-height:1.6}
+  .rules b{color:var(--text)}
+
+  /* --- game screen --- */
+  .hud{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .hud-group{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .stat{display:flex;flex-direction:column;gap:2px}
+  .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+  .stat .v{font-family:'JetBrains Mono';font-weight:700;font-size:20px;font-variant-numeric:tabular-nums}
+  .hearts{display:flex;gap:4px;font-size:18px;letter-spacing:2px}
+  .heart-lost{opacity:.25}
+
+  .needs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+  .need{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .need .nh{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;margin-bottom:6px}
+  .need .nh .pct{font-family:'JetBrains Mono'}
+  .need-bar{height:10px;border-radius:99px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+  .need-bar i{display:block;height:100%;border-radius:99px;transition:width .35s ease}
+  .need.warn .need-bar i{background:var(--bad)!important}
+  .need.ok .need-bar i{background:var(--good)}
+
+  .market{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .shop{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .shop h4{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:16px}
+  .shop .items{display:flex;flex-direction:column;gap:8px}
+  .item-btn{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:var(--text);font:inherit;cursor:pointer;transition:border-color .15s, transform .1s}
+  .item-btn:hover{border-color:var(--accent)}
+  .item-btn:active{transform:scale(.98)}
+  .item-btn:disabled{opacity:.4;cursor:not-allowed}
+  .item-btn .iname{font-weight:700;font-size:13.5px}
+  .item-btn .ieff{font-size:11px;color:var(--muted)}
+  .item-btn .iprice{font-family:'JetBrains Mono';font-weight:700;color:var(--accent-ink);background:var(--accent);padding:3px 8px;border-radius:999px;font-size:12.5px;white-space:nowrap}
+
+  /* --- question overlay --- */
+  .q-bg{position:fixed;inset:0;z-index:2000;background:rgba(3,7,16,.72);display:none;align-items:center;justify-content:center;padding:16px}
+  .q-bg.on{display:flex}
+  .q-card{width:min(460px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .q-card h3{margin-bottom:8px}
+  .q-card .qtext{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:14px}
+  .q-card .qtext b{color:var(--text)}
+  .q-answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .q-answers button{font:inherit;font-weight:700;font-family:'JetBrains Mono';padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);cursor:pointer}
+  .q-answers button:hover{border-color:var(--accent)}
+  .q-msg{min-height:1.3em;font-size:13px;font-weight:700;margin-top:8px}
+  .q-msg.good{color:var(--good)}
+  .q-msg.bad{color:var(--bad)}
+
+  .flash{position:fixed;left:50%;top:18%;transform:translate(-50%,-10px);z-index:2500;font-family:'Rajdhani';font-weight:700;font-size:22px;padding:10px 20px;border-radius:14px;background:var(--panel);border:1px solid var(--line);opacity:0;pointer-events:none;box-shadow:0 14px 40px rgba(0,0,0,.4)}
+  .flash.show{animation:flashpop 1.5s ease-out}
+  @keyframes flashpop{0%{opacity:0;transform:translate(-50%,-26px)}12%{opacity:1;transform:translate(-50%,0)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-10px)}}
+  .flash.good{color:var(--good);border-color:var(--good)}
+  .flash.bad{color:var(--bad);border-color:var(--bad)}
+
+  .mute-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+  .mute-btn:hover{background:var(--line)}
+
+  /* --- gameover --- */
+  .grade-badge{display:inline-flex;align-items:center;justify-content:center;width:88px;height:88px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-family:'Rajdhani';font-weight:700;font-size:44px;flex-shrink:0;position:relative;overflow:hidden;box-shadow:0 0 26px color-mix(in srgb, var(--accent) 55%, transparent)}
+  .grade-badge::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);background-size:220% 100%;animation:shine 2.6s ease-in-out infinite}
+  @keyframes shine{0%{background-position:140% 0}100%{background-position:-40% 0}}
+  .result-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;flex:1}
+  .rmini .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .rmini .v{font-family:'JetBrains Mono';font-size:22px;font-weight:700}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  td.num{font-family:'JetBrains Mono';font-variant-numeric:tabular-nums}
+  .board-wrap{overflow-x:auto}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700}
+  .pill.g5{background:color-mix(in srgb, var(--good) 22%, transparent);color:var(--good)}
+  .pill.g4{background:color-mix(in srgb, var(--cobalt) 22%, transparent);color:var(--cobalt)}
+  .pill.g3{background:color-mix(in srgb, var(--accent) 30%, transparent);color:var(--accent-ink)}
+  .pill.g2{background:color-mix(in srgb, var(--bad) 22%, transparent);color:var(--bad)}
+  .filterbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+  .filterbar select,.filterbar input{font:inherit;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--text)}
+  .empty{color:var(--muted);font-size:14px;padding:14px 0}
+  [hidden]{display:none!important}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a href="mashqlar.html" style="color:var(--muted);text-decoration:none;font-weight:700;font-size:14px">← Kuvonch Academy — Mavzular</a>
+    <div class="flagstrip"></div>
+    <div class="titlerow"><div class="eyebrow">Matematika &middot; Foizlar va byudjet</div></div>
+    <h1>🛒 Bozor O'yini</h1>
+    <p class="sub">Pul miqdorini tanlang va bozorga tushing — bilim, ovqat, energiya va moddiy ehtiyojlar o'rtasida muvozanat saqlab, xarid qiling. Har xariddan oldin yangi balansingizni o'zingiz hisoblaysiz!</p>
+  </header>
+
+  <!-- START SCREEN -->
+  <section id="screen-start" class="panel">
+    <h3 style="margin-bottom:14px">O'yinga tayyorlanish</h3>
+    <div class="row" style="margin-bottom:16px">
+      <div class="field">
+        <label for="inp-name">Ismingiz</label>
+        <input id="inp-name" type="text" placeholder="Masalan: Aziza Karimova" maxlength="40">
+      </div>
+      <div class="field">
+        <label for="inp-group">Guruhingiz</label>
+        <input id="inp-group" type="text" list="group-options" placeholder="Masalan: 05-25" maxlength="24" autocomplete="off">
+        <datalist id="group-options"></datalist>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px">
+      <label>Boshlang'ich byudjet</label>
+      <div class="pick" id="budget-pick">
+        <div class="pick-card" data-budget="150000" tabindex="0">
+          <div class="name">💵 150 000 so'm</div>
+          <div class="tag">Tejab-tergab xarid qilishga to'g'ri keladi</div>
+        </div>
+        <div class="pick-card sel" data-budget="300000" tabindex="0">
+          <div class="name">💶 300 000 so'm</div>
+          <div class="tag">Muvozanatli — standart byudjet</div>
+        </div>
+        <div class="pick-card" data-budget="500000" tabindex="0">
+          <div class="name">💷 500 000 so'm</div>
+          <div class="tag">Erkinroq xarid qilish imkoni</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:16px">
+      <label>Javob rejimi</label>
+      <div class="pick" id="mode-pick">
+        <div class="pick-card sel" data-mode="erkin" tabindex="0">
+          <div class="name">✍️ Erkin javob</div>
+          <div class="tag">Yangi balansni o'zingiz hisoblab, raqamini yozasiz</div>
+        </div>
+        <div class="pick-card" data-mode="tez" tabindex="0">
+          <div class="name">⚡ Tezkor (4 variant)</div>
+          <div class="tag">To'g'ri javobni 4 ta variantdan tanlaysiz</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules panel" style="background:var(--panel-2);border:1px solid var(--line);margin-bottom:16px">
+      <b>Qoidalar:</b> Bozorda <b>4 ta toifa</b> bor — 📚 Bilim, 🍎 Ovqat, ⚡ Energiya, 🏠 Moddiy ehtiyojlar.
+      Har bir toifaning foizi bor (0–100%). <b>Bilim</b> sotib olinganda +50% qo'shiladi va hech qachon kamaymaydi.
+      Boshqa toifalar har kuni (har xariddan keyin) biroz kamayib boradi — shuning uchun hammasidan muvozanatli xarid qiling.
+      Agar biror toifa <b>100% dan oshib ketsa</b> — bu <b>haddan tashqari ko'payish</b> hisoblanadi va siz <b>kasal bo'lasiz</b> (davolanish uchun pul ketadi, foiz pasayadi).
+      <b>3 marta</b> kasal bo'lsangiz — o'yin erta tugaydi. Har xariddan oldin <b>yangi balansni hisoblab</b> javob berasiz — to'g'ri hisoblasangiz xarid muvaffaqiyatli bo'ladi.
+      Jami <b>10 kun</b> davom etadi, so'ng natijangiz elektron bahoga aylanadi.
+    </div>
+
+    <button id="btn-start" class="btn pulse">Bozorga tushish 🛒</button>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="screen-game" class="panel" hidden>
+    <div class="hud" style="margin-bottom:10px">
+      <div class="hud-group">
+        <div class="stat"><div class="k">Balans</div><div class="v" id="hud-balance">0 so'm</div></div>
+        <div class="stat"><div class="k">Kun</div><div class="v" id="hud-day">1/10</div></div>
+        <div class="stat"><div class="k">To'g'ri</div><div class="v" id="hud-correct">0</div></div>
+      </div>
+      <div class="hud-group">
+        <div class="stat">
+          <div class="k">Sog'liq</div>
+          <div class="hearts" id="hud-hearts"></div>
+        </div>
+        <button id="btn-mute" class="mute-btn" title="Ovozni o'chirish/yoqish">🔊</button>
+      </div>
+    </div>
+
+    <div class="needs" id="needs"></div>
+
+    <div class="market" id="market"></div>
+  </section>
+
+  <!-- GAME OVER SCREEN -->
+  <section id="screen-over" class="panel" hidden>
+    <h3 style="margin-bottom:16px" id="over-title">Bozor kuni yakunlandi!</h3>
+    <div class="result-row" style="margin-bottom:18px">
+      <div class="grade-badge" id="over-grade">5</div>
+      <div class="result-stats">
+        <div class="rmini"><div class="k">To'g'ri hisob</div><div class="v" id="over-score">0</div></div>
+        <div class="rmini"><div class="k">Aniqlik</div><div class="v" id="over-acc">0%</div></div>
+        <div class="rmini"><div class="k">Yakuniy balans</div><div class="v" id="over-balance">0</div></div>
+        <div class="rmini"><div class="k">O'tilgan kun</div><div class="v" id="over-day">0</div></div>
+        <div class="rmini"><div class="k">Kasal bo'lish</div><div class="v" id="over-sick">0</div></div>
+      </div>
+    </div>
+    <div class="row">
+      <button id="btn-save" class="btn">Natijani jadvalga yozish ✅</button>
+      <button id="btn-again" class="btn ghost">Qayta o'ynash</button>
+    </div>
+    <p class="hint" id="save-status" style="text-align:left;color:var(--muted);font-size:12.5px"></p>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section class="panel">
+    <div class="filterbar">
+      <h3 style="margin-right:auto">Natijalar jadvali</h3>
+      <input id="filter-group" type="text" list="group-options" placeholder="Guruh bo'yicha filtr (bo'sh = hammasi)" autocomplete="off">
+      <button id="btn-csv" class="btn ghost" type="button" style="padding:8px 12px;font-size:13px">⬇ Excel (CSV)</button>
+      <button id="btn-clear" class="btn ghost" type="button" style="padding:8px 12px;font-size:13px">🗑 Tozalash</button>
+    </div>
+    <div class="board-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Ism</th><th>Guruh</th><th>Byudjet</th><th>To'g'ri</th><th>Aniqlik</th><th>Baho</th></tr></thead>
+        <tbody id="board-body"></tbody>
+      </table>
+      <p class="empty" id="board-empty" hidden>Hali natijalar yo'q. Birinchi bo'lib bozorga tushing!</p>
+    </div>
+  </section>
+</div>
+
+<!-- QUESTION OVERLAY -->
+<div class="q-bg" id="q-bg">
+  <div class="q-card">
+    <h3 id="q-title">🧮 Hisoblang</h3>
+    <div class="qtext" id="q-text"></div>
+    <div id="q-free">
+      <div class="field" style="margin-bottom:10px">
+        <label for="q-input">Yangi balans (so'm)</label>
+        <input id="q-input" type="number" inputmode="numeric" placeholder="Masalan: 284000">
+      </div>
+      <button id="q-check" class="btn" style="width:100%">Javobni tekshirish</button>
+    </div>
+    <div class="q-answers" id="q-answers" hidden></div>
+    <div class="q-msg" id="q-msg"></div>
+  </div>
+</div>
+
+<div class="flash" id="flash"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  function fmt(n){ return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+  function randInt(min,max){ return min + Math.floor(Math.random()*(max-min+1)); }
+
+  // ---------- bozor katalogi ----------
+  const CATALOG = {
+    bilim: {
+      label: "📚 Bilim", color: "var(--cobalt)", decay: 0, flat: 50,
+      items: [
+        { name:"Kitob", emoji:"📖", price:18000 },
+        { name:"Onlayn kurs", emoji:"🎓", price:35000 },
+        { name:"Repetitor darsi", emoji:"👨‍🏫", price:45000 },
+        { name:"Test to'plami", emoji:"📝", price:22000 }
+      ]
+    },
+    ovqat: {
+      label: "🍎 Ovqat", color: "var(--good)", decay: 8,
+      items: [
+        { name:"Non-sut", emoji:"🍞", price:6000, eff:15 },
+        { name:"Tushlik", emoji:"🍲", price:14000, eff:30 },
+        { name:"To'yimli ovqat", emoji:"🍗", price:22000, eff:45 },
+        { name:"Shirinlik", emoji:"🍰", price:9000, eff:20 }
+      ]
+    },
+    energiya: {
+      label: "⚡ Energiya", color: "var(--accent)", decay: 6,
+      items: [
+        { name:"Dam olish", emoji:"💤", price:5000, eff:20 },
+        { name:"Sport mashg'uloti", emoji:"🚴", price:16000, eff:35 },
+        { name:"Dam olish o'yini", emoji:"🎮", price:10000, eff:22 },
+        { name:"Basseyn", emoji:"🏊", price:20000, eff:40 }
+      ]
+    },
+    moddiy: {
+      label: "🏠 Moddiy ehtiyoj", color: "var(--nexia)", decay: 4,
+      items: [
+        { name:"Transport chipta", emoji:"🚌", price:6000, eff:18 },
+        { name:"Kichik buyum", emoji:"🧦", price:10000, eff:15 },
+        { name:"Kiyim", emoji:"👕", price:28000, eff:30 },
+        { name:"Uy-ro'zg'or", emoji:"🏠", price:38000, eff:35 }
+      ]
+    }
+  };
+  const CAT_ORDER = ["bilim","ovqat","energiya","moddiy"];
+  const ROUNDS = 10;
+  const MAX_SICK = 3;
+  const SICK_COST = 15000;
+  const SICK_RESET = 55;
+
+  const GROUP_OPTIONS = (function(){
+    const out = [];
+    ["25","26"].forEach(yy=>{ for(let i=1;i<=10;i++){ out.push(String(i).padStart(2,"0")+"-"+yy); } });
+    return out;
+  })();
+
+  let state = {
+    name:"", group:"", mode:"erkin", budget:300000,
+    balance:300000, day:0, correct:0, attempts:0, sick:0, running:false,
+    stats:{ bilim:50, ovqat:50, energiya:50, moddiy:50 },
+    pending:null
+  };
+
+  const els = {
+    startScreen: document.getElementById("screen-start"),
+    gameScreen: document.getElementById("screen-game"),
+    overScreen: document.getElementById("screen-over"),
+    name: document.getElementById("inp-name"),
+    group: document.getElementById("inp-group"),
+    groupOptions: document.getElementById("group-options"),
+    btnStart: document.getElementById("btn-start"),
+    hudBalance: document.getElementById("hud-balance"),
+    hudDay: document.getElementById("hud-day"),
+    hudCorrect: document.getElementById("hud-correct"),
+    hudHearts: document.getElementById("hud-hearts"),
+    needs: document.getElementById("needs"),
+    market: document.getElementById("market"),
+    overTitle: document.getElementById("over-title"),
+    overGrade: document.getElementById("over-grade"),
+    overScore: document.getElementById("over-score"),
+    overAcc: document.getElementById("over-acc"),
+    overBalance: document.getElementById("over-balance"),
+    overDay: document.getElementById("over-day"),
+    overSick: document.getElementById("over-sick"),
+    btnSave: document.getElementById("btn-save"),
+    btnAgain: document.getElementById("btn-again"),
+    saveStatus: document.getElementById("save-status"),
+    boardBody: document.getElementById("board-body"),
+    boardEmpty: document.getElementById("board-empty"),
+    filterGroup: document.getElementById("filter-group"),
+    btnMute: document.getElementById("btn-mute"),
+    qBg: document.getElementById("q-bg"),
+    qTitle: document.getElementById("q-title"),
+    qText: document.getElementById("q-text"),
+    qFree: document.getElementById("q-free"),
+    qInput: document.getElementById("q-input"),
+    qCheck: document.getElementById("q-check"),
+    qAnswers: document.getElementById("q-answers"),
+    qMsg: document.getElementById("q-msg"),
+    flash: document.getElementById("flash")
+  };
+
+  GROUP_OPTIONS.forEach(g=>{ const o=document.createElement("option"); o.value=g; els.groupOptions.appendChild(o); });
+
+  document.querySelectorAll("#budget-pick .pick-card").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      document.querySelectorAll("#budget-pick .pick-card").forEach(c=>c.classList.remove("sel"));
+      card.classList.add("sel");
+      state.budget = parseInt(card.dataset.budget,10);
+    });
+  });
+  document.querySelectorAll("#mode-pick .pick-card").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      document.querySelectorAll("#mode-pick .pick-card").forEach(c=>c.classList.remove("sel"));
+      card.classList.add("sel");
+      state.mode = card.dataset.mode;
+    });
+  });
+
+  // ================= AUDIO (lightweight) =================
+  let audioCtx=null, masterGain=null, muted=false;
+  function ensureAudio(){
+    if(audioCtx) return;
+    try{
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      masterGain = audioCtx.createGain(); masterGain.gain.value = muted?0:0.6; masterGain.connect(audioCtx.destination);
+    }catch(e){ audioCtx=null; }
+  }
+  function beep(freq,dur,type,delay,peak){
+    if(!audioCtx) return;
+    const t0 = audioCtx.currentTime + (delay||0);
+    const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+    osc.type = type||"sine"; osc.frequency.setValueAtTime(freq,t0);
+    g.gain.setValueAtTime(0.0001,t0);
+    g.gain.linearRampToValueAtTime(peak||0.3, t0+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+    osc.connect(g); g.connect(masterGain);
+    osc.start(t0); osc.stop(t0+dur+0.03);
+  }
+  function sfxBuy(){ beep(420,0.08,"square",0,0.22); }
+  function sfxCorrect(){ beep(660,0.1,"triangle",0,0.38); beep(880,0.14,"triangle",0.06,0.32); }
+  function sfxWrong(){ beep(180,0.22,"sawtooth",0,0.38); beep(110,0.26,"square",0.05,0.3); }
+  function sfxSick(){ beep(140,0.3,"sawtooth",0,0.4); beep(90,0.4,"sawtooth",0.1,0.36); }
+  function sfxWin(){ [784,988,1175,1568].forEach((f,i)=>beep(f,0.2,"triangle",i*0.12,0.38)); }
+  function sfxLose(){ [392,349,293,220].forEach((f,i)=>beep(f,0.26,"sawtooth",i*0.14,0.3)); }
+  function setMuted(m){ muted=m; if(masterGain) masterGain.gain.setTargetAtTime(muted?0:0.6, audioCtx.currentTime, 0.05); els.btnMute.textContent = muted?"🔇":"🔊"; }
+  els.btnMute.addEventListener("click", ()=>{ ensureAudio(); setMuted(!muted); });
+
+  function flashMsg(kind,text){
+    els.flash.textContent = text;
+    els.flash.className = "flash show " + kind;
+    clearTimeout(flashMsg._t);
+    flashMsg._t = setTimeout(()=>{ els.flash.className = "flash " + kind; }, 1500);
+  }
+
+  function renderHearts(){
+    els.hudHearts.innerHTML = "";
+    for(let i=0;i<MAX_SICK;i++){
+      const span = document.createElement("span");
+      span.textContent = "❤️";
+      if(i < state.sick) span.classList.add("heart-lost");
+      els.hudHearts.appendChild(span);
+    }
+  }
+
+  function renderNeeds(){
+    els.needs.innerHTML = "";
+    CAT_ORDER.forEach(key=>{
+      const cat = CATALOG[key];
+      const val = Math.max(0, Math.min(100, state.stats[key]));
+      const div = document.createElement("div");
+      div.className = "need " + (val < 25 ? "warn" : "ok");
+      div.innerHTML = '<div class="nh"><span>'+cat.label+'</span><span class="pct">'+Math.round(val)+'%</span></div>'+
+        '<div class="need-bar"><i style="width:'+val+'%;background:'+cat.color+'"></i></div>';
+      els.needs.appendChild(div);
+    });
+  }
+
+  function cheapestAffordable(){
+    let min = Infinity;
+    CAT_ORDER.forEach(key=>CATALOG[key].items.forEach(it=>{ if(it.price < min) min = it.price; }));
+    return min;
+  }
+
+  function renderMarket(){
+    els.market.innerHTML = "";
+    CAT_ORDER.forEach(key=>{
+      const cat = CATALOG[key];
+      const shop = document.createElement("div");
+      shop.className = "shop";
+      shop.innerHTML = '<h4>'+cat.label+'</h4><div class="items"></div>';
+      const itemsWrap = shop.querySelector(".items");
+      cat.items.forEach(it=>{
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "item-btn";
+        const effTxt = key==="bilim" ? "+50% bilim" : ("+"+it.eff+"% "+cat.label.replace(/^\S+\s/,""));
+        btn.innerHTML = '<span><span class="iname">'+it.emoji+' '+it.name+'</span><br><span class="ieff">'+effTxt+'</span></span><span class="iprice">'+fmt(it.price)+' so\'m</span>';
+        if(it.price > state.balance) btn.disabled = true;
+        btn.addEventListener("click", ()=> openQuestion(key, it));
+        itemsWrap.appendChild(btn);
+      });
+      els.market.appendChild(shop);
+    });
+  }
+
+  function updateHud(){
+    els.hudBalance.textContent = fmt(state.balance) + " so'm";
+    els.hudDay.textContent = (state.day+1) + "/" + ROUNDS;
+    els.hudCorrect.textContent = state.correct;
+    renderHearts();
+    renderNeeds();
+    renderMarket();
+  }
+
+  // ---------- savol (xarid tasdig'i) ----------
+  function openQuestion(catKey, item){
+    if(!state.running || state.pending) return;
+    if(item.price > state.balance){ flashMsg("bad","Pul yetarli emas!"); return; }
+    sfxBuy();
+    const correct = state.balance - item.price;
+    state.pending = { catKey, item, correct };
+    els.qText.innerHTML = 'Siz <b>'+item.emoji+' '+item.name+'</b>ni <b>'+fmt(item.price)+' so\'m</b>ga sotib olyapsiz.<br>Hozirgi balans: <b>'+fmt(state.balance)+' so\'m</b>.<br>Yangi balansingiz nechchi bo\'ladi?';
+    els.qMsg.textContent = ""; els.qMsg.className = "q-msg";
+    if(state.mode === "erkin"){
+      els.qFree.hidden = false; els.qAnswers.hidden = true;
+      els.qInput.value = "";
+      els.qBg.classList.add("on");
+      setTimeout(()=>els.qInput.focus(), 60);
+    } else {
+      els.qFree.hidden = true; els.qAnswers.hidden = false;
+      const opts = buildChoices(state.balance, item.price, correct);
+      els.qAnswers.innerHTML = "";
+      opts.forEach(v=>{
+        const b = document.createElement("button");
+        b.type = "button"; b.textContent = fmt(v) + " so'm";
+        b.addEventListener("click", ()=> answerQuestion(v));
+        els.qAnswers.appendChild(b);
+      });
+      els.qBg.classList.add("on");
+    }
+  }
+
+  function buildChoices(balance, price, correct){
+    // tez-tez uchraydigan xato hisoblar: ayirishni unutish, qo'shib yuborish, ikki marta ayirish
+    const set = new Set([correct]);
+    [balance, balance+price, balance-price*2].forEach(c=>{ if(c>=0 && !set.has(c) && set.size<4) set.add(c); });
+    let guard=0;
+    while(set.size<4 && guard<40){
+      guard++;
+      const delta = randInt(500,5000) * (Math.random()<0.5?-1:1);
+      const v = Math.max(0, correct+delta);
+      if(!set.has(v)) set.add(v);
+    }
+    const arr = Array.from(set);
+    for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+    return arr;
+  }
+
+  els.qCheck.addEventListener("click", ()=>{
+    const v = parseFloat(els.qInput.value);
+    if(isNaN(v)){ els.qMsg.textContent = "Raqam kiriting."; els.qMsg.className="q-msg bad"; return; }
+    answerQuestion(v);
+  });
+  els.qInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter") els.qCheck.click(); });
+
+  function answerQuestion(value){
+    const p = state.pending; if(!p) return;
+    state.attempts++;
+    const ok = Math.round(value) === Math.round(p.correct);
+    if(ok){
+      state.correct++;
+      els.qMsg.textContent = "✅ To'g'ri!"; els.qMsg.className = "q-msg good";
+      sfxCorrect();
+    } else {
+      els.qMsg.textContent = "❌ Noto'g'ri. To'g'ri javob: " + fmt(p.correct) + " so'm"; els.qMsg.className = "q-msg bad";
+      sfxWrong();
+    }
+    setTimeout(()=>{ els.qBg.classList.remove("on"); applyPurchase(p); state.pending = null; }, ok ? 450 : 1200);
+  }
+
+  function applyPurchase(p){
+    state.balance = p.correct;
+    // kun o'tishi bilan ehtiyoj toifalari (bilimdan boshqa) biroz kamayadi
+    CAT_ORDER.forEach(key=>{
+      if(key === "bilim") return;
+      state.stats[key] = Math.max(0, state.stats[key] - CATALOG[key].decay);
+    });
+    // tanlangan toifaga samarani qo'shish
+    if(p.catKey === "bilim"){
+      state.stats.bilim = Math.min(100, state.stats.bilim + CATALOG.bilim.flat);
+    } else {
+      const next = state.stats[p.catKey] + p.item.eff;
+      if(next > 100){
+        state.sick++;
+        state.balance = Math.max(0, state.balance - SICK_COST);
+        state.stats[p.catKey] = SICK_RESET;
+        flashMsg("bad", "🤒 Haddan tashqari ko'paydi — kasal bo'ldingiz! -"+fmt(SICK_COST)+" so'm davolanishga");
+        sfxSick();
+      } else {
+        state.stats[p.catKey] = next;
+      }
+    }
+    state.day++;
+    checkEnd();
+  }
+
+  function checkEnd(){
+    if(state.day >= ROUNDS){ endGame("full"); return; }
+    if(state.sick >= MAX_SICK){ endGame("sick"); return; }
+    if(state.balance < cheapestAffordable()){ endGame("broke"); return; }
+    updateHud();
+  }
+
+  // ---------- flow ----------
+  els.btnStart.addEventListener("click", ()=>{
+    const nm = els.name.value.trim();
+    if(!nm){ els.name.focus(); els.name.style.borderColor = "var(--bad)"; return; }
+    const grp = els.group.value.trim();
+    if(!grp){ els.group.focus(); els.group.style.borderColor = "var(--bad)"; return; }
+    ensureAudio();
+    state.name = nm; state.group = grp;
+    state.balance = state.budget; state.day = 0; state.correct = 0; state.attempts = 0; state.sick = 0;
+    state.stats = { bilim:50, ovqat:50, energiya:50, moddiy:50 };
+    state.pending = null; state.running = true;
+    els.startScreen.hidden = true; els.overScreen.hidden = true; els.gameScreen.hidden = false;
+    setMuted(false);
+    updateHud();
+  });
+
+  function endGame(reason){
+    state.running = false;
+    els.gameScreen.hidden = true; els.overScreen.hidden = false;
+    const acc = state.attempts ? Math.round(state.correct/state.attempts*100) : 0;
+    let grade;
+    if(acc>=90) grade=5; else if(acc>=75) grade=4; else if(acc>=60) grade=3; else grade=2;
+    if(reason==="sick"){ els.overTitle.textContent = "Ko'p marta kasal bo'ldingiz — bozor kuni to'xtadi"; sfxLose(); }
+    else if(reason==="broke"){ els.overTitle.textContent = "Pulingiz tugadi — bozor kuni yakunlandi"; sfxLose(); }
+    else { els.overTitle.textContent = "10 kunlik bozor yakunlandi! 🎉"; sfxWin(); }
+    els.overGrade.textContent = grade;
+    els.overScore.textContent = state.correct;
+    els.overAcc.textContent = acc + "%";
+    els.overBalance.textContent = fmt(state.balance) + " so'm";
+    els.overDay.textContent = state.day + "/" + ROUNDS;
+    els.overSick.textContent = state.sick;
+    els.saveStatus.textContent = "";
+    els.btnSave.disabled = false;
+    els.btnSave.dataset.grade = grade;
+    els.btnSave.dataset.acc = acc;
+  }
+
+  els.btnAgain.addEventListener("click", ()=>{ els.overScreen.hidden = true; els.startScreen.hidden = false; });
+
+  // ---------- natijalar jadvali ----------
+  const LS_KEY = "bozorOyini.natijalar.v1";
+  function loadResults(){ try{ const r = JSON.parse(localStorage.getItem(LS_KEY) || "[]"); return Array.isArray(r)?r:[]; }catch(e){ return []; } }
+  function saveResults(list){ try{ localStorage.setItem(LS_KEY, JSON.stringify(list.slice(-500))); return true; }catch(e){ return false; } }
+  function gradePill(g){ const cls = g>=5?"g5":g===4?"g4":g===3?"g3":"g2"; return '<span class="pill '+cls+'">'+g+'</span>'; }
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+  function renderBoard(){
+    const docs = loadResults();
+    const filter = els.filterGroup.value.trim().toLowerCase();
+    const rows = docs.filter(d=>!filter || String(d.guruh||"").toLowerCase()===filter)
+      .sort((a,b)=> (b.togri||0)-(a.togri||0) || (b.aniqlik||0)-(a.aniqlik||0)).slice(0,100);
+    els.boardBody.innerHTML = "";
+    if(!rows.length){ els.boardEmpty.hidden=false; return; }
+    els.boardEmpty.hidden = true;
+    const medals = ["🥇","🥈","🥉"];
+    rows.forEach((d,i)=>{
+      const tr = document.createElement("tr");
+      const acc = d.aniqlik!=null ? d.aniqlik+"%" : "—";
+      const rankCell = i<3 ? "<span class='medal'>"+medals[i]+"</span>" : String(i+1);
+      tr.innerHTML = "<td class='num'>"+rankCell+"</td>"+
+        "<td>"+escapeHtml(d.ism||"—")+"</td>"+
+        "<td>"+escapeHtml(d.guruh||"—")+"</td>"+
+        "<td class='num'>"+fmt(d.budjet||0)+"</td>"+
+        "<td class='num'>"+(d.togri!=null?d.togri:0)+"</td>"+
+        "<td class='num'>"+acc+"</td>"+
+        "<td>"+gradePill(d.baho||2)+"</td>";
+      els.boardBody.appendChild(tr);
+    });
+  }
+  els.filterGroup.addEventListener("input", renderBoard);
+
+  els.btnSave.addEventListener("click", ()=>{
+    els.btnSave.disabled = true;
+    const grade = parseInt(els.btnSave.dataset.grade,10);
+    const acc = parseInt(els.btnSave.dataset.acc,10);
+    const list = loadResults();
+    list.push({
+      ism: state.name, guruh: state.group, budjet: state.budget, mode: state.mode,
+      togri: state.correct, aniqlik: acc, baho: grade, balans: state.balance,
+      kun: state.day, kasal: state.sick, vaqt: Date.now()
+    });
+    if(saveResults(list)){
+      els.saveStatus.textContent = "Natija jadvalga yozildi ✅ (shu kompyuter/telefonda saqlanadi)";
+      renderBoard();
+    } else {
+      els.saveStatus.textContent = "Brauzer natijani saqlashga ruxsat bermadi (maxfiy oyna?). Bahoni daftarga yozib qo'ying.";
+      els.btnSave.disabled = false;
+    }
+  });
+
+  document.getElementById("btn-csv").addEventListener("click", ()=>{
+    const rows = loadResults();
+    if(!rows.length){ alert("Hali natijalar yo'q."); return; }
+    const head = ["Ism","Guruh","Byudjet","Rejim","To'g'ri","Aniqlik %","Baho","Yakuniy balans","Kun","Kasal","Sana"];
+    const q = v => '"' + String(v==null?"":v).replace(/"/g,'""') + '"';
+    const lines = [head.map(q).join(";")].concat(rows.map(d=>[d.ism,d.guruh,d.budjet,d.mode,d.togri,d.aniqlik,d.baho,d.balans,d.kun,d.kasal,new Date(d.vaqt).toLocaleString("uz-UZ")].map(q).join(";")));
+    const blob = new Blob(["﻿"+lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "bozor-oyini-natijalar.csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  });
+  document.getElementById("btn-clear").addEventListener("click", ()=>{
+    if(!confirm("Shu qurilmadagi barcha natijalar o'chirilsinmi?")) return;
+    saveResults([]); renderBoard();
+  });
+
+  renderBoard();
+})();
+</script>
+<script src="akkount.js"></script>
+
+</body></html>
