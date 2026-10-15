@@ -116,6 +116,14 @@
   var topic = "hammasi", q = null, sel = -1, answered = false;
   var bal = START, okN = 0, all = 0, streak = 0;
   var bought = {}, invAmt = 0, pending = 0, invChoice = 0;
+  var KEY = "ka-bozor-v1";
+  function saveState() { try { localStorage.setItem(KEY, JSON.stringify({ bal: bal, bought: bought, okN: okN, all: all, streak: streak, pending: pending })); } catch (e) {} }
+  function loadState() {
+    try { var d = JSON.parse(localStorage.getItem(KEY) || "null"); if (!d) return;
+      bal = typeof d.bal === "number" ? d.bal : START; bought = d.bought || {};
+      okN = d.okN || 0; all = d.all || 0; streak = d.streak || 0; pending = d.pending || 0;
+    } catch (e) {}
+  }
 
   function r(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
@@ -210,6 +218,7 @@
   }
 
   function refresh() {
+    saveState();
     $("bal").textContent = fmt(bal);
     $("ok").textContent = okN; $("all").textContent = all; $("streak").textContent = streak;
     $("invState").textContent = pending ? "Investitsiya: " + fmt(pending) + " — keyingi savolga javobdan keyin hisoblanadi." : "Investitsiya yo'q.";
@@ -254,6 +263,7 @@
   $("btnNext").onclick = next;
   $("btnInvest").onclick = invest;
   invChoice = INV_OPTS[0];
+  loadState();
   renderChips(); renderInvChips(); next();
 })();
 </script>
