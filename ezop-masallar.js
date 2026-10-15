@@ -111,5 +111,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u tulkining maqtoviga ishonib, og'zini ochdi", "Chunki pishloq juda og'ir edi va shoxdan sirg'alib ketdi", "Chunki u pishloqni tulkiga o'zi berib yubordi"],
     javob: 0,
     izoh: "Ortiqcha maqtov ko'pincha biror narsa olish niyatida aytiladi. Gapning yoqimliligiga emas, niyatiga qarash kerak."
+  },
+  {
+    id: "ez-015", mavzu: "hamkorlik", sarlavha: "Sichqonlar va mushuk",
+    matn: "Sichqonlar mushukdan doim qochib yurishdan charchashdi. Ular mushukning bo'yniga qo'ng'iroq bog'lasa, uning kelishini eshitib, oldindan qochish mumkin, deb reja tuzishdi. Hamma reja yaxshi ekaniga rozi bo'ldi, lekin kim qo'ng'iroqni mushukka bog'lashini so'rashganda, hech kim qo'l ko'tarmadi.",
+    savol: "Sichqonlar nima uchun hali ham xavf ostida qoldi?",
+    variantlar: ["Chunki ularning rejasi yomon edi", "Chunki reja bor edi, lekin uni amalga oshiradigan kishi chiqmadi", "Chunki mushuk allaqachon uxlab qolgan edi"],
+    javob: 1,
+    izoh: "Reja qanchalik yaxshi bo'lmasin, uni bajaradigan kishi bo'lmasa, natija chiqmaydi. Har bir fikr uchun mas'uliyat olish kerak."
   }
 ];
