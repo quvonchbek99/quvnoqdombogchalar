@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bozor o'yini — savdo-sotiq | Kuvonch Academy</title>
+<meta name="description" content="Bozorda savdo qiling: foyda, chegirma va foiz masalalarini yechib, tangalar to'plang. Kuvonch Academy.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<style>
+  *{box-sizing:border-box}
+  :root{--bg:#0b1220;--panel:#0e1628;--line:#243252;--txt:#eef2ff;--mut:#9fb0d0;--acc:#7c9bff;--ok:#5ee6c7;--bad:#ff7a8a;--warn:#ffd479}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--txt);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:720px;margin:0 auto;padding:22px 16px 60px}
+  a.back{color:var(--acc);text-decoration:none;font-weight:700;font-size:14px}
+  h1{font-size:clamp(22px,5.5vw,30px);margin:12px 0 4px}
+  .sub{color:var(--mut);font-size:14.5px;margin:0 0 16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:#111a2e;border:1px solid var(--line);color:var(--txt);border-radius:999px;padding:7px 12px;font:600 13px/1 inherit;cursor:pointer}
+  .chip.on{border-color:var(--acc);background:#1a2a52}
+  .stat{display:flex;flex-wrap:wrap;gap:10px;color:var(--mut);font-size:14px}
+  .stat b{color:var(--warn)}
+  .tag{display:inline-block;font:700 12px/1 inherit;color:var(--warn);text-transform:uppercase;letter-spacing:.05em}
+  .prod{font-size:18px;font-weight:700;margin:10px 0 6px}
+  .txt{font-size:17px;margin:4px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#111a2e;border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;color:var(--txt);font:inherit;cursor:pointer}
+  .opt.sel{border-color:var(--warn);background:#1f2a14}
+  .opt.ok{border-color:var(--ok);background:#0f2a26}
+  .opt.bad{border-color:var(--bad);background:#2a1119}
+  .btn{background:#1a2a52;border:1px solid var(--acc);color:var(--txt);border-radius:12px;padding:10px 16px;font:700 14px/1 inherit;cursor:pointer}
+  .ctl{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .fb{margin-top:10px;color:var(--mut);white-space:pre-line}
+  .note{font-size:13px;color:var(--mut);margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Bosh sahifa</a>
+  <h1>🛒 Bozor o'yini — savdo-sotiq</h1>
+  <p class="sub">Mahsulotni bozordan oling va sotib, foyda, chegirma va foizni hisoblang. To'g'ri javob uchun tangalar to'plang.</p>
+
+  <div class="card">
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="card">
+    <div class="stat">
+      <span>🪙 Tanga: <b id="coins">0</b></span>
+      <span>✔ To'g'ri: <b id="ok">0</b></span>
+      <span>Jami: <b id="all">0</b></span>
+      <span>Seriya: <b id="streak">0</b></span>
+    </div>
+  </div>
+
+  <div class="card" id="game">
+    <span class="tag" id="tag"></span>
+    <div class="prod" id="prod"></div>
+    <div class="txt" id="txt"></div>
+    <div id="opts"></div>
+    <div class="ctl">
+      <button class="btn" id="btnCheck" type="button">Tekshirish</button>
+      <button class="btn" id="btnNext" type="button">Keyingi savdo →</button>
+    </div>
+    <div class="fb" id="fb"></div>
+  </div>
+
+  <p class="note">Klaviatura: 1/2/3 — javob tanlash, Enter — tekshirish, o'ng strelka — keyingi savdo. Har to'g'ri javob +10 🪙, xato javobda seriya nolga tushadi.</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var LET = ["A", "B", "C"];
+  var TOPICS = [
+    { id: "hammasi", t: "Hammasi" }, { id: "foyda", t: "Foyda" }, { id: "chegirma", t: "Chegirma" }, { id: "foiz", t: "Foiz" }
+  ];
+  var PRODUCTS = ["non", "sut", "tuxum", "guruch", "choy", "olma", "kitob", "ruchka", "daftar", "sabzi", "un", "yog'"];
+  var topic = "hammasi", q = null, sel = -1, answered = false;
+  var coins = 0, okN = 0, all = 0, streak = 0;
+
+  function r(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function fmt(n) { return Math.round(n).toLocaleString("ru-RU").replace(/ /g, " ") + " so'm"; }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = r(0, i); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  // Har bir savol: mahsulot, matn, to'g'ri javob, noto'g'ri variantlar, tushuntirish
+  function genProfit() {
+    var c = r(2, 40) * 500, p = pick([10, 15, 20, 25, 30, 40, 50]);
+    var sale = c * (100 + p) / 100, profit = c * p / 100;
+    var ask = pick([0, 1]);
+    if (ask === 0) {
+      return { tag: "Foyda", prod: pick(PRODUCTS), txt: fmt(c) + " ga olingan mahsulot " + p + "% foyda bilan sotildi. Sotuv narxi necha so'm?",
+        ans: sale, wrong: [c + profit / 2, c * (100 - p) / 100, sale + c * 0.1 / 1], why: "Sotuv narxi = xarid narxi × (100 + foyda%) / 100 = " + fmt(c) + " × " + (100 + p) + "% = " + fmt(sale) + "." };
+    }
+    return { tag: "Foyda", prod: pick(PRODUCTS), txt: fmt(c) + " ga olingan mahsulot " + fmt(sale) + " ga sotildi. Foyda necha foiz?",
+      ans: p, wrong: [p + 5, p - 5 > 0 ? p - 5 : p + 10, p * 2 > 100 ? p + 15 : p * 2], why: "Foyda = (sotuv − xarid) / xarid × 100% = (" + fmt(sale) + " − " + fmt(c) + ") / " + fmt(c) + " × 100% = " + p + "%.", fmtAns: true };
+  }
+  function genDiscount() {
+    var P = r(2, 60) * 1000, d = pick([10, 15, 20, 25, 30, 50]);
+    var newP = P * (100 - d) / 100;
+    return { tag: "Chegirma", prod: pick(PRODUCTS), txt: fmt(P) + " turadigan mahsulotga " + d + "% chegirma berildi. Yangi narx necha so'm?",
+      ans: newP, wrong: [P - d * 100, P * (100 + d) / 100, P - d * 1000 / 2], why: "Yangi narx = " + fmt(P) + " × (100 − " + d + ") / 100 = " + fmt(newP) + "." };
+  }
+  function genPercent() {
+    var total = r(1, 40) * 200, p = pick([10, 20, 25, 50]);
+    var part = total * p / 100;
+    return { tag: "Foiz", prod: pick(PRODUCTS), txt: "Bozorda " + total + " ta mahsulotdan " + p + "% sotildi. Nechta sotildi?",
+      ans: part, wrong: [part + 10, total - part, part / 2 > 0 ? part / 2 : part + 5], why: total + " × " + p + "% = " + part + " ta." };
+  }
+  function gen() {
+    var t = topic === "hammasi" ? pick(["foyda", "chegirma", "foiz"]) : topic;
+    var x = t === "foyda" ? genProfit() : t === "chegirma" ? genDiscount() : genPercent();
+    var isNum = typeof x.ans === "number";
+    var ansTxt = x.fmtAns ? x.ans + "%" : (x.tag === "Foiz" ? x.ans + " ta" : fmt(x.ans));
+    var wrongTxt = x.wrong.map(function (w) { return x.fmtAns ? Math.round(w) + "%" : (x.tag === "Foiz" ? Math.round(w) + " ta" : fmt(w)); });
+    var opts = [{ t: ansTxt, c: true }].concat(wrongTxt.map(function (w) { return { t: w, c: false }; }));
+    // dublikatlarni olib tashlaymiz
+    var seen = {}; opts = opts.filter(function (o) { if (seen[o.t]) return false; seen[o.t] = 1; return true; });
+    while (opts.length < 3) opts.push({ t: fmt(r(1, 999) * 100), c: false });
+    opts = opts.slice(0, 3);
+    opts = shuffle(opts);
+    x.opts = opts; x.correct = opts.findIndex(function (o) { return o.c; }); return x;
+  }
+
+  function renderChips() {
+    var box = $("chips"); box.innerHTML = "";
+    TOPICS.forEach(function (tp) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "chip" + (tp.id === topic ? " on" : "");
+      b.textContent = tp.t; b.onclick = function () { topic = tp.id; renderChips(); next(); };
+      box.appendChild(b);
+    });
+  }
+  function show() {
+    $("tag").textContent = q.tag;
+    $("prod").textContent = q.prod.charAt(0).toUpperCase() + q.prod.slice(1);
+    $("txt").textContent = q.txt;
+    var box = $("opts"); box.innerHTML = "";
+    q.opts.forEach(function (o, i) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "opt" + (i === sel ? " sel" : "");
+      b.textContent = LET[i] + ") " + o.t;
+      b.onclick = function () { if (!answered) { sel = i; show(); } };
+      box.appendChild(b);
+    });
+    $("fb").textContent = "";
+    $("coins").textContent = coins; $("ok").textContent = okN; $("all").textContent = all; $("streak").textContent = streak;
+  }
+  function next() { q = gen(); sel = -1; answered = false; show(); }
+  function check() {
+    if (answered) return;
+    if (sel < 0) { $("fb").textContent = "Avval javobni tanlang."; return; }
+    answered = true; all++;
+    var good = sel === q.correct;
+    if (good) { okN++; streak++; coins += 10 + Math.min(streak, 5) * 2; } else streak = 0;
+    var b = document.querySelectorAll(".opt");
+    b.forEach(function (x, i) { if (i === q.correct) x.classList.add("ok"); else if (i === sel) x.classList.add("bad"); });
+    $("fb").textContent = (good ? "✔ To'g'ri! " : "✘ Noto'g'ri. ") + q.why;
+    $("coins").textContent = coins; $("ok").textContent = okN; $("all").textContent = all; $("streak").textContent = streak;
+  }
+  function pickOpt(i) { if (!answered && q && q.opts[i]) { sel = i; show(); } }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "1") pickOpt(0); else if (e.key === "2") pickOpt(1); else if (e.key === "3") pickOpt(2);
+    else if (e.key === "Enter") check(); else if (e.key === "ArrowRight") next();
+  });
+  $("btnCheck").onclick = check;
+  $("btnNext").onclick = next;
+  renderChips(); next();
+})();
+</script>
+</body>
+</html>
