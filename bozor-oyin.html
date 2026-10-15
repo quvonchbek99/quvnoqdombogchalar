@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bozor o'yini — savdo-sotiq | Kuvonch Academy</title>
-<meta name="description" content="Bozorda savdo qiling: foyda, chegirma va foiz masalalarini yechib, tangalar to'plang. Kuvonch Academy.">
+<meta name="description" content="O'quvchiga pul beriladi: bozordan narsa sotib oling, bilim servisiga investitsiya qiling. Foyda, chegirma va foiz masalalarini yeching.">
 <meta name="theme-color" content="#0b1220">
 <link rel="icon" href="icon-192.png">
 <style>
@@ -16,11 +16,21 @@
   h1{font-size:clamp(22px,5.5vw,30px);margin:12px 0 4px}
   .sub{color:var(--mut);font-size:14.5px;margin:0 0 16px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+  .card h3{margin:0 0 10px;font-size:16px}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chip{background:#111a2e;border:1px solid var(--line);color:var(--txt);border-radius:999px;padding:7px 12px;font:600 13px/1 inherit;cursor:pointer}
   .chip.on{border-color:var(--acc);background:#1a2a52}
+  .bal{font-size:26px;font-weight:800;color:var(--warn)}
   .stat{display:flex;flex-wrap:wrap;gap:10px;color:var(--mut);font-size:14px}
-  .stat b{color:var(--warn)}
+  .stat b{color:var(--txt)}
+  .shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+  .item{background:#111a2e;border:1px solid var(--line);border-radius:12px;padding:10px;color:var(--txt)}
+  .item b{display:block}
+  .item span{color:var(--mut);font-size:13px}
+  .item button{margin-top:8px;width:100%}
+  .btn{background:#1a2a52;border:1px solid var(--acc);color:var(--txt);border-radius:12px;padding:10px 16px;font:700 14px/1 inherit;cursor:pointer}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .inv{color:var(--mut);font-size:14px;margin-top:8px}
   .tag{display:inline-block;font:700 12px/1 inherit;color:var(--warn);text-transform:uppercase;letter-spacing:.05em}
   .prod{font-size:18px;font-weight:700;margin:10px 0 6px}
   .txt{font-size:17px;margin:4px 0 14px}
@@ -28,9 +38,9 @@
   .opt.sel{border-color:var(--warn);background:#1f2a14}
   .opt.ok{border-color:var(--ok);background:#0f2a26}
   .opt.bad{border-color:var(--bad);background:#2a1119}
-  .btn{background:#1a2a52;border:1px solid var(--acc);color:var(--txt);border-radius:12px;padding:10px 16px;font:700 14px/1 inherit;cursor:pointer}
   .ctl{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
   .fb{margin-top:10px;color:var(--mut);white-space:pre-line}
+  .msg{color:var(--warn);font-size:14px;margin-top:8px;min-height:18px}
   .note{font-size:13px;color:var(--mut);margin-top:10px}
 </style>
 </head>
@@ -38,19 +48,39 @@
 <div class="wrap">
   <a class="back" href="index.html">← Bosh sahifa</a>
   <h1>🛒 Bozor o'yini — savdo-sotiq</h1>
-  <p class="sub">Mahsulotni bozordan oling va sotib, foyda, chegirma va foizni hisoblang. To'g'ri javob uchun tangalar to'plang.</p>
-
-  <div class="card">
-    <div class="chips" id="chips"></div>
-  </div>
+  <p class="sub">Sizga pul beriladi. Bozordan narsa sotib oling yoki bilim servisiga investitsiya qiling: to'g'ri javob bilan pul ko'payadi, xatoda kamayadi.</p>
 
   <div class="card">
     <div class="stat">
-      <span>🪙 Tanga: <b id="coins">0</b></span>
+      <span>💰 Balans:</span>
+      <span class="bal" id="bal">0 so'm</span>
+    </div>
+    <div class="stat" style="margin-top:8px">
       <span>✔ To'g'ri: <b id="ok">0</b></span>
       <span>Jami: <b id="all">0</b></span>
       <span>Seriya: <b id="streak">0</b></span>
     </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="card">
+    <h3>🛍 Bozor</h3>
+    <div class="shop" id="shop"></div>
+    <div class="inv" id="inv">Xaridlar: yo'q</div>
+  </div>
+
+  <div class="card">
+    <h3>🎓 Bilim servisi — investitsiya</h3>
+    <div class="chips" id="invChips"></div>
+    <div class="ctl">
+      <button class="btn" id="btnInvest" type="button">Investitsiya qilish</button>
+    </div>
+    <div class="inv" id="invState">Investitsiya yo'q.</div>
+    <p class="note">Investitsiya qilingan pul keyingi savolga javobdan keyin hisoblanadi: to'g'ri javob — +20%, xato — −10%.</p>
+  </div>
+
+  <div class="card">
+    <div class="chips" id="chips"></div>
   </div>
 
   <div class="card" id="game">
@@ -65,7 +95,7 @@
     <div class="fb" id="fb"></div>
   </div>
 
-  <p class="note">Klaviatura: 1/2/3 — javob tanlash, Enter — tekshirish, o'ng strelka — keyingi savdo. Har to'g'ri javob +10 🪙, xato javobda seriya nolga tushadi.</p>
+  <p class="note">Klaviatura: 1/2/3 — javob tanlash, Enter — tekshirish, o'ng strelka — keyingi savdo.</p>
 </div>
 
 <script>
@@ -73,29 +103,36 @@
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var LET = ["A", "B", "C"];
+  var START = 100000;
+  var INV_OPTS = [10000, 20000, 50000];
+  var SHOP = [
+    { n: "Non", p: 5000 }, { n: "Sut", p: 8000 }, { n: "Olma", p: 4000 },
+    { n: "Daftar", p: 6000 }, { n: "Ruchka", p: 3000 }, { n: "Kitob", p: 25000 }
+  ];
   var TOPICS = [
     { id: "hammasi", t: "Hammasi" }, { id: "foyda", t: "Foyda" }, { id: "chegirma", t: "Chegirma" }, { id: "foiz", t: "Foiz" }
   ];
   var PRODUCTS = ["non", "sut", "tuxum", "guruch", "choy", "olma", "kitob", "ruchka", "daftar", "sabzi", "un", "yog'"];
   var topic = "hammasi", q = null, sel = -1, answered = false;
-  var coins = 0, okN = 0, all = 0, streak = 0;
+  var bal = START, okN = 0, all = 0, streak = 0;
+  var bought = {}, invAmt = 0, pending = 0, invChoice = 0;
 
   function r(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
   function fmt(n) { return Math.round(n).toLocaleString("ru-RU").replace(/ /g, " ") + " so'm"; }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = r(0, i); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function msg(t) { $("msg").textContent = t || ""; }
 
-  // Har bir savol: mahsulot, matn, to'g'ri javob, noto'g'ri variantlar, tushuntirish
+  // Savol generatorlari (avvalgidek): har biri { tag, prod, txt, ans, wrong[], why, fmtAns? }
   function genProfit() {
     var c = r(2, 40) * 500, p = pick([10, 15, 20, 25, 30, 40, 50]);
     var sale = c * (100 + p) / 100, profit = c * p / 100;
-    var ask = pick([0, 1]);
-    if (ask === 0) {
+    if (r(0, 1) === 0) {
       return { tag: "Foyda", prod: pick(PRODUCTS), txt: fmt(c) + " ga olingan mahsulot " + p + "% foyda bilan sotildi. Sotuv narxi necha so'm?",
-        ans: sale, wrong: [c + profit / 2, c * (100 - p) / 100, sale + c * 0.1 / 1], why: "Sotuv narxi = xarid narxi × (100 + foyda%) / 100 = " + fmt(c) + " × " + (100 + p) + "% = " + fmt(sale) + "." };
+        ans: sale, wrong: [c + profit / 2, c * (100 - p) / 100, sale + 1000], why: "Sotuv narxi = " + fmt(c) + " × " + (100 + p) + "% = " + fmt(sale) + "." };
     }
     return { tag: "Foyda", prod: pick(PRODUCTS), txt: fmt(c) + " ga olingan mahsulot " + fmt(sale) + " ga sotildi. Foyda necha foiz?",
-      ans: p, wrong: [p + 5, p - 5 > 0 ? p - 5 : p + 10, p * 2 > 100 ? p + 15 : p * 2], why: "Foyda = (sotuv − xarid) / xarid × 100% = (" + fmt(sale) + " − " + fmt(c) + ") / " + fmt(c) + " × 100% = " + p + "%.", fmtAns: true };
+      ans: p, wrong: [p + 5, p > 10 ? p - 5 : p + 10, p * 2 > 100 ? p + 15 : p * 2], fmtAns: "%", why: "Foyda = (" + fmt(sale) + " − " + fmt(c) + ") / " + fmt(c) + " × 100% = " + p + "%." };
   }
   function genDiscount() {
     var P = r(2, 60) * 1000, d = pick([10, 15, 20, 25, 30, 50]);
@@ -107,21 +144,18 @@
     var total = r(1, 40) * 200, p = pick([10, 20, 25, 50]);
     var part = total * p / 100;
     return { tag: "Foiz", prod: pick(PRODUCTS), txt: "Bozorda " + total + " ta mahsulotdan " + p + "% sotildi. Nechta sotildi?",
-      ans: part, wrong: [part + 10, total - part, part / 2 > 0 ? part / 2 : part + 5], why: total + " × " + p + "% = " + part + " ta." };
+      ans: part, wrong: [part + 10, total - part, part / 2 > 0 ? part / 2 : part + 5], fmtAns: " ta", why: total + " × " + p + "% = " + part + " ta." };
   }
   function gen() {
     var t = topic === "hammasi" ? pick(["foyda", "chegirma", "foiz"]) : topic;
     var x = t === "foyda" ? genProfit() : t === "chegirma" ? genDiscount() : genPercent();
-    var isNum = typeof x.ans === "number";
-    var ansTxt = x.fmtAns ? x.ans + "%" : (x.tag === "Foiz" ? x.ans + " ta" : fmt(x.ans));
-    var wrongTxt = x.wrong.map(function (w) { return x.fmtAns ? Math.round(w) + "%" : (x.tag === "Foiz" ? Math.round(w) + " ta" : fmt(w)); });
-    var opts = [{ t: ansTxt, c: true }].concat(wrongTxt.map(function (w) { return { t: w, c: false }; }));
-    // dublikatlarni olib tashlaymiz
+    var fmtOne = function (v) { return x.fmtAns === "%" ? Math.round(v) + "%" : x.fmtAns === " ta" ? Math.round(v) + " ta" : fmt(v); };
+    var opts = [{ t: fmtOne(x.ans), c: true }].concat(x.wrong.map(function (w) { return { t: fmtOne(w), c: false }; }));
     var seen = {}; opts = opts.filter(function (o) { if (seen[o.t]) return false; seen[o.t] = 1; return true; });
     while (opts.length < 3) opts.push({ t: fmt(r(1, 999) * 100), c: false });
-    opts = opts.slice(0, 3);
-    opts = shuffle(opts);
-    x.opts = opts; x.correct = opts.findIndex(function (o) { return o.c; }); return x;
+    opts = shuffle(opts.slice(0, 3));
+    x.opts = opts; x.correct = opts.findIndex(function (o) { return o.c; });
+    return x;
   }
 
   function renderChips() {
@@ -132,6 +166,56 @@
       box.appendChild(b);
     });
   }
+  function renderInvChips() {
+    var box = $("invChips"); box.innerHTML = "";
+    INV_OPTS.forEach(function (a) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "chip" + (a === invChoice ? " on" : "");
+      b.textContent = fmt(a); b.onclick = function () { invChoice = a; renderInvChips(); };
+      box.appendChild(b);
+    });
+  }
+  function renderShop() {
+    var box = $("shop"); box.innerHTML = "";
+    SHOP.forEach(function (it) {
+      var d = document.createElement("div"); d.className = "item";
+      d.innerHTML = "<b>" + it.n + "</b><span>" + fmt(it.p) + "</span>";
+      var b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = "Sotib olish";
+      b.disabled = bal < it.p;
+      b.onclick = function () { buy(it); };
+      d.appendChild(b); box.appendChild(d);
+    });
+    var names = Object.keys(bought);
+    $("inv").textContent = names.length ? "Xaridlar: " + names.map(function (n) { return n + " × " + bought[n]; }).join(", ") : "Xaridlar: yo'q";
+  }
+  function buy(it) {
+    if (bal < it.p) { msg("Mablag' yetarli emas."); return; }
+    bal -= it.p; bought[it.n] = (bought[it.n] || 0) + 1;
+    msg(it.n + " sotib olindi (−" + fmt(it.p) + ").");
+    refresh();
+  }
+  function invest() {
+    if (pending) { msg("Investitsiya allaqachon qilingan. Avval savolga javob bering."); return; }
+    if (bal < invChoice) { msg("Mablag' yetarli emas."); return; }
+    bal -= invChoice; pending = invChoice;
+    msg(fmt(invChoice) + " bilim servisiga investitsiya qilindi.");
+    refresh();
+  }
+  function settle(good) {
+    if (!pending) return "";
+    var amt = pending, res;
+    if (good) { bal += Math.round(amt * 1.2); res = "📈 Investitsiya: " + fmt(amt) + " → " + fmt(amt * 1.2) + " (+20%)"; }
+    else { bal += Math.round(amt * 0.9); res = "📉 Investitsiya: " + fmt(amt) + " → " + fmt(amt * 0.9) + " (−10%)"; }
+    pending = 0;
+    return "\n" + res;
+  }
+
+  function refresh() {
+    $("bal").textContent = fmt(bal);
+    $("ok").textContent = okN; $("all").textContent = all; $("streak").textContent = streak;
+    $("invState").textContent = pending ? "Investitsiya: " + fmt(pending) + " — keyingi savolga javobdan keyin hisoblanadi." : "Investitsiya yo'q.";
+    renderShop();
+  }
+
   function show() {
     $("tag").textContent = q.tag;
     $("prod").textContent = q.prod.charAt(0).toUpperCase() + q.prod.slice(1);
@@ -144,7 +228,7 @@
       box.appendChild(b);
     });
     $("fb").textContent = "";
-    $("coins").textContent = coins; $("ok").textContent = okN; $("all").textContent = all; $("streak").textContent = streak;
+    refresh();
   }
   function next() { q = gen(); sel = -1; answered = false; show(); }
   function check() {
@@ -152,21 +236,25 @@
     if (sel < 0) { $("fb").textContent = "Avval javobni tanlang."; return; }
     answered = true; all++;
     var good = sel === q.correct;
-    if (good) { okN++; streak++; coins += 10 + Math.min(streak, 5) * 2; } else streak = 0;
+    if (good) { okN++; streak++; } else streak = 0;
     var b = document.querySelectorAll(".opt");
     b.forEach(function (x, i) { if (i === q.correct) x.classList.add("ok"); else if (i === sel) x.classList.add("bad"); });
-    $("fb").textContent = (good ? "✔ To'g'ri! " : "✘ Noto'g'ri. ") + q.why;
-    $("coins").textContent = coins; $("ok").textContent = okN; $("all").textContent = all; $("streak").textContent = streak;
+    var inv = settle(good);
+    $("fb").textContent = (good ? "✔ To'g'ri! " : "✘ Noto'g'ri. ") + q.why + inv;
+    refresh();
   }
   function pickOpt(i) { if (!answered && q && q.opts[i]) { sel = i; show(); } }
 
   document.addEventListener("keydown", function (e) {
+    if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
     if (e.key === "1") pickOpt(0); else if (e.key === "2") pickOpt(1); else if (e.key === "3") pickOpt(2);
     else if (e.key === "Enter") check(); else if (e.key === "ArrowRight") next();
   });
   $("btnCheck").onclick = check;
   $("btnNext").onclick = next;
-  renderChips(); next();
+  $("btnInvest").onclick = invest;
+  invChoice = INV_OPTS[0];
+  renderChips(); renderInvChips(); next();
 })();
 </script>
 </body>
