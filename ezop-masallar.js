@@ -151,5 +151,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Eshakning yukini ham o'z zimmasiga olib ko'tarishga", "Yukni yo'lda tashlab, o'zi yengil yurishga", "Eshakni yo'lda qoldirib, orqaga qaytishga"],
     javob: 0,
     izoh: "Ot kichik yordamdan bosh tortdi va oxirida butun yukni o'zi ko'tarishga majbur bo'ldi. Hamkorlikdan voz kechish, keyinchalik o'zingiz uchun ko'proq og'irlik keltirishi mumkin."
+  },
+  {
+    id: "ez-020", mavzu: "sabr", sarlavha: "Sut sog'uvchi qiz",
+    matn: "Qiz boshiga sut solingan kuvani ko'tarib bozorga ketayotgandi. Yo'lda u sutni sotib, tuxum, jo'ja va so'ng sigir olishni o'ylab ketdi. Shu xayol bilan qadamini ehtiyot qilmadi, toshga qoqilib, kuvasi yerga tushdi va sut to'kildi.",
+    savol: "Qiz sutini nega to'kib yubordi?",
+    variantlar: ["Chunki u bozorga juda kech yetib borgan edi", "Chunki u kelajakdagi orzular bilan band bo'lib, yo'lga e'tibor bermadi", "Chunki sut juda og'ir edi va qo'li charchadi"],
+    javob: 1,
+    izoh: "Qiz hali bo'lmagan boylik haqida o'ylab, hozirgi qadamini nazorat qilmadi. Rejalar muhim, lekin hozirgi ishga e'tiborsiz bo'lsa, qo'lidagini ham yo'qotish mumkin."
   }
 ];
