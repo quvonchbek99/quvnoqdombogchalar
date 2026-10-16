@@ -135,5 +135,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki dala mehnat bilan haydalib, mo'l hosil berdi", "Chunki dalada haqiqatan oltin yashiringan edi", "Chunki otasi ularga katta meros pul qoldirgan edi"],
     javob: 0,
     izoh: "Xazina aslida mehnatning o'zi edi: yer haydalgani uchun hosil mo'l bo'ldi. Mehnat qilgan odam foyda ko'radi."
+  },
+  {
+    id: "ez-018", mavzu: "hamkorlik", sarlavha: "Tayoqlar bog'lami",
+    matn: "Keksa ota o'g'illariga bir bog' tayoqni sindirishni buyurdi. Har biri bor kuchi bilan urindi, lekin hech kim sindira olmadi. Ota bog'ni yechib, tayoqlarni bittadan bergach, ularning hammasi osonlik bilan sindi.",
+    savol: "Tayoqlar bog'langan holda nega sindirilmadi?",
+    variantlar: ["Chunki bog'lam juda og'ir edi va kuch sarflanmadi", "Chunki o'g'illar tayoqlarni sindirishga urinmadi", "Chunki tayoqlar birlashgan holda bir-birini mustahkamlab turdi"],
+    javob: 2,
+    izoh: "Har bir tayoq alohida ham sinadi, lekin birlashganda ular bir-biriga tayanib, sinmas bo'ladi. Birlik va hamkorlik kuchni oshiradi."
   }
 ];
