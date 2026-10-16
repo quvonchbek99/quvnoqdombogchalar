@@ -119,5 +119,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ularning rejasi yomon edi", "Chunki reja bor edi, lekin uni amalga oshiradigan kishi chiqmadi", "Chunki mushuk allaqachon uxlab qolgan edi"],
     javob: 1,
     izoh: "Reja qanchalik yaxshi bo'lmasin, uni bajaradigan kishi bo'lmasa, natija chiqmaydi. Har bir fikr uchun mas'uliyat olish kerak."
+  },
+  {
+    id: "ez-016", mavzu: "yaxshilik", sarlavha: "Kaptar va chumoli",
+    matn: "Chumoli daryoga tushib qolib, suvda cho'kayotgan edi. Daraxtda o'tirgan kaptar buni ko'rib, unga bir barg uzib tashladi. Chumoli bargga chiqib, sohilga suzib chiqdi. Shu payt bir ovchi kaptarni nishonga olayotgan edi.",
+    savol: "Kaptar nima uchun qutuldi?",
+    variantlar: ["Chunki u ovchiga qarshi hujum qilgan edi", "Chunki chumoli ovchini chaqib, uning e'tiborini chalg'itdi", "Chunki ov qilish o'sha kuni taqiqlangan edi"],
+    javob: 1,
+    izoh: "Chumoli kaptarga bergan yaxshiligini qaytardi: ovchining oyog'ini chaqib, uni chalg'itdi va kaptar uchib qutuldi. Kichik yordam katta xavfdan qutqarishi mumkin."
   }
 ];
