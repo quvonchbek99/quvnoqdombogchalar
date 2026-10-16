@@ -127,5 +127,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ovchiga qarshi hujum qilgan edi", "Chunki chumoli ovchini chaqib, uning e'tiborini chalg'itdi", "Chunki ov qilish o'sha kuni taqiqlangan edi"],
     javob: 1,
     izoh: "Chumoli kaptarga bergan yaxshiligini qaytardi: ovchining oyog'ini chaqib, uni chalg'itdi va kaptar uchib qutuldi. Kichik yordam katta xavfdan qutqarishi mumkin."
+  },
+  {
+    id: "ez-017", mavzu: "mehnat", sarlavha: "Dehqon va o'g'illari",
+    matn: "Qari dehqon vafot etishi oldidan o'g'illarini yig'ib, dalasiga xazina yashirilganini aytdi. O'g'illar darhol belkurak olib, dalani chuqur kovlashdi. Xazina topilmadi, lekin yer yaxshi haydalgani uchun kuzda hosil ancha mo'l bo'ldi.",
+    savol: "O'g'illar xazinani topmasa ham, nega boy bo'lishdi?",
+    variantlar: ["Chunki dala mehnat bilan haydalib, mo'l hosil berdi", "Chunki dalada haqiqatan oltin yashiringan edi", "Chunki otasi ularga katta meros pul qoldirgan edi"],
+    javob: 0,
+    izoh: "Xazina aslida mehnatning o'zi edi: yer haydalgani uchun hosil mo'l bo'ldi. Mehnat qilgan odam foyda ko'radi."
   }
 ];
