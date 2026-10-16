@@ -143,5 +143,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki bog'lam juda og'ir edi va kuch sarflanmadi", "Chunki o'g'illar tayoqlarni sindirishga urinmadi", "Chunki tayoqlar birlashgan holda bir-birini mustahkamlab turdi"],
     javob: 2,
     izoh: "Har bir tayoq alohida ham sinadi, lekin birlashganda ular bir-biriga tayanib, sinmas bo'ladi. Birlik va hamkorlik kuchni oshiradi."
+  },
+  {
+    id: "ez-019", mavzu: "hamkorlik", sarlavha: "Ot va eshak",
+    matn: "Ot bilan eshak birga yo'lga chiqishdi. Eshak yukining bir qismini otga berib, yengil bo'lishni so'radi. Ot esa: \"Bu sening ishing, menga tegmasin\", deb rad etdi, yo'lda eshak charchab yiqildi va o'ldi.",
+    savol: "Eshak o'lgandan keyin ot nima qilishga majbur bo'ldi?",
+    variantlar: ["Eshakning yukini ham o'z zimmasiga olib ko'tarishga", "Yukni yo'lda tashlab, o'zi yengil yurishga", "Eshakni yo'lda qoldirib, orqaga qaytishga"],
+    javob: 0,
+    izoh: "Ot kichik yordamdan bosh tortdi va oxirida butun yukni o'zi ko'tarishga majbur bo'ldi. Hamkorlikdan voz kechish, keyinchalik o'zingiz uchun ko'proq og'irlik keltirishi mumkin."
   }
 ];
