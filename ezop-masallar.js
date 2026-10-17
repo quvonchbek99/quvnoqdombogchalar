@@ -167,5 +167,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u suyakni tomoqdan chiqara olmadi", "Chunki bo'ri va'dasini bajarmadi", "Chunki bo'ri uni yeb qo'ydi"],
     javob: 1,
     izoh: "Yomon niyatli odam va'dasini bajarmaydi. Shunday odamdan yaxshilik uchun mukofot kutish befoyda."
+  },
+  {
+    id: "ez-022", mavzu: "ahloq", sarlavha: "Tulki va dum",
+    matn: "Tulki tuzoqdan qutulganda dumini qoldirib ketdi. Shundan keyin u o'rmondagi tulkilarga dum faqat ortiqcha yuk ekanini aytib, ularni ham dumini kesishga ko'ndirmoqchi bo'ldi. Ulardan biri: \"Sen shunday deyapsan, chunki dumingning yo'qligi o'zing uchun gapirmoqda\", dedi.",
+    savol: "Tulki nega boshqa tulkilarni ham dumini kesishga undadi?",
+    variantlar: ["Chunki dum haqiqatan ham tulkilarga zarar yetkazardi", "Chunki u o'z kamchiligini yashirib, boshqalarni ham o'xshatmoqchi bo'ldi", "Chunki u o'rmondagi eng chiroyli dumni o'ziga olmoqchi edi"],
+    javob: 1,
+    izoh: "Tulki o'z kamchiligini tan olish o'rniga, uni boshqalarga ham taqsimlashga urindi. Kamchilikni yashirish uchun boshqalarni ham o'xshatish haqiqatni o'zgartirmaydi."
   }
 ];
