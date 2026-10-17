@@ -159,5 +159,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u bozorga juda kech yetib borgan edi", "Chunki u kelajakdagi orzular bilan band bo'lib, yo'lga e'tibor bermadi", "Chunki sut juda og'ir edi va qo'li charchadi"],
     javob: 1,
     izoh: "Qiz hali bo'lmagan boylik haqida o'ylab, hozirgi qadamini nazorat qilmadi. Rejalar muhim, lekin hozirgi ishga e'tiborsiz bo'lsa, qo'lidagini ham yo'qotish mumkin."
+  },
+  {
+    id: "ez-021", mavzu: "ahloq", sarlavha: "Bo'ri va turna",
+    matn: "Bo'rining tomog'iga suyak tiqilib qoldi. U turnaga yalinib dedi: \"Suyakni chiqarib ber, katta mukofot beraman.\" Turna uzun bo'yni bilan suyakni tortib oldi. Bo'ri esa va'dasini unutib: \"Boshingni og'zimga solib, sog'-salomat chiqarganing o'zi katta mukofot emasmi?\" dedi.",
+    savol: "Turna nega mukofot olmadi?",
+    variantlar: ["Chunki u suyakni tomoqdan chiqara olmadi", "Chunki bo'ri va'dasini bajarmadi", "Chunki bo'ri uni yeb qo'ydi"],
+    javob: 1,
+    izoh: "Yomon niyatli odam va'dasini bajarmaydi. Shunday odamdan yaxshilik uchun mukofot kutish befoyda."
   }
 ];
