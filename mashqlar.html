@@ -264,17 +264,10 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
     </a>
     <nav>
       <a href="index.html">Bosh sahifa</a>
-      <a href="index.html#davrlar">Davrlar</a>
-      <a href="qollanma.html">Qo'llanma</a>
-      <a href="#toc">Mundarija</a>
-      <a href="#toc2">Asosiy amallar</a>
-      <a href="#toc3">Qo'shimcha mavzular</a>
-      <a href="#toc4">Milliy sertifikat</a>
-      <a href="#toc5">📐 Geometriya</a>
-      <a href="#toc6">🎲 Kombinatorika</a>
-      <a href="noldan-pigacha.html" style="color:#a78bfa;font-weight:700">π Noldan π gacha</a>
-<a href="virtual.html">🖐 Virtual</a>
+      <a href="#toc">📘 Mavzular 1–50</a>
+      <a href="#grp-qoshimcha" style="color:#a78bfa;font-weight:700">➕ Qo'shimcha 51–96</a>
       <a href="#game">🎮 O'yinlar</a>
+      <a href="noldan-pigacha.html">π Noldan π gacha</a>
       <a href="#" onclick="toggleAdminPanel();return false;">O'qituvchi/Admin</a>
     </nav>
   </header>
@@ -287,7 +280,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
     </p>
   </div>
 
-  <div class="picker-wrap" id="toc">
+  <div class="picker-wrap" id="toc" data-tab="📘 Mavzular (1–50)">
     <div class="picker-card">
       <h2>📘 Mavzular va mashqlar</h2>
       <p class="sub">Mavzuni tanlang va o'qishni boshlang — 50 ta mavzu</p>
@@ -347,7 +340,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
   </div>
 
 
-  <div class="picker-wrap" id="toc4">
+  <div class="picker-wrap" id="toc4" data-group="qoshimcha" data-group-label="➕ Qo'shimcha mavzular (51–96)" data-subtab="🎓 Algebra · Milliy sertifikat (51–70)">
     <div class="picker-card">
       <h2>🎓 Milliy sertifikat</h2>
       <p class="sub">Milliy sertifikat imtihoniga tayyorgarlik uchun barcha 15 bobdan tanlangan 20 ta qo'shimcha mavzu — bo'limlarga ajratilgan holda, xossalar, namunaviy yechimlar va testlar bilan</p>
@@ -465,7 +458,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
   </div>
 
 
-  <div class="picker-wrap" id="toc5">
+  <div class="picker-wrap" id="toc5" data-group="qoshimcha" data-group-label="➕ Qo'shimcha mavzular (51–96)" data-subtab="📐 Geometriya (71–88)">
     <div class="picker-card">
       <h2>📐 Geometriya: shakllar va jismlar</h2>
       <p class="sub">Har bir shakl va jism uchun xossalar, formulalar, rasm va namunaviy yechimlar</p>
@@ -510,7 +503,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
     </div>
   </div>
 
-  <div class="picker-wrap" id="toc6">
+  <div class="picker-wrap" id="toc6" data-group="qoshimcha" data-group-label="➕ Qo'shimcha mavzular (51–96)" data-subtab="🎲 Kombinatorika va ehtimollik (89–96)">
     <div class="picker-card">
       <h2>🎲 Kombinatorika, ehtimollik va to'plamlar</h2>
       <p class="sub">Faktorial, sanash qoidalari, ehtimollik, to'plamlar va binom — xossalar, formulalar va mashqlar</p>
@@ -540,7 +533,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
     </div>
   </div>
 
-  <div class="picker-wrap" id="toc2">
+  <div class="picker-wrap" id="toc2" data-tab="🧮 Asosiy amallar">
     <div class="picker-card">
       <h2>🧮 Asosiy amallar bo'yicha mashqlar</h2>
       <p class="sub">50 ta asosiy mavzudan alohida — bu mashqlar hisoblash malakasini mustahkamlash uchun</p>
@@ -566,6 +559,23 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
         <a href="chempionat.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#f4c430,#ff8a5c);">🏆 Chempionat</a>
         <a href="yurak.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#ff5c7a,#ff8a5c);">❤️ Yurak urishi</a>
         <a href="kuvonch-academy.apk" download class="test-start-btn ka-apk" style="text-decoration:none;background:linear-gradient(135deg,#3fbf7f,#5ee6c7);">📱 Android ilova</a>
+      </div>
+    </div>
+    <div class="picker-card" style="background:linear-gradient(135deg,#1a1230,#0f2a3a);border:1px solid #4b3f7a;margin-bottom:16px;">
+      <h2 style="color:#f2f1ec;">⚛️ Fizika o'yinlari — matematika bilan bog'langan</h2>
+      <p class="sub" style="color:#a9b1c7;">Kamera bilan o'ynaladigan 10 ta yangi o'yin: har bir formula (v = s/t, F = m·a, Om qonuni, A = F·s…) — bu oddiy ko'paytirish va bo'lish. Fizikani hisoblab o'rganing.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;">
+        <a href="virtual-50.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#4f5bd5,#7c9bff);">🚀 Tezlik v = s/t</a>
+        <a href="virtual-51.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#4f5bd5,#7c9bff);">🛣 Masofa s = v·t</a>
+        <a href="virtual-52.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#0ea5e9,#22d3ee);">💧 Zichlik ρ = m/V</a>
+        <a href="virtual-53.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#f97316,#ef4444);">🍎 Kuch F = m·a</a>
+        <a href="virtual-54.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#16a34a,#22c55e);">🔌 Om qonuni I = U/R</a>
+        <a href="virtual-55.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#a855f7,#d946ef);">⚙️ Ish A = F·s</a>
+        <a href="virtual-56.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#eab308,#f59e0b);">⚡ Quvvat P = A/t</a>
+        <a href="virtual-57.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#64748b,#94a3b8);">🧱 Bosim p = F/S</a>
+        <a href="virtual-58.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#ef4444,#f97316);">🪨 Og'irlik P = m·g</a>
+        <a href="virtual-59.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#f43f5e,#fb7185);">🔥 Issiqlik Q = cmΔt</a>
+        <a href="virtual.html" class="test-start-btn" style="text-decoration:none;background:linear-gradient(135deg,#3fbf7f,#5ee6c7);">🖐 Barcha 59 ta virtual o'yin</a>
       </div>
     </div>
     <div class="picker-card" style="background:#151a24;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px;">
@@ -612,7 +622,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
     </div>
   </div>
 
-  <div class="picker-wrap" id="toc3">
+  <div class="picker-wrap" id="toc3" data-tab="📤 O'qituvchi mavzulari">
     <div class="picker-card">
       <h2>📤 O'qituvchi qo'shgan qo'shimcha mavzular</h2>
       <p class="sub">Admin panel orqali yuklangan mavzular shu yerda avtomatik paydo bo'ladi</p>
@@ -4593,7 +4603,8 @@ x = &plusmn;&pi;/4 + 2&pi;n,  n&isin;Z</p>
 
   <footer>
     <div>Kuvonch Academy loyihasi &middot; <a href="index.html">Bosh sahifaga qaytish</a></div>
-  </footer>
+      <p style="margin-top:10px"><a href="index.html#davrlar">Davrlar</a> · <a href="qollanma.html">Qo'llanma</a> · <a href="virtual.html">🖐 Virtual</a> · <a href="jamoa.html">👥 Jamoa</a> · <a href="chempionat.html">🏆 Chempionat</a> · <a href="donat.html">💛 Qo'llab-quvvatlash</a></p>
+</footer>
 </div>
 
 <!-- Test modal -->
@@ -5093,7 +5104,8 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('hashchange', openTopicFromHash);
 })();
 </script>
-<script src="kuvonch-menyu.js?v=20261002"></script>
+<script src="kuvonch-menyu.js?v=20261017"></script>
+<script src="ka-qidiruv.js?v=20261017"></script>
 <script src="ai-yordamchi.js"></script>
 <script src="mashq-generator.js"></script>
 <script src="ka-savollar.js"></script>

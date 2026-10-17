@@ -296,10 +296,7 @@
   // ---------- Menyuga ulash ----------
   var nav = $("header nav");
   if (nav) {
-    var a = el("a", { href: "#geometriya" }, "📐 Geometriya");
-    a.addEventListener("click", function (e) { e.preventDefault(); open(); });
-    var admin = $$("a", nav).filter(function (x) { return /admin/i.test(x.textContent); })[0];
-    nav.insertBefore(a, admin || null);
+    // Header menyusi ixcham: Geometriya pastdagi tablarda ("📐 Geometriya (chizmali)") ochiladi
   }
   var tabs = $(".ka-tabs");
   if (tabs) { var tb = el("button", { class: "ka-tab ka-graph-tab", type: "button" }, "📐 Geometriya (chizmali)"); tb.onclick = function () { open(); }; tabs.appendChild(tb); }

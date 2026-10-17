@@ -117,6 +117,28 @@
   .ka-g .sw{width:26px;height:26px;border-radius:50%;padding:0;border:2px solid transparent}
   .ka-g .sw.act{border-color:#fff;box-shadow:0 0 0 2px var(--ka-acc2)}
   .ka-g-stage{position:relative;flex:1;min-height:0;touch-action:none}
+  .ka-g-desmos{position:absolute;inset:0;display:none;background:#fff;z-index:3}
+  .ka-g.desmos .ka-g-desmos{display:block}
+  .ka-g.desmos .ka-g-coord{display:none}
+  .ka-g-top button[data-act="desmos"].act{background:#5ee6c7;color:#06231d}
+  .ka-g-dload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#0b1220;font:600 15px/1.4 var(--ka-font);background:#fff}
+  /* ---- Guruhli tab (Qo'shimcha mavzular) ---- */
+  .ka-subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+  .ka-subtab{border:1px solid var(--ka-border);background:var(--ka-soft);color:var(--ka-dim);padding:7px 11px;border-radius:999px;font:600 13px/1 var(--ka-font);cursor:pointer}
+  .ka-subtab[aria-selected="true"]{background:rgba(167,139,250,.2);color:#e9d5ff;border-color:#a78bfa}
+  .ka-group-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+  .ka-group-head h2{margin:0;font-size:20px}
+  .ka-sortbtn{border:1px solid var(--ka-border);background:var(--ka-soft);color:var(--ka-text);padding:7px 11px;border-radius:10px;font:600 12px/1 var(--ka-font);cursor:pointer}
+  .ka-sub-hidden{display:none !important}
+  .ka-numlist{list-style:none;margin:0;padding:0}
+  /* ---- O'yinlar qidiruv natijalari ---- */
+  .ka-gres{display:none;margin:0 0 12px}
+  .ka-gres.on{display:block}
+  .ka-gres .ttl{font:700 13px/1 var(--ka-font);color:var(--ka-dim);text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px}
+  .ka-gres ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+  .ka-gres a{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--ka-border);border-radius:12px;background:var(--ka-card);color:var(--ka-text);text-decoration:none;font-size:14px}
+  .ka-gres a:hover{border-color:var(--ka-acc)}
+  .ka-gres a small{color:var(--ka-dim);font-size:12px;margin-left:auto;white-space:nowrap}
   .ka-g-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
   .ka-g-coord{position:absolute;left:10px;top:10px;background:rgba(20,31,56,.85);border:1px solid var(--ka-border);border-radius:8px;padding:4px 8px;font:600 12px/1.2 ui-monospace,monospace;pointer-events:none}
   .ka-g-bot{border-top:1px solid var(--ka-border);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:0 0 auto;background:var(--ka-card)}
@@ -197,20 +219,92 @@
     if (/grafik|funksiya|parabola/i.test(titleOf(sec))) {
       var db = el("button", { type: "button", class: "ka-drawbtn" }, "📐 Grafikni qo'lda chizish");
       db.onclick = function () { Graph.open(); };
+      var dd = el("button", { type: "button", class: "ka-drawbtn", style: "margin-left:8px;border-color:#a78bfa;color:#e9d5ff;background:rgba(167,139,250,.12)" }, "📈 Desmos'da ochish");
+      dd.onclick = function () { Graph.open({ desmos: true }); };
+      body.insertBefore(dd, body.firstChild);
       body.insertBefore(db, body.firstChild);
     }
   });
 
   // ---- Markaz: barcha menyu bloklarini tablarga yig'ish ----
   var pickers = $$(".wrap > .picker-wrap");
+  // data-group="..." bo'lgan bloklarni bitta tab (guruh) ichiga yig'ish — ichida sub-tablar
+  (function groupPickers() {
+    var groups = {};
+    pickers.forEach(function (p) {
+      var g = p.getAttribute("data-group"); if (!g) return;
+      if (!groups[g]) {
+        var wrap = el("div", { class: "picker-wrap ka-group", id: "grp-" + g, "data-tab": p.getAttribute("data-group-label") || g });
+        var card = el("div", { class: "picker-card" });
+        var head = el("div", { class: "ka-group-head" });
+        head.appendChild(el("h2", {}, p.getAttribute("data-group-label") || g));
+        var sortBtn = el("button", { class: "ka-sortbtn", type: "button" }, "📚 Boblar bo'yicha ko'rsatish");
+        head.appendChild(sortBtn);
+        card.appendChild(head);
+        var sub = el("div", { class: "ka-subtabs", role: "tablist" });
+        card.appendChild(sub);
+        wrap.appendChild(card);
+        p.parentNode.insertBefore(wrap, p);
+        groups[g] = { wrap: wrap, card: card, sub: sub, items: [], sortBtn: sortBtn, numeric: true };
+      }
+      var G = groups[g];
+      var h = $("h2", p);
+      var label = p.getAttribute("data-subtab") || (h ? h.textContent.trim() : "Bo'lim");
+      // raqam bo'yicha tartiblangan tekis ro'yxat (ichidagi barcha chiplardan)
+      var chips = $$("a.topic-chip", p).map(function (a) { return a.cloneNode(true); });
+      chips.sort(function (a, b) {
+        var na = parseInt((a.textContent.match(/(\d+)\./) || [0, 0])[1], 10), nb = parseInt((b.textContent.match(/(\d+)\./) || [0, 0])[1], 10);
+        return na - nb;
+      });
+      var numWrap = el("div", { class: "ka-numlist-wrap" });
+      var ul = el("ul", { class: "topic-grid ka-numlist" });
+      chips.forEach(function (a) { var li = el("li"); li.appendChild(a); ul.appendChild(li); });
+      numWrap.appendChild(ul);
+      var orig = el("div", { class: "ka-orig-wrap ka-sub-hidden" });
+      // asl blokning ichki tarkibini (h2 dan tashqari) ko'chiramiz
+      var pc = $(".picker-card", p) || p;
+      Array.prototype.slice.call(pc.children).forEach(function (c) { if (c.tagName !== "H2") orig.appendChild(c); });
+      var sect = el("div", { class: "ka-subpane", id: p.id });
+      sect.appendChild(numWrap); sect.appendChild(orig);
+      p.parentNode.removeChild(p);
+      G.card.appendChild(sect);
+      var st = el("button", { class: "ka-subtab", role: "tab", type: "button" }, label);
+      G.sub.appendChild(st);
+      G.items.push({ tab: st, pane: sect, num: numWrap, orig: orig });
+    });
+    Object.keys(groups).forEach(function (g) {
+      var G = groups[g];
+      function selectSub(i) {
+        G.items.forEach(function (it, j) {
+          it.tab.setAttribute("aria-selected", j === i ? "true" : "false");
+          it.pane.classList.toggle("ka-sub-hidden", j !== i);
+        });
+        store("ka-sub-" + g, String(i));
+      }
+      G.items.forEach(function (it, i) { it.tab.onclick = function () { selectSub(i); }; });
+      G.sortBtn.onclick = function () {
+        G.numeric = !G.numeric;
+        G.sortBtn.textContent = G.numeric ? "📚 Boblar bo'yicha ko'rsatish" : "🔢 Raqam bo'yicha ko'rsatish";
+        G.items.forEach(function (it) { it.num.classList.toggle("ka-sub-hidden", !G.numeric); it.orig.classList.toggle("ka-sub-hidden", G.numeric); });
+      };
+      var sv = parseInt(store("ka-sub-" + g), 10);
+      var want = sv >= 0 && sv < G.items.length ? sv : 0;
+      G.items.forEach(function (it, i) { if (location.hash === "#" + it.pane.id) want = i; });
+      selectSub(want);
+      G.wrap.__showAll = function (all) { G.items.forEach(function (it, i) { it.pane.classList.toggle("ka-sub-hidden", !all && it.tab.getAttribute("aria-selected") !== "true"); }); };
+      G.wrap.__subIds = G.items.map(function (it) { return it.pane.id; });
+    });
+    pickers = $$(".wrap > .picker-wrap");
+  })();
   var hub = null, panes = [];
   if (pickers.length) {
     hub = el("div", { class: "ka-hub", id: "ka-hub" });
     var tabs = el("div", { class: "ka-tabs", role: "tablist" });
     var search = el("div", { class: "ka-search" },
-      '<input type="search" placeholder="🔎 Mavzu qidirish (masalan: logarifm, 12, tengsizlik)…" aria-label="Mavzu qidirish">');
+      '<input type="search" placeholder="🔎 Mavzu yoki o\'yin qidirish (masalan: logarifm, 63, poyga, pufak)…" aria-label="Mavzu yoki o\'yin qidirish">');
     var cont = el("div", { class: "ka-continue" });
-    hub.append(tabs, search, cont);
+    var gres = el("div", { class: "ka-gres" });
+    hub.append(tabs, search, cont, gres);
     pickers[0].parentNode.insertBefore(hub, pickers[0]);
 
     pickers.forEach(function (p, i) {
@@ -226,6 +320,9 @@
     var gtab = el("button", { class: "ka-tab ka-graph-tab", type: "button" }, "📐 Grafik chizish");
     gtab.onclick = function () { Graph.open(); };
     tabs.appendChild(gtab);
+    var dtab = el("button", { class: "ka-tab ka-graph-tab", type: "button", style: "border-color:#a78bfa;color:#e9d5ff" }, "📈 Desmos");
+    dtab.onclick = function () { Graph.open({ desmos: true }); };
+    tabs.appendChild(dtab);
     var ttab = el("button", { class: "ka-tab ka-graph-tab", type: "button" }, "🪢 Arqon tortish");
     ttab.onclick = function () { Tug.open(); };
     tabs.appendChild(ttab);
@@ -247,10 +344,22 @@
     function norm(s) { return s.toLowerCase().replace(/[ʻʼ‘’`']/g, "'").replace(/\s+/g, " "); }
     function visible(a) { return !a.closest(".ka-hidden"); }
     function visCount(n) { return $$("a", n).filter(visible).length; }
+    function gameResults(q) {
+      var list = (window.KA_OYINLAR || []);
+      if (!q) { gres.className = "ka-gres"; gres.innerHTML = ""; return 0; }
+      var hits = list.filter(function (g) { return norm(g.n + " " + (g.t || "")).indexOf(q) > -1; }).slice(0, 24);
+      if (!hits.length) { gres.className = "ka-gres"; gres.innerHTML = ""; return 0; }
+      gres.className = "ka-gres on";
+      gres.innerHTML = '<p class="ttl">🎮 O\'yinlar — ' + hits.length + ' ta</p><ul>' + hits.map(function (g) {
+        return '<li><a href="' + g.u + '"><span>' + (g.e || "🎮") + '</span><span>' + g.n + '</span><small>' + (g.t || "") + '</small></a></li>';
+      }).join("") + "</ul>";
+      return hits.length;
+    }
     function doFilter() {
       var q = norm(inp.value.trim());
-      var any = false;
+      var any = gameResults(q) > 0;
       panes.forEach(function (o, j) {
+        if (o.pane.__showAll) o.pane.__showAll(!!q);
         if (q) o.pane.classList.remove("ka-hidden");
         else o.pane.classList.toggle("ka-hidden", j !== cur);
         var shownInPane = 0;
@@ -281,7 +390,8 @@
     var saved = parseInt(store("ka-tab"), 10);
     selectPane(saved >= 0 && saved < panes.length ? saved : 0);
     panes.forEach(function (o, i) {
-      if (location.hash && location.hash === "#" + o.pane.id) {
+      var subHit = o.pane.__subIds && location.hash && o.pane.__subIds.indexOf(location.hash.slice(1)) > -1;
+      if (location.hash && (location.hash === "#" + o.pane.id || subHit)) {
         selectPane(i);
         setTimeout(function () { hub.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300);
       }
@@ -308,17 +418,9 @@
     }
   }
 
-  // Header'ga "Grafik" havolasi
-  var hnav = $("header nav");
-  if (hnav) {
-    var ga = el("a", { href: "#grafik" }, "📐 Grafik");
-    ga.addEventListener("click", function (e) { e.preventDefault(); Graph.open(); });
-    var admin = $$("a", hnav).filter(function (a) { return /admin/i.test(a.textContent); })[0];
-    hnav.insertBefore(ga, admin || null);
-    var ta = el("a", { href: "#arqon" }, "🪢 Arqon tortish");
-    ta.addEventListener("click", function (e) { e.preventDefault(); Tug.open(); });
-    hnav.insertBefore(ta, admin || null);
-  }
+  // Header'ga qo'shimcha havola qo'shilmaydi — Grafik, Desmos va Arqon tortish pastdagi tablarda (menyu ixcham qoladi)
+  // Agar #grafik yoki #arqon hash bilan kelinsa, mos oyna ochiladi
+  if (location.hash === "#arqon") setTimeout(function () { Tug.open(); }, 300);
 
   // ---- Yon menyu (drawer) ----
   var drawerBg = el("div", { class: "ka-drawer-bg" });
@@ -565,9 +667,11 @@
           '<button data-act="snap" class="act" title="Nuqtalarni katakka yopishtirish">🧲 Katak</button>' +
           '<button data-act="center" title="Markazga qaytarish">⌖</button>' +
           '<button data-act="png" title="Rasm sifatida saqlash">💾 PNG</button>' +
+          '<button data-act="desmos" title="Desmos grafik kalkulyatori">📈 Desmos</button>' +
+          '<button data-act="desmos-send" title="Qo\'lda chizganingizni Desmos\'ga nuqtalar sifatida yuborish">➡️ Chizmani Desmos\'ga</button>' +
           '<button data-act="close" title="Yopish (Esc)">✕</button>' +
         "</div>" +
-        '<div class="ka-g-stage"><canvas class="bg"></canvas><canvas class="fg"></canvas><div class="ka-g-coord">x: 0 · y: 0</div></div>' +
+        '<div class="ka-g-stage"><canvas class="bg"></canvas><canvas class="fg"></canvas><div class="ka-g-coord">x: 0 · y: 0</div><div class="ka-g-desmos"></div></div>' +
         '<div class="ka-g-bot">' +
           '<div class="row"><span class="ka-g-task"></span></div>' +
           '<div class="row"><label>y =</label><input type="text" placeholder="masalan: x^2 - 4x + 3" autocomplete="off" spellcheck="false">' +
@@ -575,7 +679,7 @@
             '<button data-act="show">👁 Grafikni ko\'rsat</button>' +
             '<button data-act="task">🎲 Topshiriq</button></div>' +
           '<div class="ka-g-msg"></div>' +
-          '<div class="ka-g-help">Maslahat: avval qo\'lda chizing, keyin formulani yozib «Tekshirish»ni bosing. Belgilar: x^2, sqrt(x), |x|, sin(x), 1/x, 2^x. Ikki barmoq bilan kattalashtirish mumkin.</div>' +
+          '<div class="ka-g-help">Maslahat: avval qo\'lda chizing, keyin formulani yozib «Tekshirish»ni bosing. Belgilar: x^2, sqrt(x), |x|, sin(x), 1/x, 2^x. Ikki barmoq bilan kattalashtirish mumkin. «📈 Desmos» — aniq grafik, jadval va slayderlar; «Grafikni ko\'rsat» Desmos rejimida formulani Desmos\'da chizadi.</div>' +
         "</div>";
       document.body.appendChild(root);
       bg = $("canvas.bg", root); fg = $("canvas.fg", root);
@@ -821,6 +925,85 @@
       return { acc: acc, cov: cov, total: Math.round(100 * (0.6 * acc + 0.4 * cov)) };
     }
 
+    /* ---------- Desmos integratsiyasi ---------- */
+    var dsCalc = null, dsLoading = false, dsQueue = [];
+    var DESMOS_URL = "https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0dda6";
+    function toLatex(src) {
+      var t = String(src).replace(/^\s*(y|f\s*\(\s*x\s*\))\s*=\s*/i, "").replace(/\s+/g, "");
+      t = t.replace(/[−–—]/g, "-").replace(/[·×∙]/g, "*").replace(/[÷:]/g, "/").replace(/²/g, "^2").replace(/³/g, "^3").replace(/\*\*/g, "^");
+      // sqrt(...) -> \sqrt{...}  (balans bilan)
+      function balanced(str, i) { var d = 0; for (var k = i; k < str.length; k++) { if (str[k] === "(") d++; else if (str[k] === ")") { d--; if (!d) return k; } } return -1; }
+      var out = "", i = 0;
+      while (i < t.length) {
+        var mm = /^(sqrt|√)\(/.exec(t.slice(i));
+        if (mm) { var j = balanced(t, i + mm[0].length - 1); if (j > 0) { out += "\\sqrt{" + toLatex(t.slice(i + mm[0].length, j)) + "}"; i = j + 1; continue; } }
+        out += t[i]; i++;
+      }
+      t = out.replace(/√(\w+)/g, "\\sqrt{$1}");
+      t = t.replace(/\|([^|]+)\|/g, "\\left|$1\\right|");
+      t = t.replace(/\b(arcsin|arccos|arctg|arctan|sin|cos|tg|tan|ctg|cot|ln|lg|log|exp)\b/g, function (f) {
+        return ({ tg: "\\tan", tan: "\\tan", ctg: "\\cot", cot: "\\cot", lg: "\\log", log: "\\log", arctg: "\\arctan", arctan: "\\arctan" })[f] || ("\\" + f);
+      });
+      t = t.replace(/\bpi\b|π/g, "\\pi").replace(/\*/g, "\\cdot ");
+      return t;
+    }
+    function ensureDesmos(cb) {
+      if (dsCalc) { cb(dsCalc); return; }
+      dsQueue.push(cb);
+      if (dsLoading) return;
+      dsLoading = true;
+      var box = $(".ka-g-desmos", root);
+      box.innerHTML = '<div class="ka-g-dload">📈 Desmos yuklanmoqda…</div>';
+      function init() {
+        box.innerHTML = "";
+        try {
+          dsCalc = window.Desmos.GraphingCalculator(box, { language: "ru", keypad: true, expressions: true, settingsMenu: true, zoomButtons: true, border: false });
+          dsCalc.setMathBounds({ left: -R, right: R, bottom: -R, top: R });
+        } catch (e) { box.innerHTML = '<div class="ka-g-dload">⚠️ Desmos yuklanmadi (internet kerak)</div>'; dsLoading = false; dsQueue = []; return; }
+        dsQueue.forEach(function (f) { f(dsCalc); }); dsQueue = [];
+      }
+      if (window.Desmos) { init(); return; }
+      var sc = document.createElement("script"); sc.src = DESMOS_URL; sc.async = true;
+      sc.onload = init;
+      sc.onerror = function () { box.innerHTML = '<div class="ka-g-dload">⚠️ Desmos yuklanmadi — internetni tekshiring</div>'; dsLoading = false; dsQueue = []; };
+      document.head.appendChild(sc);
+    }
+    function desmosOn() { return root && root.classList.contains("desmos"); }
+    function desmosSet(src) {
+      ensureDesmos(function (c) {
+        var lx = toLatex(src);
+        try { c.setExpression({ id: "ka-y", latex: "y=" + lx, color: "#2d70b3" }); } catch (e) {}
+      });
+    }
+    function desmosSendStrokes() {
+      if (!strokes.length) { setMsg("Avval qo'lda biror narsa chizing ✏️", "bad"); return; }
+      ensureDesmos(function (c) {
+        var n = 0;
+        strokes.forEach(function (st, idx) {
+          var pts = st.p || [];
+          if (pts.length < 1) return;
+          var step = Math.max(1, Math.ceil(pts.length / 80));
+          var xs = [], ys = [];
+          for (var k = 0; k < pts.length; k += step) { xs.push(String(+pts[k][0].toFixed(3))); ys.push(String(+pts[k][1].toFixed(3))); }
+          if (pts.length > 1 && (pts.length - 1) % step) { xs.push(String(+pts[pts.length - 1][0].toFixed(3))); ys.push(String(+pts[pts.length - 1][1].toFixed(3))); }
+          n++;
+          c.setExpression({ type: "table", id: "ka-chizma-" + idx, columns: [
+            { latex: "x_{" + (idx + 1) + "}", values: xs },
+            { latex: "y_{" + (idx + 1) + "}", values: ys, lines: st.t !== "point", points: st.t === "point" || xs.length < 3, color: st.c || "#5ee6c7" }
+          ] });
+        });
+        root.classList.add("desmos"); $('[data-act="desmos"]', root).classList.add("act");
+        c.resize();
+        setMsg("➡️ " + n + " ta chizma Desmos'ga jadval sifatida yuborildi. Endi formulani yozib taqqoslang.");
+      });
+    }
+    function toggleDesmos(on) {
+      var want = on == null ? !desmosOn() : !!on;
+      root.classList.toggle("desmos", want);
+      $('[data-act="desmos"]', root).classList.toggle("act", want);
+      if (want) ensureDesmos(function (c) { c.resize(); var v = inpEl.value.trim(); if (v) desmosSet(v); });
+    }
+
     function act(a, btn) {
       if (a === "close") return close();
       if (a === "undo") { if (undoS.length) { redoS.push(JSON.stringify(strokes)); strokes = JSON.parse(undoS.pop()); render(); } return; }
@@ -828,6 +1011,8 @@
       if (a === "clear") { if (!strokes.length) return; pushUndo(); strokes = []; showAnswer = false; setMsg(""); render(); return; }
       if (a === "snap") { snap = !snap; btn.classList.toggle("act", snap); return; }
       if (a === "center") { cx = cy = 0; R = +$("[data-r]", root).value; render(); return; }
+      if (a === "desmos") { toggleDesmos(); return; }
+      if (a === "desmos-send") { desmosSendStrokes(); return; }
       if (a === "png") {
         var c = document.createElement("canvas"); c.width = bg.width; c.height = bg.height;
         var x = c.getContext("2d"); x.drawImage(bg, 0, 0); x.drawImage(fg, 0, 0);
@@ -848,6 +1033,7 @@
         try { answer = parseFormula(src); answerSrc = src.replace(/^\s*y\s*=\s*/i, ""); }
         catch (err) { setMsg("⚠️ " + err.message, "bad"); return; }
         showAnswer = true;
+        if (desmosOn()) { desmosSet(src); if (a === "show") { setMsg("📈 y = " + answerSrc + " Desmos'da chizildi."); return; } }
         if (a === "show") { render(); setMsg("Sariq uzuq chiziq — y = " + answerSrc + " ning to'g'ri grafigi."); return; }
         var sc = score(answer); render();
         if (!sc) { setMsg("Avval grafikni qo'lda chizing ✏️ — so'ng tekshiramiz.", "bad"); return; }
@@ -857,12 +1043,14 @@
       }
     }
 
-    function open() {
+    function open(opts) {
       if (!root) build();
       root.classList.add("on");
       document.documentElement.style.overflow = "hidden";
       requestAnimationFrame(resize);
       if (history.replaceState) history.replaceState(null, "", "#grafik");
+      if (opts && opts.desmos) toggleDesmos(true);
+      if (opts && opts.formula) { inpEl.value = opts.formula; if (opts.desmos) desmosSet(opts.formula); }
     }
     function close() {
       if (!root || !root.classList.contains("on")) return;

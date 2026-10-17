@@ -1,6 +1,6 @@
 /*!
  * Kuvonch Academy — VIRTUAL o'yinlar (kamera + qo'l kuzatuvi)
- * 49 ta matematik o'yin (47 + poyga + grafik doskasi). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
+ * 59 ta o'yin (47 matematik + poyga + grafik doskasi + 10 ta fizika). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
  * Qo'l kuzatuvi: MediaPipe Hands (brauzerda ishlaydi, video hech qayerga yuborilmaydi).
  * O'yin sahifasi:  <script>window.KAV_ID=5</script><script src="ka-virtual.js"></script>
  * Ro'yxat sahifasi: <script>window.KAV_HUB=1</script><script src="ka-virtual.js"></script>
@@ -56,7 +56,18 @@
     manfiy: { n: "Manfiy sonlar", q: function (l) { var a = R(-15, 15), b = R(-15, 15), o = R(0, 1); var v = o ? a + b : a - b; return { q: mstr(a) + (o ? " + " : " − ") + neg(b), a: v, w: near(v, 6, 6).concat([-v]), e: mstr(a) + (o ? " + " : " − ") + neg(b) + " = " + (o ? mstr(a) + (b < 0 ? " − " + (-b) : " + " + b) : mstr(a) + (b < 0 ? " + " + (-b) : " − " + b)) + " = " + mstr(v) + (o ? "" : "   (minus × minus = plyus)") }; } },
     aralash: { n: "Aralash misollar", q: function (l) { return TOPICS[pick(["qoshish", "ayirish", "kopaytirish", "bolish"])].q(l); } },
     kichik: { n: "10 gacha qo'shish/ayirish", q: function () { if (R(0, 1)) { var a = R(0, 10), b = R(0, 10 - a); return { q: a + " + " + b, a: a + b, w: [], e: a + " + " + b + " = " + (a + b) }; } var c = R(1, 10), d = R(0, c); return { q: c + " − " + d, a: c - d, w: [], e: c + " − " + d + " = " + (c - d) }; } },
-    kichikAralash: { n: "10 gacha aralash", q: function () { var t = R(0, 3); if (t === 0) { var a = R(1, 5), b = R(1, 2); return { q: a + " × " + b, a: a * b, w: [], e: a + " × " + b + " = " + (a * b) }; } if (t === 1) { var n = R(1, 10), d = pick([1, 2]); return { q: (n * d) + " : " + d, a: n, w: [], e: (n * d) + " : " + d + " = " + n }; } if (t === 2) { var r = R(0, 3); return { q: "√" + (r * r), a: r, w: [], e: "√" + (r * r) + " = " + r + ", chunki " + r + "·" + r + " = " + (r * r) }; } return TOPICS.kichik.q(); } }
+    kichikAralash: { n: "10 gacha aralash", q: function () { var t = R(0, 3); if (t === 0) { var a = R(1, 5), b = R(1, 2); return { q: a + " × " + b, a: a * b, w: [], e: a + " × " + b + " = " + (a * b) }; } if (t === 1) { var n = R(1, 10), d = pick([1, 2]); return { q: (n * d) + " : " + d, a: n, w: [], e: (n * d) + " : " + d + " = " + n }; } if (t === 2) { var r = R(0, 3); return { q: "√" + (r * r), a: r, w: [], e: "√" + (r * r) + " = " + r + ", chunki " + r + "·" + r + " = " + (r * r) }; } return TOPICS.kichik.q(); } },
+    /* ---------- FIZIKA (matematika bilan bog'langan) ---------- */
+    tezlik: { n: "Fizika: tezlik v = s/t", q: function (l) { var t = R(2, 5 + l), v = R(5, 15 + l * 10), s = v * t; return { q: "s = " + s + " m, t = " + t + " s. v = ? (m/s)", a: v, w: near(v, 6, 5), e: "v = s/t = " + s + "/" + t + " = " + v + " m/s" }; } },
+    masofa: { n: "Fizika: masofa s = v·t", q: function (l) { var v = R(2, 10 + l * 5), t = R(2, 6 + l); return { q: "v = " + v + " m/s, t = " + t + " s. s = ? (m)", a: v * t, w: near(v * t, 6, 8), e: "s = v·t = " + v + "·" + t + " = " + (v * t) + " m" }; } },
+    zichlik: { n: "Fizika: zichlik ρ = m/V", q: function (l) { var V = R(2, 5 + l), rho = pick([1, 2, 3, 5, 7, 8, 10]) , m = rho * V; return { q: "m = " + m + " kg, V = " + V + " m³. ρ = ? (kg/m³)", a: rho, w: near(rho, 6, 3), e: "ρ = m/V = " + m + "/" + V + " = " + rho + " kg/m³" }; } },
+    kuch: { n: "Fizika: kuch F = m·a", q: function (l) { var m = R(2, 10 + l * 5), a = R(1, 4 + l); return { q: "m = " + m + " kg, a = " + a + " m/s². F = ? (N)", a: m * a, w: near(m * a, 6, 6), e: "F = m·a = " + m + "·" + a + " = " + (m * a) + " N" }; } },
+    om: { n: "Fizika: Om qonuni I = U/R", q: function (l) { var I = R(1, 4 + l), Rr = pick([2, 3, 4, 5, 6, 10, 12]), U = I * Rr; return { q: "U = " + U + " V, R = " + Rr + " Ω. I = ? (A)", a: I, w: near(I, 6, 3), e: "I = U/R = " + U + "/" + Rr + " = " + I + " A" }; } },
+    ish: { n: "Fizika: ish A = F·s", q: function (l) { var F = R(5, 20 + l * 10), sd = R(2, 8 + l); return { q: "F = " + F + " N, s = " + sd + " m. A = ? (J)", a: F * sd, w: near(F * sd, 6, 12), e: "A = F·s = " + F + "·" + sd + " = " + (F * sd) + " J" }; } },
+    quvvat: { n: "Fizika: quvvat P = A/t", q: function (l) { var t = R(2, 6 + l), P = R(5, 20 + l * 10), A = P * t; return { q: "A = " + A + " J, t = " + t + " s. P = ? (W)", a: P, w: near(P, 6, 6), e: "P = A/t = " + A + "/" + t + " = " + P + " W" }; } },
+    bosim: { n: "Fizika: bosim p = F/S", q: function (l) { var S = R(2, 5 + l), pr = R(10, 40 + l * 20), F = pr * S; return { q: "F = " + F + " N, S = " + S + " m². p = ? (Pa)", a: pr, w: near(pr, 6, 8), e: "p = F/S = " + F + "/" + S + " = " + pr + " Pa" }; } },
+    ogirlik: { n: "Fizika: og'irlik P = m·g (g≈10)", q: function (l) { var m = R(1, 12 + l * 6); return { q: "m = " + m + " kg. Og'irlik P = ? (N, g = 10)", a: m * 10, w: [m * 10 + 10, m * 10 - 10, m, m * 9, m * 11, m * 10 + 5], e: "P = m·g = " + m + "·10 = " + (m * 10) + " N" }; } },
+    issiqlik: { n: "Fizika: Q = c·m·Δt", q: function (l) { var c = pick([1, 2, 4]), m = R(1, 4 + l), dt = R(2, 10); return { q: "c = " + c + " kJ/(kg·°C), m = " + m + " kg, Δt = " + dt + " °C. Q = ? (kJ)", a: c * m * dt, w: near(c * m * dt, 6, 8), e: "Q = c·m·Δt = " + c + "·" + m + "·" + dt + " = " + (c * m * dt) + " kJ" }; } }
   };
 
   // Juftlar (xotira o'yini): [chap, o'ng]
@@ -210,7 +221,18 @@
     { t: "Zarra matn: tenglama juftlari", m: "xotira", k: "tenglama", th: "zarra", i: "Particle Text Effect" },
     { t: "Final duel: o'nli kasrlar tartibi", m: "tartib", k: "onli", th: "kamalak", i: "Final", duel: 1 },
     { t: "Sport mashina poygasi", m: "poyga", k: "poyga", th: "olov", i: "Poyga" },
-    { t: "Grafik doskasi", m: "grafik", k: "grafik", th: "neon", i: "Grafik doska" }
+    { t: "Grafik doskasi", m: "grafik", k: "grafik", th: "neon", i: "Grafik doska" },
+    /* ---- Fizika o'yinlari (50–59) ---- */
+    { t: "Raketa: tezlik v = s/t", m: "pufak", k: "tezlik", th: "galaktika", i: "Fizika — kinematika", fan: "fizika" },
+    { t: "Yo'l: masofa s = v·t", m: "yomgir", k: "masofa", th: "neon", i: "Fizika — kinematika II", fan: "fizika" },
+    { t: "Suv va temir: zichlik", m: "orbita", k: "zichlik", th: "suv", i: "Fizika — zichlik", fan: "fizika" },
+    { t: "Nyuton: kuch F = m·a", m: "nishon", k: "kuch", th: "olov", i: "Fizika — dinamika", fan: "fizika" },
+    { t: "Elektr zanjiri: Om qonuni", m: "pianino", k: "om", th: "terminal", i: "Fizika — elektr", fan: "fizika" },
+    { t: "Mexanik ish A = F·s", m: "orbita", k: "ish", th: "saturn", i: "Fizika — ish", fan: "fizika" },
+    { t: "Quvvat P = A/t", m: "pufak", k: "quvvat", th: "zarra", i: "Fizika — quvvat", fan: "fizika" },
+    { t: "Bosim p = F/S", m: "pianino", k: "bosim", th: "tutun", i: "Fizika — bosim", fan: "fizika" },
+    { t: "Og'irlik kuchi P = m·g", m: "yomgir", k: "ogirlik", th: "olov", i: "Fizika — og'irlik", fan: "fizika" },
+    { t: "Issiqlik miqdori Q = cmΔt", m: "nishon", k: "issiqlik", th: "kamalak", i: "Fizika — issiqlik", fan: "fizika" }
   ];
   var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS, poyga: { poyga: { n: "Qo'shish va ayirish (tezlik)" } }, grafik: { grafik: { n: "Funksiya grafiklari" } } };
   var PAIRN = { kopaytirish: "Ko'paytma juftlari", kasrFoiz: "Kasr = foiz", tenglama: "Tenglama = yechim" };

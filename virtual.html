@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Virtual o'yinlar — Kuvonch Academy</title>
-<meta name="description" content="49 ta virtual matematik o'yin: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
+<meta name="description" content="59 ta virtual matematik va fizika o'yini: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
 <meta name="theme-color" content="#0b1220">
 <link rel="icon" href="icon-192.png">
 <link rel="canonical" href="https://quvonchbek99.github.io/quvnoqdombogchalar/virtual.html">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Kuvonch Academy">
 <meta property="og:locale" content="uz_UZ">
 <meta property="og:title" content="Virtual o'yinlar — Kuvonch Academy">
-<meta property="og:description" content="49 ta virtual matematik o'yin: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
+<meta property="og:description" content="59 ta virtual matematik va fizika o'yini: kamera qo'llaringizni (bir yoki bir nechta) sezadi — barmoq bilan javob tanlang, kesing, tuting, burchak yasang.">
 <meta property="og:url" content="https://quvonchbek99.github.io/quvnoqdombogchalar/virtual.html">
 <meta property="og:image" content="https://quvonchbek99.github.io/quvnoqdombogchalar/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -77,7 +77,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 <canvas id="hc"></canvas>
 <span class="kicker">Kamera + qo'l kuzatuvi</span>
 <h1><span>Virtual</span> matematik o'yinlar</h1>
-<p class="lead">49 ta o'yin — hech narsa bosmaysiz, kamera qo'llaringizni sezadi. Bitta, ikkita yoki to'rttagacha qo'l bir vaqtda ishlaydi: do'stingiz bilan <b>duel</b> qilib o'ynash ham mumkin.</p>
+<p class="lead">59 ta o'yin (shu jumladan 10 ta fizika) — hech narsa bosmaysiz, kamera qo'llaringizni sezadi. Bitta, ikkita yoki to'rttagacha qo'l bir vaqtda ishlaydi: do'stingiz bilan <b>duel</b> qilib o'ynash ham mumkin.</p>
 <div class="steps">
 <div class="step"><b>1. O'yinni tanlang</b>Mavzu va o'yin turi har bir kartada yozilgan.</div>
 <div class="step"><b>2. Kameraga ruxsat bering</b>Video faqat qurilmangizda qayta ishlanadi.</div>
@@ -102,7 +102,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
   var K = window.KAV, g = document.getElementById("g"), f = document.getElementById("f"), cur = "all";
   function best(id) { try { return +localStorage.getItem("kav.best." + id) || 0; } catch (e) { return 0; } }
   function render() {
-    g.innerHTML = K.GAMES.filter(function (x) { return cur === "all" || x.m === cur; }).map(function (x) {
+    g.innerHTML = K.GAMES.filter(function (x) { return cur === "all" || (cur === "fizika" ? x.fan === "fizika" : x.m === cur); }).map(function (x) {
       var th = K.THEMES[x.th], m = K.MECH[x.m], b = best(x.id);
       return '<a class="g" style="--c:' + th.acc + '" href="virtual-' + x.id + '.html">' +
         '<span class="n">#' + x.id + " · " + th.n.toUpperCase() + '</span><span class="e">' + m.e + "</span><h3>" + x.t + '</h3><span class="t">' + x.topic + "</span>" +
@@ -110,7 +110,8 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
     }).join("");
   }
   var used = {}; K.GAMES.forEach(function (x) { used[x.m] = (used[x.m] || 0) + 1; });
-  f.innerHTML = '<button class="chip on" data-m="all">Hammasi (' + K.GAMES.length + ')</button>' + Object.keys(K.MECH).filter(function (m) { return used[m]; }).map(function (m) { return '<button class="chip" data-m="' + m + '">' + K.MECH[m].e + " " + K.MECH[m].n + " (" + used[m] + ")</button>"; }).join("");
+  var nf = K.GAMES.filter(function (x) { return x.fan === "fizika"; }).length;
+  f.innerHTML = '<button class="chip on" data-m="all">Hammasi (' + K.GAMES.length + ')</button>' + '<button class="chip" data-m="fizika">⚛️ Fizika (' + nf + ')</button>' + Object.keys(K.MECH).filter(function (m) { return used[m]; }).map(function (m) { return '<button class="chip" data-m="' + m + '">' + K.MECH[m].e + " " + K.MECH[m].n + " (" + used[m] + ")</button>"; }).join("");
   f.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (!b) return; cur = b.getAttribute("data-m"); Array.prototype.forEach.call(f.children, function (c) { c.classList.toggle("on", c === b); }); render(); });
   render();
   // Qiyinlik darajasi — barcha o'yinlar uchun saqlanadi (kav.cfg.diff)
