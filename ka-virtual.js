@@ -167,7 +167,7 @@
     sonoq: { e: "📏", n: "Son o'qi", how: "Barmog'ingizni son o'qi ustida yurgizing va berilgan sonning joyida ushlab turing." },
     poyga: { e: "🏎️", n: "Poyga", how: "Qo'lingizni chapga-o'ngga suring — mashina shunday yuradi. Yashil <b>+</b> / <b>×2</b> darvozalar tezlikni oshiradi, qizil <b>−</b> / <b>:2</b> kamaytiradi — tezlikning <b>chegarasi yo'q</b>! Yo'ldagi 🔶 konus, ⛔ to'siq, 🛢 moy dog'i va chuqurlardan qoching, ⚡ ko'k yo'lak tezlashtiradi. Ketma-ket 3 ta to'g'ri darvoza = 🔥 nitro (chimdang 🤏). Musht — tormoz. <b>1–4 o'yinchi</b>: kamera kengligi o'yinchilar soniga teng bo'laklarga bo'linadi. Klaviatura: ←→↓↑ · A D S W · J L K I · 4 6 5 8." },
     grafik: { e: "📈", n: "Grafik doskasi", how: "Koordinata doskasida funksiya grafigini barmoq bilan chizing: <b>☝ ko'rsatkich barmoqni</b> ko'tarib yurgizing (yoki 🤏 chimdang) — chiziladi, <b>✋ ochiq kaft</b> — o'chirg'ich. Tugmalarni 0,8 s ushlab turib bosing. <b>Vazifa</b> rejimida aniqlik foizda baholanadi va to'g'ri grafik ko'rsatiladi; <b>Erkin doska</b>da xohlagancha chizasiz va formulani yozib (masalan x^2−3) grafigini doskaga chiqarasiz." },
-    burchak: { e: "📐", n: "Burchak", how: "Ikki qo'lning ko'rsatkich barmoqlari bilan chiziq hosil qiling (bitta qo'l bo'lsa — ko'rsatkich barmoq yo'nalishi). Yoki javobni yozing / 🎤 ayting. Chiziq gorizontal bilan kerakli burchak hosil qilsin va ushlab turing." }
+    burchak: { e: "📐", n: "Burchak", how: "Ikki qo'lning ko'rsatkich barmoqlari bilan chiziq hosil qiling (bitta qo'l bo'lsa — ko'rsatkich barmoq yo'nalishi). Yoki javobni yozing / 🎤 ayting. Chiziq gorizontal bilan kerakli burchak hosil qilsin va 3 soniya ushlab turing — 3·2·1 sanaladi va javob qabul qilinadi." }
   };
 
   /* ======================= 47 TA O'YIN ======================= */
@@ -1327,9 +1327,15 @@
 
   // ---------- Burchak ----------
   M.burchak = function () {
-    var A = ANGLES[G.k], tg, holdT = 0, cur = null;
-    var hintT = 0;
-    function nq() { tg = A.gen(); setQ(tg.q + (G.k === "trig" ? "  →  α ni yasang" : "")); holdT = 0; hintT = 0; }
+    var A = ANGLES[G.k], tg = null, holdT = 0, cur = null;
+    var hintT = 0, offT = 0, inTol = false, lastSec = 0;
+    var HOLD_A = 3;   // to'g'ri burchak 3 soniya ushlab turilsa — 3·2·1 sanab, javob qabul qilinadi
+    function angDist(a, b) { var d = Math.abs(a - b) % 180; return Math.min(d, 180 - d); }
+    function nq() {
+      var prev = tg, t = 0;
+      do { tg = A.gen(); } while (prev && angDist(tg.a, prev.a) < 25 && t++ < 40);   // keyingi burchak oldingisidan sezilarli farq qilsin
+      setQ(tg.q + (G.k === "trig" ? "  →  α ni yasang" : "")); holdT = 0; hintT = 0; offT = 0; inTol = false; lastSec = 0;
+    }
     function angEx() { return G.k === "trig" ? tg.q.replace("α", tg.a + "°") + "  →  α = " + tg.a + "°" : tg.a + "°" + (tg.a < 90 ? " — o'tkir burchak (90° dan kichik)" : tg.a === 90 ? " — to'g'ri burchak" : " — o'tmas burchak (90° dan katta)"); }
     var sm = null, needTxt = "";
     function line() {
@@ -1359,17 +1365,26 @@
         }
         var tol = Math.max(5, 9 - lvl() * 0.7);          // 8° dan boshlab, daraja oshgani sari 5° gacha
         var diff = diffTo(cur);
-        needTxt = cur == null ? "" : diff <= tol ? "✔ ushlab turing" : (((tg.a - cur + 180) % 180) < 90 ? "⤴ yana +" : "⤵ yana −") + Math.round(diff) + "°";
-        if (diff <= tol) { holdT += dt; if (holdT > 0.8) { var m = l ? { x: (l.a.x + l.b.x) / 2, y: (l.a.y + l.b.y) / 2 } : { x: W / 2, y: H / 2 }; good(m.x, m.y, 0, 0, angEx()); nq(); } }
-        hintT += dt; if (hintT > 10 && hintT < 50) { hintT = 99; logMiss(null, angEx()); teach(angEx() + (G.k === "trig" ? "" : ".  0° — gorizontal, 45° — diagonal, 90° — tik"), "hint", 4000); }
-        else holdT = Math.max(0, holdT - dt * 2);
+        // sanoq boshlangach chegara 3° kengayadi — qo'l biroz titrasa ham sanoq buzilmaydi
+        inTol = cur != null && diff <= tol + (holdT > 0 ? 3 : 0);
+        if (inTol) {
+          offT = 0; holdT += dt;
+          if (holdT >= HOLD_A) { var m = l ? { x: (l.a.x + l.b.x) / 2, y: (l.a.y + l.b.y) / 2 } : { x: W / 2, y: H / 2 }; good(m.x, m.y, 0, 0, angEx()); nq(); needTxt = ""; return; }
+          var sec = Math.ceil(HOLD_A - holdT);          // 3 → 2 → 1
+          if (sec !== lastSec) { lastSec = sec; sTick(440 + (HOLD_A - sec) * 160); }
+        } else {
+          offT += dt;
+          if (offT > 0.35) { holdT = 0; lastSec = 0; }   // qisqa titrash kechiriladi; burchakdan chiqilsa sanoq boshidan
+          if (holdT <= 0) { hintT += dt; if (hintT > 10 && hintT < 50) { hintT = 99; logMiss(null, angEx()); teach(angEx() + (G.k === "trig" ? "" : ".  0° — gorizontal, 45° — diagonal, 90° — tik"), "hint", 4000); } }
+        }
+        needTxt = cur == null ? "" : inTol ? "✔ Ushlab turing: " + Math.max(1, Math.ceil(HOLD_A - holdT)) + " s" : (((tg.a - cur + 180) % 180) < 90 ? "⤴ yana +" : "⤵ yana −") + Math.round(diff) + "°";
       },
       draw: function () {
         var l = line(); if (!l) { ctx.fillStyle = "#cfd8ef"; ctx.font = "600 16px " + FONT; ctx.textAlign = "center"; ctx.fillText(mouseMode ? "Ekranni bosib burchak yasang" : "Qo'lni (yoki ikkala qo'lni) kameraga ko'rsating · ekranga bosish, raqam yozish yoki 🎤 aytish ham mumkin", W / 2, H * 0.5); return; }
         var c = l.a, ang = cur * Math.PI / 180, R0 = Math.max(60, Math.min(W, H) * 0.16);
         var dx = l.b.x - l.a.x, dy = l.b.y - l.a.y, len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;
         ctx.strokeStyle = "#ffffff55"; ctx.lineWidth = 2; ctx.setLineDash([8, 8]); ctx.beginPath(); ctx.moveTo(c.x - R0 * 1.6, c.y); ctx.lineTo(c.x + R0 * 1.8, c.y); ctx.stroke(); ctx.setLineDash([]);
-        var ok = holdT > 0;
+        var ok = inTol;
         ctx.strokeStyle = ok ? "#5ee67a" : TH.acc; ctx.shadowColor = ctx.strokeStyle; ctx.shadowBlur = 20; ctx.lineWidth = 6;
         ctx.beginPath(); ctx.moveTo(l.a.x - ux * R0 * 1.5, l.a.y - uy * R0 * 1.5); ctx.lineTo(l.b.x + ux * 40, l.b.y + uy * 40); ctx.stroke(); ctx.shadowBlur = 0;
         // yoy
@@ -1378,8 +1393,15 @@
         var ta = tg.a * Math.PI / 180; ctx.strokeStyle = "#ffffff44"; ctx.lineWidth = 3; ctx.setLineDash([4, 8]); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(c.x + Math.cos(ta) * R0 * 1.3, c.y - Math.sin(ta) * R0 * 1.3); ctx.stroke(); ctx.setLineDash([]);
         ctx.fillStyle = "#fff"; ctx.font = "900 " + (U * 5 + 12) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.shadowColor = TH.acc; ctx.shadowBlur = 14;
         ctx.fillText(Math.round(cur) + "°", c.x + Math.cos(ang / 2) * R0 * 1.05, c.y - Math.sin(ang / 2) * R0 * 1.05 - 10); ctx.shadowBlur = 0;
-        if (needTxt) { ctx.font = "800 " + (U * 2.4 + 10) + "px " + FONT; ctx.fillStyle = holdT > 0 ? "#5ee67a" : "#ffd479"; ctx.fillText(needTxt, c.x, c.y + R0 * 0.95 + 18); }
-        drawHoldRing(c.x, c.y, 18, holdT, 0.8);
+        if (needTxt) { ctx.font = "800 " + (U * 2.4 + 10) + "px " + FONT; ctx.fillStyle = inTol ? "#5ee67a" : "#ffd479"; ctx.fillText(needTxt, c.x, c.y + R0 * 0.95 + 18); }
+        // 3·2·1 sanoq: burchak uchida halqa to'lib boradi, ichida qolgan soniya
+        if (holdT > 0) {
+          var rr = Math.max(24, R0 * 0.34), sec = Math.max(1, Math.ceil(HOLD_A - holdT)), col = inTol ? "#5ee67a" : "#ffd479";
+          ctx.fillStyle = "rgba(8,14,28,.78)"; ctx.beginPath(); ctx.arc(c.x, c.y, rr, 0, Math.PI * 2); ctx.fill();
+          ctx.lineWidth = 5; ctx.strokeStyle = "#ffffff22"; ctx.beginPath(); ctx.arc(c.x, c.y, rr, 0, Math.PI * 2); ctx.stroke();
+          ctx.strokeStyle = col; ctx.shadowColor = col; ctx.shadowBlur = 16; ctx.beginPath(); ctx.arc(c.x, c.y, rr, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, holdT / HOLD_A)); ctx.stroke(); ctx.shadowBlur = 0;
+          ctx.fillStyle = "#fff"; ctx.font = "900 " + Math.round(rr * 1.15) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(sec, c.x, c.y + 2);
+        }
       }
     };
   };
