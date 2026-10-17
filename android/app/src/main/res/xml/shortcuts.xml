@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="mashqlar" android:enabled="true" android:icon="@drawable/ic_shortcut" android:shortcutShortLabel="@string/sc_mashqlar" android:shortcutLongLabel="@string/sc_mashqlar">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="uz.kuvonch.app" android:targetClass="uz.kuvonch.app.MainActivity" android:data="https://kuvonch.uz/mashqlar.html" />
+    </shortcut>
+    <shortcut android:shortcutId="virtual" android:enabled="true" android:icon="@drawable/ic_shortcut" android:shortcutShortLabel="@string/sc_virtual" android:shortcutLongLabel="@string/sc_virtual">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="uz.kuvonch.app" android:targetClass="uz.kuvonch.app.MainActivity" android:data="https://kuvonch.uz/virtual.html" />
+    </shortcut>
+    <shortcut android:shortcutId="sertifikat" android:enabled="true" android:icon="@drawable/ic_shortcut" android:shortcutShortLabel="@string/sc_sert" android:shortcutLongLabel="@string/sc_sert">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="uz.kuvonch.app" android:targetClass="uz.kuvonch.app.MainActivity" android:data="https://kuvonch.uz/sertifikat.html" />
+    </shortcut>
+</shortcuts>

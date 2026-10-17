@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Kuvonch Academy</string>
+    <string name="sc_mashqlar">📘 Mashqlar</string>
+    <string name="sc_virtual">🖐 Virtual o\'yinlar</string>
+    <string name="sc_sert">🎓 Sertifikat · SAT</string>
+    <string name="offline_title">Internet yo\'q</string>
+    <string name="offline_text">Kuvonch Academy ochilishi uchun internet kerak. Ulanishni tekshirib, qayta urinib ko\'ring.</string>
+    <string name="retry">🔄 Qayta urinish</string>
+    <string name="exit_hint">Chiqish uchun yana bir marta «Orqaga» bosing</string>
+</resources>
