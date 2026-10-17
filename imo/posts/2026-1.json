@@ -1,0 +1,30 @@
+{
+  "id": "2026-1",
+  "badge": "IMO 2026 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Doskadagi 2026 ta son",
+      "fs": 36,
+      "body": "<p>Doskada 1 dan katta <b>2026 ta butun son</b> yozilgan (takrorlanishi mumkin). Har yurishda Konfutsiy doskaning turli joylaridan <span class='m'>m &gt; 1</span> va <span class='m'>n &gt; 1</span> sonlarni tanlab, ularni</p><div class='box'><span class='m'>EKUB(m, n)</span> &nbsp;va&nbsp; <span class='m'>EKUK(m, n) / EKUB(m, n)</span></div><p>sonlari bilan almashtiradi. Yurish mumkin ekan, davom etadi.</p><p><b>(a)</b> Chekli yurishdan keyin doskada 1 dan katta <b>aynan bitta</b> <span class='m'>M</span> son qolishini isbotlang.</p><p><b>(b)</b> <span class='m'>M</span> ning qiymati yurishlar tartibiga bog'liq emasligini isbotlang.</p>"
+    },
+    {
+      "kicker": "YECHIM · (a) QISM",
+      "title": "Jarayon albatta tugaydi",
+      "fs": 35,
+      "body": "<p>Har bir yurish ikki xil bo'ladi:</p><ul><li><span class='m'>EKUB = 1</span> bo'lsa — doskada yangi <b>1</b> paydo bo'ladi. 1 lar hech qachon tanlanmaydi, demak bunday yurish ko'pi bilan 2026 marta.</li><li><span class='m'>EKUB = d &gt; 1</span> bo'lsa — ikki sonning ko'paytmasi <span class='m'>mn</span> dan <span class='m'>mn/d</span> ga <b>kamayadi</b>. Natural sonlar ko'paytmasi cheksiz kamaya olmaydi.</li></ul><p>Demak jarayon chekli. Tugaganda 1 dan katta son ko'pi bilan bitta qoladi.</p><div class='box'>Hech qachon hammasi 1 bo'lmaydi: <span class='m'>EKUB = 1</span> bo'lsa ikkinchi son <span class='m'>mn &gt; 1</span>, aks holda birinchi son <span class='m'>&gt; 1</span>. ✅</div>"
+    },
+    {
+      "kicker": "YECHIM · (b) QISM",
+      "title": "Yashirin Evklid algoritmi",
+      "fs": 34,
+      "body": "<p>Tub <span class='m'>p</span> ni olamiz; <span class='m'>v(x)</span> — <span class='m'>x</span> dagi <span class='m'>p</span> ning darajasi. Agar <span class='m'>v(m)=a ≤ b=v(n)</span> bo'lsa, yangi sonlarda daraja <span class='m'>a</span> va <span class='m'>b − a</span> bo'ladi.</p><div class='box'><span class='m'>EKUB(a, b − a) = EKUB(a, b)</span></div><p>Demak barcha sonlar darajalarining EKUBi <b>o'zgarmas (invariant)</b>. Oxirida faqat <span class='m'>M</span> qolgani uchun:</p><div class='box'><span class='m'>v(M) = EKUB(v(a₁), v(a₂), …, v(a₂₀₂₆))</span></div><p>Bu faqat boshlang'ich sonlarga bog'liq — har bir tub <span class='m'>p</span> uchun. Demak <span class='m'>M</span> yagona. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 36,
+      "body": "<p><span class='m'>12 = 2²·3</span>, &nbsp;<span class='m'>18 = 2·3²</span></p><p>(12, 18) → (6, 6) → (6, 1). &nbsp;Javob: <span class='m'>M = 6</span></p><div class='box'>Formula bo'yicha: <span class='m'>2<sup>EKUB(2,1)</sup> · 3<sup>EKUB(1,2)</sup> = 2·3 = 6</span> ✅</div><p>🧠 <b>Sizga savol:</b> doskada <span class='m'>8, 12, 20</span> yozilgan bo'lsa, <span class='m'>M</span> nechaga teng? Javobni izohlarda yozing 👇</p><p>📅 Ertaga: <b>IMO 2026 · 2-masala</b> (geometriya)</p>"
+    }
+  ]
+}
