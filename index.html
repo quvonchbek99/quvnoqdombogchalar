@@ -250,45 +250,74 @@ Har kuni chiqadigan postlar shu yerda davrlar va mavzular bo'yicha to'planib bor
 <section id="mavzular">
 <div class="section-head">
 <h2>Mavzu yo'nalishlari</h2>
-<p>Kanalda har kuni shu 7 ta yo'nalishdan biri bo'yicha post chiqadi.</p>
+<p>8 ta yo'nalish — har birida tushuntirish, misollar, interaktiv o'yin va tez test. Kartani bosing.</p>
 </div>
 <div class="grid">
-<div class="card">
+<div class="card yo-card" data-href="yonalish.html#algebra" role="link" tabindex="0">
 <span class="emoji">➗</span>
 <h3>Algebra</h3>
 <p>Kvadrat tenglamalar, progressiyalar, logarifmlar, funksiyalar, kompleks sonlar.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#algebra">Ochish →</a><a href="mashqlar.html#toc" class="yo-sub">📘 Mashqlar 1–50</a></span>
 </div>
-<div class="card">
+<div class="card yo-card" data-href="yonalish.html#geometriya" role="link" tabindex="0">
 <span class="emoji">📐</span>
 <h3>Geometriya</h3>
 <p>Uchburchaklar, aylana va doira, trigonometriya, vektorlar, stereometriya.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#geometriya">Ochish →</a><a href="mashqlar.html#toc5" class="yo-sub">📐 Geometriya 71–88</a></span>
 </div>
-<div class="card">
+<div class="card yo-card" data-href="yonalish.html#olimpiada" role="link" tabindex="0">
 <span class="emoji">🏆</span>
 <h3>Olimpiada masalalari</h3>
 <p>Sonlar nazariyasi, kombinatorika, geometrik va algebraik masalalar.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#olimpiada">Ochish →</a><a href="#ka-kunlik" class="yo-sub">🏅 Kunlik IMO masalasi</a></span>
 </div>
-<div class="card">
+<div class="card yo-card" data-href="yonalish.html#faktlar" role="link" tabindex="0">
 <span class="emoji">✨</span>
 <h3>Qiziqarli faktlar</h3>
 <p>Tarixiy faktlar, qiziqarli sonlar (π, e, oltin nisbat), matematik paradokslar.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#faktlar">Ochish →</a><a href="noldan-pigacha.html" class="yo-sub">π Noldan π gacha</a></span>
 </div>
-<div class="card">
+<div class="card yo-card" data-href="yonalish.html#tarix" role="link" tabindex="0">
 <span class="emoji">🏛</span>
 <h3>Matematika tarixi</h3>
 <p>Tosh asridan XX asrgacha — kashfiyotlar, olimlar, g'oyalar.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#tarix">Ochish →</a><a href="#davrlar" class="yo-sub">🕰 10 ta davr</a></span>
 </div>
-<div class="card">
+<div class="card yo-card" data-href="yonalish.html#fanlar" role="link" tabindex="0">
 <span class="emoji">🔬</span>
 <h3>Boshqa fanlar bilan bog'liqlik</h3>
 <p>Fizika, astronomiya, me'morchilik, musiqa, biologiya, iqtisodiyot.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#fanlar">Ochish →</a><a href="virtual.html" class="yo-sub">⚛️ Fizika o'yinlari</a></span>
 </div>
-<div class="card">
+<div class="card yo-card" data-href="yonalish.html#hayot" role="link" tabindex="0">
 <span class="emoji">💡</span>
 <h3>Hayot uchun matematika</h3>
 <p>Foiz hisoblash, byudjet, sport statistikasi, GPS va shifrlash.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#hayot">Ochish →</a><a href="bozor-oyin.html" class="yo-sub">🛒 Bozor o'yini</a></span>
+</div>
+<div class="card yo-card" data-href="yonalish.html#oyinlar" role="link" tabindex="0">
+<span class="emoji">🎮</span>
+<h3>O'yinlar nazariyasi</h3>
+<p>Nega ba'zi o'yinlar tugamaydi? Strategiya, Nash muvozanati, shaxmat va tangalar.</p>
+<span class="yo-links"><a class="yo-go" href="yonalish.html#oyinlar">Ochish →</a><a href="virtual.html" class="yo-sub">🖐 Virtual o'yinlar</a></span>
 </div>
 </div>
+<style>
+.yo-card{display:flex;flex-direction:column;color:inherit;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.yo-card:hover{transform:translateY(-3px);border-color:#5ee6c7;box-shadow:0 10px 26px rgba(0,0,0,.35)}
+.yo-links{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:12px;font-size:.85rem}
+.yo-go{color:#5ee6c7;font-weight:700}
+.yo-sub{color:#9fb0d0;text-decoration:none;border:1px solid #243252;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.yo-sub:hover{color:#eef2ff;border-color:#7c9bff}
+.yo-go{text-decoration:none;white-space:nowrap}
+</style>
+<script>
+document.querySelectorAll('.yo-card[data-href]').forEach(function(c){
+  function go(){location.href=c.getAttribute('data-href')}
+  c.addEventListener('click',function(e){if(e.target.closest('a'))return;go()});
+  c.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+});
+</script>
 </section>
 
 <section id="davrlar">
