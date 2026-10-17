@@ -482,7 +482,7 @@
   var hands = [];        // [{pts:[{x,y}], fingers, pinch, ...}]
   var pointers = [];     // o'yin uchun ko'rsatkichlar
   var prevPtr = [];
-  var camOn = false, mouseMode = false, handsObj = null, lastRes = null, vw = 1280, vh = 720;
+  var camOn = false, mouseMode = false, handsObj = null, lastRes = null, vw = 1280, vh = 720, pumpN = 0;
   var mouse = { x: -999, y: -999, down: false, inside: false };
 
   function mapLm(lm) {
@@ -589,7 +589,9 @@
   var busy = false, stream = null;
   function startCamera() {
     loadEl.style.display = "flex"; $("kv-lt").textContent = "KAMERA YUKLANMOQDA…";
-    return navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false })
+    var mob = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+    // Telefonda 640×480 yetarli — qo'l modeli 2–3 barobar tez ishlaydi
+    return navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: mob ? 640 : 1280 }, height: { ideal: mob ? 480 : 720 }, frameRate: { ideal: 30, max: 30 } }, audio: false })
       .then(function (s) { stream = s; video.srcObject = s; return video.play(); })
       .then(function () { $("kv-lt").textContent = "QO'L MODELI YUKLANMOQDA…"; return window.Hands ? null : loadScript(MP + "hands.js"); })
       .then(function () {
@@ -602,7 +604,8 @@
         camOn = true; loadEl.style.display = "none";
         (function pump() {
           if (!camOn) return;
-          if (!busy && video.readyState >= 2) { busy = true; vw = video.videoWidth || vw; vh = video.videoHeight || vh; handsObj.send({ image: video }).then(function () { busy = false; }, function () { busy = false; }); }
+          pumpN = (pumpN || 0) + 1;
+          if (!busy && video.readyState >= 2 && (!mob || pumpN % 2 === 0)) { busy = true; vw = video.videoWidth || vw; vh = video.videoHeight || vh; handsObj.send({ image: video }).then(function () { busy = false; }, function () { busy = false; }); }
           requestAnimationFrame(pump);
         })();
       });

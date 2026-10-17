@@ -251,7 +251,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
 .topic.collapsed .topic-body{display:none;}
 .topic:not(.collapsed) .topic-body{margin-top:4px;}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- xlsx faqat admin Excel yuklaganda yuklanadi -->
 <script async src="statistika.js"></script>
 </head>
 <body>
@@ -4962,16 +4962,12 @@ async function uploadAdminTopic() {
     statusEl.textContent = "Iltimos, Excel (.xlsx) faylni tanlang.";
     return;
   }
-  if (typeof XLSX === 'undefined') {
-    statusEl.className = 'admin-status err';
-    statusEl.textContent = "Excel o'quvchi kutubxona yuklanmadi. Internetni tekshirib, sahifani qayta yuklang.";
-    return;
-  }
 
   statusEl.textContent = "Fayl o'qilmoqda...";
 
   try {
     const data = await file.arrayBuffer();
+    if (!window.XLSX) { statusEl.textContent = "Excel kutubxonasi yuklanmoqda…"; await new Promise(function (ok, bad) { var sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"; sc.onload = ok; sc.onerror = bad; document.head.appendChild(sc); }); }
     const workbook = XLSX.read(data, { type: 'array' });
     const firstSheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[firstSheetName];
@@ -5164,27 +5160,27 @@ if ('serviceWorker' in navigator) {
 })();
 </script>
 <script src="kuvonch-menyu.js?v=20261017"></script>
-<script src="ka-qidiruv.js?v=20261017"></script>
-<script src="ai-yordamchi.js"></script>
-<script src="mashq-generator.js"></script>
-<script src="ka-savollar.js"></script>
-<script src="ka-savollar-2.js"></script>
-<script src="ka-savollar-3.js"></script>
-<script src="ka-savollar-4.js"></script>
-<script src="ka-savollar-5.js"></script>
-<script src="ka-savollar-6.js"></script>
-<script src="ka-savollar-7.js"></script>
-<script src="ka-savollar-8.js"></script>
-<script src="ka-savollar-9.js"></script>
-<script src="ka-savollar-10.js"></script>
-<script src="ka-savollar-11.js"></script>
-<script src="ka-test.js?v=20261017c"></script>
-<script src="savol-bazasi.js"></script>
-<script src="geometriya.js"></script>
+<script src="ka-qidiruv.js?v=20261017" defer></script>
+<script src="ai-yordamchi.js" defer></script>
+<script src="mashq-generator.js" defer></script>
+<script src="ka-savollar.js" defer></script>
+<script src="ka-savollar-2.js" defer></script>
+<script src="ka-savollar-3.js" defer></script>
+<script src="ka-savollar-4.js" defer></script>
+<script src="ka-savollar-5.js" defer></script>
+<script src="ka-savollar-6.js" defer></script>
+<script src="ka-savollar-7.js" defer></script>
+<script src="ka-savollar-8.js" defer></script>
+<script src="ka-savollar-9.js" defer></script>
+<script src="ka-savollar-10.js" defer></script>
+<script src="ka-savollar-11.js" defer></script>
+<script src="ka-test.js?v=20261017c" defer></script>
+<script src="savol-bazasi.js" defer></script>
+<script src="geometriya.js" defer></script>
 <script src="ka-bulut.js"></script>
 <script src="akkount.js"></script>
-<script src="ka-effektlar.js"></script>
-<script src="homiylar.js"></script>
+<script src="ka-effektlar.js" defer></script>
+<script src="homiylar.js" defer></script>
 <script src="ka-til.js"></script>
 <script src="ka-ielts.js" defer></script>
 </body>
