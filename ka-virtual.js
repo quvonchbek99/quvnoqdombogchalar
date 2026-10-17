@@ -32,86 +32,521 @@
     return out;
   }
 
-  /* ======================= SAVOL MAVZULARI ======================= */
-  // q(lvl) -> {q: savol matni, a: to'g'ri javob, w: [noto'g'ri variantlar]}
+  /* ======================= SAVOL MAVZULARI (v2 — 5 daraja) ======================= */
+  // q(l, boss) -> {q: savol, a: javob, w: [tipik xatolardan tuzilgan variantlar], e: qadamma-qadam yechim}
+  // l = 1…5 — daraja (o'yin davomida o'quvchining javoblariga qarab o'zgaradi).
+  // Savolda "?" bo'lsa — aynan o'sha joy so'ralyapti; bo'lmasa ekranda oxiriga " = ?" qo'shiladi.
+  // g — mavzu odatda o'tiladigan sinf (sinf tanlanganda boshlang'ich daraja shundan hisoblanadi).
+  function lv(l) { return Math.max(1, Math.min(5, l | 0 || 2)); }
+  function typ(l, tbl) { return pick(tbl[lv(l)]); }
+  function dec(x, d) { var p = Math.pow(10, d == null ? 2 : d); return mstr(Math.round(x * p) / p).replace(".", ","); }
+  function Qz(q, a, w, e, keepNeg) {
+    var seen = {}, out = [], num = typeof a === "number", A = num ? a : 0, intA = num && a === Math.round(a);
+    seen[String(a)] = 1;
+    (w || []).forEach(function (v) {
+      if (v == null || v === "") return;
+      if (typeof v === "number") {
+        if (!isFinite(v)) return;
+        if (num && A >= 0 && v < 0 && !keepNeg) return;  // musbat javobga manfiy variant — juda oson (manfiy sonlar mavzusidan tashqari)
+        if (intA && v !== Math.round(v)) return;          // butun javobga kasr variant — juda oson
+        v = Math.round(v * 1000) / 1000;
+      }
+      var k = String(v); if (!seen[k]) { seen[k] = 1; out.push(v); }
+    });
+    return { q: q, a: a, w: out, e: e };
+  }
+  var ISM = ["Ali", "Vali", "Zuhra", "Madina", "Sardor", "Nodira", "Jasur", "Malika", "Bobur", "Dilnoza", "Aziz", "Lola", "Sanjar", "Shahzoda"];
+  function ism2() { var a = pick(ISM), b = pick(ISM); while (b === a) b = pick(ISM); return [a, b]; }
+  var NARSA = ["olma", "yong'oq", "daftar", "qalam", "tanga", "kitob", "marka", "sharcha"];
+  function swapD(n) { var s = String(Math.abs(n)); if (s.length < 2 || s[s.length - 1] === s[s.length - 2]) return null; return +(s.slice(0, -2) + s[s.length - 1] + s[s.length - 2]); }
+  function fstr(n) { var out = [], p = 2; while (n > 1 && p * p <= n) { var k = 0; while (n % p === 0) { n /= p; k++; } if (k) out.push(p + (k > 1 ? sup(k) : "")); p++; } if (n > 1) out.push(String(n)); return out.join("·") || "1"; }
+  function fr(a, b) { if (b < 0) { a = -a; b = -b; } var g = gcd(a, b) || 1; a /= g; b /= g; return b === 1 ? mstr(a) : mstr(a) + "/" + b; }
+  function sumAll(a) { return a.reduce(function (s, x) { return s + x; }, 0); }
+
   var TOPICS = {
-    qoshish: { n: "Qo'shish", q: function (l) { var m = 10 + l * 8, a = R(1, m), b = R(1, m); return { q: a + " + " + b, a: a + b, w: near(a + b, 6), e: a + " + " + b + " = " + (a + b) + (a > 9 && b > 9 ? "  (o'nliklar: " + (a - a % 10) + "+" + (b - b % 10) + "=" + (a - a % 10 + b - b % 10) + ", birliklar: " + (a % 10) + "+" + (b % 10) + "=" + (a % 10 + b % 10) + ")" : "") }; } },
-    qoshish2: { n: "Ikki xonali qo'shish", q: function (l) { var a = R(10, 49 + l * 5), b = R(10, 49); return { q: a + " + " + b, a: a + b, w: near(a + b, 6, 11), e: a + " + " + b + " = " + (a - a % 10) + " + " + (b - b % 10) + " + " + (a % 10) + " + " + (b % 10) + " = " + (a + b) }; } },
-    ayirish: { n: "Ayirish", q: function (l) { var m = 15 + l * 8, a = R(5, m), b = R(1, a); return { q: a + " − " + b, a: a - b, w: near(a - b, 6), e: a + " − " + b + " = " + (a - b) + "   tekshiruv: " + (a - b) + " + " + b + " = " + a }; } },
-    kopaytirish: { n: "Ko'paytirish jadvali", q: function (l) { var a = R(2, Math.min(9, 4 + l)), b = R(2, 9); return { q: a + " × " + b, a: a * b, w: near(a * b, 6, Math.max(a, b) + 2), e: a + " × " + b + " = " + (a * b) + "   (" + Array(a + 1).join(b + "+").slice(0, -1).replace(/\+/g, " + ") + ")" }; } },
-    bolish: { n: "Bo'lish", q: function (l) { var b = R(2, 9), c = R(2, Math.min(12, 5 + l)); return { q: (b * c) + " : " + b, a: c, w: near(c, 6, 4), e: (b * c) + " : " + b + " = " + c + ",  chunki " + b + " × " + c + " = " + (b * c) }; } },
-    kvadrat: { n: "Kvadratlar", q: function (l) { var n = R(2, Math.min(20, 9 + l * 2)); return { q: n + sup(2), a: n * n, w: [(n - 1) * (n - 1), (n + 1) * (n + 1), n * 2, n * n + n, n * n - 1, n * n + 10], e: n + sup(2) + " = " + n + " × " + n + " = " + (n * n) + (n !== 2 ? "   (" + n + "·2 = " + (2 * n) + " emas!)" : "") }; } },
-    ildiz: { n: "Kvadrat ildiz", q: function (l) { var n = R(2, Math.min(20, 9 + l * 2)); return { q: "√" + (n * n), a: n, w: near(n, 6, 4), e: "√" + (n * n) + " = " + n + ",  chunki " + n + sup(2) + " = " + (n * n) }; } },
-    ildizKichik: { n: "Kvadrat ildiz (≤10)", q: function () { var n = R(0, 10); return { q: "√" + (n * n), a: n, w: [], e: "√" + (n * n) + " = " + n + ",  chunki " + n + " × " + n + " = " + (n * n) }; } },
-    daraja: { n: "Darajalar", q: function (l) { var b = pick([2, 2, 3, 3, 4, 5, 10]), k = b === 2 ? R(2, Math.min(10, 5 + l)) : b === 10 ? R(1, 4) : R(2, b === 3 ? 4 : 3); var v = Math.pow(b, k); return { q: b + sup(k), a: v, w: [b * k, Math.pow(b, k - 1), Math.pow(b, k + 1), v + b, v - b].filter(function (x) { return x !== v && x > 0; }), e: b + sup(k) + " = " + Array(k + 1).join(b + "·").slice(0, -1) + " = " + v + (b * k !== v ? "   (" + b + "×" + k + " = " + (b * k) + " emas!)" : "") }; } },
-    foiz: { n: "Foizlar", q: function (l) { var p = pick([10, 20, 25, 50, 75, 5, 30, 40]), N = pick([20, 40, 60, 80, 100, 120, 200, 300, 400, 500]); var v = N * p / 100; if (v !== Math.round(v)) { N = 100; v = p; } return { q: N + " ning " + p + "%", a: v, w: near(v, 6, Math.max(5, Math.round(v / 2))), e: N + " ning " + p + "% = " + N + " : 100 × " + p + " = " + (N / 100) + " × " + p + " = " + v }; } },
-    tenglama: { n: "Tenglamalar", q: function (l) { var x = R(1, 9 + l), a = R(2, Math.min(9, 3 + l)), b = R(1, 20); return { q: a + "x + " + b + " = " + (a * x + b), a: x, w: near(x, 6, 4), e: a + "x = " + (a * x + b) + " − " + b + " = " + (a * x) + "  →  x = " + (a * x) + " : " + a + " = " + x }; } },
-    ekub: { n: "EKUB", q: function () { var g = pick([2, 3, 4, 5, 6, 7, 8, 9, 10, 12]), a = g * R(1, 6), b = g * R(1, 6); while (gcd(a / g, b / g) !== 1 || a === b) { a = g * R(1, 6); b = g * R(2, 7); } return { q: "EKUB(" + a + "; " + b + ")", a: g, w: near(g, 6, 4).concat([a, b]), e: a + " = " + g + "·" + (a / g) + ",  " + b + " = " + g + "·" + (b / g) + "  →  eng katta umumiy bo'luvchi " + g }; } },
-    ekuk: { n: "EKUK", q: function (l) { var M2 = Math.min(20, 6 + (l || 2) * 2), a = R(2, M2), b = R(2, M2); while (a === b) b = R(2, M2); var v = lcm(a, b); return { q: "EKUK(" + a + "; " + b + ")", a: v, w: [a * b, gcd(a, b), v * 2, v + a, Math.max(a, b)].filter(function (x) { return x !== v; }), e: a + " ning karralilari: " + [1, 2, 3, 4].map(function (k) { return a * k; }).join(", ") + "…  →  " + b + " ga bo'linadigan eng kichigi " + v }; } },
-    kasr: { n: "Kasrni qisqartirish", q: function (l) { var b = R(2, 9), a = R(1, b - 1); while (gcd(a, b) !== 1) a = R(1, b - 1); var k = R(2, Math.min(15, 3 + (l || 2))); var w = []; for (var i = 0; i < 8; i++) { var bb = R(2, 9), aa = R(1, bb - 1); var s = frac(aa, bb); if (s !== a + "/" + b && w.indexOf(s) < 0) w.push(s); } return { q: (a * k) + "/" + (b * k) + " = ?", a: a + "/" + b, w: w, e: (a * k) + "/" + (b * k) + " = " + (a * k) + ":" + k + " / " + (b * k) + ":" + k + " = " + a + "/" + b + "   (surat va maxraj " + k + " ga bo'lindi)" }; } },
-    yuza: { n: "Yuzalar", q: function (l) { var t = R(0, 2), a = R(2, 9 + l), b = R(2, 9); if (t === 0) return { q: "To'rtburchak " + a + "×" + b + " yuzi", a: a * b, w: [2 * (a + b), a + b, a * b + a, a * b - b].filter(function (x) { return x !== a * b; }), e: "S = a · b = " + a + " · " + b + " = " + (a * b) + "   (perimetr " + 2 * (a + b) + " — boshqa narsa!)" }; if (t === 1) return { q: "Kvadrat tomoni " + a + ", yuzi", a: a * a, w: [4 * a, 2 * a, a * a + a, (a + 1) * (a + 1)], e: "S = a² = " + a + " · " + a + " = " + (a * a) }; var h = 2 * R(1, 6); return { q: "Uchburchak: asos " + a + ", balandlik " + h + ", yuzi", a: a * h / 2, w: [a * h, a + h, a * h / 2 + a, a * h / 2 - 2].filter(function (x) { return x > 0; }), e: "S = ½ · a · h = ½ · " + a + " · " + h + " = " + (a * h / 2) }; } },
-    rim: { n: "Rim raqamlari", q: function (l) { var n = R(4, 30 + l * 20); return { q: roman(n) + " = ?", a: n, w: near(n, 6, 6), e: roman(n) + " = " + n + "   (I=1, V=5, X=10, L=50, C=100; kichigi chapda bo'lsa ayiriladi: IV=4, IX=9, XL=40)" }; } },
-    yaxlitlash: { n: "Yaxlitlash", q: function () { var t = R(0, 1); if (t) { var n = R(11, 989); var v = Math.round(n / 10) * 10; return { q: n + " → o'nliklargacha", a: v, w: [v + 10, v - 10, Math.floor(n / 10) * 10 === v ? v + 10 : Math.floor(n / 10) * 10, Math.round(n / 100) * 100].filter(function (x) { return x !== v && x >= 0; }), e: n + ": birlik raqami " + (n % 10) + (n % 10 >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + v }; } var d = R(10, 99) / 10 + R(0, 9); d = Math.round(d * 10) / 10; var r = Math.round(d); return { q: String(d).replace(".", ",") + " → butungacha", a: r, w: [r + 1, r - 1, Math.floor(d) === r ? r + 1 : Math.floor(d), r + 2].filter(function (x) { return x !== r && x >= 0; }), e: String(d).replace(".", ",") + ": o'ndan biri " + Math.round((d % 1) * 10) + (Math.round((d % 1) * 10) >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + r }; } },
-    ketma: { n: "Ketma-ketliklar", q: function (l) { var t = R(0, 2), a = R(1, 9), d = R(2, 4 + l), s = []; if (t === 2) { d = R(2, 3); a = R(1, 3); for (var i = 0; i < 4; i++) s.push(a * Math.pow(d, i)); return { q: s.join(", ") + ", ?", a: a * Math.pow(d, 4), w: near(a * Math.pow(d, 4), 6, 10), e: "Har safar " + d + " ga ko'paytiriladi: " + s[3] + " × " + d + " = " + a * Math.pow(d, 4) }; } if (t === 1) { a = R(40, 90); for (var j = 0; j < 4; j++) s.push(a - d * j); return { q: s.join(", ") + ", ?", a: a - 4 * d, w: near(a - 4 * d, 6, 5), e: "Har safar " + d + " ayiriladi: " + s[3] + " − " + d + " = " + (a - 4 * d) }; } for (var k = 0; k < 4; k++) s.push(a + d * k); return { q: s.join(", ") + ", ?", a: a + 4 * d, w: near(a + 4 * d, 6, 5), e: "Har safar " + d + " qo'shiladi: " + s[3] + " + " + d + " = " + (a + 4 * d) }; } },
-    manfiy: { n: "Manfiy sonlar", q: function (l) { var a = R(-15, 15), b = R(-15, 15), o = R(0, 1); var v = o ? a + b : a - b; return { q: mstr(a) + (o ? " + " : " − ") + neg(b), a: v, w: near(v, 6, 6).concat([-v]), e: mstr(a) + (o ? " + " : " − ") + neg(b) + " = " + (o ? mstr(a) + (b < 0 ? " − " + (-b) : " + " + b) : mstr(a) + (b < 0 ? " + " + (-b) : " − " + b)) + " = " + mstr(v) + (o ? "" : "   (minus × minus = plyus)") }; } },
-    aralash: { n: "Aralash misollar", q: function (l) { return TOPICS[pick(["qoshish", "ayirish", "kopaytirish", "bolish"])].q(l); } },
-    kichik: { n: "10 gacha qo'shish/ayirish", q: function () { if (R(0, 1)) { var a = R(0, 10), b = R(0, 10 - a); return { q: a + " + " + b, a: a + b, w: [], e: a + " + " + b + " = " + (a + b) }; } var c = R(1, 10), d = R(0, c); return { q: c + " − " + d, a: c - d, w: [], e: c + " − " + d + " = " + (c - d) }; } },
-    kichikAralash: { n: "10 gacha aralash", q: function () { var t = R(0, 3); if (t === 0) { var a = R(1, 5), b = R(1, 2); return { q: a + " × " + b, a: a * b, w: [], e: a + " × " + b + " = " + (a * b) }; } if (t === 1) { var n = R(1, 10), d = pick([1, 2]); return { q: (n * d) + " : " + d, a: n, w: [], e: (n * d) + " : " + d + " = " + n }; } if (t === 2) { var r = R(0, 3); return { q: "√" + (r * r), a: r, w: [], e: "√" + (r * r) + " = " + r + ", chunki " + r + "·" + r + " = " + (r * r) }; } return TOPICS.kichik.q(); } },
-    /* ---------- FIZIKA (matematika bilan bog'langan) ---------- */
-    tezlik: { n: "Fizika: tezlik v = s/t", q: function (l) { var t = R(2, 5 + l), v = R(5, 15 + l * 10), s = v * t; return { q: "s = " + s + " m, t = " + t + " s. v = ? (m/s)", a: v, w: near(v, 6, 5), e: "v = s/t = " + s + "/" + t + " = " + v + " m/s" }; } },
-    masofa: { n: "Fizika: masofa s = v·t", q: function (l) { var v = R(2, 10 + l * 5), t = R(2, 6 + l); return { q: "v = " + v + " m/s, t = " + t + " s. s = ? (m)", a: v * t, w: near(v * t, 6, 8), e: "s = v·t = " + v + "·" + t + " = " + (v * t) + " m" }; } },
-    zichlik: { n: "Fizika: zichlik ρ = m/V", q: function (l) { var V = R(2, 5 + l), rho = pick([1, 2, 3, 5, 7, 8, 10]) , m = rho * V; return { q: "m = " + m + " kg, V = " + V + " m³. ρ = ? (kg/m³)", a: rho, w: near(rho, 6, 3), e: "ρ = m/V = " + m + "/" + V + " = " + rho + " kg/m³" }; } },
-    kuch: { n: "Fizika: kuch F = m·a", q: function (l) { var m = R(2, 10 + l * 5), a = R(1, 4 + l); return { q: "m = " + m + " kg, a = " + a + " m/s². F = ? (N)", a: m * a, w: near(m * a, 6, 6), e: "F = m·a = " + m + "·" + a + " = " + (m * a) + " N" }; } },
-    om: { n: "Fizika: Om qonuni I = U/R", q: function (l) { var I = R(1, 4 + l), Rr = pick([2, 3, 4, 5, 6, 10, 12]), U = I * Rr; return { q: "U = " + U + " V, R = " + Rr + " Ω. I = ? (A)", a: I, w: near(I, 6, 3), e: "I = U/R = " + U + "/" + Rr + " = " + I + " A" }; } },
-    ish: { n: "Fizika: ish A = F·s", q: function (l) { var F = R(5, 20 + l * 10), sd = R(2, 8 + l); return { q: "F = " + F + " N, s = " + sd + " m. A = ? (J)", a: F * sd, w: near(F * sd, 6, 12), e: "A = F·s = " + F + "·" + sd + " = " + (F * sd) + " J" }; } },
-    quvvat: { n: "Fizika: quvvat P = A/t", q: function (l) { var t = R(2, 6 + l), P = R(5, 20 + l * 10), A = P * t; return { q: "A = " + A + " J, t = " + t + " s. P = ? (W)", a: P, w: near(P, 6, 6), e: "P = A/t = " + A + "/" + t + " = " + P + " W" }; } },
-    bosim: { n: "Fizika: bosim p = F/S", q: function (l) { var S = R(2, 5 + l), pr = R(10, 40 + l * 20), F = pr * S; return { q: "F = " + F + " N, S = " + S + " m². p = ? (Pa)", a: pr, w: near(pr, 6, 8), e: "p = F/S = " + F + "/" + S + " = " + pr + " Pa" }; } },
-    ogirlik: { n: "Fizika: og'irlik P = m·g (g≈10)", q: function (l) { var m = R(1, 12 + l * 6); return { q: "m = " + m + " kg. Og'irlik P = ? (N, g = 10)", a: m * 10, w: [m * 10 + 10, m * 10 - 10, m, m * 9, m * 11, m * 10 + 5], e: "P = m·g = " + m + "·10 = " + (m * 10) + " N" }; } },
-    issiqlik: { n: "Fizika: Q = c·m·Δt", q: function (l) { var c = pick([1, 2, 4]), m = R(1, 4 + l), dt = R(2, 10); return { q: "c = " + c + " kJ/(kg·°C), m = " + m + " kg, Δt = " + dt + " °C. Q = ? (kJ)", a: c * m * dt, w: near(c * m * dt, 6, 8), e: "Q = c·m·Δt = " + c + "·" + m + "·" + dt + " = " + (c * m * dt) + " kJ" }; } }
+    /* ---------------- Qo'shish ---------------- */
+    qoshish: { n: "Qo'shish", g: 1, q: function (l) {
+      l = lv(l); var a, b, c, t = typ(l, { 1: ["d", "d", "m"], 2: ["d", "d", "m", "s"], 3: ["d", "m", "s", "d"], 4: ["d", "m", "s", "3"], 5: ["d", "s", "3", "m"] });
+      if (l === 1) { a = R(1, 10); b = R(1, 10); }
+      else if (l === 2) { a = R(11, 89); b = a % 10 ? R(10 - a % 10, 9) : R(1, 9); }
+      else if (l === 3) { a = R(12, 89); b = R(12, 89); }
+      else if (l === 4) { a = R(105, 899); b = R(16, 399); }
+      else { a = R(1050, 8900); b = R(105, 999); }
+      var s = a + b, carry = (a % 10) + (b % 10) >= 10;
+      var w = [carry ? s - 10 : s + 10, s + 1, s - 1, swapD(s), s + 10, s - 100, Math.abs(a - b)];
+      if (t === "3") {
+        if (l >= 5) { var k = pick([25, 50, 75, 125, 250]); a = R(11, 99); b = (k === 25 ? 75 : k === 75 ? 25 : k === 125 ? 875 : k === 250 ? 750 : 50); c = R(13, 97); return Qz(k + " + " + c + " + " + b, k + b + c, [k + b + c - 10, k + b + c + 10, k + b + c + 1, k + c], k + " + " + b + " = " + (k + b) + " (avval yaxlit juftlik) → " + (k + b) + " + " + c + " = " + (k + b + c)); }
+        c = R(11, 89); var s3 = a + b + c; return Qz(a + " + " + b + " + " + c, s3, [s3 - 10, s3 + 10, s3 + 1, s3 - 1, a + b], a + " + " + b + " = " + (a + b) + " → " + (a + b) + " + " + c + " = " + s3);
+      }
+      if (t === "m") { if (R(0, 1)) return Qz(a + " + ? = " + s, b, [s + a, b + 1, b - 1, b + 10, b - 10, a], "? = " + s + " − " + a + " = " + b + "   (tekshiruv: " + a + " + " + b + " = " + s + ")"); return Qz("? + " + b + " = " + s, a, [s + b, a + 1, a - 1, a + 10, a - 10, b], "? = " + s + " − " + b + " = " + a); }
+      if (t === "s") {
+        var n = ism2(), o = pick(NARSA);
+        var tx = pick([n[0] + " " + a + " ta, " + n[1] + " " + b + " ta " + o + " yig'di. Jami nechta?", "Kutubxonada " + a + " ta kitob bor edi, yana " + b + " ta keltirildi. Endi nechta?", "Avtobusda " + a + " kishi bor edi, bekatda yana " + b + " kishi mindi. Endi nechta?"]);
+        return Qz(tx, s, w, "Jami = " + a + " + " + b + " = " + s);
+      }
+      return Qz(a + " + " + b, s, w, a >= 10 && b >= 10 ? a + " + " + b + " = " + (a - a % 10) + " + " + (b - b % 10) + " + " + (a % 10) + " + " + (b % 10) + " = " + s : a + " + " + b + " = " + s + (carry ? "   (birliklar " + (a % 10) + " + " + (b % 10) + " = " + ((a % 10) + (b % 10)) + " → 1 o'nlik o'tadi)" : ""));
+    } },
+    qoshish2: { n: "Ikki xonali qo'shish", g: 2, q: function (l) {
+      l = lv(l); var a, b, c, t = typ(l, { 1: ["d"], 2: ["d", "d", "m"], 3: ["d", "m", "s"], 4: ["3", "d", "m"], 5: ["d", "3", "s", "m"] });
+      a = R(10, 89); b = R(10, 89);
+      if (l === 1) { a = R(1, 7) * 10 + R(0, 4); b = R(1, 8 - Math.floor(a / 10)) * 10 + R(0, 4); }
+      if (l === 2) { a = R(13, 69) ; if (a % 10 < 3) a += 3; b = R(1, 2) * 10 + R(10 - a % 10, 9); }
+      if (l >= 5) { a = R(105, 899); b = R(16, 99); }
+      var s = a + b;
+      if (t === "3") { c = R(10, 49); var s3 = s + c; return Qz(a + " + " + b + " + " + c, s3, [s3 - 10, s3 + 10, s3 + 1, s3 - 1], a + " + " + b + " = " + s + " → " + s + " + " + c + " = " + s3); }
+      if (t === "m") return Qz(a + " + ? = " + s, b, [b + 10, b - 10, b + 1, b - 1, s + a], "? = " + s + " − " + a + " = " + b);
+      if (t === "s") { var n = ism2(); return Qz(n[0] + " " + a + " ta, " + n[1] + " " + b + " ta marka yig'di. Jami nechta?", s, [s - 10, s + 10, s + 1, s - 1], a + " + " + b + " = " + s); }
+      return Qz(a + " + " + b, s, [s - 10, s + 10, s + 1, s - 1, swapD(s)], a + " + " + b + " = " + (a - a % 10) + " + " + (b - b % 10) + " + " + (a % 10) + " + " + (b % 10) + " = " + s);
+    } },
+    /* ---------------- Ayirish ---------------- */
+    ayirish: { n: "Ayirish", g: 1, q: function (l) {
+      l = lv(l); var a, b, t = typ(l, { 1: ["d", "d", "m"], 2: ["d", "d", "m", "s"], 3: ["d", "m", "s"], 4: ["d", "m", "s", "m2"], 5: ["d", "s", "m2", "m"] });
+      if (l === 1) { a = R(5, 20); b = R(1, Math.min(10, a)); }
+      else if (l === 2) { a = R(21, 99); if (a % 10 > 7) a -= 3; b = R((a % 10) + 1, 9); }
+      else if (l === 3) { a = R(40, 99); b = R(12, a - 5); }
+      else if (l === 4) { a = R(300, 999); b = R(105, a - 50); }
+      else { a = R(2000, 9999); b = R(1005, a - 100); }
+      var d = a - b, bor = (a % 10) < (b % 10);
+      var naive = +String(a).split("").reverse().map(function (x, i) { var y = +(String(b).split("").reverse()[i] || 0); return Math.abs(+x - y); }).reverse().join("");
+      var w = [bor ? naive : d + 10, d + 10, d - 10, d + 1, d - 1, a + b > 9999 ? null : a + b];
+      if (t === "m") return Qz(a + " − ? = " + d, b, [a + d, b + 1, b - 1, b + 10, d], "? = " + a + " − " + d + " = " + b + "   (tekshiruv: " + a + " − " + b + " = " + d + ")");
+      if (t === "m2") return Qz("? − " + b + " = " + d, a, [d - b < 0 ? d + 10 : d - b, a + 10, a - 10, a + 1], "? = " + d + " + " + b + " = " + a + "   (kamayuvchi = ayirma + ayriluvchi)");
+      if (t === "s") { var n = ism2(), o = pick(NARSA); var tx = pick([n[0] + "da " + a + " ta " + o + " bor edi, " + b + " tasini " + n[1] + "ga berdi. Nechta qoldi?", "Do'konda " + a + " kg un bor edi, " + b + " kg sotildi. Necha kg qoldi?", n[0] + " " + a + " ta, " + n[1] + " " + b + " ta " + o + " yig'di. Farqi nechta?"]); return Qz(tx, d, w, a + " − " + b + " = " + d); }
+      return Qz(a + " − " + b, d, w, a + " − " + b + " = " + d + (bor ? "   (birliklar yetmaydi → 1 o'nlik olinadi)" : "") + "   tekshiruv: " + d + " + " + b + " = " + a);
+    } },
+    /* ---------------- Ko'paytirish ---------------- */
+    kopaytirish: { n: "Ko'paytirish", g: 2, q: function (l) {
+      l = lv(l); var a, b, t = typ(l, { 1: ["d", "d", "m"], 2: ["d", "d", "m", "s"], 3: ["d", "m", "s", "t"], 4: ["d", "m", "s", "t"], 5: ["d", "t", "s", "m"] });
+      if (l === 1) { a = R(2, 5); b = R(1, 10); }
+      else if (l === 2) { a = R(3, 9); b = R(3, 9); }
+      else if (l === 3) { a = R(12, 19); b = R(3, 9); }
+      else if (l === 4) { a = R(21, 69); b = R(3, 9); if (R(0, 2) === 0) { a = pick([12, 15, 25, 11, 14]); b = R(11, 16); } }
+      else { a = R(101, 499); b = R(3, 9); if (R(0, 1)) { a = R(21, 49); b = R(21, 39); } }
+      var p = a * b;
+      var w = [a * (b + 1), a * (b - 1), (a + 1) * b, a + b, p + 10, p - 10, swapD(p)];
+      if (t === "t") { var k = pick([99, 101, 49, 51, 19, 21]), m = R(3, 9), r = k * m, base = k > 90 ? 100 : k > 40 ? 50 : 20; return Qz(k + " × " + m, r, [base * m, r + m, r - m, r + 10], k + " × " + m + " = " + base + "·" + m + (k > base ? " + " : " − ") + Math.abs(k - base) + "·" + m + " = " + (base * m) + (k > base ? " + " : " − ") + Math.abs(k - base) * m + " = " + r); }
+      if (t === "m") { if (R(0, 1)) return Qz(a + " × ? = " + p, b, [b + 1, b - 1, p - a, p / 2, b + 2], "? = " + p + " : " + a + " = " + b); return Qz("? × " + b + " = " + p, a, [a + 1, a - 1, p - b, a + 10], "? = " + p + " : " + b + " = " + a); }
+      if (t === "s") { var o = pick(NARSA); var tx = pick([b + " ta qutining har birida " + a + " ta " + o + ". Jami nechta?", "Zalda " + a + " qator, har qatorda " + b + " ta stul. Jami?", "Bir daftar " + a + " ming so'm. " + b + " ta daftar necha ming so'm?"]); return Qz(tx, p, w, a + " × " + b + " = " + p); }
+      return Qz(a + " × " + b, p, w, a >= 10 ? a + " × " + b + " = " + (a - a % 10) + "·" + b + " + " + (a % 10) + "·" + b + " = " + ((a - a % 10) * b) + " + " + ((a % 10) * b) + " = " + p : a + " × " + b + " = " + p + "   (" + Array(Math.min(a, b) + 1).join(Math.max(a, b) + " + ").slice(0, -3) + ")");
+    } },
+    /* ---------------- Bo'lish ---------------- */
+    bolish: { n: "Bo'lish", g: 3, q: function (l) {
+      l = lv(l); var b, c, a, t = typ(l, { 1: ["d", "d", "m"], 2: ["d", "m", "s"], 3: ["d", "m", "s"], 4: ["d", "q", "s"], 5: ["d", "q", "s", "m"] });
+      if (l === 1) { b = R(2, 5); c = R(1, 10); }
+      else if (l === 2) { b = R(3, 9); c = R(3, 9); }
+      else if (l === 3) { b = R(2, 9); c = R(11, 25); }
+      else if (l === 4) { b = R(3, 9); c = R(21, 120); }
+      else { b = R(11, 25); c = R(4, 19); }
+      a = b * c;
+      var w = [c + 1, c - 1, a - b, c * 10, c + 10, Math.floor(a / (b + 1))];
+      if (t === "q") { var r = R(1, b - 1), N = a + r; return Qz(N + " : " + b + " — qoldiq?", r, [r + 1, r - 1, c, b - r, 0], N + " = " + b + "·" + c + " + " + r + "  → qoldiq " + r + " (qoldiq bo'luvchidan kichik: " + r + " < " + b + ")"); }
+      if (t === "m") return Qz("? : " + b + " = " + c, a, [a + b, a - b, c + b, b * (c + 1)], "? = " + c + " × " + b + " = " + a + "   (bo'linuvchi = bo'linma × bo'luvchi)");
+      if (t === "s") { var n = ism2(), o = pick(NARSA); var tx = pick([a + " ta " + o + " " + b + " bolaga teng bo'lindi. Har biriga nechta?", a + " ta o'quvchi " + b + " tadan guruhlarga bo'lindi. Nechta guruh?", n[0] + " " + a + " ming so'mga " + b + " ta bir xil daftar oldi. Bittasi necha ming?"]); return Qz(tx, c, w, a + " : " + b + " = " + c + "   (tekshiruv: " + c + " × " + b + " = " + a + ")"); }
+      return Qz(a + " : " + b, c, w, a + " : " + b + " = " + c + ",  chunki " + b + " × " + c + " = " + a);
+    } },
+    /* ---------------- Aralash (amallar tartibi) ---------------- */
+    aralash: { n: "Aralash misollar", g: 3, q: function (l) {
+      l = lv(l);
+      if (l <= 2 || R(0, 3) === 0) return TOPICS[pick(["qoshish", "ayirish", "kopaytirish", "bolish"])].q(Math.min(l, 3));
+      var a = R(2, 9), b = R(2, 9), c = R(2, 9), d, v, lr, tx, e;
+      if (l === 3) {
+        if (R(0, 1)) { v = a + b * c; lr = (a + b) * c; tx = a + " + " + b + " × " + c; e = "Avval ko'paytirish: " + b + "×" + c + " = " + (b * c) + " → " + a + " + " + (b * c) + " = " + v; }
+        else { var x = b * c + R(1, 9); v = x - b * c; lr = (x - b) * c; tx = x + " − " + b + " × " + c; e = "Avval ko'paytirish: " + b + "×" + c + " = " + (b * c) + " → " + x + " − " + (b * c) + " = " + v; }
+        return Qz(tx, v, [lr, v + 1, v - 1, v + 10], e + "   (chapdan o'ngga hisoblasa " + lr + " chiqadi — xato!)");
+      }
+      if (l === 4) {
+        if (R(0, 1)) { v = (a + b) * c; lr = a + b * c; return Qz("(" + a + " + " + b + ") × " + c, v, [lr, v + c, v - c, (a + b) + c], "Avval qavs: " + a + " + " + b + " = " + (a + b) + " → " + (a + b) + " × " + c + " = " + v); }
+        var s2 = R(2, 6), u = R(2, 6), q2 = (s2 + u) * R(2, 9); v = q2 / (s2 + u); return Qz(q2 + " : (" + s2 + " + " + u + ")", v, [q2 / s2 + u, v + 1, v - 1, q2 - s2 - u], "Avval qavs: " + s2 + " + " + u + " = " + (s2 + u) + " → " + q2 + " : " + (s2 + u) + " = " + v);
+      }
+      var m1 = R(2, 9), k1 = m1 * R(2, 9), m2 = R(2, 9), m3 = R(2, 9), sub = R(1, 9);
+      v = k1 / m1 + m2 * m3 - sub;
+      return Qz(k1 + " : " + m1 + " + " + m2 + " × " + m3 + " − " + sub, v, [(k1 / m1 + m2) * m3 - sub, v + 2, v - 2, v + 10, k1 / m1 + m2 * (m3 - sub)], k1 + " : " + m1 + " = " + (k1 / m1) + ",  " + m2 + " × " + m3 + " = " + (m2 * m3) + " → " + (k1 / m1) + " + " + (m2 * m3) + " − " + sub + " = " + v);
+    } },
+    /* ---------------- Kvadratlar ---------------- */
+    kvadrat: { n: "Kvadratlar", g: 5, q: function (l) {
+      l = lv(l); var n, v, t = typ(l, { 1: ["d", "d", "r"], 2: ["d", "d", "r"], 3: ["d", "r", "d"], 4: ["5", "near", "r"], 5: ["dif", "near", "5", "r"] });
+      if (t === "5") { n = pick([15, 25, 35, 45, 55, 65, 75, 85, 95]); var k = (n - 5) / 10; v = n * n; return Qz(n + sup(2), v, [k * (k + 1) * 10 + 25, k * k * 100 + 25, v + 100, v - 100, n * 2], n + sup(2) + ": " + k + "·" + (k + 1) + " = " + (k * (k + 1)) + " va oxiriga 25 → " + v); }
+      if (t === "near") { var T0 = R(2, 9) * 10, s = pick([1, -1]); n = T0 + s; v = n * n; return Qz(n + sup(2), v, [T0 * T0 + 1, T0 * T0 - 1, v + 2 * T0, v - 2, n * 2], n + sup(2) + " = " + T0 + sup(2) + (s > 0 ? " + " : " − ") + "2·" + T0 + " + 1 = " + (T0 * T0) + (s > 0 ? " + " : " − ") + (2 * T0) + " + 1 = " + v); }
+      if (t === "dif") { var A = R(31, 69), B = A - 2 * R(2, 6); v = A * A - B * B; return Qz(A + sup(2) + " − " + B + sup(2), v, [(A - B) * (A - B), v + 10, (A - B) * 2, v - (A - B)], "a² − b² = (a − b)(a + b) = " + (A - B) + " · " + (A + B) + " = " + v); }
+      n = l === 1 ? R(2, 10) : l === 2 ? R(11, 15) : l === 3 ? pick([R(16, 25), R(16, 25), R(2, 9) * 10]) : R(11, 25);
+      v = n * n;
+      if (t === "r") return Qz("?" + sup(2) + " = " + v, n, [v / 2, n + 1, n - 1, n * 2], "√" + v + " = " + n + ",  chunki " + n + " × " + n + " = " + v);
+      return Qz(n + sup(2), v, [n * 2, (n + 1) * (n + 1), (n - 1) * (n - 1), v + n, v - 10, v + 10], n + sup(2) + " = " + n + " × " + n + " = " + v + "   (" + n + "·2 = " + (2 * n) + " emas!)");
+    } },
+    /* ---------------- Kvadrat ildiz ---------------- */
+    ildiz: { n: "Kvadrat ildiz", g: 8, q: function (l) {
+      l = lv(l); var n, t = typ(l, { 1: ["d"], 2: ["d", "d", "mul"], 3: ["mul", "d", "dec"], 4: ["dec", "mul", "near"], 5: ["near", "dec", "frac", "mul"] });
+      if (t === "dec") { n = R(2, 19); if (n === 10) n = 12; var x = n * n / 100, s = dec(n / 10, 1); return Qz("√" + dec(x, 2), s, [dec(n / 100, 2), dec(n, 0), dec(n / 10 + 0.1, 1), dec(x / 2, 2)], "√" + dec(x, 2) + " = " + s + ",  chunki " + s + "² = " + dec(x, 2)); }
+      if (t === "frac") { var p = R(1, 9), q = R(p + 1, 12); while (gcd(p, q) !== 1) q = R(p + 1, 12); return Qz("√(" + (p * p) + "/" + (q * q) + ")", p + "/" + q, [(p * p) + "/" + q, p + "/" + (q * q), (q) + "/" + p, (2 * p) + "/" + (2 * q + 1)], "√(" + (p * p) + "/" + (q * q) + ") = √" + (p * p) + " / √" + (q * q) + " = " + p + "/" + q); }
+      if (t === "mul") { var a = R(2, 9), b = R(2, 7); while (b === a) b = R(2, 7); return Qz("√(" + (a * a) + " · " + (b * b) + ")", a * b, [a * a + b * b, a + b, a * b * 2, a * b + 1], "√(" + (a * a) + "·" + (b * b) + ") = √" + (a * a) + " · √" + (b * b) + " = " + a + " · " + b + " = " + (a * b)); }
+      if (t === "near") { n = R(3, 14); var m = n * n + pick([-3, -2, -1, 1, 2, 3, 4]); var r = Math.round(Math.sqrt(m)); return Qz("√" + m + " qaysi butun songa eng yaqin?", r, [r + 1, r - 1, Math.round(m / 2), m - r * r === 0 ? null : r + 2], (r * r) + " = " + r + "² eng yaqin to'liq kvadrat → √" + m + " ≈ " + r); }
+      n = l === 1 ? R(2, 10) : l === 2 ? R(11, 15) : R(16, 25);
+      return Qz("√" + (n * n), n, [n + 1, n - 1, n * n / 2, n * 2, n + 10], "√" + (n * n) + " = " + n + ",  chunki " + n + sup(2) + " = " + (n * n));
+    } },
+    ildizKichik: { n: "Kvadrat ildiz (≤10)", g: 5, q: function (l) {
+      l = lv(l); var n = R(0, l <= 1 ? 5 : 10);
+      if (l >= 4 && R(0, 1)) { var b = R(0, 10 - n); return Qz("√" + (n * n) + " + " + b, n + b, [], "√" + (n * n) + " = " + n + " → " + n + " + " + b + " = " + (n + b)); }
+      return Qz("√" + (n * n), n, [], "√" + (n * n) + " = " + n + ",  chunki " + n + " × " + n + " = " + (n * n));
+    } },
+    /* ---------------- Darajalar ---------------- */
+    daraja: { n: "Darajalar", g: 5, q: function (l) {
+      l = lv(l); var b, k, v, t = typ(l, { 1: ["d"], 2: ["d", "d", "z"], 3: ["neg", "z", "d"], 4: ["mul", "div", "pow", "d"], 5: ["mul", "div", "pow", "neg", "base"] });
+      if (t === "mul") { b = R(2, 9); var m = R(2, 7), n = R(2, 7); return Qz(b + sup(m) + " · " + b + sup(n) + " = " + b + "ⁿ.  n = ?", m + n, [m * n, Math.abs(m - n), m + n + 1, b * (m + n)], b + sup(m) + " · " + b + sup(n) + " = " + b + sup(m) + "⁺" + sup(n) + " = " + b + sup(m + n) + "  (ko'paytirganda ko'rsatkichlar qo'shiladi)"); }
+      if (t === "div") { b = R(2, 9); var m2 = R(5, 12), n2 = R(2, m2 - 1); return Qz(b + sup(m2) + " : " + b + sup(n2) + " = " + b + "ⁿ.  n = ?", m2 - n2, [m2 + n2, Math.round(m2 / n2), m2 - n2 + 1, m2 - n2 - 1], b + sup(m2) + " : " + b + sup(n2) + " = " + b + sup(m2 - n2) + "  (bo'lganda ko'rsatkichlar ayiriladi)"); }
+      if (t === "pow") { b = R(2, 9); var p = R(2, 5), q = R(2, 4); return Qz("(" + b + sup(p) + ")" + sup(q) + " = " + b + "ⁿ.  n = ?", p * q, [p + q, p * q + 1, Math.pow(p, q), p * q - 1], "(" + b + sup(p) + ")" + sup(q) + " = " + b + sup(p * q) + "  (darajani darajaga oshirganda ko'paytiriladi)"); }
+      if (t === "base") { var pr = pick([[4, 2, 2], [8, 2, 3], [9, 3, 2], [16, 2, 4], [27, 3, 3], [25, 5, 2]]), e1 = R(2, 4); return Qz(pr[0] + sup(e1) + " = " + pr[1] + "ⁿ.  n = ?", pr[2] * e1, [pr[2] + e1, e1, pr[2] * e1 + 1, pr[0] * e1], pr[0] + " = " + pr[1] + sup(pr[2]) + " → " + pr[0] + sup(e1) + " = " + pr[1] + sup(pr[2] * e1)); }
+      if (t === "z") { b = R(2, 99); if (R(0, 1)) return Qz(b + "⁰", 1, [0, b, 10, 2], "Har qanday son (0 dan boshqa) ning 0-darajasi 1 ga teng"); return Qz(b + "¹", b, [1, 0, b * b, b + 1], "Birinchi daraja — sonning o'zi: " + b + "¹ = " + b); }
+      if (t === "neg") { b = R(2, 5); k = R(2, 4); v = Math.pow(-b, k); if (l >= 5 && R(0, 1)) return Qz("−" + b + sup(2), -b * b, [b * b, -2 * b, 2 * b], "−" + b + sup(2) + " = −(" + b + "·" + b + ") = " + mstr(-b * b) + "   ((−" + b + ")² = " + (b * b) + " bilan adashtirmang)", true); return Qz("(−" + b + ")" + sup(k), v, [-v, Math.pow(b, k), -b * k, b * k], "(−" + b + ")" + sup(k) + " = " + mstr(v) + "   (juft daraja → musbat, toq daraja → manfiy)", true); }
+      if (l === 1) { b = R(1, 5); k = pick([2, 3]); if (R(0, 3) === 0) { b = 10; k = 2; } }
+      else if (l === 2) { b = pick([2, 2, 3, 10, 5]); k = b === 2 ? R(4, 8) : b === 3 ? R(3, 4) : b === 10 ? R(3, 6) : 3; }
+      else { b = pick([2, 3, 4, 5, 6, 7]); k = b === 2 ? R(6, 10) : b === 3 ? R(4, 5) : 3; }
+      v = Math.pow(b, k);
+      return Qz(b + sup(k), v, [b * k, Math.pow(k, b) === v ? null : Math.pow(k, b), Math.pow(b, k - 1), Math.pow(b, k + 1), v + b], b + sup(k) + " = " + Array(k + 1).join(b + "·").slice(0, -1) + " = " + v + "   (" + b + "·" + k + " = " + (b * k) + " emas!)");
+    } },
+    /* ---------------- Foizlar ---------------- */
+    foiz: { n: "Foizlar", g: 5, q: function (l) {
+      l = lv(l); var p, N, v, t = typ(l, { 1: ["d"], 2: ["d", "d", "nc"], 3: ["nc", "d", "inc"], 4: ["inc", "dec", "nc", "s"], 5: ["rev", "seq", "inc", "s"] });
+      if (t === "nc") { N = pick([20, 40, 50, 60, 80, 200, 300]); p = pick([10, 20, 25, 50, 75, 5]); v = N * p / 100; if (v !== Math.round(v)) { N = 200; v = N * p / 100; } return Qz(v + " soni " + N + " ning necha foizi?", p, [Math.round(N / v), 100 - p, p * 2, Math.round(v)], v + " : " + N + " · 100% = " + p + "%"); }
+      if (t === "inc" || t === "dec") { N = pick([40, 80, 120, 200, 250, 300, 400]); p = pick([10, 20, 25, 50, 5, 15]); var dlt = N * p / 100; if (dlt !== Math.round(dlt)) { N = 200; dlt = 2 * p; } var up = t === "inc"; v = up ? N + dlt : N - dlt; return Qz(N + " ni " + p + "% ga " + (up ? "oshirsak?" : "kamaytirsak?"), v, [up ? N - dlt : N + dlt, dlt, N + p, N - p, v + 10], N + " ning " + p + "% = " + dlt + " → " + N + (up ? " + " : " − ") + dlt + " = " + v); }
+      if (t === "s") { N = pick([80, 120, 160, 200, 240, 300]); p = pick([10, 20, 25, 30, 50]); var ch = N * p / 100; v = N - ch; return Qz("Narx " + N + " ming so'm, " + p + "% chegirma. Yangi narx? (ming so'm)", v, [ch, N + ch, N - p, v + 10], "Chegirma: " + N + " · " + p + "/100 = " + ch + " → " + N + " − " + ch + " = " + v); }
+      if (t === "rev") { p = pick([10, 20, 25, 30, 40, 50, 75]); v = pick([20, 40, 60, 80, 120, 200]); var part = v * p / 100; if (part !== Math.round(part)) { v = 200; part = 2 * p; } return Qz("Sonning " + p + "% i " + part + " ga teng. Son nechaga teng?", v, [part * p / 100 === Math.round(part * p / 100) ? part * p / 100 : part + p, part + p, part * 2, v + 10], part + " : " + p + " · 100 = " + v + "   (" + p + "% → " + part + ",  100% → " + v + ")"); }
+      if (t === "seq") { N = pick([100, 200, 500, 1000]); p = pick([10, 20, 50]); v = N * (10000 - p * p) / 10000; return Qz(N + " avval " + p + "% oshdi, keyin " + p + "% kamaydi. Natija?", v, [N, N + p, N - p, v - 10], N + " · " + dec(1 + p / 100, 2) + " · " + dec(1 - p / 100, 2) + " = " + v + "   (" + N + " ga qaytmaydi!)"); }
+      if (l === 1) { p = pick([50, 10, 25, 100]); N = pick([20, 40, 60, 80, 100, 200, 400]); }
+      else if (l === 2) { p = pick([20, 5, 75, 1, 30, 40]); N = pick([100, 200, 300, 400, 500, 600]); }
+      else { p = pick([15, 35, 12, 8, 60]); N = pick([200, 300, 400, 500, 800]); }
+      v = N * p / 100;
+      return Qz(N + " ning " + p + "%", v, [N / p === Math.round(N / p) ? N / p : null, N - p, p, v * 10, v + 10, v / 2], N + " ning " + p + "% = " + N + " : 100 × " + p + " = " + dec(N / 100, 2) + " × " + p + " = " + v);
+    } },
+    /* ---------------- Tenglamalar ---------------- */
+    tenglama: { n: "Tenglamalar", g: 6, q: function (l) {
+      l = lv(l); var x, a, b, c, t = typ(l, { 1: ["p", "s"], 2: ["k", "b"], 3: ["kb", "kb", "kb2"], 4: ["qavs", "ikki", "kb"], 5: ["neg", "frac", "soz", "ikki"] });
+      if (t === "p") { x = R(2, 30); a = R(2, 20); return Qz("x + " + a + " = " + (x + a), x, [x + 2 * a, a, x + 1, x - 1], "x = " + (x + a) + " − " + a + " = " + x); }
+      if (t === "s") { x = R(12, 40); a = R(2, x - 2); return Qz("x − " + a + " = " + (x - a), x, [x - 2 * a, x - a, x + 1, a], "x = " + (x - a) + " + " + a + " = " + x); }
+      if (t === "k") { x = R(2, 12); a = R(2, 9); return Qz(a + "x = " + (a * x), x, [a * x - a, a * a * x, x + 1, x - 1], "x = " + (a * x) + " : " + a + " = " + x); }
+      if (t === "b") { x = R(2, 12); a = R(2, 9); return Qz("x : " + a + " = " + x, a * x, [x + a, x, a * x + a, a * x - a], "x = " + x + " × " + a + " = " + (a * x)); }
+      if (t === "kb" || t === "kb2") { x = R(2, 15); a = R(2, 9); b = R(1, 30); var minus = t === "kb2"; c = minus ? a * x - b : a * x + b; if (minus && c <= 0) { b = R(1, a * x - 1); c = a * x - b; } return Qz(a + "x " + (minus ? "− " : "+ ") + b + " = " + c, x, [minus ? (c - b) / a : (c + b) / a, Math.round(c / a), x + 1, x - 1, (minus ? c + b : c - b)], a + "x = " + c + (minus ? " + " : " − ") + b + " = " + (a * x) + "  →  x = " + (a * x) + " : " + a + " = " + x); }
+      if (t === "qavs") { x = R(1, 12); b = R(1, 9); a = R(2, 7); c = a * (x + b); return Qz(a + "(x + " + b + ") = " + c, x, [c / a + b, (c - b) / a, x + 1, c - a - b], "x + " + b + " = " + c + " : " + a + " = " + (x + b) + "  →  x = " + (x + b) + " − " + b + " = " + x); }
+      if (t === "ikki") { x = R(2, 12); a = R(4, 9); var cc = R(1, a - 1); b = R(1, 20); var d = (a - cc) * x + b; return Qz(a + "x + " + b + " = " + cc + "x + " + d, x, [(d - b) / (a + cc), x + 1, x - 1, d - b], a + "x − " + cc + "x = " + d + " − " + b + "  →  " + (a - cc === 1 ? "" : a - cc) + "x = " + (d - b) + (a - cc === 1 ? "" : "  →  x = " + x)); }
+      if (t === "neg") { x = -R(2, 12); a = R(2, 7); b = R(1, 15); c = a * x + b; return Qz(a + "x + " + b + " = " + mstr(c), x, [-x, (c + b) / a, x + 1, x - 1], a + "x = " + mstr(c) + " − " + b + " = " + mstr(a * x) + "  →  x = " + mstr(a * x) + " : " + a + " = " + mstr(x)); }
+      if (t === "frac") { x = R(2, 12) * (a = R(2, 6)); b = R(1, 9); c = x / a + b; return Qz("x/" + a + " + " + b + " = " + c, x, [(c - b) / a, (c + b) * a, c * a, x + a], "x/" + a + " = " + c + " − " + b + " = " + (c - b) + "  →  x = " + (c - b) + " · " + a + " = " + x); }
+      x = R(3, 15); a = R(2, 6); b = R(2, 20); c = a * x + b;
+      return Qz("Bir son " + a + " ga ko'paytirilib, " + b + " qo'shilsa " + c + " chiqadi. Son?", x, [(c + b) / a, c - b, x + 1, x - 1], a + "x + " + b + " = " + c + "  →  " + a + "x = " + (c - b) + "  →  x = " + x);
+    } },
+    /* ---------------- EKUB ---------------- */
+    ekub: { n: "EKUB", g: 6, q: function (l) {
+      l = lv(l); var g, a, b, c, t = typ(l, { 1: ["d"], 2: ["d"], 3: ["d", "d", "s"], 4: ["3", "d", "s"], 5: ["3", "s", "d"] });
+      var M = l === 1 ? 5 : l === 2 ? 7 : 10;
+      g = l === 1 ? pick([2, 3, 4, 5, 6]) : pick([2, 3, 4, 5, 6, 7, 8, 9, 12, 14, 15]);
+      var x = R(1, M), y = R(2, M); while (gcd(x, y) !== 1 || x === y) { x = R(1, M); y = R(2, M); }
+      if (l >= 5) g = pick([6, 12, 14, 18, 21, 24]);
+      a = g * x; b = g * y;
+      var w = [lcm(a, b), g / 2 === Math.round(g / 2) ? g / 2 : null, g * 2, Math.min(a, b), Math.abs(a - b), g > 3 && g % 3 === 0 ? g / 3 : null];
+      if (t === "3") { var z = R(2, M + 2); while (gcd(gcd(x, y), z) !== 1 || z === x || z === y) z = R(2, M + 2); c = g * z; return Qz("EKUB(" + a + "; " + b + "; " + c + ")", g, w.concat([lcm(lcm(a, b), c) > 9999 ? null : lcm(lcm(a, b), c)]), a + " = " + fstr(a) + ",  " + b + " = " + fstr(b) + ",  " + c + " = " + fstr(c) + "  →  EKUB = " + fstr(g) + " = " + g); }
+      if (t === "s") { var o = pick([["olma", "nok"], ["qalam", "daftar"], ["qizil", "ko'k sharcha"]]); return Qz(a + " ta " + o[0] + " va " + b + " ta " + o[1] + " savatlarga teng bo'lindi. Eng ko'pi bilan nechta savat?", g, w, "Savatlar soni ikkala sonni ham bo'lishi kerak → EKUB(" + a + "; " + b + ") = " + g); }
+      return Qz("EKUB(" + a + "; " + b + ")", g, w, a + " = " + fstr(a) + ",  " + b + " = " + fstr(b) + "  →  umumiy ko'paytuvchilar: " + (fstr(g) === String(g) ? g : fstr(g) + " = " + g) + "   (EKUK " + lcm(a, b) + " bilan adashtirmang)");
+    } },
+    /* ---------------- EKUK ---------------- */
+    ekuk: { n: "EKUK", g: 6, q: function (l) {
+      l = lv(l); var a, b, c, v, t = typ(l, { 1: ["d"], 2: ["d"], 3: ["d", "s"], 4: ["3", "d", "s"], 5: ["3", "s", "d"] });
+      var M2 = l === 1 ? 10 : l === 2 ? 15 : l === 3 ? 24 : 30;
+      a = R(2, M2); b = R(2, M2); while (a === b || (l >= 3 && gcd(a, b) === 1 && R(0, 1))) { a = R(2, M2); b = R(2, M2); }
+      if (l === 1 && R(0, 1)) b = a * R(2, 4);
+      v = lcm(a, b);
+      var w = [a * b, gcd(a, b), Math.max(a, b), v * 2, v / 2 === Math.round(v / 2) ? v / 2 : null, a + b];
+      if (t === "3") { a = R(2, 12); b = R(2, 12); while (b === a) b = R(2, 12); c = R(2, 12); while (c === a || c === b) c = R(2, 12); var v3 = lcm(lcm(a, b), c); return Qz("EKUK(" + a + "; " + b + "; " + c + ")", v3, [a * b * c, v3 * 2, lcm(a, b), Math.max(a, b, c), v3 / 2 === Math.round(v3 / 2) ? v3 / 2 : null], a + " = " + fstr(a) + ",  " + b + " = " + fstr(b) + ",  " + c + " = " + fstr(c) + "  →  EKUK = " + fstr(v3) + " = " + v3); }
+      if (t === "s") { a = pick([6, 8, 10, 12, 15, 20]); b = pick([9, 12, 15, 18, 25, 30]); while (b === a) b = pick([9, 14, 16, 18]); v = lcm(a, b); return Qz("Avtobuslar " + a + " va " + b + " daqiqada bir keladi. Birga ketgach, yana necha daqiqadan keyin birga keladi?", v, [a * b === v ? v * 2 : a * b, gcd(a, b), a + b, Math.max(a, b)], "Ikkalasiga bo'linadigan eng kichik son: EKUK(" + a + "; " + b + ") = " + v); }
+      return Qz("EKUK(" + a + "; " + b + ")", v, w, a + " = " + fstr(a) + ",  " + b + " = " + fstr(b) + "  →  EKUK = " + fstr(v) + " = " + v + (a * b !== v ? "   (" + a + "·" + b + " = " + (a * b) + " emas!)" : ""));
+    } },
+    /* ---------------- Kasrlar ---------------- */
+    kasr: { n: "Kasrlar", g: 5, q: function (l) {
+      l = lv(l); var a, b, c, d, k, t = typ(l, { 1: ["red"], 2: ["red", "red", "sum"], 3: ["sum", "red", "dif"], 4: ["add", "sub", "red"], 5: ["mul", "div", "add", "sub"] });
+      function P(n) { var q = R(2, n), p = R(1, q - 1); while (gcd(p, q) !== 1) p = R(1, q - 1); return [p, q]; }
+      if (t === "red") { var pq = P(l === 1 ? 5 : 9); k = l === 1 ? pick([2, 3]) : R(2, 9); a = pq[0] * k; b = pq[1] * k; var hk = k % 2 === 0 && k > 2 ? (a / 2) + "/" + (b / 2) : k % 3 === 0 && k > 3 ? (a / 3) + "/" + (b / 3) : null; return Qz(a + "/" + b + " = ?", fr(a, b), [hk, fr(pq[1], pq[0]), (pq[0] + 1) + "/" + pq[1], pq[0] + "/" + (pq[1] + 1)], a + "/" + b + " = (" + a + ":" + k + ")/(" + b + ":" + k + ") = " + fr(a, b) + "   (surat va maxraj " + k + " ga bo'lindi)"); }
+      if (t === "sum" || t === "dif") { b = R(4, 12); a = R(1, b - 2); c = R(1, b - 1 - a); if (t === "dif") { a = R(3, b - 1); c = R(1, a - 1); } var nn = t === "sum" ? a + c : a - c; return Qz(a + "/" + b + (t === "sum" ? " + " : " − ") + c + "/" + b, fr(nn, b), [nn + "/" + (2 * b), fr(nn, b) === nn + "/" + b ? fr(nn + 1, b) : nn + "/" + b, fr(a * c, b)], "Maxrajlar bir xil → suratlar " + (t === "sum" ? "qo'shiladi: " : "ayiriladi: ") + a + (t === "sum" ? " + " : " − ") + c + " = " + nn + " → " + nn + "/" + b + (fr(nn, b) === nn + "/" + b ? "" : " = " + fr(nn, b))); }
+      var x = P(6), y = P(8); a = x[0]; b = x[1]; c = y[0]; d = y[1];
+      if (b === d) d = d + 1 > 9 ? d - 1 : d + 1, c = Math.min(c, d - 1);
+      if (t === "add") return Qz(a + "/" + b + " + " + c + "/" + d, fr(a * d + c * b, b * d), [(a + c) + "/" + (b + d), fr(a + c, b * d), fr(a * d + c * b + 1, b * d), (a * d + c * b) + "/" + (b + d)], "Umumiy maxraj " + lcm(b, d) + ": " + fr(a * lcm(b, d) / b, 1) + "/" + lcm(b, d) + " + " + (c * lcm(b, d) / d) + "/" + lcm(b, d) + " = " + fr(a * d + c * b, b * d) + "   ((a+c)/(b+d) — xato usul!)");
+      if (t === "sub") { if (a * d < c * b) { var t1 = a; a = c; c = t1; t1 = b; b = d; d = t1; } return Qz(a + "/" + b + " − " + c + "/" + d, fr(a * d - c * b, b * d), [fr(Math.abs(a - c), Math.abs(b - d) || 1), fr(a * d - c * b + 1, b * d), (a - c) + "/" + (b * d), fr(a * d + c * b, b * d)], "Umumiy maxraj " + lcm(b, d) + ": " + (a * lcm(b, d) / b) + "/" + lcm(b, d) + " − " + (c * lcm(b, d) / d) + "/" + lcm(b, d) + " = " + fr(a * d - c * b, b * d)); }
+      if (t === "mul") return Qz(a + "/" + b + " · " + c + "/" + d, fr(a * c, b * d), [fr(a * d, b * c), fr(a + c, b + d), (a * c) + "/" + (b + d), fr(a * c * 2, b * d)], "Surat × surat, maxraj × maxraj: " + (a * c) + "/" + (b * d) + " = " + fr(a * c, b * d));
+      return Qz(a + "/" + b + " : " + c + "/" + d, fr(a * d, b * c), [fr(a * c, b * d), fr(b * c, a * d), fr(a + d, b + c)], "Bo'lish = teskarisiga ko'paytirish: " + a + "/" + b + " · " + d + "/" + c + " = " + fr(a * d, b * c));
+    } },
+    /* ---------------- Yuzalar ---------------- */
+    yuza: { n: "Yuzalar", g: 5, q: function (l) {
+      l = lv(l); var a, b, h, v, t = typ(l, { 1: ["rect", "sq"], 2: ["tri", "rect", "per"], 3: ["par", "trap", "tri", "rhomb"], 4: ["rev", "sqp", "trap", "rect"], 5: ["circ", "comp", "rev", "trap"] });
+      a = R(3, 9 + l); b = R(2, 9);
+      if (t === "sq") { if (a === 4) a = 5; return Qz("Kvadrat tomoni " + a + ". Yuzi?", a * a, [4 * a, 2 * a, a * a + a], "S = a² = " + a + " · " + a + " = " + (a * a) + "   (perimetr 4a = " + (4 * a) + " — boshqa narsa)"); }
+      if (t === "per") return Qz("To'g'ri to'rtburchak " + a + "×" + b + ". Perimetri?", 2 * (a + b), [a * b, a + b, 2 * a + b], "P = 2(a + b) = 2·(" + a + " + " + b + ") = " + (2 * (a + b)) + "   (yuza a·b = " + (a * b) + " — boshqa)");
+      if (t === "tri") { h = 2 * R(1, 6); return Qz("Uchburchak: asos " + a + ", balandlik " + h + ". Yuzi?", a * h / 2, [a * h, a + h, a * h / 2 + a], "S = ½ · a · h = ½ · " + a + " · " + h + " = " + (a * h / 2) + "   (½ ni unutmang!)"); }
+      if (t === "par") { h = R(2, 9); return Qz("Parallelogramm: asos " + a + ", balandlik " + h + ". Yuzi?", a * h, [a * h / 2 === Math.round(a * h / 2) ? a * h / 2 : null, 2 * (a + h), a + h], "S = a · h = " + a + " · " + h + " = " + (a * h)); }
+      if (t === "trap") { var b2 = a + 2 * R(1, 4); h = R(2, 8); v = (a + b2) * h / 2; return Qz("Trapetsiya: asoslar " + a + " va " + b2 + ", balandlik " + h + ". Yuzi?", v, [(a + b2) * h, a * b2, (a + b2) / 2 + h, v + h], "S = (a + b)/2 · h = (" + a + " + " + b2 + ")/2 · " + h + " = " + ((a + b2) / 2) + " · " + h + " = " + v); }
+      if (t === "rhomb") { var d1 = 2 * R(2, 7), d2 = R(3, 10); return Qz("Romb diagonallari " + d1 + " va " + d2 + ". Yuzi?", d1 * d2 / 2, [d1 * d2, d1 + d2, 2 * (d1 + d2)], "S = d₁·d₂/2 = " + d1 + "·" + d2 + "/2 = " + (d1 * d2 / 2)); }
+      if (t === "rev") { v = a * b; return Qz("To'g'ri to'rtburchak yuzi " + v + ", bir tomoni " + a + ". Ikkinchi tomoni?", b, [v - a, v / 2 === Math.round(v / 2) ? v / 2 : null, b + 1, a], "b = S : a = " + v + " : " + a + " = " + b); }
+      if (t === "sqp") return Qz("Kvadrat yuzi " + (a * a) + ". Perimetri?", 4 * a, [a, a * a / 4 === Math.round(a * a / 4) ? a * a / 4 : null, 2 * a, 4 * a + 4], "Tomon = √" + (a * a) + " = " + a + " → P = 4 · " + a + " = " + (4 * a));
+      if (t === "circ") { var r = R(2, 10); return Qz("Radiusi " + r + " bo'lgan doira yuzi (π bilan)?", (r * r) + "π", [(2 * r) + "π", (r * r * 2) + "π", (4 * r * r) + "π", r + "π"], "S = π·r² = π·" + r + "² = " + (r * r) + "π   (2πr = " + (2 * r) + "π — aylana uzunligi)"); }
+      var A = R(6, 12), c1 = R(2, 4), c2 = R(2, 5); v = A * A - c1 * c2;
+      if (t === "comp") return Qz("Kvadrat tomoni " + A + ", ichidan " + c1 + "×" + c2 + " to'rtburchak kesildi. Qolgan yuza?", v, [A * A, A * A - c1 - c2, 4 * A - c1 * c2, v + c1], A + "² − " + c1 + "·" + c2 + " = " + (A * A) + " − " + (c1 * c2) + " = " + v);
+      return Qz("To'g'ri to'rtburchak " + a + "×" + b + ". Yuzi?", a * b, [2 * (a + b), a + b, a * b + a, a * b - b], "S = a · b = " + a + " · " + b + " = " + (a * b) + "   (perimetr " + 2 * (a + b) + " — boshqa narsa!)");
+    } },
+    /* ---------------- Rim raqamlari ---------------- */
+    rim: { n: "Rim raqamlari", g: 3, q: function (l) {
+      l = lv(l); var max = [0, 20, 50, 100, 1000, 3999][l], n = R(4, max);
+      var VAL = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+      function naive(s) { return s.split("").reduce(function (t, c) { return t + VAL[c]; }, 0); }
+      if (l >= 4 && R(0, 2) === 0) { var x = R(4, max / 4 | 0), y = R(4, max / 4 | 0); return Qz(roman(x) + " + " + roman(y) + " = ?", x + y, [naive(roman(x)) + naive(roman(y)), x + y + 10, x + y - 1, x + y + 1], roman(x) + " = " + x + ",  " + roman(y) + " = " + y + "  →  " + (x + y)); }
+      if (l >= 3 && R(0, 2) === 0) { n = pick([4, 9, 14, 19, 40, 44, 49, 90, 94, 99, 400, 490, 900, 949, 1990, 1999]); if (n > max) n = pick([4, 9, 14, 19, 40, 49]); var wr = n === 4 ? "IIII" : n === 9 ? "VIIII" : n === 49 ? "IL" : n === 99 ? "IC" : n === 40 ? "XXXX" : n === 90 ? "LXXXX" : n === 999 ? "IM" : roman(n).replace("IV", "IIII").replace("IX", "VIIII"); return Qz(n + " = ?", roman(n), [wr, roman(n + 1), roman(n - 1), roman(n + 10)], n + " = " + roman(n) + "   (bir xil belgi 3 martadan ko'p yozilmaydi; ayirish faqat I, X, C bilan: IV, IX, XL, XC, CD, CM)"); }
+      var s = roman(n), parts = s.match(/CM|CD|XC|XL|IX|IV|M|D|C|L|X|V|I/g);
+      if (parts.length === 1) return Qz(s + " = ?", n, [naive(s) === n ? n + 1 : naive(s), n + 10, n - 1, n + 1, n * 2], s + " = " + n + (s.length > 1 ? "   (kichigi kattasidan chapda — ayiriladi)" : ""));
+      return Qz(s + " = ?", n, [naive(s), n + 10, n - 10, n + 1, n - 1, n + 5], s + " = " + s.replace(/CM|CD|XC|XL|IX|IV|M|D|C|L|X|V|I/g, function (m) { return "+" + ({ CM: 900, CD: 400, XC: 90, XL: 40, IX: 9, IV: 4 }[m] || VAL[m]); }).slice(1).replace(/\+/g, " + ") + " = " + n + "   (kichigi kattasidan chapda bo'lsa — ayiriladi)");
+    } },
+    /* ---------------- Yaxlitlash ---------------- */
+    yaxlitlash: { n: "Yaxlitlash", g: 4, q: function (l) {
+      l = lv(l); var n, v, t = typ(l, { 1: ["10"], 2: ["10", "100"], 3: ["100", "1", "10"], 4: ["01", "1", "1000"], 5: ["01", "1000", "9s", "100"] });
+      if (t === "1") { var N1 = R(100, 9990); if (N1 % 10 === 0) N1 += 3; n = N1 / 10; v = Math.round(N1 / 10); var fd = N1 % 10; return Qz(dec(n, 1) + " → butungacha", v, [Math.floor(N1 / 10) === v ? v + 1 : Math.floor(N1 / 10), v + 10, Math.round(N1 / 100) * 10], dec(n, 1) + ": o'ndan biri " + fd + (fd >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + v); }
+      if (t === "01") { var N2 = R(101, 999); if (N2 % 10 === 0) N2 += 3; n = N2 / 100; var v10 = Math.round(N2 / 10), fl = Math.floor(N2 / 10), hd = N2 % 10; var f1 = function (x) { return (x / 10).toFixed(1).replace(".", ","); }; return Qz(dec(n, 2) + " → o'ndan birgacha", f1(v10), [f1(fl === v10 ? fl + 1 : fl), String(Math.round(N2 / 100)), f1(v10 + 1), f1(v10 - 1)], dec(n, 2) + ": yuzdan biri " + hd + (hd >= 5 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + f1(v10)); }
+      if (t === "9s") { n = pick([R(1, 9) * 1000 + 950 + R(0, 49), R(1, 9) * 100 + 95 + R(0, 4)]); var big = n >= 1000; v = big ? Math.round(n / 100) * 100 : Math.round(n / 10) * 10; return Qz(n + " → " + (big ? "yuzliklargacha" : "o'nliklargacha"), v, [big ? Math.floor(n / 100) * 100 : Math.floor(n / 10) * 10, big ? Math.floor(n / 100) * 100 + 90 : v - 10, v + (big ? 100 : 10)], n + " → " + v + "   (9 + 1 = 10 → keyingi xonaga o'tadi)"); }
+      var st = t === "10" ? 10 : t === "100" ? 100 : 1000;
+      n = st === 10 ? R(11, l === 1 ? 99 : 989) : st === 100 ? R(111, 9899) : R(1111, 98999);
+      if (n % st === 0) n += 7;
+      v = Math.round(n / st) * st;
+      var low = Math.floor(n / st) * st;
+      return Qz(n + " → " + (st === 10 ? "o'nliklargacha" : st === 100 ? "yuzliklargacha" : "minglargacha"), v, [low === v ? v + st : low, v + st, v - st, Math.round(n / (st * 10)) * st * 10, Math.round(n / (st / 10 || 1)) * (st / 10 || 1)], n + ": keyingi xona raqami " + Math.floor((n % st) / (st / 10)) + (n % st >= st / 2 ? " ≥ 5 → yuqoriga: " : " < 5 → pastga: ") + v);
+    } },
+    /* ---------------- Ketma-ketliklar ---------------- */
+    ketma: { n: "Ketma-ketliklar", g: 4, q: function (l) {
+      l = lv(l); var s = [], v, e, i, t = typ(l, { 1: ["ar"], 2: ["ar", "ard", "geo2"], 3: ["geo", "sq", "inc"], 4: ["fib", "alt", "tri", "cube"], 5: ["2n1", "nn1", "prime", "sq1", "fib"] });
+      if (t === "ar" || t === "ard") { var a = R(1, 20), d = R(2, 4 + l * 2); if (t === "ard") { a = R(40, 90); d = -R(2, 9); } for (i = 0; i < 4; i++) s.push(a + i * d); v = a + 4 * d; e = "Har safar " + (d > 0 ? "+" : "−") + Math.abs(d) + ": " + s[3] + (d > 0 ? " + " : " − ") + Math.abs(d) + " = " + v; return Qz(s.join(", ") + ", ?", v, [v + d, s[3] - d, v + 1, s[3] + 2 * d], e); }
+      if (t === "geo" || t === "geo2") { var q = t === "geo2" ? 2 : R(2, 3), b0 = R(1, 4); for (i = 0; i < 4; i++) s.push(b0 * Math.pow(q, i)); v = b0 * Math.pow(q, 4); return Qz(s.join(", ") + ", ?", v, [s[3] + (s[3] - s[2]), v + q, s[3] * (q + 1), v - s[3]], "Har safar ×" + q + ": " + s[3] + " × " + q + " = " + v); }
+      if (t === "sq" || t === "cube") { var p = t === "sq" ? 2 : 3, k0 = R(1, t === "sq" ? 6 : 3); for (i = 0; i < 4; i++) s.push(Math.pow(k0 + i, p)); v = Math.pow(k0 + 4, p); return Qz(s.join(", ") + ", ?", v, [s[3] + (s[3] - s[2]), v + 1, v - (k0 + 4), Math.pow(k0 + 4, p === 2 ? 3 : 2)], (t === "sq" ? "Kvadratlar: " : "Kublar: ") + (k0 + 4) + sup(p) + " = " + v); }
+      if (t === "inc") { var c0 = R(1, 9), st = R(1, 3); s = [c0]; for (i = 1; i < 5; i++) s.push(s[i - 1] + st + i - 1); v = s[4] + st + 4; return Qz(s.slice(0, 5).join(", ") + ", ?", v, [s[4] + st + 3, s[4] + (s[4] - s[3]), v + 1, v - 1], "Farqlar har safar 1 ga oshadi: +" + st + ", +" + (st + 1) + ", +" + (st + 2) + ", +" + (st + 3) + " → keyingisi +" + (st + 4) + ": " + v); }
+      if (t === "fib") { var f1 = R(1, 4), f2 = R(f1, 6); s = [f1, f2]; for (i = 2; i < 6; i++) s.push(s[i - 1] + s[i - 2]); v = s[5]; return Qz(s.slice(0, 5).join(", ") + ", ?", v, [s[4] + (s[4] - s[3]), s[4] * 2, v + 1, v - 1], "Har had oldingi ikkitasining yig'indisi: " + s[3] + " + " + s[4] + " = " + v); }
+      if (t === "alt") { var x0 = R(5, 20), up = R(3, 7), dn = R(1, up - 1); s = [x0]; for (i = 1; i < 6; i++) s.push(s[i - 1] + (i % 2 ? up : -dn)); v = s[5]; return Qz(s.slice(0, 5).join(", ") + ", ?", v, [s[4] + up, s[4] - up, v + 1, s[4] + dn], "Navbatma-navbat +" + up + " va −" + dn + ": " + s[4] + (5 % 2 ? " + " + up : " − " + dn) + " = " + v); }
+      if (t === "tri") { var n0 = R(1, 4); for (i = 0; i < 5; i++) s.push((n0 + i) * (n0 + i + 1) / 2); v = (n0 + 5) * (n0 + 6) / 2; return Qz(s.join(", ") + ", ?", v, [s[4] + (s[4] - s[3]), v + 1, v - 1, s[4] * 2], "Farqlar: +" + (n0 + 1) + ", +" + (n0 + 2) + ", +" + (n0 + 3) + ", +" + (n0 + 4) + " → " + s[4] + " + " + (n0 + 5) + " = " + v); }
+      if (t === "2n1") { var y0 = R(1, 3); s = [y0]; for (i = 1; i < 5; i++) s.push(s[i - 1] * 2 + 1); v = s[4] * 2 + 1; return Qz(s.join(", ") + ", ?", v, [s[4] * 2, s[4] + (s[4] - s[3]), v + 2, v - 1], "Qoida: ×2 + 1 → " + s[4] + " · 2 + 1 = " + v); }
+      if (t === "nn1") { var m0 = R(1, 4); for (i = 0; i < 5; i++) s.push((m0 + i) * (m0 + i + 1)); v = (m0 + 5) * (m0 + 6); return Qz(s.join(", ") + ", ?", v, [s[4] + (s[4] - s[3]), v + 2, v - 2, (m0 + 5) * (m0 + 5)], "n·(n+1): " + (m0 + 5) + "·" + (m0 + 6) + " = " + v + "   (farqlar 2 tadan oshadi)"); }
+      if (t === "prime") { var P = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41], o0 = R(0, 6); s = P.slice(o0, o0 + 5); v = P[o0 + 5]; return Qz(s.join(", ") + ", ?", v, [s[4] + 2, s[4] + (s[4] - s[3]), v + 1, s[4] + 1], "Tub sonlar: " + s[4] + " dan keyingi tub son — " + v); }
+      var z0 = R(1, 5); for (i = 0; i < 5; i++) s.push((z0 + i) * (z0 + i) + 1); v = (z0 + 5) * (z0 + 5) + 1;
+      return Qz(s.join(", ") + ", ?", v, [s[4] + (s[4] - s[3]), v - 1, v + 1, (z0 + 5) * (z0 + 5)], "Qoida n² + 1: " + (z0 + 5) + "² + 1 = " + v);
+    } },
+    /* ---------------- Manfiy sonlar ---------------- */
+    manfiy: { n: "Manfiy sonlar", g: 6, q: function (l) {
+      l = lv(l); var a, b, v, tx, e, t = typ(l, { 1: ["add"], 2: ["add", "sub"], 3: ["mul", "div", "sub"], 4: ["mix", "abs", "mul"], 5: ["pow", "br", "mix"] });
+      var M = 6 + l * 3;
+      if (t === "add") { a = R(-M, M); b = R(-M, -1); if (R(0, 1)) { var t0 = a; a = b; b = t0; } v = a + b; tx = mstr(a) + " + " + neg(b); e = mstr(a) + " + " + neg(b) + " = " + mstr(v) + (a * b < 0 ? "   (ishoralar har xil → kattasidan kichigi ayriladi, kattasining ishorasi)" : "   (ishoralar bir xil → qo'shiladi)"); return Qz(tx, v, [-v, a - b, v + 1, v - 1], e, true); }
+      if (t === "sub") { a = R(-M, M); b = R(-M, -1); v = a - b; return Qz(mstr(a) + " − " + neg(b), v, [a + b, -v, v + 1, v - 1], mstr(a) + " − " + neg(b) + " = " + mstr(a) + " + " + (-b) + " = " + mstr(v) + "   (manfiyni ayirish = musbatni qo'shish)", true); }
+      if (t === "mul") { a = R(2, 9) * pick([-1, 1]); b = R(2, 9) * -1; if (R(0, 1)) b = -b, a = -Math.abs(a); v = a * b; return Qz(neg(a) + " · " + neg(b), v, [-v, a + b, Math.abs(v) + 1], neg(a) + " · " + neg(b) + " = " + mstr(v) + (v > 0 ? "   (minus × minus = plyus)" : "   (har xil ishora → minus)"), true); }
+      if (t === "div") { b = R(2, 9) * pick([-1, 1]); v = R(2, 9) * pick([-1, 1]); a = b * v; if (a > 0 && b > 0) { a = -a; v = -v; } return Qz(neg(a) + " : " + neg(b), v, [-v, a - b, v * b], neg(a) + " : " + neg(b) + " = " + mstr(v) + (v > 0 ? "   (ishoralar bir xil → plyus)" : "   (ishoralar har xil → minus)"), true); }
+      if (t === "abs") { a = -R(3, 15); b = R(1, 12); v = Math.abs(a) - b; return Qz("|" + mstr(a) + "| − " + b, v, [a - b, -v, Math.abs(a) + b], "|" + mstr(a) + "| = " + (-a) + " → " + (-a) + " − " + b + " = " + mstr(v), true); }
+      if (t === "mix") { a = -R(2, 6); b = -R(2, 6); var c = R(2, 15); v = a * b - c; return Qz(neg(a) + " · " + neg(b) + " − " + c, v, [-(a * b) - c, a * b + c, v + 2, -v], neg(a) + " · " + neg(b) + " = " + (a * b) + " → " + (a * b) + " − " + c + " = " + mstr(v), true); }
+      if (t === "pow") { a = R(2, 5); var k = R(2, 3); if (R(0, 1)) { v = Math.pow(-a, k); return Qz("(−" + a + ")" + sup(k), v, [-v, -a * k, a * k], "(−" + a + ")" + sup(k) + " = " + mstr(v) + (k % 2 ? "   (toq daraja → manfiy)" : "   (juft daraja → musbat)"), true); } v = -a * a; return Qz("−" + a + "² + " + (2 * a * a), a * a, [3 * a * a, -a * a, a * a + 2 * a], "−" + a + "² = −" + (a * a) + " (avval daraja!) → −" + (a * a) + " + " + (2 * a * a) + " = " + (a * a), true); }
+      a = R(2, 9); b = R(a + 1, a + 9); var m2 = R(2, 4); v = -(a - b) * m2;
+      return Qz("−(" + a + " − " + b + ") · " + m2, v, [-v, (a - b) * m2, -(a + b) * m2], a + " − " + b + " = " + mstr(a - b) + " → −(" + mstr(a - b) + ") = " + (b - a) + " → " + (b - a) + " · " + m2 + " = " + v, true);
+    } },
+    /* ---------------- 10 gacha (boshlang'ich sinf) ---------------- */
+    kichik: { n: "10 gacha qo'shish/ayirish", g: 1, q: function (l) {
+      l = lv(l); var a, b, c, t = typ(l, { 1: ["+", "-"], 2: ["+", "-", "+"], 3: ["m+", "m-", "+"], 4: ["3", "m+", "-"], 5: ["s", "3", "m-"] });
+      var M = l === 1 ? 5 : 10;
+      if (t === "+") { a = R(0, M); b = R(0, M - a); return Qz(a + " + " + b, a + b, [], a + " + " + b + " = " + (a + b)); }
+      if (t === "-") { c = R(1, M); b = R(0, c); return Qz(c + " − " + b, c - b, [], c + " − " + b + " = " + (c - b)); }
+      if (t === "m+") { a = R(0, 9); c = R(a, 10); return Qz(a + " + ? = " + c, c - a, [], "? = " + c + " − " + a + " = " + (c - a)); }
+      if (t === "m-") { c = R(2, 10); b = R(0, c); return Qz(c + " − ? = " + (c - b), b, [], "? = " + c + " − " + (c - b) + " = " + b); }
+      if (t === "3") { a = R(1, 4); b = R(1, 3); c = R(0, 10 - a - b); if (R(0, 1)) return Qz(a + " + " + b + " + " + c, a + b + c, [], a + " + " + b + " = " + (a + b) + " → " + (a + b) + " + " + c + " = " + (a + b + c)); var x = R(6, 10), y = R(1, 3), z = R(0, x - y); return Qz(x + " − " + y + " − " + z, x - y - z, [], x + " − " + y + " = " + (x - y) + " → " + (x - y) + " − " + z + " = " + (x - y - z)); }
+      var n = pick(ISM); a = R(3, 10); b = R(1, a);
+      return Qz(n + "da " + a + " ta olma bor edi, " + b + " tasini yedi. Nechta qoldi?", a - b, [], a + " − " + b + " = " + (a - b));
+    } },
+    kichikAralash: { n: "10 gacha aralash", g: 2, q: function (l) {
+      l = lv(l); var t = typ(l, { 1: ["x", ":"], 2: ["x", ":", "r"], 3: ["mx", "m:", "r"], 4: ["x+", "mx", "r"], 5: ["x+", "x-", "m:"] }), a, b;
+      if (t === "x") { a = R(1, 5); b = R(0, Math.floor(10 / Math.max(1, a))); if (l === 1) b = R(1, 2); return Qz(a + " × " + b, a * b, [], a + " × " + b + " = " + (a * b)); }
+      if (t === ":") { b = pick([1, 2, 5]); a = R(0, Math.floor(10 / b)) * b; return Qz(a + " : " + b, a / b, [], a + " : " + b + " = " + (a / b) + ",  chunki " + b + " × " + (a / b) + " = " + a); }
+      if (t === "r") { a = R(0, 3); return Qz("√" + (a * a), a, [], "√" + (a * a) + " = " + a + ",  chunki " + a + " × " + a + " = " + (a * a)); }
+      if (t === "mx") { a = R(1, 5); b = R(1, Math.floor(10 / a)); return Qz(a + " × ? = " + (a * b), b, [], "? = " + (a * b) + " : " + a + " = " + b); }
+      if (t === "m:") { b = pick([2, 5]); var c = R(1, Math.floor(10 / b)); return Qz("? : " + b + " = " + c, b * c, [], "? = " + c + " × " + b + " = " + (b * c)); }
+      a = R(1, 3); b = R(1, 3); var d = R(0, 10 - a * b);
+      if (t === "x-") { d = R(0, a * b); return Qz(a + " × " + b + " − " + d, a * b - d, [], a + " × " + b + " = " + (a * b) + " → " + (a * b) + " − " + d + " = " + (a * b - d)); }
+      return Qz(a + " × " + b + " + " + d, a * b + d, [], "Avval ko'paytirish: " + a + " × " + b + " = " + (a * b) + " → " + (a * b) + " + " + d + " = " + (a * b + d));
+    } }
   };
+
+  /* ---------- FIZIKA (5 daraja: formula → katta sonlar → teskari formula → birliklar → ikki qadam) ---------- */
+  (function () {
+    var KMH = [[18, 5], [36, 10], [54, 15], [72, 20], [90, 25], [108, 30]];
+    var F = {
+      tezlik: { n: "Fizika: tezlik v = s/t", g: 7, q: function (l) {
+        l = lv(l); var v, t, s;
+        if (l <= 2) { v = l === 1 ? R(2, 10) : R(5, 25); t = l === 1 ? R(2, 5) : R(3, 12); s = v * t; return Qz("s = " + s + " m, t = " + t + " s. v = ? (m/s)", v, [s * t, s - t, v + 1, v - 1, s + t], "v = s / t = " + s + " / " + t + " = " + v + " m/s"); }
+        if (l === 3) { v = R(3, 20); t = R(3, 12); s = v * t; return Qz("v = " + v + " m/s, s = " + s + " m. t = ? (s)", t, [s * v, s - v, t + 1, t - 1], "t = s / v = " + s + " / " + v + " = " + t + " s"); }
+        if (l === 4) { var k = pick(KMH); if (R(0, 1)) return Qz(k[0] + " km/soat = ? m/s", k[1], [k[0] * 3.6, k[0] * 1000, k[1] * 2, k[1] + 5], k[0] + " km/soat = " + k[0] + " · 1000 m / 3600 s = " + k[0] + " : 3,6 = " + k[1] + " m/s"); return Qz(k[1] + " m/s = ? km/soat", k[0], [k[1] / 3.6, k[1] * 60, k[0] + 18, k[1] * 10], k[1] + " m/s · 3,6 = " + k[0] + " km/soat"); }
+        v = R(2, 10); t = pick([5, 10, 15, 20]); s = v * t * 60;
+        return Qz("Velosipedchi " + s + " m ni " + t + " daqiqada bosib o'tdi. Tezligi? (m/s)", v, [s / t, v * 60, v + 1, s / t / 10], "t = " + t + " daq = " + (t * 60) + " s → v = " + s + " / " + (t * 60) + " = " + v + " m/s   (daqiqani soniyaga aylantirish shart!)");
+      } },
+      masofa: { n: "Fizika: masofa s = v·t", g: 7, q: function (l) {
+        l = lv(l); var v, t;
+        if (l <= 2) { v = l === 1 ? R(2, 10) : R(10, 30); t = l === 1 ? R(2, 6) : R(5, 15); return Qz("v = " + v + " m/s, t = " + t + " s. s = ? (m)", v * t, [v + t, v * t + v, v * t - t, Math.round(v / t) || null], "s = v · t = " + v + " · " + t + " = " + (v * t) + " m"); }
+        if (l === 3) { v = R(3, 25); t = R(3, 12); return Qz("s = " + (v * t) + " m, v = " + v + " m/s. t = ? (s)", t, [v * t * v, v * t - v, t + 1, t - 1], "t = s / v = " + (v * t) + " / " + v + " = " + t + " s"); }
+        if (l === 4) { var k = pick(KMH); t = R(4, 20); return Qz("v = " + k[0] + " km/soat, t = " + t + " s. s = ? (m)", k[1] * t, [k[0] * t, k[1] + t, k[1] * t * 2, k[0] * t / 10], k[0] + " km/soat = " + k[1] + " m/s → s = " + k[1] + " · " + t + " = " + (k[1] * t) + " m"); }
+        if (R(0, 1)) { v = pick([40, 50, 60, 80, 90]); var h = pick([2, 3, 4]) + pick([0, 0.5]); return Qz("Poyezd " + v + " km/soat tezlikda " + dec(h, 1) + " soat yurdi. Masofa? (km)", v * h, [v + h, v * Math.floor(h), v * h * 60, v * (h + 0.5)], "s = " + v + " · " + dec(h, 1) + " = " + (v * h) + " km"); }
+        v = R(5, 25); t = pick([2, 3, 4, 5]);
+        return Qz("v = " + v + " m/s, t = " + t + " daqiqa. s = ? (m)", v * t * 60, [v * t, v * t * 100, v * t * 6, v * 60], t + " daq = " + (t * 60) + " s → s = " + v + " · " + (t * 60) + " = " + (v * t * 60) + " m");
+      } },
+      zichlik: { n: "Fizika: zichlik ρ = m/V", g: 7, q: function (l) {
+        l = lv(l); var MAT = [["Suv", 1000], ["Muz", 900], ["Alyuminiy", 2700], ["Temir", 7800], ["Mis", 8900], ["Kerosin", 800]];
+        if (l === 1) { var r = pick([1, 2, 3, 5]), V = R(2, 6); return Qz("m = " + (r * V) + " kg, V = " + V + " m³. ρ = ? (kg/m³)", r, [r * V * V, r * V - V, r + 1, V], "ρ = m / V = " + (r * V) + " / " + V + " = " + r + " kg/m³"); }
+        var M = pick(MAT), V2 = R(2, 5);
+        if (l === 2) return Qz("m = " + (M[1] * V2) + " kg, V = " + V2 + " m³. ρ = ? (kg/m³)", M[1], [M[1] * V2 * V2, M[1] / 10, M[1] + 100, M[1] * 2], "ρ = " + (M[1] * V2) + " / " + V2 + " = " + M[1] + " kg/m³ (" + M[0].toLowerCase() + ")");
+        if (l === 3) return Qz(M[0] + " (ρ = " + M[1] + " kg/m³), V = " + V2 + " m³. m = ? (kg)", M[1] * V2, [M[1] / V2 === Math.round(M[1] / V2) ? M[1] / V2 : null, M[1] + V2, M[1] * V2 * 10, M[1]], "m = ρ · V = " + M[1] + " · " + V2 + " = " + (M[1] * V2) + " kg");
+        if (l === 4) { if (R(0, 1)) { var gV = pick([100, 200, 300, 400, 500]), dd = pick([[2.7, "alyuminiy"], [7.8, "temir"], [1, "suv"], [0.9, "muz"], [8.9, "mis"]]); var mg = Math.round(gV * dd[0]); return Qz("m = " + mg + " g, V = " + gV + " cm³. ρ = ? (g/cm³)", dec(dd[0], 1), [dec(dd[0] * 10, 1), dec(gV / mg, 2), dec(dd[0] * 1000, 0), dec(dd[0] + 1, 1)], "ρ = " + mg + " / " + gV + " = " + dec(dd[0], 1) + " g/cm³ (" + dd[1] + ")"); } var M2 = pick(MAT); return Qz("ρ = " + dec(M2[1] / 1000, 1) + " g/cm³ = ? kg/m³", M2[1], [M2[1] / 10, M2[1] / 1000, M2[1] * 10, M2[1] + 1000], "1 g/cm³ = 1000 kg/m³ → " + dec(M2[1] / 1000, 1) + " · 1000 = " + M2[1] + " kg/m³"); }
+        if (R(0, 1)) { var L = pick([2, 3, 5, 10, 20]); return Qz(L + " litr suvning massasi? (kg)", L, [L * 1000, L / 10, L * 10], "1 l = 0,001 m³ → m = 1000 · " + L + " · 0,001 = " + L + " kg"); }
+        var vv = pick([0.5, 1.5, 2.5]), MM = pick(MAT);
+        return Qz("Hajmi " + dec(vv, 1) + " m³ " + MM[0].toLowerCase() + " (ρ = " + MM[1] + " kg/m³). m = ? (kg)", MM[1] * vv, [MM[1] / vv, MM[1] * Math.ceil(vv), MM[1] + vv, MM[1] * vv * 10], "m = " + MM[1] + " · " + dec(vv, 1) + " = " + (MM[1] * vv) + " kg");
+      } },
+      kuch: { n: "Fizika: kuch F = m·a", g: 7, q: function (l) {
+        l = lv(l); var m, a;
+        if (l <= 2) { m = l === 1 ? R(2, 10) : R(10, 50); a = l === 1 ? R(1, 5) : R(2, 9); return Qz("m = " + m + " kg, a = " + a + " m/s². F = ? (N)", m * a, [m + a, m * a + m, Math.round(m / a) || null, m * a - a], "F = m · a = " + m + " · " + a + " = " + (m * a) + " N"); }
+        if (l === 3) { m = R(2, 20); a = R(2, 9); if (R(0, 1)) return Qz("F = " + (m * a) + " N, m = " + m + " kg. a = ? (m/s²)", a, [m * a * m, m * a - m, a + 1, a - 1], "a = F / m = " + (m * a) + " / " + m + " = " + a + " m/s²"); return Qz("F = " + (m * a) + " N, a = " + a + " m/s². m = ? (kg)", m, [m * a * a, m * a - a, m + 1, m - 1], "m = F / a = " + (m * a) + " / " + a + " = " + m + " kg"); }
+        if (l === 4) { var g = pick([200, 400, 500, 800, 1500, 2500]); a = pick([2, 4, 6, 10]); var Fv = g / 1000 * a; if (Fv !== Math.round(Fv)) { g = 500; a = 4; Fv = 2; } return Qz("m = " + g + " g, a = " + a + " m/s². F = ? (N)", Fv, [g * a, g * a / 100, Fv * 10, Fv + 1], g + " g = " + dec(g / 1000, 1) + " kg → F = " + dec(g / 1000, 1) + " · " + a + " = " + Fv + " N   (grammni kg ga aylantiring!)"); }
+        if (R(0, 1)) { m = R(2, 10); var dv = R(2, 6) * 5, t = pick([2, 5, 10]); while (dv % t) dv += 5; a = dv / t; return Qz("m = " + m + " kg jism " + t + " s da tezligini 0 dan " + dv + " m/s gacha oshirdi. F = ? (N)", m * a, [m * dv, m * a + m, a, m * t], "a = " + dv + " / " + t + " = " + a + " m/s² → F = " + m + " · " + a + " = " + (m * a) + " N"); }
+        var F1 = R(20, 60), F2 = R(5, F1 - 5); m = pick([2, 3, 4, 5, 6]); var Fn = F1 - F2; while (Fn % m) { F1++; Fn = F1 - F2; }
+        return Qz(F1 + " N o'ngga, " + F2 + " N chapga, m = " + m + " kg. a = ? (m/s²)", Fn / m, [(F1 + F2) / m === Math.round((F1 + F2) / m) ? (F1 + F2) / m : null, Fn, Fn / m + 1, Fn / m - 1], "Natijaviy kuch " + F1 + " − " + F2 + " = " + Fn + " N → a = " + Fn + " / " + m + " = " + (Fn / m) + " m/s²");
+      } },
+      om: { n: "Fizika: Om qonuni I = U/R", g: 8, q: function (l) {
+        l = lv(l); var I, Rr, U;
+        if (l <= 2) { I = R(1, l === 1 ? 5 : 12); Rr = pick(l === 1 ? [2, 3, 4, 5] : [4, 5, 6, 8, 10, 12, 20]); U = I * Rr; return Qz("U = " + U + " V, R = " + Rr + " Ω. I = ? (A)", I, [U * Rr, U - Rr, I + 1, I - 1], "I = U / R = " + U + " / " + Rr + " = " + I + " A"); }
+        if (l === 3) { I = R(2, 9); Rr = pick([2, 3, 4, 5, 6, 8, 10]); U = I * Rr; if (R(0, 1)) return Qz("I = " + I + " A, R = " + Rr + " Ω. U = ? (V)", U, [I + Rr, U + I, U - Rr, Rr - I > 0 ? Rr - I : null], "U = I · R = " + I + " · " + Rr + " = " + U + " V"); return Qz("U = " + U + " V, I = " + I + " A. R = ? (Ω)", Rr, [U * I, U - I, Rr + 1, Rr - 1], "R = U / I = " + U + " / " + I + " = " + Rr + " Ω"); }
+        if (l === 4) { var r1 = R(1, 8), r2 = R(2, 12); I = R(1, 6); U = I * (r1 + r2); return Qz("R₁ = " + r1 + " Ω, R₂ = " + r2 + " Ω ketma-ket, U = " + U + " V. I = ? (A)", I, [U / r1 === Math.round(U / r1) ? U / r1 : null, U / r2 === Math.round(U / r2) ? U / r2 : null, I + 1, U - r1 - r2], "Ketma-ket: R = " + r1 + " + " + r2 + " = " + (r1 + r2) + " Ω → I = " + U + " / " + (r1 + r2) + " = " + I + " A"); }
+        var pr = pick([[3, 6, 2], [4, 12, 3], [6, 12, 4], [10, 15, 6], [12, 24, 8], [6, 6, 3], [20, 30, 12], [12, 12, 6]]);
+        if (R(0, 1)) return Qz("R₁ = " + pr[0] + " Ω va R₂ = " + pr[1] + " Ω parallel. R = ? (Ω)", pr[2], [pr[0] + pr[1], Math.round((pr[0] + pr[1]) / 2), pr[2] + 1, Math.abs(pr[1] - pr[0]) || null], "Parallel: R = R₁·R₂ / (R₁ + R₂) = " + (pr[0] * pr[1]) + " / " + (pr[0] + pr[1]) + " = " + pr[2] + " Ω");
+        I = R(1, 4); U = pr[2] * I;
+        return Qz(pr[0] + " Ω va " + pr[1] + " Ω parallel, U = " + U + " V. Umumiy I = ? (A)", I, [U / (pr[0] + pr[1]) === Math.round(U / (pr[0] + pr[1])) ? U / (pr[0] + pr[1]) : null, I + 1, I * 2, U], "R = " + (pr[0] * pr[1]) + "/" + (pr[0] + pr[1]) + " = " + pr[2] + " Ω → I = " + U + " / " + pr[2] + " = " + I + " A");
+      } },
+      ish: { n: "Fizika: ish A = F·s", g: 7, q: function (l) {
+        l = lv(l); var F, s;
+        if (l <= 2) { F = l === 1 ? R(2, 10) : R(10, 60); s = l === 1 ? R(2, 10) : R(3, 15); return Qz("F = " + F + " N, s = " + s + " m. A = ? (J)", F * s, [F + s, F * s + F, F * s - s, Math.round(F / s) || null], "A = F · s = " + F + " · " + s + " = " + (F * s) + " J"); }
+        if (l === 3) { F = R(5, 40); s = R(2, 12); return Qz("A = " + (F * s) + " J, F = " + F + " N. s = ? (m)", s, [F * s * F, F * s - F, s + 1, s - 1], "s = A / F = " + (F * s) + " / " + F + " = " + s + " m"); }
+        if (l === 4) { var kN = R(2, 9); s = R(2, 20); if (R(0, 1)) return Qz("F = " + kN + " kN, s = " + s + " m. A = ? (kJ)", kN * s, [kN * s * 1000, kN + s, kN * s / 10, kN * s + s], "A = " + kN + " kN · " + s + " m = " + (kN * s) + " kJ"); return Qz("A = " + (kN * s) + " kJ, s = " + s + " m. F = ? (N)", kN * 1000, [kN, kN * 100, kN * s * 1000, kN * 10000], "F = A / s = " + (kN * s * 1000) + " J / " + s + " m = " + (kN * 1000) + " N"); }
+        var m = R(5, 60), h = R(2, 10);
+        return Qz("Massasi " + m + " kg yuk " + h + " m balandlikka ko'tarildi (g = 10). A = ? (J)", m * 10 * h, [m * h, m * 10 + h, m * 10 * h * 10, (m + h) * 10], "F = m·g = " + (m * 10) + " N → A = " + (m * 10) + " · " + h + " = " + (m * 10 * h) + " J");
+      } },
+      quvvat: { n: "Fizika: quvvat P = A/t", g: 7, q: function (l) {
+        l = lv(l); var P, t, A;
+        if (l <= 2) { P = l === 1 ? R(2, 20) : R(10, 100); t = l === 1 ? R(2, 6) : R(5, 20); A = P * t; return Qz("A = " + A + " J, t = " + t + " s. P = ? (W)", P, [A * t, A - t, P + 1, P - 1], "P = A / t = " + A + " / " + t + " = " + P + " W"); }
+        if (l === 3) { P = R(5, 60); t = R(5, 30); return Qz("P = " + P + " W, t = " + t + " s. A = ? (J)", P * t, [P + t, P * t + P, Math.round(P / t) || null, P * t * 10], "A = P · t = " + P + " · " + t + " = " + (P * t) + " J"); }
+        if (l === 4) { var J = pick([600, 1200, 1800, 2400, 3000, 3600, 6000]), mn = pick([1, 2]); if ((J / 60 / mn) % 1) mn = 1; var Pv = J / (mn * 60); return Qz("A = " + dec(J / 1000, 1) + " kJ, t = " + mn + " daqiqa. P = ? (W)", Pv, [J / mn, J / 1000 / mn, Pv * 60, Pv + 10], dec(J / 1000, 1) + " kJ = " + J + " J,  " + mn + " daq = " + (mn * 60) + " s → P = " + J + " / " + (mn * 60) + " = " + Pv + " W"); }
+        if (R(0, 1)) { var Fq = R(2, 9) * 50, vq = R(2, 6); return Qz("Motor tortish kuchi " + Fq + " N, tezlik " + vq + " m/s. P = ? (W)", Fq * vq, [Fq / vq === Math.round(Fq / vq) ? Fq / vq : null, Fq + vq, Fq * vq * 10], "P = F · v = " + Fq + " · " + vq + " = " + (Fq * vq) + " W"); }
+        var m = pick([40, 50, 60, 70]), h = R(2, 6), tt = pick([4, 5, 8, 10]); var Pq = m * 10 * h / tt; if (Pq !== Math.round(Pq)) tt = 10, Pq = m * h;
+        return Qz("Massasi " + m + " kg o'quvchi " + h + " m ga " + tt + " s da ko'tarildi (g = 10). P = ? (W)", Pq, [m * 10 * h, m * h, Pq * 10, Pq + 10], "A = m·g·h = " + (m * 10 * h) + " J → P = " + (m * 10 * h) + " / " + tt + " = " + Pq + " W");
+      } },
+      bosim: { n: "Fizika: bosim p = F/S", g: 7, q: function (l) {
+        l = lv(l); var p, S, F;
+        if (l <= 2) { p = l === 1 ? R(2, 20) : R(10, 90) * 10; S = l === 1 ? R(2, 5) : R(2, 8); F = p * S; return Qz("F = " + F + " N, S = " + S + " m². p = ? (Pa)", p, [F * S, F - S, p + 10, p - 1], "p = F / S = " + F + " / " + S + " = " + p + " Pa"); }
+        if (l === 3) { p = R(10, 90) * 10; S = R(2, 6); return Qz("p = " + p + " Pa, S = " + S + " m². F = ? (N)", p * S, [p + S, p / S === Math.round(p / S) ? p / S : null, p * S * 10, p * S + p], "F = p · S = " + p + " · " + S + " = " + (p * S) + " N"); }
+        if (l === 4) { var cm = pick([100, 200, 400, 500]), kPa = R(2, 30); F = kPa * 1000 * cm / 10000; if (F !== Math.round(F)) { cm = 200; F = kPa * 20; } return Qz("F = " + F + " N, S = " + cm + " cm². p = ? (kPa)", kPa, [Math.round(F / cm) || null, kPa * 1000, kPa * 10, F / cm * 100 === Math.round(F / cm * 100) ? F / cm * 100 : null], cm + " cm² = " + dec(cm / 10000, 2) + " m² → p = " + F + " / " + dec(cm / 10000, 2) + " = " + (kPa * 1000) + " Pa = " + kPa + " kPa"); }
+        if (R(0, 1)) { var h = R(2, 12); return Qz("Suv ostida " + h + " m chuqurlikda bosim? (kPa; ρ = 1000, g = 10)", h * 10, [h * 1000, h, h * 100, h * 10 + 100], "p = ρ·g·h = 1000 · 10 · " + h + " = " + (h * 10000) + " Pa = " + (h * 10) + " kPa"); }
+        var m = pick([32, 40, 48, 56, 60, 64]), S100 = pick([2, 4, 8]); if (m % S100) S100 = 4; var Sm = S100 / 100, pk = m / S100;
+        return Qz("Massasi " + m + " kg o'quvchi, tuflilar tagi jami " + dec(Sm, 2) + " m². p = ? (kPa)", pk, [m * 10 * S100, m * 10, pk * 10, pk + 5], "F = m·g = " + (m * 10) + " N → p = " + (m * 10) + " / " + dec(Sm, 2) + " = " + (pk * 1000) + " Pa = " + pk + " kPa");
+      } },
+      ogirlik: { n: "Fizika: og'irlik P = m·g (g≈10)", g: 7, q: function (l) {
+        l = lv(l); var m;
+        if (l <= 2) { m = l === 1 ? R(1, 12) : R(13, 120); return Qz("m = " + m + " kg. Og'irlik P = ? (N, g = 10)", m * 10, [m, m * 10 + 10, m * 10 - 10, m * 100], "P = m · g = " + m + " · 10 = " + (m * 10) + " N"); }
+        if (l === 3) { m = R(5, 90); return Qz("Og'irligi " + (m * 10) + " N. Massasi? (kg, g = 10)", m, [m * 100, m * 10, m + 10, m - 1], "m = P / g = " + (m * 10) + " / 10 = " + m + " kg"); }
+        if (l === 4) { var g = R(1, 30) * 100; return Qz("m = " + g + " g. Og'irlik P = ? (N, g = 10)", g / 100, [g * 10, g / 10, g / 1000, g / 100 + 1], g + " g = " + dec(g / 1000, 1) + " kg → P = " + dec(g / 1000, 1) + " · 10 = " + dec(g / 100, 1) + " N"); }
+        m = pick([10, 20, 25, 40, 50, 60, 75, 80]); var Pm = m * 16 / 10;
+        if (R(0, 1)) return Qz("Oyda g ≈ 1,6 N/kg. m = " + m + " kg jism og'irligi? (N)", Pm, [m * 10, m * 1.6 * 10, m + 1.6, Pm * 2], "P = m · g_Oy = " + m + " · 1,6 = " + dec(Pm, 1) + " N   (Yerdagidan " + dec(10 / 1.6, 2) + " marta kam)");
+        return Qz("Yerda " + (m * 10) + " N bo'lgan jism Oyda (g ≈ 1,6) necha N?", Pm, [m * 10, m * 1.6 * 10, m, (m * 10) / 1.6], "m = " + (m * 10) + " / 10 = " + m + " kg → P_Oy = " + m + " · 1,6 = " + dec(Pm, 1) + " N   (massa o'zgarmaydi, og'irlik o'zgaradi)");
+      } },
+      issiqlik: { n: "Fizika: Q = c·m·Δt", g: 8, q: function (l) {
+        l = lv(l); var c, m, dt, Q;
+        if (l === 1) { c = pick([1, 2, 4]); m = R(1, 5); dt = R(2, 10); Q = c * m * dt; return Qz("c = " + c + " kJ/(kg·°C), m = " + m + " kg, Δt = " + dt + " °C. Q = ? (kJ)", Q, [c + m + dt, c * m + dt, Q + 10, m * dt], "Q = c · m · Δt = " + c + " · " + m + " · " + dt + " = " + Q + " kJ"); }
+        if (l === 2) { m = R(1, 5); dt = R(1, 8) * 5; Q = Math.round(4.2 * m * dt); return Qz("Suv: m = " + m + " kg, Δt = " + dt + " °C, c = 4,2 kJ/(kg·°C). Q = ? (kJ)", Q, [m * dt, Math.round(4.2 * m), Q * 10, Math.round(4.2 * dt)], "Q = 4,2 · " + m + " · " + dt + " = " + Q + " kJ"); }
+        if (l === 3) { m = R(1, 4); dt = R(1, 8) * 5; Q = Math.round(4.2 * m * dt); return Qz("Suvga Q = " + Q + " kJ berildi, m = " + m + " kg (c = 4,2). Δt = ? (°C)", dt, [Math.round(Q / m), Math.round(Q / 4.2), dt + 5, dt * 2], "Δt = Q / (c·m) = " + Q + " / (4,2 · " + m + ") = " + dt + " °C"); }
+        if (l === 4) { m = R(1, 3); var t1 = R(1, 4) * 10, t2 = t1 + R(2, 7) * 10; Q = Math.round(4.2 * m * (t2 - t1)); return Qz("Suv " + t1 + " °C dan " + t2 + " °C gacha isitildi, m = " + m + " kg (c = 4,2). Q = ? (kJ)", Q, [Math.round(4.2 * m * t2), Math.round(4.2 * m * (t1 + t2)), Q + 42, Math.round(4.2 * (t2 - t1))], "Δt = " + t2 + " − " + t1 + " = " + (t2 - t1) + " °C → Q = 4,2 · " + m + " · " + (t2 - t1) + " = " + Q + " kJ"); }
+        var g, T1, T2 = 100, tries = 0; do { g = pick([250, 500, 750, 1000, 1500, 2000]); T1 = pick([10, 20, 25, 30, 40, 50, 60]); } while ((42 * g * (T2 - T1)) % 10000 && tries++ < 60); Q = 42 * g * (T2 - T1) / 10000;
+        return Qz(g + " g suv " + T1 + " °C dan qaynatildi (100 °C, c = 4,2). Q = ? (kJ)", Q, [Math.round(4.2 * g * (T2 - T1)), Math.round(4.2 * g / 1000 * T2), Q * 2, Q + 42], g + " g = " + dec(g / 1000, 2) + " kg,  Δt = " + (T2 - T1) + " → Q = 4,2 · " + dec(g / 1000, 2) + " · " + (T2 - T1) + " = " + Q + " kJ");
+      } }
+    };
+    for (var k in F) TOPICS[k] = F[k];
+  })();
+
 
   // Juftlar (xotira o'yini): [chap, o'ng]
   var PAIRS = {
-    kopaytirish: function () { var a = R(2, 9), b = R(2, 9); return [a + "×" + b, String(a * b)]; },
-    kasrFoiz: function () { return pick([["1/2", "50%"], ["1/4", "25%"], ["3/4", "75%"], ["1/5", "20%"], ["2/5", "40%"], ["3/5", "60%"], ["4/5", "80%"], ["1/10", "10%"], ["3/10", "30%"], ["7/10", "70%"], ["9/10", "90%"], ["1/20", "5%"], ["1", "100%"], ["1/8", "12,5%"]]); },
-    tenglama: function () { var x = R(1, 12), a = R(2, 6); return pick([[a + "x = " + (a * x), "x = " + x], ["x + " + a + " = " + (x + a), "x = " + x], ["x − " + a + " = " + (x - a), "x = " + x]]); }
+    kopaytirish: function (l) { l = lv(l); var a = R(2, l <= 1 ? 5 : 9), b = R(2, 9); if (l === 4) a = R(11, 19); if (l >= 5) { a = R(12, 25); b = R(11, 15); } return [a + "×" + b, String(a * b)]; },
+    kasrFoiz: function (l) {
+      l = lv(l);
+      var P1 = [["1/2", "50%"], ["1/4", "25%"], ["3/4", "75%"], ["1/10", "10%"], ["1", "100%"]],
+        P2 = [["1/5", "20%"], ["2/5", "40%"], ["3/5", "60%"], ["4/5", "80%"], ["3/10", "30%"], ["7/10", "70%"], ["9/10", "90%"], ["1/20", "5%"]],
+        P3 = [["1/8", "12,5%"], ["3/8", "37,5%"], ["5/8", "62,5%"], ["7/8", "87,5%"], ["3/20", "15%"], ["7/20", "35%"], ["9/25", "36%"], ["1/25", "4%"]],
+        P4 = [["0,35", "35%"], ["0,08", "8%"], ["1,25", "125%"], ["2", "200%"], ["0,125", "12,5%"], ["1,5", "150%"], ["0,02", "2%"]];
+      return pick(l <= 2 ? P1.concat(P2) : l === 3 ? P2.concat(P3) : l === 4 ? P3.concat(P4) : P2.concat(P3, P4));
+    },
+    tenglama: function (l) {
+      l = lv(l); var x = R(1, 12), a = R(2, 6), b = R(1, 9);
+      if (l <= 1) return pick([["x + " + a + " = " + (x + a), "x = " + x], ["x − " + a + " = " + x, "x = " + (x + a)]]);
+      if (l === 2) return pick([[a + "x = " + (a * x), "x = " + x], ["x : " + a + " = " + x, "x = " + (a * x)]]);
+      if (l === 3) return [a + "x + " + b + " = " + (a * x + b), "x = " + x];
+      if (l === 4) return pick([[a + "(x − " + b + ") = " + (a * x), "x = " + (x + b)], [a + "x − " + b + " = " + (a * x - b), "x = " + x]]);
+      x = -R(1, 9); return [a + "x + " + (b + 10) + " = " + mstr(a * x + b + 10), "x = " + mstr(x)];
+    }
   };
 
   // Qoidalar (kesish, tutish, savat, tartib) — son + shart
   var RULES = {
-    tub: { n: "Tub sonlarni kes!", gen: function (l) { return R(2, 20 + (l || 2) * 15); }, ok: isPrime },
-    karra3: { n: "3 ga bo'linuvchilarni kes!", gen: function (l) { return R(1, 30 + (l || 2) * 20); }, ok: function (v) { return v % 3 === 0; } },
-    kvadratSon: { n: "To'liq kvadratlarni kes!", gen: function (l) { l = l || 2; return R(0, 1) ? Math.pow(R(1, Math.min(25, 8 + l * 2)), 2) : R(2, 60 + l * 30); }, ok: function (v) { var r = Math.round(Math.sqrt(v)); return r * r === v; } },
-    manfiy: { n: "Faqat manfiy sonlarni ushla!", gen: function (l) { l = l || 2; return R(-10 - l * 5, 10 + l * 5); }, ok: function (v) { return v < 0; }, s: mstr },
-    karra5: { n: "5 ga karrali sonlarni ushla!", gen: function (l) { l = l || 2; return R(0, 1) ? 5 * R(1, 10 + l * 5) : R(1, 50 + l * 25); }, ok: function (v) { return v % 5 === 0; } },
-    juft: { n: "Juft sonlarni ushla!", gen: function (l) { return R(1, 50 + (l || 2) * 40); }, ok: function (v) { return v % 2 === 0; } }
+    tub: { n: "Tub sonlarni kes!", g: 5, gen: function (l) { return R(2, [0, 30, 50, 80, 120, 200][lv(l)]); }, ok: isPrime },
+    karra3: { n: "3 ga bo'linuvchilarni kes!", g: 4, gen: function (l) { return R(1, [0, 40, 90, 200, 600, 3000][lv(l)]); }, ok: function (v) { return v % 3 === 0; } },
+    kvadratSon: { n: "To'liq kvadratlarni kes!", g: 6, gen: function (l) { l = lv(l); return R(0, 1) ? Math.pow(R(1, Math.min(25, 8 + l * 2)), 2) : R(2, 60 + l * 30); }, ok: function (v) { var r = Math.round(Math.sqrt(v)); return r * r === v; } },
+    manfiy: { n: "Faqat manfiy sonlarni ushla!", g: 6, gen: function (l) { l = lv(l); return R(-10 - l * 5, 10 + l * 5); }, ok: function (v) { return v < 0; }, s: mstr },
+    karra5: { n: "5 ga karrali sonlarni ushla!", g: 3, gen: function (l) { l = lv(l); return R(0, 1) ? 5 * R(1, 10 + l * 5) : R(1, 50 + l * 25); }, ok: function (v) { return v % 5 === 0; } },
+    juft: { n: "Juft sonlarni ushla!", g: 2, gen: function (l) { return R(1, 50 + (l || 2) * 40); }, ok: function (v) { return v % 2 === 0; } }
   };
 
   // Savat (ikki savatga ajratish)
   var BINS = {
-    juftToq: { n: "Juft yoki toq?", L: "JUFT", Rt: "TOQ", gen: function (l) { var v = R(1, 50 + (l || 2) * 60); return { v: v, s: String(v), left: v % 2 === 0 }; } },
-    tubMurakkab: { n: "Tub yoki murakkab?", L: "TUB", Rt: "MURAKKAB", gen: function (l) { var v = R(2, 30 + (l || 2) * 15); return { v: v, s: String(v), left: isPrime(v) }; } },
-    yarim: { n: "½ dan kichik yoki katta?", L: "< ½", Rt: "> ½", gen: function (l) { var b = R(3, Math.min(20, 6 + (l || 2) * 2)), a = R(1, b - 1); while (2 * a === b) a = R(1, b - 1); return { v: a / b, s: a + "/" + b, left: 2 * a < b }; } }
+    juftToq: { n: "Juft yoki toq?", g: 2, L: "JUFT", Rt: "TOQ", gen: function (l) { var v = R(1, [0, 30, 100, 1000, 10000, 99999][lv(l)]); return { v: v, s: String(v), left: v % 2 === 0 }; } },
+    tubMurakkab: { n: "Tub yoki murakkab?", g: 5, L: "TUB", Rt: "MURAKKAB", gen: function (l) { var v = R(2, [0, 30, 50, 100, 150, 250][lv(l)]); if (lv(l) >= 4 && R(0, 2) === 0) v = pick([51, 57, 87, 91, 111, 119, 133, 143, 161, 169, 187, 209, 221]); return { v: v, s: String(v), left: isPrime(v) }; } },
+    yarim: { n: "½ dan kichik yoki katta?", g: 5, L: "< ½", Rt: "> ½", gen: function (l) { l = lv(l); var b = R(3, [0, 8, 12, 20, 30, 40][l]), a = R(1, b - 1); while (2 * a === b) a = R(1, b - 1); if (l >= 4 && R(0, 1)) { a = Math.floor(b / 2) + pick([0, 1]); if (2 * a === b) a++; if (a >= b) a = b - 1; } return { v: a / b, s: a + "/" + b, left: 2 * a < b }; } }
   };
 
   // Tartiblash (o'sish tartibida bosish)
   var ORDERS = {
-    butun: { n: "Kichigidan kattasiga bos!", gen: function (l) { l = l || 2; var s = [], N = 4 + Math.min(3, Math.floor(l / 2)); while (s.length < N) { var v = R(-10 - l * 6, 20 + l * 12); if (s.indexOf(v) < 0) s.push(v); } return s.map(function (v) { return { v: v, s: mstr(v) }; }); } },
-    kasr: { n: "Kasrlarni o'sish tartibida bos!", gen: function (l) { var s = [], vals = [], N = 3 + Math.min(3, Math.floor((l || 2) / 2)); while (s.length < N) { var b = R(2, 10), a = R(1, b + 3); var v = a / b; if (vals.some(function (x) { return Math.abs(x - v) < 1e-6; })) continue; vals.push(v); s.push({ v: v, s: a + "/" + b }); } return s; } },
-    onli: { n: "O'nli kasrlarni o'sish tartibida bos!", gen: function (l) { var s = [], vals = [], N = 4 + Math.min(3, Math.floor((l || 2) / 2)); while (s.length < N) { var v = R(1, 99) / (R(0, 1) ? 10 : 100); if (vals.indexOf(v) >= 0) continue; vals.push(v); s.push({ v: v, s: String(v).replace(".", ",") }); } return s; } }
+    butun: { n: "Kichigidan kattasiga bos!", g: 6, gen: function (l) { l = lv(l); var s = [], N = 4 + Math.min(3, Math.floor(l / 2)); while (s.length < N) { var v = R(-10 - l * 6, 20 + l * 12); if (s.indexOf(v) < 0) s.push(v); } return s.map(function (v) { return { v: v, s: mstr(v) }; }); } },
+    kasr: { n: "Kasrlarni o'sish tartibida bos!", g: 5, gen: function (l) { l = lv(l); var s = [], vals = [], N = 3 + Math.min(3, Math.floor(l / 2)); while (s.length < N) { var b = R(2, l <= 2 ? 6 : 12), a = R(1, l <= 2 ? b - 1 : b + 3); var v = a / b; if (vals.some(function (x) { return Math.abs(x - v) < 1e-6; })) continue; vals.push(v); s.push({ v: v, s: a + "/" + b }); } return s; } },
+    onli: { n: "O'nli kasrlarni o'sish tartibida bos!", g: 5, gen: function (l) { l = lv(l); var s = [], vals = [], N = 4 + Math.min(3, Math.floor(l / 2)); while (s.length < N) { var v = l <= 2 ? R(1, 99) / 10 : l <= 4 ? R(1, 99) / (R(0, 1) ? 10 : 100) : R(1, 999) / (R(0, 1) ? 100 : 1000); if (vals.indexOf(v) >= 0) continue; vals.push(v); s.push({ v: v, s: String(v).replace(".", ",") }); } return s; } }
   };
 
   // Son o'qi (nuqtani to'g'ri joyga qo'yish)
   var LINES = {
-    onli: { n: "O'nli kasrlar", min: 0, max: 10, tol: 0.25, ticks: 1, gen: function () { var v = R(1, 99) / 10; return { v: v, s: String(v).replace(".", ",") }; } },
-    kasr: { n: "Oddiy kasrlar", min: 0, max: 2, tol: 0.06, ticks: 0.25, gen: function () { var b = pick([2, 3, 4, 5, 8]), a = R(1, 2 * b - 1); return { v: a / b, s: a + "/" + b }; } },
-    ildiz: { n: "Ildizlarni baholash", min: 0, max: 10, tol: 0.25, ticks: 1, gen: function () { var n = R(2, 99); var r = Math.sqrt(n); while (Math.abs(r - Math.round(r)) < 1e-9) { n = R(2, 99); r = Math.sqrt(n); } return { v: r, s: "√" + n }; } }
+    onli: { n: "O'nli kasrlar", g: 5, min: 0, max: 10, tol: 0.25, ticks: 1, gen: function (l) { l = lv(l); var v = l <= 2 ? R(1, 99) / 10 : R(101, 999) / 100; if (l >= 4 && R(0, 1)) v = R(1, 99) / 10 + 0.05; v = Math.round(v * 100) / 100; return { v: v, s: String(v).replace(".", ",") }; } },
+    kasr: { n: "Oddiy kasrlar", g: 5, min: 0, max: 2, tol: 0.06, ticks: 0.25, gen: function (l) { l = lv(l); var b = pick([[2, 4], [2, 3, 4], [3, 4, 5, 8], [3, 5, 6, 8, 10], [3, 6, 7, 8, 9, 10]][l - 1]), a = R(1, 2 * b - 1); return { v: a / b, s: a + "/" + b }; } },
+    ildiz: { n: "Ildizlarni baholash", g: 8, min: 0, max: 10, tol: 0.25, ticks: 1, gen: function (l) { var M = [0, 30, 50, 70, 99, 99][lv(l)], n = R(2, M), r = Math.sqrt(n); while (Math.abs(r - Math.round(r)) < 1e-9) { n = R(2, M); r = Math.sqrt(n); } return { v: r, s: "√" + n }; } }
   };
 
   // Burchak
   var ANGLES = {
-    burchak: { n: "Burchak yasash", gen: function () { var a = pick([15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165]); return { a: a, q: a + "° burchak yasang" }; } },
-    trig: { n: "Trigonometriya", gen: function () { return pick([{ a: 30, q: "sin α = 1/2" }, { a: 60, q: "cos α = 1/2" }, { a: 45, q: "tg α = 1" }, { a: 60, q: "sin α = √3/2" }, { a: 30, q: "cos α = √3/2" }, { a: 45, q: "sin α = √2/2" }, { a: 90, q: "sin α = 1" }, { a: 0, q: "sin α = 0" }, { a: 60, q: "tg α = √3" }, { a: 30, q: "tg α = √3/3" }, { a: 120, q: "cos α = −1/2" }, { a: 135, q: "tg α = −1" }]); } }
+    burchak: { n: "Burchak yasash", g: 5, gen: function (l) {
+      l = lv(l); var a, x, y;
+      if (l === 1) { a = pick([30, 45, 60, 90, 120, 135, 150]); return { a: a, q: a + "° burchak yasang" }; }
+      if (l === 2) { a = pick([15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165]); return { a: a, q: a + "° burchak yasang" }; }
+      if (l === 3) { a = R(1, 17) * 10; return { a: a, q: a + "° burchak yasang" }; }
+      if (l === 4) {
+        var t = R(0, 2);
+        if (t === 0) { x = R(2, 16) * 10; return { a: 180 - x, q: "Qo'shni burchagi " + x + "° bo'lgan burchakni yasang", e: "Qo'shni burchaklar yig'indisi 180°: 180° − " + x + "° = " + (180 - x) + "°" }; }
+        if (t === 1) { x = R(1, 8) * 10; return { a: 90 - x, q: x + "° ni to'g'ri burchakkacha to'ldiruvchi burchakni yasang", e: "To'ldiruvchi burchaklar yig'indisi 90°: 90° − " + x + "° = " + (90 - x) + "°" }; }
+        var f = pick([[1, 3, 180, "yoyiq"], [2, 3, 180, "yoyiq"], [1, 2, 90, "to'g'ri"], [1, 3, 90, "to'g'ri"], [2, 3, 90, "to'g'ri"], [3, 4, 180, "yoyiq"]]);
+        a = f[2] * f[0] / f[1]; return { a: a, q: f[3][0].toUpperCase() + f[3].slice(1) + " burchakning " + f[0] + "/" + f[1] + " qismini yasang", e: f[3] + " burchak " + f[2] + "° → " + f[2] + "° · " + f[0] + "/" + f[1] + " = " + a + "°" };
+      }
+      var t5 = R(0, 2);
+      if (t5 === 0) { x = R(3, 9) * 10; y = R(2, 14 - x / 10) * 10; a = 180 - x - y; if (a <= 0 || a >= 180) { x = 50; y = 70; a = 60; } return { a: a, q: "Uchburchakda ikki burchak " + x + "° va " + y + "°. Uchinchisini yasang", e: "Uchburchak burchaklari yig'indisi 180°: 180° − " + x + "° − " + y + "° = " + a + "°" }; }
+      if (t5 === 1) { var h = pick([1, 2, 3, 4, 5, 7, 8, 9, 10, 11]); a = h <= 6 ? 30 * h : 360 - 30 * h; return { a: a, q: "Soat " + h + ":00 da strelkalar orasidagi burchakni yasang", e: "Har soat oralig'i 360° : 12 = 30° → " + (h <= 6 ? h : 12 - h) + " · 30° = " + a + "°" }; }
+      var pg = pick([[3, "uchburchak", 60], [4, "kvadrat", 90], [6, "oltiburchak", 120], [5, "beshburchak", 108], [12, "o'n ikkiburchak", 150]]);
+      return { a: pg[2], q: "Muntazam " + pg[1] + "ning ichki burchagini yasang", e: "Ichki burchak = 180° · (n − 2) / n = 180° · " + (pg[0] - 2) + " / " + pg[0] + " = " + pg[2] + "°" };
+    } },
+    trig: { n: "Trigonometriya", g: 9, gen: function (l) {
+      l = lv(l);
+      var T1 = [{ a: 30, q: "sin α = 1/2" }, { a: 60, q: "cos α = 1/2" }, { a: 90, q: "sin α = 1" }, { a: 0, q: "sin α = 0" }, { a: 45, q: "sin α = √2/2" }, { a: 60, q: "sin α = √3/2" }, { a: 30, q: "cos α = √3/2" }],
+        T2 = [{ a: 45, q: "tg α = 1" }, { a: 60, q: "tg α = √3" }, { a: 30, q: "tg α = √3/3" }, { a: 45, q: "ctg α = 1" }, { a: 30, q: "ctg α = √3" }, { a: 90, q: "cos α = 0" }],
+        T3 = [{ a: 120, q: "cos α = −1/2" }, { a: 135, q: "tg α = −1" }, { a: 150, q: "cos α = −√3/2" }, { a: 135, q: "cos α = −√2/2" }, { a: 120, q: "tg α = −√3" }, { a: 150, q: "tg α = −√3/3" }],
+        T4 = [{ a: 60, q: "sin α = cos 30°" }, { a: 30, q: "cos α = sin 60°" }, { a: 45, q: "sin α = cos α" }, { a: 60, q: "tg α = ctg 30°" }, { a: 120, q: "cos α = −sin 30°" }],
+        T5 = [{ a: 60, q: "2·cos α = 1" }, { a: 45, q: "√2·cos α = 1" }, { a: 135, q: "tg α + 1 = 0" }, { a: 120, q: "2·cos α + 1 = 0" }, { a: 30, q: "√3·tg α = 1" }, { a: 150, q: "2·cos α + √3 = 0" }, { a: 90, q: "sin²α = 1" }];
+      return pick([T1, T1.concat(T2), T2.concat(T3), T3.concat(T4), T4.concat(T5)][l - 1]);
+    } }
   };
 
   // Ketma-ket tutashtirish
@@ -254,7 +689,74 @@
     window.KAV_ID = cg.id;
   }
 
-  window.KAV = { GAMES: GAMES, MECH: MECH, THEMES: THEMES };
+
+  /* ======================= YUTUQLAR: yulduzlar, nishonlar, kunlik topshiriqlar ======================= */
+  // Har bir o'quvchi (akkaunt) uchun alohida saqlanadi — sinfdagi umumiy kompyuterda ham aralashmaydi
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var BADGES = [
+    ["ilk", "🌱", "Birinchi qadam", "Birinchi o'yinni oxirigacha o'ynang"],
+    ["s10", "🔥", "Olov seriya", "10 ta ketma-ket to'g'ri javob"],
+    ["s20", "☄️", "Yonar yulduz", "20 ta ketma-ket to'g'ri javob"],
+    ["boss", "👑", "Boss ovchisi", "Birinchi bossni yenging"],
+    ["boss3", "🐉", "Ajdar yenguvchi", "Bitta o'yinda 3 ta boss"],
+    ["lv5", "🏔", "Cho'qqi", "5-darajaga chiqing"],
+    ["aniq", "🎯", "Mergan", "Xatosiz o'yin (kamida 10 ta javob)"],
+    ["tez", "⚡", "Chaqmoq", "Bitta o'yinda 5 ta javob 3 soniyadan tez"],
+    ["st3", "⭐", "Uch yulduz", "Birinchi marta ★★★ oling"],
+    ["usta", "📚", "Mavzu ustasi", "5 xil o'yinda ★★★"],
+    ["o10", "🌍", "Sayyoh", "10 xil o'yin o'ynang"],
+    ["o30", "🏆", "Kolleksioner", "30 xil o'yin o'ynang"],
+    ["fiz", "⚛️", "Yosh fizik", "5 ta fizika o'yinida ★★ va undan yuqori"],
+    ["kam", "✋", "Sehrgar qo'l", "Kamera bilan 10 ta o'yin"],
+    ["kun3", "📅", "Intizomli", "3 kun ketma-ket kunlik topshiriqlar"],
+    ["kun7", "🗓", "Temir iroda", "7 kun ketma-ket kunlik topshiriqlar"]
+  ];
+  var PR = (function () {
+    function uid() { var u = window.__kaCur; if (!u) try { u = localStorage.getItem("ka.joriy.v1"); } catch (e) {} return u || "mehmon"; }
+    function key() { return "kav.p." + uid(); }
+    function load() { var d; try { d = JSON.parse(localStorage.getItem(key()) || "{}") || {}; } catch (e) { d = {}; } d.st = d.st || {}; d.b = d.b || {}; d.pl = d.pl || {}; d.cam = d.cam || 0; return d; }
+    function save(d) { try { localStorage.setItem(key(), JSON.stringify(d)); } catch (e) {} }
+    function day(off) { var t = new Date(Date.now() + (off || 0) * 864e5); return t.getFullYear() + "-" + (t.getMonth() + 1) + "-" + t.getDate(); }
+    function seed(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return function () { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; }; }
+    var POOL = [
+      { id: "tj", n: function (k) { return k + " ta to'g'ri javob bering"; }, k: [20, 30, 40] },
+      { id: "oy", n: function (k) { return k + " xil o'yin o'ynang"; }, k: [2, 3] },
+      { id: "y2", n: function () { return "Bitta o'yinda ★★ yoki ★★★ oling"; }, k: [1] },
+      { id: "bs", n: function (k) { return "Bossni " + k + " marta yenging"; }, k: [1, 2, 3] },
+      { id: "sr", n: function (k) { return k + " ta ketma-ket to'g'ri javob"; }, k: [5, 7, 10] },
+      { id: "fz", n: function () { return "Fizika o'yinini o'ynang"; }, k: [1] },
+      { id: "lv", n: function (k) { return k + "-darajaga chiqing"; }, k: [3, 4] },
+      { id: "km", n: function () { return "Kamera bilan (qo'l bilan) o'ynang"; }, k: [1] },
+      { id: "ko", n: function (k, g) { return "Kun o'yini: «" + g.t + "»"; }, k: [1] }
+    ];
+    function tasks(dstr) {
+      var rnd = seed("kav" + (dstr || day())), pool = POOL.slice(), out = [];
+      while (out.length < 3) { var i = Math.floor(rnd() * pool.length), t = pool.splice(i, 1)[0], k = t.k[Math.floor(rnd() * t.k.length)], g = GAMES[Math.floor(rnd() * GAMES.length)]; out.push({ id: t.id, k: k, g: g.id, n: t.n(k, g) }); }
+      return out;
+    }
+    function dayData(d) { var t = day(); if (!d.dy || d.dy.d !== t) d.dy = { d: t, v: { tj: 0, oy: {}, y2: 0, bs: 0, sr: 0, fz: 0, lv: 0, km: 0, ko: {} }, done: {}, all: 0 }; return d.dy; }
+    function prog(dy, t) { var v = dy.v; if (t.id === "oy") return Object.keys(v.oy).length; if (t.id === "ko") return v.ko[t.g] ? 1 : 0; return v[t.id] || 0; }
+    function starsSum(d) { var s = 0; for (var k in d.st) s += d.st[k]; return s; }
+    function rows(newly) {
+      var d = load(), dy = dayData(d);
+      return tasks().map(function (t) { var p = Math.min(t.k, prog(dy, t)), ok = dy.done[t.id]; return '<div class="' + (ok ? "ok" : "") + '"><span>' + (ok ? "✅ " : "▫️ ") + (t.id === "ko" ? '<a href="virtual-' + t.g + '.html" style="color:inherit">' + esc(t.n) + "</a>" : esc(t.n)) + "</span><span>" + p + "/" + t.k + (newly && newly.some(function (x) { return x.id === t.id; }) ? " · +5 🪙" : "") + "</span></div>"; }).join("");
+    }
+    return { load: load, save: save, day: day, tasks: tasks, dayData: dayData, prog: prog, starsSum: starsSum, rows: rows };
+  })();
+  function starsHTML(n, big) { var o = ""; for (var i = 1; i <= 3; i++) o += i <= n ? "<b>⭐</b>" : "<i>⭐</i>"; return big ? '<div class="kv-stars">' + o + "</div>" : o; }
+  // Ro'yxat sahifasi (virtual.html) uchun: yulduzlar, kunlik topshiriqlar va nishonlar paneli
+  function hubHTML() {
+    var d = PR.load(), nb = BADGES.filter(function (b) { return d.b[b[0]]; }).length;
+    return '<style>.kvp{background:linear-gradient(135deg,rgba(124,155,255,.12),rgba(94,230,199,.08));border:1px solid rgba(124,155,255,.35);border-radius:18px;padding:14px 16px;margin:14px 0;color:#dfe8ff}' +
+      '.kvp-h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:15px}.kvp-h b{font-size:18px;color:#fff}.kvp-h span{font-weight:800;color:#ffd479}' +
+      '.kvp-g{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}@media(max-width:720px){.kvp-g{grid-template-columns:1fr}}' +
+      '.kvp-d{background:rgba(0,0,0,.25);border-radius:12px;padding:10px 12px;font-size:14px}.kvp-d>b{display:block;margin-bottom:6px;color:#fff}.kvp-d div{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px dashed #ffffff18}.kvp-d div.ok{color:#5ee67a}.kvp-d small{display:block;margin-top:6px;color:#9fb0d0;font-size:12px}' +
+      '.kvp-b{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}.kvp-x{display:inline-flex;align-items:center;gap:5px;font-size:12px;border:1px solid #33456e;border-radius:999px;padding:4px 9px;color:#7f8fb0;filter:grayscale(1);opacity:.6}.kvp-x.on{filter:none;opacity:1;color:#ffe9b0;border-color:#ffd479;background:rgba(255,212,121,.1)}.kvp-x em{font-style:normal;font-size:15px}</style>' +
+      '<div class="kvp"><div class="kvp-h"><b>🏅 Mening yutuqlarim</b><span>⭐ ' + PR.starsSum(d) + " / " + GAMES.length * 3 + " &nbsp;·&nbsp; 🏅 " + nb + " / " + BADGES.length + "</span></div>" +
+      '<div class="kvp-g"><div class="kvp-d"><b>📅 Bugungi topshiriqlar</b>' + PR.rows() + "<small>Har bir topshiriq +5 🪙, uchalasi bajarilsa yana +10 🪙 (akkauntga kirgan bo'lsangiz)</small></div>" +
+      '<div class="kvp-b">' + BADGES.map(function (b) { return '<span class="kvp-x' + (d.b[b[0]] ? " on" : "") + '" title="' + esc(b[3]) + '"><em>' + b[1] + "</em>" + esc(b[2]) + "</span>"; }).join("") + "</div></div></div>";
+  }
+  window.KAV = { GAMES: GAMES, MECH: MECH, THEMES: THEMES, PR: PR, BADGES: BADGES, hubHTML: hubHTML, starsHTML: starsHTML, stars: function (id) { return PR.load().st[id] || 0; } };
   if (window.KAV_HUB || !window.KAV_ID) return;
 
   /* =================================================================
@@ -265,7 +767,7 @@
   var MK = MECH[G.m];
   var FONT = TH.mono ? "'JetBrains Mono','Fira Code',Consolas,monospace" : "'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif";
   var LS_BEST = "kav.best." + G.id;
-  var CFG = { hands: 2, duel: false, video: true, time: 60, racers: 1, diff: 2, gmode: "vazifa" };
+  var CFG = { hands: 2, duel: false, video: true, time: 60, racers: 1, diff: 2, gmode: "vazifa", sinf: 0 };
   try { var sv = JSON.parse(localStorage.getItem("kav.cfg") || "{}"); for (var k in sv) if (k in CFG && k !== "time") CFG[k] = sv[k]; } catch (e) {}
   if (G.m === "barmoq" && CFG.hands < 2) CFG.hands = 2;
   if (G.duel) CFG.duel = true;
@@ -289,7 +791,7 @@
     ".kv-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;text-align:left}",
     ".kv-opt{background:rgba(255,255,255,.05);border:1px solid #2a3a5e;border-radius:12px;padding:8px 10px;font-size:13px;color:#aab8d8}",
     ".kv-opt b{display:block;color:#fff;font-size:12px;margin-bottom:6px}",
-    ".kv-seg{display:flex;gap:4px;flex-wrap:wrap}.kv-seg button{flex:1;min-width:34px;border:1px solid #33456e;background:transparent;color:#cfe;border-radius:8px;padding:6px 4px;font:inherit;font-weight:700;cursor:pointer}",
+    ".kv-seg{display:flex;gap:4px;flex-wrap:wrap}.kv-seg button{flex:1 1 auto;min-width:34px;white-space:nowrap;border:1px solid #33456e;background:transparent;color:#cfe;border-radius:8px;padding:6px 4px;font:inherit;font-weight:700;cursor:pointer}",
     ".kv-seg button.on{background:" + TH.acc + ";color:#000;border-color:" + TH.acc + "}",
     ".kv-btn{display:block;width:100%;margin:8px 0 0;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:800;font-size:17px;cursor:pointer;background:linear-gradient(135deg," + TH.acc + "," + TH.acc2 + ");color:#000;text-decoration:none}",
     ".kv-btn.gh{background:transparent;border:1px solid #3a4c74;color:#dfe8ff;font-weight:700;font-size:15px;padding:11px}",
@@ -313,11 +815,17 @@
     ".kv-ans button#kv-aok{background:#5ee6c7;color:#06231d;font-weight:900}",
     ".kv-ans button#kv-mic.on{background:#ff5c7a;animation:kvpulse 1s infinite}",
     "@keyframes kvpulse{50%{box-shadow:0 0 0 8px rgba(255,92,122,.25)}}",
-    ".kv-banner{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%) scale(.6);opacity:0;font-weight:900;font-size:clamp(26px,6vw,58px);text-shadow:0 0 24px currentColor,0 4px 0 #000;z-index:7;pointer-events:none;transition:transform .3s cubic-bezier(.2,1.6,.4,1),opacity .3s;white-space:nowrap}",
+    ".kv-banner{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%) scale(.6);opacity:0;font-weight:900;font-size:clamp(26px,6vw,58px);text-shadow:0 0 24px currentColor,0 4px 0 #000;z-index:7;pointer-events:none;transition:transform .3s cubic-bezier(.2,1.6,.4,1),opacity .3s;white-space:normal;text-align:center;max-width:92vw;line-height:1.12}",
     ".kv-banner.on{opacity:1;transform:translate(-50%,-50%) scale(1)}",
     ".kv-rep{display:inline-block;font-size:.45em;vertical-align:middle;background:#ffd479;color:#000;border-radius:999px;padding:3px 10px;text-shadow:none;margin-right:6px}",
     ".kv-miss{text-align:left;background:rgba(255,255,255,.04);border:1px solid #3a2a40;border-radius:12px;padding:10px 12px;margin:10px 0;max-height:190px;overflow:auto;font-size:14px;color:#e8ecff}",
     ".kv-miss div{padding:4px 0;border-bottom:1px dashed #ffffff18}.kv-miss div:last-child{border:0}",
+    ".kv-q.boss{color:#ffd479;text-shadow:0 0 22px #ff9100,0 0 6px #ff5c00;animation:kvboss 1s ease-in-out infinite}@keyframes kvboss{50%{filter:brightness(1.4)}}",
+    ".kv-pill.lv{border-color:#5ee6c7}.kv-pill.cb{background:linear-gradient(90deg,#ff9100,#ff3d71);border-color:#ffd479;color:#fff}.kv-pill.fz{background:#0b3b5a;border-color:#7fdcff;color:#bff1ff}",
+    ".kv-stars{font-size:44px;letter-spacing:6px;margin:2px 0 4px}.kv-stars i,.kv-st i{font-style:normal;filter:grayscale(1) brightness(.4)}.kv-stars b{display:inline-block;animation:kvst .55s cubic-bezier(.2,1.8,.4,1) both}.kv-stars b:nth-child(2){animation-delay:.25s}.kv-stars b:nth-child(3){animation-delay:.5s}@keyframes kvst{from{transform:scale(0) rotate(-120deg)}to{transform:none}}",
+    ".kv-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}.kv-chips span{background:rgba(255,255,255,.07);border:1px solid #3a4c74;border-radius:999px;padding:4px 10px;font-size:13px;color:#e6eeff}",
+    ".kv-nb{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0}.kv-nb span{background:linear-gradient(135deg,#3b2a00,#5a3d00);border:1px solid #ffd479;border-radius:12px;padding:6px 10px;color:#ffe9b0;font-weight:800;font-size:13px}",
+    ".kv-daily{text-align:left;background:rgba(255,255,255,.04);border:1px solid #2a3a5e;border-radius:12px;padding:8px 10px;margin:10px 0 0;font-size:13px;color:#cfd8ef}.kv-daily b{color:#fff}.kv-daily div{display:flex;justify-content:space-between;gap:8px;padding:3px 0}.kv-daily .ok{color:#5ee67a}",
     "@media(max-width:520px){.kv-opts{grid-template-columns:1fr}.kv-pill{font-size:13px;padding:5px 10px}}"
   ].join("\n");
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
@@ -329,7 +837,7 @@
   var ctx = cv.getContext("2d");
   var video = document.createElement("video"); video.id = "kv-v"; video.setAttribute("playsinline", ""); video.muted = true; video.autoplay = true; body.appendChild(video);
   var hud = document.createElement("div"); hud.className = "kv-hud";
-  hud.innerHTML = '<a class="kv-pill" href="virtual.html">← Virtual</a><span class="kv-pill" id="kv-s">⭐ 0</span><span class="kv-pill" id="kv-t">⏱ 60</span><span class="kv-pill" id="kv-h">✋ 0</span><span class="kv-pill" id="kv-mus" style="cursor:pointer">🎵</span>';
+  hud.innerHTML = '<a class="kv-pill" href="virtual.html">← Virtual</a><span class="kv-pill" id="kv-s">⭐ 0</span><span class="kv-pill lv" id="kv-lv" title="Daraja: 3 ta to\'g\'ri javob — yuqoriga, 2 ta xato — pastga">📶 1/5</span><span class="kv-pill cb" id="kv-cb" style="display:none"></span><span class="kv-pill" id="kv-t">⏱ 60</span><span class="kv-pill" id="kv-h">✋ 0</span><span class="kv-pill" id="kv-mus" style="cursor:pointer">🎵</span>';
   body.appendChild(hud);
   setTimeout(function () { var mb = document.getElementById("kv-mus"); if (!mb) return; if (G.m === "poyga") { mb.style.display = "none"; return; } var upd = function () { mb.textContent = MUS ? "🎵 Musiqa" : "🔇 Musiqa"; }; upd(); mb.onclick = function () { MUS = !MUS; try { localStorage.setItem("kav.music", MUS ? "1" : "0"); } catch (e) {} upd(); if (MUS) musicStart(); else musicStop(); }; }, 0);
   var qEl = document.createElement("div"); qEl.className = "kv-q"; body.appendChild(qEl);
@@ -651,23 +1159,52 @@
   window.addEventListener("pointerup", function (e) { mouse.down = false; if (e.pointerType !== "mouse") setTimeout(function () { if (!mouse.down) mouse.inside = false; }, 60); }); cv.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") mouse.inside = false; });
 
   /* ----------------------- O'YIN HOLATI ----------------------- */
-  var S = { run: false, score: [0, 0], ok: 0, bad: 0, streak: 0, left: 60, lvl: 1, pause: 0, miss: [], retry: [], since: 0, best: 0 };
+  var S = { run: false, score: [0, 0], ok: 0, bad: 0, streak: 0, left: 60, pause: 0, miss: [], retry: [], since: 0, best: 0,
+    lv: 1, up: 0, dn: 0, maxLv: 1, qn: 0, bosses: 0, freeze: 0, fifty: 0, fast: 0, qT: 0, curQ: null, base: 0, nb: [], cam: false };
   var HOLD = 0.55;
-  function lvl() { var d = CFG.diff | 0 || 2; return d === 1 ? Math.min(2, 1 + Math.floor(S.ok / 10)) : d === 2 ? 1 + Math.floor(S.ok / 5) : 4 + Math.floor(S.ok / 4); }
+  // Daraja 1…5: o'yin davomida o'quvchiga moslashadi (3 ta ketma-ket to'g'ri → yuqoriga, 2 ta ketma-ket xato → pastga)
+  function lvl() { return S.lv || 1; }
+  function topicG() { if (G.m === "xotira") return { kopaytirish: 3, kasrFoiz: 6, tenglama: 6 }[G.k] || 5; if (G.m === "poyga") return 2; if (G.m === "grafik") return 8; var t = SRC[G.m] && SRC[G.m][G.k]; return (t && t.g) || 4; }
+  // Boshlang'ich daraja: sinf tanlangan bo'lsa — mavzu o'tiladigan sinfga nisbatan, aks holda qiyinlik bo'yicha
+  function startLevel() {
+    var d = CFG.diff | 0 || 2, sn = CFG.sinf | 0;
+    if (!sn) return d === 1 ? 1 : d === 2 ? 2 : 3;
+    var b = 1 + Math.floor(((sn >= 11 ? 10 : sn) - topicG()) / 2);
+    return clamp(clamp(b, 1, 4) + (d - 2), 1, 5);
+  }
+  // Variantli o'yinlar (50/50 bonusi shularda ishlaydi)
+  var OPTM = { pufak: 1, yomgir: 1, orbita: 1, nishon: 1 };
+  function bossSfx() { tone(110, 55, 0.6, "sawtooth", 0.12); tone(220, 110, 0.5, "square", 0.06, 0.1); }
+  // Har 5-topshiriq — 👑 BOSS: bir daraja qiyinroq, to'g'ri javob ×3 ochko va +10 soniya
+  function bossTurn() { S.qn = (S.qn || 0) + 1; var b = S.qn % 5 === 0; S.curQ = { boss: b }; S.qT = performance.now(); if (b) { banner("👑 BOSS RAUND!", "#ffd479"); bossSfx(); } return b; }
+  function bossLv(b) { return b ? Math.min(5, lvl() + 1) : lvl(); }
   // Qiyinlik: harakatlanuvchi o'yinlarda tezlik ko'paytuvchisi
   var MOVE = { yomgir: 1, orbita: 1, kesish: 1, tutish: 1, pufak: 1, nishon: 1 };
   function spd() { return MOVE[G.m] ? [0.72, 1, 1.3][(CFG.diff | 0 || 2) - 1] : 1; }
-  function setQ(t, rep) { qEl.innerHTML = (rep ? '<span class="kv-rep">🔁 Takror</span> ' : "") + String(t).replace(/</g, "&lt;"); qEl.classList.add("bump"); setTimeout(function () { qEl.classList.remove("bump"); }, 160); }
+  function qText(q) { return /\?/.test(q.q) ? q.q : q.q + " = ?"; }
+  function showQ(q, pre) { setQ((pre || "") + (q.boss ? "👑 " : "") + qText(q), q.rep, q.boss); }
+  // To'g'ri javobdan keyin ekranda qisqa ko'rinadigan yozuv: "7 × ? = 56" → "7 × 8 = 56", matnli savol → "… → 8"
+  function qDone(q, v) {
+    var a = String(v == null ? q.a : v).replace(/^-/, "−");
+    if (!/\?/.test(q.q)) return q.q + (/→/.test(q.q) ? ": " : " = ") + a;
+    if (/[a-zA-Z'ʻ]{3,}/.test(q.q.replace(/EKUB|EKUK|sin|cos|ctg|tg/g, ""))) return q.q + "  → " + a;
+    return q.q.replace("?", a);
+  }
+  function setQ(t, rep, boss) { qEl.classList.toggle("boss", !!boss); qEl.innerHTML = (rep ? '<span class="kv-rep">🔁 Takror</span> ' : "") + String(t).replace(/</g, "&lt;"); qEl.classList.add("bump"); setTimeout(function () { qEl.classList.remove("bump"); }, 160); }
 
   /* --- Eslab qolish: xatolar takrorlanadi --- */
   // Xato qilingan savol 2–4 savoldan keyin yana so'raladi
   function askQ(tp, accept) {
     S.since++;
-    if (S.retry.length && S.since >= 2 && Math.random() < 0.6) {
-      var r = S.retry.shift(); if (!accept || accept(r)) { r.rep = true; S.since = 0; return r; }
+    S.recent = S.recent || [];
+    var boss = bossTurn();
+    if (!boss && S.retry.length && S.since >= 2 && Math.random() < 0.6) {
+      var r = S.retry.shift(); if (!accept || accept(r)) { r.rep = true; r.boss = false; S.since = 0; S.curQ = r; return r; }
     }
-    var q, t = 0; do { q = tp.q(lvl()); } while (accept && !accept(q) && t++ < 60);
+    // oxirgi 6 ta savol takrorlanmasin (kichik mavzularda ham xilma-xil bo'lsin)
+    var q, t = 0, L = bossLv(boss); do { q = tp.q(L, boss); } while (((accept && !accept(q)) || S.recent.indexOf(q.q) >= 0) && t++ < 60);
     if (q && !q.e) q.e = q.q + " = " + (typeof q.a === "number" ? mstr(q.a) : q.a);
+    q.boss = boss; q.rep = false; S.curQ = q; S.recent.push(q.q); if (S.recent.length > 6) S.recent.shift();
     return q;
   }
   function logMiss(q, e) {
@@ -743,32 +1280,65 @@
   }
   micBtn.onclick = micToggle;
   function syncAnsBar() { ansBar.style.display = mech && mech.answer && S.run ? "flex" : "none"; }
-  var bannerT = null;
-  function banner(t, c) { bannerEl.textContent = t; bannerEl.style.color = c || "#fff"; bannerEl.className = "kv-banner on"; clearTimeout(bannerT); bannerT = setTimeout(function () { bannerEl.className = "kv-banner"; }, 1300); }
+  // Bannerlar navbat bilan ko'rsatiladi (bir vaqtda bir nechta yutuq bo'lsa ham hammasi ko'rinadi)
+  var bannerT = null, bq = [];
+  function bannerShow() {
+    if (!bq.length) { bannerEl.className = "kv-banner"; bannerT = null; return; }
+    var b = bq.shift(); bannerEl.textContent = b[0]; bannerEl.style.color = b[1] || "#fff"; bannerEl.className = "kv-banner"; void bannerEl.offsetWidth; bannerEl.className = "kv-banner on";
+    bannerT = setTimeout(bannerShow, bq.length ? 1000 : 1300);
+  }
+  function banner(t, c) { if (bq.length > 3) bq.shift(); bq.push([t, c]); if (!bannerT) bannerShow(); }
+  // Nishon berish (bir marta): banner + ovoz + 5 🪙 (akkauntga kirgan bo'lsa)
+  function award(id) {
+    var d = PR.load(); if (d.b[id]) return false;
+    var b = BADGES.filter(function (x) { return x[0] === id; })[0]; if (!b) return false;
+    d.b[id] = Date.now(); PR.save(d); S.nb.push(b);
+    banner("🏅 Yangi nishon: " + b[1] + " " + b[2], "#ffd479"); setTimeout(function () { arp([0, 7, 12, 16, 19], 12, "triangle"); }, 250);
+    try { if (window.kaAccount && window.kaAccount.me()) window.kaAccount.addCoins(5, "Nishon: " + b[2]); } catch (e) {}
+    return true;
+  }
   var STREAK_TXT = { 3: "🔥 3 ketma-ket!", 5: "⚡ 5 ketma-ket! Zo'r!", 8: "🚀 8 ketma-ket!", 10: "🏆 10 ketma-ket! CHEMPION!", 15: "👑 15 ketma-ket! Afsona!", 20: "🌟 20! Matematika ustasi!" };
 
+  function combo() { return S.streak >= 6 ? 3 : S.streak >= 3 ? 2 : 1; }
   function good(x, y, pl, pts, eq) {
-    var L0 = lvl();
     S.ok++; S.streak++; S.best = Math.max(S.best, S.streak);
-    var add = (pts || 10) + Math.min(10, Math.max(0, S.streak - 2) * 2);
-    S.score[pl || 0] += add; burst(x, y, 40, null, 1.2); burst(x, y, 6, null, 0.6, TH.tr === "heart" ? "heart" : "star");
-    ftext(x, y - 20, "+" + add, TH.acc);
+    var q = S.curQ, boss = !!(q && q.boss), mult = combo(), base = pts || 10;
+    var add = base * mult * (boss ? 3 : 1);
+    S.base += base * (boss ? 2 : 1);                         // tangalar asosiy ochkodan hisoblanadi (kombo tangani ko'paytirmaydi)
+    S.score[pl || 0] += add; burst(x, y, boss ? 70 : 40, boss ? ["#ffd479", "#ff9100", "#fff"] : null, boss ? 1.6 : 1.2); burst(x, y, 6, null, 0.6, TH.tr === "heart" ? "heart" : "star");
+    ftext(x, y - 20, "+" + add + (mult > 1 ? "  ×" + mult : ""), mult > 2 || boss ? "#ffd479" : TH.acc);
     if (eq) ftext(x, y + 26, eq, "#ffffff");
-    sfxGood(); if (navigator.vibrate) try { navigator.vibrate(20); } catch (e) {}
+    sfxGood(); if (navigator.vibrate) try { navigator.vibrate(boss ? [30, 40, 60] : 20); } catch (e) {}
+    if (q && S.qT && performance.now() - S.qT < 3000) { S.fast++; if (S.fast === 5) award("tez"); }
+    if (q) q.boss = false;
+    if (boss) { S.bosses++; S.left += 10; banner("👑 Boss yengildi! +10 soniya", "#ffd479"); arp([0, 4, 7, 12, 16, 19], 10, "square"); award("boss"); if (S.bosses === 3) award("boss3"); }
+    S.up++; S.dn = 0;
+    if (S.up >= 3 && S.lv < 5) { S.lv++; S.up = 0; S.maxLv = Math.max(S.maxLv, S.lv); banner("⬆ " + S.lv + "-daraja! Qiyinroq misollar", TH.acc2); arp([0, 5, 9, 12]); if (S.lv === 5) award("lv5"); }
+    if (S.streak % 5 === 0) { S.freeze = 5; banner("❄️ Vaqt muzladi — 5 soniya", "#7fdcff"); tone(1200, 2400, 0.3, "sine", 0.08); }
     if (STREAK_TXT[S.streak]) { banner(STREAK_TXT[S.streak], TH.acc); arp([0, 4, 7, 12, 16]); }
-    else if (lvl() > L0) { banner("⬆ " + lvl() + "-daraja! Misollar qiyinlashdi", TH.acc2); arp([0, 5, 9, 12]); }
+    else if (S.streak === 3 || S.streak === 6) banner("🔥 Kombo ×" + mult + "!", "#ff9a3d");
+    if (S.streak === 10) award("s10"); if (S.streak === 20) award("s20");
   }
   function bad(x, y, pl, lesson, q) {
     S.bad++; S.streak = 0; S.score[pl || 0] = Math.max(0, S.score[pl || 0] - 5);
     burst(x, y, 18, ["#ff4d4d", "#ff8a80", "#ffffff"], 0.7); ftext(x, y - 20, "−5", "#ff6b6b"); sBad();
+    S.dn++; S.up = 0;
+    if (S.dn >= 2) {
+      S.dn = 0;
+      if (S.lv > 1) { S.lv--; banner("⬇ " + S.lv + "-daraja — biroz osonroq", "#ffb36b"); }
+      if (OPTM[G.m] && !S.fifty) { S.fifty = 1; banner("🛟 Yordam: keyingi savolda variantlar kamroq", "#7fdcff"); }
+    }
     if (lesson || q) { logMiss(q, lesson); teach(lesson || q.e, false); }
   }
   function updHud() {
     $("kv-s").textContent = mech && mech.hud ? mech.hud() : CFG.duel ? "🔵 " + S.score[0] + " : " + S.score[1] + " 🔴" : "⭐ " + S.score[0];
-    $("kv-t").textContent = "⏱ " + Math.max(0, Math.ceil(S.left));
+    var tEl = $("kv-t"); tEl.textContent = (S.freeze > 0 ? "❄️ " : "⏱ ") + Math.max(0, Math.ceil(S.left)); tEl.classList.toggle("fz", S.freeze > 0);
+    $("kv-lv").textContent = "📶 " + S.lv + "/5";
+    var cb = $("kv-cb"), m = combo(); cb.style.display = m > 1 && S.run ? "" : "none"; if (m > 1) cb.textContent = "🔥 ×" + m;
     $("kv-h").textContent = (mouseMode ? "🖱" : "✋ " + hands.length);
   }
   function makeOpts(q, n) {
+    if (S.fifty > 0 && n > 2) { n = Math.max(2, Math.ceil(n / 2)); S.fifty = 0; }   // 🛟 50/50 yordam
     var a = String(q.a), out = [a];
     shuffle(q.w || []).forEach(function (w) { w = String(w); if (out.length < n && out.indexOf(w) < 0) out.push(w); });
     if (typeof q.a === "number") near(q.a, 12, 8).forEach(function (w) { w = String(w); if (out.length < n && out.indexOf(w) < 0) out.push(w); });
@@ -777,11 +1347,16 @@
   /* --- Universal javob kanali: klaviatura / ovoz / ekran tugmasi — har qanday rejim bilan birga ishlaydi --- */
   var curQ = null;
   function ansNorm(v) { return String(v).trim().replace(/[−–]/g, "-").replace(/,/g, ".").replace(/\s+/g, "").replace(/°$/, ""); }
-  function ansSame(v, a) { var A = ansNorm(a), B = ansNorm(v); if (!B) return false; if (A === B) return true; var x = parseFloat(A), y = parseFloat(B); return isFinite(x) && isFinite(y) && Math.abs(x - y) < 1e-9; }
+  function ansSame(v, a) {
+    var A = ansNorm(a).toUpperCase(), B = ansNorm(v).toUpperCase(), num = /^-?\d+(\.\d+)?$/;
+    if (!B) return false; if (A === B) return true;
+    if (num.test(A) && num.test(B)) return Math.abs(parseFloat(A) - parseFloat(B)) < 1e-9;   // "3/4" ga "3" teng emas!
+    return /Π$/.test(A) && B === A.replace(/Π$/, "");                                        // "25π" ga "25" ham to'g'ri
+  }
   function genericAnswer(q, v, nq) {
     if (!q || !S.run || S.cd > 0) return false;
     var ok = ansSame(v, q.a);
-    if (ok) { good(W / 2, H * 0.4, 0, 0, q.q + " = " + mstr(q.a)); if (nq) nq(); }
+    if (ok) { good(W / 2, H * 0.4, 0, 0, qDone(q)); if (nq) nq(); }
     else bad(W / 2, H * 0.4, 0, null, q);
     return ok;
   }
@@ -837,7 +1412,7 @@
   M.pufak = function () {
     var tp = TOPICS[G.k], b = [], q;
     function nq() {
-      q = askQ(tp); setQ(q.q + " = ?", q.rep);
+      q = askQ(tp); showQ(q);
       var o = makeOpts(q, 4), lanes = shuffle([0, 1, 2, 3]), r = Math.max(34, Math.min(W / 10, H / 7.5));
       b = o.map(function (op, i) { var bx = W * (0.14 + lanes[i] * 0.24); return { x: bx, bx: bx, y: H + r + Math.random() * H * 0.35, r: r, s: op.s, ok: op.ok, ph: Math.random() * 6, v: H / (7 - Math.min(3, lvl() * 0.3)) * (0.8 + Math.random() * 0.4) }; });
     }
@@ -849,7 +1424,7 @@
           var t = b[i]; t.y -= t.v * dt; t.x = t.bx + Math.sin(tGlobal * 1.6 + t.ph) * U * 3;
           if (t.y < -t.r) t.y = H + t.r;
           var p = holdPick(t, dt, inCircle(t));
-          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
+          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, qDone(q, t.s)); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
         }
       },
       draw: function (dt) { b.forEach(function (t) { var sx = shx(t, dt); drawBall(t.x + sx, t.y, t.r, t.s); drawHoldRing(t.x, t.y, t.r, t.hold); }); }
@@ -860,7 +1435,7 @@
   M.yomgir = function () {
     var tp = TOPICS[G.k], b = [], q;
     function nq() {
-      q = askQ(tp); setQ(q.q + " = ?", q.rep);
+      q = askQ(tp); showQ(q);
       var o = makeOpts(q, 5), lanes = shuffle([0, 1, 2, 3, 4]), r = Math.max(30, Math.min(W / 12, H / 9));
       b = o.map(function (op, i) { return { x: W * (0.12 + lanes[i] * 0.19), y: -r - i * H * 0.16 - Math.random() * 40, r: r, s: op.s, ok: op.ok, v: H / (6.5 - Math.min(3, lvl() * 0.35)) }; });
     }
@@ -872,7 +1447,7 @@
           var t = b[i]; t.y += t.v * dt;
           if (t.y > H + t.r) { if (t.ok) { bad(t.x, H - 30, 0, null, q); nq(); return; } b.splice(i, 1); continue; }
           var p = holdPick(t, dt, inCircle(t, 1.15), false, 0.35);
-          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
+          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, qDone(q, t.s)); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
         }
       },
       draw: function () {
@@ -888,7 +1463,7 @@
   M.orbita = function () {
     var tp = TOPICS[G.k], b = [], q, ang = 0;
     function geo() { var cx = W / 2, cy = H * 0.56, R0 = Math.min(W * 0.42, H * 0.62), rx = R0, ry = R0 * 0.36, pr = Math.min(W, H) * 0.12; return { cx: cx, cy: cy, rx: rx, ry: ry, pr: pr }; }
-    function nq() { q = askQ(tp); setQ(q.q + " = ?", q.rep); var o = makeOpts(q, 5); b = o.map(function (op, i) { return { s: op.s, ok: op.ok, a0: i * Math.PI * 2 / 5, x: 0, y: 0, r: 30 }; }); }
+    function nq() { q = askQ(tp); showQ(q); var o = makeOpts(q, 5); b = o.map(function (op, i) { return { s: op.s, ok: op.ok, a0: i * Math.PI * 2 / 5, x: 0, y: 0, r: 30 }; }); }
     function planet(g) {
       var gr = ctx.createRadialGradient(g.cx - g.pr * 0.4, g.cy - g.pr * 0.4, g.pr * 0.1, g.cx, g.cy, g.pr);
       gr.addColorStop(0, "#ffffff"); gr.addColorStop(0.25, TH.acc); gr.addColorStop(1, TH.acc2 + "44");
@@ -906,7 +1481,7 @@
         for (var i = 0; i < b.length; i++) {
           var t = b[i], a = ang + t.a0; t.x = g.cx + Math.cos(a) * g.rx; t.y = g.cy + Math.sin(a) * g.ry; t.z = Math.sin(a); t.r = Math.max(26, Math.min(W, H) * 0.075) * (0.8 + 0.25 * (t.z + 1) / 2);
           var p = holdPick(t, dt, inCircle(t, 1.1));
-          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); return; }
+          if (p) { if (t.ok) { good(t.x, t.y, p.player, 0, qDone(q, t.s)); nq(); return; } bad(t.x, t.y, p.player, null, q); b.splice(i, 1); return; }
         }
       },
       draw: function () {
@@ -922,7 +1497,7 @@
   M.nishon = function () {
     var tp = TOPICS[G.k], b = [], q, lasers = [];
     function nq() {
-      q = askQ(tp); setQ("🎯 " + q.q + " = ?", q.rep); var o = makeOpts(q, 5), r = Math.max(32, Math.min(W / 11, H / 9));
+      q = askQ(tp); showQ(q, "🎯 "); var o = makeOpts(q, 5), r = Math.max(32, Math.min(W / 11, H / 9));
       b = o.map(function (op, i) { var row = i % 3, dir = row % 2 ? -1 : 1; return { s: op.s, ok: op.ok, r: r, x: Math.random() * W, y: H * (0.32 + row * 0.2), v: dir * (W / 9) * (0.7 + Math.random() * 0.6) * (1 + lvl() * 0.08) }; });
     }
     return {
@@ -937,7 +1512,7 @@
           lasers.push({ a: from, b: { x: aim.x, y: aim.y }, l: 0.25, c: p.col }); tone(1600, 180, 0.18, "square", 0.06);
           for (var i = 0; i < b.length; i++) {
             var t = b[i]; if (Math.hypot(aim.x - t.x, aim.y - t.y) < t.r * 1.25) {
-              if (t.ok) { good(t.x, t.y, p.player, 0, q.q + " = " + t.s); nq(); } else { bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
+              if (t.ok) { good(t.x, t.y, p.player, 0, qDone(q, t.s)); nq(); } else { bad(t.x, t.y, p.player, null, q); b.splice(i, 1); }
               return;
             }
           }
@@ -966,12 +1541,12 @@
       var x0 = (W - kw * cols) / 2, y0 = two ? H * 0.5 : H * 0.58;
       keys = labels.map(function (l, i) { var c = i % cols, r = Math.floor(i / cols); return { l: l, x: x0 + c * kw + 3, y: y0 + r * (kh + 8), w: kw - 6, h: kh, hold: 0, lock: false, flash: 0, hue: i * 30 }; });
     }
-    function nq() { q = askQ(tp); ans = mstr(q.a); typed = ""; setQ(q.q + " = ?", q.rep); }
+    function nq() { q = askQ(tp, function (x) { return typeof x.a === "number" && x.a === Math.round(x.a); }); ans = mstr(q.a); typed = ""; showQ(q); }
     function press(k, p) {
       k.flash = 0.25; var f = 260 * Math.pow(2, keys.indexOf(k) / 12); beep(f, 0.25, "triangle", 0.1);
       burst(k.x + k.w / 2, k.y, 10, null, 0.5);
       if (k.l === "⌫") typed = typed.slice(0, -1); else if (k.l === "−") { if (!typed) typed = "−"; } else typed += k.l;
-      if (typed === ans) { good(W / 2, H * 0.32, p.player, 0, q.q + " = " + ans); nq(); }
+      if (typed === ans) { good(W / 2, H * 0.32, p.player, 0, qDone(q, ans)); nq(); }
       else if (typed.replace("−", "").length >= ans.replace("−", "").length && typed.length >= ans.length) { msgT = 1.6; msg = "Siz yozdingiz: " + typed; bad(W / 2, H * 0.32, p.player, null, q); typed = ""; nq(); }
     }
     var msg = "";
@@ -1012,7 +1587,7 @@
     function NP() { return CFG.duel && !mouseMode ? 2 : 1; }
     function maxA() { return CFG.diff === 1 ? 10 : CFG.diff === 2 ? 99 : 999; }
     function reset() { st = []; for (var i = 0; i < 2; i++) st.push({ dg: [], hold: 0, last: -1, cool: 0 }); typed = ""; }
-    function nq() { q = askQ(tp, function (x) { return typeof x.a === "number" && x.a >= 0 && x.a <= maxA() && x.a === Math.round(x.a); }); setQ(q.q + " = ?", q.rep); reset(); wrongT = 0; }
+    function nq() { q = askQ(tp, function (x) { return typeof x.a === "number" && x.a >= 0 && x.a <= maxA() && x.a === Math.round(x.a); }); showQ(q); reset(); wrongT = 0; }
     function digitMode() { return q && (q.a > 10 || (mouseMode && CFG.diff > 1)); }
     function plOf(h) { return CFG.duel && h.pts[0].x >= W / 2 ? 1 : 0; }
     function counts() { var c = [0, 0], n = [0, 0]; hands.forEach(function (h) { var pl = plOf(h); c[pl] += h.fingers; n[pl]++; }); return { c: c, n: n }; }
@@ -1209,7 +1784,7 @@
   M.tutash = function () {
     var ch = CHAINS[G.k], dots = [], seq, next = 0, path = [];
     function nq() {
-      var c = ch.gen(lvl()); seq = c.seq; next = 0; path = []; setQ(c.q);
+      var bs = bossTurn(), c = ch.gen(bossLv(bs)); seq = c.seq; next = 0; path = []; setQ((bs ? "👑 " : "") + c.q, false, bs);
       var vals = shuffle(c.seq.map(function (v) { return { v: v, ok: true }; }).concat(c.wrong.map(function (v) { return { v: v, ok: false }; })));
       var r = Math.max(28, Math.min(W / 16, H / 11)), pos = scatter(vals.length, r);
       dots = vals.map(function (o, i) { return { v: o.v, s: String(o.v), x: pos[i].x, y: pos[i].y, r: r, done: false }; });
@@ -1239,7 +1814,7 @@
     var gen = PAIRS[G.k], cards = [], open = [], waitT = 0, matched = 0;
     function nq() {
       var pairs = [], used = {};
-      var NPR = [4, 6, 8][(CFG.diff | 0 || 2) - 1]; while (pairs.length < NPR) { var pr = gen(); if (used[pr[0]] || used[pr[1]]) continue; used[pr[0]] = used[pr[1]] = 1; pairs.push(pr); }
+      var NPR = [4, 6, 8][(CFG.diff | 0 || 2) - 1]; var guard = 0; while (pairs.length < NPR && guard++ < 400) { var pr = gen(lvl()); if (used[pr[0]] || used[pr[1]]) continue; used[pr[0]] = used[pr[1]] = 1; pairs.push(pr); }
       var list = []; pairs.forEach(function (pr, i) { list.push({ s: pr[0], id: i }, { s: pr[1], id: i }); });
       list = shuffle(list); var port = H > W, cols = port ? (list.length > 12 ? 4 : list.length > 8 ? 3 : 2) : 4, rows = Math.ceil(list.length / cols);
       var aw = W * 0.92, ah = H * 0.72, cw = Math.min(aw / cols, ah / rows * 1.3), chh = Math.min(ah / rows, cw / 1.3);
@@ -1282,9 +1857,9 @@
   M.tartib = function () {
     var ord = ORDERS[G.k], items = [], sorted = [], next = 0;
     function nq() {
-      var list = ord.gen(lvl()), r = Math.max(32, Math.min(W / 13, H / 9.5)), pos = scatter(list.length, r);
+      var bs = bossTurn(), list = ord.gen(bossLv(bs)), r = Math.max(32, Math.min(W / 13, H / 9.5)), pos = scatter(list.length, r);
       items = list.map(function (o, i) { return { v: o.v, s: o.s, x: pos[i].x, y: pos[i].y, r: r, n: 0 }; });
-      sorted = items.slice().sort(function (a, b) { return a.v - b.v; }); next = 0; setQ(ord.n);
+      sorted = items.slice().sort(function (a, b) { return a.v - b.v; }); next = 0; setQ((bs ? "👑 " : "") + ord.n, false, bs);
     }
     return {
       start: nq,
@@ -1316,14 +1891,14 @@
     function geo() { return { x0: W * 0.07, x1: W * 0.93, y: H * 0.6 }; }
     function val(x) { var g = geo(); return L.min + clamp((x - g.x0) / (g.x1 - g.x0), 0, 1) * (L.max - L.min); }
     function xOf(v) { var g = geo(); return g.x0 + (v - L.min) / (L.max - L.min) * (g.x1 - g.x0); }
-    function nq() { tg = L.gen(); setQ(tg.s + " sonini son o'qida ko'rsating"); still = {}; }
+    function nq() { var bs = bossTurn(); tg = L.gen(bossLv(bs)); setQ((bs ? "👑 " : "") + tg.s + " sonini son o'qida ko'rsating", false, bs); still = {}; }
     function submit(p, v) {
       var g = geo(); lastGuess = { x: xOf(v), t: 1.4 }; reveal = 1.4; var rv = tg;
       var fmt = function (x) { return (Math.round(x * 100) / 100).toString().replace(".", ","); };
       var ex = tg.s + " ≈ " + fmt(tg.v);
       if (G.k === "ildiz") { var n = Math.round(tg.v * tg.v), r0 = Math.floor(tg.v); ex = r0 + "² = " + (r0 * r0) + " < " + n + " < " + ((r0 + 1) * (r0 + 1)) + " = " + (r0 + 1) + "²  →  " + tg.s + " ≈ " + fmt(tg.v) + " (" + r0 + " va " + (r0 + 1) + " orasida)"; }
       if (G.k === "kasr") { var pq = tg.s.split("/"); ex = tg.s + " = " + pq[0] + " : " + pq[1] + " = " + fmt(tg.v) + (tg.v > 1 ? "  (1 dan katta — maxraj suratdan kichik)" : ""); }
-      if (Math.abs(v - tg.v) <= L.tol * [1.6, 1, 0.6][(CFG.diff | 0 || 2) - 1]) good(xOf(tg.v), g.y, p.player, 0, tg.s + " ≈ " + fmt(tg.v)); else bad(xOf(v), g.y, p.player, ex + "   (siz " + fmt(v) + " ni ko'rsatdingiz)");
+      if (Math.abs(v - tg.v) <= L.tol * [1.6, 1, 0.6][(CFG.diff | 0 || 2) - 1] * (1.15 - 0.07 * lvl())) good(xOf(tg.v), g.y, p.player, 0, tg.s + " ≈ " + fmt(tg.v)); else bad(xOf(v), g.y, p.player, ex + "   (siz " + fmt(v) + " ni ko'rsatdingiz)");
       lastTarget = rv; nq();
     }
     var lastTarget = null;
@@ -1369,11 +1944,11 @@
     var HOLD_A = 3;   // to'g'ri burchak 3 soniya ushlab turilsa — 3·2·1 sanab, javob qabul qilinadi
     function angDist(a, b) { var d = Math.abs(a - b) % 180; return Math.min(d, 180 - d); }
     function nq() {
-      var prev = tg, t = 0;
-      do { tg = A.gen(); } while (prev && angDist(tg.a, prev.a) < 25 && t++ < 40);   // keyingi burchak oldingisidan sezilarli farq qilsin
-      setQ(tg.q + (G.k === "trig" ? "  →  α ni yasang" : "")); holdT = 0; hintT = 0; offT = 0; inTol = false; lastSec = 0;
+      var prev = tg, t = 0, bs = bossTurn();
+      do { tg = A.gen(bossLv(bs)); } while (prev && angDist(tg.a, prev.a) < 25 && t++ < 40);   // keyingi burchak oldingisidan sezilarli farq qilsin
+      setQ((bs ? "👑 " : "") + tg.q + (G.k === "trig" ? "  →  α ni yasang" : ""), false, bs); holdT = 0; hintT = 0; offT = 0; inTol = false; lastSec = 0;
     }
-    function angEx() { return G.k === "trig" ? tg.q.replace("α", tg.a + "°") + "  →  α = " + tg.a + "°" : tg.a + "°" + (tg.a < 90 ? " — o'tkir burchak (90° dan kichik)" : tg.a === 90 ? " — to'g'ri burchak" : " — o'tmas burchak (90° dan katta)"); }
+    function angEx() { if (tg.e) return tg.e + "  →  " + tg.a + "°"; return G.k === "trig" ? tg.q.replace("α", tg.a + "°") + "  →  α = " + tg.a + "°" : tg.a + "°" + (tg.a < 90 ? " — o'tkir burchak (90° dan kichik)" : tg.a === 90 ? " — to'g'ri burchak" : " — o'tmas burchak (90° dan katta)"); }
     var sm = null, needTxt = "";
     function line() {
       var hp = pointers.filter(function (p) { return p.hand; }), tp = pointers.filter(function (p) { return p.touch; });
@@ -2046,7 +2621,7 @@
     buildPointers(dt);
     if (S.run && mech) {
       if (S.pause > 0) { S.pause -= rdt; }
-      else { S.left -= rdt; if (S.left <= 0) { S.left = 0; endGame(); } else mech.update(dt * spd()); }
+      else { if (S.freeze > 0) S.freeze -= rdt; else S.left -= rdt; if (S.left <= 0) { S.left = 0; endGame(); } else mech.update(dt * spd()); }
     }
     if (mech && (S.run || S.cd > 0)) mech.draw(dt);
     drawHands(); drawPointers(); drawParts(dt);
@@ -2071,7 +2646,7 @@
         var b = e.target.closest("button"); if (!b) return; var k = sg.getAttribute("data-k"), v = b.getAttribute("data-v");
         CFG[k] = v === "true" ? true : v === "false" ? false : isNaN(+v) ? v : +v;
         Array.prototype.forEach.call(sg.children, function (x) { x.classList.toggle("on", x === b); });
-        try { localStorage.setItem("kav.cfg", JSON.stringify({ hands: CFG.hands, duel: CFG.duel, video: CFG.video, racers: CFG.racers, diff: CFG.diff, gmode: CFG.gmode })); } catch (er) {}
+        try { localStorage.setItem("kav.cfg", JSON.stringify({ hands: CFG.hands, duel: CFG.duel, video: CFG.video, racers: CFG.racers, diff: CFG.diff, gmode: CFG.gmode, sinf: CFG.sinf })); } catch (er) {}
         if (k === "hands" && handsObj) handsObj.setOptions({ maxNumHands: CFG.hands });
       });
     });
@@ -2082,11 +2657,14 @@
     ov.innerHTML = '<div class="kv-card">' +
       '<span class="kv-tag">Virtual · ' + G.id + '/' + GAMES.length + '</span><span class="kv-tag">' + MK.e + " " + MK.n + '</span><span class="kv-tag">' + G.topic + "</span>" +
       "<h1>" + G.t + "</h1>" +
+      (function () { var bst = PR.load().st[G.id] || 0; return '<div class="kv-st" style="font-size:22px;letter-spacing:3px" title="Eng yaxshi natija">' + starsHTML(bst) + "</div>"; })() +
       "<p>" + MK.how + "</p>" +
+      '<div class="kv-chips"><span>📶 Daraja 1–5: 3 ta to\'g\'ri → ⬆, 2 ta xato → ⬇</span><span>👑 Har 5-savol — boss (×3, +10 s)</span><span>🔥 Kombo ×2 / ×3</span><span>❄️ 5 ketma-ket — vaqt muzlaydi</span></div>' +
       '<p style="font-size:13px;color:#ffd479;margin:6px 0 0">🧠 Xato qilsangiz — to\'g\'ri yechim ko\'rsatiladi va o\'sha misol keyinroq yana so\'raladi. O\'yin oxirida xatolaringiz ro\'yxati chiqadi.</p>' +
       '<div class="kv-opts">' +
       '<div class="kv-opt"><b>✋ Qo\'llar soni (kamera sezadi)</b>' + segHTML("hands", [1, 2, 3, 4], ["1", "2", "3", "4"]) + "</div>" +
       '<div class="kv-opt" style="grid-column:1/-1"><b>🎚 Qiyinlik darajasi</b>' + segHTML("diff", [1, 2, 3], ["🟢 Oson", "🟡 O\'rta", "🔴 Qiyin"]) + "</div>" +
+      '<div class="kv-opt" style="grid-column:1/-1"><b>🎓 Sinf — savollar shunga moslab boshlanadi (o\'yin davomida 1–5-daraja o\'zi o\'zgaradi)</b>' + segHTML("sinf", [0, 3, 5, 6, 7, 8, 9, 10, 11], ["Umumiy", "1–4", "5", "6", "7", "8", "9", "10–11", "Texnikum"]) + "</div>" +
       (G.m === "poyga" ? '<div class="kv-opt"><b>🏎 O\'yinchilar soni</b>' + segHTML("racers", [1, 2, 3, 4], ["1", "2", "3", "4"]) + "</div>" : G.m === "grafik" ? '<div class="kv-opt"><b>📝 Doska rejimi</b>' + segHTML("gmode", ["vazifa", "erkin"], ["Vazifa", "Erkin doska"]) + "</div>" : '<div class="kv-opt"><b>👥 Rejim</b>' + segHTML("duel", [false, true], ["Yakka", "Duel (2 kishi)"]) + "</div>") +
       '<div class="kv-opt"><b>📷 Kamera tasviri</b>' + segHTML("video", [true, false], ["Ko'rinsin", "Faqat skelet"]) + "</div>" +
       '<div class="kv-opt"><b>⏱ Vaqt</b>' + (G.m === "poyga" ? segHTML("time", [60, 120, 180], ["60 s", "120 s", "180 s"]) : G.m === "grafik" ? segHTML("time", [120, 180, 300], ["2 daq", "3 daq", "5 daq"]) : segHTML("time", [60, 90, 120], ["60 s", "90 s", "120 s"])) + "</div>" +
@@ -2094,6 +2672,7 @@
       (err ? '<div class="kv-err">' + err + "</div>" : "") +
       '<button class="kv-btn" id="kv-go">▶ Kamera bilan boshlash</button>' +
       '<div class="kv-row"><button class="kv-btn gh" id="kv-mouse">🖱 Kamerasiz (sichqoncha/sensor)</button><a class="kv-btn gh" href="virtual.html">📋 Barcha o\'yinlar</a></div>' +
+      '<div class="kv-daily"><b>📅 Bugungi topshiriqlar</b>' + PR.rows() + "</div>" +
       '<div class="kv-note">Rekord: ' + best() + " · Duel rejimida ekran ikkiga bo'linadi: chap tomon — 1-o'yinchi, o'ng tomon — 2-o'yinchi. Video faqat sizning qurilmangizda qayta ishlanadi, hech qayerga yuborilmaydi.</div>" +
       "</div>";
     bindSegs(ov);
@@ -2114,6 +2693,7 @@
     if (mech && mech.stop) mech.stop();
     ov.style.display = "none"; parts = [];
     S.score = [0, 0]; S.ok = 0; S.bad = 0; S.streak = 0; S.best = 0; S.left = CFG.time; S.run = false; S.cd = 3.2; S.pause = 0; S.miss = []; S.retry = []; S.since = 0;
+    S.lv = startLevel(); S.maxLv = S.lv; S.up = 0; S.dn = 0; S.qn = 0; S.bosses = 0; S.freeze = 0; S.fifty = 0; S.fast = 0; S.qT = 0; S.curQ = null; S.base = 0; S.nb = []; S.cam = !mouseMode; S.recent = []; bq = [];
     musicStart();
     mech = M[G.m](); mech.start(); subEl.innerHTML = G.m === "grafik" ? "" : MK.how;
     setTimeout(syncAnsBar, 3300);
@@ -2125,7 +2705,24 @@
     if (recOn) { recOn = false; try { rec.stop(); } catch (e) {} micBtn.classList.remove("on"); } var tot = S.score.reduce(function (a, b) { return a + b; }, 0), b = best(), rec = false;
     var my = CFG.duel ? Math.max(S.score[0], S.score[1]) : S.score[0];
     if (my > b) { rec = true; try { localStorage.setItem(LS_BEST, my); } catch (e) {} }
-    var coins = Math.floor(tot / 10), gave = false;
+    // --- yulduzlar, kunlik topshiriqlar, nishonlar ---
+    var nAns = S.ok + S.bad, acc = nAns ? S.ok / nAns : 0, stars = 0;
+    if (G.m === "grafik") stars = S.ok >= 5 && acc >= 0.8 ? 3 : S.ok >= 3 ? 2 : S.ok >= 1 ? 1 : 0;
+    else stars = acc >= 0.9 && S.ok >= 10 && S.maxLv >= 3 ? 3 : acc >= 0.75 && S.ok >= 6 ? 2 : acc >= 0.5 && S.ok >= 3 ? 1 : 0;
+    var PD = PR.load(), prevSt = PD.st[G.id] || 0; if (stars > prevSt) PD.st[G.id] = stars;
+    PD.pl[G.id] = (PD.pl[G.id] || 0) + 1; if (S.cam) PD.cam = (PD.cam || 0) + 1;
+    var DY = PR.dayData(PD), V = DY.v; V.tj += S.ok; V.oy[G.id] = 1; if (stars >= 2) V.y2 = 1; V.bs += S.bosses; V.sr = Math.max(V.sr, S.best); if (G.fan === "fizika") V.fz = 1; V.lv = Math.max(V.lv, S.maxLv); if (S.cam) V.km = 1; V.ko[G.id] = 1;
+    var TS = PR.tasks(), newly = [];
+    TS.forEach(function (t) { if (!DY.done[t.id] && PR.prog(DY, t) >= t.k) { DY.done[t.id] = 1; newly.push(t); } });
+    var allNew = !DY.all && TS.every(function (t) { return DY.done[t.id]; });
+    if (allNew) { DY.all = 1; PD.ds = PD.ds && PD.ds.last === PR.day(-1) ? { last: DY.d, n: PD.ds.n + 1 } : PD.ds && PD.ds.last === DY.d ? PD.ds : { last: DY.d, n: 1 }; }
+    PR.save(PD);
+    award("ilk"); if (acc === 1 && nAns >= 10) award("aniq"); if (stars === 3) award("st3");
+    var P2 = PR.load(), n3 = 0, nfz = 0; for (var gk in P2.st) { if (P2.st[gk] === 3) n3++; var gg = GAMES[gk - 1]; if (gg && gg.fan === "fizika" && P2.st[gk] >= 2) nfz++; }
+    var npl = Object.keys(P2.pl).length;
+    if (n3 >= 5) award("usta"); if (nfz >= 5) award("fiz"); if (npl >= 10) award("o10"); if (npl >= 30) award("o30"); if ((P2.cam || 0) >= 10) award("kam"); if (P2.ds && P2.ds.n >= 3) award("kun3"); if (P2.ds && P2.ds.n >= 7) award("kun7");
+    if (newly.length) banner("✅ Kunlik topshiriq bajarildi!" + (allNew ? " Hammasi! 🎉" : ""), "#5ee67a");
+    var coins = Math.floor(S.base / 10) + newly.length * 5 + (allNew ? 10 : 0), gave = false;
     try { if (coins > 0 && window.kaAccount && window.kaAccount.me()) gave = window.kaAccount.addCoins(coins, "Virtual: " + G.t); } catch (e) {}
     try { if (window.kaAccount && window.kaAccount.me() && (S.ok + S.bad) > 0) window.kaAccount.sendResult("Virtual: " + G.t, S.ok, S.ok + S.bad); } catch (e) {}
     qEl.textContent = "";
@@ -2135,7 +2732,12 @@
     if (mech && mech.result) { var mres = mech.result(); res = mres.html; if (mres.my > b && !rec) { rec = true; try { localStorage.setItem(LS_BEST, mres.my); } catch (e) {} } my = mres.my; }
     ov.style.display = "flex";
     ov.innerHTML = '<div class="kv-card"><span class="kv-tag">' + G.t + "</span><h1>" + (rec ? "🎉 Yangi rekord!" : "O'yin tugadi") + "</h1>" + res +
+      starsHTML(stars, true) +
+      '<div class="kv-chips"><span>📶 Eng yuqori daraja: ' + S.maxLv + '/5</span><span>👑 Boss: ' + S.bosses + '</span><span>🎯 Aniqlik: ' + Math.round(acc * 100) + "%</span>" + (stars > prevSt && prevSt ? "<span>🆙 Yulduz rekordi!</span>" : "") + "</div>" +
+      (stars < 3 && G.m !== "grafik" ? '<p class="kv-note" style="margin-top:0">★★★ uchun: kamida 10 ta to\'g\'ri javob, 90% aniqlik va 3-darajaga chiqish</p>' : "") +
       "<p>✅ To'g'ri: <b>" + S.ok + "</b> &nbsp; ❌ Xato: <b>" + S.bad + "</b> &nbsp; 🔥 Eng uzun seriya: <b>" + S.best + "</b> &nbsp; 🏅 Rekord: <b>" + Math.max(b, my) + "</b></p>" +
+      (S.nb.length ? '<p style="margin:8px 0 0;color:#ffd479;font-weight:800">🏅 Yangi nishonlar</p><div class="kv-nb">' + S.nb.map(function (x) { return "<span>" + x[1] + " " + esc(x[2]) + "</span>"; }).join("") + "</div>" : "") +
+      '<div class="kv-daily"><b>📅 Bugungi topshiriqlar' + (allNew ? " — hammasi bajarildi! +10 🪙" : "") + "</b>" + PR.rows(newly) + "</div>" +
       (S.miss.length ? '<p style="margin:12px 0 0;color:#ffd479;font-weight:800">📒 Esda tuting — xato qilgan misollaringiz:</p><div class="kv-miss">' + S.miss.slice(0, 10).map(function (m) { return "<div>" + String(m).replace(/</g, "&lt;") + "</div>"; }).join("") + "</div>" : (S.ok ? '<p style="color:#5ee67a;font-weight:800">🌟 Birorta ham xato yo\'q — barakalla!</p>' : "")) +
       (gave ? "<p>🪙 Akkountingizga <b>+" + coins + "</b> coin yozildi</p>" : (coins > 0 ? '<p class="kv-note">Coin yig\'ish uchun bosh sahifada akkountga kiring.</p>' : "")) +
       '<button class="kv-btn" id="kv-again">🔁 Yana o\'ynash</button>' +

@@ -89,6 +89,8 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 <a class="race" href="virtual-48.html"><span class="re">🏎️</span><span><b>YANGI: Sport mashina poygasi</b><small>Qo'l bilan boshqaring · tezlik chegarasiz · <b style="color:#5ee67a">+ ×2</b> tezlashtiradi, <b style="color:#ff6b6b">− :2</b> sekinlashtiradi · yo'lda to'siqlar · nitro · 1–4 o'yinchi</small></span><span class="rg">▶ Poygaga</span></a>
 <a class="race" href="virtual-49.html" style="background:linear-gradient(110deg,#032a2a,#0b4a5a 45%,#101a3a);border-color:#00e5ff;box-shadow:0 10px 40px -14px #00e5ff"><span class="re">📈</span><span><b>YANGI: Grafik doskasi</b><small>Funksiya grafigini barmoq bilan chizing — aniqlik foizda baholanadi · ✋ kaft = o'chirg'ich · Erkin doska: formulani yozing, grafigi chiqadi</small></span><span class="rg" style="background:#00e5ff;color:#032a2a">▶ Doskaga</span></a>
 <div class="lvl" id="lv"><b>🎚 Qiyinlik darajasi (barcha o'yinlar uchun):</b> <button class="chip" data-d="1">🟢 Oson</button><button class="chip" data-d="2">🟡 O'rta</button><button class="chip" data-d="3">🔴 Qiyin</button><span>Oson — sekinroq, kichik sonlar · O'rta — odatiy · Qiyin — tez, katta sonlar, ko'proq variant</span></div>
+<div class="lvl" id="sf"><b>🎓 Sinf (savollar shu sinfga moslab boshlanadi):</b> <button class="chip" data-s="0">Umumiy</button><button class="chip" data-s="3">1–4</button><button class="chip" data-s="5">5</button><button class="chip" data-s="6">6</button><button class="chip" data-s="7">7</button><button class="chip" data-s="8">8</button><button class="chip" data-s="9">9</button><button class="chip" data-s="10">10–11</button><button class="chip" data-s="11">Texnikum</button><span>O'yin davomida daraja 1–5 o'zi o'zgaradi: 3 ta to'g'ri javob — yuqoriga, 2 ta xato — pastga.</span></div>
+<div id="kvp"></div>
 <div class="filters" id="f"></div>
 <div class="grid" id="g"></div>
 
@@ -106,7 +108,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
       var th = K.THEMES[x.th], m = K.MECH[x.m], b = best(x.id);
       return '<a class="g" style="--c:' + th.acc + '" href="virtual-' + x.id + '.html">' +
         '<span class="n">#' + x.id + " · " + th.n.toUpperCase() + '</span><span class="e">' + m.e + "</span><h3>" + x.t + '</h3><span class="t">' + x.topic + "</span>" +
-        '<div class="b"><span>' + m.n + (x.duel ? " · duel" : "") + "</span>" + (b ? '<span class="best">🏅 ' + b + "</span>" : "<span>▶ O'ynash</span>") + "</div></a>";
+        '<div class="b"><span>' + m.n + (x.duel ? " · duel" : "") + "</span>" + (b ? '<span class="best">' + (K.stars(x.id) ? '<span style="letter-spacing:1px">' + K.starsHTML(K.stars(x.id)) + "</span> " : "") + "🏅 " + b + "</span>" : "<span>▶ O'ynash</span>") + "</div></a>";
     }).join("");
   }
   var used = {}; K.GAMES.forEach(function (x) { used[x.m] = (used[x.m] || 0) + 1; });
@@ -120,6 +122,14 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
   function showLv() { var d = getCfg().diff || 2; Array.prototype.forEach.call(lv.querySelectorAll(".chip"), function (b) { b.classList.toggle("on", +b.getAttribute("data-d") === d); }); }
   lv.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (!b) return; var c = getCfg(); c.diff = +b.getAttribute("data-d"); try { localStorage.setItem("kav.cfg", JSON.stringify(c)); } catch (er) {} showLv(); });
   showLv();
+  // Sinf — barcha o'yinlar uchun (kav.cfg.sinf)
+  var sf = document.getElementById("sf");
+  function showSf() { var v = getCfg().sinf | 0; Array.prototype.forEach.call(sf.querySelectorAll(".chip"), function (b) { b.classList.toggle("on", +b.getAttribute("data-s") === v); }); }
+  sf.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (!b) return; var c = getCfg(); c.sinf = +b.getAttribute("data-s"); try { localStorage.setItem("kav.cfg", JSON.stringify(c)); } catch (er) {} showSf(); });
+  showSf();
+  // Yutuqlar: yulduzlar, kunlik topshiriqlar, nishonlar (akkaunt yuklangach yangilanadi)
+  function showP() { var el = document.getElementById("kvp"); if (el && K.hubHTML) el.innerHTML = K.hubHTML(); }
+  showP(); window.addEventListener("load", function () { setTimeout(function () { showP(); render(); }, 300); });
 
   // Hero fonida "skelet qo'l" animatsiyasi
   var c = document.getElementById("hc"), x = c.getContext("2d"), t = 0;
