@@ -88,6 +88,7 @@ footer{margin-top:40px;color:var(--dim);font-size:13px;text-align:center}
 <footer>© Kuvonch Academy · Matematika — hamma joyda</footer>
 </div>
 
+<script src="ka-qidiruv.js"></script>
 <script>
 (function(){
 "use strict";
@@ -190,6 +191,42 @@ function tabs(cur){
 function card(c){
   return `<div class="k"><h3>${esc(c.t)}</h3><p>${esc(c.p)}</p>${c.f?`<div class="f">${esc(c.f)}</div>`:''}${c.ex?`<div class="ex">${c.ex}</div>`:''}${c.fact?`<div class="fact">💡 ${esc(c.fact)}</div>`:''}</div>`;
 }
+/* ---- Yo'nalish → saytdagi mavzular, o'yinlar va cheksiz test ---- */
+const YO={
+ algebra:{topics:["t1","t2","t4","t5","t6","t7","t10","t12","t19","t20","t22","t23","t51","t52","t53","t54","t55","t62","t63","t67"],games:["funksiya-ovchisi.html","matematik-snayper.html","virtual-4.html","virtual-12.html","virtual-28.html","virtual-33.html","virtual-32.html","mashqlar.html#grafik"]},
+ geometriya:{topics:["t40","t41","t3","t29","t68","t71","t72","t73","t74","t75","t76","t77","t78","t79","t82","t83","t85","t86","t87","t88"],games:["shakl-ovchisi.html","virtual-24.html","virtual-41.html","virtual-31.html","mavzu-chizish.html","mashqlar.html#grafik"]},
+ olimpiada:{topics:["t61","t51","t52","t63","t66","t89","t90","t91","t94","t95","t96"],games:["tub-sonlar-poygasi.html","virtual-9.html","virtual-17.html","virtual-18.html","virtual-40.html","virtual-14.html","index.html#ka-kunlik"]},
+ faktlar:{topics:["t4","t55","t59","t70","t94","t95"],games:["noldan-pigacha.html","ezop-oyin.html","virtual-35.html","virtual-20.html"]},
+ tarix:{topics:[],games:["era-1.html","era-5.html","era-10.html"]},
+ fanlar:{topics:["t8","t27","t32","t60"],games:["virtual-50.html","virtual-51.html","virtual-53.html","virtual-54.html","virtual-55.html","virtual-59.html","funksiya-ovchisi.html?mode=nature"]},
+ hayot:{topics:["t56","t57","a5","t37","t39","t92","t93"],games:["bozor-oyin.html","virtual-6.html","virtual-39.html","virtual-37.html","aqlli-oyin.html"]},
+ oyinlar:{topics:["t37","t38","t39","t92","t93","t90"],games:["jamoa.html","chempionat.html","virtual-47.html","virtual-48.html","savat-oyini.html"]}
+};
+function topicName(id){const m=(window.KA_MAVZULAR||[]).find(x=>x.id===id);return m?m.n:id}
+function gameInfo(u){const g=(window.KA_OYINLAR||[]).find(x=>x.u===u);if(g)return g;const names={"era-1.html":"🪨 Tosh davri","era-5.html":"🕌 Islom oltin davri","era-10.html":"🚀 XXI asr","index.html#ka-kunlik":"🏅 Kunlik IMO masalasi","mashqlar.html#grafik":"📐 Grafik taxtasi + Desmos"};return {u:u,n:names[u]||u,e:"",t:""}}
+function extraBlock(k){
+  const x=YO[k]; if(!x) return "";
+  let h=`<div class="k wide" style="margin-top:14px">`;
+  if(x.topics.length) h+=`<h3>📘 Saytdagi mavzular (xossalar, testlar, o'yinlar)</h3><div class="erag">${x.topics.map(t=>`<a href="mashqlar.html#${t}">${esc(topicName(t))}</a>`).join('')}</div>`;
+  if(x.games.length) h+=`<h3 style="margin-top:12px">🎮 O'yinlar</h3><div class="erag">${x.games.map(u=>{const g=gameInfo(u);return `<a href="${u}">${g.e?g.e+' ':''}${esc(g.n)}</a>`}).join('')}</div>`;
+  if(x.topics.length) h+=`<p style="margin:14px 0 0"><button class="btn main" id="yo-test" type="button">♾️ Cheksiz test — ${esc(D[k].name)} (20 savol, har safar yangi)</button> <span id="yo-msg" style="color:var(--dim);font-size:13px"></span></p>`;
+  return h+`</div>`;
+}
+function loadScripts(list){return list.reduce((p,src)=>p.then(()=>new Promise((ok,bad)=>{if(document.querySelector(`script[src^="${src}"]`))return ok();const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=bad;document.head.appendChild(s)})),Promise.resolve())}
+function bindExtra(k){
+  const b=document.getElementById('yo-test'); if(!b) return;
+  b.onclick=async()=>{
+    b.disabled=true; document.getElementById('yo-msg').textContent="⏳ Savollar yuklanmoqda…";
+    try{
+      await loadScripts(["ka-savollar.js","ka-savollar-2.js","ka-savollar-3.js","ka-savollar-4.js","ka-savollar-5.js","ka-savollar-6.js","ka-savollar-7.js","ka-savollar-8.js","ka-savollar-9.js","ka-savollar-10.js","ka-test.js?v=20261017b"]);
+      const ids=YO[k].topics.filter(t=>window.kaSavol.has(t));
+      if(!window.kaSavol.has("yo-"+k)) window.kaSavol.register("yo-"+k,L=>window.kaSavol.get(ids[Math.floor(Math.random()*ids.length)],L),D[k].name+" — cheksiz test");
+      document.getElementById('yo-msg').textContent="";
+      window.kaTest.run("yo-"+k,D[k].name+" — cheksiz test",0,20,"variant",{perQ:3});
+    }catch(e){document.getElementById('yo-msg').textContent="Yuklab bo'lmadi: "+e}
+    b.disabled=false;
+  };
+}
 function render(){
   let k=(location.hash||'').slice(1); if(!D[k]) k='algebra';
   const d=D[k]; tabs(k); document.title=d.name+" — Kuvonch Academy";
@@ -198,11 +235,12 @@ function render(){
   if(d.demos) h+=d.demos.map(x=>`<div class="k demo${x==='dunyo'||x==='nim'?' wide':''}" id="demo-${x}"></div>`).join('');
   if(d.eras) h+=`<div class="k wide"><h3>📜 10 ta davr</h3><div class="erag">${["Tosh davri","Misr va Mesopotamiya","Hindiston va Xitoy","Qadimgi Yunoniston","Islom oltin davri","O'rta asr Yevropa va Renessans","Ilmiy inqilob","Ma'rifat va XIX asr","XX asr","XXI asr"].map((n,i)=>`<a href="era-${i+1}.html">${i+1}. ${esc(n)}</a>`).join('')}</div></div>`;
   h+=`</div>`;
+  h+=extraBlock(k);
   h+=`<div class="quiz"><h2>🧠 Tez test</h2>${d.quiz.map((q,i)=>{const ord=shuffleIdx(q[1].length);return `<div class="qq" data-i="${i}"><div class="t">${i+1}. ${esc(q[0])}</div><div class="qo">${ord.map(j=>`<button data-j="${j}">${esc(q[1][j])}</button>`).join('')}</div></div>`}).join('')}<div class="out" id="qres"></div></div>`;
   const ni=ORDER.indexOf(k), nx=ORDER[(ni+1)%ORDER.length];
   h+=`<div class="next"><a class="btn main" href="${d.link}">${k==='oyinlar'?'👥 Do\'stlar bilan o\'ynash':k==='tarix'?'📜 Davrlar xaritasi':'✏️ Mashq qilish'} →</a><a class="btn" href="#${nx}">Keyingi: ${D[nx].ico} ${esc(D[nx].name)} →</a><a class="btn" href="index.html#mavzular">← Bosh sahifa</a></div>`;
   $('#main').innerHTML=h;
-  bindQuiz(d);
+  bindQuiz(d); bindExtra(k);
   if(d.demos) d.demos.forEach(x=>DEMO[x]($('#demo-'+x)));
   scrollTo({top:0});
 }
