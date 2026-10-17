@@ -213,6 +213,19 @@
       s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, title: x.title, free: !!x.free, questions: x.questions || [] }); });
       return out;
     },
+    // ---- Homiylar reytingi (ochiq o'qiladi) ----
+    homiylar: async function () {
+      var c = await load(), out = [];
+      var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "homiylar"), c.F.orderBy("summa", "desc"), c.F.limit(200)));
+      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, ism: x.ism, summa: x.summa | 0, havola: x.havola || "", xabar: x.xabar || "", sana: x.sana || "" }); });
+      return out;
+    },
+    addHomiy: async function (h) {
+      var c = await load(), id = "h" + Date.now().toString(36);
+      await c.F.setDoc(c.F.doc(c.db, "homiylar", id), { ism: String(h.ism).slice(0, 60), summa: Math.max(0, h.summa | 0), havola: String(h.havola || "").slice(0, 200), xabar: String(h.xabar || "").slice(0, 160), sana: String(h.sana || "").slice(0, 10), at: c.F.serverTimestamp() });
+      return id;
+    },
+    removeHomiy: async function (id) { var c = await load(); await c.F.deleteDoc(c.F.doc(c.db, "homiylar", id)); },
     // ---- Premium: faqat o'qituvchi (qoidalar tekshiradi) ----
     addPremiumTest: async function (t) {
       var c = await load(), id = "t" + Date.now().toString(36);

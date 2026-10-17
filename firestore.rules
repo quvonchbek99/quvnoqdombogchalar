@@ -87,6 +87,19 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    // Homiylar reytingi: hamma (kirmagan ham) ko'radi, yozish faqat o'qituvchiga
+    match /homiylar/{id} {
+      allow read: if true;
+      allow write: if isAdmin()
+        && request.resource.data.keys().hasOnly(['ism','summa','havola','xabar','sana','at'])
+        && str(request.resource.data.ism, 60)
+        && request.resource.data.summa is int && request.resource.data.summa >= 0 && request.resource.data.summa <= 100000000
+        && request.resource.data.havola is string && request.resource.data.havola.size() <= 200
+        && request.resource.data.xabar is string && request.resource.data.xabar.size() <= 160
+        && request.resource.data.sana is string && request.resource.data.sana.size() <= 10;
+      allow delete: if isAdmin();
+    }
+
     // Premium test katalogi (nom, savollar soni, narx): kirgan hamma ko'radi
     match /premiumCatalog/{id} {
       allow read: if signedIn();

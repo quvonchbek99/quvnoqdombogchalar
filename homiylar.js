@@ -84,7 +84,21 @@ window.HOMIYLAR = [
   }
   window.kaHomiylar = { stats: statsHTML, list: listHTML, data: H };
 
-  function init() {
+  // Bulutdagi (ustoz.html'dan qo'shilgan) homiylar — kesh bilan; faqat reyting ko'rsatiladigan sahifada yuklanadi
+  function cloudList(cb) {
+    try { var c = JSON.parse(localStorage.getItem("ka.homiylar") || "null"); if (c && c.t > Date.now() - 6 * 3600e3 && c.l) merge(c.l); } catch (e) {}
+    if (!document.getElementById("homiylar")) { cb(); return; }
+    function go() {
+      if (!window.kaCloud || !window.kaCloud.homiylar) { cb(); return; }
+      window.kaCloud.homiylar().then(function (l) { merge(l); try { localStorage.setItem("ka.homiylar", JSON.stringify({ t: Date.now(), l: l })); } catch (e) {} cb(); }, function () { cb(); });
+    }
+    if (window.kaCloud) go();
+    else { var sc = document.createElement("script"); sc.src = "ka-bulut.js"; sc.onload = go; sc.onerror = cb; document.head.appendChild(sc); }
+  }
+  function merge(l) { (l || []).forEach(function (h) { if (h && h.ism && !H.some(function (x) { return x.ism === h.ism && (x.summa | 0) === (h.summa | 0); })) H.push(h); }); }
+
+  function init() { cloudList(render); }
+  function render() {
     // 1) Reyting konteyneri bo'lsa (donat.html, index.html)
     var host = document.getElementById("homiylar");
     if (host) host.innerHTML = '<div class="hm-wrap"><div class="hm-head"><h3>🏆 Homiylar reytingi</h3><small>Pul yoki havola bilan qo\'llab-quvvatlaganlar</small></div>' + statsHTML() + listHTML(host.getAttribute("data-limit") ? +host.getAttribute("data-limit") : 50) + "</div>";
