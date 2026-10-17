@@ -62,10 +62,37 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.installSplashScreen(this);
+        try { SplashScreen.installSplashScreen(this); } catch (Throwable ignored) {}
+        try { setTheme(R.style.Theme_Kuvonch); } catch (Throwable ignored) {}
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        try { setContentView(R.layout.activity_main); setup(savedInstanceState); } catch (Throwable t) { showFatal(t); }
+    }
 
+    private void showFatal(Throwable t) {
+        android.widget.TextView tv = new android.widget.TextView(this);
+        tv.setTextColor(0xFFEEF2FF); tv.setPadding(48, 96, 48, 48); tv.setTextSize(16);
+        tv.setText("Ilova ochilmadi: " + t.getClass().getSimpleName() + "\n" + t.getMessage() + "\n\nQurilmada Android System WebView o'chirilgan bo'lishi mumkin. Saytni brauzerda oching: kuvonch.uz");
+        android.widget.Button b = new android.widget.Button(this); b.setText("🌐 Brauzerda ochish");
+        b.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HOME))));
+        android.widget.LinearLayout l = new android.widget.LinearLayout(this); l.setOrientation(android.widget.LinearLayout.VERTICAL); l.setBackgroundColor(0xFF0B1220);
+        l.addView(tv); l.addView(b);
+        try { setContentView(l); } catch (Throwable e2) {
+            Toast.makeText(this, "Ilova ochilmadi: " + t, Toast.LENGTH_LONG).show();
+            try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HOME))); } catch (Throwable ignored) {}
+            finish();
+        }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void setup(Bundle savedInstanceState) {
+        final android.content.SharedPreferences sp = getSharedPreferences("ka", MODE_PRIVATE);
+        String last = sp.getString("crash", null);
+        if (last != null) { sp.edit().remove("crash").apply(); Toast.makeText(this, "Oldingi xato: " + last, Toast.LENGTH_LONG).show(); }
+        final Thread.UncaughtExceptionHandler def = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler((th, e) -> {
+            try { StringBuilder sb = new StringBuilder(e.toString()); for (StackTraceElement el : e.getStackTrace()) { if (sb.length() > 900) break; sb.append("\n").append(el); } sp.edit().putString("crash", sb.toString()).commit(); } catch (Throwable ignored) {}
+            if (def != null) def.uncaughtException(th, e);
+        });
         web = findViewById(R.id.web);
         swipe = findViewById(R.id.swipe);
         progress = findViewById(R.id.progress);
@@ -82,7 +109,9 @@ public class MainActivity extends AppCompatActivity {
         s.setUseWideViewPort(true);
         s.setSupportZoom(false);
         s.setCacheMode(WebSettings.LOAD_DEFAULT);
-        s.setUserAgentString(s.getUserAgentString() + " KuvonchAcademyApp/2.0");
+        // Google "disallowed_useragent" bloklamasligi uchun WebView belgilarini olib tashlaymiz
+        String ua = s.getUserAgentString().replace("; wv", "").replaceAll("Version/\\d+\\.\\d+ ", "");
+        s.setUserAgentString(ua + " KuvonchAcademyApp/2.1");
         if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
             WebSettingsCompat.setAlgorithmicDarkeningAllowed(s, false); // sayt o'zi qora
         }
@@ -96,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 String host = u.getHost() == null ? "" : u.getHost();
                 String scheme = u.getScheme() == null ? "" : u.getScheme();
                 // Sayt ichida — ilovada; tashqi havolalar (Telegram, YouTube, Instagram) — tegishli ilovada
-                if (scheme.startsWith("http") && (host.endsWith("kuvonch.uz") || host.endsWith("quvonchbek99.github.io") || host.contains("desmos.com") || host.contains("googleapis.com") || host.contains("firebaseapp.com") || host.contains("google.com"))) return false;
+                if (scheme.startsWith("http") && (host.endsWith("kuvonch.uz") || host.endsWith("quvonchbek99.github.io") || host.contains("desmos.com") || host.contains("googleapis.com") || host.contains("firebaseapp.com") || host.contains("google.com") || host.contains("gstatic.com") || host.contains("googleusercontent.com") || host.contains("cloudflare") || host.contains("jsdelivr.net") || host.contains("cdnjs.cloudflare.com"))) return false;
                 try { startActivity(new Intent(Intent.ACTION_VIEW, u)); } catch (Exception e) { return false; }
                 return true;
             }
@@ -133,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Yuklab olish: PPTX, PDF, APK → Downloads papkasi
-        web.setDownloadListener((url, ua, cd, mime, len) -> {
+        web.setDownloadListener((url, uaStr, cd, mime, len) -> {
             try {
                 DownloadManager.Request r = new DownloadManager.Request(Uri.parse(url));
                 String name = URLUtil.guessFileName(url, cd, mime);
