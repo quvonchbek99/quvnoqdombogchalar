@@ -589,6 +589,7 @@
     const pick = ()=>{
       document.querySelectorAll("#ctrl-pick .diff-card").forEach(c=>c.classList.remove("sel"));
       card.classList.add("sel"); state.ctrl = card.dataset.ctrl;
+      if(window.kaControl && kaControl.preload) kaControl.preload(state.ctrl);   // ko'z/qo'l modeli orqada yuklanib tursin
     };
     card.addEventListener("click", pick);
     card.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(); } });

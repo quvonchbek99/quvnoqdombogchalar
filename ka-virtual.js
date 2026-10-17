@@ -603,21 +603,38 @@
     return new Promise(function (ok, bad) { var s = document.createElement("script"); s.src = src; s.crossOrigin = "anonymous"; s.onload = ok; s.onerror = function () { bad(new Error("Yuklanmadi: " + src)); }; document.head.appendChild(s); });
   }
   var MP = "https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/";
-  var busy = false, stream = null;
+  var busy = false, stream = null, handsP = null;
+  // Qo'l modeli start oynasidayoq orqada yuklanadi — "Boshlash" bosilganda odatda tayyor turadi
+  function prepHands() {
+    if (!handsP) {
+      handsP = (window.Hands ? Promise.resolve() : loadScript(MP + "hands.js")).then(function () {
+        if (!handsObj) {
+          handsObj = new window.Hands({ locateFile: function (f) { return MP + f; } });
+          handsObj.setOptions({ maxNumHands: CFG.hands, modelComplexity: /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) ? 0 : 1, minDetectionConfidence: 0.6, minTrackingConfidence: 0.5 });
+          handsObj.onResults(onResults);
+        }
+        return handsObj.initialize ? handsObj.initialize() : null;
+      });
+      handsP.catch(function () { handsP = null; handsObj = null; });
+    }
+    return handsP;
+  }
+  (function () {
+    var c = navigator.connection, slow = !!(c && (c.saveData || /2g/.test(c.effectiveType || "")));
+    if (slow) return;
+    // sahifa chizilishi bilanoq (kutmasdan) yuklashni boshlaymiz — yuklash fon rejimida, start oynasini sekinlatmaydi
+    setTimeout(function () { if (!camOn && !mouseMode) prepHands().catch(function () {}); }, 50);
+  })();
   function startCamera() {
     loadEl.style.display = "flex"; $("kv-lt").textContent = "KAMERA YUKLANMOQDA…";
     var mob = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+    var model = prepHands();   // kamera ruxsati kutilayotganda ham model yuklanishda davom etadi
     // Telefonda 640×480 yetarli — qo'l modeli 2–3 barobar tez ishlaydi
     return navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: mob ? 640 : 1280 }, height: { ideal: mob ? 480 : 720 }, frameRate: { ideal: 30, max: 30 } }, audio: false })
       .then(function (s) { stream = s; video.srcObject = s; return video.play(); })
-      .then(function () { $("kv-lt").textContent = "QO'L MODELI YUKLANMOQDA…"; return window.Hands ? null : loadScript(MP + "hands.js"); })
+      .then(function () { $("kv-lt").textContent = "QO'L MODELI YUKLANMOQDA…"; return model; })
       .then(function () {
-        handsObj = new window.Hands({ locateFile: function (f) { return MP + f; } });
-        handsObj.setOptions({ maxNumHands: CFG.hands, modelComplexity: /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) ? 0 : 1, minDetectionConfidence: 0.6, minTrackingConfidence: 0.5 });
-        handsObj.onResults(onResults);
-        return handsObj.initialize ? handsObj.initialize() : null;
-      })
-      .then(function () {
+        handsObj.setOptions({ maxNumHands: CFG.hands });
         camOn = true; loadEl.style.display = "none";
         (function pump() {
           if (!camOn) return;

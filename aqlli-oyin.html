@@ -380,9 +380,22 @@ function stopCam(){
 var VISION="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
 var visionP=null;
 function loadVision(){
-  if(!visionP)visionP=import(VISION+"/vision_bundle.mjs").then(function(m){return m.FilesetResolver.forVisionTasks(VISION+"/wasm").then(function(fs){return {m:m,fs:fs};});});
+  if(!visionP){visionP=import(VISION+"/vision_bundle.mjs").then(function(m){return m.FilesetResolver.forVisionTasks(VISION+"/wasm").then(function(fs){return {m:m,fs:fs};});});visionP.catch(function(){visionP=null;});}
   return visionP;
 }
+/* Model bir marta yaratiladi (qayta o'ynashda ham shu), usul tanlanishi bilan orqada yuklana boshlaydi */
+var LM={hand:["HandLandmarker","https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",{numHands:1}],
+        eye:["FaceLandmarker","https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",{numFaces:1}]};
+var lmP={};
+function getLm(kind){
+  if(!lmP[kind]){
+    var t=LM[kind];
+    lmP[kind]=loadVision().then(function(v){var o={baseOptions:{modelAssetPath:t[1]},runningMode:"VIDEO"};for(var k in t[2])o[k]=t[2][k];return v.m[t[0]].createFromOptions(v.fs,o);});
+    lmP[kind].catch(function(){lmP[kind]=null;});
+  }
+  return lmP[kind];
+}
+function preLm(kind){var c=navigator.connection;if(!LM[kind]||(c&&(c.saveData||/2g/.test(c.effectiveType||""))))return;getLm(kind).catch(function(){});}
 function sizeOv(){if(cam.video&&cam.video.videoWidth){cam.ov.width=cam.video.videoWidth;cam.ov.height=cam.video.videoHeight;}}
 
 /* ---- barmoqlar ---- */
@@ -418,13 +431,11 @@ modules.hand=function(){
   return {
     init:function(){
       setHint("✋ Kameraga <b>1–4 ta barmoq</b> ko'rsating (bosh barmoq hisobga olinmaydi) va 1 soniya ushlab turing. Model yuklanmoqda…");
-      return startCam().then(loadVision).then(function(v){
-        return v.m.HandLandmarker.createFromOptions(v.fs,{baseOptions:{modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"},runningMode:"VIDEO",numHands:1});
-      }).then(function(h){lm=h;loop=true;frame();});
+      return Promise.all([startCam(),getLm("hand")]).then(function(r){lm=r[1];loop=true;frame();});
     },
     reset:function(){paused=false;lastC=0;since=0;setHint("✋ <b>1–4 ta barmoq</b> ko'rsating: 1=A, 2=B, 3=C, 4=D. 1 soniya ushlab turing.");},
     pause:function(){paused=true;},
-    stop:function(){loop=false;try{lm&&lm.close();}catch(e){}stopCam();}
+    stop:function(){loop=false;stopCam();}
   };
 };
 
@@ -484,13 +495,11 @@ modules.eye=function(){
   return {
     init:function(){
       setHint("👁 Kamera va ko'z modeli yuklanmoqda…");
-      return startCam().then(loadVision).then(function(v){
-        return v.m.FaceLandmarker.createFromOptions(v.fs,{baseOptions:{modelAssetPath:"https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task"},runningMode:"VIDEO",numFaces:1});
-      }).then(function(f){fl=f;loop=true;frame();return calibrate();});
+      return Promise.all([startCam(),getLm("eye")]).then(function(r){fl=r[1];loop=true;frame();return calibrate();});
     },
     reset:function(){paused=false;quad=-1;since=0;setHint("👁 Javob turgan <b>burchakka</b> 1–2 soniya qarab turing. Boshingiz ham yordam beradi.");},
     pause:function(){paused=true;},
-    stop:function(){loop=false;collecting=null;$("calib").hidden=true;try{fl&&fl.close();}catch(e){}stopCam();}
+    stop:function(){loop=false;collecting=null;$("calib").hidden=true;stopCam();}
   };
 };
 
@@ -534,7 +543,7 @@ modules.puff=function(){
 
 /* ---------------- boshqarish ---------------- */
 var MODE_NAMES={tap:"🖱 Teginish",voice:"🎙 Ovoz",eye:"👁 Ko'z",hand:"✋ Barmoq",puff:"💨 Puflash"};
-$("modes").addEventListener("click",function(e){var b=e.target.closest(".pick");if(!b)return;st.mode=b.dataset.m;Array.prototype.forEach.call($("modes").children,function(x){x.classList.toggle("sel",x===b);});$("voiceOpt").hidden=st.mode!=="voice";});
+$("modes").addEventListener("click",function(e){var b=e.target.closest(".pick");if(!b)return;st.mode=b.dataset.m;preLm(st.mode);Array.prototype.forEach.call($("modes").children,function(x){x.classList.toggle("sel",x===b);});$("voiceOpt").hidden=st.mode!=="voice";});
 $("levels").addEventListener("click",function(e){var b=e.target.closest(".pick");if(!b)return;st.level=+b.dataset.l;Array.prototype.forEach.call($("levels").children,function(x){x.classList.toggle("sel",x===b);});});
 
 (function(){

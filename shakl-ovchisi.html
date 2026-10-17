@@ -570,16 +570,38 @@ cv.addEventListener('pointermove',e=>{ if(ctrl!=='touch'||e.pointerType!=='mouse
 let camOn=false,hands=null,handPts=null,aim={x:0,y:0,ok:false},buf=[],canShoot=true,pinched=false,sending=false;
 const CONN=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
 function loadScript(src){ return new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=src; s.crossOrigin='anonymous'; s.onload=ok; s.onerror=()=>no(new Error(src)); document.head.appendChild(s); }); }
+// Qo'l modeli: Virtual o'yinlar bilan bir xil versiya (kesh umumiy), sahifa ochilganda orqada oldindan yuklanadi
+const MPH='https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/';
+let handsP=null;
+function prepHands(){
+  if(!handsP){
+    // ko'z modeli (tasks-vision) yaratilayotgan bo'lsa — tugashini kutamiz (ikkalasi bir vaqtda yuklansa to'qnashadi)
+    handsP=Promise.resolve(window.__kaVisionBusy).then(()=>window.Hands?null:loadScript(MPH+'hands.js')).then(()=>{
+      if(!hands){ hands=new Hands({locateFile:f=>MPH+f}); hands.setOptions({maxNumHands:1,modelComplexity:1,minDetectionConfidence:.65,minTrackingConfidence:.6}); hands.onResults(onHands); }
+      return hands.initialize();
+    });
+    handsP.catch(()=>{ handsP=null; });
+    window.__kaLegacyP=handsP;
+  }
+  return handsP;
+}
 async function startHands(){
-  if(!window.Hands) await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js');
-  if(!hands){ hands=new Hands({locateFile:f=>'https://cdn.jsdelivr.net/npm/@mediapipe/hands/'+f}); hands.setOptions({maxNumHands:1,modelComplexity:1,minDetectionConfidence:.65,minTrackingConfidence:.6}); hands.onResults(onHands); }
+  const ready=prepHands();   // kamera ruxsati kutilayotganda ham model yuklanaveradi
   if(!camOn){
     const stream=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:1280},height:{ideal:720},facingMode:'user'},audio:false});
     vid.srcObject=stream; await vid.play(); camOn=true;
+    try{ await ready; }catch(e){ stopCam(); throw e; }
     const tick=async()=>{ if(!camOn) return; if(!sending&&vid.readyState>=2){ sending=true; try{ await hands.send({image:vid}); }catch(e){} sending=false; } requestAnimationFrame(tick); };
     tick();
-  }
+  } else await ready;
 }
+(function(){
+  const c=navigator.connection; if(c&&(c.saveData||/2g/.test(c.effectiveType||''))) return;
+  const go=()=>{ if(ctrl==='hand'&&!camOn) prepHands().catch(()=>{}); };
+  window.addEventListener('load',()=>setTimeout(go,400));
+  const box=document.getElementById('ctrlOpts');
+  if(box) box.addEventListener('click',e=>{ if(e.target.closest('[data-c="hand"]')) setTimeout(go,0); });
+})();
 function stopCam(){ camOn=false; handPts=null; if(vid.srcObject){ vid.srcObject.getTracks().forEach(t=>t.stop()); vid.srcObject=null; } }
 function toScreen(p){ const vw=vid.videoWidth||1280,vh=vid.videoHeight||720,sc=Math.max(W/vw,H/vh),ox=(W-vw*sc)/2,oy=(H-vh*sc)/2; return {x:W-(ox+p.x*vw*sc),y:oy+p.y*vh*sc}; }
 function onHands(res){

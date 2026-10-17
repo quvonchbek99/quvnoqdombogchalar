@@ -1,4 +1,14 @@
 /* Kuvonch Academy — anonim tashrif statistikasi (Google Analytics 4). Ism/guruh yuborilmaydi. */
+/* + Service worker barcha sahifalarda: o'yin modellari (qo'l/ko'z) bir marta yuklangach, keyingi safar keshdan darhol ochiladi */
+(function () {
+  try {
+    if (!("serviceWorker" in navigator) || !window.isSecureContext) return;
+    var me = document.currentScript && document.currentScript.src;
+    var sw = me ? me.replace(/statistika\.js(\?.*)?$/, "sw.js") : "sw.js";
+    var reg = function () { navigator.serviceWorker.register(sw).catch(function () {}); };
+    if (document.readyState === "complete") reg(); else window.addEventListener("load", reg);
+  } catch (e) {}
+})();
 (function () {
   "use strict";
   var ID = "G-PWVVKHD3ET";

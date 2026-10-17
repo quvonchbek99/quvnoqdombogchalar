@@ -388,7 +388,9 @@ $('muteBtn').onclick=()=>{ muted=!muted; store.set('ka_savat_mute',muted?'1':'0'
 let topic=store.get('ka_savat_topic')||'prime', ctrl=store.get('ka_savat_ctrl')||'hand';
 function bindOpts(id,attr,get,set){ const box=$(id); box.querySelectorAll('.opt').forEach(b=>{ b.classList.toggle('on',b.dataset[attr]===get()); b.onclick=()=>{ set(b.dataset[attr]); box.querySelectorAll('.opt').forEach(x=>x.classList.toggle('on',x===b)); showBest(); }; }); }
 bindOpts('topicOpts','t',()=>topic,v=>{topic=v;store.set('ka_savat_topic',v);});
-bindOpts('ctrlOpts','c',()=>ctrl,v=>{ctrl=v;store.set('ka_savat_ctrl',v);});
+bindOpts('ctrlOpts','c',()=>ctrl,v=>{ctrl=v;store.set('ka_savat_ctrl',v); if(v==='eye'&&window.kaControl&&kaControl.preload) kaControl.preload('eye');});
+// ko'z rejimi tanlangan bo'lsa — model sahifa ochilganda orqada yuklanadi
+window.addEventListener('load',()=>setTimeout(()=>{ if(ctrl==='eye'&&window.kaControl&&kaControl.preload) kaControl.preload('eye'); },400));
 function showBest(){ const b=+(store.get('ka_savat_best_'+topic)||0); $('bestTxt').textContent=b?`🏆 Rekord (${TOPIC_NAMES[topic]}): ${b}`:''; }
 showBest();
 // O'quvchi: akkount yoki oldingi kiritilgan ism
@@ -678,16 +680,38 @@ cv.addEventListener('pointerup',e=>{ if(ctrl==='touch'&&down&&e.pointerType!=='m
 /* ================= QO'L (MediaPipe Hands) ================= */
 let camOn=false,hands=null,palm=null,pinched=false,sending=false,seen=false;
 function loadScript(src){ return new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=src; s.crossOrigin='anonymous'; s.onload=ok; s.onerror=()=>no(new Error(src)); document.head.appendChild(s); }); }
+// Qo'l modeli: Virtual o'yinlar bilan bir xil versiya (kesh umumiy), sahifa ochilganda orqada oldindan yuklanadi
+const MPH='https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/';
+let handsP=null;
+function prepHands(){
+  if(!handsP){
+    // ko'z modeli (tasks-vision) yaratilayotgan bo'lsa — tugashini kutamiz (ikkalasi bir vaqtda yuklansa to'qnashadi)
+    handsP=Promise.resolve(window.__kaVisionBusy).then(()=>window.Hands?null:loadScript(MPH+'hands.js')).then(()=>{
+      if(!hands){ hands=new Hands({locateFile:f=>MPH+f}); hands.setOptions({maxNumHands:1,modelComplexity:0,minDetectionConfidence:.6,minTrackingConfidence:.55}); hands.onResults(onHands); }
+      return hands.initialize();
+    });
+    handsP.catch(()=>{ handsP=null; });
+    window.__kaLegacyP=handsP;
+  }
+  return handsP;
+}
 async function startHands(){
-  if(!window.Hands) await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js');
-  if(!hands){ hands=new Hands({locateFile:f=>'https://cdn.jsdelivr.net/npm/@mediapipe/hands/'+f}); hands.setOptions({maxNumHands:1,modelComplexity:0,minDetectionConfidence:.6,minTrackingConfidence:.55}); hands.onResults(onHands); }
+  const ready=prepHands();   // kamera ruxsati kutilayotganda ham model yuklanaveradi
   if(!camOn){
     const stream=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:640},height:{ideal:480},facingMode:'user'},audio:false});
     vid.srcObject=stream; await vid.play(); camOn=true;
+    try{ await ready; }catch(e){ stopCam(); throw e; }
     const tick=async()=>{ if(!camOn) return; if(!sending&&vid.readyState>=2){ sending=true; try{ await hands.send({image:vid}); }catch(e){} sending=false; } requestAnimationFrame(tick); };
     tick();
-  }
+  } else await ready;
 }
+(function(){
+  const c=navigator.connection; if(c&&(c.saveData||/2g/.test(c.effectiveType||''))) return;
+  const go=()=>{ if(ctrl==='hand'&&!camOn) prepHands().catch(()=>{}); };
+  window.addEventListener('load',()=>setTimeout(go,400));
+  const box=document.getElementById('ctrlOpts');
+  if(box) box.addEventListener('click',e=>{ if(e.target.closest('[data-c="hand"]')) setTimeout(go,0); });
+})();
 function stopCam(){ camOn=false; palm=null; if(vid.srcObject){ vid.srcObject.getTracks().forEach(t=>t.stop()); vid.srcObject=null; } }
 function onHands(res){
   if(res.multiHandLandmarks&&res.multiHandLandmarks.length){

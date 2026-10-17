@@ -13,10 +13,46 @@
   var cur = [];
 
   function loadVision() {
-    if (!visionP) visionP = import(VISION + "/vision_bundle.mjs").then(function (m) {
-      return m.FilesetResolver.forVisionTasks(VISION + "/wasm").then(function (fs) { return { m: m, fs: fs }; });
-    });
+    if (!visionP) {
+      visionP = import(VISION + "/vision_bundle.mjs").then(function (m) {
+        return m.FilesetResolver.forVisionTasks(VISION + "/wasm").then(function (fs) { return { m: m, fs: fs }; });
+      });
+      visionP.catch(function () { visionP = null; });
+    }
     return visionP;
+  }
+  // Model bir marta yaratiladi va qayta o'ynashda ham ishlatiladi; o'yin menyusida usul tanlanganda oldindan yuklanadi
+  var TASKS = {
+    hand: ["HandLandmarker", MODEL + "hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task", { numHands: 1 }],
+    eye: ["FaceLandmarker", MODEL + "face_landmarker/face_landmarker/float16/1/face_landmarker.task", { numFaces: 1 }]
+  };
+  var lmP = {};
+  function landmarker(kind) {
+    if (!lmP[kind]) {
+      var t = TASKS[kind];
+      // Eski MediaPipe Hands (qo'l o'yinlari) global "Module" qoldiradi va u tasks-vision'ni buzadi (Aborted: Module.arguments…).
+      // Shuning uchun eski model yuklanib bo'lishini kutamiz va yaratish paytida global Module'ni vaqtincha olib turamiz.
+      var p = Promise.resolve(window.__kaLegacyP).catch(function () {}).then(function () {
+        var saved = window.Module, had = typeof saved !== "undefined";
+        if (had) window.Module = undefined;
+        var back = function () { if (had) window.Module = saved; };
+        return loadVision().then(function (v) {
+          var o = { baseOptions: { modelAssetPath: t[1] }, runningMode: "VIDEO" };
+          for (var k in t[2]) o[k] = t[2][k];
+          return v.m[t[0]].createFromOptions(v.fs, o);
+        }).then(function (r) { back(); return r; }, function (e) { back(); throw e; });
+      });
+      window.__kaVisionBusy = p.then(function () {}, function () {});
+      lmP[kind] = p;
+      p.catch(function () { lmP[kind] = null; });
+    }
+    return lmP[kind];
+  }
+  // Kamera va model parallel: ruxsat kutilayotganda model yuklanaveradi
+  function camAndModel(kind, onCam) {
+    var dead = false;
+    var camP = getCam().then(function (s) { if (dead) { s.getTracks().forEach(function (t) { t.stop(); }); throw new Error("bekor"); } if (onCam) onCam(s); return s; });
+    return Promise.all([camP, landmarker(kind)]).catch(function (e) { dead = true; throw e; });
   }
   function el(tag, css, parent) {
     var e = document.createElement(tag); if (css) e.style.cssText = css; (parent || document.body).appendChild(e); return e;
@@ -116,10 +152,9 @@
 
   M.hand = function (o) {
     var n = o.lanes || 3, stream, view, lm, loop = true, raf = 0;
-    return getCam().then(function (s) { stream = s; view = camView(s); return loadVision(); }).then(function (v) {
-      return v.m.HandLandmarker.createFromOptions(v.fs, { baseOptions: { modelAssetPath: MODEL + "hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task" }, runningMode: "VIDEO", numHands: 1 });
-    }).then(function (h) {
-      lm = h; var lastLane = -1, sx = null;
+    if (o.onStatus) o.onStatus("✋ Kamera va qo'l modeli yuklanmoqda…");
+    return camAndModel("hand", function (s) { stream = s; view = camView(s); }).then(function (r) {
+      lm = r[1]; var lastLane = -1, sx = null;
       function frame() {
         if (!loop) return; raf = requestAnimationFrame(frame);
         if (view.video.readyState < 2) return;
@@ -138,7 +173,7 @@
         } else if (o.onStatus) o.onStatus("✋ Qo'lingizni kameraga ko'rsating va chapga-o'ngga suring");
       }
       frame();
-      return { stop: function () { loop = false; cancelAnimationFrame(raf); try { lm.close(); } catch (e) {} stream.getTracks().forEach(function (t) { t.stop(); }); view.box.remove(); } };
+      return { stop: function () { loop = false; cancelAnimationFrame(raf); stream.getTracks().forEach(function (t) { t.stop(); }); view.box.remove(); } };
     }).catch(function (e) { try { stream && stream.getTracks().forEach(function (t) { t.stop(); }); view && view.box.remove(); } catch (x) {} throw e; });
   };
 
@@ -150,10 +185,9 @@
       var hx = (L[1].x - L[234].x) / ((L[454].x - L[234].x) || 1e-6);
       return (1 - ix) + (1 - hx) * 1.6;
     }
-    return getCam().then(function (s) { stream = s; view = camView(s); return loadVision(); }).then(function (v) {
-      return v.m.FaceLandmarker.createFromOptions(v.fs, { baseOptions: { modelAssetPath: MODEL + "face_landmarker/face_landmarker/float16/1/face_landmarker.task" }, runningMode: "VIDEO", numFaces: 1 });
-    }).then(function (f) {
-      fl = f; var lastLane = -1;
+    if (o.onStatus) o.onStatus("👁 Kamera va ko'z modeli yuklanmoqda…");
+    return camAndModel("eye", function (s) { stream = s; view = camView(s); }).then(function (r) {
+      fl = r[1]; var lastLane = -1;
       function frame() {
         if (!loop) return; raf = requestAnimationFrame(frame);
         if (view.video.readyState < 2) return;
@@ -188,7 +222,7 @@
         var a = mean(out[0]), b = mean(out[1]);
         if (Math.abs(b - a) < 0.02) throw new Error("Ko'z harakati sezilmadi");
         cal = { lo: a, hi: b };
-        return { stop: function () { loop = false; cancelAnimationFrame(raf); try { fl.close(); } catch (e) {} stream.getTracks().forEach(function (t) { t.stop(); }); view.box.remove(); } };
+        return { stop: function () { loop = false; cancelAnimationFrame(raf); stream.getTracks().forEach(function (t) { t.stop(); }); view.box.remove(); } };
       });
     }).catch(function (e) { loop = false; try { ui && ui.close(); stream && stream.getTracks().forEach(function (t) { t.stop(); }); view && view.box.remove(); } catch (x) {} throw e; });
   };
@@ -202,6 +236,12 @@
       if (!mode || mode === "tap" || !M[mode]) return Promise.resolve();
       return M[mode](opts).then(function (h) { cur.push(h); });
     },
-    stop: function () { cur.forEach(function (h) { try { h.stop(); } catch (e) {} }); cur = []; }
+    stop: function () { cur.forEach(function (h) { try { h.stop(); } catch (e) {} }); cur = []; },
+    // Menyuda usul tanlanganda chaqiriladi: ko'z/qo'l modeli "Boshlash"gacha orqada yuklanib turadi
+    preload: function (mode) {
+      var c = navigator.connection;
+      if (!TASKS[mode] || (c && (c.saveData || /2g/.test(c.effectiveType || "")))) return Promise.resolve();
+      return landmarker(mode).then(function () {}, function () {});
+    }
   };
 })();

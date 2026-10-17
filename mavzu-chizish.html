@@ -248,11 +248,16 @@
     btn.textContent="⏳ Yuklanmoqda…";btn.disabled=true;
     try{
       var v=document.getElementById("cam");
+      // qo'l modeli kamera ruxsati kutilayotganda parallel yuklanadi
+      var hp=(window.Hands?Promise.resolve():load(MP+"hands.js")).then(function(){
+        var h=new window.Hands({locateFile:function(f){return MP+f;}});
+        h.setOptions({maxNumHands:1,modelComplexity:/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)?0:1,minDetectionConfidence:.6,minTrackingConfidence:.5});
+        return h.initialize().then(function(){return h;});
+      });
+      hp.catch(function(){});
       var st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user",width:640,height:480},audio:false});
       v.srcObject=st;await v.play();v.classList.remove("off");
-      if(!window.Hands) await load(MP+"hands.js");
-      var hands=new window.Hands({locateFile:function(f){return MP+f;}});
-      hands.setOptions({maxNumHands:1,modelComplexity:/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)?0:1,minDetectionConfidence:.6,minTrackingConfidence:.5});
+      var hands=await hp;
       hands.onResults(function(r){
         var L=r.multiHandLandmarks&&r.multiHandLandmarks[0];
         if(!L){pen=false;lastP=null;cursor=null;render();return;}
