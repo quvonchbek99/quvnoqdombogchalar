@@ -175,5 +175,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki dum haqiqatan ham tulkilarga zarar yetkazardi", "Chunki u o'z kamchiligini yashirib, boshqalarni ham o'xshatmoqchi bo'ldi", "Chunki u o'rmondagi eng chiroyli dumni o'ziga olmoqchi edi"],
     javob: 1,
     izoh: "Tulki o'z kamchiligini tan olish o'rniga, uni boshqalarga ham taqsimlashga urindi. Kamchilikni yashirish uchun boshqalarni ham o'xshatish haqiqatni o'zgartirmaydi."
+  },
+  {
+    id: "ez-023", mavzu: "ehtiyotkorlik", sarlavha: "Daraxtkesar va daraxtlar",
+    matn: "Bir yog'ochsoz o'rmonga kelib, daraxtlardan unga dastak yasash uchun bir shox berishlarini so'radi. Daraxtlar bir-biriga qarab, shu kichik iltifotga rozi bo'lishdi. Yog'ochsoz dastakni yasab olgach, o'sha dastak bilan o'rmonning hamma daraxtini kesib tashladi.",
+    savol: "Daraxtlar nega o'z halokatiga o'zlari sabab bo'ldi?",
+    variantlar: ["Chunki ular yog'ochsozning kuchsiz ekanini bilmay qoldi", "Chunki ular dushmanga o'z qurolini o'zlari berdi", "Chunki ular o'rmonni tark etishga qaror qildi"],
+    javob: 1,
+    izoh: "Dushmanga o'z kuchingizning bir qismini berish, keyinchalik sizga qarshi ishlatilishi mumkin. Kichik iltifot ham katta xavfga aylanishi mumkin, shuning uchun ehtiyot bo'lish kerak."
   }
 ];
