@@ -183,5 +183,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular yog'ochsozning kuchsiz ekanini bilmay qoldi", "Chunki ular dushmanga o'z qurolini o'zlari berdi", "Chunki ular o'rmonni tark etishga qaror qildi"],
     javob: 1,
     izoh: "Dushmanga o'z kuchingizning bir qismini berish, keyinchalik sizga qarshi ishlatilishi mumkin. Kichik iltifot ham katta xavfga aylanishi mumkin, shuning uchun ehtiyot bo'lish kerak."
+  },
+  {
+    id: "ez-024", mavzu: "mantiq", sarlavha: "Tulki va xo'roz",
+    matn: "Tulki xo'rozni tutmoqchi bo'lib daraxt ostiga keldi, lekin xo'roz shoxda o'tirardi. Uzoqdan it hurgani eshitilganda xo'roz: \"Tulki aka, orqangizga qarang, itlar kelyapti!\" dedi. Tulki itlarni ko'rmoqchi bo'lib orqasiga o'girildi.",
+    savol: "Xo'roz tulkining qo'lidan qanday qutuldi?",
+    variantlar: ["Itlar kelib, tulkini quvib yubordi", "Tulki orqasiga o'girilganda, xo'roz uchib qochdi", "Xo'roz tulkini daraxtdan yiqitib tashladi"],
+    javob: 1,
+    izoh: "Tulki bir lahzaga xo'rozdan e'tiborini olib qochdi va xo'roz aynan shu lahzadan foydalanib uchib ketdi. Raqibning e'tiborini chalg'itish ko'pincha g'alabaga olib keladi."
   }
 ];
