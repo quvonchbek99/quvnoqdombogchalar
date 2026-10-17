@@ -276,7 +276,7 @@
     "*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:" + TH.bg + ";color:#eef2ff;font-family:" + FONT + ";touch-action:none;-webkit-user-select:none;user-select:none}",
     "#kv-c{position:fixed;inset:0;width:100%;height:100%;display:block}",
     "#kv-v{position:fixed;width:2px;height:2px;opacity:0;pointer-events:none;left:0;top:0}",
-    ".kv-hud{position:fixed;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:10px 14px;gap:10px;pointer-events:none;z-index:5}",
+    ".kv-hud{position:fixed;top:0;left:0;right:0;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;padding:10px 14px;gap:10px;pointer-events:none;z-index:5}",
     ".kv-pill{pointer-events:auto;background:rgba(0,0,0,.45);border:1px solid " + TH.acc + "55;border-radius:999px;padding:6px 14px;font-weight:700;font-size:15px;color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap;text-decoration:none}",
     ".kv-q{position:fixed;top:54px;left:50%;transform:translateX(-50%);max-width:94vw;text-align:center;font-weight:800;font-size:clamp(22px,4.6vw,44px);color:#fff;text-shadow:0 0 18px " + TH.acc + ",0 0 4px " + TH.acc + ";pointer-events:none;z-index:5;line-height:1.2;transition:transform .15s}",
     ".kv-q.bump{transform:translateX(-50%) scale(1.12)}",
@@ -333,6 +333,23 @@
   body.appendChild(hud);
   setTimeout(function () { var mb = document.getElementById("kv-mus"); if (!mb) return; if (G.m === "poyga") { mb.style.display = "none"; return; } var upd = function () { mb.textContent = MUS ? "🎵 Musiqa" : "🔇 Musiqa"; }; upd(); mb.onclick = function () { MUS = !MUS; try { localStorage.setItem("kav.music", MUS ? "1" : "0"); } catch (e) {} upd(); if (MUS) musicStart(); else musicStop(); }; }, 0);
   var qEl = document.createElement("div"); qEl.className = "kv-q"; body.appendChild(qEl);
+  // Til tanlagichi va 🎓 IELTS (ka-til.js, ka-ielts.js) chap yuqorida qotirilgan — ⭐ ochko va boshqa yozuvlar ular ostida qolmasin:
+  // ular egallagan joyni bo'sh qoldiramiz; tor ekranda yozuvlar 2-qatorga tushadi, savol esa ulardan pastga suriladi
+  var hudShift = 0;
+  function dockHud() {
+    var back = hud.querySelector("a"), right = 0, bottom = 0;
+    if (!back) return;
+    ["ka-til-box", "ka-ielts"].forEach(function (id) { var e = document.getElementById(id); if (!e) return; var r = e.getBoundingClientRect(); if (r.width && r.top < 60) { right = Math.max(right, r.right); bottom = Math.max(bottom, r.bottom + 8); } });
+    back.style.marginRight = "";
+    if (right) back.style.marginRight = Math.max(0, Math.ceil(right + 10 - back.getBoundingClientRect().right)) + "px";
+    Array.prototype.forEach.call(hud.children, function (c) { var r = c.getBoundingClientRect(); if (r.height) bottom = Math.max(bottom, r.bottom + 12); });
+    var top = Math.max(54, Math.round(bottom));
+    qEl.style.top = top + "px"; hudShift = top - 54;
+  }
+  window.addEventListener("resize", dockHud); window.addEventListener("load", dockHud);
+  window.addEventListener("ka-til", function () { setTimeout(dockHud, 60); });
+  document.addEventListener("DOMContentLoaded", function () { setTimeout(dockHud, 0); setTimeout(dockHud, 700); });
+  setTimeout(dockHud, 1600);
   var subEl = document.createElement("div"); subEl.className = "kv-sub"; body.appendChild(subEl);
   var loadEl = document.createElement("div"); loadEl.className = "kv-load"; loadEl.innerHTML = '<div class="kv-spin"></div><div id="kv-lt">KAMERA YUKLANMOQDA…</div>'; body.appendChild(loadEl);
   var ov = document.createElement("div"); ov.className = "kv-ov"; body.appendChild(ov);
@@ -1417,7 +1434,7 @@
     var BT = { chk: { l: "✔ Tekshirish" }, clr: { l: "🗑 Tozalash" }, undo: { l: "↩ Bekor" }, col: { l: "🎨 Rang" } };
     // --- geometriya: doska va koordinatalar ---
     function geo() {
-      var bx = Math.max(12, W * 0.03), by = FREE ? 60 : 118, side = W > 700 ? 150 : 0, bw = W - bx * 2 - side, bh = H - by - (side ? (FREE ? 70 : 18) : (FREE ? 205 : 92));
+      var bx = Math.max(12, W * 0.03), by = (FREE ? 60 : 118) + hudShift, side = W > 700 ? 150 : 0, bw = W - bx * 2 - side, bh = H - by - (side ? (FREE ? 70 : 18) : (FREE ? 205 : 92));
       var u = Math.min(bw / 12, bh / 10); if (u * 10 > bh) u = bh / 10;
       var X = bw / u / 2, Y = bh / u / 2;
       return { x: bx, y: by, w: bw, h: bh, u: u, cx: bx + bw / 2, cy: by + bh / 2, X: X, Y: Y, side: side };
