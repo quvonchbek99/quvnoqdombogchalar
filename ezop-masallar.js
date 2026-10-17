@@ -191,5 +191,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Itlar kelib, tulkini quvib yubordi", "Tulki orqasiga o'girilganda, xo'roz uchib qochdi", "Xo'roz tulkini daraxtdan yiqitib tashladi"],
     javob: 1,
     izoh: "Tulki bir lahzaga xo'rozdan e'tiborini olib qochdi va xo'roz aynan shu lahzadan foydalanib uchib ketdi. Raqibning e'tiborini chalg'itish ko'pincha g'alabaga olib keladi."
+  },
+  {
+    id: "ez-025", mavzu: "ehtiyotkorlik", sarlavha: "Bola va yong'oq solingan idish",
+    matn: "Bola tor og'izli idishga solingan yong'oqlardan olmoqchi bo'lib, qo'lini ichkariga tiqdi. U mutthi to'la yong'oq olmoqchi bo'ldi va qo'li idish og'zidan chiqmay qoldi. Qo'lini bo'shatish uchun yong'oqlarning bir qismini qo'yib yuborishi kerak edi, lekin u hammasini mahkam ushlab turdi.",
+    savol: "Bola qo'lini nega chiqara olmadi?",
+    variantlar: ["Chunki u ko'p yong'oq olmoqchi bo'lib, mutthini bo'shatmadi", "Chunki idish sinib, og'zi torayib ketgan edi", "Chunki yong'oqlar juda qattiq edi va qo'li og'rigan edi"],
+    javob: 0,
+    izoh: "Ko'proq olishga intilish qo'lni band qilib qo'ydi. Ozroq olib, mutthini bo'shatganida, bola osongina chiqib ketardi."
   }
 ];
