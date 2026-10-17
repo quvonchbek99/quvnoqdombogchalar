@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milliy sertifikat va SAT Math tayyorlov — Kuvonch Academy</title>
+<meta name="description" content="Matematikadan Milliy sertifikat va SAT Math imtihoniga tayyorlov: mavzular, vaqtli sinov imtihonlari, xatolar tahlili va mustahkamlash rejasi.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="canonical" href="https://kuvonch.uz/sertifikat.html">
+<meta property="og:title" content="Milliy sertifikat va SAT Math — Kuvonch Academy">
+<meta property="og:description" content="Vaqtli sinov imtihonlari, mavzular bo'yicha testlar va mustahkamlash rejasi.">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<script async src="statistika.js"></script>
+<style>
+:root{--bg:#0b1220;--soft:#111a2e;--card:#141f38;--bd:#243252;--tx:#eef2ff;--dim:#9fb0d0;--ac:#5ee6c7;--ac2:#7c9bff;--gold:#ffd479;--bad:#ff8585;--sat:#f9a8d4}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(circle at 20% 0%,#16213f 0%,var(--bg) 55%);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--ac)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px 80px}
+header{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap;align-items:center}
+header a{color:var(--dim);text-decoration:none;font-weight:600}
+h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
+.sub{color:var(--dim);margin:0 0 16px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tab{border:1px solid var(--bd);background:var(--soft);color:var(--dim);padding:11px 18px;border-radius:999px;font:800 14px/1 inherit;cursor:pointer}
+.tab[aria-selected=true]{background:var(--ac2);color:#0b1220;border-color:transparent}
+.tab.sat[aria-selected=true]{background:var(--sat)}
+.pane{display:none}.pane.on{display:block}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin:14px 0}
+.card h2{margin:0 0 8px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.chip{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--bd);border-radius:12px;background:var(--soft);color:var(--tx);text-decoration:none;font-size:14px}
+.chip:hover{border-color:var(--ac)}
+.chip .n{color:var(--ac2);font-weight:800;min-width:28px}
+.exam{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:13px 20px;font:800 15px/1 inherit;cursor:pointer;background:var(--ac);color:#06231d;text-decoration:none}
+.btn.gh{background:var(--soft);color:var(--tx);border:1px solid var(--bd)} .btn.sat{background:var(--sat);color:#2a0b1e}
+.sel{background:var(--soft);border:1px solid var(--bd);color:var(--tx);border-radius:10px;padding:10px 12px;font:700 14px/1 inherit}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.kpi div{background:#0e1628;border:1px solid var(--bd);border-radius:12px;padding:12px;text-align:center}
+.kpi b{display:block;font-size:24px;color:var(--ac)}
+.kpi small{color:var(--dim)}
+.plan li{margin:6px 0}
+.note{font-size:13px;color:var(--dim)}
+.hist{font-size:14px;color:var(--dim);margin-top:8px}
+.hist b{color:var(--tx)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a href="index.html">← Kuvonch Academy</a><span><a href="mashqlar.html">Mashqlar</a> · <a href="ai-slayd.html">🤖 AI slayd</a> · <a href="premium.html" style="color:var(--gold)">💎 Premium</a></span></header>
+
+<h1>🎓 Milliy sertifikat va SAT Math</h1>
+<p class="sub">Imtihon formatiga yaqin <b>vaqtli sinov testlari</b>: savollar har safar yangi, oxirida xatolar tahlili va qaysi mavzuni mustahkamlash kerakligi aytiladi. Test yarmida chiqib ketsangiz ham — natija saqlanadi, davom etasiz.</p>
+
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-p="ms">🇺🇿 Milliy sertifikat</button>
+  <button class="tab sat" role="tab" aria-selected="false" data-p="sat">🌍 SAT Math</button>
+</div>
+
+<!-- ============ MILLIY SERTIFIKAT ============ -->
+<section class="pane on" id="p-ms">
+  <div class="card">
+    <h2>📝 Sinov imtihoni</h2>
+    <p class="note">Darslikning 15 bobidan tanlangan 20 mavzu (51–70) bo'yicha aralash savollar. Rasmiy format va sanalar: <a href="https://uzbmb.uz" target="_blank" rel="noopener">uzbmb.uz</a>.</p>
+    <div class="exam">
+      <select class="sel" id="msN"><option value="20">20 savol</option><option value="30" selected>30 savol</option><option value="40">40 savol</option><option value="60">60 savol</option></select>
+      <select class="sel" id="msL"><option value="0" selected>Aralash (oson→murakkab)</option><option value="1">Oson</option><option value="2">O'rta</option><option value="3">Murakkab</option></select>
+      <select class="sel" id="msT"><option value="2">2 daq/savol</option><option value="3" selected>3 daq/savol</option><option value="4">4 daq/savol</option><option value="0">Vaqtsiz</option></select>
+      <button class="btn" id="msGo">▶ Sinovni boshlash</button>
+      <button class="btn gh" id="msDiag">🎯 Darajani aniqlash (3 savol)</button>
+    </div>
+    <div class="hist" id="msHist"></div>
+  </div>
+  <div class="card">
+    <h2>📚 Mavzular (51–70) — har birida alohida test va o'yinlar</h2>
+    <div class="grid" id="msTopics"></div>
+  </div>
+  <div class="card">
+    <h2>🗓 4 haftalik tayyorlov rejasi</h2>
+    <ol class="plan">
+      <li><b>1-hafta — Sonlar va algebra asoslari:</b> 61, 56, 57, 51, 52, 62 · har kuni 1 mavzu: xossalar → «Oson» test 10 ta → «O'rta» 20 ta.</li>
+      <li><b>2-hafta — Tenglama va tengsizliklar:</b> 53, 63, 64, 65, 66, 67 · kuniga 2 ta «O'rta» test, xatolarni daftarga yozish.</li>
+      <li><b>3-hafta — Funksiya, trigonometriya, progressiya:</b> 54, 55, 58, 68, 69 · «Murakkab» testlar, <a href="mashqlar.html#grafik">Desmos</a> bilan grafiklar.</li>
+      <li><b>4-hafta — Hosila, integral va umumiy sinov:</b> 59, 60, 70 · har kuni 1 ta 40 savollik sinov imtihoni, «Nimani mustahkamlash kerak» bo'yicha qaytish.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ SAT ============ -->
+<section class="pane" id="p-sat">
+  <div class="card">
+    <h2>📝 SAT Math sinovi</h2>
+    <p class="note">Digital SAT Math: 2 modul × 22 savol, 35 daqiqa har biri (≈1,6 daqiqa/savol), kalkulyatorga ruxsat. Mavzular: Algebra · Advanced Math · Problem-Solving & Data Analysis · Geometry & Trigonometry. Rasmiy ma'lumot: <a href="https://satsuite.collegeboard.org" target="_blank" rel="noopener">collegeboard.org</a>.</p>
+    <div class="kpi"><div><b>22</b><small>savol / modul</small></div><div><b>35</b><small>daqiqa / modul</small></div><div><b>200–800</b><small>Math ball</small></div><div><b>4</b><small>bo'lim</small></div></div>
+    <div class="exam">
+      <select class="sel" id="satN"><option value="22" selected>1 modul — 22 savol</option><option value="44">2 modul — 44 savol</option><option value="10">Qisqa — 10 savol</option></select>
+      <select class="sel" id="satS"><option value="all" selected>Barcha bo'limlar</option><option value="alg">Algebra</option><option value="adv">Advanced Math</option><option value="data">Problem-Solving & Data</option><option value="geo">Geometry & Trig</option></select>
+      <select class="sel" id="satT"><option value="1.6" selected>SAT vaqti (1,6 daq/savol)</option><option value="3">3 daq/savol</option><option value="0">Vaqtsiz</option></select>
+      <button class="btn sat" id="satGo">▶ SAT sinovini boshlash</button>
+    </div>
+    <div class="hist" id="satHist"></div>
+  </div>
+  <div class="card">
+    <h2>🧭 SAT bo'limlari → saytdagi mavzular</h2>
+    <div class="grid" id="satTopics"></div>
+  </div>
+  <div class="card">
+    <h2>💡 SAT uchun strategiya</h2>
+    <ol class="plan">
+      <li>Avval «Qisqa — 10 savol»da vaqt hissini oling: 1 savolga 1,5 daqiqa.</li>
+      <li>Har bo'limdan «O'rta» testni 20 ta savol bilan ishlang; 80% dan past bo'lsa — mavzu xossalariga qayting.</li>
+      <li>Haftada 2 marta to'liq 44 savollik sinov; xatolar tahlilidagi yechim qadamlarini ingliz tilida ham o'qing (sayt tilini 🌐 English qiling).</li>
+      <li>Desmos — SAT'da ruxsat etilgan kalkulyator: <a href="mashqlar.html#grafik">grafik taxtasida</a> mashq qiling.</li>
+    </ol>
+  </div>
+</section>
+</div>
+
+<script src="ka-qidiruv.js"></script>
+<script src="ka-savollar.js"></script>
+<script src="ka-savollar-2.js"></script><script src="ka-savollar-3.js"></script><script src="ka-savollar-4.js"></script><script src="ka-savollar-5.js"></script>
+<script src="ka-savollar-6.js"></script><script src="ka-savollar-7.js"></script><script src="ka-savollar-8.js"></script><script src="ka-savollar-9.js"></script><script src="ka-savollar-10.js"></script>
+<script src="ka-test.js?v=20261017b"></script>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var MS=[];for(var i=51;i<=70;i++)MS.push("t"+i);
+  var SAT={
+    alg:["t10","t11","t12","t13","t53","t56","t8","t5","t6","t7"],
+    adv:["t1","t2","t14","t15","t51","t52","t62","t63","t64","t66","t19","t20","t65"],
+    data:["t56","t57","t37","t39","t92","t93","t90","t91","t27","t8"],
+    geo:["t71","t72","t73","t74","t82","t83","t85","t86","t3","t68","t75","t77","t79"]
+  };
+  SAT.all=[].concat(SAT.alg,SAT.adv,SAT.data,SAT.geo);
+  var pick=function(a){return a[Math.floor(Math.random()*a.length)]};
+  function reg(id,list,title){ window.kaSavol.register(id,function(L){ var t=pick(list.filter(function(x){return window.kaSavol.has(x)})); return window.kaSavol.get(t,L); },title); }
+  reg("sertifikat",MS,"Milliy sertifikat — sinov imtihoni");
+  Object.keys(SAT).forEach(function(k){reg("sat-"+k,SAT[k],"SAT Math — "+({all:"to'liq",alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"})[k]);});
+  function titleOf(id){var m=(window.KA_MAVZULAR||[]).filter(function(x){return x.id===id})[0];return m?m.n:id}
+  function chips(host,ids,label){ host.innerHTML=ids.map(function(id){var n=titleOf(id).replace(/^(\d+)\.\s*/,""),num=(titleOf(id).match(/^\d+/)||[""])[0];return '<a class="chip" href="mashqlar.html#'+id+'"><span class="n">'+num+'</span><span>'+n+'</span></a>'}).join(""); }
+  chips($("#msTopics"),MS);
+  var satHost=$("#satTopics"), names={alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"};
+  satHost.innerHTML=Object.keys(names).map(function(k){return '<div><b style="color:var(--sat)">'+names[k]+'</b><div class="grid" style="margin-top:6px">'+SAT[k].map(function(id){var t=titleOf(id);return '<a class="chip" href="mashqlar.html#'+id+'"><span class="n">'+(t.match(/^\d+/)||[""])[0]+'</span><span>'+t.replace(/^(\d+)\.\s*/,"")+'</span></a>'}).join("")+'</div></div>'}).join("");
+  // tabs
+  document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){document.querySelectorAll(".tab").forEach(function(x){x.setAttribute("aria-selected",x===b)});document.querySelectorAll(".pane").forEach(function(p){p.classList.toggle("on",p.id==="p-"+b.dataset.p)});location.hash=b.dataset.p}});
+  if(location.hash==="#sat")$(".tab.sat").click();
+  // history
+  function hist(id,host){try{var h=JSON.parse(localStorage.getItem("kt.hist")||"[]").filter(function(x){return x.topic===id||x.topic.indexOf(id)===0}).slice(0,5);host.innerHTML=h.length?"Oxirgi natijalar: "+h.map(function(x){return "<b>"+x.pc+"%</b> ("+x.ok+"/"+x.n+")"}).join(" · "):""}catch(e){}}
+  hist("sertifikat",$("#msHist")); hist("sat",$("#satHist"));
+  $("#msGo").onclick=function(){ window.kaTest.run("sertifikat","Milliy sertifikat — sinov",+$("#msL").value,+$("#msN").value,"variant",{perQ:+$("#msT").value}); };
+  $("#msDiag").onclick=function(){ window.kaTest.run("sertifikat","Milliy sertifikat",0,3,"variant",{diag:true,perQ:3,count0:+$("#msN").value}); };
+  $("#satGo").onclick=function(){ var k=$("#satS").value; window.kaTest.run("sat-"+k,"SAT Math — "+({all:"to'liq sinov",alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"})[k],0,+$("#satN").value,"variant",{perQ:+$("#satT").value}); };
+  document.addEventListener("ka:test-done",function(){hist("sertifikat",$("#msHist"));hist("sat",$("#satHist"))});
+})();
+</script>
+<script src="ka-til.js"></script>
+<script src="ka-effektlar.js"></script>
+</body>
+</html>

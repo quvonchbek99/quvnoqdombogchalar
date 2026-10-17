@@ -143,7 +143,8 @@
   function saveState(st) { try { localStorage.setItem(SKEY, JSON.stringify(st)); } catch (e) {} }
   function loadState() { try { return JSON.parse(localStorage.getItem(SKEY) || "null"); } catch (e) { return null; } }
   function clearState() { try { localStorage.removeItem(SKEY); } catch (e) {} }
-  function topicTitle(id) { var h = $("#" + id + " h2"); return h ? h.textContent.replace(/^\s*\d+\.\s*/, "").trim() : id; }
+  function topicTitle(id) { var h = $("#" + id + " h2"); if (h) return h.textContent.replace(/^\s*\d+\.\s*/, "").trim(); try { var t = window.kaSavol && window.kaSavol.title(id); if (t && t !== id) return t; } catch (e) {} return (window.KA_MAVZULAR || []).filter(function (m) { return m.id === id; }).map(function (m) { return m.n; })[0] || id; }
+  function topicHref(id) { return (/mashqlar\.html$/.test(location.pathname) ? "" : "mashqlar.html") + "#" + id; }
   function lvName(l) { return l === 1 ? "Oson" : l === 2 ? "O'rta" : l === 3 ? "Murakkab" : "Aralash"; }
 
   /* ---------- Test o'ynash ---------- */
@@ -289,7 +290,7 @@
       items.forEach(function (t) {
         var o = byT[t], lvs = [1, 2, 3].filter(function (L) { return o.lv[L]; }).map(function (L) { return lvName(L) + " " + o.lv[L]; }).join(" · ");
         html += '<div class="w"><b>' + esc(topicTitle(t)) + "</b> — " + o.w + "/" + o.n + " xato (" + lvs + ")" +
-          '<div class="acts"><a href="#' + t + '" data-a="goto">📖 Xossalarni o\'qish</a><button type="button" data-a="easy" data-t="' + t + '">🟢 Oson test (10 ta)</button>' +
+          '<div class="acts"><a href="' + topicHref(t) + '" data-a="goto">📖 Xossalarni o\'qish</a><button type="button" data-a="easy" data-t="' + t + '">🟢 Oson test (10 ta)</button>' +
           (window.KA_OYINLAR ? '<a href="mashqlar.html#' + t + '" data-a="goto">🎮 Mos o\'yinlar</a>' : "") + "</div></div>";
       });
       return html + (items.length ? "" : '<div class="ok">🎉 Hech qaysi bo\'limda xato yo\'q.</div>') + "</div>";

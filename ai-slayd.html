@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI dars slaydlari va test tayyorlash — Kuvonch Academy Pro</title>
+<meta name="description" content="Mavzuni tanlang — sun'iy intellekt 1 daqiqada dars slaydlari (PPTX), test va uy vazifasi tayyorlaydi. 3 ta bepul, keyin Pro obuna.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="canonical" href="https://kuvonch.uz/ai-slayd.html">
+<meta property="og:title" content="AI dars slaydlari va test — Kuvonch Academy Pro">
+<meta property="og:description" content="Mavzuni yozing — slaydlar, test va uy vazifasi tayyor. 3 ta bepul.">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<script async src="statistika.js"></script>
+<style>
+:root{--bg:#0b1220;--soft:#111a2e;--card:#141f38;--bd:#243252;--tx:#eef2ff;--dim:#9fb0d0;--ac:#5ee6c7;--ac2:#7c9bff;--gold:#ffd479;--bad:#ff8585;--pro:#a78bfa}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(circle at 20% 0%,#16213f 0%,var(--bg) 55%);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--ac)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px 80px}
+header{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap;align-items:center}
+header a{color:var(--dim);text-decoration:none;font-weight:600}
+h1{font-size:clamp(22px,4.5vw,32px);margin:22px 0 6px}
+.sub{color:var(--dim);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin:14px 0}
+.badge{display:inline-block;font:800 11px/1 inherit;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:6px 10px;background:#0e1628;border:1px solid var(--bd);color:var(--gold)}
+.badge.pro{color:var(--pro);border-color:var(--pro)} .badge.ok{color:var(--ac);border-color:var(--ac)}
+label{display:block;font:700 12px/1 inherit;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px}
+input[type=text],select,textarea{width:100%;background:var(--soft);border:1px solid var(--bd);color:var(--tx);border-radius:12px;padding:12px 14px;font:inherit;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--ac2)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--bd);background:var(--soft);color:var(--tx);border-radius:999px;padding:9px 14px;font:700 13px/1 inherit;cursor:pointer}
+.chip.on{background:var(--ac2);color:#0b1220;border-color:transparent}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:13px 20px;font:800 15px/1 inherit;cursor:pointer;background:var(--ac);color:#06231d;text-decoration:none}
+.btn.gh{background:var(--soft);color:var(--tx);border:1px solid var(--bd)} .btn.pro{background:linear-gradient(135deg,var(--pro),var(--ac2));color:#0b1220}
+.btn:disabled{opacity:.5;cursor:default}
+.quota{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--dim)}
+.quota b{color:var(--tx)}
+.dots{display:inline-flex;gap:5px}.dots i{width:12px;height:12px;border-radius:50%;background:#243252}.dots i.on{background:var(--ac)}
+.msg{min-height:1.4em;font-size:14px;color:var(--dim);margin-top:10px}.msg.bad{color:var(--bad)}.msg.ok{color:var(--ac)}
+/* slayd ko'rinish */
+.deck{display:none;margin-top:16px}
+.deck.on{display:block}
+.slide{aspect-ratio:16/9;background:linear-gradient(135deg,#1a2550,#0f2a3a);border:1px solid #3a5a9a;border-radius:16px;padding:clamp(16px,4vw,40px);display:flex;flex-direction:column;justify-content:center;gap:10px;position:relative;overflow:hidden}
+.slide::before{content:"π";position:absolute;right:-10px;bottom:-30px;font:900 180px/1 Georgia,serif;color:rgba(255,255,255,.04)}
+.slide h2{margin:0;font-size:clamp(18px,3.2vw,32px);color:#fff}
+.slide ul{margin:0;padding-left:22px;font-size:clamp(14px,2vw,20px);color:#e6ecff}
+.slide li{margin:4px 0}
+.slide .f{font:clamp(14px,2.2vw,22px) ui-monospace,Menlo,Consolas,monospace;color:var(--gold);background:rgba(0,0,0,.25);border-radius:10px;padding:8px 12px;display:inline-block}
+.slide .num{position:absolute;right:14px;top:12px;font:700 12px/1 inherit;color:rgba(255,255,255,.5)}
+.deck-nav{display:flex;gap:8px;align-items:center;justify-content:center;margin:10px 0;flex-wrap:wrap}
+.note{background:#0e1628;border:1px solid var(--bd);border-radius:12px;padding:10px 14px;font-size:14px;color:#c9d4ff;margin-top:8px}
+/* test */
+.test ol{padding-left:22px}.test li{margin:10px 0}.test .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:6px;margin:6px 0}
+.test .opts span{background:var(--soft);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;font-size:14px}
+.test .ans{color:var(--ac);font-size:13px}
+.key{font-size:13px;color:var(--dim)}
+details summary{cursor:pointer;color:var(--dim);font-weight:700}
+@media print{body{background:#fff;color:#000}header,.card.form,.deck-nav,.btn,.quota{display:none!important}.card{border:0;padding:0}.slide{page-break-after:always;color:#000;background:#fff;border:1px solid #ccc}.slide h2,.slide ul{color:#000}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a href="index.html">← Kuvonch Academy</a><span><a href="mashqlar.html">Mashqlar</a> · <a href="premium.html" style="color:var(--gold)">💎 Premium</a></span></header>
+
+<h1>🤖 AI dars slaydlari va test</h1>
+<p class="sub">Mavzuni yozing — sun'iy intellekt dars slaydlari, test (javoblari bilan) va uy vazifasini tayyorlaydi. Slaydlarni <b>PPTX</b> qilib yuklab olasiz. Avval <b>3 ta bepul</b>, keyin <span class="badge pro">Pro</span> obuna (30 000 so'm / yil).</p>
+
+<section class="card form">
+  <div class="quota"><span>Bepul urinishlar:</span><span class="dots" id="dots"><i></i><i></i><i></i></span><span id="qtext"></span><span id="prostate"></span></div>
+
+  <label>Mavzu</label>
+  <input type="text" id="mavzu" list="mavzular" placeholder="Masalan: Kvadrat tenglamalar, Logarifm xossalari, Pifagor teoremasi…">
+  <datalist id="mavzular"></datalist>
+
+  <div class="row">
+    <div><label>Sinf / bosqich</label><select id="sinf"><option>5-sinf</option><option>6-sinf</option><option>7-sinf</option><option>8-sinf</option><option>9-sinf</option><option>10-sinf</option><option selected>11-sinf / 1-kurs</option><option>2-kurs (texnikum)</option><option>Milliy sertifikat</option><option>SAT Math</option></select></div>
+    <div><label>Fan</label><select id="fan"><option selected>Matematika</option><option>Algebra</option><option>Geometriya</option><option>Fizika</option><option>Informatika</option><option>Rus tili</option><option>Ingliz tili</option><option>Boshqa (mavzuda yozing)</option></select></div>
+    <div><label>Til</label><select id="til"><option value="o'zbek (lotin)" selected>O'zbek</option><option value="rus">Rus</option><option value="ingliz">Ingliz</option></select></div>
+  </div>
+
+  <label>Nima tayyorlansin</label>
+  <div class="chips" id="what">
+    <button class="chip on" data-k="slayd">📊 Dars slaydlari (10 ta)</button>
+    <button class="chip on" data-k="test">📝 Test</button>
+    <button class="chip" data-k="uy">🏠 Uy vazifasi</button>
+    <button class="chip" data-k="reja">📋 Dars rejasi (45 daqiqa)</button>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <div><label>Test savollari</label><select id="tn"><option>10</option><option selected>20</option><option>30</option></select></div>
+    <div><label>Qiyinlik</label><select id="lvl"><option>Oson</option><option selected>O'rta</option><option>Murakkab</option><option>Aralash</option></select></div>
+  </div>
+
+  <label>Qo'shimcha istak (ixtiyoriy)</label>
+  <textarea id="izoh" rows="2" placeholder="Masalan: har slaydda hayotiy misol bo'lsin; testda 2 ta masala so'z bilan…"></textarea>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
+    <button class="btn" id="go">✨ Tayyorlash</button>
+    <a class="btn pro" href="premium.html" id="probtn" hidden>💎 Pro obuna — cheksiz</a>
+    <details style="font-size:13px"><summary>⚙️ API sozlamasi</summary>
+      <div class="note">Bepul rejim: Google Gemini API (bepul tarif). Variantlar: (1) o'qituvchi o'z bepul kalitini kiritadi — <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>; (2) sayt egasi kalitni Cloudflare Worker'ga (bepul) joylab, pastga manzilini yozadi — repo'dagi <code>tools/ai-worker.js</code>.
+        <label>Gemini API kalit (faqat shu brauzerda saqlanadi)</label><input type="text" id="key" placeholder="AIza…">
+        <label>Yoki Worker manzili</label><input type="text" id="worker" placeholder="https://kuvonch-ai.xxx.workers.dev">
+        <button class="btn gh" id="savecfg" style="margin-top:8px">Saqlash</button>
+      </div>
+    </details>
+  </div>
+  <div class="msg" id="msg"></div>
+</section>
+
+<section class="card deck" id="deckCard">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+    <b id="deckTitle">📊 Slaydlar</b>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn gh" id="pptx">⬇ PPTX yuklab olish</button><button class="btn gh" id="fs">⛶ To'liq ekran</button><button class="btn gh" onclick="window.print()">🖨 Chop / PDF</button></div>
+  </div>
+  <div id="slideHost" style="margin-top:12px"></div>
+  <div class="deck-nav"><button class="btn gh" id="prev">←</button><span id="pos" class="key"></span><button class="btn gh" id="next">→</button></div>
+  <div class="note" id="speaker"></div>
+</section>
+
+<section class="card deck test" id="testCard">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><b>📝 Test</b><div style="display:flex;gap:8px"><button class="btn gh" id="copyTest">📋 Nusxa (Word'ga)</button><button class="btn gh" id="toggleKey">🔑 Javoblarni ko'rsatish</button></div></div>
+  <ol id="testHost"></ol>
+</section>
+<section class="card deck" id="uyCard"><b>🏠 Uy vazifasi</b><ol id="uyHost"></ol></section>
+<section class="card deck" id="rejaCard"><b>📋 Dars rejasi</b><div id="rejaHost"></div></section>
+</div>
+
+<script src="ka-bulut.js"></script>
+<script src="akkount.js"></script>
+<script src="ka-qidiruv.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var FREE=3, LS="ka.ai.used", CFG="ka.ai.cfg";
+  // sayt egasi: Worker manzilini shu yerga yozsa, o'qituvchilarga kalit kerak bo'lmaydi
+  var DEFAULT_WORKER = "";
+  function cfg(){try{return JSON.parse(localStorage.getItem(CFG)||"{}")}catch(e){return{}}}
+  function used(){return +(localStorage.getItem(LS)||0)}
+  var pro=false;
+  function drawQuota(){
+    var u=used(), d=$("#dots").children; for(var i=0;i<3;i++)d[i].className=i<u?"":"on";
+    $("#qtext").textContent=pro?"":(Math.max(0,FREE-u)+" ta qoldi");
+    $("#prostate").innerHTML=pro?'<span class="badge ok">💎 Pro — cheksiz</span>':"";
+    $("#probtn").hidden=pro||u<FREE; $("#go").disabled=!pro&&u>=FREE;
+    if(!pro&&u>=FREE)$("#msg").innerHTML='Bepul 3 ta urinish tugadi. <a href="premium.html">Pro obuna</a> (30 000 so\'m/yil) bilan cheksiz tayyorlang — yoki ⚙️ bo\'limida o\'z bepul Gemini kalitingizni kiriting.';
+  }
+  // Pro holati (Firebase)
+  (async function(){ try{ if(window.kaCloud&&window.kaCloud.premiumStatus){var s=await window.kaCloud.premiumStatus(); pro=!!s.active;} }catch(e){} drawQuota(); })();
+  drawQuota();
+  // mavzular ro'yxati
+  (window.KA_MAVZULAR||[]).forEach(function(m){var o=document.createElement("option");o.value=m.n.replace(/^[A\d]+\.\s*/,"");$("#mavzular").appendChild(o)});
+  var c=cfg(); $("#key").value=c.key||""; $("#worker").value=c.worker||"";
+  $("#savecfg").onclick=function(){localStorage.setItem(CFG,JSON.stringify({key:$("#key").value.trim(),worker:$("#worker").value.trim()}));$("#msg").className="msg ok";$("#msg").textContent="Saqlandi."};
+  var what={slayd:1,test:1,uy:0,reja:0};
+  document.querySelectorAll("#what .chip").forEach(function(b){b.onclick=function(){what[b.dataset.k]=!what[b.dataset.k];b.classList.toggle("on",!!what[b.dataset.k])}});
+
+  function prompt(){
+    var m=$("#mavzu").value.trim(), parts=[];
+    if(what.slayd)parts.push('"slides": 10 ta slayd massivi: har biri {"title": sarlavha, "bullets": 3-5 ta qisqa punkt (formulalar ^ va oddiy belgilar bilan), "formula": asosiy formula yoki "", "note": o\'qituvchi uchun 1-2 jumla izoh}. 1-slayd: mavzu va maqsad; 2: hayotiy misol/motivatsiya; 3-6: tushuntirish va ta\'rif; 7-8: namunaviy yechim qadam-baqadam; 9: tez test (3 savol); 10: xulosa.');
+    if(what.test)parts.push('"test": '+$("#tn").value+' ta savol massivi, qiyinlik: '+$("#lvl").value+': har biri {"q": savol, "options": 4 ta variant, "correct": to\'g\'ri variant indeksi 0-3, "explain": 1 jumla yechim}. Variantlar turli, javoblar tarqoq (hammasi A bo\'lmasin).');
+    if(what.uy)parts.push('"homework": 6-8 ta uy vazifasi masalalari massivi: {"q": masala, "a": qisqa javob}.');
+    if(what.reja)parts.push('"plan": 45 daqiqalik dars rejasi: {"goal": maqsad, "stages": [{"min": daqiqa, "name": bosqich, "what": nima qilinadi}], "assess": baholash usuli}.');
+    return "Sen tajribali "+$("#fan").value+" o'qituvchisisan. Mavzu: \""+m+"\". Auditoriya: "+$("#sinf").value+". Til: "+$("#til").value+". "+($("#izoh").value.trim()?"Qo'shimcha: "+$("#izoh").value.trim()+". ":"")+
+      "FAQAT JSON qaytar (markdown, izoh, ``` belgilarsiz). JSON kalitlari: "+parts.join(" ")+" Barcha matn ko'rsatilgan tilda, aniq va sodda bo'lsin.";
+  }
+  async function callAI(txt){
+    var c=cfg(), body={contents:[{parts:[{text:txt}]}],generationConfig:{temperature:0.6,responseMimeType:"application/json"}};
+    var worker=c.worker||DEFAULT_WORKER;
+    if(worker){var r=await fetch(worker.replace(/\/$/,"")+"/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}); if(!r.ok)throw new Error("Worker xatosi: "+r.status); return r.json();}
+    if(!c.key)throw new Error("API ulanmagan: ⚙️ bo'limida Gemini kalit yoki Worker manzilini kiriting.");
+    var r2=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="+encodeURIComponent(c.key),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    if(!r2.ok){var e=await r2.text();throw new Error("Gemini xatosi "+r2.status+": "+e.slice(0,200));}
+    return r2.json();
+  }
+  function parseOut(j){
+    var t=(((j.candidates||[])[0]||{}).content||{}).parts||[]; t=t.map(function(p){return p.text||""}).join("");
+    t=t.replace(/^```json\s*|```\s*$/g,"").trim(); var a=t.indexOf("{"),b=t.lastIndexOf("}"); if(a>0||b<t.length-1)t=t.slice(a,b+1);
+    return JSON.parse(t);
+  }
+  var data=null, cur=0;
+  function esc(s){return String(s==null?"":s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+  function showSlide(){
+    var s=data.slides[cur]; $("#slideHost").innerHTML='<div class="slide"><span class="num">'+(cur+1)+' / '+data.slides.length+'</span><h2>'+esc(s.title)+'</h2>'+(s.formula?'<span class="f">'+esc(s.formula)+'</span>':'')+'<ul>'+(s.bullets||[]).map(function(b){return'<li>'+esc(b)+'</li>'}).join("")+'</ul></div>';
+    $("#pos").textContent=(cur+1)+" / "+data.slides.length; $("#speaker").innerHTML=s.note?"🗣 <b>O'qituvchi uchun:</b> "+esc(s.note):"";
+  }
+  $("#prev").onclick=function(){if(data&&cur>0){cur--;showSlide()}}; $("#next").onclick=function(){if(data&&cur<data.slides.length-1){cur++;showSlide()}};
+  document.addEventListener("keydown",function(e){if(!data||!data.slides)return;if(e.key==="ArrowRight")$("#next").click();if(e.key==="ArrowLeft")$("#prev").click()});
+  $("#fs").onclick=function(){var h=$("#slideHost");(h.requestFullscreen||h.webkitRequestFullscreen||function(){}).call(h)};
+  $("#pptx").onclick=function(){
+    if(!data||!data.slides||!window.PptxGenJS)return;
+    var p=new PptxGenJS(); p.layout="LAYOUT_16x9"; p.title=$("#mavzu").value;
+    data.slides.forEach(function(s,i){
+      var sl=p.addSlide(); sl.background={color:"0F1E3A"};
+      sl.addText(s.title||"",{x:0.5,y:0.3,w:9,h:0.9,fontSize:28,bold:true,color:"FFFFFF",fontFace:"Arial"});
+      var y=1.3; if(s.formula){sl.addText(s.formula,{x:0.5,y:y,w:9,h:0.6,fontSize:20,color:"FFD479",fontFace:"Consolas",fill:{color:"0B1220"}});y+=0.8;}
+      sl.addText((s.bullets||[]).map(function(b){return{text:b,options:{bullet:true,breakLine:true}}}),{x:0.5,y:y,w:9,h:4.6-y+1.3,fontSize:18,color:"E6ECFF",fontFace:"Arial",valign:"top"});
+      sl.addText("Kuvonch Academy · kuvonch.uz",{x:0.5,y:5.1,w:6,h:0.3,fontSize:10,color:"7C9BFF"});
+      sl.addText(String(i+1),{x:9,y:5.1,w:0.6,h:0.3,fontSize:10,color:"7C9BFF",align:"right"});
+      if(s.note)sl.addNotes(s.note);
+    });
+    if(data.test&&data.test.length){var t=p.addSlide();t.background={color:"0F1E3A"};t.addText("Test",{x:0.5,y:0.3,w:9,h:0.8,fontSize:26,bold:true,color:"FFFFFF"});t.addText(data.test.slice(0,8).map(function(q,i){return{text:(i+1)+". "+q.q+"   ("+q.options.map(function(o,j){return "ABCD"[j]+") "+o}).join("  ")+")",options:{breakLine:true,fontSize:12}}}),{x:0.5,y:1.2,w:9,h:4,color:"E6ECFF",valign:"top"});}
+    p.writeFile({fileName:(($("#mavzu").value||"dars").replace(/[^\wЀ-ӿ' -]/g,"").slice(0,40))+" — Kuvonch Academy.pptx"});
+  };
+  var keyOn=false;
+  function showTest(){
+    $("#testHost").innerHTML=data.test.map(function(q){return'<li>'+esc(q.q)+'<div class="opts">'+q.options.map(function(o,j){return'<span>'+"ABCD"[j]+') '+esc(o)+'</span>'}).join("")+'</div><div class="ans" '+(keyOn?"":"hidden")+'>✔ '+"ABCD"[q.correct|0]+' — '+esc(q.explain||"")+'</div></li>'}).join("");
+  }
+  $("#toggleKey").onclick=function(){keyOn=!keyOn;this.textContent=keyOn?"🔑 Javoblarni yashirish":"🔑 Javoblarni ko'rsatish";if(data&&data.test)showTest()};
+  $("#copyTest").onclick=function(){
+    if(!data||!data.test)return; var t=$("#mavzu").value+" — TEST\n\n"+data.test.map(function(q,i){return(i+1)+". "+q.q+"\n"+q.options.map(function(o,j){return"   "+"ABCD"[j]+") "+o}).join("\n")}).join("\n\n")+"\n\nJAVOBLAR: "+data.test.map(function(q,i){return(i+1)+"-"+"ABCD"[q.correct|0]}).join(", ");
+    navigator.clipboard.writeText(t).then(function(){$("#copyTest").textContent="✓ Nusxalandi";setTimeout(function(){$("#copyTest").textContent="📋 Nusxa (Word'ga)"},1500)});
+  };
+  $("#go").onclick=async function(){
+    var m=$("#mavzu").value.trim(); if(!m){$("#msg").className="msg bad";$("#msg").textContent="Mavzuni yozing.";return}
+    if(!what.slayd&&!what.test&&!what.uy&&!what.reja){$("#msg").className="msg bad";$("#msg").textContent="Kamida bittasini tanlang.";return}
+    if(!pro&&used()>=FREE){drawQuota();return}
+    $("#go").disabled=true; $("#msg").className="msg"; $("#msg").textContent="⏳ AI tayyorlamoqda (20–40 soniya)…";
+    try{
+      var j=await callAI(prompt()); data=parseOut(j);
+      if(!pro)localStorage.setItem(LS,String(used()+1));
+      ["deckCard","testCard","uyCard","rejaCard"].forEach(function(id){$("#"+id).classList.remove("on")});
+      if(data.slides&&data.slides.length){cur=0;showSlide();$("#deckCard").classList.add("on");$("#deckTitle").textContent="📊 "+m+" — "+data.slides.length+" slayd"}
+      if(data.test&&data.test.length){showTest();$("#testCard").classList.add("on")}
+      if(data.homework&&data.homework.length){$("#uyHost").innerHTML=data.homework.map(function(h){return'<li>'+esc(h.q)+' <span class="ans">— '+esc(h.a)+'</span></li>'}).join("");$("#uyCard").classList.add("on")}
+      if(data.plan){var pl=data.plan;$("#rejaHost").innerHTML='<p><b>Maqsad:</b> '+esc(pl.goal)+'</p><ol>'+(pl.stages||[]).map(function(s){return'<li><b>'+esc(s.min)+' daq — '+esc(s.name)+':</b> '+esc(s.what)+'</li>'}).join("")+'</ol><p><b>Baholash:</b> '+esc(pl.assess)+'</p>';$("#rejaCard").classList.add("on")}
+      $("#msg").className="msg ok"; $("#msg").textContent="✅ Tayyor. Slaydlarni PPTX qilib yuklab oling yoki to'liq ekranda ko'rsating.";
+      $("#deckCard").scrollIntoView({behavior:"smooth"});
+      try{if(window.kaAccount&&window.kaAccount.sendResult)window.kaAccount.sendResult("AI slayd: "+m,1,1)}catch(e){}
+    }catch(e){$("#msg").className="msg bad";$("#msg").textContent="❌ "+(e.message||e)}
+    drawQuota(); if(pro||used()<FREE)$("#go").disabled=false;
+  };
+})();
+</script>
+<script src="ka-til.js"></script>
+</body>
+</html>

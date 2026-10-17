@@ -246,7 +246,7 @@
     function lvlFor() { return level ? level : (out.length * 3 < n ? 1 : out.length * 3 < 2 * n ? 2 : 3); }
     function tryAdd(fn, src, L) {
       var p = clean(fn(L)); if (seen[p.q]) return false;
-      seen[p.q] = 1; p.level = L; p.topic = src; out.push(p); return true;
+      seen[p.q] = 1; p.level = L; p.topic = p.topic || src; out.push(p); return true;
     }
     var t = 0;
     while (out.length < n && t++ < n * 30) tryAdd(f, id, lvlFor());
@@ -259,7 +259,7 @@
     // hali ham yetmasa — takroriga yo'l qo'yamiz (100 talik test uzilmasligi uchun)
     var t3 = 0;
     while (out.length < n && t3++ < n * 10) {
-      var L = lvlFor(), p = clean(f(L)); p.level = L; p.topic = id; out.push(p);
+      var L = lvlFor(), p = clean(f(L)); p.level = L; p.topic = p.topic || id; out.push(p);
     }
     if (!level) out.sort(function (a, b) { return a.level - b.level; });
     out.forEach(localize);
