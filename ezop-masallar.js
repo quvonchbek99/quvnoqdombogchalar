@@ -231,5 +231,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki sung'er suvni shimib, og'irlashdi, eshak esa suvga tushish yukni yengil qilishini o'ylagan edi", "Chunki eshak ko'p yurgani uchun charchab, yuki og'irroq tuyuldi", "Chunki daryo juda sayoz edi va yuk toshlarga tegib qoldi"],
     javob: 0,
     izoh: "Eshak bir vaziyatdagi saboqni boshqa vaziyatga o'z holicha ko'chirdi. Har bir yukning suv bilan munosabati har xil ekanini hisobga olish kerak."
+  },
+  {
+    id: "ez-030", mavzu: "ahloq", sarlavha: "Quyon va baqalar",
+    matn: "Quyon o'zini dunyodagi eng qo'rqoq jonzot deb hisoblardi. Bir kuni ko'l bo'yida u yaqinlashganini ko'rgan baqalar suvga sakrab tushib ketdi. Quyon hayron bo'lib, ularning ham o'zidan qo'rqishini angladi.",
+    savol: "Quyon baqalarning qochishidan qanday xulosaga keldi?",
+    variantlar: ["Baqalar unga qarshi hujum qilmoqchi bo'lgani uchun qochganini", "Boshqalar ham qo'rqishini va uning qo'rquvi yolg'iz emasligini", "Faqat quyonlar qo'rqoq bo'lishini"],
+    javob: 1,
+    izoh: "Quyon o'z qo'rquvini eng katta deb o'ylagan edi, lekin baqalar ham undan qo'rqardi. Har kimning qo'rquvi bor ekanini tushunish o'zini ortiqcha ayblashdan saqlaydi."
   }
 ];
