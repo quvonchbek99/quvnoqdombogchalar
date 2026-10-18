@@ -199,5 +199,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ko'p yong'oq olmoqchi bo'lib, mutthini bo'shatmadi", "Chunki idish sinib, og'zi torayib ketgan edi", "Chunki yong'oqlar juda qattiq edi va qo'li og'rigan edi"],
     javob: 0,
     izoh: "Ko'proq olishga intilish qo'lni band qilib qo'ydi. Ozroq olib, mutthini bo'shatganida, bola osongina chiqib ketardi."
+  },
+  {
+    id: "ez-026", mavzu: "mantiq", sarlavha: "Bo'ri va qo'zi",
+    matn: "Bo'ri daryo bo'yida qo'zini uchratib, uni yemoqchi bo'ldi. Qo'zi suvni loyqalagan deb ayblanganda, u: \"Men suvning pastki qismida turibman, oqim esa yuqoridan pastga oqadi\", dedi. Bo'ri to'xtamadi va: \"Unda o'tgan yili sen meni haqorat qilgansan\", dedi.",
+    savol: "Qo'zi suvni loyqalagan bo'lishi mumkinmi va nega?",
+    variantlar: ["Ha, chunki u daryo bo'yida turgan edi", "Yo'q, chunki u suvning pastida edi va oqim yuqoridan pastga oqardi", "Ha, chunki bo'ri unga ishonardi"],
+    javob: 1,
+    izoh: "Oqim yuqoridan pastga oqadi, shuning uchun qo'zi pastda turib, yuqoridagi suvni loyqalay olmasdi. Haqiqat ochiq bo'lsa ham, kuchli kishi bahona topib, zararsiz odamni aybdor qilishi mumkin."
   }
 ];
