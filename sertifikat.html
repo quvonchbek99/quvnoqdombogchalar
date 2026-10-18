@@ -114,6 +114,7 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
       <button class="btn sat" id="satGo">▶ SAT sinovini boshlash</button>
     </div>
     <div class="hist" id="satHist"></div>
+    <div class="note" id="satSave" style="margin-top:8px"></div>
   </div>
   <div class="card">
     <h2>📖 Demo test — kitob darajasi bo'yicha</h2>
@@ -213,6 +214,21 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
   $("#msDiag").onclick=function(){ window.kaTest.run("sertifikat","Milliy sertifikat",0,3,"variant",{diag:true,perQ:3,count0:+$("#msN").value}); };
   $("#satGo").onclick=function(){ var k=$("#satS").value; window.kaTest.run("sat-"+k,"SAT Math — "+({all:"to'liq sinov",alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"})[k],0,+$("#satN").value,"variant",{perQ:+$("#satT").value}); };
   document.addEventListener("ka:test-done",function(){hist("sertifikat",$("#msHist"));hist("sat",$("#satHist"));hist("sat-demo",$("#demoHist"))});
+})();
+</script>
+<script src="ka-bulut.js"></script>
+<script src="akkount.js"></script>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  function st(){
+    var box=$("#satSave"); if(!box) return;
+    var u=window.kaAccount&&window.kaAccount.me();
+    if(u&&u.cloud) box.innerHTML="✅ Natijalar akkauntingizda saqlanadi (Google / Firebase): <b>"+u.name.replace(/[<>&]/g,"")+"</b>. O'qituvchi ularni <a href='ustoz.html'>ustoz sahifasida</a> ko'radi.";
+    else if(u) box.innerHTML="ℹ️ Natijalar faqat shu brauzerda saqlanmoqda. Bulutga yozish uchun akkauntni parol/Google bilan ulang: <button class='btn gh' type='button' onclick='kaAccount.open()'>👤 Akkaunt</button>";
+    else box.innerHTML="ℹ️ Natijalarni saqlash va o'qituvchiga yuborish uchun kiring: <button class='btn gh' type='button' onclick='kaAccount.open()'>👤 Google bilan kirish</button>";
+  }
+  st(); setInterval(st,2500);
 })();
 </script>
 <script src="ka-til.js"></script>

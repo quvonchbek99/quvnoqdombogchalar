@@ -70,6 +70,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
     <div class="row">
       <label>Guruh<select id="fg"><option value="">Barcha guruhlar</option></select></label>
       <label>Mavzu / o'yin<input id="ft" placeholder="so'z bo'yicha qidirish"></label>
+      <label>Tez filtr<select id="fq"><option value="">—</option><option value="sat">🌍 SAT (hammasi)</option><option value="sat demo">📖 SAT demo (daraja)</option><option value="sat ·">🧭 SAT kichik mavzu</option><option value="milliy sertifikat">🇺🇿 Milliy sertifikat</option><option value="premium">💎 Premium</option><option value="virtual">🖐 Virtual o'yinlar</option></select></label>
       <label>Davr<select id="fd"><option value="0">Hammasi</option><option value="1">Bugun</option><option value="7" selected>So'nggi 7 kun</option><option value="30">So'nggi 30 kun</option></select></label>
       <label>O'quvchi<input id="fn" placeholder="ism bo'yicha"></label>
     </div>
@@ -161,6 +162,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
   function td(tr, text, c) { var e = document.createElement("td"); e.textContent = text; if (c) e.className = c; tr.appendChild(e); return e; }
 
   // Saralash / filtr
+  var fq=$("#fq"); if(fq) fq.onchange=function(){ $("#ft").value=fq.value; render(); };
   function filtered() {
     var g = $("#fg").value, t = $("#ft").value.trim().toLowerCase(), n = $("#fn").value.trim().toLowerCase(), days = +$("#fd").value;
     var since = !days ? 0 : days === 1 ? new Date().setHours(0, 0, 0, 0) : Date.now() - days * 86400000;
