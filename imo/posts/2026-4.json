@@ -1,0 +1,36 @@
+{
+  "id": "2026-4",
+  "badge": "IMO 2026 · 4-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA (O'YIN)",
+      "title": "Uchburchak kesish o'yini",
+      "fs": 34,
+      "body": "<p>Shan-Yu va Mulan o'yin o'ynamoqda. <span class='m'>0° &lt; θ &lt; 180°</span> burchak ikkalasiga ma'lum. Avval Shan-Yu istalgan o'lchamdagi qog'oz uchburchak <span class='m'>T</span> yasaydi. So'ng quyidagilar takrorlanadi:</p><ul><li>Agar <span class='m'>T</span> ning biror burchagi <b>aynan <span class='m'>θ</span></b> bo'lsa, o'yin tugaydi va <b>Mulan yutadi</b>.</li><li>Aks holda Mulan <span class='m'>T</span> perimetridan (uchlardan farqli) <span class='m'>P</span> nuqta tanlab, <span class='m'>P</span> dan qarshidagi uchgacha to'g'ri kesadi — ikki uchburchak hosil bo'ladi.</li><li>Shan-Yu ulardan birini tashlab yuboradi, qolgani yangi <span class='m'>T</span> bo'ladi.</li></ul><div class='box'><span class='m'>θ</span> ning qanday qiymatlarida Shan-Yu qanday o'ynamasin, Mulan <b>chekli</b> qadamda albatta yuta oladi?</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob va asosiy lemma",
+      "fs": 34,
+      "body": "<div class='box' style='text-align:center;font-size:42px'><span class='m'>θ = 180° / n</span>, &nbsp;<span class='m'>n ≥ 2</span> — butun son</div><p><b>Lemma.</b> Agar uchburchakda <span class='m'>kθ</span> burchak bo'lsa (<span class='m'>k ≥ 1</span> butun), Mulan yutadi.</p><svg viewBox='0 0 900 200' width='820' height='182' style='display:block;margin:0 auto 10px'><polygon points='120,180 820,180 470,20' fill='none' stroke='#eef2f7' stroke-width='3'/><line x1='120' y1='180' x2='645' y2='100' stroke='#f2b84b' stroke-width='4' stroke-dasharray='10 6'/><path d='M 240 180 A 120 120 0 0 0 238.6 161.8' fill='none' stroke='#f2b84b' stroke-width='3'/><path d='M 317.7 149.8 A 200 200 0 0 0 301.9 96.8' fill='none' stroke='#eef2f7' stroke-width='3'/><text x='250' y='176' fill='#f2b84b' font-size='26' font-family='DejaVu Serif' font-style='italic'>θ</text><text x='322' y='128' fill='#eef2f7' font-size='24' font-family='DejaVu Serif' font-style='italic'>(k−1)θ</text></svg><p>Isbot (<span class='m'>k</span> bo'yicha induksiya): <span class='m'>k = 1</span> da tayyor. <span class='m'>k &gt; 1</span> da Mulan bu burchakni <span class='m'>θ + (k−1)θ</span> qilib kesadi. Shan-Yu qaysini qoldirmasin — yo <span class='m'>θ</span> (darhol yutuq), yo <span class='m'>(k−1)θ</span> burchak qoladi ✅</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "θ = 180°/n da Mulan yutadi",
+      "fs": 32,
+      "body": "<p>1-yurish: eng katta burchakdan <b>balandlik</b> bo'yicha kesadi — har qanday holda <span class='m'>∠A = 90°</span> li <span class='m'>ABC</span> qoladi, <span class='m'>∠B ≤ 45°</span>. <span class='m'>n = 2</span> bo'lsa, tamom.</p><svg viewBox='0 0 900 350' width='760' height='296' style='display:block;margin:0 auto 10px'><polygon points='60,320 840,320 701,21' fill='none' stroke='#eef2f7' stroke-width='3'/><polyline points='681,30.3 690.3,50.2 710.3,40.9' fill='none' stroke='#eef2f7' stroke-width='2'/><line x1='701' y1='21' x2='604' y2='320' stroke='#f2b84b' stroke-width='4' stroke-dasharray='10 6'/><path d='M 664 320 A 60 60 0 0 0 622.5 263' fill='none' stroke='#f2b84b' stroke-width='3'/><path d='M 564 320 A 40 40 0 0 1 616.4 282' fill='none' stroke='#eef2f7' stroke-width='3'/><text x='718' y='30' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>A</text><text x='28' y='340' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>B</text><text x='850' y='340' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>C</text><text x='594' y='348' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>D</text><text x='652' y='298' fill='#f2b84b' font-size='26' font-family='DejaVu Serif' font-style='italic'>kθ</text><text x='452' y='300' fill='#eef2f7' font-size='26' font-family='DejaVu Serif' font-style='italic'>(n−k)θ</text></svg><p><span class='m'>n ≥ 3</span> da <span class='m'>θ ≤ 60°</span>, shuning uchun <span class='m'>45° &lt; kθ ≤ 90°</span> bo'ladigan <span class='m'>k</span> bor. <span class='m'>BC</span> da <span class='m'>D</span> ni <span class='m'>∠ADC = kθ</span> qilib tanlaymiz.</p><div class='box'><span class='m'>∠ADB = 180° − kθ = (n−k)θ</span><br>Ikkala bo'lakda ham <span class='m'>θ</span> ga karrali burchak → lemma ✅</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Boshqa θ da Shan-Yu qochadi",
+      "fs": 32,
+      "body": "<p><span class='m'>θ</span> ga karrali bo'lmagan burchakni <b>«xavfsiz»</b> deymiz. <span class='m'>θ ≠ 180°/n</span> bo'lsa, <span class='m'>180°</span> ham xavfsiz. Uchburchakning hamma burchaklari xavfsiz bo'lsa, u ham xavfsiz.</p><svg viewBox='0 -14 900 184' width='760' height='156' style='display:block;margin:0 auto 10px'><polygon points='80,150 820,150 360,20' fill='none' stroke='#eef2f7' stroke-width='3'/><line x1='360' y1='20' x2='480' y2='150' stroke='#f2b84b' stroke-width='4' stroke-dasharray='10 6'/><text x='345' y='16' fill='#eef2f7' font-size='26' font-family='DejaVu Serif' font-style='italic'>A</text><text x='50' y='166' fill='#eef2f7' font-size='26' font-family='DejaVu Serif' font-style='italic'>B</text><text x='830' y='166' fill='#eef2f7' font-size='26' font-family='DejaVu Serif' font-style='italic'>C</text><text x='470' y='170' fill='#f2b84b' font-size='26' font-family='DejaVu Serif' font-style='italic'>D</text></svg><p>Xavfsiz <span class='m'>ABC</span> ni <span class='m'>AD</span> bo'yicha kesamiz:</p><div class='box'><span class='m'>∠CDA = ∠B + ∠BAD = 180° − ∠ADB</span><br><span class='m'>∠DAC = ∠A − ∠BAD = ∠ADB − ∠C</span></div><p>Xavfsiz ± karrali = xavfsiz. Demak <span class='m'>ABD</span> da karrali burchak bo'lsa, <span class='m'>ACD</span> butunlay xavfsiz. Shan-Yu xavfsiz uchburchak yasab, doim xavfsiz bo'lakni qoldiradi ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>Mulan uchun kalit — <b><span class='m'>θ</span> ga karrali burchak</b>, Shan-Yu uchun esa <b>«xavfsiz» burchaklar invarianti</b>. Hammasi <span class='m'>180°</span> ning <span class='m'>θ</span> ga karrali yoki karrali emasligiga bog'liq. Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>n = 3…12</span> uchun kerakli <span class='m'>k</span> va <span class='m'>D</span> doim topiladi; <span class='m'>θ = 50°, 70°, 100°</span> da xavfsiz uchburchakni ikkita «xavfli» bo'lakka bo'lib bo'lmaydi ✅</div><p>🧠 <b>Sizga savol:</b> <span class='m'>θ = 60°</span> bo'lsa, Mulan to'g'ri burchakli uchburchakni qanday kesishi kerak? Javobni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2026 · 5-masala</b> (funksional tenglama)</p>"
+    }
+  ]
+}
