@@ -1,1 +1,1 @@
-window.EN_BOOKS=[{"b": 1, "lv": "A1", "units": 30, "words": 839}, {"b": 2, "lv": "A2", "units": 30, "words": 833}, {"b": 3, "lv": "B1", "units": 30, "words": 833}, {"b": 4, "lv": "B1+", "units": 30, "words": 832}];
+window.EN_BOOKS=[{"b": 1, "lv": "A1", "units": 30, "words": 839}, {"b": 2, "lv": "A2", "units": 30, "words": 833}, {"b": 3, "lv": "B1", "units": 30, "words": 833}, {"b": 4, "lv": "B1+", "units": 30, "words": 832}, {"b": 5, "lv": "B2", "units": 30, "words": 828}];
