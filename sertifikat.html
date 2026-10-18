@@ -45,6 +45,19 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
 .note{font-size:13px;color:var(--dim)}
 .hist{font-size:14px;color:var(--dim);margin-top:8px}
 .hist b{color:var(--tx)}
+.lv{display:inline-block;min-width:20px;padding:2px 6px;border-radius:999px;font:800 11px/1.2 inherit;text-align:center;color:#0b1220}
+.lv.l1{background:var(--ac)}.lv.l2{background:var(--gold)}.lv.l3{background:#ffa36b}.lv.l4{background:var(--bad)}
+.sat-dom{margin:14px 0 6px;font-size:17px;color:var(--sat)}
+.sat-dom small{color:var(--dim);font-weight:400}
+.sat-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:10px 0;border-top:1px solid var(--bd)}
+.sat-row .nm{font-weight:700}
+.sat-row .en{color:var(--dim);font-size:13px}
+.sat-row .ref{color:var(--dim);font-size:12.5px;margin-top:4px}
+.sat-row .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sat-row .chip{padding:5px 9px;font-size:12.5px}
+.sat-row .soon{color:var(--gold);font-size:12.5px}
+.btn.sm{padding:9px 12px;font-size:13px}
+@media(max-width:560px){.sat-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -103,8 +116,17 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
     <div class="hist" id="satHist"></div>
   </div>
   <div class="card">
-    <h2>🧭 SAT bo'limlari → saytdagi mavzular</h2>
-    <div class="grid" id="satTopics"></div>
+    <h2>🧭 SAT dasturi → saytdagi mavzular va testlar</h2>
+    <p class="note">Tuzilish ikki kitob asosida: <b>PrepPros — The Complete Guide to Digital SAT Math</b> (4 darajali tizim: <span class="lv l1">1</span> asosiy, hamma uchun · <span class="lv l2">2</span> qo'shimcha · <span class="lv l3">3</span> murakkab · <span class="lv l4">4</span> ekspert) va <b>T. Hyun — Acing the New SAT Math</b> (20 bob, bob testlari). Har qatorda: saytdagi mavzu (bosib mashq qiling), kitob bobi va sahifasi (PP / AH), hamda shu kichik mavzu bo'yicha <b>test</b>.</p>
+    <div class="exam" style="margin:8px 0 4px">
+      <label class="note"><input type="checkbox" id="satOnlyCore" checked> Faqat asosiy (1-daraja) mavzular</label>
+      <select class="sel" id="satSubN"><option value="10" selected>10 savol</option><option value="15">15 savol</option><option value="22">22 savol</option></select>
+    </div>
+    <div id="satTopics"></div>
+  </div>
+  <div class="card">
+    <h2>📚 Kitoblar bo'yicha o'qish tartibi</h2>
+    <div class="grid" id="satBooks"></div>
   </div>
   <div class="card">
     <h2>💡 SAT uchun strategiya</h2>
@@ -121,28 +143,49 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
 <script src="ka-qidiruv.js"></script>
 <script src="ka-savollar.js"></script>
 <script src="ka-savollar-2.js"></script><script src="ka-savollar-3.js"></script><script src="ka-savollar-4.js"></script><script src="ka-savollar-5.js"></script>
-<script src="ka-savollar-6.js"></script><script src="ka-savollar-7.js"></script><script src="ka-savollar-8.js"></script><script src="ka-savollar-9.js"></script><script src="ka-savollar-10.js"></script>
+<script src="ka-savollar-6.js"></script><script src="ka-savollar-7.js"></script><script src="ka-savollar-8.js"></script><script src="ka-savollar-9.js"></script><script src="ka-savollar-10.js"></script><script src="ka-savollar-11.js"></script>
+<script src="sat-dastur.js"></script>
 <script src="ka-test.js?v=20261017b"></script>
 <script>
 (function(){
   var $=function(s){return document.querySelector(s)};
   var MS=[];for(var i=51;i<=70;i++)MS.push("t"+i);
-  var SAT={
-    alg:["t10","t11","t12","t13","t53","t56","t8","t5","t6","t7"],
-    adv:["t1","t2","t14","t15","t51","t52","t62","t63","t64","t66","t19","t20","t65"],
-    data:["t56","t57","t37","t39","t92","t93","t90","t91","t27","t8"],
-    geo:["t71","t72","t73","t74","t82","t83","t85","t86","t3","t68","t75","t77","t79"]
-  };
-  SAT.all=[].concat(SAT.alg,SAT.adv,SAT.data,SAT.geo);
+  var D=window.SAT_DASTUR, SAT={}, SATW=[];
+  D.bolim.forEach(function(b){ var ids=[]; b.sub.forEach(function(x){ x.t.forEach(function(t){ if(ids.indexOf(t)<0) ids.push(t); }); }); SAT[b.id]=ids; });
   var pick=function(a){return a[Math.floor(Math.random()*a.length)]};
-  function reg(id,list,title){ window.kaSavol.register(id,function(L){ var t=pick(list.filter(function(x){return window.kaSavol.has(x)})); return window.kaSavol.get(t,L); },title); }
+  function has(x){return window.kaSavol.has(x)}
+  function reg(id,list,title){ window.kaSavol.register(id,function(L){ var t=pick(list.filter(has)); return window.kaSavol.get(t,L); },title); }
   reg("sertifikat",MS,"Milliy sertifikat — sinov imtihoni");
-  Object.keys(SAT).forEach(function(k){reg("sat-"+k,SAT[k],"SAT Math — "+({all:"to'liq",alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"})[k]);});
+  var NAMES={alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"};
+  Object.keys(SAT).forEach(function(k){ reg("sat-"+k,SAT[k],"SAT Math — "+NAMES[k]); });
+  // to'liq sinov: bo'limlar rasmiy ulush bo'yicha (35/35/15/15)
+  window.kaSavol.register("sat-all",function(L){
+    var r=Math.random()*100, acc=0, dom="alg";
+    for(var k in D.vazn){ acc+=D.vazn[k]; if(r<acc){ dom=k; break; } }
+    return window.kaSavol.get(pick(SAT[dom].filter(has)),L);
+  },"SAT Math — to'liq sinov");
+  // kichik mavzular bo'yicha testlar
+  D.bolim.forEach(function(b){ b.sub.forEach(function(x){ var l=x.t.filter(has); if(l.length) reg("sat-"+b.id+"-"+x.id,l,"SAT · "+x.uz); }); });
   function titleOf(id){var m=(window.KA_MAVZULAR||[]).filter(function(x){return x.id===id})[0];return m?m.n:id}
   function chips(host,ids,label){ host.innerHTML=ids.map(function(id){var n=titleOf(id).replace(/^(\d+)\.\s*/,""),num=(titleOf(id).match(/^\d+/)||[""])[0];return '<a class="chip" href="mashqlar.html#'+id+'"><span class="n">'+num+'</span><span>'+n+'</span></a>'}).join(""); }
   chips($("#msTopics"),MS);
-  var satHost=$("#satTopics"), names={alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"};
-  satHost.innerHTML=Object.keys(names).map(function(k){return '<div><b style="color:var(--sat)">'+names[k]+'</b><div class="grid" style="margin-top:6px">'+SAT[k].map(function(id){var t=titleOf(id);return '<a class="chip" href="mashqlar.html#'+id+'"><span class="n">'+(t.match(/^\d+/)||[""])[0]+'</span><span>'+t.replace(/^(\d+)\.\s*/,"")+'</span></a>'}).join("")+'</div></div>'}).join("");
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function renderSat(){
+    var only=$("#satOnlyCore").checked, host=$("#satTopics");
+    host.innerHTML=D.bolim.map(function(b){
+      var rows=b.sub.filter(function(x){return !only||x.lvl===1}).map(function(x){
+        var l=x.t.filter(has);
+        var chips=l.length?x.t.map(function(id){var t=titleOf(id);return '<a class="chip" href="mashqlar.html#'+id+'"><span class="n">'+(t.match(/^\d+/)||[""])[0]+'</span><span>'+esc(t.replace(/^(\d+)\.\s*/,""))+'</span></a>'}).join(""):'<span class="soon">⏳ Saytda bu mavzu uchun test hali yo\'q — kitobdan ishlang</span>';
+        var btn=l.length?'<button class="btn sat sm" data-sub="sat-'+b.id+'-'+x.id+'" data-t="'+esc(x.uz)+'">▶ Test</button>':'';
+        return '<div class="sat-row"><div><div class="nm"><span class="lv l'+x.lvl+'">'+x.lvl+'</span> '+esc(x.uz)+' <span class="en">· '+esc(x.en)+'</span></div><div class="ref">📘 PP: '+esc(x.pp)+' &nbsp; 📗 AH: '+esc(x.ah)+'</div><div class="chips">'+chips+'</div></div><div>'+btn+'</div></div>';
+      }).join("");
+      return '<div class="sat-dom">'+esc(b.en)+' <small>· '+esc(b.uz)+' · ≈'+D.vazn[b.id]+'% · '+esc(b.savol)+'</small></div>'+(rows||'<div class="note">Bu bo\'limda 1-daraja mavzu yo\'q.</div>');
+    }).join("");
+    host.querySelectorAll("[data-sub]").forEach(function(btn){ btn.onclick=function(){ window.kaTest.run(btn.getAttribute("data-sub"),"SAT · "+btn.getAttribute("data-t"),0,+$("#satSubN").value,"variant",{perQ:+$("#satT").value||0}); }; });
+  }
+  $("#satOnlyCore").onchange=renderSat; renderSat();
+  $("#satBooks").innerHTML='<div><b style="color:var(--sat)">Test-yechish hiylalari (PrepPros)</b><ul class="plan">'+D.hiyla.map(function(h){return '<li>'+esc(h.uz)+' — <span class="note">'+esc(h.pp)+'</span></li>'}).join("")+'</ul></div>'+
+    '<div><b style="color:var(--sat)">To\'liq sinov testlari (Acing the New SAT Math)</b><ul class="plan">'+D.sinov.map(function(h){return '<li>'+esc(h.uz)+' — <span class="note">'+esc(h.ah)+'</span></li>'}).join("")+'</ul><p class="note">Tavsiya: avval shu sahifadagi 1-daraja mavzular testlarini 80%+ ga yetkazing, so\'ng kitobdagi PSAT testini vaqt bilan ishlang, keyin SAT 1 va SAT 2.</p></div>';
   // tabs
   document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){document.querySelectorAll(".tab").forEach(function(x){x.setAttribute("aria-selected",x===b)});document.querySelectorAll(".pane").forEach(function(p){p.classList.toggle("on",p.id==="p-"+b.dataset.p)});location.hash=b.dataset.p}});
   if(location.hash==="#sat")$(".tab.sat").click();
