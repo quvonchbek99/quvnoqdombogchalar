@@ -1,0 +1,42 @@
+{
+  "id": "2026-2",
+  "badge": "IMO 2026 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA",
+      "title": "Ikki o'rta nuqta va bitta markaz",
+      "fs": 34,
+      "body": "<p><span class='m'>ABC</span> uchburchakda <span class='m'>M</span> va <span class='m'>N</span> — mos ravishda <span class='m'>AB</span> va <span class='m'>AC</span> tomonlarning <b>o'rtalari</b>. <span class='m'>K</span> nuqta <span class='m'>BMC</span> uchburchak ichida, <span class='m'>L</span> nuqta <span class='m'>BNC</span> uchburchak ichida olingan; bunda <span class='m'>K</span> nuqta <span class='m'>ABL</span> uchburchak ichida, <span class='m'>L</span> esa <span class='m'>AKC</span> uchburchak ichida yotadi. Ma'lumki:</p><div class='box'><span class='m'>∠KBA = ∠ACL</span><br><span class='m'>∠LBK = ∠LNC</span><br><span class='m'>∠LCK = ∠BMK</span></div><p><span class='m'>O</span> — <span class='m'>AKL</span> uchburchakka tashqi chizilgan aylananing markazi.</p><p><b>Isbotlang:</b> <span class='m'>OM = ON</span>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Burchaklar → aylanalar",
+      "fs": 31,
+      "body": "<svg viewBox='0 0 620 450' width='600' height='435' style='display:block;margin:0 auto 18px'><circle cx='290.0' cy='220.2' r='181.3' fill='none' stroke='#f2b84b' stroke-width='3' stroke-dasharray='10 7'/><polygon points='270.0,40.0 60.0,420.0 560.0,420.0' fill='none' stroke='#eef2f7' stroke-width='3.5'/><line x1='165.0' y1='230.0' x2='415.0' y2='230.0' stroke='#8fa3bf' stroke-width='2.5' /><line x1='60.0' y1='420.0' x2='357.0' y2='154.0' stroke='#8fa3bf' stroke-width='2.5' /><line x1='560.0' y1='420.0' x2='193.6' y2='178.2' stroke='#8fa3bf' stroke-width='2.5' /><line x1='290.0' y1='220.2' x2='165.0' y2='230.0' stroke='#f2b84b' stroke-width='2.5' stroke-dasharray='6 5'/><line x1='290.0' y1='220.2' x2='415.0' y2='230.0' stroke='#f2b84b' stroke-width='2.5' stroke-dasharray='6 5'/><circle cx='270.0' cy='40.0' r='6' fill='#eef2f7'/><text x='262.0' y='28.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>A</text><circle cx='60.0' cy='420.0' r='6' fill='#eef2f7'/><text x='32.0' y='430.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>B</text><circle cx='560.0' cy='420.0' r='6' fill='#eef2f7'/><text x='570.0' y='430.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>C</text><circle cx='165.0' cy='230.0' r='6' fill='#eef2f7'/><text x='131.0' y='230.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>M</text><circle cx='415.0' cy='230.0' r='6' fill='#eef2f7'/><text x='427.0' y='230.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>N</text><circle cx='152.0' cy='337.6' r='6' fill='#eef2f7'/><text x='144.0' y='369.6' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>K</text><circle cx='430.6' cy='334.6' r='6' fill='#eef2f7'/><text x='434.6' y='366.6' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>L</text><circle cx='357.0' cy='154.0' r='6' fill='#eef2f7'/><text x='367.0' y='148.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>X</text><circle cx='193.6' cy='178.2' r='6' fill='#eef2f7'/><text x='163.6' y='174.2' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>Y</text><circle cx='290.0' cy='220.2' r='6' fill='#f2b84b'/><text x='282.0' y='206.2' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>O</text><circle cx='126.8' cy='299.1' r='6' fill='#f2b84b'/><text x='98.8' y='305.1' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>E</text><circle cx='458.5' cy='287.0' r='6' fill='#f2b84b'/><text x='470.5' y='291.0' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>F</text></svg><p style='font-size:26px;color:#8fa3bf;text-align:center;margin-bottom:16px'>Oltin uzuq chiziq — AKL aylana; E, F, O keyingi qadamlarda kerak bo'ladi</p><p><span class='m'>X = BK ∩ AC</span>, &nbsp;<span class='m'>Y = CL ∩ AB</span> deymiz. Har bir shart — aylanaga ichki chizilgan to'rtburchak:</p><ul><li><span class='m'>∠KBA = ∠ACL</span> ⇔ <span class='m'>BYXC</span> aylanada ⇔ <span class='m'>AY·AB = AX·AC</span></li><li><span class='m'>∠LBK = ∠LNC</span> ⇔ <span class='m'>XNLB</span> aylanada (<span class='m'>ω<sub>B</sub></span>)</li><li><span class='m'>∠LCK = ∠BMK</span> ⇔ <span class='m'>YMKC</span> aylanada (<span class='m'>ω<sub>C</sub></span>)</li></ul>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Yashirin o'rta nuqtalar",
+      "fs": 36,
+      "body": "<p>Bundan keyin faqat bitta qurol — <b>nuqtaning aylanaga nisbatan darajasi</b> (kesuvchilar teoremasi).</p><p><span class='m'>XC</span> to'g'ri chiziq <span class='m'>ω<sub>C</sub></span> ni yana <span class='m'>C′</span> nuqtada kessin. <span class='m'>A</span> nuqtaning <span class='m'>ω<sub>C</sub></span> ga nisbatan darajasi:</p><div class='box'><span class='m'>AC′·AC = AY·AM = AX·AN = ½·AX·AC</span></div><p>Demak <span class='m'>AC′ = ½·AX</span>, ya'ni <b><span class='m'>C′</span> — <span class='m'>AX</span> ning o'rtasi</b>. Xuddi shunday <span class='m'>ω<sub>B</sub></span> da hosil bo'lgan <span class='m'>B′</span> — <span class='m'>AY</span> ning o'rtasi.</p><p>(<span class='m'>AY·AM = AX·AN</span> — bu <span class='m'>AY·AB = AX·AC</span> ning yarmi.)</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Hammasi bitta aylanada",
+      "fs": 34,
+      "body": "<p><span class='m'>E</span> va <span class='m'>F</span> — <span class='m'>BY</span> va <span class='m'>CX</span> kesmalarning o'rtalari. <span class='m'>XK</span> chiziq <span class='m'>ω<sub>C</sub></span> ni yana <span class='m'>K′</span> da kessin.</p><ul><li><span class='m'>XK·XK′ = XC′·XC = XA·XF</span> ⇒ <span class='m'>A, K, F, K′</span> bitta aylanada</li><li><span class='m'>BK·BK′ = BM·BY = BA·BE</span> ⇒ <span class='m'>A, E, K, K′</span> bitta aylanada</li></ul><p>Demak <span class='m'>K</span> nuqta <span class='m'>AEF</span> aylanada yotadi. Xuddi shunday <span class='m'>L</span> ham.</p><div class='box'><span class='m'>A, K, L, E, F</span> — bitta aylanada! Uning markazi aynan <span class='m'>O</span>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Teng darajalar ⇒ OM = ON",
+      "fs": 36,
+      "body": "<p><span class='m'>E</span> — <span class='m'>BY</span> ning o'rtasi, shuning uchun <span class='m'>ME = ½·AY</span>. Xuddi shunday <span class='m'>NF = ½·AX</span>.</p><div class='box'><span class='m'>MA·ME = ¼·AB·AY</span> &nbsp;=&nbsp; <span class='m'>¼·AC·AX = NA·NF</span></div><p>Demak <span class='m'>M</span> va <span class='m'>N</span> nuqtalarning <span class='m'>(AKL)</span> aylanaga nisbatan darajalari teng. Radius <span class='m'>ρ</span> bo'lsa:</p><div class='box'><span class='m'>OM² − ρ² = ON² − ρ²</span> &nbsp;⇒&nbsp; <span class='m'>OM = ON</span> &nbsp;∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>Uchta burchak sharti → uchta aylana → yangi nuqtalar (<span class='m'>X, Y, E, F</span>) → hamma narsa <b>kesuvchilar teoremasi</b> bilan yechiladi. Yechim Andrew Gu va Kevin Sun'ga tegishli (Evan Chen yozuvlari).</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>A(4,2; 7,6)</span>, <span class='m'>B(0; 0)</span>, <span class='m'>C(10; 0)</span> uchun <span class='m'>OM = ON ≈ 2,508</span> ✅</div><p>🧠 <b>Sizga savol:</b> nega <span class='m'>BYXC</span> aylanada bo'lsa, <span class='m'>MYXN</span> ham aylanada bo'ladi? Javobni izohlarda yozing 👇</p><p>📅 Ertaga: <b>IMO 2026 · 3-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
