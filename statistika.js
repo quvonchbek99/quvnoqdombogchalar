@@ -1,4 +1,4 @@
-/* Kuvonch Academy — anonim tashrif statistikasi (Google Analytics 4). Ism/guruh yuborilmaydi. */
+/* Kuvonch Academy — anonim tashrif statistikasi (Google Analytics 4 + Yandex Metrika). Ism/guruh yuborilmaydi. */
 /* + Service worker barcha sahifalarda: o'yin modellari (qo'l/ko'z) bir marta yuklangach, keyingi safar keshdan darhol ochiladi */
 (function () {
   try {
@@ -20,6 +20,29 @@
   gtag("config", ID, { anonymize_ip: true });
   // Sahifa yuklanib bo'lgach, bo'sh vaqtda ulanadi — foydalanuvchini kuttirmaydi
   function go() { var s = document.createElement("script"); s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID; document.head.appendChild(s); }
+  function later() { if ("requestIdleCallback" in window) requestIdleCallback(go, { timeout: 8000 }); else setTimeout(go, 4000); }
+  if (document.readyState === "complete") later(); else window.addEventListener("load", later);
+})();
+
+/* Yandex Metrika — hisoblagich raqamini YM_ID ga yozing (metrika.yandex.ru). 0 bo'lsa o'chiq turadi. */
+(function () {
+  "use strict";
+  var YM_ID = 0;
+  if (!YM_ID || window.__kaYM || /localhost|127\.0\.0\.1/.test(location.hostname)) return;
+  window.__kaYM = 1;
+  // Vebvizor yozuvlarida o'quvchi kiritgan matn (ism, javob) saqlanmasin
+  function yashir() {
+    var el = document.querySelectorAll("input, textarea, [contenteditable]");
+    for (var i = 0; i < el.length; i++) el[i].classList.add("ym-disable-keys");
+  }
+  window.ym = window.ym || function () { (window.ym.a = window.ym.a || []).push(arguments); };
+  window.ym.l = 1 * new Date();
+  ym(YM_ID, "init", { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true });
+  function go() {
+    yashir();
+    try { new MutationObserver(yashir).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
+    var s = document.createElement("script"); s.async = true; s.src = "https://mc.yandex.ru/metrika/tag.js"; document.head.appendChild(s);
+  }
   function later() { if ("requestIdleCallback" in window) requestIdleCallback(go, { timeout: 8000 }); else setTimeout(go, 4000); }
   if (document.readyState === "complete") later(); else window.addEventListener("load", later);
 })();
