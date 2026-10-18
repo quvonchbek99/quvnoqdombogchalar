@@ -156,7 +156,7 @@
   }
   function card(w){
     return '<div class="w' + (known[w.id] ? " known" : "") + '" data-id="' + w.id + '"><span class="no">#' + w.n + '</span>' +
-      '<div class="top"><div class="ei">' + esc(w.em || "📘") + '</div><div class="ww"><div class="en">' + esc(w.w) + '</div><div class="ip">' + esc(w.ip || "") + ' <span class="ps">' + esc(w.ps || "") + '</span></div><div class="uz">' + esc(w.uz) + '</div></div>' +
+      '<div class="top"><div class="ei">' + esc(w.em || "📘") + '</div><div class="ww"><div class="en">' + esc(w.w) + '</div><div class="ip">' + esc(w.ip || "") + (w.o ? ' [' + esc(w.o) + ']' : '') + ' <span class="ps">' + esc(w.ps || "") + '</span></div><div class="uz">' + esc(w.uz) + '</div></div>' +
       '<button type="button" class="say" data-say="' + esc(w.w) + '" title="Tinglash">🔊</button><button type="button" class="k" title="Bilaman">' + (known[w.id] ? "✔" : "○") + '</button></div>' +
       (w.h ? '<div class="tog"><span class="lab">Garmoniya</span><span class="hw">' + esc(w.h) + '</span><br>' + esc(w.s || "") + '</div>' : '') +
       (w.ex ? '<div class="xe">' + esc(w.ex) + ' <button type="button" class="say" data-say="' + esc(w.ex) + '" style="font-size:14px">🔊</button><i>' + esc(w.exu || "") + '</i></div>' : '') + '</div>';
