@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ingliz tili grammatikasi — modullar | Kuvonch Academy</title>
+<meta name="description" content="Ingliz tili grammatikasi o'zbek tilida: oddiy gapdan ergash gaplargacha mavzular bo'yicha modullar — qoida, jadval, misol va test.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232457d6'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' text-anchor='middle' fill='%23fff'%3EEn%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito:wght@400;700;800;900&family=Caveat:wght@700&display=swap">
+<link rel="stylesheet" href="assets/en.css">
+</head>
+<body>
+<header class="en"><div class="wrap">
+  <a class="logo" href="index.html"><b>En</b>English</a>
+  <nav>
+    <a href="../">🏠 Kuvonch Academy</a>
+    <a href="index.html">Bosh sahifa</a>
+    <a href="grammatika.html" aria-current="page">Grammatika</a>
+    <a href="sozlar.html">TOG so'zlar</a>
+  </nav>
+</div></header>
+
+<div class="wrap gl">
+  <aside class="side" id="side">
+    <div class="sbox"><input type="search" id="q" placeholder="Mavzu qidirish…" aria-label="Mavzu qidirish"></div>
+    <div id="toc"></div>
+  </aside>
+  <main id="main">
+    <article class="mod" id="mod"><p class="muted">Yuklanmoqda…</p></article>
+  </main>
+</div>
+
+<footer class="en"><div class="wrap"><span>Kuvonch Academy · English · © <span id="year"></span></span><span>Grammatika kitobi asosida modullarga ajratilgan</span></div></footer>
+
+<script src="assets/en.js"></script>
+<script src="assets/grammar-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var M = window.EN_GRAMMAR || [], E = window.EN, esc = E.esc;
+  var done = E.load("gdone", {});
+  var $ = function(id){ return document.getElementById(id); };
+  var cur = 0;
+
+  function toc(){
+    var s = ($("q").value || "").toLowerCase().trim(), g = null, h = "";
+    M.forEach(function(m, i){
+      if (s && (m.en + " " + m.uz + " " + (m.summary||"")).toLowerCase().indexOf(s) < 0) return;
+      if (m.group !== g){ g = m.group; h += '<div class="g">' + esc(g) + '</div>'; }
+      h += '<a href="#' + m.id + '" class="' + (i === cur ? "on" : "") + '"><span class="n">' + (i+1) + '</span><span>' + esc(m.emoji||"") + ' ' + esc(m.en) + '<br><small class="muted">' + esc(m.uz) + '</small></span>' + (done[m.id] ? '<span class="ok">✓</span>' : '') + '</a>';
+    });
+    $("toc").innerHTML = h || '<p class="muted" style="padding:8px">Topilmadi</p>';
+  }
+
+  function block(b){
+    switch(b.t){
+      case "h": return "<h3>" + b.x + "</h3>";
+      case "p": return "<p>" + b.x + "</p>";
+      case "list": return "<ul>" + (b.items||[]).map(function(x){ return "<li>" + x + "</li>"; }).join("") + "</ul>";
+      case "ex": return '<div class="ex"><button type="button" data-say="' + esc(b.en) + '" title="Tinglash">🔊</button><div><div class="e">' + b.en + '</div>' + (b.uz ? '<div class="u">' + b.uz + '</div>' : '') + '</div></div>';
+      case "table": return '<div class="tw"><table class="t">' + (b.head ? "<thead><tr>" + b.head.map(function(x){ return "<th>" + x + "</th>"; }).join("") + "</tr></thead>" : "") + "<tbody>" + (b.rows||[]).map(function(r){ return "<tr>" + r.map(function(x){ return "<td>" + x + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table></div>";
+      case "rule": return '<div class="rule">' + b.x + '</div>';
+      case "formula": return '<div class="formula">' + b.x + '</div>';
+      default: return b.x ? "<p>" + b.x + "</p>" : "";
+    }
+  }
+
+  function quiz(m){
+    var qs = E.shuffle(m.quiz || []);
+    var right = 0, answered = 0;
+    var h = '<div class="qz" id="qz">' + qs.map(function(q, qi){
+      var order = E.shuffle(q.o.map(function(_, k){ return k; }));
+      return '<div class="qq" data-a="' + q.a + '"><div class="qt">' + (qi+1) + '. ' + q.q + '</div><div class="os">' +
+        order.map(function(k){ return '<button type="button" data-k="' + k + '">' + q.o[k] + '</button>'; }).join("") +
+        '</div><div class="xp" hidden>' + (q.e || "") + '</div></div>';
+    }).join("") + '<div class="score" id="score"></div></div>';
+    return { html: h, bind: function(){
+      document.querySelectorAll("#qz .qq").forEach(function(box){
+        box.querySelectorAll("button").forEach(function(bt){
+          bt.addEventListener("click", function(){
+            var a = +box.dataset.a, k = +bt.dataset.k;
+            box.querySelectorAll("button").forEach(function(x){ x.disabled = true; if (+x.dataset.k === a) x.classList.add("r"); });
+            if (k !== a) bt.classList.add("w"); else right++;
+            answered++; box.querySelector(".xp").hidden = false;
+            if (answered === qs.length){
+              var pct = Math.round(100 * right / qs.length);
+              $("score").textContent = "Natija: " + right + " / " + qs.length + " (" + pct + "%)" + (pct >= 70 ? " — modul o'zlashtirildi ✓" : " — qoidani yana bir ko'rib chiqing");
+              if (pct >= 70){ done[m.id] = 1; E.save("gdone", done); toc(); }
+            }
+          });
+        });
+      });
+    }};
+  }
+
+  function show(i){
+    if (!M.length) return;
+    cur = Math.max(0, Math.min(M.length - 1, i));
+    var m = M[cur], prev = M[cur-1], next = M[cur+1];
+    var q = quiz(m);
+    $("mod").innerHTML =
+      '<div class="meta"><span class="lv">' + esc(m.level||"") + '</span><span class="gp">' + esc(m.group||"") + '</span><span class="gp">Modul ' + (cur+1) + ' / ' + M.length + '</span></div>' +
+      '<h1>' + esc(m.emoji||"") + ' ' + esc(m.en) + '<small>' + esc(m.uz) + '</small></h1>' +
+      (m.summary ? '<p class="sum">' + m.summary + '</p>' : '') +
+      '<div class="tabs" role="tablist"><button type="button" data-tab="rule" aria-selected="true">📖 Qoida</button><button type="button" data-tab="test" aria-selected="false">✅ Test (' + (m.quiz||[]).length + ')</button></div>' +
+      '<section id="tab-rule">' + (m.blocks||[]).map(block).join("") +
+        '<p style="margin-top:20px"><button type="button" class="btn pri" id="toTest">✅ Testni boshlash</button></p></section>' +
+      '<section id="tab-test" hidden><p class="muted">Javobni tanlang — to\'g\'risi va izohi darhol chiqadi. 70% va undan yuqori natija moduli «o\'zlashtirildi» deb belgilaydi.</p>' + q.html + '<button type="button" class="btn" id="again">↻ Testni qayta ishlash</button></section>' +
+      '<div class="mnav">' + (prev ? '<a class="btn" href="#' + prev.id + '">← ' + esc(prev.en) + '</a>' : '<span></span>') + (next ? '<a class="btn pri" href="#' + next.id + '">' + esc(next.en) + ' →</a>' : '') + '</div>';
+    E.tabs($("mod"));
+    q.bind();
+    $("toTest").onclick = function(){ $("mod").querySelector('[data-tab="test"]').click(); $("mod").scrollIntoView({behavior:"smooth"}); };
+    $("again").onclick = function(){ show(cur); $("mod").querySelector('[data-tab="test"]').click(); };
+    toc();
+    E.save("glast", m.id);
+    document.title = m.en + " — Ingliz tili grammatikasi | Kuvonch Academy";
+  }
+
+  document.addEventListener("click", function(e){ var b = e.target.closest("[data-say]"); if (b) E.say(b.dataset.say); });
+  $("q").addEventListener("input", toc);
+  function route(){
+    var id = location.hash.slice(1) || E.load("glast", "");
+    var i = M.findIndex(function(m){ return m.id === id; });
+    show(i < 0 ? 0 : i);
+    if (location.hash) window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+<script async src="../statistika.js"></script>
+</body>
+</html>

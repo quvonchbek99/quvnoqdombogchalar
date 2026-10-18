@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOG so'zlar — Essential English Words | Kuvonch Academy</title>
+<meta name="description" content="Eng kerakli inglizcha so'zlar TOG usulida: tarjima, obraz, garmoniya (o'zbekcha ohangdosh so'z) va kulgili manzara. Kitob va unitlar bo'yicha kartochkalar, ovoz va test.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232457d6'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' text-anchor='middle' fill='%23fff'%3EEn%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito:wght@400;700;800;900&family=Caveat:wght@700&display=swap">
+<link rel="stylesheet" href="assets/en.css">
+</head>
+<body>
+<header class="en"><div class="wrap">
+  <a class="logo" href="index.html"><b>En</b>English</a>
+  <nav>
+    <a href="../">🏠 Kuvonch Academy</a>
+    <a href="index.html">Bosh sahifa</a>
+    <a href="grammatika.html">Grammatika</a>
+    <a href="sozlar.html" aria-current="page">TOG so'zlar</a>
+  </nav>
+</div></header>
+
+<div class="wrap">
+  <section class="hero" style="padding-bottom:6px">
+    <p class="eyebrow">TOG usulida so'z yodlash</p>
+    <h1>Essential <em>English Words</em></h1>
+    <p class="lead">Har bir so'z — <b>tarjima</b>, <b>obraz</b> (rasm), <b>garmoniya</b> (o'zbekcha ohangdosh so'z) va tasavvurga sig'maydigan <b>kulgili manzara</b> bilan. Kitob → unit tanlang, so'zlarni kartochkada yodlang va test bilan tekshiring.</p>
+    <div class="chips"><span class="chip" id="stAll">— so'z</span><span class="chip" id="stKnown">0 ta o'rganildi</span><span class="chip" id="stBook">—</span></div>
+  </section>
+
+  <div class="books" id="books" aria-label="Kitob"></div>
+  <div class="units" id="units" aria-label="Unit"></div>
+
+  <div class="tabs" role="tablist" aria-label="Rejim">
+    <button type="button" data-tab="list" aria-selected="true">So'zlar</button>
+    <button type="button" data-tab="cards" aria-selected="false">Kartochkalar</button>
+    <button type="button" data-tab="quiz" aria-selected="false">Test</button>
+    <button type="button" data-tab="method" aria-selected="false">TOG usuli</button>
+  </div>
+
+  <section id="tab-list">
+    <div class="toolbar">
+      <input type="search" id="q" placeholder="Qidirish: inglizcha, o'zbekcha yoki garmoniya…" aria-label="Qidirish">
+      <label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="onlyNew"> faqat o'rganilmaganlar</label>
+    </div>
+    <p class="muted" id="listInfo"></p>
+    <div class="wg" id="list"></div>
+  </section>
+
+  <section id="tab-cards" hidden>
+    <div class="fca">
+      <p class="muted" id="fcInfo" style="margin:0"></p>
+      <div class="prog"><i id="fcProg"></i></div>
+      <button type="button" class="flash" id="flash" aria-label="Kartochkani aylantirish">
+        <span class="in">
+          <span class="f"><span class="emo" id="fEm"></span><span class="big" id="fEn"></span><span class="sm" id="fIp"></span><span class="sm" style="font-family:var(--hand);font-size:20px">bosing — TOG kaliti</span></span>
+          <span class="f b"><span class="uzb" id="bUz"></span><span class="hh" id="bH"></span><span class="sm" id="bEx"></span></span>
+        </span>
+      </button>
+      <div class="fcc">
+        <button type="button" class="btn" id="fcSay">🔊 Tinglash</button>
+        <button type="button" class="btn" id="fcAgain">↻ Takrorlayman</button>
+        <button type="button" class="btn pri" id="fcKnow">✓ Bilaman</button>
+      </div>
+      <div class="fcc">
+        <label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="fcRev"> O'zbekcha → Inglizcha</label>
+        <button type="button" class="btn sm" id="fcShuffle">Aralashtirish</button>
+      </div>
+      <p class="muted" style="font-size:13.5px;margin:0">Klaviatura: probel — aylantirish, → bilaman, ← takrorlayman</p>
+    </div>
+  </section>
+
+  <section id="tab-quiz" hidden>
+    <div class="toolbar">
+      <select id="qMode" aria-label="Test turi">
+        <option value="en">Inglizcha → o'zbekcha</option>
+        <option value="uz">O'zbekcha → inglizcha</option>
+        <option value="tog">TOG manzarasi → so'z</option>
+        <option value="ex">Gapdagi bo'sh joyni to'ldiring</option>
+      </select>
+      <button type="button" class="btn pri" id="newQuiz">Yangi test</button>
+    </div>
+    <div id="quiz"></div>
+  </section>
+
+  <section id="tab-method" hidden style="padding-bottom:40px">
+    <h2>TOG usuli nima?</h2>
+    <p>Miya quruq ro'yxatni tez unutadi, lekin <b>g'alati, kulgili, rangli manzarani</b> uzoq eslaydi. TOG har bir inglizcha so'zni o'zbekcha ohangdosh so'zga bog'lab, uni tasavvurga sig'maydigan sahnaga aylantiradi.</p>
+    <div class="steps">
+      <div class="step"><b class="l">T</b><b>Tarjima</b><p>So'zning aniq ma'nosi va turkumi: <i>brave</i> — jasur (sifat).</p></div>
+      <div class="step"><b class="l">O</b><b>Obraz</b><p>So'zni ko'z oldingizga keltiradigan rasm (🦁). Unga 3 soniya qarang.</p></div>
+      <div class="step"><b class="l">G</b><b>Garmoniya</b><p>Inglizcha so'zga ohangdosh o'zbekcha so'z: <i>brave</i> [breyv] → <b>BEREVOR</b>.</p></div>
+      <div class="step"><b class="l">K</b><b>Kulgi + absurd</b><p>Ikkalasini bog'laydigan aql bovar qilmas manzara: «Jasur sher qo'rqmasdan sherga "Berevor!" deb qichqiryapti».</p></div>
+    </div>
+    <h2 style="margin-top:24px">Bir so'z — 30 soniya</h2>
+    <ol>
+      <li>So'zni 🔊 tinglang va 3 marta ovoz chiqarib ayting.</li>
+      <li>Garmoniya so'zini ayting va sahnani ko'zingizni yumib 5 soniya tasavvur qiling — qancha g'alati bo'lsa, shuncha yaxshi.</li>
+      <li>Misol gapni o'qing va o'zingiz shunga o'xshash bitta gap tuzing.</li>
+      <li>Ertaga, 3 kundan va 1 haftadan keyin kartochkalarni takrorlang («faqat o'rganilmaganlar»).</li>
+    </ol>
+  </section>
+</div>
+
+<footer class="en"><div class="wrap"><span>Kuvonch Academy · English · © <span id="year"></span></span><span>So'zlar kitob va unitlar bo'yicha · TOG usuli</span></div></footer>
+
+<script src="assets/en.js"></script>
+<script src="assets/words-index.js"></script>
+<script>
+(function(){
+  "use strict";
+  var E = window.EN, esc = E.esc, BOOKS = window.EN_BOOKS || [];
+  window.EN_WORDS = window.EN_WORDS || {};
+  var known = E.load("known", {});
+  var st = E.load("wstate", { b: BOOKS.length ? BOOKS[0].b : 1, u: 1 });
+  var $ = function(id){ return document.getElementById(id); };
+  var deck = [], di = 0;
+
+  function bookData(b){ return window.EN_WORDS[b]; }
+  function ensureBook(b, cb){
+    if (bookData(b)) return cb();
+    var s = document.createElement("script"); s.src = "assets/words-b" + b + ".js?v=1";
+    s.onload = cb; s.onerror = function(){ $("list").innerHTML = '<p class="muted">Bu kitob hali yuklanmagan.</p>'; };
+    document.head.appendChild(s);
+  }
+  function unitWords(){
+    var d = bookData(st.b); if (!d) return [];
+    var u = d.filter(function(x){ return x.u === st.u; })[0];
+    return u ? u.w.map(function(w, i){ w.id = st.b + "-" + st.u + "-" + i; w.n = i + 1; return w; }) : [];
+  }
+  function allWords(){ var d = bookData(st.b) || []; var r = []; d.forEach(function(u){ r = r.concat(u.w); }); return r; }
+
+  function renderBooks(){
+    $("books").innerHTML = BOOKS.map(function(b){
+      return '<button type="button" data-b="' + b.b + '" aria-pressed="' + (b.b === st.b) + '"><b>Book ' + b.b + '</b><span>' + esc(b.lv) + ' · ' + b.units + ' unit · ' + b.words + ' so\'z</span></button>';
+    }).join("");
+    $("books").querySelectorAll("button").forEach(function(bt){ bt.onclick = function(){ st.b = +bt.dataset.b; st.u = 1; E.save("wstate", st); go(); }; });
+  }
+  function renderUnits(){
+    var d = bookData(st.b) || [];
+    $("units").innerHTML = d.map(function(u){
+      var all = u.w.length, kn = u.w.filter(function(w, i){ return known[st.b + "-" + u.u + "-" + i]; }).length;
+      return '<button type="button" data-u="' + u.u + '" aria-pressed="' + (u.u === st.u) + '" class="' + (kn === all && all ? "done" : "") + '" title="' + esc(u.t || "") + ' — ' + kn + '/' + all + '">Unit ' + u.u + '</button>';
+    }).join("");
+    $("units").querySelectorAll("button").forEach(function(bt){ bt.onclick = function(){ st.u = +bt.dataset.u; E.save("wstate", st); refresh(); }; });
+  }
+  function stats(){
+    var d = bookData(st.b) || [], tot = 0, kn = 0;
+    d.forEach(function(u){ u.w.forEach(function(w, i){ tot++; if (known[st.b + "-" + u.u + "-" + i]) kn++; }); });
+    var all = BOOKS.reduce(function(s, b){ return s + b.words; }, 0);
+    $("stAll").textContent = all + " so'z · " + BOOKS.length + " kitob";
+    $("stKnown").textContent = "Book " + st.b + ": " + kn + " / " + tot + " o'rganildi";
+    var u = d.filter(function(x){ return x.u === st.u; })[0];
+    $("stBook").textContent = "Unit " + st.u + (u && u.t ? " — " + u.t : "");
+  }
+  function card(w){
+    return '<div class="w' + (known[w.id] ? " known" : "") + '" data-id="' + w.id + '"><span class="no">#' + w.n + '</span>' +
+      '<div class="top"><div class="ei">' + esc(w.em || "📘") + '</div><div class="ww"><div class="en">' + esc(w.w) + '</div><div class="ip">' + esc(w.ip || "") + ' <span class="ps">' + esc(w.ps || "") + '</span></div><div class="uz">' + esc(w.uz) + '</div></div>' +
+      '<button type="button" class="say" data-say="' + esc(w.w) + '" title="Tinglash">🔊</button><button type="button" class="k" title="Bilaman">' + (known[w.id] ? "✔" : "○") + '</button></div>' +
+      (w.h ? '<div class="tog"><span class="lab">Garmoniya</span><span class="hw">' + esc(w.h) + '</span><br>' + esc(w.s || "") + '</div>' : '') +
+      (w.ex ? '<div class="xe">' + esc(w.ex) + ' <button type="button" class="say" data-say="' + esc(w.ex) + '" style="font-size:14px">🔊</button><i>' + esc(w.exu || "") + '</i></div>' : '') + '</div>';
+  }
+  function renderList(){
+    var s = ($("q").value || "").toLowerCase().trim();
+    var ws = s ? allWords().map(function(w){ return w; }) : unitWords();
+    if (s) { var d = bookData(st.b) || []; ws = []; d.forEach(function(u){ u.w.forEach(function(w, i){ w.id = st.b + "-" + u.u + "-" + i; w.n = i + 1; if ((w.w + " " + w.uz + " " + (w.h||"")).toLowerCase().indexOf(s) >= 0) ws.push(w); }); }); }
+    if ($("onlyNew").checked) ws = ws.filter(function(w){ return !known[w.id]; });
+    $("listInfo").textContent = s ? ("Book " + st.b + " bo'yicha qidiruv: " + ws.length + " ta") : (ws.length + " ta so'z");
+    $("list").innerHTML = ws.map(card).join("") || '<p class="muted">So\'z topilmadi.</p>';
+  }
+  $("list").addEventListener("click", function(e){
+    var k = e.target.closest(".k"); if (!k) return;
+    var c = k.closest(".w"), id = c.dataset.id;
+    known[id] = !known[id]; if (!known[id]) delete known[id]; E.save("known", known);
+    c.classList.toggle("known", !!known[id]); k.textContent = known[id] ? "✔" : "○"; stats(); renderUnits();
+  });
+  document.addEventListener("click", function(e){ var b = e.target.closest("[data-say]"); if (b) { e.stopPropagation(); E.say(b.dataset.say); } });
+
+  /* kartochkalar */
+  function buildDeck(sh){ deck = unitWords().filter(function(w){ return !known[w.id]; }); if (!deck.length) deck = unitWords(); if (sh) deck = E.shuffle(deck); di = 0; showCard(); }
+  function showCard(){
+    var f = $("flash"); f.classList.remove("fl");
+    if (!deck.length){ $("fcInfo").textContent = "So'z yo'q"; return; }
+    var w = deck[di % deck.length], rev = $("fcRev").checked;
+    $("fcInfo").textContent = (di % deck.length + 1) + " / " + deck.length + " · Book " + st.b + ", Unit " + st.u;
+    $("fcProg").style.width = Math.round(100 * (di % deck.length) / deck.length) + "%";
+    $("fEm").textContent = w.em || "📘";
+    $("fEn").textContent = rev ? w.uz : w.w;
+    $("fIp").textContent = rev ? "" : ((w.ip || "") + (w.o ? " [" + w.o + "]" : "") + " · " + (w.ps || ""));
+    $("bUz").textContent = rev ? w.w : w.uz;
+    $("bH").innerHTML = w.h ? ("<b>" + esc(w.h) + "</b> — " + esc(w.s || "")) : "";
+    $("bEx").innerHTML = w.ex ? (esc(w.ex) + "<br><i>" + esc(w.exu || "") + "</i>") : "";
+  }
+  $("flash").onclick = function(){ this.classList.toggle("fl"); if (this.classList.contains("fl") && !$("fcRev").checked) {} };
+  $("fcSay").onclick = function(){ if (deck.length) E.say(deck[di % deck.length].w); };
+  $("fcAgain").onclick = function(){ di++; showCard(); };
+  $("fcKnow").onclick = function(){ if (!deck.length) return; var w = deck[di % deck.length]; known[w.id] = true; E.save("known", known); deck.splice(di % deck.length, 1); if (!deck.length) { $("fcInfo").textContent = "🎉 Unit tugadi! Barcha so'zlar o'rganildi."; renderUnits(); stats(); return; } showCard(); stats(); renderUnits(); };
+  $("fcShuffle").onclick = function(){ buildDeck(true); };
+  $("fcRev").onchange = showCard;
+  document.addEventListener("keydown", function(e){
+    if ($("tab-cards").hidden || /INPUT|SELECT|TEXTAREA/.test((e.target||{}).tagName)) return;
+    if (e.key === " ") { e.preventDefault(); $("flash").click(); }
+    else if (e.key === "ArrowRight") $("fcKnow").click();
+    else if (e.key === "ArrowLeft") $("fcAgain").click();
+  });
+
+  /* test */
+  function newQuiz(){
+    var mode = $("qMode").value, pool = unitWords(), wide = allWords();
+    if (mode === "ex") pool = pool.filter(function(w){ return w.ex && w.ex.toLowerCase().indexOf(w.w.toLowerCase().split(" ")[0].slice(0, 4)) >= 0; });
+    var qs = E.shuffle(pool).slice(0, 10), right = 0, n = 0;
+    if (!qs.length) { $("quiz").innerHTML = '<p class="muted">Bu rejim uchun so\'z yetarli emas.</p>'; return; }
+    $("quiz").innerHTML = qs.map(function(w, i){
+      var others = E.shuffle(wide.filter(function(x){ return x.w !== w.w; })).slice(0, 3);
+      var opts = E.shuffle([w].concat(others)), q, lab;
+      lab = function(x){ return mode === "en" ? esc(x.uz) : esc(x.w); };
+      if (mode === "en") q = '<b>' + esc(w.w) + '</b> <button type="button" class="say" data-say="' + esc(w.w) + '" style="border:0;background:none;cursor:pointer">🔊</button>';
+      else if (mode === "uz") q = '<b>' + esc(w.uz) + '</b>';
+      else if (mode === "tog") q = esc(w.s || w.uz) + ' <span class="muted">(' + esc(w.uz) + ')</span>';
+      else { var root = w.w.toLowerCase().split(" ")[0].slice(0, 4); q = esc(w.ex.replace(new RegExp("\\b" + root.replace(/[^a-z]/g, "") + "[a-z]*", "i"), "_____")) + ' <span class="muted">(' + esc(w.uz) + ')</span>'; }
+      return '<div class="qq" data-a="' + esc(w.w) + '"><div class="qt">' + (i+1) + '. ' + q + '</div><div class="os">' + opts.map(function(o){ return '<button type="button" data-v="' + esc(o.w) + '">' + lab(o) + '</button>'; }).join("") + '</div><div class="xp" hidden>' + esc(w.w) + ' — ' + esc(w.uz) + (w.h ? ' · TOG: ' + esc(w.h) : '') + '</div></div>';
+    }).join("") + '<div class="score" id="score"></div>';
+    $("quiz").querySelectorAll(".qq").forEach(function(box){
+      box.querySelectorAll(".os button").forEach(function(bt){
+        bt.onclick = function(){
+          var a = box.dataset.a;
+          box.querySelectorAll(".os button").forEach(function(x){ x.disabled = true; if (x.dataset.v === a) x.classList.add("r"); });
+          if (bt.dataset.v !== a) bt.classList.add("w"); else right++;
+          n++; box.querySelector(".xp").hidden = false;
+          if (n === qs.length) $("score").textContent = "Natija: " + right + " / " + qs.length;
+        };
+      });
+    });
+  }
+  $("newQuiz").onclick = newQuiz; $("qMode").onchange = newQuiz;
+
+  E.tabs(document, function(t){ if (t === "cards") buildDeck(false); if (t === "quiz") newQuiz(); });
+  $("q").addEventListener("input", renderList); $("onlyNew").onchange = renderList;
+
+  function refresh(){ renderUnits(); stats(); renderList(); if (!$("tab-cards").hidden) buildDeck(false); if (!$("tab-quiz").hidden) newQuiz(); }
+  function go(){ renderBooks(); ensureBook(st.b, refresh); }
+  if (!BOOKS.length) { $("list").innerHTML = '<p class="muted">So\'zlar tez orada qo\'shiladi.</p>'; return; }
+  if (!BOOKS.some(function(b){ return b.b === st.b; })) st.b = BOOKS[0].b;
+  go();
+})();
+</script>
+<script async src="../statistika.js"></script>
+</body>
+</html>

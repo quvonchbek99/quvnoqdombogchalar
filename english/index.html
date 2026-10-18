@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ingliz tili — Kuvonch Academy</title>
+<meta name="description" content="Kuvonch Academy ingliz tili bo'limi: grammatika modullari o'zbek tilida va 5000 ta eng kerakli inglizcha so'z TOG usulida — kartochka, ovoz va testlar bilan.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232457d6'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' text-anchor='middle' fill='%23fff'%3EEn%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito:wght@400;700;800;900&family=Caveat:wght@700&display=swap">
+<link rel="stylesheet" href="assets/en.css">
+</head>
+<body>
+<header class="en"><div class="wrap">
+  <a class="logo" href="index.html"><b>En</b>English</a>
+  <nav>
+    <a href="../">🏠 Kuvonch Academy</a>
+    <a href="index.html" aria-current="page">Bosh sahifa</a>
+    <a href="grammatika.html">Grammatika</a>
+    <a href="sozlar.html">TOG so'zlar</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Kuvonch Academy · Ingliz tili</p>
+    <h1>Ingliz tilini <em>tizimli</em> o'rganing</h1>
+    <p class="lead">Grammatika kitobi mavzular bo'yicha modullarga ajratilgan: har birida o'zbekcha tushuntirish, jadval, ovozli misollar va test. So'z boyligi esa TOG usulida — kitob va unitlar bo'yicha kartochkalarda.</p>
+    <div class="chips"><span class="chip" id="cG">📖 — modul</span><span class="chip" id="cQ">✅ — test savoli</span><span class="chip" id="cW">🧠 — so'z</span></div>
+  </section>
+
+  <section class="blk">
+    <div class="grid">
+      <a class="card" href="grammatika.html"><span class="em">📖</span><h3>Grammatika modullari</h3><p>Oddiy gap tuzilishidan ergash gaplargacha: ot, artikl, olmosh, sifat, ravish, 12 zamon, majhul nisbat, modal fe'llar, predloglar, ko'chirma gap, infinitiv va gerund.</p></a>
+      <a class="card" href="sozlar.html"><span class="em">🧠</span><h3>TOG so'zlar</h3><p>Essential English Words: 6 kitob, har birida 30 unit. Har bir so'z — tarjima, obraz, garmoniya va kulgili manzara bilan.</p></a>
+      <a class="card" href="grammatika.html" id="cont"><span class="em">▶️</span><h3>Davom ettirish</h3><p id="contP">Oxirgi ochilgan modulingizdan davom eting.</p></a>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Qanday o'qish kerak?</h2>
+    <div class="steps">
+      <div class="step"><b class="l">1</b><b>Modulni o'qing</b><p>Qoida va misollarni o'qing, 🔊 tugmasi bilan talaffuzni tinglang.</p></div>
+      <div class="step"><b class="l">2</b><b>Testni ishlang</b><p>70% dan yuqori natija — modul ✓ bilan belgilanadi.</p></div>
+      <div class="step"><b class="l">3</b><b>Kuniga 1 unit so'z</b><p>Kartochkalarda TOG manzarasini tasavvur qiling, so'ng test bilan mustahkamlang.</p></div>
+      <div class="step"><b class="l">4</b><b>Takrorlang</b><p>1, 3 va 7 kundan keyin «faqat o'rganilmaganlar» rejimida qayta ko'ring.</p></div>
+    </div>
+  </section>
+
+  <section class="blk" id="mods">
+    <h2>Grammatika bo'limlari</h2>
+    <div class="grid" id="groups"></div>
+  </section>
+</main>
+
+<footer class="en"><div class="wrap"><span>Kuvonch Academy · English · © <span id="year"></span></span><a href="../">kuvonch.uz</a></div></footer>
+
+<script src="assets/en.js"></script>
+<script src="assets/grammar-data.js"></script>
+<script src="assets/words-index.js"></script>
+<script>
+(function(){
+  var M = window.EN_GRAMMAR || [], B = window.EN_BOOKS || [], E = window.EN, esc = E.esc;
+  document.getElementById("cG").textContent = "📖 " + M.length + " ta modul";
+  document.getElementById("cQ").textContent = "✅ " + M.reduce(function(s,m){ return s + (m.quiz||[]).length; }, 0) + " ta test savoli";
+  document.getElementById("cW").textContent = "🧠 " + B.reduce(function(s,b){ return s + b.words; }, 0) + " ta so'z";
+  var last = E.load("glast", ""), lm = M.filter(function(m){ return m.id === last; })[0];
+  if (lm) { document.getElementById("cont").href = "grammatika.html#" + lm.id; document.getElementById("contP").textContent = lm.en + " — " + lm.uz; }
+  var done = E.load("gdone", {}), groups = [];
+  M.forEach(function(m){ var g = groups.filter(function(x){ return x.n === m.group; })[0]; if (!g) { g = { n: m.group, m: [] }; groups.push(g); } g.m.push(m); });
+  document.getElementById("groups").innerHTML = groups.map(function(g){
+    var d = g.m.filter(function(m){ return done[m.id]; }).length;
+    return '<div class="card"><h3 style="margin-top:0">' + esc(g.n) + '</h3><p>' + d + ' / ' + g.m.length + ' modul o\'zlashtirildi</p><ul style="margin:10px 0 0;padding-left:18px;font-size:14.5px">' +
+      g.m.map(function(m){ return '<li><a href="grammatika.html#' + m.id + '">' + esc(m.en) + '</a>' + (done[m.id] ? ' ✓' : '') + '</li>'; }).join("") + '</ul></div>';
+  }).join("");
+})();
+</script>
+<script async src="../statistika.js"></script>
+</body>
+</html>
