@@ -49,7 +49,7 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
 .lv.l1{background:var(--ac)}.lv.l2{background:var(--gold)}.lv.l3{background:#ffa36b}.lv.l4{background:var(--bad)}
 .sat-dom{margin:14px 0 6px;font-size:17px;color:var(--sat)}
 .sat-dom small{color:var(--dim);font-weight:400}
-.sat-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:10px 0;border-top:1px solid var(--bd)}
+.sat-row>div:last-child{display:flex;flex-direction:column;gap:6px}.sat-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:10px 0;border-top:1px solid var(--bd)}
 .sat-row .nm{font-weight:700}
 .sat-row .en{color:var(--dim);font-size:13px}
 .sat-row .ref{color:var(--dim);font-size:12.5px;margin-top:4px}
@@ -128,7 +128,8 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
     <div class="hist" id="demoHist"></div>
   </div>
   <div class="card">
-    <h2>🧭 SAT dasturi → saytdagi mavzular va testlar</h2>
+    <h2>🧭 SAT dasturi → darslar, saytdagi mavzular va testlar</h2>
+    <p class="note" style="margin:0 0 6px"><a class="btn sat" href="sat-dars.html" style="padding:10px 14px">📘 Barcha 37 darsni ochish</a></p>
     <p class="note">Tuzilish ikki kitob asosida: <b>PrepPros — The Complete Guide to Digital SAT Math</b> (4 darajali tizim: <span class="lv l1">1</span> asosiy, hamma uchun · <span class="lv l2">2</span> qo'shimcha · <span class="lv l3">3</span> murakkab · <span class="lv l4">4</span> ekspert) va <b>T. Hyun — Acing the New SAT Math</b> (20 bob, bob testlari). Har qatorda: saytdagi mavzu (bosib mashq qiling), kitob bobi va sahifasi (PP / AH), hamda shu kichik mavzu bo'yicha <b>test</b>.</p>
     <div class="exam" style="margin:8px 0 4px">
       <label class="note"><input type="checkbox" id="satOnlyCore" checked> Faqat asosiy (1-daraja) mavzular</label>
@@ -193,7 +194,7 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
       var rows=b.sub.filter(function(x){return !only||x.lvl===1}).map(function(x){
         var l=x.t.filter(has);
         var chips=l.length?x.t.map(function(id){var t=titleOf(id);return '<a class="chip" href="mashqlar.html#'+id+'"><span class="n">'+(t.match(/^\d+/)||[""])[0]+'</span><span>'+esc(t.replace(/^(\d+)\.\s*/,""))+'</span></a>'}).join(""):'<span class="soon">⏳ Saytda bu mavzu uchun test hali yo\'q — kitobdan ishlang</span>';
-        var btn=l.length?'<button class="btn sat sm" data-sub="sat-'+b.id+'-'+x.id+'" data-t="'+esc(x.uz)+'">▶ Test</button>':'';
+        var btn='<a class="btn gh sm" href="sat-dars.html#'+b.id+'-'+x.id+'">📖 Dars</a>'+(l.length?'<button class="btn sat sm" data-sub="sat-'+b.id+'-'+x.id+'" data-t="'+esc(x.uz)+'">▶ Test</button>':'');
         return '<div class="sat-row"><div><div class="nm"><span class="lv l'+x.lvl+'">'+x.lvl+'</span> '+esc(x.uz)+' <span class="en">· '+esc(x.en)+'</span></div><div class="ref">📘 PP: '+esc(x.pp)+' &nbsp; 📗 AH: '+esc(x.ah)+'</div><div class="chips">'+chips+'</div></div><div>'+btn+'</div></div>';
       }).join("");
       return '<div class="sat-dom">'+esc(b.en)+' <small>· '+esc(b.uz)+' · ≈'+D.vazn[b.id]+'% · '+esc(b.savol)+'</small></div>'+(rows||'<div class="note">Bu bo\'limda 1-daraja mavzu yo\'q.</div>');

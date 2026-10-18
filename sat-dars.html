@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SAT Math darslari — 37 mavzu | Kuvonch Academy</title>
+<meta name="description" content="Digital SAT Math bo'yicha o'zbekcha darslar: Algebra, Advanced Math, Problem-Solving & Data Analysis, Geometry & Trigonometry — formulalar, yechilgan misollar, SAT tuzoqlari, Desmos maslahatlari va har mavzuga test.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="canonical" href="https://kuvonch.uz/sat-dars.html">
+<style>
+:root{--bg:#0b1220;--soft:#111a2e;--card:#141f38;--bd:#243252;--tx:#eef2ff;--dim:#9fb0d0;--ac:#5ee6c7;--ac2:#7c9bff;--gold:#ffd479;--bad:#ff8585;--sat:#f9a8d4}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--ac)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 80px}
+header{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap;align-items:center}
+header a{color:var(--dim);text-decoration:none;font-weight:600}
+h1{font-size:clamp(22px,4.5vw,32px);margin:20px 0 6px}
+.sub{color:var(--dim);margin:0 0 14px}
+.lay{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.lay{grid-template-columns:1fr}.toc{position:static!important;max-height:none!important}}
+.toc{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px}
+.toc h3{margin:8px 0 4px;font-size:13px;color:var(--sat);text-transform:uppercase;letter-spacing:.04em}
+.toc a{display:flex;gap:6px;align-items:center;color:var(--tx);text-decoration:none;font-size:13.5px;padding:5px 6px;border-radius:8px}
+.toc a:hover{background:var(--soft)}
+.lv{display:inline-block;min-width:18px;padding:1px 5px;border-radius:999px;font:800 10.5px/1.3 inherit;text-align:center;color:#0b1220}
+.lv.l1{background:var(--ac)}.lv.l2{background:var(--gold)}.lv.l3{background:#ffa36b}.lv.l4{background:var(--bad)}
+.dom{margin:26px 0 8px;font-size:22px;color:var(--sat)}
+.dom small{color:var(--dim);font-size:14px;font-weight:500}
+.les{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin:0 0 14px;scroll-margin-top:12px}
+.les h2{margin:0 0 4px;font-size:19px}
+.les .en{color:var(--dim);font-size:13.5px;margin:0 0 10px}
+.les h4{margin:14px 0 6px;font-size:14px;color:var(--gold);text-transform:uppercase;letter-spacing:.04em}
+.les p,.les li{color:#d6def7;font-size:15px}
+.les ul,.les ol{margin:0;padding-left:20px}
+.les li{margin:4px 0}
+.ex{background:#0e1628;border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin:8px 0}
+.ex b{color:var(--tx)}
+.ex .s{color:var(--ac);margin-top:4px}
+.trap li{color:#ffd9dc}
+.desmos{background:#0e1a28;border-left:3px solid var(--ac2);padding:8px 12px;border-radius:8px;font-size:14px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:10px;padding:9px 13px;font:800 13px/1 inherit;cursor:pointer;background:var(--sat);color:#2a0b1e;text-decoration:none}
+.btn.gh{background:var(--soft);color:var(--tx);border:1px solid var(--bd)}
+.chip{display:inline-flex;gap:6px;align-items:center;padding:5px 9px;border:1px solid var(--bd);border-radius:10px;background:var(--soft);color:var(--tx);text-decoration:none;font-size:12.5px}
+.chip .n{color:var(--ac2);font-weight:800}
+.ref{color:var(--dim);font-size:12.5px;margin-top:8px}
+.note{font-size:13px;color:var(--dim)}
+@media print{.toc,.acts,header{display:none}.les{break-inside:avoid;border:1px solid #999;background:#fff;color:#000}.les p,.les li{color:#000}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a href="index.html">← Kuvonch Academy</a><span><a href="sertifikat.html#sat">🌍 SAT dasturi va testlar</a> · <a href="desmos.html">🧮 Desmos</a> · <a href="mashqlar.html">Mashqlar</a></span></header>
+<h1>📘 SAT Math darslari</h1>
+<p class="sub">Digital SAT Math'ning 4 bo'limi, 37 mavzu. Har darsda: nima so'raladi, asosiy g'oyalar va formulalar, yechilgan misollar, SAT tuzoqlari, Desmos maslahati va shu mavzu bo'yicha test. Daraja: <span class="lv l1">1</span> asosiy (hamma uchun) · <span class="lv l2">2</span> qo'shimcha · <span class="lv l3">3</span> murakkab · <span class="lv l4">4</span> ekspert. Tartib PrepPros va Hyun kitoblari tuzilishiga mos; matn — Kuvonch Academy'niki.</p>
+
+<div class="lay">
+  <nav class="toc" id="toc"></nav>
+  <div id="body"></div>
+</div>
+</div>
+
+<script src="sat-dastur.js"></script>
+<script src="sat-darslar.js"></script>
+<script src="ka-qidiruv.js"></script>
+<script src="ka-savollar.js"></script>
+<script src="ka-savollar-2.js"></script><script src="ka-savollar-3.js"></script><script src="ka-savollar-4.js"></script><script src="ka-savollar-5.js"></script>
+<script src="ka-savollar-6.js"></script><script src="ka-savollar-7.js"></script><script src="ka-savollar-8.js"></script><script src="ka-savollar-9.js"></script><script src="ka-savollar-10.js"></script><script src="ka-savollar-11.js"></script><script src="ka-savollar-12.js"></script>
+<script src="ka-test.js?v=20261018"></script>
+<script src="ka-bulut.js"></script>
+<script src="akkount.js"></script>
+<script>
+(function () {
+  var D = window.SAT_DASTUR, L = window.SAT_DARSLAR, $ = function (s) { return document.querySelector(s); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function titleOf(id) { var m = (window.KA_MAVZULAR || []).filter(function (x) { return x.id === id; })[0]; return m ? m.n : id; }
+  function has(x) { return window.kaSavol && window.kaSavol.has(x); }
+  var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
+  // test havzalari
+  D.bolim.forEach(function (b) { b.sub.forEach(function (x) { var l = x.t.filter(has); if (l.length && window.kaSavol) window.kaSavol.register("sat-" + b.id + "-" + x.id, function (Lv) { return window.kaSavol.get(pick(l), Lv); }, "SAT · " + x.uz); }); });
+
+  var toc = "", body = "";
+  D.bolim.forEach(function (b) {
+    toc += '<h3>' + esc(b.en) + '</h3>';
+    body += '<div class="dom" id="d-' + b.id + '">' + esc(b.en) + ' <small>· ' + esc(b.uz) + ' · ≈' + D.vazn[b.id] + '% · ' + esc(b.savol) + '</small></div>';
+    b.sub.forEach(function (x) {
+      var d = L[x.id]; var id = b.id + "-" + x.id;
+      toc += '<a href="#' + id + '"><span class="lv l' + x.lvl + '">' + x.lvl + '</span>' + esc(x.uz) + '</a>';
+      body += '<section class="les" id="' + id + '"><h2><span class="lv l' + x.lvl + '">' + x.lvl + '</span> ' + esc(x.uz) + '</h2><p class="en">' + esc(x.en) + '</p>';
+      if (d) {
+        body += '<h4>Nima so\'raladi</h4><p>' + esc(d.nima) + '</p>';
+        body += '<h4>Asosiy g\'oyalar va formulalar</h4><ul>' + d.g.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join("") + '</ul>';
+        body += '<h4>Yechilgan misollar</h4>' + d.m.map(function (m, i) { return '<div class="ex"><b>' + (i + 1) + '-misol.</b> ' + esc(m[0]) + '<div class="s">✔ ' + esc(m[1]) + '</div></div>'; }).join("");
+        body += '<h4>SAT tuzoqlari</h4><ul class="trap">' + d.tuzoq.map(function (t) { return '<li>⚠️ ' + esc(t) + '</li>'; }).join("") + '</ul>';
+        body += '<h4>Desmos bilan</h4><div class="desmos">🧮 ' + esc(d.desmos) + '</div>';
+      } else body += '<p class="note">Dars matni tayyorlanmoqda.</p>';
+      var chips = x.t.map(function (t) { var n = titleOf(t); return '<a class="chip" href="mashqlar.html#' + t + '"><span class="n">' + (n.match(/^\d+/) || [""])[0] + '</span>' + esc(n.replace(/^\d+\.\s*/, "")) + '</a>'; }).join(" ");
+      body += '<div class="ref">📘 PrepPros: ' + esc(x.pp) + ' &nbsp; 📗 Hyun: ' + esc(x.ah) + '</div>';
+      body += '<div class="acts">' + (x.t.filter(has).length ? '<button class="btn" data-sub="sat-' + id + '" data-t="' + esc(x.uz) + '">▶ Test (10 savol, Desmos bilan)</button>' : '') + chips + '</div></section>';
+    });
+  });
+  $("#toc").innerHTML = toc; $("#body").innerHTML = body;
+  document.querySelectorAll("[data-sub]").forEach(function (btn) { btn.onclick = function () { window.kaTest.run(btn.getAttribute("data-sub"), "SAT · " + btn.getAttribute("data-t"), 0, 10, "variant", { perQ: 1.6, desmos: true }); }; });
+  if (location.hash) { var el = document.getElementById(location.hash.slice(1)); if (el) setTimeout(function () { el.scrollIntoView(); }, 50); }
+})();
+</script>
+<script src="ka-til.js"></script>
+<script src="ka-ielts.js" defer></script>
+<script src="ka-effektlar.js"></script>
+</body>
+</html>
