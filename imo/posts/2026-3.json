@@ -1,0 +1,42 @@
+{
+  "id": "2026-3",
+  "badge": "IMO 2026 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Tayoqni bo'lish o'yini",
+      "fs": 34,
+      "body": "<p><span class='m'>n</span> — natural son. Liu Bang va Syan Yuy uzunligi <span class='m'>1</span> bo'lgan tayoqni o'zaro bo'lishmoqchi.</p><ul><li>Avval Liu tayoqda <b>ko'pi bilan <span class='m'>n</span> ta</b> nuqta belgilaydi, so'ng Syan ham <b>ko'pi bilan <span class='m'>n</span> ta</b> nuqta belgilaydi (hamma nuqtalar har xil).</li><li>Tayoq barcha belgilangan nuqtalardan kesiladi.</li><li>Keyin ular navbat bilan istalgan bo'lakni oladi, <b>Liu birinchi</b> boshlaydi.</li></ul><p>Har biri o'z bo'laklari uzunliklari yig'indisini maksimal qilishga intiladi.</p><div class='box'>Har bir <span class='m'>n</span> uchun Syan qanday o'ynamasin, Liu <b>kamida <span class='m'>c</span></b> uzunlikni kafolatlay oladigan eng katta <span class='m'>c</span> ni toping.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob va soddalashtirish",
+      "fs": 34,
+      "body": "<div class='box' style='text-align:center;font-size:42px'><span class='m'>c = 2<sup>n</sup> / (2<sup>n+1</sup> − 1)</span></div><p>Bo'lish bosqichida har kim doim <b>eng uzun bo'lakni</b> olgani ma'qul. Bo'laklar <span class='m'>x<sub>1</sub> ≥ x<sub>2</sub> ≥ … ≥ x<sub>2n+1</sub></span> bo'lsa, Liu <span class='m'>x<sub>1</sub>, x<sub>3</sub>, x<sub>5</sub>, …</span> ni oladi.</p><p>Qulaylik uchun tayoqni <span class='m'>1 + 2 + 4 + … + 2<sup>n</sup> = 2<sup>n+1</sup> − 1</span> uzunlikka cho'zamiz. Endi isbotlash kerak:</p><div class='box'>Liu kamida <span class='m'>2<sup>n</sup></span> ni kafolatlaydi, Syan esa Liuni <span class='m'>2<sup>n</sup></span> dan oshirmasligi mumkin.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Liu: 1 : 2 : 4 : … : 2ⁿ",
+      "fs": 32,
+      "body": "<svg viewBox='0 0 900 90' width='880' height='88' style='display:block;margin:0 auto 14px'><rect x='10' y='20' width='58' height='40' fill='none' stroke='#eef2f7' stroke-width='3'/><rect x='68' y='20' width='116' height='40' fill='none' stroke='#eef2f7' stroke-width='3'/><rect x='184' y='20' width='232' height='40' fill='none' stroke='#eef2f7' stroke-width='3'/><rect x='416' y='20' width='464' height='40' fill='#f2b84b22' stroke='#f2b84b' stroke-width='3'/><text x='31' y='50' fill='#eef2f7' font-size='26' font-family='DejaVu Serif' font-style='italic'>1</text><text x='118' y='50' fill='#eef2f7' font-size='26' font-family='DejaVu Serif' font-style='italic'>2</text><text x='292' y='50' fill='#eef2f7' font-size='26' font-family='DejaVu Serif' font-style='italic'>4</text><text x='640' y='50' fill='#f2b84b' font-size='26' font-family='DejaVu Serif' font-style='italic'>8</text></svg><p style='font-size:25px;color:#8fa3bf;text-align:center;margin-bottom:14px'>n = 3 uchun Liu kesgan tayoq</p><p>Syanning <span class='m'>k</span>-bo'lagigacha olganlari haqida:</p><div class='box'><span class='m'>x<sub>2</sub> + x<sub>4</sub> + … + x<sub>2k</sub> ≤ 2<sup>n−1</sup> + … + 2<sup>n−k</sup></span></div><p>Aksincha, birinchi buzilgan <span class='m'>k</span> da <span class='m'>x<sub>2k</sub> > 2<sup>n−k</sup></span>. Unda dastlabki <span class='m'>2k</span> bo'lakning hammasi eng katta <span class='m'>k</span> ta qismdan (<span class='m'>2<sup>n−k+1</sup>, …, 2<sup>n</sup></span>) kesilgan, ya'ni</p><p><span class='m'>x<sub>2</sub>+…+x<sub>2k</sub> ≤ ½(x<sub>1</sub>+…+x<sub>2k</sub>) ≤ 2<sup>n−k</sup>+…+2<sup>n−1</sup></span> — qarama-qarshilik!</p><p><span class='m'>k = n</span> da: Syan <span class='m'>≤ 2<sup>n</sup> − 1</span>, demak Liu <span class='m'>≥ 2<sup>n</sup></span> ✅</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Syan: Dirixle prinsipi",
+      "fs": 35,
+      "body": "<p>Endi Liu tayoqni <b>qanday</b> kesmasin, Syan uni <span class='m'>c</span> dan oshirmasligini ko'rsatamiz. Asl uzunlik <span class='m'>1</span> ga qaytamiz.</p><p>Liuning <span class='m'>n + 1</span> ta qismidan tuzilgan barcha <span class='m'>2<sup>n+1</sup></span> ta to'plamni olamiz. Ularning yig'indilari <span class='m'>[0; 1]</span> oraliqda yotadi.</p><div class='box'>Dirixle prinsipi: shunday <span class='m'>S ≠ T</span> topiladiki,<br><span class='m'>0 ≤ Σ(S) − Σ(T) ≤ 1 / (2<sup>n+1</sup> − 1)</span></div><p>Umumiy qismlarni ikkalasidan olib tashlasak, ayirma o'zgarmaydi — endi <span class='m'>S</span> va <span class='m'>T</span> kesishmaydi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Ko'zgu kesishlar",
+      "fs": 32,
+      "body": "<svg viewBox='0 0 900 150' width='860' height='143' style='display:block;margin:0 auto 14px'><text x='0' y='45' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>S</text><text x='0' y='115' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>T</text><rect x='40' y='20' width='300' height='36' fill='none' stroke='#eef2f7' stroke-width='3'/><rect x='340' y='20' width='420' height='36' fill='none' stroke='#eef2f7' stroke-width='3'/><rect x='760' y='20' width='130' height='36' fill='#f2b84b33' stroke='#f2b84b' stroke-width='3'/><rect x='40' y='90' width='450' height='36' fill='none' stroke='#eef2f7' stroke-width='3'/><rect x='490' y='90' width='270' height='36' fill='none' stroke='#eef2f7' stroke-width='3'/><line x1='490' y1='14' x2='490' y2='62' stroke='#f2b84b' stroke-width='4' stroke-dasharray='6 4'/><line x1='760' y1='14' x2='760' y2='62' stroke='#f2b84b' stroke-width='4' stroke-dasharray='6 4'/><line x1='340' y1='84' x2='340' y2='132' stroke='#f2b84b' stroke-width='4' stroke-dasharray='6 4'/><text x='782' y='100' fill='#f2b84b' font-size='24' font-family='DejaVu Serif' font-style='italic'>ortiqcha</text></svg><p>Syan <span class='m'>S</span> va <span class='m'>T</span> qismlarini ustma-ust qo'yib, bir-birining chegaralaridan kesadi (oltin chiziqlar). Natijada <b>teng juftlar</b> va bitta ortiqcha bo'lak qoladi. Qolgan barcha qismlarni Syan <b>teng ikkiga</b> bo'ladi.</p><div class='box'>Teng juftlar bir-birini yo'qotadi:<br><span class='m'>Liu − Syan = g ≤ Σ(S) − Σ(T) ≤ 1/(2<sup>n+1</sup> − 1)</span></div><p>Demak Liu <span class='m'>≤ ½(1 + 1/(2<sup>n+1</sup>−1)) = 2<sup>n</sup>/(2<sup>n+1</sup>−1)</span> ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>Liu tayoqni <b>2 ning darajalari</b> nisbatida kesadi, Syan esa <b>Dirixle prinsipi</b> va ko'zgu kesishlar bilan javob beradi. Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>n = 1</span> da <span class='m'>c = 2/3</span> (Liu <span class='m'>1/3</span> dan kesadi), <span class='m'>n = 2</span> da <span class='m'>c = 4/7</span> (<span class='m'>1 : 2 : 4</span>) ✅</div><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 1</span> da Liu tayoqni o'rtasidan kessa, Syan unga qancha qoldiradi? Javobni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2026 · 4-masala</b> (uchburchak kesish o'yini)</p>"
+    }
+  ]
+}
