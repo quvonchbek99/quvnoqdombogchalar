@@ -215,5 +215,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki qamish emanga qaraganda kattaroq edi", "Chunki eman qattiq turib qarshilik ko'rsatdi, qamish esa moslashdi", "Chunki bo'ron faqat emanga zarar yetkazmoqchi edi"],
     javob: 1,
     izoh: "Qattiq turib, sinmaslikka urinish har doim ham g'alaba emas. Vaziyatga moslashuvchan bo'lish ko'pincha kuchli bo'ronda ham omon qolishga yordam beradi."
+  },
+  {
+    id: "ez-028", mavzu: "kamtarlik", sarlavha: "Chivin va ho'kiz",
+    matn: "Ho'kiz og'ir aravani qiyinchilik bilan tortib borardi. Uning shoxiga qo'ngan chivin har qadamda vizillab: \"Qarang, aravani men harakatga keltiryapman!\" deb maqtanardi. Yo'l tekislangach, chivin yanada baland ovozda: \"Ko'rdingizmi, mening kuchim bilan arava yuribdi!\" dedi.",
+    savol: "Chivin nimani noto'g'ri tushundi?",
+    variantlar: ["Yo'l juda tekis bo'lgani uchun arava o'z-o'zidan yurayotganini", "Aravani ho'kiz tortayotganini va o'zining hech qanday roli yo'qligini", "Ho'kizdan o'zi kuchliroq ekanini"],
+    javob: 1,
+    izoh: "Chivin har qadamda o'zini muhim sanadi, lekin aravani ho'kizning kuchi harakatlantirardi. O'z hissasini ortiqcha baholash kulgili va kamtarlikka zid."
   }
 ];
