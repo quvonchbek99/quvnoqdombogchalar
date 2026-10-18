@@ -223,5 +223,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Yo'l juda tekis bo'lgani uchun arava o'z-o'zidan yurayotganini", "Aravani ho'kiz tortayotganini va o'zining hech qanday roli yo'qligini", "Ho'kizdan o'zi kuchliroq ekanini"],
     javob: 1,
     izoh: "Chivin har qadamda o'zini muhim sanadi, lekin aravani ho'kizning kuchi harakatlantirardi. O'z hissasini ortiqcha baholash kulgili va kamtarlikka zid."
+  },
+  {
+    id: "ez-029", mavzu: "mantiq", sarlavha: "Eshak va tuz",
+    matn: "Eshak tuz ortilgan yukni ko'tarib daryodan o'tayotganda yiqildi. Tuz suvda erib ketib, yuki ancha yengillashdi. Keyingi safar u bu saboqni eslab, g'ovakli sung'er ortilgan yukni olib, yana daryoga yiqilmoqchi bo'ldi.",
+    savol: "Ikkinchi safar eshakning yuki nega og'irlashib ketdi?",
+    variantlar: ["Chunki sung'er suvni shimib, og'irlashdi, eshak esa suvga tushish yukni yengil qilishini o'ylagan edi", "Chunki eshak ko'p yurgani uchun charchab, yuki og'irroq tuyuldi", "Chunki daryo juda sayoz edi va yuk toshlarga tegib qoldi"],
+    javob: 0,
+    izoh: "Eshak bir vaziyatdagi saboqni boshqa vaziyatga o'z holicha ko'chirdi. Har bir yukning suv bilan munosabati har xil ekanini hisobga olish kerak."
   }
 ];
