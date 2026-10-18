@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TOG so'zlar — Essential English Words | Kuvonch Academy</title>
+<title>TOG so'zlar — 4000 Essential English Words | Kuvonch Academy</title>
 <meta name="description" content="Eng kerakli inglizcha so'zlar TOG usulida: tarjima, obraz, garmoniya (o'zbekcha ohangdosh so'z) va kulgili manzara. Kitob va unitlar bo'yicha kartochkalar, ovoz va test.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232457d6'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' text-anchor='middle' fill='%23fff'%3EEn%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,8 +24,8 @@
 <div class="wrap">
   <section class="hero" style="padding-bottom:6px">
     <p class="eyebrow">TOG usulida so'z yodlash</p>
-    <h1>Essential <em>English Words</em></h1>
-    <p class="lead">Har bir so'z — <b>tarjima</b>, <b>obraz</b> (rasm), <b>garmoniya</b> (o'zbekcha ohangdosh so'z) va tasavvurga sig'maydigan <b>kulgili manzara</b> bilan. Kitob → unit tanlang, so'zlarni kartochkada yodlang va test bilan tekshiring.</p>
+    <h1>4000 Essential <em>English Words</em></h1>
+    <p class="lead">Har bir so'z — <b>tarjima</b>, <b>obraz</b> (rasm), <b>garmoniya</b> (o'zbekcha ohangdosh so'z) va tasavvurga sig'maydigan <b>kulgili manzara</b> bilan. So'zlar Paul Nation'ning <i>4000 Essential English Words</i> (6 kitob × 30 unit × 20 so'z) kitobidagi tartibda. Kitob → unit tanlang, so'zlarni kartochkada yodlang va test bilan tekshiring.</p>
     <div class="chips"><span class="chip" id="stAll">— so'z</span><span class="chip" id="stKnown">0 ta o'rganildi</span><span class="chip" id="stBook">—</span></div>
   </section>
 
@@ -36,6 +36,9 @@
     <button type="button" data-tab="list" aria-selected="true">So'zlar</button>
     <button type="button" data-tab="cards" aria-selected="false">Kartochkalar</button>
     <button type="button" data-tab="quiz" aria-selected="false">Test</button>
+    <button type="button" data-tab="srs" aria-selected="false">🔁 Takrorlash</button>
+    <button type="button" data-tab="spell" aria-selected="false">✍️ Yozish</button>
+    <button type="button" data-tab="match" aria-selected="false">🧩 Juftlash</button>
     <button type="button" data-tab="method" aria-selected="false">TOG usuli</button>
   </div>
 
@@ -82,6 +85,24 @@
       <button type="button" class="btn pri" id="newQuiz">Yangi test</button>
     </div>
     <div id="quiz"></div>
+  </section>
+
+  <section id="tab-srs" hidden>
+    <p class="muted">Aqlli takrorlash (Leytner qutilari): bilgan so'zingiz har safar uzoqroq muddatga — 1, 2, 4, 8, 16 kunga — suriladi, bilmaganingiz ertaga yana chiqadi. Kuniga 5–10 daqiqa yetarli.</p>
+    <div class="toolbar"><button type="button" class="btn" id="srsAdd">➕ Shu unitni takrorlashga qo'shish</button><span class="chip" id="srsStat">—</span></div>
+    <div class="fca" id="srsBox"></div>
+  </section>
+
+  <section id="tab-spell" hidden>
+    <p class="muted">Tarjima va TOG kalitiga qarab so'zni inglizcha yozing. «Tinglab yozish» rejimida faqat ovoz eshitiladi.</p>
+    <div class="toolbar"><label style="display:inline-flex;gap:6px;align-items:center;font-size:14.5px"><input type="checkbox" id="spAudio"> Tinglab yozish (diktant)</label><button type="button" class="btn pri" id="spNew">Yangi mashq</button><span class="chip" id="spScore">0 / 0</span></div>
+    <div class="fca" id="spBox"></div>
+  </section>
+
+  <section id="tab-match" hidden>
+    <p class="muted">Inglizcha so'zni uning tarjimasi bilan juftlang. Tez va xatosiz — yuqori ball!</p>
+    <div class="toolbar"><button type="button" class="btn pri" id="mtNew">Yangi o'yin</button><span class="chip" id="mtStat">—</span></div>
+    <div id="mtBoard" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:640px"></div>
   </section>
 
   <section id="tab-method" hidden style="padding-bottom:40px">
@@ -235,10 +256,78 @@
   }
   $("newQuiz").onclick = newQuiz; $("qMode").onchange = newQuiz;
 
-  E.tabs(document, function(t){ if (t === "cards") buildDeck(false); if (t === "quiz") newQuiz(); });
+
+  /* ===== Takrorlash (Leytner) ===== */
+  var srs = E.load("srs", {}), DAY = 864e5, IV = [0, 1, 2, 4, 8, 16, 32];
+  function wById(id){ var p = id.split("-"), d = bookData(+p[0]); if (!d) return null; var u = d.filter(function(x){ return x.u === +p[1]; })[0]; var w = u && u.w[+p[2]]; if (w){ w.id = id; w.n = +p[2] + 1; } return w; }
+  function srsDue(){ var now = Date.now(); return Object.keys(srs).filter(function(id){ return +id.split("-")[0] === st.b && srs[id].d <= now; }); }
+  function srsShow(){
+    var due = srsDue(), all = Object.keys(srs).filter(function(id){ return +id.split("-")[0] === st.b; });
+    $("srsStat").textContent = "Book " + st.b + ": " + all.length + " ta so'z qutida · bugun " + due.length + " ta";
+    if (!due.length){ $("srsBox").innerHTML = '<p class="muted">' + (all.length ? "🎉 Bugungi takrorlash tugadi. Ertaga qayting!" : "Avval «Shu unitni takrorlashga qo'shish» tugmasini bosing.") + '</p>'; return; }
+    var w = wById(due[0]); if (!w){ delete srs[due[0]]; E.save("srs", srs); return srsShow(); }
+    $("srsBox").innerHTML = '<div class="w" style="width:min(540px,100%);text-align:center;align-items:center"><div style="font-size:46px">' + esc(w.em||"📘") + '</div><div class="en">' + esc(w.w) + '</div><div class="ip">' + esc(w.ip||"") + '</div>' +
+      '<div id="srsAns" hidden><div class="uz">' + esc(w.uz) + '</div>' + (w.h ? '<div class="tog" style="margin-top:8px"><span class="lab">TOG</span><span class="hw">' + esc(w.h) + '</span> — ' + esc(w.s||"") + '</div>' : '') + '</div>' +
+      '<div class="fcc" style="margin-top:10px"><button type="button" class="btn" data-say="' + esc(w.w) + '">🔊</button><button type="button" class="btn pri" id="srsShowA">Javobni ko\'rish</button></div>' +
+      '<div class="fcc" id="srsRate" hidden><button type="button" class="btn" data-r="0">❌ Bilmadim</button><button type="button" class="btn" data-r="1">😐 Qiyin</button><button type="button" class="btn pri" data-r="2">✅ Bildim</button></div></div>';
+    $("srsShowA").onclick = function(){ $("srsAns").hidden = false; $("srsRate").hidden = false; this.hidden = true; E.say(w.w); };
+    $("srsRate").querySelectorAll("button").forEach(function(bt){ bt.onclick = function(){
+      var r = +bt.dataset.r, c = srs[w.id]; c.b = r === 0 ? 1 : (r === 1 ? Math.max(1, c.b) : Math.min(6, c.b + 1));
+      c.d = Date.now() + (r === 0 ? 0 : IV[c.b] * DAY); if (r === 0) c.d = Date.now() + 60e3;
+      if (c.b >= 5){ known[w.id] = true; E.save("known", known); }
+      E.save("srs", srs); srsShow(); stats(); renderUnits();
+    }; });
+  }
+  $("srsAdd").onclick = function(){ unitWords().forEach(function(w){ if (!srs[w.id]) srs[w.id] = { b: 1, d: Date.now() }; }); E.save("srs", srs); srsShow(); };
+
+  /* ===== Yozish ===== */
+  var sp = { q: [], i: 0, ok: 0 };
+  function spNew(){ sp.q = E.shuffle(unitWords()).slice(0, 10); sp.i = 0; sp.ok = 0; spShow(); }
+  function spShow(){
+    $("spScore").textContent = sp.ok + " / " + sp.i;
+    if (sp.i >= sp.q.length){ $("spBox").innerHTML = '<p class="score">Natija: ' + sp.ok + ' / ' + sp.q.length + '</p>'; return; }
+    var w = sp.q[sp.i], au = $("spAudio").checked;
+    $("spBox").innerHTML = '<div class="w" style="width:min(540px,100%);text-align:center;align-items:center">' +
+      (au ? '<div style="font-size:46px">🎧</div><button type="button" class="btn" data-say="' + esc(w.w) + '">🔊 Yana tinglash</button>' : '<div style="font-size:46px">' + esc(w.em||"📘") + '</div><div class="uz">' + esc(w.uz) + '</div>' + (w.h ? '<div class="muted" style="font-size:14px">TOG kaliti: <b>' + esc(w.h) + '</b></div>' : '')) +
+      '<input id="spIn" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="inglizcha yozing…" style="margin-top:10px;width:100%;max-width:340px;text-align:center;font-size:20px;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink)">' +
+      '<div class="fcc" style="margin-top:8px"><button type="button" class="btn" id="spHint">💡 Birinchi harf</button><button type="button" class="btn pri" id="spChk">Tekshirish</button></div><div id="spRes" style="margin-top:8px;font-weight:800"></div></div>';
+    if (au) setTimeout(function(){ E.say(w.w); }, 200);
+    var inp = $("spIn"); inp.focus();
+    $("spHint").onclick = function(){ inp.value = w.w.slice(0, Math.max(1, inp.value.length + 1)); inp.focus(); };
+    function chk(){
+      if ($("spRes").dataset.done){ sp.i++; return spShow(); }
+      var ok = inp.value.trim().toLowerCase() === w.w.toLowerCase();
+      if (ok) sp.ok++;
+      $("spRes").dataset.done = 1; $("spRes").innerHTML = (ok ? '<span style="color:var(--green)">✅ To\'g\'ri!</span> ' : '<span style="color:var(--red)">❌ To\'g\'risi: ' + esc(w.w) + '</span> ') + '<span class="muted">— ' + esc(w.uz) + '</span><br><span class="muted" style="font-weight:400">Enter — keyingisi</span>';
+      $("spChk").textContent = "Keyingisi →"; E.say(w.w);
+    }
+    $("spChk").onclick = chk; inp.onkeydown = function(e){ if (e.key === "Enter") chk(); };
+  }
+  $("spNew").onclick = spNew; $("spAudio").onchange = spNew;
+
+  /* ===== Juftlash ===== */
+  var mt = {};
+  function mtNew(){
+    var ws = E.shuffle(unitWords()).slice(0, 6); mt = { ws: ws, sel: null, ok: 0, err: 0, t0: Date.now() };
+    var L = E.shuffle(ws.map(function(w, i){ return { k: i, x: w.w, s: "en" }; })), R = E.shuffle(ws.map(function(w, i){ return { k: i, x: w.uz, s: "uz" }; }));
+    var h = ""; for (var i = 0; i < ws.length; i++){ h += '<button type="button" class="btn mtb" data-k="' + L[i].k + '" data-s="en" style="justify-content:flex-start;min-height:52px">' + esc(L[i].x) + '</button><button type="button" class="btn mtb" data-k="' + R[i].k + '" data-s="uz" style="justify-content:flex-start;min-height:52px;font-weight:700">' + esc(R[i].x) + '</button>'; }
+    $("mtBoard").innerHTML = h; $("mtStat").textContent = "0 / " + ws.length;
+    $("mtBoard").querySelectorAll(".mtb").forEach(function(b){ b.onclick = function(){
+      if (b.disabled) return;
+      if (b.dataset.s === "en") E.say(b.textContent);
+      if (!mt.sel || mt.sel.dataset.s === b.dataset.s){ if (mt.sel) mt.sel.style.borderColor = ""; mt.sel = b; b.style.borderColor = "var(--acc)"; return; }
+      if (mt.sel.dataset.k === b.dataset.k){ [mt.sel, b].forEach(function(x){ x.disabled = true; x.style.opacity = .45; x.style.borderColor = "var(--green)"; }); mt.ok++; }
+      else { mt.err++; var a = mt.sel; [a, b].forEach(function(x){ x.style.borderColor = "var(--red)"; }); setTimeout(function(){ a.style.borderColor = ""; b.style.borderColor = ""; }, 500); }
+      mt.sel = null;
+      var sec = Math.round((Date.now() - mt.t0) / 1000);
+      $("mtStat").textContent = mt.ok + " / " + mt.ws.length + " · xato: " + mt.err + (mt.ok === mt.ws.length ? " · ⏱ " + sec + " s — 🎉 Barakalla!" : "");
+    }; });
+  }
+  $("mtNew").onclick = mtNew;
+  E.tabs(document, function(t){ if (t === "cards") buildDeck(false); if (t === "quiz") newQuiz(); if (t === "srs") srsShow(); if (t === "spell") spNew(); if (t === "match") mtNew(); });
   $("q").addEventListener("input", renderList); $("onlyNew").onchange = renderList;
 
-  function refresh(){ renderUnits(); stats(); renderList(); if (!$("tab-cards").hidden) buildDeck(false); if (!$("tab-quiz").hidden) newQuiz(); }
+  function refresh(){ renderUnits(); stats(); renderList(); if (!$("tab-cards").hidden) buildDeck(false); if (!$("tab-quiz").hidden) newQuiz(); if (!$("tab-srs").hidden) srsShow(); if (!$("tab-spell").hidden) spNew(); if (!$("tab-match").hidden) mtNew(); }
   function go(){ renderBooks(); ensureBook(st.b, refresh); }
   if (!BOOKS.length) { $("list").innerHTML = '<p class="muted">So\'zlar tez orada qo\'shiladi.</p>'; return; }
   if (!BOOKS.some(function(b){ return b.b === st.b; })) st.b = BOOKS[0].b;
