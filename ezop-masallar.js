@@ -207,5 +207,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ha, chunki u daryo bo'yida turgan edi", "Yo'q, chunki u suvning pastida edi va oqim yuqoridan pastga oqardi", "Ha, chunki bo'ri unga ishonardi"],
     javob: 1,
     izoh: "Oqim yuqoridan pastga oqadi, shuning uchun qo'zi pastda turib, yuqoridagi suvni loyqalay olmasdi. Haqiqat ochiq bo'lsa ham, kuchli kishi bahona topib, zararsiz odamni aybdor qilishi mumkin."
+  },
+  {
+    id: "ez-027", mavzu: "moslashuvchanlik", sarlavha: "Eman va qamish",
+    matn: "Kuchli shamol esganda, baland eman daraxti o'zini tik tutib, hech qayerga egilmadi. Yonida o'sgan nozik qamish esa shamol bilan egilib, unga bo'yin egdi. Bo'ron tinganda eman qulab tushdi, qamish esa yana tik turdi.",
+    savol: "Bo'ron o'tgach, nega eman qulab, qamish omon qoldi?",
+    variantlar: ["Chunki qamish emanga qaraganda kattaroq edi", "Chunki eman qattiq turib qarshilik ko'rsatdi, qamish esa moslashdi", "Chunki bo'ron faqat emanga zarar yetkazmoqchi edi"],
+    javob: 1,
+    izoh: "Qattiq turib, sinmaslikka urinish har doim ham g'alaba emas. Vaziyatga moslashuvchan bo'lish ko'pincha kuchli bo'ronda ham omon qolishga yordam beradi."
   }
 ];
