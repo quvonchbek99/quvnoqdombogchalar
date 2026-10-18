@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Desmos'ni o'rganish — SAT Math uchun | Kuvonch Academy</title>
+<meta name="description" content="Digital SAT'da ruxsat etilgan Desmos grafik kalkulyatorini o'rganing: tenglama, sistema, ekvivalent ifoda, kvadrat tenglama ildizlari, regressiya va statistika — jonli mashqlar bilan.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="canonical" href="https://kuvonch.uz/desmos.html">
+<style>
+:root{--bg:#0b1220;--soft:#111a2e;--card:#141f38;--bd:#243252;--tx:#eef2ff;--dim:#9fb0d0;--ac:#5ee6c7;--ac2:#7c9bff;--gold:#ffd479;--bad:#ff8585;--sat:#f9a8d4}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--ac)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 80px}
+header{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap;align-items:center}
+header a{color:var(--dim);text-decoration:none;font-weight:600}
+h1{font-size:clamp(22px,4.5vw,32px);margin:20px 0 6px}
+.sub{color:var(--dim);margin:0 0 14px}
+.lay{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media(max-width:860px){.lay{grid-template-columns:1fr}.sticky{position:static!important}}
+.sticky{position:sticky;top:10px}
+.calc{height:min(72vh,620px);background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--bd)}
+.calc>div{width:100%;height:100%}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin:0 0 12px}
+.card h2{margin:0 0 6px;font-size:18px}
+.card h2 small{color:var(--dim);font-weight:500;font-size:13px}
+.card p{margin:6px 0;color:#d6def7;font-size:15px}
+.card code{background:#0e1628;border:1px solid var(--bd);border-radius:6px;padding:2px 6px;color:var(--gold);font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:10px;padding:10px 14px;font:800 14px/1 inherit;cursor:pointer;background:var(--ac2);color:#0b1220;margin:6px 6px 0 0}
+.btn.gh{background:var(--soft);color:var(--tx);border:1px solid var(--bd)}
+.task{margin-top:10px;padding:10px 12px;background:#0e1628;border:1px dashed var(--bd);border-radius:12px}
+.task b{color:var(--gold)}
+.task input{background:#141f38;border:1px solid var(--bd);color:var(--tx);border-radius:8px;padding:8px 10px;font:600 15px/1 inherit;width:110px}
+.fb{font-weight:700;margin-left:8px}.fb.ok{color:var(--ac)}.fb.bad{color:var(--bad)}
+.steps{margin:6px 0 0 18px;padding:0;color:#d6def7;font-size:14.5px}
+.steps li{margin:3px 0}
+.pill{display:inline-block;background:var(--sat);color:#2a0b1e;border-radius:999px;padding:3px 9px;font:800 11px/1.3 inherit;margin-left:6px}
+.note{font-size:13px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a href="index.html">← Kuvonch Academy</a><span><a href="sertifikat.html#sat">🌍 SAT Math</a> · <a href="mashqlar.html">Mashqlar</a></span></header>
+<h1>🧮 Desmos'ni o'rganish — SAT Math uchun</h1>
+<p class="sub">Digital SAT'da <b>Desmos grafik kalkulyatori</b> test ichida ochiq turadi. Ko'p savolni formulasiz, grafik orqali 20–30 soniyada yechish mumkin. Quyidagi darslarni o'qing, <b>«Desmos'ga yuklash»</b>ni bosing va o'ng tomondagi kalkulyatorda natijani ko'ring, so'ng mashqni bajaring. Saytdagi <a href="sertifikat.html#sat">SAT testlari</a> ichida ham 🧮 Desmos tugmasi bor.</p>
+
+<div class="lay">
+<div>
+  <div class="card">
+    <h2>0. Asoslar <small>— ifoda kiritish, nuqta, masshtab</small></h2>
+    <p>Chap ustunga ifoda yoziladi: <code>y = 2x + 3</code>. Grafikdagi muhim nuqtalarni (o'qlar bilan kesishma, uchi, ikki grafik kesishmasi) <b>bosib</b> koordinatasini ko'rasiz. Sichqoncha g'ildiragi yoki «+ −» bilan masshtab. Nuqtalar: <code>(2, 5)</code>. Jadval: «+» → Table.</p>
+    <button class="btn" data-ex='["y=2x+3","(2,7)"]'>▶ Desmos'ga yuklash</button>
+  </div>
+
+  <div class="card">
+    <h2>1. Tenglamani grafik bilan yechish <span class="pill">PrepPros hack #1</span></h2>
+    <p>Tenglamaning chap va o'ng tomonini ikkita alohida grafik qiling: <code>y = 3x + 7</code> va <code>y = 22</code>. Kesishma nuqtasining <b>x</b> koordinatasi — yechim. Kasrli, ildizli, modulli tenglamalarda ham xuddi shunday.</p>
+    <button class="btn" data-ex='["y=3x+7","y=22"]'>▶ Desmos'ga yuklash</button>
+    <div class="task" id="task1"></div>
+  </div>
+
+  <div class="card">
+    <h2>2. Tenglamalar sistemasi <span class="pill">hack #2</span></h2>
+    <p>Ikkala tenglamani kiriting — kesishma nuqtasi (x; y) sistemaning yechimi. Grafiklar parallel bo'lsa — yechim yo'q; ustma-ust tushsa — cheksiz ko'p. Standart ko'rinish <code>2x + 3y = 12</code> ni ham o'zgartirmasdan kiritish mumkin.</p>
+    <button class="btn" data-ex='["y=2x+1","y=-x+7"]'>▶ Desmos'ga yuklash</button>
+    <div class="task" id="task2"></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Ekvivalent ifodalar <span class="pill">hack #3</span></h2>
+    <p>«Qaysi ifoda berilganiga teng?» savolida berilgan ifodani <code>y = (x+3)²</code> deb kiriting, so'ng har bir variantni ham kiriting. To'g'ri variant grafigi <b>aynan ustma-ust</b> tushadi (bitta chiziq ko'rinadi), noto'g'risi ajralib turadi.</p>
+    <button class="btn" data-ex='["y=(x+3)^2","y=x^2+6x+9","y=x^2+6x+5"]'>▶ Desmos'ga yuklash</button>
+  </div>
+
+  <div class="card">
+    <h2>4. Kvadrat tenglama: ildizlar va uchi <span class="pill">hack #4</span></h2>
+    <p><code>y = x² − 5x + 6</code> ni kiriting. Grafikning <b>x o'qi bilan kesishmalari</b> — tenglama ildizlari (2 va 3). Parabolaning eng past/baland nuqtasini bossangiz — <b>uchi</b> (vertex). Ildizlar yig'indisi va ko'paytmasi savollarini ham shu yerdan o'qiysiz. Ko'paytuvchilarga ajratish shart emas.</p>
+    <button class="btn" data-ex='["y=x^2-5x+6"]'>▶ Desmos'ga yuklash</button>
+    <div class="task" id="task3"></div>
+  </div>
+
+  <div class="card">
+    <h2>5. Jadval va regressiya <small>— sochilma diagramma, moslik chizig'i</small></h2>
+    <p>«+» → <b>Table</b> orqali nuqtalarni kiriting (x₁, y₁). Keyin yangi qatorga <code>y₁ ~ mx₁ + b</code> yozing — Desmos eng yaxshi moslik chizig'ini o'zi topadi va <b>m</b>, <b>b</b> qiymatlarini ko'rsatadi. Ko'rsatkichli model: <code>y₁ ~ a·b^x₁</code>.</p>
+    <button class="btn" data-ex='[{"id":"t","type":"table","columns":[{"latex":"x_1","values":["1","2","3","4","5"]},{"latex":"y_1","values":["3","5","6","9","11"]}]},"y_1 \\sim mx_1+b"]'>▶ Desmos'ga yuklash</button>
+  </div>
+
+  <div class="card">
+    <h2>6. Statistika funksiyalari</h2>
+    <p>Ro'yxatni kvadrat qavsda bering: <code>L = [2, 4, 4, 4, 5, 5, 7, 9]</code>. Keyin <code>mean(L)</code> — o'rtacha, <code>median(L)</code> — mediana, <code>stdev(L)</code> — tanlanma standart og'ishi, <code>stdevp(L)</code> — to'plam standart og'ishi, <code>min(L)</code>, <code>max(L)</code>. <code>histogram(L)</code> va <code>boxplot(L)</code> — diagrammalar.</p>
+    <button class="btn" data-ex='["L=[2,4,4,4,5,5,7,9]","mean(L)","stdevp(L)","boxplot(L)"]'>▶ Desmos'ga yuklash</button>
+  </div>
+
+  <div class="card">
+    <h2>7. Tezlik uchun 5 maslahat</h2>
+    <ol class="steps">
+      <li>Tenglamani <b>o'zgartirmay</b> kiriting — Desmos ko'pchilik ko'rinishni tushunadi.</li>
+      <li>Kesishma ko'rinmasa — masshtabni kichraytiring yoki «Zoom fit»ni bosing.</li>
+      <li>Noma'lum konstanta bo'lsa (masalan, <code>y = kx + 2</code>) — <b>slider</b> yaratib, k ni suring.</li>
+      <li>Tengsizlikni ham kiritish mumkin: <code>y &lt; 2x + 1</code> — soha bo'yaladi.</li>
+      <li>Javobni baribir <b>tekshiring</b>: o'qilgan nuqta kasr bo'lsa, variantlar bilan solishtiring.</li>
+    </ol>
+    <p class="note">Kitob: PrepPros, "Complete Guide to Digital SAT Math" — 3-bob (9–11-bet) va 4-bob (14–16-bet). Rasmiy test muhiti: <a href="https://satsuite.collegeboard.org/digital/digital-testing/calculator" target="_blank" rel="noopener">College Board — Desmos in Bluebook</a>.</p>
+  </div>
+</div>
+
+<div class="sticky">
+  <div class="calc"><div id="calc"></div></div>
+  <p class="note" style="margin:8px 2px">Kalkulyator Desmos API orqali (internet kerak). Mobil qurilmada chap ustunni yopib, grafikni kattalashtirish mumkin.</p>
+</div>
+</div>
+</div>
+
+<script>
+window.KA_DESMOS_KEY = window.KA_DESMOS_KEY || "";
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var calc = null;
+  function setEx(list) {
+    if (!calc) return;
+    calc.setBlank();
+    list.forEach(function (e, i) { calc.setExpression(typeof e === "string" ? { id: "e" + i, latex: e } : e); });
+  }
+  document.querySelectorAll("[data-ex]").forEach(function (b) {
+    b.onclick = function () { try { setEx(JSON.parse(b.getAttribute("data-ex"))); } catch (e) {} window.scrollTo({ top: Math.min(window.scrollY, 0) + 0, behavior: "smooth" }); if (window.innerWidth < 860) $("#calc").scrollIntoView({ behavior: "smooth" }); };
+  });
+  var key = window.KA_DESMOS_KEY || "dcb31709b452b1cf9dc26972add0fda6";
+  var s = document.createElement("script"); s.src = "https://www.desmos.com/api/v1.11/calculator.js?apiKey=" + key;
+  s.onload = function () { calc = window.Desmos.GraphingCalculator($("#calc"), { settingsMenu: false, zoomButtons: true, keypad: true, language: "en" }); setEx(["y=3x+7", "y=22"]); };
+  s.onerror = function () { $("#calc").innerHTML = '<p style="padding:20px;color:#333">Desmos yuklanmadi — internetni tekshiring yoki <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">desmos.com/calculator</a> ni oching.</p>'; };
+  document.head.appendChild(s);
+
+  /* Mashqlar — tasodifiy sonlar, Desmos'da yechib javobni kiriting */
+  var R = function (a, b) { return a + Math.floor(Math.random() * (b - a + 1)); };
+  function task(host, make) {
+    var t = make();
+    host.innerHTML = '<b>Mashq:</b> ' + t.q + ' <input type="text" inputmode="numeric" autocomplete="off"> <button class="btn gh" type="button">Tekshirish</button><span class="fb"></span><br><button class="btn gh" type="button" data-load>⤴ Desmos\'ga yuklash</button><button class="btn gh" type="button" data-new>🔄 Yangi</button>';
+    var inp = host.querySelector("input"), fb = host.querySelector(".fb");
+    host.querySelector("button").onclick = function () { var v = inp.value.replace(",", ".").replace(/\s/g, ""); var ok = t.a.some(function (a) { return v === String(a); }); fb.className = "fb " + (ok ? "ok" : "bad"); fb.textContent = ok ? "✔ To'g'ri!" : "✘ Javob: " + t.a.join("; "); };
+    host.querySelector("[data-load]").onclick = function () { setEx(t.ex); if (window.innerWidth < 860) $("#calc").scrollIntoView({ behavior: "smooth" }); };
+    host.querySelector("[data-new]").onclick = function () { task(host, make); };
+  }
+  task($("#task1"), function () { var a = R(2, 9), x = R(2, 12), b = R(1, 20), c = a * x + b; return { q: a + "x + " + b + " = " + c + " tenglamani Desmos'da yeching. x = ?", a: [x], ex: ["y=" + a + "x+" + b, "y=" + c] }; });
+  task($("#task2"), function () { var x = R(-5, 6), y = R(-5, 8), m1 = R(1, 4), m2 = -R(1, 4), b1 = y - m1 * x, b2 = y - m2 * x; var f = function (m, b) { return "y=" + m + "x" + (b < 0 ? "-" + (-b) : "+" + b); }; return { q: "Sistema: " + f(m1, b1).replace("=", " = ") + " ; " + f(m2, b2).replace("=", " = ") + ". Kesishma nuqtasining y koordinatasi?", a: [y], ex: [f(m1, b1), f(m2, b2)] }; });
+  task($("#task3"), function () { var r1 = R(-6, 6), r2 = R(-6, 6); if (r1 === r2) r2 += 1; var s = -(r1 + r2), p = r1 * r2; var eq = "y=x^2" + (s ? (s < 0 ? "-" + (-s) : "+" + s) + "x" : "") + (p < 0 ? "-" + (-p) : "+" + p); return { q: "x² " + (s ? (s < 0 ? "− " + (-s) : "+ " + s) + "x " : "") + (p < 0 ? "− " + (-p) : "+ " + p) + " = 0 tenglamaning katta ildizi?", a: [Math.max(r1, r2)], ex: [eq] }; });
+})();
+</script>
+<script src="ka-til.js"></script>
+<script src="ka-ielts.js" defer></script>
+</body>
+</html>

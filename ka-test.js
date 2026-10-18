@@ -105,6 +105,7 @@
   .kt-lvbar span{font:700 12px/1 inherit;padding:7px 10px;border-radius:999px;background:#0e1628;border:1px solid #243252;color:#9fb0d0}
   .kt-lvbar span.bad{border-color:#ff8585;color:#ff8585}.kt-lvbar span.good{border-color:#5ee6c7;color:#5ee6c7}
   .kt-snd{background:transparent;border:1px solid #243252;color:#9fb0d0;border-radius:10px;padding:7px 9px;cursor:pointer;font:700 13px/1 inherit}
+  @media(min-width:761px){.kt-ov.kd-on .kt-main,.kt-ov.kd-on .kt-bot{padding-right:min(46vw,560px)}}
   @media(max-width:520px){.kt-q{font-size:18px}.kt-opt{font-size:15.5px;padding:12px 13px}.kt-big{font-size:52px}}
   `;
   document.head.appendChild(el("style", null, css));
@@ -174,6 +175,7 @@
       '<div class="kt-top"><b></b><span class="kt-pill n">1/' + count + '</span><span class="kt-pill">✔ 0</span>' +
       '<span class="kt-pill t">' + (limit ? "⏳ " + mmss(limit) : "0:00") + '</span>' +
       '<button class="kt-snd" data-a="snd" type="button" title="Ovoz">' + (Snd.on() ? "🔊" : "🔇") + '</button>' +
+      ((opts.desmos || (opts.desmos !== false && /^sat/.test(topicId))) ? '<button class="kt-snd" data-a="desmos" type="button" title="Desmos grafik kalkulyator (SAT\'da ruxsat etilgan)">🧮 Desmos</button>' : "") +
       '<button class="kt-b" data-a="quit" type="button">✕</button></div>' +
       '<div class="kt-bar"><i></i></div><div class="kt-main"></div><div class="kt-bot"></div>';
     $(".kt-top b", ov).textContent = (opts.diag ? "🎯 Darajani aniqlash — " : "") + title;
@@ -193,7 +195,13 @@
     }, 1000);
     $('[data-a="snd"]', ov).onclick = function () { Snd.set(!Snd.on()); this.textContent = Snd.on() ? "🔊" : "🔇"; if (Snd.on()) Snd.ok(); };
 
-    function quit() { clearInterval(timer); clearTimeout(autoT); ov.remove(); document.documentElement.style.overflow = ""; }
+    function quit() { clearInterval(timer); clearTimeout(autoT); if (window.kaDesmos) window.kaDesmos.destroy(); ov.remove(); document.documentElement.style.overflow = ""; }
+    var dBtn = $('[data-a="desmos"]', ov);
+    if (dBtn) dBtn.onclick = function () {
+      var go = function () { window.kaDesmos.toggle(ov).then(function () { ov.classList.toggle("kd-on", window.kaDesmos.isOpen()); }); };
+      if (window.kaDesmos) return go();
+      var sc = document.createElement("script"); sc.src = "ka-desmos.js"; sc.onload = go; sc.onerror = function () { dBtn.textContent = "Desmos yo\'q"; }; document.head.appendChild(sc);
+    };
     // ✕ bosilsa holat saqlanib qoladi — keyin "Davom etish" chiqadi
     function timeUp() {
       if (i >= count) return;

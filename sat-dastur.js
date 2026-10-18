@@ -31,16 +31,16 @@ window.SAT_DASTUR = {
       { id: "radical", uz: "Ildizli (irratsional) tenglamalar, begona ildizlar", en: "Radical equations & extraneous solutions", lvl: 1, t: ["t15", "t16", "t64"], pp: "34-bob (307), 10-bob (65)", ah: "13-3, 13-4 (217–220)" },
       { id: "poly", uz: "Ko'phad funksiyalar, qoldiq va Bezu teoremasi", en: "Polynomials, remainder & factor theorem", lvl: 3, t: ["t66"], pp: "5-bob Factor by Grouping (26)", ah: "13-1, 13-2 (213–215)" },
       { id: "interp", uz: "Konstantalarni talqin qilish (chiziqli, kvadratik, ko'rsatkichli)", en: "Interpreting constants", lvl: 2, t: ["t8", "t27", "t1"], pp: "35-bob (311), 18-bob (155)", ah: "5-1 (77), 12-4 (203)" },
-      { id: "complex", uz: "Kompleks sonlar", en: "Complex numbers", lvl: 4, t: [], pp: "—", ah: "13-5 (222)" }
+      { id: "complex", uz: "Kompleks sonlar", en: "Complex numbers", lvl: 4, t: ["t102"], pp: "—", ah: "13-5 (222)" }
     ]},
     { id: "data", en: "Problem-Solving & Data Analysis", uz: "Masala yechish va ma'lumotlar tahlili", savol: "5–7 savol / test", sub: [
       { id: "ratio", uz: "Nisbat, proporsiya, birlik tezlik", en: "Ratios, rates & proportions", lvl: 1, t: ["t56"], pp: "23-bob (224)", ah: "6-bob (95–99)" },
       { id: "percent", uz: "Foizlar: o'zgarish, oshish va kamayish", en: "Percentages", lvl: 1, t: ["a5", "t56"], pp: "9-bob (53)", ah: "7-bob (109–113)" },
       { id: "units", uz: "O'lchov birliklari va o'lchamlar tahlili", en: "Unit conversion", lvl: 1, t: ["t98"], pp: "25-bob (241)", ah: "6-1 (95)" },
       { id: "center", uz: "O'rta qiymat, mediana, moda, kenglik", en: "Mean, median, mode & range", lvl: 1, t: ["t57"], pp: "24-bob (230)", ah: "8-1 (121)" },
-      { id: "spread", uz: "Standart og'ish, tanlanma, xatolik chegarasi, noxolislik", en: "Standard deviation, sampling & margin of error", lvl: 1, t: [], pp: "22-bob (208)", ah: "8-2, 8-5 (123, 129)" },
-      { id: "plots", uz: "Diagrammalar: nuqtali, quti (box), gistogramma", en: "Dot plots, box plots & histograms", lvl: 1, t: [], pp: "22-bob (211–215)", ah: "8-3 (125)" },
-      { id: "scatter", uz: "Sochilma diagramma va eng yaxshi moslik chizig'i", en: "Scatter plots & line of best fit", lvl: 1, t: [], pp: "26-bob (248)", ah: "8-4 (127)" },
+      { id: "spread", uz: "Standart og'ish, tanlanma, xatolik chegarasi, noxolislik", en: "Standard deviation, sampling & margin of error", lvl: 1, t: ["t99"], pp: "22-bob (208)", ah: "8-2, 8-5 (123, 129)" },
+      { id: "plots", uz: "Diagrammalar: nuqtali, quti (box), gistogramma", en: "Dot plots, box plots & histograms", lvl: 1, t: ["t100"], pp: "22-bob (211–215)", ah: "8-3 (125)" },
+      { id: "scatter", uz: "Sochilma diagramma va eng yaxshi moslik chizig'i", en: "Scatter plots & line of best fit", lvl: 1, t: ["t101"], pp: "26-bob (248)", ah: "8-4 (127)" },
       { id: "prob", uz: "Ehtimollik va jadvallar, shartli ehtimollik", en: "Probability & two-way tables", lvl: 1, t: ["t92", "t93", "t37", "t39"], pp: "21-bob (197)", ah: "9-2, 9-3 (141–143)" },
       { id: "combo", uz: "Kombinatorika: o'rin almashtirish va guruhlash", en: "Permutations & combinations", lvl: 3, t: ["t90", "t91", "t89", "t38"], pp: "—", ah: "9-1 (139)" },
       { id: "growth", uz: "Chiziqli va ko'rsatkichli o'sishni taqqoslash", en: "Linear vs exponential growth", lvl: 2, t: ["t27", "t8"], pp: "19-bob (164)", ah: "12-4 (203)" }

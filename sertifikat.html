@@ -116,6 +116,17 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
     <div class="hist" id="satHist"></div>
   </div>
   <div class="card">
+    <h2>📖 Demo test — kitob darajasi bo'yicha</h2>
+    <p class="note">PrepPros 4-daraja tizimi: avval o'z darajangizni tanlang (ball bo'yicha), test shu daraja va undan past mavzulardan tuziladi — xuddi kitobdagi bob testlari tartibida. Savollar saytning generatorlaridan (har safar yangi), kitob savollari ko'chirilmagan. Test ichida 🧮 Desmos ochiq.</p>
+    <div class="exam">
+      <select class="sel" id="demoL"><option value="1">1-daraja — asosiy (ball &lt; 550)</option><option value="2" selected>2-daraja — qo'shimcha (550–650)</option><option value="3">3-daraja — murakkab (650–720)</option><option value="4">4-daraja — ekspert (730+)</option></select>
+      <select class="sel" id="demoN"><option value="22" selected>22 savol (1 modul)</option><option value="44">44 savol (2 modul)</option><option value="12">12 savol (qisqa)</option></select>
+      <button class="btn sat" id="demoGo">▶ Demo testni boshlash</button>
+      <a class="btn gh" href="desmos.html">🧮 Desmos'ni o'rganish</a>
+    </div>
+    <div class="hist" id="demoHist"></div>
+  </div>
+  <div class="card">
     <h2>🧭 SAT dasturi → saytdagi mavzular va testlar</h2>
     <p class="note">Tuzilish ikki kitob asosida: <b>PrepPros — The Complete Guide to Digital SAT Math</b> (4 darajali tizim: <span class="lv l1">1</span> asosiy, hamma uchun · <span class="lv l2">2</span> qo'shimcha · <span class="lv l3">3</span> murakkab · <span class="lv l4">4</span> ekspert) va <b>T. Hyun — Acing the New SAT Math</b> (20 bob, bob testlari). Har qatorda: saytdagi mavzu (bosib mashq qiling), kitob bobi va sahifasi (PP / AH), hamda shu kichik mavzu bo'yicha <b>test</b>.</p>
     <div class="exam" style="margin:8px 0 4px">
@@ -134,7 +145,7 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
       <li>Avval «Qisqa — 10 savol»da vaqt hissini oling: 1 savolga 1,5 daqiqa.</li>
       <li>Har bo'limdan «O'rta» testni 20 ta savol bilan ishlang; 80% dan past bo'lsa — mavzu xossalariga qayting.</li>
       <li>Haftada 2 marta to'liq 44 savollik sinov; xatolar tahlilidagi yechim qadamlarini ingliz tilida ham o'qing (sayt tilini 🌐 English qiling).</li>
-      <li>Desmos — SAT'da ruxsat etilgan kalkulyator: <a href="mashqlar.html#grafik">grafik taxtasida</a> mashq qiling.</li>
+      <li>Desmos — SAT'da ruxsat etilgan kalkulyator: <a href="desmos.html">Desmos darslari</a>ni o'ting (7 dars, mashqlar bilan); har SAT testi ichida 🧮 Desmos tugmasi bor.</li>
     </ol>
   </div>
 </section>
@@ -143,7 +154,7 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
 <script src="ka-qidiruv.js"></script>
 <script src="ka-savollar.js"></script>
 <script src="ka-savollar-2.js"></script><script src="ka-savollar-3.js"></script><script src="ka-savollar-4.js"></script><script src="ka-savollar-5.js"></script>
-<script src="ka-savollar-6.js"></script><script src="ka-savollar-7.js"></script><script src="ka-savollar-8.js"></script><script src="ka-savollar-9.js"></script><script src="ka-savollar-10.js"></script><script src="ka-savollar-11.js"></script>
+<script src="ka-savollar-6.js"></script><script src="ka-savollar-7.js"></script><script src="ka-savollar-8.js"></script><script src="ka-savollar-9.js"></script><script src="ka-savollar-10.js"></script><script src="ka-savollar-11.js"></script><script src="ka-savollar-12.js"></script>
 <script src="sat-dastur.js"></script>
 <script src="ka-test.js?v=20261017b"></script>
 <script>
@@ -164,6 +175,11 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
     for(var k in D.vazn){ acc+=D.vazn[k]; if(r<acc){ dom=k; break; } }
     return window.kaSavol.get(pick(SAT[dom].filter(has)),L);
   },"SAT Math — to'liq sinov");
+  // demo test: kitob darajasi ≤ tanlangan; savol qiyinligi darajaga mos
+  [1,2,3,4].forEach(function(lv){
+    var pool=[]; D.bolim.forEach(function(b){ b.sub.forEach(function(x){ if(x.lvl<=lv) x.t.forEach(function(t){ if(pool.indexOf(t)<0) pool.push(t); }); }); });
+    window.kaSavol.register("sat-demo-"+lv,function(L){ var q=lv===1?1:lv===2?pick([1,2,2]):lv===3?pick([2,2,3]):pick([2,3,3]); return window.kaSavol.get(pick(pool.filter(has)),q); },"SAT demo — "+lv+"-daraja");
+  });
   // kichik mavzular bo'yicha testlar
   D.bolim.forEach(function(b){ b.sub.forEach(function(x){ var l=x.t.filter(has); if(l.length) reg("sat-"+b.id+"-"+x.id,l,"SAT · "+x.uz); }); });
   function titleOf(id){var m=(window.KA_MAVZULAR||[]).filter(function(x){return x.id===id})[0];return m?m.n:id}
@@ -191,11 +207,12 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
   if(location.hash==="#sat")$(".tab.sat").click();
   // history
   function hist(id,host){try{var h=JSON.parse(localStorage.getItem("kt.hist")||"[]").filter(function(x){return x.topic===id||x.topic.indexOf(id)===0}).slice(0,5);host.innerHTML=h.length?"Oxirgi natijalar: "+h.map(function(x){return "<b>"+x.pc+"%</b> ("+x.ok+"/"+x.n+")"}).join(" · "):""}catch(e){}}
-  hist("sertifikat",$("#msHist")); hist("sat",$("#satHist"));
+  hist("sertifikat",$("#msHist")); hist("sat",$("#satHist")); hist("sat-demo",$("#demoHist"));
+  $("#demoGo").onclick=function(){ var lv=$("#demoL").value; window.kaTest.run("sat-demo-"+lv,"SAT demo — "+lv+"-daraja (kitob bo'yicha)",0,+$("#demoN").value,"variant",{perQ:1.6,desmos:true}); };
   $("#msGo").onclick=function(){ window.kaTest.run("sertifikat","Milliy sertifikat — sinov",+$("#msL").value,+$("#msN").value,"variant",{perQ:+$("#msT").value}); };
   $("#msDiag").onclick=function(){ window.kaTest.run("sertifikat","Milliy sertifikat",0,3,"variant",{diag:true,perQ:3,count0:+$("#msN").value}); };
   $("#satGo").onclick=function(){ var k=$("#satS").value; window.kaTest.run("sat-"+k,"SAT Math — "+({all:"to'liq sinov",alg:"Algebra",adv:"Advanced Math",data:"Problem-Solving & Data",geo:"Geometry & Trig"})[k],0,+$("#satN").value,"variant",{perQ:+$("#satT").value}); };
-  document.addEventListener("ka:test-done",function(){hist("sertifikat",$("#msHist"));hist("sat",$("#satHist"))});
+  document.addEventListener("ka:test-done",function(){hist("sertifikat",$("#msHist"));hist("sat",$("#satHist"));hist("sat-demo",$("#demoHist"))});
 })();
 </script>
 <script src="ka-til.js"></script>
