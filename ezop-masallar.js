@@ -239,5 +239,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Baqalar unga qarshi hujum qilmoqchi bo'lgani uchun qochganini", "Boshqalar ham qo'rqishini va uning qo'rquvi yolg'iz emasligini", "Faqat quyonlar qo'rqoq bo'lishini"],
     javob: 1,
     izoh: "Quyon o'z qo'rquvini eng katta deb o'ylagan edi, lekin baqalar ham undan qo'rqardi. Har kimning qo'rquvi bor ekanini tushunish o'zini ortiqcha ayblashdan saqlaydi."
+  },
+  {
+    id: "ez-031", mavzu: "qanoat", sarlavha: "Qurbaqalar va hukmdor",
+    matn: "Qurbaqalar o'zlariga hukmdor so'rab, ko'lga bir bo'lak yog'och tashlanishini iltimos qilishdi. Yog'och tinch yotardi va hech kimga zarar bermasdi. Qurbaqalar undan norozi bo'lib, yanada qattiqroq hukmdor so'rashdi. Shunda ko'lga leylak yuborildi va u qurbaqalarni birma-bir yeb tugatdi.",
+    savol: "Qurbaqalar nega halok bo'ldi?",
+    variantlar: ["Chunki ular tinch hukmdordan norozi bo'lib, yanada xavfli hukmdor so'radi", "Chunki ular ko'lni tark etib, quruqlikka chiqib ketdi", "Chunki yog'och bo'lagi ularni ko'l tubiga bosib yubordi"],
+    javob: 0,
+    izoh: "Bor narsadan norozi bo'lib, yanada yomonini so'rash xavfli. Tinchlikni qadrlamagan odam ko'pincha undan ham battar narsaga duch keladi."
   }
 ];
