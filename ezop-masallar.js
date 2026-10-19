@@ -247,5 +247,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular tinch hukmdordan norozi bo'lib, yanada xavfli hukmdor so'radi", "Chunki ular ko'lni tark etib, quruqlikka chiqib ketdi", "Chunki yog'och bo'lagi ularni ko'l tubiga bosib yubordi"],
     javob: 0,
     izoh: "Bor narsadan norozi bo'lib, yanada yomonini so'rash xavfli. Tinchlikni qadrlamagan odam ko'pincha undan ham battar narsaga duch keladi."
+  },
+  {
+    id: "ez-032", mavzu: "yaxshilik", sarlavha: "Dehqon va ilon",
+    matn: "Qishda dehqon yo'lda sovuqdan qotib qolgan ilonni topdi. Rahmi kelib, uni issiq ko'ylagining ichiga solib qo'ydi. Ilon isinib jonlangach, dehqonni chaqib oldi.",
+    savol: "Dehqon nimani e'tiborsiz qoldirdi?",
+    variantlar: ["Ilon juda kichik ekanini va uni hech kim sezmasligini", "Qishda yo'lda yurish xavfli ekanini", "Ilonning tabiati xavfli ekanini, yordam qilinsa ham u o'zgarmasligini"],
+    javob: 2,
+    izoh: "Yaxshilik qilish go'zal, lekin kimga yordam berayotganingni ham hisobga olish kerak. Yomon tabiatli jonzot yordam olgach ham o'z xulqini o'zgartirmaydi."
   }
 ];
