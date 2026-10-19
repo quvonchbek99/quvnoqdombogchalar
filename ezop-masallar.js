@@ -271,5 +271,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Bug'doyni sug'orishni butunlay to'xtatishi kerak edi", "Tikanlarni vaqtida yulib, bug'doyga suv va yorug'lik yetadigan qilishi kerak edi", "Bug'doyni tikanlar orasiga yanada zich ekishi kerak edi"],
     javob: 1,
     izoh: "Tikanlar ekinning oziqasini o'ziga tortib olgan edi. Begona narsalarni vaqtida tozalash ekinga joy va kuch beradi."
+  },
+  {
+    id: "ez-035", mavzu: "ehtiyotkorlik", sarlavha: "Ikki quduq",
+    matn: "Qishloqda ikkita quduq bor edi. Birinchisining suvi doim tiniq edi, chunki uni muntazam tozalab turishardi. Ikkinchisi esa oylab tozalanmadi. Yomg'ir yog'ganda ikkala quduqqa ham suv yig'ildi, ammo faqat birinchisining suvi ichishga yaroqli bo'ldi.",
+    savol: "Ikkinchi quduq suvi nega ichishga yaroqsiz bo'ldi?",
+    variantlar: ["Chunki unga yomg'ir yog'maydi edi", "Chunki uni uzoq vaqt tozalashmagan edi", "Chunki u birinchi quduqdan chuqurroq edi"],
+    javob: 1,
+    izoh: "Suv bir xil yig'ilgan bo'lsa ham, tozalanmagan quduq ifloslanib qoladi. Muntazam parvarish sifatni saqlaydi."
   }
 ];
