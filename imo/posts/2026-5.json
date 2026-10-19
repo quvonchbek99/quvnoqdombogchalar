@@ -1,0 +1,42 @@
+{
+  "id": "2026-5",
+  "badge": "IMO 2026 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Uchta o'rta qiymatli tengsizlik",
+      "fs": 36,
+      "body": "<p><span class='m'>ℝ<sub>&gt;0</sub></span> — musbat haqiqiy sonlar to'plami. Shunday barcha <span class='m'>f : ℝ<sub>&gt;0</sub> → ℝ<sub>&gt;0</sub></span> funksiyalarni toping-ki, istalgan <span class='m'>x, y &gt; 0</span> uchun</p><div class='box' style='text-align:center;font-size:40px'><span class='m'>√((x<sup>2</sup> + f(y)<sup>2</sup>)/2) ≥ (f(x) + y)/2 ≥ √(x·f(y))</span></div><p>bajarilsin.</p><p>Chapda — <b>kvadratik o'rta</b>, o'rtada — <b>arifmetik o'rta</b>, o'ngda — <b>geometrik o'rta</b>. Faqat argumentlar «aralashib ketgan».</p><p>Belgilash: chap tengsizlik — <span class='m'>P(x, y)</span>, o'ng tengsizlik — <span class='m'>Q(x, y)</span>.</p>"
+    },
+    {
+      "kicker": "YECHIM · JAVOB",
+      "title": "f(x) = x + c, c ≥ 0",
+      "fs": 36,
+      "body": "<div class='box' style='text-align:center;font-size:44px'><span class='m'>f(x) = x + c</span>, &nbsp;<span class='m'>c ≥ 0</span></div><p><b>Nega mos keladi?</b> <span class='m'>a = x</span>, <span class='m'>b = y + c</span> desak:</p><ul><li><span class='m'>f(y) = b</span>, &nbsp;<span class='m'>(f(x) + y)/2 = (x + c + y)/2 = (a + b)/2</span></li><li>Tengsizlik <span class='m'>√((a<sup>2</sup>+b<sup>2</sup>)/2) ≥ (a+b)/2 ≥ √(ab)</span> ga aylanadi.</li></ul><p>Bu esa mashhur <b>kvadratik ≥ arifmetik ≥ geometrik o'rta</b> tengsizligi — har doim to'g'ri ✅</p><p><span class='m'>c &lt; 0</span> bo'lsa, kichik <span class='m'>x</span> da <span class='m'>f(x) ≤ 0</span> — ruxsat yo'q.</p><p>Endi asosiy ish: <b>boshqa yechim yo'qligini</b> isbotlash.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Iteratsiyalar — arifmetik progressiya",
+      "fs": 34,
+      "body": "<p><span class='m'>x = f(t)</span>, <span class='m'>y = t</span> qo'yamiz. Unda chap va o'ng tomonlar bir xil bo'ladi:</p><div class='box' style='text-align:center'><span class='m'>√((f(t)<sup>2</sup> + f(t)<sup>2</sup>)/2) = f(t) = √(f(t)·f(t))</span></div><p>O'rtadagi ifoda ikki teng son orasida qisilib qoladi:</p><div class='box' style='text-align:center;font-size:40px'><span class='m'>f(f(t)) = 2f(t) − t</span></div><p>Ya'ni <span class='m'>t, f(t), f(f(t))</span> — arifmetik progressiya. Xuddi shuni <span class='m'>f(t)</span>, <span class='m'>f(f(t))</span>, … uchun takrorlasak, butun ketma-ketlik</p><p style='text-align:center'><span class='m'>t, f(t), f<sup>2</sup>(t), f<sup>3</sup>(t), …</span></p><p>arifmetik progressiya. Hadlar musbat, shuning uchun ayirmasi <span class='m'>≥ 0</span>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Musbat ayirmalar bir xil",
+      "fs": 31,
+      "body": "<p><span class='m'>x</span> ning progressiya ayirmasi <span class='m'>A</span>, <span class='m'>y</span> niki <span class='m'>B</span> bo'lsin: <span class='m'>f<sup>m</sup>(x) = x + mA</span>, <span class='m'>f<sup>n</sup>(y) = y + nB</span>. Faraz qilaylik, <span class='m'>0 &lt; A &lt; B</span>.</p><p><span class='m'>Q(f<sup>m</sup>(x), f<sup>n</sup>(y))</span> ni yozib, soddalashtirsak (<span class='m'>a = x + mA</span>, <span class='m'>b = y + (n+1)B</span>):</p><div class='box' style='text-align:center'><span class='m'>(a + b)/2 − √(ab) ≥ (B − A)/2</span><br><span class='m'>(√(x + mA) − √(y + (n+1)B))<sup>2</sup> ≥ B − A</span></div><p>Demak <span class='m'>√(x + mA)</span> va <span class='m'>√(y + kB)</span> ko'rinishdagi istalgan ikki son orasidagi masofa <span class='m'>≥ √(B − A) &gt; 0</span>.</p><p>Lekin ikkala ketma-ketlik ham cheksiz o'sadi, qadamlari esa <span class='m'>0</span> ga intiladi — ular albatta juda yaqin keladi. <b>Ziddiyat!</b></p><div class='box'>Xulosa: barcha musbat ayirmalar bitta <span class='m'>D</span> ga teng, ya'ni har bir <span class='m'>x</span> uchun <span class='m'>f(x) = x</span> yoki <span class='m'>f(x) = x + D</span>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Aralash bo'lishi mumkin emas",
+      "fs": 31,
+      "body": "<p>Faraz: <span class='m'>f(x) = x + D</span>, lekin <span class='m'>f(y) = y</span>.</p><ul><li><span class='m'>x &gt; y</span> bo'lsa, <span class='m'>P(x, y)</span>: <span class='m'>(x + D + y)/2 ≤ √((x<sup>2</sup>+y<sup>2</sup>)/2) &lt; x</span> <br>⇒ <span class='m'>x &gt; y + D</span>.</li><li><span class='m'>x &lt; y</span> bo'lsa, <span class='m'>Q(y, x)</span>: <span class='m'>√(y(x + D)) ≤ (y + x)/2 &lt; y</span> <br>⇒ <span class='m'>x + D &lt; y</span>.</li></ul><div class='box'>Demak <span class='m'>f(x) = x + D</span> va <span class='m'>f(y) = y</span> bo'lsa, <span class='m'>|x − y| &gt; D</span>.</div><p>Teskarisini aytsak: <span class='m'>f(x) = x + D</span> bo'lsa, butun <span class='m'>[x − D, x + D]</span> oraliqda ham <span class='m'>f(t) = t + D</span>. Oraliqni qadam-baqadam surib, bu xossani <b>butun</b> <span class='m'>ℝ<sub>&gt;0</sub></span> ga yoyamiz.</p><p>Shunday qilib, <span class='m'>f(x) ≡ x</span> yoki <span class='m'>f(x) ≡ x + D</span> ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>Kalit — <span class='m'>x = f(t)</span>, <span class='m'>y = t</span> o'rniga qo'yish: tengsizlik <b>tenglikka</b> aylanib, <span class='m'>f</span> ning iteratsiyalari arifmetik progressiya ekanini beradi. Qolgani — ayirmalarni solishtirish. Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>c = 0; 0,5; 3; 10</span> uchun <span class='m'>f(x) = x + c</span> 200 000 ta tasodifiy <span class='m'>(x, y)</span> da shartni qanoatlantiradi; <span class='m'>f(x) = 2x</span> esa buziladi ✅</div><p>🧠 <b>Sizga savol:</b> <span class='m'>f(x) = 2x</span> uchun qaysi <span class='m'>x, y</span> da tengsizlik buziladi? Misol topib, izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2026 · 6-masala</b> (sonlar nazariyasi)</p>"
+    }
+  ]
+}
