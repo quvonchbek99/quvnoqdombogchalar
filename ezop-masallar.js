@@ -263,5 +263,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ko'proq baqirib, faqat buyruq berib", "O'zi to'g'ri yurib ko'rsatib, o'rnak bo'lib", "Bolasini boshqa qisqichbaqa bilan almashtirib"],
     javob: 1,
     izoh: "Gap bilan o'rgatish yetarli emas. Bolalar ko'pincha so'zdan ko'ra o'rnak va misoldan o'rganadi."
+  },
+  {
+    id: "ez-034", mavzu: "mehnat", sarlavha: "Dehqon va tikan",
+    matn: "Dehqon dalasiga bug'doy ekdi, lekin ekin orasidagi tikanlarni vaqtida yulmadi. Tikanlar bug'doyning suvini va quyosh nurini tortib olib, u sekin so'lib qoldi. Dehqon hosilning kam bo'lishidan hayron bo'ldi.",
+    savol: "Dehqon mo'l hosil olish uchun nima qilishi kerak edi?",
+    variantlar: ["Bug'doyni sug'orishni butunlay to'xtatishi kerak edi", "Tikanlarni vaqtida yulib, bug'doyga suv va yorug'lik yetadigan qilishi kerak edi", "Bug'doyni tikanlar orasiga yanada zich ekishi kerak edi"],
+    javob: 1,
+    izoh: "Tikanlar ekinning oziqasini o'ziga tortib olgan edi. Begona narsalarni vaqtida tozalash ekinga joy va kuch beradi."
   }
 ];
