@@ -255,5 +255,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ilon juda kichik ekanini va uni hech kim sezmasligini", "Qishda yo'lda yurish xavfli ekanini", "Ilonning tabiati xavfli ekanini, yordam qilinsa ham u o'zgarmasligini"],
     javob: 2,
     izoh: "Yaxshilik qilish go'zal, lekin kimga yordam berayotganingni ham hisobga olish kerak. Yomon tabiatli jonzot yordam olgach ham o'z xulqini o'zgartirmaydi."
+  },
+  {
+    id: "ez-033", mavzu: "ibrat", sarlavha: "Qisqichbaqa va uning bolasi",
+    matn: "Qisqichbaqa bolasi doim yonboshiga qarab yurardi. Onasi uni to'g'ri yurishga o'rgatmoqchi bo'lib: \"Bolam, to'g'ri yur\", dedi. Bola esa: \"Avval o'zingiz to'g'ri yurib ko'rsating, men ham shunday qilaman\", deb javob berdi.",
+    savol: "Onasi bolasini to'g'ri yurishga qanday o'rgatishi kerak edi?",
+    variantlar: ["Ko'proq baqirib, faqat buyruq berib", "O'zi to'g'ri yurib ko'rsatib, o'rnak bo'lib", "Bolasini boshqa qisqichbaqa bilan almashtirib"],
+    javob: 1,
+    izoh: "Gap bilan o'rgatish yetarli emas. Bolalar ko'pincha so'zdan ko'ra o'rnak va misoldan o'rganadi."
   }
 ];
