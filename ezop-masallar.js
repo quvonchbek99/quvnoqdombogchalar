@@ -303,5 +303,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u qochishni to'xtatib, ovchilar bilan jang qilmoqchi bo'ldi", "Chunki shoxlari butalarga ilinib, qochishiga to'sqinlik qildi", "Chunki u suv ichib, juda charchab qoldi"],
     javob: 1,
     izoh: "Kiyik go'zal shoxlarini qadrlab, aslida qochishga yordam beradigan oyoqlarini e'tiborsiz qoldirgan edi. Narsaning go'zalligi emas, foydaliligi muhimroq."
+  },
+  {
+    id: "ez-039", mavzu: "halollik", sarlavha: "Ko'rshapalak",
+    matn: "Qushlar bilan sichqonlar urushganda, ko'rshapalak qaysi tomonda turishni bilmay qoldi. Qushlar yaqinlashganda u: \"Men-ku qanotli qushman\", dedi. Sichqonlar kelganda esa: \"Men sichqonlar qatoridanman, tishim ham bor\", deb ularni ma'qulladi.",
+    savol: "Ko'rshapalak nega urush tugagach, ikkala tomondan ham rad etildi?",
+    variantlar: ["Chunki u har safar gapini o'z foydasiga qarab o'zgartirdi", "Chunki u juda kichik va kuchsiz edi", "Chunki u urushda umuman qatnashmagan edi"],
+    javob: 0,
+    izoh: "Har doim o'z manfaatiga qarab tomon almashtirgan odamga hech kim ishonmaydi. Halollik va sobitlik ishonchni saqlaydi."
   }
 ];
