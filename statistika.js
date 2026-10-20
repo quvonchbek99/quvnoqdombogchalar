@@ -24,6 +24,18 @@
   if (document.readyState === "complete") later(); else window.addEventListener("load", later);
 })();
 
+/* Bolalarga mos reklama (Google AdSense) — sozlama va qoidalar reklama.js ichida; ID yozilmaguncha o'chiq */
+(function () {
+  try {
+    if (window.__kaAdsLd || /localhost|127\.0\.0\.1/.test(location.hostname)) return;
+    window.__kaAdsLd = 1;
+    var me = document.currentScript && document.currentScript.src;
+    var s = document.createElement("script"); s.async = true;
+    s.src = me ? me.replace(/statistika\.js(\?.*)?$/, "reklama.js") : "/reklama.js";
+    (document.head || document.documentElement).appendChild(s);
+  } catch (e) {}
+})();
+
 /* Yandex Metrika — hisoblagich raqamini YM_ID ga yozing (metrika.yandex.ru). 0 bo'lsa o'chiq turadi. */
 (function () {
   "use strict";
