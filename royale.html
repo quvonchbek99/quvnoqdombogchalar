@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Math Royale — Kuvonch Academy</title>
+<meta name="description" content="Math Royale — battle royale uslubidagi matematik o'yinlar: orolga parashyutda tushing, qutilarni misol yechib oching, zona torayadi — oxirgi qolgan g'olib. 5–11-sinf va texnikum uchun.">
+<link rel="canonical" href="https://kuvonch.uz/royale.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Math Royale — Kuvonch Academy">
+<meta property="og:description" content="Battle royale uslubidagi matematik o'yinlar: Orol jangi, Airdrop ovchisi, Matematik Snayper.">
+<meta property="og:url" content="https://kuvonch.uz/royale.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#0b1412">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Manrope:wght@400;600;800&display=swap">
+<script async src="statistika.js"></script>
+<style>
+:root{
+  --bg:#0b1412;--bg2:#101d1a;--card:#13221f;--card2:#182b27;--line:#28413a;--text:#eef3ea;--dim:#9db3a8;
+  --olive:#7d9441;--sand:#e0c98f;--teal:#2ec4b6;--neon:#3ff5d1;--yel:#ffd23f;--red:#ff4f6d;--violet:#b07cff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+body{min-height:100vh;overflow-x:hidden;
+  background:
+    radial-gradient(circle at 80% -10%,rgba(46,196,182,.18),transparent 45%),
+    radial-gradient(circle at 0% 30%,rgba(125,148,65,.16),transparent 40%),
+    var(--bg)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23e0c98f' stroke-width='1'%3E%3Cpath d='M20 120c20-60 80-90 130-70s70 80 40 120-110 40-150 0-30-30-20-50z'/%3E%3Cpath d='M45 120c15-40 60-62 98-48s52 56 30 86-82 30-110 0-24-22-18-38z'/%3E%3Cpath d='M72 120c10-22 38-34 62-26s32 32 18 50-50 18-68 0-16-12-12-24z'/%3E%3C/g%3E%3C/svg%3E")}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:60px 16px 40px;position:relative}
+.top{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-bottom:10px}
+.back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);color:var(--text)}
+.back:hover{border-color:var(--neon)}
+/* HERO */
+.hero{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+  background:linear-gradient(160deg,#122824 0%,#0f1d1a 55%,#1b2614 100%);padding:26px 20px 22px;min-height:300px}
+.hero svg.art{position:absolute;right:-40px;top:-10px;width:min(460px,95%);height:auto;opacity:.95;pointer-events:none}
+.hero .txt{position:relative;max-width:520px}
+@media (max-width:700px){
+  .hero{padding-top:8px;min-height:0}
+  .hero svg.art{position:relative;right:auto;top:auto;display:block;width:calc(100% + 40px);max-width:none;margin:-10px -20px -34px}
+}
+.tag{display:inline-block;font:700 12px Rajdhani,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#0b1412;background:var(--yel);padding:4px 10px;border-radius:6px}
+h1{font-family:Rajdhani,Manrope,sans-serif;font-weight:700;font-size:clamp(40px,10vw,72px);line-height:.95;margin:14px 0 8px;letter-spacing:1px;
+  text-shadow:0 0 24px rgba(63,245,209,.25)}
+h1 span{color:var(--neon)}
+.sub{color:var(--dim);font-size:16px;line-height:1.5;margin:0 0 18px;max-width:440px}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{appearance:none;border:0;cursor:pointer;font:800 16px Manrope,sans-serif;padding:13px 20px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .12s, box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:linear-gradient(135deg,var(--neon),var(--yel));color:#0b1412;box-shadow:0 8px 24px rgba(63,245,209,.25)}
+.btn.ghost{background:var(--bg2);border:1px solid var(--line);color:var(--text)}
+/* grade + stats */
+.row{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+@media(min-width:760px){.row{grid-template-columns:1.1fr 1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.panel h2{font:700 20px Rajdhani,sans-serif;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px;color:var(--sand)}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grades button{appearance:none;cursor:pointer;border:1px solid var(--line);background:var(--bg2);color:var(--text);border-radius:12px;padding:12px 4px;font:800 15px Manrope,sans-serif;transition:.15s}
+.grades button small{display:block;font-weight:600;font-size:11px;color:var(--dim);margin-top:2px}
+.grades button[aria-pressed="true"]{border-color:var(--neon);background:rgba(63,245,209,.12);box-shadow:inset 0 0 0 1px var(--neon)}
+.hint{color:var(--dim);font-size:13px;margin:10px 0 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+.stat b{display:block;font:700 30px Rajdhani,sans-serif;line-height:1;color:var(--yel)}
+.stat span{font-size:12px;color:var(--dim)}
+.stat:nth-child(2) b{color:var(--neon)}
+.stat:nth-child(3) b{color:var(--red)}
+.mini{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--dim)}
+/* games */
+.games{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+@media(min-width:760px){.games{grid-template-columns:repeat(3,1fr)}}
+.game{position:relative;display:flex;flex-direction:column;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .15s,border-color .2s,box-shadow .2s}
+.game:hover{transform:translateY(-3px);border-color:var(--neon);box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.game .pic{height:140px;position:relative;overflow:hidden}
+.game .pic svg{position:absolute;inset:0;width:100%;height:100%}
+.game .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.game h3{margin:0;font:700 24px Rajdhani,sans-serif;letter-spacing:.5px}
+.game p{margin:0;color:var(--dim);font-size:14px;line-height:1.45}
+.game .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.chip{font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);color:var(--dim)}
+.chip.hot{color:#0b1412;background:var(--yel);border-color:var(--yel)}
+.game .go{position:absolute;right:12px;top:12px;font:700 13px Rajdhani,sans-serif;letter-spacing:2px;padding:5px 10px;border-radius:8px;background:rgba(11,20,18,.75);border:1px solid var(--line)}
+/* rules */
+.rules{margin-top:16px}
+.rules ol{margin:0;padding-left:20px;display:grid;gap:8px;color:var(--text);line-height:1.5}
+.rules li::marker{color:var(--neon);font-weight:800}
+.rules .tiers{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tier{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:6px 10px;border-radius:10px;background:var(--bg2);border:1px solid var(--line)}
+.tier i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.foot{color:var(--dim);font-size:12px;text-align:center;margin-top:24px}
+@keyframes fly{from{transform:translate(-120px,40px)}to{transform:translate(520px,-60px)}}
+@keyframes pulse{0%,100%{opacity:.9}50%{opacity:.45}}
+@keyframes shrink{0%{r:150}100%{r:70}}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.plane{animation:fly 9s linear infinite}
+.zone{animation:pulse 2.4s ease-in-out infinite}
+.chute{animation:drift 3s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.plane,.zone,.chute{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="back" href="index.html">← Bosh sahifa</a></div>
+
+  <section class="hero">
+    <svg class="art" viewBox="0 0 460 320" aria-hidden="true">
+      <defs>
+        <radialGradient id="hg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2ec4b6" stop-opacity=".35"/><stop offset="1" stop-color="#2ec4b6" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="270" cy="170" r="160" fill="url(#hg)"/>
+      <path d="M150 190c-10-60 40-110 110-118 60-7 120 22 130 80 8 50-30 95-95 108-75 15-138-10-145-70z" fill="#d9c38a"/>
+      <path d="M168 186c-6-50 34-92 94-98 52-5 102 18 110 66 6 42-26 80-82 90-64 12-117-8-122-58z" fill="#6f8a3c"/>
+      <path d="M210 150c10-20 40-26 60-16 18 10 18 34 0 44-22 12-70 0-60-28z" fill="#58702f"/>
+      <g fill="#3d5222"><circle cx="230" cy="140" r="9"/><circle cx="248" cy="132" r="7"/><circle cx="262" cy="150" r="8"/><circle cx="330" cy="200" r="8"/><circle cx="342" cy="186" r="6"/><circle cx="190" cy="210" r="7"/></g>
+      <g fill="#c9b37a" stroke="#4a4030" stroke-width="3"><rect x="290" y="120" width="44" height="34"/><rect x="215" y="205" width="40" height="30"/></g>
+      <rect x="300" y="128" width="12" height="10" fill="#ffd23f"/><rect x="226" y="214" width="12" height="10" fill="#b07cff"/>
+      <circle class="zone" cx="270" cy="170" r="100" fill="none" stroke="#3ff5d1" stroke-width="3"/>
+      <circle cx="285" cy="160" r="58" fill="none" stroke="#eef3ea" stroke-width="2" stroke-dasharray="6 6" opacity=".8"/>
+      <g class="plane"><path d="M20 120l40-6 14-12h6l-6 14 22-3 6-6h4l-3 9 3 9h-4l-6-6-22-3 6 14h-6l-14-12-40-6z" fill="#eef3ea" opacity=".9" transform="rotate(-12 60 120)"/></g>
+      <g transform="translate(360 60)"><g class="chute"><path d="M-22 0a22 16 0 0 1 44 0z" fill="#ff4f6d"/><path d="M-22 0L0 28M22 0L0 28M0 0V28" stroke="#eef3ea" stroke-width="1.2"/><rect x="-6" y="27" width="12" height="10" rx="2" fill="#ffd23f"/></g></g>
+    </svg>
+    <div class="txt">
+      <span class="tag">Yangi bo'lim</span>
+      <h1>⚔️ MATH <span>ROYALE</span></h1>
+      <p class="sub">Battle royale uslubidagi matematik o'yinlar: orolga parashyutda tushing, qutilarni misol yechib oching, zona torayadi — oxirgi qolgan g'olib!</p>
+      <div class="cta">
+        <a class="btn pri" href="royale-orol.html" id="ctaPlay">▶ Orol jangini boshlash</a>
+        <a class="btn ghost" href="#qoidalar">Qanday o'ynaladi?</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="row">
+    <section class="panel">
+      <h2>🎯 Sinfingizni tanlang</h2>
+      <div class="grades" id="grades">
+        <button data-g="5-6">5–6<small>sinf</small></button>
+        <button data-g="7-8">7–8<small>sinf</small></button>
+        <button data-g="9-11">9–11<small>sinf</small></button>
+        <button data-g="texnikum">Tex.<small>texnikum</small></button>
+      </div>
+      <p class="hint" id="gradeHint">Savollar shu sinf darajasida bo'ladi. Tanlov barcha Royale o'yinlari uchun saqlanadi.</p>
+    </section>
+    <section class="panel">
+      <h2>🏅 Natijalaringiz</h2>
+      <div class="stats">
+        <div class="stat"><b id="stWins">0</b><span>G'alabalar</span></div>
+        <div class="stat"><b id="stBest">—</b><span>Eng yaxshi o'rin</span></div>
+        <div class="stat"><b id="stKills">0</b><span>Jami nokaut</span></div>
+      </div>
+      <div class="mini"><span id="stGames">O'yinlar: 0</span><span id="stAcc">To'g'ri javoblar: —</span><span id="stAir">Airdrop rekordi: 0</span></div>
+    </section>
+  </div>
+
+  <div class="games">
+    <a class="game" href="royale-orol.html">
+      <div class="pic">
+        <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="300" height="140" fill="#145a63"/>
+          <path d="M40 120c-10-50 40-100 110-104 70-4 120 30 120 70 0 40-50 60-120 60S50 160 40 120z" fill="#d9c38a"/>
+          <path d="M58 118c-6-42 34-84 94-87 60-3 100 26 100 58s-40 50-100 50-88 12-94-21z" fill="#6f8a3c"/>
+          <circle cx="160" cy="80" r="56" fill="none" stroke="#3ff5d1" stroke-width="3"/>
+          <circle cx="170" cy="74" r="30" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="5 5"/>
+          <g fill="#3d5222"><circle cx="100" cy="70" r="8"/><circle cx="112" cy="60" r="6"/><circle cx="210" cy="100" r="7"/></g>
+          <rect x="130" y="92" width="14" height="14" fill="#ffd23f" stroke="#5a4708" stroke-width="2"/>
+          <circle cx="182" cy="66" r="7" fill="#3ff5d1" stroke="#fff" stroke-width="2"/><rect x="186" y="63" width="14" height="4" fill="#223" transform="rotate(-20 186 65)"/>
+        </svg>
+      </div>
+      <span class="go">ASOSIY</span>
+      <div class="body">
+        <h3>🏝️ Orol jangi</h3>
+        <p>25 o'yinchi, bitta orol. Parashyutda tushing, rangli qutilarni misol yechib oching, qurol va zirh to'plang. Zona torayadi — oxirigacha omon qoling!</p>
+        <div class="meta"><span class="chip hot">Battle royale</span><span class="chip">Telefon + kompyuter</span></div>
+      </div>
+    </a>
+    <a class="game" href="royale-airdrop.html">
+      <div class="pic">
+        <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b4a52"/><stop offset="1" stop-color="#d9a861"/></linearGradient></defs>
+          <rect width="300" height="140" fill="url(#sk)"/>
+          <path d="M0 120c40-14 80-10 120-4s100 0 180-12v36H0z" fill="#3a4a26"/>
+          <g transform="translate(80 40)"><path d="M-22 0a22 16 0 0 1 44 0z" fill="#ff4f6d"/><path d="M-22 0L-8 26M22 0L8 26" stroke="#fff" stroke-width="1"/><rect x="-14" y="24" width="28" height="22" rx="3" fill="#2ec4b6" stroke="#0d3b37" stroke-width="2"/><text x="0" y="40" font-family="Rajdhani,sans-serif" font-weight="700" font-size="14" text-anchor="middle" fill="#fff">42</text></g>
+          <g transform="translate(170 26)"><path d="M-22 0a22 16 0 0 1 44 0z" fill="#ffd23f"/><path d="M-22 0L-8 26M22 0L8 26" stroke="#fff" stroke-width="1"/><rect x="-14" y="24" width="28" height="22" rx="3" fill="#b07cff" stroke="#3a1f66" stroke-width="2"/><text x="0" y="40" font-family="Rajdhani,sans-serif" font-weight="700" font-size="14" text-anchor="middle" fill="#fff">56</text></g>
+          <g transform="translate(240 60)"><path d="M-22 0a22 16 0 0 1 44 0z" fill="#3ff5d1"/><path d="M-22 0L-8 26M22 0L8 26" stroke="#fff" stroke-width="1"/><rect x="-14" y="24" width="28" height="22" rx="3" fill="#7d9441" stroke="#2d3a12" stroke-width="2"/><text x="0" y="40" font-family="Rajdhani,sans-serif" font-weight="700" font-size="14" text-anchor="middle" fill="#fff">48</text></g>
+          <rect x="94" y="118" width="110" height="18" rx="6" fill="rgba(11,20,18,.85)"/><text x="149" y="131" font-family="Manrope,sans-serif" font-weight="800" font-size="11" text-anchor="middle" fill="#ffd23f">7 × 8 = ?</text>
+        </svg>
+      </div>
+      <span class="go">ARKADA</span>
+      <div class="body">
+        <h3>📦 Airdrop ovchisi</h3>
+        <p>Parashyutli qutilar tushmoqda — har birida son. To'g'ri javobli qutini yerga tushmasdan otib oling. Kombo, darajalar va har 5-darajada boss to'lqini!</p>
+        <div class="meta"><span class="chip">Tez fikrlash</span><span class="chip" id="airChip">Rekord: 0</span></div>
+      </div>
+    </a>
+    <a class="game" href="matematik-snayper.html">
+      <div class="pic">
+        <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="300" height="140" fill="#11181c"/>
+          <g stroke="#28413a" stroke-width="1"><path d="M0 35h300M0 70h300M0 105h300M75 0v140M150 0v140M225 0v140"/></g>
+          <circle cx="150" cy="70" r="42" fill="none" stroke="#3ff5d1" stroke-width="3"/>
+          <path d="M150 18v30M150 92v30M98 70h30M172 70h30" stroke="#3ff5d1" stroke-width="3"/>
+          <circle cx="150" cy="70" r="4" fill="#ff4f6d"/>
+          <g font-family="Rajdhani,sans-serif" font-weight="700" font-size="22" fill="#eef3ea"><text x="40" y="46">36</text><text x="232" y="84">27</text><text x="56" y="118">45</text><text x="226" y="120">54</text></g>
+        </svg>
+      </div>
+      <span class="go">KAMERA</span>
+      <div class="body">
+        <h3>🎯 Matematik Snayper</h3>
+        <p>Nishonga oling va to'g'ri javobni otib tushiring. Kamera orqali qo'l bilan yoki ekranga bosib o'ynash mumkin.</p>
+        <div class="meta"><span class="chip">Aniqlik</span><span class="chip">Qo'l bilan boshqarish</span></div>
+      </div>
+    </a>
+  </div>
+
+  <section class="panel rules" id="qoidalar">
+    <h2>📜 Qanday o'ynaladi?</h2>
+    <ol>
+      <li><b>Tushish.</b> Samolyot orol ustidan uchadi — xaritadan joy tanlang va parashyutda tushing.</li>
+      <li><b>Qutilar.</b> Qutini ochish uchun misol yeching. To'g'ri javob — qurol, zirh, aptechka va o'q. Xato — quti bir necha soniya qulflanadi.</li>
+      <li><b>Qayta o'qlash.</b> O'q tugasa tezkor misol chiqadi: to'g'ri javob — darhol o'qlanadi, xato — sekin.</li>
+      <li><b>Zona.</b> Xavfsiz zona bosqichma-bosqich torayadi. Zonadan tashqarida jon kamayadi — vaqtida ichkariga kiring.</li>
+      <li><b>G'alaba.</b> Oxirgi bo'lib qolgan o'yinchi g'olib bo'ladi. G'alaba uchun 30 coin, top-5 uchun 10 coin, har nokaut uchun +2 coin.</li>
+    </ol>
+    <div class="tiers">
+      <span class="tier"><i style="background:#5fbf4a"></i>Yashil — oson</span>
+      <span class="tier"><i style="background:#3d8bff"></i>Ko'k — o'rta</span>
+      <span class="tier"><i style="background:#b07cff"></i>Binafsha — qiyin</span>
+      <span class="tier"><i style="background:#ffc93c"></i>Oltin — eng qiyin</span>
+    </div>
+    <p class="hint">Telefon: chap joystik — yurish, o'ng joystik — nishonga olish va otish. Kompyuter: WASD, sichqoncha, R — o'qlash, 1–3 — qurol, H — aptechka, E — quti.</p>
+  </section>
+  <p class="foot">Math Royale — Kuvonch Academy uchun yaratilgan original o'yin. Barcha rasmlar va qahramonlar o'ziga xos.</p>
+</div>
+<script>
+(function(){
+  "use strict";
+  function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  var G = get("ka.royale.grade") || "7-8";
+  if(["5-6","7-8","9-11","texnikum"].indexOf(G)<0) G="7-8";
+  var btns = document.querySelectorAll("#grades button");
+  function paint(){ for(var i=0;i<btns.length;i++) btns[i].setAttribute("aria-pressed", btns[i].getAttribute("data-g")===G ? "true":"false"); }
+  for(var i=0;i<btns.length;i++) btns[i].addEventListener("click", function(){ G=this.getAttribute("data-g"); set("ka.royale.grade",G); paint(); if(navigator.vibrate) try{navigator.vibrate(10)}catch(e){} });
+  paint();
+  var st = {}; try{ st = JSON.parse(get("ka.royale.stats")||"{}")||{}; }catch(e){ st={}; }
+  function $(id){ return document.getElementById(id); }
+  $("stWins").textContent = st.wins||0;
+  $("stBest").textContent = st.best ? "#"+st.best : "—";
+  $("stKills").textContent = st.kills||0;
+  $("stGames").textContent = "O'yinlar: " + (st.games||0);
+  $("stAcc").textContent = "To'g'ri javoblar: " + (st.answered ? Math.round((st.correct||0)/st.answered*100)+"%" : "—");
+  var air = {}; try{ air = JSON.parse(get("ka.royale.airdrop")||"{}")||{}; }catch(e){ air={}; }
+  $("stAir").textContent = "Airdrop rekordi: " + (air.best||0);
+  $("airChip").textContent = "Rekord: " + (air.best||0);
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Milliy sertifikat va SAT Math tayyorlov — Kuvonch Academy</title>
-<meta name="description" content="Matematikadan Milliy sertifikat va SAT Math imtihoniga tayyorlov: mavzular, vaqtli sinov imtihonlari, xatolar tahlili va mustahkamlash rejasi.">
+<title>Milliy sertifikat va SAT (Math + English) tayyorlov — Kuvonch Academy</title>
+<meta name="description" content="Milliy sertifikat (matematika) va SAT tayyorlovi: SAT Math va SAT English (Reading &amp; Writing) bo'limlari, vaqtli sinov imtihonlari, xatolar tahlili va mustahkamlash rejasi.">
 <meta name="theme-color" content="#0b1220">
 <link rel="icon" href="icon-192.png">
 <link rel="canonical" href="https://kuvonch.uz/sertifikat.html">
@@ -26,6 +26,13 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
 .tab{border:1px solid var(--bd);background:var(--soft);color:var(--dim);padding:11px 18px;border-radius:999px;font:800 14px/1 inherit;cursor:pointer}
 .tab[aria-selected=true]{background:var(--ac2);color:#0b1220;border-color:transparent}
 .tab.sat[aria-selected=true]{background:var(--sat)}
+.tab-link{display:inline-flex;align-items:center;gap:6px;border:1px dashed var(--sat);color:var(--tx);padding:11px 18px;border-radius:999px;font:800 14px/1 inherit;text-decoration:none;background:transparent}
+.tab-link:hover{background:var(--soft)}
+.sat-split{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:0 0 4px}
+.sat-split a{display:block;padding:14px 16px;border-radius:14px;border:1px solid var(--bd);background:var(--soft);color:var(--tx);text-decoration:none}
+.sat-split a b{display:block;font-size:16px;margin-bottom:4px}
+.sat-split a small{color:var(--dim)}
+.sat-split a.on{border-color:var(--sat);box-shadow:inset 0 0 0 1px var(--sat)}
 .pane{display:none}.pane.on{display:block}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin:14px 0}
 .card h2{margin:0 0 8px;font-size:20px}
@@ -62,14 +69,15 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
 </head>
 <body>
 <div class="wrap">
-<header><a href="index.html">← Kuvonch Academy</a><span><a href="mashqlar.html">Mashqlar</a> · <a href="ai-slayd.html">🤖 AI slayd</a> · <a href="premium.html" style="color:var(--gold)">💎 Premium</a></span></header>
+<header><a href="index.html">← Kuvonch Academy</a><span><a href="matematika.html">📐 Matematika</a> · <a href="mashqlar.html">Mashqlar</a> · <a href="ai-slayd.html">🤖 AI slayd</a> · <a href="premium.html" style="color:var(--gold)">💎 Premium</a></span></header>
 
-<h1>🎓 Milliy sertifikat va SAT Math</h1>
+<h1>🎓 Milliy sertifikat va SAT</h1>
 <p class="sub">Imtihon formatiga yaqin <b>vaqtli sinov testlari</b>: savollar har safar yangi, oxirida xatolar tahlili va qaysi mavzuni mustahkamlash kerakligi aytiladi. Test yarmida chiqib ketsangiz ham — natija saqlanadi, davom etasiz.</p>
 
 <div class="tabs" role="tablist">
   <button class="tab" role="tab" aria-selected="true" data-p="ms">🇺🇿 Milliy sertifikat</button>
-  <button class="tab sat" role="tab" aria-selected="false" data-p="sat">🌍 SAT Math</button>
+  <button class="tab sat" role="tab" aria-selected="false" data-p="sat">📐 SAT Math</button>
+  <a class="tab-link" href="sat-english.html">🇬🇧 SAT English (Reading &amp; Writing) →</a>
 </div>
 
 <!-- ============ MILLIY SERTIFIKAT ============ -->
@@ -103,6 +111,14 @@ h1{font-size:clamp(22px,4.5vw,34px);margin:22px 0 6px}
 
 <!-- ============ SAT ============ -->
 <section class="pane" id="p-sat">
+  <div class="card">
+    <h2>🌍 SAT ikki qismdan iborat</h2>
+    <div class="sat-split">
+      <a class="on" href="#sat"><b>📐 SAT Math</b><small>2 modul × 22 savol, 35 daqiqadan · 200–800 ball — shu sahifada, pastda.</small></a>
+      <a href="sat-english.html"><b>🇬🇧 SAT English — Reading &amp; Writing</b><small>2 modul × 27 savol, 32 daqiqadan · 200–800 ball — darslar, sinov imtihoni, so'zlar →</small></a>
+    </div>
+    <p class="note" style="margin:8px 0 0">Umumiy SAT bali = Math + Reading &amp; Writing (400–1600).</p>
+  </div>
   <div class="card">
     <h2>📝 SAT Math sinovi</h2>
     <p class="note">Digital SAT Math: 2 modul × 22 savol, 35 daqiqa har biri (≈1,6 daqiqa/savol), kalkulyatorga ruxsat. Mavzular: Algebra · Advanced Math · Problem-Solving & Data Analysis · Geometry & Trigonometry. Rasmiy ma'lumot: <a href="https://satsuite.collegeboard.org" target="_blank" rel="noopener">collegeboard.org</a>.</p>

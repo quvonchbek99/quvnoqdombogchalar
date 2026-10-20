@@ -25,7 +25,8 @@ header.en{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg
 header.en .wrap{display:flex;align-items:center;gap:14px;height:58px}
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font:800 18px var(--disp);white-space:nowrap}
 .logo b{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--acc);color:var(--acc-ink);font:800 16px var(--font)}
-header.en nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;justify-content:flex-end}
+header.en nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+header.en nav>a:first-child{margin-left:auto}
 header.en nav::-webkit-scrollbar{display:none}
 header.en nav a{flex:none;text-decoration:none;color:var(--soft);font-weight:700;font-size:14.5px;padding:7px 11px;border-radius:999px;white-space:nowrap}
 header.en nav a:hover{color:var(--ink);background:var(--bg2)}

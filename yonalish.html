@@ -81,7 +81,7 @@ footer{margin-top:40px;color:var(--dim);font-size:13px;text-align:center}
 <div class="wrap">
 <header>
   <a class="brand" href="index.html"><span class="badge">π</span>Kuvonch Academy</a>
-  <nav><a href="index.html">Bosh sahifa</a><a href="mashqlar.html">Mashqlar</a><a href="jamoa.html">👥 Jamoa</a></nav>
+  <nav><a href="index.html">Bosh sahifa</a><a href="matematika.html">📐 Matematika</a><a href="mashqlar.html">Mashqlar</a><a href="jamoa.html">👥 Jamoa</a></nav>
 </header>
 <div class="tabs" id="tabs"></div>
 <main id="main"></main>
@@ -147,7 +147,7 @@ tarix:{ico:"🏛",name:"Matematika tarixi",intro:"Tosh asridagi kesiklardan sun'
   {t:"Hozirgi davr",p:"Kompyuterlar, kriptografiya, sun'iy intellekt — barchasi matematikaga tayanadi.",ex:"<b>Batafsil:</b> <a href='era-9.html'>9-davr</a> · <a href='era-10.html'>10-davr →</a>"}],
  eras:true,
  quiz:[["“Algoritm” so'zi kimning nomidan kelib chiqqan?",["Al-Xorazmiy","Beruniy","Evklid","Pifagor"],0],["Soatda 60 daqiqa bo'lishi qaysi xalq sanoq tizimidan?",["Bobilliklar","Misrliklar","Rimliklar","Xitoyliklar"],0],["Nol raqami qayerda shakllangan?",["Hindiston","Yunoniston","Misr","Rim"],0]],
- link:"index.html#davrlar"},
+ link:"matematika.html#davrlar"},
 fanlar:{ico:"🔬",name:"Boshqa fanlar bilan bog'liqlik",intro:"Galiley aytgan: “Tabiat kitobi matematika tilida yozilgan.” Fizika, astronomiya, me'morchilik, musiqa, biologiya va iqtisodiyot — hammasining ichida formulalar yashiringan.",
  cards:[
   {t:"Fizika",p:"Harakat, kuch, energiya — hammasi funksiya va tenglamalar bilan ifodalanadi.",f:"s = v·t,   F = m·a,   E = mc²",ex:"<b>Misol:</b> 72 km/soat tezlikdagi avtobus 15 daqiqada 18 km yuradi.",fact:"Erkin tushishda bosib o'tilgan yo'l vaqt kvadratiga proporsional: s = gt²/2 — bu parabola."},
@@ -195,7 +195,7 @@ function card(c){
 const YO={
  algebra:{topics:["t1","t2","t4","t5","t6","t7","t10","t12","t19","t20","t22","t23","t51","t52","t53","t54","t55","t62","t63","t67"],games:["funksiya-ovchisi.html","matematik-snayper.html","virtual-4.html","virtual-12.html","virtual-28.html","virtual-33.html","virtual-32.html","mashqlar.html#grafik"]},
  geometriya:{topics:["t40","t41","t3","t29","t68","t71","t72","t73","t74","t75","t76","t77","t78","t79","t82","t83","t85","t86","t87","t88"],games:["shakl-ovchisi.html","virtual-24.html","virtual-41.html","virtual-31.html","mavzu-chizish.html","mashqlar.html#grafik"]},
- olimpiada:{topics:["t61","t51","t52","t63","t66","t89","t90","t91","t94","t95","t96"],games:["tub-sonlar-poygasi.html","virtual-9.html","virtual-17.html","virtual-18.html","virtual-40.html","virtual-14.html","index.html#ka-kunlik"]},
+ olimpiada:{topics:["t61","t51","t52","t63","t66","t89","t90","t91","t94","t95","t96"],games:["tub-sonlar-poygasi.html","virtual-9.html","virtual-17.html","virtual-18.html","virtual-40.html","virtual-14.html","matematika.html#ka-kunlik"]},
  faktlar:{topics:["t4","t55","t59","t70","t94","t95"],games:["noldan-pigacha.html","ezop-oyin.html","virtual-35.html","virtual-20.html"]},
  tarix:{topics:[],games:["era-1.html","era-5.html","era-10.html"]},
  fanlar:{topics:["t8","t27","t32","t60"],games:["virtual-50.html","virtual-51.html","virtual-53.html","virtual-54.html","virtual-55.html","virtual-59.html","funksiya-ovchisi.html?mode=nature"]},
@@ -203,7 +203,7 @@ const YO={
  oyinlar:{topics:["t37","t38","t39","t92","t93","t90"],games:["jamoa.html","chempionat.html","virtual-47.html","virtual-48.html","savat-oyini.html"]}
 };
 function topicName(id){const m=(window.KA_MAVZULAR||[]).find(x=>x.id===id);return m?m.n:id}
-function gameInfo(u){const g=(window.KA_OYINLAR||[]).find(x=>x.u===u);if(g)return g;const names={"era-1.html":"🪨 Tosh davri","era-5.html":"🕌 Islom oltin davri","era-10.html":"🚀 XXI asr","index.html#ka-kunlik":"🏅 Kunlik IMO masalasi","mashqlar.html#grafik":"📐 Grafik taxtasi + Desmos"};return {u:u,n:names[u]||u,e:"",t:""}}
+function gameInfo(u){const g=(window.KA_OYINLAR||[]).find(x=>x.u===u);if(g)return g;const names={"era-1.html":"🪨 Tosh davri","era-5.html":"🕌 Islom oltin davri","era-10.html":"🚀 XXI asr","matematika.html#ka-kunlik":"🏅 Kunlik IMO masalasi","mashqlar.html#grafik":"📐 Grafik taxtasi + Desmos"};return {u:u,n:names[u]||u,e:"",t:""}}
 function extraBlock(k){
   const x=YO[k]; if(!x) return "";
   let h=`<div class="k wide" style="margin-top:14px">`;
@@ -238,7 +238,7 @@ function render(){
   h+=extraBlock(k);
   h+=`<div class="quiz"><h2>🧠 Tez test</h2>${d.quiz.map((q,i)=>{const ord=shuffleIdx(q[1].length);return `<div class="qq" data-i="${i}"><div class="t">${i+1}. ${esc(q[0])}</div><div class="qo">${ord.map(j=>`<button data-j="${j}">${esc(q[1][j])}</button>`).join('')}</div></div>`}).join('')}<div class="out" id="qres"></div></div>`;
   const ni=ORDER.indexOf(k), nx=ORDER[(ni+1)%ORDER.length];
-  h+=`<div class="next"><a class="btn main" href="${d.link}">${k==='oyinlar'?'👥 Do\'stlar bilan o\'ynash':k==='tarix'?'📜 Davrlar xaritasi':'✏️ Mashq qilish'} →</a><a class="btn" href="#${nx}">Keyingi: ${D[nx].ico} ${esc(D[nx].name)} →</a><a class="btn" href="index.html#mavzular">← Bosh sahifa</a></div>`;
+  h+=`<div class="next"><a class="btn main" href="${d.link}">${k==='oyinlar'?'👥 Do\'stlar bilan o\'ynash':k==='tarix'?'📜 Davrlar xaritasi':'✏️ Mashq qilish'} →</a><a class="btn" href="#${nx}">Keyingi: ${D[nx].ico} ${esc(D[nx].name)} →</a><a class="btn" href="matematika.html#mavzular">← Bosh sahifa</a></div>`;
   $('#main').innerHTML=h;
   bindQuiz(d); bindExtra(k);
   if(d.demos) d.demos.forEach(x=>DEMO[x]($('#demo-'+x)));
@@ -374,6 +374,5 @@ render();
 <script src="homiylar.js"></script>
 <script src="akkount.js"></script>
 <script src="ka-til.js"></script>
-<script src="ka-ielts.js" defer></script>
 </body>
 </html>

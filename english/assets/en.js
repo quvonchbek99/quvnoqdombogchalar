@@ -34,3 +34,6 @@
   window.EN = { load: load, save: save, esc: esc, say: say, shuffle: shuffle, tabs: tabs };
   var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear();
 })();
+
+/* navigatsiya: faol bo'limni ko'rinadigan joyga surish (telefonda) */
+(function(){try{var a=document.querySelector("header.en nav [aria-current]");if(a){var n=a.parentNode;n.scrollLeft=Math.max(0,a.offsetLeft-n.clientWidth/2+a.offsetWidth/2)}}catch(e){}})();

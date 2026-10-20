@@ -1,0 +1,1517 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sudoku — Kuvonch Academy</title>
+<meta name="description" content="Sudoku o'ynang: 4×4 va 6×6 bolalar uchun, Oson, O'rta, Qiyin va Ekspert darajalari, har kuni yangi kunlik sudoku va misollar bilan matematik sudoku. Belgilar, maslahat, taymer. Kuvonch Academy.">
+<link rel="canonical" href="https://kuvonch.uz/sudoku.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Sudoku — Kuvonch Academy">
+<meta property="og:description" content="4×4 dan Ekspertgacha sudoku, kunlik sudoku va matematik sudoku. Bepul, telefonda ham qulay.">
+<meta property="og:url" content="https://kuvonch.uz/sudoku.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#0b1220">
+<script async src="statistika.js"></script>
+<style>
+:root{
+  --bg:#0b1220;--bg-soft:#111a2e;--card:#141f38;--border:#243252;--text:#eef2ff;--text-dim:#9fb0d0;
+  --accent:#5ee6c7;--accent-2:#7c9bff;--bad:#ff8585;--good:#5ee6c7;--gold:#ffd479;--violet:#c4a8ff;
+  --cell:#101931;--thin:#24345a;--thick:#6f86c6;
+  --pe:#16244a;--sm:#173f4a;--selc:#2c4a8e;--cf:#3b1b2c;
+  --bs:min(calc(100vw - 24px),520px);
+  --cs:40px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(circle at 20% 0%,#16213f 0%,#0b1220 55%) fixed,#0b1220;
+  font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent-2)}
+.back{position:absolute;top:8px;right:10px;z-index:50;display:inline-flex;align-items:center;height:38px;padding:0 13px;border-radius:999px;
+  background:var(--card);border:1px solid var(--border);color:var(--text);text-decoration:none;font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);white-space:nowrap}
+.back:hover{border-color:var(--accent-2)}
+.wrap{max-width:920px;margin:0 auto;padding:54px 12px calc(28px + env(safe-area-inset-bottom,0px))}
+.titlebar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px;min-height:34px}
+.titlebar .tl{display:flex;align-items:baseline;gap:10px;min-width:0;flex-wrap:wrap}
+h1{margin:0;font-size:26px;line-height:1.1;letter-spacing:-.02em;font-weight:800;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mode{font-size:13px;font-weight:700;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home{font-size:13px;color:var(--text-dim);text-decoration:none;white-space:nowrap;padding:6px 2px}
+.home:hover{color:var(--text)}
+
+/* O'yin maketi */
+.game{display:grid;grid-template-columns:100%;grid-template-areas:"status" "board" "info" "tools" "pad" "more";gap:10px;justify-items:center}
+.game>*{width:var(--bs);max-width:100%}
+.status{grid-area:status;display:flex;align-items:center;gap:6px}
+.pill{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 11px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--border);
+  font-weight:700;font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pill.mis b{color:var(--bad)}
+.pill.timer{min-width:76px;justify-content:center}
+.ib{width:36px;height:36px;border-radius:999px;border:1px solid var(--border);background:var(--bg-soft);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none;padding:0}
+.ib:hover{border-color:var(--accent-2)}
+.ib svg{width:18px;height:18px}
+.spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;border-radius:12px;font-weight:800;cursor:pointer;border:1px solid transparent;text-decoration:none;padding:0 16px;height:44px;font-size:15px}
+.btn.pri{background:linear-gradient(135deg,#5ee6c7,#7c9bff);color:#081019}
+.btn.gh{background:var(--bg-soft);border-color:var(--border);color:var(--text)}
+.btn:hover{filter:brightness(1.08)}
+.btn.sm{height:36px;padding:0 13px;font-size:14px;border-radius:999px}
+
+.bwrap{grid-area:board;position:relative;height:var(--bs)}
+.board{width:var(--bs);height:var(--bs);max-width:100%;display:grid;gap:3px;padding:3px;background:var(--thick);border-radius:12px;
+  box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 1px rgba(124,155,255,.25);outline:none;transition:filter .25s;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.board:focus-visible{box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 3px var(--accent-2)}
+.box{display:grid;gap:1px;background:var(--thin);overflow:hidden;border-radius:2px}
+.c{position:relative;display:flex;align-items:center;justify-content:center;background:var(--cell);cursor:pointer;overflow:hidden;min-width:0;min-height:0;
+  color:var(--accent);transition:background-color .12s;-webkit-touch-callout:none}
+.c .d{font-size:calc(var(--cs)*.6);font-weight:600;line-height:1;font-variant-numeric:tabular-nums;animation:pop .22s ease-out}
+.c.g{color:var(--text)}
+.c.g .d{font-weight:750;animation:none}
+.c.pe{background:var(--pe)}
+.c.sm{background:var(--sm)}
+.c.sm .d{text-shadow:0 0 12px rgba(94,230,199,.45)}
+.c.cf{background:var(--cf)}
+.c.sel{background:var(--selc);box-shadow:inset 0 0 0 2px var(--accent-2)}
+.c.err{color:var(--bad)}
+.c.err .d{text-decoration:underline wavy rgba(255,133,133,.7);text-underline-offset:calc(var(--cs)*.08);text-decoration-thickness:1.5px}
+.c.ht{color:var(--violet)}
+.c.x{color:var(--gold)}
+.c.x::after{content:"";position:absolute;inset:0;background:rgba(255,212,121,.06);pointer-events:none}
+.c.x.rv .d{color:var(--gold)}
+.c.x.rv::before{content:"=";position:absolute;top:1px;left:3px;font-size:calc(var(--cs)*.22);color:rgba(255,212,121,.75);font-weight:800;line-height:1}
+.ex{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.06;font-weight:800;letter-spacing:-.01em;text-align:center;white-space:nowrap;padding:1px}
+.ex span{display:block}
+.nt{position:absolute;inset:1px;display:grid;color:var(--text-dim);font-weight:650;font-size:calc(var(--cs)*.25);line-height:1;pointer-events:none}
+.nt span{display:flex;align-items:center;justify-content:center}
+.nt span.on{color:#081019;background:var(--accent);border-radius:4px;margin:1px}
+.c.hu{box-shadow:inset 0 0 0 2px rgba(255,212,121,.75)}
+.c.hb{background:#3d3418}
+.c.hb .d{color:var(--gold)}
+.c.flash{animation:flash .55s ease-out both}
+.c.shake .d{animation:shake .35s}
+.c.nudge{animation:nudge .25s}
+@keyframes pop{0%{transform:scale(.4);opacity:.2}70%{transform:scale(1.12)}100%{transform:none;opacity:1}}
+@keyframes flash{0%{background:var(--cell)}35%{background:#2a8f7a}100%{}}
+@keyframes shake{20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+@keyframes nudge{50%{background:#3a2a40}}
+.bwrap.paused .board{filter:blur(12px) saturate(.6)}
+.ov{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;border-radius:12px;z-index:5;text-align:center}
+.bwrap.paused .ov.pz{display:flex}
+.ov.ld{background:rgba(11,18,32,.55)}
+.bwrap.loading .ov.ld{display:flex}
+.ov .big{font-size:20px;font-weight:800}
+.spin{width:38px;height:38px;border-radius:50%;border:4px solid rgba(124,155,255,.25);border-top-color:var(--accent);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.info{grid-area:info;min-height:46px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:8px 12px;font-size:14px;color:var(--text-dim)}
+.info .ic{font-size:18px;flex:none}
+.info .tx{flex:1;min-width:0}
+.info b{color:var(--text)}
+.info.hint{border-color:rgba(255,212,121,.55);background:linear-gradient(180deg,rgba(255,212,121,.10),rgba(255,212,121,.03)),var(--card);color:#ffe9b8}
+.info.expr{border-color:rgba(255,212,121,.4)}
+.info .exq{font-size:20px;font-weight:800;color:var(--gold);white-space:nowrap}
+.info .btn{height:34px;padding:0 12px;font-size:13px;flex:none}
+
+.tools{grid-area:tools;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.tb{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:58px;border-radius:14px;border:1px solid var(--border);
+  background:var(--bg-soft);cursor:pointer;font-size:12px;font-weight:700;color:var(--text-dim);padding:0}
+.tb svg{width:22px;height:22px;color:var(--text)}
+.tb:hover{border-color:var(--accent-2)}
+.tb:active{transform:scale(.96)}
+.tb:disabled{opacity:.4;cursor:default;transform:none}
+.tb.on{background:rgba(94,230,199,.14);border-color:var(--accent);color:var(--accent)}
+.tb.on svg{color:var(--accent)}
+.tb .bd{position:absolute;top:5px;right:8px;font-size:10px;font-weight:800;padding:1px 5px;border-radius:999px;background:var(--border);color:var(--text)}
+.tb.on .bd{background:var(--accent);color:#081019}
+.tb .dot{position:absolute;top:8px;right:10px;width:8px;height:8px;border-radius:50%;background:#2e3f69}
+.tb.on .dot{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+
+.pad{grid-area:pad;display:grid;gap:6px}
+.k{position:relative;height:62px;border-radius:14px;border:1px solid var(--border);background:linear-gradient(180deg,#18264a,#121d38);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;min-width:0;transition:transform .08s,opacity .2s}
+.k b{font-size:28px;line-height:1;font-weight:700;color:var(--text)}
+.k small{font-size:11px;color:var(--text-dim);font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+.k:hover{border-color:var(--accent-2)}
+.k:active{transform:scale(.94);background:#22345f}
+.k.hl{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.k.done{opacity:.28}
+.k.done small{visibility:hidden}
+.pad.notes .k b{color:var(--accent);font-size:22px;font-style:italic}
+.pad.notes .k{border-style:dashed}
+
+.more{grid-area:more;display:flex;flex-direction:column;gap:10px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px}
+.opts{display:flex;flex-direction:column;gap:2px}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;padding:7px 0;font-size:14px;font-weight:600}
+.sw small{display:block;color:var(--text-dim);font-weight:500;font-size:12px}
+.sw input{position:absolute;opacity:0;pointer-events:none}
+.sw .tr{position:relative;width:44px;height:26px;border-radius:999px;background:#2a3a62;flex:none;transition:background .2s}
+.sw .tr::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw input:checked+.tr{background:var(--accent)}
+.sw input:checked+.tr::after{transform:translateX(18px)}
+.sw input:focus-visible+.tr{outline:2px solid var(--accent-2);outline-offset:2px}
+.streak{display:flex;align-items:center;gap:10px;font-size:14px}
+.streak .fl{font-size:26px}
+.streak b{font-size:16px}
+.streak .btn{margin-left:auto}
+
+details.help{margin:18px auto 0;max-width:var(--bs);background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+details.help summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:800;display:flex;align-items:center;gap:8px}
+details.help summary::-webkit-details-marker{display:none}
+details.help summary::after{content:"＋";margin-left:auto;color:var(--text-dim)}
+details.help[open] summary::after{content:"－"}
+.help .hb{padding:0 16px 14px;color:var(--text-dim);font-size:14px}
+.help ul{margin:0;padding-left:18px}
+.help li{margin:5px 0}
+.help b{color:var(--text)}
+.help kbd{background:var(--bg-soft);border:1px solid var(--border);border-radius:5px;padding:0 5px;font:12px ui-monospace,Menlo,monospace;color:var(--text)}
+footer{max-width:var(--bs);margin:16px auto 0;text-align:center;font-size:13px;color:var(--text-dim)}
+footer a{color:var(--text-dim)}
+
+/* Modallar */
+.modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(3,7,16,.74);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.modal.on{display:flex;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.sheet{position:relative;width:100%;max-width:440px;max-height:calc(100vh - 28px);overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px 16px 16px;box-shadow:0 30px 80px rgba(0,0,0,.55);animation:rise .25s ease-out}
+@keyframes rise{from{transform:translateY(16px) scale(.98);opacity:.5}}
+.sheet h2{margin:0 0 4px;font-size:22px}
+.sheet .sub{color:var(--text-dim);font-size:14px;margin:0 0 12px}
+.x-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg-soft);cursor:pointer;font-size:18px;line-height:1;color:var(--text-dim)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:4px;margin:6px 0 12px}
+.tab{height:38px;border-radius:9px;border:0;background:transparent;cursor:pointer;font-weight:800;font-size:14px;color:var(--text-dim)}
+.tab.on{background:linear-gradient(135deg,#5ee6c7,#7c9bff);color:#081019}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dbtn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:12px;border-radius:14px;border:1px solid var(--border);background:var(--bg-soft);cursor:pointer;min-height:84px}
+.dbtn:hover{border-color:var(--accent)}
+.dbtn b{font-size:17px}
+.dbtn span{font-size:12px;color:var(--text-dim);line-height:1.3}
+.dbtn i{font-style:normal;font-size:12px;color:var(--gold);margin-top:auto;font-weight:700}
+.lv{display:flex;gap:3px;margin-bottom:2px}
+.lv u{width:14px;height:5px;border-radius:3px;background:#2a3a62;text-decoration:none}
+.lv u.f{background:var(--accent)}
+.resume{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:1px solid rgba(94,230,199,.45);background:rgba(94,230,199,.08);margin-bottom:10px;cursor:pointer;width:100%;text-align:left}
+.resume b{display:block}
+.resume span{font-size:12.5px;color:var(--text-dim)}
+.resume .go{margin-left:auto;font-weight:800;color:var(--accent)}
+.daily{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.dcal{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;background:var(--bg-soft);border:1px solid var(--border)}
+.dcal .dt{width:62px;height:66px;border-radius:12px;background:linear-gradient(180deg,#ff8585 0 20px,#eef2ff 20px);color:#0b1220;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:5px;flex:none}
+.dcal .dt b{font-size:28px;line-height:1}
+.dcal .dt span{font-size:10px;font-weight:800;text-transform:uppercase}
+.dcal .dd{font-size:13px;color:var(--text-dim)}
+.dcal .dd b{display:block;color:var(--text);font-size:16px}
+.weekrow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:11px;color:var(--text-dim)}
+.weekrow div{padding:6px 0;border-radius:8px;background:var(--bg-soft);border:1px solid var(--border)}
+.weekrow div.ok{background:rgba(94,230,199,.16);border-color:var(--accent);color:var(--accent)}
+.weekrow div.td{border-color:var(--gold)}
+.weekrow b{display:block;font-size:14px;color:var(--text)}
+.mathsw{margin:0 0 10px;padding:8px 12px;border-radius:12px;background:rgba(255,212,121,.07);border:1px solid rgba(255,212,121,.3)}
+.note{font-size:12.5px;color:var(--text-dim);margin:10px 2px 0}
+.win{text-align:center}
+.trophy{font-size:54px;line-height:1;animation:bounce 1s ease-in-out infinite alternate}
+@keyframes bounce{to{transform:translateY(-6px) rotate(-6deg)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 10px}
+.stats div{background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:8px 2px}
+.stats b{display:block;font-size:18px;font-variant-numeric:tabular-nums}
+.stats span{font-size:11px;color:var(--text-dim)}
+.badge{display:inline-block;margin:2px 3px;padding:6px 12px;border-radius:999px;font-weight:800;font-size:14px}
+.badge.rec{background:rgba(255,212,121,.15);color:var(--gold);border:1px solid rgba(255,212,121,.4)}
+.badge.coin{background:rgba(94,230,199,.12);color:var(--accent);border:1px solid rgba(94,230,199,.35)}
+.badge.fire{background:rgba(255,133,133,.12);color:#ffb3a3;border:1px solid rgba(255,133,133,.35)}
+.tech{font-size:12.5px;color:var(--text-dim);margin:10px 0 14px}
+.col{display:flex;flex-direction:column;gap:8px}
+.lnk{background:none;border:0;color:var(--text-dim);cursor:pointer;text-decoration:underline;padding:6px;font-size:14px}
+.toast{position:fixed;left:50%;top:60px;transform:translate(-50%,-12px);z-index:1200;background:#eef2ff;color:#0b1220;font-weight:800;font-size:14px;padding:9px 16px;border-radius:999px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100vw - 24px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1100}
+
+/* Kompyuter: ikki ustun */
+@media (min-width:900px){
+  .wrap{padding-top:58px}
+  .game{grid-template-columns:var(--bs) 340px;grid-template-areas:"board status" "board info" "board tools" "board pad" "board more";gap:12px 22px;justify-content:center;align-items:start;justify-items:stretch}
+  .game>*{width:auto}
+  .bwrap{width:var(--bs)}
+  .game .status,.game .info,.game .tools,.game .pad,.game .more{width:340px}
+  .bwrap{grid-row:1 / span 6}
+  .k{height:64px}
+  .k b{font-size:30px}
+  details.help,footer{max-width:882px}
+}
+@media (max-width:370px){
+  .tb{font-size:11px}
+  .pill{padding:0 9px;font-size:13px}
+  .pill.timer{min-width:66px}
+  .btn.sm{padding:0 10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+}
+</style>
+</head>
+<body>
+<a class="back" href="oyinlar.html">← O'yinlar</a>
+<main class="wrap">
+  <header class="titlebar">
+    <div class="tl"><h1>Sudoku</h1><span class="mode" id="modeLbl">—</span></div>
+    <a class="home" href="index.html">⌂ Bosh sahifa</a>
+  </header>
+
+  <section class="game" id="game">
+    <div class="status">
+      <span class="pill mis" id="misPill" title="Xatolar">Xato: <b id="misN">0</b><span id="misMax">/3</span></span>
+      <span class="pill timer" id="timer" title="Vaqt">00:00</span>
+      <button class="ib" id="pauseBtn" type="button" aria-label="Pauza" title="Pauza (P)"></button>
+      <button class="ib" id="soundBtn" type="button" aria-label="Ovoz" title="Ovoz"></button>
+      <span class="spacer"></span>
+      <button class="btn pri sm" id="newBtn" type="button">＋ Yangi</button>
+    </div>
+
+    <div class="bwrap" id="bwrap">
+      <div class="board" id="board" role="grid" tabindex="0" aria-label="Sudoku taxtasi"></div>
+      <div class="ov pz" id="pauseOv"><div class="big">⏸ Pauza</div><button class="btn pri" id="resumeBtn" type="button">▶ Davom etish</button></div>
+      <div class="ov ld"><div class="spin"></div><div>Jumboq tayyorlanmoqda…</div></div>
+    </div>
+
+    <div class="info" id="info" aria-live="polite"><span class="ic">🧩</span><span class="tx">Yuklanmoqda…</span></div>
+
+    <div class="tools">
+      <button class="tb" id="undoBtn" type="button" title="Orqaga (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>Orqaga</button>
+      <button class="tb" id="redoBtn" type="button" title="Qaytarish (Ctrl+Y)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg>Qaytarish</button>
+      <button class="tb" id="eraseBtn" type="button" title="Tozalash (Backspace)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16a2 2 0 0 1 0-2.8L13.2 3a2 2 0 0 1 2.8 0L21 8a2 2 0 0 1 0 2.8L11 20"/><path d="m6 11 7 7"/></svg>Tozalash</button>
+      <button class="tb" id="notesBtn" type="button" title="Belgi rejimi (N)" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Belgi<span class="dot" aria-hidden="true"></span></button>
+      <button class="tb" id="hintBtn" type="button" title="Maslahat (H)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.3h6c0-1.1.4-1.8 1-2.3A7 7 0 0 0 12 2Z"/></svg>Maslahat<span class="bd" id="hintBd">0</span></button>
+    </div>
+
+    <div class="pad" id="pad"></div>
+
+    <div class="more">
+      <div class="card streak" id="streakCard">
+        <span class="fl">🔥</span>
+        <div><b id="streakN">0 kun</b><br><small style="color:var(--text-dim)" id="streakTx">Kunlik sudoku seriyasi</small></div>
+        <button class="btn gh sm" id="dailyBtn" type="button">📅 Kunlik</button>
+      </div>
+      <div class="card opts">
+        <label class="sw"><span>3 ta xato cheklovi<small>3 ta xatodan keyin o'yin tugaydi</small></span><input type="checkbox" id="optLimit"><span class="tr"></span></label>
+        <label class="sw"><span>Ovoz va tebranish</span><input type="checkbox" id="optSound"><span class="tr"></span></label>
+      </div>
+    </div>
+  </section>
+
+  <details class="help" id="help">
+    <summary>❓ Qanday o'ynaladi?</summary>
+    <div class="hb">
+      <ul>
+        <li>Har bir <b>qator</b>, <b>ustun</b> va qalin chiziqli <b>blokda</b> 1 dan 9 gacha (4×4 da 1–4, 6×6 da 1–6) raqamlar <b>bir martadan</b> qatnashishi kerak.</li>
+        <li>Katakni bosing, so'ng pastdagi raqamni tanlang. Raqam ostidagi kichik son — shu raqamdan yana nechta qo'yish kerakligi.</li>
+        <li><b>✎ Belgi</b> rejimida taxminlaringizni kichik raqam bilan yozing. To'g'ri raqam qo'yilganda shu qator, ustun va blokdagi mos belgilar o'zi o'chadi.</li>
+        <li><b>💡 Maslahat</b> bitta katakni ochadi va nega aynan shu raqam ekanini tushuntiradi.</li>
+        <li><b>🧮 Matematik sudoku</b>: ba'zi berilgan raqamlar misol bilan yozilgan (masalan <b>12÷4</b>, <b>√49</b>, <b>40 ning 15%</b>). Misolni yeching — javob shu katakdagi raqam. Katakni uzoq bossangiz qiymati ochiladi, lekin vaqtga <b>+15 soniya</b> qo'shiladi.</li>
+        <li><b>📅 Kunlik sudoku</b> — har kuni hamma uchun bir xil jumboq. Har kuni yechib, seriyani uzmang!</li>
+        <li>Kompyuterda: <kbd>1</kbd>–<kbd>9</kbd> raqam, <kbd>←↑→↓</kbd> yurish, <kbd>Backspace</kbd> o'chirish, <kbd>N</kbd> belgi rejimi, <kbd>Shift</kbd>+raqam — belgi, <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd> orqaga/qaytarish, <kbd>H</kbd> maslahat, <kbd>P</kbd> pauza.</li>
+        <li>O'yin avtomatik saqlanadi — sahifani yopsangiz ham keyin davom ettirasiz. Akkauntga kirgan bo'lsangiz, yutganingizda tanga olasiz.</li>
+      </ul>
+    </div>
+  </details>
+  <footer><a href="oyinlar.html">← Barcha o'yinlar</a> · <a href="index.html">Bosh sahifa</a> · Kuvonch Academy</footer>
+</main>
+
+<div class="modal" id="newModal" role="dialog" aria-modal="true" aria-labelledby="newTitle">
+  <div class="sheet">
+    <button class="x-close" type="button" data-close aria-label="Yopish">✕</button>
+    <h2 id="newTitle">Yangi o'yin</h2>
+    <p class="sub">Rejim va darajani tanlang</p>
+    <div id="resumeBox"></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" type="button" data-tab="klassik" role="tab">Klassik</button>
+      <button class="tab" type="button" data-tab="bolalar" role="tab">Bolalar</button>
+      <button class="tab" type="button" data-tab="kunlik" role="tab">📅 Kunlik</button>
+    </div>
+    <div id="tabBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="winModal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+  <div class="sheet win">
+    <div class="trophy">🏆</div>
+    <h2 id="winTitle">Barakalla!</h2>
+    <p class="sub" id="wSub"></p>
+    <div class="stats">
+      <div><b id="wTime">0:00</b><span>Vaqt</span></div>
+      <div><b id="wMis">0</b><span>Xato</span></div>
+      <div><b id="wHint">0</b><span>Maslahat</span></div>
+      <div><b id="wBest">—</b><span>Rekord</span></div>
+    </div>
+    <div id="wBadges"></div>
+    <p class="tech" id="wTech"></p>
+    <div class="col">
+      <button class="btn pri" id="wNext" type="button">Yana o'ynash</button>
+      <button class="btn gh" id="wMenu" type="button">Boshqa rejim</button>
+      <button class="lnk" id="wClose" type="button">Taxtaga qaytish</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="overModal" role="dialog" aria-modal="true" aria-labelledby="overTitle">
+  <div class="sheet win">
+    <div class="trophy" style="animation:none">😕</div>
+    <h2 id="overTitle">3 ta xato</h2>
+    <p class="sub">Xato chegarasiga yetdingiz. Nima qilamiz?</p>
+    <div class="col">
+      <button class="btn pri" id="oCont" type="button">Davom etish (cheklovsiz)</button>
+      <button class="btn gh" id="oRestart" type="button">Shu jumboqni qaytadan</button>
+      <button class="btn gh" id="oNew" type="button">Yangi o'yin</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<script id="sdk-engine">
+/*ENGINE-START*/
+var SDKE = (function () {
+  "use strict";
+  var POP = new Uint8Array(512);
+  for (var q = 1; q < 512; q++) POP[q] = POP[q >> 1] + (q & 1);
+  function dig(b) { return 32 - Math.clz32(b); } /* bit -> raqam (1..N) */
+  var GEO = {};
+  function geom(N) {
+    if (GEO[N]) return GEO[N];
+    var BR = N === 9 ? 3 : 2, BC = N === 4 ? 2 : 3, C = N * N, i, j;
+    var row = new Int8Array(C), col = new Int8Array(C), box = new Int8Array(C);
+    var units = [], k;
+    for (i = 0; i < 3 * N; i++) units.push([]);
+    for (i = 0; i < C; i++) {
+      var r = (i / N) | 0, c = i % N, b = ((r / BR) | 0) * (N / BC) + ((c / BC) | 0);
+      row[i] = r; col[i] = c; box[i] = b;
+      units[r].push(i); units[N + c].push(i); units[2 * N + b].push(i);
+    }
+    var peers = [], isPeer = new Uint8Array(C * C);
+    for (i = 0; i < C; i++) {
+      var p = [];
+      for (j = 0; j < C; j++) if (j !== i && (row[j] === row[i] || col[j] === col[i] || box[j] === box[i])) { p.push(j); isPeer[i * C + j] = 1; }
+      peers.push(p);
+    }
+    return (GEO[N] = { N: N, BR: BR, BC: BC, C: C, row: row, col: col, box: box, units: units, peers: peers, isPeer: isPeer, ALL: (1 << N) - 1 });
+  }
+  function rng(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function hashStr(s) {
+    var h = 2166136261 >>> 0;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995); h ^= h >>> 15;
+    return h >>> 0;
+  }
+  function shuffle(a, rnd) { for (var i = a.length - 1; i > 0; i--) { var j = (rnd() * (i + 1)) | 0, t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  /* Bitmask + MRV qidiruv. limit gacha yechim sanaydi. fc/fv: fc katakka fv qo'yish taqiqlangan.
+     rnd berilsa — tasodifiy tartibda (to'liq panjara yaratish uchun). out — birinchi yechim yoziladi. */
+  function search(g, grid, limit, fc, fv, rnd, out) {
+    var N = g.N, C = g.C, ALL = g.ALL, R = g.row, CO = g.col, B = g.box;
+    var rm = new Int32Array(N), cm = new Int32Array(N), xm = new Int32Array(N);
+    var emp = new Int16Array(C), ne = 0, val = new Int8Array(C), i;
+    for (i = 0; i < C; i++) {
+      var v = grid[i];
+      if (v) {
+        var b = 1 << (v - 1);
+        if ((rm[R[i]] | cm[CO[i]] | xm[B[i]]) & b) return 0;
+        rm[R[i]] |= b; cm[CO[i]] |= b; xm[B[i]] |= b; val[i] = v;
+      } else emp[ne++] = i;
+    }
+    var fb = fc >= 0 ? 1 << (fv - 1) : 0, cnt = 0, tmp = [];
+    function rec(k) {
+      if (k === ne) {
+        if (!cnt && out) for (var z = 0; z < C; z++) out[z] = val[z];
+        cnt++; return cnt >= limit;
+      }
+      var bj = -1, bmask = 0, bc = 99;
+      for (var j = k; j < ne; j++) {
+        var c = emp[j], m = ALL & ~(rm[R[c]] | cm[CO[c]] | xm[B[c]]);
+        if (c === fc) m &= ~fb;
+        var n = POP[m];
+        if (n < bc) { bc = n; bj = j; bmask = m; if (n < 2) break; }
+      }
+      if (bc === 0) return false;
+      var t = emp[k]; emp[k] = emp[bj]; emp[bj] = t;
+      var cell = emp[k], r = R[cell], co = CO[cell], bx = B[cell], m2 = bmask, bits = [], nb = 0;
+      while (m2) { var lb = m2 & -m2; m2 ^= lb; bits[nb++] = lb; }
+      if (rnd) shuffle(bits, rnd);
+      for (var q = 0; q < nb; q++) {
+        var bb = bits[q];
+        rm[r] |= bb; cm[co] |= bb; xm[bx] |= bb; val[cell] = dig(bb);
+        if (rec(k + 1)) return true;
+        rm[r] ^= bb; cm[co] ^= bb; xm[bx] ^= bb; val[cell] = 0;
+      }
+      return false;
+    }
+    rec(0);
+    return cnt;
+  }
+  function count(N, grid, limit) { return search(geom(N), grid, limit || 2, -1, 0, null, null); }
+  function solve(N, grid) { var g = geom(N), out = new Array(g.C); return search(g, grid, 1, -1, 0, null, out) ? out : null; }
+  function fullGrid(g, rnd) { var out = new Array(g.C), z = new Array(g.C).fill(0); search(g, z, 1, -1, 0, rnd, out); return out; }
+
+  /* Simmetrik (180°) juftlab raqamlarni olib tashlash, yechim yagonaligini saqlagan holda. */
+  function carve(g, sol, rnd, stopClues) {
+    var C = g.C, puz = sol.slice(), order = [], clues = C, i;
+    for (i = 0; i < C; i++) if (i <= C - 1 - i) order.push(i);
+    shuffle(order, rnd);
+    for (var k = 0; k < order.length; k++) {
+      if (stopClues && clues <= stopClues) break;
+      i = order[k];
+      var j = C - 1 - i, vi = puz[i], vj = puz[j];
+      puz[i] = 0; puz[j] = 0;
+      var multi = search(g, puz, 1, i, vi, null, null) > 0 || (j !== i && search(g, puz, 1, j, vj, null, null) > 0);
+      if (multi) { puz[i] = vi; puz[j] = vj; } else clues -= (j === i ? 1 : 2);
+    }
+    return puz;
+  }
+
+  /* Inson usulida yechuvchi — qiyinlikni baholash.
+     tier: 1 yagonalar, 2 juftlik/ko'rsatuvchi/da'vo, 3 uchlik/X-qanot, 4 XY-qanot/qilichbaliq, 5 mantiq yetmaydi */
+  function rate(N, puz) {
+    var g = geom(N), C = g.C, ALL = g.ALL, peers = g.peers, units = g.units, isPeer = g.isPeer;
+    var v = puz.slice(), cand = new Int32Array(C), left = 0, i, k;
+    for (i = 0; i < C; i++) if (!v[i]) {
+      left++; var m = ALL, P = peers[i];
+      for (k = 0; k < P.length; k++) if (v[P[k]]) m &= ~(1 << (v[P[k]] - 1));
+      cand[i] = m;
+    }
+    var tier = 0, score = 0, cnt = {}, bad = false;
+    function use(name, t, w) { cnt[name] = (cnt[name] || 0) + 1; if (t > tier) tier = t; score += w; }
+    function place(i, d) { v[i] = d; cand[i] = 0; left--; var b = 1 << (d - 1), P = peers[i]; for (var k = 0; k < P.length; k++) cand[P[k]] &= ~b; }
+    function elim(i, mask) { if (cand[i] & mask) { cand[i] &= ~mask; if (!cand[i]) bad = true; return true; } return false; }
+    function singles() {
+      var any = false, ch = true;
+      while (ch && left > 0) {
+        ch = false;
+        for (var i = 0; i < C; i++) if (!v[i]) {
+          if (!cand[i]) { bad = true; return false; }
+          if (POP[cand[i]] === 1) { place(i, dig(cand[i])); use("naked", 1, 0.6); ch = any = true; }
+        }
+        for (var u = units.length - 1; u >= 0; u--) {
+          var U = units[u], once = 0, twice = 0, k;
+          for (k = 0; k < U.length; k++) { var m = cand[U[k]]; twice |= once & m; once |= m; }
+          var uq = once & ~twice;
+          while (uq) {
+            var b = uq & -uq; uq ^= b;
+            for (k = 0; k < U.length; k++) if (!v[U[k]] && (cand[U[k]] & b)) { place(U[k], dig(b)); use("hidden", 1, 0.3); ch = any = true; break; }
+          }
+        }
+      }
+      return any;
+    }
+    function locked() {
+      var N2 = 2 * N, u, b, k, U, ch;
+      for (u = N2; u < 3 * N; u++) {
+        U = units[u];
+        for (b = 1; b <= ALL; b <<= 1) {
+          var rows = -1, cols = -1, n = 0;
+          for (k = 0; k < U.length; k++) if (cand[U[k]] & b) {
+            n++; var r = g.row[U[k]], c = g.col[U[k]];
+            rows = rows === -1 ? r : (rows === r ? r : -2);
+            cols = cols === -1 ? c : (cols === c ? c : -2);
+          }
+          if (n < 2) continue;
+          ch = false;
+          if (rows >= 0) { var L = units[rows]; for (k = 0; k < L.length; k++) if (g.box[L[k]] !== u - N2) ch = elim(L[k], b) || ch; }
+          if (cols >= 0) { var L2 = units[N + cols]; for (k = 0; k < L2.length; k++) if (g.box[L2[k]] !== u - N2) ch = elim(L2[k], b) || ch; }
+          if (ch) { use("pointing", 2, 3); return true; }
+        }
+      }
+      for (u = 0; u < N2; u++) {
+        U = units[u];
+        for (b = 1; b <= ALL; b <<= 1) {
+          var bx = -1, n2 = 0;
+          for (k = 0; k < U.length; k++) if (cand[U[k]] & b) { n2++; var x = g.box[U[k]]; bx = bx === -1 ? x : (bx === x ? x : -2); }
+          if (n2 < 2 || bx < 0) continue;
+          var BX = units[N2 + bx]; ch = false;
+          for (k = 0; k < BX.length; k++) { var cc = BX[k]; if ((u < N ? g.row[cc] !== u : g.col[cc] !== u - N)) ch = elim(cc, b) || ch; }
+          if (ch) { use("claiming", 2, 3.2); return true; }
+        }
+      }
+      return false;
+    }
+    function combos(arr, kk, fn) {
+      var n = arr.length, idx = [];
+      function go(s, d) {
+        if (d === kk) return fn(idx);
+        for (var t = s; t < n; t++) { idx[d] = arr[t]; if (go(t + 1, d + 1)) return true; }
+        return false;
+      }
+      return go(0, 0);
+    }
+    function nakedSub(kk) {
+      for (var u = 0; u < units.length; u++) {
+        var U = units[u], ce = [], emp = 0;
+        for (var k = 0; k < U.length; k++) if (!v[U[k]]) { emp++; var p = POP[cand[U[k]]]; if (p >= 2 && p <= kk) ce.push(U[k]); }
+        if (emp <= kk || ce.length < kk) continue;
+        if (combos(ce, kk, function (sel) {
+          var un = 0, a; for (a = 0; a < kk; a++) un |= cand[sel[a]];
+          if (POP[un] !== kk) return false;
+          var ch = false;
+          for (var t = 0; t < U.length; t++) { var c = U[t]; if (v[c] || sel.indexOf(c) >= 0) continue; ch = elim(c, un) || ch; }
+          return ch;
+        })) { use(kk === 2 ? "nakedPair" : "nakedTriple", kk === 2 ? 2 : 3, kk === 2 ? 4 : 7); return true; }
+      }
+      return false;
+    }
+    function hiddenSub(kk) {
+      for (var u = 0; u < units.length; u++) {
+        var U = units[u], pos = [], ds = [], k, d;
+        for (d = 0; d < N; d++) {
+          var pm = 0, b = 1 << d;
+          for (k = 0; k < U.length; k++) if (cand[U[k]] & b) pm |= 1 << k;
+          pos[d] = pm;
+          if (POP[pm] >= 2 && POP[pm] <= kk) ds.push(d);
+        }
+        var emp = 0; for (k = 0; k < U.length; k++) if (!v[U[k]]) emp++;
+        if (emp <= kk || ds.length < kk) continue;
+        if (combos(ds, kk, function (sel) {
+          var up = 0, dm = 0, a;
+          for (a = 0; a < kk; a++) { up |= pos[sel[a]]; dm |= 1 << sel[a]; }
+          if (POP[up] !== kk) return false;
+          var ch = false;
+          for (var t = 0; t < U.length; t++) if (up & (1 << t)) ch = elim(U[t], ALL & ~dm) || ch;
+          return ch;
+        })) { use(kk === 2 ? "hiddenPair" : "hiddenTriple", kk === 2 ? 2 : 3, kk === 2 ? 5 : 8); return true; }
+      }
+      return false;
+    }
+    function fish(sz) {
+      for (var d = 0; d < N; d++) {
+        var b = 1 << d;
+        for (var dir = 0; dir < 2; dir++) {
+          var lines = [], lp = [];
+          for (var L = 0; L < N; L++) {
+            var pm = 0;
+            for (var t = 0; t < N; t++) { var c = dir ? t * N + L : L * N + t; if (cand[c] & b) pm |= 1 << t; }
+            lp[L] = pm;
+            if (POP[pm] >= 2 && POP[pm] <= sz) lines.push(L);
+          }
+          if (lines.length < sz) continue;
+          if (combos(lines, sz, function (sel) {
+            var un = 0, a; for (a = 0; a < sz; a++) un |= lp[sel[a]];
+            if (POP[un] !== sz) return false;
+            var ch = false;
+            for (var L2 = 0; L2 < N; L2++) {
+              if (sel.indexOf(L2) >= 0) continue;
+              for (var t2 = 0; t2 < N; t2++) if (un & (1 << t2)) { var c2 = dir ? t2 * N + L2 : L2 * N + t2; ch = elim(c2, b) || ch; }
+            }
+            return ch;
+          })) { use(sz === 2 ? "xwing" : "swordfish", sz === 2 ? 3 : 4, sz === 2 ? 9 : 12); return true; }
+        }
+      }
+      return false;
+    }
+    function xyWing() {
+      for (var pv = 0; pv < C; pv++) {
+        var pm = cand[pv]; if (v[pv] || POP[pm] !== 2) continue;
+        var P = peers[pv];
+        for (var a = 0; a < P.length; a++) {
+          var p1 = P[a], m1 = cand[p1];
+          if (v[p1] || POP[m1] !== 2 || POP[m1 & pm] !== 1) continue;
+          var cbit = m1 & ~pm, other = pm & ~m1, want = other | cbit;
+          for (var bI = 0; bI < P.length; bI++) {
+            var p2 = P[bI]; if (p2 === p1 || v[p2] || cand[p2] !== want) continue;
+            var ch = false;
+            for (var z = 0; z < C; z++) {
+              if (z === p1 || z === p2 || z === pv || v[z] || !(cand[z] & cbit)) continue;
+              if (isPeer[z * C + p1] && isPeer[z * C + p2]) ch = elim(z, cbit) || ch;
+            }
+            if (ch) { use("xywing", 4, 11); return true; }
+          }
+        }
+      }
+      return false;
+    }
+    var guard = 0;
+    while (left > 0 && !bad && guard++ < 2000) {
+      if (singles()) continue;
+      if (bad || left === 0) break;
+      if (locked() || nakedSub(2) || hiddenSub(2)) continue;
+      if (nakedSub(3) || hiddenSub(3) || fish(2)) continue;
+      if (xyWing() || fish(3)) continue;
+      break;
+    }
+    var stuck = [];
+    if (left > 0) { for (i = 0; i < C; i++) if (!v[i]) stuck.push(i); if (!bad) { tier = 5; score += 20 + left; } }
+    return { tier: bad ? 99 : tier, score: Math.round(score * 10) / 10, solved: left === 0, counts: cnt, stuck: stuck, bad: bad };
+  }
+
+  var RANGE = { bolalar: [1, 1], oson: [1, 1], orta: [2, 2], qiyin: [3, 4, 3, 30], ekspert: [5, 5] }; /* [min, max, afzal, sabr] */
+  var STOP = { 4: [6, 8], 6: [14, 17], 9: [36, 40] }; /* oson/bolalar uchun berilganlar soni oralig'i */
+
+  function generate(o) {
+    var N = o.N || 9, g = geom(N), C = g.C, diff = o.diff || "orta", rg = RANGE[diff] || RANGE.orta, lo = rg[0], hi = rg[1], pref = rg[2] || 0, pat = rg[3] || 0;
+    var rnd = rng(o.seed >>> 0), t0 = Date.now(), attempts = 0, best = null;
+    var maxA = o.maxAttempts || 400, maxMs = o.maxMs || 0;
+    function dist(t) { return t < lo ? lo - t : t > hi ? t - hi : 0; }
+    while (true) {
+      attempts++;
+      var sol = fullGrid(g, rnd), stop = 0;
+      if (hi === 1) { var s = STOP[N]; stop = s[0] + ((rnd() * (s[1] - s[0] + 1)) | 0); }
+      var puz = carve(g, sol, rnd, stop), r = rate(N, puz);
+      if (r.tier > hi && r.tier < 99) {
+        var guard = 0;
+        while (r.tier > hi && r.stuck.length && guard++ < 40) {
+          var c = r.stuck[(rnd() * r.stuck.length) | 0], c2 = C - 1 - c;
+          puz[c] = sol[c]; if (!puz[c2]) puz[c2] = sol[c2];
+          r = rate(N, puz);
+        }
+      }
+      var cand = { puzzle: puz, solution: sol, tier: r.tier, score: r.score, counts: r.counts, d: dist(r.tier) };
+      if (r.tier < 99 && (!best || cand.d < best.d || (cand.d === 0 && pref && r.tier === pref && best.tier !== pref))) best = cand;
+      if (r.tier < 99 && cand.d === 0 && (!pref || r.tier === pref || attempts >= pat)) { best = cand; break; }
+      if (attempts >= maxA || (maxMs && Date.now() - t0 > maxMs)) break;
+    }
+    var clues = 0; for (var i = 0; i < C; i++) if (best.puzzle[i]) clues++;
+    return { N: N, diff: diff, seed: o.seed >>> 0, puzzle: best.puzzle, solution: best.solution, tier: best.tier, score: best.score, counts: best.counts, clues: clues, attempts: attempts, ms: Date.now() - t0, exact: best.d === 0 };
+  }
+
+  function candidates(N, grid) {
+    var g = geom(N), cand = new Int32Array(g.C);
+    for (var i = 0; i < g.C; i++) if (!grid[i]) {
+      var m = g.ALL, P = g.peers[i];
+      for (var k = 0; k < P.length; k++) if (grid[P[k]]) m &= ~(1 << (grid[P[k]] - 1));
+      cand[i] = m;
+    }
+    return cand;
+  }
+  /* Maslahat uchun: yashirin/ochiq yagona topish. near — tanlangan katak (yaqinrog'i afzal). */
+  function findSingle(N, grid, near) {
+    var g = geom(N), cand = candidates(N, grid), list = [], i, u;
+    for (u = 0; u < g.units.length; u++) {
+      var U = g.units[u], once = 0, twice = 0, k;
+      for (k = 0; k < U.length; k++) { var m = cand[U[k]]; twice |= once & m; once |= m; }
+      var uq = once & ~twice;
+      while (uq) {
+        var b = uq & -uq; uq ^= b;
+        for (k = 0; k < U.length; k++) if (!grid[U[k]] && (cand[U[k]] & b)) {
+          var type = u < N ? "row" : u < 2 * N ? "col" : "box";
+          list.push({ cell: U[k], digit: dig(b), kind: "hidden", unit: type, unitIndex: u % N, unitCells: U.slice(), rank: type === "box" ? 0 : 1 });
+          break;
+        }
+      }
+    }
+    for (i = 0; i < g.C; i++) if (!grid[i] && POP[cand[i]] === 1) list.push({ cell: i, digit: dig(cand[i]), kind: "naked", rank: 2 });
+    if (!list.length) return null;
+    function d(c) { if (near == null || near < 0) return 0; return Math.abs(g.row[c] - g.row[near]) + Math.abs(g.col[c] - g.col[near]); }
+    var atSel = list.filter(function (h) { return h.cell === near; });
+    if (atSel.length) { atSel.sort(function (a, b) { return a.rank - b.rank; }); return atSel[0]; }
+    list.sort(function (a, b) { return a.rank - b.rank || d(a.cell) - d(b.cell); });
+    return list[0];
+  }
+
+  /* Matematik sudoku: raqamni misol ko'rinishida yozish. lvl 1 — qo'shish/ayirish/bo'lish, 2 — amallar tartibi, darajalar, 3 — ildiz, foiz, faktorial */
+  function pick(a, rnd) { return a[(rnd() * a.length) | 0]; }
+  var SQD = { 3: "2²−1²", 5: "3²−2²", 7: "4²−3²", 8: "3²−1²", 9: "5²−4²" };
+  var FACT = { 1: "0!", 2: "2!", 3: "4!÷8", 4: "4!÷6", 5: "3!−1", 6: "3!", 7: "3!+1", 8: "4!÷3", 9: "3!+3" };
+  function expr(d, lvl, rnd) {
+    var opts = [], a, b, c, k;
+    function add(w, s, t) { opts.push([w, s, t]); }
+    if (lvl <= 2 || rnd() < 0.2) {
+      if (d >= 2) { a = 1 + ((rnd() * (d - 1)) | 0); add(2, a + "+" + (d - a)); }
+      b = 1 + ((rnd() * 9) | 0); add(2, (d + b) + "−" + b);
+      b = 2 + ((rnd() * 4) | 0); add(2, (d * b) + "÷" + b);
+      var fp = []; for (a = 2; a <= 4; a++) if (d % a === 0 && d / a >= 2) fp.push(a + "·" + (d / a));
+      if (fp.length) add(2, pick(fp, rnd));
+    }
+    if (lvl >= 2) {
+      var l2 = [];
+      for (a = 2; a <= 5; a++) for (b = a; b <= 5; b++) { c = a * b - d; if (c >= 1 && c <= 9) l2.push(a + "·" + b + "−" + c); }
+      if (l2.length) add(3, pick(l2, rnd));
+      for (a = 2; a <= 4; a++) { c = a * a - d; if (c >= 1 && c <= 9) add(2, a + "²−" + c); }
+      b = 6 + ((rnd() * 4) | 0); add(lvl === 2 ? 3 : 1, (d * b) + "÷" + b);
+      if (d >= 2) { c = 1 + ((rnd() * (d - 1)) | 0); b = 2 + ((rnd() * 4) | 0); add(lvl === 2 ? 3 : 1, ((d - c) * b) + "÷" + b + "+" + c); }
+    }
+    if (lvl >= 3) {
+      if (d >= 2) add(4, "√" + d * d);
+      if (SQD[d]) add(3, SQD[d]);
+      add(3, FACT[d]);
+      var pc = [];
+      [10, 20, 25, 50, 15, 30, 40, 75].forEach(function (p) { var m = d * 100 / p; if (m === Math.floor(m) && m < 100 && m !== d) pc.push([m, p]); });
+      if (pc.length) { var z = pick(pc, rnd); add(2, z[0] + " ning " + z[1] + "%", [z[0] + " ning", z[1] + "%"]); }
+      c = 8 - d; if (c >= 1) add(2, "2³−" + c); else if (d === 8) add(2, "2³");
+      c = 16 - d; if (c >= 7 && c <= 9) add(2, "2⁴−" + c);
+      a = d + 1 + ((rnd() * (9 - d)) | 0); if (a <= 9) add(3, "√" + a * a + "−" + (a - d));
+      add(2, "0,5·" + 2 * d);
+    }
+    var tot = 0; for (k = 0; k < opts.length; k++) tot += opts[k][0];
+    var r = rnd() * tot; for (k = 0; k < opts.length - 1; k++) { r -= opts[k][0]; if (r < 0) break; }
+    var o = opts[k];
+    return { s: o[1], t: o[2] || [o[1]] };
+  }
+  function mathify(puz, N, lvl, frac, seed) {
+    var rnd = rng((seed ^ 0x2545F491) >>> 0), giv = [], out = {}, i;
+    for (i = 0; i < puz.length; i++) if (puz[i]) giv.push(i);
+    shuffle(giv, rnd);
+    var n = Math.round(giv.length * frac);
+    for (i = 0; i < n; i++) out[giv[i]] = expr(puz[giv[i]], lvl, rnd);
+    return out;
+  }
+
+  return { POP: POP, geom: geom, rng: rng, hashStr: hashStr, count: count, solve: solve, rate: rate, generate: generate, candidates: candidates, findSingle: findSingle, RANGE: RANGE, expr: expr, mathify: mathify };
+})();
+/*ENGINE-END*/
+</script>
+<script>
+(function () {
+  "use strict";
+  var E = window.SDKE;
+  var $ = function (id) { return document.getElementById(id); };
+  var REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function lsGet(k, def) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch (e) { return def; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function fmt(ms) { var s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60; s %= 60; return h ? h + ":" + pad2(m) + ":" + pad2(s) : pad2(m) + ":" + pad2(s); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  var DIFF = {
+    oson: { name: "Oson", lv: 1, coins: 5, desc: "Faqat yagona raqamlar usuli", mathLvl: 1, mathFrac: 0.35 },
+    orta: { name: "O'rta", lv: 2, coins: 10, desc: "Juftliklar va blok–qator kesishmasi", mathLvl: 2, mathFrac: 0.45 },
+    qiyin: { name: "Qiyin", lv: 3, coins: 20, desc: "Uchliklar, X-qanot, XY-qanot", mathLvl: 3, mathFrac: 0.5 },
+    ekspert: { name: "Ekspert", lv: 4, coins: 35, desc: "Oddiy usullar yetmaydi — chuqur mantiq", mathLvl: 3, mathFrac: 0.5 },
+    bolalar: { name: "Bolalar", lv: 0, coins: 3, desc: "", mathLvl: 1, mathFrac: 0.4 }
+  };
+  var TECH = { naked: "ochiq yagona", hidden: "yashirin yagona", pointing: "ko'rsatuvchi juftlik", claiming: "qator–blok kesishmasi", nakedPair: "ochiq juftlik", hiddenPair: "yashirin juftlik", nakedTriple: "ochiq uchlik", hiddenTriple: "yashirin uchlik", xwing: "X-qanot", swordfish: "Qilichbaliq", xywing: "XY-qanot" };
+  var MONTHS = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"];
+  var WD = ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba"];
+  var WDS = ["Ya", "Du", "Se", "Ch", "Pa", "Ju", "Sh"];
+  var DAILY_DIFF = ["qiyin", "oson", "orta", "orta", "qiyin", "orta", "qiyin"];
+  var PENALTY = 15000;
+
+  function dkey(d) { d = d || new Date(); return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function dshift(n) { var d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return d; }
+  function prettyDate(k) { var p = k.split("-"); return (+p[2]) + "-" + MONTHS[+p[1] - 1]; }
+
+  /* ---------- Sozlamalar ---------- */
+  var OPT = lsGet("ka.sudoku.opts", null) || { limit: false, sound: true, math: false };
+  function saveOpt() { lsSet("ka.sudoku.opts", OPT); }
+
+  /* ---------- Ovoz va tebranish ---------- */
+  var AC = null;
+  function ac() {
+    if (!OPT.sound) return null;
+    if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } }
+    if (AC && AC.state === "suspended") { try { AC.resume(); } catch (e) {} }
+    return AC;
+  }
+  function tone(f, d, type, vol, at) {
+    var a = ac(); if (!a) return;
+    try {
+      var t = a.currentTime + (at || 0), o = a.createOscillator(), g = a.createGain();
+      o.type = type || "sine"; o.frequency.setValueAtTime(f, t);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.06, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+      o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + d + 0.03);
+    } catch (e) {}
+  }
+  var SND = {
+    place: function () { tone(620, 0.08, "sine", 0.07); tone(930, 0.06, "sine", 0.03, 0.02); },
+    note: function () { tone(1100, 0.04, "triangle", 0.035); },
+    erase: function () { tone(330, 0.06, "triangle", 0.04); },
+    err: function () { tone(190, 0.16, "square", 0.035); tone(150, 0.2, "square", 0.03, 0.07); },
+    unit: function () { [523, 659, 784].forEach(function (f, i) { tone(f, 0.16, "sine", 0.06, i * 0.07); }); },
+    hint: function () { [880, 1175, 1568].forEach(function (f, i) { tone(f, 0.12, "triangle", 0.04, i * 0.06); }); },
+    win: function () { [523, 659, 784, 1047, 784, 1047, 1319].forEach(function (f, i) { tone(f, 0.22, "triangle", 0.06, i * 0.09); }); },
+    tap: function () { tone(440, 0.03, "sine", 0.025); }
+  };
+  function buzz(p) { if (!OPT.sound) return; try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} }
+
+  /* ---------- Generator (Web Worker, inline Blob) ---------- */
+  var worker = null, wid = 0, wcb = {};
+  try {
+    var src = $("sdk-engine").textContent +
+      "\nself.onmessage=function(e){var d=e.data;try{var r=SDKE.generate(d);r.id=d.id;self.postMessage(r);}catch(err){self.postMessage({id:d.id,error:String(err)});}};";
+    var url = URL.createObjectURL(new Blob([src], { type: "text/javascript" }));
+    worker = new Worker(url);
+    worker.onmessage = function (e) { var cb = wcb[e.data.id]; delete wcb[e.data.id]; if (cb) cb(e.data); };
+    worker.onerror = function (e) { try { e.preventDefault(); } catch (x) {} var ids = Object.keys(wcb); worker = null; ids.forEach(function (id) { var cb = wcb[id]; delete wcb[id]; cb(null); }); };
+  } catch (e) { worker = null; }
+  function gen(o) {
+    if (worker) { var id = ++wid; o = Object.assign({}, o, { id: id }); return new Promise(function (ok) { wcb[id] = function (r) { if (!r || r.error) setTimeout(function () { ok(E.generate(o)); }, 16); else ok(r); }; worker.postMessage(o); }); }
+    return new Promise(function (ok) { setTimeout(function () { ok(E.generate(o)); }, 16); });
+  }
+  var pre = {};
+  function cfgKey(c) { return c.N + "-" + c.diff; }
+  function randSeed() { return (Math.random() * 4294967296) >>> 0; }
+  function request(cfg) {
+    if (cfg.daily) return gen({ N: 9, diff: cfg.diff, seed: E.hashStr("ka-sudoku-kunlik-" + cfg.daily), maxAttempts: 400, maxMs: 0 });
+    var k = cfgKey(cfg);
+    if (pre[k]) { var p = pre[k]; delete pre[k]; return p; }
+    return gen({ N: cfg.N, diff: cfg.diff, seed: randSeed(), maxAttempts: 400, maxMs: 1500 });
+  }
+  function prefetch(cfg) {
+    if (cfg.daily) cfg = { N: 9, diff: "orta" };
+    var k = cfgKey(cfg);
+    if (!pre[k]) pre[k] = gen({ N: cfg.N, diff: cfg.diff, seed: randSeed(), maxAttempts: 400, maxMs: 1500 });
+  }
+
+  /* ---------- Holat ---------- */
+  var S = null; /* joriy o'yin */
+  var G = null; /* geometriya */
+  var sel = -1, notesMode = false, paused = false, loading = false, modalOpen = false;
+  var cellEls = [], cellKey = [], hintMarks = null, infoLock = false;
+  var lastTick = 0;
+
+  function running() { return S && !S.done && !S.lost && !paused && !loading && !modalOpen && !document.hidden; }
+  function save() { if (!S) return; S.sel = sel; lsSet("ka.sudoku.save", S); }
+
+  function newState(cfg, r) {
+    var N = r.N, C = N * N, exprs = {};
+    if (cfg.math) exprs = E.mathify(r.puzzle, N, DIFF[cfg.diff].mathLvl, DIFF[cfg.diff].mathFrac, r.seed);
+    return {
+      v: 1, cfg: cfg, N: N, seed: r.seed, puzzle: r.puzzle, solution: r.solution, tier: r.tier, counts: r.counts, clues: r.clues,
+      vals: r.puzzle.slice(), notes: new Array(C).fill(0), hinted: [], exprs: exprs, revealed: [],
+      mistakes: 0, hints: 0, reveals: 0, elapsed: 0, done: false, lost: false, limitOff: false, paid: false,
+      undo: [], redo: [], started: Date.now()
+    };
+  }
+
+  /* ---------- Taxta qurish ---------- */
+  var board = $("board"), bwrap = $("bwrap"), padEl = $("pad");
+  function build() {
+    var N = S.N; G = E.geom(N);
+    var bc = N / G.BC, br = N / G.BR;
+    board.style.gridTemplateColumns = "repeat(" + bc + ",1fr)";
+    board.style.gridTemplateRows = "repeat(" + br + ",1fr)";
+    board.innerHTML = ""; cellEls = new Array(N * N); cellKey = new Array(N * N);
+    var boxes = [];
+    for (var b = 0; b < N; b++) {
+      var bx = document.createElement("div"); bx.className = "box";
+      bx.style.gridTemplateColumns = "repeat(" + G.BC + ",1fr)"; bx.style.gridTemplateRows = "repeat(" + G.BR + ",1fr)";
+      board.appendChild(bx); boxes.push(bx);
+    }
+    var order = [];
+    for (var i = 0; i < N * N; i++) order.push(i);
+    order.sort(function (a, c) { return G.box[a] - G.box[c] || a - c; });
+    order.forEach(function (i) {
+      var c = document.createElement("div"); c.className = "c"; c.dataset.i = i; c.setAttribute("role", "gridcell");
+      boxes[G.box[i]].appendChild(c); cellEls[i] = c;
+    });
+    padEl.innerHTML = "";
+    padEl.style.gridTemplateColumns = "repeat(" + padCols() + ",1fr)";
+    for (var d = 1; d <= N; d++) {
+      var k = document.createElement("button"); k.type = "button"; k.className = "k"; k.dataset.d = d;
+      k.innerHTML = "<b>" + d + "</b><small></small>"; k.setAttribute("aria-label", d + " raqami");
+      padEl.appendChild(k);
+    }
+    layout();
+  }
+  function padCols() { var N = S ? S.N : 9; if (window.innerWidth >= 900) return N === 4 ? 4 : 3; return N; }
+  function layout() {
+    if (!S) return;
+    var w = board.clientWidth - 6, cs = w / S.N;
+    board.style.setProperty("--cs", cs + "px");
+    padEl.style.gridTemplateColumns = "repeat(" + padCols() + ",1fr)";
+    cellKey = new Array(S.N * S.N); render();
+  }
+  var rT = 0;
+  window.addEventListener("resize", function () { clearTimeout(rT); rT = setTimeout(layout, 80); });
+
+  function isGiven(i) { return !!S.puzzle[i]; }
+  function isHinted(i) { return S.hinted.indexOf(i) >= 0; }
+  function locked(i) { return isGiven(i) || isHinted(i); }
+  function exprOf(i) { return S.exprs[i] && S.revealed.indexOf(i) < 0 ? S.exprs[i] : null; }
+  function shownVal(i) { return exprOf(i) ? 0 : S.vals[i]; } /* foydalanuvchi ko'radigan raqam */
+
+  /* Misolni katakka sig'diradigan shrift o'lchami: matn kengligi canvas bilan o'lchanadi, kerak bo'lsa ikki qatorga bo'linadi */
+  var mctx = null, mcache = {};
+  try { mctx = document.createElement("canvas").getContext("2d"); } catch (e) { mctx = null; }
+  function tw(s) {
+    if (mcache[s] == null) {
+      var w = s.length * 0.62;
+      if (mctx) { try { mctx.font = '800 100px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif'; w = mctx.measureText(s).width / 100; } catch (e) {} }
+      mcache[s] = w || s.length * 0.62;
+    }
+    return mcache[s];
+  }
+  function exprHtml(e, cs) {
+    var lays = [e.t];
+    if (e.t.length === 1) { var s = e.t[0], k = Math.max(s.lastIndexOf("+"), s.lastIndexOf("−")); if (k > 0) lays.push([s.slice(0, k), s.slice(k)]); }
+    var best = e.t, bfs = 0;
+    lays.forEach(function (lines) {
+      var w = 0; lines.forEach(function (l) { w = Math.max(w, tw(l)); });
+      var fs = Math.min(cs * 0.42, (cs - 7) / w, (cs - 5) / (lines.length * 1.08));
+      if (lines.length > 1) { fs *= 0.97; if (fs < bfs * 1.15) return; } /* bir qator afzal */
+      if (fs > bfs) { bfs = fs; best = lines; }
+    });
+    return '<span class="ex" style="font-size:' + bfs.toFixed(1) + 'px">' + best.map(function (l) { return "<span>" + esc(l) + "</span>"; }).join("") + "</span>";
+  }
+
+  function render() {
+    if (!S) return;
+    var N = S.N, C = N * N, i, cs = parseFloat(board.style.getPropertyValue("--cs")) || 36;
+    var sv = sel >= 0 ? shownVal(sel) : 0;
+    /* ziddiyatlar */
+    var conf = new Uint8Array(C);
+    for (i = 0; i < C; i++) {
+      if (!S.vals[i] || locked(i)) continue;
+      var P = G.peers[i];
+      for (var k = 0; k < P.length; k++) if (S.vals[P[k]] === S.vals[i]) { conf[i] = 1; if (!exprOf(P[k])) conf[P[k]] = 1; }
+    }
+    var cols = G.BC, nbit = sv ? 1 << (sv - 1) : 0;
+    for (i = 0; i < C; i++) {
+      var el = cellEls[i], v = S.vals[i], ex = exprOf(i), cls = "c", html, key;
+      if (isGiven(i)) cls += S.exprs[i] ? " g x" + (ex ? "" : " rv") : " g";
+      else if (isHinted(i)) cls += " ht";
+      else if (v && v !== S.solution[i]) cls += " err";
+      if (sel >= 0) {
+        if (i === sel) cls += " sel";
+        else if (G.isPeer[sel * C + i]) cls += " pe";
+        if (i !== sel && sv && shownVal(i) === sv) cls += " sm";
+      }
+      if (conf[i] && i !== sel) cls += " cf";
+      if (hintMarks) { if (hintMarks.unit && hintMarks.unit[i]) cls += " hu"; if (hintMarks.block && hintMarks.block[i]) cls += " hb"; }
+      if (ex) { key = "e" + cs.toFixed(1); html = exprHtml(ex, cs); }
+      else if (v) { key = "v" + v; html = '<span class="d">' + v + "</span>"; }
+      else if (S.notes[i]) {
+        key = "n" + S.notes[i] + ":" + (nbit & S.notes[i] ? sv : 0);
+        html = '<div class="nt" style="grid-template-columns:repeat(' + cols + ',1fr);grid-template-rows:repeat(' + G.BR + ',1fr)">';
+        for (var d = 1; d <= N; d++) { var on = S.notes[i] & (1 << (d - 1)); html += "<span" + (on && d === sv ? ' class="on"' : "") + ">" + (on ? d : "") + "</span>"; }
+        html += "</div>";
+      } else { key = "-"; html = ""; }
+      if (cellKey[i] !== key) { el.innerHTML = html; cellKey[i] = key; }
+      if (el.className.replace(/ (flash|shake|nudge)/g, "") !== cls) {
+        var keep = (/ flash/.test(el.className) ? " flash" : "") + (/ shake/.test(el.className) ? " shake" : "");
+        el.className = cls + keep;
+      }
+      var lbl = (G.row[i] + 1) + "-qator, " + (G.col[i] + 1) + "-ustun: " + (ex ? "misol " + ex.s : v ? v : "bo'sh");
+      if (el.getAttribute("aria-label") !== lbl) el.setAttribute("aria-label", lbl);
+    }
+    /* raqam paneli */
+    var cnt = new Array(N + 1).fill(0);
+    for (i = 0; i < C; i++) if (S.vals[i] && S.vals[i] === S.solution[i]) cnt[S.vals[i]]++;
+    var keys = padEl.children;
+    for (var d2 = 1; d2 <= N; d2++) {
+      var kb = keys[d2 - 1]; if (!kb) continue;
+      var rem = N - cnt[d2];
+      kb.querySelector("small").textContent = rem;
+      kb.classList.toggle("done", rem <= 0);
+      kb.classList.toggle("hl", sv === d2);
+    }
+    padEl.classList.toggle("notes", notesMode);
+    /* status */
+    $("misN").textContent = S.mistakes;
+    $("misMax").textContent = OPT.limit && !S.limitOff ? "/3" : "";
+    $("hintBd").textContent = S.hints;
+    $("undoBtn").disabled = !S.undo.length || S.done;
+    $("redoBtn").disabled = !S.redo.length || S.done;
+    $("notesBtn").classList.toggle("on", notesMode);
+    $("notesBtn").setAttribute("aria-pressed", notesMode ? "true" : "false");
+    $("timer").textContent = fmt(S.elapsed);
+    if (!infoLock) defaultInfo();
+  }
+
+  /* ---------- Info paneli ---------- */
+  var infoEl = $("info");
+  function info(icon, html, cls) { infoEl.className = "info" + (cls ? " " + cls : ""); infoEl.innerHTML = '<span class="ic">' + icon + '</span><span class="tx">' + html + "</span>"; }
+  function defaultInfo() {
+    if (!S) return;
+    if (S.done) return info("🏆", "Jumboq yechildi! <b>＋ Yangi</b> tugmasi bilan yangisini boshlang.");
+    if (sel >= 0 && S.exprs[sel]) {
+      var e = S.exprs[sel];
+      if (exprOf(sel)) {
+        info("🧮", '<span class="exq">' + esc(e.s) + ' = ?</span><br><small>Javob — shu katakdagi raqam</small>', "expr");
+        var b = document.createElement("button"); b.className = "btn gh"; b.type = "button"; b.textContent = "Ko'rish (+15 s)";
+        b.onclick = function () { reveal(sel); }; infoEl.appendChild(b);
+      } else info("🧮", '<span class="exq">' + esc(e.s) + " = " + S.solution[sel] + "</span>", "expr");
+      return;
+    }
+    if (S.cfg.math && Object.keys(S.exprs).length) return info("🧮", "Sariq kataklardagi misollarni yeching — javobi shu katak raqami. Katakni bosib turing — qiymati ochiladi (+15 s).");
+    if (sel < 0) return info("👆", "Katakni tanlang, so'ng pastdagi raqamni bosing.");
+    if (notesMode) return info("✎", "Belgi rejimi: raqamlar kichik qilib yoziladi. Qayta bosilsa — o'chadi.");
+    info("🧩", "<b>" + modeName() + "</b> · " + S.clues + " ta berilgan raqam. Omad!");
+  }
+  function setInfoLocked(icon, html, cls) { infoLock = true; info(icon, html, cls); }
+  function unlockInfo() { if (infoLock || hintMarks) { infoLock = false; hintMarks = null; } }
+
+  function modeName() {
+    var c = S.cfg;
+    if (c.daily) return "Kunlik · " + prettyDate(c.daily);
+    if (c.diff === "bolalar") return "Bolalar " + c.N + "×" + c.N + (c.math ? " · 🧮" : "");
+    return (c.math ? "🧮 Matematik · " : "") + DIFF[c.diff].name;
+  }
+
+  /* ---------- Harakatlar (orqaga/qaytarish bilan) ---------- */
+  function snap(i) { return { i: i, v: S.vals[i], n: S.notes[i], h: isHinted(i) ? 1 : 0 }; }
+  function applySnap(s) {
+    S.vals[s.i] = s.v; S.notes[s.i] = s.n;
+    var hi = S.hinted.indexOf(s.i);
+    if (s.h && hi < 0) S.hinted.push(s.i); else if (!s.h && hi >= 0) S.hinted.splice(hi, 1);
+  }
+  function commit(before, after) {
+    S.undo.push({ b: before, a: after }); if (S.undo.length > 400) S.undo.shift();
+    S.redo = [];
+  }
+  function undo() {
+    if (!S || S.done || !S.undo.length || !canPlay()) return;
+    var act = S.undo.pop(); act.b.forEach(applySnap); S.redo.push(act);
+    unlockInfo(); SND.erase(); render(); save();
+  }
+  function redo() {
+    if (!S || S.done || !S.redo.length || !canPlay()) return;
+    var act = S.redo.pop(); act.a.forEach(applySnap); S.undo.push(act);
+    unlockInfo(); SND.place(); render(); save(); checkWin();
+  }
+  function canPlay() { return S && !S.done && !S.lost && !paused && !loading; }
+  function nudge(i) { var el = cellEls[i]; if (!el) return; el.classList.remove("nudge"); void el.offsetWidth; el.classList.add("nudge"); setTimeout(function () { el.classList.remove("nudge"); }, 300); }
+
+  function input(d) {
+    if (!canPlay()) return;
+    if (sel < 0) { toast("Avval katakni tanlang"); SND.tap(); return; }
+    if (locked(sel)) { nudge(sel); if (exprOf(sel)) toast("Bu berilgan katak — misolni yeching"); return; }
+    if (notesMode) return toggleNote(sel, d);
+    setValue(sel, S.vals[sel] === d ? 0 : d);
+  }
+  function toggleNote(i, d) {
+    if (S.vals[i]) { nudge(i); return; }
+    var b = [snap(i)]; S.notes[i] ^= 1 << (d - 1); var a = [snap(i)];
+    commit(b, a); unlockInfo(); SND.note(); render(); save();
+  }
+  function setValue(i, d) {
+    var before = [snap(i)], after;
+    if (!d) {
+      if (!S.vals[i] && !S.notes[i]) return;
+      S.vals[i] = 0; S.notes[i] = 0; after = [snap(i)];
+      commit(before, after); unlockInfo(); SND.erase(); render(); save(); return;
+    }
+    var ok = d === S.solution[i], touched = [];
+    if (ok) {
+      var bit = 1 << (d - 1), P = G.peers[i];
+      for (var k = 0; k < P.length; k++) if (S.notes[P[k]] & bit) { before.push(snap(P[k])); touched.push(P[k]); }
+      touched.forEach(function (p) { S.notes[p] &= ~bit; });
+    }
+    S.vals[i] = d; S.notes[i] = 0;
+    after = [snap(i)].concat(touched.map(snap));
+    commit(before, after); unlockInfo();
+    if (ok) {
+      SND.place(); buzz(8);
+      var units = completedUnits(i);
+      render();
+      if (units.length) { flashUnits(units); setTimeout(SND.unit, 60); }
+      save(); checkWin();
+    } else {
+      S.mistakes++; SND.err(); buzz([40, 30, 40]);
+      render();
+      var el = cellEls[i]; el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); setTimeout(function () { el.classList.remove("shake"); }, 400);
+      var why = conflictWhy(i, d);
+      setInfoLocked("❌", why || ("<b>" + d + "</b> bu katakka to'g'ri kelmaydi. Qaytadan o'ylab ko'ring."), "");
+      save();
+      if (OPT.limit && !S.limitOff && S.mistakes >= 3) { S.lost = true; save(); setTimeout(function () { openModal("overModal"); }, 450); }
+    }
+  }
+  function conflictWhy(i, d) {
+    var r = G.row[i], c = G.col[i], b = G.box[i], C = S.N * S.N;
+    for (var j = 0; j < C; j++) {
+      if (j === i || S.vals[j] !== d || exprOf(j)) continue;
+      if (G.row[j] === r) return "<b>" + d + "</b> raqami " + (r + 1) + "-qatorda allaqachon bor.";
+      if (G.col[j] === c) return "<b>" + d + "</b> raqami " + (c + 1) + "-ustunda allaqachon bor.";
+      if (G.box[j] === b) return "<b>" + d + "</b> raqami shu blokda allaqachon bor.";
+    }
+    return "";
+  }
+  function completedUnits(i) {
+    var res = [], us = [G.row[i], S.N + G.col[i], 2 * S.N + G.box[i]];
+    us.forEach(function (u) { var U = G.units[u]; for (var k = 0; k < U.length; k++) if (S.vals[U[k]] !== S.solution[U[k]]) return; res.push(U); });
+    return res;
+  }
+  function flashUnits(units) {
+    if (REDUCE) return;
+    var seen = {};
+    units.forEach(function (U, ui) {
+      U.forEach(function (c, k) {
+        if (seen[c]) return; seen[c] = 1;
+        var el = cellEls[c];
+        setTimeout(function () { el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); setTimeout(function () { el.classList.remove("flash"); }, 700); }, k * 28 + ui * 40);
+      });
+    });
+  }
+  function erase() {
+    if (!canPlay()) return;
+    if (sel < 0) return toast("Avval katakni tanlang");
+    if (locked(sel)) return nudge(sel);
+    setValue(sel, 0);
+  }
+  function reveal(i) {
+    if (!canPlay() || i < 0 || !exprOf(i)) return;
+    S.revealed.push(i); S.reveals++; S.elapsed += PENALTY;
+    var e = S.exprs[i];
+    toast(e.s + " = " + S.solution[i] + "  (+15 s)"); SND.hint(); buzz(15);
+    unlockInfo(); render(); save();
+  }
+
+  /* ---------- Maslahat ---------- */
+  function hint() {
+    if (!canPlay()) return;
+    var N = S.N, C = N * N, i, grid = new Array(C);
+    for (i = 0; i < C; i++) grid[i] = S.vals[i] === S.solution[i] ? S.vals[i] : 0;
+    var target = -1, html = "", icon = "💡", marks = { unit: {}, block: {} };
+    if (sel >= 0 && S.vals[sel] && !locked(sel) && S.vals[sel] !== S.solution[sel]) {
+      target = sel; html = "Bu katakdagi raqam noto'g'ri edi. To'g'risi — <b>" + S.solution[sel] + "</b>.";
+    } else {
+      var h = E.findSingle(N, grid, sel >= 0 && !grid[sel] ? sel : -1);
+      if (h) {
+        target = h.cell; var d = h.digit;
+        if (h.kind === "naked") {
+          var have = [], P = G.peers[target], hs = {};
+          for (var k = 0; k < P.length; k++) if (grid[P[k]]) hs[grid[P[k]]] = 1;
+          for (var x = 1; x <= N; x++) if (hs[x]) have.push(x);
+          [G.units[G.row[target]], G.units[N + G.col[target]], G.units[2 * N + G.box[target]]].forEach(function (U) { U.forEach(function (c) { marks.unit[c] = 1; }); });
+          html = "<b>Ochiq yagona.</b> Bu katakning qatori, ustuni va blokida " + have.join(", ") + " bor — faqat <b>" + d + "</b> qoladi.";
+        } else {
+          var un = h.unit === "row" ? (h.unitIndex + 1) + "-qatorda" : h.unit === "col" ? (h.unitIndex + 1) + "-ustunda" : "shu blokda";
+          h.unitCells.forEach(function (c) { marks.unit[c] = 1; });
+          for (var j = 0; j < C; j++) if (grid[j] === d) {
+            var blocks = false;
+            for (var q = 0; q < h.unitCells.length; q++) { var c2 = h.unitCells[q]; if (!grid[c2] && c2 !== target && G.isPeer[c2 * C + j]) { blocks = true; break; } }
+            if (blocks) marks.block[j] = 1;
+          }
+          var empt = h.unitCells.filter(function (c) { return !grid[c]; }).length;
+          if (empt === 1) { html = "<b>Oxirgi bo'sh katak.</b> " + un.charAt(0).toUpperCase() + un.slice(1) + " faqat shu katak bo'sh qolgan, unda yo'q raqam esa — <b>" + d + "</b>."; marks.block = {}; }
+          else html = "<b>Yashirin yagona.</b> <b>" + d + "</b> raqami " + un + " faqat shu katakka sig'adi — boshqa bo'sh kataklarni sariq " + d + " lar to'sib turibdi.";
+        }
+      } else {
+        var cand = E.candidates(N, grid), bestC = -1, bn = 99;
+        if (sel >= 0 && !grid[sel] && !locked(sel)) bestC = sel;
+        else for (i = 0; i < C; i++) if (!grid[i]) { var n = E.POP[cand[i]]; if (n < bn) { bn = n; bestC = i; } }
+        target = bestC;
+        html = "Bu holatda oddiy usullar yetmaydi (juftliklar, X-qanot kabi usullar kerak). Bitta katakni ochib berdim: <b>" + S.solution[target] + "</b>.";
+        icon = "🧠";
+      }
+    }
+    if (target < 0) return;
+    var before = [snap(target)], d2 = S.solution[target], bit = 1 << (d2 - 1), touched = [];
+    G.peers[target].forEach(function (p) { if (S.notes[p] & bit) { before.push(snap(p)); touched.push(p); } });
+    touched.forEach(function (p) { S.notes[p] &= ~bit; });
+    S.vals[target] = d2; S.notes[target] = 0; if (!isHinted(target)) S.hinted.push(target);
+    commit(before, [snap(target)].concat(touched.map(snap)));
+    S.hints++; sel = target;
+    hintMarks = marks; setInfoLocked(icon, html, "hint");
+    SND.hint(); buzz(15);
+    var units = completedUnits(target);
+    render(); if (units.length) flashUnits(units);
+    save(); checkWin();
+  }
+
+  /* ---------- G'alaba ---------- */
+  function checkWin() {
+    if (!S || S.done) return;
+    for (var i = 0; i < S.vals.length; i++) if (S.vals[i] !== S.solution[i]) return;
+    S.done = true; sel = -1; notesMode = false; unlockInfo(); S.elapsed = Math.max(1000, S.elapsed);
+    var key = bestKey(S.cfg), best = lsGet("ka.sudoku.best", {}), prev = best[key], rec = false;
+    if (!prev || S.elapsed < prev) { best[key] = S.elapsed; rec = !!prev; lsSet("ka.sudoku.best", best); }
+    var solved = lsGet("ka.sudoku.solved", {}); solved[key] = (solved[key] || 0) + 1; lsSet("ka.sudoku.solved", solved);
+    var coins = 0, streakInfo = null, firstDaily = false;
+    if (S.cfg.daily) {
+      var D = dailyData();
+      firstDaily = !(S.cfg.daily in D.days);
+      if (firstDaily) {
+        D.days[S.cfg.daily] = S.elapsed;
+        var today = dkey(), yest = dkey(dshift(-1));
+        if (S.cfg.daily === today && D.last !== today) { D.streak = D.last === yest ? (D.streak || 0) + 1 : 1; D.last = today; D.best = Math.max(D.best || 0, D.streak); }
+        var ks = Object.keys(D.days).sort(); while (ks.length > 60) delete D.days[ks.shift()];
+        lsSet("ka.sudoku.daily", D);
+      }
+      streakInfo = D.streak;
+    }
+    if (!S.paid) {
+      coins = DIFF[S.cfg.diff].coins;
+      if (S.hints > 3) coins = Math.max(1, Math.round(coins / 2));
+      if (S.cfg.daily) coins = firstDaily ? coins + 10 : 0;
+      S.paid = true;
+    }
+    save(); render(); renderStreak();
+    var got = false;
+    if (coins) { try { got = !!(window.kaAccount && window.kaAccount.addCoins(coins, "Sudoku: " + modeName())); } catch (e) { got = false; } }
+    setTimeout(function () { showWin(prev, rec, coins, got, streakInfo); }, REDUCE ? 50 : 650);
+    if (!REDUCE) {
+      S.vals.forEach(function (_, i) { var el = cellEls[i]; setTimeout(function () { el.classList.add("flash"); setTimeout(function () { el.classList.remove("flash"); }, 700); }, (G.row[i] + G.col[i]) * 35); });
+    }
+    SND.win(); buzz([30, 40, 30, 40, 80]);
+  }
+  function bestKey(c) { return c.daily ? "kunlik" : c.N + "-" + c.diff + (c.math ? "-m" : ""); }
+  function showWin(prev, rec, coins, got, streak) {
+    $("wSub").textContent = modeName() + " yechildi";
+    $("wTime").textContent = fmt(S.elapsed);
+    $("wMis").textContent = S.mistakes;
+    $("wHint").textContent = S.hints;
+    var best = lsGet("ka.sudoku.best", {})[bestKey(S.cfg)];
+    $("wBest").textContent = best ? fmt(best) : "—";
+    var bd = "";
+    if (rec) bd += '<span class="badge rec">⭐ Yangi rekord!</span>';
+    else if (!prev) bd += '<span class="badge rec">⭐ Birinchi g\'alaba!</span>';
+    if (streak) bd += '<span class="badge fire">🔥 ' + streak + " kunlik seriya</span>";
+    if (coins && got) bd += '<span class="badge coin">🪙 +' + coins + " tanga</span>";
+    $("wBadges").innerHTML = bd;
+    var tech = [];
+    Object.keys(S.counts || {}).forEach(function (k) { if (TECH[k]) tech.push(TECH[k]); });
+    var t = tech.length ? "Kerakli usullar: " + tech.join(", ") + (S.tier >= 5 ? " va undan ham murakkab mantiq" : "") + "." : "";
+    if (coins && !got) t += (t ? "<br>" : "") + 'Tanga olish uchun <button class="lnk" type="button" id="wLogin" style="padding:0">akkauntga kiring</button>.';
+    if (coins && S.hints > 3) t += (t ? "<br>" : "") + "3 tadan ko'p maslahat ishlatilgani uchun tanga kamroq.";
+    if (S.reveals) t += (t ? "<br>" : "") + "Ochilgan misollar: " + S.reveals + " (+" + S.reveals * 15 + " s).";
+    $("wTech").innerHTML = t;
+    var wl = $("wLogin"); if (wl) wl.onclick = function () { closeModal("winModal"); try { window.kaAccount && window.kaAccount.open(); } catch (e) {} };
+    $("wNext").textContent = S.cfg.daily ? "Klassik o'ynash" : "Yana o'ynash";
+    openModal("winModal");
+    confetti();
+  }
+
+  /* ---------- Konfetti ---------- */
+  var fx = $("fx"), fctx = fx.getContext && fx.getContext("2d"), parts = [], fxOn = false;
+  function confetti() {
+    if (REDUCE || !fctx) return;
+    var W = fx.width = innerWidth * (devicePixelRatio || 1), H = fx.height = innerHeight * (devicePixelRatio || 1), sc = devicePixelRatio || 1;
+    var colors = ["#5ee6c7", "#7c9bff", "#ffd479", "#ff8585", "#c4a8ff", "#eef2ff"];
+    for (var i = 0; i < 170; i++) {
+      var left = i % 2 === 0;
+      parts.push({ x: left ? 0 : W, y: H * 0.65, vx: (left ? 1 : -1) * (4 + Math.random() * 9) * sc, vy: -(9 + Math.random() * 12) * sc, w: (5 + Math.random() * 6) * sc, h: (8 + Math.random() * 8) * sc, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, c: colors[i % colors.length], life: 0 });
+    }
+    for (var j = 0; j < 60; j++) parts.push({ x: Math.random() * W, y: -20 * sc - Math.random() * H * 0.3, vx: (Math.random() - 0.5) * 2 * sc, vy: Math.random() * 3 * sc, w: (5 + Math.random() * 5) * sc, h: (8 + Math.random() * 6) * sc, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.3, c: colors[j % colors.length], life: 0 });
+    if (!fxOn) { fxOn = true; requestAnimationFrame(fxStep); }
+  }
+  function fxStep() {
+    var W = fx.width, H = fx.height, sc = devicePixelRatio || 1;
+    fctx.clearRect(0, 0, W, H);
+    parts = parts.filter(function (p) { return p.y < H + 40 && p.life < 420; });
+    parts.forEach(function (p) {
+      p.life++; p.vy += 0.32 * sc; p.vx *= 0.985; p.vy *= 0.985; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      fctx.save(); fctx.translate(p.x, p.y); fctx.rotate(p.r); fctx.scale(1, Math.cos(p.life * 0.15));
+      fctx.fillStyle = p.c; fctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); fctx.restore();
+    });
+    if (parts.length) requestAnimationFrame(fxStep); else { fxOn = false; fctx.clearRect(0, 0, W, H); }
+  }
+
+  /* ---------- Yangi o'yin ---------- */
+  function startGame(cfg) {
+    closeAllModals();
+    loading = true; bwrap.classList.add("loading"); setPaused(false);
+    var t0 = performance.now();
+    return request(cfg).then(function (r) {
+      window.__sdkLastGen = { ms: Math.round(performance.now() - t0), workerMs: r.ms, tier: r.tier, clues: r.clues, attempts: r.attempts, diff: r.diff, N: r.N };
+      S = newState(cfg, r); sel = -1; notesMode = false; hintMarks = null; infoLock = false;
+      build(); loading = false; bwrap.classList.remove("loading");
+      $("modeLbl").textContent = modeName();
+      render(); save();
+      lastTick = performance.now();
+      setTimeout(function () { prefetch(cfg); }, 300);
+    });
+  }
+  if (/[?&]sdktest\b/.test(location.search) || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__sdk = { start: startGame, state: function () { return S; }, solveAll: function (leaveOne) {
+    if (!S) return; var C = S.vals.length, last = -1;
+    for (var i = 0; i < C; i++) if (S.vals[i] !== S.solution[i]) { if (leaveOne && last < 0) { last = i; continue; } S.vals[i] = S.solution[i]; }
+    if (last >= 0) { S.vals[last] = 0; sel = last; render(); save(); return last; }
+    render(); checkWin(); return -1;
+  }, engine: E };
+
+  /* ---------- Taymer ---------- */
+  var lastSave = 0;
+  setInterval(function () {
+    var now = performance.now();
+    if (running()) { S.elapsed += Math.min(now - lastTick, 1000); $("timer").textContent = fmt(S.elapsed); if (now - lastSave > 5000) { lastSave = now; save(); } }
+    lastTick = now;
+  }, 250);
+
+  var PAUSE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+  var PLAY_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>';
+  var SON_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4Z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
+  var SOFF_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4Z" fill="currentColor"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>';
+  function setPaused(p) {
+    paused = !!p && !!S && !S.done;
+    bwrap.classList.toggle("paused", paused);
+    $("pauseBtn").innerHTML = paused ? PLAY_SVG : PAUSE_SVG;
+    $("pauseBtn").setAttribute("aria-label", paused ? "Davom etish" : "Pauza");
+    lastTick = performance.now();
+  }
+  function soundUI() {
+    $("soundBtn").innerHTML = OPT.sound ? SON_SVG : SOFF_SVG;
+    $("soundBtn").setAttribute("aria-label", OPT.sound ? "Ovozni o'chirish" : "Ovozni yoqish");
+    $("optSound").checked = OPT.sound;
+  }
+  document.addEventListener("visibilitychange", function () { if (document.hidden && S && !S.done && !S.lost && !modalOpen) { setPaused(true); save(); } lastTick = performance.now(); });
+  window.addEventListener("pagehide", save);
+
+  /* ---------- Modallar ---------- */
+  function openModal(id) { var m = $(id); Array.prototype.forEach.call(document.querySelectorAll(".modal.on"), function (x) { if (x !== m) x.classList.remove("on"); }); m.classList.add("on"); modalOpen = true; var f = m.querySelector(".tab.on, .btn.pri, .dbtn"); if (f && window.innerWidth >= 900) try { f.focus({ preventScroll: true }); } catch (e) {} }
+  function closeModal(id) { $(id).classList.remove("on"); modalOpen = !!document.querySelector(".modal.on"); lastTick = performance.now(); }
+  function closeAllModals() { Array.prototype.forEach.call(document.querySelectorAll(".modal.on"), function (m) { m.classList.remove("on"); }); modalOpen = false; }
+  Array.prototype.forEach.call(document.querySelectorAll(".modal"), function (m) {
+    m.addEventListener("click", function (e) { if ((e.target === m && m.id !== "overModal") || e.target.hasAttribute("data-close")) closeModal(m.id); });
+  });
+
+  var curTab = "klassik";
+  function openNew(tab) {
+    curTab = tab || (S && S.cfg.daily ? "kunlik" : S && S.cfg.diff === "bolalar" ? "bolalar" : "klassik");
+    var rb = $("resumeBox");
+    if (S && !S.done && !S.lost) rb.innerHTML = '<button class="resume" type="button" data-close><span style="font-size:22px">▶</span><span><b>Joriy o\'yinni davom ettirish</b><span>' + esc(modeName()) + " · " + fmt(S.elapsed) + '</span></span><span class="go">›</span></button>';
+    else rb.innerHTML = "";
+    renderTab(); openModal("newModal");
+  }
+  function lvBars(n) { var s = '<span class="lv">'; for (var i = 1; i <= 4; i++) s += "<u" + (i <= n ? ' class="f"' : "") + "></u>"; return s + "</span>"; }
+  function bestTxt(k) { var b = lsGet("ka.sudoku.best", {})[k], n = lsGet("ka.sudoku.solved", {})[k]; return b ? "Rekord " + fmt(b) + (n ? " · " + n + " ta" : "") : "Hali yechilmagan"; }
+  function renderTab() {
+    Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) { t.classList.toggle("on", t.dataset.tab === curTab); t.setAttribute("aria-selected", t.dataset.tab === curTab); });
+    var body = $("tabBody"), h = "";
+    if (curTab === "klassik" || curTab === "bolalar") {
+      h += '<label class="sw mathsw"><span>🧮 Matematik sudoku<small>Ba\'zi raqamlar misol bilan yoziladi: 12÷4, √49, 2³−5…</small></span><input type="checkbox" id="mathSw"' + (OPT.math ? " checked" : "") + '><span class="tr"></span></label>';
+    }
+    if (curTab === "klassik") {
+      h += '<div class="dg">';
+      ["oson", "orta", "qiyin", "ekspert"].forEach(function (d) {
+        var D = DIFF[d];
+        h += '<button class="dbtn" type="button" data-diff="' + d + '">' + lvBars(D.lv) + "<b>" + D.name + "</b><span>" + D.desc + '</span><i data-best="9-' + d + '"></i></button>';
+      });
+      h += "</div><p class=\"note\">Daraja raqamlar soniga emas, yechish uchun kerak bo'ladigan mantiqiy usullarga qarab aniqlanadi.</p>";
+    } else if (curTab === "bolalar") {
+      h += '<div class="dg">';
+      h += '<button class="dbtn" type="button" data-kid="4"><b style="font-size:24px">4×4</b><span>1 dan 4 gacha raqamlar, 2×2 bloklar</span><i data-best="4-bolalar"></i></button>';
+      h += '<button class="dbtn" type="button" data-kid="6"><b style="font-size:24px">6×6</b><span>1 dan 6 gacha raqamlar, 2×3 bloklar</span><i data-best="6-bolalar"></i></button>';
+      h += "</div><p class=\"note\">Kichik o'quvchilar va sudokuni endi o'rganayotganlar uchun.</p>";
+    } else {
+      var today = dkey(), D = dailyData(), done = D.days[today], dd = DAILY_DIFF[new Date().getDay()];
+      h += '<div class="daily"><div class="dcal"><div class="dt"><span>' + MONTHS[new Date().getMonth()].slice(0, 3) + "</span><b>" + new Date().getDate() + '</b></div><div class="dd"><b>' + WD[new Date().getDay()] + "</b>Bugungi daraja: " + DIFF[dd].name + "<br>" + (done ? "✅ Yechildi · " + fmt(done) : "Hamma uchun bir xil jumboq") + "</div></div>";
+      h += '<div class="weekrow">';
+      for (var k = -6; k <= 0; k++) { var dt = dshift(k), kk = dkey(dt); h += '<div class="' + (D.days[kk] ? "ok" : "") + (k === 0 ? " td" : "") + '">' + WDS[dt.getDay()] + "<b>" + (D.days[kk] ? "✓" : dt.getDate()) + "</b></div>"; }
+      h += "</div>";
+      h += '<div class="streak" style="padding:4px 2px"><span class="fl">🔥</span><div><b>' + streakNow() + " kunlik seriya</b><br><small style=\"color:var(--text-dim)\">Eng uzun: " + (D.best || 0) + " kun · bonus +10 tanga</small></div></div>";
+      h += '<button class="btn pri" type="button" id="dailyGo">' + (done ? "Yana bir bor yechish" : "▶ Bugungi sudokuni boshlash") + "</button>";
+      if (done) h += '<p class="note" style="text-align:center">Ertaga yangi jumboq! Qayta yechish tanga bermaydi.</p>';
+      h += "</div>";
+    }
+    body.innerHTML = h;
+    Array.prototype.forEach.call(body.querySelectorAll("[data-best]"), function (el) { var k = el.dataset.best + (OPT.math ? "-m" : ""); el.textContent = bestTxt(k); });
+    var ms = $("mathSw");
+    if (ms) ms.onchange = function () { OPT.math = ms.checked; saveOpt(); renderTab(); SND.tap(); };
+    var dg = $("dailyGo");
+    if (dg) dg.onclick = function () { startDaily(); };
+  }
+  $("tabBody").addEventListener("click", function (e) {
+    var b = e.target.closest(".dbtn"); if (!b) return;
+    SND.tap();
+    if (b.dataset.diff) startGame({ N: 9, diff: b.dataset.diff, math: OPT.math });
+    else if (b.dataset.kid) startGame({ N: +b.dataset.kid, diff: "bolalar", math: OPT.math });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) { t.addEventListener("click", function () { curTab = t.dataset.tab; renderTab(); SND.tap(); }); });
+  $("resumeBox").addEventListener("click", function (e) { if (e.target.closest(".resume")) { closeModal("newModal"); setPaused(false); } });
+
+  function startDaily() { var t = dkey(); startGame({ N: 9, diff: DAILY_DIFF[new Date().getDay()], math: false, daily: t }); }
+  function dailyData() { var D = lsGet("ka.sudoku.daily", null) || {}; D.days = D.days || {}; D.streak = D.streak || 0; return D; }
+  function streakNow() { var D = dailyData(); return D.last === dkey() || D.last === dkey(dshift(-1)) ? D.streak : 0; }
+  function renderStreak() {
+    var n = streakNow(), D = dailyData(), doneToday = !!D.days[dkey()];
+    $("streakN").textContent = n + " kun";
+    $("streakTx").textContent = doneToday ? "Bugungi sudoku yechildi ✓" : n ? "Bugun ham yeching — seriyani uzmang!" : "Kunlik sudoku seriyasi";
+  }
+
+  /* ---------- Toast ---------- */
+  var tT = 0;
+  function toast(s) { var t = $("toast"); t.textContent = s; t.classList.add("on"); clearTimeout(tT); tT = setTimeout(function () { t.classList.remove("on"); }, 1800); }
+
+  /* ---------- Kiritish: sichqoncha / sensor ---------- */
+  var lpT = 0, lpCell = -1, lpFired = false;
+  board.addEventListener("pointerdown", function (e) {
+    var c = e.target.closest(".c"); if (!c || !S) return;
+    var i = +c.dataset.i; lpFired = false; clearTimeout(lpT);
+    if (exprOf(i)) { lpCell = i; lpT = setTimeout(function () { lpFired = true; reveal(i); }, 600); }
+  });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(function (ev) { board.addEventListener(ev, function () { clearTimeout(lpT); }); });
+  board.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  board.addEventListener("click", function (e) {
+    var c = e.target.closest(".c"); if (!c || !S || !canPlay()) return;
+    var i = +c.dataset.i;
+    if (lpFired && i === lpCell) { lpFired = false; }
+    if (i !== sel) unlockInfo(); else if (!hintMarks) infoLock = false;
+    sel = i; SND.tap();
+    render(); save();
+  });
+  padEl.addEventListener("click", function (e) { var k = e.target.closest(".k"); if (!k) return; input(+k.dataset.d); });
+  $("undoBtn").onclick = undo;
+  $("redoBtn").onclick = redo;
+  $("eraseBtn").onclick = erase;
+  $("notesBtn").onclick = function () { if (!S || S.done) return; notesMode = !notesMode; unlockInfo(); SND.tap(); render(); };
+  $("hintBtn").onclick = hint;
+  $("pauseBtn").onclick = function () { if (!S || S.done || S.lost) return; setPaused(!paused); SND.tap(); save(); };
+  $("resumeBtn").onclick = function () { setPaused(false); SND.tap(); };
+  $("soundBtn").onclick = function () { OPT.sound = !OPT.sound; saveOpt(); soundUI(); SND.tap(); };
+  $("optSound").onchange = function () { OPT.sound = this.checked; saveOpt(); soundUI(); SND.tap(); };
+  $("optLimit").onchange = function () { OPT.limit = this.checked; saveOpt(); if (S) { S.limitOff = false; render(); save(); } toast(OPT.limit ? "3 ta xato cheklovi yoqildi" : "Xato cheklovi o'chirildi"); };
+  $("newBtn").onclick = function () { SND.tap(); openNew(); };
+  $("dailyBtn").onclick = function () { SND.tap(); openNew("kunlik"); };
+  $("wNext").onclick = function () { if (S && S.cfg.daily) startGame({ N: 9, diff: "orta", math: false }); else startGame(S.cfg); };
+  $("wMenu").onclick = function () { closeModal("winModal"); openNew(); };
+  $("wClose").onclick = function () { closeModal("winModal"); };
+  $("oCont").onclick = function () { S.lost = false; S.limitOff = true; save(); closeModal("overModal"); render(); toast("Cheklovsiz davom etamiz"); };
+  $("oRestart").onclick = function () {
+    var cfg = S.cfg, r = { N: S.N, seed: S.seed, puzzle: S.puzzle, solution: S.solution, tier: S.tier, counts: S.counts, clues: S.clues };
+    var ex = S.exprs; S = newState(cfg, r); S.exprs = ex; sel = -1; closeModal("overModal"); unlockInfo(); render(); save();
+  };
+  $("oNew").onclick = function () { closeModal("overModal"); S.lost = false; S.done = true; save(); openNew(); };
+
+  /* ---------- Klaviatura ---------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { var m = document.querySelector(".modal.on"); if (m && m.id !== "overModal") { closeModal(m.id); e.preventDefault(); } return; }
+    if (modalOpen || !S) return;
+    var t = e.target; if (t && (t.tagName === "INPUT" || t.tagName === "SELECT" || t.tagName === "TEXTAREA")) return;
+    var k = e.key, ctrl = e.ctrlKey || e.metaKey, N = S.N;
+    if (ctrl && (k === "z" || k === "Z")) { e.preventDefault(); if (e.shiftKey) redo(); else undo(); return; }
+    if (ctrl && (k === "y" || k === "Y")) { e.preventDefault(); redo(); return; }
+    if (ctrl || e.altKey) return;
+    var dm = /^(?:Digit|Numpad)(\d)$/.exec(e.code || ""), d = dm ? +dm[1] : /^\d$/.test(k) ? +k : -1;
+    if (d >= 1 && d <= N) {
+      e.preventDefault();
+      if (e.shiftKey && canPlay() && sel >= 0 && !locked(sel)) toggleNote(sel, d); else input(d);
+      return;
+    }
+    if (d === 0 || k === "Backspace" || k === "Delete") { e.preventDefault(); erase(); return; }
+    var mv = { ArrowUp: [-1, 0], ArrowDown: [1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1] }[k];
+    if (mv) {
+      e.preventDefault(); if (!canPlay()) return;
+      unlockInfo();
+      if (sel < 0) sel = 0; else { var r = (G.row[sel] + mv[0] + N) % N, c = (G.col[sel] + mv[1] + N) % N; sel = r * N + c; }
+      render(); return;
+    }
+    var lk = k.toLowerCase();
+    if (lk === "n") { e.preventDefault(); $("notesBtn").click(); }
+    else if (lk === "h") { e.preventDefault(); hint(); }
+    else if (lk === "p") { e.preventDefault(); $("pauseBtn").click(); }
+    else if (lk === "v" && sel >= 0 && exprOf(sel)) { e.preventDefault(); reveal(sel); }
+  });
+
+  /* ---------- Boshlash ---------- */
+  $("optLimit").checked = !!OPT.limit;
+  soundUI(); setPaused(false); renderStreak();
+  var saved = lsGet("ka.sudoku.save", null);
+  if (saved && saved.v === 1 && saved.solution && saved.vals && saved.vals.length === saved.N * saved.N) {
+    S = saved; S.exprs = S.exprs || {}; S.revealed = S.revealed || []; S.hinted = S.hinted || []; S.undo = S.undo || []; S.redo = S.redo || [];
+    sel = typeof S.sel === "number" ? S.sel : -1;
+    build(); $("modeLbl").textContent = modeName(); render();
+    if (!S.done) {
+      if (S.lost) openModal("overModal");
+      else if (S.elapsed > 0) setPaused(true);
+    } else openNew();
+    setTimeout(function () { prefetch(S.cfg); }, 500);
+  } else {
+    var first = !lsGet("ka.sudoku.best", null);
+    startGame({ N: 9, diff: "oson", math: false }).then(function () { if (first) openNew("klassik"); });
+  }
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
