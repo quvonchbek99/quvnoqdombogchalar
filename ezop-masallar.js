@@ -295,5 +295,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u sherning kasalligini ko'rmoqchi emas edi", "Chunki izlar faqat g'origa kirgan, qaytib chiqqan iz yo'q edi", "Chunki g'or juda sovuq va qorong'i edi, u uyqusirardi"],
     javob: 1,
     izoh: "Kirgan izlar bor, lekin chiqqan izlar yo'q. Bu xavf belgisi. Tulki ogohlikni saqlab, o'zini xavfdan asradi."
+  },
+  {
+    id: "ez-038", mavzu: "ibrat", sarlavha: "Kiyik va uning shoxlari",
+    matn: "Kiyik suv ko'zgusiga qarab, shoxlarining go'zalligiga maqtanardi, ingichka oyoqlarini esa ayblardi. Bir kuni ovchilar itlari uning orqasidan quvib keldi. Kiyik qochib borarkan, shoxlari butalarga ilinib qoldi va u tutib olindi.",
+    savol: "Kiyik nega qochib qutula olmadi?",
+    variantlar: ["Chunki u qochishni to'xtatib, ovchilar bilan jang qilmoqchi bo'ldi", "Chunki shoxlari butalarga ilinib, qochishiga to'sqinlik qildi", "Chunki u suv ichib, juda charchab qoldi"],
+    javob: 1,
+    izoh: "Kiyik go'zal shoxlarini qadrlab, aslida qochishga yordam beradigan oyoqlarini e'tiborsiz qoldirgan edi. Narsaning go'zalligi emas, foydaliligi muhimroq."
   }
 ];
