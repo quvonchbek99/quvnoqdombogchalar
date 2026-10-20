@@ -287,5 +287,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki uning uyasi ingichka uchda edi", "Chunki u shamol esishini oldindan bilgan edi", "Chunki uyasini mustahkam joyga, tanaga yaqin qurgan edi"],
     javob: 2,
     izoh: "Uyaning turgan joyi uning mustahkamligini belgilaydi. Qaror qabul qilishda tayanch joyni ehtiyotkorlik bilan tanlash muhim."
+  },
+  {
+    id: "ez-037", mavzu: "ehtiyotkorlik", sarlavha: "Tulki va sher",
+    matn: "Sher kasal bo'lib, g'origa yotib oldi. Hayvonlar uni yo'qlab kelishdi, lekin ularning izlari faqat g'origa kirgan edi. Tulki g'or oldida to'xtab, izlarni diqqat bilan ko'zdan kechirdi.",
+    savol: "Tulki nima uchun g'origa kirmadi?",
+    variantlar: ["Chunki u sherning kasalligini ko'rmoqchi emas edi", "Chunki izlar faqat g'origa kirgan, qaytib chiqqan iz yo'q edi", "Chunki g'or juda sovuq va qorong'i edi, u uyqusirardi"],
+    javob: 1,
+    izoh: "Kirgan izlar bor, lekin chiqqan izlar yo'q. Bu xavf belgisi. Tulki ogohlikni saqlab, o'zini xavfdan asradi."
   }
 ];
