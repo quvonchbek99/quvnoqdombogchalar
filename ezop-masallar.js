@@ -279,5 +279,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki unga yomg'ir yog'maydi edi", "Chunki uni uzoq vaqt tozalashmagan edi", "Chunki u birinchi quduqdan chuqurroq edi"],
     javob: 1,
     izoh: "Suv bir xil yig'ilgan bo'lsa ham, tozalanmagan quduq ifloslanib qoladi. Muntazam parvarish sifatni saqlaydi."
+  },
+  {
+    id: "ez-036", mavzu: "mantiq", sarlavha: "Kaptar va uya",
+    matn: "Birinchi kaptar uyasini daraxtning ingichka uchiga qurdi, chunki u yerdan atrofni yaxshi ko'rardi. Kuchli shamol esgach, uya tebranib yiqilib ketdi. Ikkinchi kaptar esa uyasini daraxt tanasiga yaqin, mustahkam shoxga qurgan edi, shuning uchun uyasi joyida qoldi.",
+    savol: "Ikkinchi kaptarning uyasi nega saqlanib qoldi?",
+    variantlar: ["Chunki uning uyasi ingichka uchda edi", "Chunki u shamol esishini oldindan bilgan edi", "Chunki uyasini mustahkam joyga, tanaga yaqin qurgan edi"],
+    javob: 2,
+    izoh: "Uyaning turgan joyi uning mustahkamligini belgilaydi. Qaror qabul qilishda tayanch joyni ehtiyotkorlik bilan tanlash muhim."
   }
 ];
