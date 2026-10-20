@@ -13,7 +13,7 @@
  *     DEFAULT_WORKER = "" ga yozing (yoki sahifadagi ⚙️ bo'limiga kiriting).
  */
 const ALLOW = ["https://kuvonch.uz", "https://www.kuvonch.uz", "https://quvonchbek99.github.io", "http://localhost:8766", "http://127.0.0.1:5500"];
-const MODEL = "gemini-2.0-flash";
+const MODEL = "gemini-flash-latest"; // gemini-2.0-flash 2026-yil 1-iyundan o'chirilgan
 
 export default {
   async fetch(req, env) {
