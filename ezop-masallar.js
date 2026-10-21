@@ -319,5 +319,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u chumchuqlarni yoqtirmasdi", "Chunki u ingichka shoxni sindirib, yiqilib tushdi", "Chunki chumchuqlar uni uyaga kiritishmadi"],
     javob: 1,
     izoh: "Ilon yo'lni noto'g'ri tanladi: ingichka shox uning og'irligiga chiday olmadi. Harakat qilishdan oldin yo'lning mustahkamligini tekshirish kerak."
+  },
+  {
+    id: "ez-041", mavzu: "hasad", sarlavha: "It va somon",
+    matn: "Bir it omborxonadagi somon uyumiga kirib yotib oldi. U somonni yemas edi, ammo ho'kiz va ot ochlikdan yaqinlasha boshlaganda, qattiq hurib ularni qaytardi.",
+    savol: "It nima uchun ho'kiz va otni somonga yaqinlashtirmadi?",
+    variantlar: ["Chunki somon unga juda shirin edi", "Chunki ho'kiz va ot somonni yeyishdan qo'rqardi", "Chunki u o'zi yemasa ham boshqalarga yemaslikni istadi"],
+    javob: 2,
+    izoh: "It o'zi foydalana olmasa ham, boshqalarga ham bermadi. Hasad odamni o'z manfaatidan ham ayiradi."
   }
 ];
