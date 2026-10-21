@@ -335,5 +335,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki sher ho'kizlardan ancha kuchli edi", "Chunki ho'kizlar birlashmay, yolg'iz qolib qoldi", "Chunki ho'kizlar ochlikdan kuchsizlanib qoldi"],
     javob: 1,
     izoh: "Birlashgan kuch sherga qarshi turdi. Ajralib qolgan, yolg'iz kishi esa osonlik bilan yengiladi."
+  },
+  {
+    id: "ez-043", mavzu: "qadriyat", sarlavha: "Xo'roz va marvarid",
+    matn: "Xo'roz axlat orasidan don qidirib yurardi. U marvaridni topdi, lekin uni arzimas tosh deb o'ylab tashlab qo'ydi. \"Bu bir dona arpadan ham kam foyda beradi\", dedi u.",
+    savol: "Xo'roz marvaridni nega qadrsiz deb tashlab ketdi?",
+    variantlar: ["Chunki u narsaning haqiqiy qiymatini emas, faqat o'zi uchun darhol foydani qadrlardi", "Chunki marvarid juda og'ir edi va uni tashishga kuchi yetmadi", "Chunki marvarid yorug' emas, xira edi"],
+    javob: 0,
+    izoh: "Xo'roz narsaning qadrini uning qiymatidan emas, o'zi uchun darhol foydasidan o'lchadi. Haqiqiy qadrni uni tushunadigan odam biladi."
   }
 ];
