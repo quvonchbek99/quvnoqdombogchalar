@@ -327,5 +327,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki somon unga juda shirin edi", "Chunki ho'kiz va ot somonni yeyishdan qo'rqardi", "Chunki u o'zi yemasa ham boshqalarga yemaslikni istadi"],
     javob: 2,
     izoh: "It o'zi foydalana olmasa ham, boshqalarga ham bermadi. Hasad odamni o'z manfaatidan ham ayiradi."
+  },
+  {
+    id: "ez-042", mavzu: "hamkorlik", sarlavha: "Ikki ho'kiz va sher",
+    matn: "Ikki ho'kiz doim birga o't yeb yurardi. Sher ularga hujum qilmoqchi bo'lsa ham, yaqinlasha olmadi. Bir kuni ho'kizlar bir-biridan ajralib ketdi, va sher ularni birma-bir yengdi.",
+    savol: "Sher ho'kizlarni nega yengdi?",
+    variantlar: ["Chunki sher ho'kizlardan ancha kuchli edi", "Chunki ho'kizlar birlashmay, yolg'iz qolib qoldi", "Chunki ho'kizlar ochlikdan kuchsizlanib qoldi"],
+    javob: 1,
+    izoh: "Birlashgan kuch sherga qarshi turdi. Ajralib qolgan, yolg'iz kishi esa osonlik bilan yengiladi."
   }
 ];
