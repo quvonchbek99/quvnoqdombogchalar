@@ -343,5 +343,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u narsaning haqiqiy qiymatini emas, faqat o'zi uchun darhol foydani qadrlardi", "Chunki marvarid juda og'ir edi va uni tashishga kuchi yetmadi", "Chunki marvarid yorug' emas, xira edi"],
     javob: 0,
     izoh: "Xo'roz narsaning qadrini uning qiymatidan emas, o'zi uchun darhol foydasidan o'lchadi. Haqiqiy qadrni uni tushunadigan odam biladi."
+  },
+  {
+    id: "ez-044", mavzu: "ehtiyotkorlik", sarlavha: "Ayiq va asalari",
+    matn: "Ayiq asal yeyish uchun daraxtdagi uyaga chiqdi. U shoshilib asalarilarni bezovta qildi va barcha asalni birdan olmoqchi bo'ldi. Asalarilar qattiq hujum qilib, ayiqni daraxtdan tushirib yubordi.",
+    savol: "Ayiq nima uchun asalsiz qoldi?",
+    variantlar: ["Chunki asal daraxtda umuman yo'q edi", "Chunki u shoshilib asalarilarni bezovta qildi", "Chunki asalari uni yoqtirmasdi"],
+    javob: 1,
+    izoh: "Shoshilish va asalarilarga e'tiborsizlik ayiqni hujumga duchor qildi. Sabrli va ehtiyotkor yondashuv ko'proq foyda beradi."
   }
 ];
