@@ -311,5 +311,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u har safar gapini o'z foydasiga qarab o'zgartirdi", "Chunki u juda kichik va kuchsiz edi", "Chunki u urushda umuman qatnashmagan edi"],
     javob: 0,
     izoh: "Har doim o'z manfaatiga qarab tomon almashtirgan odamga hech kim ishonmaydi. Halollik va sobitlik ishonchni saqlaydi."
+  },
+  {
+    id: "ez-040", mavzu: "mantiq", sarlavha: "Ilon va chumchuq",
+    matn: "Ilon chumchuqning uyasiga yetish uchun ingichka shoxdan o'tmoqchi bo'ldi. Shox uning og'irligini ko'tara olmadi va sinib ketdi. Ilon pastga yiqildi, chumchuqlar esa mustahkam shoxdagi uyada omon qoldi.",
+    savol: "Ilon nega chumchuqlarning uyasiga yetib bora olmadi?",
+    variantlar: ["Chunki u chumchuqlarni yoqtirmasdi", "Chunki u ingichka shoxni sindirib, yiqilib tushdi", "Chunki chumchuqlar uni uyaga kiritishmadi"],
+    javob: 1,
+    izoh: "Ilon yo'lni noto'g'ri tanladi: ingichka shox uning og'irligiga chiday olmadi. Harakat qilishdan oldin yo'lning mustahkamligini tekshirish kerak."
   }
 ];
