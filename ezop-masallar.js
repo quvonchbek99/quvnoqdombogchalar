@@ -359,5 +359,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki shamol unga umuman tegmadi", "Chunki uya mustahkam shoxlarga mahkam bog'langan edi", "Chunki kalxat uyani yerga ko'chirib qo'ydi"],
     javob: 1,
     izoh: "Uya mustahkam joyga mahkam bog'langani uchun shamolga bardosh berdi. Yaxshi reja va sifatli mehnat xavfli vaziyatda ham natija beradi."
+  },
+  {
+    id: "ez-046", mavzu: "ahloq", sarlavha: "Tulki va echki",
+    matn: "Tulki va echki issiq kunda suvsizlikdan qiynalib, bir quduqqa tushib qolishdi. Suv ichib bo'lgach, ikkalasi ham chiqish yo'lini izlay boshladi. Tulki echkaga: \"Shoxlaringga tayanib chiqaman, keyin seni ham tortib olaman\", dedi.",
+    savol: "Tulki quduqdan chiqqach, echkaga nima qildi?",
+    variantlar: ["Unga arqon tashlab, birga chiqarib oldi", "Unga yordam bermay, uni quduqda qoldirib ketdi", "Unga suv olib kelish uchun qaytib keldi"],
+    javob: 1,
+    izoh: "Tulki o'z manfaatini o'ylab va'dasini bajarmadi. Og'ir vaziyatda va'dani bajarmaslik ishonchni yo'qotadi."
   }
 ];
