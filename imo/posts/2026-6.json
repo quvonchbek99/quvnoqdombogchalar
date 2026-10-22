@@ -1,0 +1,42 @@
+{
+  "id": "2026-6",
+  "badge": "IMO 2026 · 6-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Hamma bilan umumiy bo'luvchi",
+      "fs": 36,
+      "body": "<p><span class='m'>a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, …</span> — 1 dan katta butun sonlardan iborat cheksiz ketma-ketlik. Har bir <span class='m'>n</span> uchun <span class='m'>a<sub>n+1</sub></span> — bu <span class='m'>a<sub>n</sub></span> dan katta va</p><div class='box' style='text-align:center'><span class='m'>EKUB(a<sub>n+1</sub>, a<sub>i</sub>) &gt; 1</span>, &nbsp;<span class='m'>i = 1, 2, …, n</span></div><p>shartni qanoatlantiruvchi <b>eng kichik</b> son. Ya'ni har bir yangi had oldingi <b>barcha</b> hadlar bilan umumiy bo'luvchiga ega.</p><p>Shunday <span class='m'>T</span> va <span class='m'>L</span> natural sonlar mavjudligini isbotlang-ki, barcha <span class='m'>n</span> uchun</p><div class='box' style='text-align:center;font-size:42px'><span class='m'>a<sub>n+T</sub> = a<sub>n</sub> + L</span></div><p>Ya'ni ketma-ketlik oxir-oqibat <b>davriy</b> «qadam» bilan o'sadi.</p>"
+    },
+    {
+      "kicker": "YECHIM · MISOL",
+      "title": "a₁ = 15 bo'lsa nima bo'ladi?",
+      "fs": 35,
+      "body": "<p>Hisoblab chiqamiz:</p><div class='box' style='text-align:center'><span class='m'>15, 18, 20, 24, 30, 36, 40, 42, 45, 48, 50, 54, …</span></div><p>Diqqat qiling: bu — <span class='m'>15</span> dan boshlab <span class='m'>2·3</span>, <span class='m'>3·5</span>, <span class='m'>2·5</span> dan <b>kamida bittasiga</b> bo'linadigan barcha sonlar.</p><p><span class='m'>42 = 2·3·7</span> dagi <span class='m'>7</span> hech narsa hal qilmaydi: <span class='m'>42</span> ni ketma-ketlikka <span class='m'>18 = 2·3<sup>2</sup></span> «olib kiradi».</p><div class='box'>Demak sonning ketma-ketlikka kirishi faqat uning <span class='m'>30</span> ga bo'lgandagi qoldig'iga bog'liq. <span class='m'>L = 30</span>, <span class='m'>T = 8</span> (30 gacha 8 ta mos qoldiq).</div><p>Asosiy g'oya: ozgina <b>«muhim» tub sonlar</b> bor, xolos.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Ortiqcha hadlar",
+      "fs": 34,
+      "body": "<p><span class='m'>rad(a)</span> — <span class='m'>a</span> ning turli tub bo'luvchilari ko'paytmasi (masalan, <span class='m'>rad(18) = 6</span>). Hadlar orasida tartib kiritamiz:</p><div class='box' style='text-align:center'><span class='m'>a<sub>m</sub> ≺ a<sub>n</sub></span> &nbsp;⇔&nbsp; <span class='m'>m &lt; n</span> va <span class='m'>rad(a<sub>m</sub>) | rad(a<sub>n</sub>)</span></div><p>Masalan, <span class='m'>a<sub>1</sub> = 15</span> da <span class='m'>18 ≺ 42</span>.</p><p>Agar <span class='m'>a<sub>m</sub> ≺ a<sub>n</sub></span> bo'lsa, <span class='m'>a<sub>n</sub></span> <b>ortiqcha</b>: <span class='m'>x</span> son <span class='m'>a<sub>m</sub></span> bilan umumiy tub bo'luvchiga ega bo'lsa, <span class='m'>a<sub>n</sub></span> bilan ham ega.</p><div class='box'><span class='m'>x ≥ a<sub>1</sub></span> son ketma-ketlikda ⇔ <span class='m'>x</span> barcha <b>minimal</b> (ortiqcha bo'lmagan) hadlar bilan umumiy bo'luvchiga ega. Faqat <span class='m'>x</span> dan kichik minimal hadlarni tekshirish ham yetarli.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Katta tub sonlar muhim emas",
+      "fs": 31,
+      "body": "<p><span class='m'>p &gt; a<sub>1</sub><sup>2</sup></span> bo'lsa, <span class='m'>p</span> ni <b>katta</b> tub son deymiz.</p><div class='box'><b>Asosiy da'vo:</b> katta tub songa bo'linadigan had minimal emas.</div><p>Induksiya. <span class='m'>a<sub>n</sub> = p·c</span>, <span class='m'>p</span> — katta, <span class='m'>q</span> — <span class='m'>EKUB(a<sub>1</sub>, a<sub>n</sub>)</span> ning tub bo'luvchisi. <span class='m'>c, qc, q<sup>2</sup>c, …</span> sonlarni qaraymiz. Qadam <span class='m'>q ≤ a<sub>1</sub></span> marta, oraliq esa</p><div class='box' style='text-align:center'><span class='m'>a<sub>n</sub>/a<sub>1</sub> ≥ p/a<sub>1</sub> &gt; a<sub>1</sub> ≥ q</span></div><p>marta keng, shuning uchun bittasi <span class='m'>y = q<sup>k</sup>c</span> albatta <span class='m'>[a<sub>1</sub>, a<sub>n</sub>)</span> oraliqqa tushadi.</p><p><span class='m'>a<sub>n</sub></span> dan kichik har bir minimal <span class='m'>a<sub>i</sub></span> <span class='m'>p</span> ga bo'linmaydi (induksiya), demak <span class='m'>EKUB(a<sub>n</sub>, a<sub>i</sub>)</span> <span class='m'>c</span> ni bo'ladi ⇒ <span class='m'>EKUB(y, a<sub>i</sub>) &gt; 1</span>.</p><p>Shunday qilib <span class='m'>y</span> ketma-ketlikda, <span class='m'>y &lt; a<sub>n</sub></span> va <span class='m'>rad(y) | rad(a<sub>n</sub>)</span>, ya'ni <span class='m'>y ≺ a<sub>n</sub></span>. Demak <span class='m'>a<sub>n</sub></span> minimal emas ✅</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Hammasi qoldiqqa bog'liq",
+      "fs": 34,
+      "body": "<p><span class='m'>P</span> — <span class='m'>a<sub>1</sub><sup>2</sup></span> dan oshmaydigan («kichik») tub sonlar to'plami. Minimal hadlarning barcha tub bo'luvchilari kichik.</p><p>Shuning uchun <span class='m'>x ≥ a<sub>1</sub></span> ning ketma-ketlikka kirishi faqat <span class='m'>x</span> ning <b>qaysi kichik tub sonlarga bo'linishiga</b> bog'liq, ya'ni <span class='m'>x</span> ning</p><div class='box' style='text-align:center;font-size:40px'><span class='m'>L = ∏<sub>p∈P</sub> p</span></div><p>ga bo'lgandagi qoldig'iga bog'liq.</p><p>Ketma-ketlik — <span class='m'>a<sub>1</sub></span> dan boshlab mos qoldiqli <b>barcha</b> sonlarning o'sish tartibidagi ro'yxati. <span class='m'>T</span> — bunday qoldiqlar soni. Har <span class='m'>L</span> ta ketma-ket sonda aynan <span class='m'>T</span> ta had bor:</p><div class='box' style='text-align:center'><span class='m'>a<sub>n+T</sub> = a<sub>n</sub> + L</span> &nbsp;∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>Kalit — <b>«ortiqcha» hadlarni tashlab yuborish</b>: katta tub sonlar hech qachon hal qiluvchi bo'lmaydi, shuning uchun hammasi chekli sondagi tub sonlarga keladi. Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>a<sub>1</sub> = 15</span> da <span class='m'>T = 8, L = 30</span>; <span class='m'>a<sub>1</sub> = 35</span> da <span class='m'>T = 34, L = 210</span>; <span class='m'>a<sub>1</sub> = 6</span> da <span class='m'>T = 1, L = 2</span> ✅</div><p>🧠 <b>Sizga savol:</b> <span class='m'>a<sub>1</sub> = 21</span> bo'lsa, ketma-ketlik qanday bo'ladi? <span class='m'>T</span> va <span class='m'>L</span> ni toping. Javobni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2025 · 1-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
