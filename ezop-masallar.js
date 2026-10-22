@@ -383,5 +383,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki to'g'ri yo'nalishni oldindan bilib, qochish yo'lini kesib o'tdi", "Chunki to'g'ri yugurgan quyon charchagan edi", "Chunki quyon o'zi tulki tomon yugurib ketdi"],
     javob: 0,
     izoh: "Doimiy yo'nalishni oldindan taxmin qilish oson. Kutilmagan o'zgarishlar esa quvuvchini chalg'itadi."
+  },
+  {
+    id: "ez-049", mavzu: "erkinlik", sarlavha: "Bo'ri va it",
+    matn: "Och bo'ri semiz itga duch keldi va uning yaxshi boqilganini ko'rib hayratga tushdi. It: \"Sen ham xuddi shunday bo'lasan, faqat kechasi meni zanjirda ushlab turishadi\", dedi. Bo'yinidagi zanjir izini ko'rgan bo'ri shu zahoti ortiga qaytdi.",
+    savol: "Bo'ri nega itning yonida qolishni xohlamadi?",
+    variantlar: ["Chunki u semiz bo'lish uchun erkinligidan voz kechishni istamadi", "Chunki it juda kuchsiz va qo'rqoq edi", "Chunki bo'ri ochlikka chidamli emas edi"],
+    javob: 0,
+    izoh: "Ko'proq ovqat ham bo'lsa, erkinlikdan voz kechish qimmatga tushadi. Ba'zan erkinlik ovqatdan ham qadrliroq bo'ladi."
   }
 ];
