@@ -351,5 +351,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki asal daraxtda umuman yo'q edi", "Chunki u shoshilib asalarilarni bezovta qildi", "Chunki asalari uni yoqtirmasdi"],
     javob: 1,
     izoh: "Shoshilish va asalarilarga e'tiborsizlik ayiqni hujumga duchor qildi. Sabrli va ehtiyotkor yondashuv ko'proq foyda beradi."
+  },
+  {
+    id: "ez-045", mavzu: "mantiq", sarlavha: "Kalxat va qayin",
+    matn: "Kalxat qayin daraxtining baland shoxiga uya qurdi. U uyani ingichka, pishmagan shoxlarga emas, qalin shoxlar orasiga mahkam bog'ladi. Bir kuni kuchli shamol turdi va uya qattiq silkindi, ammo yiqilmadi.",
+    savol: "Kuchli shamol uyani nega yiqitmadi?",
+    variantlar: ["Chunki shamol unga umuman tegmadi", "Chunki uya mustahkam shoxlarga mahkam bog'langan edi", "Chunki kalxat uyani yerga ko'chirib qo'ydi"],
+    javob: 1,
+    izoh: "Uya mustahkam joyga mahkam bog'langani uchun shamolga bardosh berdi. Yaxshi reja va sifatli mehnat xavfli vaziyatda ham natija beradi."
   }
 ];
