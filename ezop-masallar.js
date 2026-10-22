@@ -375,5 +375,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u og'irlikni ikki tomonga teng taqsimladi", "Chunki u savatlarni faqat bir qo'lida ko'tardi", "Chunki savatlar aslida bo'sh edi"],
     javob: 0,
     izoh: "Og'irlik ikki tomonga teng bo'linsa, yelka bir tomonga ortiqcha yuk olmaydi. Muammoni yechishda yukning tuzilishini o'ylash foydali bo'ladi."
+  },
+  {
+    id: "ez-048", mavzu: "mantiq", sarlavha: "Ikki quyon",
+    matn: "Tulki ikki quyonni quvib keldi. Birinchi quyon to'g'ri chiziq bo'ylab qochdi, ikkinchisi esa har qadamda yo'nalishini o'zgartirib yugurdi. Tulki tez orada to'g'ri yugurayotgan quyonni yetib oldi.",
+    savol: "Tulki nega to'g'ri qochayotgan quyonni tez tutdi?",
+    variantlar: ["Chunki to'g'ri yo'nalishni oldindan bilib, qochish yo'lini kesib o'tdi", "Chunki to'g'ri yugurgan quyon charchagan edi", "Chunki quyon o'zi tulki tomon yugurib ketdi"],
+    javob: 0,
+    izoh: "Doimiy yo'nalishni oldindan taxmin qilish oson. Kutilmagan o'zgarishlar esa quvuvchini chalg'itadi."
   }
 ];
