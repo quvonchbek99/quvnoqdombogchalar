@@ -367,5 +367,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Unga arqon tashlab, birga chiqarib oldi", "Unga yordam bermay, uni quduqda qoldirib ketdi", "Unga suv olib kelish uchun qaytib keldi"],
     javob: 1,
     izoh: "Tulki o'z manfaatini o'ylab va'dasini bajarmadi. Og'ir vaziyatda va'dani bajarmaslik ishonchni yo'qotadi."
+  },
+  {
+    id: "ez-047", mavzu: "mantiq", sarlavha: "Ikki savat",
+    matn: "Dehqon bozorga ikkita savat olma olib ketardi. Savatlardan biri ancha og'ir, ikkinchisi yengil edi. U tayoqni yelkasiga qo'yib, savatlarni uning ikki uchiga bittadan osdi va yo'lga chiqdi.",
+    savol: "Dehqon yo'lda nega charchamadi?",
+    variantlar: ["Chunki u og'irlikni ikki tomonga teng taqsimladi", "Chunki u savatlarni faqat bir qo'lida ko'tardi", "Chunki savatlar aslida bo'sh edi"],
+    javob: 0,
+    izoh: "Og'irlik ikki tomonga teng bo'linsa, yelka bir tomonga ortiqcha yuk olmaydi. Muammoni yechishda yukning tuzilishini o'ylash foydali bo'ladi."
   }
 ];
