@@ -399,5 +399,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Har biri o'z kuchi bilan alohida yo'l bosdi", "Cho'loq yo'l aytdi, ko'r uni yelkasida olib bordi", "Ko'r yo'lni tanimasdan tasodifan yetib bordi"],
     javob: 1,
     izoh: "Har biri o'zida yetishmagan narsani boshqasidan oldi. Birgalikda ishlash ikkalasiga ham yo'l ochdi."
+  },
+  {
+    id: "ez-051", mavzu: "mantiq", sarlavha: "Lochin va kaklik",
+    matn: "Lochin kaklikni tutmoqchi bo'lib uchdi. Kaklik to'g'ri yugurib qochmadi, balki zich tikanli butaning ichiga kirib yashirindi. Lochin shoxlar orasiga sig'a olmay, uzoqroq uchib ketdi.",
+    savol: "Kaklik lochindan qanday qutulib qoldi?",
+    variantlar: ["Tez yugurib, lochinni charchatdi", "Tikanli butaga kirib, lochin yetib borishini to'sdi", "Lochin bilan do'stlashib, uni qaytarib oldi"],
+    javob: 1,
+    izoh: "Kaklik kuch bilan emas, to'g'ri joy tanlash bilan qutuldi. Vaziyatga mos yashirinish ham katta himoya bo'ladi."
   }
 ];
