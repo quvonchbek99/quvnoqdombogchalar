@@ -407,5 +407,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Tez yugurib, lochinni charchatdi", "Tikanli butaga kirib, lochin yetib borishini to'sdi", "Lochin bilan do'stlashib, uni qaytarib oldi"],
     javob: 1,
     izoh: "Kaklik kuch bilan emas, to'g'ri joy tanlash bilan qutuldi. Vaziyatga mos yashirinish ham katta himoya bo'ladi."
+  },
+  {
+    id: "ez-052", mavzu: "ishonch", sarlavha: "Yolg'onchi cho'pon",
+    matn: "Cho'pon qo'ylarini boqib zerikardi va bir kuni ko'ngil ochmoqchi bo'ldi. U \"Bo'ri! Bo'ri!\" deb baqirib, qishloq aholisini yugurtirib chiqardi. Ikki marta bu hazil ekani ma'lum bo'lgach, odamlar xafa bo'lib qaytib ketishdi. Uchinchi kuni bo'ri haqiqatan kelganida, cho'pon yordam so'radi, ammo hech kim chiqmadi.",
+    savol: "Nega aholi bu safar cho'ponning chaqirig'iga e'tibor bermadi?",
+    variantlar: ["Chunki ular cho'ponning avvalgi yolg'on chaqiriqlaridan keyin unga ishonmay qo'ygan edi", "Chunki ular bo'rilardan qo'rqmaydigan darajada jasur edi", "Chunki cho'pon bu safar jim turib, hech narsa demagan edi"],
+    javob: 0,
+    izoh: "Ishonch bir marta buzilsa, hatto rost gap ham e'tiborsiz qolishi mumkin. Yolg'on gapirish avvalo o'zingga zarar keltiradi."
   }
 ];
