@@ -391,5 +391,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u semiz bo'lish uchun erkinligidan voz kechishni istamadi", "Chunki it juda kuchsiz va qo'rqoq edi", "Chunki bo'ri ochlikka chidamli emas edi"],
     javob: 0,
     izoh: "Ko'proq ovqat ham bo'lsa, erkinlikdan voz kechish qimmatga tushadi. Ba'zan erkinlik ovqatdan ham qadrliroq bo'ladi."
+  },
+  {
+    id: "ez-050", mavzu: "hamkorlik", sarlavha: "Ko'r va cho'loq",
+    matn: "Ko'r odam yo'lni ko'ra olmas, cho'loq esa yura olmasdi. Ikkalasi bir kuni yo'lda uchrashib qoldi. Cho'loq ko'rga yo'lni aytib turdi, ko'r esa uni yelkasiga olib yurdi.",
+    savol: "Ular manzilga qanday yetib bordi?",
+    variantlar: ["Har biri o'z kuchi bilan alohida yo'l bosdi", "Cho'loq yo'l aytdi, ko'r uni yelkasida olib bordi", "Ko'r yo'lni tanimasdan tasodifan yetib bordi"],
+    javob: 1,
+    izoh: "Har biri o'zida yetishmagan narsani boshqasidan oldi. Birgalikda ishlash ikkalasiga ham yo'l ochdi."
   }
 ];
