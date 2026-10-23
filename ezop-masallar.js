@@ -423,5 +423,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Eshikni kuch bilan buzib", "Ozib, kichik teshikdan o'tib", "Tovuqlar o'zi chiqib kelgani uchun"],
     javob: 1,
     izoh: "Tulki yo'lni o'zgartirmay, o'zini moslashtirdi. Biroq bunday yo'l uning sog'lig'iga zarar bo'lgani uchun, maqsadga oqilona yo'l bilan erishish yaxshiroq."
+  },
+  {
+    id: "ez-054", mavzu: "sabab", sarlavha: "Bog'bon va olma daraxti",
+    matn: "Bog'bonning olma daraxti ikki yil davomida meva bermadi. Bog'bon uni kesmoqchi bo'ldi, lekin o'g'li: \"Bir yil unga go'ng solib, sug'orib ko'raylik\", dedi. Bog'bon rozi bo'ldi. Keyingi yili daraxt serhosil bo'ldi.",
+    savol: "Daraxt nima uchun keyingi yili meva berdi?",
+    variantlar: ["Chunki unga go'ng solinib, sug'orildi va parvarish qilindi", "Chunki o'g'li uni kesib tashladi", "Chunki bog'bon daraxtni boshqa joyga ko'chirib ketdi"],
+    javob: 0,
+    izoh: "Meva bermaslikning sababi parvarishning yetishmasligi bo'lishi mumkin edi. Qaror qabul qilishdan oldin sababni tekshirish foydali."
   }
 ];
