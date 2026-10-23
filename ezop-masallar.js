@@ -415,5 +415,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular cho'ponning avvalgi yolg'on chaqiriqlaridan keyin unga ishonmay qo'ygan edi", "Chunki ular bo'rilardan qo'rqmaydigan darajada jasur edi", "Chunki cho'pon bu safar jim turib, hech narsa demagan edi"],
     javob: 0,
     izoh: "Ishonch bir marta buzilsa, hatto rost gap ham e'tiborsiz qolishi mumkin. Yolg'on gapirish avvalo o'zingga zarar keltiradi."
+  },
+  {
+    id: "ez-053", mavzu: "sabr", sarlavha: "Tulki va tovuq qo'ra",
+    matn: "Tulki tovuq qo'rasiga kirmoqchi bo'ldi. Eshik mahkam yopiq edi, devordagi teshik esa juda kichik edi. Tulki bir necha kun ovqat yemay ozdi, so'ng teshikdan o'tib, tovuqqa yetdi.",
+    savol: "Tulki tovuqqa qanday yetib bordi?",
+    variantlar: ["Eshikni kuch bilan buzib", "Ozib, kichik teshikdan o'tib", "Tovuqlar o'zi chiqib kelgani uchun"],
+    javob: 1,
+    izoh: "Tulki yo'lni o'zgartirmay, o'zini moslashtirdi. Biroq bunday yo'l uning sog'lig'iga zarar bo'lgani uchun, maqsadga oqilona yo'l bilan erishish yaxshiroq."
   }
 ];
