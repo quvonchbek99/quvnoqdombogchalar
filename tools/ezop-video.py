@@ -2,12 +2,14 @@
 """Ezop masali uchun 9:16 (1080x1920) qisqa video va Instagram/YouTube izohini yaratadi.
 
 Natija: media/ezop/<id>.mp4 va media/ezop/<id>.json (sarlavha, izoh matni, hashtaglar).
+media/ezop/posted.json ga id qo'shiladi, shunda keyingi safar boshqa masal tanlanadi.
 Sahnalar: sarlavha -> matn -> savol+variantlar -> to'g'ri javob+izoh -> xulosa.
 Har sahna o'zbekcha ovoz (edge-tts, tools/ezop-ovoz.py dagi synth) bilan.
 
 Ishlatish (repo ildizidan):
   python3 tools/ezop-video.py --id ez-059
-  python3 tools/ezop-video.py            # bugungi (Toshkent) sanasi bo'yicha masal
+  python3 tools/ezop-video.py            # hali joylanmagan keyingi masal (media/ezop/posted.json)
+  python3 tools/ezop-video.py --pick     # faqat keyingi masal id sini ko'rsatadi
 Talab: python3, node, ffmpeg, Pillow, edge-tts.
 """
 import argparse
@@ -53,10 +55,31 @@ def load_fable(fable_id=None):
             if m["id"] == fable_id:
                 return m
         raise SystemExit("masal topilmadi: " + fable_id)
-    # Toshkent sanasi bo'yicha: yil boshidan kunlar soni, masallar soniga modul
-    today = datetime.datetime.utcnow() + datetime.timedelta(hours=5)
-    idx = today.timetuple().tm_yday % len(items)
-    return items[idx]
+    # Birinchi hali joylanmagan masal (ro'yxat tartibida). Hammasi joylangan bo'lsa boshidan.
+    posted = load_posted()
+    for m in items:
+        if m["id"] not in posted:
+            return m
+    return items[0]
+
+
+def posted_path():
+    return os.path.join(OUT, "posted.json")
+
+
+def load_posted():
+    try:
+        with open(posted_path(), encoding="utf-8") as f:
+            return set(json.load(f).get("posted", []))
+    except (OSError, ValueError):
+        return set()
+
+
+def record_posted(fable_id):
+    ids = sorted(load_posted() | {fable_id})
+    os.makedirs(OUT, exist_ok=True)
+    with open(posted_path(), "w", encoding="utf-8") as f:
+        json.dump({"posted": ids}, f, ensure_ascii=False, indent=2)
 
 
 def gradient_bg():
@@ -247,10 +270,15 @@ def caption(m):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--id", help="masal id, masalan ez-059")
+    ap.add_argument("--pick", action="store_true", help="faqat keyingi masal id sini chiqarish")
     args = ap.parse_args()
     m = load_fable(args.id)
+    if args.pick:
+        print(m["id"])
+        return 0
     out_mp4 = os.path.join(OUT, m["id"] + ".mp4")
     build(m, out_mp4)
+    record_posted(m["id"])
     meta = {"id": m["id"], "sarlavha": m["sarlavha"], "file": "media/ezop/%s.mp4" % m["id"],
             "caption": caption(m)}
     with open(os.path.join(OUT, m["id"] + ".json"), "w", encoding="utf-8") as f:
