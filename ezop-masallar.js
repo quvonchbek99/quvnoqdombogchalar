@@ -463,5 +463,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u baliqning kelajakda katta bo'lishini bilardi", "Chunki qo'lidagi aniq foyda kelajakdagi noaniq va'dadan ishonchliroq edi", "Chunki baliq uni aldashga urinayotgan edi"],
     javob: 1,
     izoh: "Hozir qo'lda turgan narsa aniq, kelajakdagi va'da esa kafolatlanmagan. Noaniq katta foyda uchun aniq narsadan voz kechish ko'pincha xato bo'ladi."
+  },
+  {
+    id: "ez-059", mavzu: "ahloq", sarlavha: "Xasis va yashirin oltin",
+    matn: "Xasis odam tilla tangalarini bog'ining bir chetidagi chuqurga ko'mib qo'ydi. Har kuni borib joyini tekshirardi, lekin tangalarni hech qachon sarflamasdi. Bir kuni o'g'ri chuqurni topib, tangalarni olib ketdi.",
+    savol: "Xasis odamning tangalari unga nega foyda keltirmadi?",
+    variantlar: ["Chunki u tangalarni sarflamasdan faqat yashirib saqlardi", "Chunki tangalar juda kam edi", "Chunki u bog'ni yaxshi ko'rmasdi"],
+    javob: 0,
+    izoh: "Pulning foydasi uni ishlatishda. Yashirib qo'yilgan boylik esa hech kimga naf keltirmaydi."
   }
 ];
