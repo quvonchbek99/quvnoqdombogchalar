@@ -439,5 +439,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ariq ikkita bo'lib qoldi", "Ular suvni navbat bilan olishdi", "Ikkalasi ham bir kunda barcha suvni oldi"],
     javob: 1,
     izoh: "Navbat bilan foydalanish har kimga o'z vaqtida suv berdi. Umumiy resursni navbat bilan taqsimlash janjalni kamaytiradi va hammaga foyda keltiradi."
+  },
+  {
+    id: "ez-056", mavzu: "mas'uliyat", sarlavha: "Ekin va qushlar",
+    matn: "Qushlar dalada ekin o'rtasida uya qurib yashardi. Dehqon: \"Ertaga qo'shnilarimni chaqiraman, ekinni o'radi\", dedi. Ertasi kuni u: \"Qo'shnilar kelmadi, o'g'illarim o'radi\", dedi. Uchinchi kuni: \"Endi o'zim o'raman\", dedi va qushlar darhol uyasini ko'chirib ketishdi.",
+    savol: "Qushlar nega uyasini ko'chirib ketdi?",
+    variantlar: ["Chunki dehqon ularni haydab yubordi", "Chunki dehqon endi o'zi ish boshlashga qaror qildi", "Chunki ekin allaqachon o'rilib bo'lgan edi"],
+    javob: 1,
+    izoh: "Dehqon uch marta boshqalarga umid qildi, lekin qushlar faqat u o'zi ish boshlaganida xavfni his qildi. Haqiqiy qaror va harakat so'zdan kuchliroq."
   }
 ];
