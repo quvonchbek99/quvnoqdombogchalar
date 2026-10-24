@@ -1,0 +1,458 @@
+                 IMO 2011 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2011 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2011/1, proposed by Fernando Campos (MEX) . . . . . . . . . . . .             3
+  1.2 IMO 2011/2, proposed by Geoff Smith (UNK) . . . . . . . . . . . . . . . .         4
+  1.3 IMO 2011/3, proposed by Igor Voronovich, BLR . . . . . . . . . . . . . .          5
+
+2 Solutions to Day 2                                                                    6
+  2.1 IMO 2011/4, proposed by Morteza Saghafian (IRN) . . . . . . . . . . . .           6
+  2.2 IMO 2011/5, proposed by Mahyar Sefidgaran (IRN) . . . . . . . . . . . .           8
+  2.3 IMO 2011/6, proposed by Japan . . . . . . . . . . . . . . . . . . . . . . .       9
+
+
+
+
+                                            1
+IMO 2011 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Given any set A = {a1 , a2 , a3 , a4 } of four distinct positive integers, we denote
+     the sum a1 + a2 + a3 + a4 by sA . Let nA denote the number of pairs (i, j) with
+     1 ≤ i < j ≤ 4 for which ai + aj divides sA . Find all sets A of four distinct positive
+     integers which achieve the largest possible value of nA .
+
+  2. Let S be a finite set of at least two points in the plane. Assume that no three
+     points of S are collinear. A windmill is a process that starts with a line ` going
+     through a single point P ∈ S. The line rotates clockwise about the pivot P until
+     the first time that the line meets some other point belonging to S. This point, Q,
+     takes over as the new pivot, and the line now rotates clockwise about Q, until it
+     next meets a point of S. This process continues indefinitely.
+     Show that we can choose a point P in S and a line ` going through P such that
+     the resulting windmill uses each point of S as a pivot infinitely many times.
+
+  3. Let f : R → R be a real-valued function defined on the set of real numbers that
+     satisfies
+                               f (x + y) ≤ yf (x) + f (f (x))
+     for all real numbers x and y. Prove that f (x) = 0 for all x ≤ 0.
+
+  4. Let n > 0 be an integer. We are given a balance and n weights of weight 20 , 21 ,
+     . . . , 2n−1 . We are to place each of the n weights on the balance, one after another,
+     in such a way that the right pan is never heavier than the left pan. At each step we
+     choose one of the weights that has not yet been placed on the balance, and place it
+     on either the left pan or the right pan, until all of the weights have been placed.
+     Determine the number of ways in which this can be done.
+
+  5. Let f : Z → Z>0 be a function such that f (m − n) | f (m) − f (n) for m, n ∈ Z.
+     Prove that if m, n ∈ Z satisfy f (m) ≤ f (n) then f (m) | f (n).
+
+  6. Let ABC be an acute triangle with circumcircle Γ. Let ` be a tangent line to Γ,
+     and let `a , `b , `c be the lines obtained by reflecting ` in the lines BC, CA, and AB,
+     respectively. Show that the circumcircle of the triangle determined by the lines `a ,
+     `b , and `c is tangent to the circle Γ.
+
+
+
+
+                                            2
+IMO 2011 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2011/1, proposed by Fernando Campos (MEX)
+   Available online at https://aops.com/community/p2363530.
+
+  Problem statement
+  Given any set A = {a1 , a2 , a3 , a4 } of four distinct positive integers, we denote
+  the sum a1 + a2 + a3 + a4 by sA . Let nA denote the number of pairs (i, j) with
+  1 ≤ i < j ≤ 4 for which ai + aj divides sA . Find all sets A of four distinct positive
+  integers which achieve the largest possible value of nA .
+
+There are two curves of solutions, namely {x, 5x, 7x, 11x} and {x, 11x, 19x, 29x}, for any
+positive integer x, achieving nA = 4 (easy to check). We’ll show that nA ≤ 4 and equality
+holds only in one of the curves.
+  Let A = {a < b < c < d}.
+
+  Claim — We have nA ≤ 4 with equality iff
+
+                        a + b | c + d,   a + c | b + d,     a + d = b + c.
+
+Proof. Note a + b | sA ⇐⇒ a + b | c + d etc. Now c + d - a + b and b + d - a + c for size
+reasons, so we already have nA ≤ 4; moreover a + d | b + c and b + c | a + d if and only if
+a + d = b + c.
+
+  We now show the equality curve is the one above.
+
+              a + c | b + d ⇐⇒ a + c | −a + 2b + c ⇐⇒ a + c | 2(b − a).
+
+Since a + c > |b − a|, so we must have a + c = 2(b − a). So we now have
+
+                                 c = 2b − 3a
+                                 d = b + c − a = 3b + c − 4a.
+
+The last condition is
+
+                          a + b | c + d = 5b − 7a ⇐⇒ a + b | 12a.
+
+Now, let x = gcd(a, b). The expressions for c and d above imply that x | c, d so we may
+scale down so that x = 1. Then gcd(a + b, a) = gcd(a, b) = 1 and so a + b | 12.
+  We have c > b, so 3a < b. The only pairs (a, b) with 3a < 2b, gcd(a, b) = 1 and
+a + b | 12 are (a, b) ∈ {(1, 5), (1, 11)} which give the solutions earlier.
+
+
+
+
+                                                3
+IMO 2011 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2011/2, proposed by Geoff Smith (UNK)
+   Available online at https://aops.com/community/p2363537.
+
+  Problem statement
+  Let S be a finite set of at least two points in the plane. Assume that no three points
+  of S are collinear. A windmill is a process that starts with a line ` going through a
+  single point P ∈ S. The line rotates clockwise about the pivot P until the first time
+  that the line meets some other point belonging to S. This point, Q, takes over as
+  the new pivot, and the line now rotates clockwise about Q, until it next meets a
+  point of S. This process continues indefinitely.
+     Show that we can choose a point P in S and a line ` going through P such that
+  the resulting windmill uses each point of S as a pivot infinitely many times.
+
+Orient ` in some direction, and color the plane such that its left half is red and right half
+is blue. The critical observation is that:
+
+  Claim — The number of points on the red side of ` does not change, nor does the
+  number of points on the blue side (except at a moment when ` contains two points).
+
+  Thus, if |S| = n + 1, it suffices to pick the initial configuration so that there are bn/2c
+red and dn/2e blue points. Then when the line ` does a full 180◦ rotation, the red and
+blue sides “switch”, so the windmill has passed through every point.
+  (See official shortlist for verbose write-up; this is deliberately short to make a point.)
+
+
+
+
+                                             4
+IMO 2011 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2011/3, proposed by Igor Voronovich, BLR
+   Available online at https://aops.com/community/p2363539.
+
+  Problem statement
+  Let f : R → R be a real-valued function defined on the set of real numbers that
+  satisfies
+                            f (x + y) ≤ yf (x) + f (f (x))
+  for all real numbers x and y. Prove that f (x) = 0 for all x ≤ 0.
+
+We begin by rewriting the given as
+
+                    f (z) ≤ (z − x)f (x) + f (f (x)) ∀x, z ∈ R          (♥)
+
+(which is better anyways since control over inputs to f is more valuable). We start by
+eliminating the double f : let z = f (w) to get
+
+                          f (f (w)) ≤ (f (w) − x)f (x) + f (f (x))
+
+and then use the symmetry trick to write
+
+                          f (f (x)) ≤ (f (x) − w)f (w) + f (f (w))
+
+so that when we sum we get
+
+                               wf (w) + xf (x) ≤ 2f (x)f (w).
+
+  Next we use cancellation trick: set w = 2f (x) in the above to get
+
+                               xf (x) ≤ 0 ∀x ∈ R.         (♠)
+
+  Claim — For every p ∈ R, we have f (p) ≤ 0.
+
+Proof. Assume f (p) > 0 for some p ∈ R. Then for any negative number z,
+                             (♠)      (♥)
+                           0 ≤ f (z) ≤ (z − p)f (p) + f (f (p)).
+
+which is false if we let z → −∞.
+
+  Together with (♠) we derive f (x) = 0 for x < 0. Finally, letting x and z be any
+negative numbers in (♥), we get f (0) ≥ 0, so f (0) = 0 too.
+
+  Remark. As another corollary of the claim, f (f (x)) = 0 for all x.
+
+
+  Remark. A nontrivial example of a working f is to take
+                                 (
+                                  − exp(exp(exp(x))) x > 0
+                         f (x) =
+                                  0                     x ≤ 0.
+
+  or some other negative function growing rapidly in absolute value for x > 0.
+
+
+
+
+                                              5
+IMO 2011 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2011/4, proposed by Morteza Saghafian (IRN)
+   Available online at https://aops.com/community/p2365036.
+
+  Problem statement
+
+  Let n > 0 be an integer. We are given a balance and n weights of weight 20 , 21 , . . . ,
+  2n−1 . We are to place each of the n weights on the balance, one after another, in
+  such a way that the right pan is never heavier than the left pan. At each step we
+  choose one of the weights that has not yet been placed on the balance, and place
+  it on either the left pan or the right pan, until all of the weights have been placed.
+  Determine the number of ways in which this can be done.
+
+The answer is an = (2n − 1)!!.
+  We refer to what we’re counting as a valid n-sequence: an order of which weights to
+place, and whether to place them on the left or right pan.
+  We use induction, with n = 1 being obvious. Now consider the weight 20 = 1.
+   • If we delete it from any valid n-sequence, we get a valid (n − 1)-sequence with all
+     weights doubled.
+   • Given a valid (n − 1)-sequence with all weights doubled, we may insert 20 = 1 it
+     into 2n − 1 ways. Indeed, we may insert it anywhere, and designate it either left or
+     right, except we may not designate right if we choose to insert 20 = 1 at the very
+     beginning.
+Consequently, we have that
+                                       an = (2n − 1) · an−1 .
+Since a1 = 1, the conclusion follows.
+
+  Remark (Gabriel Levin). An alternate approach can be done by considering the heaviest
+  weight 2n−1 instead of the lightest weight 20 = 1. This gives a more complicated recursion:
+                                    n−1
+                                    X         
+                                          n − 1 n−k−1
+                             an =                2    (n − k − 1)!ak
+                                            k
+                                    k=0
+
+  by summing over the index k corresponding to the number of weights placed before the
+  heaviest weight 2n−1 is placed.
+    This recursion can then be rewritten as
+                    n−1
+                    X         
+                          n − 1 n−k−1
+             an =                2    (n − k − 1)!ak
+                            k
+                    k=0
+                             n−1
+                             X     2n−k−1 ak
+                = (n − 1)!
+                                      k!
+                             k=0
+                              n−1
+                              X2(n−1)−k−1 ak
+                = 2(n − 1)!
+                                     k!
+                           k=0
+                                                       
+                                    (n−1)−1 (n−1)−k−1                 1
+                                      X 2             ak               an−1
+                = 2(n − 1)(n − 2)!                       + 2(n − 1)! 2
+                                                 k!                  (n − 1)!
+                                          k=0
+
+                = 2(n − 1)an−1 + an−1
+
+
+
+                                                 6
+IMO 2011 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+
+                = (2n − 1)an−1
+
+  and since a1 = 1, we have an = (2n − 1)!! by induction on n.
+
+
+
+
+                                             7
+IMO 2011 Solution Notes                                       web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2011/5, proposed by Mahyar Sefidgaran (IRN)
+   Available online at https://aops.com/community/p2365041.
+
+  Problem statement
+  Let f : Z → Z>0 be a function such that f (m − n) | f (m) − f (n) for m, n ∈ Z. Prove
+  that if m, n ∈ Z satisfy f (m) ≤ f (n) then f (m) | f (n).
+
+Let P (m, n) denote the given assertion. First, we claim f is even. This is straight
+calculation:
+
+   • P (x, 0) =⇒ f (x) | f (x) − f (0) =⇒ f (x) | M := f (0).
+
+   • P (0, x) =⇒ f (−x) | M − f (x) =⇒ f (−x) | f (x). Analogously, f (x) | f (−x). So
+     f (x) = f (−x) and f is even.
+
+  Claim — Let x, y, z be integers with x + y + z = 0. Then among f (x), f (y), f (z),
+  two of them are equal and divide the third.
+
+Proof. Let a = f (±x), b = f (±y), c = f (±z) be positive integers. Note that
+
+                                                a|b−c
+                                                 b|c−a
+                                                 c|a−b
+
+from P (y, −z) and similarly. WLOG c = max(a, b, c); then c > |a − b| so a = b. Thus
+a = b | c from the first two.
+
+This implies the problem, by taking x and y in the previous claim to be the integers m
+and n.
+
+  Remark. At https://aops.com/community/c6h418981p2381909, Davi Medeiros gives the
+  following characterization of functions f satisfying the hypothesis.
+     Pick f (0), k positive integers, a chain d1 | d2 | · · · | dk of divisors of f (0), and positive
+  integers a1 , a2 , . . . , ak−1 , greater than 1 (if k = 1, ai doesn’t exist, for every i). We’ll define
+  f as follows:
+      • f (n) = d1 , for every integer n that is not divisible by a1 ;
+      • f (a1 n) = d2 , for every integer n that is not divisible by a2 ;
+      • f (a1 a2 n) = d3 , for every integer n that is not divisible by a3 ;
+      • f (a1 a2 a3 n) = d4 , for every integer n that is not divisible by a4 ;
+      • ...
+      • f (a1 a2 . . . ak−1 n) = dk , for every integer n;
+
+
+
+
+                                                     8
+IMO 2011 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2011/6, proposed by Japan
+   Available online at https://aops.com/community/p2365045.
+
+  Problem statement
+  Let ABC be an acute triangle with circumcircle Γ. Let ` be a tangent line to Γ,
+  and let `a , `b , `c be the lines obtained by reflecting ` in the lines BC, CA, and AB,
+  respectively. Show that the circumcircle of the triangle determined by the lines `a ,
+  `b , and `c is tangent to the circle Γ.
+
+This is a hard problem with many beautiful solutions. The following solution is not
+very beautiful but not too hard to find during an olympiad, as the only major insight it
+requires is the construction of A2 , B2 , and C2 .
+
+               B1
+                                       B2 A
+                                                           T
+                                                               C2
+
+                                   B                                C1
+                                                            C
+                                                           A2
+                                                  P
+
+
+
+
+                                                      A1
+
+
+
+   We apply complex numbers with ω the unit circle and p = 1. Let A1 = `B ∩ `C , and
+let a2 = a2 (in other words, A2 is the reflection of P across the diameter of ω through
+A). Define the points B1 , C1 , B2 , C2 similarly.
+   We claim that A1 A2 , B1 B2 , C1 C2 concur at a point on Γ.
+   We begin by finding A1 . If we reflect the points 1 + i and 1 − i over AB, then we get
+two points Z1 , Z2 with
+
+                            z1 = a + b − ab(1 − i) = a + b − ab + abi
+                            z2 = a + b − ab(1 + i) = a + b − ab − abi.
+
+Therefore,
+
+                         z1 − z2 = 2abi
+                                                    
+                                               1 1
+                    z1 z2 − z2 z1 = −2i a + b + + − 2 .
+                                               a b
+
+
+
+                                              9
+IMO 2011 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+  Now `C is the line Z1 Z2 , so with the analogous equation `B we obtain:
+
+               −2i a + b + a1 + 1b − 2 (2aci) + 2i a + c + a1 + 1c − 2 (2abi)
+                                                                     
+         a1 =                         2
+                                                    2
+                                                         
+                                  − ab  i (2aci) − − ac i (2abi)
+               [c − b] a2 + cb − cb − 2c + 2b a + (c − b)
+                                             
+            =                       c
+                                      −b
+                             2 b c 
+                    (c − b) a − 2a + 1
+            =a+
+                       (c − b)(c + b)/bc
+                      bc
+            =a+           (a − 1)2 .
+                    b+c
+
+Then the second intersection of A1 A2 with ω is given by
+                                             bc
+                             a1 − a2    a + b+c (a − 1)2 − a2
+                                      =                     2
+                            1 − a2 a1   1 − a − a2 · (1−1/a)
+                                                          b+c
+                                             bc
+                                        a + b+c (1 − a)
+                                      =      1
+                                        1 − b+c (1 − a)
+                                          ab + bc + ca − abc
+                                      =                      .
+                                             a+b+c−1
+Thus, the claim is proved.
+   Finally, it suffices to show A1 B1 k A2 B2 . One can also do this with complex numbers;
+it amounts to showing a2 − b2 , a − b, i (corresponding to A2 B2 , A1 B1 , P P ) have their
+arguments an arithmetic progression, equivalently
+                                                        1   1 2
+                                                             
+                      (a − b)2           (a − b)2       a − b 
+                                 ∈ R ⇐⇒             = 1 1     1
+                     i(a2 − b2 )        i(a2 − b2 )   i a2 − b2
+
+which is obvious.
+
+  Remark. One can use directed angle chasing for this last part too. Let BC meet ` at K
+  and B2 C2 meet ` at L. Evidently
+
+                             −]B2 LP = ]LP B2 + ]P B2 L
+                                       = 2]KP B + ]P B2 C2
+                                       = 2]KP B + 2]P BC
+                                       = −2]P KB
+                                       = ]P KB1
+
+  as required.
+
+
+
+
+                                             10
+

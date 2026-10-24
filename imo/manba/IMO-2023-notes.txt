@@ -1,0 +1,759 @@
+                 IMO 2023 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                    20 October 2026
+
+
+
+        This is a compilation of solutions for the 2023 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    4
+  1.1 IMO 2023/1, proposed by Santiago Rodriguez (COL) . . . . . . . . . . . .          4
+  1.2 IMO 2023/2, proposed by Tiago Mourão and Nuno Arala (POR) . . . . .               5
+  1.3 IMO 2023/3, proposed by Ivan Chan (MAS) . . . . . . . . . . . . . . . .           7
+
+2 Solutions to Day 2                                                            9
+  2.1 IMO 2023/4, proposed by Merlijn Staps (NLD) . . . . . . . . . . . . . . . 9
+  2.2 IMO 2023/5, proposed by Merlijn Staps and Daniël Kroes (NLD) . . . . . 11
+  2.3 IMO 2023/6, proposed by Ankan Bhattacharya, Luke Robitaille (USA) . . 14
+
+
+
+
+                                            1
+IMO 2023 Solution Notes                                 web.evanchen.cc, updated 20 October 2026
+
+§0 Problems
+  1. Determine all composite integers n > 1 that satisfy the following property: if
+     d1 < d2 < · · · < dk are all the positive divisors of n, then di divides di+1 + di+2 for
+     every 1 ≤ i ≤ k − 2.
+
+  2. Let ABC be an acute-angled triangle with AB < AC. Let Ω be the circumcircle of
+     ABC. Let S be the midpoint of the arc CB of Ω containing A. The perpendicular
+     from A to BC meets BS at D and meets Ω again at E 6= A. The line through D
+     parallel to BC meets line BE at L. Denote the circumcircle of triangle BDL by ω.
+     Let ω meet Ω again at P 6= B. Prove that the line tangent to ω at P meets line
+     BS on the internal angle bisector of ∠BAC.
+
+  3. For each integer k ≥ 2, determine all infinite sequences of positive integers a1 , a2 ,
+     . . . for which there exists a polynomial P of the form
+
+                            P (x) = xk + ck−1 xk−1 + · · · + c1 x + c0 ,
+
+     where c0 , c1 , . . . , ck−1 are non-negative integers, such that
+
+                                   P (an ) = an+1 an+2 · · · an+k
+
+     for every integer n ≥ 1.
+
+  4. Let x1 , x2 , . . . , x2023 be pairwise different positive real numbers such that
+                                s                                            
+                                                          1     1           1
+                          an = (x1 + x2 + · · · + xn )       +     + ··· +
+                                                         x1 x2             xn
+
+     is an integer for every n = 1, 2, . . . , 2023. Prove that a2023 ≥ 3034.
+
+  5. Let n be a positive integer. A Japanese triangle consists of 1 + 2 + · · · + n circles
+     arranged in an equilateral triangular shape such that for each 1 ≤ i ≤ n, the ith
+     row contains exactly i circles, exactly one of which is colored red. A ninja path in
+     a Japanese triangle is a sequence of n circles obtained by starting in the top row,
+     then repeatedly going from a circle to one of the two circles immediately below it
+     and finishing in the bottom row. Here is an example of a Japanese triangle with
+     n = 6, along with a ninja path in that triangle containing two red circles.
+
+
+
+
+                                               n=6
+     In terms of n, find the greatest k such that in each Japanese triangle there is a
+     ninja path containing at least k red circles.
+
+  6. Let ABC be an equilateral triangle. Let A1 , B1 , C1 be interior points of ABC
+     such that BA1 = A1 C, CB1 = B1 A, AC1 = C1 B, and
+
+                             ∠BA1 C + ∠CB1 A + ∠AC1 B = 480◦ .
+
+                                              2
+IMO 2023 Solution Notes                              web.evanchen.cc, updated 20 October 2026
+
+     Let A2 = BC1 ∩ CB1 , B2 = CA1 ∩ AC1 , C2 = AB1 ∩ BA1 . Prove that if triangle
+     A1 B1 C1 is scalene, then the circumcircles of triangles AA1 A2 , BB1 B2 , and CC1 C2
+     all pass through two common points.
+
+
+
+
+                                           3
+IMO 2023 Solution Notes                               web.evanchen.cc, updated 20 October 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2023/1, proposed by Santiago Rodriguez (COL)
+   Available online at https://aops.com/community/p28097575.
+   Video at https://youtu.be/Z7G7bSGfrqU.
+
+  Problem statement
+  Determine all composite integers n > 1 that satisfy the following property: if
+  d1 < d2 < · · · < dk are all the positive divisors of n, then di divides di+1 + di+2 for
+  every 1 ≤ i ≤ k − 2.
+
+The answer is prime powers.
+
+¶ Verification that these work. When n = pe , we get di = pi−1 . The ith relationship
+reads
+                                 pi−1 | pi + pi+1
+which is obviously true.
+
+¶ Proof that these are the only answers. Conversely, suppose n has at least two
+distinct prime divisors. Let p < q denote the two smallest ones, and let pe be the largest
+power of p which both divides n and is less than q, hence e ≥ 1. Then the smallest factors
+of n are 1, p, . . . , pe , q. So we are supposed to have
+
+                                n n   n     (p + 1)n
+                                 |  +     =
+                                q pe pe−1      pe
+which means that the ratio
+                                         q(p + 1)
+                                            pe
+needs to be an integer, which is obviously not possible.
+
+
+
+
+                                             4
+IMO 2023 Solution Notes                                 web.evanchen.cc, updated 20 October 2026
+
+§1.2 IMO 2023/2, proposed by Tiago Mourão and Nuno Arala (POR)
+   Available online at https://aops.com/community/p28097552.
+   Video at https://youtu.be/Alz2OWHH7QY.
+
+  Problem statement
+  Let ABC be an acute-angled triangle with AB < AC. Let Ω be the circumcircle of
+  ABC. Let S be the midpoint of the arc CB of Ω containing A. The perpendicular
+  from A to BC meets BS at D and meets Ω again at E 6= A. The line through D
+  parallel to BC meets line BE at L. Denote the circumcircle of triangle BDL by ω.
+  Let ω meet Ω again at P 6= B. Prove that the line tangent to ω at P meets line BS
+  on the internal angle bisector of ∠BAC.
+
+
+  Claim — We have LP S collinear.
+
+Proof. Because ]LP B = ]LDB = ]CBD = ]CBS = ]SCB = ]SP B.
+
+  Let F be the antipode of A, so AM F S is a rectangle.
+
+  Claim — We have P DF collinear. (This lets us erase L.)
+
+Proof. Because ]SP D = ]LP D = ]LBD = ]SBE = ]F CS = ]F P S.
+
+   Let us define X = AM ∩ BS and complete chord P XQ. We aim to show that P XQ
+is tangent to (P DLB).
+
+                                                    S
+                                        A
+
+
+
+                            P
+                                                X
+
+                                                                          Q
+                L                           D
+
+
+
+
+                                B                                   C
+
+                                        E                    F
+                                                    M
+
+
+  Claim (Main projective claim) — We have XP = XA.
+
+Proof. Introduce Y = P DF ∩ AM . Note that
+                                    A                        F
+                −1 = (SM ; EF ) = (S, X; D, AF ∩ ES) = (∞X; Y A)
+
+where ∞ = AM ∩ SF is at infinity (because AM SF is a rectangle). Thus, XY = XA.
+
+
+                                                5
+IMO 2023 Solution Notes                                    web.evanchen.cc, updated 20 October 2026
+
+                                                  S
+                                 A
+
+
+
+
+                     P
+                                          X
+
+                                      D
+
+                                              Y
+
+
+
+
+                                  E                           F
+                                                  M
+
+Since 4AP Y is also right, we get XP = XA.
+
+Alternative proof of claim without harmonic bundles, from Solution 9 of the marking scheme.
+With Y = P DF ∩ AM defined as before, note that AE k SM and AM k SF (as AM F S
+is a rectangle) gives respectively the similar triangles
+
+                         4AXD ∼ 4M XS,                4XDY ∼ 4SDF.
+
+From this we conclude
+                         AX   AX + XM   AM   SF   XY
+                            =         =    =    =    .
+                         XD   XD + SX   SD   SD   XD
+So AX = XY and as before we conclude XP = XA.
+
+  From XP = XA, we conclude that P ¯ M and AQ
+                                            ˜ have the same measure. Since AS
+                                                                           ˆ
+and EM
+     ¯ have the same measure, it follows P
+                                         ˜ E and SQ
+                                                 ˜ have the same measure. The
+desired tangency then follows from
+
+                     ]QP L = ]QP S = ]P QE = ]P F E = ]P DL.
+
+  Remark (Logical ordering). This solution is split into two phases: the “synthetic phase”
+  where we do a bunch of angle chasing, and the “projective phase” where we use cross-ratios
+  because I like projective. For logical readability (so we write in only one logical direction),
+  the projective phase is squeezed in two halves of the synthetic phase, but during an actual
+  solve it’s expected to complete the whole synthetic phase first (i.e. to reduce the problem
+  to show XP = XA).
+
+
+  Remark. There are quite a multitude of approaches for this problem; the marking scheme
+  for this problem at the actual IMO had 13 different solutions.
+
+
+
+
+                                                  6
+IMO 2023 Solution Notes                                    web.evanchen.cc, updated 20 October 2026
+
+§1.3 IMO 2023/3, proposed by Ivan Chan (MAS)
+   Available online at https://aops.com/community/p28097600.
+   Video at https://youtu.be/yGZUjUYTbzc.
+
+  Problem statement
+  For each integer k ≥ 2, determine all infinite sequences of positive integers a1 , a2 ,
+  . . . for which there exists a polynomial P of the form
+
+                          P (x) = xk + ck−1 xk−1 + · · · + c1 x + c0 ,
+
+  where c0 , c1 , . . . , ck−1 are non-negative integers, such that
+
+                                 P (an ) = an+1 an+2 · · · an+k
+
+  for every integer n ≥ 1.
+
+The answer is an being an arithmetic progression. Indeed, if an = d(n − 1) + a1 for d ≥ 0
+and n ≥ 1, then
+
+                   an+1 an+2 . . . an+k = (an + d)(an + 2d) . . . (an + kd)
+
+so we can just take P (x) = (x + d)(x + 2d) . . . (x + kd).
+  The converse direction takes a few parts.
+
+  Claim — Either a1 < a2 < · · · or the sequence is constant.
+
+Proof. Note that
+
+                                 P (an−1 ) = an an+1 · · · an+k−1
+                                 P (an ) = an+1 an+2 · · · an+k
+                                            P (an )
+                               =⇒ an+k =             · an .
+                                           P (an−1 )
+
+Now the polynomial P is strictly increasing over N.
+  So assume for contradiction there’s an index n such that an < an−1 . Then in fact the
+above equation shows an+k < an < an−1 . Then there’s an index ` ∈ [n + 1, n + k] such
+that a` < a`−1 , and also a` < an . Continuing in this way, we can an infinite descending
+subsequence of (an ), but that’s impossible because we assumed integers.
+  Hence we have a1 ≤ a2 ≤ · · · . Now similarly, if an = an−1 for any index n, then
+an+k = an , ergo an−1 = an = an+1 = · · · = an+k . So the sequence is eventually constant,
+and then by downwards induction, it is fully constant.
+
+  Claim — There exists a constant C (depending only P , k) such that we have
+  an+1 ≤ an + C.
+
+Proof. Let C be a constant such that P (x) < xk + Cxk−1 for all x ∈ N (for example
+C = c0 + c1 + · · · + ck−1 + 1 works). We have
+
+                                         P (an )
+                         an+k =
+                                  an+1 an+2 . . . an+k−1
+
+
+                                               7
+IMO 2023 Solution Notes                                     web.evanchen.cc, updated 20 October 2026
+
+                                              P (an )
+                               <
+                                 (an + 1)(an + 2) . . . (an + k − 1)
+                                          akn + C · ak−1
+                                                       n
+                               <
+                                 (an + 1)(an + 2) . . . (an + k − 1)
+                               < an + C + 1.
+
+    Assume henceforth an is nonconstant, and hence unbounded. For each index n and term
+an in the sequence, consider the associated differences d1 = an+1 − an , d2 = an+2 − an+1 ,
+. . . , dk = an+k − an+k−1 , which we denote by
+
+                                    ∆(n) := (d1 , . . . , dk ).
+
+This ∆ can only take up to C k different values. So in particular, some tuple (d1 , . . . , dn )
+must appear infinitely often as ∆(n); for that tuple, we obtain
+
+                P (aN ) = (aN + d1 )(aN + d1 + d2 ) . . . (aN + d1 + · · · + dk )
+
+for infinitely many N . But because of that, we actually must have
+
+                 P (X) = (X + d1 )(X + d1 + d2 ) . . . (X + d1 + · · · + dk ).
+
+  However, this also means that exactly one output to ∆ occurs infinitely often (because
+that output is determined by P ). Consequently, it follows that ∆ is eventually constant.
+For this to happen, an must eventually coincide with an arithmetic progression of some
+common difference d, and P (X) = (X + d)(X + 2d) . . . (X + kd). Finally, this implies by
+downwards induction that an is an arithmetic progression on all inputs.
+
+
+
+
+                                                8
+IMO 2023 Solution Notes                                       web.evanchen.cc, updated 20 October 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2023/4, proposed by Merlijn Staps (NLD)
+   Available online at https://aops.com/community/p28104298.
+   Video at https://youtu.be/vDG6i7LmiFU.
+
+  Problem statement
+  Let x1 , x2 , . . . , x2023 be pairwise different positive real numbers such that
+                             s                                            
+                                                       1      1          1
+                        an = (x1 + x2 + · · · + xn )      +     + ··· +
+                                                       x1 x2            xn
+
+  is an integer for every n = 1, 2, . . . , 2023. Prove that a2023 ≥ 3034.
+
+                 qP
+                      n    Pn 1
+Note that an+1 >      1 xi  1 xi = an for all n, so that an+1 ≥ an + 1. Observe a1 = 1.
+We are going to prove that
+
+                            a2m+1 ≥ 3m + 1             for all m ≥ 0
+
+by induction on m, with the base case being clear.
+  We now present two variations of the induction. The first shorter solution compares
+an+2 directly to an , showing it increases by at least 3. Then we give a longer approach
+that compares an+1 to an , and shows it cannot increase by 1 twice in a row.
+
+¶ Induct-by-two solution.
+                                             q
+                                                 xn+1
+                               Let u =           xn+2 6= 1. Note that by using Cauchy-Schwarz
+with three terms:
+               "                                       #"                                                 #
+                                                              1           1                1          1
+        a2n+2 = (x1 + · · · + xn ) + xn+1 + xn+2                 + ··· +              +          +
+                                                              x1         xn               xn+2       xn+1
+                    s                                              r            r         !2
+                                             1           1               xn+1         xn+2
+             ≥      (x1 + · · · + xn )          + ··· +          +            +
+                                             x1         xn               xn+2         xn+1
+                       1 2
+                        
+           = an + u +      .
+                       u
+                     1
+   =⇒ an+2 ≥ an + u + > an + 2
+                     u
+where the last equality u + u1 > 2 is by AM-GM, strict as u 6= 1. It follows that
+an+2 ≥ an + 3, completing the proof.
+
+¶ Induct-by-one solution.     The main claim is:
+
+  Claim — It’s impossible to have an = c, an+1 = c + 1, an+2 = c + 2 for any c and
+  n.
+                                                                           Pn                    Pn 1
+Proof. Let p = xn+1 and q = xn+2 for brevity. Let s =                        1 xi and t =            1 xn , so
+c2 = a2n = st.
+
+
+
+
+                                                   9
+IMO 2023 Solution Notes                                 web.evanchen.cc, updated 20 October 2026
+
+  From an = c and an+1 = c + 1 we have
+                                             
+                     2    2              1
+              (c + 1) = an+1 = (p + s)     +t
+                                         p
+                                  1                  1
+                       = st + pt + s + 1 = c2 + pt + s + 1
+                                  p                  p
+                       AM-GM       √               √
+                         ≥ c2 + 2 st + 1 = c2 + 2 c2 + 1 = (c + 1)2 .
+
+Hence, equality must hold in the AM-GM we must have exactly
+                                             1
+                                      pt =     s = c.
+                                             p
+If we repeat the argument again on an+1 = c + 1 and an+2 = c + 2, then
+                                   
+                               1        1
+                           q     + t = (p + s) = c + 1.
+                               p        q
+
+However this forces pq = pq = 1 which is impossible.
+
+
+
+
+                                             10
+IMO 2023 Solution Notes                                   web.evanchen.cc, updated 20 October 2026
+
+§2.2 IMO 2023/5, proposed by Merlijn Staps and Daniël Kroes (NLD)
+    Available online at https://aops.com/community/p28104367.
+
+  Problem statement
+  Let n be a positive integer. A Japanese triangle consists of 1 + 2 + · · · + n circles
+  arranged in an equilateral triangular shape such that for each 1 ≤ i ≤ n, the ith
+  row contains exactly i circles, exactly one of which is colored red. A ninja path in
+  a Japanese triangle is a sequence of n circles obtained by starting in the top row,
+  then repeatedly going from a circle to one of the two circles immediately below it
+  and finishing in the bottom row. Here is an example of a Japanese triangle with
+  n = 6, along with a ninja path in that triangle containing two red circles.
+
+
+
+
+                                             n=6
+
+  In terms of n, find the greatest k such that in each Japanese triangle there is a ninja
+  path containing at least k red circles.
+
+The answer is
+                                      k = blog2 (n)c + 1.
+
+¶ Construction. It suffices to find a Japanese triangle for n = 2e − 1 with the property
+that at most e red circles in any ninja path. The construction shown below for e = 4
+obviously generalizes, and works because in each of the sets {1}, {2, 3}, {4, 5, 6, 7}, . . . ,
+{2e−1 , . . . , 2e − 1}, at most one red circle can be taken. (These sets are colored in different
+shades of red for visual clarity).
+
+
+
+
+                                               11
+IMO 2023 Solution Notes                                                    web.evanchen.cc, updated 20 October 2026
+
+¶ Bound. Conversely, we show that in any Japanese triangle, one can find a ninja path
+containing at least
+                               k = blog2 (n)c + 1.
+The following short solution was posted at https://aops.com/community/p28134004, ap-
+parently first found by the team leader for Iran.
+  We construct a rooted binary tree T1 on the set of all circles as follows. For each row,
+other than the bottom row:
+
+   • Connect the red circle to both circles under it;
+
+   • White circles to the left of the red circle in its row are connected to the left;
+
+   • White circles to the right of the red circle in its row are connected to the right.
+
+The circles in the bottom row are all leaves of this tree. For example, the n = 6
+construction in the beginning gives the tree shown on the left half of the figure below:
+
+
+
+
+                             T1                                                             T2
+  Now focus on only the red circles, as shown in the right half of the figure. We build a
+new rooted tree T2 where each red circle is joined to the red circle below it if there was
+a path of (zero or more) white circles in T1 between them. Then each red circle has at
+most 2 direct descendants in T2 . Hence the depth of the new tree T2 exceeds log2 (n),
+which produces the desired path.
+
+¶ Another recursive proof of bound, communicated by Helio Ng. We give another
+proof that blog2 nc + 1 is always achievable. Define f (i, j) to be the maximum number
+of red circles contained in the portion of a ninja path from (1, 1) to (i, j), including the
+endpoints (1, 1) and (i, j). (If (i, j) is not a valid circle in the triangle, define f (i, j) = 0
+for convenience.) An example is shown below with the values of f (i, j) drawn in the
+circles.
+
+                                                          1
+                                                      2        1
+                                                  2       2        2
+                                              3       2        2       2
+                                          3       3       3        2       2
+                                      3       3       3        3       3       2
+                                  3       3       3       3        3       3       3
+
+
+                                                          12
+IMO 2023 Solution Notes                                               web.evanchen.cc, updated 20 October 2026
+
+  We have that
+                                                               (
+                                                                1                if (i, j) is red
+             f (i, j) = max {f (i − 1, j − 1), f (i, j − 1)} +
+                                                                0                otherwise
+
+since every ninja path passing through (i, j) also passes through either (i − 1, j − 1) or
+(i, j − 1). Now consider the quantity Sj = f (0, j) + · · · + f (j, j). We obtain the following
+recurrence:
+                                 l        m
+   Claim — Sj+1 ≥ Sj +
+                                     Sj
+                                      j       + 1.
+
+
+Proof. Consider a maximal element f (m, j) of {f (0, j), . . . , f (j, j)}. We perform the
+following manipulations:
+               j+1                                j+1
+                                                      (
+               X                                  X    1 if (i, j + 1) is red
+        Sj+1 =     max {f (i − 1, j), f (i, j)} +
+               i=0                                i=0
+                                                       0 otherwise
+                  m
+                  X                                           j
+                                                              X
+              =         max {f (i − 1, j), f (i, j)} +                max {f (i − 1, j), f (i, j)} + 1
+                  i=0                                        i=m+1
+                  m
+                  X                   j
+                                      X
+              ≥         f (i, j) +             f (i − 1, j) + 1
+                  i=0                i=m+1
+              = Sj + f (m, j) + 1
+                      
+                       Sj
+              ≥ Sj +        +1
+                        j
+where the last inequality is due to Pigeonhole.
+
+  This is actually enough to solve the problem. Write n = 2c + r, where 0 ≤ r ≤ 2c − 1.
+
+   Claim — Sn ≥ cn + 2r + 1. In particular,
+                                                             S 
+                                                                  n
+                                                                  n   ≥ c + 1.
+
+Proof. First note that Sn ≥ cn + 2r + 1 implies Snn ≥ c + 1 because
+                                                
+
+                                                     
+                     Sn      cn + 2r + 1           2r + 1
+                          ≥                =c+              = c + 1.
+                      n           n                  n
+We proceed by induction on n. The base case n = 1 is clearly true as S1 = 1. Assuming
+that the claim holds for some n = j, we have
+                                          
+                                          Sj
+                            Sj+1 ≥ Sj +       +1
+                                           j
+                                 ≥ cj + 2r + 1 + c + 1 + 1
+                                               = c(j + 1) + 2(r + 1) + 1
+
+so the claim is proved for n = j + 1 if j + 1 is not a power of 2. If j + 1 = 2c+1 , then by
+writing c(j + 1) + 2(r + 1) + 1 = c(j + 1) + (j + 1) + 1 = (c + 1)(j + 1) + 1, the claim is
+also proved.
+
+   Now Snn ≥ c + 1 implies the existence of some ninja path containing at least c + 1
+         
+
+red circles, and we are done.
+
+                                                        13
+IMO 2023 Solution Notes                                web.evanchen.cc, updated 20 October 2026
+
+§2.3 IMO 2023/6, proposed by Ankan Bhattacharya, Luke Robitaille (USA)
+   Available online at https://aops.com/community/p28104331.
+
+  Problem statement
+  Let ABC be an equilateral triangle. Let A1 , B1 , C1 be interior points of ABC such
+  that BA1 = A1 C, CB1 = B1 A, AC1 = C1 B, and
+
+                          ∠BA1 C + ∠CB1 A + ∠AC1 B = 480◦ .
+
+  Let A2 = BC1 ∩ CB1 , B2 = CA1 ∩ AC1 , C2 = AB1 ∩ BA1 . Prove that if triangle
+  A1 B1 C1 is scalene, then the circumcircles of triangles AA1 A2 , BB1 B2 , and CC1 C2
+  all pass through two common points.
+
+This is the second official solution from the marking scheme, also communicated to me
+by Michael Ren. Define O as the center of ABC and set the angles
+
+                                α := ∠A1 CB = ∠CBA1
+                                β := ∠ACB1 = ∠B1 AC
+                                γ := ∠C1 AB = ∠C1 BA
+
+so that
+                                   α + β + γ = 30◦ .
+In particular, max(α, β, γ) < 30◦ , so it follows that A1 lies inside 4OBC, and similarly
+for the others. This means for example that C1 lies between B and A2 , and so on.
+Therefore the polygon A2 C1 B2 A1 C2 B1 is convex.
+
+
+
+
+                                           14
+IMO 2023 Solution Notes                                  web.evanchen.cc, updated 20 October 2026
+
+                                             A
+
+
+
+
+                                                     β
+                                    γ
+                                                 Y
+                                        A2
+
+                                                 X
+
+
+
+
+                          C1
+                                                             B1
+
+
+
+                                             O
+
+
+             γ
+                 B2                                                              β
+                                                                   C2
+                                             A1
+
+            α                                                                     α
+  B                                                                                         C
+
+
+
+  We start by providing the “interpretation” for the 480◦ angle in the statement:
+
+  Claim — Point A1 is the circumcenter of 4A2 BC, and similarly for the others.
+
+Proof. We have ∠BA1 C = 180◦ − 2α, and
+
+                      ∠BA2 C = 180◦ − ∠CBC1 − ∠B1 CB
+                               = 180◦ − (60◦ − γ) − (60◦ − β)
+                                                          1
+                               = 60◦ + β + γ = 90◦ − α = ∠BA1 C.
+                                                          2
+Since A1 lies inside 4BA2 C, it follows A1 is exactly the circumcenter.
+
+  Claim — Quadrilateral B2 C1 B1 C can be inscribed in a circle, say γa . Circles γb
+  and γc can be defined similarly. Finally, these three circles are pairwise distinct.
+
+Proof. Using directed angles now, we have
+
+   ]B2 B1 C2 = 180◦ − ]AB1 B2 = 180◦ − 2]ACB = 180◦ − 2(60◦ − α) = 60◦ + 2α.
+
+By the same token, ]B2 C1 C2 = 60◦ + 2α. This establishes the existence of γa .
+  The proof for γb and γc is the same. Finally, to show the three circles are distinct, it
+would be enough to verify that the convex hexagon A2 C1 B2 A1 C2 B1 is not cyclic.
+
+                                             15
+IMO 2023 Solution Notes                                            web.evanchen.cc, updated 20 October 2026
+
+     Assume for contradiction it was cyclic. Then
+
+      360◦ = ∠C2 A1 B2 + ∠B2 C1 A2 + ∠A2 B1 C2 = ∠BA1 C + ∠CB1 A + ∠AC1 B = 480◦
+
+which is absurd. This contradiction eliminates the degenerate case, so the three circles
+are distinct.
+
+   For the remainder of the solution, let Pow(P, ω) denote the power of a point P with
+respect to a circle ω.
+   Let line AA1 meet γb and γc again at X and Y , and set ka := AX
+                                                                AY . Consider the locus
+of all points P such that
+                n                                                            o
+          Ca := points P in the plane satisfying Pow(P, γb ) = ka Pow(P, γc ) .
+
+We recall the coaxiality lemma 1 , which states that (given γb and γc are not concentric)
+the locus Ca must be either a circle (if ka 6= 1) or a line (if ka = 1).
+  On the other hand, A1 , A2 , and A all obviously lie on Ca . (For A1 and A2 , the
+powers are both zero, and for the point A, we have Pow(P, γb ) = AX · AA1 and
+Pow(P, γc ) = AY · AA1 .) So Ca must be exactly the circumcircle of 4AA1 A2 from
+the problem statement.
+  We turn to evaluating ka more carefully. First, note that
+
+       ∠A1 XB1 = ∠A1 B2 B1 = ∠CB2 B1 = 90◦ − ∠B2 AC = 90◦ − (60◦ − γ) = 30◦ + γ.
+
+Now using the law of sines, we derive
+                         AX    sin ∠AB1 X      sin(∠A1 XB1 − ∠XAB1 )
+                             =              =
+                         AB1   sin ∠AXB1             sin ∠A1 XB1
+                               sin ((30◦ + γ) − (30◦ − β))     sin(β + γ)
+                             =                             =               .
+                                       sin(30 + γ)
+                                             ◦                sin(30◦ + γ)
+                       sin(β+γ)
+Similarly, AY = AC1 · sin(30◦ +β) , so
+
+
+                                           AX   AB1 sin(30◦ + β)
+                                    ka =      =    ·             .
+                                           AY   AC1 sin(30◦ + γ)
+Now define analogous constants kb and kc and circles Cb and Cc . Owing to the symmetry
+of the expressions, we have the key relation
+
+                                                  ka kb kc = 1.
+
+     In summary, the three circles in the problem statement may be described as
+
+               Ca = (AA1 A2 ) = {points P such that Pow(P, γb ) = ka Pow(P, γc )}
+               Cb = (BB1 B2 ) = {points P such that Pow(P, γc ) = kb Pow(P, γa )}
+               Cc = (CC1 C2 ) = {points P such that Pow(P, γa ) = kc Pow(P, γb )} .
+
+Since ka , kb , kc have product 1, it follows that any point on at least two of the circles must
+lie on the third circle as well. The convexity of hexagon A2 C1 B2 A1 C2 B1 mentioned earlier
+ensures these any two of these circles do intersect at two different points, completing the
+solution.
+ 1
+     We quickly outline a proof of this lemma: in the Cartesian coordinate system, the expression Pow((x, y), ω)
+      is an expression of the form x2 + y 2 + •x + •y + • for some constants • whose value does not matter.
+      Substituting this into the equation ka Pow(P,γkac )−Pow(P,γ
+                                                        −1
+                                                                  b)
+                                                                     = 0 gives the equation of a circle provided
+      ka 6= 1, and when ka = 1, one instead recovers the radical axis.
+
+
+                                                       16
+

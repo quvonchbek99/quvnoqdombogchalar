@@ -1,0 +1,720 @@
+                 IMO 2025 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2025 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2025/1, proposed by Linus Tang (USA) . . . . . . . . . . . . . . . .          3
+  1.2 IMO 2025/2, proposed by Tran Quang Hung (VNM) . . . . . . . . . . . .             5
+  1.3 IMO 2025/3, proposed by Lorenzo Sarria (COL) . . . . . . . . . . . . . .          8
+
+2 Solutions to Day 2                                                                    10
+  2.1 IMO 2025/4, proposed by Paulius Aleknavičius (LIT) . . . . . . . . . . .          10
+  2.2 IMO 2025/5, proposed by Massimiliano Foschi, Leonardo Franchi (ITA) .             12
+  2.3 IMO 2025/6, proposed by Zhao Yu Ma and David Lin Kewei (SGP) . . .                14
+
+
+
+
+                                            1
+IMO 2025 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. A line in the plane is called sunny if it is not parallel to any of the x-axis, the
+     y-axis, or the line x + y = 0.
+     Let n ≥ 3 be a given integer. Determine all nonnegative integers k such that there
+     exist n distinct lines in the plane satisfying both of the following:
+        • for all positive integers a and b with a + b ≤ n + 1, the point (a, b) lies on at
+          least one of the lines; and
+        • exactly k of the n lines are sunny.
+  2. Let Ω and Γ be circles with centers M and N , respectively, such that the radius of
+     Ω is less than the radius of Γ. Suppose Ω and Γ intersect at two distinct points A
+     and B. Line M N intersects Ω at C and Γ at D, so that C, M , N , D lie on M N in
+     that order. Let P be the circumcenter of triangle ACD. Line AP meets Ω again at
+     E 6= A and meets Γ again at F 6= A. Let H be the orthocenter of triangle P M N .
+     Prove that the line through H parallel to AP is tangent to the circumcircle of
+     triangle BEF .
+  3. A function f : N → N is said to be bonza if
+                                  f (a) divides        ba − f (b)f (a)
+     for all positive integers a and b.
+     Determine the smallest real constant c such that f (n) ≤ cn for all bonza functions
+     f and all positive integers n.
+  4. An infinite sequence a1 , a2 , . . . consists of positive integers has each of which has
+     at least three proper divisors. Suppose that for each n ≥ 1, an+1 is the sum of the
+     three largest proper divisors of an . Determine all possible values of a1 .
+  5. Alice and Bazza are playing the inekoalaty game, a two‑player game whose rules
+     depend on a positive real number λ which is known to both players. On the nth
+     turn of the game (starting with n = 1) the following happens:
+        • If n is odd, Alice chooses a nonnegative real number xn such that
+                                      x1 + x2 + · · · + xn ≤ λn.
+
+        • If n is even, Bazza chooses a nonnegative real number xn such that
+                                          x21 + x22 + · · · + x2n ≤ n.
+
+     If a player cannot choose a suitable xn , the game ends and the other player wins.
+     If the game goes on forever, neither player wins. All chosen numbers are known to
+     both players.
+     Determine all values of λ for which Alice has a winning strategy and all those for
+     which Bazza has a winning strategy.
+  6. Consider a 2025 × 2025 grid of unit squares. Matilda wishes to place on the grid
+     some rectangular tiles, possibly of different sizes, such that each side of every tile
+     lies on a grid line and every unit square is covered by at most one tile.
+     Determine the minimum number of tiles Matilda needs to place so that each row
+     and each column of the grid has exactly one unit square that is not covered by any
+     tile.
+
+
+                                                2
+IMO 2025 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2025/1, proposed by Linus Tang (USA)
+    Available online at https://aops.com/community/p35332003.
+
+  Problem statement
+  A line in the plane is called sunny if it is not parallel to any of the x-axis, the y-axis,
+  or the line x + y = 0.
+    Let n ≥ 3 be a given integer. Determine all nonnegative integers k such that there
+  exist n distinct lines in the plane satisfying both of the following:
+
+      • for all positive integers a and b with a + b ≤ n + 1, the point (a, b) lies on at
+        least one of the lines; and
+
+      • exactly k of the n lines are sunny.
+
+The answer is 0, 1, or 3 sunny lines.
+   In what follows, we draw the grid as equilateral instead of a right triangle; this has no
+effect on the problem statement but is more symmetric.
+   We say a long line is one of the three lines at the edge of the grid, i.e. one of the
+(non-sunny) lines passing through n points. The main claim is the following.
+
+   Claim — If n ≥ 4, any set of n lines must have at least one long line.
+
+Proof. Consider the 3(n−1) points on the outer edge of the grid. If there was no long line,
+each of the n lines passes through at most two such points. So we obtain 2n ≥ 3(n − 1),
+which forces n ≤ 3.
+
+   Hence, by induction we may repeatedly delete a long line without changing the number
+of sunny lines until n = 3 (and vice-versa: given a construction for smaller n we can
+increase n by one and add a long line).
+   We now classify all the ways to cover the 1 + 2 + 3 = 6 points in an n = 3 grid with 3
+lines.
+
+
+
+
+                 Long line present                         No long line
+
+   • If there is a long line (say, the red one in the figure), the remaining 1 + 2 = 3 points
+     (circled in blue) are covered with two lines. One of the lines passes through 2 points
+     and must not be sunny; the other line may or may not be sunny. Hence in this case
+     the possible counts of sunny lines are 0 or 1.
+
+
+                                              3
+IMO 2025 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+   • If there is no long line, each of the three lines passes through at most 2 points. But
+     there are 6 total lines, so in fact each line must pass through exactly two points.
+     The only way to do this is depicted in the figure in the right. In this case there are
+     3 sunny lines.
+
+  This proves that 0, 1, 3 are the only possible answers.
+
+  Remark. The concept of a sunny line is not that important to the problem. The proof
+  above essentially classifies all the ways to cover the 1 + 2 + · · · + n points with exactly n
+  lines. Namely, one should repeatedly take a long line and decrease n until n = 3, and then
+  pick one of the finitely many cases for n = 3. The count of sunny lines just happens to be
+  whatever is possible for n = 3, since long lines are not sunny.
+
+
+
+
+                                                4
+IMO 2025 Solution Notes                          web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2025/2, proposed by Tran Quang Hung (VNM)
+   Available online at https://aops.com/community/p35332018.
+
+  Problem statement
+  Let Ω and Γ be circles with centers M and N , respectively, such that the radius of
+  Ω is less than the radius of Γ. Suppose Ω and Γ intersect at two distinct points A
+  and B. Line M N intersects Ω at C and Γ at D, so that C, M , N , D lie on M N in
+  that order. Let P be the circumcenter of triangle ACD. Line AP meets Ω again at
+  E 6= A and meets Γ again at F 6= A. Let H be the orthocenter of triangle P M N .
+     Prove that the line through H parallel to AP is tangent to the circumcircle of
+  triangle BEF .
+
+Throughout the solution, we define
+
+              α := ]DCA = ]BCD =⇒ ]P AD = ]CAB = 90◦ − α
+              β := ]ADC = ]CDB =⇒ ]CAP = ]BAD = 90◦ − β.
+
+Ignore the points H, M , N for now and focus on the remaining ones.
+
+  Claim — We have CE k AD and DF k AC.
+
+Proof. ]AEC = ]ABC = ]CAB = 90◦ − α.
+
+Hence, if we let A0 := CE ∩ DF , we have a parallelogram ACA0 D. Note in particular
+that BA0 k CD.
+
+
+
+
+                                          5
+IMO 2025 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+
+
+
+                          A
+
+                               90◦ − α
+                     90◦ − α
+
+
+
+             α           M                           N                         β
+      C                                                                                  D
+                 β                                                                 α
+
+                                             H
+                                         E
+
+
+                          B                      T                    A′
+
+                                             P
+
+
+
+                                                     F
+
+
+
+
+   Next, let T denote the circumcenter of 4A0 EF . (This will be the tangency point later
+in the problem.)
+
+  Claim — Point T also lies on BA0 and is also the arc midpoint of EF
+                                                                   d on (BEF ).
+
+Proof. We compute the angles of 4A0 EF :
+
+                      ]F EA0 = ]AEC = ]ABC = ]CAB = 90◦ − α
+                      ]A0 F E = ]DF A = ]DBA = ]BAD = 90◦ − β
+                      ]EA0 F = α + β.
+
+Then, since T is the circumcenter, it follows that:
+
+                     ]EA0 T = ]90◦ − ]A0 F E = β = ]A0 CD = ]CA0 B.
+
+This shows that T lies on BA0 .
+ Also, we have ]ET F = 2]EA0 F = 2(α + β) and
+
+             ]EBF = ]EBA + ]ABF = ]ECA + ]ADF
+
+                                             6
+IMO 2025 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+                      = ]A0 CA + ]ADA0 = (α + β) + (α + β) = 2(α + β)
+
+which proves that T also lies on AB 0 .
+
+  We then bring M and N into the picture as follows:
+
+  Claim — Point T lies on both lines M E and N F .
+
+Proof. To show that F , T , N are collinear, note that 4F EA0 ∼ 4F AD via a homothety
+at F . This homothety maps T to N .
+
+  We now deal with point H using two claims.
+
+  Claim — We have M H k AD and N H k AC.
+
+Proof. Note that M H ⊥ P N , but P N is the perpendicular bisector of AD, so in fact
+M H k AD. Similarly, N H k AC.
+
+  Claim — Lines M H and N H bisect ∠N M T and ∠M N T . In fact, point H is the
+  incenter of 4T M N , and ]N T H = ]HT M = 90◦ − (α + β).
+
+Proof. Hence, ]HM N = ]A0 CD = ]ADC = β. But ]T M N = ]CM E = 2]CAE =
+−2(90◦ − 2β) = 2β. That proves M H bisects ∠N M T ; the other one is similar.
+   To show that H is an incenter (rather than an excenter) and get the last angle equality,
+we need to temporarily undirect our angles. Assume WLOG that 4ACD is directed
+counterclockwise. The problem condition that C and D are the farther intersections of
+line M N mean that ∠N HM = ∠CAD > 90◦ . We are also promised C, M , N , D are
+collinear in that order. Hence the reflections of line M N over lines M H and N H, which
+meet at T , should meet at a point for which T lies on the same side as H. In other words,
+4M T N is oriented counterclockwise and contains H.
+   Working with undirected α = ∠DCA and β = ∠ADC with α + β < 90◦ ,
+                        1        1
+        ∠N T H = ∠HT M = ∠N T M = (180◦ − 2(α + β)) = 90◦ − (α + β).
+                        2        2
+This matches the claim and finishes the result.
+
+  Now
+                   ]N F A = 90◦ − ]ADF = 90◦ − (α + β) = ]N T H
+so HT k AP . And since T E = T F , we have the tangency requested too now, as desired.
+
+  Remark. There are many other ways to describe the point T . For example, AM T N is a
+  parallelogram and M BT N is an isosceles trapezoid. In coordination, we joked that it was
+  impossible to write a false conjecture.
+
+
+
+
+                                             7
+IMO 2025 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2025/3, proposed by Lorenzo Sarria (COL)
+    Available online at https://aops.com/community/p35332016.
+
+  Problem statement
+  A function f : N → N is said to be bonza if
+
+                                f (a)   divides    ba − f (b)f (a)
+
+  for all positive integers a and b.
+    Determine the smallest real constant c such that f (n) ≤ cn for all bonza functions
+  f and all positive integers n.
+
+The answer is c = 4.
+  Let P (a, b) denote the given statement f (a) | ba − f (b)f (a) .
+
+   Claim — We have f (n) | nn for all n.
+
+Proof. Take P (n, n).
+
+   Claim — Unless f = id, we have f (p) = 1 for all odd primes p.
+
+Proof. Consider any prime q with f (q) > 1. Then f (q) is a power of q, and for each n
+we get
+                        P (q, n) =⇒ q | f (q) | nq − f (n)f (q) .
+Fermat’s little theorem now gives nq ≡ n (mod q) and f (n)f (q) ≡ f (n) (mod q) (since
+f (q) is a power of q), and therefore q | n − f (n). Hence, unless f is the identity function,
+only finitely many q could have f (q) > 1.
+   Now let p be any odd prime, and let q be a large prime such that q 6≡ 1 (mod p)
+(possible for all p > 2, say by Dirichlet). Then
+
+                               P (p, q) =⇒ f (p) | q p − 1f (p) .
+
+The RHS is q p − 1 ≡ q − 1 6≡ 0 (mod p), so f (p) = 1.
+
+   Claim — We have f (n) | 2∞ for all n.
+
+Proof. If p | f (n) is odd then P (n, p) gives p | f (n) | pn − 1n , contradiction.
+
+(In particular, we now know f (n) = 1 for all odd n, though we don’t use this.)
+
+   Claim — We have f (n) ≤ 2ν2 (n)+2 for all n.
+
+Proof. Consider P (n, 5) =⇒ f (n) | 5n − 1n . It’s well-known that ν2 (5n − 1) = ν2 (n) + 2
+for all n.
+
+
+
+
+                                               8
+IMO 2025 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+This immediately shows f (n) ≤ 4n for all n, hence c = 4 in the problem statement works.
+  For the construction, the simplest one seems to be
+                                     
+                                     1 n odd
+                                     
+                              f (n) = 16 n = 4
+                                       2 n even, n 6= 4
+                                     
+                                     
+
+which is easily checked to work and has f (4) = 16.
+
+  Remark. With a little more case analysis we can classify all functions f . The two trivial
+  solutions are f (n) = n and f (n) = 1; the others are described by writing f (n) = 2e(n) for
+  any function e satisfying
+      • e(n) = 0 for odd n;
+      • 1 ≤ e(2) ≤ 2;
+      • 1 ≤ e(n) ≤ ν2 (n) + 2 for even n > 2.
+  This basically means that there are almost no additional constraints beyond what is
+  suggested by the latter two claims.
+
+
+
+
+                                                9
+IMO 2025 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2025/4, proposed by Paulius Aleknavičius (LIT)
+   Available online at https://aops.com/community/p35347364.
+
+  Problem statement
+  An infinite sequence a1 , a2 , . . . consists of positive integers has each of which has
+  at least three proper divisors. Suppose that for each n ≥ 1, an+1 is the sum of the
+  three largest proper divisors of an . Determine all possible values of a1 .
+
+The answer is a1 = 12e · 6 · ` for any e, ` ≥ 0 with gcd(`, 10) = 1.
+  Let S denote the set of positive integers with at least three divisors. For x ∈ S, let
+ψ(x) denote the sum of the three largest ones, so that ψ(an ) = an+1 .
+
+¶ Proof that all such a1 work.        Let x = 12e · 6 · ` ∈ S with gcd(`, 10) = 1. As
+2 + 3 + 4 = 12 , we get
+1   1   1   13
+                                           (
+                                            x       e=0
+                                  ψ(x) =     13
+                                             12 x   e>0
+so by induction on the value of e we see that ψ(x) ∈ S (the base e = 0 coming from ψ
+fixing x).
+
+¶ Proof that all a1 are of this form. In what follows x is always an element of S, not
+necessarily an element of the sequence.
+
+  Claim — Let x ∈ S. If 2 | ψ(x) then 2 | x.
+
+Proof. If x is odd then every divisor of x is odd, so ψ(x) is the sum of three odd
+numbers.
+
+  Claim — Let x ∈ S. If 6 | ψ(x) then 6 | x.
+
+Proof. We consider only x even because of the previous claim. We prove the contrapositive
+that 3 - x =⇒ 6 - ψ(x) (for even x).
+   • If 4 | x, then letting d be the third largest proper divisor of x,
+                                x x      3
+                       ψ(x) =     + + d = x + d ≡ d 6≡ 0 (mod 3).
+                                2  4     4
+   • Otherwise, let p | x be the smallest prime dividing x, with p > 3. If the third-
+     smallest nontrivial divisor of x is 2p, then
+                              x x   x    3    x x
+                     ψ(x) =     + +   =    x + ≡ 6≡ 0              (mod 3).
+                              2  p 2p   2p    2 2
+     If the third-smallest nontrivial divisor of x is instead an odd prime q, then
+                                x x x
+                        ψ(x) = + + ≡ 1 + 0 + 0 ≡ 1 (mod 2).
+                                2    p    q
+
+  To tie these two claims into the problem, we assert:
+
+
+                                            10
+IMO 2025 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+
+  Claim — Every ai must be divisible by 6.
+
+Proof. The idea is to combine the previous two claims (which have no dependence on
+the sequence) with a size argument.
+
+   • For odd x ∈ S note that ψ(x) < 13 + 15 + 17 x < x and ψ(x) is still odd. So if any
+                                                   
+
+      ai is odd the sequence is strictly decreasing and that’s impossible. Hence, we may
+      assume a1 , a2 , . . . are all even.
+
+   • If x ∈ S is even but 3 - x then ψ(x) < 12 + 14 + 15 x < x and ψ(x) is still not
+                                                            
+
+      a multiple of 3. So if any ai is not divisible by 3 the sequence is again strictly
+      decreasing.
+
+  On the other hand, if x is a multiple of 6, we have the following formula for ψ(x):
+                                    
+                                       13
+                                     12 x 4 | x
+                                    
+                                       30 x 4 - x but 5 | x
+                             ψ(x) = 31
+                                             4 - x and 5 - x.
+                                    
+                                      x
+                                    
+
+Looking back on our sequence of ai (which are all multiples of 6), the center case cannot
+happen with our ai , because 31
+                             30 x is odd when x ≡ 2 (mod 4). Hence in actuality
+
+                                        13
+                               an+1 =      an     or an+1 = an
+                                        12
+for every n.
+  Let T be the smallest index such that aT = aT +1 = aT +2 = · · · (it must exist because
+we cannot multiply by 13
+                       12 forever). Then we can exactly describe the sequence by
+                                                     min(n,T )−1
+                                                 13
+                                 an = a1 ·                           .
+                                                 12
+                T −1
+Hence a1 = 1213       aT , and since aT is a multiple of 6 not divisible by 4 or 5, it follows
+a1 has the required form.
+
+
+
+
+                                                 11
+IMO 2025 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2025/5, proposed by Massimiliano Foschi, Leonardo Franchi (ITA)
+   Available online at https://aops.com/community/p35341177.
+
+  Problem statement
+  Alice and Bazza are playing the inekoalaty game, a two‑player game whose rules
+  depend on a positive real number λ which is known to both players. On the nth
+  turn of the game (starting with n = 1) the following happens:
+
+      • If n is odd, Alice chooses a nonnegative real number xn such that
+
+                                      x1 + x2 + · · · + xn ≤ λn.
+
+      • If n is even, Bazza chooses a nonnegative real number xn such that
+
+                                       x21 + x22 + · · · + x2n ≤ n.
+
+  If a player cannot choose a suitable xn , the game ends and the other player wins. If
+  the game goes on forever, neither player wins. All chosen numbers are known to
+  both players.
+     Determine all values of λ for which Alice has a winning strategy and all those for
+  which Bazza has a winning strategy.
+
+                                                          √
+The answer is that √
+                   Alice has a winning strategy for λ > 1/ 2, and Bazza √
+                                                                        has a winning
+strategy for λ < 1/ 2. (Neither player can guarantee winning for λ = 1/ 2.)
+   We divide the proof into two parts.
+                                    √
+¶ Alice’s strategy when λ ≥ 1/ 2. Consider the strategy where Alice always plays
+x2i+1 = 0 for i = 0, . . . , k − 1.
+  In this situation, when n = 2k + 1 we have
+                   2k
+                   X
+                        xi = 0 + x2 + 0 + x4 + · · · + 0 + x2k
+                    1
+                                s
+                                    x22 + · · · + x22k  √
+                          ≤k·                          = 2 · k < λ · (2k + 1)
+                                            k
+and so the choices for x2k+1 are
+                                                                √
+                               x2k+1 ∈ [0, λ · (2k + 1) −           2k]
+
+which is nonempty. Hence Alice can’t ever lose with this strategy.
+  But suppose further λ > √12 ; we show Alice can win. Choose k large enough that
+                              √                            √
+                                  2 · k < λ · (2k + 1) −       2k + 2.
+
+Then on the (2k
+             √ + 1)st turn, Alice can (after playing 0 on all earlier turns) play a number
+greater than 2k + 2 and cause Bazza to lose.
+                              √
+¶ Bazza’s
+       q  strategy when λ ≤ 1/  2. Consider the strategy where Bazza always plays
+x2i+2 = 2 − x22i+1 for all i = 0, . . . , k − 1 (i.e. that is, the largest possible value Bazza
+can play).
+
+                                                12
+IMO 2025 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+  To analyze Bazza’s choices on each of his turns, we first need to estimate x2k+1 . We
+do this by writing
+
+                 λ · (2k + 1) ≥ x1 + x2 + · · · + x2k+1
+                                        q            q        
+                                                 2
+                              = x1 + 2 − x1 + x3 + 2 − x3      2
+
+                                                     q    
+                                                         2
+                                  + · · · + x2k−1 + 2 − x2k + x2k+1
+                                √           √           √
+                              ≥ 2 + · · · + 2 + x2k+1 = 2 · k + x2k+1
+                                |      {z       }
+                                      k times
+                                        √
+where we have used the fact that t +      2 − t2 ≥ 2 for all t ≥ 0. This means that
+                                                    √        √
+                             x2k+1 ≤ λ · (2k + 1) − 2k < 2.
+
+And x21 + x22 + · · · + x22k + x22k+1 = (2 + · · · + 2) + x22k+1 , Bazza can indeed choose
+         q
+x2k+2 = 2 − x22k+1 and always has a move.
+                                  √
+   But suppose further λ < 1/ 2. Then the above calculation also shows√that Alice
+couldn’t have made a valid choice for large enough k, since λ · (2k + 1) − 2k < 0 for
+large k.
+
+  Remark. In the strategies above, we saw that Alice prefers to always play 0 and Bazza
+  prefers to always play as large as possible. One could consider what happens in the opposite
+  case:
+      • If Alice tries to always play the largest number possible, her strategy still wins for
+        λ > 1.
+      • If Bazza tries to always play 0, Alice can win no matter which λ > 0 is used.
+
+
+
+
+                                                13
+IMO 2025 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2025/6, proposed by Zhao Yu Ma and David Lin Kewei (SGP)
+   Available online at https://aops.com/community/p35341197.
+
+  Problem statement
+  Consider a 2025 × 2025 grid of unit squares. Matilda wishes to place on the grid
+  some rectangular tiles, possibly of different sizes, such that each side of every tile
+  lies on a grid line and every unit square is covered by at most one tile.
+     Determine the minimum number of tiles Matilda needs to place so that each row
+  and each column of the grid has exactly one unit square that is not covered by any
+  tile.
+
+                                                                               √
+The answer is 2112 = 2025+2·45−3. In general, the answer turns out to be dn + 2 n − 3e,
+but when n is not a perfect square the solution is more complicated.
+
+  Remark. The 2017 Romanian Masters in Math asked the same problem where the tiles
+  are replaced by sticks, i.e. 1 × k tiles. The answer to that problem is completely different
+  and as far as I know there is no connection at all to the present IMO problem.
+
+
+¶ Construction. We show a general construction when n = k 2 illustrated below for
+k = 5; it generalizes readily. There are a total of (k − 1)2 tiles which are k × k squares
+and another 4(k − 1) tiles on the boundary, giving a total of
+
+                             (k − 1)2 + 4(k − 1) = k 2 + 2k − 3
+
+tiles as promised.
+
+
+
+
+                                              14
+IMO 2025 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+
+  Remark. Ironically, the construction obtaining the answer appears in the floor pattern at
+  Sunshine Coast airport, the closest airport to the site of the exam. See this image or this
+  image.
+
+
+¶ Bound. There are several approaches (all hard), but the shortest proof seems to
+be the following one that exploits the Erdős-Szekeres theorem; it is Solution 6 in the
+shortlist. The theorem being quoted is:
+
+  Theorem (Erdős-Szekeres)
+  Let n ≥ 1 be an integer. Given a permutation of (1, . . . , n), if a longest increasing
+  subsequence (LIS) has length a and a longest decreasing subsequence (LDS) has
+  length b, then ab ≥ n.
+
+  Remark. In√the literature, one can find weaker versions of the theorem that simply assert
+  max(a, b) ≥ n instead.
+
+   To apply this to the present problem, take the n uncovered squares which we henceforth
+call “black” as a permutation. Then consider both an LIS of length a and an LDS of
+length b. We do the following artistic illustration:
+
+   • Draw the LIS as a broken line, then connect it to the southwest and northwest
+     corner of the board.
+
+   • Similarly, draw the LDS as a broken line, then connect it to the northwest and
+     southeast corner of the board.
+
+   • These two steps partition the board into four quadrants, which we call north, east,
+     south, west.
+
+   • For each black cell in the north quadrant, write an N in the cell above it (for the
+     cell in the first row, this will be off the board). Do the same for E (east), S (south),
+     W (west).
+
+   • Some black cells are in multiple quadrants (i.e. part of the LIS/LDS). Write all
+     letters in that case.
+
+The figure below shows two examples of the process, each for a board with n = 9, for
+two choices of LIS and LDS. The cells in the LIS and LDS have been marked with green
+circles, and the boundaries of the quadrants are drawn in green lines. In the left example,
+the LIS and LDS have a black square in common (that cell has all four directions labeled).
+In the right example, the LIS and do not have common squares.
+
+
+
+
+                                              15
+IMO 2025 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+             N                                                 N
+         W               N                                W                 N
+                     W               N                                                   N
+                                         E                                                   E
+    W                                                 W
+                 W               N                         S                E
+                             W       E                                  S                E
+W                                S                W                                  S
+     S                                                S
+                 S                                                 S
+                             S                                                  S
+
+  We observe that:
+
+  Claim — In this algorithm, the total number of letters written is exactly
+                    (
+                      n + a + b + 1 if the LIS and LDS intersect
+              C :=
+                      n+a+b           otherwise.
+
+Proof. This is obvious. Each black square contributes at least one letter. Each black
+square on exactly one of the LIS and LDS contributes one extra letter. And a black
+square on both contributes 4 letters instead of 1 + 1 + 1.
+                                    √       √
+Note by AM-GM we have a + b ≥ 2 ab ≥ 2 n, so we have a bound of
+                                           (
+                    √                        1 if the LIS and LDS intersect
+          C ≥ n + 2 n + ε where ε :=
+                                             0 otherwise.
+
+  To relate C to the number of tiles, the critical claim is the following, which is by
+construction:
+
+  Claim — None of Matilda’s tiles can have more than one letter written in any cell.
+
+Proof. This follows from the construction.
+
+  We split into two cases based on ε.
+
+    • When ε = 1, at most four letters go off the grid (one for each direction), the number
+                                        √
+      of tiles is at least C − 4 ≥ n + 2 n − 3.
+                                              √
+    • Suppose ε = 0. Then C − 4 ≥ n + 2 n − 4. However, we make the additional
+      observation here that the tile where the LIS and LDS meet has no letters on it
+                                                           √
+      either; hence there are at least 1 + (C − 4) ≥ n + 2 n − 3 tiles.
+
+  Remark. USJL mentions that when n = ab, it is in fact always possible to guarantee
+  ε = 1. Moreover, when a 6= b, the AM-GM inequality is strict. This gives a way to avoid
+  the additional observation needed for ε = 0 above.
+
+
+
+
+                                             16
+

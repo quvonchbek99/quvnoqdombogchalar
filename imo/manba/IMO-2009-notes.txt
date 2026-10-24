@@ -1,0 +1,418 @@
+                  IMO 2009 Solution Notes
+                             EVAN CHEN《陳誼廷》
+                                   27 September 2026
+
+
+
+        This is a compilation of solutions for the 2009 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2009/1, proposed by Ross Atkins (AUS) . . . . . . . . . . . . . . . .         3
+  1.2 IMO 2009/2, proposed by Sergei Berlov (RUS) . . . . . . . . . . . . . . .         4
+  1.3 IMO 2009/3, proposed by Gabriel Carroll (USA) . . . . . . . . . . . . . .         5
+
+2 Solutions to Day 2                                                                     7
+  2.1 IMO 2009/4, proposed by Hojoo Lee, Peter Vandendriessche, Jan Vonk
+       (BEL) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+  2.2 IMO 2009/5, proposed by Bruno Le Floch (FRA) . . . . . . . . . . . . . . 9
+  2.3 IMO 2009/6, proposed by Dmitry Khramtsov (RUS) . . . . . . . . . . . . 10
+
+
+
+
+                                            1
+IMO 2009 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let n, k ≥ 2 be positive integers and let a1 , a2 , a3 , . . . , ak be distinct integers in
+     the set {1, 2, . . . , n} such that n divides ai (ai+1 − 1) for i = 1, 2, . . . , k − 1. Prove
+     that n does not divide ak (a1 − 1).
+
+  2. Let ABC be a triangle with circumcenter O. The points P and Q are interior
+     points of the sides CA and AB respectively. Let K, L, M be the midpoints of BP ,
+     CQ, P Q. Suppose that P Q is tangent to the circumcircle of 4KLM . Prove that
+     OP = OQ.
+
+  3. Suppose that s1 , s2 , s3 , . . . is a strictly increasing sequence of positive integers
+     such that the sub-sequences ss1 , ss2 , ss3 , . . .and ss1 +1 , ss2 +1 , ss3 +1 , . . .are both
+     arithmetic progressions. Prove that the sequence s1 , s2 , s3 , . . . is itself an arithmetic
+     progression.
+
+  4. Let ABC be a triangle with AB = AC. The angle bisectors of ∠CAB and ∠ABC
+     meet the sides BC and CA at D and E, respectively. Let K be the incenter of
+     triangle ADC. Suppose that ∠BEK = 45◦ . Find all possible values of ∠CAB.
+
+  5. Find all functions f : Z>0 → Z>0 such that for positive integers a and b, the numbers
+
+                                  a,      f (b),       f (b + f (a) − 1)
+
+     are the sides of a non-degenerate triangle.
+
+  6. Let a1 , a2 , . . . , an be distinct positive integers and let M be a set of n − 1 positive
+     integers not containing s = a1 + · · · + an . A grasshopper is to jump along the real
+     axis, starting at the point 0 and making n jumps to the right with lengths a1 , a2 ,
+     . . . , an in some order. Prove that the order can be chosen in such a way that the
+     grasshopper never lands on any point in M .
+
+
+
+
+                                                   2
+IMO 2009 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2009/1, proposed by Ross Atkins (AUS)
+   Available online at https://aops.com/community/p1561571.
+
+  Problem statement
+  Let n, k ≥ 2 be positive integers and let a1 , a2 , a3 , . . . , ak be distinct integers in
+  the set {1, 2, . . . , n} such that n divides ai (ai+1 − 1) for i = 1, 2, . . . , k − 1. Prove
+  that n does not divide ak (a1 − 1).
+
+We proceed indirectly and assume that
+
+                                 ai (ai+1 − 1) ≡ 0    (mod n)
+
+for i = 1, . . . , k (indices taken modulo k). We claim that this implies all the ai are equal
+modulo n.
+   Let q = pe be any prime power dividing n. Then, a1 (a2 − 1) ≡ 0 (mod q), so p divides
+either a1 or a2 − 1.
+
+   • If p | a1 , then p - a1 − 1. Then
+
+                        ak (a1 − 1) ≡ 0    (mod q) =⇒ ak ≡ 0         (mod q).
+
+      In particular, p | ak . So repeating this argument, we get ak−1 ≡ 0 (mod q),
+      ak−2 ≡ 0 (mod q), and so on.
+
+   • Similarly, if p | a2 − 1 then p - a2 , and
+
+                        a2 (a3 − 1) ≡ 0    (mod q) =⇒ a3 ≡ 1         (mod q).
+
+     In particular, p | a3 − 1. So repeating this argument, we get a4 ≡ 1 (mod q), a5 ≡ 1
+     (mod q), and so on.
+
+Either way, we find ai (mod q) is constant (and either 0 or 1).
+  Since q was an arbitrary prime power dividing n, by Chinese remainder theorem we
+conclude that ai (mod n) is constant as well. But this contradicts the assumption of
+distinctness.
+
+
+
+
+                                                3
+IMO 2009 Solution Notes                          web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2009/2, proposed by Sergei Berlov (RUS)
+   Available online at https://aops.com/community/p1561572.
+
+  Problem statement
+  Let ABC be a triangle with circumcenter O. The points P and Q are interior
+  points of the sides CA and AB respectively. Let K, L, M be the midpoints of BP ,
+  CQ, P Q. Suppose that P Q is tangent to the circumcircle of 4KLM . Prove that
+  OP = OQ.
+
+
+By power of a point, we have −AQ · QB = OQ2 − R2 and −AP · P C = OP 2 − R2 .
+Therefore, it suffices to show AQ · QB = AP · P C.
+
+                                                   A
+
+
+
+                                           Q
+
+
+                                                    M
+
+
+                                                        L   P
+
+
+
+                                       K
+
+
+                    B                                             C
+
+  As M L k AC and M K k AB we have that
+
+                             ]AP Q = ]LM P = ]LKM
+                             ]P QA = ]KM Q = ]M LK
+
+and consequently we have the (opposite orientation) similarity
+                                           −
+                                 4AP Q ∼ 4M KL.
+
+Therefore
+                             AQ   ML   2M L   PC
+                                =    =      =
+                             AP   MK   2M K   QB
+id est AQ · QB = AP · P C, which is what we wanted to prove.
+
+
+
+
+                                           4
+IMO 2009 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2009/3, proposed by Gabriel Carroll (USA)
+   Available online at https://aops.com/community/p1561573.
+
+  Problem statement
+  Suppose that s1 , s2 , s3 , . . . is a strictly increasing sequence of positive integers such
+  that the sub-sequences ss1 , ss2 , ss3 , . . .and ss1 +1 , ss2 +1 , ss3 +1 , . . .are both arithmetic
+  progressions. Prove that the sequence s1 , s2 , s3 , . . . is itself an arithmetic progression.
+
+We present two solutions.
+
+¶ First solution (Alex Zhai).        Let s(n) := sn and write
+
+                                          s(s(n)) = Dn + A
+                                      s(s(n) + 1) = D0 n + B.
+
+In light of the bounds s(s(n)) ≤ s(s(n) + 1) ≤ s(s(n + 1)) we right away recover D = D0
+and A ≤ B.
+  Let dn = s(n + 1) − s(n). Note that sup dn < ∞ since dn is bounded above by A.
+  Then we let
+                             m := min dn ,    M := max dn .
+Now suppose a achieves the maximum, meaning s(a + 1) − s(a) = M . Then
+
+        ds(s(a)) + · · · + ds(s(a+1))−1 = s(s(s(a + 1))) − s(s(s(a)))
+        |               {z            }
+                    D terms
+                                         = (D · s(a + 1) + A) − (D · s(a) + A) = DM.
+
+Now M was maximal hence M = ds(s(a)) = · · · = ds(s(a+1))−1 . But ds(s(a)) = B − A is a
+constant. Hence M = B − A. In the same way m = B − A as desired.
+
+¶ Second solution. We retain the notation D, A, B above, as well as m = minn s(n +
+1) − s(n) ≥ B − A. We do the involution trick first as:
+
+               D = s(s(s(n) + 1)) − s(s(s(n))) = s(Dn + B) − s(Dn + A)
+
+and hence we recover D ≥ m(B − A).
+   The edge case D = B − A is easy since then m = 1 and D = s(Dn + B) − s(Dn + A)
+forces s to be a constant shift. So henceforth assume D > B − A.
+   The idea is that right now the B terms are “too big”, so we want to use the involution
+trick in a way that makes as many “A minus B” shape expressions as possible. This
+motivates considering s(s(s(n + 1))) − s(s(s(n) + 1) + 1) > 0, since the first expression
+will have all A’s and the second expression will have all B’s. Calculation gives:
+
+      s(D(n + 1) + A) − s(Dn + B + 1) = s(s(s(n + 1))) − s(s(s(n) + 1) + 1)
+                                                = (Ds(n + 1) + A) − (D(s(n) + 1) + B)
+                                                = D (s(n + 1) − s(n)) + A − B − D.
+
+Then by picking n achieving the minimum m,
+
+     m(D + A − B − 1) ≤ s(s(s(n + 1))) − s(s(s(n) + 1) + 1) ≤ Dm + A − B − D
+     |     {z       }
+               >0
+
+
+                                                   5
+IMO 2009 Solution Notes                         web.evanchen.cc, updated 27 September 2026
+
+which becomes
+                       (D − m(B − A)) + ((B − A) − m) ≤ 0.
+Since both of these quantities were supposed to be nonnegative, we conclude m = B − A
+and D = m2 . Now the estimate D = s(Dn + B) − s(Dn + A) ≥ m(B − A) is actually
+sharp, so it follows that s(n) is arithmetic.
+
+
+
+
+                                         6
+IMO 2009 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2009/4, proposed by Hojoo Lee, Peter Vandendriessche, Jan Vonk
+     (BEL)
+   Available online at https://aops.com/community/p1562847.
+
+  Problem statement
+  Let ABC be a triangle with AB = AC. The angle bisectors of ∠CAB and ∠ABC
+  meet the sides BC and CA at D and E, respectively. Let K be the incenter of
+  triangle ADC. Suppose that ∠BEK = 45◦ . Find all possible values of ∠CAB.
+
+Here is the solution presented in my book EGMO.
+  Let I be the incenter of ABC, and set ∠DAC = 2x (so that 0◦ < x < 45◦ ). From
+∠AIE = ∠DIC, it is easy to compute
+
+          ∠KIE = 90◦ − 2x, ∠ECI = 45◦ − x, ∠IEK = 45◦ , ∠KEC = 3x.
+
+Having chased all the angles we want, we need a relationship. We can find it by considering
+the side ratio KC
+               IK
+                   . Using the angle bisector theorem, we can express this in terms of
+triangle IDC; however we can also express it in terms of triangle IEC.
+
+                                                       A
+
+                           A                           2x
+
+
+
+
+                                                                     E
+
+                                        E                       45◦ 3x
+                                                   I
+
+
+                                                                K           45 ◦
+                                    K                                           −
+                                                                                  x
+                                                                         45 ◦ − x
+         B                 D                  C     D                                 C
+
+  By the law of sines, we obtain
+
+                  IK   sin 45◦ · sin(90
+                                      EK
+                                       ◦ −2x)     sin 45◦ sin (45◦ − x)
+                     =                         =                         .
+                  KC   sin (3x) · sin(45
+                                      EK
+                                         ◦ −x)   sin (3x) sin (90◦ − 2x)
+
+Also, by the angle bisector theorem on 4IDC, we have
+                               IK   ID   sin (45◦ − x)
+                                  =    =               .
+                               KC   DC   sin (45◦ + x)
+Equating these and cancelling sin (45◦ − x) 6= 0 gives
+
+                       sin 45◦ sin (45◦ + x) = sin 3x sin (90◦ − 2x) .
+
+                                             7
+IMO 2009 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+ Applying the product-sum formula (again, we are just trying to break down things as
+much as possible), this just becomes
+
+                 cos (x) − cos (90◦ + x) = cos (5x − 90◦ ) − cos (90◦ + x)
+
+or cos x = cos (5x − 90◦ ).
+  At this point we are basically done; the rest is making sure we do not miss any solutions
+and write up the completion nicely. One nice way to do this is by using product-sum in
+reverse as
+               0 = cos (5x − 90◦ ) − cos x = 2 sin (3x − 45◦ ) sin (2x − 45◦ ) .
+This way we merely consider the two cases
+
+                       sin (3x − 45◦ ) = 0 and sin (2x − 45◦ ) = 0.
+
+Notice that sin θ = 0 if and only θ is an integer multiple of 180◦ . Using the bound
+0◦ < x < 45◦ , it is easy to see that that the permissible values of x are x = 15◦ and
+       ◦
+     2 . As ∠A = 4x, this corresponds to ∠A = 60 and ∠A = 90 , which can be seen
+x = 45                                             ◦               ◦
+
+to work.
+
+
+
+
+                                            8
+IMO 2009 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2009/5, proposed by Bruno Le Floch (FRA)
+   Available online at https://aops.com/community/p1562848.
+
+  Problem statement
+  Find all functions f : Z>0 → Z>0 such that for positive integers a and b, the numbers
+
+                            a,     f (b),       f (b + f (a) − 1)
+
+  are the sides of a non-degenerate triangle.
+
+The only function is the identity function (which works). We prove it is the only one.
+  Let P (a, b) denote the given statement.
+
+  Claim — We have f (1) = 1, and f (f (n)) = n. (In particular f is a bijection.)
+
+Proof. Note that
+                          P (1, b) =⇒ f (b) = f (b + f (1) − 1).
+Otherwise, the function f is periodic modulo N = f (1) − 1 ≥ 1. This is impossible since
+we can fix b and let a be arbitrarily large in some residue class modulo N .
+  Hence f (1) = 1, so taking P (n, 1) gives f (f (n)) = n.
+
+  Claim — Let δ = f (2) − 1 > 0. Then for every n,
+
+                    f (n + 1) = f (n) + δ   or     f (n − 1) = f (n) + δ
+
+Proof. Use
+                     P (2, f (n)) =⇒ n − 2 < f (f (n) + δ) < n + 2.
+Let y = f (f (n) + δ), hence n − 2 < y < n + 2 and f (y) = f (n) + δ. But, remark that if
+y = n, we get δ = 0, contradiction. So y ∈ {n + 1, n − 1} and that is all.
+
+  Applying the previous claim inductively then directly implies:
+
+  Claim — The function f is an arithmetic progression with common difference +δ.
+
+Proof. Suppose f (1) = 1, . . . , f (n) = 1+(n−1)δ for some n ≥ 2. Then f (n)+δ 6= f (n−1).
+So the previous claim forces f (n + 1) = f (n) + δ too.
+
+  Combined with f (f (n)) = n, we recover that f is the identity.
+
+
+
+
+                                            9
+IMO 2009 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2009/6, proposed by Dmitry Khramtsov (RUS)
+   Available online at https://aops.com/community/p1562840.
+
+  Problem statement
+  Let a1 , a2 , . . . , an be distinct positive integers and let M be a set of n − 1 positive
+  integers not containing s = a1 + · · · + an . A grasshopper is to jump along the real
+  axis, starting at the point 0 and making n jumps to the right with lengths a1 , a2 ,
+  . . . , an in some order. Prove that the order can be chosen in such a way that the
+  grasshopper never lands on any point in M .
+
+The proof is by induction on n. Assume a1 < · · · < an and call each element of M a mine.
+Let x = s − an . We consider four cases, based on whether x has a mine and whether
+there is a mine past x.
+
+   • If x has no mine, and there is a mine past x, then at most n − 2 mines in [0, x] and
+     so we use induction to reach x, then leap from x to s and win.
+
+   • If x has no mine but there is also no mine to the right of x, then let m be the
+     maximal mine. By induction hypothesis on M \ {m}, there is a path to x using
+     {a1 , . . . , an−1 } which avoids mines except possibly m. If the path hits the mine m
+     on the hop of length ak , we then swap that hop with an , and finish.
+
+   • If x has a mine, but there are no mines to the right of x, we can repeat the previous
+     case with m = x.
+
+   • Now suppose x has a mine, and there is a mine past x. There should exist an
+     integer 1 ≤ i ≤ n − 1 such that s − ai and y = s − ai − an both have no mine. By
+     induction hypothesis, we can then reach y in n − 2 steps (as there are two mines to
+     the right of y); then y → s − ai → s finishes.
+
+  Remark. It seems much of the difficulty of the problem is realizing induction will actually
+  work. Attempts at induction are, indeed, a total minefield (ha!), and given the position P6
+  of the problem, it is expected that many contestants will abandon induction after some
+  cursory attempts fail.
+
+
+
+
+                                              10
+

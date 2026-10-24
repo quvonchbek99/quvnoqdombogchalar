@@ -1,0 +1,493 @@
+                 IMO 2005 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2005 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2005/1, proposed by Bogdan Enescu (ROU) . . . . . . . . . . . . . .           3
+  1.2 IMO 2005/2, proposed by Nicholas de Bruijn (NLD) . . . . . . . . . . . .          4
+  1.3 IMO 2005/3, proposed by Hojoo Lee (KOR) . . . . . . . . . . . . . . . . .         6
+
+2 Solutions to Day 2                                                           8
+  2.1 IMO 2005/4, proposed by Mariusz Skalba (POL) . . . . . . . . . . . . . . 8
+  2.2 IMO 2005/5, proposed by Waldemar Pompe (POL) . . . . . . . . . . . . . 9
+  2.3 IMO 2005/6, proposed by Radu Gologan, Dan Schwartz (ROU) . . . . . . 10
+
+
+
+
+                                            1
+IMO 2005 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Six points are chosen on the sides of an equilateral triangle ABC: A1 , A2 on BC,
+     B1 , B2 on CA and C1 , C2 on AB, such that they are the vertices of a convex
+     hexagon A1 A2 B1 B2 C1 C2 with equal side lengths. Prove that the lines A1 B2 , B1 C2
+     and C1 A2 are concurrent.
+
+  2. Let a1 , a2 , . . . be a sequence of integers with infinitely many positive and negative
+     terms. Suppose that for every positive integer n the numbers a1 , a2 , . . . , an leave
+     n different remainders upon division by n. Prove that every integer occurs exactly
+     once in the sequence.
+
+  3. Let x, y, z > 0 satisfy xyz ≥ 1. Prove that
+
+                         x5 − x2         y5 − y2        z5 − z2
+                                     +              +               ≥ 0.
+                       x5 + y 2 + z 2 x2 + y 5 + z 2 x2 + y 2 + z 5
+
+  4. Determine all positive integers relatively prime to all the terms of the infinite
+     sequence
+                             an = 2n + 3n + 6n − 1, n ≥ 1.
+
+  5. Let ABCD be a fixed convex quadrilateral with BC = DA and BC ∦ DA. Let
+     two variable points E and F lie on the sides BC and DA, respectively, and satisfy
+     BE = DF . The lines AC and BD meet at P , the lines BD and EF meet at Q, the
+     lines EF and AC meet at R. Prove that the circumcircles of the triangles P QR,
+     as E and F vary, have a common point other than P .
+
+  6. In a mathematical competition 6 problems were posed to the contestants. Each
+     pair of problems was solved by more than 25 of the contestants. Nobody solved all
+     6 problems. Show that there were at least 2 contestants who each solved exactly 5
+     problems.
+
+
+
+
+                                             2
+IMO 2005 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2005/1, proposed by Bogdan Enescu (ROU)
+   Available online at https://aops.com/community/p281571.
+
+  Problem statement
+  Six points are chosen on the sides of an equilateral triangle ABC: A1 , A2 on BC,
+  B1 , B2 on CA and C1 , C2 on AB, such that they are the vertices of a convex
+  hexagon A1 A2 B1 B2 C1 C2 with equal side lengths. Prove that the lines A1 B2 , B1 C2
+  and C1 A2 are concurrent.
+
+The six sides of the hexagon, when oriented, comprise six vectors with vanishing sum.
+However note that
+                              −−−→ −−−→ −−−→
+                              A1 A2 + B1 B2 + C1 C2 = 0.
+Thus
+                                 −−−→ −−−→ −−−→
+                                 A2 B1 + B2 C1 + C2 A1 = 0
+and since three unit vectors with vanishing sum must be rotations of each other by 120◦ ,
+it follows they must also form an equilateral triangle.
+
+                                            A
+
+
+
+                                      C1
+
+                                                        B2
+
+
+                            C2
+
+                                                                B1
+
+
+
+
+                    B            A1             A2                    C
+
+
+ Consequently, triangles A1 A2 B1 , B1 B2 C1 , C1 C2 A1 are congruent, as ∠A2 = ∠B2 =
+∠C2 . So triangle A1 B1 C1 is equilateral and the diagonals are concurrent at the center.
+
+
+
+
+                                            3
+IMO 2005 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2005/2, proposed by Nicholas de Bruijn (NLD)
+   Available online at https://aops.com/community/p281572.
+
+  Problem statement
+  Let a1 , a2 , . . . be a sequence of integers with infinitely many positive and negative
+  terms. Suppose that for every positive integer n the numbers a1 , a2 , . . . , an leave n
+  different remainders upon division by n. Prove that every integer occurs exactly
+  once in the sequence.
+
+Obviously every integer appears at most once (otherwise take n much larger). So we will
+prove every integer appears at least once.
+
+  Claim — For any i < j we have |ai − aj | < j.
+
+Proof. Otherwise, let n = |ai − aj | 6= 0. Then i, j ∈ [1, n] and ai ≡ aj (mod n), contra-
+diction.
+
+  Claim — For any n, the set {a1 , . . . , an } is of the form {k + 1, . . . , k + n} for some
+  integer k.
+
+Proof. By induction, with the base case n = 1 being vacuous. For the inductive step,
+suppose {a1 , . . . , an } = {k + 1, . . . , k + n} are determined. Then
+
+                                  an+1 ≡ k        (mod n + 1).
+
+Moreover by the earlier claim we have
+
+                                    |an+1 − a1 | < n + 1.
+
+From this we deduce an+1 ∈ {k, k + n + 1} as desired.
+
+  This gives us actually a complete description of all possible sequences satisfying
+the hypothesis: choose any value of a1 to start. Then, for the nth term, the set
+S = {a1 , . . . , an−1 } is (in some order) a set of n − 1 consecutive integers. We then let
+an = max S + 1 or an = min S − 1. A picture of six possible starting terms is shown
+below.
+
+
+                                                                8
+                                               7
+                                      6
+                                           5
+                                                       4
+                                                            3
+
+
+
+
+                                    a1    a2 a3       a4   a5 a6
+
+
+
+                                                  4
+IMO 2005 Solution Notes                          web.evanchen.cc, updated 27 September 2026
+
+  Finally, we observe that the condition that the sequence has infinitely many positive
+and negative terms (which we have not used until now) implies it is unbounded above
+and below. Thus it must contain every integer.
+
+
+
+
+                                          5
+IMO 2005 Solution Notes                                              web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2005/3, proposed by Hojoo Lee (KOR)
+    Available online at https://aops.com/community/p281573.
+
+  Problem statement
+  Let x, y, z > 0 satisfy xyz ≥ 1. Prove that
+
+                          x5 − x2         y5 − y2        z5 − z2
+                                      +              +               ≥ 0.
+                        x5 + y 2 + z 2 x2 + y 5 + z 2 x2 + y 2 + z 5
+
+Negating both sides and adding 3 eliminates the minus signs:
+                                  X            1                          3
+                                                            ≤                          .
+                                   cyc
+                                         x5 + y 2 + z 2         x2 + y 2 + z 2
+
+Thus we only need to consider the case xyz = 1.
+  Direct expansion and Muirhead works now! As advertised, once we show it suffices to
+analyze if xyz = 1 the inequality becomes more economically written as
+                        X                                                                  ?
+                  S=          x2 (x2 − yz)(y 4 + x3 z + xz 3 )(z 4 + x3 y + xy 3 ) ≥ 0.
+                        cyc
+
+So, clearing all the denominators gives
+     X
+         x2 (x2 − yz) y 4 z 4 + x3 y 5 + xy 7 + x3 z 5 + x6 yz + x4 y 3 z + xz 7 + x4 yz 3 + x2 y 3 z 3
+                                                                                                       
+S=
+      cyc
+    X
+      x4 y 4 z 4 + x7 y 5 + x5 y 7 + x7 z 5 + x10 yz + x8 y 3 z + x5 z 7 + x8 yz 3 + x6 y 3 z 3
+                                                                                                
+  =
+      cyc
+    X
+      x2 y 5 z 5 + x5 y 6 z + x3 y 8 z + x5 yz 6 + x8 y 2 z 2 + x6 y 4 z 2 + x3 yz 8 + x6 y 2 z 4 + x4 y 4 z 4
+                                                                                                               
+  −
+     cyc
+    X
+      x7 y 5 + x5 y 7 + x7 z 5 + x10 yz + x5 z 7 + x6 y 3 z 3
+                                                              
+  =
+      cyc
+    X
+      x2 y 5 z 5 + x5 y 6 z + x5 yz 6 + x8 y 2 z 2 + x6 y 4 z 2 + x6 y 2 z 4
+                                                                             
+  −
+     cyc
+
+In other words we need to show
+   X           1 10      1 6 3 3
+                                   X
+                                        1 8 2 2 1 5 5 2
+                                                                     
+          7 5                                             6 4 2  6 5
+        2x y + x yz + x y z ≥             x y z + x y z +x y z +x y z .
+   sym
+                2         2         sym
+                                        2        2
+
+which follows by summing
+                                 X x10 yz + x6 y 3 z 3              X
+                                                                ≥         x8 y 2 z 2
+                                 sym
+                                             2                      sym
+                                           1X            1X 6 4 2
+                                                   x8 y 2 z 2 ≥x y z
+                                           2 sym         2 sym
+                                             1X 7 5 1X 5 5 2
+                                                   x y ≥       x y z
+                                             2 sym       2 sym
+                                             1X 7 5 1X 6 4 2
+                                                   x y ≥       x y z
+                                             2 sym       2 sym
+
+
+                                                        6
+IMO 2005 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+                                      X                X
+                                            x7 y 5 ≥         x6 y 5 z.
+                                      sym              sym
+
+The first line here comes from AM-GM, the rest come from Muirhead.
+
+  Remark. More elegant approach is to use Cauchy in the form
+
+                                 1            x−1 + y 2 + z 2
+                                           ≤                    .
+                            x5 + y 2 + z 2   (x2 + y 2 + z 2 )2
+
+
+
+
+                                              7
+IMO 2005 Solution Notes                           web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2005/4, proposed by Mariusz Skalba (POL)
+   Available online at https://aops.com/community/p282138.
+
+  Problem statement
+  Determine all positive integers relatively prime to all the terms of the infinite
+  sequence
+                           an = 2n + 3n + 6n − 1, n ≥ 1.
+
+The answer is 1 only (which works).
+  It suffices to show there are no primes. For the primes p = 2 and p = 3, take a2 = 48.
+For any prime p ≥ 5 notice that
+
+                           ap−2 = 2p−2 + 3p−2 + 6p−2 − 1
+                                  1 1 1
+                                ≡ + + − 1 (mod p)
+                                  2 3 6
+                                ≡ 0 (mod p)
+
+so no other larger prime works.
+
+
+
+
+                                           8
+IMO 2005 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2005/5, proposed by Waldemar Pompe (POL)
+   Available online at https://aops.com/community/p282140.
+
+  Problem statement
+
+  Let ABCD be a fixed convex quadrilateral with BC = DA and BC ∦ DA. Let
+  two variable points E and F lie on the sides BC and DA, respectively, and satisfy
+  BE = DF . The lines AC and BD meet at P , the lines BD and EF meet at Q, the
+  lines EF and AC meet at R. Prove that the circumcircles of the triangles P QR, as
+  E and F vary, have a common point other than P .
+
+Let M be the Miquel point of complete quadrilateral ADBC; in other words, let M
+be the second intersection point of the circumcircles of 4AP D and 4BP C. (A good
+diagram should betray this secret; all the points are given in the picture.) This makes
+lots of sense since we know E and F will be sent to each other under the spiral similarity
+too.
+
+                                                 B
+                                 A
+                                                     E
+                                         P
+                                             R
+
+
+
+                                Q
+                                             M
+                          F
+
+
+                          D                                       C
+
+
+
+
+   Thus M is the Miquel point of complete quadrilateral F ACE. As R = F E ∩ AC we
+deduce F ARM is a cyclic quadrilateral (among many others, but we’ll only need one).
+   Now look at complete quadrilateral AF QP . Since M lies on (DF Q) and (RAF ), it
+follows that M is in fact the Miquel point of AF QP as well. So M lies on (P QR).
+   Thus M is the fixed point that we wanted.
+
+  Remark. Naturally, the congruent length condition can be relaxed to DF /DA = BE/BC.
+
+
+
+
+                                             9
+IMO 2005 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2005/6, proposed by Radu Gologan, Dan Schwartz (ROU)
+    Available online at https://aops.com/community/p282141.
+
+  Problem statement
+  In a mathematical competition 6 problems were posed to the contestants. Each
+  pair of problems was solved by more than 25 of the contestants. Nobody solved all 6
+  problems. Show that there were at least 2 contestants who each solved exactly 5
+  problems.
+
+Assume not and at most one contestant solved five problems. By adding in solves, we can
+assume WLOG that one contestant solved problems one through five, and every other
+contestant solved four of the six problems.
+  We split the remaining contestants based on whether they solved P6. Let ai denote
+the number of contestants who solved {1, 2, . . . , 5} \ {i} (and missed P6). Let bij denote
+the number of contestants who solved {1, 2, . . . , 5, 6} \ {i, j}, for 1 ≤ i < j ≤ 5 (thus in
+particular they solved P6). Thus
+                                        X             X
+                              n=1+          ai +             bij
+                                          1≤i≤5          1≤i<j≤5
+
+denotes the total number of contestants.
+  Considering contestants who solved P1/P6 we have
+                                                               2    1
+                      t1 := b23 + b24 + b25 + b34 + b35 + b45 ≥ n +
+                                                               5    5
+and we similarly define t2 , t3 , t4 , t5 . (We have written 25 n + 15 since we know the left-hand
+side is an integer strictly larger than 25 n.) Also, by considering contestants who solved
+P1/P2 we have
+                                                               2    1
+                     t12 = 1 + a3 + a4 + a5 + b34 + b35 + b45 ≥ n +
+                                                               5    5
+and we similarly define tij for 1 ≤ i < j ≤ 5.
+
+   Claim — The number 2n+1    5  is equal to some integer k, fourteen of the t’s are equal
+   to k, and the last one is equal to k + 1.
+
+Proof. First, summing all fifteen equations gives
+                                                         X                 X
+                  6n + 4 = 10 + 6(n − 1) = 10 +                 6ai +             6bij
+                                                      1≤i≤5             1≤i<j≤5
+                                                  X              X
+                                             =           ti +             tij .
+                                                 1≤i≤5          1≤i<j≤5
+
+
+Thus the sum of the 15 t’s is 6n + 4. But since all the t’s are integers at least 2n+1
+                                                                                    5     15 ,
+                                                                                       = 6n+3
+the conclusion follows.
+
+  However, we will also manipulate the equations to get the following.
+
+
+
+
+                                                 10
+IMO 2005 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+
+  Claim — We have
+
+                     t45 ≡ 1 + t1 + t2 + t3 + t12 + t23 + t31      (mod 3).
+
+Proof. This follows directly by computing the coefficient of the a’s and b’s. We will
+nonetheless write out a derivation of this equation, to motivate it, but the proof stands
+without it. P
+  Let B = 1≤i<j≤5 bij be the sum of all b’s. First, note that
+
+                      t1 + t2 = B + b34 + b45 + b35 − b12
+                              = B + (t12 − 1 − a3 − a4 − a5 ) − b12
+                    =⇒ b12 = B − (t1 + t2 ) + t12 − 1 − (a3 + a4 + a5 ).
+
+This means we have more or less solved for each bij in terms of only t and a variables.
+Now
+
+                     t45 = 1 + a1 + a2 + a3 + b12 + b23 + b31
+                         = 1 + a1 + a2 + a3
+                         + [B − (t1 + t2 ) + t12 − 1 − (a3 + a4 + a5 )]
+                         + [B − (t2 + t3 ) + t23 − 1 − (a1 + a4 + a5 )]
+                         + [B − (t3 + t1 ) + t13 − 1 − (a2 + a4 + a5 )]
+                         ≡ 1 + t1 + t2 + t3 + t12 + t23 + t31      (mod 3)
+
+as desired.
+
+  However, we now show the two claims are incompatible (and this is easy, many ways
+to do this). There are two cases.
+   • Say t5 = k + 1 and the others are k. Then the equation for t45 gives that k ≡ 6k + 1
+     (mod 3). But now the equation for t12 give k ≡ 6k (mod 3).
+
+   • Say t45 = k + 1 and the others are k. Then the equation for t45 gives that k + 1 ≡ 6k
+     (mod 3). But now the equation for t12 give k ≡ 6k + 1 (mod 3).
+
+  Remark. It is significantly easier to prove that there is at least one contestant who solved
+  five problems. One can see this by dropping the +10 in the proof of the claim, which gives a
+  contradiction. In this situation it is not even necessary to set up the many a and b variables;
+  just note that the expected number of contestants solving any particular pair of problems
+     (4)n
+  is 26 = 25 n.
+      (2)
+     The fact that 2n+1
+                     5   should be an integer also follows quickly, since if not one can improve
+  the bound to 2n+25   and  quickly run into a contradiction. Again one can get here without
+  setting up a and b.
+     The main difficulty seems to be the precision required in order to nail down the second
+  5-problem solve.
+
+  Remark. The second claim may look miraculous, but the proof shows that it is not too
+  unnatural to consider t1 + t2 − t12 to isolate b12 in terms of a’s and t’s. The main trick is:
+  why mod 3?
+    The reason is that if one looks closely, for a fixed k we have a system of 15 equations in
+  15 variables. Unless the determinant D of that system happens to be zero, this means there
+  will be a rational solution in a and b, whose denominators are bounded by D. However if
+
+
+
+                                                11
+IMO 2005 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+
+  p | D then we may conceivably run into mod p issues.
+     This motivates the choice p = 3; it is easy to see the determinant is divisible by 3, as
+  constant shifts of ~a and ~b are also solutions mod 3. (The choice p = 2 is a possible guess as
+  well for this reason, but the problem seems to have better 3-symmetry.)
+
+
+
+
+                                                12
+

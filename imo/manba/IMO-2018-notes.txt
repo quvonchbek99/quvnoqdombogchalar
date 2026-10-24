@@ -1,0 +1,671 @@
+                  IMO 2018 Solution Notes
+                             EVAN CHEN《陳誼廷》
+                                   27 September 2026
+
+
+
+        This is a compilation of solutions for the 2018 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                                2
+
+1 Solutions to Day 1                                                                      3
+  1.1 IMO 2018/1, proposed by Silouanos Brazitikos, Vangelis Psyxas, Michael
+       Sarantis (HEL) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    3
+  1.2 IMO 2018/2, proposed by Patrik Bak (SVK) . . . . . . . . . . . . . . . .             6
+  1.3 IMO 2018/3, proposed by Morteza Saghafian (IRN) . . . . . . . . . . . .              8
+
+2 Solutions to Day 2                                                                      10
+  2.1 IMO 2018/4, proposed by Gurgen Asatryan (ARM) . . . . . . . . . . . .               10
+  2.2 IMO 2018/5, proposed by Bayarmagnai Gombodorj (MNG) . . . . . . . .                 11
+  2.3 IMO 2018/6, proposed by Tomasz Ciesla (POL) . . . . . . . . . . . . . . .           13
+
+
+
+
+                                             1
+IMO 2018 Solution Notes                                         web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let Γ be the circumcircle of acute triangle ABC. Points D and E lie on segments
+     AB and AC, respectively, such that AD = AE. The perpendicular bisectors of BD
+     and CE intersect the minor arcs AB and AC of Γ at points F and G, respectively.
+     Prove that the lines DE and F G are parallel.
+
+  2. Find all integers n ≥ 3 for which there exist real numbers a1 , a2 , . . . , an satisfying
+
+                                         ai ai+1 + 1 = ai+2
+
+     for i = 1, 2, . . . , n, where indices are taken modulo n.
+
+  3. An anti-Pascal triangle is an equilateral triangular array of numbers such that,
+     except for the numbers in the bottom row, each number is the absolute value of
+     the difference of the two numbers immediately below it. For example, the following
+     array is an anti-Pascal triangle with four rows which contains every integer from 1
+     to 10.
+                                               4
+                                                  2         6
+                                              5        7        1
+                                          8       3        10       9
+     Does there exist an anti-Pascal triangle with 2018 rows which contains every integer
+     from 1 to 1 + 2 + · · · + 2018?
+
+  4. A site is any point (x, y) in the plane for which x, y ∈ {1, . . . , 20}. Initially, each of
+     the 400 sites is unoccupied. Amy and Ben take turns placing stones on unoccupied
+     sites, with Amy going first; Amy has√the additional restriction that no two of her
+     stones may be at a distance equal to 5. They stop once either player cannot move.
+     Find the greatest K such that Amy can ensure that she places at least K stones.
+
+  5. Let a1 , a2 , . . . be an infinite sequence of positive integers, and N a positive integer.
+     Suppose that for all integers n ≥ N , the expression
+                                    a1 a2         an−1 an
+                                      +   + ··· +     +
+                                    a2 a3          an   a1
+     is an integer. Prove that (an ) is eventually constant.
+
+  6. A convex quadrilateral ABCD satisfies AB · CD = BC · DA. Point X lies inside
+     ABCD so that
+
+                         ∠XAB = ∠XCD                  and        ∠XBC = ∠XDA.
+
+     Prove that ∠BXA + ∠DXC = 180◦ .
+
+
+
+
+                                                  2
+IMO 2018 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2018/1, proposed by Silouanos Brazitikos, Vangelis Psyxas,
+     Michael Sarantis (HEL)
+   Available online at https://aops.com/community/p10626500.
+
+  Problem statement
+  Let Γ be the circumcircle of acute triangle ABC. Points D and E lie on segments
+  AB and AC, respectively, such that AD = AE. The perpendicular bisectors of BD
+  and CE intersect the minor arcs AB and AC of Γ at points F and G, respectively.
+  Prove that the lines DE and F G are parallel.
+
+We present a synthetic solution from the IMO shortlist as well as a complex numbers
+approach. We also outline a trig solution (the one I found at IMO), and a fourth solution
+from Derek Liu.
+
+¶ Synthetic solution (from Shortlist). Construct parallelograms AXF D and AEGY ,
+noting that X and Y lie on Γ. As XF k AB we can let M denote the midpoint of minor
+arcs XF
+     ‘ and ABd (which coincide). Define N similarly.
+
+                                   A               Y
+                             X
+                                                              N
+
+
+                     M
+                                                  E
+                                                                      G
+                             D
+
+                    F
+
+
+                         B                                        C
+
+
+
+
+  Observe that XF = AD = AE = Y G, so arcs XF ‘ and Y d G have equal measure; hence
+arcs M F and N G have equal measure; therefore M N k F G.
+     ‘       ‘
+  Since M N and DE are both perpendicular to the ∠A bisector, we’re done.
+
+¶ Complex numbers solution. Let b, c, f , g, a be as usual. Note that
+                                                 
+                            f + a + b − abf                   ab
+               d−a= 2·                        −b −a=f −
+                                   2                           f
+                            ac
+               e−a=g−
+                            g
+We are given AD = AE from which one deduces
+                         e−a 2 c          (g 2 − ac)2  g2c
+                            
+                                = =⇒         2      2
+                                                      = 2
+                         d−a       b      (f − ab)     f b
+
+                                           3
+IMO 2018 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+                =⇒ bc(bg 2 − cf 2 )a2 = g 2 f 4 c − f 2 g 4 b = f 2 g 2 (f 2 c − g 2 b)
+                                                              fg 2
+                                                                
+                        =⇒ bc · a = (f g) =⇒ −
+                                    2          2
+                                                                        = bc.
+                                                               a
+
+Since −fa g is the point X on the circle with AX ⊥ F G, we conclude F G is either parallel
+or perpendicular to the ∠A-bisector; it must the latter since the ∠A-bisector separates
+the two minor arcs.
+
+¶ Trig solution (outline). Let ` denote the ∠A bisector. Fix D and F . We define the
+phantom point G0 such that F G0 ⊥ ` and E 0 on side AC such that GE 0 = GC.
+
+  Claim (Converse of the IMO problem) — We have AD = AE 0 , so that E = E 0 .
+
+Proof. Since F G0 ⊥ `, one can deduce ∠F BD = 12 C + x and ∠GCA = 12 B + x for some
+x. (One fast way to see this is to note that F G k M N where M and N are in the first
+solution.) Then ∠F AB = 12 C − x and ∠GAC = 12 B − x.
+  Let R be the circumradius. Now, by the law of sines,
+                                                    
+                                               1
+                                BF = 2R sin      C −x .
+                                               2
+
+From there we get
+                                                                   
+                                    1              1             1
+            BD = 2 · BF cos             = 4R cos
+                                      C +x           C + x sin     C −x
+                                    2              2             2
+                                                                     
+                                                   1             1
+            DA = AB − BD = 2R sin C − 4R cos         C + x sin     C −x
+                                                   2             2
+                                                        
+                                     1              1
+               = 2R sin C − 2 cos      C + x sin      C −x
+                                     2              2
+               = 2R [sin C − (sin C − sin 2x)] = 2R sin 2x.
+
+A similar calculation gives AE 0 = 2R sin 2x as needed.
+
+Thus, F G0 k DE, so G = G0 as well. This concludes the proof.
+
+¶ Synthetic solution from Derek Liu.             Let lines F D and GE intersect Γ again at J
+and K, respectively.
+
+
+
+
+                                                  4
+IMO 2018 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+
+
+
+                                      A
+                                                           J
+
+
+
+
+                                                                     G
+                        K
+                                                 E
+                                  D
+                        F
+
+
+
+                            B                                    C
+
+
+
+
+Notice that 4BF D ∼ 4JAD; as F B = F D, it follows that AJ = AD. Likewise,
+4CGE ∼ 4KAE and GC = GE, so AK = AE. Hence,
+
+                                AK = AE = AD = AJ,
+
+so DEJK is cyclic with center A.
+  It follows that
+                       ]KED = ]KJD = ]KJF = ]KGF,
+so we’re done.
+
+  Remark. Note that K and J must be distinct for this solution to work. Since G and K lie
+  on opposite sides of AC, K is on major arc ABC. As AK = AD = AE ≤ min(AB, AC),
+  K lies on minor arc AB. Similarly, J lies on minor arc AC, so K 6= J.
+
+
+
+
+                                            5
+IMO 2018 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2018/2, proposed by Patrik Bak (SVK)
+   Available online at https://aops.com/community/p10626524.
+
+  Problem statement
+  Find all integers n ≥ 3 for which there exist real numbers a1 , a2 , . . . , an satisfying
+
+                                         ai ai+1 + 1 = ai+2
+
+  for i = 1, 2, . . . , n, where indices are taken modulo n.
+
+The answer is 3 | n, achieved by (−1, −1, 2, −1, −1, 2, . . . ). We present two solutions.
+
+¶ First solution by inequalities. We compute ai ai+1 ai+2 in two ways:
+
+                          ai ai+1 ai+2 = [ai+2 − 1]ai+2 = a2i+2 − ai+2
+                                        = ai [ai+3 − 1] = ai ai+3 − ai .
+
+Cyclically summing a2i+2 − ai+2 = ai ai+3 − ai then gives
+                     X              X                  X
+                          a2i+2 =       ai ai+3 ⇐⇒           (ai − ai+3 )2 = 0.
+                      i             i                  cyc
+
+This means for inequality reasons the sequence is 3-periodic. Since the sequence is clearly
+not 1-periodic, as x2 + 1 = x has no real solutions. Thus 3 | n.
+
+¶ Second solution by sign counting. Extend an to be a periodic sequence. The idea is
+to look at the signs, and show the sequence of the signs must be − − + repeated. This
+takes several steps:
+
+   • The pattern − − − is impossible. Obvious, since the third term should be > 1.
+
+   • The pattern ++ is impossible. Then the sequence becomes strictly increasing,
+     hence may not be periodic.
+
+   • Zeros are impossible. If a1 = 0, then a2 = 0, a3 > 0, a4 > 0, which gives the
+     impossible ++.
+
+   • The pattern − − + − + is impossible. Compute the terms:
+
+                               a1 = −x < 0
+                               a2 = −y < 0
+                               a3 = 1 + xy > 1
+                               a4 = 1 − y(1 + xy) < 0
+                               a5 = 1 + (1 + xy)(1 − y(1 + xy)) < 1.
+
+      But now
+                      a6 − a5 = (1 + a5 a4 ) − (1 + a3 a4 ) = a4 (a5 − a3 ) > 0
+      since a5 < 1 < a3 . This means we have the impossible ++ pattern.
+
+
+
+
+                                                  6
+IMO 2018 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+   • The infinite alternating pattern − + − + − + − + . . . is impossible. Note that
+
+                       a1 a2 + 1 = a3 < 0 < a4 = 1 + a2 a3 =⇒ a1 < a3
+
+      since a2 > 0; extending this we get a1 < a3 < a5 < . . . which contradicts the
+      periodicity.
+
+We finally collate the logic of sign patterns. Since the pattern is not alternating, there
+must be −− somewhere. Afterwards must be +, and then after that must be two minus
+signs (since one minus sign is impossible by impossibility of − − + − + and − − − is also
+forbidden); thus we get the periodic − − + as desired.
+
+
+
+
+                                            7
+IMO 2018 Solution Notes                                        web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2018/3, proposed by Morteza Saghafian (IRN)
+   Available online at https://aops.com/community/p10626557.
+
+  Problem statement
+  An anti-Pascal triangle is an equilateral triangular array of numbers such that,
+  except for the numbers in the bottom row, each number is the absolute value of
+  the difference of the two numbers immediately below it. For example, the following
+  array is an anti-Pascal triangle with four rows which contains every integer from 1
+  to 10.
+                                                  4
+                                              2       6
+                                          5       7        1
+                                      8       3       10       9
+
+  Does there exist an anti-Pascal triangle with 2018 rows which contains every integer
+  from 1 to 1 + 2 + · · · + 2018?
+
+The answer is no, there is no anti-Pascal triangle with the required properties.
+  Let n = 2018 and N = 1 + 2 + · · · + n. For every number d not in the bottom row,
+draw an arrow from d to the larger of the two numbers below it (i.e. if d = a − b, draw
+d → a). This creates an oriented forest (which looks like lightning strikes).
+  Consider the directed path starting from the top vertex A. Starting from the first
+number, it increments by at least 1 + 2 + · · · + n, since the increments at each step in
+the path are distinct; therefore equality must hold and thus the path from the top ends
+at N = 1 + 2 + · · · + n with all the numbers {1, 2, . . . , n} being close by. Let B be that
+position.
+                                                  A
+
+
+
+
+                                 C
+
+
+
+
+                            D                             X    B    Y
+
+Consider the two left/right neighbors X and Y of the endpoint B. Assume that B is
+to the right of the midpoint of the bottom side, and complete the equilateral triangle
+as shown to an apex C. Consider the lightning strike from C hitting the bottom at D.
+It travels at least bn/2 − 1c steps, by construction. But the increases must be at least
+
+                                                  8
+IMO 2018 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+n + 1, n + 2, . . .since 1, 2, . . . , n are close to the A → B lightning path. Then the number
+at D is at least
+
+              (n + 1) + (n + 2) + · · · + (n + (bn/2 − 1c)) > 1 + 2 + · · · + n
+
+for n ≥ 2018, contradiction.
+
+
+
+
+                                              9
+IMO 2018 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2018/4, proposed by Gurgen Asatryan (ARM)
+   Available online at https://aops.com/community/p10632348.
+
+  Problem statement
+  A site is any point (x, y) in the plane for which x, y ∈ {1, . . . , 20}. Initially, each of
+  the 400 sites is unoccupied. Amy and Ben take turns placing stones on unoccupied
+  sites, with Amy going first; Amy has√the additional restriction that no two of her
+  stones may be at a distance equal to 5. They stop once either player cannot move.
+  Find the greatest K such that Amy can ensure that she places at least K stones.
+
+The answer is K = 100.
+   First, we show Amy can always place at least 100 stones. Indeed, treat the problem as
+a grid with checkerboard coloring. Then Amy can choose to always play on one of the
+200 black squares. In this way, she can guarantee half the black squares, i.e. she can get
+2 · 200 = 100 stones.
+1
+
+   Second, we show Ben can prevent Amy from placing more than 100 stones. Divide
+into several 4 × 4 squares and then further partition each 4 × 4 squares as shown in the
+grid below.                                       
+                                       1 2 3 4
+                                      3 4 1 2 
+                                                  
+                                      2 1 4 3 
+                                       4 3 2 1
+The squares with each label form 4-cycles by knight jumps. For each such cycle, whenever
+Amy plays in the cycle, Ben plays in the opposite point of the cycle, preventing Amy
+from playing any more stones in that original cycle. Hence Amy can play at most in 1/4
+of the stones, as desired.
+
+
+
+
+                                              10
+IMO 2018 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2018/5, proposed by Bayarmagnai Gombodorj (MNG)
+   Available online at https://aops.com/community/p10632353.
+
+  Problem statement
+  Let a1 , a2 , . . . be an infinite sequence of positive integers, and N a positive integer.
+  Suppose that for all integers n ≥ N , the expression
+                                  a1 a2         an−1 an
+                                    +   + ··· +     +
+                                  a2 a3          an   a1
+  is an integer. Prove that (an ) is eventually constant.
+
+The condition implies that the difference
+                                           an+1 − an    an
+                                  S(n) =             +
+                                              a1       an+1
+
+is an integer for all n > N . We proceed by p-adic valuation only henceforth; fix a prime
+p. Then analyzing the νp , we immediately get that for n > N :
+
+   • If νp (an ) < νp (an+1 ), then νp (an+1 ) = νp (a1 ).
+
+   • If νp (an ) = νp (an+1 ), no conclusion.
+
+   • If νp (an ) > νp (an+1 ), then νp (an+1 ) ≥ νp (a1 ).
+
+In other words:
+
+  Claim — Let p be a prime. Consider the sequence νp (aN +1 ), νp (aN +2 ), . . . . Then
+  either:
+
+      • We have νp (aN +1 ) ≥ νp (aN +2 ) ≥ . . . and so on, i.e. the sequence is weakly
+        decreasing immediately; or
+
+      • For some index K > N we have νp (aK ) < νp (aK+1 ) = νp (aK+2 ) = · · · =
+        νp (a1 ), i.e. the sequence “jumps” to νp (a1 ) at some point and then stays there
+        forever after. Note this requires νp (a1 ) > 0.
+
+  A cartoon of the situation is drawn below.
+
+
+
+
+                      νp (a1 )
+
+
+
+
+                                 n>N
+
+
+                                                11
+IMO 2018 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+   As only finitely many primes p divide a1 , after some time νp (an ) is fixed for all such
+p | a1 . Afterwards, the sequence satisfies an+1 | an for each n, and thus must be eventually
+constant.
+
+  Remark. This solution is almost completely p-adic, in the sense that I think a similar
+  result holds if one replaces an ∈ Z by an ∈ Zp for any particular prime p. In other words,
+  the primes almost do not talk to each other.
+     There is one caveat: if xn is an integer sequence such that νp (xn ) is eventually constant
+  for each prime then xn may not be constant. For example, take xn to be the nth prime!
+  That’s why in the first claim (applied to co-finitely many of the primes), we need the
+  stronger non-decreasing condition, rather than just eventually constant.
+
+
+  Remark. An alternative approach is to show that, when the fractions an /a1 is written in
+  simplest form for n = N + 1, N + 2, . . . , the numerator and denominator are both weakly
+  decreasing. Hence it must eventually be constant; in which case it equals 11 .
+
+
+
+
+                                               12
+IMO 2018 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2018/6, proposed by Tomasz Ciesla (POL)
+   Available online at https://aops.com/community/p10632360.
+
+  Problem statement
+  A convex quadrilateral ABCD satisfies AB · CD = BC · DA. Point X lies inside
+  ABCD so that
+
+                     ∠XAB = ∠XCD           and    ∠XBC = ∠XDA.
+
+  Prove that ∠BXA + ∠DXC = 180◦ .
+
+We present two solutions by inversion. The first is the official one. The second is a
+solution via inversion, completed by USA5 Michael Ren.
+
+¶ Official solution by inversion. In what follows a convex quadrilateral is called quasi-
+harmonic if AB · CD = BC · DA.
+
+  Claim — A quasi-harmonic quadrilateral is determined up to similarity by its
+  angles.
+
+Proof. Do some inequalities.
+
+  Remark. This could be expected by degrees of freedom; a quadrilateral has four degrees
+  of freedom up to similarity; the pseudo-harmonic condition is one while the measures of
+  angles ∠A, ∠B, ∠C, ∠D (summing to 360◦ ) provide three degrees of freedom. (Note that
+  the point X plays no role in this comment.)
+
+  Performing an inversion at X, one obtains a second quasi-harmonic quadrilateral
+A∗ B ∗ C ∗ D∗ which has the same angles as the original one, ∠D∗ = ∠A, ∠A∗ = ∠B, and
+so on. Thus by the claim we obtain similarity
+
+                                 D∗ A∗ B ∗ C ∗ ∼ ABCD.
+
+If one then maps D∗ A∗ B ∗ C ∗ , onto ABCD, the image of X ∗ becomes a point isogonally
+conjugate to X. In other words, X has an isogonal conjugate in ABCD.
+   It is well-known that this is equivalent to ∠BXA + ∠DXC = 180◦ , for example by
+inscribing an ellipse with foci X and X ∗ .
+
+¶ Second solution: “rhombus inversion”, by Michael Ren.           Since
+                                       AB   CB
+                                          =
+                                       AD   CD
+and
+                                      BA     DA
+                                          =
+                                     BC      DC
+it follows that B and D lie on an Apollonian circle ωAC through A and C, while A and
+C lie on an Apollonian circle ωBD through B and D. We let these two circles intersect
+at a point P inside ABCD.
+   The main idea is then to perform an inversion about P with radius 1. We obtain:
+
+
+
+                                            13
+IMO 2018 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+
+  Lemma
+  The image of ABCD is a rhombus.
+
+Proof. By the inversion distance formula, we have
+                             1          PA        PC        1
+                                    =      · PB =    · PB = 0 0
+                           A0 B 0       AB        BC       BC
+and so A0 B 0 = B 0 C 0 . In a similar way, we derive B 0 C 0 = C 0 D0 = D0 A0 , so the image is a
+rhombus as claimed.
+
+  Let us now translate the angle conditions. We were given that ]XAB = ]XCD, but
+
+              ]XAB = ]XAP + ]P AB = ]P X 0 A0 + ]A0 B 0 P
+              ]XCD = ]XCP + ]P CD = ]P X 0 C 0 + ]C 0 D0 P
+
+so subtracting these gives
+
+            ]A0 X 0 C 0 = ]A0 B 0 P + ]P D0 C 0 = ](A0 B 0 , B 0 P ) + ](P D0 , C 0 D0 )
+                       = ](A0 B 0 , B 0 P ) + ](P D0 , A0 B 0 ) = ]D0 P B 0 .                      (1)
+
+since A0 B 0 k C 0 D0 . Similarly, we obtain
+
+                                        ]B 0 X 0 D0 = ]A0 P C 0 .                                  (2)
+
+We now translate the desired condition. Since
+
+                    ]AXB = ]AXP + ]P XB = ]P A0 X 0 + ]X 0 B 0 P
+                    ]CXD = ]CXP + ]P XD = ]P C 0 X 0 + ]X 0 DP 0
+
+we compute
+
+        ]AXB + ]CXD = (]P A0 X 0 + ]X 0 B 0 P ) + (]P C 0 X 0 + ]X 0 D0 P )
+                    = − ]A0 X 0 P + ]X 0 P A0 + ]P X 0 B 0 + ]B 0 P X 0
+                                                                          
+
+                      − ]C 0 X 0 P + ]X 0 P C 0 + ]P X 0 D0 + ]D0 P X 0
+                                                                          
+
+                    = ]P X 0 A0 + ]BX 0 P + ]P X 0 C 0 + ]D0 X 0 P
+                                                                     
+
+                      + ]A0 P X 0 + ]X 0 P B 0 + ]C 0 P X 0 + ]X 0 P D0
+                                                                         
+
+                             = ]A0 P B 0 + ]C 0 P D0 + ]B 0 X 0 C + ]D0 X 0 A
+
+and we wish to show this is equal to zero, i.e. the desired becomes
+
+                      ]A0 P B 0 + ]C 0 P D0 + ]B 0 X 0 C + ]D0 X 0 A = 0.                          (3)
+
+In other words, the problem is to show (1) and (2) implies (3).
+  Henceforth drop apostrophes. Here is the inverted diagram (with apostrophes dropped).
+
+
+
+
+                                                   14
+IMO 2018 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+
+
+
+                                       X
+
+
+
+
+                                                           A
+
+                                                     Q
+
+                              B                                                         D
+
+                                                     P
+
+                                                           C
+
+
+
+                                                     Y
+
+
+
+  Let Q denote the reflection of P and let Y denote the second intersection of (BQC)
+and (AQD). Then
+
+        −]AXC = −]DP B = ]BQD = ]BQY + ]Y QD = ]BCY + ]Y AD
+                   = ](BC, CY ) + ](Y A, AD) = ]Y CA = −]AY C.
+
+Hence XACY is concyclic; similarly XBDY is concyclic.
+
+  Claim — X 6= Y .
+
+Proof. To see this: Work pre-inversion assuming AB < AC. Then Q was the center of
+√BD . If T was the second intersection of BA with (QBC),
+ω                                                          then QB = QD = QT =
+  QA · QC, by shooting lemma. Since ∠BAD < 180◦ , it follows (QBCY ) encloses
+ABCD (pre-inversion). (This part is where the hypothesis that ABCD is convex with
+X inside is used.)
+
+  Finally, we do an angle chase to finish:
+
+                  ]DXA = ]DXY + ]Y XA = ]DBY + ]Y CA
+                            = ](DB, Y B) + ](CY, CA) = ]CY B + 90◦
+                            = ]CQB + 90◦ = −]AP B + 90◦ .                                           (4)
+
+Similarly,
+                                   ]BXC = ]DP C + 90◦ .                                             (5)
+Summing (4) and (5) gives (3).
+
+  Remark. A difficult part of the problem in many solutions is that the conclusion is false in
+  the directed sense, if the point X is allowed to lie outside the quadrilateral. We are saved in
+  the first solution because the equivalence of the isogonal conjugation requires X inside the
+  quadrilateral. On the other hand, in the second solution, the issue appears in the presence
+  of the second point Y .
+
+
+
+                                                15
+

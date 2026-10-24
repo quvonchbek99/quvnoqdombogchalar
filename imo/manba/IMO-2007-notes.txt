@@ -1,0 +1,425 @@
+                 IMO 2007 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2007 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2007/1, proposed by Michael Albert (NZL) . . . . . . . . . . . . . .          3
+  1.2 IMO 2007/2, proposed by Charles Leytem (LUX) . . . . . . . . . . . . . .          4
+  1.3 IMO 2007/3, proposed by Vasily Astakhov (RUS) . . . . . . . . . . . . . .         5
+
+2 Solutions to Day 2                                                                    7
+  2.1 IMO 2007/4, proposed by Marek Pechal (CZE) . . . . . . . . . . . . . . .          7
+  2.2 IMO 2007/5, proposed by Kevin Buzzard, Edward Crane (UNK) . . . . .               8
+  2.3 IMO 2007/6, proposed by Gerhard Woeginger (NLD) . . . . . . . . . . . .           9
+
+
+
+
+                                            1
+IMO 2007 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Real numbers a1 , a2 , . . . , an are fixed. For each 1 ≤ i ≤ n we let di = max{aj :
+     1 ≤ j ≤ i} − min{aj : i ≤ j ≤ n} and let d = max{di : 1 ≤ i ≤ n}.
+      (a) Prove that for any real numbers x1 ≤ · · · ≤ xn we have
+                                                                1
+                                  max {|xi − ai | : 1 ≤ i ≤ n} ≥ d.
+                                                                2
+
+      (b) Moreover, show that there exists some choice of x1 ≤ · · · ≤ xn which achieves
+          equality.
+
+  2. Consider five points A, B, C, D and E such that ABCD is a parallelogram and
+     BCED is a cyclic quadrilateral. Let ` be a line passing through A. Suppose that
+     ` intersects the interior of the segment DC at F and intersects line BC at G.
+     Suppose also that EF = EG = EC. Prove that ` is the bisector of angle DAB.
+
+  3. In a mathematical competition some competitors are (mutual) friends. Call a group
+     of competitors a clique if each two of them are friends. Given that the largest size
+     of a clique is even, prove that the competitors can be arranged into two rooms such
+     that the largest size of a clique contained in one room is the same as the largest
+     size of a clique contained in the other room.
+
+  4. In triangle ABC the bisector of ∠BCA meets the circumcircle again at R, the
+     perpendicular bisector of BC at P , and the perpendicular bisector of AC at Q.
+     The midpoint of BC is K and the midpoint of AC is L. Prove that the triangles
+     RP K and RQL have the same area.
+
+  5. Let a and b be positive integers. Show that if 4ab − 1 divides (4a2 − 1)2 , then a = b.
+
+  6. Let n be a positive integer. Consider
+
+                     S = {(x, y, z) | x, y, z ∈ {0, 1, . . . , n}, x + y + z > 0}
+
+     as a set of (n + 1)3 − 1 points in the three-dimensional space. Determine the smallest
+     possible number of planes, the union of which contains S but does not include
+     (0, 0, 0).
+
+
+
+
+                                               2
+IMO 2007 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2007/1, proposed by Michael Albert (NZL)
+    Available online at https://aops.com/community/p893741.
+
+  Problem statement
+  Real numbers a1 , a2 , . . . , an are fixed. For each 1 ≤ i ≤ n we let di = max{aj : 1 ≤
+  j ≤ i} − min{aj : i ≤ j ≤ n} and let d = max{di : 1 ≤ i ≤ n}.
+
+    (a) Prove that for any real numbers x1 ≤ · · · ≤ xn we have
+                                                                   1
+                                     max {|xi − ai | : 1 ≤ i ≤ n} ≥ d.
+                                                                   2
+
+    (b) Moreover, show that there exists some choice of x1 ≤ · · · ≤ xn which achieves
+        equality.
+
+Note that we can dispense of di immediately by realizing that the definition of d just says
+
+                                         d = max (ai − aj ) .
+                                               1≤i≤j≤n
+
+   If a1 ≤ · · · ≤ an are already nondecreasing then d = 0 and there is nothing to prove
+(for the equality case, just let xi = ai ), so we will no longer consider this case.
+   Otherwise, consider any indices i < j with ai > aj . We first prove (a) by applying the
+following claim with p = ai and q = aj :
+
+   Claim — For any p ≤ q, we have either |p − ai | ≥ 12 (ai − aj ) or |q − aj | ≥ 12 (ai − aj ).
+
+Proof. Assume for contradiction both are false. Then p > ai − 12 (ai −aj ) = aj + 12 (ai −aj ) >
+q, contradiction.
+
+   As for (b), we let i < j be any indices for which ai − aj = d > 0 achieves the maximal
+difference. We then define x• in three steps:
+                     ai +aj
+   • We set xk =        2     for k = i, . . . , j.
+
+   • We recursively set xk = max(xk−1 , ak ) for k = j + 1, j + 2, . . . .
+
+   • We recursively set xk = min(xk+1 , ak ) for k = i − 1, i − 2, . . . .
+
+By definition, these x• are weakly increasing. To prove this satisfies (b) we only need to
+check that
+                                                   ai − aj
+                                      |xk − ak | ≤            (?)
+                                                      2
+for any index k (as equality holds for k = i or k = j).
+   We note (?) holds for i < k < j by construction. For k > j, note that xk ∈
+{aj , aj+1 , . . . , ak } by construction, so (?) follows from our choice of i and j giving the
+largest possible difference; the case k < i is similar.
+
+
+
+
+                                                      3
+IMO 2007 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2007/2, proposed by Charles Leytem (LUX)
+   Available online at https://aops.com/community/p893744.
+
+  Problem statement
+  Consider five points A, B, C, D and E such that ABCD is a parallelogram and
+  BCED is a cyclic quadrilateral. Let ` be a line passing through A. Suppose that `
+  intersects the interior of the segment DC at F and intersects line BC at G. Suppose
+  also that EF = EG = EC. Prove that ` is the bisector of angle DAB.
+
+
+Let M , N , P denote the midpoints of CF , CG, AC (noting P is also the midpoint of
+BD).
+  By a homothety at C with ratio 12 , we find M N P is the image of line ` ≡ AGF .
+
+
+
+                            B                                        A
+
+
+
+                                                 P
+
+
+
+                                 M
+                        C                                        D
+                                         F
+
+
+                     N
+                                  E
+
+
+                    G
+
+
+
+  However, since we also have EM ⊥ CF and EN ⊥ CG (from EF = EG = EC) we
+conclude P M N is the Simson line of E with respect to 4BCD, which implies EP ⊥ BD.
+In other words, EP is the perpendicular bisector of BD, so E is the midpoint of arc
+BCD.
+’
+  Finally,
+
+                   ](AB, `) = ](CD, M N P ) = ]CM N = ]CEN
+                                = 90◦ − ]N CE = 90◦ + ]ECB
+
+which means that ` is parallel to a bisector of ∠BCD, and hence to one of ∠BAD.
+(Moreover since F lies on the interior of CD, it is actually the internal bisector.)
+
+
+
+
+                                             4
+IMO 2007 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2007/3, proposed by Vasily Astakhov (RUS)
+    Available online at https://aops.com/community/p893746.
+
+  Problem statement
+  In a mathematical competition some competitors are (mutual) friends. Call a group
+  of competitors a clique if each two of them are friends. Given that the largest size
+  of a clique is even, prove that the competitors can be arranged into two rooms such
+  that the largest size of a clique contained in one room is the same as the largest size
+  of a clique contained in the other room.
+
+Take the obvious graph interpretation G. We paint red any vertices in one of the maximal
+cliques K, which we assume has 2r vertices, and paint the remaining vertices green. We
+let α(•) denote the clique number.
+   Initially, let the two rooms A = K, B = G − K.
+
+   Claim — We can move at most r vertices of A into B to arrive at α(A) ≤ α(B) ≤
+   α(A) + 1.
+
+Proof. This is actually obvious by discrete continuity. We move one vertex at a time,
+noting α(A) decreases by one at each step, while α(B) increases by either zero or one at
+each step.
+  We stop once α(B) ≥ α(A), which happens before we have moved r vertices (since
+then we have α(B) ≥ r = α(A)). The conclusion follows.
+
+  So let’s consider the situation
+
+                        α(A) = k ≥ r       and      α(B) = k + 1.
+
+  At this point A is a set of k red vertices, while B has the remaining 2r − k red vertices
+(and all the green ones). An example is shown below with k = 4 and 2r = 6.
+
+
+                       A                                     B
+
+
+
+
+                   α(A) = k                            α(B) = k + 1
+                 k red vertices                     2r − k red vertices
+
+  Now, if we can move any red vertex from B back to A without changing the clique
+number of B, we do so, and win.
+  Otherwise, it must be the case that every (k + 1)-clique in B uses every red vertex in
+B. For each (k + 1)-clique in B (in arbitrary order), we do the following procedure.
+   • If all k + 1 vertices are still green, pick one and re-color it blue. This is possible
+     since k + 1 > 2r − k.
+
+                                             5
+IMO 2007 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+   • Otherwise, do nothing.
+
+Then we move all the blue vertices from B to A, one at a time, in the same order we
+re-colored them. This forcibly decreases the clique number of B to k, since the clique
+number is k + 1 just before the last blue vertex is moved, and strictly less than k + 1
+(hence equal to k) immediately after that.
+
+  Claim — After this, α(A) = k still holds.
+
+Proof. Assume not, and we have a (k + 1)-clique which uses b blue vertices and (k + 1) − b
+red vertices in A. Together with the 2r − k red vertices already in B we then get a clique
+of size
+                          b + ((k + 1 − b)) + (2r − k) = 2r + 1
+which is a contradiction.
+
+  Remark. Dragomir Grozev posted the following motivation on his blog:
+        I think, it’s a natural idea to place all students in one room and begin moving
+        them one by one into the other one. Then the max size of the cliques in the
+        first and second room increase (resp. decrease) at most with one. So, there
+        would be a moment both sizes are almost the same. At that moment we may
+        adjust something.
+        Trying the idea, I had some difficulties keeping track of the maximal cliques
+        in the both rooms. It seemed easier all the students in one of the rooms to
+        comprise a clique. It could be achieved by moving only the members of the
+        maximal clique. Following this path the remaining obstacles can be overcome
+        naturally.
+
+
+
+
+                                              6
+IMO 2007 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2007/4, proposed by Marek Pechal (CZE)
+   Available online at https://aops.com/community/p894655.
+
+  Problem statement
+  In triangle ABC the bisector of ∠BCA meets the circumcircle again at R, the
+  perpendicular bisector of BC at P , and the perpendicular bisector of AC at Q. The
+  midpoint of BC is K and the midpoint of AC is L. Prove that the triangles RP K
+  and RQL have the same area.
+
+We first begin by proving the following claim.
+
+  Claim — We have CQ = P R (equivalently, CP = QR).
+
+Proof. Let O = LQ ∩ KP be the circumcenter. Then
+
+       ]OP Q = ]KP C = 90◦ − ]P CK = 90◦ − ]LCQ = ]]CQL = ]P QO.
+
+Thus OP = OQ. Since OC = OR as well, we get the conclusion.
+
+  Denote by X and Y the feet from R to CA and CB, so 4CXR ∼
+                                                          = 4CY R. Then, let
+    CQ
+t = CR = 1 − CR .
+             CP
+
+
+                                        C
+
+
+
+
+                                L
+
+                                           Q
+                                                         K
+
+                                                   O
+                         A             P
+                    X                                            Y
+
+                                                                     B
+
+
+                                           R
+
+  Then it follows that
+
+      [RQL] = [XQL] = t(1 − t) · [XRC] = t(1 − t) · [Y CR] = [Y KP ] = [RKP ]
+
+as needed.
+
+  Remark. Trigonometric approaches are very possible (and easier to find) as well: both
+  areas work out to be 18 ab tan 12 C.
+
+
+
+
+                                               7
+IMO 2007 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2007/5, proposed by Kevin Buzzard, Edward Crane (UNK)
+   Available online at https://aops.com/community/p894656.
+
+  Problem statement
+
+  Let a and b be positive integers. Show that if 4ab − 1 divides (4a2 − 1)2 , then a = b.
+
+As usual,
+
+       4ab − 1 | (4a2 − 1)2 ⇐⇒ 4ab − 1 | (4ab · a − b)2 ⇐⇒ 4ab − 1 | (a − b)2 .
+
+Then we use a typical Vieta jumping argument. Define
+
+                                           (a − b)2
+                                      k=            .
+                                           4ab − 1
+Note that k = 0 ⇐⇒ a = b. So we will prove that k > 0 leads to a contradiction.
+  Indeed, suppose (a, b) is a minimal solution with a > b (we have a 6= b since k 6= 0).
+                       2
+By Vieta jumping, (b, b a+k ) is also such a solution. But now
+
+                        b2 + k
+                               ≥ a =⇒ k ≥ a2 − b2
+                           a
+                                      (a − b)2
+                                   =⇒          ≥ a2 − b2
+                                      4ab − 1
+                                   =⇒ a − b ≥ (4ab − 1)(a + b)
+
+which is absurd for a, b ∈ Z>0 . (In the last step we divided by a − b > 0.)
+
+
+
+
+                                            8
+IMO 2007 Solution Notes                                          web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2007/6, proposed by Gerhard Woeginger (NLD)
+   Available online at https://aops.com/community/p894658.
+
+  Problem statement
+  Let n be a positive integer. Consider
+
+                    S = {(x, y, z) | x, y, z ∈ {0, 1, . . . , n}, x + y + z > 0}
+
+  as a set of (n + 1)3 − 1 points in the three-dimensional space. Determine the smallest
+  possible number of planes, the union of which contains S but does not include
+  (0, 0, 0).
+
+The answer is 3n. Here are two examples of constructions with 3n planes:
+
+   • x + y + z = i for i = 1, . . . , 3n.
+
+   • x = i, y = i, z = i for i = 1, . . . , n.
+
+Suppose for contradiction we have N < 3n planes. Let them be ai x + bi y + ci z + 1 = 0,
+for i = 1, . . . , N . Define the polynomials
+                                         n
+                                         Y               n
+                                                         Y               n
+                                                                         Y
+                          A(x, y, z) =         (x − i)         (y − i)         (z − i)
+                                         i=1             i=1             i=1
+                                         YN
+                          B(x, y, z) =         (ai x + bi y + ci z + 1) .
+                                         i=1
+
+Note that A(0, 0, 0) = (−1)n (n!)3 6= 0 and B(0, 0, 0) = 1 6= 0, but A(x, y, z) =
+B(x, y, z) = 0 for any (x, y, z) ∈ S. Also, the coefficient of xn y n z n in A is 1, while
+the coefficient of xn y n z n in B is 0.
+  Now, define
+                               P (x, y, z) := A(x, y, z) − λB(x, y, z).
+          A(0,0,0)
+where λ = B(0,0,0) = (−1)n (n!)3 . We now have that
+
+   • P (x, y, z) = 0 for any x, y, z ∈ {0, 1, . . . , n}3 .
+
+   • But the coefficient of xn y n z n is 1.
+
+This is a contradiction to Alon’s combinatorial nullstellensatz.
+
+
+
+
+                                                    9
+

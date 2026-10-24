@@ -1,0 +1,474 @@
+                 IMO 2002 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2002 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2002/1, proposed by Federico Ardila (COL) . . . . . . . . . . . . . .         3
+  1.2 IMO 2002/2, proposed by Hojoo Lee (KOR) . . . . . . . . . . . . . . . . .         4
+  1.3 IMO 2002/3, proposed by Laurentiu Panaitopol (ROU) . . . . . . . . . .            5
+
+2 Solutions to Day 2                                                                    6
+  2.1 IMO 2002/4, proposed by Mihai Manea (ROU) . . . . . . . . . . . . . . .           6
+  2.2 IMO 2002/5, proposed by Belur Jana Venkatachala (IND) . . . . . . . . .           7
+  2.3 IMO 2002/6, proposed by Vyacheslav Yasinsky (UKR) . . . . . . . . . . .           8
+
+
+
+
+                                            1
+IMO 2002 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let n be a positive integer. Let T be the set of points (x, y) in the plane where
+     x and y are non-negative integers with x + y < n. Each point of T is coloured
+     red or blue, subject to the following condition: if a point (x, y) is red, then so are
+     all points (x0 , y 0 ) of T with x0 ≤ x and y 0 ≤ y. Let A be the number of ways to
+     choose n blue points with distinct x-coordinates, and let B be the number of ways
+     to choose n blue points with distinct y-coordinates. Prove that A = B.
+
+  2. Let BC be a diameter of circle ω with center O. Let A be a point of circle ω such
+     that 0◦ < ∠AOB < 120◦ . Let D be the midpoint of arc AB not containing C. Line
+     ` passes through O and is parallel to line AD. Line ` intersects line AC at J. The
+     perpendicular bisector of segment OA intersects circle ω at E and F . Prove that J
+     is the incenter of triangle CEF .
+
+  3. Find all pairs of positive integers m, n ≥ 3 for which there exist infinitely many
+     positive integers a such that
+                                         am + a − 1
+                                         an + a2 − 1
+     is itself an integer.
+
+  4. Let n ≥ 2 be a positive integer with divisors 1 = d1 < d2 < · · · < dk = n. Prove
+     that d1 d2 + d2 d3 + · · · + dk−1 dk is always less than n2 , and determine when it is a
+     divisor of n2 .
+
+  5. Find all functions f : R → R such that
+
+                    (f (x) + f (z)) (f (y) + f (t)) = f (xy − zt) + f (xt + yz)
+
+     for all real numbers x, y, z, t.
+
+  6. Let n ≥ 3 be a positive integer. Let C1 , C2 , . . . , Cn be unit circles in the plane,
+     with centers O1 , O2 , . . . , On respectively. If no line meets more than two of the
+     circles, prove that
+                                       X       1       (n − 1)π
+                                                    ≤           .
+                                             Oi Oj         4
+                                   1≤i<j≤n
+
+
+
+
+                                             2
+IMO 2002 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2002/1, proposed by Federico Ardila (COL)
+   Available online at https://aops.com/community/p118710.
+
+  Problem statement
+  Let n be a positive integer. Let T be the set of points (x, y) in the plane where x
+  and y are non-negative integers with x + y < n. Each point of T is coloured red or
+  blue, subject to the following condition: if a point (x, y) is red, then so are all points
+  (x0 , y 0 ) of T with x0 ≤ x and y 0 ≤ y. Let A be the number of ways to choose n blue
+  points with distinct x-coordinates, and let B be the number of ways to choose n
+  blue points with distinct y-coordinates. Prove that A = B.
+
+Let ax denote the number of blue points with a given x-coordinate. Define by to be the
+number of blue points with a given y-coordinate.
+  We actually claim that
+
+  Claim — The multisets A := {ax | x} and B := {by | y} are equal.
+
+Proof. By induction on the number of red points. If there are no red points at all, then
+A = B = {1, . . . , n}.
+
+
+
+
+The proof consists of two main steps. First, suppose we color a single point P = (x, y)
+from blue to red (while preserving the condition). Before the coloring, we have ax =
+by = n − (x + y); afterwards ax = by = n − (x + y) − 1 and no other numbers change, as
+desired.
+   We also must show that this operation (repeatedly adding a single point P ) reaches
+all possible shapes of red points. This is well-known as the red points form a Young
+tableaux; for example, one way is to add all the points with x = 0 first one by one, then
+all the points with x = 1, and so on. So the induction implies the result.
+
+Finally,
+                                      n−1
+                                      Y            n−1
+                                                   Y
+                                 A=         ax =         by = B.
+                                      x=0          y=0
+
+
+
+
+                                              3
+IMO 2002 Solution Notes                          web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2002/2, proposed by Hojoo Lee (KOR)
+   Available online at https://aops.com/community/p118672.
+
+  Problem statement
+  Let BC be a diameter of circle ω with center O. Let A be a point of circle ω such
+  that 0◦ < ∠AOB < 120◦ . Let D be the midpoint of arc AB not containing C. Line
+  ` passes through O and is parallel to line AD. Line ` intersects line AC at J. The
+  perpendicular bisector of segment OA intersects circle ω at E and F . Prove that J
+  is the incenter of triangle CEF .
+
+By construction, AEOF is a rhombus with 60◦ -120◦ angles. Consequently, we may set
+s = AO = AE = AF = EO = EF .
+                                                A
+
+                          E
+                                                             D
+
+                              J
+                                                                 F
+
+                   C                                              B
+                                          O
+
+
+
+
+  Claim — We have AJ = s too.
+
+Proof. It suffices to show AJ = AO which is angle chasing. Let θ = ∠BOD = ∠DOA,
+so ∠BOA = 2θ. Thus ∠CAO = 12 ∠BOA = θ. However ∠AOJ = ∠OAD = 90◦ − 12 θ, as
+desired.
+
+Then, since AE = AJ = AF , we are done by the incenter-excenter lemma.
+
+
+
+
+                                          4
+IMO 2002 Solution Notes                           web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2002/3, proposed by Laurentiu Panaitopol (ROU)
+    Available online at https://aops.com/community/p118695.
+
+  Problem statement
+  Find all pairs of positive integers m, n ≥ 3 for which there exist infinitely many
+  positive integers a such that
+                                      am + a − 1
+                                      an + a2 − 1
+  is itself an integer.
+
+
+The condition is equivalent to an + a2 − 1 dividing am + a − 1 as polynomials. The big
+step is the following analytic one.
+
+   Claim — We must have m ≤ 2n.
+
+Proof. Assume on contrary m > 2n and let 0 < r < 1 be the unique real number with
+rn + r2 = 1, hence rm + r = 1. But now
+
+                          0 = rm + r − 1 ≤ r2n+1 + r − 1
+                            = r (1 − r2 )2 + 1 − 1
+                                              
+
+                            = −(1 − r) r4 + r3 − r2 − r + 1
+                                                            
+
+                            = −(1 − r) r4 + (1 − r)(1 − r2 ) .
+                                                            
+
+
+Hewer, 1 − r > 0 and r4 + (1 − r)(1 − r2 ) > 0 are both obvious for 0 < r < 1. So this is
+a contradiction.
+
+  Now for the algebraic part. Obviously m > n.
+
+                  an + a2 − 1 | am + a − 1
+             ⇐⇒ an + a2 − 1 | (am + a − 1)(a + 1) = am (a + 1) + (a2 − 1)
+             ⇐⇒ an + a2 − 1 | am (a + 1) − an
+             ⇐⇒ an + a2 − 1 | am−n (a + 1) − 1.
+
+The right-hand side has degree m − n + 1 ≤ n + 1, and the leading coefficients are both
++1. So the only possible situations are
+
+                        am−n (a + 1) − 1 = (a + 1) an + a2 − 1
+                                                               
+
+                        am−n (a + 1) + 1 = an + a2 − 1.
+
+The former fails by just taking a = −1; the latter implies (m, n) = (5, 3). As our work
+was reversible, this also implies (m, n) = (5, 3) works, done.
+
+
+
+
+                                             5
+IMO 2002 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2002/4, proposed by Mihai Manea (ROU)
+   Available online at https://aops.com/community/p118687.
+
+  Problem statement
+  Let n ≥ 2 be a positive integer with divisors 1 = d1 < d2 < · · · < dk = n. Prove
+  that d1 d2 + d2 d3 + · · · + dk−1 dk is always less than n2 , and determine when it is a
+  divisor of n2 .
+
+We always have
+                                                     n n n
+            dk dk−1 + dk−1 dk−2 + · · · + d2 d1 < n · + · + . . .
+                                                   2   2 3        
+                                                     1    1
+                                                =      +    + . . . n2 = n2 .
+                                                    1·2 2·3
+
+This proves the first part.
+   For the second, we claim that this only happens when n is prime (in which case we get
+d1 d2 = n). Assume n is not prime (equivalently k ≥ 2) and let p be the smallest prime
+dividing n. Then
+
+                                                                       n2
+                     dk dk−1 + dk−1 dk−2 + · · · + d2 d1 > dk dk−1 =
+                                                                       p
+
+exceeds the largest proper divisor of n2 , but is less than n2 , so does not divide n2 .
+
+
+
+
+                                              6
+IMO 2002 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2002/5, proposed by Belur Jana Venkatachala (IND)
+   Available online at https://aops.com/community/p118703.
+
+  Problem statement
+  Find all functions f : R → R such that
+
+                  (f (x) + f (z)) (f (y) + f (t)) = f (xy − zt) + f (xt + yz)
+
+  for all real numbers x, y, z, t.
+
+
+The answer is f (x) ≡ 0, f (x) ≡ 1/2 and f (x) ≡ x2 which are easily seen to work. Let’s
+prove they are the only ones; we show two solutions.
+
+¶ First solution (multiplicativity). Let P (x, y, z, t) denote the given statement.
+
+   • By comparing P (x, 1, 0, 0) and P (0, 0, 1, x) we get f even .
+
+   • By P (0, y, 0, t) we get for nonconstant f that f (0) = 0. If f is constant we get the
+     solutions earlier, so in the sequel assume f (0) = 0 .
+
+   • By P (x, y, 0, 0) we get f (xy) = f (x)f (y) . Note in particular that for any real
+     number x we now have
+                                                   p 2
+                               f (x) = f (|x|) = f   |x| ≥ 0
+
+     that is, f ≥ 0.
+
+  From P (x, y, y, x) we now have
+
+           f (x2 + y 2 ) = (f (x) + f (y))2 = f (x2 ) + 2f (x)f (y) + f (y 2 ) ≥ f (x2 )
+
+so f is weakly increasing. Combined with f multiplicative and nonconstant, this implies
+f (x) = |x|r for some real number r.
+   Finally, P (1, 1, 1, 1) gives f (2) = 4f (1), so f (x) ≡ x2 .
+
+¶ Second solution (ELMO). Let P (x, y, z, t) denote the statement. Assume f is
+nonconstant, as before we derive that f is even, f (0) = 0, and f (x) ≥ 0 for all x.
+  Now comparing P (x, y, z, t) and P (z, y, x, t) we obtain
+
+   f (xy − zt) + f (xt + yz) = (f (x) + f (z)) (f (y) + f (t)) = f (xy + zt) + f (xt − yz)
+
+which in particular implies that
+
+       f (a − d) + f (b + c) = f (a + d) + f (b − c)        if ad = bc and a, b, c, d > 0.
+
+Thus the restriction of f to (0, ∞) satisfies ELMO 2011, problem 4 which implies
+that f (x) = kx2 + ` for constants k and `. From here we recover the original.
+   (Minor note: technically ELMO 2011/4 is f : (0, ∞) → (0, ∞) but we only have f ≥ 0,
+however the proof for the ELMO problem works as long as f is bounded below; we could
+also just apply the ELMO problem to f + 0.01 instead.)
+
+
+
+                                                7
+IMO 2002 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2002/6, proposed by Vyacheslav Yasinsky (UKR)
+   Available online at https://aops.com/community/p118677.
+
+  Problem statement
+  Let n ≥ 3 be a positive integer. Let C1 , C2 , . . . , Cn be unit circles in the plane,
+  with centers O1 , O2 , . . . , On respectively. If no line meets more than two of the
+  circles, prove that
+                                    X       1       (n − 1)π
+                                                 ≤           .
+                                          Oi Oj         4
+                                1≤i<j≤n
+
+
+
+For brevity, let dij be the length of Oij and let ∠(ijk) be shorthand for ∠Oi Oj Ok (or its
+measure in radians).
+   First, we eliminate the circles completely and reduce the problem to angles using the
+following fact (which is in part motivated by the mysterious presence of π on right-hand
+side, and also brings d−1ij into the picture).
+
+
+  Lemma
+  For any indices i, j, m we have the inequalities
+                                                                   
+                            2   2                              2   2
+        ∠(imj) ≥ max          ,        and π − ∠(imj) ≥ max      ,      .
+                           dmi dmj                            dmi dmj
+
+Proof. We first prove the former line. Consider the altitude from Oi to Om Oj . The
+altitude must have length at least 2, otherwise its perpendicular bisector passes intersects
+all of Ci , Cm , Cj . Thus
+                              2 ≤ dmi sin ∠(imj) ≤ ∠(imj)
+proving the first line. The second line follows by considering the external angle formed
+by lines Om Oi and Om Oj instead of the internal one.
+
+  Our idea now is for any index m we will make an estimate on 1≤i≤n d1bi for each
+                                                                     P
+                                                                           i6=b
+index b. If the centers formed a convex polygon, this would be much simpler, but because
+we do not have this assumption some more care is needed.
+
+  Claim — Suppose Oa , Ob , Oc are consecutive vertices of the convex hull. Then
+                          n−1           2   2           2
+                              ](abc) ≥    +    + ··· +
+                          n−2          d1b d2b         dnb
+
+  where the term d2bb does not appear (obviously).
+
+Proof. WLOG let’s suppose (a, b, c) = (2, 1, n) and that rotating ray O2 O1 hits O3 , O4 ,
+. . . , On in that order. We have
+                         2
+                            ≤ ∠(213)
+                        d12
+                         2
+                            ≤ min {∠(213), ∠(314)}
+                        d13
+                         2
+                            ≤ min {∠(314), ∠(415)}
+                        d14
+
+                                             8
+IMO 2002 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+                                ..
+                                 .
+                       2
+                            ≤ min {∠((n − 2)1(n − 1)), ∠((n − 1)1n)}
+                    d1(n−1)
+                         2
+                            ≤ ∠ ((n − 1)1n) .
+                        d1n
+Of the n − 1 distinct angles appearing on the right-hand side, we let κ denote the smallest
+of them. We have κ ≤ n−2 1
+                            ∠(21n) by pigeonhole principle. Then we pick the minimums
+on the right-hand side in the unique way such that summing gives
+                  n
+                  X 2
+                              ≥ (∠(213) + ∠(314) + · · · + ∠((n − 1)1n)) + κ
+                        d1i
+                  i=2
+                                            1           n−1
+                              ≥ ∠(21n) +       ∠(21n) =     ∠(21n)
+                                           n−2          n−2
+as desired.
+
+  Next we show a bound that works for any center, even if it does not lie on the convex
+hull H.
+
+   Claim — For any index b we have
+                                 n−1     2   2           2
+                                     π≥    +    + ··· +
+                                 n−2    d1b d2b         dnb
+
+   where the term d2bb does not appear (obviously).
+
+Proof. This is the same argument as in the previous proof, with the modification that
+because Ob could lie inside the convex hull now, our rotation argument should use lines
+instead of rays (in order for the angle to be π rather than 2π). This is why the first
+lemma is stated with two cases; we need it now.
+   Again WLOG b = 1. Consider line O1 O2 (rather than just the ray) and imagine rotating
+it counterclockwise through O2 ; suppose that this line passes through O3 , O4 , . . . , On in
+that order before returning to O2 again. We let ](i1j) ∈ {∠(i1j), π − ∠(i1j)} ∈ [0, π)
+be the counterclockwise rotations obtained in this way, so that
+
+                   ](21n) = ](213) + ](314) + + · · · + ]((n − 1)1n).
+
+(This is not “directed angles”, but related.)
+  Then we get bounds
+                           2
+                              ≤ ](213)
+                          d12
+                           2
+                              ≤ min {](213), ](314)}
+                          d13
+                              ..
+                               .
+                         2
+                              ≤ min {]((n − 2)1(n − 1)), ]((n − 1)1n)}
+                    d1(n−1)
+                         2
+                            ≤ ] {(n − 1)1n}
+                        d1n
+
+
+                                                9
+IMO 2002 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+as in the last proof, and so as before we get
+                                  n
+                                  X 2             n−1
+                                              ≤       ](21n)
+                                        d1i       n−2
+                                  i=1
+
+which is certainly less than n−1
+                             n−2 π.
+
+   Now suppose there were r vertices in the convex hull. If we sum the first claim across
+all b on the hull, and the second across all b not on the hull (inside it), we get
+                        X        2    1 XX 2
+                                    =
+                                dij   2   dbi
+                      1≤i<j≤n             b   i6=b
+                                    1 n−1
+                                  ≤   ·      ((r − 2)π + (n − r)π)
+                                    2 n−2
+                                    (n − 1)π
+                                  =
+                                        4
+as needed (with (r − 2)π being the sum of angles in the hull).
+
+
+
+
+                                                  10
+

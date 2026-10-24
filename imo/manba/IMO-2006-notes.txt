@@ -1,0 +1,393 @@
+                 IMO 2006 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2006 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2006/1, proposed by Hojoo Lee (KOR) . . . . . . . . . . . . . . . . .         3
+  1.2 IMO 2006/2, proposed by Dušan Djukić (SRB) . . . . . . . . . . . . . . .          4
+  1.3 IMO 2006/3, proposed by Finbarr Holland (IRL) . . . . . . . . . . . . . .         5
+
+2 Solutions to Day 2                                                                    6
+  2.1 IMO 2006/4, proposed by Zuming Feng (USA) . . . . . . . . . . . . . . .           6
+  2.2 IMO 2006/5, proposed by Dan Schwarz (ROU) . . . . . . . . . . . . . . .           7
+  2.3 IMO 2006/6, proposed by Dušan Djukić (SRB) . . . . . . . . . . . . . . .          8
+
+
+
+
+                                            1
+IMO 2006 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let ABC be a triangle with incenter I. A point P in the interior of the triangle
+     satisfies
+                         ∠P BA + ∠P CA = ∠P BC + ∠P CB.
+     Show that AP ≥ AI and that equality holds if and only if P = I.
+
+  2. Let P be a regular 2006-gon. A diagonal is called good if its endpoints divide the
+     boundary of P into two parts, each composed of an odd number of sides of P . The
+     sides of P are also called good. Suppose P has been dissected into triangles by 2003
+     diagonals, no two of which have a common point in the interior of P . Find the
+     maximum number of isosceles triangles having two good sides that could appear in
+     such a configuration.
+
+  3. Determine the least real number M such that the inequality
+                                                                                2
+                 ab(a2 − b2 ) + bc(b2 − c2 ) + ca(c2 − a2 ) ≤ M a2 + b2 + c2
+
+     holds for all real numbers a, b and c.
+
+  4. Determine all pairs (x, y) of integers such that
+
+                                    1 + 2x + 22x+1 = y 2 .
+
+  5. Let P (x) be a polynomial of degree n > 1 with integer coefficients and let k be a
+     positive integer. Consider the polynomial
+
+                               Q(x) = P (P (. . . P (P (x)) . . . ))
+
+     where P occurs k times. Prove that there are at most n integers t such that
+     Q(t) = t.
+
+  6. Assign to each side b of a convex polygon P the maximum area of a triangle that
+     has b as a side and is contained in P . Show that the sum of the areas assigned to
+     the sides of P is at least twice the area of P .
+
+
+
+
+                                              2
+IMO 2006 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2006/1, proposed by Hojoo Lee (KOR)
+   Available online at https://aops.com/community/p571966.
+
+  Problem statement
+  Let ABC be a triangle with incenter I. A point P in the interior of the triangle
+  satisfies
+                      ∠P BA + ∠P CA = ∠P BC + ∠P CB.
+  Show that AP ≥ AI and that equality holds if and only if P = I.
+
+The condition rewrites as
+                                                                                 ∠B + ∠C
+∠P BC + ∠P CB = (∠B − ∠P BC) + (∠C − ∠P CB) =⇒ ∠P BC + ∠P CB =
+                                                                                    2
+which means that
+                                     ∠B + ∠C         ∠A
+                   ∠BP C = 180◦ −            = 90◦ +    = ∠BIC.
+                                        2             2
+Since P and I are both inside 4ABC that implies P lies on the circumcircle of 4BIC.
+  It’s well-known (by “Fact 5”) that the circumcenter of 4BIC is the arc midpoint M of
+d Therefore
+BC.
+                     AI + IM = AM ≤ AP + P M =⇒ AI ≤ AP
+with equality holding iff A, P , M are collinear, or P = I.
+
+
+
+
+                                            3
+IMO 2006 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2006/2, proposed by Dušan Djukić (SRB)
+   Available online at https://aops.com/community/p571973.
+
+  Problem statement
+  Let P be a regular 2006-gon. A diagonal is called good if its endpoints divide the
+  boundary of P into two parts, each composed of an odd number of sides of P . The
+  sides of P are also called good. Suppose P has been dissected into triangles by 2003
+  diagonals, no two of which have a common point in the interior of P . Find the
+  maximum number of isosceles triangles having two good sides that could appear in
+  such a configuration.
+
+Call a triangle with the desired property special. We prove the maximum number of
+special triangles is 1003, achieved by paring up the sides of the polygon.
+  We present two solutions for the upper bound. Both of them rely first on two geometric
+notes:
+
+   • In a special triangle, the good sides are congruent (and not congruent to the third
+     side).
+
+   • No two isosceles triangles share a good side.
+
+¶ Solution using bijections. Call a good diagonal special if it’s part of a special
+triangle; special diagonals come in pairs. Consider the minor arc cut out by a special
+diagonal d, which has an odd number of sides. Since special diagonals come in pairs,
+one can associate to d a side of the polygon not covered by any special diagonals from d.
+Hence there are at most 2006 special diagonals, so at most 1003 special triangles.
+
+¶ Solution using graph theory. Consider the tree T formed by the 2004 triangles in
+the dissection, with obvious adjacency. Let F be the forest obtained by deleting any edge
+corresponding to a good diagonal. Then the resulting graph F has only degrees 1 and 3,
+with special triangles only occurring at degree 1 vertices.
+  If there are k good diagonals drawn, then this forest consists of k + 1 trees. A tree
+with ni vertices (0 ≤ i ≤ k) consequently has ni2+2 leaves. However by the earlier remark
+at least k leaves don’t give special triangles (one on each side of a special diagonal); so
+the number of leaves that do give good triangles is at most
+                          X ni + 2              2004 + 2(k + 1)
+                   −k +              = −k +                     = 1003.
+                                2                      2
+                           i
+
+
+
+
+                                            4
+IMO 2006 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2006/3, proposed by Finbarr Holland (IRL)
+   Available online at https://aops.com/community/p571945.
+
+  Problem statement
+  Determine the least real number M such that the inequality
+                                                                                  2
+              ab(a2 − b2 ) + bc(b2 − c2 ) + ca(c2 − a2 ) ≤ M a2 + b2 + c2
+
+  holds for all real numbers a, b and c.
+
+It’s the same as
+                                                                         2
+                   |(a − b)(b − c)(c − a)(a + b + c)| ≤ M a2 + b2 + c2        .
+
+Let x = a − b, y = b − c, z = c − a, s = a + b + c. Then we want to have
+                                        M 2
+                             |xyzs| ≤     (x + y 2 + z 2 + s2 )2 .
+                                        9
+Here x + y + z = 0.
+  Now if x and y have the same sign, we can replace them with the average (this increases
+the LHS and decreases RHS). So we can have x = y, z = −2x. Now WLOG x > 0 to get
+
+                                       M            2
+                                 2x3 · s ≤  6x2 + s2 .
+                                        9
+                                            √
+After this routine calculation gives M = 32
+                                          9
+                                              2 works and is optimal (by 6x2 + s2 =
+2x + 2x + 2x + s and AM-GM).
+  2     2      2    2
+
+
+
+
+                                               5
+IMO 2006 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2006/4, proposed by Zuming Feng (USA)
+   Available online at https://aops.com/community/p572815.
+
+  Problem statement
+  Determine all pairs (x, y) of integers such that
+
+                                  1 + 2x + 22x+1 = y 2 .
+
+Answers: (0, ±2), (4, ±23), which work.
+  Assume x ≥ 4.
+
+                2x 1 + 2x+1 = 2x + 22x+1 = y 2 − 1 = (y − 1)(y + 1).
+                             
+
+
+So either:
+
+   • y = 2x−1 m + 1 for some odd m, so
+
+                                                                 4(1 − m)
+                      1 + 2x+1 = m 2x−2 m + 1        =⇒ 2x =
+                                                 
+                                                                          .
+                                                                  m2 − 8
+
+   • y = 2x−1 m − 1 for some odd m, so
+
+                                                                 4(1 + m)
+                      1 + 2x+1 = m 2x−2 m − 1        =⇒ 2x =
+                                                 
+                                                                          .
+                                                                  m2 − 8
+
+In particular we need 4|1 ± m| ≥ 24 |m2 − 8|, which is enough to imply m < 5. From here
+easily recover x = 4, m = 3 as the last solution (in the second case).
+
+
+
+
+                                            6
+IMO 2006 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2006/5, proposed by Dan Schwarz (ROU)
+   Available online at https://aops.com/community/p572821.
+
+  Problem statement
+  Let P (x) be a polynomial of degree n > 1 with integer coefficients and let k be a
+  positive integer. Consider the polynomial
+
+                              Q(x) = P (P (. . . P (P (x)) . . . ))
+
+  where P occurs k times. Prove that there are at most n integers t such that Q(t) = t.
+
+First, we prove that:
+
+  Claim (Putnam 2000 et al) — If a number is periodic under P then in fact it’s
+  fixed by P ◦ P .
+
+Proof. Let x1 , x2 , . . . , xn be a minimal orbit. Then
+
+                        xi − xi+1 | P (xi ) − P (xi+1 ) = xi+1 − xi+2
+
+and so on cyclically.
+  If any of the quantities are zero we are done. Else, we must eventually have xi − xi+1 =
+−(xi+1 − xi+2 ), so xi = xi+2 and we get 2-periodicity.
+
+   The tricky part is to study the 2-orbits. Suppose there exists a fixed pair u 6= v with
+P (u) = v, P (v) = u. (If no such pair exists, we are already done.) Let (a, b) be any
+other pair with P (a) = b, P (b) = a, possibly even a = b, but {a, b} ∩ {u, v} = ∅. Then
+we should have
+
+                    u − a | P (u) − P (a) = v − b | P (v) − P (b) = u − a
+
+and so u − a and v − b divide each other (and are nonzero). Similarly, u − b and v − a
+divide each other.
+  Hence u − a = ±(v − b) and u − b = ±(v − a). We consider all four cases:
+
+   • If u − a = v − b and u − b = v − a then u − v = b − a = a − b, contradiction.
+
+   • If u − a = −(v − b) and u − b = −(v − a) then u + v = u − v = a + b.
+
+   • If u − a = −(v − b) and u − b = v − a, we get a + b = u + v from the first one
+     (discarding the second).
+
+   • If u − a = v − b and u − b = −(v − a), we get a + b = u + v from the second one
+     (discarding the first one).
+
+Thus in all possible situations we have
+
+                                     a + b = c := u + v
+
+a fixed constant.
+   Therefore, any pair (a, b) with P (a) = b and P (b) = a actually satisfies P (a) = c − a.
+And since deg P > 1, this means there are at most n roots to a + P (a) = c, as needed.
+
+
+
+                                               7
+IMO 2006 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2006/6, proposed by Dušan Djukić (SRB)
+   Available online at https://aops.com/community/p572824.
+
+  Problem statement
+  Assign to each side b of a convex polygon P the maximum area of a triangle that
+  has b as a side and is contained in P . Show that the sum of the areas assigned to
+  the sides of P is at least twice the area of P .
+
+We say a polygon is almost convex if all its angles are at most 180◦ .
+  Note that given any convex or almost convex polygon, we can take any side b and add
+another vertex on it, and the sum of the labels doesn’t change (since the label of a side is
+the length of the side times the distance of the farthest point).
+
+  Lemma
+  Let N be an even integer. Then any almost convex N -gon with area S should have
+  an inscribed triangle with area at least 2S/N .
+
+The main work is the proof of the lemma.
+  Label the polygon P0 P1 . . . PN −1 . Consider the N /2 major diagonals of the almost
+convex N -gon, P0 PN /2 , P1 PN /2+1 , et cetera. A butterfly refers to a self-intersecting
+quadrilateral Pi Pi+1 Pi+1+N /2 Pi+N /2 . An example of a butterfly is shown below for
+N = 8.
+                                             P6
+
+                                                  P5
+
+                                                        P4
+
+
+                       P7
+                                                                  P3
+
+
+
+
+                                P0      P1                   P2
+
+
+  Claim — Every point X in the polygon is contained in the wingspan of some
+  butterfly.
+
+Proof. Consider a windmill-like process which
+   • starts from some oriented red line P0 PN /2 , oriented to face P0 PN /2
+
+   • rotates through P0 PN /2 ∩ P1 PN /2+1 to get line P1 PN /2+1 ,
+
+   • rotates through P1 PN /2+1 ∩ P2 PN /2+2 to get line P2 PN /2+2 ,
+
+                                              8
+IMO 2006 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+   • . . .et cetera, until returning to line PN /2 P0 , but in the reverse orientation.
+
+At the end of the process, every point in the plane has switched sides with our moving
+line. The moment that X crosses the moving red line, we get it contained in a butterfly,
+as needed.
+
+  Claim — If ABDC = Pi Pi+1 Pi+1+N /2 Pi+N /2 is a butterfly, one of the triangles
+  ABC, BCD, CDA, DAB has area at least that of the butterfly.
+
+Proof. Let the diagonals of the butterfly meet at O, and let a = AO, b = BO, c = CO,
+d = DO. If we assume WLOG d = min(a, b, c, d) then it follows [ABC] = [AOB] +
+[BOC] ≥ [AOB] + [COD], as needed.
+
+   Now, since the N /2 butterflies cover an area of S, it follows that one of the butterflies
+has area at least S/(N /2) = 2S/N , and so that butterfly gives a triangle with area at
+least 2S/N , completing the proof of the lemma.
+
+¶ Main proof. Let a1 , . . . , an be the numbers assigned to the sides. Assume for
+contradiction a1 + · · · + an < 2S. We pick even integers m1 , m2 , . . . , mn such that
+                                   a1        2m1
+                                      <
+                                   S     m1 + · · · + mn
+                                   a2        2m2
+                                      <
+                                   S     m1 + · · · + mn
+                                      ..
+                                       .
+                                   an        2mn
+                                      <                  .
+                                   S     m1 + · · · + mn
+which is possible by rational approximation, since the right-hand sides sum to 2 and the
+left-hand sides sum to strictly less than 2.
+   Now we break every side of P into mi equal parts to get an almost convex N -gon,
+where N = m1 + · · · + mn .
+   The main lemma then gives us a triangle ∆ of the almost convex N -gon which has
+area at least 2S
+               N . If ∆ used the ith side then it then follows the label ai on that side
+should be at least mi · 2S
+                        N , contradiction.
+
+
+
+
+                                              9
+

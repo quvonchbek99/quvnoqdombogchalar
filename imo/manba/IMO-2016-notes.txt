@@ -1,0 +1,509 @@
+                 IMO 2016 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2016 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2016/1, proposed by Art Waeterschoot (BEL) . . . . . . . . . . . . .          3
+  1.2 IMO 2016/2, proposed by Trevor Tao (AUS) . . . . . . . . . . . . . . . .          5
+  1.3 IMO 2016/3, proposed by Aleksandr Gaifullin (RUS) . . . . . . . . . . . .         6
+
+2 Solutions to Day 2                                                               7
+  2.1 IMO 2016/4, proposed by Gerhard Woeginger (LUX) . . . . . . . . . . . . 7
+  2.2 IMO 2016/5, proposed by Russia . . . . . . . . . . . . . . . . . . . . . . . 8
+  2.3 IMO 2016/6, proposed by Josef Tkadlec (CZE) . . . . . . . . . . . . . . . 10
+
+
+
+
+                                            1
+IMO 2016 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. In convex pentagon ABCDE with ∠B > 90◦ , let F be a point on AC such that
+     ∠F BC = 90◦ . It is given that F A = F B, DA = DC, EA = ED, and rays AC
+     and AD trisect ∠BAE. Let M be the midpoint of CF . Let X be the point such
+     that AM XE is a parallelogram. Show that F X, EM , BD are concurrent.
+
+  2. Find all integers n for which each cell of n × n table can be filled with one of the
+     letters I, M and O in such a way that:
+        • In each row and column, one third of the entries are I, one third are M and
+          one third are O; and
+        • in any diagonal, if the number of entries on the diagonal is a multiple of three,
+          then one third of the entries are I, one third are M and one third are O.
+     Note that an n × n table has 4n − 2 diagonals.
+
+  3. Let P = A1 A2 . . . Ak be a convex polygon in the plane. The vertices A1 , A2 , . . . ,
+     Ak have integral coordinates and lie on a circle. Let S be the area of P . An odd
+     positive integer n is given such that the squares of the side lengths of P are integers
+     divisible by n. Prove that 2S is an integer divisible by n.
+
+  4. A set of positive integers is called fragrant if it contains at least two elements and
+     each of its elements has a prime factor in common with at least one of the other
+     elements. Let P (n) = n2 + n + 1. What is the smallest possible positive integer
+     value of b such that there exists a non-negative integer a for which the set
+
+                              {P (a + 1), P (a + 2), . . . , P (a + b)}
+
+     is fragrant?
+
+  5. The equation
+
+                 (x − 1)(x − 2) . . . (x − 2016) = (x − 1)(x − 2) . . . (x − 2016)
+
+     is written on the board, with 2016 linear factors on each side. What is the least
+     possible value of k for which it is possible to erase exactly k of these 4032 linear
+     factors so that at least one factor remains on each side and the resulting equation
+     has no real solutions?
+
+  6. There are n ≥ 2 line segments in the plane such that every two segments cross
+     and no three segments meet at a point. Geoff has to choose an endpoint of each
+     segment and place a frog on it facing the other endpoint. Then he will clap his
+     hands n − 1 times. Every time he claps, each frog will immediately jump forward
+     to the next intersection point on its segment. Frogs never change the direction of
+     their jumps. Geoff wishes to place the frogs in such a way that no two of them will
+     ever occupy the same intersection point at the same time.
+      (a) Prove that Geoff can always fulfill his wish if n is odd.
+      (b) Prove that Geoff can never fulfill his wish if n is even.
+
+
+
+
+                                              2
+IMO 2016 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2016/1, proposed by Art Waeterschoot (BEL)
+   Available online at https://aops.com/community/p6637656.
+
+  Problem statement
+
+  In convex pentagon ABCDE with ∠B > 90◦ , let F be a point on AC such that
+  ∠F BC = 90◦ . It is given that F A = F B, DA = DC, EA = ED, and rays AC and
+  AD trisect ∠BAE. Let M be the midpoint of CF . Let X be the point such that
+  AM XE is a parallelogram. Show that F X, EM , BD are concurrent.
+
+Here is a “long” solution which I think shows where the “power” in the configuration
+comes from (it should be possible to come up with shorter solutions by cutting more
+directly to the desired conclusion). Throughout the proof, we let
+
+            θ = ∠F AB = ∠F BA = ∠DAC = ∠DCA = ∠EAD = ∠EDA.
+
+ We begin by focusing just on ABCD with point F , ignoring for now the points E and
+X (and to some extent even point M ). It turns out this is a very familiar configuration.
+
+  Lemma (Central lemma)
+  The points F and C are the incenter and A-excenter of 4DAB. Moreover, 4DAB
+  is isosceles with DA = DB.
+
+Proof. The proof uses three observations:
+
+   • We already know that F AC is the angle bisector of ∠ABD.
+
+   • We were given ∠F BC = 90◦ .
+
+   • Next, note that 4AF B ∼ 4ADC (they are similar isosceles triangles). From this
+     it follows that AF · AC = AB · AD.
+
+These three facts, together with F lying inside 4ABD, are enough to imply the result.
+
+
+
+                                                  D
+
+                    A
+
+                                 F
+
+
+
+                                                 M
+
+                                B                                   C
+
+
+
+
+                                            3
+IMO 2016 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+
+  Corollary
+  The point M is the midpoint of arc BD
+                                     d of (DAB), and the center of cyclic quadri-
+  lateral F DCB.
+
+Proof. Fact 5.
+
+   Using these observations as the anchor for everything that follows, we now prove several
+claims about X and E in succession.
+
+
+                                 E
+
+
+                                                   D
+
+                     A                                           X
+
+                                     F
+
+
+
+                                                  M
+
+                                 B                                   C
+
+
+
+
+  Claim — Point E is the midpoint of arc AD
+                                         d in (ABM D), and hence lies on ray
+  BF .
+
+Proof. This follows from ∠EDA = θ = ∠EBA.
+
+  Claim — Points X is the second intersection of ray ED with (BF DC).
+
+Proof. First, ED k AC already since ∠AED = 180◦ − 2θ and ∠CAE = 2θ.
+  Now since DB = DA, we get M B = M D = ED = EA. Thus, M X = AE = M B, so
+X also lies on the circle (BF DC) centered at M .
+
+  Claim — The quadrilateral EXM F is an isosceles trapezoid.
+
+Proof. We already know EX k F M . Since ∠EF A = 180◦ − ∠AF B = 2θ = ∠F AE, we
+have EF = EA as well (and F 6= A). As EXM A was a parallelogram, it follows EXM F
+is an isosceles trapezoid.
+
+  The problem then follows by radical axis theorem on the three circles (AEDM B),
+(BF DXC) and (EXM F ).
+
+
+
+
+                                            4
+IMO 2016 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2016/2, proposed by Trevor Tao (AUS)
+   Available online at https://aops.com/community/p6637677.
+
+  Problem statement
+  Find all integers n for which each cell of n × n table can be filled with one of the
+  letters I, M and O in such a way that:
+
+      • In each row and column, one third of the entries are I, one third are M and
+        one third are O; and
+
+      • in any diagonal, if the number of entries on the diagonal is a multiple of three,
+        then one third of the entries are I, one third are M and one third are O.
+
+  Note that an n × n table has 4n − 2 diagonals.
+
+The answer is n divisible by 9.
+  First we construct n = 9 and by extension every multiple of 9.
+                           I   I   I       M   M   M       O   O   O
+                           M   M   M       O   O   O       I   I   I
+                           O   O   O       I   I   I       M   M   M
+                           I   I   I       M   M   M       O   O   O
+                           M   M   M       O   O   O       I   I   I
+                           O   O   O       I   I   I       M   M   M
+                           I   I   I       M   M   M       O   O   O
+                           M   M   M       O   O   O       I   I   I
+                           O   O   O       I   I   I       M   M   M
+  We now prove 9 | n is necessary.
+  Let n = 3k, which divides the given grid into k 2 sub-boxes (of size 3 × 3 each). We say
+a multiset of squares S is clean if the letters distribute equally among them; note that
+unions of clean multisets are clean.
+  Consider the following clean sets (given to us by problem statement):
+   • All columns indexed 2 (mod 3),
+   • All rows indexed 2 (mod 3), and
+   • All 4k − 2 diagonals mentioned in the problem.
+Take their union. This covers the center of each box four times, and every other cell
+exactly once. We conclude the set of k 2 center squares are clean, hence 3 | k 2 and so
+9 | n, as desired.
+   Shown below is the sums over all diagonals only, and of the entire union.
+             1       1 1       1 1         1       1   1   1   1   1   1   1   1   1
+                 2         2           2           1   4   1   1   4   1   1   4   1
+             1       1 1       1 1         1       1   1   1   1   1   1   1   1   1
+             1       1 1       1 1         1       1   1   1   1   1   1   1   1   1
+                 2         2           2           1   4   1   1   4   1   1   4   1
+             1       1 1       1 1         1       1   1   1   1   1   1   1   1   1
+             1       1 1       1 1         1       1   1   1   1   1   1   1   1   1
+                 2         2           2           1   4   1   1   4   1   1   4   1
+             1       1 1       1 1         1       1   1   1   1   1   1   1   1   1
+
+
+                                               5
+IMO 2016 Solution Notes                                       web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2016/3, proposed by Aleksandr Gaifullin (RUS)
+    Available online at https://aops.com/community/p6637660.
+
+  Problem statement
+  Let P = A1 A2 . . . Ak be a convex polygon in the plane. The vertices A1 , A2 , . . . ,
+  Ak have integral coordinates and lie on a circle. Let S be the area of P . An odd
+  positive integer n is given such that the squares of the side lengths of P are integers
+  divisible by n. Prove that 2S is an integer divisible by n.
+
+The following solution is due to Jeck Lim.
+   We will prove the result just for n = pe where p is an odd
+                                                          p prime and e ≥ 1. The case k =
+3 is resolved by Heron’s formula directly: we have S = 14 2(a2 b2 + b2 c2 + c2 a2 ) − a4 − b4 − c4 ,
+so if pe | gcd(a2 , b2 , c2 ) then p2e | S 2 .
+   Now we show we can pick a diagonal and induct down on k by using inversion.
+   Let the polygon be A1 A2 . . . Ak+1 and suppose for contradiction that all sides are
+divisible by pe but no diagonals are. Let O = Ak+1 for notational convenience. By
+applying inversion around O with radius 1, we get the “generalized Ptolemy theorem”
+               A1 A2     A2 A3             Ak−1 Ak       A1 Ak
+                       +          + ··· +             =
+              OA1 · OA2 OA2 · OA3         OAk−1 · OAk   OA1 · OAk
+
+or, making use of square roots,
+        s               s                        s                 s
+             A1 A22           A2 A23                Ak−1 A2k          A1 A2k
+                      +                + · · · +                 =
+          OA21 · OA22      OA22 · OA23             OA2k−1 · OA2k     OA21 · OA2k
+
+Suppose νp of all diagonals is strictly less than e. Then the relation becomes
+                                   √                  √            √
+                                       q1 + · · · +       qk−1 =    q
+
+where qi are positive rational numbers. Since there are no nontrivial relations between
+square roots (see this link) there is a positive rational number   such that
+                                                                                  p
+                                                                 b           ri =   qi /b
+and r = q/b are all rational numbers. Then
+        p
+
+                                             X
+                                                  ri = r.
+
+However, the condition implies that νp (qi2 ) > νp (q 2 ) for all i (check this for i = 1, i = k −1
+and 2 ≤ i ≤ k − 2), and hence νp (ri ) > νp (r). This is absurd.
+
+  Remark. I think you basically have to use some Ptolemy-like geometric property, and also
+  all correct solutions I know of for n = pe depend on finding a diagonal and inducting down.
+  (Actually, the case k = 4 is pretty motivating; Ptolemy implies one can cut in two.)
+
+
+
+
+                                                      6
+IMO 2016 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2016/4, proposed by Gerhard Woeginger (LUX)
+   Available online at https://aops.com/community/p6642559.
+
+  Problem statement
+  A set of positive integers is called fragrant if it contains at least two elements and
+  each of its elements has a prime factor in common with at least one of the other
+  elements. Let P (n) = n2 + n + 1. What is the smallest possible positive integer
+  value of b such that there exists a non-negative integer a for which the set
+
+                            {P (a + 1), P (a + 2), . . . , P (a + b)}
+
+  is fragrant?
+
+The answer is b = 6.
+  First, we prove b ≥ 6 must hold. It is not hard to prove the following divisibilities by
+Euclid:
+
+                                 gcd(P (n), P (n + 1)) | 1
+                                 gcd(P (n), P (n + 2)) | 7
+                                 gcd(P (n), P (n + 3)) | 3
+                                 gcd(P (n), P (n + 4)) | 19.
+
+Now assume for contradiction b ≤ 5. Then any GCD’s among P (a + 1), . . . , P (a + b)
+must be among {3, 7, 19}. Consider a multi-graph on {a + 1, . . . , a + b} where we join two
+elements with nontrivial GCD and label the edge with the corresponding prime. Then we
+readily see there is at most one edge each of {3, 7, 19}: id est at most one edge of gap 2, 3,
+4 (and no edges of gap 1). (By the gap of an edge e = {u, v} we mean |u − v|.) But one
+can see that it’s now impossible for every vertex to have nonzero degree, contradiction.
+   To construct b = 6 we use the Chinese remainder theorem: select a with
+
+                                   a+1≡7           (mod 19)
+                                   a + 5 ≡ 11       (mod 19)
+                                   a+2≡2           (mod 7)
+                                   a+4≡4           (mod 7)
+                                   a+3≡1           (mod 3)
+                                   a+6≡1           (mod 3)
+
+which does the trick.
+
+
+
+
+                                               7
+IMO 2016 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2016/5, proposed by Russia
+   Available online at https://aops.com/community/p6642565.
+
+  Problem statement
+  The equation
+
+              (x − 1)(x − 2) . . . (x − 2016) = (x − 1)(x − 2) . . . (x − 2016)
+
+  is written on the board, with 2016 linear factors on each side. What is the least
+  possible value of k for which it is possible to erase exactly k of these 4032 linear
+  factors so that at least one factor remains on each side and the resulting equation
+  has no real solutions?
+
+The answer is 2016. Obviously this is necessary in order to delete duplicated factors. We
+now prove it suffices to delete the 2 (mod 4) and 3 (mod 4) factors from the left-hand
+side, and 0 (mod 4) and 1 (mod 4) factors from the right-hand side.
+   Consider the 1008 inequalities
+
+                              (x − 1)(x − 4) < (x − 2)(x − 3)
+                              (x − 5)(x − 8) < (x − 6)(x − 7)
+                             (x − 9)(x − 12) < (x − 10)(x − 11)
+                                            ..
+                                             .
+                        (x − 2013)(x − 2016) < (x − 2014)(x − 2015).
+
+Notice that in all these inequalities, at most one of them has non-positive numbers
+in it, and we never have both zero. If there is exactly one negative term among the
+1008 · 2 = 2016 sides, it is on the left and we can multiply all together. Thus the only
+case that remains is if x ∈ (4m − 2, 4m − 1) for some m, say the mth inequality. In that
+case, the two sides of that inequality differ by a factor of at least 9.
+
+  Claim — We have
+                                  Y (4k + 2)(4k + 3)
+                                                             < e.
+                                        (4k + 1)(4k + 4)
+                                  k≥0
+
+
+Proof of claim using logarithms. It’s equivalent to prove
+                                                       
+                          X                    2
+                              log 1 +                     < 1.
+                                       (4k + 1)(4k + 4)
+                            k≥0
+
+To
+P this end,    we use the deep fact that log(1 + t) ≤ t, and thus it follows from
+  k≥0 (4k+1)(4k+4) < 2 , which one can obtain for example by noticing it’s less than
+           1         1
+
+1 π2
+4 6 .
+
+  Remark (Elementary proof of claim, given by Espen Slettnes). To avoid calculus as above,
+  for each N ≥ 0, note the partial product is bounded by
+                 N                                            
+                 Y (4k + 2)(4k + 3)      2        3 6       7 10           4N + 3
+                                        = ·        ·     ·   ·     · ··· ·
+                       (4k + 1)(4k + 4)  1        4 5       8 9            4N + 4
+                 k=0
+
+
+
+
+                                                  8
+IMO 2016 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+
+                                                          4N + 3
+                                    < 2 · 1 · 1 · ··· ·          < 2 < e.
+                                                          4N + 4
+
+  This solves the problem, because then the factors being multiplied on by the positive
+inequalities before the mth one are both less than e, and e2 < 9. In symbols, for
+4m − 2 < x < 4m − 1 we should have
+               (x − (4m − 6))(x − (4m − 5))         (x − 2)(x − 3)
+                                            × ··· ×                <e
+               (x − (4m − 7))(x − (4m − 4))         (x − 1)(x − 4)
+
+and
+            (x − (4m + 2))(x − (4m + 3))         (x − 2014)(x − 2015)
+                                         × ··· ×                      <e
+            (x − (4m + 1))(x − (4m + 4))         (x − 2013)(x − 2016)
+because the (k + 1)st term of each left-hand side is at most (4k+2)(4k+3)
+                                                             (4k+1)(4k+4) , for k ≥ 0. As
+e < 9, we’re okay.
+ 2
+
+
+
+
+                                              9
+IMO 2016 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2016/6, proposed by Josef Tkadlec (CZE)
+   Available online at https://aops.com/community/p6642576.
+
+  Problem statement
+  There are n ≥ 2 line segments in the plane such that every two segments cross and
+  no three segments meet at a point. Geoff has to choose an endpoint of each segment
+  and place a frog on it facing the other endpoint. Then he will clap his hands n − 1
+  times. Every time he claps, each frog will immediately jump forward to the next
+  intersection point on its segment. Frogs never change the direction of their jumps.
+  Geoff wishes to place the frogs in such a way that no two of them will ever occupy
+  the same intersection point at the same time.
+
+    (a) Prove that Geoff can always fulfill his wish if n is odd.
+
+    (b) Prove that Geoff can never fulfill his wish if n is even.
+
+The following solution was communicated to me by Yang Liu.
+    Imagine taking a larger circle ω encasing all n2 intersection points. Denote by P1 , P2 ,
+. . . , P2n the order of the points on ω in clockwise order; we imagine placing the frogs on
+Pi instead. Observe that, in order for every pair of segments to meet, each line segment
+must be of the form Pi Pi+n .
+                                         1
+                                                             8
+
+
+                         2
+
+
+
+
+                                                                          7
+
+                     3
+                                                                      6
+                         4
+
+
+
+
+                                                  5
+
+Then:
+
+ (a) Place the frogs on P1 , P3 , . . . , P2n−1 . A simple parity argument shows this works.
+
+ (b) Observe that we cannot place frogs on consecutive Pi , so the n frogs must be
+     placed on alternating points. But since we also are supposed to not place frogs on
+     diametrically opposite points, for even n we immediately get a contradiction.
+
+  Remark. Yang says: this is easy to guess if you just do a few small cases and notice that
+  the pairs of “violating points” just forms a large cycle around.
+
+
+
+
+                                             10
+

@@ -1,0 +1,533 @@
+                  IMO 2013 Solution Notes
+                             EVAN CHEN《陳誼廷》
+                                   27 September 2026
+
+
+
+        This is a compilation of solutions for the 2013 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                               2
+
+1 Solutions to Day 1                                                                     3
+  1.1 IMO 2013/1, proposed by Japan . . . . . . . . . . . . . . . . . . . . . . .        3
+  1.2 IMO 2013/2, proposed by Ivan Guo (AUS) . . . . . . . . . . . . . . . . .           4
+  1.3 IMO 2013/3, proposed by Alexander A. Polyansky (RUS) . . . . . . . . .             5
+
+2 Solutions to Day 2                                                                      7
+  2.1 IMO 2013/4, proposed by Warut Suksompong, Potcharapol Suteparuk
+       (THA) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+  2.2 IMO 2013/5, proposed by Nikolai Nikolov (BGR) . . . . . . . . . . . . . . 9
+  2.3 IMO 2013/6, proposed by Alexander S. Golovanov and Mikhail A. Ivanov
+       (RUS) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+
+
+
+
+                                            1
+IMO 2013 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let k and n be positive integers. Prove that there exist positive integers m1 , . . . ,
+     mk such that
+
+                       2k − 1
+                                                                
+                                        1           1             1
+                   1+          = 1+           1+        ... 1 +         .
+                          n             m1         m2            mk
+
+  2. A configuration of 4027 points in the plane is called Colombian if it consists of 2013
+     red points and 2014 blue points, and no three of the points of the configuration
+     are collinear. By drawing some lines, the plane is divided into several regions. An
+     arrangement of lines is good for a Colombian configuration if the following two
+     conditions are satisfied:
+      (i) No line passes through any point of the configuration.
+      (ii) No region contains points of both colors.
+     Find the least value of k such that for any Colombian configuration of 4027 points,
+     there is a good arrangement of k lines.
+
+  3. Let the excircle of triangle ABC opposite the vertex A be tangent to the side BC
+     at the point A1 . Define the points B1 on CA and C1 on AB analogously, using the
+     excircles opposite B and C, respectively. Suppose that the circumcenter of triangle
+     A1 B1 C1 lies on the circumcircle of triangle ABC. Prove that triangle ABC is
+     right-angled.
+
+  4. Let ABC be an acute triangle with orthocenter H, and let W be a point on the side
+     BC, between B and C. The points M and N are the feet of the altitudes drawn
+     from B and C, respectively. Suppose ω1 is the circumcircle of triangle BW N and
+     X is a point such that W X is a diameter of ω1 . Similarly, ω2 is the circumcircle of
+     triangle CW M and Y is a point such that W Y is a diameter of ω2 . Show that the
+     points X, Y , and H are collinear.
+
+  5. Suppose a function f : Q>0 → R satisfies:
+      (i) If x, y ∈ Q>0 , then f (x)f (y) ≥ f (xy).
+      (ii) If x, y ∈ Q>0 , then f (x + y) ≥ f (x) + f (y).
+     (iii) There exists a rational number a > 1 with f (a) = a.
+     Prove that f (x) = x for all positive rational numbers x.
+
+  6. Let n ≥ 3 be an integer, and consider a circle with n + 1 equally spaced points
+     marked on it. Consider all labellings of these points with the numbers 0, 1, . . . , n
+     such that each label is used exactly once; two such labellings are considered to
+     be the same if one can be obtained from the other by a rotation of the circle. A
+     labelling is called beautiful if, for any four labels a < b < c < d with a + d = b + c,
+     the chord joining the points labelled a and d does not intersect the chord joining
+     the points labelled b and c. Let M be the number of beautiful labellings, and let N
+     be the number of ordered pairs (x, y) of positive integers such that x + y ≤ n and
+     gcd(x, y) = 1. Prove that M = N + 1.
+
+
+
+
+                                              2
+IMO 2013 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2013/1, proposed by Japan
+   Available online at https://aops.com/community/p5720240.
+
+  Problem statement
+  Let k and n be positive integers. Prove that there exist positive integers m1 , . . . ,
+  mk such that
+
+                     2k − 1
+                                                             
+                                     1          1              1
+                 1+         = 1+           1+        ... 1 +        .
+                        n            m1         m2            mk
+
+By induction on k ≥ 1. When k = 1 there is nothing to prove.
+  For the inductive step, if n is even, write
+                                                       n       k−1 − 1)
+                 n + (2k − 1)
+                                   
+                                              1          2 + (2
+                                = 1+                   ·        n
+                       n                 n + (2k − 2)           2
+
+and use inductive hypothesis on the second term. On the other hand if n is odd then
+write                                       n+1
+                     n + (2k − 1)                 + (2k−1 − 1)
+                                    
+                                         1
+                                  = 1+       · 2    n+1
+                          n              n           2
+and use inductive hypothesis on the second term.
+
+
+
+
+                                            3
+IMO 2013 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2013/2, proposed by Ivan Guo (AUS)
+   Available online at https://aops.com/community/p5720110.
+
+  Problem statement
+  A configuration of 4027 points in the plane is called Colombian if it consists of 2013
+  red points and 2014 blue points, and no three of the points of the configuration
+  are collinear. By drawing some lines, the plane is divided into several regions. An
+  arrangement of lines is good for a Colombian configuration if the following two
+  conditions are satisfied:
+
+    (i) No line passes through any point of the configuration.
+
+    (ii) No region contains points of both colors.
+
+  Find the least value of k such that for any Colombian configuration of 4027 points,
+  there is a good arrangement of k lines.
+
+The answer is k ≥ 2013.
+  To see that k = 2013 is necessary, consider a regular 4026-gon and alternatively color
+the points red and blue, then place the last blue point anywhere in general position (it
+doesn’t matter). Each side of the 4026 is a red-blue line segment which needs to be cut
+by one of the k lines, and each line can cut at most two of the segments.
+  Now, we prove that k = 2013 lines is sufficient. Consider the convex hull of all the
+points.
+
+   • If the convex hull has any red points, cut that red point off from everyone else by a
+     single line. Then, for each of the remaining 2012 red points, break them into 1006
+     pairs arbitrarily, and for each pair {A, B} draw two lines parallel to AB and close
+     to them.
+
+   • If the convex hull has two consecutive blue points, cut those two blue points off
+     from everyone else by a single line. Then repeat the above construction for the
+     remaining 2012 blue points.
+
+The end.
+
+
+
+
+                                            4
+IMO 2013 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2013/3, proposed by Alexander A. Polyansky (RUS)
+   Available online at https://aops.com/community/p5720184.
+
+  Problem statement
+  Let the excircle of triangle ABC opposite the vertex A be tangent to the side BC
+  at the point A1 . Define the points B1 on CA and C1 on AB analogously, using
+  the excircles opposite B and C, respectively. Suppose that the circumcenter of
+  triangle A1 B1 C1 lies on the circumcircle of triangle ABC. Prove that triangle ABC
+  is right-angled.
+
+We ignore for now the given condition and prove the following important lemma.
+
+  Lemma
+  Let (AB1 C1 ) meet (ABC) again at X. From BC1 = B1 C follows XC1 = XB1 , and
+  X is the midpoint of major arc BC.
+                                 d
+
+Proof. This follows from the fact that we have a spiral similarity 4XBC1 ∼ 4XCB1
+which must actually be a spiral congruence since BC1 = B1 C.
+
+   We define the arc midpoints Y and Z similarly, which lie on the perpendicular bisectors
+of A1 C1 , A1 B1 .
+                                            X
+                                    A
+
+
+
+
+                          C1
+                                                            B1
+
+                    B                                                C
+                                                 A1
+
+
+
+
+                                                                 Z
+
+                               Y
+
+
+   We now turn to the problem condition which asserts the circumcenter W of 4A1 B1 C1
+lies on (ABC).
+
+  Claim — We may assume WLOG that W = X.
+
+Proof. This is just configuration analysis, since we already knew that the arc midpoints
+both lie on (ABC) and the relevant perpendicular bisectors.
+  Point W lies on (ABC) and hence outside 4ABC, hence outside 4A1 B1 C1 . Thus we
+may assume WLOG that ∠B1 A1 C1 > 90◦ . Then A and X lie on the same side of line
+B1 C1 , and since W is supposed to lie both on (ABC) and the perpendicular bisector of
+B1 C1 it follows W = X.
+
+                                            5
+IMO 2013 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+  Consequently, XY and XZ are exactly the perpendicular bisectors of A1 C1 , A1 B1 .
+The rest is angle chase, the fastest one is
+
+            ∠A = ∠C1 XB1 = ∠C1 XA1 + ∠A1 XB1 = 2∠Y XA1 + 2∠A1 XZ
+                = 2∠Y XZ = 180◦ − ∠A
+
+which solves the problem.
+
+  Remark. Angle chasing is also possible even without the points Y and Z, though it takes
+  much longer. Introduce the Bevan point V and use the fact that V A1 B1 C is cyclic (with
+  diameter V C) and similarly V A1 C1 B is cyclic; a calculation then gives ∠CV B = 180◦ − 12 ∠A.
+  Thus V lies on the circle with diameter Ib Ic .
+
+
+
+
+                                                6
+IMO 2013 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2013/4, proposed by Warut Suksompong, Potcharapol Suteparuk
+     (THA)
+   Available online at https://aops.com/community/p5720174.
+
+  Problem statement
+  Let ABC be an acute triangle with orthocenter H, and let W be a point on the side
+  BC, between B and C. The points M and N are the feet of the altitudes drawn
+  from B and C, respectively. Suppose ω1 is the circumcircle of triangle BW N and
+  X is a point such that W X is a diameter of ω1 . Similarly, ω2 is the circumcircle of
+  triangle CW M and Y is a point such that W Y is a diameter of ω2 . Show that the
+  points X, Y , and H are collinear.
+
+We present two solutions, an elementary one and then an advanced one by moving points.
+
+¶ First solution, classical. Let P be the second intersection of ω1 and ω2 ; this is the
+Miquel point, so P also lies on the circumcircle of AM N , which is the circle with diameter
+AH.
+                                   A
+
+
+
+
+                                                 M
+                                                                    Y
+
+                          N              P
+                                  H
+                     X
+
+
+                     B                           W                  C
+
+
+
+
+  We now contend:
+
+  Claim — Points P , H, X collinear. (Similarly, points P , H, Y are collinear.)
+
+Proof using power of a point. By radical axis on BN M C, ω1 , ω2 , it follows that A, P ,
+W are collinear. We know that ∠AP H = 90◦ , and also ∠XP W = 90◦ by construction.
+Thus P , H, X are collinear.
+
+Proof using angle chasing. This is essentially Reim’s theorem:
+
+              ]N P H = ]N AH = ]BAH = ]ABX = ]N BX = ]N P X
+
+as desired. Alternatively, one may prove A, P , W are collinear by ]N P A = ]N M A =
+]N M C = ]N BC = ]N BW = ]N P W .
+
+                                             7
+IMO 2013 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+¶ Second solution, by moving points. Fix 4ABC and vary W . Let ∞ be the point
+at infinity perpendicular to BC for brevity.
+  By spiral similarity, the point X moves linearly on B∞ as W varies linearly on BC.
+Similarly, so does Y . So in other words, the map
+
+                                     X 7→ W 7→ Y
+
+is linear. However, the map
+                                 X 7→ Y 0 := XH ∩ C∞
+is linear too.
+   To show that these maps are the same, it suffices to check it thus at two points.
+
+   • When W = B, the circle (BN W ) degenerates to the circle through B tangent to
+     BC, and X = CN ∩ B∞. We have Y = Y 0 = C.
+
+   • When W = C, the result is analogous.
+
+   • Although we don’t need to do so, it’s also easy to check the result if W is the foot
+     from A since then XHW B and Y HW C are rectangles.
+
+
+
+
+                                           8
+IMO 2013 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2013/5, proposed by Nikolai Nikolov (BGR)
+   Available online at https://aops.com/community/p5720286.
+
+  Problem statement
+  Suppose a function f : Q>0 → R satisfies:
+
+     (i) If x, y ∈ Q>0 , then f (x)f (y) ≥ f (xy).
+
+    (ii) If x, y ∈ Q>0 , then f (x + y) ≥ f (x) + f (y).
+
+   (iii) There exists a rational number a > 1 with f (a) = a.
+
+  Prove that f (x) = x for all positive rational numbers x.
+
+First, we dispense of negative situations by proving:
+
+  Claim — For any integer n > 0, we have f (n) ≥ n.
+
+Proof. Note by induction on (ii) we have f (nx) ≥ nf (x). Taking (x, y) = (a, 1) in (i)
+gives f (1) ≥ 1, and hence f (n) ≥ n.
+
+  Claim — The f takes only positive values, and hence by (ii) is strictly increasing.
+
+Proof, suggested by Gopal Goel. Let p, q > 0 be integers. Then f (q)f (p/q) ≥ f (p), and
+since both min(f (p), f (q)) > 0 it follows f (p/q) > 0.
+
+  Claim — For any x > 1 we have f (x) ≥ x.
+
+Proof. Note that
+
+                      f (x)N ≥ f (xN ) ≥ f
+                                               N   N 
+                                               x    ≥ x > xN − 1
+
+for any integer N . Since N can be arbitrarily large, we conclude f (x) ≥ x for x > 1.
+
+   On the other hand, f has arbitrarily large fixed points (namely powers of a) so from
+(ii) we’re essentially done. First, for x > 1 pick a large m and note
+
+                 am = f (am ) ≥ f (am − x) + f (x) ≥ (am − x) + x = am .
+
+Finally, for x ≤ 1 use
+                            nf (x) = f (n)f (x) ≥ f (nx) ≥ nf (x)
+for large n.
+
+  Remark. Note that a > 1 is essential; if b ≥ 1 then f (x) = bx2 works with unique fixed
+  point 1/b ≤ 1.
+
+
+
+
+                                               9
+IMO 2013 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2013/6, proposed by Alexander S. Golovanov and Mikhail A.
+     Ivanov (RUS)
+   Available online at https://aops.com/community/p5720264.
+
+  Problem statement
+  Let n ≥ 3 be an integer, and consider a circle with n + 1 equally spaced points
+  marked on it. Consider all labellings of these points with the numbers 0, 1, . . . , n
+  such that each label is used exactly once; two such labellings are considered to
+  be the same if one can be obtained from the other by a rotation of the circle. A
+  labelling is called beautiful if, for any four labels a < b < c < d with a + d = b + c,
+  the chord joining the points labelled a and d does not intersect the chord joining
+  the points labelled b and c. Let M be the number of beautiful labellings, and let N
+  be the number of ordered pairs (x, y) of positive integers such that x + y ≤ n and
+  gcd(x, y) = 1. Prove that M = N + 1.
+
+First, here are half of the beautiful labellings up to reflection for n = 6, just for
+concreteness.
+                                         0                  0
+                             2               5        4              3
+                                                                     6
+                             4               3        1              2
+                                     6   1                  5
+                                         0                  0
+                             5               4        5              3
+                                                                     6
+                             1               3        2              1
+                                     6   2                  4
+                                         0                  0
+                                 6                               6
+                             1               5        1              5
+
+
+                             2               4        2              4
+                                         3                  3
+
+   Abbreviate “beautiful labelling of points around a circle” to ring. Moreover, throughout
+the solution we will allow degenerate chords that join a point to itself; this has no effect
+on the problem statement.
+   The idea is to proceed by induction in the following way. A ring of [0, n] is called linear
+if it is an arithmetic progression modulo n + 1. For example, the first two rings in the
+diagram and the last one are linear for n = 6, while the other three are not.
+   Of course we can move from any ring on [0, n] to a ring on [0, n − 1] by deleting n. We
+are going to prove that:
+
+   • Each linear ring on [0, n − 1] yields exactly two rings of [0, n], and
+
+   • Each nonlinear ring on [0, n − 1] yields exactly one rings of [0, n].
+
+
+                                                 10
+IMO 2013 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+In light of the fact there are obviously ϕ(n) linear rings on [0, n], the conclusion will
+follow by induction.
+   We say a set of chords (possibly degenerate) is pseudo-parallel if for any three of them,
+one of them separates the two. (Pictorially, one can perturb the endpoints along the
+circle in order to make them parallel in Euclidean sense.) The main structure lemma is
+going to be:
+
+  Lemma
+  In any ring, the chords of sum k (even including degenerate ones) are pseudo-parallel.
+
+Proof. By induction on n. By shifting, we may assume that one of the chords is {0, k}
+and discard all numbers exceeding k; that is, assume n = k. Suppose the other two
+chords are {a, n − a} and {b, n − b}.
+                                          a   b
+                               n−a                    n−b
+
+
+
+
+                                 u                      v
+                                  0                    n
+                                                   n − (u + v)
+                                      u+v
+
+We consider the chord {u, v} directly above {0, n}, drawn in blue. There are now three
+cases.
+
+   • If u + v = n, then delete 0 and n and decrease everything by 1. Then the chords
+     {a−1, n−a−1}, {b−1, n−b−1}, {u−1, v −1} contradict the induction hypothesis.
+
+   • If u+v < n, then search for the chord {u+v, n−(u+v)}. It lies on the other side of
+     {0, n} in light of chord {0, u + v}. Now again delete 0 and n and decrease everything
+     by 1. Then the chords {a − 1, n − a − 1}, {b − 1, n − b − 1}, {u + v − 1, n − (u + v) − 1}
+     contradict the induction hypothesis.
+
+   • If u + v > n, apply the map t 7→ n − t to the entire ring. This gives the previous
+     case as now (n − u) + (n − v) < n.
+
+  Next, we give another characterization of linear rings.
+
+  Lemma
+  A ring on [0, n − 1] is linear if and only if the point 0 does not lie between two chords
+  of sum n.
+
+Proof. It’s obviously true for linear rings. Conversely, assume the property holds for
+some ring. Note that the chords with sum n − 1 are pseudo-parallel and encompass every
+point, so they are actually parallel. Similarly, the chords of sum n are actually parallel
+and encompass every point other than 0. So the map
+
+                     t 7→ n − t 7→ (n − 1) − (n − t) = t − 1     (mod n)
+
+is rotation as desired.
+
+
+
+                                              11
+IMO 2013 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+
+  Lemma
+  Every nonlinear ring on [0, n − 1] induces exactly one ring on [0, n].
+
+Proof. Because the chords of sum n are pseudo-parallel, there is at most one possibility
+for the location n.
+  Conversely, we claim that this works. The chords of sum n (and less than n) are OK
+by construction, so assume for contradiction that there exists a, b, c ∈ {1, . . . , n − 1} such
+that a + b = n + c. Then, we can “reflect” them using the (pseudo-parallel) chords of
+length n to find that (n − a) + (n − b) = 0 + (n − c), and the chords joining 0 to n − c
+and n − a to n − b intersect, by definition.
+                                       a            c
+                                 0
+                                                           n−b
+
+
+
+                                                           b
+                                n
+
+                                     n−a           n−c
+
+This is a contradiction that the original numbers on [0, n − 1] form a ring.
+
+  Lemma
+  Every linear ring on [0, n − 1] induces exactly two rings on [0, n].
+
+Proof. Because the chords of sum n are pseudo-parallel, the point n must lie either
+directly to the left or right of 0. For the same reason as in the previous proof, both of
+them work.
+
+
+
+
+                                              12
+

@@ -1,0 +1,561 @@
+                 IMO 2017 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2017 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2017/1, proposed by Stephan Wagner (SAF) . . . . . . . . . . . . .            3
+  1.2 IMO 2017/2, proposed by Dorlir Ahmeti (ALB) . . . . . . . . . . . . . . .         5
+  1.3 IMO 2017/3, proposed by Gerhard Woeginger (AUT) . . . . . . . . . . .             7
+
+2 Solutions to Day 2                                                           9
+  2.1 IMO 2017/4, proposed by Charles Leytem (LUX) . . . . . . . . . . . . . . 9
+  2.2 IMO 2017/5, proposed by Grigory Chelnokov (RUS) . . . . . . . . . . . . 11
+  2.3 IMO 2017/6, proposed by John Berman (USA) . . . . . . . . . . . . . . . 12
+
+
+
+
+                                            1
+IMO 2017 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. For each integer a0 > 1, define the sequence a0 , a1 , a2 , . . . , by
+                                   (√          √
+                                       an    if an is an integer,
+                          an+1 =
+                                     an + 3 otherwise
+
+     for each n ≥ 0. Determine all values of a0 for which there is a number A such that
+     an = A for infinitely many values of n.
+
+  2. Solve over R the functional equation
+
+                                f (f (x)f (y)) + f (x + y) = f (xy).
+
+  3. A hunter and an invisible rabbit play a game in the plane. The rabbit and hunter
+     start at points A0 = B0 . In the nth round of the game (n ≥ 1), three things occur
+     in order:
+       (i) The rabbit moves invisibly from An−1 to a point An such that An−1 An = 1.
+      (ii) The hunter has a tracking device (e.g. dog) which reports an approximate
+           location Pn of the rabbit, such that Pn An ≤ 1.
+     (iii) The hunter moves visibly from Bn−1 to a point Bn such that Bn−1 Bn = 1.
+     Let N = 109 . Can the hunter guarantee that AN BN < 100?
+
+  4. Let R and S be different points on a circle Ω such that RS is not a diameter. Let
+     ` be the tangent line to Ω at R. Point T is such that S is the midpoint of RT .
+     Point J is chosen on minor arc RS of Ω so that the circumcircle Γ of triangle JST
+     intersects ` at two distinct points. Let A be the common point of Γ and ` closer to
+     R. Line AJ meets Ω again at K. Prove that line KT is tangent to Γ.
+
+  5. Fix N ≥ 1. A collection of N (N + 1) soccer players of distinct heights stand in a
+     row. Sir Alex Song wishes to remove N (N − 1) players from this row to obtain a
+     new row of 2N players in which the following N conditions hold: no one stands
+     between the two tallest players, no one stands between the third and fourth tallest
+     players, . . . , no one stands between the two shortest players. Prove that this is
+     possible.
+
+  6. An irreducible lattice point is an ordered pair of integers (x, y) satisfying gcd(x, y) =
+     1. Prove that if S is a finite set of irreducible lattice points then there exists a
+     nonconstant homogeneous polynomial f (x, y) with integer coefficients such that
+     f (x, y) = 1 for each (x, y) ∈ S.
+
+
+
+
+                                               2
+IMO 2017 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2017/1, proposed by Stephan Wagner (SAF)
+   Available online at https://aops.com/community/p8633268.
+
+  Problem statement
+  For each integer a0 > 1, define the sequence a0 , a1 , a2 , . . . , by
+                                (√           √
+                                    an     if an is an integer,
+                        an+1 =
+                                  an + 3 otherwise
+
+  for each n ≥ 0. Determine all values of a0 for which there is a number A such that
+  an = A for infinitely many values of n.
+
+The answer is a0 ≡ 0 (mod 3) only.
+
+¶ First solution.   We first compute the minimal term of any sequence, periodic or not.
+
+  Lemma
+  Let c be the smallest term in an . Then either c ≡ 2 (mod 3) or c = 3.
+
+Proof. Clearly c 6= 1, 4. Assume c 6≡ 2 (mod 3). As c is not itself a square, the next
+                                                   √       2    √       2       √       2
+perfect square after c in the sequence is one of (b cc + 1) , (b cc + 2) , or (b cc + 3) .
+So by minimality we require
+                                     √           √
+                                  c≤     c +3≤ c+3
+
+which requires c ≤ 5. Since c 6= 1, 2, 4, 5 we conclude c = 3.
+
+  Now we split the problem into two cases:
+
+   • If a0 ≡ 0 (mod 3), then all terms of the sequence are 0 (mod 3). The smallest term
+     of the sequence is thus 3 by the lemma and we have
+
+                                          3→6→9→3
+
+      so A = 3 works fine.
+
+   • If a0 6≡ 0 (mod 3), then no term of the sequence is 0 (mod 3), and so in particular 3
+     does not appear in the sequence. So the smallest term of the sequence is 2 (mod 3)
+     by lemma. But since no squares are 2 (mod 3), the sequence ak grows without
+     bound forever after, so no such A can exist.
+
+  Hence the answer is a0 ≡ 0 (mod 3) only.
+
+¶ Second solution.     We clean up the argument by proving the following lemma.
+
+  Lemma
+  If an is constant modulo 3 and not 2 (mod 3), then an must eventually cycle in the
+  form (m, m + 3, m + 6, . . . , m2 ), with no squares inside the cycle except m2 .
+
+
+                                               3
+IMO 2017 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+Proof. Observe that an must eventually hit a square, say ak = c2 ; the next term is
+ak+1 = c. Then it is forever impossible to exceed c2 again, by what is essentially discrete
+intermediate value theorem. Indeed, suppose a` > c2 and take ` > k minimal (in
+                 √
+particular a` 6= a`−1 ). Thus a`−1 ∈ {c2 − 2, c2 − 1, c2 } and thus for modulo 3 reasons
+we have a`−1 = c2 . But that should imply a` = c < c2 , contradiction.
+  We therefore conclude sup{an , an+1 , . . . } is a decreasing integer sequence in n. It must
+eventually stabilize, say at m2 . Now we can’t hit a square between m and m2 , and so we
+are done.
+
+   Now, we contend that all a0 ≡ 0 (mod 3) work. Indeed, for such a0 we have an ≡ 0
+(mod 3) for all n, so the lemma implies that the problem statement is valid.
+   Next, we observe that if ai ≡ 2 (mod 3), then the sequence grows without bound
+afterwards since no squares are 2 (mod 3). In particular, if a0 ≡ 2 (mod 3) the answer
+is no.
+   Finally, we claim that if a0 ≡ 1 (mod 3), then eventually some term is 2 (mod 3).
+Assume for contradiction this is not so; then an ≡ 1 (mod 3) must hold forever, and the
+lemma applies to give us a cycle of the form (m, m + 3, . . . , m2 ) where m ≡ 1 (mod 3).
+In particular m ≥ 4 and
+                                  m ≤ (m − 2)2 < m2
+but (m − 2)2 ≡ 1 (mod 3) which is a contradiction.
+
+
+
+
+                                              4
+IMO 2017 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2017/2, proposed by Dorlir Ahmeti (ALB)
+   Available online at https://aops.com/community/p8633190.
+
+  Problem statement
+  Solve over R the functional equation
+
+                             f (f (x)f (y)) + f (x + y) = f (xy).
+
+The only solutions are f (x) = 0, f (x) = x − 1 and f (x) = 1 − x, which clearly work.
+  Note that
+   • If f is a solution, so is −f .
+   • Moreover, if f (0) = 0 then setting y = 0 gives f ≡ 0. So henceforth we assume
+     f (0) > 0.
+
+  Claim — We have f (z) = 0 ⇐⇒ z = 1. Also, f (0) = 1 and f (1) = 0.
+
+Proof. For the forwards direction, if f (z) = 0 and z 6= 1 one may put (x, y) =
+ z, z(z − 1)−1 (so that x + y = xy) we deduce f (0) = 0 which is a contradiction.
+  For the reverse, f (f (0)2 ) = 0 by setting x = y = 0, and use the previous part. We also
+conclude f (1) = 0, f (0) = 1.
+
+  Claim — If f is injective, we are done.
+
+Proof. Setting y = 0 in the original equation gives f (f (x)) = 1 − f (x). We apply this
+three times on the expression f 3 (x):
+                    f (1 − f (x)) = f (f (f (x))) = 1 − f (f (x)) = f (x).
+Hence 1 − f (x) = x or f (x) = 1 − x.
+
+  Remark. The result f (f (x)) + f (x) = 1 also implies that surjectivity would solve the
+  problem.
+
+
+  Claim — f is injective.
+
+Proof. Setting y = 1 in the original equation gives f (x + 1) = f (x) − 1, and by induction
+                                      f (x + n) = f (x) − n.                                   (1)
+Assume now f (a) = f (b). By using (1) we may shift a and b to be large enough that we
+may find x and y obeying x + y = a + 1, xy = b. Setting these gives
+                   f (f (x)f (y)) = f (xy) − f (x + y) = f (b) − f (a + 1)
+                                 = f (b) + 1 − f (a) = 1
+from which we conclude
+                                      f (f (x)f (y) + 1) = 0.
+Hence by the first claim we have f (x)f (y) + 1 = 1, so f (x)f (y) = 0. Applying the first
+claim again gives 1 ∈ {x, y}. But that implies a = b.
+
+
+
+                                                5
+IMO 2017 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+
+  Remark. Jessica Wan points out that for any a 6= b, at least one of a2 > 4(b − 1) and
+  b2 > 4(a − 1) is true. So shifting via (1) is actually unnecessary for this proof.
+
+
+  Remark. One can solve the problem over Q using only (1) and the easy parts. Indeed,
+  that already implies f (n) = 1 − n for all n. Now we induct to show f (p/q) = 1 − p/q for all
+  0 < p < q (on q). By choosing x = 1 + p/q, y = 1 + q/p, we cause xy = x + y, and hence
+  0 = f (f (1 + p/q)f (1 + q/p)) or 1 = f (1 + p/q)f (1 + q/p).
+    By induction we compute f (1 + q/p) and this gives f (p/q + 1) = f (p/q) − 1.
+
+
+
+
+                                               6
+IMO 2017 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2017/3, proposed by Gerhard Woeginger (AUT)
+   Available online at https://aops.com/community/p8633324.
+
+  Problem statement
+  A hunter and an invisible rabbit play a game in the plane. The rabbit and hunter
+  start at points A0 = B0 . In the nth round of the game (n ≥ 1), three things occur
+  in order:
+
+    (i) The rabbit moves invisibly from An−1 to a point An such that An−1 An = 1.
+
+    (ii) The hunter has a tracking device (e.g. dog) which reports an approximate
+         location Pn of the rabbit, such that Pn An ≤ 1.
+
+   (iii) The hunter moves visibly from Bn−1 to a point Bn such that Bn−1 Bn = 1.
+
+  Let N = 109 . Can the hunter guarantee that AN BN < 100?
+
+No, the hunter cannot. We will show how to increase the distance in the following way:
+
+  Claim — Suppose the rabbit is at a distance d ≥ 1 q
+                                                    from the hunter at some point
+  in time. Then it can increase its distance to at least     d2 + 12 in 4d steps regardless
+  of what the hunter already knows about the rabbit.
+
+Proof. Consider a positive integer n > d, to be chosen later. Let the hunter start at B
+and the rabbit at A, as shown. Let ` denote line AB.
+  Now, we may assume the rabbit reveals its location A, so that all previous information
+becomes irrelevant.
+  The rabbit chooses two points X and Y symmetric about ` such that XY = 2 and
+AX = AY = n, as shown. The rabbit can then hop to either X or Y , pinging the point
+Pn on the ` each time. This takes n hops.
+                                                  n                   X
+                    hunter       rabbit
+                                                                      M
+                      B            A                    H
+                                                  n
+                                                                      Y
+
+  Now among all points H the hunter can go to, min max{HX, HY } is clearly minimized
+with H ∈ ` by symmetry. So the hunter moves to a point H such that BH = n as well.
+In that case the new distance is HX = HY .
+  We now compute
+                                           p               2
+                    HX 2 = 1 + HM 2 = 1 +     AX 2 − 1 − AH
+                               p                  2
+                         =1+      n2 − 1 − (n − d)
+                                                 2
+                                      1
+                         ≥1+     n−       − (n − d)
+                                      n
+                             = 1 + (d − 1/n)2
+
+which exceeds d2 + 12 whenever n ≥ 4d.
+
+
+
+
+                                            7
+IMO 2017 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+  In particular we can always take n = 400 even very crudely; applying the lemma 2 · 1002
+times, this gives a bound of 400 · 2 · 1002 < 109 , as desired.
+
+  Remark. The step of revealing the location of the rabbit seems critical because as far as I
+  am aware it is basically impossible to keep track of ping locations in the problem.
+
+
+  Remark. Reasons to believe the answer is “no”: the 109 constant, and also that “follow the
+  last ping” is losing for the hunter.
+
+  Remark. I think there are roughly two ways you can approach the problem once you
+  recognize the answer.
+
+     (i) Try and control the location of the pings
+    (ii) Abandon the notion of controlling
+                                        √ possible locations, and try to increase the distance
+         by a little bit, say from d to d2 + ε. This involves revealing the location of the
+         rabbit before each iteration of several jumps.
+
+  I think it’s clear that the difficulty of my approach is realizing that (ii) is possible; once you
+  do, the two-point approach is more or less the only one possible.
+     My opinion is that (ii) is not that magical; as I said it was the first idea I had. But I
+  am biased, because when I test-solved the problem at the IMO it was called “C5” and not
+  “IMO3”; this effectively told me it was unlikely that the official solution was along the lines
+  of (i), because otherwise it would have been placed much later in the shortlist.
+
+
+
+
+                                                  8
+IMO 2017 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2017/4, proposed by Charles Leytem (LUX)
+   Available online at https://aops.com/community/p8639236.
+
+  Problem statement
+
+  Let R and S be different points on a circle Ω such that RS is not a diameter. Let
+  ` be the tangent line to Ω at R. Point T is such that S is the midpoint of RT .
+  Point J is chosen on minor arc RS of Ω so that the circumcircle Γ of triangle JST
+  intersects ` at two distinct points. Let A be the common point of Γ and ` closer to
+  R. Line AJ meets Ω again at K. Prove that line KT is tangent to Γ.
+
+
+¶ First solution (elementary).    First, note
+
+               ]RKA = ]RKJ = ]RSJ = ]T SJ = ]T AJ = ]T AK
+
+so RK k AT . Now,
+   • RA is tangent at R iff 4KRS ∼ 4RT A (oppositely), because both equate to
+     −]RKS = ]SKR = ]SRA = ]T RA.
+
+   • Similarly, T K is tangent at T iff 4AT S ∼ 4T RK.
+
+   • The two similarities are equivalent because RS = ST the SAS gives KR · T A =
+     RS · RT = T S · T R.
+                                    K∗                T      J∗
+
+                                    K
+
+
+
+                                            S
+                                        J
+
+
+
+
+                           R                A                               B
+
+
+
+
+  Remark. The problem is actually symmetric with respect to two circles; RA is tangent at
+  R if and only if T K at T .
+
+
+¶ Second solution (inversion).    Consider an inversion at R fixing the circumcircle Γ of
+T SJA. Then:
+   • T and S swap,
+
+   • A and B swap, where B is the second intersection of ` with Γ.
+
+   • Circle Ω inverts to the line through T parallel to RAB, call it `.
+
+   • J ∗ is the second intersection of ` with Γ.
+
+                                                9
+IMO 2017 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+   • K ∗ is the intersection of ` with the circumcircle of RBJ ∗ ; this implies RK ∗ J ∗ B is
+     an isosceles trapezoid. In particular, one reads RK ∗ k AT from this, hence RK ∗ T A
+     is a parallelogram.
+
+Thus we wish to show the circumcircle of RSK ∗ is tangent to Γ. But that follows from
+the final parallelogram observed: S is the center of the parallelogram since it is the
+midpoint of the diagonal.
+
+  Remark. This also implies RKT B is cyclic, from K ∗ SA collinear. Moreover, quadrilateral
+  KK ∗ T S is cyclic (by power of a point); this leads to the second official solution to the
+  problem.
+
+
+
+
+                                              10
+IMO 2017 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2017/5, proposed by Grigory Chelnokov (RUS)
+   Available online at https://aops.com/community/p8639240.
+
+  Problem statement
+  Fix N ≥ 1. A collection of N (N + 1) soccer players of distinct heights stand in a
+  row. Sir Alex Song wishes to remove N (N − 1) players from this row to obtain a new
+  row of 2N players in which the following N conditions hold: no one stands between
+  the two tallest players, no one stands between the third and fourth tallest players,
+  . . . , no one stands between the two shortest players. Prove that this is possible.
+
+Some opening remarks: location and height are symmetric to each other, if one
+thinks about this problem as permutation pattern avoidance. So while officially there are
+multiple solutions, they are basically isomorphic to one another, and I am not aware of
+any solution otherwise.
+
+                                                    12
+                       11
+                                        10
+                                             9
+                                                                  8
+                   7
+                                                             6
+                                5
+                                                                      4
+                                                                           3
+                            2
+                                                         1
+
+
+   Take a partition of N groups in order by height: G1 = {1, . . . , N + 1}, G2 = {N +
+2, . . . , 2N + 2}, and so on. We will pick two people from each group Gk .
+   Scan from the left until we find two people in the same group Gk . Delete all people
+scanned and also everyone in Gk . All the groups still have at least N people left, so we
+can induct down with the non-deleted people; the chosen pair is to the far left anyways.
+
+  Remark. The important bit is to scan by position but group by height, and moreover not
+  change the groups as we scan. Dually, one can have a solution which scans by height but
+  groups by position.
+
+
+
+
+                                             11
+IMO 2017 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2017/6, proposed by John Berman (USA)
+   Available online at https://aops.com/community/p8639242.
+
+  Problem statement
+  An irreducible lattice point is an ordered pair of integers (x, y) satisfying gcd(x, y) = 1.
+  Prove that if S is a finite set of irreducible lattice points then there exists a
+  nonconstant homogeneous polynomial f (x, y) with integer coefficients such that
+  f (x, y) = 1 for each (x, y) ∈ S.
+
+We present two solutions.
+
+¶ First solution (Dan Carmon, Israel). We prove the result by induction on |S|, with
+the base case being Bezout’s Lemma (n = 1). For the inductive step, suppose we want
+to add a given pair (am+1 , bm+1 ) to {(a1 , . . . , am ), (b1 , . . . , bm )}.
+
+  Claim (Standard) — By a suitable linear transformation we may assume
+
+                                    (am+1 , bm+1 ) = (1, 0).
+
+Outline of proof. It would be sufficient to show there exists a 2 × 2 matrix T = [ us vt ]
+                                                   am+1
+with integer entries such that det T = 1 and T · bm+1     = [ 10 ]. Then we could apply T
+to all the ordered pairs in S (viewed as column vectors); if f was a polynomial that
+works on the transformed ordered pairs, then f (ux + vy, sx + ty) works for the original
+ordered pairs. (Here, the condition that det T = 1 ensures that T −1 has integer entries,
+and hence that T maps irreducible lattice points
+                                              u to irreducible     lattice points.)
+                                                      v 
+  To generate such a matrix T , choose T = −bm+1 am+1 where u and v are chosen via
+Bézout lemma so that uam+1 + vbm+1 = 1. This matrix T is rigged so that det T = 1
+                                     am+1
+and the leftmost column of T −1 is bm+1    .
+
+  Remark. This transformation claim is not necessary to proceed; the solution below can be
+  rewritten to avoid it with only cosmetic edits. However, it makes things a bit easier to read.
+
+  Let g(x, y) be a polynomial which works on the latter set. We claim we can choose the
+new polynomial f of the form
+                                                           m
+                     f (x, y) = g(x, y)M − Cxdeg g·M −m
+                                                           Y
+                                                                 (bi x − ai y).
+                                                           i=1
+
+where C and M are integer parameters we may adjust.
+  Since f (ai , bi ) = 1 by construction we just need
+                                                           Y
+                               1 = f (1, 0) = g(1, 0)M − C   bi .
+
+If bi = 0 we are done, since bi = 0 =⇒ ai = ±1 in that case and so g(1, 0) = ±1, thus
+  Q
+take M = 2. So it suffices to prove:
+
+  Claim — We have gcd (g(1, 0), bi ) = 1 when bi 6= 0.
+
+
+
+
+                                               12
+IMO 2017 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+Proof. Fix i. If bi = 0 then ai = ±1 and g(±1, 0) = ±1. Otherwise know
+
+                             1 = g(ai , bi ) ≡ g(ai , 0)    (mod bi )
+
+and since the polynomial is homogeneous with gcd(ai , bi ) = 1 it follows g(1, 0) 6≡ 0
+(mod bi ) as well.
+
+Then take M a large multiple of ϕ( |bi |) and we’re done.
+                                  Q
+
+
+¶ Second solution (Lagrange).        The main claim is that:
+
+  Claim — For every positive integer N , there is a homogeneous polynomial P (x, y)
+  such that P (x, y) ≡ 1 (mod N ) whenever gcd(x, y) = 1.
+
+(This claim is actually implied by the problem.)
+
+Proof. For N = pe a prime take (xp−1 + y p−1 )ϕ(N ) when p is odd, and (x2 + xy + y 2 )ϕ(N )
+for p = 2.
+  Now, if N is a product of primes, we can collate coefficient by coefficient using the
+Chinese remainder theorem.
+
+  Let S = {(ai , bi ) | i = 1, . . . , m}. We have the natural homogeneous “Lagrange polyno-
+mials”                                              Y
+                                       Lk (x, y) :=   (bi x − ai y)
+                                                 i6=k
+
+Now let                                     Y
+                                     N :=        Lk (xk , yk )
+                                             k
+
+and take P as in the claim. Then we can take a large power of P , and for each i subtract
+an appropriate multiple of Li (x, y); that is, choose
+                                               X
+                       f (x, y) = P (x, y)C −     Li (x, y) · Qi (x, y)
+                                                      i
+
+where C is large enough that C deg P > maxi deg Li , and Qi (x, y) is any homogeneous
+                                                                                         C
+polynomial of degree C deg P − deg Li such that Lk (xk , yk )Qk (xk , yk ) = P (xk ,yNk ) −1 ·
+Lk (xk , yk ) (which is an integer).
+
+
+
+
+                                                 13
+

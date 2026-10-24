@@ -1,0 +1,874 @@
+                 IMO 2019 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2019 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2019/1, proposed by Liam Baker (SAF) . . . . . . . . . . . . . . . .          3
+  1.2 IMO 2019/2, proposed by Anton Trygub (UKR) . . . . . . . . . . . . . .            4
+  1.3 IMO 2019/3, proposed by Adrian Beker (HRV) . . . . . . . . . . . . . . .          7
+
+2 Solutions to Day 2                                                            8
+  2.1 IMO 2019/4, proposed by Gabriel Chicas Reyes (SLV) . . . . . . . . . . . 8
+  2.2 IMO 2019/5, proposed by David Altizio (USA) . . . . . . . . . . . . . . . 9
+  2.3 IMO 2019/6, proposed by Anant Mudgal (IND) . . . . . . . . . . . . . . . 11
+
+
+
+
+                                            1
+IMO 2019 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Solve over Z the functional equation f (2a) + 2f (b) = f (f (a + b)).
+
+  2. In triangle ABC point A1 lies on side BC and point B1 lies on side AC. Let P
+     and Q be points on segments AA1 and BB1 , respectively, such that P Q k AB.
+     Point P1 is chosen on ray P B1 beyond B1 such that ∠P P1 C = ∠BAC. Point Q1
+     is chosen on ray QA1 beyond A1 such that ∠CQ1 Q = ∠CBA. Prove that points
+     P1 , Q1 , P , Q are cyclic.
+
+  3. A social network has 2019 users, some pairs of which are friends (friendship is
+     symmetric). If A, B, C are three users such that AB are friends and AC are friends
+     but BC is not, then the administrator may perform the following operation: change
+     the friendships such that BC are friends, but AB and AC are no longer friends.
+     Initially, 1009 users have 1010 friends and 1010 users have 1009 friends. Prove that
+     the administrator can make a sequence of operations such that all users have at
+     most 1 friend.
+
+  4. Solve over positive integers the equation
+                       n−1
+                       Y
+                k! =         (2n − 2i ) = (2n − 1)(2n − 2)(2n − 4) . . . (2n − 2n−1 ).
+                       i=0
+
+
+  5. Let n be a positive integer. Harry has n coins lined up on his desk, which can show
+     either heads or tails. He does the following operation: if there are k coins which show
+     heads and k > 0, then he flips the kth coin over; otherwise he stops the process. (For
+     example, the process starting with T HT would be T HT → HHT → HT T → T T T ,
+     which takes three steps.)
+     Prove the process will always terminate, and determine the average number of steps
+     this takes over all 2n configurations.
+
+  6. Let ABC be a triangle with incenter I and incircle ω. Let D, E, F denote the
+     tangency points of ω with BC, CA, AB. The line through D perpendicular to EF
+     meets ω again at R (other than D), and line AR meets ω again at P (other than
+     R). Suppose the circumcircles of 4P CE and 4P BF meet again at Q (other than
+     P ). Prove that lines DI and P Q meet on the external ∠A-bisector.
+
+
+
+
+                                                 2
+IMO 2019 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2019/1, proposed by Liam Baker (SAF)
+   Available online at https://aops.com/community/p12744859.
+
+  Problem statement
+  Solve over Z the functional equation f (2a) + 2f (b) = f (f (a + b)).
+
+Notice that f (x) ≡ 0 or f (x) ≡ 2x + k work and are clearly the only linear solutions. We
+now prove all solutions are linear.
+  Let P (a, b) be the assertion.
+
+  Claim — For each x ∈ Z we have f (2x) = 2f (x) − f (0).
+
+Proof. Compare P (0, x) and P (x, 0).
+
+Now, P (a, b) and P (0, a + b) give
+
+                                   f (f (a + b)) = f (2a) + 2f (b) = f (0) + 2f (a + b)
+                 =⇒ [2f (a) − f (0)] + 2f (b) = f (0) + 2f (a + b)
+         =⇒ (f (a) − f (0)) + (f (b) − f (0)) = (f (a + b) − f (0)) .
+
+Thus the map x 7→ f (x) − f (0) is additive, therefore linear.
+
+  Remark. The same proof works on the functional equation
+
+                                    f (2a) + 2f (b) = g(a + b)
+
+  where g is an arbitrary function (it implies that f is linear).
+
+
+
+
+                                                3
+IMO 2019 Solution Notes                                           web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2019/2, proposed by Anton Trygub (UKR)
+   Available online at https://aops.com/community/p12744870.
+
+  Problem statement
+  In triangle ABC point A1 lies on side BC and point B1 lies on side AC. Let P and
+  Q be points on segments AA1 and BB1 , respectively, such that P Q k AB. Point P1
+  is chosen on ray P B1 beyond B1 such that ∠P P1 C = ∠BAC. Point Q1 is chosen
+  on ray QA1 beyond A1 such that ∠CQ1 Q = ∠CBA. Prove that points P1 , Q1 , P ,
+  Q are cyclic.
+
+We present three solutions.
+
+¶ First solution by bary (Evan Chen). Let P B1 and QA1 meet line AB at X and Y .
+Since XY k P Q it is equivalent to show P1 XY Q1 is cyclic (Reim’s theorem).
+   Note the angle condition implies P1 CXA and Q1 CY B are cyclic.
+   Letting T = P X ∩ QY (possibly at infinity), it suffices to show that the radical axis of
+4CXA and 4CY B passes through T , because that would imply P1 XY Q1 is cyclic (by
+power of a point when T is Euclidean, and because it is an isosceles trapezoid if T is at
+infinity).
+
+                                                                   Q1
+
+
+
+                                      C
+                       P1
+
+
+
+                                B1
+                                                             A1
+
+                                      P                    Q
+
+
+                            A              X           Y                 B
+
+                                                   T
+
+  To this end we use barycentric coordinates on 4ABC. We begin by writing
+
+                            P = (u + t : s : r),           Q = (t : u + s : r)
+
+from which it follows that A1 = (0: s : r) and B1 = (t : 0 : r).
+   Next, compute X = det u+t   t r : det [ 0 r ] : 0 = (u : s : 0). Similarly, Y = (t : u : 0).
+                                 r          sr
+
+So we have computed all points.
+
+  Claim — Line B1 X has equation −rs · x + ru · y + st · z = 0, while line C1 Y has
+  equation ru · x − rt · y + st · z = 0.
+                                                       ht 0 ri
+Proof. Line B1 X is 0 = det(B1 , X, −) = det            u s 0 . Line C1 Y is analogous.
+                                                           xy z
+
+
+
+
+                                                   4
+IMO 2019 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+
+  Claim — The radical axis (u + t)y − (u + s)x = 0.
+
+                                                                       c ·u2
+Proof. Circle (AXC) is given by −a2 yz − b2 zx − c2 xy + (x + y + z) · u+s  y = 0. Similarly,
+                                                                    ·u 2
+circle (BY C) has equation −a2 yz − b2 zx − c2 xy + (x + y + z) · cu+t x = 0. Subtracting
+gives the radical axis.
+
+  Finally, to see these three lines are concurrent, we now compute
+                               
+             −rs       ru st
+     det  ru          −rt st = rst [[u(u + t) − t(u + s)] + [s(u + t) − u(u + s)]]
+           −(u + s) u + t 0
+                                  = rst (u2 − st) + (st − u2 ) = 0.
+                                                             
+
+This completes the proof.
+
+¶ Second official solution by tricky angle chasing. Let lines AA1 and BB1 meet at
+the circumcircle of 4ABC again at points A2 and B2 . By Reim’s theorem, P QA2 B2 are
+cyclic.
+
+                                                           Q1
+
+
+
+                                       C
+                         P1
+
+                                                                  A2
+                          B2
+                                  B1
+                                                      A1
+
+
+                                        P         Q
+
+                              A                                  B
+
+
+
+
+  Claim — The points P , Q, A2 , Q1 are cyclic. Similarly the points P , Q, B2 , P1
+  are cyclic.
+
+Proof. Note that CA1 A2 Q1 is cyclic since ]CQ1 A1 = ]CQ1 Q = ]CBA = ]CA2 A =
+]CA2 A1 . Then ]QQ1 A2 = ]A1 Q1 A2 = ]A1 CA2 = ]BCA2 = ]BAA2 = ]QP A2 .
+
+
+  This claim obviously solves the problem.
+
+¶ Third solution using Desargues involution (contributed by Kevin Liu). We start as
+the first solution does, introducing points X, Y , and T and noting it suffices to prove
+CT is the radical axis of (CXA) and (CY B). To this end, let S = CT ∩ AB so that it
+suffices to show SX · SA = SY · SB.
+  Let P2 = P X ∩ CB and Q2 = QY ∩ CA.
+
+                                             5
+IMO 2019 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+                   P2                                 Q2
+
+
+
+
+                                                           Q1
+
+
+                                                  C
+                                    P1
+                                         B1
+                                                                A1
+                                                  P             Q
+                                         A            X    S    Y B
+
+
+
+
+                                                                 T
+
+
+  Claim — We have P2 Q2 k AB.
+
+Proof. Since P Q k AB the problem is solved upon noting that
+                            A                                   B
+                (T P ; XP2 ) =1 (Y A; XB) = (XB; Y A) =1 (T Q; Y Q2 ).
+
+  Now, apply Desargues involution theorem with line AB to quadrilateral T P2 CQ2 . We
+get that (A, X), (B, Y ), and (S, ∞) are pairs of an involution on line AB. Because of
+the last pair, it must be centered at S. This solves the problem.
+
+
+
+
+                                              6
+IMO 2019 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2019/3, proposed by Adrian Beker (HRV)
+   Available online at https://aops.com/community/p12744851.
+
+  Problem statement
+  A social network has 2019 users, some pairs of which are friends (friendship is
+  symmetric). If A, B, C are three users such that AB are friends and AC are friends
+  but BC is not, then the administrator may perform the following operation: change
+  the friendships such that BC are friends, but AB and AC are no longer friends.
+    Initially, 1009 users have 1010 friends and 1010 users have 1009 friends. Prove
+  that the administrator can make a sequence of operations such that all users have
+  at most 1 friend.
+
+We take the obvious graph formulation and call the move a toggle.
+
+  Claim — Let G be a connected graph. Then one can toggle G without disconnecting
+  the graph, unless G is a clique, a cycle, or a tree.
+
+Proof. Assume G is connected and not a tree, so it has a cycle. Take the smallest cycle
+C; by hypothesis C 6= G.
+  If C is not a triangle (equivalently, G is triangle-free), then let b ∈/ C be a vertex
+adjacent to C, say at a. Take a vertex c of the cycle adjacent to a (hence not to b). Then
+we can toggle abc.
+  Now assume there exists a triangle; let K be the maximal clique. By hypothesis,
+K 6= G. We take an edge e = ab dangling off the clique, with a ∈ K and b ∈      / K. Note
+some vertex c of K is not adjacent to b; now toggle abc.
+
+  Back to the original problem; let Gimo be the given graph. The point is that we can
+apply toggles (by the claim) repeatedly, without disconnecting the graph, until we get a
+tree. This is because
+
+   • Gimo is connected, since any two vertices which are not adjacent have a common
+     neighbor by pigeonhole (1009 + 1009 + 2 > 2019).
+
+   • Gimo cannot become a cycle, because it initially has an odd-degree vertex, and
+     toggles preserve parity of degree!
+
+   • Gimo is obviously not a clique initially (and hence not afterwards).
+
+So, we can eventually get Gimo to be a tree.
+  Once Gimo is a tree the problem follows by repeatedly applying toggles arbitrarily
+until no more are possible; the graph (although now disconnected) remains acyclic (in
+particular having no triangles) and therefore can only terminate in the desired situation.
+
+  Remark. The above proof in fact shows the following better result:
+        The task is possible if and only if Gimo is a connected graph which is not a
+        clique and has any vertex of odd degree.
+  The “only if” follows from the observation that toggles preserve parity of degree.
+    Thus the given condition about the degrees of vertices being 1009 and 1010 is largely
+  a red herring; it’s a somewhat strange way of masking the correct and more natural
+  both-sufficient-and-necessary condition.
+
+
+
+                                             7
+IMO 2019 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2019/4, proposed by Gabriel Chicas Reyes (SLV)
+   Available online at https://aops.com/community/p12752761.
+
+  Problem statement
+  Solve over positive integers the equation
+                     n−1
+                     Y
+              k! =         (2n − 2i ) = (2n − 1)(2n − 2)(2n − 4) . . . (2n − 2n−1 ).
+                     i=0
+
+
+The answerQ
+          is (n, k) = (1, 1) and (n, k) = (2, 3) which work.
+  Let A = i (2n − 2k ), and assume A = k! for some k ≥ 3. Recall by exponent lifting
+that                                    (
+                                         0             t odd
+                          ν3 (2t − 1) =
+                                         1 + ν3 (t/2) t even.
+Thus, we can compute
+
+                                                                         n(n − 1)
+                  k > ν2 (k!) = ν2 (A) = 1 + 2 + · · · + (n − 1) =
+                                                                          2
+                k                        jnk jnk                3
+                    ≤ ν3 (k!) = ν3 (A) =      +        + · · · < n.
+                3                          2      6             4
+
+where the first inequality follows by Legendre’s formula ν2 (k!) = k − s2 (k).
+  In this way, we get
+                                  9             n(n − 1)
+                                    n+3>k >
+                                  4                 2
+which means n ≤ 6; a manual check then shows the solutions we claimed earlier are the
+only ones.
+
+  Remark. An amusing corollary of the problem pointed out in the shortlist is that the
+  symmetric group Sk cannot be isomorphic to the group GLn (F2 ) unless (n, k) = (1, 1) or
+  (n, k) = (2, 3), which indeed produce isomorphisms.
+
+
+
+
+                                                  8
+IMO 2019 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2019/5, proposed by David Altizio (USA)
+    Available online at https://aops.com/community/p12752847.
+
+  Problem statement
+  Let n be a positive integer. Harry has n coins lined up on his desk, which can show
+  either heads or tails. He does the following operation: if there are k coins which show
+  heads and k > 0, then he flips the kth coin over; otherwise he stops the process. (For
+  example, the process starting with T HT would be T HT → HHT → HT T → T T T ,
+  which takes three steps.)
+     Prove the process will always terminate, and determine the average number of
+  steps this takes over all 2n configurations.
+
+The answer is
+                                  1                 1
+                              En = (1 + · · · + n) = n(n + 1)
+                                  2                 4
+which is finite.
+  We’ll represent the operation by a directed graph Gn on vertices {0, 1}n (each string
+points to its successor) with 1 corresponding to heads and 0 corresponding to tails. For
+b ∈ {0, 1} we let b = 1 − b, and denote binary strings as a sequence of n symbols.
+  The main claim is that Gn can be described explicitly in terms of Gn−1 :
+
+   • We take two copies X and Y of Gn−1 .
+
+   • In X, we take each string of length n − 1 and just append a 0 to it. In symbols, we
+     replace s1 . . . sn−1 7→ s1 . . . sn−1 0.
+
+   • In Y , we toggle every bit, then reverse the order, and then append a 1 to it. In
+     symbols, we replace s1 . . . sn−1 7→ sn−1 sn−2 . . . s1 1.
+
+   • Finally, we add one new edge from Y to X by 11 . . . 1 → 11 . . . 110.
+
+An illustration of G4 is given below.
+                              0001 ← 0101 ← 0111 ← 0011
+                                ↓
+                              1001 ← 1011
+                                ↓
+                              1101
+                                ↓
+                              1111
+                               ⇓
+                              1110 ← 1010 ← 0010 ← 0110
+                                ↓
+                              1100 ← 0100
+                                ↓
+                              1000
+                                ↓
+                              0000
+
+  To prove this claim, we need only show the arrows of this directed graph remain valid.
+The graph X is correct as a subgraph of Gn , since the extra 0 makes no difference. As for Y ,
+note that if s = s1 . . . sn−1 had k ones, then the modified string has (n − 1 − k) + 1 = n − k
+ones, ergo sn−1 . . . s1 1 7→ sn−1 . . . sk+1 sk sk−1 . . . s1 1 which is what we wanted. Finally,
+the one edge from Y to X is obviously correct.
+
+
+                                                9
+IMO 2019 Solution Notes                                      web.evanchen.cc, updated 27 September 2026
+
+  To finish, let En denote the desired expected value. Since 1 . . . 1 takes n steps to finish
+we have
+                                        1
+                                  En = [En−1 + (En−1 + n)]
+                                        2
+based on cases on whether the chosen string is in X or Y or not. By induction, we have
+En = 12 (1 + · · · + n) = 14 n(n + 1), as desired.
+
+  Remark. Actually, the following is true: if the indices of the 1’s are 1 ≤ i1 < · · · < i` ≤ n,
+  then the number of operations required is
+
+                                       2(i1 + · · · + i` ) − `2 .
+
+  This problem also has an interpretation as a Turing machine: the head starts at a position
+  on the tape (the binary string). If it sees a 1, it changes the cell to a 0 and moves left; if it
+  sees a 0, it changes the cell to a 1 and moves right.
+
+
+
+
+                                                  10
+IMO 2019 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2019/6, proposed by Anant Mudgal (IND)
+   Available online at https://aops.com/community/p12752769.
+
+  Problem statement
+  Let ABC be a triangle with incenter I and incircle ω. Let D, E, F denote the
+  tangency points of ω with BC, CA, AB. The line through D perpendicular to EF
+  meets ω again at R (other than D), and line AR meets ω again at P (other than
+  R). Suppose the circumcircles of 4P CE and 4P BF meet again at Q (other than
+  P ). Prove that lines DI and P Q meet on the external ∠A-bisector.
+
+We present five solutions.
+
+¶ First solution by complex numbers (Evan Chen, with Yang Liu).                  We use complex
+numbers with D = x, E = y, F = z.
+
+
+
+                                                                     B
+
+
+
+                                       D
+
+                           C     P
+                                      Q
+                                            I
+
+
+                                 E                       F
+
+                                       R
+
+
+
+                                           A         T
+           2yz
+  Then A = y+z , R = −yz
+                      x and so
+
+                                        2yz   yz
+                             A−R        y+z + x    yz(2x + y + z)
+                      P =           =      yz  2 = 2yz + x(y + z) .
+                             1 − RA   1 + x · y+z
+
+We now compute
+                                                                                             
+           P PP 1             P P 1            P       1    1         P                    1/P    1
+OB = det F F F 1 ÷ det F F 1 = det z
+                                                  1    1 ÷ det z
+                                                                                         1/z    1
+                                              2xz     4xz            2xz                    2
+          B BB 1             B B 1            x+z   (x+z)2
+                                                            1        x+z                   x+z    1
+                                                                    
+                     P          0       1                 P 1/P    1
+       1
+   =        det     z          0       1      ÷ det  z     1/z  1 
+     x+z                            2       2
+                 2xz(x + z) −(x − z) (x + z)            2xz    2  x+z
+        (x − z)2                     P −z
+    =            ·
+         x+z       (x + z)(P /z − z/P ) + 2z − 2x + 2xz
+                                                     P − 2P
+        (x − z)2                P −z
+    =            · x
+         x+z      ( z − 1)P − 2(x − z) + (xz − z 2 ) P1
+
+                                                11
+IMO 2019 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+        x−z        P −z        x−z P −z        x−z      1
+    =        ·               =     · (P −z)2 =      · 1
+        x + z P /z + z/P − 2   x+z             x + z z − P1
+                                            Pz
+      x−z            y(2x + y + z)            x−z    yz(2x + y + z)
+    =      ·                                =      ·
+      x + z y(2x + y + z) − (2yz + xy + xz)   x + z xy + y 2 − yz − xz
+      x − z yz(2x + y + z)
+    =      ·               .
+      x + z (y − z)(x + y)
+
+Similarly
+                                      x − y yz(2x + y + z)
+                               OC =        ·               .
+                                      x + y (z − y)(x + z)
+Therefore, subtraction gives
+
+                  yz(2x + y + z)                           yz(2x + y + z)(2x − y − z)
+  OB − OC =                          [(x − z) + (x − y)] =                            .
+               (x + y)(x + z)(y − z)                          (x + y)(x + z)(z − y)
+
+It remains to compute T . Since T ∈ ID we have t/x ∈ R so t = t/x2 . Also,
+                     2yz                      2yz        t       2
+                 t − y+z                  t − y+z       x2
+                                                             − y+z
+                           ∈ iR =⇒ 0 =              +      1    1
+                  y+z                      y+z             y + z
+                                       1 + xyz2      2yz      2yz
+                                     =          t−         −
+                                        y+z        (y + z)2 (y + z)2
+                                          x2       4yz
+                                =⇒ t = 2         ·
+                                       x + yz y + z
+Thus
+                    yz(2x + y + z)           4x2 yz
+            P −T =                   − 2
+                    2yz + x(y + z) (x + yz)(y + z)
+                         (2x + y + z)(x2 + yz)(y + z) − 4x2 (2yz + xy + xz)
+                  = yz ·
+                                   (y + z)(x2 + yz)(2yz + xy + xz)
+                           (2x − y − z)(x2 y + x2 z + 4xyz + y 2 z + yz 2 )
+                  = −yz ·                                                   .
+                                 (y + z)(x2 + yz)(2yz + xy + xz)
+
+This gives P T ⊥ OB OC as needed.
+
+¶ Second solution by tethered moving points, with optimization (Evan Chen). Fix
+4DEF and ω, with B = DD ∩ F F and C = DD ∩ EE. We consider a variable point M
+on ω and let X, Y be on EF with CY ∩ k M E, BX∩ k M F . We define W = CY ∩ BX.
+Also, let line M W meet ω again at V .
+
+
+
+
+                                            12
+IMO 2019 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+                                                               D
+
+
+                                               B
+                                                   P /V
+                                                      Q/W
+                   D
+
+   C         V
+
+                                                       E                 N             F
+
+
+                 W                                             R                 R′
+                                                                    M′       M
+
+        E   X          N    Y         F
+
+
+
+                                ′
+                           MR                                            A
+
+
+  Claim (Angle chasing) — Pentagons CV W XE and BV W Y F are cyclic.
+
+Proof. By ]EV W = ]EV M = ]EF M = ]CEM = ]ECW and ]EXW = ]EF M =
+]CEM = ]ECW .
+
+  Let N = DM ∩ EF and R0 be the D-antipode on ω.
+
+  Claim (Black magic) — The points V , N , R0 are collinear.
+
+Proof. We use tethered moving points with 4DEF fixed.
+   Obviously the map ω 7→ EF 7→ ω by M 7→ N 7→ R0 N ∩ ω is projective. Also, the map
+ω 7→ EF 7→ ω by M 7→ X 7→ V is also projective (the first by projection to the line at
+infinity at back; the second say by inversion at E).
+   So it suffices to check for three points. When M = E we get N = E so R0 N ∩ ω = E,
+while W = E and thus V = E. The case M = F is similar. Finally, if M = R0 , then W
+is the center of ω and so V = R0 N ∩ EF = D.
+
+  We now address the original problem by specializing M : choose it so that N is the
+midpoint of EF . Let M 0 = DA ∩ (DEF ).
+
+  Claim — After this specialization, V = P and W = Q.
+
+                                                                                           R0
+Proof. Thus RR0 and M M 0 are parallel to EF . From (EF ; P R) = −1 = (EF ; N ∞) =
+(EF ; N V ), we derive that P = V and Q = R, proving (i).
+
+Finally, the concurrence requested follows by Pascal theorem on M 0 M DR0 P R.
+
+
+
+
+                                          13
+IMO 2019 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+¶ Third solution by power of a point linearity (Luke Robitaille).           Let us define
+
+                          f (•) = Pow(•, (CP E)) − Pow(•, (BP F ))
+
+which is a linear function from the plane to R.
+  Define W = BA ∩ P E, V = AC ∩ P F . Also, let W1 = ER ∩ AB, V1 = F R ∩ AC.
+Note that
+                                              E
+                              −1 = (P R; EF ) = (W A; W1 F )
+and similarly (V A; V1 E) = −1.
+
+  Claim — We have
+                                       |EF | · (s − c) sin C/2
+                               f (F ) =
+                                               sin B/2
+                                         |EF | · (s − b) sin B/2
+                               f (E) = −                         .
+                                                 sin C/2
+
+Proof. We have
+                           f (W ) = W F 2 − W B · W F = W F · BF
+where lengths are directed. Next,
+
+                      AF · f (W ) + F W · f (A)
+            f (F ) =
+                                AW
+                      AF · W F · BF + F W · (AE · AC − AF · AB)
+                    =
+                                           AW
+                      W F (AF · BF + AF · AB) + F W · AE · AC
+                    =
+                                          AW
+                      W F · AF 2 − W F · AE · AC      WF
+                    =                              =       · (AE 2 − AE · AC)
+                                  AW                  AW
+                      WF                   W1 F
+                    =      · AE · CE = −        · AE · CE.
+                      AW                   AW1
+
+Since 4DEF is acute, the point R lies inside 4AEF . Thus W1 lies inside segment AF
+and the ratio W
+              AW1 is positive. We now determine its value: by the ratio lemma
+               1F
+
+
+
+                                  |W1 F |   |EF | sin ∠W1 EF
+                                          =
+                                  |AW1 |    |AE| sin ∠AEW1
+                                            |EF | sin ∠REF
+                                          =
+                                            |AE| sin ∠AER
+                                            |EF | sin ∠RDF
+                                          =
+                                            |AE| sin ∠EDR
+                                            |EF | sin C/2
+                                          =               .
+                                            |AE| sin B/2
+
+Also, we have AE · CE < 0 since E lies inside AC. Hence
+
+                |EF | sin C/2                       |CE| sin B/2           (s − c) sin B/2
+   f (F ) = −                 . · AE · CE = |EF | ·              = |EF | ·                 .
+                |AE| sin B/2                          sin C/2                  sin C/2
+
+The calculation for f (E) is similar, (noting the sign flips since f is anti-symmetric in
+terms of B and C).
+
+                                               14
+IMO 2019 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+  Let Z ∈ DI with ∠ZAI = 90◦ be the point requested in the problem now. Our goal is
+to show f (Z) = 0. We assume WLOG that AB < AC, so EF  ZA
+                                                           > 0. Then
+
+                             |ZA| = |AI| · tan ∠AIZ
+                                  = |AI| · tan ∠(AI, DI)
+                                     s−a
+                                  =          · tan(BC, EF )
+                                    cos A/2
+                                     s−a
+                                  =          tan(B/2 − C/2).
+                                    cos A/2
+
+  To this end we compute
+                                              ZA
+ f (Z) = f (A) + [f (Z) − f (A)] = f (A) +         [f (E) − f (F )]
+                                             EF
+                  ZA |EF | · (s − b) sin B/2 |EF | · (s − c) sin C/2
+                                                                           
+       = f (A) −                                 +
+                 EF             sin C/2                     sin B/2
+                         (s − b) sin B/2 (s − c) sin C/2
+                                                             
+       = f (A) − |ZA|                     +
+                             sin C/2             sin B/2
+                                          (s − b) sin B/2 (s − c) sin C/2
+                                                                             
+       = [b(s − a) − c(s − a)] − |ZA|                       +
+                                              sin C/2              sin B/2
+                                                          (s − b) sin B/2 (s − c) sin C/2
+                                                                                         
+                             s−a
+       = (b − c)(s − a) −            tan(B/2 − C/2)                        +                .
+                            cos A/2                           sin C/2           sin B/2
+
+Dividing out,
+
+                                                     r cos B/2 r cos C/2
+                                                                           
+       f (Z)                 1
+             = (b − c) −          tan(B/2 − C/2)                +
+       s−a               cos A/2                      sin C/2       sin B/2
+                         r tan(B/2 − C/2) cos B/2 sin B/2 + cos C/2 sin C/2
+             = (b − c) −                   ·
+                               cos A/2                   sin C/2 sin B/2
+                         r tan(B/2 − C/2)      sin B + sin C
+             = (b − c) −                   ·
+                               cos A/2       2 sin C/2 sin B/2
+                         r tan(B/2 − C/2) sin(B/2 + C/2) cos(B/2 − C/2)
+             = (b − c) −                   ·
+                               cos A/2                  sin C/2 sin B/2
+                           sin(B/2 − C/2)
+             = (b − c) − r
+                           sin B/2 sin C/2
+             = (b − c) − r(cot C/2 − cot B/2) = (b − c) − ((s − c) − (s − b)) = 0.
+
+¶ Fourth solution by incircle inversion (USA IMO live stream, led by Andrew Gu).
+Let T be the intersection of line DI and the external ∠A-bisector. Also, let G be the
+antipode of D on ω.
+   We perform inversion around ω, using •∗ for the inverse. Then 4A∗ B ∗ C ∗ is the medial
+triangle of 4DEF , and T ∗ is the foot from A∗ on to DI. If we denote Q∗ as the second
+intersection of (P C ∗ E) and (P B ∗ F ), then the goal is to show that Q∗ lies on (P IT ∗ ).
+
+
+
+
+                                             15
+IMO 2019 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+                                          D
+
+
+                                  P
+                          Q∗             C∗                 B∗
+                                               M        I
+
+                                                            T∗
+                                   E               A∗                 F
+
+
+                                           R                 G
+
+
+
+
+                                                    A                 T
+
+  Claim — Points Q∗ , B ∗ , C ∗ are collinear.
+
+Proof. ]P Q∗ C ∗ = ]P EC ∗ = ]P ED = ]P F D = ]P F B ∗ = ]P Q∗ B ∗ .
+
+  Claim (cf Brazil 2011/5) — Points P , A∗ , G are collinear.
+
+Proof. Project harmonic quadrilateral P ERF through G, noting GR k EF .
+   Denote by M the center of parallelogram DC ∗ A∗ B ∗ . Note that it is the center of the
+circle with diameter DA∗ , which passes through P and T ∗ . Also, M I k P A∗ G.
+
+  Claim — Points P , M , I, T ∗ are cyclic.
+
+Proof. ]IT ∗ P = ]DT ∗ P = ]DA∗ P = ]M A∗ P = ]A∗ P M = ]IM P .
+
+  Claim — Points P , M , I, Q∗ are cyclic.
+
+Proof. ]M Q∗ P = ]C ∗ Q∗ P = ]C ∗ EP = ]DEP = ]DGP = ]GP I = ]M IP .
+
+¶ Fifth solution by double inversion (Brandon Wang, Luke Robitaille, Michael Ren,
+Evan Chen). We outline one final approach. After inverting about ω as in the previous
+approach, we then apply another inversion around P . Dropping the apostrophes/stars/etc
+now one can check that the problem we arrive at becomes the following.
+
+  Proposition (Doubly inverted problem)
+  In 4P EF , the P -symmedian meets EF and (P EF ) at K, L. Let D ∈ EF with
+  ∠DP K = 90◦ , and let T be the foot from K to DL. Denote by I the reflection of
+  P about EF . Finally, let P DN E and P DM F be cyclic harmonic quadrilaterals.
+  Then lines EN , M F , T I, are concurrent.
+
+ The proof proceeds in three steps. Suppose the line through L perpendicular to EF
+meets EF at W and (P EF ) at Z.
+
+                                           16
+IMO 2019 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+                                                Z
+
+
+
+
+                                P
+
+
+
+                                        E   K W
+                   D                                                    F
+
+                               N            T   L
+                                    I
+
+
+
+
+             M
+
+
+
+  1. Since ]ZEP = ]W LP = ]W DP , it follows ZE is tangent to (P DN E). Similarly,
+     ZF is tangent to (P DM F ).
+
+  2. 4W T P is the orthic triangle of 4DKL, so W D bisects ∠P W T and W T I collinear.
+
+  3. −1 = E(P N ; DZ) = F (P M ; DZ) = W (P I; DZ), so EN , F M , W I meet on P Z.
+
+
+
+
+                                                17
+

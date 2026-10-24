@@ -1,0 +1,477 @@
+                  IMO 2015 Solution Notes
+                             EVAN CHEN《陳誼廷》
+                                   27 September 2026
+
+
+
+        This is a compilation of solutions for the 2015 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2015/1, proposed by Merlijn Staps (NLD) . . . . . . . . . . . . . . .         3
+  1.2 IMO 2015/2, proposed by Dušan Djukić (SRB) . . . . . . . . . . . . . . .          4
+  1.3 IMO 2015/3, proposed by Danylo Khilko and Mykhailo Plotnikov (UKR)                5
+
+2 Solutions to Day 2                                                                     7
+  2.1 IMO 2015/4, proposed by Silouanos Brazitikos and Evangelos Psychas
+       (HEL) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+  2.2 IMO 2015/5, proposed by Dorlir Ahmeti (ALB) . . . . . . . . . . . . . . . 9
+  2.3 IMO 2015/6, proposed by Ross Atkins and Ivan Guo (AUS) . . . . . . . . 10
+
+
+
+
+                                            1
+IMO 2015 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. We say that a finite set S of points in the plane is balanced if, for any two different
+     points A and B in S, there is a point C in S such that AC = BC. We say that S
+     is center-free if for any three different points A, B and C in S, there are no points
+     P in S such that P A = P B = P C.
+      (a) Show that for all integers n ≥ 3, there exists a balanced set consisting of n
+          points.
+      (b) Determine all integers n ≥ 3 for which there exists a balanced center-free set
+          consisting of n points.
+
+  2. Find all positive integers a, b, c such that each of ab − c, bc − a, ca − b is a power
+     of 2 (possibly including 20 = 1).
+
+  3. Let ABC be an acute triangle with AB > AC. Let Γ be its circumcircle, H its
+     orthocenter, and F the foot of the altitude from A. Let M be the midpoint of BC.
+     Let Q be the point on Γ such that ∠HQA = 90◦ and let K be the point on Γ such
+     that ∠HKQ = 90◦ . Assume that the points A, B, C, K and Q are all different and
+     lie on Γ in this order. Prove that the circumcircles of triangles KQH and F KM
+     are tangent to each other.
+
+  4. Triangle ABC has circumcircle Ω and circumcenter O. A circle Γ with center
+     A intersects the segment BC at points D and E, such that B, D, E, and C
+     are all different and lie on line BC in this order. Let F and G be the points of
+     intersection of Γ and Ω, such that A, F , B, C, and G lie on Ω in this order. Let
+     K = (BDF ) ∩ AB 6= B and L = (CGE) ∩ AC 6= C and assume these points do
+     not lie on line F G. Define X = F K ∩ GL. Prove that X lies on the line AO.
+
+  5. Solve the functional equation
+
+                        f (x + f (x + y)) + f (xy) = x + f (x + y) + yf (x)
+
+     for f : R → R.
+
+  6. The sequence a1 , a2 , . . . of integers satisfies the conditions:
+       (i) 1 ≤ aj ≤ 2015 for all j ≥ 1,
+      (ii) k + ak 6= ` + a` for all 1 ≤ k < `.
+     Prove that there exist two positive integers b and N for which
+
+                                        n
+                                        X
+                                             (aj − b) ≤ 10072
+                                      j=m+1
+
+     for all integers m and n such that n > m ≥ N .
+
+
+
+
+                                               2
+IMO 2015 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2015/1, proposed by Merlijn Staps (NLD)
+   Available online at https://aops.com/community/p5079689.
+
+  Problem statement
+  We say that a finite set S of points in the plane is balanced if, for any two different
+  points A and B in S, there is a point C in S such that AC = BC. We say that S
+  is center-free if for any three different points A, B and C in S, there are no points
+  P in S such that P A = P B = P C.
+
+    (a) Show that for all integers n ≥ 3, there exists a balanced set consisting of n
+        points.
+
+    (b) Determine all integers n ≥ 3 for which there exists a balanced center-free set
+        consisting of n points.
+
+For part (a), take a circle centered at a point O, and add n − 1 additional points by
+adding pairs of points separated by an arc of 60◦ or similar triples. An example for n = 6
+is shown below.
+
+
+
+
+                                               O
+
+
+
+
+   For part (b), the answer is odd n, achieved by taking a regular n-gon. To show even n
+fail, note that some point is on the perpendicular bisector of
+                                        
+                                        1 n        n
+                                                =
+                                        n 2        2
+
+pairs of points, which is enough. (This is a standard double-counting argument.)
+
+  Remark. As an aside, there is a funny joke about this problem. There are two types of
+  people in the world:
+      • Those who solve (b) quickly and then take forever to solve (a),
+      • those who solve (a) quickly and then can’t solve (b) at all.
+  (Empirically true when the Taiwan IMO 2014 team was working on it.)
+
+
+
+
+                                               3
+IMO 2015 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2015/2, proposed by Dušan Djukić (SRB)
+   Available online at https://aops.com/community/p5079630.
+
+  Problem statement
+  Find all positive integers a, b, c such that each of ab − c, bc − a, ca − b is a power of
+  2 (possibly including 20 = 1).
+
+Here is the solution of Telv Cohl, which is the shortest solution I am aware of. We will
+prove the only solutions are (2, 2, 2), (2, 2, 3), (2, 6, 11) and (3, 5, 7) and permutations.
+  WLOG assume a ≥ b ≥ c > 1, so ab − c ≥ ca − b ≥ bc − a. We consider the following
+cases:
+
+   • If a is even, then
+
+                 ca − b = gcd(ab − c, ca − b) ≤ gcd(ab − c, a(ca − b) + ab − c)
+                        = gcd ab − c, c(a2 − 1) .
+                                               
+
+
+      As a2 − 1 is odd, we conclude ca − b ≤ c. This implies a = b = c = 2.
+
+   • If a, b, c are all odd, then a > b > c > 1 follows. Then as before
+                                                         2
+                 ca − b ≤ gcd(ab − c, c(a2 − 1)) ≤ 2ν2 (a −1) ≤ 2a + 2 ≤ 3a − b
+
+      so c = 3 and a = b + 2. As 3a − b = ca − b ≥ 2(bc − a) = 6b − 2a we then conclude
+      a = 7 and b = 5.
+
+   • If a is odd and b, c are even, then bc − a = 1 and hence bc2 − b − c = ca − b. Then
+     from the miraculous identity
+
+                    c3 − b − c = (1 − c2 )(ab − c) + a(bc2 − b − c) + (ca − b)
+                                                       | {z }
+                                                          =ca−b
+
+      so we conclude gcd(ab − c, ca − b) = gcd(ab − c, c3 − b − c), in other words
+
+              bc2 − b − c = ca − b = gcd(ab − c, ca − b) = gcd(ab − c, c3 − b − c).
+
+      We thus consider two more cases:
+        – If c3 − b − c 6= 0 then the above implies |c3 − b − c| ≥ bc2 − b − c. As b ≥ c > 1,
+          we must actually have b = c, thus a = c2 − 1. Finally ab − c = c(c2 − 2) is a
+          power of 2, hence b = c = 2, so a = 3.
+        – In the second case, assume c3 − b − c = 0, hence c3 − c. From bc − a = 1 we
+          obtain a = c4 − c2 − 1, hence
+
+                                    ca − b = c5 − 2c3 = c3 (c2 − 2)
+
+           is a power of 2, hence again c = 2. Thus a = 11 and b = 6.
+
+This finishes all cases, so the proof is done.
+
+
+
+
+                                                 4
+IMO 2015 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2015/3, proposed by Danylo Khilko and Mykhailo Plotnikov
+     (UKR)
+   Available online at https://aops.com/community/p5079655.
+
+  Problem statement
+  Let ABC be an acute triangle with AB > AC. Let Γ be its circumcircle, H its
+  orthocenter, and F the foot of the altitude from A. Let M be the midpoint of BC.
+  Let Q be the point on Γ such that ∠HQA = 90◦ and let K be the point on Γ such
+  that ∠HKQ = 90◦ . Assume that the points A, B, C, K and Q are all different and
+  lie on Γ in this order. Prove that the circumcircles of triangles KQH and F KM
+  are tangent to each other.
+
+Let L be on the nine-point circle with ∠HM L = 90◦ . The negative inversion at H
+swapping Γ and nine-point circle maps
+
+                          A ←→ F,    Q ←→ M,            K ←→ L.
+
+In the inverted statement, we want line M L to be tangent to (AQL).
+                                               A
+
+
+                                                                    Q
+
+
+
+
+                                                   T
+
+                                                            N
+                                                                              K
+                                      O
+
+                                              N9
+
+                                                   H
+
+                                L
+                 B                       M     F                        C
+
+
+
+
+  Claim — LM k AQ.
+
+Proof. Both are perpendicular to M HQ.
+
+  Claim — LA = LQ.
+
+Proof. Let N and T be the midpoints of HQ and AH, and O the circumcenter. As M T
+is a diameter, we know LT N M is a rectangle, so LT passes through O. Since LOT ⊥ AQ
+and OA = OQ, the proof is complete.
+
+                                          5
+IMO 2015 Solution Notes                        web.evanchen.cc, updated 27 September 2026
+
+Together these two claims solve the problem.
+
+
+
+
+                                          6
+IMO 2015 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2015/4, proposed by Silouanos Brazitikos and Evangelos Psychas
+     (HEL)
+   Available online at https://aops.com/community/p5083464.
+
+  Problem statement
+  Triangle ABC has circumcircle Ω and circumcenter O. A circle Γ with center
+  A intersects the segment BC at points D and E, such that B, D, E, and C
+  are all different and lie on line BC in this order. Let F and G be the points of
+  intersection of Γ and Ω, such that A, F , B, C, and G lie on Ω in this order. Let
+  K = (BDF ) ∩ AB 6= B and L = (CGE) ∩ AC 6= C and assume these points do not
+  lie on line F G. Define X = F K ∩ GL. Prove that X lies on the line AO.
+
+Since AO ⊥ F G for obvious reasons, we will only need to show that XF = XG, or that
+]KF G = ]LGF .
+  Let line F G meet (BDF ) and (CGE) again at F2 and G2 .
+
+
+
+
+                                               A
+
+
+
+                                                   X
+                                                            L
+                                                                               G
+
+                                 K                 G2
+                                          F2
+
+                          F
+
+                           B          D                 E                      C
+
+
+
+
+  Claim — Quadrilaterals F BDF2 and G2 ECG are similar, actually homothetic
+  through F G ∩ BC.
+
+Proof. This is essentially a repeated application of being “anti-parallel” through ∠(F G, BC).
+Note the four angle relations
+              ](F D, F G) = ](BC, GE) = ](G2 C, F G) =⇒ F D k G2 C
+               ](F2 B, F G) = ](BC, F D) = ](GE, F G) =⇒ F2 B k GE
+              ](F B, F G) = ](BC, GC) = ](G2 E, F G) =⇒ F B k G2 E
+               ](F2 D, F G) = ](BC, F B) = ](GC, F G) =⇒ F2 D k GC.
+This gives the desired homotheties.
+
+                                               7
+IMO 2015 Solution Notes                   web.evanchen.cc, updated 27 September 2026
+
+To finish the angle chase,
+
+              ]GF K = ]F2 BK = ]F2 BF − ]ABF = ]F2 DF − ]ABF
+                             = ]F2 DF − ]GCA = ]GCG2 − ]GCA
+                             = ]LCG2 = ]LGF
+
+as needed. (Here ]ABF = ]GCA since AF = AG.)
+
+
+
+
+                                    8
+IMO 2015 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2015/5, proposed by Dorlir Ahmeti (ALB)
+   Available online at https://aops.com/community/p5083463.
+
+  Problem statement
+  Solve the functional equation
+
+                    f (x + f (x + y)) + f (xy) = x + f (x + y) + yf (x)
+
+  for f : R → R.
+
+The answers are f (x) ≡ x and f (x) ≡ 2 − x. Obviously, both of them work.
+   Let P (x, y) be the given assertion. We also will let S = {t | f (t) = t} be the set of
+fixed points of f .
+
+   • From P (0, 0) we get f (f (0)) = 0.
+
+   • From P (0, f (0)) we get 2f (0) = f (0)2 and hence f (0) ∈ {0, 2}.
+
+   • From P (x, 1) we find that x + f (x + 1) ∈ S for all x.
+
+  We now solve the case f (0) = 2.
+
+  Claim — If f (0) = 2 then f (x) ≡ 2 − x.
+
+Proof. Let t ∈ S be any fixed point. Then P (0, t) gives 2 = 2t or t = 1; so S = {1}. But
+we also saw x + f (x + 1) ∈ S, which implies f (x) ≡ 2 − x.
+
+  Henceforth, assume f (0) = 0.
+
+  Claim — If f (0) = 0 then f is odd.
+
+Proof. Note that P (1, −1) =⇒ f (1) + f (−1) = 1 − f (1) and P (−1, 1) =⇒ f (−1) +
+f (−1) = −1 + f (1), together giving f (1) = 1 and f (−1) = −1. To prove f odd we now
+obtain more fixed points:
+
+   • From P (x, 0) we find that x + f (x) ∈ S for all x ∈ R.
+
+   • From P (x − 1, 1) we find that x − 1 + f (x) ∈ S for all x ∈ R.
+
+   • From P (1, f (x) + x − 1) we find x + 1 + f (x) ∈ S for all x ∈ R.
+
+Finally P (x, −1) gives f odd.
+
+To finish from f odd, notice that
+
+                    P (x, −x) =⇒ f (x) + f (−x2 ) = x − xf (x)
+                    P (−x, x) =⇒ f (−x) + f (−x2 ) = −x + xf (−x)
+
+which upon subtracting gives f (x) ≡ x.
+
+
+
+
+                                            9
+IMO 2015 Solution Notes                                      web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2015/6, proposed by Ross Atkins and Ivan Guo (AUS)
+   Available online at https://aops.com/community/p5083494.
+
+  Problem statement
+  The sequence a1 , a2 , . . . of integers satisfies the conditions:
+
+    (i) 1 ≤ aj ≤ 2015 for all j ≥ 1,
+
+    (ii) k + ak 6= ` + a` for all 1 ≤ k < `.
+
+  Prove that there exist two positive integers b and N for which
+
+                                            n
+                                            X
+                                                (aj − b) ≤ 10072
+                                           j=m+1
+
+  for all integers m and n such that n > m ≥ N .
+
+We give two equivalent solutions with different presentations, one with “arrows” and the
+other by “juggling”.
+
+¶ First solution (arrows).           Consider the map
+
+                                              f : k 7→ k + ak .
+
+This map is injective, so if we draw all arrows of the form k 7→ f (k) we get a partition of
+N into one or more ascending chains (which skip by at most 2015).
+  There are at most 2015 such chains, since among any 2015 consecutive points in N
+every chain must have an element.
+  We claim we may take b to be the number of such chains, and N to be the largest of
+the start-points of all the chains.
+  Consider an interval I = [m + 1, n]. We have that
+                X            X
+                      aj =       [min {x > n, x ∈ c} − min {x > m, x ∈ c}] .
+              m<j≤n              chain c
+
+Thus the upper bound is proved by the calculation
+   X               X
+        (aj − b) =      [(min {x > n, x ∈ c} − n) − (min {x > m, x ∈ c} − m)]
+   m<j≤n               chain c
+                        X                                          X
+                   =             [(min {x > n, x ∈ c} − n)] −               [min {x > m, x ∈ c} − m]
+                       chain c                                    chain c
+                   ≤ (1 + 2015 + 2014 + · · · + (2015 − (b − 2))) − (1 + 2 + · · · + b)
+                   = (b − 1)(2015 − b)
+
+from above (noting that n + 1 has to belong to some chain). The lower bound is similar.
+
+¶ Second solution (juggling). This solution is essentially the same, but phrased as a
+juggling problem. Here is a solution in this interpretation: we will consider several balls
+thrown in the air, which may be at heights 0, 1, 2, . . . , 2014. The process is as follows:
+
+   • Initially, at time t = 0, there are no balls in the air.
+
+                                                     10
+IMO 2015 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+   • Then at each integer time t thereafter, if there is a ball at height 0, it is caught;
+     otherwise a ball is added to the juggler’s hand. This ball (either caught or added)
+     is then thrown to a height of at .
+
+   • Immediately afterwards, all balls have their height decreased by one.
+
+The condition ak + k 6= ` + a` thus ensures that no two balls are ever at the same height.
+In particular, there will never be more than 2015 balls, since there are only 2015 possible
+heights.
+  We claim we may set
+
+                    b = number of balls in entire process
+                   N = last moment in time at which a ball is added.
+
+Indeed, the key fact is that if we let St denote the sum of the height of all the balls just
+after time t + 12 , then
+                                    St+1 − St = at+1 − b
+After all, at each time step t, the caught ball is thrown to height at , and then all balls
+have their height decreased by 1, from which the conclusion follows. Hence the quantity
+in the problem is exactly equal to
+
+                                n
+                                X
+                                     (aj − b) = |Sm − Sn | .
+                               j=m+1
+
+
+For a fixed b, we easily have the inequalities 0 + 1 + · · · + (b − 1) ≤ St ≤ 2014 + 2013 +
+· · · + (2015 − b). Hence |Sm − Sn | ≤ (b − 1)(2015 − b) ≤ 10072 as desired.
+
+
+
+
+                                            11
+

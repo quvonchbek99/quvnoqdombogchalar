@@ -1,0 +1,449 @@
+                 IMO 2003 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2003 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2003/1, proposed by Carlos Gustavo Moreira (BRA) . . . . . . . . .            3
+  1.2 IMO 2003/2, proposed by Aleksander Ivanov (BGR) . . . . . . . . . . . .           4
+  1.3 IMO 2003/3, proposed by Waldemar Pompe (POL) . . . . . . . . . . . . .            5
+
+2 Solutions to Day 2                                                            7
+  2.1 IMO 2003/4, proposed by Matti Lehtinen (FIN) . . . . . . . . . . . . . . 7
+  2.2 IMO 2003/5, proposed by Finbarr Holland (IRL) . . . . . . . . . . . . . . 8
+  2.3 IMO 2003/6, proposed by Johan Yebbou (FRA) . . . . . . . . . . . . . . 10
+
+
+
+
+                                            1
+IMO 2003 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let A be a 101-element subset of S = {1, 2, . . . , 106 }. Prove that there exist
+     numbers t1 , t2 , . . . , t100 in S such that the sets
+
+                          Aj = {x + tj | x ∈ A},       j = 1, 2, . . . , 100
+
+     are pairwise disjoint.
+
+  2. Determine all pairs of positive integers (a, b) such that
+
+                                               a2
+                                          2ab2 − b3 + 1
+     is a positive integer.
+
+  3. Each pair of opposite sides of√ convex hexagon has the property that the distance
+     between their midpoints is 23 times the sum of their lengths. Prove that the
+     hexagon is equiangular.
+
+  4. Let ABCD be a cyclic quadrilateral. Let P , Q and R be the feet of perpendiculars
+     from D to lines BC, CA and AB, respectively. Show that P Q = QR if and only if
+     the bisectors of angles ABC and ADC meet on segment AC.
+
+  5. Let n be a positive integer and let x1 ≤ x2 ≤ · · · ≤ xn be real numbers. Prove that
+                                    2
+                       n X
+                         n                         n n
+                      X                  2(n2 − 1) X X
+                          |xi − xj | ≤               (xi − xj )2
+                                             3
+                        i=1 j=1                            i=1 j=1
+
+     with equality if and only if x1 , x2 , . . . , xn form an arithmetic sequence.
+
+  6. Let p be a prime number. Prove that there exists a prime number q such that for
+     every integer n, the number np − p is not divisible by q.
+
+
+
+
+                                             2
+IMO 2003 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2003/1, proposed by Carlos Gustavo Moreira (BRA)
+   Available online at https://aops.com/community/p261.
+
+  Problem statement
+
+  Let A be a 101-element subset of S = {1, 2, . . . , 106 }. Prove that there exist numbers
+  t1 , t2 , . . . , t100 in S such that the sets
+
+                        Aj = {x + tj | x ∈ A},           j = 1, 2, . . . , 100
+
+  are pairwise disjoint.
+
+A greedy algorithm works: suppose we have picked
+
+                                       T = {t1 , . . . , tn }
+
+as large as possible,
+                     meaning it’s impossible to add any more elements to T . That
+means, for each t ∈ 1, . . . , 106 either t ∈ T already or there exists two distinct elements
+a, b ∈ A and ti ∈ T such that
+
+                                    t = ti + b − a         (?).
+
+   There are at most |T | · |A| · (|A| − 1) = n · 101 · 100 possible values for the right-hand
+side of (?). So we therefore must have
+
+                                   101 · 100 · n + n ≥ 106
+
+which implies n > 99, as desired.
+
+  Remark. It is possible to improve the bound significantly with a small optimization; rather
+  than adding any t, we require that t1 < · · · < tn and that at each step we add the least
+  t ∈ S which is permitted. In that case, one finds we only need to consider b > a in (?), and
+  so this will save us a factor of 2 + o(1) as the main term 101 · 100 becomes 1012    instead.
+  This proves it’s possible to choose 198 elements.
+     See, e.g., https://aops.com/community/p22959828 for such a write-up.
+
+
+
+
+                                                 3
+IMO 2003 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2003/2, proposed by Aleksander Ivanov (BGR)
+   Available online at https://aops.com/community/p262.
+
+  Problem statement
+  Determine all pairs of positive integers (a, b) such that
+
+                                              a2
+                                         2ab2 − b3 + 1
+  is a positive integer.
+
+
+The answer is (a, b) = (2`, 1), (a, b) = (`, 2`) and (a, b) = (8`4 − `, 2`), for any `. Check
+these work.
+                                                                      a2
+  In the sequel, assume b > 1, and integers a, b, k obey k = 2ab2 −b     3 +1 . Expanding, we
+have the polynomial
+                              X 2 − 2kb2 · X + k(b3 − 1) = 0
+has two integer roots, one of which is X = a. This means solutions to the original
+problem come in pairs (even with k fixed):
+                                               3         
+                                               k(b − 1)
+                      (a, b) ←→ 2kb2 − a, b =
+                                           
+                                                        ,b .
+                                                  a
+
+(Here, the first representation ensures 2kb2 − a ∈ Z, while the latter representation and
+                                      3
+the hypothesis b > 1 ensures that k(b a−1) > 0.)
+  On the other hand, we claim that:
+
+  Claim — For any solution (a, b), either 2a = b or a > b.
+
+Proof. Since the denominator is positive, a ≥ b/2. Now,
+
+                       a2 ≥ 2ab2 − b3 + 1 ⇐⇒ a2 ≥ b2 (2a − b) + 1
+
+and so if 2a − b > 0 then a2 > b2 =⇒ a > b.
+
+  Now assume we have pair (a1 , b) and (a2 , b) of solutions with b 6= 2a1 , 2a2 . Then
+assume a1 > a2 > b and
+
+                                      a1 + a2 = 2k · b2
+                                         a1 a2 = k(b3 − 1)
+
+That’s impossible, since then a1 > a1 +a
+                                      2
+                                        2
+                                          = kb2 and hence a1 a2 > kb2 · b = kb3 . Thus the
+only solutions are the ones we claimed at the beginning.
+
+  Remark. Important to notice that the problem is positive divides, not just divides. There
+  is an implicit inequality built in to the problem statement and it is essentially impossible to
+  solve without. I would be interested in a pair (a, b) for which k < 0, k ∈ Z yet a, b > 0.
+
+
+
+
+                                                4
+IMO 2003 Solution Notes                                           web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2003/3, proposed by Waldemar Pompe (POL)
+    Available online at https://aops.com/community/p263.
+
+   Problem statement
+   Each pair of opposite sides√ of convex hexagon has the property that the distance
+   between their midpoints is 23 times the sum of their lengths. Prove that the hexagon
+   is equiangular.
+
+Unsurprisingly, this is a geometric inequality. Denote the hexagon by ABCDEF . Then
+we have that
+
+        ~ +E~   ~+B ~  √   ~ −A
+                           B  ~ + E
+                                  ~ −D
+                                     ~  √    ~ − A)
+                                                 ~ − (E
+                                                      ~ − D)
+                                                          ~
+        D       A                           (B
+              −       = 3·             ≥ 3·
+          2       2             2                   2
+
+and cyclic variations. Suppose we define the right-hand sides as variables
+
+                                       ~x = (B~ − A)
+                                                  ~ − (E
+                                                       ~ − D)
+                                                            ~
+                                              ~ − C)
+                                        ~y = (D   ~ − (A
+                                                       ~ − F~ )
+                                       ~z = (F~ − E)
+                                                  ~ − (C
+                                                       ~ − B).
+                                                           ~
+
+Then we now have
+                                                         √
+                                          |~y − ~z| ≥        3 |~x|
+                                                         √
+                                          |~z − ~x| ≥        3 |~y |
+                                                         √
+                                          |~x − ~y | ≥       3 |~z| .
+
+We square all sides (using |~v |2 = ~v · ~v ) and then sum to get
+                              X                             X
+                                  (~y − ~z) · (~y − ~z) ≥ 3   ~x · ~x
+                                 cyc                                   cyc
+
+which rearranges to
+                                         − |~x + ~y + ~z|2 ≥ 0.
+This can only happen if ~x + ~y + ~z = 0, and moreover all the inequalities above were
+actually equalities. That means that our triangle inequalities above were actually sharp
+(and already we have AB k DE and so on).
+  Working with just x and y now we have
+
+                                          3(~x · ~x) = (2~y − ~x) · (2~y − ~x)
+                                                      = ~x · ~x − 4~y · ~x + 4~y · ~y
+                         =⇒ −~x · ~x + 2(~y · ~y ) = 2~x · ~y
+                                 2(~x · ~x) − ~y · ~y = 2~x · ~y .
+
+which implies ~x · ~x = ~y · ~y , that is, ~x and ~y have the same magnitude. In this way we find
+~x, ~y , ~z all have the same magnitude, and since ~x + ~y + ~z = 0 they are related by 120◦
+ rotations, as desired.
+
+
+
+
+                                                     5
+IMO 2003 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+
+  Remark. In fact one can show further that the equiangular hexagons which work are
+  exactly those formed by taking an equilateral triangle and cutting off equally sized corners.
+  This equality case helps motivate the solution.
+
+  Remark. One can note this “must” be an inequality because the space of such hexagons is
+  2-dimensional, even though a priori the space of hexagons satisfying three given conditions
+  should have dimension 9 − 3 = 6.
+
+
+
+
+                                               6
+IMO 2003 Solution Notes                          web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2003/4, proposed by Matti Lehtinen (FIN)
+   Available online at https://aops.com/community/p264.
+
+  Problem statement
+  Let ABCD be a cyclic quadrilateral. Let P , Q and R be the feet of perpendiculars
+  from D to lines BC, CA and AB, respectively. Show that P Q = QR if and only if
+  the bisectors of angles ABC and ADC meet on segment AC.
+
+Let γ denote the circumcircle of ABCD. The condition on bisectors is equivalent to
+(AC; BD)γ = −1. Meanwhile if ∞ denotes the point at infinity along Simson line P QR
+then P Q = QR if and only if (P R; Q∞) = −1.
+  Let rays BQ and DQ meet the circumcircle again at F and E.
+
+                                E
+
+
+                       B
+
+
+                                            P
+
+
+
+
+                    A               Q                             C
+
+
+
+
+                   R
+                                D
+                                        F
+
+
+  Lemma (EGMO Proposition 4.1)
+  Then BE k P QR.
+
+Proof. Since ]DQR = ]DAR = ]DAB = ]DEB.
+
+  Now we have
+                                        B        Q
+                           (P R; Q∞) = (CA; F E)γ = (AC; BD)γ
+as desired.
+
+
+
+
+                                            7
+IMO 2003 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2003/5, proposed by Finbarr Holland (IRL)
+   Available online at https://aops.com/community/p265.
+
+  Problem statement
+  Let n be a positive integer and let x1 ≤ x2 ≤ · · · ≤ xn be real numbers. Prove that
+                                          2
+                        n X
+                          n                                    n   n
+                        X                           2(n2 − 1) X X
+                                 |xi − xj | ≤                   (xi − xj )2
+                                                        3
+                        i=1 j=1                               i=1 j=1
+
+  with equality if and only if x1 , x2 , . . . , xn form an arithmetic sequence.
+
+Let d1 = x2 − x1 , . . . , dn−1 = xn − xn−1 . The inequality in question becomes:
+                             !2                                                
+           X                        2
+                                   n −1     X                  X
+               i(n − i)di       ≤        ·      i(n − i)d2i + 2   i(n − j)di dj  .
+                                      3
+             i                                      i                   i<j
+
+Clearing the square on the right-hand side we want to show
+X                                                    X
+     3ij(n − i)(n − j) − (n2 − 1)i(n − j) · 2di dj ≤  (n2 − 1 − 3i(n − i)) · i(n − i)d2i .
+                                         
+
+ i<j                                                           i
+
+We use AM-GM directly on 2di dj ≤ d2i + d2j : this actually solves the problem. The
+annoying part is to check that the coefficients actually match:
+
+  Claim (Big bash) — For an index 1 ≤ k ≤ n − 1, we have
+                    X
+                        3ik(n − i)(n − k) − (n2 − 1)i(n − k)
+                                                             
+
+                            i<k
+                            X
+                                  3kj(n − k)(n − j) − (n2 − 1)k(n − j)
+                                                                      
+                        +
+                            j>k
+                              2
+                        =(n − 1 − 3k(n − k)) · k(n − k).
+
+Proof. Rewrite as:
+                                                !                                                    
+                                  X                                           X           X
+   3k(n − k) −k(n − k) +               i(n − i)     = (n2 − 1) (n − k)             i+k         (n − j)
+                                   i                                          i<k         j>k
+                                                        2
+                                         + (n − 1 − 3k(n − k)) · k(n − k)
+                                                                               
+                              X                              X        X
+                 ⇐⇒ 3k(n − k)   i(n − i) = (n2 − 1) (n − k)     i+k     (n − j)
+                                       i                                      i<k         j>k
+
+                                    + (n − 1)k(n − k) − 3k (n − k)2
+                                                        2                           2
+
+                                  !                                 
+                        X                              X        X
+           ⇐⇒ 3k(n − k)   i(n − i) = (n2 − 1) (n − k)    i+k       i
+                                   i                                          i≤k         i<n−k
+                                                                                       
+                              (n − 1)n(n + 1)                    k(k + 1)
+          ⇐⇒ 3k(n − k)                        = (n2 − 1) (n − k)
+                                     6                              2
+
+
+                                                    8
+IMO 2003 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+                                                                               
+                                                 2   (n − k)(n − k − 1)
+                                        + (n − 1) k
+                                                               2
+                        (n − 1)n(n + 1)                      n
+           ⇐⇒ 3k(n − k)                 = (n2 − 1)k(n − k) ·
+                               6                             2
+which is visibly true.
+
+Equality occurs only if all di are equal because the coefficient of di dj is nonzero for any
+i ≤ n/2 and j ≥ n/2.
+
+
+
+
+                                             9
+IMO 2003 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2003/6, proposed by Johan Yebbou (FRA)
+   Available online at https://aops.com/community/p266.
+
+  Problem statement
+  Let p be a prime number. Prove that there exists a prime number q such that for
+  every integer n, the number np − p is not divisible by q.
+
+By orders, we must have q = pk + 1 for this to be possible (since if q 6≡ 1 (mod p), then
+np can be any residue modulo q). Since p ≡ np (mod q) =⇒ pk ≡ 1 (mod q), it suffices
+to prevent the latter situation from happening.
+  So we need a prime q ≡ 1 (mod p) such that pk 6≡ 1 (mod q). To do this, we first
+recall the following lemma.
+
+  Lemma
+  Let Φp (X) = 1 + X + X 2 + · · · + X p−1 . For any integer a, if q is a prime divisor of
+  Φp (a) other than p, then a (mod q) has order p. (In particular, q ≡ 1 (mod p).)
+
+Proof. We have ap − 1 ≡ 0 (mod q), so either the order is 1 or p. If it is 1, then a ≡ 1
+(mod q), so q | Φp (1) = p, hence q = p.
+
+  Now the idea is to extract a prime factor q from the cyclotomic polynomial
+                                      pp − 1
+                           Φp (p) =          ≡ 1 + p (mod p2 )
+                                      p−1
+
+such that q 6≡ 1 (mod p2 ); hence k 6≡ 0 (mod p), and as p (mod q) has order p we have
+pk 6≡ 1 (mod q).
+
+
+
+
+                                            10
+

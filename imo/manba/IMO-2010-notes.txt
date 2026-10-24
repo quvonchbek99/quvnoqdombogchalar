@@ -1,0 +1,430 @@
+                 IMO 2010 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2010 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2010/1, proposed by Pierre Bornsztein (FRA) . . . . . . . . . . . . .         3
+  1.2 IMO 2010/2, proposed by Tai Wai Ming and Wang Chongli (HKG) . . . .               4
+  1.3 IMO 2010/3, proposed by Gabriel Carroll (USA) . . . . . . . . . . . . . .         5
+
+2 Solutions to Day 2                                                                    6
+  2.1 IMO 2010/4, proposed by Marcin Kuczma (POL) . . . . . . . . . . . . . .           6
+  2.2 IMO 2010/5, proposed by Netherlands . . . . . . . . . . . . . . . . . . . .       7
+  2.3 IMO 2010/6, proposed by Morteza Saghafiyan (IRN) . . . . . . . . . . . .          8
+
+
+
+
+                                            1
+IMO 2010 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Find all functions f : R → R such that for all x, y ∈ R,
+
+                                      f (bxc y) = f (x) bf (y)c .
+
+  2. Let I be the incenter of a triangle ABC and let Γ be its circumcircle. Let line AI
+     intersect Γ again at D. Let E be a point on arc BDC
+                                                      ’ and F a point on side BC
+     such that
+                                ∠BAF = ∠CAE < 12 ∠BAC.
+     Finally, let G be the midpoint of IF . Prove that DG and EI intersect on Γ.
+
+  3. Find all functions g : Z>0 → Z>0 such that
+
+                                       (g(m) + n) (g(n) + m)
+
+     is always a perfect square.
+
+  4. Let P be a point interior to triangle ABC (with CA 6= CB). The lines AP , BP
+     and CP meet again its circumcircle Γ at K, L, M , respectively. The tangent line
+     at C to Γ meets the line AB at S. Show that from SC = SP follows M K = M L.
+
+  5. Each of the six boxes B1 , B2 , B3 , B4 , B5 , B6 initially contains one coin. The
+     following two types of operations are allowed:
+       a) Choose a non-empty box Bj , 1 ≤ j ≤ 5, remove one coin from Bj and add
+          two coins to Bj+1 ;
+       b) Choose a non-empty box Bk , 1 ≤ k ≤ 4, remove one coin from Bk and swap
+          the contents (possibly empty) of the boxes Bk+1 and Bk+2 .
+     Determine if there exists a finite sequence of operations of the allowed types, such
+     that the five boxes B1 , B2 , B3 , B4 , B5 become empty, while box B6 contains exactly
+             2010
+     20102010     coins.
+
+  6. Let a1 , a2 , a3 , . . . be a sequence of positive real numbers, and s be a positive integer,
+     such that
+                           an = max{ak + an−k | 1 ≤ k ≤ n − 1} for all n > s.
+     Prove there exist positive integers ` ≤ s and N , such that
+
+                                   an = a` + an−` for all n ≥ N.
+
+
+
+
+                                               2
+IMO 2010 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2010/1, proposed by Pierre Bornsztein (FRA)
+   Available online at https://aops.com/community/p1935849.
+
+  Problem statement
+  Find all functions f : R → R such that for all x, y ∈ R,
+
+                                  f (bxc y) = f (x) bf (y)c .
+
+The only solutions are f (x) ≡ c, where c = 0 or 1 ≤ c < 2. It’s easy to see these work.
+  Plug in x = 0 to get f (0) = f (0) bf (y)c, so either
+
+                           1 ≤ f (y) < 2   ∀y       or       f (0) = 0
+
+  In the first situation, plug in y = 0 to get f (x) bf (0)c = f (0), thus f is constant. Thus
+assume henceforth f (0) = 0.
+  Now set x = y = 1 to get
+                                     f (1) = f (1) bf (1)c
+so either f (1) = 0 or 1 ≤ f (1) < 2. We split into cases:
+
+   • If f (1) = 0, pick x = 1 to get f is the constant function 0.
+
+   • If 1 ≤ f (1) < 2, then y = 1 gives
+
+                                           f (bxc) = f (x)
+
+      from y = 1,in particular f (x) = 0 for 0 ≤ x < 1. Choose (x, y) = 2, 12 to get
+                                                                              
+
+      f (1) = f (2) f 12 = 0; a contradiction. Hence this cgase never occurs.
+                        
+
+
+
+
+                                                3
+IMO 2010 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2010/2, proposed by Tai Wai Ming and Wang Chongli (HKG)
+   Available online at https://aops.com/community/p1935927.
+
+  Problem statement
+  Let I be the incenter of a triangle ABC and let Γ be its circumcircle. Let line AI
+  intersect Γ again at D. Let E be a point on arc BDC
+                                                   ’ and F a point on side BC
+  such that
+                             ∠BAF = ∠CAE < 12 ∠BAC.
+  Finally, let G be the midpoint of IF . Prove that DG and EI intersect on Γ.
+
+
+Let EI meet Γ again at K. Then it suffices to show that KD bisects IF . Let AF meet
+Γ again at H, so HE k BC. By Pascal theorem on
+
+                                        AHEKDD
+
+we then obtain that P = AH ∩ KD lies on a line through I parallel to BC.
+  Let IA be the A-excenter, and set Q = IA F ∩ IP , and T = AIDIA ∩ BF C. Then
+                                                    F
+                              −1 = (AI; T IA ) = (IQ; ∞P )
+
+where ∞ is the point at infinity along IP Q. Thus P is the midpoint of IQ. Since D is
+the midpoint of IIA by “Fact 5”, it follows that DP bisects IF .
+
+                                     A
+
+
+                           K
+
+
+
+
+                          Q         P       I
+
+                                        G
+
+                          B     F           T                     C
+
+                               H                              E
+                                            D
+
+
+
+
+                                                    IA
+
+
+
+
+                                                4
+IMO 2010 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2010/3, proposed by Gabriel Carroll (USA)
+    Available online at https://aops.com/community/p1935854.
+
+  Problem statement
+  Find all functions g : Z>0 → Z>0 such that
+
+                                    (g(m) + n) (g(n) + m)
+
+  is always a perfect square.
+
+For c ≥ 0, the function g(n) = n + c works; we prove this is the only possibility.
+  First, the main point of the problem is that:
+
+   Claim — We have g(n) ≡ g(n0 ) (mod p) =⇒ n ≡ n0 (mod p).
+
+Proof. Pick a large integer M such that
+
+                     νp (M + g(n)),     νp (M + g(n0 )) are both odd.
+
+(It’s not hard to see this is always possible.) Now, since each of
+
+                                 (M + g(n)) (n + g(M ))
+                                 M + g(n0 ) n0 + g(M )
+                                                      
+
+
+is a square, we get n ≡ n0 ≡ −g(M ) (mod p).
+
+  This claim implies that
+
+   • The numbers g(n) and g(n + 1) differ by ±1 for any n, and
+
+   • The function g is injective.
+
+It follows g is a linear function with slope ±1, hence done.
+
+
+
+
+                                             5
+IMO 2010 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2010/4, proposed by Marcin Kuczma (POL)
+   Available online at https://aops.com/community/p1936916.
+
+  Problem statement
+  Let P be a point interior to triangle ABC (with CA 6= CB). The lines AP , BP
+  and CP meet again its circumcircle Γ at K, L, M , respectively. The tangent line at
+  C to Γ meets the line AB at S. Show that from SC = SP follows M K = M L.
+
+We present two solutions using harmonic bundles.
+
+¶ First solution (Evan Chen). Let N be the antipode of M , and let N P meet Γ again
+at D. Focus only on CDM N for now (ignoring the condition). Then C and D are feet
+of altitudes in 4M N P ; it is well-known that the circumcircle of 4CDP is orthogonal to
+Γ (passing through the orthocenter of 4M P N ).
+
+
+                                                     N
+                                             C
+                                                                    K
+
+                                        L
+                                                 P
+
+                     S
+                                    A
+                                                                          B
+
+
+
+                                             D
+                                                           M
+
+
+Now, we are given that point S is such that SC is tangent to Γ, and SC = SP . It follows
+that S is the circumcenter of 4CDP , and hence SC and SD are tangents to Γ.
+                          P
+  Then −1 = (AB; CD) = (KL; M N ). Since M N is a diameter, this implies M K =
+M L.
+
+  Remark. I think it’s more natural to come up with this solution in reverse. Namely, suppose
+  we define the points the other way: let SD be the other tangent, so (AB; CD) = −1. Then
+  project through P to get (KL; M N ) = −1, where N is the second intersection of DP .
+  However, if M L = M K then KM LN must be a kite. Thus one can recover the solution in
+  reverse.
+
+
+¶ Second solution (Sebastian Jeon).         We have
+     SP = SC = SA · SB =⇒ ]SP A = ]P BA = ]LBA = ]LKA = ]LKP
+         2       2
+
+(the latter half is Reim’s theorem). Therefore SP and LK are parallel.
+   Now, let SP meet Γ again at X and Y , and let Q be the antipode of P on (S). Then
+             SP 2 = SQ2 = SX · SY =⇒ (P Q; XY ) = −1 =⇒ ∠QCP = 90◦
+that CP bisects ∠XCY . Since XY k KL, it follows CP bisects to ∠LCK too.
+
+                                              6
+IMO 2010 Solution Notes                                               web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2010/5, proposed by Netherlands
+    Available online at https://aops.com/community/p1936917.
+
+  Problem statement
+  Each of the six boxes B1 , B2 , B3 , B4 , B5 , B6 initially contains one coin. The
+  following two types of operations are allowed:
+
+     1. Choose a non-empty box Bj , 1 ≤ j ≤ 5, remove one coin from Bj and add
+        two coins to Bj+1 ;
+
+     2. Choose a non-empty box Bk , 1 ≤ k ≤ 4, remove one coin from Bk and swap
+        the contents (possibly empty) of the boxes Bk+1 and Bk+2 .
+
+  Determine if there exists a finite sequence of operations of the allowed types, such
+  that the five boxes B1 , B2 , B3 , B4 , B5 become empty, while box B6 contains exactly
+          2010
+  20102010     coins.
+
+First,
+
+           (1, 1, 1, 1, 1, 1) → (0, 3, 1, 0, 3, 1) → (0, 0, 7, 0, 0, 7)
+                              → (0, 0, 6, 2, 0, 7) → (0, 0, 6, 1, 2, 7) → (0, 0, 6, 1, 0, 11)
+                              → (0, 0, 6, 0, 11, 0) → (0, 0, 5, 11, 0, 0).
+
+and henceforth we ignore boxes B1 and B2 , looking at just the last four boxes; so we
+write the current position as (5, 11, 0, 0).
+  We prove a lemma:
+
+   Claim — Let k ≥ 0 and n > 0. From (k, n, 0, 0) we may reach (k − 1, 2n , 0, 0).
+
+Proof. Working with only the last three boxes for now,
+
+                       (n, 0, 0) → (n − 1, 2, 0) → (n − 1, 0, 4)
+                               → (n − 2, 4, 0) → (n − 2, 0, 8)
+                               → (n − 3, 8, 0) → (n − 3, 0, 16)
+                               → · · · → (1, 2n−1 , 0) → (1, 0, 2n ) → (0, 2n , 0).
+
+Finally we have (k, n, 0, 0) → (k, 0, 2n , 0) → (k − 1, 2n , 0, 0).
+
+  Now from (5, 11, 0, 0) we go as follows:
+                                                                                               
+                                                                                    11
+                                          11                    211                22
+               (5, 11, 0, 0) → (4, 2 , 0, 0) → 3, 2                   , 0, 0 → 2, 2      , 0, 0
+                                                                            11
+                                                                                 !
+                                               211                          2
+                                                          
+                                          22                             22
+                               →       1, 2          , 0, 0 →    0, 22          , 0, 0 .
+
+                  11
+           2 22                    2010
+Let A = 22          > 20102010     = B. Then by using move 2 repeatedly on the fourth
+box (i.e., throwing away several coins by swapping the empty B5 and B6 ), we go from
+(0, A, 0, 0) to (0, B/4, 0, 0). From there we reach (0, 0, 0, B).
+
+
+
+                                                          7
+IMO 2010 Solution Notes                                       web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2010/6, proposed by Morteza Saghafiyan (IRN)
+      Available online at https://aops.com/community/p1936918.
+
+   Problem statement
+   Let a1 , a2 , a3 , . . . be a sequence of positive real numbers, and s be a positive integer,
+   such that
+                          an = max{ak + an−k | 1 ≤ k ≤ n − 1} for all n > s.
+   Prove there exist positive integers ` ≤ s and N , such that
+
+                                    an = a` + an−` for all n ≥ N.
+
+Let
+                                 a1          a2                    as
+                             w1 =   , w 2 = , . . . , ws = .
+                                 1            2                     s
+(The choice of the letter w is for “weight”.) We claim the right choice of ` is the one
+maximizing w` .
+  Our plan is to view each an as a linear combination of the weights w1 , . . . , ws and track
+their coefficients.
+  To this end, let’s define an n-type to be a vector T = ht1 , . . . , ts i of nonnegative integers
+such that
+
+      • n = t1 + · · · + ts ; and
+
+      • ti is divisible by i for every i.
+
+We then define its valuation as v(T ) = si=1 wi ti .
+                                       P
+  Now we define a n-type to be valid according to the following recursive rule. For
+1 ≤ n ≤ s the only valid n-types are
+
+                                         T1 = h1, 0, 0, . . . , 0i
+                                         T2 = h0, 2, 0, . . . , 0i
+                                         T3 = h0, 0, 3, . . . , 0i
+                                            ..
+                                             .
+                                         Ts = h0, 0, 0, . . . , si
+
+for n = 1, . . . , s, respectively. Then for any n > s, an n-type is valid if it can be written
+as the sum of a valid k-type and a valid (n − k)-type, componentwise. These represent
+the linear combinations possible in the recursion; in other words the recursion in the
+problem is phrased as
+                                     an =      max       v(T ).
+                                            T is a valid n-type
+
+  In fact, we have the following description of valid n-types:
+
+   Claim — Assume n > s. Then an n-type ht1 , . . . , ts i is valid if and only if either
+
+         • there exist indices i < j with i + j > s, ti ≥ i and tj ≥ j; or
+
+         • there exists an index i > s/2 with ti ≥ 2i.
+
+
+
+
+                                                    8
+IMO 2010 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+Proof. Immediate by forwards induction on n > s that all n-types have        P this property.
+   The reverse direction is by downwards induction on n. Indeed if i tii > 2,Pthen we
+may subtract off on of {T1 , . . . , Ts } while preserving the condition; and the case i tii = 2
+is essentially by definition.
+
+  Remark. The claim is a bit confusingly stated in its two cases; really the latter case should
+  be thought of as the situation i = j but requiring that ti /i is counted with multiplicity.
+
+  Now, for each n > s we pick a valid n-type Tn with an = v(Tn ); if there are ties, we
+pick one for which the `th entry is as large as possible.
+
+  Claim — For any n > s and index i 6= `, the ith entry of Tn is at most 2s + `i.
+
+Proof. If not, we can go back i` steps to get a valid (n − i`)-type T achieved by decreasing
+the ith entry of Tn by i`. But then we can add ` to the `th entry i times to get another
+n-type T 0 which obviously has valuation at least as large, but with larger `th entry.
+
+  Now since all other entries in Tn are bounded, eventually the sequence (Tn )n>s just
+consists of repeatedly adding 1 to the `th entry, as required.
+
+  Remark. One big step is to consider wk = ak /k. You can get this using wishful thinking
+  or by examining small cases. (In addition this normalization makes it easier to see why
+  the largest w plays an important role, since then in the definition of type, the n-types all
+  have a sum of n. Unfortunately, it makes the characterization of valid n-types somewhat
+  clumsier too.)
+
+
+
+
+                                               9
+

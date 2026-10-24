@@ -1,0 +1,515 @@
+                 IMO 2014 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2014 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2014/1, proposed by Gerhard Woeginger (AUT) . . . . . . . . . . .             3
+  1.2 IMO 2014/2, proposed by Tonči Kokan (HRV) . . . . . . . . . . . . . . .           4
+  1.3 IMO 2014/3, proposed by ALi Zamani (IRN) . . . . . . . . . . . . . . . .          6
+
+2 Solutions to Day 2                                                           9
+  2.1 IMO 2014/4, proposed by Giorgi Arabidze (GEO) . . . . . . . . . . . . . 9
+  2.2 IMO 2014/5, proposed by Gerhard Woeginger (LUX) . . . . . . . . . . . . 11
+  2.3 IMO 2014/6, proposed by Gerhard Woeginger (AUT) . . . . . . . . . . . 13
+
+
+
+
+                                            1
+IMO 2014 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let a0 < a1 < a2 < · · · be an infinite sequence of positive integers. Prove that
+     there exists a unique integer n ≥ 1 such that
+                                    a0 + a1 + a2 + · · · + an
+                             an <                             ≤ an+1 .
+                                               n
+
+  2. Let n ≥ 2 be an integer. Consider an n × n chessboard consisting of n2 unit squares.
+     A configuration of n rooks on this board is peaceful if every row and every column
+     contains exactly one rook. Find the greatest positive integer k such that, for each
+     peaceful configuration of n rooks, there is a k × k square which does not contain a
+     rook on any of its k 2 unit squares.
+
+  3. Convex quadrilateral ABCD has ∠ABC = ∠CDA = 90◦ . Point H is the foot
+     of the perpendicular from A to BD. Points S and T lie on sides AB and AD,
+     respectively, such that H lies inside triangle SCT and
+
+                      ∠CHS − ∠CSB = 90◦ ,          ∠T HC − ∠DT C = 90◦ .
+
+     Prove that line BD is tangent to the circumcircle of triangle T SH.
+
+  4. Let P and Q be on segment BC of an acute triangle ABC such that ∠P AB =
+     ∠BCA and ∠CAQ = ∠ABC. Let M and N be points on AP and AQ, respectively,
+     such that P is the midpoint of AM and Q is the midpoint of AN . Prove that BM
+     and CN meet on the circumcircle of 4ABC.
+
+  5. For every positive integer n, the Bank of Cape Town issues coins of denomination n1 .
+     Given a finite collection of such coins (of not necessarily different denominations)
+     with total value at most 99 + 12 , prove that it is possible to split this collection into
+     100 or fewer groups, such that each group has total value at most 1.
+
+  6. A set of lines in the plane is in general position if no two are parallel and no three
+     pass through the same point. A set of lines in general position cuts the plane into
+     regions, some of which have finite area; we call these its finite regions. Prove that
+     for all sufficiently large n, in any set of n lines in general position it is possible to
+                       √
+     colour at least n lines blue in such a way that none of its finite regions has a
+     completely blue boundary.
+
+
+
+
+                                              2
+IMO 2014 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2014/1, proposed by Gerhard Woeginger (AUT)
+   Available online at https://aops.com/community/p3542095.
+
+  Problem statement
+  Let a0 < a1 < a2 < · · · be an infinite sequence of positive integers. Prove that there
+  exists a unique integer n ≥ 1 such that
+                                 a0 + a1 + a2 + · · · + an
+                          an <                             ≤ an+1 .
+                                            n
+
+Fedor Petrov presents the following nice solution. Let us define the sequence
+
+                          bn = (an − an−1 ) + · · · + (an − a1 ) .
+
+Since (an )n is increasing, we get (bn )n is strictly increasing, and moreover b1 = 0. The
+problem requires an n such that
+
+                                      bn < a0 ≤ bn+1
+
+which obviously exists and is unique.
+
+
+
+
+                                              3
+IMO 2014 Solution Notes                           web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2014/2, proposed by Tonči Kokan (HRV)
+   Available online at https://aops.com/community/p3542094.
+
+  Problem statement
+
+  Let n ≥ 2 be an integer. Consider an n × n chessboard consisting of n2 unit squares.
+  A configuration of n rooks on this board is peaceful if every row and every column
+  contains exactly one rook. Find the greatest positive integer k such that, for each
+  peaceful configuration of n rooks, there is a k × k square which does not contain a
+  rook on any of its k 2 unit squares.
+
+
+The answer is k =        n−1 .
+                    √      
+
+
+¶ Proof that the property holds when n ≥ k 2 + 1. First, assume n > k 2 for some
+k. We will prove we can find an empty k × k square. Indeed, let R be a rook in the
+uppermost column, and draw k squares of size k × k directly below it, aligned. There are
+at most k − 1 rooks among these squares, as desired.
+
+
+                                     S
+
+
+
+
+¶ Construction for all n ≤ k 2 . We first give an example where for n = k 2 showing there
+may be no empty k × k square. We draw the example for k = 3 (with the generalization
+being obvious);
+
+
+                                                             r
+                                               r
+                                 r
+                                                        r
+                                          r
+                             r
+                                                    r
+                                     r
+                         r
+  To show that this works, consider for each rook drawing an k × k square of X’s whose
+bottom-right hand corner is the rook (these may go off the board). These indicate
+positions where one cannot place the upper-left hand corner of any square. It’s easy to
+
+                                           4
+IMO 2014 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+see that these cover the entire board, except parts of the last k − 1 columns, which don’t
+matter anyways.
+  It remains to check that n ≤ k 2 also all work (omitting this step is a common mistake).
+For this, we can delete rows and column to get an n × n board, and then fill in any gaps
+where we accidentally deleted a rook.
+
+
+
+
+                                            5
+IMO 2014 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2014/3, proposed by ALi Zamani (IRN)
+   Available online at https://aops.com/community/p3542092.
+
+  Problem statement
+  Convex quadrilateral ABCD has ∠ABC = ∠CDA = 90◦ . Point H is the foot of the
+  perpendicular from A to BD. Points S and T lie on sides AB and AD, respectively,
+  such that H lies inside triangle SCT and
+
+                  ∠CHS − ∠CSB = 90◦ ,            ∠T HC − ∠DT C = 90◦ .
+
+  Prove that line BD is tangent to the circumcircle of triangle T SH.
+
+
+¶ First solution (mine).    First we rewrite the angle condition in a suitable way.
+
+  Claim — We have ∠AT H = ∠T CH + 90◦ . Thus the circumcenter of 4CT H lies
+  on AD. Similarly the circumcenter of 4CSH lies on AB.
+
+Proof.
+
+                        ]AT H = ]DT H
+                                = ]DT C + ]CT H
+                                = ]DT C − ]T HC − ]HCT
+                                = 90◦ − ]HCT = 90◦ + ]T CH.
+
+which implies conclusion.
+
+                                 A
+                                         T
+
+
+
+                                     P
+                                                     OD
+                        S
+
+                    B          H                            D
+
+
+
+
+                                                 C
+
+   Let the perpendicular bisector of T H meet AH at P now. It suffices to show that PAP
+                                                                                      H
+is symmetric in b = AD and d = AB, because then P will be the circumcenter of 4T SH.
+To do this, set AH = 2Rbd
+                          and AC = 2R.
+   Let O denote the circumcenter of 4CHT . Use the Law of Cosines on 4ACO and
+4AHO, using variables x = AO and r = HO. We get that
+                                                  d
+                 r2 = x2 + AH 2 − 2x · AH ·         = x2 + (2R)2 − 2bx.
+                                                 2R
+By the angle bisector theorem, PAP
+                                 H = HO .
+                                     AO
+
+
+
+                                             6
+IMO 2014 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+  The rest is computation: notice that
+                                                         d
+                        r2 − x2 = h2 − 2xh ·               = (2R)2 − 2bx
+                                                        2R
+where h = AH = 2R
+               bd
+                  , whence
+                                                 (2R)2 − h2
+                                         x=                 d
+                                                              .
+                                                 2b − 2h · 2R
+Moreover,                           2            
+                               1    r       1 2 2
+                                       −1 =     R −b .
+                               2    x2      x x
+Now, if we plug in the x in the right-hand side of the above, we obtain
+                                       !
+            d              d
+ 2b − 2h · 2R   2b − 2h · 2R
+                                                                  
+                                  2             2h               d
+                                                                       −2hdR + bh2 .
+                                                                                  
+      2    2         2    2
+                             · 2R − b =        2     2 2
+                                                           b−h·
+  4R − h          4R − h                   (4R − h )            2R
+
+Pulling out a factor of −2Rh from the rightmost term, we get something that is symmetric
+in b and d, as required.
+
+¶ Second solution (Victor Reis). Here is the fabled solution using inversion at H.
+First, we rephrase the angle conditions in the following ways:
+   • AD ⊥ (T HC), which is equivalent to the claim from the first solution.
+
+   • AB ⊥ (SHC), by symmetry.
+
+   • AC ⊥ (ABCD), by definition.
+Now for concreteness we will use a negative inversion at H which swaps B and D and
+overlay it on the original diagram. As usual we denote inverses with stars.
+  Let us describe the inverted problem. We let M and N denote the midpoints of A∗ B ∗
+and A∗ D∗ , which are the centers of (HA∗ B ∗ ) and (HA∗ D∗ ). From T ∗ C ∗ ⊥ (HA∗ D∗ ),
+we know have C ∗ , M , T ∗ collinear. Similarly, C ∗ , N , S ∗ are collinear. We have that
+(A∗ HC ∗ ) is orthogonal to (ABCD) which remains fixed. We wish to show T ∗ S ∗ and
+M N are parallel.
+
+                                                   A
+
+                                    C∗
+                                                            T
+
+
+
+                                   S
+
+
+
+                           B                       H                         D
+
+
+                                       M                          N
+
+                                                   A∗      C
+                                         T   ∗                          S∗
+
+
+
+                                                    7
+IMO 2014 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+   Lot ω denote the circumcircle of 4A∗ HC ∗ , which is orthogonal to the original circle
+(ABCD). It would suffices to show (A∗ HC ∗ ) is an H-Apollonius circle with respect to
+M N , from which we would get C ∗ M /HM = C ∗ N /HN .
+   However, ω through H and A, hence it center lies on line M N . Moreover ω is orthogonal
+to (A∗ M N ) (since (A∗ M N ) and (A∗ BD) are homothetic). This is enough (for example,
+if we let O denote the center of ω, we now have r(ω)2 = OH 2 = OM · ON ). (Note in
+this proof that the fact that C ∗ lies on (ABCD) is not relevant.)
+
+
+
+
+                                            8
+IMO 2014 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2014/4, proposed by Giorgi Arabidze (GEO)
+   Available online at https://aops.com/community/p3543136.
+
+  Problem statement
+  Let P and Q be on segment BC of an acute triangle ABC such that ∠P AB = ∠BCA
+  and ∠CAQ = ∠ABC. Let M and N be points on AP and AQ, respectively, such
+  that P is the midpoint of AM and Q is the midpoint of AN . Prove that BM and
+  CN meet on the circumcircle of 4ABC.
+
+We give three solutions.
+
+¶ First solution by harmonic bundles.    Let BM intersect the circumcircle again at X.
+
+                                                       A
+
+
+
+
+                      B                        Q           P         C
+
+
+
+
+                                                   X
+
+                                          N                    M
+
+  The angle conditions imply that the tangent to (ABC) at B is parallel to AP . Let ∞
+be the point at infinity along line AP . Then
+                                               B
+                            −1 = (AM ; P ∞) = (AX; CB).
+
+Similarly, if CN meets the circumcircle at Y then (AY ; BC) = −1 as well. Hence X = Y ,
+which implies the problem.
+
+¶ Second solution by similar triangles. Once one observes 4CAQ ∼ 4CBA, one can
+construct D the reflection of B across A, so that 4CAN ∼ 4CBD. Similarly, letting E
+be the reflection of C across A, we get 4BAP ∼ 4BCA =⇒ 4BAM ∼ 4BCE. Now
+to show ∠ABM + ∠ACN = 180◦ it suffices to show ∠EBC + ∠BCD = 180◦ , which
+follows since BCDE is a parallelogram.
+
+¶ Third solution by barycentric coordinates.       Since P B = c2 /a we have
+
+                                 P = (0 : a2 − c2 : c2 )
+
+
+                                           9
+IMO 2014 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+                  ~ = 2P~ − A
+so the reflection M         ~ has coordinates
+
+                                M = (−a2 : 2(a2 − c2 ) : 2c2 ).
+
+  Similarly N = (−a2 : 2b2 : 2(b2 − a2 )). Thus
+
+                                BM ∩ CN = (−a2 : 2b2 : 2c2 )
+
+which clearly lies on the circumcircle, and is in fact the point identified in the first solution.
+
+
+
+
+                                               10
+IMO 2014 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2014/5, proposed by Gerhard Woeginger (LUX)
+    Available online at https://aops.com/community/p3543144.
+
+  Problem statement
+
+  For every positive integer n, the Bank of Cape Town issues coins of denomination n1 .
+  Given a finite collection of such coins (of not necessarily different denominations)
+  with total value at most 99 + 12 , prove that it is possible to split this collection into
+  100 or fewer groups, such that each group has total value at most 1.
+
+
+We’ll prove the result for at most k − 2k+1
+                                         k
+                                            with k groups. First, perform the following
+optimizations.
+   • If any coin of size 2m
+                          1
+                            appears twice, then replace it with a single coin of size m
+                                                                                      1
+                                                                                        .
+   • If any coin of size 2m+1
+                           1
+                              appears 2m + 1 times, group it into a single group and
+     induct downwards.
+Apply this operation repeatedly until it cannot be done anymore.
+   Now construct boxes B0 , B1 , . . . , Bk−1 . In box B0 put any coins of size 12 (clearly
+there is at most one). More generally for m ≥ 0, Bm , put coins of size 2m+11
+                                                                                and 2m+21
+
+(there at most 2m of the former and at most one of the latter). Note that
+                                                      1      1
+                     total weight in Bm ≤ 2m ·            +       < 1.
+                                                    2m + 1 2m + 2
+Finally, place the remaining “light” coins of size at most 2k+1
+                                                             1
+                                                                in a pile.
+
+   Remark. One way to explain where this boxing comes from is to imagine what happens
+   after applying the operation repeatedly until it can’t be done any more. We expect the
+   most troublesome situation would be if the leftover coins are as large as possible, which
+   looks like
+               1      1          1        1          1          1          1
+                 ,      × 2,       ,        × 4,       ,          × 6,       ,    ...
+               2      3          4        5          6          7          8
+  Seeing this the boxing Bi is quite reasonable because it groups these into groups of almost
+  1 without too much effort:
+                                              1
+                                       B0 −→
+                                              2
+                                              1   1  11
+                                       B1 −→ · 2 + =
+                                              3   4  12
+                                              1   1  29
+                                       B2 −→ · 4 + =
+                                              5   6  30
+                                              1   1  55
+                                       B3 −→ · 6 + =
+                                              7   8  56
+                                           ..
+                                            .
+
+   Then just toss coins from the pile into the boxes arbitrarily, other than the proviso
+that no box should have its weight exceed 1. We claim this uses up all coins in the pile.
+Assume not, and that some coin remains in the pile when all the boxes are saturated.
+Then all the boxes must have at least 1 − 2k+1
+                                            1
+                                               , meaning the total amount in the boxes is
+strictly greater than                         
+                                          1
+                               k 1−              > k − 12
+                                        2k + 1
+
+                                               11
+IMO 2014 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+which is a contradiction.
+
+  Remark. This gets a stronger bound k − 2k+1
+                                           k
+                                              than the requested k − 12 .
+
+
+
+
+                                           12
+IMO 2014 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2014/6, proposed by Gerhard Woeginger (AUT)
+    Available online at https://aops.com/community/p3543151.
+
+  Problem statement
+  A set of lines in the plane is in general position if no two are parallel and no three
+  pass through the same point. A set of lines in general position cuts the plane into
+  regions, some of which have finite area; we call these its finite regions. Prove that for
+  all sufficiently large n, in any set of n lines in general position it is possible to colour
+            √
+  at least n lines blue in such a way that none of its finite regions has a completely
+  blue boundary.
+
+Suppose we have colored k of the lines blue, and that it is not possible to color any
+additional lines. That means any of the n − k non-blue lines is the side of some finite
+region with an otherwise entirely blue perimeter. For each such line `, select one such
+region, and take the next counterclockwise vertex; this is the intersection of two blue
+lines v. We’ll say ` is the eyelid of v.
+
+
+                                              ℓ
+
+                                                        v
+
+  You can prove without too much difficulty that every intersection of two blue lines has
+                                     k
+at most two eyelids. Since there are 2 such intersections, we see that
+                                       
+
+                                          
+                                          k
+                                n−k ≤2        = k2 − k
+                                          2
+
+so n ≤ k 2 , as required.
+                            √
+  Remark. In fact, k =          n is “sharp for greedy algorithms”, as illustrated below for k = 3:
+
+
+
+
+                                                   13
+

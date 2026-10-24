@@ -1,0 +1,419 @@
+                 IMO 2012 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2012 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2012/1, proposed by Evangelos Psychas (HEL) . . . . . . . . . . . .           3
+  1.2 IMO 2012/2, proposed by Angelo di Pasquale (AUS) . . . . . . . . . . . .          4
+  1.3 IMO 2012/3, proposed by David Arthur (CAN) . . . . . . . . . . . . . . .          5
+
+2 Solutions to Day 2                                                                    7
+  2.1 IMO 2012/4, proposed by Liam Baker (SAF) . . . . . . . . . . . . . . . .          7
+  2.2 IMO 2012/5, proposed by Josef Tkadlec (CZE) . . . . . . . . . . . . . . .         8
+  2.3 IMO 2012/6, proposed by Dusan Djukic (SRB) . . . . . . . . . . . . . . .          9
+
+
+
+
+                                            1
+IMO 2012 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let ABC be a triangle and J the center of the A-excircle. This excircle is tangent
+     to the side BC at M , and to the lines AB and AC at K and L, respectively. The
+     lines LM and BJ meet at F , and the lines KM and CJ meet at G. Let S be the
+     point of intersection of the lines AF and BC, and let T be the point of intersection
+     of the lines AG and BC. Prove that M is the midpoint of ST .
+
+  2. Let a2 , a3 , . . . , an be positive reals with product 1, where n ≥ 3. Show that
+
+                               (1 + a2 )2 (1 + a3 )3 . . . (1 + an )n > nn .
+
+  3. The liar’s guessing game is a game played between two players A and B. The rules
+     of the game depend on two fixed positive integers k and n which are known to both
+     players.
+     At the start of the game A chooses integers x and N with 1 ≤ x ≤ N . Player A
+     keeps x secret, and truthfully tells N to player B. Player B now tries to obtain
+     information about x by asking player A questions as follows: each question consists
+     of B specifying an arbitrary set S of positive integers (possibly one specified in
+     some previous question), and asking A whether x belongs to S. Player B may ask
+     as many questions as he wishes. After each question, player A must immediately
+     answer it with yes or no, but is allowed to lie as many times as she wants; the only
+     restriction is that, among any k + 1 consecutive answers, at least one answer must
+     be truthful.
+     After B has asked as many questions as he wants, he must specify a set X of at
+     most n positive integers. If x belongs to X, then B wins; otherwise, he loses. Prove
+     that:
+      (a) If n ≥ 2k , then B can guarantee a win.
+      (b) For all sufficiently large k, there exists an integer n ≥ (1.99)k such that B
+          cannot guarantee a win.
+
+  4. Find all functions f : Z → Z such that, for all integers a, b, c that satisfy a+b+c = 0,
+     the following equality holds:
+
+                  f (a)2 + f (b)2 + f (c)2 = 2f (a)f (b) + 2f (b)f (c) + 2f (c)f (a).
+
+  5. Let ABC be a triangle with ∠BCA = 90◦ , and let D be the foot of the altitude
+     from C. Let X be a point in the interior of the segment CD. Let K be the point
+     on the segment AX such that BK = BC. Similarly, let L be the point on the
+     segment BX such that AL = AC. Let M = AL ∩ BK. Prove that M K = M L.
+
+  6. Find all positive integers n for which there exist non-negative integers a1 , a2 , . . . , an
+     such that
+                      1      1            1      1      2           n
+                          + a2 + · · · + an = a1 + a2 + · · · + an = 1.
+                     2a1    2            2      3      3           3
+
+
+
+
+                                                 2
+IMO 2012 Solution Notes                                  web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2012/1, proposed by Evangelos Psychas (HEL)
+   Available online at https://aops.com/community/p2736397.
+
+  Problem statement
+  Let ABC be a triangle and J the center of the A-excircle. This excircle is tangent
+  to the side BC at M , and to the lines AB and AC at K and L, respectively. The
+  lines LM and BJ meet at F , and the lines KM and CJ meet at G. Let S be the
+  point of intersection of the lines AF and BC, and let T be the point of intersection
+  of the lines AG and BC. Prove that M is the midpoint of ST .
+
+We employ barycentric coordinates with reference 4ABC. As usual a = BC, b = CA,
+c = AB, s = 12 (a + b + c).
+  It’s obvious that K = (−(s − c) : s : 0), M = (0 : s − b : s − c). Also, J = (−a : b : c).
+We then obtain                                            
+                                            −as + (s − c)b
+                            G = −a : b :                     .
+                                                s−b
+It follows that
+                                             
+                             −as + (s − c)b
+              T =       0:b:                      = (0 : b(s − b) : b(s − c) − as).
+                                 s−b
+
+Normalizing, we see that T = 0, − ab , 1 + ab , from which we quickly obtain M T = s.
+                                             
+
+Similarly, M S = s, so we’re done.
+
+
+
+
+                                                  3
+IMO 2012 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2012/2, proposed by Angelo di Pasquale (AUS)
+   Available online at https://aops.com/community/p2736375.
+
+  Problem statement
+  Let a2 , a3 , . . . , an be positive reals with product 1, where n ≥ 3. Show that
+
+                          (1 + a2 )2 (1 + a3 )3 . . . (1 + an )n > nn .
+
+Try the dumbest thing possible: by AM-GM,
+
+                                           (1 + a2 )2 ≥ 22 a2
+                                                 3
+                                                         33
+                                            
+                                     3   1 1
+                            (1 + a3 ) =   + + a3 ≥ 2 a3
+                                         2 2             2
+                                                 4
+                                                         44
+                                     
+                                       1 1 1
+                        (1 + a4 )4 =    + + + a4 ≥ 3 a4
+                                       3 3 3             3
+                                                      ..
+                                                       .
+
+and so on. Multiplying these all gives the result. The inequality is strict since it’s not
+possible that a2 = 1, a3 = 12 , et cetera.
+
+
+
+
+                                                4
+IMO 2012 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2012/3, proposed by David Arthur (CAN)
+   Available online at https://aops.com/community/p2736406.
+
+  Problem statement
+  The liar’s guessing game is a game played between two players A and B. The rules
+  of the game depend on two fixed positive integers k and n which are known to both
+  players.
+     At the start of the game A chooses integers x and N with 1 ≤ x ≤ N . Player A
+  keeps x secret, and truthfully tells N to player B. Player B now tries to obtain
+  information about x by asking player A questions as follows: each question consists
+  of B specifying an arbitrary set S of positive integers (possibly one specified in
+  some previous question), and asking A whether x belongs to S. Player B may ask
+  as many questions as he wishes. After each question, player A must immediately
+  answer it with yes or no, but is allowed to lie as many times as she wants; the only
+  restriction is that, among any k + 1 consecutive answers, at least one answer must
+  be truthful.
+     After B has asked as many questions as he wants, he must specify a set X of at
+  most n positive integers. If x belongs to X, then B wins; otherwise, he loses. Prove
+  that:
+
+    (a) If n ≥ 2k , then B can guarantee a win.
+
+    (b) For all sufficiently large k, there exists an integer n ≥ (1.99)k such that B
+        cannot guarantee a win.
+
+Call the players Alice and Bob.
+
+¶ Part (a).    We prove the following.
+
+  Claim — If N ≥ 2k + 1, then in 2k + 1 questions, Bob can rule out some number
+  in {1, . . . , 2k + 1} form being equal to x.
+
+Proof. First, Bob asks the question S0 = {2k + 1} until Alice answers “yes” or until Bob
+has asked k + 1 questions. If Alice answers “no” to all of these then Bob rules out 2k + 1.
+So let’s assume Alice just said “yes”.
+   Now let T = {1, . . . , 2k }. Then, he asks k-follow up questions S1 , . . . , Sk defined as
+follows:
+
+   • S1 = {1, 3, 5, 7, . . . , 2k − 1} consists of all numbers in T whose least significant digit
+     in binary is 1.
+
+   • S2 = {2, 3, 6, 7, . . . , 2k − 2, 2k − 1} consists of all numbers in T whose second least
+     significant digit in binary is 1.
+
+   • More generally Si consists of all numbers in T whose ith least significant digit in
+     binary is 1.
+
+WLOG Alice answers these all as “yes” (the other cases are similar). Among the last k + 1
+answers at least one must be truthful, and the number 2k (having zeros in all relevant
+digits) does not appear in any of S0 , . . . , Sk and is ruled out.
+
+
+                                               5
+IMO 2012 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+Thus in this way Bob can repeatedly find non-possibilities for x (and then relabel the
+remaining candidates 1, . . . , N − 1) until he arrives at a set of at most 2k numbers.
+
+¶ Part (b). It suffices to consider n = 1.99k and N = n + 1 for large k. At the tth
+                                              
+
+step, Bob asks some question St ; we phrase each of Alice’s answers in the form “x ∈ / Bt ”,
+where Bt is either St or its complement. (You may think of these as “bad sets”; the idea is
+to show we can avoid having any number appear in k + 1 consecutive bad sets, preventing
+Bob from ruling out any numbers.)
+   Main idea: for every number 1 ≤ x ≤ N , at time step t we define its weight to be
+
+                                        w(x) = 1.998e
+
+where e is the largest number such that x ∈ Bt−1 ∩ Bt−2 ∩ · · · ∩ Bt−e .
+
+  Claim — Alice can ensure the total weight never exceeds 1.998k+1 for large k.
+
+Proof. Let Wt denote the sum of weights after the tth question. We have W0 = N < 1000n.
+We will prove inductively that Wt < 1000n always.
+  At time t, Bob specifies a question St . We have Alice choose Bt as whichever of St or
+St has lesser total weight, hence at most Wt /2. The weights of for Bt increase by a factor
+of 1.998, while the weights for Bt all reset to 1. So the new total weight after time t is
+                                         Wt
+                        Wt+1 ≤ 1.998 ·      + #Bt ≤ 0.999Wt + n.
+                                         2
+Thus if Wt < 1000n then Wt+1 < 1000n.
+  To finish, note that 1000n < 1000 1.99k + 1 < 1.998k+1 for k large.
+                                             
+
+  In particular, no individual number can have weight 1.998k+1 . Thus for every time
+step t we have
+                             Bt ∩ Bt+1 ∩ · · · ∩ Bt+k = ∅.
+Then once Bob stops, if he declares a set of n positive integers, and x is an integer Bob
+did not choose, then Alice’s question history is consistent with x being Alice’s number, as
+among any k + 1 consecutive answers she claimed that x ∈ Bt for some t in that range.
+
+  Remark (Motivation). In our Bt setup, let’s think backwards. The problem is equivalent
+  to avoiding e = k + 1 at any time step t, for any number x. That means
+      • have at most two elements with e = k at time t − 1,
+      • thus have at most four elements with e = k − 1 at time t − 2,
+      • thus have at most eight elements with e = k − 2 at time t − 3,
+      • and so on.
+  We already exploited this in solving part (a). In any case it’s now natural to try letting
+  w(x) = 2e , so that all the cases above sum to “equally bad” situations: since 8 · 2k−2 =
+  4 · 2k−1 = 2 · 2k , say.
+      However, we then get Wt+1 ≤ 12 (2Wt ) + n, which can increase without bound due to
+  contributions from numbers resetting to zero. The way to fix this is to change the weight to
+  w(x) = 1.998e , taking advantage of the little extra space we have due to having n ≥ 1.99k
+  rather than n ≥ 2k .
+
+
+
+
+                                               6
+IMO 2012 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2012/4, proposed by Liam Baker (SAF)
+      Available online at https://aops.com/community/p2737336.
+
+     Problem statement
+     Find all functions f : Z → Z such that, for all integers a, b, c that satisfy a+b+c = 0,
+     the following equality holds:
+
+                  f (a)2 + f (b)2 + f (c)2 = 2f (a)f (b) + 2f (b)f (c) + 2f (c)f (a).
+
+Answer: for arbitrary k ∈ Z, we have
+
+     (i) f (x) = kx2 ,
+
+ (ii) f (x) = 0 for even x, and f (x) = k for odd x, and
+
+ (iii) f (x) = 0 for x ≡ 0 (mod 4), f (x) = k for odd x, and f (x) = 4k for x ≡ 2 (mod 4).
+
+These can be painfully seen to work. (It’s more natural to think of these as f (x) = x2 ,
+f (x) = x2 (mod 4), f (x) = x2 (mod 8), and multiples thereof.)
+   Set a = b = c = 0 to get f (0) = 0. Then set c = 0 to get f (a) = f (−a), so f is even.
+Now
+             f (a)2 + f (b)2 + f (a + b)2 = 2f (a + b) (f (a) + f (b)) + 2f (a)f (b)
+or
+                            (f (a + b) − (f (a) + f (b)))2 = 4f (a)f (b).
+Hence f (a)f (b) is a perfect square for all a, b ∈ Z. So there exists a λ such that
+f (n) = λg(n)2 , where g(n) ≥ 0. From here we recover
+
+                                     g(a + b) = ±g(a) ± g(b) .
+
+Also g(0) = 0.
+  Let k = g(1) 6= 0. We now split into cases on g(2):
+
+      • g(2) = 0. Put b = 2 in original to get g(a + 2) = ±g(a) = +g(a).
+
+      • g(2) = 2k. Cases on g(4):
+           – g(4) = 0, then we get (g(n))n≥0 = (0, 1, 2, 1, 0, 1, 2, 1, . . . ). This works.
+           – g(4) = 4k. This only happens when g(1) = k, g(2) = 2k, g(3) = 3k, g(4) = 4k.
+             Then
+                ∗ g(5) = ±3k ± 2k = ±4k ± k.
+                ∗ g(6) = ±4k ± 2k = ±5k ± k.
+                ∗ ...
+              and so by induction g(n) = nk.
+
+
+
+
+                                                  7
+IMO 2012 Solution Notes                           web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2012/5, proposed by Josef Tkadlec (CZE)
+   Available online at https://aops.com/community/p2737425.
+
+  Problem statement
+  Let ABC be a triangle with ∠BCA = 90◦ , and let D be the foot of the altitude
+  from C. Let X be a point in the interior of the segment CD. Let K be the point on
+  the segment AX such that BK = BC. Similarly, let L be the point on the segment
+  BX such that AL = AC. Let M = AL ∩ BK. Prove that M K = M L.
+
+Let ωA and ωB be the circles through C centered at A and B; extend rays AK and BL
+to hit ωB and ωA again at K ∗ , L∗ . By radical center X, we have KLK ∗ L∗ is cyclic, say
+with circumcircle ω.
+
+
+
+
+                                                   K∗
+
+
+
+
+                                C
+                L∗
+
+                                 X
+                                        L
+                                K M
+                           A     D                                      B
+
+
+
+
+   By orthogonality of (A) and (B) we find that AL, AL∗ , BK, BK ∗ are tangents to ω
+(in particular, KLK ∗ L∗ is harmonic). In particular M K and M L are tangents to ω, so
+M K = M L.
+
+
+
+
+                                            8
+IMO 2012 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2012/6, proposed by Dusan Djukic (SRB)
+   Available online at https://aops.com/community/p2737435.
+
+  Problem statement
+  Find all positive integers n for which there exist non-negative integers a1 , a2 , . . . , an
+  such that
+                    1     1            1      1      2          n
+                     a
+                        + a2 + · · · + an = a1 + a2 + · · · + an = 1.
+                   2  1  2            2      3      3          3
+
+The answer is n ≡ 1, 2 (mod 4). To see these are necessary, note that taking the latter
+equation modulo 2 gives
+                        1    2            n
+                  1=    a
+                           + a2 + · · · + an ≡ 1 + 2 + .. + n       (mod 2).
+                       3 1  3            3
+ Now we prove these are sufficient. The following nice construction was posted on
+AOPS by the user cfheolpiixn.
+
+  Claim — If n = 2k − 1 works then so does n = 2k.
+
+Proof. Replace
+                                 k     k    2k
+                                  r
+                                    = r+1 + r+1 .           (∗)
+                                 3   3     3
+
+  Claim — If n = 4k + 2 works then so does n = 4k + 13.
+
+Proof. First use the identity
+      k+2  k + 2 4k + 3 4k + 5 4k + 7 4k + 9 4k + 11 4k + 13
+        r
+          = r+2 + r+3 + r+3 + r+3 + r+3 +           +
+       3    3     3      3      3      3      3r+3    3r+3
+to fill in the odd numbers. The even numbers can then be instantiated with (∗) too.
+
+  Thus it suffices to construct base cases for n = 1, n = 5, n = 9. They are
+                       1
+                   1=
+                      30
+                       1   2   3   4   5
+                     = 2+ 2+ 2+ 3+ 3
+                      3   3   3   3   3
+                       1   2   3   4   5   6   7   8   9
+                     = 2 + 3 + 3 + 3 + 3 + 4 + 4 + 4 + 4.
+                      3   3   3   3   3   3   3   3   3
+
+
+
+
+                                               9
+

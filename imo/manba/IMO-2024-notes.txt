@@ -1,0 +1,799 @@
+                 IMO 2024 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2024 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2024/1, proposed by Santiago Rodriguez (COL) . . . . . . . . . . . .          3
+  1.2 IMO 2024/2, proposed by Valentio Iverson (IDN) . . . . . . . . . . . . . .        4
+  1.3 IMO 2024/3, proposed by William Steinberg (AUS) . . . . . . . . . . . .           6
+
+2 Solutions to Day 2                                                                    10
+  2.1 IMO 2024/4, proposed by Dominik Burek (POL) . . . . . . . . . . . . . .           10
+  2.2 IMO 2024/5, proposed by Chu Cheuk Hei (HKG) . . . . . . . . . . . . . .           12
+  2.3 IMO 2024/6, proposed by Japan . . . . . . . . . . . . . . . . . . . . . . .       17
+
+
+
+
+                                            1
+IMO 2024 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Find all real numbers α so that, for every positive integer n, the integer
+
+                                  bαc + b2αc + b3αc + · · · + bnαc
+
+     is divisible by n.
+
+  2. For which pairs of positive integers (a, b) is the sequence
+
+                                gcd(an + b, bn + a)        n = 1, 2, . . .
+
+     eventually constant?
+
+  3. Let a1 , a2 , a3 , . . . be an infinite sequence of positive integers, and let N be a positive
+     integer. Suppose that, for each n > N , the number an is equal to the number of
+     times an−1 appears in the list (a1 , a2 , . . . , an−1 ). Prove that at least one of the
+     sequences a1 , a3 , a5 , . . . and a2 , a4 , a6 , . . . is eventually periodic.
+
+  4. Let triangle ABC with incenter I satisfying AB < AC < BC. Let X be a point
+     on line BC, different from C, such that the line through X and parallel to AC is
+     tangent to the incircle. Similarly, let Y be a point on line BC, different from B,
+     such that the line through Y and parallel to AB is tangent to the incircle. Line
+     AI intersects the circumcircle of triangle ABC again at P . Let K and L be the
+     midpoints of AC and AB, respectively. Prove that ∠KIL + ∠Y P X = 180◦ .
+
+  5. Turbo the snail is in the top row of a grid with 2024 rows and 2023 columns and
+     wants to get to the bottom row. However, there are 2022 hidden monsters, one in
+     every row except the first and last, with no two monsters in the same column.
+     Turbo makes a series of attempts to go from the first row to the last row. On each
+     attempt, he chooses to start on any cell in the first row, then repeatedly moves to
+     an orthogonal neighbor. (He is allowed to return to a previously visited cell.) If
+     Turbo reaches a cell with a monster, his attempt ends and he is transported back to
+     the first row to start a new attempt. The monsters do not move between attempts,
+     and Turbo remembers whether or not each cell he has visited contains a monster.
+     If he reaches any cell in the last row, his attempt ends and Turbo wins.
+     Find the smallest integer n such that Turbo has a strategy which guarantees being
+     able to reach the bottom row in at most n attempts, regardless of how the monsters
+     are placed.
+
+  6. A function f : Q → Q is called aquaesulian if the following property holds: for every
+     x, y ∈ Q,
+                    f (x + f (y)) = f (x) + y or f (f (x) + y) = x + f (y).
+     Show that there exists an integer c such that for any aquaesulian function f there
+     are at most c different rational numbers of the form f (r) + f (−r) for some rational
+     number r, and find the smallest possible value of c.
+
+
+
+
+                                                2
+IMO 2024 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2024/1, proposed by Santiago Rodriguez (COL)
+   Available online at https://aops.com/community/p31205921.
+
+  Problem statement
+  Find all real numbers α so that, for every positive integer n, the integer
+
+                             bαc + b2αc + b3αc + · · · + bnαc
+
+  is divisible by n.
+
+The answer is that α must be an even integer. Let S(n, α) denote the sum in question.
+
+¶ Analysis for α an integer.    If α is an integer, then the sum equals
+
+                                                          n(n + 1)
+                       S(n, α) = (1 + 2 + · · · + n)α =            ·α
+                                                             2
+which is obviously a multiple of n if 2 | α; meanwhile, if α is an odd integer then n = 2
+gives a counterexample.
+
+¶ Main case. Suppose α is not an integer; we show the desired condition can never be
+true. Note that replacing α with α ± 2 changes by
+
+         S(n ± 2, α) − S(n, α) = 2(1 + 2 + · · · + n) = n(n + 1) ≡ 0 (mod n)
+
+for every n. Thus, by shifting appropriately we may assume −1 < α < 1 and α ∈
+                                                                            / Z.
+
+   • If 0 < α < 1, then let m ≥ 2 be the smallest integer such that mα ≥ 1. Then
+
+                                 S(m, α) = 0 + · · · + 0 +1 = 1
+                                           | {z }
+                                             m−1 terms
+
+     is not a multiple of m.
+
+   • If −1 < α < 0, then let m ≥ 2 be the smallest integer such that mα < −1. Then
+
+                       S(m, α) = (−1) + · · · + (−1) +(−2) = −(m + 1)
+                                 |      {z         }
+                                       m−1 terms
+
+     is not a multiple of m.
+
+
+
+
+                                             3
+IMO 2024 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2024/2, proposed by Valentio Iverson (IDN)
+   Available online at https://aops.com/community/p31205957.
+
+  Problem statement
+  For which pairs of positive integers (a, b) is the sequence
+
+                           gcd(an + b, bn + a)     n = 1, 2, . . .
+
+  eventually constant?
+
+The answer is (a, b) = (1, 1) only, which obviously works since the sequence is always 2.
+  Conversely, assume the sequence
+                                 xn := gcd(an + b, bn + a)
+is eventually constant. The main crux of the other direction is to consider
+                                       M := ab + 1.
+
+
+
+  Remark (Motivation). The reason to consider the number is the same technique used in
+  IMO 2005/4, namely the idea to consider “n = −1”. The point is that the two rational
+  numbers
+                            1       ab + 1       1        ab + 1
+                              +b=          ,       +a=
+                            a          a         b           b
+  have a large common factor: we could write “x−1 = ab + 1”, loosely speaking.
+    Now, the sequence is really only defined for n ≥ 1, so one should instead take n ≡ −1
+  (mod ϕ(M )) — and this is exactly what we do.
+
+Obviously gcd(a, M ) = gcd(b, M ) = 1. Let n be a sufficiently large multiple of ϕ(M ) so
+that
+                               xn−1 = xn = xn+1 = · · · .
+We consider the first three terms; the first one is the “key” one that gets the bulk of the
+work, and the rest is bookkeeping and extraction.
+   • Consider xn−1 . Note that
+                      a(an−1 + b) = an + ab ≡ 1 + (−1) ≡ 0 (mod M )
+      and similarly b(bn + a) ≡ 0 (mod M ). Hence M | xn−1 .
+   • Consider xn , which is now known to be divisible by M . Note that
+                                0 ≡ an + b ≡ 1 + b (mod M )
+                                0 ≡ bn + a ≡ 1 + a (mod M ).
+      So a ≡ b ≡ −1 (mod M ).
+   • Consider xn+1 , which is now known to be divisible by M . Note that
+                          0 ≡ an+1 + b ≡ bn+1 + a ≡ a + b (mod M ).
+     We knew a ≡ b ≡ −1 (mod M ), hence this means 0 ≡ 2 (mod M ), so M = 2.
+From M = 2 we then conclude a = b = 1, as desired.
+
+
+                                            4
+IMO 2024 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+
+  Remark (No alternate solutions known). At the time nobody seems to know any solution
+  not depending critically on M = ab + 1 (or prime numbers dividing M , etc.). They vary in
+  execution once some term of the form xkϕ(n)−1 is taken, but avoiding the key idea altogether
+  does not currently seem possible.
+    A good example to consider for ruling out candidate ideas is (a, b) = (18, 9).
+
+
+
+
+                                               5
+IMO 2024 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2024/3, proposed by William Steinberg (AUS)
+    Available online at https://aops.com/community/p31206050.
+
+  Problem statement
+  Let a1 , a2 , a3 , . . . be an infinite sequence of positive integers, and let N be a positive
+  integer. Suppose that, for each n > N , the number an is equal to the number
+  of times an−1 appears in the list (a1 , a2 , . . . , an−1 ). Prove that at least one of the
+  sequences a1 , a3 , a5 , . . . and a2 , a4 , a6 , . . . is eventually periodic.
+
+We present the solution from “gigamilkmen’tgeg” in https://aops.com/community/p31224483,
+with some adaptation from the first shortlist official solution as well. Set M :=
+max(a1 , . . . , aN ).
+
+¶ Setup. We will visualize the entire process as follows. We draw a stack of towers
+labeled 1, 2, . . . , each initially empty. For i = 1, 2, . . . , we imagine the term ai as adding
+a block Bi to tower ai .
+   Then there are N initial blocks placed, colored red. The rest of the blocks are colored
+yellow: if the last block Bi was added to a tower that then reaches height ai+1 , the next
+block Bi+1 is added to tower ai+1 . We’ll say Bi contributes to the tower containing Bi+1 .
+   In other words, the yellow blocks Bi for i > N are given coordinates Bi = (ai , ai+1 )
+for i > N . Note in particular that in towers M + 1, M + 2, . . . , the blocks are all yellow.
+
+                              28
+
+                              24
+
+                              18
+
+                         26   14
+
+                         22   10
+
+                         20
+
+                         16
+
+                         12
+
+                         9          13   17           23     27
+
+                                         N 21 11 15 19 25
+                         1     2     3    4       5   6       7     8     9
+                                              M
+
+  We let h` denote the height of the `th tower at a given time n. (This is an abuse of
+notation and we should write h` (n) at time n, but n will always be clear from context.)
+
+¶ Up to alternating up and down. We start with two independent easy observations:
+the set of numbers that occur infinitely often is downwards closed, and consecutive terms
+cannot both be huge.
+
+
+                                                  6
+IMO 2024 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+
+                       36
+
+                       32
+
+                       28
+
+                  34   24
+
+                  30   18
+
+                  26   14
+
+                  22   10
+
+                  20
+
+                  16
+
+                  12
+
+                  9             13   17           23   27     31    35
+
+                                     N 21 11 15 19 25 29 33
+                  1     2       3    4        5   6    7       8     9    10    11
+                            L             M
+
+
+   Claim — If the (k + 1)st tower grows arbitrarily high, so does tower k. In fact,
+   there exists a constant C such that hk ≥ hk+1 − C at all times.
+
+Proof. Suppose Bn is a yellow block in tower k + 1. Then with at most finitely many
+exceptions, Bn−1 is a yellow block at height k + 1, and the block Br right below Bn−1 is
+also yellow; then Br+1 is in tower k. Hence, with at most finitely many exceptions, the
+map
+                               Bn 7→ Bn−1 7→ Br 7→ Br+1
+provides an injective map taking each yellow block in tower k + 1 to a yellow block in
+tower k. (The figure above shows B32 → B31 → B19 → B20 as an example.)
+
+   Claim — If an > M then an+1 ≤ M .
+
+Proof. Assume for contradiction there’s a first moment where an > M and an+1 > M ,
+meaning the block Bn was added to an all-yellow tower past M that has height exceeding
+M . (This is the X’ed out region in the figure above.) In Bn ’s tower, every (yellow) block
+(including Bn ) was contributed by a block placed in different towers at height an > M . So
+before Bn , there were already an+1 > M towers of height more than M . This contradicts
+minimality of n.
+
+  It follows that the set of indices with an ≤ M has arithmetic density at least half, so
+certainly at least some of the numbers must occur infinitely often. Of the numbers in
+{1, 2, . . . , M }, define L such that towers 1 through L grow unbounded but towers L + 1
+through M do not. Then we can pick a larger threshold N 0 > N such that
+
+
+
+                                                  7
+IMO 2024 Solution Notes                                          web.evanchen.cc, updated 27 September 2026
+
+   • Towers 1 through L have height greater than max(M, N );
+   • Towers L + 1 through M will receive no further blocks;
+   • aN 0 ≤ L.
+After this threshold, the following statement is true:
+
+  Claim (Alternating small and big) — The terms aN 0 , aN 0 +2 , aN 0 +4 , . . . are all at
+  most L while the terms aN 0 +1 , aN 0 +3 , aN 0 +5 , . . . are all greater than M .
+
+
+¶ Automaton for n ≡ N 0 (mod 2). From now on we always assume n > N 0 . When
+n ≡ N 0 (mod 2), i.e., when an is small, we define the state
+                                     S(n) = (h1 , h2 , . . . , hL ; an ).
+For example, in the figure below, we illustrate how
+                  S(34) = (9, 11; a34 = 1) −→ S(36) = (9, 12; a36 = 2)
+
+                       36
+
+                       32
+
+                       28
+
+                 34    24
+
+                 30    18
+
+                 26    14
+
+                 22    10
+
+                 20
+
+                 16
+
+                 12
+
+                  9             13     17             23    27     31       35
+
+                                       N 21 11 15 19 25 29 33
+                  1     2       3       4       5      6     7        8     9    10   11
+                            L               M
+
+  The final element an simply reminds us which tower was most recently incremented.
+At this point we can give a complete description of how to move from S(n) to S(n + 2):
+   • The intermediate block Bn+1 is placed in the tower corresponding to the height
+     an+1 of Bn ;
+   • That tower will have height an+2 equal to the number of towers with height at least
+     an+1 ; that is, it equals the cardinality of the set
+                                                    {i : hi ≥ han }
+
+                                                       8
+IMO 2024 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+   • We increment han+2 by 1 and update an .
+
+   For example, the illustrated S(34) → S(36) corresponds to the block B34 at height h1
+in tower 1 giving the block B35 at height 2 in tower h1 , then block B36 at height h2 + 1
+being placed in tower 2.
+
+¶ Pigeonhole periodicity argument. Because only the relative heights matter in the
+automata above, if we instead define
+
+                        T (n) = (h1 − h2 , h2 − h3 , . . . , hL−1 − hL ; an ).
+
+then T (n + 2) can be determined from just T (n).
+   So it would be sufficient to show T (n) only takes on finitely many values to show that
+T (n) (and hence an ) is eventually periodic.
+   Since we have the bound hk+1 ≤ hk + C, we are done upon proving the following lower
+bound:
+
+  Claim — For every 1 ≤ ` < L and n > N 0 , we have h` ≤ h`+1 + C · (L − 1).
+
+Proof. Assume for contradiction that there is some moment n > N 0 such that
+
+                                     h` > h`+1 + C · (L − 1)
+
+and WLOG assume that h` was just updated at the moment n. Together with hk+1 ≤
+hk + C for all k and triangle inequality, we conclude
+
+                          min(h1 , . . . , h` ) > q := max(h`+1 , . . . , hL ).
+
+We find that the blocks now in fact alternate between being placed among the first `
+towers and in towers with indices greater than q thereafter. Hence the heights h`+1 , . . . ,
+hL never grow after this moment. This contradicts the definition of L.
+
+  Remark. In fact, it can be shown that the period is actually exactly L, meaning the
+  periodic part will be exactly a permutation of (1, 2, . . . , L). For any L, it turns out there is
+  indeed a permutation achieving that periodic part.
+
+
+
+
+                                                   9
+IMO 2024 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2024/4, proposed by Dominik Burek (POL)
+   Available online at https://aops.com/community/p31218657.
+
+  Problem statement
+  Let triangle ABC with incenter I satisfying AB < AC < BC. Let X be a point
+  on line BC, different from C, such that the line through X and parallel to AC is
+  tangent to the incircle. Similarly, let Y be a point on line BC, different from B,
+  such that the line through Y and parallel to AB is tangent to the incircle. Line
+  AI intersects the circumcircle of triangle ABC again at P . Let K and L be the
+  midpoints of AC and AB, respectively. Prove that ∠KIL + ∠Y P X = 180◦ .
+
+Let T be the reflection of A over I, the most important point to add since it gets rid of
+K and L as follows.
+
+  Claim — We have ∠KIL = ∠BT C, and lines T X and T Y are tangent to the
+  incircle.
+
+Proof. The first part is true since 4BT C is the image of 4KIL under a homothety of
+ratio 2. The second part is true because lines AB, AC, T X, T Y determine a rhombus
+with center I.
+
+  We thus delete K and L from the picture altogether; they aren’t needed anymore.
+
+                                       A
+
+
+
+
+                             K                               L
+
+
+                                           I
+
+
+
+                    B                                                         C
+                                   X                    Y
+
+
+
+                                               T
+
+                                                    P
+
+
+
+
+                                               10
+IMO 2024 Solution Notes                         web.evanchen.cc, updated 27 September 2026
+
+
+  Claim — We have BXP T and CY P T are cyclic.
+
+Proof. ]T Y C = ]T Y B = ]ABC = ]AP C = ]T P C and similarly. (Some people call
+this Reim’s theorem.)
+
+  To finish, observe that
+
+    ]CT B = ]CT P + ]P T B = ]CY P + ]P XB = ]XY P + ]XY P = ]XP Y
+
+as desired. (The length conditions AC > AB > BC ensure that B, X, Y , C are collinear
+in that order, and that T lies on the opposite side of BC as A. Hence the directed
+equality ]CT B = ]XP Y translates to the undirected ∠BT C + ∠XP Y = 180◦ .)
+
+
+
+
+                                         11
+IMO 2024 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2024/5, proposed by Chu Cheuk Hei (HKG)
+   Available online at https://aops.com/community/p31218774.
+
+  Problem statement
+  Turbo the snail is in the top row of a grid with 2024 rows and 2023 columns and
+  wants to get to the bottom row. However, there are 2022 hidden monsters, one in
+  every row except the first and last, with no two monsters in the same column.
+    Turbo makes a series of attempts to go from the first row to the last row. On
+  each attempt, he chooses to start on any cell in the first row, then repeatedly moves
+  to an orthogonal neighbor. (He is allowed to return to a previously visited cell.) If
+  Turbo reaches a cell with a monster, his attempt ends and he is transported back to
+  the first row to start a new attempt. The monsters do not move between attempts,
+  and Turbo remembers whether or not each cell he has visited contains a monster. If
+  he reaches any cell in the last row, his attempt ends and Turbo wins.
+    Find the smallest integer n such that Turbo has a strategy which guarantees being
+  able to reach the bottom row in at most n attempts, regardless of how the monsters
+  are placed.
+
+Surprisingly the answer is n = 3 for any grid size s × (s − 1) when s ≥ 4. We prove this
+in that generality.
+
+¶ Proof that at least three attempts are needed. When Turbo first moves into the
+second row, Turbo could encounter a monster M1 right away. Then on the next attempt,
+Turbo must enter the third row in different column as M1 , and again could encounter a
+monster M2 right after doing so. This means no strategy can guarantee fewer than three
+attempts.
+
+¶ Strategy with three attempts. On the first attempt, we have Turbo walk through
+the entire second row until he finds the monster M1 in it. Then we get two possible cases.
+
+  Case where M1 is not on the edge. In the first case, if that monster M1 is not on
+the edge of the row, then Turbo can trace two paths below it as shown below. At least
+one of these paths works, hence three attempts is sufficient.
+
+                                       Starting row
+
+                                          M1
+
+
+
+
+                                         Goal row
+
+
+   Case where M1 is on the edge. WLOG, M1 is in the leftmost cell. Then Turbo
+follows the green staircase pattern shown in the left figure below. If the staircase is free
+of monsters, then Turbo wins on the second attempt. Otherwise, if a monster M2 is
+
+
+                                            12
+IMO 2024 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+encountered on the staircase, Turbo has found a safe path to the left of M2 ; then Turbo
+can use this to reach the column M1 is in, and escape from there. This is shown in purple
+in the center and right figure (there are two slightly different cases depending on whether
+M2 was encountered going east or south).
+
+           Starting row                  Starting row                   Starting row
+     M1                           M1                              M1
+
+
+                                                     M2
+                                                                                     M2
+
+
+             Goal row                     Goal row                        Goal row
+
+Thus the problem is solved in three attempts, as promised.
+
+¶ Extended remark: all working strategies look similar to this. As far as we know, all
+working strategies are variations of the above. In fact, we will try to give a description of
+the space of possible strategies, although this needs a bit of notation.
+Definition. For simplicity, we only use s even in the figures below. We define the happy
+triangle as the following cells:
+   • All s − 1 cells in the first row (which has no monsters).
+
+   • The center s − 3 cells in the second row.
+
+   • The center s − 5 cells in the third row.
+
+   • ...
+
+   • The center cell in the 2s th row.
+  For s = 12, the happy triangle is the region shaded in the thick border below.
+
+                                         Starting row
+
+
+
+
+                                          Goal row
+
+
+                                             13
+IMO 2024 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+Definition. Given a cell, define a shoulder to be the cell directly northwest or northeast
+of it. Hence there are two shoulders of cells outside the first and last column, and one
+shoulder otherwise.
+  Then solutions roughly must distinguish between these two cases:
+   • Inside happy triangle: If the first monster M1 is found in the happy triangle,
+     and there is a safe path found by Turbo to the two shoulders (marked F in the
+     figure), then one can finish in two more moves by considering the two paths from F
+     that cut under the monster M1 ; one of them must work. This slightly generalizes
+     the easier case in the solution above (which focuses only on the case where M1 is
+     in the first row).
+                                          Starting row
+                                      ⋆         ⋆
+
+                                          M1
+
+
+
+
+                                           Goal row
+
+   • Outside happy triangle: Now suppose the first monster M1 is outside the happy
+     triangle. Of the two shoulders, take the one closer to the center (if in the center
+     column, either one works; if only one shoulder, use it). If there is a safe path to
+     that shoulder, then one can take a staircase pattern towards the center, as shown in
+     the figure. In that case, the choice of shoulder and position guarantees the staircase
+     reaches the bottom row, so that if no monster is along this path, the algorithm
+     ends. Otherwise, if one encounters a second monster along the staircase, then one
+     can use the third trial to cut under the monster M1 .
+                    Starting row                                  Starting row
+
+
+
+
+                ⋆                                             ⋆
+
+           M1                                            M1
+
+
+                                                                          M2
+
+
+
+                     Goal row                                      Goal row
+
+  We now prove the following proposition: in any valid strategy for Turbo, in the case
+where Turbo first encounters a monster upon leaving the happy triangle, the second path
+must outline the same staircase shape.
+
+                                           14
+IMO 2024 Solution Notes                                       web.evanchen.cc, updated 27 September 2026
+
+  The monsters pre-commit to choosing their pattern to be either a NW-SE diagonal or
+NE-SW diagonal, with a single one-column gap; see figure below for an example. Note
+that this forces any valid path for Turbo to pass through the particular gap.
+
+                                               Starting row
+
+                        M
+                               M
+                                      M
+                                           M
+                                               M
+                                                   M
+                                                        M
+                                                                   M
+                                                                        M
+                                                                            M
+                                                Goal row
+
+
+  We may assume without loss of generality that Turbo first encounters a monster M1
+when Turbo first leaves the happy triangle, and that this forces an NW-SE configuration.
+
+                                               Starting row
+                 (M )
+
+                        (M )
+
+                               (M )
+
+                                      M1
+
+                                           X   ♣
+                                                    ♣
+                                                        ♣
+                                                               ♣
+                                                                   ♣
+                                                                        ♣
+                                                                            M2
+
+
+
+                                                Goal row
+
+
+  Then the following is true:
+
+
+
+
+                                                   15
+IMO 2024 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+
+  Proposition
+  The strategy of Turbo on the second path must visit every cell in “slightly raised
+  diagonal” marked with ♣ in the figure above in order from top to bottom, until it
+  encounters a second Monster M2 (or reaches the bottom row and wins anyway).
+  It’s both okay and irrelevant if Turbo visits other cells above this diagonal, but the
+  marked cells must be visited from top to bottom in that order.
+
+Proof. If Turbo tries to sidestep by visiting the cell southeast of M1 (marked X in the
+Figure), then Turbo clearly cannot finish after this (for s large enough). Meanwhile,
+suppose Turbo tries to “skip” one of the ♣, say in column C, then the gap could equally
+well be in the column to the left of C. This proves the proposition.
+
+  Remark (Memories of safe cells are important, not just monster cells). Here is one
+  additional observation that one can deduce from this. We say a set S of revealed monsters
+  is called obviously winnable if, based on only the positions of the monsters (and not the
+  moves or algorithm that were used to obtain them), one can identify a guaranteed winning
+  path for Turbo using only S. For example, two monsters in adjacent columns which are not
+  diagonally adjacent is obviously winnable.
+     Then no strategy can guarantee obtaining an obviously winnable set in 2 moves (or even
+  k moves for any constant k, if s is large enough in terms of k). So any valid strategy must
+  also use the memory of identified safe cells that do not follow just from the revealed monster
+  positions.
+
+
+
+
+                                               16
+IMO 2024 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2024/6, proposed by Japan
+   Available online at https://aops.com/community/p31218720.
+
+  Problem statement
+  A function f : Q → Q is called aquaesulian if the following property holds: for every
+  x, y ∈ Q,
+                 f (x + f (y)) = f (x) + y or f (f (x) + y) = x + f (y).
+  Show that there exists an integer c such that for any aquaesulian function f there
+  are at most c different rational numbers of the form f (r) + f (−r) for some rational
+  number r, and find the smallest possible value of c.
+
+We will prove that
+                                    {f (x) + f (−x) | x ∈ Q}
+contains at most 2 elements and give an example where there are indeed 2 elements.
+  We fix the notation x → y to mean that f (x + f (y)) = f (x) + y. So the problem
+statement means that either x → y or y → x for all x, y. In particular, we always have
+x → x, and hence
+                               f (x + f (x)) = x + f (x)
+for every x.
+
+¶ Construction.      The function
+
+                                       f (x) = b2xc − x
+
+can be seen to satisfy the problem conditions. Moreover, f (0) + f (0) = 0 but f (1/3) +
+f (−1/3) = −1.
+
+  Remark. Here is how I (Evan) found the construction. Let h(x) := x + f (x), and let
+  S := h(Q) = {h(x) | x ∈ Q}. Hence f is the identity on all of S. If we rewrite the problem
+  condition in terms of h instead of f , it asserts that at least one of the equations
+
+                                h(x + h(y) − y) = h(x) + h(y)
+                                h(y + h(x) − x) = h(x) + h(y)
+
+  is true. In particular, S is closed under addition.
+     Now, the two trivial solutions for h are h(x) = 2x and h(x) = 0. To get a nontrivial
+  construction, we must also have S 6= {0} and S 6= Q. So a natural guess is to take S = Z.
+  And indeed h(x) = b2xc works fine.
+
+
+  Remark. This construction is far from unique. For example, f (x) = 2 bxc − x = bxc − {x}
+  seems to have been more popular to find.
+
+
+¶ Proof (communicated by Abel George Mathew).                  We start by proving:
+
+  Claim — f is injective.
+
+Proof. Suppose f (a) = f (b). WLOG a → b. Then
+
+               f (a) + a = f (a + f (a)) = f (a + f (b)) = f (a) + b =⇒ a = b.                 .
+
+
+
+                                              17
+IMO 2024 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+
+  Claim — Suppose s → r. Then either f (r) + f (−r) = 0 or f (f (s)) = s + f (r) +
+  f (−r).
+
+Proof. Take the given statement with x = s + f (r) and y = −r; then
+
+                           x + f (y) = s + f (r) + f (−r)
+                           y + f (x) = f (s + f (r)) − r = f (s).
+
+Because f is injective, if x → y then f (r) + f (−r) = 0. Meanwhile, if y → x then indeed
+f (f (s)) = s + f (r) + f (−r).
+
+  Finally, suppose a and b are different numbers for which f (a) + f (−a) and f (b) + f (−b)
+are both nonzero. Again, WLOG a → b. Then
+                                   a→a               a→b
+                    f (a) + f (−a) = f (f (a)) − a = f (b) + f (−b).
+
+This shows at most two values can occur.
+
+  Remark. The above solution works equally well for f : R → R. But the choice of Q permits
+  some additional alternate solutions.
+
+  Remark. After showing f injective, a common lemma proved is that −f (−f (x)) = x, i.e.
+  f is an involution. This provides some alternative paths for solutions.
+
+
+
+
+                                            18
+

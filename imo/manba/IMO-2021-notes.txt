@@ -1,0 +1,491 @@
+                 IMO 2021 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2021 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2021/1, proposed by Australia . . . . . . . . . . . . . . . . . . . . .       3
+  1.2 IMO 2021/2, proposed by Calvin Deng . . . . . . . . . . . . . . . . . . . .       4
+  1.3 IMO 2021/3, proposed by Mykhalio Shtandenko (UKR) . . . . . . . . . .             5
+
+2 Solutions to Day 2                                                                7
+  2.1 IMO 2021/4, proposed by Dominik Burek (POL) and Tomasz Ciesla (POL) 7
+  2.2 IMO 2021/5, proposed by Spain . . . . . . . . . . . . . . . . . . . . . . . . 9
+  2.3 IMO 2021/6, proposed by Austria . . . . . . . . . . . . . . . . . . . . . . 11
+
+
+
+
+                                            1
+IMO 2021 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let n ≥ 100 be an integer. Ivan writes the numbers n, n+1, . . . , 2n each on different
+     cards. He then shuffles these n + 1 cards, and divides them into two piles. Prove
+     that at least one of the piles contains two cards such that the sum of their numbers
+     is a perfect square.
+
+  2. Show that the inequality
+                              n X
+                              X n q                   n X
+                                                      X n q
+                                         |xi − xj | ≤      |xi + xj |
+                              i=1 j=1                    i=1 j=1
+
+     holds for all real numbers x1 , x2 , . . . , xn .
+
+  3. Let D be an interior point of the acute triangle ABC with AB > AC so that
+     ∠DAB = ∠CAD. The point E on the segment AC satisfies ∠ADE = ∠BCD, the
+     point F on the segment AB satisfies ∠F DA = ∠DBC, and the point X on the line
+     AC satisfies CX = BX. Let O1 and O2 be the circumcenters of the triangles ADC
+     and EXD, respectively. Prove that the lines BC, EF , and O1 O2 are concurrent.
+
+  4. Let Γ be a circle with center I, and ABCD a convex quadrilateral such that each of
+     the segments AB, BC, CD and DA is tangent to Γ. Let Ω be the circumcircle of
+     the triangle AIC. The extension of BA beyond A meets Ω at X, and the extension
+     of BC beyond C meets Ω at Z. The extensions of AD and CD beyond D meet Ω
+     at Y and T , respectively. Prove that
+
+                       AD + DT + T X + XA = CD + DY + Y Z + ZC.
+
+  5. Two squirrels, Bushy and Jumpy, have collected 2021 walnuts for the winter. Jumpy
+     numbers the walnuts from 1 through 2021, and digs 2021 little holes in a circular
+     pattern in the ground around their favourite tree. The next morning Jumpy notices
+     that Bushy had placed one walnut into each hole, but had paid no attention to
+     the numbering. Unhappy, Jumpy decides to reorder the walnuts by performing a
+     sequence of 2021 moves. In the kth move, Jumpy swaps the positions of the two
+     walnuts adjacent to walnut k.
+     Prove that there exists a value of k such that, on the kth move, Jumpy swaps some
+     walnuts a and b such that a < k < b.
+
+  6. Let m ≥ 2 be an integer, A a finite set of integers (not necessarily positive) and
+     B1 , B2 , . . . , Bm subsets of A. Suppose that, for every k = 1, 2, . . . , m, the sum of
+     the elements of Bk is mk . Prove that A contains at least m   2 elements.
+
+
+
+
+                                                 2
+IMO 2021 Solution Notes                                        web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2021/1, proposed by Australia
+   Available online at https://aops.com/community/p22698392.
+
+  Problem statement
+  Let n ≥ 100 be an integer. Ivan writes the numbers n, n + 1, . . . , 2n each on different
+  cards. He then shuffles these n + 1 cards, and divides them into two piles. Prove
+  that at least one of the piles contains two cards such that the sum of their numbers
+  is a perfect square.
+
+We will find three cards a < b < c such that
+
+                                           b + c = (2k + 1)2
+                                           c + a = (2k)2
+                                           a + b = (2k − 1)2
+
+for some integer k. Solving for a, b, c gives
+
+                           (2k)2 + (2k − 1)2 − (2k + 1)2
+                        a=                               = 2k 2 − 4k
+                                         2
+                           (2k + 1)2 + (2k − 1)2 − (2k)2
+                        b=                               = 2k 2 + 1
+                                         2
+                           (2k + 1)2 + (2k)2 − (2k − 1)2
+                        c=                               = 2k 2 + 4k
+                                         2
+We need to show that when n ≥ 100, one can find a suitable k.
+ Let
+
+                            Ik := {n ∈ Z | n ≤ a < b < c ≤ 2n}
+                                = {n ∈ Z | k 2 + 2k ≤ n ≤ 2k 2 − 4k}
+
+be the interval such that when n ∈ Ik , the problem dies for that choice of k. It would
+be sufficient to show these intervals Ik cover all the integers ≥ 100. Starting from
+I9 = {99 ≤ n ≤ 126}, we have
+
+                          k ≥ 9 =⇒ 2k 2 − 4k ≥ (k + 1)2 + 2(k + 1)
+
+which means the right endpoint of Ik exceeds the left endpoint of Ik+1 . Hence for n ≥ 99
+in fact the problem is true.
+
+  Remark. The problem turns out to be false for n = 98, surprisingly. The counterexample
+  is for one pile to be
+
+            {98, 100, 102, . . . , 126} ∪ {129, 131, 135, . . . , 161} ∪ {162, 164, . . . , 196}.
+
+
+
+
+                                                     3
+IMO 2021 Solution Notes                                    web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2021/2, proposed by Calvin Deng
+   Available online at https://aops.com/community/p22697952.
+
+  Problem statement
+  Show that the inequality
+                           n X
+                           X n q             n X
+                                             X n q
+                                |xi − xj | ≤      |xi + xj |
+                            i=1 j=1                   i=1 j=1
+
+  holds for all real numbers x1 , x2 , . . . , xn .
+
+The proof is by induction on n ≥ 1 with the base cases n = 1 and n = 2 being easy to
+verify by hand.
+  In the general situation, consider replacing the tuple (xi )i with (xi + t)i for some
+parameter t ∈ R. The inequality becomes
+                        n X
+                        X n q             n X
+                                          X n q
+                             |xi − xj | ≤      |xi + xj + 2t|.
+                        i=1 j=1                  i=1 j=1
+
+The left-hand side is independent of t.
+
+  Claim — The right-hand side, viewed as a function F (t) of t, is minimized when
+  2t = −(xi + xj ) for some i and j.
+
+Proof. Since F (t) is the sum of piecewise concave functions, it is hence itself piecewise
+concave. Moreover F increases without bound if |t| → ∞.
+  On each of the finitely many intervals on which F (t) is concave, the function is minimized
+at its endpoints. Hence the minimum value must occur at one of the endpoints.
+
+  If t = −xi for some i, this is the same as shifting all the variables so that xi = 0. In
+that case, we may apply induction on n − 1 variables, deleting the variable xi .
+           x +x
+  If t = − i 2 j , then notice
+                                    xi + t = −(xj + t)
+so it’s the same as shifting all the variables such that xi = −xj . In that case, we may
+apply induction on n − 2 variables, after deleting xi and xj .
+
+
+
+
+                                                  4
+IMO 2021 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2021/3, proposed by Mykhalio Shtandenko (UKR)
+   Available online at https://aops.com/community/p22698068.
+
+  Problem statement
+  Let D be an interior point of the acute triangle ABC with AB > AC so that
+  ∠DAB = ∠CAD. The point E on the segment AC satisfies ∠ADE = ∠BCD, the
+  point F on the segment AB satisfies ∠F DA = ∠DBC, and the point X on the line
+  AC satisfies CX = BX. Let O1 and O2 be the circumcenters of the triangles ADC
+  and EXD, respectively. Prove that the lines BC, EF , and O1 O2 are concurrent.
+
+This solution was contributed by Abdullahil Kafi.
+
+   Claim — Quadrilateral BCEF is cyclic.
+
+Proof. Let D0 be the isogonal conjugate of the point D. The angle condition implies
+quadrilateral CEDD0 and BF DD0 are cyclic. By power of point we have
+
+                           AE · AC = AD · AD0 = AF · AB
+
+So BCEF is cyclic.
+
+   Claim — Line ZD is tangent to the circles (BCD) and (DEF ) where Z =
+   EF ∩ BC.
+
+Proof. Let ∠CAD = ∠BAD = α, ∠BCD = β, ∠DBC = γ, ∠ACD = φ, ∠ABD = .
+From 4ABC we have 2α + β + γ + φ +  = 180◦ . Let ` be a line tangent to (BCD) and
+K be a point on it in the same side of AD as C and L = AD ∩ BC. From our labeling
+we have,
+
+     ∠AF E = β + φ        ∠BF D = α + γ        ∠DF E = α + φ          ∠CDL = α + φ
+
+Now ∠CDJ = 180◦ − γ − β − (α + φ) = α + . So ∠DF E = ∠EDK = α + , which
+means ` is also tangent to (DEF ). Now by the radical center theorem we have ` passes
+through Z.
+
+  Let M be the Miquel point of the cyclic quadrilateral BCEF . From the Miquel
+configuration we have A, M , Z are collinear and (AF EM ), (ZCEM ) are cyclic.
+
+   Claim — Points B, X, M , E are cyclic.
+
+Proof. Notice that ∠EM B = 180◦ − ∠AM B − ∠EM Z = 180◦ − 2∠ACB = ∠EXB.
+
+   Let N be the other intersection of circles (ACD) and (DEX) and let R be the
+intersection of AC and BM .
+
+
+
+
+                                           5
+IMO 2021 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+
+
+
+                                              X
+
+
+
+                              N
+                                      A
+                              M
+                                      R       F
+                                  E
+
+                                          D
+
+
+  Z                       C                                   B
+
+
+
+
+  Claim — Points B, D, M , N are cyclic.
+
+Proof. By power of point we have
+
+       Pow(R, (ACD)) = RC · RA = RM · RB = RE · RX = Pow(R, (DEX)).
+
+Hence R lies on the radical axis of (ACD) and (DEX), so N , R, D are collinear. Also
+
+                          RN · RD = RA · RC = RM · RB
+
+So BDM N is cyclic.
+
+  Notice that (ACD), (BDM N ), (DEX) are coaxial so their centers are collinear. Now
+we just need to prove the centers of (ACD), (BDM N ) and Z are collinear. To prove
+this, take a circle ω with radius ZD centered at Z. Notice that by power of point
+
+                       ZC · ZB = ZD2 = ZE · ZF = ZM · ZA
+
+which means inversion circle ω swaps (ACD) and (BDM N ). So the centers of (ACD)
+and (BDM N ) must have to be collinear with the center of inversion circle, as desired.
+
+
+
+
+                                                  6
+IMO 2021 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2021/4, proposed by Dominik Burek (POL) and Tomasz Ciesla
+     (POL)
+   Available online at https://aops.com/community/p22698001.
+   Video at https://youtu.be/MeXMi9NG2Rc.
+
+  Problem statement
+  Let Γ be a circle with center I, and ABCD a convex quadrilateral such that each of
+  the segments AB, BC, CD and DA is tangent to Γ. Let Ω be the circumcircle of
+  the triangle AIC. The extension of BA beyond A meets Ω at X, and the extension
+  of BC beyond C meets Ω at Z. The extensions of AD and CD beyond D meet Ω
+  at Y and T , respectively. Prove that
+
+                   AD + DT + T X + XA = CD + DY + Y Z + ZC.
+
+Let P QRS be the contact points of Γ an AB, BC, CD, DA.
+
+                                                                    X
+                                                T
+
+
+                                                    E
+                                       A
+                              P
+                                            S
+                                                    D
+
+       B                           I                R
+
+
+
+
+                               Q
+                                                                         Y
+                                                    C
+                                                        Z
+
+
+                                                                                        F
+
+
+  Claim — We have 4IQZ ∼
+                       = 4IRT . Similarly, 4IP X ∼
+                                                 = 4ISY .
+
+Proof. By considering (CQIR) and (CIT Z), there is a spiral similarity similarity mapping
+4IQZ to 4IRT . Since IQ = IR, it is in fact a congruence.
+
+  This congruence essentially solves the problem. First, it implies:
+
+  Claim — T X = Y Z.
+
+Proof. Because we saw IX = IY and IT = IZ.
+
+
+
+
+                                           7
+IMO 2021 Solution Notes                    web.evanchen.cc, updated 27 September 2026
+
+Then, we can compute
+
+           AD + DT + XA = AD + (RT − RD) + (XP − AP )
+                          = (AD − RD − AP ) + RT + XP = RT + XP
+
+and
+
+           CD + DY + ZC = CD + (SY − SD) + (ZQ − QC)
+                          = (CD − SD − QC) + SY + ZQ = SY + ZQ
+
+but ZQ = RT and XP = SY , as needed.
+
+
+
+
+                                       8
+IMO 2021 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2021/5, proposed by Spain
+      Available online at https://aops.com/community/p22697921.
+      Video at https://youtu.be/U52PMz8nJjI.
+
+  Problem statement
+  Two squirrels, Bushy and Jumpy, have collected 2021 walnuts for the winter. Jumpy
+  numbers the walnuts from 1 through 2021, and digs 2021 little holes in a circular
+  pattern in the ground around their favourite tree. The next morning Jumpy notices
+  that Bushy had placed one walnut into each hole, but had paid no attention to
+  the numbering. Unhappy, Jumpy decides to reorder the walnuts by performing a
+  sequence of 2021 moves. In the kth move, Jumpy swaps the positions of the two
+  walnuts adjacent to walnut k.
+    Prove that there exists a value of k such that, on the kth move, Jumpy swaps
+  some walnuts a and b such that a < k < b.
+
+Assume for contradiction no such k exists. We will use a so-called “threshold trick”.
+  This process takes exactly 2021 steps. Right after the kth move, we consider a situation
+where we color walnut k red as well, so at the kth step there are k ones. For brevity, a
+non-red walnut is called black. An example is illustrated below with 2021 replaced by 6.
+
+        2             4           2   6                2        5              2        5
+
+
+  5         Initial       1   5            1       6                1     4                  1
+
+
+        3             6           3   4                3        4             3         6
+
+
+                                  3   5                3        5              3        5
+
+
+                              4           1        4                1     4                  1
+
+
+                                  2   6                2        6              2        6
+
+
+  Claim — At each step, the walnut that becomes red is between two non-red or
+  two red walnuts.
+
+Proof. By definition.
+
+  On the other hand, if there are 2021 walnuts, one obtains a parity obstruction to this
+simplified process:
+
+  Claim — After the first step, there is always a consecutive block of black walnuts
+  positive even length.
+
+Proof. After the first step, there is a block of 2020 black walnuts.
+
+
+
+
+                                               9
+IMO 2021 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+  Thereafter, note that a length 2 block of black walnuts can never be changed. Meanwhile
+for even lengths at least 4, if one places a red walnut inside it, the even length block
+splits into an odd length block and an even length block.
+
+  Remark. The statement is true with 2021 replaced by any odd number, and false for any
+  even number.
+    The motivation comes from the following rephrasing of the problem:
+        Start with all 0’s and at each step change a 0 between two matching numbers
+        from a 0 to a 1.
+  Although the coloring (or 0/1) argument may appear to lose information at first, I think
+  it should be equivalent to the original process; the “extra” information comes down to the
+  choice of which walnut to color red at each step.
+
+
+
+
+                                             10
+IMO 2021 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2021/6, proposed by Austria
+   Available online at https://aops.com/community/p22698082.
+
+  Problem statement
+  Let m ≥ 2 be an integer, A a finite set of integers (not necessarily positive) and B1 ,
+  B2 , . . . , Bm subsets of A. Suppose that, for every k = 1, 2, . . . , m, the sum of the
+  elements of Bk is mk . Prove that A contains at least m 2 elements.
+
+
+If 0 ≤ X < mm+1 is a multiple of m, then write it in base m as
+                                 m
+                                 X
+                          X=           ci mi     ci ∈ {0, 1, 2, . . . , m − 1}
+                                 i=1
+
+Then swapping the summation to over A through the Bi ’s gives
+                        
+                Xn    X         X                             X
+           X=          b ci =     fa (X)a where fa (X) :=     ci .
+                   i=1    b∈Bi             a∈A                                   i:a∈Bi
+
+  Evidently, 0 ≤ fa (X) ≤ m(m − 1) for any a and X. Hence the right-hand side of the
+display takes on at most (m(m − 1) + 1)|A| distinct values. This means
+
+                                        mm ≤ (m(m − 1))|A|
+
+which implies |A| ≥ m/2.
+
+  Remark (Motivation comments from USJL). Let n := |A|. In linear algebra terms, we
+  have some n-dimensional 0/1 vectors v~1 , . . . , v~m and an n-dimensional vector ~a such that
+  v~i · ~a = mi for i = 1, . . . , m. The intuition is that if n is too small, then there should be
+  lots of linear dependences between v~i .
+      In fact, Siegel’s lemma is a result that says, if there are many more vectors than the
+  dimension of the ambient space, there exist linear dependences whose coefficients are not-
+  too-big integers. On the other hand, any linear dependence between m, m2 , . . . , mm is
+  going to have coefficients that are pretty big; at least one of them needs to exceed m.
+      Applying Siegel’s lemma turns out to solve the problem (and is roughly equivalent to the
+  solution above).
+
+  Remark.
+            In https://aops.com/community/p23185192
+                                                   , dgrozev shows the stronger bound
+  n ≥ 23 + logcm m elements, for some absolute constant c > 0.
+
+
+
+
+                                                  11
+

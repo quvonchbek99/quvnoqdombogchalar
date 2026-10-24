@@ -1,0 +1,477 @@
+                 IMO 2022 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2022 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2022/1, proposed by Baptiste Serraille (FRA) . . . . . . . . . . . . .        3
+  1.2 IMO 2022/2, proposed by Merlijn Staps (NLD) . . . . . . . . . . . . . . .         4
+  1.3 IMO 2022/3, proposed by Ankan Bhattacharya (USA) . . . . . . . . . . .            5
+
+2 Solutions to Day 2                                                                    6
+  2.1 IMO 2022/4, proposed by Patrik Bak (SVK) . . . . . . . . . . . . . . . .          6
+  2.2 IMO 2022/5, proposed by Tijs Buggenhout (BEL) . . . . . . . . . . . . .           8
+  2.3 IMO 2022/6, proposed by Nikola Petrović (SRB) . . . . . . . . . . . . . .         9
+
+
+
+
+                                            1
+IMO 2022 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. The Bank of Oslo issues two types of coin: aluminum (denoted A) and bronze
+     (denoted B). Marianne has n aluminum coins and n bronze coins arranged in a row
+     in some arbitrary initial order. A chain is any subsequence of consecutive coins of
+     the same type. Given a fixed positive integer k ≤ 2n, Gilberty repeatedly performs
+     the following operation: he identifies the longest chain containing the k th coin from
+     the left and moves all coins in that chain to the left end of the row. For example, if
+     n = 4 and k = 4, the process starting from the ordering AABBBABA would be
+     AABBBABA → BBBAAABA → AAABBBBA → BBBBAAAA → · · · .
+     Find all pairs (n, k) with 1 ≤ k ≤ 2n such that for every initial ordering, at some
+     moment during the process, the leftmost n coins will all be of the same type.
+
+  2. Find all functions f : R+ → R+ such that for each x ∈ R+ , there is exactly one
+     y ∈ R+ satisfying
+                                  xf (y) + yf (x) ≤ 2.
+
+  3. Let k be a positive integer and let S be a finite set of odd prime numbers. Prove
+     that there is at most one way (up to rotation and reflection) to place the elements
+     of S around the circle such that the product of any two neighbors is of the form
+     x2 + x + k for some positive integer x.
+
+  4. Let ABCDE be a convex pentagon such that BC = DE. Assume that there is
+     a point T inside ABCDE with T B = T D, T C = T E and ∠ABT = ∠T EA. Let
+     line AB intersect lines CD and CT at points P and Q, respectively. Assume that
+     the points P , B, A, Q occur on their line in that order. Let line AE intersect CD
+     and DT at points R and S, respectively. Assume that the points R, E, A, S occur
+     on their line in that order. Prove that the points P , S, Q, R lie on a circle.
+
+  5. Find all triples (a, b, p) of positive integers with p prime and
+
+                                          ap = b! + p.
+
+  6. Let n be a positive integer. A Nordic square is an n × n board containing all the
+     integers from 1 to n2 so that each cell contains exactly one number. An uphill path
+     is a sequence of one or more cells such that:
+       a) the first cell in the sequence is a valley, meaning the number written is less
+          than all its orthogonal neighbors,
+       b) each subsequent cell in the sequence is orthogonally adjacent to the previous
+          cell, and
+       c) the numbers written in the cells in the sequence are in increasing order.
+     Find, as a function of n, the smallest possible total number of uphill paths in a
+     Nordic square.
+
+
+
+
+                                            2
+IMO 2022 Solution Notes                                     web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2022/1, proposed by Baptiste Serraille (FRA)
+   Available online at https://aops.com/community/p25635135.
+
+  Problem statement
+  The Bank of Oslo issues two types of coin: aluminum (denoted A) and bronze
+  (denoted B). Marianne has n aluminum coins and n bronze coins arranged in a row
+  in some arbitrary initial order. A chain is any subsequence of consecutive coins of
+  the same type. Given a fixed positive integer k ≤ 2n, Gilberty repeatedly performs
+  the following operation: he identifies the longest chain containing the k th coin from
+  the left and moves all coins in that chain to the left end of the row. For example, if
+  n = 4 and k = 4, the process starting from the ordering AABBBABA would be
+  AABBBABA → BBBAAABA → AAABBBBA → BBBBAAAA → · · · .
+    Find all pairs (n, k) with 1 ≤ k ≤ 2n such that for every initial ordering, at some
+  moment during the process, the leftmost n coins will all be of the same type.
+
+
+Answer: n ≤ k ≤ 32 n .
+                  
+
+   Call a maximal chain a block. Then the line can be described as a sequence of blocks:
+it’s one of:
+                      A
+                      | .{z
+                          . . A} B
+                                 | .{z
+                                     . . B} A
+                                            | .{z
+                                                . . A} . . . A   . . A} for odd m
+                                                             | .{z
+                          e1        e2        e3           em
+                      A
+                      | .{z
+                          . . A} B
+                                 | .{z
+                                     . . B} A
+                                            | .{z
+                                                . . A} . . . B   . . B} for even m
+                                                             | .{z
+                          e1       e2        e3            em
+
+or the same thing with the roles of A and B flipped.
+  The main claim is the following:
+
+  Claim — The number m of blocks will never increase after an operation. Moreover,
+  it stays the same if and only if
+
+      • k ≤ e1 ; or
+
+      • m is even and em ≥ 2n + 1 − k.
+
+Proof. This is obvious, just run the operation and see!
+  The problem asks for which values of k we always reach m = 2 eventually; we already
+know that it’s non-increasing. We consider a few cases:
+   • If k < n, then any configuration with e1 = n − 1 will never change.
+   • If k > d3n/2e, then take m = 4 and e1 = e2 = bn/2c and e3 = e4 = dn/2e. This
+     configuration retains m = 4 always: the blocks simply rotate.
+   • Conversely, suppose k ≥ n has the property that m > 2 stays fixed. If after the
+     first three operations m hasn’t changed, then we must have m ≥ 4 even, and
+     em , em−1 , em−2 ≥ 2n + 1 − k. Now,
+                                                         3
+                     n ≥ em + em−2 ≥ 2(2n + 1 − k) =⇒ k ≥ n + 1
+                                                         2
+     so this completes the proof.
+
+
+                                                   3
+IMO 2022 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2022/2, proposed by Merlijn Staps (NLD)
+   Available online at https://aops.com/community/p25635138.
+
+  Problem statement
+  Find all functions f : R+ → R+ such that for each x ∈ R+ , there is exactly one
+  y ∈ R+ satisfying
+                                xf (y) + yf (x) ≤ 2.
+
+The answer is f (x) ≡ 1/x which obviously works (here y = x).
+  For the converse, assume we have f such that each x ∈ R+ has a friend y with
+xf (y) + yf (x) ≤ 2. By symmetry y is also the friend of x.
+
+  Claim — In fact every number is its own friend.
+
+Proof. Assume for contradiction a 6= b are friends. Then we know that af (a) + af (a) >
+2 =⇒ f (a) > a1 . Analogously, f (b) > 1b . However, we then get
+
+                                                       a b AMGM
+                             2 ≥ af (b) + bf (a) >      +   ≥ 2
+                                                       b a
+which is impossible.
+
+  The problem condition now simplifies to saying
+                           1
+                 f (x) ≤     for all x,     xf (y) + yf (x) > 2 for all x 6= y.
+                           x
+In particular, for any x > 0 and ε > 0 we have
+                                                             x
+                        2 < xf (x + ε) + (x + ε)f (x) ≤         + (x + ε)f (x)
+                                                            x+ε
+                               x + 2ε      1
+               =⇒ f (x) >              =     2 .
+                              (x + ε)2   x+ ε   x+2ε
+
+Since this holds for all ε > 0 this forces f (x) ≥ x1 as well. We’re done.
+
+  Remark. Alternatively, instead of using x + ε, it also works to consider y = f (x)
+                                                                                   1
+                                                                                      . For such
+  a y, we would have
+                                                  
+                  1         1                    1
+           xf           +       · f (x) = xf           + 1 ≤ x · f (x) + 1 ≤ 1 + 1 = 2
+                f (x)     f (x)                f (x)
+
+  which gives a similar contradiction.
+
+
+
+
+                                                4
+IMO 2022 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2022/3, proposed by Ankan Bhattacharya (USA)
+   Available online at https://aops.com/community/p25635143.
+
+  Problem statement
+  Let k be a positive integer and let S be a finite set of odd prime numbers. Prove
+  that there is at most one way (up to rotation and reflection) to place the elements
+  of S around the circle such that the product of any two neighbors is of the form
+  x2 + x + k for some positive integer x.
+
+We replace “positive integer x” with “nonnegative integer x”, and say numbers of the form
+x2 + x + k are good. We could also replace “nonnegative integer x” with “integer x” owing
+to the obvious map x 7→ −1 − x.
+
+  Claim — If p is an odd prime, there are at most two odd primes q and r less than
+  p for which pq = x2 + x + k and pr = y 2 + y + k are good.
+     Moreover, if the above occurs and x, y ≥ 0, then x + y + 1 = p and xy ≡ k
+  (mod p).
+
+Proof. The equation T 2 + T + k ≡ 0 (mod p) has at most two solutions modulo p, i.e.
+at most two solutions in the interval [0, p − 1]. Because 0 ≤ x, y < p from p > max(q, r)
+and k > 0, the first half follows.
+  For the second half, Vieta also gives x + y ≡ −1 (mod p) and xy ≡ k (mod p), and
+we know 0 < x + y < 2p.
+
+  Claim — If two such primes do exist as above, then qr is also good (!).
+
+Proof. Let pq = x2 + x + k and pr = y 2 + y + k for x, y ≥ 0 as before. Fix α ∈ C such
+that α2 + α + k = 0; then for any n ∈ Z, we have
+
+                              n2 + n + k = Norm(n − α).
+
+Hence
+                                                                   
+         pq · pr = Norm (x − α)(y − α) = Norm (xy − k) − (x + y + 1)α
+
+But Norm(p) = p2 , so combining with the second half of the previous claim gives
+                                         1
+                               qr = Norm( (xy − k) − α)
+                                         p
+as needed.
+
+  These two claims imply the claim directly by induction on |S|, since one can now delete
+the largest element of S.
+
+  Remark. To show that the condition is not vacuous, the author gave a ring of 385 primes
+  for k = 41; see https://aops.com/community/p26068963.
+
+
+
+
+                                            5
+IMO 2022 Solution Notes                                         web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2022/4, proposed by Patrik Bak (SVK)
+   Available online at https://aops.com/community/p25635154.
+
+  Problem statement
+  Let ABCDE be a convex pentagon such that BC = DE. Assume that there is a
+  point T inside ABCDE with T B = T D, T C = T E and ∠ABT = ∠T EA. Let line
+  AB intersect lines CD and CT at points P and Q, respectively. Assume that the
+  points P , B, A, Q occur on their line in that order. Let line AE intersect CD and
+  DT at points R and S, respectively. Assume that the points R, E, A, S occur on
+  their line in that order. Prove that the points P , S, Q, R lie on a circle.
+
+The conditions imply
+                                                                         −
+                  4BT C ∼
+                        = 4DT E,                      and       4BT Y ∼ 4ET X.
+
+Define K = CT ∩ AE, L = DT ∩ AB, X = BT ∩ AE, Y = ET ∩ BY .
+                                                  Q
+
+                          S
+
+
+                                          A
+
+                                  L               K
+                                                      X
+                              Y
+
+                                              T
+
+                                                                         E
+
+
+             B
+
+
+        P                                                                                     R
+                                      C                     D
+
+
+
+
+  Claim (Main claim) — We have
+                   −
+            4BT Q ∼ 4ET S,                and         BY : Y L : LQ = EX : XK : KS.
+                                  −
+  In other words, T BY LQ ∼ T EXKS.
+
+
+                                                      6
+IMO 2022 Solution Notes                         web.evanchen.cc, updated 27 September 2026
+
+                          −
+Proof. We know 4BT Y ∼ 4ET X. Also, ]BT L = ]BT D = ]CT E = ]KT E and
+]BT Q = ]BT C = ]DT E = ]ST E.
+
+  It follows from the claim that:
+
+   • T L/T Q = T K/T S, ergo T L · T S = T K · T Q, so KLSQ is cyclic; and
+
+   • T C/T K = T E/T K = T B/T L = T D/T L, so KL k P CDR.
+
+With these two bullets, we’re done by Reim theorem.
+
+
+
+
+                                         7
+IMO 2022 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2022/5, proposed by Tijs Buggenhout (BEL)
+   Available online at https://aops.com/community/p25635158.
+
+  Problem statement
+  Find all triples (a, b, p) of positive integers with p prime and
+
+                                         ap = b! + p.
+
+The answer is (2, 2, 2) and (3, 4, 3) only, which work.
+  In what follows we assume a ≥ 2.
+
+  Claim — We have b ≤ 2p − 2, and hence a < p2 .
+
+Proof. For the first half, assume first for contradiction that b ≥ 2p. Then b! + p ≡ p
+(mod p2 ), so νp (b! + p) = 1, but νp (ap ) = 1 never occurs.
+  We can also rule out b = 2p − 1 since that would give
+
+                 (2p − 1)! + p = p [(p − 1)!(p + 1)(p + 2) . . . (2p − 1) + 1]
+
+By Wilson theorem the inner bracket is (−1)2 + 1 ≡ 2 (mod p) exactly, contradiction for
+p > 2. And when p = 2, 3! + 2 = 8 is not a perfect square.
+  The second half follows as ap ≤ (2p − 2)! + p < p2p . (Here we used the crude estimate
+           Qp−1
+(2p − 2)! = k=1 k · (2p − 1 − k) < (p(p − 1))p−1 ).
+
+  Claim — We have a ≥ p, and hence b ≥ p.
+
+Proof. For the first half, assume for contradiction that p > a. Then
+
+                  b! + p = ap ≥ ap−1 + p ≥ aa + p > a! + p =⇒ b > a.
+
+Then taking modulo a now gives 0 ≡ 0 + p (mod a), which is obviously impossible.
+  The second half follows from b! = ap − p ≥ p! − p > (p − 1)!.
+
+  Claim — We have a = p exactly.
+
+Proof. We know p ≤ b hence p | b! + p, so let a = pk for k < p. Then k | b! yet k - ap − p,
+contradiction.
+
+  Let’s get the small p out of the way:
+
+   • For p = 2, checking 2 ≤ b ≤ 3 gives (a, b) = (2, 2) only.
+
+   • For p = 3, checking 3 ≤ b ≤ 5 gives (a, b) = (3, 4) only.
+
+Once p ≥ 5, if b! = pp − p = p(pp−1 − 1) then applying Zsigmondy gets a prime factor
+q ≡ 1 (mod p − 1) which divides pp−1 − 1. Yet q ≤ b ≤ 2p − 2 and q 6= p, contradiction.
+
+
+
+
+                                              8
+IMO 2022 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2022/6, proposed by Nikola Petrović (SRB)
+   Available online at https://aops.com/community/p25635163.
+
+  Problem statement
+  Let n be a positive integer. A Nordic square is an n × n board containing all the
+  integers from 1 to n2 so that each cell contains exactly one number. An uphill path
+  is a sequence of one or more cells such that:
+
+     1. the first cell in the sequence is a valley, meaning the number written is less
+        than all its orthogonal neighbors,
+
+     2. each subsequent cell in the sequence is orthogonally adjacent to the previous
+        cell, and
+
+     3. the numbers written in the cells in the sequence are in increasing order.
+
+  Find, as a function of n, the smallest possible total number of uphill paths in a
+  Nordic square.
+
+
+Answer: 2n2 − 2n + 1.
+
+¶ Bound.    The lower bound is the “obvious” one:
+
+   • For any pair of adjacent cells, say a > b, one can extend it to a downhill path (the
+     reverse of an uphill path) by walking downwards until one reaches a valley. This
+     gives 2n(n − 1) = 2n2 − 2n uphill paths of length ≥ 2.
+
+   • There is always at least one uphill path of length 1, namely the single cell {1} (or
+     indeed any valley).
+
+¶ Construction. For the construction, the ideas it build a tree T on the grid such that
+no two cells not in T are adjacent.
+  An example of such a grid is shown below for n = 15 with T in yellow and cells not in
+T in black; it generalizes to any 3 | n, and then to any n by deleting the last n mod 3
+rows and either/both of the leftmost/rightmost column.
+
+
+
+
+                                           9
+IMO 2022 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+
+             1    2    3    32        36   62   63   64    93          97    123 124 125
+
+                  4         33   34   35        65         94    95    96        126
+
+             6    5    7         37        67   66   68          98          128 127 129
+
+                  8         39   38   40        69         100   99    101       130
+
+             10   9    11        41        71   70   72          102         132 131 133
+
+                  12        43   42   44        73         104 103 105           134
+
+             14   13   15        45        75   74   76          106         136 135 137
+
+                  16        47   46   48        77         108 107 109           138
+
+             18   17   19        49        79   78   80          110         140 139 141
+
+                  20        51   50   52        81         112 111 113           142
+
+             22   21   23        53        83   82   84          114         144 143 145
+
+                  24        55   54   56        85         116 115 117           146
+
+             26   25   27        57        87   86   88          118         148 147 149
+
+                  28        59   58   60        89         120 119 121           150
+
+             30   29   31        61        91   90   92          122         152 151 153
+
+
+
+  Place 1 anywhere in T and then place all the small numbers at most |T | adjacent to
+previously placed numbers (example above). Then place the remaining numbers outside
+T arbitrarily.
+  By construction, as 1 is the only valley, any uphill path must start from 1. And by
+construction, it may only reach a given pair of terminal cells in one way, i.e. the downhill
+paths we mentioned are the only one. End proof.
+
+
+
+
+                                                10
+

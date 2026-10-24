@@ -1,0 +1,566 @@
+                 IMO 2004 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2004 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2004/1, proposed by Dinu Serbanescu and Valentin Vornicu (ROU) .              3
+  1.2 IMO 2004/2, proposed by Hojoo Lee (KOR) . . . . . . . . . . . . . . . . .         4
+  1.3 IMO 2004/3, proposed by Jan Willemson (EST) . . . . . . . . . . . . . .           5
+
+2 Solutions to Day 2                                                            7
+  2.1 IMO 2004/4, proposed by Hojoo Lee (KOR) . . . . . . . . . . . . . . . . . 7
+  2.2 IMO 2004/5, proposed by Waldemar Pompe (POL) . . . . . . . . . . . . . 8
+  2.3 IMO 2004/6, proposed by Mohsen Jamaali and Armin Morabbi (IRN) . . 12
+
+
+
+
+                                            1
+IMO 2004 Solution Notes                                web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Let ABC be an acute-angled triangle with AB 6= AC. The circle with diameter
+     BC intersects the sides AB and AC at M and N respectively. Denote by O the
+     midpoint of the side BC. The bisectors of the angles ∠BAC and ∠M ON intersect
+     at R. Prove that the circumcircles of the triangles BM R and CN R have a common
+     point lying on the side BC.
+
+  2. Find all polynomials P with real coefficients such that for all reals a, b, c such that
+     ab + bc + ca = 0, we have
+
+                       P (a − b) + P (b − c) + P (c − a) = 2P (a + b + c).
+
+  3. Define a “hook” to be a figure made up of six unit squares as shown below in the
+     picture, or any of the figures obtained by applying rotations and reflections to this
+     figure.
+
+
+
+
+     Which m × n rectangles can be tiled by hooks?
+
+  4. Let n ≥ 3 be an integer and t1 , t2 , . . . , tn positive real numbers such that
+                                                                          
+                     2                                   1     1         1
+                    n + 1 > (t1 + t2 + · · · + tn )         + + ··· +        .
+                                                         t1 t2          tn
+
+     Show that ti , tj , tk are the sides of a triangle for all i, j, k with 1 ≤ i < j < k ≤ n.
+
+  5. In a convex quadrilateral ABCD, the diagonal BD bisects neither the angle ABC
+     nor the angle CDA. The point P lies inside ABCD and satisfies
+
+                          ∠P BC = ∠DBA           and   ∠P DC = ∠BDA.
+
+     Prove that ABCD is a cyclic quadrilateral if and only if AP = CP .
+
+  6. We call a positive integer alternating if every two consecutive digits in its decimal
+     representation are of different parity. Find all positive integers n which have an
+     alternating multiple.
+
+
+
+
+                                             2
+IMO 2004 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2004/1, proposed by Dinu Serbanescu and Valentin Vornicu
+     (ROU)
+   Available online at https://aops.com/community/p99445.
+
+  Problem statement
+  Let ABC be an acute-angled triangle with AB 6= AC. The circle with diameter
+  BC intersects the sides AB and AC at M and N respectively. Denote by O the
+  midpoint of the side BC. The bisectors of the angles ∠BAC and ∠M ON intersect
+  at R. Prove that the circumcircles of the triangles BM R and CN R have a common
+  point lying on the side BC.
+
+By Miquel’s theorem it’s enough to show AM RN is cyclic.
+                              A
+
+
+
+
+                                            N
+
+
+
+
+                                       R
+                          M
+                               H
+
+                        B                       O                    C
+
+In fact, since the bisector of ∠M ON is just the perpendicular bisector of M N , the point
+R is actually just the arc midpoint of M
+                                       ‘  N of (AM N ) as desired.
+
+
+
+
+                                            3
+IMO 2004 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2004/2, proposed by Hojoo Lee (KOR)
+   Available online at https://aops.com/community/p99448.
+
+  Problem statement
+  Find all polynomials P with real coefficients such that for all reals a, b, c such that
+  ab + bc + ca = 0, we have
+
+                    P (a − b) + P (b − c) + P (c − a) = 2P (a + b + c).
+
+The answer is
+                                   P (x) = αx4 + βx2
+which can be checked to work, for any real numbers α and β.
+   It is easy to obtain that P is even and P (0) = 0. The trick is now to choose
+(a, b, c) = (6x, 3x, −2x) and then compare the leading coefficients to get
+
+                                  3n + 5 n + 8 n = 2 · 7n
+
+for n = deg f (which is even). As n ≥ 7 =⇒ (8/7)n > 2, this means that we must have
+n ≤ 6. Moreover, taking modulo 7 we have 3n + 5n ≡ 6 (mod 7) which gives n ≡ 2, 4
+(mod 6).
+   Thus deg P ≤ 4, which (combined with P even) resolves the problem.
+
+
+
+
+                                            4
+IMO 2004 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2004/3, proposed by Jan Willemson (EST)
+   Available online at https://aops.com/community/p99450.
+
+  Problem statement
+  Define a “hook” to be a figure made up of six unit squares as shown below in the
+  picture, or any of the figures obtained by applying rotations and reflections to this
+  figure.
+
+
+
+
+  Which m × n rectangles can be tiled by hooks?
+
+The answer is that one requires:
+   • {1, 2, 5} ∈
+               / {m, n},
+
+   • 3 | m or 3 | n,
+
+   • 4 | m or 4 | n.
+  First, we check all of these work, in fact we claim:
+
+  Claim — Any rectangle satisfying these conditions can be tiled by 3 × 4 rectangles
+  (and hence by hooks).
+
+Proof. If 3 | m and 4 | n, this is clear. Else suppose 12 | m but 3 - n, 4 - n. Then n ≥ 7,
+so it can be written in the form 3a + 4b for nonnegative integers a and b, which permits
+a tiling.
+
+   We now prove these conditions are necessary. It is not hard to see that m, n ∈
+                                                                                / {1, 2, 5}
+is necessary.
+   We thus turn our attention to divisibility conditions. Each hook has a hole, and if we
+associate each hook with the one that fills its hole, we get a bijective pairing of hooks.
+Thus the number of cells is divisible by 12, and the cells come grouped into two possible
+shapes, which we will call tiles shown below, (rotations and reflections permitted).
+
+
+
+
+  In particular, the total number of cells is divisible by 12. Thus the problem is reduced
+to proving that:
+
+  Claim — if a 6a × 2b rectangle is tiled by tiles, then at least one of a and b is even.
+
+Proof. Note that the tiles can be further classified into two types:
+   • First type: These tiles have exactly four columns, each with exactly three cells
+     (an odd number). Moreover, all rows have an even number of cells (either 2 or 4).
+
+                                            5
+IMO 2004 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+   • Second type: vice-versa. These tiles have exactly four rows, each with exactly
+     three cells (an odd number). Moreover, all rows have an odd number of cells.
+
+We claim that any tiling uses an even number of each type, which is enough.
+   By symmetry we prove an even number of first-type tiles. Color red every fourth
+column of the rectangle. The number of cells colored red is even. The tiles of the second
+type cover an even number of red cells, and the tiles of the first type cover an odd number
+of red cells. Hence the number of tiles of the first type must be even.
+
+  Remark. This shows that a rectangle can be tiled by hooks if and only if it can be tiled
+  by 3 × 4 rectangles. But there exist tilings which do not decompose into 3 × 4; see e.g.
+  https://aops.com/community/c6h14023p99881.
+
+
+
+
+                                             6
+IMO 2004 Solution Notes                                       web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2004/4, proposed by Hojoo Lee (KOR)
+   Available online at https://aops.com/community/p99756.
+
+  Problem statement
+  Let n ≥ 3 be an integer and t1 , t2 , . . . , tn positive real numbers such that
+                                                                        
+                   2                                   1     1         1
+                 n + 1 > (t1 + t2 + · · · + tn )          + + ··· +        .
+                                                      t1 t2           tn
+
+  Show that ti , tj , tk are the sides of a triangle for all i, j, k with 1 ≤ i < j < k ≤ n.
+
+Let a = t1 , b = t2 , c = t3 . Expand:
+                                                                         
+                  2                                       1           1
+                n + 1 > (t1 + t2 + · · · + tn )              + ··· +
+                                                          t1         tn
+                               X  ti           tj
+                                                          
+                      =n+                   +
+                                         tj     ti
+                             1≤i<j≤n
+                                                  
+                               X         ti     tj
+                      =n+                   +
+                                         tj     ti
+                             1≤i<j≤n
+                                                  
+                               X         ti     tj              X
+                      ≥n+                   +        +                  2
+                                         tj     ti
+                               1≤i<j≤3                        1≤i<j≤n
+                                                                j>3
+                                        
+                               n        a b      a+b c c
+                        =n+2      −3 +   +     +       + +
+                               2        b a        c    b a
+                                 
+                               n         a+b         4
+                        ≥n+2      −3 +2+       +c·
+                               2           c       a+b
+
+So, we conclude that
+                                         a+b    4c
+                                             +     <5
+                                          c    a+b
+which rearranges to
+                               (4c − (a + b)) (c − (a + b)) < 0.
+This is enough to imply c < a + b.
+
+  Remark.
+      √    A variant of the same argument allows one to improve the left-hand side to
+  (n + 10 − 3)2 . One does so by writing
+                                s                                           !2
+                                                      1 1 1
+                       RHS ≥        (a + b + c)        + +           + (n − 3)
+                                                      a b  c
+
+  and estimating the square
+                         √  root as in the previous approach.
+     In addition, (n√+ 10 − 3)2 is best possible, as seen by taking (a, b, c) = (2, 1, 1) and
+  t4 = t5 = · · · = 25 10.
+
+
+
+
+                                                  7
+IMO 2004 Solution Notes                              web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2004/5, proposed by Waldemar Pompe (POL)
+   Available online at https://aops.com/community/p99759.
+
+  Problem statement
+  In a convex quadrilateral ABCD, the diagonal BD bisects neither the angle ABC
+  nor the angle CDA. The point P lies inside ABCD and satisfies
+
+                       ∠P BC = ∠DBA         and   ∠P DC = ∠BDA.
+
+  Prove that ABCD is a cyclic quadrilateral if and only if AP = CP .
+
+We show two solutions. We note that the first hypothesis cannot be dropped, because
+ABCD being a kite with BA = BC and DA = DC with center P is a counterexample
+(where AP = CP but ABCD is not cyclic). However, the condition that BD bisects
+neither angle ∠B nor ∠D is equivalent to requiring that the point P does not lie on line
+BD and we assume this henceforth.
+
+¶ Barycentric solution (from teenager Evan). Apply barycentric coordinates to
+4P BD (nondegenerate by the non-bisect condition) with P = (1, 0, 0), B = (0, 1, 0) and
+D = (0, 0, 1). Define a = BD, b = DP and c = P B.
+  Since A and C are isogonal conjugates with respect to 4P BD, we set
+                                                              
+                                                       a b c
+                    A = (au : bv : cw)  and     C=       : :      .
+                                                       u v w
+For brevity define M = au + bv + cw and N = avw + bwu + cuv.
+  We now compute each condition.
+
+  Claim — Quadrilateral ABCD is cyclic if and only if N 2 = u2 M 2 .
+
+Proof. W know a circle through B and D is a locus of points with
+                                    a2 yz + b2 zx + c2 xy
+                                        x(x + y + z)
+is equal to some constant. Therefore quadrilateral ABCD is cyclic if and only if abc·N
+                                                                                 au·M is
+equal to abc·uvw·M
+            avw·N  which  rearranges to N 2 = u2 M 2 .
+
+
+
+  Claim — We have P A = P C if and only if N 2 = u2 M 2 .
+
+                                       −→
+Proof. We have the displacement vector P A = M
+                                             1
+                                               (bv + cw, −bv, −cw). Therefore,
+
+            M 2 · |P A|2 = −a2 (bv)(cw) + b2 (cw)(bv + cw) + c2 (bv)(bv + cw)
+                         = bc(−a2 vw + (bw + cv)(bv + cw)).
+In a similar way (by replacing u, v, w with their inverses) we have
+                 N 2
+                   
+                       · |P C|2 = (vw)−2 · bc(−a2 vw + (bv + cw)(bw + cv))
+                uvw
+              ⇐⇒ N 2 · |P C|2 = u2 bc(−a2 vw + (bw + cv)(bv + cw))
+These are equal if and only if N 2 = u2 M 2 , as desired.
+
+                                             8
+IMO 2004 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+¶ Angle chasing solution (Evan Chen and Petko Lazarov). The solution consists of
+two parts. The first part is that by angle chasing, we will prove that
+
+      ]P AC = ]ACP ⇐⇒ ]BAC + ]CBD + ]DCA + ]ADB = 0.                             (♠).
+
+A careless reader would be forgiven for thinking that (♠) implies the problem or at least
+one direction, but it turns out the situation is more subtle. The second part analyzes the
+angle conditions more carefully and provides a complete proof.
+
+  Proof of the equivalence (♠) by angle chasing.       We start with the following uncon-
+ditional claim, valid for any quadrilateral.
+
+  Claim (Isogonal conjugation) — Let ABCD and P be as in the problem statement.
+  Then ]AP B + ]CP D = 180◦ .
+
+Proof. The angles in the statement imply that A and C are isogonal conjugates with
+respect to 4P BC. Thus, lines P A and P C are isogonal with respect to ∠BP C, as
+needed.
+                                      A
+
+
+
+
+                                P
+
+
+                  B                                                    D
+
+
+
+
+                                                C
+
+   Next we rewrite the two angles ]AP B and ]CP D in the claim (colored green with
+three rings) so that their only dependence on P is through the angles ]P AC and ]CAP
+(colored red with two rings), as follows:
+
+             −]AP B = ]P BA + ]BAP = ]P BA + (]BAC − ]P AC)
+                       = ]CBD + ]BAC − ]P AC
+             −]CP D = ]P DC + ]DCP = ]P DC + (]DCA + ]ACP )
+                       = ]ADB + ]DCA + ]ACP.
+
+Since the claim says ]AP B +]CP D = 0, summing lets us finally rewrite ]P AC −]AP C
+in terms of only A, B, C, D:
+
+                       0 = (]ACP − ]P AC) + ]ADB + ]DCA + ]CBD + ]BAC
+
+                                            9
+IMO 2004 Solution Notes                           web.evanchen.cc, updated 27 September 2026
+
+  =⇒ ]P AC − ]ACP = ]ADB + ]DCA + ]CBD + ]BAC.
+
+These four latter angles are colored blue with one ring in the figure. This proves (♠).
+
+  Quasi-harmonic quadrilaterals. To interpret the condition (♠), we define a new term:
+a quadrilateral ABCD is quasi-harmonic if AB · CD = BC · DA. (See IMO 2018/6 for
+another problem involving quasi-harmonic quadrilaterals.) The following two lemmas
+show why this condition is relevant:
+
+  Lemma
+  The condition
+                       ]BAC + ]CBD + ]DCA + ]ADB = 0
+  is equivalent to ABCD being either cyclic or quasi-harmonic or both.
+
+Proof. A clean approach with complex numbers (posted at https://aops.com/community/
+p15327734) goes as follows: define complex numbers µ = (a − b)(c − d) 6= 0 and ν =
+(b − c)(d − a) 6= 0. Then
+                             µ − ν = (a − c)(b − d) 6= 0.
+  Now the angle condition is equivalent to
+                                 a−b b−c c−d d−a
+                               R3      ·  · ·
+                                 d−b a−c b−d c−a
+                                    µν
+                               =
+                                 (µ − ν)2
+                                     1
+                               = µ ν
+                                 ν + µ −2
+                                 µ ν
+                          ⇐⇒ R 3 + .
+                                 ν   µ
+
+In general, though z + 1/z is real exactly when either |z| = 1 or z ∈ R. Note µ/ν ∈ R is
+equivalent to ABCD cyclic and |µ| = |ν| is equivalent to ABCD being quasiharmonic;
+the proof follows.
+  This can be also proved by inversion at A, though we don’t write the details here. (See
+also https://problems.ru/view_problem_details_new.php?id=116602).
+
+  Lemma
+  Quadrilateral ABCD is quasi-harmonic if and only if P lies on line AC.
+
+Proof. Let X = BD ∩ AC. If the isogonal of line BD with respect to ∠B meets line
+                        BA 2
+AC at Y , then CX
+                AX AY
+                             . Similarly if the isogonal to ∠D meets line AC at Y 0 ,
+                           
+                   CY = BC
+     AX AY 0     DA 2
+then CX  CY 0 = DC . Hence ABCD is quasi-harmonic if and only if Y = Y (that is,
+                                                                          0
+                   
+
+Y = Y 0 = P ).
+
+  Wrap-up. We now show that P A = P C if and only if ABCD is cyclic by cases on
+whether P lies on AC.
+
+   • If ABCD is not quasi-harmonic, then (♠) implies the problem statement imme-
+     diately. Indeed, ]P AC = ]ACP if and only if P A = P C (as 4P AC is not
+     degenerate) and the second lemma turns our angle condition into ABCD cyclic.
+
+                                           10
+IMO 2004 Solution Notes                        web.evanchen.cc, updated 27 September 2026
+
+   • Now assume ABCD is quasi-harmonic and P lies on line AC. We ignore (♠).
+     Instead, note that if ABCD is also cyclic then BD is a symmedian of 4ABC
+     and hence P is the midpoint. Conversely, suppose we know BD is a symmedian
+     of 4ABC. Let D0 6= B be the point for which ABCD0 is cyclic and harmonic;
+                                            BD0
+     then B, D, D0 are collinear and BDCD = CD 0 = CA . So D = D (the corresponding
+                                                   BA        0
+
+     Apollonian circle only meets line BD twice), as needed.
+
+
+
+
+                                        11
+IMO 2004 Solution Notes                                   web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2004/6, proposed by Mohsen Jamaali and Armin Morabbi (IRN)
+   Available online at https://aops.com/community/p99760.
+
+  Problem statement
+  We call a positive integer alternating if every two consecutive digits in its decimal
+  representation are of different parity. Find all positive integers n which have an
+  alternating multiple.
+
+If 20 | n, then clearly n has no alternating multiple since the last two digits are both
+even. We will show the other values of n all work.
+   The construction is just rush-down do-it. The meat of the solution is the two following
+steps.
+
+  Claim (Tail construction) — For every even integer w ≥ 2,
+
+      • there exists an even alternating multiple g(w) of 2w+1 with exactly w digits,
+        and
+
+      • there exists an even alternating multiple h(w) of 5w with exactly w digits.
+
+(One might note this claim is implied by the problem, too.)
+
+Proof. We prove the first point by induction on w. If w = 2, take g(2) = 32. In general,
+we can construct g(w + 2) from g(w) by adding some element in
+                              10w · {10, 12, 14, 16, 18, 30, . . . , 98}
+to g(w), corresponding to the digits we want to append to the start. This multiple is
+automatically divisible by 2w+1 , and also can take any of the four possible values modulo
+2w+3 .
+  The second point is a similar induction, with base case h(2) = 50. The same set above
+consists of numbers divisible by 5w , and covers all residues modulo 5w+2 . Careful readers
+might recognize the second part as essentially USAMO 2003/1.
+
+  Claim (Head construction) — If gcd(n, 10) = 1, then for any b, there exists an even
+  alternating number f (b mod n) which is b (mod n).
+
+Proof. A standard argument shows that
+                              100m − 1
+                       10 ·            = 1010 . . . 10} ≡ 0 (mod n)
+                                 99      | {z
+                                                m 10’s
+
+for any m divisible by ϕ(99n). Take a very large such m, and then add on b distinct
+numbers of the form 10ϕ(n)r for various even values of r; these all are 1 (mod n) and
+change some of the 1’s to 3’s.
+
+  Now, we can solve the problem. Consider three cases:
+   • If n = 2k m where gcd(m, 10) = 1 and k ≥ 2 is even, then the concatenated number
+                                                   
+                                       g(k)
+                               10 f − k mod m + g(k)
+                                 k
+                                        10
+     works fine.
+
+                                                 12
+IMO 2004 Solution Notes                          web.evanchen.cc, updated 27 September 2026
+
+   • If n = 5k m where gcd(m, 10) = 1 and k ≥ 2 is even, then the concatenated number
+                                                   
+                                       h(k)
+                              10 f − k mod m + h(k)
+                                 k
+                                        10
+
+     works fine.
+
+   • If n = 50m where gcd(m, 10) = 1, then the concatenated number
+                                                
+                                         1
+                                100f − mod m + 50
+                                         2
+
+     works fine.
+
+Since every non-multiple of 20 divides such a number, we are done.
+
+
+
+
+                                         13
+

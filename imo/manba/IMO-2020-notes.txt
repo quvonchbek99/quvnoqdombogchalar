@@ -1,0 +1,485 @@
+                 IMO 2020 Solution Notes
+                            EVAN CHEN《陳誼廷》
+                                  27 September 2026
+
+
+
+        This is a compilation of solutions for the 2020 IMO. The ideas of the
+     solution are a mix of my own work, the solutions provided by the competition
+     organizers, and solutions found by the community. However, all the writing
+     is maintained by me.
+        These notes will tend to be a bit more advanced and terse than the “official”
+     solutions from the organizers. In particular, if a theorem or technique is not
+     known to beginners but is still considered “standard”, then I often prefer to
+     use this theory anyways, rather than try to work around or conceal it. For
+     example, in geometry problems I typically use directed angles without further
+     comment, rather than awkwardly work around configuration issues. Similarly,
+     sentences like “let R denote the set of real numbers” are typically omitted
+     entirely.
+        Corrections and comments are welcome!
+
+
+Contents
+0 Problems                                                                              2
+
+1 Solutions to Day 1                                                                    3
+  1.1 IMO 2020/1, proposed by Dominik Burek (POL) . . . . . . . . . . . . . .           3
+  1.2 IMO 2020/2, proposed by Belgium . . . . . . . . . . . . . . . . . . . . . .       4
+  1.3 IMO 2020/3, proposed by Milan Haiman (HUN), Carl Schildkraut (USA)                6
+
+2 Solutions to Day 2                                                              8
+  2.1 IMO 2020/4, proposed by Tejaswi Navilarekallu (IND) . . . . . . . . . . . 8
+  2.2 IMO 2020/5, proposed by Oleg Košik (EST) . . . . . . . . . . . . . . . . . 10
+  2.3 IMO 2020/6, proposed by Ting-Feng Lin, Hung-Hsun Hans Yu (TWN) . . 11
+
+
+
+
+                                            1
+IMO 2020 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§0 Problems
+  1. Consider the convex quadrilateral ABCD. The point P is in the interior of ABCD.
+     The following ratio equalities hold:
+
+              ∠P AD : ∠P BA : ∠DP A = 1 : 2 : 3 = ∠CBP : ∠BAP : ∠BP C.
+
+     Prove that the following three lines meet in a point: the internal bisectors of angles
+     ∠ADP and ∠P CB and the perpendicular bisector of segment AB.
+
+  2. Let a ≥ b ≥ c ≥ d > 0 be real numbers satisfying a + b + c + d = 1. Prove that
+
+                                (a + 2b + 3c + 4d)aa bb cc dd < 1.
+
+  3. There are 4n pebbles of weights 1, 2, 3, . . . , 4n. Each pebble is coloured in one of n
+     colours and there are four pebbles of each colour. Show that we can arrange the
+     pebbles into two piles so the total weights of both piles are the same, and each pile
+     contains two pebbles of each colour.
+
+  4. There is an integer n > 1. There are n2 stations on a slope of a mountain, all at
+     different altitudes. Each of two cable car companies, A and B, operates k cable
+     cars; each cable car provides a transfer from one of the stations to a higher one
+     (with no intermediate stops). The k cable cars of A have k different starting points
+     and k different finishing points, and a cable car which starts higher also finishes
+     higher. The same conditions hold for B. We say that two stations are linked by
+     a company if one can start from the lower station and reach the higher one by
+     using one or more cars of that company (no other movements between stations are
+     allowed). Determine the smallest positive integer k for which one can guarantee
+     that there are two stations that are linked by both companies.
+
+  5. A deck of n > 1 cards is given. A positive integer is written on each card. The deck
+     has the property that the arithmetic mean of the numbers on each pair of cards is
+     also the geometric mean of the numbers on some collection of one or more cards.
+     For which n does it follow that the numbers on the cards are all equal?
+
+  6. Consider an integer n > 1, and a set S of n points in the plane such that the
+     distance between any two different points in S is at least 1. Prove there is a line `
+     separating S such that the distance from any point of S to ` is at least Ω(n−1/3 ).
+     (A line ` separates a set of points S if some segment joining two points in S crosses
+     `.)
+
+
+
+
+                                             2
+IMO 2020 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+§1 Solutions to Day 1
+§1.1 IMO 2020/1, proposed by Dominik Burek (POL)
+   Available online at https://aops.com/community/p17821635.
+   Video at https://youtu.be/JfRrlvbzKHk.
+
+  Problem statement
+  Consider the convex quadrilateral ABCD. The point P is in the interior of ABCD.
+  The following ratio equalities hold:
+
+           ∠P AD : ∠P BA : ∠DP A = 1 : 2 : 3 = ∠CBP : ∠BAP : ∠BP C.
+
+  Prove that the following three lines meet in a point: the internal bisectors of angles
+  ∠ADP and ∠P CB and the perpendicular bisector of segment AB.
+
+Let O denote the circumcenter of 4P AB. We claim it is the desired concurrency point.
+                                           C
+
+
+
+
+                              P
+                         D
+
+
+
+
+                                       O
+                     A                                  B
+
+
+
+
+Indeed, O obviously lies on the perpendicular bisector of AB. Now
+
+                              ]BCP = ]CBP + ]BP C
+                                      = 2]BAP = ]BOP
+
+it follows BOP C are cyclic. And since OP = OB, it follows that O is on the bisector of
+∠P CB, as needed.
+
+  Remark. The angle equality is only used insomuch ∠BAP is the average of ∠CBP and
+  ∠BP C, i.e. only 1+3
+                    2 = 2 matters.
+
+
+
+
+                                               3
+IMO 2020 Solution Notes                                      web.evanchen.cc, updated 27 September 2026
+
+§1.2 IMO 2020/2, proposed by Belgium
+   Available online at https://aops.com/community/p17821569.
+   Video at https://youtu.be/JfRrlvbzKHk.
+
+  Problem statement
+  Let a ≥ b ≥ c ≥ d > 0 be real numbers satisfying a + b + c + d = 1. Prove that
+
+                               (a + 2b + 3c + 4d)aa bb cc dd < 1.
+
+By weighted AM-GM we have
+                             X             a
+               aa bb cc dd ≤                       · a = a2 + b2 + c2 + d2 .
+                                 cyc
+                                     a + b + c + d
+
+So, it is enough to prove that
+
+              (a2 + b2 + c2 + d2 )(a + 2b + 3c + 4d) ≤ 1 = (a + b + c + d)3 .
+
+Expand both sides to get
+
+                                      +a3                        +3b2 a +3c2 a +3d2 a
+          +a3   +b2 a +c2 a +d2 a
+                                     +3a2 b                       +b3   +3bc2 +3d2 b
+         +2a2 b +2b3 +2bc2 +2d2 b
+                                   < +3a2 c                      +3b2 c  +c3   +3d2 c
+         +3a2 c +3b2 c +3c3 +3d2 c
+                                     +3a2 d                         2      2
+                                                                 +3b d +3c d    +d3
+         +4a2 d +4b2 d +4c2 d +4d3
+                                     +6abc                       +6bcd +6cda +6dab.
+
+In other words, we need to prove that
+
+                                                               +2b2 a +2c2 a +2d2 a
+                                                     +a2 b            +bc2   +d2 b
+                       +b3
+                                             <
+                        +2c3
+            +a2 d +b2 d +c2 d +3d3
+                                                 +6abc +6bcd +6cda +6dab
+
+  This follows since
+
+                                        2b2 a ≥ b3 + b2 d
+                                        2c2 a ≥ 2c3
+                                        2d2 a ≥ 2d3
+                                         a2 b ≥ a2 d
+                                         bc2 ≥ c2 d
+                                         d2 b ≥ d3
+
+and 6(abc + bcd + cda + dab) > 0.
+
+  Remark. Some students complained this problem was “unfair” and they couldn’t solve it
+  because they didn’t think an IMO problem would be solved only by expansion. I don’t
+  agree with this. Fedor Petrov provides the following motivational comments for why the
+  existence of this solution should not be that surprising:
+        Better to think about mathematics. You have to bound from above a product
+        (a + 2b + 3c + 4d)(a2 + b2 + c2 + d2 ), the coefficients 1, 2, 3, 4 are increasing
+
+
+
+                                                 4
+IMO 2020 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+
+        and so play on your side, so plausibly (a + b + c + d)3 should majorize this
+        term-wise, you check it and this appears to be true.
+  He also gave the following advice:
+        The general advice is to study mathematics, not olympiad problems in past
+        years. If the IMO problems set the students and their teachers on this path, I
+        am more than satisfied.
+
+
+
+
+                                              5
+IMO 2020 Solution Notes                                 web.evanchen.cc, updated 27 September 2026
+
+§1.3 IMO 2020/3, proposed by Milan Haiman (HUN), Carl Schildkraut
+     (USA)
+   Available online at https://aops.com/community/p17821656.
+   Video at https://youtu.be/JfRrlvbzKHk.
+
+  Problem statement
+  There are 4n pebbles of weights 1, 2, 3, . . . , 4n. Each pebble is coloured in one of n
+  colours and there are four pebbles of each colour. Show that we can arrange the
+  pebbles into two piles so the total weights of both piles are the same, and each pile
+  contains two pebbles of each colour.
+
+The first key idea is the deep fact that
+                        1 + 4n = 2 + (4n − 1) = 3 + (4n − 2) = · · · .
+So, place all four pebbles of the same colour in a box (hence n boxes). For each
+k = 1, 2, . . . , 2n we tape a piece of string between pebble k and 4n + 1 − k. To solve the
+problem, it suffices to paint each string either blue or green such that each box has two
+blue strings and two green strings (where a string between two pebbles in the same box
+counts double).
+
+
+                                           1       20
+
+
+                                           4       3
+
+                                           Box A
+
+
+
+             17     8                                                     13    15
+
+
+             11     7                                                     14     9
+
+              Box B                                                        Box E
+
+
+
+
+                          6    10                              2     12
+
+
+                         19     5                             16     18
+
+                          Box C                                 Box D
+
+   We can therefore rephrase the problem as follows, if we view boxes as vertices and
+strings as edges:
+
+  Claim — Given a 4-regular multigraph on n vertices (where self-loops are allowed
+  and have degree 2), one can color the edges blue and green such that each vertex
+
+
+
+                                               6
+IMO 2020 Solution Notes                          web.evanchen.cc, updated 27 September 2026
+
+
+  has two blue and two green edges.
+
+Proof. Each connected component of the graph can be decomposed into an Eulerian
+circuit, since 4 is even. A connected component with k vertices has 2k edges in its
+Eulerian circuit, so we may color the edges in this circuit alternating green and blue.
+This may be checked to work.
+
+
+
+
+                                          7
+IMO 2020 Solution Notes                             web.evanchen.cc, updated 27 September 2026
+
+§2 Solutions to Day 2
+§2.1 IMO 2020/4, proposed by Tejaswi Navilarekallu (IND)
+    Available online at https://aops.com/community/p17821585.
+    Video at https://youtu.be/JfRrlvbzKHk.
+
+  Problem statement
+
+  There is an integer n > 1. There are n2 stations on a slope of a mountain, all at
+  different altitudes. Each of two cable car companies, A and B, operates k cable cars;
+  each cable car provides a transfer from one of the stations to a higher one (with no
+  intermediate stops). The k cable cars of A have k different starting points and k
+  different finishing points, and a cable car which starts higher also finishes higher.
+  The same conditions hold for B. We say that two stations are linked by a company
+  if one can start from the lower station and reach the higher one by using one or
+  more cars of that company (no other movements between stations are allowed).
+  Determine the smallest positive integer k for which one can guarantee that there
+  are two stations that are linked by both companies.
+
+
+Answer: k = n2 − n + 1.
+  When k = n2 − n, the construction for n = 4 is shown below which generalizes readily.
+(We draw A in red and B in blue.)
+
+
+
+
+   To see this is sharp, view A and B as graphs whose connected components are paths
+(possibly with 0 edges; the direction of these edges is irrelevant). Now, if k = n2 − n + 1
+it follows that A and B each have exactly n − 1 connected components.
+   But in particular some component of A has at least n + 1 vertices. This component
+has two vertices in the same component of B, as desired.
+
+  Remark. The main foothold for this problem is the hypothesis that the number of stations
+  should be n2 rather than, say, n. This gives a big hint towards finding the construction
+  which in turn shows how the bound can be computed.
+    On the other hand, the hypothesis that “a cable car which starts higher also finishes
+
+
+
+                                             8
+IMO 2020 Solution Notes                    web.evanchen.cc, updated 27 September 2026
+
+
+  higher” appears to be superfluous.
+
+
+
+
+                                       9
+IMO 2020 Solution Notes                                         web.evanchen.cc, updated 27 September 2026
+
+§2.2 IMO 2020/5, proposed by Oleg Košik (EST)
+    Available online at https://aops.com/community/p17821528.
+    Video at https://youtu.be/JfRrlvbzKHk.
+
+   Problem statement
+  A deck of n > 1 cards is given. A positive integer is written on each card. The deck
+  has the property that the arithmetic mean of the numbers on each pair of cards is
+  also the geometric mean of the numbers on some collection of one or more cards.
+  For which n does it follow that the numbers on the cards are all equal?
+
+The assertion is true for all n.
+
+  Setup (boilerplate). Suppose that a1 , . . . , an satisfy the required properties but are
+not all equal. Let d = gcd(a1 , . . . , an ) > 1 then replace a1 , . . . , an by ad1 , . . . , adn . Hence
+without loss of generality we may assume
+
+                                        gcd(a1 , a2 , . . . , an ) = 1.
+
+WLOG we also assume
+                                          a1 ≥ a2 ≥ · · · ≥ an .
+
+  Main proof. As a1 ≥ 2, let p be a prime divisor of a1 . Let k be smallest index such
+that p - ak (which must exist). In particular, note that a1 6= ak .
+  Consider the mean x = a1 +a2 ; by assumption, it equals some geometric mean, hence
+                               k
+
+
+
+                                    √                     a1 + ak
+                                    m   ai1 . . . aim =           > ak .
+                                                             2
+Since the arithmetic mean is an integer not divisible by p, all the indices i1 , i2 , . . . , im
+must be at least k. But then the GM is at most ak , contradiction.
+
+   Remark. A similar approach could be attempted by using the smallest numbers rather
+   than the largest ones, but one must then handle the edge case an = 1 separately since no
+   prime divides 1.
+
+                                    √
+   Remark. Since 27+9     2 = 18 = 3 27 · 27 · 8, it is not true that in general the AM of two
+   largest different cards is not the GM of other numbers in the sequence (say the cards are
+   27, 27, 9, 8, . . . ).
+
+
+
+
+                                                     10
+IMO 2020 Solution Notes                               web.evanchen.cc, updated 27 September 2026
+
+§2.3 IMO 2020/6, proposed by Ting-Feng Lin, Hung-Hsun Hans Yu (TWN)
+   Available online at https://aops.com/community/p17821732.
+   Video at https://youtu.be/JfRrlvbzKHk.
+
+  Problem statement
+  Consider an integer n > 1, and a set S of n points in the plane such that the distance
+  between any two different points in S is at least 1. Prove there is a line ` separating
+  S such that the distance from any point of S to ` is at least Ω(n−1/3 ).
+    (A line ` separates a set of points S if some segment joining two points in S
+  crosses `.)
+
+We present the official solution given by the Problem Selection Committee.
+  Let’s suppose that among all projections of points in S onto some line m, the maximum
+possible distance between two consecutive projections is δ. We will prove that δ ≥
+Ω(n−1/3 ), solving the problem.
+  We make the following the definitions:
+
+   • Define A and B as the two points farthest apart in S. This means that all points
+     lie in the intersections of the circles centered at A and B with radius R = AB ≥ 1.
+
+   • We pick chord XY of      (B) such that XY ⊥ AB and the distance from A to XY
+     is exactly 12 .
+
+   • We denote by T the smaller region bound by          (B) and chord XY .
+
+The figure is shown below with T drawn in yellow, and points of S drawn in blue.
+
+
+
+                                     X
+
+
+
+                                 T
+
+
+
+                          A                                      B
+                                 1               <δ
+                                 2
+
+
+
+
+                                     Y
+
+
+
+                                                             √
+  Claim (Length of AB + Pythagorean theorem) — We have XY < 2 nδ.
+
+
+
+                                            11
+IMO 2020 Solution Notes                            web.evanchen.cc, updated 27 September 2026
+
+Proof. First, note that we have R = AB < (n − 1) · δ, since the n projections of points
+onto AB are spaced at most δ apart. The Pythagorean theorem gives
+                            s
+                                       1 2                    √
+                                             r
+                               2
+                                                         1
+                    XY = 2 R − R −          = 2 R − < 2 nδ.
+                                       2                 4
+
+                                                                √
+  Claim (|T | lower bound + narrowness) — We have XY >            3   1 −1
+                                                                           −1 .
+                                                                               
+                                                                 2    2δ
+
+
+Proof. Because T is so narrow (has width 12 only), the projections of points in T onto
+                              √
+line XY are spaced at least   2 apart (more than just δ). This means
+                               3
+
+                                         √
+                                          3
+                                  XY >      (|T | − 1) .
+                                         2
+But projections of points in T onto the segment of length 12 are spaced at most δ apart,
+so apparently
+                                           1
+                                     |T | > · δ −1 .
+                                           2
+This implies the result.
+
+Combining these two this implies δ ≥ Ω(n−1/3 ) as needed.
+
+  Remark. The constant 1/3 in the problem is actually optimal and cannot be improved;
+  the constructions give an example showing Θ(n−1/3 log n).
+
+
+
+
+                                             12
+
