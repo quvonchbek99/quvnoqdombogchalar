@@ -431,5 +431,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki unga go'ng solinib, sug'orildi va parvarish qilindi", "Chunki o'g'li uni kesib tashladi", "Chunki bog'bon daraxtni boshqa joyga ko'chirib ketdi"],
     javob: 0,
     izoh: "Meva bermaslikning sababi parvarishning yetishmasligi bo'lishi mumkin edi. Qaror qabul qilishdan oldin sababni tekshirish foydali."
+  },
+  {
+    id: "ez-055", mavzu: "hamkorlik", sarlavha: "Ikki qo'shni va ariq",
+    matn: "Ikki qo'shni bitta ariqdan suv olib, ekinlarini sug'orardi. Bir kuni ikkalasi ham bir vaqtda suv olmoqchi bo'lib, janjallashib qolishdi. Shunda biri: \"Bugun men, ertaga sen suv olaylik\", dedi.",
+    savol: "Qo'shnilarning ekinlari nega suvsiz qolmadi?",
+    variantlar: ["Ariq ikkita bo'lib qoldi", "Ular suvni navbat bilan olishdi", "Ikkalasi ham bir kunda barcha suvni oldi"],
+    javob: 1,
+    izoh: "Navbat bilan foydalanish har kimga o'z vaqtida suv berdi. Umumiy resursni navbat bilan taqsimlash janjalni kamaytiradi va hammaga foyda keltiradi."
   }
 ];
