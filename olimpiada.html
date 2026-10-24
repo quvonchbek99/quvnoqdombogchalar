@@ -56,6 +56,11 @@ details{border-bottom:1px solid var(--bd);padding:8px 0}
 summary{cursor:pointer;font-weight:700}
 details p{color:var(--dim);margin:6px 0 2px}
 ol.src{font-size:14px;color:var(--dim);padding-left:20px}
+.ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:8px}
+.oc{background:#0f1830;border:1px solid var(--bd);border-radius:14px;padding:14px}
+.oc h3{margin:0 0 4px}
+.oc .m{font-size:13px;color:var(--ac);font-weight:700}
+.oc p{margin:6px 0 0;font-size:14px;color:var(--dim)}
 footer{text-align:center;color:var(--dim);font-size:13px;margin-top:26px}
 @media (max-width:480px){section{padding:16px 14px}.steps li{padding-left:42px}}
 </style>
@@ -71,7 +76,7 @@ footer{text-align:center;color:var(--dim);font-size:13px;margin-top:26px}
   <p class="sub">Olimpiada qanday bosqichlardan iborat, kim qatnasha oladi, qanday ro'yxatdan o'tiladi va bizning o'quvchilar xalqaro maydonda qanday natija ko'rsatmoqda — hammasi bir sahifada.</p>
   <span class="upd">Ma'lumot yangilangan: 24-oktabr 2026</span>
   <nav class="toc">
-    <a href="#bosqich">Bosqichlar</a><a href="#joriy">2026–2027</a><a href="#royxat">Ro'yxatdan o'tish</a><a href="#natija">Xalqaro natijalar</a><a href="#rag">Rag'batlar</a><a href="#tayyor">Tayyorgarlik</a><a href="#savol">Savollar</a>
+    <a href="#bosqich">Bosqichlar</a><a href="#joriy">2026–2027</a><a href="#royxat">Ro'yxatdan o'tish</a><a href="#boshqa">Boshqa olimpiadalar</a><a href="#natija">Xalqaro natijalar</a><a href="#rag">Rag'batlar</a><a href="#tayyor">Tayyorgarlik</a><a href="#savol">Savollar</a>
   </nav>
 </header>
 
@@ -119,6 +124,22 @@ footer{text-align:center;color:var(--dim);font-size:13px;margin-top:26px}
     <a class="btn alt" href="https://t.me/Murojaat_FOM_bot" target="_blank" rel="noopener">Murojaat bot</a>
   </div>
   <p class="note">Kechikkanlar uchun qayta olimpiada o'tkazilmaydi; auditoriyaga kirish boshlanishdan 1 soat oldin to'xtatiladi.</p>
+</section>
+
+<section id="boshqa">
+  <h2>🧭 Boshqa olimpiada va tanlovlar</h2>
+  <p>Asosiy fan olimpiadasidan tashqari yil davomida bir nechta nufuzli olimpiada va tanlovlar o'tkaziladi.</p>
+  <div class="ol">
+    <div class="oc"><h3>🦘 Kenguru</h3><div class="m">Matematika · 1–11-sinf · har yili mart</div><p>Xalqaro mantiqiy matematika tanlovi. 2026-yilda 25-martda o'tdi. Savollar o'zbek, rus va ingliz tillarida, har bir ishtirokchiga sertifikat beriladi. Ro'yxat: olympia.uz yoki @Olympia_Uz_Bot.</p></div>
+    <div class="oc"><h3>📐 Qori Niyoziy olimpiadasi</h3><div class="m">Matematika · talabalar (bakalavr) · noyabr</div><p>Akademik Qori Niyoziy nomidagi olimpiada. Onlayn saralashdan eng yaxshi 20 talaba yuzma-yuz finalga chiqadi. G'oliblarga pul mukofoti beriladi. Tashkilotchilar: Romanovskiy nomidagi Matematika instituti, Qori Niyoziy merosi markazi va KHISO. Ro'yxat: @khiso_uz_bot.</p></div>
+    <div class="oc"><h3>🔢 Al-Xorazmiy olimpiadasi</h3><div class="m">Aniq va tabiiy fanlar · 7–8-sinf</div><p>Bosqichlari: tuman, hududiy (2026-yil 25–26-fevral) va respublika. Matematika va informatika g'oliblari xalqaro Al-Xorazmiy olimpiadasiga saralanadi. 2026-yilda xalqaro bosqichda O'zbekiston 61 ta medal oldi.</p></div>
+    <div class="oc"><h3>🔬 STEM olimpiadasi</h3><div class="m">Tabiiy fanlar · hududiy va respublika bosqichlari</div><p>Fan olimpiadalari markazi o'tkazadi. 2026-yilda hududiy bosqich fevral oyida bo'lib o'tdi.</p></div>
+    <div class="oc"><h3>🇬🇧 Xalqaro ingliz tili olimpiadasi</h3><div class="m">1–4-sinf (Junior), 5–11-sinf (Senior)</div><p>Jamoaviy olimpiada: kichik sinflar loyiha taqdim etadi, katta sinflar sahna ko'rinishi ijro etadi. 2-bosqich 2026-yil 23-fevralda o'tdi.</p></div>
+    <div class="oc"><h3>🌿 Ibn Sino olimpiadasi</h3><div class="m">Biologiya · xalqaro</div><p>Abu Ali ibn Sino nomidagi xalqaro biologiya olimpiadasi. 2026-yilda o'quvchilarimiz 11 ta medal oldi: 2 oltin, 3 kumush, 6 bronza.</p></div>
+    <div class="oc"><h3>🧬 Beruniy olimpiadasi</h3><div class="m">Biologiya · OTM talabalari · 9–13-dekabr 2026, Samarqand</div><p>Abu Rayhon Beruniy nomidagi xalqaro biologiya olimpiadasi. G'oliblar magistraturaga imtihonsiz, davlat granti asosida qabul qilinadi.</p></div>
+    <div class="oc"><h3>⚛️ Farg'oniy va 🧪 Mendeleyev</h3><div class="m">Fizika va kimyo · xalqaro</div><p>Ahmad al-Farg'oniy nomidagi xalqaro fizika olimpiadasi va xalqaro Mendeleyev kimyo olimpiadasi. G'olib tayyorlagan o'qituvchi to'g'ridan-to'g'ri oliy toifa oladi.</p></div>
+  </div>
+  <div class="note">Sanalar har yili o'zgarishi mumkin. Yangi mavsum sanalarini olympia.uz, olimpiada.uzedu.uz va Fan olimpiadalari markazining Telegram kanalidan tekshiring.</div>
 </section>
 
 <section id="natija">
@@ -191,6 +212,11 @@ footer{text-align:center;color:var(--dim);font-size:13px;margin-top:26px}
     <li><a href="https://infoedu.uz/imo-2026-da-ozbekiston-jamoasi-5-ta-medalni-qolga-kiritdi" target="_blank" rel="noopener">IMO 2026 natijalari — infoedu.uz</a></li>
     <li><a href="https://talimxabarlari.uz/67365/" target="_blank" rel="noopener">Fevral 2026 reja-grafigi — Ta'lim xabarlari</a></li>
     <li><a href="https://www.gazeta.uz/oz/2026/09/30/fan-olimpiadasi/" target="_blank" rel="noopener">Boshlang'ich sinflar olimpiadasi va rag'batlar — Gazeta.uz, 30.09.2026</a></li>
+    <li><a href="https://olympia.uz/uz/news/118" target="_blank" rel="noopener">Kenguru-2026 — olympia.uz</a></li>
+    <li><a href="https://www.academy.uz/uz/page/word/talabalar-uchun-qori-niyoziy-olimpiadasi" target="_blank" rel="noopener">Qori Niyoziy olimpiadasi — academy.uz</a></li>
+    <li><a href="https://kary-niyazov.uz/akademik-qori-niyoziy-nomidagi-olimpiada-goliblari-aniqlandi/" target="_blank" rel="noopener">Qori Niyoziy olimpiadasi g'oliblari — kary-niyazov.uz</a></li>
+    <li><a href="https://talimxabarlari.uz/67898/" target="_blank" rel="noopener">Al-Xorazmiy olimpiadasi hududiy bosqichi — Ta'lim xabarlari</a></li>
+    <li><a href="https://talimxabarlari.uz/81018/" target="_blank" rel="noopener">Beruniy nomidagi biologiya olimpiadasi — Ta'lim xabarlari</a></li>
   </ol>
 </section>
 
