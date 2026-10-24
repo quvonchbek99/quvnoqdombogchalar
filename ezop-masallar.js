@@ -455,5 +455,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ilondan ham tezroq yugurib", "Qalin qamish orasiga yashirinib", "Ilon uyquga ketgani uchun"],
     javob: 1,
     izoh: "Qurbaqa tezlikka emas, o'z vaziyatiga mos joyni tanlab, o'zini yashirdi. Ba'zan eng yaxshi chora kuch emas, aqlli tanlovdir."
+  },
+  {
+    id: "ez-058", mavzu: "mantiq", sarlavha: "Baliqchi va kichik baliq",
+    matn: "Baliqchi to'rni tortib, bitta kichkina baliqni ushladi. Baliq yalinib dedi: \"Meni qo'yib yubor, hali kichkinaman. Katta bo'lganimda yana ushlarsan, o'shanda ko'proq foyda olasan.\" Baliqchi kulib javob berdi: \"Kelajakdagi katta foyda noaniq, qo'limdagi baliq esa aniq.\"",
+    savol: "Baliqchi nega kichik baliqni qo'yib yubormadi?",
+    variantlar: ["Chunki u baliqning kelajakda katta bo'lishini bilardi", "Chunki qo'lidagi aniq foyda kelajakdagi noaniq va'dadan ishonchliroq edi", "Chunki baliq uni aldashga urinayotgan edi"],
+    javob: 1,
+    izoh: "Hozir qo'lda turgan narsa aniq, kelajakdagi va'da esa kafolatlanmagan. Noaniq katta foyda uchun aniq narsadan voz kechish ko'pincha xato bo'ladi."
   }
 ];
