@@ -447,5 +447,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki dehqon ularni haydab yubordi", "Chunki dehqon endi o'zi ish boshlashga qaror qildi", "Chunki ekin allaqachon o'rilib bo'lgan edi"],
     javob: 1,
     izoh: "Dehqon uch marta boshqalarga umid qildi, lekin qushlar faqat u o'zi ish boshlaganida xavfni his qildi. Haqiqiy qaror va harakat so'zdan kuchliroq."
+  },
+  {
+    id: "ez-057", mavzu: "mantiq", sarlavha: "Ilon va qurbaqa",
+    matn: "Ilon qurbaqani ushlamoqchi bo'ldi. Qurbaqa ariq bo'yidagi qalin qamish orasiga sakrab tushdi va jim qoldi. Ilon uni ko'ra olmay, qaytib ketdi.",
+    savol: "Qurbaqa ilondan qanday qutulgan?",
+    variantlar: ["Ilondan ham tezroq yugurib", "Qalin qamish orasiga yashirinib", "Ilon uyquga ketgani uchun"],
+    javob: 1,
+    izoh: "Qurbaqa tezlikka emas, o'z vaziyatiga mos joyni tanlab, o'zini yashirdi. Ba'zan eng yaxshi chora kuch emas, aqlli tanlovdir."
   }
 ];
