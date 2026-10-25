@@ -495,5 +495,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Har biri o'z kuchi bilan alohida qochib, to'rni yirtib yubordi", "Hammasi birgalikda uchib, to'rni ko'tarib ketishdi", "Ular to'rni ovchiga topshirib, o'zlari ozod bo'lishdi"],
     javob: 1,
     izoh: "Har biri alohida harakat qilganda to'r ularni tutib turdi. Birgalikda uchganda esa kuch birlashib, to'r ko'tarildi. Hamkorlik qiyin vaziyatdan chiqishga yordam beradi."
+  },
+  {
+    id: "ez-063", mavzu: "mantiq", sarlavha: "Burgut va o'q",
+    matn: "Burgut hech kim uni ushlay olmasligiga ishonib, baland osmonda uchardi. Bir kuni yerdagi ovchi unga o'q otdi va o'q burgutning ko'kragiga tegdi. Burgut qulab tushib, nima bo'lganini tushunolmadi. Keyin u o'qning dumidagi patlar aynan o'zining qanotidan uzilib tushgan patlar ekanini bildi.",
+    savol: "Burgut nima uchun o'qdan halok bo'ldi?",
+    variantlar: ["Chunki u juda past uchib, ovchiga yaqin kelgan edi", "Chunki o'qning patlari o'zining patlaridan yasalgan edi", "Chunki ovchi uni kaptar deb adashtirgan edi"],
+    javob: 1,
+    izoh: "Burgutning o'z patlari unga qarshi qurol bo'ldi. Masal ba'zan o'zimizga tegishli narsa ham bizga zarar yetkazishi mumkinligini eslatadi."
   }
 ];
