@@ -2,71 +2,71 @@
 window.EZOP_MASALLAR = [
   {
     id: "ez-001", mavzu: "sabab", sarlavha: "Tulki va uzum",
-    matn: "Tulki baland shoxdagi uzumga sakrab yetolmadi. Shunda u: \"Baribir nordon, hali pishmagan\", deb ketib qoldi.",
+    matn: "Issiq yoz kunlarining birida tulki ochlikdan holsizlanib, bog' oldiga keldi. Devor ustidan qarasa, baland shoxda sersuv, to'q qizil uzumlar osilib turardi. Tulki bor kuchi bilan sakrab, uzumga yetmoqchi bo'ldi, ammo bir necha marta urinib ham qo'li yetmadi. Oxiri u yerga cho'zilib, o'ziga o'zi gapirgandek dedi: \"Baribir nordon ekan, hali pishmagan uzum meni qiziqtirmaydi!\" Shunday deb u o'z yo'lidan ketib qoldi.",
     savol: "Tulki nima uchun uzumni olmadi?",
     variantlar: ["Chunki u uzumga yetolmadi va o'zini oqlamoqchi bo'ldi", "Chunki uzum juda shirin edi", "Chunki u uzumni yaxshi ko'rmasdi"],
     javob: 0,
-    izoh: "Tulki yetolmaganini tan olmadi va uzumni nordon deb o'zini oqladi. Bu sabab-natija aloqasini tushunishga yordam beradi."
+    izoh: "Tulki uzumga yetolmaganini tan olmadi va uni nordon deb o'zini oqladi. Bu sabab-natija aloqasini tushunishga yordam beradi: haqiqiy sabab o'rniga bahona topish hech narsani o'zgartirmaydi."
   },
   {
     id: "ez-002", mavzu: "sabr", sarlavha: "Toshbaqa va quyon",
-    matn: "Quyon tez yugurardi, lekin yo'lda uxlab qoldi. Toshbaqa sekin bo'lsa ham, to'xtamay yurdi.",
+    matn: "Quyon o'z tezligiga juda ishonardi va toshbaqani mazax qilib: \"Sen bilan poyga o'tkazish ham ortiqcha, baribir yetib olaman\", dedi. Toshbaqa jim turib, musobaqaga rozi bo'ldi. Start berilgach, quyon shamoldek uchib ketdi va yo'lning yarmida ortda qolgan toshbaqaga qarab kuldi. U daraxt soyasiga yotib, uzoq uxlab qoldi. Toshbaqa esa sekin bo'lsa ham, to'xtamay, bir qadamini ikkinchisiga ulab, yo'lni oxirigacha bosib o'tdi. Quyon uyg'onganda, finish chizig'i ortida toshbaqa g'olib bo'lib turardi.",
     savol: "Musobaqada kim g'olib chiqdi va nega?",
     variantlar: ["Quyon, chunki u tez edi", "Toshbaqa, chunki to'xtamay davom etdi", "Hech kim, chunki musobaqa tugamadi"],
     javob: 1,
-    izoh: "Tezlik o'zi yetarli emas. Doimiy harakat va sabr natijaga olib keladi."
+    izoh: "Tezlik o'zi yetarli emas. Doimiy harakat va sabr natijaga olib keladi, lekin o'ziga ortiqcha ishongan kishi g'aflatga tushishi mumkin."
   },
   {
     id: "ez-003", mavzu: "mantiq", sarlavha: "Qarg'a va ko'za",
-    matn: "Qarg'a juda chanqadi. Ko'zada suv bor edi, lekin sathi past edi va qarg'a unga yeta olmadi. U ko'zaga toshlar tashladi.",
+    matn: "Yozning jazirama kunida qarg'a qattiq chanqadi. Uzoqdan bir ko'zani ko'rib, unga tomon uchdi. Ko'zada suv bor edi, ammo suv sathi tubida bo'lib, qarg'aning tumshug'i yetmaydigan darajada past edi. Qarg'a ko'zaning atrofida bir necha marta aylandi, lekin suvni ololmadi va umidsizlikka tushdi. Shunda u yaqin atrofdan mayda toshlarni tishlab kelib, birma-bir ko'zaga tashlay boshladi. Har bir tosh suv sathini bir oz ko'tardi, oxirida suv tumshug'iga yetdi va qarg'a chanqoqni qondirdi.",
     savol: "Qarg'a suvni qanday ko'tardi?",
     variantlar: ["Ko'zani og'zi bilan ko'tarib", "Toshlarni tashlab, suv sathini ko'tarib", "Qor yog'dirib"],
     javob: 1,
-    izoh: "Toshlar suvni siqib chiqardi va sath ko'tarildi. Muammoni yechish uchun mavjud vositalardan foydalanish kerak."
+    izoh: "Toshlar suv sathini ko'tardi va qarg'a suvga yetdi. Muammoni yechish uchun mavjud vositalardan aqlli foydalanish kerak."
   },
   {
     id: "ez-004", mavzu: "ahloq", sarlavha: "Cho'pon va bo'ri",
-    matn: "Cho'pon hazil uchun bir necha marta \"Bo'ri keldi!\" deb qichqirdi. Odamlar kelib ko'rishsa, hech narsa yo'q edi. Haqiqiy bo'ri kelganda esa hech kim ishonmadi.",
+    matn: "Bir cho'pon qo'ylarini boqib zerikib, odamlarni hazil bilan chaqirmoqchi bo'ldi. U qishloq tomon yugurib: \"Bo'ri keldi! Yordam bering!\" deb baqirdi. Odamlar bolta-tayoqlarini olib yugurib kelishdi, ammo hech qanday bo'ri yo'q edi, cho'pon esa kulib turardi. Bu hazil yana bir marta takrorlandi va odamlar yana behuda kelishdi. Keyin haqiqatan bo'ri kelib, qo'ylarga hujum qila boshlaganda, cho'pon jon-jahdi bilan qichqirdi. Lekin bu safar hech kim unga ishonmadi va hech kim yordamga kelmadi.",
     savol: "Cho'pon oxirida nima uchun yolg'iz qoldi?",
     variantlar: ["Chunki u yolg'on gapirib, odamlarning ishonchini yo'qotdi", "Chunki bo'ri juda kuchli edi", "Chunki u qo'ylarini sotib yubordi"],
     javob: 0,
-    izoh: "Ishonchni yo'qotish osonroq, uni qaytarish qiyin. Ogohlantirish haqiqat bo'lganda ham, unga ishonishmaydi."
+    izoh: "Ishonchni yo'qotish osonroq, uni qaytarish qiyin. Ogohlantirish haqiqat bo'lganda ham, odamlar unga ishonishmaydi."
   },
   {
     id: "ez-005", mavzu: "hamkorlik", sarlavha: "Ikki echki",
-    matn: "Ikki echki tor ko'prikning ikki uchida uchrashib qoldi. Ikkalasi ham o'tmoqchi bo'ldi va bir-biriga yo'l bermadi.",
+    matn: "Ikki echki tor ko'prikning ikki uchida uchrashib qoldi. Ko'prik shunchalik tor ediki, ikkalasi ham bir vaqtda o'ta olmasdi. Ikkalasi ham o'z ustunligini ko'rsatmoqchi bo'lib, orqaga qaytishni xohlamadi. Ular ko'prikning o'rtasida shoxlashib, shu holda ancha vaqt turib qolishdi. Quyosh botayotgan bo'lsa ham, ularning hech biri o'z o'rnidan jilmadi.",
     savol: "Ular nima qilsa, ikkalasi ham o'tib ketgan bo'lardi?",
     variantlar: ["Biri orqaga qaytib, ikkinchisiga yo'l bersa", "Ikkalasi ham bir-birini itarib o'tsa", "Ko'prikdan sakrab o'tsa"],
     javob: 0,
-    izoh: "Tor joyda bir kishi o'zini chetga olsa, ikkinchisi o'ta oladi. Hamkorlik ikkalasiga ham foyda beradi."
+    izoh: "Tor joyda bir kishi o'zini chetga olsa, ikkinchisi o'ta oladi. Hamkorlik va bir-biriga yo'l berish ikkalasiga ham foyda beradi."
   },
   {
     id: "ez-006", mavzu: "yaxshilik", sarlavha: "Sher va sichqon",
-    matn: "Sher uyquda sichqonni tutib oldi. Sichqon yalinib dedi: \"Meni qo'yvor, bir kun sanga kerak bo'lishim mumkin.\" Sher kulib uni qo'yib yubordi. Keyinroq sher ovchilar tuzog'iga tushib qoldi, sichqon arqonni kemirib uni ozod qildi.",
+    matn: "Sher o'rmonda uyquga ketgan edi. Shu payt ustiga sichqon chiqib, uning yolini tishladi. Sher uyg'onib, sichqonni panjasi bilan ushlab oldi. Sichqon yalinib dedi: \"Meni qo'yvor, ulug' sher. Bir kun kelib sanga yordam berishim mumkin.\" Sher kulib, bu kichik jonzotning gapiga e'tibor bermay, uni qo'yib yubordi. Oradan ko'p vaqt o'tdi. Sher ovchilar qo'ygan tuzoqqa tushib, arqonga o'ralib qoldi. Sichqon uning ovozini eshitib kelib, arqonni tishlab kemira boshladi va sherni ozod qildi.",
     savol: "Sichqon sherga nima uchun yordam berdi?",
     variantlar: ["Chunki sher unga yaxshilik qilgan edi va u qaytarmoqchi bo'ldi", "Chunki sher qo'rqib ketgan edi", "Chunki u sherni yaxshi ko'rardi"],
     javob: 0,
-    izoh: "Kichik yordam ham kattaga foyda berishi mumkin. Yaxshilik qaytadi."
+    izoh: "Sher sichqonni tirik qo'yib yuborgan edi, sichqon esa shu yaxshilikni qaytardi. Kichik yordam ham katta jonzotga foyda berishi mumkin va yaxshilik ko'pincha qaytib keladi."
   },
   {
     id: "ez-007", mavzu: "mehnat", sarlavha: "Chumoli va chigirtka",
-    matn: "Yoz bo'yi chigirtka qo'shiq aytib yurdi, chumoli esa don yig'di. Qish kelganda chigirtkada ovqat qolmadi.",
+    matn: "Yoz bo'yi chigirtka dala bo'ylab sakrab yurib, qo'shiq aytdi va quyoshdan bahramand bo'ldi. Chumoli esa erta tongdan kechgacha don va o'tlarni tashib, uyasiga joylashtirdi. Chigirtka uni ko'rib: \"Nega shuncha ishlaysan? Yoz hali uzoq, bu yerda hamma narsa bor-ku\", dedi. Chumoli sabr bilan javob berdi: \"Qish kelganda ham shu ish bizni asraydi.\" Haqiqatan ham kuz tugab, qish kelganda dala qorga ko'mildi va chigirtkada ovqat qolmadi. Chumoli esa issiq uyasida, tayyor ozuqaga ega bo'lib, qishni osoyishta o'tkazdi.",
     savol: "Qishga kim tayyor edi?",
     variantlar: ["Chigirtka", "Chumoli", "Ikkalasi ham"],
     javob: 1,
-    izoh: "Oldindan rejalashtirish va mehnat qiyin paytda yordam beradi."
+    izoh: "Oldindan rejalashtirish va mehnat qiyin paytda yordam beradi. Yozda dam olish qulay, lekin tayyorgarlik ko'rmagan kishi qishda qiynaladi."
   },
   {
     id: "ez-008", mavzu: "mantiq", sarlavha: "It va uning aksi",
-    matn: "It og'zida go'sht ko'tarib, daryo ustidagi tor ko'prikdan o'tardi. Suvda o'z aksini ko'rib, uni boshqa it deb o'yladi va aksidagi go'shtni olish uchun og'zini ochdi. Shu zahoti o'zining go'shti suvga tushib ketdi.",
+    matn: "It og'zida katta go'sht bo'lagini ko'tarib, daryo ustidagi tor ko'prikdan o'tardi. Daryo suvi tiniq edi va undagi aks ko'rinishi aniq ko'rinardi. It suvga qaragach, ostida xuddi o'zi kabi, og'zida ham katta go'sht bilan boshqa bir it turganini ko'rdi. U aksidagi go'shtni ham olish uchun g'azablanib og'zini ochdi. Shu zahoti o'zining go'shti suvga tushib, oqim bilan ketib qoldi.",
     savol: "It nima uchun go'shtini yo'qotdi?",
     variantlar: ["Chunki u suvdagi aksini haqiqiy it deb o'ylab, og'zini ochdi", "Chunki daryo juda chuqur edi va go'sht og'ir edi", "Chunki u go'shtni o'zi tashlab yubormoqchi bo'lgan edi"],
     javob: 0,
-    izoh: "Suvdagi aks haqiqiy emas edi. Ko'rinishga ishonib, harakat qilish o'zida borini ham yo'qotishga olib keldi."
+    izoh: "Suvdagi aks haqiqiy it emas edi. Ko'rinishga ishonib, harakat qilish o'zida borini ham yo'qotishga olib keldi."
   },
   {
     id: "ez-009", mavzu: "mantiq", sarlavha: "Shamol va quyosh",
-    matn: "Shamol bilan quyosh kim kuchliroq ekanini bahslashishdi. Yo'lda ketayotgan bir yo'lovchini ko'rib, kim uning plashini yechtirsa, o'sha g'olib bo'lishga kelishishdi. Shamol qattiq esib, yo'lovchi plashini yanada mahkam o'radi. Quyosh esa yumshoq isitdi, yo'lovchi terlab, plashini o'zi yechib tashladi.",
+    matn: "Shamol bilan quyosh kim kuchliroq ekanini bahslashib qolishdi. Ular yo'lda ketayotgan bir yo'lovchini ko'rib, kim uning plashini yechtirsa, o'sha g'olib bo'lishga kelishishdi. Shamol birinchi bo'lib qattiq esdi, sovuq shabada yo'lovchini larzaga soldi. Yo'lovchi yanada mahkamroq o'ranib, plashini tutib oldi. Shunda quyosh bulutlar orqasidan yumshoq nur sochdi. Asta-sekin havo isib, yo'lovchi terlay boshladi va o'zi plashini yechib tashladi.",
     savol: "Yo'lovchining plashini nima yechdirdi?",
     variantlar: ["Shamolning qattiq esishi", "Quyoshning yumshoq isitishi", "Yomg'irning tinimsiz yog'ishi"],
     javob: 1,
@@ -74,7 +74,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-010", mavzu: "ahloq", sarlavha: "Qurbaqa va ho'kiz",
-    matn: "Qurbaqa katta ho'kizni ko'rib, undek katta bo'lmoqchi bo'ldi. U qornini shishirib-shishirib borar, bolalariga: \"Qarang, men ham uning kattaligidaman!\" deb maqtanardi. Oxiri u shunchalik ko'p havo to'ldirdiki, qorni yorilib ketdi.",
+    matn: "Bir qurbaqa ko'l bo'yida katta ho'kizni ko'rib, undek katta bo'lishni xohlab qoldi. U o'zini kattaroq ko'rsatish uchun qornini shishirishga kirishdi. Bolalari unga qarab hayron bo'lishdi: \"Ona, yetarli!\" Lekin u: \"Qarang, men ham uning kattaligidaman!\" deb yanada ko'proq havo to'ldirdi. Shunday qilib uning qorni shishib, endi tortib bo'lmaydigan darajaga yetdi. Oxiri qorni qattiq yorilib ketdi.",
     savol: "Qurbaqa nima uchun halok bo'ldi?",
     variantlar: ["Chunki u o'zini kattaroq ko'rsatish uchun haddan tashqari shishib ketdi", "Chunki ho'kiz unga hujum qildi", "Chunki u suvga cho'kib ketdi"],
     javob: 0,
@@ -82,7 +82,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-011", mavzu: "sabr", sarlavha: "G'oz va oltin tuxum",
-    matn: "Bir dehqonning g'ozi har kuni bittadan oltin tuxum qo'yardi. Dehqon tezroq boy bo'lish uchun g'ozni bir kunda so'yib, ichidagi oltinni olmoqchi bo'ldi. G'ozning ichida oltin topilmadi va endi tuxum ham kelmaydigan bo'ldi.",
+    matn: "Bir dehqonning uyida bitta g'oz bor edi, u har kuni bittadan sof oltin tuxum qo'yardi. Dehqon bu tuxumlarni sotib, asta-sekin boyib bordi. Lekin u sabrsiz edi va tezroq butun boylikka ega bo'lishni xohladi. U bir kuni: \"G'ozning ichida nechta oltin bor ekan?\" deb o'ylab, uni so'yib tashladi. G'ozning ichida oltin topilmadi, faqat oddiy go'sht va ichak-chavoq bor edi. Endi esa dehqon har kuni keladigan oltin tuxumdan ham mahrum bo'ldi.",
     savol: "Dehqon nega endi oltin tuxum ololmaydigan bo'ldi?",
     variantlar: ["Chunki g'oz kasal bo'lib qoldi", "Chunki g'ozni so'yib, kunlik tuxum manbaini yo'qotdi", "Chunki g'oz uchib ketdi"],
     javob: 1,
@@ -90,7 +90,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-012", mavzu: "ahloq", sarlavha: "Ayiq va ikki sayohatchi",
-    matn: "Ikki sayohatchi birga yo'lga chiqdi. Yo'lda katta ayiq paydo bo'ldi. Bir sayohatchi darhol daraxtga chiqib yashirindi, ikkinchisi esa do'stiga qaramay o'zi qochib ketdi. Ayiq ketgach, daraxtdagi sayohatchi pastga tushib, do'stiga kulib qaradi.",
+    matn: "Ikki sayohatchi birga uzoq manzilga yo'lga chiqdi. Yo'l o'rtasida kutilmaganda katta ayiq ularga yaqinlashdi. Bir sayohatchi darhol yugurib, yaqin daraxtga chiqib yashirindi. Ikkinchisi esa do'stining holiga qaramay, o'zini qutqarish uchun yo'ldan chetga qochib ketdi. Ayiq ketgach, daraxtdagi sayohatchi pastga tushib, qochib ketgan do'stiga qaradi.",
     savol: "Ikkinchi sayohatchi nima uchun xato qildi?",
     variantlar: ["Chunki u do'stini xavf ichida tashlab ketdi", "Chunki u ayiqdan qochishni bilmasdi", "Chunki daraxt juda baland edi"],
     javob: 0,
@@ -98,15 +98,15 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-013", mavzu: "mantiq", sarlavha: "Eshak va sher terisi",
-    matn: "Eshak sher terisini kiyib olib, o'rmon hayvonlarini qo'rqitdi. Hamma uni sher deb o'yladi. Lekin eshak bir kuni baland ovozda bo'kirib yubordi.",
+    matn: "Bir eshak o'rmonda sher terisini topib, uni ustiga yopinib oldi. Terining ostida uning uzun qulog'i va yo'g'on oyoqlari ko'rinmay qoldi. O'rmon hayvonlari uni ko'rib qo'rqishdi va: \"Ana sher keldi!\" deb tarqalib ketishdi. Eshak xursand bo'lib, o'zini hech kim sezmayotganini o'ylab, o'rmonda kerilib yura boshladi. Shu payt u chetdan o'tayotgan bir dehqonga ko'zi tushib, xursandchilikdan qattiq bo'kirib yubordi va hamma uning kim ekanini bildi.",
     savol: "Eshakning aldovi nima uchun oshkor bo'ldi?",
-    variantlar: ["Chunki u sher terisini yaxshi kiymagan edi", "Chunki u ovoz chiqarib, o'zining haqiqiy xulqini ko'rsatdi", "Chunki sher terisi juda og'ir edi"],
+    variantlar: ["Chunki u sher terisini yaxshi kiymagan edi", "Chunki u ovoz chiqarib, o'zining haqiqiy tabiatini ko'rsatdi", "Chunki sher terisi juda og'ir edi"],
     javob: 1,
-    izoh: "Tashqi qiyofani o'zgartirish aldovni yashirmaydi. Haqiqiy xulq-atvor oxir-oqibat o'zini ko'rsatadi."
+    izoh: "Tashqi qiyofani o'zgartirish aldovni yashirmaydi. Haqiqiy tabiat oxir-oqibat o'zini ko'rsatadi."
   },
   {
     id: "ez-014", mavzu: "ahloq", sarlavha: "Tulki va qarg'a",
-    matn: "Qarg'a daraxt shoxida pishloq ushlab o'tirardi. Tulki uni ko'rib, qushning ovozi juda chiroyli ekan, deb maqtadi. Qarg'a maqtovdan mamnun bo'lib, qo'shiq aytmoqchi bo'lib og'zini ochdi. Pishloq tushib ketdi va tulki uni olib qochdi.",
+    matn: "Qarg'a daraxt shoxida bir bo'lak pishloqni tumshug'ida ushlab o'tirardi. Tulki uning tagiga kelib, yuqoriga qarab, ovozi qanchalik chiroyli ekanini maqtay boshladi. \"Qanday ajoyib patlar, qanday go'zal ovoz! Qo'shiq aytsang, o'rmonda sendan go'zalroq qush yo'q\", dedi tulki. Qarg'a maqtovdan mamnun bo'lib, o'zini ko'rsatish uchun qo'shiq aytmoqchi bo'lib og'zini ochdi. Pishloq tushib ketdi va tulki uni darhol ilib olib, qochib qoldi.",
     savol: "Qarg'a nima uchun pishloqni yo'qotdi?",
     variantlar: ["Chunki u tulkining maqtoviga ishonib, og'zini ochdi", "Chunki pishloq juda og'ir edi va shoxdan sirg'alib ketdi", "Chunki u pishloqni tulkiga o'zi berib yubordi"],
     javob: 0,
@@ -114,7 +114,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-015", mavzu: "hamkorlik", sarlavha: "Sichqonlar va mushuk",
-    matn: "Sichqonlar mushukdan doim qochib yurishdan charchashdi. Ular mushukning bo'yniga qo'ng'iroq bog'lasa, uning kelishini eshitib, oldindan qochish mumkin, deb reja tuzishdi. Hamma reja yaxshi ekaniga rozi bo'ldi, lekin kim qo'ng'iroqni mushukka bog'lashini so'rashganda, hech kim qo'l ko'tarmadi.",
+    matn: "Sichqonlar mushukdan doim qochib yurishdan charchashdi. Ular bir yig'ilib, mushukning bo'yniga qo'ng'iroq bog'lasa, uning kelishini eshitib, oldindan qochish mumkin, deb reja tuzishdi. Hamma reja yaxshi ekaniga rozi bo'ldi va yig'ilish xursandchilik bilan tugadi. Lekin kim qo'ng'iroqni mushukka bog'lashini so'rashganda, hech kim qo'l ko'tarmadi. Har kim \"Men juda kichkinaman\", \"Men mushukka yaqinlasholmayman\" deb uzr so'radi. Shu sababli reja qog'ozda qoldi va sichqonlar yana xavf ostida yashashda davom etdi.",
     savol: "Sichqonlar nima uchun hali ham xavf ostida qoldi?",
     variantlar: ["Chunki ularning rejasi yomon edi", "Chunki reja bor edi, lekin uni amalga oshiradigan kishi chiqmadi", "Chunki mushuk allaqachon uxlab qolgan edi"],
     javob: 1,
@@ -122,15 +122,15 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-016", mavzu: "yaxshilik", sarlavha: "Kaptar va chumoli",
-    matn: "Chumoli daryoga tushib qolib, suvda cho'kayotgan edi. Daraxtda o'tirgan kaptar buni ko'rib, unga bir barg uzib tashladi. Chumoli bargga chiqib, sohilga suzib chiqdi. Shu payt bir ovchi kaptarni nishonga olayotgan edi.",
+    matn: "Chumoli daryo bo'yidan suv ichmoqchi bo'lib, tuyqus oqimga tushib ketdi va suvda cho'kayotgan edi. Daraxt shoxida o'tirgan kaptar buni ko'rib, bir barg uzdi va uni suv ustiga tashladi. Chumoli bargga chiqib olib, sohilga suzib chiqdi va omon qoldi. Shu paytda daraxt ostida ovchi paydo bo'lib, kaptarni nishonga olayotgan edi. Chumoli sirg'alib ovchining oyog'iga yetib bordi va uni qattiq chaqdi. Ovchi og'riqdan sakrab ketdi, o'qi noto'g'ri yo'nalishga uchdi va kaptar uchib qutuldi.",
     savol: "Kaptar nima uchun qutuldi?",
     variantlar: ["Chunki u ovchiga qarshi hujum qilgan edi", "Chunki chumoli ovchini chaqib, uning e'tiborini chalg'itdi", "Chunki ov qilish o'sha kuni taqiqlangan edi"],
     javob: 1,
-    izoh: "Chumoli kaptarga bergan yaxshiligini qaytardi: ovchining oyog'ini chaqib, uni chalg'itdi va kaptar uchib qutuldi. Kichik yordam katta xavfdan qutqarishi mumkin."
+    izoh: "Chumoli kaptarga bergan yaxshiligini qaytardi: ovchini chaqib, uni chalg'itdi va kaptar uchib qutuldi. Kichik yordam katta xavfdan qutqarishi mumkin."
   },
   {
     id: "ez-017", mavzu: "mehnat", sarlavha: "Dehqon va o'g'illari",
-    matn: "Qari dehqon vafot etishi oldidan o'g'illarini yig'ib, dalasiga xazina yashirilganini aytdi. O'g'illar darhol belkurak olib, dalani chuqur kovlashdi. Xazina topilmadi, lekin yer yaxshi haydalgani uchun kuzda hosil ancha mo'l bo'ldi.",
+    matn: "Qari dehqon vafot etishi oldidan o'g'illarini yoniga chaqirdi. U ularga dalaning bir joyiga xazina ko'milganini aytdi, ammo aniq joyini ko'rsatmadi. O'g'illar darhol belkurak olib, dalani chuqur kovlashga kirishdi. Ular har bir qarich yerni ag'darib chiqdi, lekin xazina topilmadi. Yer shunchalik yaxshi haydalgan edi, kuzda ekilgan ekin mo'l hosil berdi va o'g'illar sotib, anchagina boyib qolishdi. Shunda ular otasining aslida mehnatni o'rgatganini tushunib yetdi.",
     savol: "O'g'illar xazinani topmasa ham, nega boy bo'lishdi?",
     variantlar: ["Chunki dala mehnat bilan haydalib, mo'l hosil berdi", "Chunki dalada haqiqatan oltin yashiringan edi", "Chunki otasi ularga katta meros pul qoldirgan edi"],
     javob: 0,
@@ -138,15 +138,15 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-018", mavzu: "hamkorlik", sarlavha: "Tayoqlar bog'lami",
-    matn: "Keksa ota o'g'illariga bir bog' tayoqni sindirishni buyurdi. Har biri bor kuchi bilan urindi, lekin hech kim sindira olmadi. Ota bog'ni yechib, tayoqlarni bittadan bergach, ularning hammasi osonlik bilan sindi.",
+    matn: "Keksa ota o'g'illarining bir-biri bilan urishib yurganini ko'rib xafa bo'ldi. U o'g'illarini chaqirib, bir bog' tayoqni ularga berdi va sindirishni buyurdi. Har biri bor kuchi bilan urindi, lekin hech kim bog'lamni sindira olmadi. Ota bog'ni yechib, tayoqlarni bittadan bergach, ularning hammasi osonlik bilan sindi. Shunda ota dedi: \"Bolalarim, agar birlashib yursangiz, hech kim sizni yengolmaydi.\"",
     savol: "Tayoqlar bog'langan holda nega sindirilmadi?",
-    variantlar: ["Chunki bog'lam juda og'ir edi va kuch sarflanmadi", "Chunki o'g'illar tayoqlarni sindirishga urinmadi", "Chunki tayoqlar birlashgan holda bir-birini mustahkamlab turdi"],
+    variantlar: ["Chunki bog'lam juda og'ir edi va o'g'illar uni ko'tara olmadi", "Chunki o'g'illar tayoqlarni sindirishga urinmadi", "Chunki tayoqlar birlashgan holda bir-birini mustahkamlab turdi"],
     javob: 2,
     izoh: "Har bir tayoq alohida ham sinadi, lekin birlashganda ular bir-biriga tayanib, sinmas bo'ladi. Birlik va hamkorlik kuchni oshiradi."
   },
   {
     id: "ez-019", mavzu: "hamkorlik", sarlavha: "Ot va eshak",
-    matn: "Ot bilan eshak birga yo'lga chiqishdi. Eshak yukining bir qismini otga berib, yengil bo'lishni so'radi. Ot esa: \"Bu sening ishing, menga tegmasin\", deb rad etdi, yo'lda eshak charchab yiqildi va o'ldi.",
+    matn: "Ot bilan eshak birga yo'lga chiqishdi. Ikkalasiga ham og'ir yuk ortilgan edi, lekin ot yengilroq yurardi. Yo'lning qiyin joyida eshak charchab, ot bilan gaplashdi va yukining bir qismini otga ko'chirishni so'radi. Ot esa: \"Bu sening ishing, menga tegmasin\", deb rad etdi. Eshak yanada og'irlashib, oxiri yo'lda yiqilib, halok bo'ldi. Shunda ot butun yukni o'z yelkasiga ortishga majbur bo'ldi.",
     savol: "Eshak o'lgandan keyin ot nima qilishga majbur bo'ldi?",
     variantlar: ["Eshakning yukini ham o'z zimmasiga olib ko'tarishga", "Yukni yo'lda tashlab, o'zi yengil yurishga", "Eshakni yo'lda qoldirib, orqaga qaytishga"],
     javob: 0,
@@ -154,7 +154,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-020", mavzu: "sabr", sarlavha: "Sut sog'uvchi qiz",
-    matn: "Qiz boshiga sut solingan kuvani ko'tarib bozorga ketayotgandi. Yo'lda u sutni sotib, tuxum, jo'ja va so'ng sigir olishni o'ylab ketdi. Shu xayol bilan qadamini ehtiyot qilmadi, toshga qoqilib, kuvasi yerga tushdi va sut to'kildi.",
+    matn: "Bir qiz boshiga sut solingan kuvani ko'tarib bozorga ketayotgandi. Yo'lda u sutni sotib, uning pulidan tuxum olishni, so'ng jo'ja va keyin sigir sotib olishni xayol qildi. U xayolida tez boyib, qishloqning eng badavlat xonadoniga kelin bo'layotganini ko'rdi. Shu xayol bilan ketayotib, qadamini ehtiyot qilmadi va yo'lda toshga qoqilib ketdi. Kuva yerga tushib, sut to'kildi va qizning barcha orzulari bir zumda tugadi.",
     savol: "Qiz sutini nega to'kib yubordi?",
     variantlar: ["Chunki u bozorga juda kech yetib borgan edi", "Chunki u kelajakdagi orzular bilan band bo'lib, yo'lga e'tibor bermadi", "Chunki sut juda og'ir edi va qo'li charchadi"],
     javob: 1,
@@ -162,7 +162,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-021", mavzu: "ahloq", sarlavha: "Bo'ri va turna",
-    matn: "Bo'rining tomog'iga suyak tiqilib qoldi. U turnaga yalinib dedi: \"Suyakni chiqarib ber, katta mukofot beraman.\" Turna uzun bo'yni bilan suyakni tortib oldi. Bo'ri esa va'dasini unutib: \"Boshingni og'zimga solib, sog'-salomat chiqarganing o'zi katta mukofot emasmi?\" dedi.",
+    matn: "Bo'rining tomog'iga suyak tiqilib qoldi. U og'riqdan azob chekib, turnaga yalinib dedi: \"Suyakni chiqarib ber, katta mukofot beraman.\" Turna uzun bo'yni bilan bo'rining og'ziga kirib, suyakni ehtiyotkorlik bilan tortib oldi. Bo'ri yengil nafas olgach, va'dasini unutib: \"Boshingni og'zimga solib, sog'-salomat chiqarganing o'zi katta mukofot emasmi?\" dedi. Turna xafa bo'lib, shunday yomon odamga yordam berganidan afsuslanib uchib ketdi.",
     savol: "Turna nega mukofot olmadi?",
     variantlar: ["Chunki u suyakni tomoqdan chiqara olmadi", "Chunki bo'ri va'dasini bajarmadi", "Chunki bo'ri uni yeb qo'ydi"],
     javob: 1,
@@ -170,7 +170,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-022", mavzu: "ahloq", sarlavha: "Tulki va dum",
-    matn: "Tulki tuzoqdan qutulganda dumini qoldirib ketdi. Shundan keyin u o'rmondagi tulkilarga dum faqat ortiqcha yuk ekanini aytib, ularni ham dumini kesishga ko'ndirmoqchi bo'ldi. Ulardan biri: \"Sen shunday deyapsan, chunki dumingning yo'qligi o'zing uchun gapirmoqda\", dedi.",
+    matn: "Tulki tuzoqdan qutulganda dumini qoldirib ketdi. Dumsiz qolgan tulki o'rmonda masxara qilinishdan uyalib yurdi. Shunda u boshqa tulkilar oldiga kelib, dum faqat ortiqcha yuk ekanini va uni kesib tashlash kerakligini gapira boshladi. Tulkilardan biri uning gapiga kulib: \"Sen shunday deyapsan, chunki dumingning yo'qligi o'zing uchun gapirmoqda\", dedi. Shu gap bilan tulkilar uning maqsadini tushunib, unga ishonishmadi.",
     savol: "Tulki nega boshqa tulkilarni ham dumini kesishga undadi?",
     variantlar: ["Chunki dum haqiqatan ham tulkilarga zarar yetkazardi", "Chunki u o'z kamchiligini yashirib, boshqalarni ham o'xshatmoqchi bo'ldi", "Chunki u o'rmondagi eng chiroyli dumni o'ziga olmoqchi edi"],
     javob: 1,
@@ -178,15 +178,15 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-023", mavzu: "ehtiyotkorlik", sarlavha: "Daraxtkesar va daraxtlar",
-    matn: "Bir yog'ochsoz o'rmonga kelib, daraxtlardan unga dastak yasash uchun bir shox berishlarini so'radi. Daraxtlar bir-biriga qarab, shu kichik iltifotga rozi bo'lishdi. Yog'ochsoz dastakni yasab olgach, o'sha dastak bilan o'rmonning hamma daraxtini kesib tashladi.",
+    matn: "Bir yog'ochsoz o'rmonga kelib, daraxtlardan unga dastak yasash uchun bir shox berishlarini so'radi. Daraxtlar bir-biriga qarab, bu kichik iltifotga rozi bo'lishdi, chunki shox ularda ortiqcha edi. Yog'ochsoz dastakni yasab olgach, o'sha dastak bilan o'rmonni kesishni boshladi. Daraxtlar uning qo'lidagi dastak o'z shoxlaridan yasalganini ko'rib, kech bo'lganini angladi. Endi o'rmonda himoyasiz qolgan daraxtlar birma-bir qulab tushdi.",
     savol: "Daraxtlar nega o'z halokatiga o'zlari sabab bo'ldi?",
     variantlar: ["Chunki ular yog'ochsozning kuchsiz ekanini bilmay qoldi", "Chunki ular dushmanga o'z qurolini o'zlari berdi", "Chunki ular o'rmonni tark etishga qaror qildi"],
     javob: 1,
-    izoh: "Dushmanga o'z kuchingizning bir qismini berish, keyinchalik sizga qarshi ishlatilishi mumkin. Kichik iltifot ham katta xavfga aylanishi mumkin, shuning uchun ehtiyot bo'lish kerak."
+    izoh: "Dushmanga o'z kuchingizning bir qismini berish, keyinchalik sizga qarshi ishlatilishi mumkin. Kimga nima berayotganingizni avval o'ylab ko'ring."
   },
   {
     id: "ez-024", mavzu: "mantiq", sarlavha: "Tulki va xo'roz",
-    matn: "Tulki xo'rozni tutmoqchi bo'lib daraxt ostiga keldi, lekin xo'roz shoxda o'tirardi. Uzoqdan it hurgani eshitilganda xo'roz: \"Tulki aka, orqangizga qarang, itlar kelyapti!\" dedi. Tulki itlarni ko'rmoqchi bo'lib orqasiga o'girildi.",
+    matn: "Tulki xo'rozni tutmoqchi bo'lib daraxt ostiga keldi, lekin xo'roz baland shoxda o'tirardi. Tulki uni aldab tushirmoqchi bo'lib shirin gapirdi: \"Pastga tush, do'stlashaylik.\" Xo'roz esa ehtiyotkorlik bilan uzoqdan it hurgani eshitilganda: \"Tulki aka, orqangizga qarang, itlar kelyapti!\" dedi. Tulki darhol itlarni ko'rmoqchi bo'lib orqasiga o'girildi. Shu lahzada xo'roz qanotlarini qoqib, uzoqqa uchib ketdi.",
     savol: "Xo'roz tulkining qo'lidan qanday qutuldi?",
     variantlar: ["Itlar kelib, tulkini quvib yubordi", "Tulki orqasiga o'girilganda, xo'roz uchib qochdi", "Xo'roz tulkini daraxtdan yiqitib tashladi"],
     javob: 1,
@@ -194,7 +194,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-025", mavzu: "ehtiyotkorlik", sarlavha: "Bola va yong'oq solingan idish",
-    matn: "Bola tor og'izli idishga solingan yong'oqlardan olmoqchi bo'lib, qo'lini ichkariga tiqdi. U mutthi to'la yong'oq olmoqchi bo'ldi va qo'li idish og'zidan chiqmay qoldi. Qo'lini bo'shatish uchun yong'oqlarning bir qismini qo'yib yuborishi kerak edi, lekin u hammasini mahkam ushlab turdi.",
+    matn: "Bola tor og'izli idishga solingan yong'oqlarni ko'rib, qo'lini ichkariga tiqdi. U mutthi to'la yong'oq olmoqchi bo'ldi va qo'li idish og'zidan chiqmay qoldi. Qo'lini bo'shatish uchun yong'oqlarning bir qismini qo'yib yuborishi kerak edi, lekin u hammasini mahkam ushlab turdi. Bola yig'lab onasini chaqirdi. Onasi kelib: \"Ozroq yong'oq olsang, qo'ling darhol chiqadi\", dedi.",
     savol: "Bola qo'lini nega chiqara olmadi?",
     variantlar: ["Chunki u ko'p yong'oq olmoqchi bo'lib, mutthini bo'shatmadi", "Chunki idish sinib, og'zi torayib ketgan edi", "Chunki yong'oqlar juda qattiq edi va qo'li og'rigan edi"],
     javob: 0,
@@ -202,7 +202,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-026", mavzu: "mantiq", sarlavha: "Bo'ri va qo'zi",
-    matn: "Bo'ri daryo bo'yida qo'zini uchratib, uni yemoqchi bo'ldi. Qo'zi suvni loyqalagan deb ayblanganda, u: \"Men suvning pastki qismida turibman, oqim esa yuqoridan pastga oqadi\", dedi. Bo'ri to'xtamadi va: \"Unda o'tgan yili sen meni haqorat qilgansan\", dedi.",
+    matn: "Bo'ri daryo bo'yida qo'zini uchratib, uni yemoqchi bo'ldi. Lekin buning uchun bahona kerak edi. \"Sen bu yerdagi suvni loyqalab, mening ichadigan suvimni ifloslantiryapsan\", dedi bo'ri. Qo'zi esa suvning pastida turganini va oqim yuqoridan pastga oqishini aytib, o'zini oqlashga urindi. Bo'ri to'xtamay: \"Unda o'tgan yili sen meni haqorat qilgansan\", dedi. Qo'zi o'sha vaqtda hali tug'ilmagan edi, lekin bo'rining niyati o'zgarmadi.",
     savol: "Qo'zi suvni loyqalagan bo'lishi mumkinmi va nega?",
     variantlar: ["Ha, chunki u daryo bo'yida turgan edi", "Yo'q, chunki u suvning pastida edi va oqim yuqoridan pastga oqardi", "Ha, chunki bo'ri unga ishonardi"],
     javob: 1,
@@ -210,7 +210,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-027", mavzu: "moslashuvchanlik", sarlavha: "Eman va qamish",
-    matn: "Kuchli shamol esganda, baland eman daraxti o'zini tik tutib, hech qayerga egilmadi. Yonida o'sgan nozik qamish esa shamol bilan egilib, unga bo'yin egdi. Bo'ron tinganda eman qulab tushdi, qamish esa yana tik turdi.",
+    matn: "Kuchli shamol esib, daryo bo'yidagi o'tlarni va daraxtlarni silkitib ketdi. Baland eman daraxti o'zini tik tutib, hech qayerga egilmaslikka qat'iy qaror qildi. Yonida o'sgan nozik qamish esa shamol bilan birga egilib, bo'yin egdi. Bo'ron kun bo'yi davom etdi va eman shoxlarini qattiq sinovdan o'tkazdi. Bo'ron tinganda eman ildizi bilan qulab tushdi, qamish esa yana tik turdi.",
     savol: "Bo'ron o'tgach, nega eman qulab, qamish omon qoldi?",
     variantlar: ["Chunki qamish emanga qaraganda kattaroq edi", "Chunki eman qattiq turib qarshilik ko'rsatdi, qamish esa moslashdi", "Chunki bo'ron faqat emanga zarar yetkazmoqchi edi"],
     javob: 1,
@@ -218,7 +218,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-028", mavzu: "kamtarlik", sarlavha: "Chivin va ho'kiz",
-    matn: "Ho'kiz og'ir aravani qiyinchilik bilan tortib borardi. Uning shoxiga qo'ngan chivin har qadamda vizillab: \"Qarang, aravani men harakatga keltiryapman!\" deb maqtanardi. Yo'l tekislangach, chivin yanada baland ovozda: \"Ko'rdingizmi, mening kuchim bilan arava yuribdi!\" dedi.",
+    matn: "Ho'kiz og'ir aravani tepalikka qiyinchilik bilan tortib borardi. Uning shoxiga qo'ngan chivin har qadamda vizillab: \"Qarang, aravani men harakatga keltiryapman!\" deb maqtanardi. Yo'l tik ko'tarilgach, chivin yanada baland ovozda: \"Men bo'lmasam, bu arava qayerga ham yetardi!\" dedi. Yo'l tekislanib, ho'kiz tinch yurganida ham chivin: \"Ko'rdingizmi, mening kuchim bilan arava yuribdi!\" deb qayta-qayta takrorladi.",
     savol: "Chivin nimani noto'g'ri tushundi?",
     variantlar: ["Yo'l juda tekis bo'lgani uchun arava o'z-o'zidan yurayotganini", "Aravani ho'kiz tortayotganini va o'zining hech qanday roli yo'qligini", "Ho'kizdan o'zi kuchliroq ekanini"],
     javob: 1,
@@ -226,7 +226,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-029", mavzu: "mantiq", sarlavha: "Eshak va tuz",
-    matn: "Eshak tuz ortilgan yukni ko'tarib daryodan o'tayotganda yiqildi. Tuz suvda erib ketib, yuki ancha yengillashdi. Keyingi safar u bu saboqni eslab, g'ovakli sung'er ortilgan yukni olib, yana daryoga yiqilmoqchi bo'ldi.",
+    matn: "Eshak tuz ortilgan yukni ko'tarib daryodan o'tayotganda oyog'i sirg'alib, suvga yiqildi. Tuz suvda erib ketib, yuki ancha yengillashdi. Eshak xursand bo'lib, nimadan foydalanganini o'ylab qoldi. Keyingi safar u bu saboqni eslab, g'ovakli sung'er ortilgan yukni olib, yana daryoga yiqilmoqchi bo'ldi. Ammo sung'er suvni shimib, og'irlashib ketdi va eshak uni ko'tara olmay, qiynalib qoldi.",
     savol: "Ikkinchi safar eshakning yuki nega og'irlashib ketdi?",
     variantlar: ["Chunki sung'er suvni shimib, og'irlashdi, eshak esa suvga tushish yukni yengil qilishini o'ylagan edi", "Chunki eshak ko'p yurgani uchun charchab, yuki og'irroq tuyuldi", "Chunki daryo juda sayoz edi va yuk toshlarga tegib qoldi"],
     javob: 0,
@@ -234,7 +234,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-030", mavzu: "ahloq", sarlavha: "Quyon va baqalar",
-    matn: "Quyon o'zini dunyodagi eng qo'rqoq jonzot deb hisoblardi. Bir kuni ko'l bo'yida u yaqinlashganini ko'rgan baqalar suvga sakrab tushib ketdi. Quyon hayron bo'lib, ularning ham o'zidan qo'rqishini angladi.",
+    matn: "Quyon o'zini dunyodagi eng qo'rqoq jonzot deb hisoblardi va bundan doim ranjib yurardi. Bir kuni ko'l bo'yiga borib, u asta-sekin yaqinlashganda baqalar suvga sakrab tushib, ko'l tubiga yashirinishdi. Quyon hayron bo'lib, o'z ko'lankasiga qaradi va baqalarning ham o'zidan qo'rqishini angladi. Shundan keyin u o'zini boshqalardan yomonroq deb o'ylamaslikka qaror qildi.",
     savol: "Quyon baqalarning qochishidan qanday xulosaga keldi?",
     variantlar: ["Baqalar unga qarshi hujum qilmoqchi bo'lgani uchun qochganini", "Boshqalar ham qo'rqishini va uning qo'rquvi yolg'iz emasligini", "Faqat quyonlar qo'rqoq bo'lishini"],
     javob: 1,
@@ -242,7 +242,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-031", mavzu: "qanoat", sarlavha: "Qurbaqalar va hukmdor",
-    matn: "Qurbaqalar o'zlariga hukmdor so'rab, ko'lga bir bo'lak yog'och tashlanishini iltimos qilishdi. Yog'och tinch yotardi va hech kimga zarar bermasdi. Qurbaqalar undan norozi bo'lib, yanada qattiqroq hukmdor so'rashdi. Shunda ko'lga leylak yuborildi va u qurbaqalarni birma-bir yeb tugatdi.",
+    matn: "Qurbaqalar o'zlariga hukmdor so'rab, osmon oldida yolvorishdi. Osmon ularga ko'lga bir bo'lak yog'och tashlanishini buyurdi. Yog'och tinch yotardi va hech kimga zarar bermasdi. Qurbaqalar undan norozi bo'lib, yanada qattiqroq hukmdor so'rashdi. Shunda ko'lga leylak yuborildi va u qurbaqalarni birma-bir yeb tugatdi.",
     savol: "Qurbaqalar nega halok bo'ldi?",
     variantlar: ["Chunki ular tinch hukmdordan norozi bo'lib, yanada xavfli hukmdor so'radi", "Chunki ular ko'lni tark etib, quruqlikka chiqib ketdi", "Chunki yog'och bo'lagi ularni ko'l tubiga bosib yubordi"],
     javob: 0,
@@ -250,7 +250,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-032", mavzu: "yaxshilik", sarlavha: "Dehqon va ilon",
-    matn: "Qishda dehqon yo'lda sovuqdan qotib qolgan ilonni topdi. Rahmi kelib, uni issiq ko'ylagining ichiga solib qo'ydi. Ilon isinib jonlangach, dehqonni chaqib oldi.",
+    matn: "Qishda dehqon yo'lda ketayotib, sovuqdan qotib qolgan ilonni ko'rdi. Rahmi kelib, uni ehtiyotkorlik bilan olib, issiq ko'ylagining ichiga solib qo'ydi. Ilon isinib, asta-sekin jonlana boshladi. Ammo jonlangach, u dehqonning yordamini unutib, uni chaqib oldi. Dehqon og'riqdan qichqirib: \"Nega meni chaqding? Men seni o'limdan asradim-ku!\" dedi. Ilon sovuq ohangda: \"Mening tabiatim shu, sen buni bilmasding\", deb javob berdi.",
     savol: "Dehqon nimani e'tiborsiz qoldirdi?",
     variantlar: ["Ilon juda kichik ekanini va uni hech kim sezmasligini", "Qishda yo'lda yurish xavfli ekanini", "Ilonning tabiati xavfli ekanini, yordam qilinsa ham u o'zgarmasligini"],
     javob: 2,
@@ -258,7 +258,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-033", mavzu: "ibrat", sarlavha: "Qisqichbaqa va uning bolasi",
-    matn: "Qisqichbaqa bolasi doim yonboshiga qarab yurardi. Onasi uni to'g'ri yurishga o'rgatmoqchi bo'lib: \"Bolam, to'g'ri yur\", dedi. Bola esa: \"Avval o'zingiz to'g'ri yurib ko'rsating, men ham shunday qilaman\", deb javob berdi.",
+    matn: "Qisqichbaqa bolasi doim yonboshiga qarab yurardi. Onasi uni to'g'ri yurishga o'rgatmoqchi bo'lib: \"Bolam, to'g'ri yur\", dedi. Bola esa: \"Avval o'zingiz to'g'ri yurib ko'rsating, men ham shunday qilaman\", deb javob berdi. Onasi bir necha qadam yurib ko'rsatmoqchi bo'ldi, lekin o'zi ham yonboshiga yurardi. Shunda bola kulib dedi: \"Siz ham to'g'ri yura olmar ekansiz-ku.\"",
     savol: "Onasi bolasini to'g'ri yurishga qanday o'rgatishi kerak edi?",
     variantlar: ["Ko'proq baqirib, faqat buyruq berib", "O'zi to'g'ri yurib ko'rsatib, o'rnak bo'lib", "Bolasini boshqa qisqichbaqa bilan almashtirib"],
     javob: 1,
@@ -266,7 +266,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-034", mavzu: "mehnat", sarlavha: "Dehqon va tikan",
-    matn: "Dehqon dalasiga bug'doy ekdi, lekin ekin orasidagi tikanlarni vaqtida yulmadi. Tikanlar bug'doyning suvini va quyosh nurini tortib olib, u sekin so'lib qoldi. Dehqon hosilning kam bo'lishidan hayron bo'ldi.",
+    matn: "Dehqon dalasiga bug'doy ekdi va ekin yaxshi unib chiqdi. Biroq ekin orasida tikanlar ham o'sib chiqdi, dehqon esa ularni vaqtida yulmadi. Tikanlar bug'doyning suvini va quyosh nurini tortib olib, u sekin so'lib qoldi. Dehqon hosilning kam bo'lishidan hayron bo'lib, sababini izlay boshladi. Oxiri tikanlar ekinning oziqasini o'ziga tortib olgani ma'lum bo'ldi.",
     savol: "Dehqon mo'l hosil olish uchun nima qilishi kerak edi?",
     variantlar: ["Bug'doyni sug'orishni butunlay to'xtatishi kerak edi", "Tikanlarni vaqtida yulib, bug'doyga suv va yorug'lik yetadigan qilishi kerak edi", "Bug'doyni tikanlar orasiga yanada zich ekishi kerak edi"],
     javob: 1,
@@ -274,7 +274,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-035", mavzu: "ehtiyotkorlik", sarlavha: "Ikki quduq",
-    matn: "Qishloqda ikkita quduq bor edi. Birinchisining suvi doim tiniq edi, chunki uni muntazam tozalab turishardi. Ikkinchisi esa oylab tozalanmadi. Yomg'ir yog'ganda ikkala quduqqa ham suv yig'ildi, ammo faqat birinchisining suvi ichishga yaroqli bo'ldi.",
+    matn: "Qishloqda ikkita quduq bor edi. Birinchisining suvi doim tiniq edi, chunki uni muntazam tozalab, atrofini toza tutishardi. Ikkinchisi esa oylab tozalanmadi, atrofi chiqindi va barg bilan to'lib ketdi. Bir kuni kuchli yomg'ir yog'di va ikkala quduqqa ham suv yig'ildi. Ammo odamlar faqat birinchi quduqdan suv olib ichishdi, ikkinchisining suvi esa loyqa va hidli bo'lib qoldi.",
     savol: "Ikkinchi quduq suvi nega ichishga yaroqsiz bo'ldi?",
     variantlar: ["Chunki unga yomg'ir yog'maydi edi", "Chunki uni uzoq vaqt tozalashmagan edi", "Chunki u birinchi quduqdan chuqurroq edi"],
     javob: 1,
@@ -282,7 +282,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-036", mavzu: "mantiq", sarlavha: "Kaptar va uya",
-    matn: "Birinchi kaptar uyasini daraxtning ingichka uchiga qurdi, chunki u yerdan atrofni yaxshi ko'rardi. Kuchli shamol esgach, uya tebranib yiqilib ketdi. Ikkinchi kaptar esa uyasini daraxt tanasiga yaqin, mustahkam shoxga qurgan edi, shuning uchun uyasi joyida qoldi.",
+    matn: "Ikki kaptar uya qurishga kirishdi. Birinchi kaptar uyasini daraxtning ingichka uchiga qurdi, chunki u yerdan atrofni yaxshi ko'rardi. Ikkinchi kaptar esa uyasini daraxt tanasiga yaqin, mustahkam shoxga qurdi. Kuchli shamol esgach, birinchi uya tebranib, yerga yiqilib ketdi. Ikkinchi kaptarning uyasi esa joyida qolib, bolalari xavfsiz qoldi.",
     savol: "Ikkinchi kaptarning uyasi nega saqlanib qoldi?",
     variantlar: ["Chunki uning uyasi ingichka uchda edi", "Chunki u shamol esishini oldindan bilgan edi", "Chunki uyasini mustahkam joyga, tanaga yaqin qurgan edi"],
     javob: 2,
@@ -290,7 +290,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-037", mavzu: "ehtiyotkorlik", sarlavha: "Tulki va sher",
-    matn: "Sher kasal bo'lib, g'origa yotib oldi. Hayvonlar uni yo'qlab kelishdi, lekin ularning izlari faqat g'origa kirgan edi. Tulki g'or oldida to'xtab, izlarni diqqat bilan ko'zdan kechirdi.",
+    matn: "Sher kasal bo'lib, g'origa yotib oldi. Hayvonlar uni yo'qlab kelishdi, bir necha hayvon g'or ichiga kirib ketdi. Ammo ularning birortasi ham chiqqanini ko'rsatuvchi iz topilmadi. Tulki g'or oldida to'xtab, izlarni diqqat bilan ko'zdan kechirdi. Keyin u g'orga kirmay, uzoqdan turib: \"Sher bobo, shifo tilayman, lekin men kirmayman, chunki kirganlar qaytib chiqmagan\", dedi.",
     savol: "Tulki nima uchun g'origa kirmadi?",
     variantlar: ["Chunki u sherning kasalligini ko'rmoqchi emas edi", "Chunki izlar faqat g'origa kirgan, qaytib chiqqan iz yo'q edi", "Chunki g'or juda sovuq va qorong'i edi, u uyqusirardi"],
     javob: 1,
@@ -298,7 +298,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-038", mavzu: "ibrat", sarlavha: "Kiyik va uning shoxlari",
-    matn: "Kiyik suv ko'zgusiga qarab, shoxlarining go'zalligiga maqtanardi, ingichka oyoqlarini esa ayblardi. Bir kuni ovchilar itlari uning orqasidan quvib keldi. Kiyik qochib borarkan, shoxlari butalarga ilinib qoldi va u tutib olindi.",
+    matn: "Kiyik suv ko'zgusiga qarab, shoxlarining go'zalligiga maqtanardi, ingichka oyoqlarini esa ayblardi. \"Oyoqlarim nega shunchalik ingichka va xunuk?\" deb o'ylardi u. Bir kuni ovchilar itlari bilan uning orqasidan quvib keldi. Kiyik qochib borarkan, shoxlari zich butalarga ilinib qoldi. Ayni shu paytda itlar yetib kelib, uni tutib olishdi.",
     savol: "Kiyik nega qochib qutula olmadi?",
     variantlar: ["Chunki u qochishni to'xtatib, ovchilar bilan jang qilmoqchi bo'ldi", "Chunki shoxlari butalarga ilinib, qochishiga to'sqinlik qildi", "Chunki u suv ichib, juda charchab qoldi"],
     javob: 1,
@@ -306,7 +306,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-039", mavzu: "halollik", sarlavha: "Ko'rshapalak",
-    matn: "Qushlar bilan sichqonlar urushganda, ko'rshapalak qaysi tomonda turishni bilmay qoldi. Qushlar yaqinlashganda u: \"Men-ku qanotli qushman\", dedi. Sichqonlar kelganda esa: \"Men sichqonlar qatoridanman, tishim ham bor\", deb ularni ma'qulladi.",
+    matn: "Qushlar bilan sichqonlar urush boshlashdi. Ko'rshapalak qaysi tomonda turishni bilmay, ikkala tomonning yonidan aylanib yurardi. Qushlar yaqinlashganda u: \"Men-ku qanotli qushman\", deb ularga qo'shildi. Sichqonlar kuchayganda esa: \"Men sichqonlar qatoridanman, tishim ham bor\", deb ularni ma'qulladi. Urush tugagach, qushlar ham, sichqonlar ham uni o'z tomonidan emas, deb chetga surib qo'yishdi.",
     savol: "Ko'rshapalak nega urush tugagach, ikkala tomondan ham rad etildi?",
     variantlar: ["Chunki u har safar gapini o'z foydasiga qarab o'zgartirdi", "Chunki u juda kichik va kuchsiz edi", "Chunki u urushda umuman qatnashmagan edi"],
     javob: 0,
@@ -314,7 +314,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-040", mavzu: "mantiq", sarlavha: "Ilon va chumchuq",
-    matn: "Ilon chumchuqning uyasiga yetish uchun ingichka shoxdan o'tmoqchi bo'ldi. Shox uning og'irligini ko'tara olmadi va sinib ketdi. Ilon pastga yiqildi, chumchuqlar esa mustahkam shoxdagi uyada omon qoldi.",
+    matn: "Chumchuqlar mustahkam shoxda uya qurib, xavfsiz yashardi. Ilon ularning uyasiga yetish uchun ingichka shox orqali yo'l topmoqchi bo'ldi. Shox uning og'irligini ko'tara olmadi va sinib ketdi. Ilon pastga yiqilib, og'ir zarba oldi. Chumchuqlar esa uyada omon qoldi va ilonning ahmoqligiga kulishdi.",
     savol: "Ilon nega chumchuqlarning uyasiga yetib bora olmadi?",
     variantlar: ["Chunki u chumchuqlarni yoqtirmasdi", "Chunki u ingichka shoxni sindirib, yiqilib tushdi", "Chunki chumchuqlar uni uyaga kiritishmadi"],
     javob: 1,
@@ -322,7 +322,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-041", mavzu: "hasad", sarlavha: "It va somon",
-    matn: "Bir it omborxonadagi somon uyumiga kirib yotib oldi. U somonni yemas edi, ammo ho'kiz va ot ochlikdan yaqinlasha boshlaganda, qattiq hurib ularni qaytardi.",
+    matn: "Bir it omborxonadagi somon uyumiga kirib, uning ustiga cho'zilib yotib oldi. U somonni yemas, ammo boshqalarga ham bermas edi. Ho'kiz va ot ochlikdan charchab, somonga yaqinlashishga urinishdi. It esa qattiq hurib, ularni uzoqlashtirdi. Hech narsa yemay, somon ham ularga yetmay, ular och qolishdi.",
     savol: "It nima uchun ho'kiz va otni somonga yaqinlashtirmadi?",
     variantlar: ["Chunki somon unga juda shirin edi", "Chunki ho'kiz va ot somonni yeyishdan qo'rqardi", "Chunki u o'zi yemasa ham boshqalarga yemaslikni istadi"],
     javob: 2,
@@ -330,7 +330,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-042", mavzu: "hamkorlik", sarlavha: "Ikki ho'kiz va sher",
-    matn: "Ikki ho'kiz doim birga o't yeb yurardi. Sher ularga hujum qilmoqchi bo'lsa ham, yaqinlasha olmadi. Bir kuni ho'kizlar bir-biridan ajralib ketdi, va sher ularni birma-bir yengdi.",
+    matn: "Ikki ho'kiz doim birga o't yeb, birga yurardi. Sher ularga hujum qilmoqchi bo'lib yurardi, ammo ikkalasi birga turganda yaqinlasha olmasdi. Bir kuni ho'kizlar bir-biridan ajralib ketishdi: biri o'tloqning narigi chetiga, ikkinchisi daryo bo'yiga o'tib qoldi. Sher yolg'iz qolgan birinchi ho'kizni osongina yengdi. Ikkinchi ho'kiz yordamga yetib kelolmadi, chunki u ham o'z yo'lida yolg'iz edi, va sher uni ham yengdi.",
     savol: "Sher ho'kizlarni nega yengdi?",
     variantlar: ["Chunki sher ho'kizlardan ancha kuchli edi", "Chunki ho'kizlar birlashmay, yolg'iz qolib qoldi", "Chunki ho'kizlar ochlikdan kuchsizlanib qoldi"],
     javob: 1,
@@ -338,7 +338,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-043", mavzu: "qadriyat", sarlavha: "Xo'roz va marvarid",
-    matn: "Xo'roz axlat orasidan don qidirib yurardi. U marvaridni topdi, lekin uni arzimas tosh deb o'ylab tashlab qo'ydi. \"Bu bir dona arpadan ham kam foyda beradi\", dedi u.",
+    matn: "Xo'roz axlat orasidan don qidirib yurardi. Shu payt u bir dona marvaridni topdi. Marvarid yaltirab yotardi, lekin xo'roz uni ko'rib, o'ziga foydasi yo'q deb hisobladi. \"Bu bir dona arpadan ham kam foyda beradi\", dedi u va marvaridni tepib, yo'lidan chetga surib qo'ydi. Xo'roz marvaridning qadrini bilmasdi, shuning uchun uni tashlab ketdi.",
     savol: "Xo'roz marvaridni nega qadrsiz deb tashlab ketdi?",
     variantlar: ["Chunki u narsaning haqiqiy qiymatini emas, faqat o'zi uchun darhol foydani qadrlardi", "Chunki marvarid juda og'ir edi va uni tashishga kuchi yetmadi", "Chunki marvarid yorug' emas, xira edi"],
     javob: 0,
@@ -346,7 +346,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-044", mavzu: "ehtiyotkorlik", sarlavha: "Ayiq va asalari",
-    matn: "Ayiq asal yeyish uchun daraxtdagi uyaga chiqdi. U shoshilib asalarilarni bezovta qildi va barcha asalni birdan olmoqchi bo'ldi. Asalarilar qattiq hujum qilib, ayiqni daraxtdan tushirib yubordi.",
+    matn: "Ayiq asal yeyish uchun daraxtdagi uyaga chiqdi. Asalarilarni bezovta qilmay, sabr bilan kutib, asta-sekin asalni olishi kerak edi. Ammo u shoshilib, asalarilarni bezovta qildi va barcha asalni birdan olmoqchi bo'ldi. Asalarilar qattiq hujum qilib, ayiqning yuzi va burnini chaqishdi. Ayiq og'riqdan daraxtdan tushib ketdi va asalsiz qoldi.",
     savol: "Ayiq nima uchun asalsiz qoldi?",
     variantlar: ["Chunki asal daraxtda umuman yo'q edi", "Chunki u shoshilib asalarilarni bezovta qildi", "Chunki asalari uni yoqtirmasdi"],
     javob: 1,
@@ -354,7 +354,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-045", mavzu: "mantiq", sarlavha: "Kalxat va qayin",
-    matn: "Kalxat qayin daraxtining baland shoxiga uya qurdi. U uyani ingichka, pishmagan shoxlarga emas, qalin shoxlar orasiga mahkam bog'ladi. Bir kuni kuchli shamol turdi va uya qattiq silkindi, ammo yiqilmadi.",
+    matn: "Kalxat qayin daraxtining baland shoxiga uya qurmoqchi bo'ldi. U uyani ingichka, pishmagan shoxlarga emas, qalin va mustahkam shoxlar orasiga mahkam bog'ladi. Ko'p o'tmay kuchli shamol turdi va daraxtni qattiq silkitdi. Pishmagan shoxlar sinib, ba'zilari yerga tushdi. Ammo kalxatning uyasi qattiq silkindi, lekin yiqilmadi.",
     savol: "Kuchli shamol uyani nega yiqitmadi?",
     variantlar: ["Chunki shamol unga umuman tegmadi", "Chunki uya mustahkam shoxlarga mahkam bog'langan edi", "Chunki kalxat uyani yerga ko'chirib qo'ydi"],
     javob: 1,
@@ -362,7 +362,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-046", mavzu: "ahloq", sarlavha: "Tulki va echki",
-    matn: "Tulki va echki issiq kunda suvsizlikdan qiynalib, bir quduqqa tushib qolishdi. Suv ichib bo'lgach, ikkalasi ham chiqish yo'lini izlay boshladi. Tulki echkaga: \"Shoxlaringga tayanib chiqaman, keyin seni ham tortib olaman\", dedi.",
+    matn: "Tulki va echki issiq kunda suvsizlikdan qiynalib, bir quduqqa tushib qolishdi. Suv ichib bo'lgach, ikkalasi ham chiqish yo'lini izlay boshladi. Quduq devori tik edi va chiqish qiyin edi. Tulki echkaga: \"Shoxlaringga tayanib chiqaman, keyin seni ham tortib olaman\", dedi. Tulki shoxlarga tayanib quduqdan chiqqach, echkaga qarab, yordam berish o'rniga o'zi uzoqlashib ketdi.",
     savol: "Tulki quduqdan chiqqach, echkaga nima qildi?",
     variantlar: ["Unga arqon tashlab, birga chiqarib oldi", "Unga yordam bermay, uni quduqda qoldirib ketdi", "Unga suv olib kelish uchun qaytib keldi"],
     javob: 1,
@@ -370,15 +370,15 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-047", mavzu: "mantiq", sarlavha: "Ikki savat",
-    matn: "Dehqon bozorga ikkita savat olma olib ketardi. Savatlardan biri ancha og'ir, ikkinchisi yengil edi. U tayoqni yelkasiga qo'yib, savatlarni uning ikki uchiga bittadan osdi va yo'lga chiqdi.",
+    matn: "Dehqon bozorga ikkita savat olma olib ketardi. Savatlardan biri ancha og'ir, ikkinchisi yengil edi. Agar ularni bir qo'lida ko'tarsa, qo'li tez charchardi. U ko'ndalang tayoqni yelkasiga qo'yib, og'ir savatni yelkasiga yaqinroq, yengil savatni uzoqroq osdi. Shunda yuk ikki tomonda muvozanatlashdi va dehqon yo'l bo'yi charchamadi.",
     savol: "Dehqon yo'lda nega charchamadi?",
-    variantlar: ["Chunki u og'irlikni ikki tomonga teng taqsimladi", "Chunki u savatlarni faqat bir qo'lida ko'tardi", "Chunki savatlar aslida bo'sh edi"],
+    variantlar: ["Chunki u og'irlikni muvozanatlab taqsimladi", "Chunki u savatlarni faqat bir qo'lida ko'tardi", "Chunki savatlar aslida bo'sh edi"],
     javob: 0,
-    izoh: "Og'irlik ikki tomonga teng bo'linsa, yelka bir tomonga ortiqcha yuk olmaydi. Muammoni yechishda yukning tuzilishini o'ylash foydali bo'ladi."
+    izoh: "Og'irlik muvozanatlansa, yelka bir tomonga ortiqcha yuk olmaydi. Muammoni yechishda yukning tuzilishini o'ylash foydali bo'ladi."
   },
   {
     id: "ez-048", mavzu: "mantiq", sarlavha: "Ikki quyon",
-    matn: "Tulki ikki quyonni quvib keldi. Birinchi quyon to'g'ri chiziq bo'ylab qochdi, ikkinchisi esa har qadamda yo'nalishini o'zgartirib yugurdi. Tulki tez orada to'g'ri yugurayotgan quyonni yetib oldi.",
+    matn: "Tulki ikki quyonni quvib keldi. Birinchi quyon to'g'ri chiziq bo'ylab qochdi, ikkinchisi esa har qadamda yo'nalishini o'zgartirib, zigzag bilan yugurdi. Tulki to'g'ri yugurayotgan quyonning qayerga borishini oldindan bilib, uning yo'lini kesib o'tdi. Shu tariqa u birinchi quyonni tez orada tutib oldi. Ikkinchi quyon esa tulkining chalg'ishidan foydalanib, uzoqqa qochib ketdi.",
     savol: "Tulki nega to'g'ri qochayotgan quyonni tez tutdi?",
     variantlar: ["Chunki to'g'ri yo'nalishni oldindan bilib, qochish yo'lini kesib o'tdi", "Chunki to'g'ri yugurgan quyon charchagan edi", "Chunki quyon o'zi tulki tomon yugurib ketdi"],
     javob: 0,
@@ -386,7 +386,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-049", mavzu: "erkinlik", sarlavha: "Bo'ri va it",
-    matn: "Och bo'ri semiz itga duch keldi va uning yaxshi boqilganini ko'rib hayratga tushdi. It: \"Sen ham xuddi shunday bo'lasan, faqat kechasi meni zanjirda ushlab turishadi\", dedi. Bo'yinidagi zanjir izini ko'rgan bo'ri shu zahoti ortiga qaytdi.",
+    matn: "Och bo'ri o'rmondan chiqqanda semiz itga duch keldi. It yaxshi boqilgan, yog'li va silliq edi. Bo'ri uning holatidan hayratga tushib, sirini so'radi. It: \"Sen ham xuddi shunday bo'lasan, faqat kechasi meni zanjirda ushlab turishadi\", dedi. Bo'ri itning bo'yinidagi zanjir izini ko'rgach, shu zahoti ortiga qaytdi va erkin o'rmonga qaytib ketdi.",
     savol: "Bo'ri nega itning yonida qolishni xohlamadi?",
     variantlar: ["Chunki u semiz bo'lish uchun erkinligidan voz kechishni istamadi", "Chunki it juda kuchsiz va qo'rqoq edi", "Chunki bo'ri ochlikka chidamli emas edi"],
     javob: 0,
@@ -394,7 +394,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-050", mavzu: "hamkorlik", sarlavha: "Ko'r va cho'loq",
-    matn: "Ko'r odam yo'lni ko'ra olmas, cho'loq esa yura olmasdi. Ikkalasi bir kuni yo'lda uchrashib qoldi. Cho'loq ko'rga yo'lni aytib turdi, ko'r esa uni yelkasiga olib yurdi.",
+    matn: "Ko'r odam yo'lni ko'ra olmas, cho'loq esa uzoq yura olmasdi. Ikkalasi bir kuni yo'lda uchrashib, bir-biriga qiynalishini aytishdi. Cho'loq ko'rga yo'lni aytib turdi, ko'r esa uni yelkasiga olib, yo'l bo'ylab yurdi. Shu tarzda ular birgalikda manzilga yetib olishdi.",
     savol: "Ular manzilga qanday yetib bordi?",
     variantlar: ["Har biri o'z kuchi bilan alohida yo'l bosdi", "Cho'loq yo'l aytdi, ko'r uni yelkasida olib bordi", "Ko'r yo'lni tanimasdan tasodifan yetib bordi"],
     javob: 1,
@@ -402,7 +402,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-051", mavzu: "mantiq", sarlavha: "Lochin va kaklik",
-    matn: "Lochin kaklikni tutmoqchi bo'lib uchdi. Kaklik to'g'ri yugurib qochmadi, balki zich tikanli butaning ichiga kirib yashirindi. Lochin shoxlar orasiga sig'a olmay, uzoqroq uchib ketdi.",
+    matn: "Lochin kaklikni tutmoqchi bo'lib, osmonda aylanib uchdi. Kaklik ochiq dalada yugurib qochishga urinmadi, chunki lochin undan tezroq edi. U zich tikanli butaning ichiga kirib, shoxlar orasida yashirindi. Lochin shoxlar orasiga sig'a olmay, uzoqroq uchib ketdi va kaklikka yetolmadi.",
     savol: "Kaklik lochindan qanday qutulib qoldi?",
     variantlar: ["Tez yugurib, lochinni charchatdi", "Tikanli butaga kirib, lochin yetib borishini to'sdi", "Lochin bilan do'stlashib, uni qaytarib oldi"],
     javob: 1,
@@ -410,7 +410,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-052", mavzu: "ishonch", sarlavha: "Yolg'onchi cho'pon",
-    matn: "Cho'pon qo'ylarini boqib zerikardi va bir kuni ko'ngil ochmoqchi bo'ldi. U \"Bo'ri! Bo'ri!\" deb baqirib, qishloq aholisini yugurtirib chiqardi. Ikki marta bu hazil ekani ma'lum bo'lgach, odamlar xafa bo'lib qaytib ketishdi. Uchinchi kuni bo'ri haqiqatan kelganida, cho'pon yordam so'radi, ammo hech kim chiqmadi.",
+    matn: "Cho'pon qo'ylarini boqib zerikardi va bir kuni ko'ngil ochmoqchi bo'ldi. U \"Bo'ri! Bo'ri!\" deb baqirib, qishloq aholisini yugurtirib chiqardi. Odamlar yetib kelganda bo'ri yo'q edi, cho'pon esa kulib turardi. Bu hazil ikki marta takrorlangach, odamlar xafa bo'lib, uyga qaytib ketishdi. Uchinchi kuni haqiqatan bo'ri kelib, qo'ylarga hujum qila boshlaganda, cho'pon yordam so'rab qichqirdi, ammo hech kim chiqmadi.",
     savol: "Nega aholi bu safar cho'ponning chaqirig'iga e'tibor bermadi?",
     variantlar: ["Chunki ular cho'ponning avvalgi yolg'on chaqiriqlaridan keyin unga ishonmay qo'ygan edi", "Chunki ular bo'rilardan qo'rqmaydigan darajada jasur edi", "Chunki cho'pon bu safar jim turib, hech narsa demagan edi"],
     javob: 0,
@@ -418,15 +418,15 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-053", mavzu: "sabr", sarlavha: "Tulki va tovuq qo'ra",
-    matn: "Tulki tovuq qo'rasiga kirmoqchi bo'ldi. Eshik mahkam yopiq edi, devordagi teshik esa juda kichik edi. Tulki bir necha kun ovqat yemay ozdi, so'ng teshikdan o'tib, tovuqqa yetdi.",
+    matn: "Tulki tovuq qo'rasiga kirmoqchi bo'ldi. Eshik mahkam yopiq edi, devordagi teshik esa juda kichik edi. Tulki kuch bilan kirishga urinib, bo'yni va oyoqlari teshikda qisilib qoldi. Shunda u kuch sarflashni to'xtatib, bir necha kun ovqat yemay ozdi. Oxiri ozib, kichik teshikdan o'tib, tovuqlar oldiga yetdi.",
     savol: "Tulki tovuqqa qanday yetib bordi?",
     variantlar: ["Eshikni kuch bilan buzib", "Ozib, kichik teshikdan o'tib", "Tovuqlar o'zi chiqib kelgani uchun"],
     javob: 1,
-    izoh: "Tulki yo'lni o'zgartirmay, o'zini moslashtirdi. Biroq bunday yo'l uning sog'lig'iga zarar bo'lgani uchun, maqsadga oqilona yo'l bilan erishish yaxshiroq."
+    izoh: "Tulki to'siqni kuch bilan emas, o'zini moslashtirib yengdi. Biroq bu usul sabr va katta qurbonlik talab qildi."
   },
   {
     id: "ez-054", mavzu: "sabab", sarlavha: "Bog'bon va olma daraxti",
-    matn: "Bog'bonning olma daraxti ikki yil davomida meva bermadi. Bog'bon uni kesmoqchi bo'ldi, lekin o'g'li: \"Bir yil unga go'ng solib, sug'orib ko'raylik\", dedi. Bog'bon rozi bo'ldi. Keyingi yili daraxt serhosil bo'ldi.",
+    matn: "Bog'bonning olma daraxti ikki yil davomida meva bermadi. Bog'bon uni befoyda deb kesmoqchi bo'ldi. Lekin o'g'li: \"Yana bir yil unga go'ng solib, sug'orib ko'raylik, balki yana hosil beradi\", dedi. Bog'bon rozi bo'ldi va daraxtga g'amxo'rlik qila boshladi. Keyingi yili daraxt serhosil bo'ldi.",
     savol: "Daraxt nima uchun keyingi yili meva berdi?",
     variantlar: ["Chunki unga go'ng solinib, sug'orildi va parvarish qilindi", "Chunki o'g'li uni kesib tashladi", "Chunki bog'bon daraxtni boshqa joyga ko'chirib ketdi"],
     javob: 0,
@@ -434,7 +434,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-055", mavzu: "hamkorlik", sarlavha: "Ikki qo'shni va ariq",
-    matn: "Ikki qo'shni bitta ariqdan suv olib, ekinlarini sug'orardi. Bir kuni ikkalasi ham bir vaqtda suv olmoqchi bo'lib, janjallashib qolishdi. Shunda biri: \"Bugun men, ertaga sen suv olaylik\", dedi.",
+    matn: "Ikki qo'shni bitta ariqdan suv olib, ekinlarini sug'orardi. Suv kam bo'lgani uchun ular tez-tez bahslashib qolishardi. Bir kuni ikkalasi ham bir vaqtda suv olmoqchi bo'lib, ariq boshida janjallashib qolishdi. Shunda biri: \"Bugun men, ertaga sen suv olaylik\", dedi. Ikkinchisi rozi bo'ldi va ular shu tariqa navbat bilan suv olishni boshlashdi.",
     savol: "Qo'shnilarning ekinlari nega suvsiz qolmadi?",
     variantlar: ["Ariq ikkita bo'lib qoldi", "Ular suvni navbat bilan olishdi", "Ikkalasi ham bir kunda barcha suvni oldi"],
     javob: 1,
@@ -442,7 +442,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-056", mavzu: "mas'uliyat", sarlavha: "Ekin va qushlar",
-    matn: "Qushlar dalada ekin o'rtasida uya qurib yashardi. Dehqon: \"Ertaga qo'shnilarimni chaqiraman, ekinni o'radi\", dedi. Ertasi kuni u: \"Qo'shnilar kelmadi, o'g'illarim o'radi\", dedi. Uchinchi kuni: \"Endi o'zim o'raman\", dedi va qushlar darhol uyasini ko'chirib ketishdi.",
+    matn: "Qushlar dalada ekin o'rtasida uya qurib yashardi. Dehqon ekinni o'rish vaqti kelganda: \"Ertaga qo'shnilarimni chaqiraman, ekinni o'radi\", dedi. Ertasi kuni u: \"Qo'shnilar kelmadi. Ertaga o'g'illarim o'radi\", dedi. Uchinchi kuni esa: \"Endi o'zim o'raman\", dedi va qushlar darhol uyasini ko'chirib ketishdi.",
     savol: "Qushlar nega uyasini ko'chirib ketdi?",
     variantlar: ["Chunki dehqon ularni haydab yubordi", "Chunki dehqon endi o'zi ish boshlashga qaror qildi", "Chunki ekin allaqachon o'rilib bo'lgan edi"],
     javob: 1,
@@ -450,7 +450,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-057", mavzu: "mantiq", sarlavha: "Ilon va qurbaqa",
-    matn: "Ilon qurbaqani ushlamoqchi bo'ldi. Qurbaqa ariq bo'yidagi qalin qamish orasiga sakrab tushdi va jim qoldi. Ilon uni ko'ra olmay, qaytib ketdi.",
+    matn: "Ilon qurbaqani ushlamoqchi bo'ldi va uni ariq bo'yida quvib yurdi. Qurbaqa ochiq joyda tez qochib qutula olmasdi, shuning uchun u ariq bo'yidagi qalin qamish orasiga sakrab tushdi va jim qoldi. Ilon qamishga kirib qidirdi, lekin qurbaqa jim turgani uchun uni ko'ra olmadi. Oxiri ilon qaytib ketdi.",
     savol: "Qurbaqa ilondan qanday qutulgan?",
     variantlar: ["Ilondan ham tezroq yugurib", "Qalin qamish orasiga yashirinib", "Ilon uyquga ketgani uchun"],
     javob: 1,
@@ -458,7 +458,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-058", mavzu: "mantiq", sarlavha: "Baliqchi va kichik baliq",
-    matn: "Baliqchi to'rni tortib, bitta kichkina baliqni ushladi. Baliq yalinib dedi: \"Meni qo'yib yubor, hali kichkinaman. Katta bo'lganimda yana ushlarsan, o'shanda ko'proq foyda olasan.\" Baliqchi kulib javob berdi: \"Kelajakdagi katta foyda noaniq, qo'limdagi baliq esa aniq.\"",
+    matn: "Baliqchi to'rni tortib, bitta kichkina baliqni ushladi. Baliq yalinib dedi: \"Meni qo'yib yubor, hali kichkinaman. Katta bo'lganimda yana ushlarsan, o'shanda ko'proq foyda olasan.\" Baliqchi kulib javob berdi: \"Kelajakdagi katta foyda noaniq, qo'limdagi baliq esa aniq.\" Shunday deb u kichik baliqni savatiga solib, uyiga qaytdi.",
     savol: "Baliqchi nega kichik baliqni qo'yib yubormadi?",
     variantlar: ["Chunki u baliqning kelajakda katta bo'lishini bilardi", "Chunki qo'lidagi aniq foyda kelajakdagi noaniq va'dadan ishonchliroq edi", "Chunki baliq uni aldashga urinayotgan edi"],
     javob: 1,
@@ -466,7 +466,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-059", mavzu: "ahloq", sarlavha: "Xasis va yashirin oltin",
-    matn: "Xasis odam tilla tangalarini bog'ining bir chetidagi chuqurga ko'mib qo'ydi. Har kuni borib joyini tekshirardi, lekin tangalarni hech qachon sarflamasdi. Bir kuni o'g'ri chuqurni topib, tangalarni olib ketdi.",
+    matn: "Xasis odam tilla tangalarini bog'ining bir chetidagi chuqurga ko'mib qo'ydi. Har kuni borib joyini tekshirardi, lekin tangalarni hech qachon sarflamasdi. U tangalarni o'ylab o'zini boy his qilardi, xolos. Bir kuni o'g'ri bog'ni kuzatib yurib, chuqurni topdi va tangalarni olib ketdi. Xasis chuqurni bo'sh ko'rib, faryod chekdi.",
     savol: "Xasis odamning tangalari unga nega foyda keltirmadi?",
     variantlar: ["Chunki u tangalarni sarflamasdan faqat yashirib saqlardi", "Chunki tangalar juda kam edi", "Chunki u bog'ni yaxshi ko'rmasdi"],
     javob: 0,
@@ -474,7 +474,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-060", mavzu: "mantiq", sarlavha: "Qo'chqor va devor",
-    matn: "Qo'chqor devorning narigi tomonidagi yashil o'tni yeyish uchun unga ketma-ket urildi. Devor esa bir marta ham qimirlamadi, qo'chqorning boshi faqat og'rib qoldi. Keyin u devor bo'ylab yurib, pastda kichik teshik topdi va o'tga o'tib oldi.",
+    matn: "Qo'chqor devorning narigi tomonidagi yashil o'tni yeyish uchun unga ketma-ket urildi. Devor esa bir marta ham qimirlamadi, qo'chqorning boshi faqat og'rib qoldi. U bir necha marta urinib charchadi va to'xtab o'yladi. Keyin u devor bo'ylab yurib, pastda kichik teshik topdi. Shu teshikdan o'tib, o'tloqqa yetib oldi.",
     savol: "Qo'chqor o'tga nima uchun yetib oldi?",
     variantlar: ["Chunki u devorni urib yiqitdi", "Chunki u devordagi teshikni topib, boshqa yo'lni tanladi", "Chunki devor o'zi ochilib qoldi"],
     javob: 1,
@@ -482,7 +482,7 @@ window.EZOP_MASALLAR = [
   },
   {
     id: "ez-061", mavzu: "ahloq", sarlavha: "Tulki va laylak",
-    matn: "Tulki laylakni mehmonga chaqirdi va sho'rvani yassi likopchada berdi. Laylak uzun tumshug'i bilan sho'rvani yeya olmay, och qoldi. Keyingi safar laylak tulkini mehmonga chaqirib, ovqatni tor bo'yinli ko'zada berdi.",
+    matn: "Tulki laylakni mehmonga chaqirdi va sho'rvani yassi likopchada berdi. Laylak uzun tumshug'i bilan sho'rvani yeya olmay, och qoldi. Tulki esa sho'rvani zavq bilan yalab, hazil qildi. Keyingi safar laylak tulkini mehmonga chaqirib, ovqatni tor bo'yinli ko'zada berdi. Tulki ko'zaning og'ziga boshini tiqa olmay, ovqatdan bir tomchi ham yeya olmadi.",
     savol: "Laylak tulkiga nima uchun ovqatni tor bo'yinli ko'zada berdi?",
     variantlar: ["Chunki u tulkiga o'zi boshidan kechirgan hiylani qaytarmoqchi bo'ldi", "Chunki tulki och emasligini bilar edi", "Chunki ko'za yangi va chiroyli edi"],
     javob: 0,
