@@ -471,5 +471,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u tangalarni sarflamasdan faqat yashirib saqlardi", "Chunki tangalar juda kam edi", "Chunki u bog'ni yaxshi ko'rmasdi"],
     javob: 0,
     izoh: "Pulning foydasi uni ishlatishda. Yashirib qo'yilgan boylik esa hech kimga naf keltirmaydi."
+  },
+  {
+    id: "ez-060", mavzu: "mantiq", sarlavha: "Qo'chqor va devor",
+    matn: "Qo'chqor devorning narigi tomonidagi yashil o'tni yeyish uchun unga ketma-ket urildi. Devor esa bir marta ham qimirlamadi, qo'chqorning boshi faqat og'rib qoldi. Keyin u devor bo'ylab yurib, pastda kichik teshik topdi va o'tga o'tib oldi.",
+    savol: "Qo'chqor o'tga nima uchun yetib oldi?",
+    variantlar: ["Chunki u devorni urib yiqitdi", "Chunki u devordagi teshikni topib, boshqa yo'lni tanladi", "Chunki devor o'zi ochilib qoldi"],
+    javob: 1,
+    izoh: "Kuch bilan yengib bo'lmaydigan to'siq oldida to'xtab, boshqa yo'lni qidirish ko'pincha eng oqilona yechim bo'ladi."
   }
 ];
