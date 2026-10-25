@@ -1,0 +1,42 @@
+{
+  "id": "2025-4",
+  "badge": "IMO 2025 · 4-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Uchta eng katta bo'luvchi",
+      "fs": 36,
+      "body": "<p>Sonning <b>xos bo'luvchisi</b> — uning o'zidan farqli natural bo'luvchisi.</p><p>Cheksiz <span class='m'>a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, …</span> natural sonlar ketma-ketligining har bir hadi kamida uchta xos bo'luvchiga ega. Har <span class='m'>n ≥ 1</span> uchun</p><div class='box'><span class='m'>a<sub>n+1</sub></span> — <span class='m'>a<sub>n</sub></span> ning eng katta <b>uchta</b> xos bo'luvchisi yig'indisi.</div><p><span class='m'>a<sub>1</sub></span> ning barcha mumkin bo'lgan qiymatlarini toping.</p><p>Misol: <span class='m'>72 → 36 + 24 + 18 = 78 → 39 + 26 + 13 = 78 → …</span></p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob va nega u ishlaydi",
+      "fs": 33,
+      "body": "<div class='box'>Javob: <span class='m'>a<sub>1</sub> = 12<sup>e</sup> · 6 · ℓ</span>, bunda <span class='m'>e ≥ 0</span>, <span class='m'>ℓ</span> esa 2 ga ham, 5 ga ham bo'linmaydi.</div><p><span class='m'>ψ(x)</span> — <span class='m'>x</span> ning uchta eng katta xos bo'luvchisi yig'indisi. Eng katta bo'luvchilar <span class='m'>x/d</span> ko'rinishida, bunda <span class='m'>d</span> — eng kichik bo'luvchilar.</p><ul><li><span class='m'>x = 6ℓ</span>: eng kichiklari <span class='m'>2, 3, 6</span> ⟹ <span class='m'>ψ(x) = x/2 + x/3 + x/6 = x</span>. Ketma-ketlik to'xtab qoladi.</li><li><span class='m'>12 | x</span>: eng kichiklari <span class='m'>2, 3, 4</span> ⟹ <span class='m'>ψ(x) = 13x/12</span>.</li></ul><p>Demak <span class='m'>12<sup>e</sup>·6ℓ → 12<sup>e−1</sup>·6·(13ℓ) → …</span> va <span class='m'>e</span> qadamdan keyin turg'un son.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Toq son bo'lsa — halokat",
+      "fs": 34,
+      "body": "<p>Agar <span class='m'>x</span> toq bo'lsa, uning hamma bo'luvchilari toq, shuning uchun</p><div class='box'><span class='m'>ψ(x)</span> — uchta toq son yig'indisi, ya'ni yana <b>toq</b>.</div><p>Bundan tashqari eng kichik bo'luvchilar kamida <span class='m'>3, 5, 7</span>:</p><div class='box'><span class='m'>ψ(x) ≤ x/3 + x/5 + x/7 = 71x/105 &lt; x</span></div><p>Demak bitta had toq bo'lsa, keyingi hammasi toq va qat'iy kamayib boradi. Natural sonlar cheksiz kamaya olmaydi! Shuning uchun <b>barcha hadlar juft</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Har bir had 6 ga bo'linadi",
+      "fs": 31,
+      "body": "<p><span class='m'>x</span> juft, lekin <span class='m'>3 ∤ x</span> bo'lsin. U holda <span class='m'>ψ(x)</span> yo 3 ga bo'linmaydi, yo toq:</p><ul><li><span class='m'>4 | x</span>: <span class='m'>ψ(x) = x/2 + x/4 + d = 3x/4 + d ≡ d ≢ 0 (mod 3)</span>.</li><li><span class='m'>4 ∤ x</span>, <span class='m'>p ≥ 5</span> — eng kichik toq tub bo'luvchi. Uchinchi bo'luvchi <span class='m'>2p</span> bo'lsa: <span class='m'>ψ(x) = 3x/(2p) + x/2 ≡ x/2 ≢ 0 (mod 3)</span>. Toq tub <span class='m'>q</span> bo'lsa: <span class='m'>x/2 + x/p + x/q</span> — toq.</li></ul><div class='box'>Bunda <span class='m'>ψ(x) ≤ x/2 + x/4 + x/5 &lt; x</span> — yana cheksiz kamayish!</div><p>Demak har bir <span class='m'>a<sub>n</sub></span> son <b>6 ga bo'linadi</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Faqat ikki xil qadam",
+      "fs": 32,
+      "body": "<p><span class='m'>6 | x</span> bo'lsa, eng kichik bo'luvchilarga qarab:</p><div class='box'><span class='m'>ψ(x) = 13x/12</span>, agar <span class='m'>4 | x</span>;<br><span class='m'>ψ(x) = 31x/30</span>, agar <span class='m'>4 ∤ x</span>, <span class='m'>5 | x</span>;<br><span class='m'>ψ(x) = x</span>, qolgan hollarda.</div><p>O'rtadagi hol bo'lmaydi: <span class='m'>x = 30k</span>, <span class='m'>k</span> toq ⟹ <span class='m'>31k</span> toq — taqiqlangan! Demak har qadamda</p><div class='box'><span class='m'>a<sub>n+1</sub> = 13a<sub>n</sub>/12</span> yoki <span class='m'>a<sub>n+1</sub> = a<sub>n</sub></span>.</div><p><span class='m'>13/12</span> ga cheksiz ko'paytirib bo'lmaydi (2 ning darajasi tugaydi). <span class='m'>e</span> qadamdan keyin <span class='m'>a<sub>T</sub> = 6ℓ</span>, <span class='m'>4 ∤ a<sub>T</sub></span>, <span class='m'>5 ∤ a<sub>T</sub></span> ⟹ <span class='m'>a<sub>1</sub> = 12<sup>e</sup> · a<sub>T</sub>/13<sup>e</sup></span>. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Javob: 12ᵉ · 6 · ℓ",
+      "fs": 34,
+      "body": "<p>Kalit g'oya: <b>juftlik va 3 ga bo'linish saqlanadi</b>, aks holda ketma-ketlik qat'iy kamayadi. Qolgani — oddiy hisob. Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Misol: <span class='m'>864 = 12<sup>2</sup>·6 → 936 → 1014 → 1014 → …</span><br>Kompyuterda tekshirdik: <span class='m'>a<sub>1</sub> &lt; 3000</span> uchun javob formulaga to'liq mos ✅</div><p>🧠 <b>Sizga savol:</b> <span class='m'>a<sub>1</sub> = 1980</span> bo'la oladimi? Nega? Javobni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2025 · 5-masala</b> (kombinatorika, o'yin)</p>"
+    }
+  ]
+}
