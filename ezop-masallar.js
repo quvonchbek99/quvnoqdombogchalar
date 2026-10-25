@@ -479,5 +479,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u devorni urib yiqitdi", "Chunki u devordagi teshikni topib, boshqa yo'lni tanladi", "Chunki devor o'zi ochilib qoldi"],
     javob: 1,
     izoh: "Kuch bilan yengib bo'lmaydigan to'siq oldida to'xtab, boshqa yo'lni qidirish ko'pincha eng oqilona yechim bo'ladi."
+  },
+  {
+    id: "ez-061", mavzu: "ahloq", sarlavha: "Tulki va laylak",
+    matn: "Tulki laylakni mehmonga chaqirdi va sho'rvani yassi likopchada berdi. Laylak uzun tumshug'i bilan sho'rvani yeya olmay, och qoldi. Keyingi safar laylak tulkini mehmonga chaqirib, ovqatni tor bo'yinli ko'zada berdi.",
+    savol: "Laylak tulkiga nima uchun ovqatni tor bo'yinli ko'zada berdi?",
+    variantlar: ["Chunki u tulkiga o'zi boshidan kechirgan hiylani qaytarmoqchi bo'ldi", "Chunki tulki och emasligini bilar edi", "Chunki ko'za yangi va chiroyli edi"],
+    javob: 0,
+    izoh: "Laylak tulkining o'z hiylasi bilan javob berdi. Bu masal boshqalarga qilgan yomonligingiz o'zingizga qaytishi mumkinligini eslatadi."
   }
 ];
