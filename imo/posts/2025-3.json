@@ -1,0 +1,42 @@
+{
+  "id": "2025-3",
+  "badge": "IMO 2025 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "«Bonza» funksiyalar",
+      "fs": 36,
+      "body": "<p><span class='m'>ℕ</span> — natural sonlar to'plami. <span class='m'>f : ℕ → ℕ</span> funksiya <b>bonza</b> deyiladi, agar barcha natural <span class='m'>a</span> va <span class='m'>b</span> uchun</p><div class='box'><span class='m'>f(a)</span> son <span class='m'>b<sup>a</sup> − f(b)<sup>f(a)</sup></span> ni bo'lsa.</div><p>Shunday eng kichik haqiqiy <span class='m'>c</span> sonni toping-ki, <b>barcha</b> bonza funksiyalar va <b>barcha</b> natural <span class='m'>n</span> uchun</p><div class='box'><span class='m'>f(n) ≤ c·n</span></div><p>bajarilsin.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Birinchi kuzatishlar",
+      "fs": 33,
+      "body": "<p>Javob: <span class='m'>c = 4</span>. Shartni <span class='m'>P(a, b)</span> deb belgilaymiz.</p><div class='box'><span class='m'>P(n, n)</span>: <span class='m'>f(n) | n<sup>n</sup> − f(n)<sup>f(n)</sup></span> ⟹ <span class='m'>f(n) | n<sup>n</sup></span>.</div><p>Xususan, tub <span class='m'>q</span> uchun <span class='m'>f(q)</span> — <span class='m'>q</span> ning darajasi. Agar <span class='m'>f(q) &gt; 1</span> bo'lsa, <span class='m'>P(q, n)</span> va Ferma teoremasidan:</p><div class='box'><span class='m'>q | n<sup>q</sup> − f(n)<sup>f(q)</sup></span> ⟹ <span class='m'>q | n − f(n)</span></div><p>Agar bunday <span class='m'>q</span> cheksiz ko'p bo'lsa, <span class='m'>f(n) = n</span>. Demak <span class='m'>f ≠ id</span> bo'lsa, <span class='m'>f(q) &gt; 1</span> faqat chekli sondagi tub <span class='m'>q</span> da.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Faqat ikkining darajalari",
+      "fs": 32,
+      "body": "<p>Endi <span class='m'>f ≠ id</span>. <span class='m'>p</span> — toq tub son. Katta tub <span class='m'>q</span> ni <span class='m'>f(q) = 1</span> va <span class='m'>q ≢ 1 (mod p)</span> qilib tanlaymiz (Dirixle teoremasi).</p><div class='box'><span class='m'>P(p, q)</span>: <span class='m'>f(p) | q<sup>p</sup> − 1</span>, lekin <span class='m'>q<sup>p</sup> − 1 ≡ q − 1 ≢ 0 (mod p)</span> ⟹ <span class='m'>f(p) = 1</span>.</div><p>Endi biror toq tub <span class='m'>p</span> son <span class='m'>f(n)</span> ni bo'lsin. <span class='m'>P(n, p)</span> dan:</p><div class='box'><span class='m'>p | f(n) | p<sup>n</sup> − 1</span> — ziddiyat!</div><p>Demak har doim <span class='m'>f(n)</span> — <b>ikkining darajasi</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Yuqori chegara: 5 ning sehri",
+      "fs": 33,
+      "body": "<p><span class='m'>ν<sub>2</sub>(x)</span> — <span class='m'>x</span> dagi ikkining darajasi. Ma'lum fakt (LTE lemmasi):</p><div class='box'><span class='m'>ν<sub>2</sub>(5<sup>n</sup> − 1) = ν<sub>2</sub>(n) + 2</span></div><p><span class='m'>f(5) = 1</span> bo'lgani uchun <span class='m'>P(n, 5)</span>: <span class='m'>f(n) | 5<sup>n</sup> − 1</span>. <span class='m'>f(n)</span> ikkining darajasi, shuning uchun</p><div class='box'><span class='m'>f(n) ≤ 2<sup>ν<sub>2</sub>(n)+2</sup> = 4 · 2<sup>ν<sub>2</sub>(n)</sup> ≤ 4n</span></div><p><span class='m'>f = id</span> holida ham <span class='m'>f(n) = n ≤ 4n</span>. Demak <span class='m'>c = 4</span> yetarli.</p>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "4 dan kichik bo'lmaydi",
+      "fs": 33,
+      "body": "<p>Quyidagi funksiya bonza:</p><div class='box'><span class='m'>f(n) = 1</span>, agar <span class='m'>n</span> toq;<br><span class='m'>f(4) = 16</span>;<br><span class='m'>f(n) = 2</span>, qolgan juft <span class='m'>n</span> uchun.</div><ul><li><span class='m'>a</span> toq: <span class='m'>f(a) = 1</span> — hamma narsani bo'ladi.</li><li><span class='m'>a</span> juft, <span class='m'>b</span> toq: <span class='m'>b<sup>a</sup> − 1</span> son 8 ga, <span class='m'>a = 4</span> da 16 ga bo'linadi.</li><li><span class='m'>a, b</span> juft: <span class='m'>b<sup>a</sup></span> ham, <span class='m'>f(b)<sup>f(a)</sup></span> ham <span class='m'>f(a)</span> ga bo'linadi.</li></ul><div class='box'><span class='m'>f(4) = 16 = 4 · 4</span> ⟹ <span class='m'>c ≥ 4</span>. ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Javob: c = 4",
+      "fs": 34,
+      "body": "<p>Kalit g'oya: <b>yaxshi tanlangan qiymatlarni</b> qo'yish. <span class='m'>P(n, n)</span>, katta tub sonlar va <span class='m'>b = 5</span> butun funksiyani ikkining darajalariga «qamab» qo'yadi. Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Kompyuterda tekshirdik: misoldagi funksiya <span class='m'>a, b ≤ 79</span> da shartni qanoatlantiradi, <span class='m'>ν<sub>2</sub>(5<sup>n</sup> − 1) = ν<sub>2</sub>(n) + 2</span> esa <span class='m'>n ≤ 300</span> da to'g'ri ✅</div><p>🧠 <b>Sizga savol:</b> nega <span class='m'>f(2) = 8</span> bo'la olmaydi? Javobni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2025 · 4-masala</b> (sonlar nazariyasi)</p>"
+    }
+  ]
+}
