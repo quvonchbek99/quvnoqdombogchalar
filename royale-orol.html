@@ -22,6 +22,7 @@
 :root{--panel:rgba(10,20,18,.8);--line:#2b463f;--text:#eef3ea;--dim:#9db3a8;--neon:#3ff5d1;--yel:#ffd23f;--red:#ff4f6d;--violet:#b07cff;--sand:#e0c98f}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
+body.playing .acc-fixed,body.playing #ka-til-box,body.playing .ka-kuvi,body.playing .ka-ball,body.playing .ka-shadow,body.playing .ka-say,body.playing .ka-kx{display:none!important}
 html,body{margin:0;height:100%;overflow:hidden;background:#0b1412;color:var(--text);font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
 button{font-family:inherit}
 #cv{position:fixed;inset:0;display:block;width:100%;height:100%}
@@ -95,6 +96,7 @@ h1.t span{color:var(--neon)}
 .sub{color:var(--dim);margin:0 0 12px;font-size:14px}
 .lbl{font:700 13px Rajdhani,Manrope,sans-serif;letter-spacing:2.5px;text-transform:uppercase;color:var(--sand);margin:14px 0 8px}
 .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg.two{grid-template-columns:1fr 1fr}.seg.two button{padding:10px 8px;font-size:15px}.seg.two small{display:block;font:700 11px Manrope,sans-serif;color:var(--dim);margin-top:3px}
 .seg button,.chips button{appearance:none;cursor:pointer;border:1px solid var(--line);background:#101d1a;color:var(--text);border-radius:11px;padding:10px 4px;font:800 14px Manrope,sans-serif}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips button{padding:8px 12px;font-size:13px}
@@ -197,10 +199,16 @@ details b{color:var(--yel)}
     <div class="seg" id="sGrade"></div>
     <div class="lbl">Mavzu</div>
     <div class="chips" id="sTopic"></div>
+    <div class="lbl">Boshqaruv</div>
+    <div class="seg two" id="sCtrl">
+      <button data-v="auto">🎯 Oson<small>o'zi nishonga oladi va otadi</small></button>
+      <button data-v="pro">🕹️ Qo'lda<small>nishonni o'zingiz olasiz</small></button>
+    </div>
     <button class="btn go" id="bStart">🪂 Jangga kirish</button>
     <details>
       <summary>Qanday o'ynaladi?</summary>
       <ul>
+        <li><b>Oson rejim</b>: faqat yuring — qahramon dushmanni o'zi nishonga olib otadi, qutini yoniga borsangiz savol o'zi ochiladi, joni kamaysa aptechkani o'zi ishlatadi. Telefonda ekranning istalgan joyiga barmoq qo'yib yuring.</li>
         <li>Samolyot orol ustidan uchadi — <b>xaritaga bosing</b>, o'sha joyga parashyutda tushasiz.</li>
         <li><b>Qutilar</b>: yashil (oson), ko'k, binafsha, oltin (eng qiyin). Misolni to'g'ri yeching — qurol, zirh, aptechka, o'q olasiz. Xato — quti 6 soniya qulflanadi.</li>
         <li><b>O'qlash</b>: tezkor misol chiqadi. To'g'ri — darhol o'qlanadi, xato — sekin.</li>
@@ -278,6 +286,8 @@ function buzz(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch 
 // ================= SOZLAMALAR =================
 var grade = RS.normGrade(lg("ka.royale.grade") || "7-8");
 var topic = RS.normTopic(lg("ka.royale.topic") || "aralash");
+var ctrlMode = lg("ka.royale.ctrl") === "pro" ? "pro" : "auto"; // "auto" — oson: avto-nishon/otish, quti o'zi ochiladi
+function isAuto() { return ctrlMode === "auto"; }
 
 // ================= OVOZ =================
 var AC = null, master = null, nbuf = null, muted = lg("ka.royale.mute") === "1", lastShot = 0;
@@ -682,9 +692,10 @@ function startGame() {
   ac(); SFX.click();
   ls("ka.royale.grade", grade); ls("ka.royale.topic", topic);
   if (!WD || S.used) newGame(); else { newGame(); }
-  S.used = true; S.st = "drop"; S.paused = false;
+  S.used = true; S.st = "drop"; S.paused = false; document.body.classList.add("playing");
   $("startScr").hidden = true; $("endScr").hidden = true; $("hud").hidden = false; $("dropUI").hidden = false; $("play").hidden = true; $("zoneChip").hidden = true;
   $("feed").innerHTML = ""; hudCache = {}; renderSlots(); SFX.plane();
+  $("bSwap").hidden = isAuto(); S.lock = null; S.nearC = null; S.nearT = 0;
   if (DEBUG) $("fps").hidden = false;
 }
 
@@ -985,6 +996,19 @@ function moveEnt(p, mx, my, speed, dt) {
 // ================= O'YINCHI BOSHQARUVI =================
 var keys = {}, mouse = { x: 0, y: 0, down: false, on: false }, stick = { move: null, aim: null };
 function s2w(sx, sy) { var c = S.cam; return [(sx - W / 2) / c.z + c.x, (sy - H / 2) / c.z + c.y]; }
+function autoTarget(p, w) {
+  var rng = w ? WEP[w.k].rng * .92 : 0, best = null, bd = 1e9;
+  if (!rng) return null;
+  for (var i = 1; i < S.players.length; i++) {
+    var o = S.players[i]; if (!o.alive || o.phase !== "ground") continue;
+    var d = dst(p.x, p.y, o.x, o.y); if (d > rng || d > bd) continue;
+    if (!onMyScreen(o, 40) || !los(p, o)) continue;
+    // avvalgi nishonni biroz afzal ko'ramiz — u yoq-bu yoqqa sakramasin
+    if (o === S.lock) d *= .8;
+    if (d < bd) { bd = d; best = o; }
+  }
+  return best;
+}
 function meStep(p, dt) {
   var mx = 0, my = 0, fire = false, busy = !!S.q;
   if (!busy) {
@@ -994,6 +1018,25 @@ function meStep(p, dt) {
   }
   var w = curW(p);
   moveEnt(p, mx, my, 232 * (w && w.k === "sniper" ? .93 : 1), dt);
+  var manual = (stick.aim && stick.aim.m > .28) || (!touchMode && mouse.on && mouse.down);
+  if (!busy && isAuto() && !manual) {
+    S.lockT = (S.lockT || 0) - dt;
+    // o'q butunlay tugagan bo'lsa — nishon olmaymiz (quti o'zi ochiladi va o'q topiladi), boshqa qurolda o'q bo'lsa o'shanga o'tamiz
+    var dry = !w || (w.mag <= 0 && p.ammo <= 0);
+    if (dry && hasAmmo(p)) { for (var si = 0; si < 3; si++) if (p.ws[si] && p.ws[si].mag > 0) { switchW(p, si); break; } w = curW(p); dry = !w || (w.mag <= 0 && p.ammo <= 0); }
+    if (dry) { S.lock = null; S.lockT = .3; }
+    else if (S.lockT <= 0 || (S.lock && !S.lock.alive)) { S.lockT = .15; S.lock = autoTarget(p, w); }
+    var t = S.lock;
+    if (t && t.alive) {
+      var W_ = WEP[w.k], d = dst(p.x, p.y, t.x, t.y), lead = d / W_.v * .8;
+      var ta = Math.atan2(t.y + t.vy * lead - p.y, t.x + t.vx * lead - p.x);
+      p.ang += clamp(angDiff(p.ang, ta), -dt * 14, dt * 14);
+      if (Math.abs(angDiff(p.ang, ta)) < .14) tryFire(p, p.ang);
+    } else if (mx || my) p.ang += clamp(angDiff(p.ang, Math.atan2(my, mx)), -dt * 10, dt * 10);
+    else if (!touchMode && mouse.on) { var wm0 = s2w(mouse.x, mouse.y); p.ang = Math.atan2(wm0[1] - p.y, wm0[0] - p.x); }
+    return;
+  }
+  if (!isAuto()) S.lock = null;
   if (!busy) {
     if (stick.aim && stick.aim.m > .28) {
       var a = Math.atan2(stick.aim.vy, stick.aim.vx), best = null, bd = .22, rng = w ? WEP[w.k].rng : 300;
@@ -1107,6 +1150,7 @@ function step(dt) {
     if (p.reloadT > 0) { p.reloadT -= dt; if (p.reloadT <= 0) finishReload(p); }
     if (p.healT > 0) { p.healT -= dt; if (p.healT <= 0) { p.hp = Math.min(100, p.hp + 50); p.heals--; part(p.x, p.y, 0, 0, .5, 10, "#5fe08a", "ring"); if (p === me) { renderSlots(); toast("✚ +50 jon"); } } }
     if (p === me) meStep(p, dt); else botStep(p, dt);
+    if (!FX.low && !RM && (p.vx * p.vx + p.vy * p.vy) > 6000) { p.dustT = (p.dustT || 0) - dt; if (p.dustT <= 0 && (p === me || onMyScreen(p, 60))) { p.dustT = .11; part(p.x + rnd(-6, 6), p.y + rnd(4, 10), rnd(-15, 15), rnd(-15, 5), .55, 4, bldAt(p.x, p.y) ? "#b9b0a0" : "#d9c79a", "dust"); } }
   }
   // o'yinchilar bir-birini itaradi
   for (i = 0; i < S.players.length; i++) {
@@ -1143,6 +1187,15 @@ function step(dt) {
     var near = null, nd = 64;
     for (i = 0; i < S.crates.length; i++) { var cc = S.crates[i]; if (cc.st !== 0 || cc.fall > 0) continue; var dd = dst(me.x, me.y, cc.x, cc.y); if (dd < nd) { nd = dd; near = cc; } }
     S.near = near;
+    if (isAuto() && !S.q && !S.paused) {
+      var threat = S.lock && S.lock.alive;
+      if (near && near.lock <= 0 && !threat) {
+        if (S.nearC !== near) { S.nearC = near; S.nearT = 0; }
+        S.nearT += dt;
+        if (S.nearT > .45) { S.nearT = -99; openCrate(near); }
+      } else if (!near) { S.nearC = null; S.nearT = 0; }
+      if (me.hp < 45 && me.heals > 0 && me.healT <= 0 && me.reloadT <= 0 && !threat) useHeal(me);
+    }
   }
 }
 function bulletsStep(dt) {
@@ -1175,6 +1228,55 @@ function bulletsStep(dt) {
 
 // ================= CHIZISH =================
 var waterGrad = null;
+// Grafika kuchaytirish: oldindan chizilgan spraytlar (tez ishlaydi), sekin qurilmada og'ir effektlar o'zi o'chadi
+var FX = { low: false, bad: 0, trees: null, cloud: null, rayG: {}, vig: null, vigK: "", clouds: [] };
+function mkSprite(sz, fn) { var c = document.createElement("canvas"); c.width = c.height = sz; fn(c.getContext("2d"), sz); return c; }
+function hexA(h, a) { var n = parseInt(h.slice(1), 16); return "rgba(" + (n >> 16 & 255) + "," + (n >> 8 & 255) + "," + (n & 255) + "," + a + ")"; }
+function treeSprite(dark) {
+  return mkSprite(192, function (g, sz) {
+    var r = sz * .46, cx = sz / 2, cy = sz / 2, rand = mulberry(dark ? 7 : 11);
+    var base = dark ? ["#253d14", "#3a5a20", "#557d2c"] : ["#2d4a17", "#456a25", "#62902f"];
+    var gr = g.createRadialGradient(cx - r * .35, cy - r * .4, r * .1, cx, cy, r);
+    gr.addColorStop(0, base[2]); gr.addColorStop(.62, base[1]); gr.addColorStop(1, base[0]);
+    g.fillStyle = gr; g.beginPath(); g.arc(cx, cy, r, 0, TAU); g.fill();
+    for (var i = 0; i < 11; i++) {
+      var a = rand() * TAU, d = r * (.3 + rand() * .5), cr = r * (.2 + rand() * .17), x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d;
+      var lg = g.createRadialGradient(x - cr * .45, y - cr * .5, cr * .05, x, y, cr);
+      lg.addColorStop(0, dark ? "rgba(128,170,70,.95)" : "rgba(150,196,80,.95)"); lg.addColorStop(.7, dark ? "rgba(70,105,38,.6)" : "rgba(84,124,42,.6)"); lg.addColorStop(1, "rgba(40,60,20,0)");
+      g.fillStyle = lg; g.beginPath(); g.arc(x, y, cr, 0, TAU); g.fill();
+    }
+    var hg = g.createRadialGradient(cx - r * .45, cy - r * .5, 0, cx - r * .45, cy - r * .5, r * .6);
+    hg.addColorStop(0, "rgba(235,255,170,.32)"); hg.addColorStop(1, "rgba(235,255,170,0)");
+    g.fillStyle = hg; g.beginPath(); g.arc(cx, cy, r, 0, TAU); g.fill();
+    g.strokeStyle = "rgba(16,30,8,.5)"; g.lineWidth = sz * .014; g.beginPath(); g.arc(cx, cy, r - 1, 0, TAU); g.stroke();
+  });
+}
+function fxInit() {
+  if (FX.trees) return;
+  FX.trees = [treeSprite(true), treeSprite(false)];
+  FX.cloud = mkSprite(256, function (g, sz) { var gr = g.createRadialGradient(sz / 2, sz / 2, 0, sz / 2, sz / 2, sz / 2); gr.addColorStop(0, "rgba(0,12,24,.55)"); gr.addColorStop(.55, "rgba(0,12,24,.3)"); gr.addColorStop(1, "rgba(0,12,24,0)"); g.fillStyle = gr; g.fillRect(0, 0, sz, sz); });
+  FX.clouds = []; for (var i = 0; i < 9; i++) FX.clouds.push({ x: CX + rnd(-R0 * 1.3, R0 * 1.3), y: CY + rnd(-R0 * 1.3, R0 * 1.3), s: rnd(650, 1250), k: rnd(.45, .75) });
+}
+function rayGrad(col, R) {
+  var key = col + R; if (FX.rayG[key]) return FX.rayG[key];
+  var g = ctx.createRadialGradient(0, 0, 6, 0, 0, R); g.addColorStop(0, hexA(col, .9)); g.addColorStop(.3, hexA(col, .4)); g.addColorStop(1, hexA(col, 0));
+  return (FX.rayG[key] = g);
+}
+// Qutidan chiqadigan rangli nurlar ("mayoq") — uzoqdan ko'rinadi
+function drawCrateRays(cr, now) {
+  var T = TIERS[cr.tier], big = cr.air, n = big ? 8 : 6, R = big ? 190 : 78 + cr.tier * 18, rot = now * (big ? .55 : .35) + cr.x * .01;
+  ctx.save(); ctx.translate(cr.x, cr.y); ctx.globalCompositeOperation = "lighter"; ctx.fillStyle = rayGrad(T.c, R);
+  ctx.beginPath(); for (var i = 0; i < n; i++) { var a = rot + i * TAU / n; ctx.moveTo(0, 0); ctx.arc(0, 0, R, a - .1, a + .1); ctx.closePath(); } ctx.fill();
+  ctx.globalAlpha = .55; ctx.beginPath(); ctx.arc(0, 0, R * .42, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+function drawLock(t, now, z) {
+  var r = t.r + 14 + Math.sin(now * 8) * 2, a0 = now * 2.2;
+  ctx.save(); ctx.translate(t.x, t.y); ctx.strokeStyle = "rgba(255,79,109,.95)"; ctx.lineWidth = 3 / Math.max(z, .6); ctx.lineCap = "round";
+  for (var i = 0; i < 4; i++) { var a = a0 + i * Math.PI / 2; ctx.beginPath(); ctx.arc(0, 0, r, a - .32, a + .32); ctx.stroke(); }
+  ctx.fillStyle = "rgba(255,79,109,.9)"; ctx.beginPath(); ctx.arc(0, 0, 2.5, 0, TAU); ctx.fill();
+  ctx.restore(); ctx.lineCap = "butt";
+}
 function draw() {
   var c = S.cam, z = c.z;
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -1194,8 +1296,21 @@ function draw() {
     ctx.beginPath(); ctx.moveTo(wx + ox + (wt % 40), wy + oy); ctx.quadraticCurveTo(wx + ox + 20 + (wt % 40), wy + oy - 8, wx + ox + 40 + (wt % 40), wy + oy); ctx.stroke();
   }
   ctx.fillStyle = "#1b8c90"; ctx.fill(WD.shallow);
+  if (!FX.low && !RM) { // quyosh yaltirashlari
+    ctx.globalCompositeOperation = "lighter"; var gg = 110;
+    for (var gy = Math.floor(vy0 / gg) * gg; gy < vy1; gy += gg) for (var gx = Math.floor(vx0 / gg) * gg; gx < vx1; gx += gg) {
+      var hsh = Math.sin(gx * 12.9898 + gy * 78.233) * 43758.5453, fr = hsh - Math.floor(hsh), br = Math.sin(S.t * (1.2 + fr) + fr * 40);
+      if (br < .82) continue;
+      var px = gx + fr * gg, py = gy + ((fr * 7.3) % 1) * gg; if (landD(px, py) > -30) continue;
+      var al = (br - .82) / .18, sz = 5 + fr * 6;
+      ctx.strokeStyle = "rgba(255,255,240," + (al * .8).toFixed(2) + ")"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(px - sz, py); ctx.lineTo(px + sz, py); ctx.moveTo(px, py - sz * .6); ctx.lineTo(px, py + sz * .6); ctx.stroke();
+    }
+    ctx.globalCompositeOperation = "source-over";
+  }
+  ctx.strokeStyle = "rgba(255,255,255," + (RM ? .16 : (.14 + .07 * Math.sin(S.t * 1.7)).toFixed(3)) + ")"; ctx.lineWidth = 30; ctx.stroke(WD.sand);
   ctx.fillStyle = "#dcc890"; ctx.fill(WD.sand);
-  ctx.strokeStyle = "rgba(255,255,255,.45)"; ctx.lineWidth = 5; if (!RM) { ctx.setLineDash([26, 18]); ctx.lineDashOffset = -S.t * 12; } ctx.stroke(WD.sand); ctx.setLineDash([]);
+  ctx.strokeStyle = "rgba(255,255,255,.55)"; ctx.lineWidth = 5; if (!RM) { ctx.setLineDash([26, 18]); ctx.lineDashOffset = -S.t * 12; } ctx.stroke(WD.sand); ctx.setLineDash([]);
   ctx.fillStyle = "#6f8c3c"; ctx.fill(WD.grass);
   WD.patches.forEach(function (p) { if (vis(p.x, p.y, p.r)) { ctx.fillStyle = p.dark ? "#62802f" : "#7d9845"; ctx.fill(p.path); } });
   WD.fields.forEach(function (f) {
@@ -1222,6 +1337,7 @@ function draw() {
   WD.rocks.forEach(function (r) { if (!vis(r.x, r.y, r.r)) return; ctx.fillStyle = "rgba(0,0,0,.2)"; ctx.save(); ctx.translate(5, 6); ctx.fill(r.path); ctx.restore(); ctx.fillStyle = "#7d847b"; ctx.fill(r.path); ctx.fillStyle = "#9da497"; ctx.fill(r.top); });
   // qutilar
   var now = S.t;
+  if (!FX.low) S.crates.forEach(function (cr) { if (cr.st === 0 && cr.lock <= 0 && cr.fall <= 0 && vis(cr.x, cr.y, 180)) drawCrateRays(cr, now); });
   S.crates.forEach(function (cr) { if (cr.st === 0 && vis(cr.x, cr.y, 40)) drawCrate(cr, now, z); else if (cr.st === 1 && vis(cr.x, cr.y, 20)) { ctx.fillStyle = "rgba(60,50,30,.35)"; ctx.fillRect(cr.x - 13, cr.y - 13, 26, 26); ctx.strokeStyle = "rgba(60,50,30,.5)"; ctx.lineWidth = 2; ctx.strokeRect(cr.x - 13, cr.y - 13, 26, 26); } });
   S.boxes.forEach(function (bx) {
     if (bx.st || !vis(bx.x, bx.y, 30)) return;
@@ -1230,14 +1346,18 @@ function draw() {
     ctx.fillStyle = "#fff"; ctx.fillRect(bx.x - 2, bx.y - 3, 4, 12); ctx.fillRect(bx.x - 6, bx.y + 1, 12, 4);
   });
   // o'qlar
-  ctx.lineCap = "round";
+  ctx.lineCap = "round"; ctx.globalCompositeOperation = "lighter";
   S.bullets.forEach(function (b) {
     if (!vis(b.x, b.y, 40)) return;
-    ctx.strokeStyle = b.col; ctx.lineWidth = b.k === "sniper" ? 4 : 3; ctx.beginPath(); ctx.moveTo(b.x - b.vx * .025, b.y - b.vy * .025); ctx.lineTo(b.x, b.y); ctx.stroke();
+    var sn = b.k === "sniper", tl = sn ? .06 : .04;
+    if (!FX.low) { ctx.globalAlpha = .28; ctx.strokeStyle = b.col; ctx.lineWidth = sn ? 11 : 8; ctx.beginPath(); ctx.moveTo(b.x - b.vx * tl, b.y - b.vy * tl); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.globalAlpha = 1; }
+    ctx.strokeStyle = b.col; ctx.lineWidth = sn ? 4 : 3; ctx.beginPath(); ctx.moveTo(b.x - b.vx * .025, b.y - b.vy * .025); ctx.lineTo(b.x, b.y); ctx.stroke();
+    ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(b.x - b.vx * .01, b.y - b.vy * .01); ctx.lineTo(b.x, b.y); ctx.stroke();
   });
-  ctx.lineCap = "butt";
+  ctx.globalCompositeOperation = "source-over"; ctx.lineCap = "butt";
   // o'yinchilar
   for (var i = S.players.length - 1; i >= 0; i--) { var p = S.players[i]; if (p.alive && p.phase === "ground" && vis(p.x, p.y, 60)) drawPlayer(p, z); }
+  if (S.st === "play" && S.lock && S.lock.alive && me && me.alive) drawLock(S.lock, now, z);
   // devorlar va tomlar
   WD.blds.forEach(function (b) {
     if (!vis(b.cx, b.cy, Math.max(b.w, b.h))) return;
@@ -1258,8 +1378,9 @@ function draw() {
   S.parts.forEach(function (q) {
     if (!vis(q.x, q.y, 40)) return;
     var k = q.life / q.max;
-    if (q.type === "spark") { ctx.globalAlpha = k; ctx.fillStyle = q.col; ctx.beginPath(); ctx.arc(q.x, q.y, q.size, 0, TAU); ctx.fill(); }
-    else if (q.type === "flash") { ctx.globalAlpha = k; ctx.fillStyle = q.col; ctx.beginPath(); ctx.arc(q.x, q.y, q.size * (1.4 - k * .4), 0, TAU); ctx.fill(); }
+    if (q.type === "spark") { ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = k; ctx.fillStyle = q.col; ctx.beginPath(); ctx.arc(q.x, q.y, q.size, 0, TAU); ctx.fill(); if (!FX.low) { ctx.globalAlpha = k * .3; ctx.beginPath(); ctx.arc(q.x, q.y, q.size * 2.6, 0, TAU); ctx.fill(); } ctx.globalCompositeOperation = "source-over"; }
+    else if (q.type === "flash") { ctx.globalCompositeOperation = "lighter"; var fr2 = q.size * (1.6 - k * .5); var fg = ctx.createRadialGradient(q.x, q.y, 0, q.x, q.y, fr2 * 1.8); fg.addColorStop(0, "rgba(255,255,230," + k + ")"); fg.addColorStop(.4, hexA("#ffd27a", k * .7)); fg.addColorStop(1, "rgba(255,160,60,0)"); ctx.globalAlpha = 1; ctx.fillStyle = fg; ctx.beginPath(); ctx.arc(q.x, q.y, fr2 * 1.8, 0, TAU); ctx.fill(); ctx.globalCompositeOperation = "source-over"; }
+    else if (q.type === "dust") { ctx.globalAlpha = k * .45; ctx.fillStyle = q.col; ctx.beginPath(); ctx.arc(q.x, q.y, q.size * (1.8 - k * .8), 0, TAU); ctx.fill(); }
     else if (q.type === "smoke") { ctx.globalAlpha = k * .55; ctx.fillStyle = q.col; ctx.beginPath(); ctx.arc(q.x, q.y, q.size * (2.2 - k * 1.2), 0, TAU); ctx.fill(); }
     else if (q.type === "ring") { ctx.globalAlpha = k; ctx.strokeStyle = q.col; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(q.x, q.y, q.size + (1 - k) * 60, 0, TAU); ctx.stroke(); }
     else if (q.type === "txt") { ctx.globalAlpha = Math.min(1, k * 2); ctx.fillStyle = q.col; ctx.font = "700 " + (18 / z).toFixed(1) + "px Rajdhani, Manrope, sans-serif"; ctx.textAlign = "center"; ctx.strokeStyle = "rgba(0,0,0,.7)"; ctx.lineWidth = 3 / z; ctx.strokeText(q.val, q.x, q.y); ctx.fillText(q.val, q.x, q.y); }
@@ -1270,19 +1391,29 @@ function draw() {
     if (!vis(t.x, t.y, t.cr)) return;
     var under = me && me.phase === "ground" && dst(me.x, me.y, t.x, t.y) < t.cr; t.a += ((under ? .42 : .96) - t.a) * .2;
     ctx.globalAlpha = t.a;
-    ctx.fillStyle = "rgba(0,0,0,.22)"; ctx.beginPath(); ctx.arc(t.x + 9, t.y + 11, t.cr, 0, TAU); ctx.fill();
-    ctx.fillStyle = t.v < .5 ? "#3d5c22" : "#466a26"; ctx.beginPath(); ctx.arc(t.x, t.y, t.cr, 0, TAU); ctx.fill();
-    ctx.fillStyle = t.v < .5 ? "#527a2c" : "#5d8630"; ctx.beginPath(); ctx.arc(t.x - t.cr * .18, t.y - t.cr * .2, t.cr * .7, 0, TAU); ctx.fill();
-    ctx.fillStyle = "#73983a"; ctx.beginPath(); ctx.arc(t.x - t.cr * .32, t.y - t.cr * .36, t.cr * .32, 0, TAU); ctx.fill();
+    ctx.fillStyle = "rgba(0,0,0,.24)"; ctx.beginPath(); ctx.ellipse(t.x + 13, t.y + 16, t.cr * 1.02, t.cr * .92, 0, 0, TAU); ctx.fill();
+    var sw = RM ? 0 : Math.sin(S.t * 1.25 + t.x * .013) * 1.8, D = t.cr * 2.174;
+    ctx.drawImage(FX.trees[t.v < .5 ? 0 : 1], t.x - D / 2 + sw, t.y - D / 2 + sw * .4, D, D);
   });
   WD.palms.forEach(function (t) {
     if (!vis(t.x, t.y, t.cr)) return;
     var under = me && me.phase === "ground" && dst(me.x, me.y, t.x, t.y) < t.cr; t.a += ((under ? .45 : .96) - t.a) * .2;
-    ctx.globalAlpha = t.a; ctx.fillStyle = "#4f8a3a";
-    for (var k = 0; k < 6; k++) { var a = t.rot + k * TAU / 6; ctx.beginPath(); ctx.ellipse(t.x + Math.cos(a) * t.cr * .5, t.y + Math.sin(a) * t.cr * .5, t.cr * .55, t.cr * .16, a, 0, TAU); ctx.fill(); }
+    ctx.globalAlpha = t.a; var pr = t.rot + (RM ? 0 : Math.sin(S.t * 1.4 + t.y * .02) * .05);
+    ctx.fillStyle = "rgba(0,0,0,.2)";
+    for (var k = 0; k < 6; k++) { var a = pr + k * TAU / 6; ctx.beginPath(); ctx.ellipse(t.x + 12 + Math.cos(a) * t.cr * .5, t.y + 15 + Math.sin(a) * t.cr * .5, t.cr * .55, t.cr * .16, a, 0, TAU); ctx.fill(); }
+    for (k = 0; k < 6; k++) { var a2 = pr + k * TAU / 6; ctx.fillStyle = k % 2 ? "#4f8a3a" : "#5c9a42"; ctx.beginPath(); ctx.ellipse(t.x + Math.cos(a2) * t.cr * .5, t.y + Math.sin(a2) * t.cr * .5, t.cr * .55, t.cr * .16, a2, 0, TAU); ctx.fill();
+      ctx.strokeStyle = "rgba(190,240,140,.35)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(t.x, t.y); ctx.lineTo(t.x + Math.cos(a2) * t.cr, t.y + Math.sin(a2) * t.cr); ctx.stroke(); }
     ctx.fillStyle = "#7a5a32"; ctx.beginPath(); ctx.arc(t.x, t.y, 7, 0, TAU); ctx.fill();
   });
   ctx.globalAlpha = 1;
+  if (!FX.low && FX.cloud) {
+    FX.clouds.forEach(function (cl) {
+      if (!RM) { cl.x += .25; cl.y += .08; if (cl.x > CX + R0 * 1.5) { cl.x = CX - R0 * 1.5; cl.y = CY + rnd(-R0, R0); } }
+      if (!vis(cl.x, cl.y, cl.s)) return;
+      ctx.globalAlpha = cl.k * .5; ctx.drawImage(FX.cloud, cl.x - cl.s / 2, cl.y - cl.s * .32, cl.s, cl.s * .64);
+    });
+    ctx.globalAlpha = 1;
+  }
   // parashyutlar va samolyot
   S.crates.forEach(function (cr) { if (cr.fall > 0 && vis(cr.x, cr.y, 400)) drawFallingCrate(cr); });
   S.players.forEach(function (p) { if (p.alive && p.phase === "air" && vis(p.x, p.y, 120)) drawChute(p, z); });
@@ -1290,6 +1421,15 @@ function draw() {
   if (S.st === "drop" && me && me.phase === "plane") drawDropAim(z);
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   drawZone(c, z);
+  var vk = W + "x" + H;
+  if (FX.vigK !== vk) {
+    FX.vigK = vk;
+    FX.vig = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * .42, W / 2, H / 2, Math.hypot(W, H) * .62);
+    FX.vig.addColorStop(0, "rgba(2,10,18,0)"); FX.vig.addColorStop(1, "rgba(2,10,18,.42)");
+    FX.sun = ctx.createLinearGradient(0, 0, W * .7, H * .7); FX.sun.addColorStop(0, "rgba(255,226,160,.13)"); FX.sun.addColorStop(1, "rgba(255,226,160,0)");
+  }
+  ctx.fillStyle = FX.sun; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = FX.vig; ctx.fillRect(0, 0, W, H);
   drawScreenFx(c, z);
 }
 function drawCrate(cr, now, z) {
@@ -1324,7 +1464,10 @@ function drawFallingCrate(cr) {
 function drawPlayer(p, z) {
   var x = p.x, y = p.y, r = p.r, w = curW(p);
   ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.beginPath(); ctx.ellipse(x + 4, y + 6, r, r * .85, 0, 0, TAU); ctx.fill();
-  if (p === S.me) { ctx.strokeStyle = "rgba(63,245,209,.35)"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y, r + 11, 0, TAU); ctx.stroke(); }
+  if (p === S.me) {
+    if (!FX.low) { var mg = ctx.createRadialGradient(x, y, r * .5, x, y, r * 3.2); mg.addColorStop(0, "rgba(63,245,209,.28)"); mg.addColorStop(1, "rgba(63,245,209,0)"); ctx.fillStyle = mg; ctx.beginPath(); ctx.arc(x, y, r * 3.2, 0, TAU); ctx.fill(); }
+    ctx.strokeStyle = "rgba(63,245,209,.55)"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y, r + 11, 0, TAU); ctx.stroke();
+  }
   ctx.save(); ctx.translate(x, y); ctx.rotate(p.ang);
   if (w) { var L = WEP[w.k].len; ctx.fillStyle = "#1f2528"; ctx.fillRect(r - 6, -4, L + 6, 8); ctx.fillStyle = "#4a555a"; ctx.fillRect(r - 4, -2.5, L, 2.5); if (w.k === "sniper") { ctx.fillStyle = "#111"; ctx.fillRect(r + 2, -6.5, 12, 4); } }
   ctx.fillStyle = "#e8c39e"; ctx.strokeStyle = p.dark; ctx.lineWidth = 2;
@@ -1387,9 +1530,24 @@ function drawDropAim(z) {
 function drawZone(c, z) {
   var Z = S.zone; if (!Z) return;
   var sx = (Z.x - c.x) * z + W / 2, sy = (Z.y - c.y) * z + H / 2, sr = Math.max(0, Z.r * z);
+  var sg = ctx.createRadialGradient(sx, sy, Math.max(0, sr - 2), sx, sy, sr + Math.max(90, 260 * z));
+  sg.addColorStop(0, "rgba(200,140,255,.55)"); sg.addColorStop(.12, "rgba(140,80,240,.38)"); sg.addColorStop(1, "rgba(60,40,170,.34)");
   ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(sx, sy, sr, 0, TAU, true);
-  ctx.fillStyle = "rgba(50,100,215,.24)"; ctx.fill("evenodd");
-  ctx.strokeStyle = "#3ff5d1"; ctx.lineWidth = 3; ctx.shadowColor = "#3ff5d1"; ctx.shadowBlur = RM ? 0 : 10; ctx.beginPath(); ctx.arc(sx, sy, sr, 0, TAU); ctx.stroke(); ctx.shadowBlur = 0;
+  ctx.fillStyle = sg; ctx.fill("evenodd");
+  ctx.globalCompositeOperation = "lighter";
+  ctx.strokeStyle = "rgba(190,120,255,.35)"; ctx.lineWidth = 12; ctx.beginPath(); ctx.arc(sx, sy, sr, 0, TAU); ctx.stroke();
+  ctx.strokeStyle = "#d9b8ff"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(sx, sy, sr, 0, TAU); ctx.stroke();
+  if (!FX.low && !RM && sr > 20) { // chaqmoq uchqunlari zona chegarasida
+    ctx.strokeStyle = "rgba(235,215,255,.85)"; ctx.lineWidth = 1.6;
+    for (var e = 0; e < 7; e++) {
+      var a = Math.random() * TAU, ex = sx + Math.cos(a) * sr, ey = sy + Math.sin(a) * sr;
+      if (ex < -20 || ex > W + 20 || ey < -20 || ey > H + 20) continue;
+      ctx.beginPath(); ctx.moveTo(ex, ey);
+      for (var j = 1; j < 5; j++) { var rr = sr + j * 9 + rnd(-6, 6), aa = a + rnd(-.02, .02) * j; ctx.lineTo(sx + Math.cos(aa) * rr, sy + Math.sin(aa) * rr); }
+      ctx.stroke();
+    }
+  }
+  ctx.globalCompositeOperation = "source-over";
   if (Z.mode !== "done") {
     var nx = (Z.nx - c.x) * z + W / 2, ny = (Z.ny - c.y) * z + H / 2;
     ctx.setLineDash([10, 8]); ctx.strokeStyle = "rgba(255,255,255,.85)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(nx, ny, Math.max(0, Z.nr * z), 0, TAU); ctx.stroke(); ctx.setLineDash([]);
@@ -1421,7 +1579,7 @@ function drawScreenFx(c, z) {
   if (me.alive && me.hp < 30 && S.st === "play") { var pk = .25 + .15 * Math.sin(S.t * 6); var g2 = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * .4, W / 2, H / 2, Math.max(W, H) * .7); g2.addColorStop(0, "rgba(255,0,40,0)"); g2.addColorStop(1, "rgba(255,0,40," + pk + ")"); ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H); }
   if (touchMode && S.st === "play" && !S.q) {
     drawStick(stick.move, 90, H - 170, "YURISH");
-    drawStick(stick.aim, W - (H < 520 ? 160 : 90), H - (H < 520 ? 110 : 170), "OTISH");
+    if (!isAuto()) drawStick(stick.aim, W - (H < 520 ? 160 : 90), H - (H < 520 ? 110 : 170), "OTISH");
   }
   S.confetti.forEach(function (q) { ctx.fillStyle = q.c; ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(q.r); ctx.fillRect(-5, -3, 10, 6); ctx.restore(); });
 }
@@ -1534,7 +1692,7 @@ function endGame(win) {
   $("eKills").textContent = kills; $("eAcc").textContent = tq ? Math.round(ok / tq * 100) + "%" : "—"; $("eTime").textContent = fmtT(time);
   $("eAcc").parentNode.title = ok + " / " + tq;
   $("eCoins").textContent = coins > 0 ? (got ? "+" + coins + " 🪙 coin olindi!" : "🪙 " + coins + " coin — olish uchun akkauntga kiring") : "To'g'ri javoblar: " + ok + " / " + tq;
-  setTimeout(function () { $("endScr").hidden = false; $("play").hidden = true; }, win ? 900 : 1300);
+  setTimeout(function () { $("endScr").hidden = false; $("play").hidden = true; document.body.classList.remove("playing"); }, win ? 900 : 1300);
 }
 
 // ================= KIRITISH =================
@@ -1548,7 +1706,7 @@ cv.addEventListener("pointerdown", function (e) {
   touchMode = true;
   if (S.st === "drop") { dropTap(e.clientX, e.clientY); return; }
   if (S.st !== "play" || S.q) return;
-  var kind = e.clientX < W * .45 ? "move" : "aim";
+  var kind = isAuto() ? "move" : (e.clientX < W * .45 ? "move" : "aim");
   if (stick[kind]) return;
   stick[kind] = { id: e.pointerId, ox: e.clientX, oy: e.clientY, x: e.clientX, y: e.clientY, vx: 0, vy: 0, m: 0 };
   try { cv.setPointerCapture(e.pointerId); } catch (_) {}
@@ -1607,6 +1765,7 @@ $("bResume").addEventListener("click", function () { pause(false); });
 $("bQuit").addEventListener("click", function () { pause(false); toMenu(); });
 document.addEventListener("visibilitychange", function () { if (document.hidden && (S.st === "play" || S.st === "drop")) pause(true); });
 function toMenu() {
+  document.body.classList.remove("playing");
   S.st = "menu"; closeQ(); hideQuick(); $("hud").hidden = true; $("endScr").hidden = true; $("startScr").hidden = false; S.confetti = [];
 }
 $("bAgain").addEventListener("click", startGame);
@@ -1623,7 +1782,10 @@ $("bStart").addEventListener("click", startGame);
   }
   sg.addEventListener("click", function (e) { var v = e.target.getAttribute && e.target.getAttribute("data-v"); if (v) { grade = v; ls("ka.royale.grade", v); paint(); } });
   stp.addEventListener("click", function (e) { var v = e.target.getAttribute && e.target.getAttribute("data-v"); if (v) { topic = v; ls("ka.royale.topic", v); paint(); } });
-  paint();
+  var sc = $("sCtrl");
+  function paintC() { Array.prototype.forEach.call(sc.children, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-v") === ctrlMode ? "true" : "false"); }); }
+  sc.addEventListener("click", function (e) { var b = e.target.closest && e.target.closest("button"); var v = b && b.getAttribute("data-v"); if (v) { ctrlMode = v; ls("ka.royale.ctrl", v); paintC(); } });
+  paint(); paintC();
 })();
 
 // ================= SIKL =================
@@ -1631,7 +1793,7 @@ var last = 0, fpsN = 0, fpsAcc = 0, fpsV = 0;
 function frame(now) {
   requestAnimationFrame(frame);
   var rdt = Math.min(.05, Math.max(0, (now - (last || now)) / 1000)); last = now;
-  fpsN++; fpsAcc += rdt; if (fpsAcc >= 1) { fpsV = fpsN; fpsN = 0; fpsAcc = 0; }
+  fpsN++; fpsAcc += rdt; if (fpsAcc >= 1) { fpsV = fpsN; fpsN = 0; fpsAcc = 0; if (S.st === "play" && !S.paused && !document.hidden) { FX.bad = fpsV < 40 ? FX.bad + 1 : 0; if (FX.bad >= 3 && !FX.low) FX.low = true; } }
   if (S.paused) return;
   if (S.st === "drop" || S.st === "play") {
     var sdt = rdt * S.ts * S.slow, n = Math.min(40, Math.max(1, Math.ceil(sdt * 60 - .01))), h = sdt / n;
@@ -1648,7 +1810,7 @@ function frame(now) {
 window.addEventListener("resize", function () { resize(); });
 resize();
 // menyu foni uchun dunyo
-WD = genWorld((Math.random() * 1e9) | 0); buildMini();
+WD = genWorld((Math.random() * 1e9) | 0); buildMini(); fxInit();
 S.me = null; S.zone = null;
 S.plane = { x0: CX - R0 * 1.4, y0: CY + 300, x1: CX + R0 * 1.4, y1: CY - 300, t: 0, T: 16, ang: Math.atan2(-600, R0 * 2.8), x: 0, y: 0 };
 S.crates = []; WD.crates0.forEach(function (c) { S.crates.push({ x: c.x, y: c.y, tier: c.tier, bld: c.bld, st: 0, lock: 0, claim: null, air: false, fall: 0 }); });
@@ -1658,7 +1820,7 @@ requestAnimationFrame(frame);
 // ================= DEBUG =================
 if (DEBUG) {
   window.RD = {
-    S: S, WEP: WEP,
+    S: S, WEP: WEP, FX: FX,
     ts: function (n) { S.ts = n; },
     start: function (g, t) { if (g) grade = g; if (t) topic = t; startGame(); },
     jump: function (x, y) { jump(S.me, x == null ? CX : x, y == null ? CY : y); },
