@@ -487,5 +487,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u tulkiga o'zi boshidan kechirgan hiylani qaytarmoqchi bo'ldi", "Chunki tulki och emasligini bilar edi", "Chunki ko'za yangi va chiroyli edi"],
     javob: 0,
     izoh: "Laylak tulkining o'z hiylasi bilan javob berdi. Bu masal boshqalarga qilgan yomonligingiz o'zingizga qaytishi mumkinligini eslatadi."
+  },
+  {
+    id: "ez-062", mavzu: "hamkorlik", sarlavha: "Kaptarlar va to'r",
+    matn: "Kaptarlar dala ustida don ko'rib, bir-birining ustiga tushishdi. Shu zahoti ularning ustiga to'r tashlandi va hammasi tutildi. Ular alohida-alohida qochishga urinishdi, lekin to'r ularni qo'yib yubormadi. Shunda eng aqllisi: \"Hammamiz birdan uchaylik\", dedi.",
+    savol: "Kaptarlar qanday qutulib qolishdi?",
+    variantlar: ["Har biri o'z kuchi bilan alohida qochib, to'rni yirtib yubordi", "Hammasi birgalikda uchib, to'rni ko'tarib ketishdi", "Ular to'rni ovchiga topshirib, o'zlari ozod bo'lishdi"],
+    javob: 1,
+    izoh: "Har biri alohida harakat qilganda to'r ularni tutib turdi. Birgalikda uchganda esa kuch birlashib, to'r ko'tarildi. Hamkorlik qiyin vaziyatdan chiqishga yordam beradi."
   }
 ];
