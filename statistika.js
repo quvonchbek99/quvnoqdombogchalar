@@ -39,7 +39,7 @@
 /* Yandex Metrika — hisoblagich raqamini YM_ID ga yozing (metrika.yandex.ru). 0 bo'lsa o'chiq turadi. */
 (function () {
   "use strict";
-  var YM_ID = 0;
+  var YM_ID = 113775848;
   if (!YM_ID || window.__kaYM || /localhost|127\.0\.0\.1/.test(location.hostname)) return;
   window.__kaYM = 1;
   // Vebvizor yozuvlarida o'quvchi kiritgan matn (ism, javob) saqlanmasin
@@ -49,7 +49,7 @@
   }
   window.ym = window.ym || function () { (window.ym.a = window.ym.a || []).push(arguments); };
   window.ym.l = 1 * new Date();
-  ym(YM_ID, "init", { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true });
+  ym(YM_ID, "init", { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true, trackHash: true });
   function go() {
     yashir();
     try { new MutationObserver(yashir).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
