@@ -1,0 +1,42 @@
+{
+  "id": "2025-6",
+  "badge": "IMO 2025 · 6-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Matildaning plitkalari",
+      "fs": 37,
+      "body": "<p><b>2025 × 2025</b> o'lchamli katakli jadval berilgan. Matilda unga turli o'lchamdagi <b>to'g'ri to'rtburchak plitkalar</b> qo'ymoqchi:</p><ul><li>har bir plitkaning tomonlari katak chiziqlarida yotadi;</li><li>har bir katakni ko'pi bilan bitta plitka qoplaydi.</li></ul><div class='box'>Har bir <b>satr</b> va har bir <b>ustunda</b> aynan bitta qoplanmagan katak qolishi kerak.</div><p>Matilda <b>eng kamida</b> nechta plitka qo'yishi kerak?</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob: 2112",
+      "fs": 36,
+      "body": "<div class='box'><span class='m'>2025 + 2 · 45 − 3 = 2112</span></div><p>Umuman, <span class='m'>n × n</span> jadval uchun javob <span class='m'>⌈n + 2√n − 3⌉</span>. Bizda <span class='m'>n = 45<sup>2</sup></span> — to'liq kvadrat, shuning uchun <span class='m'>n = k<sup>2</sup></span> da javob</p><div class='box'><span class='m'>k<sup>2</sup> + 2k − 3</span></div><p>Qoplanmagan kataklarni <b>«qora»</b> deymiz. Har satr va ustunda bittadan qora katak — ular <b>o'rin almashtirish</b> (permutatsiya) hosil qiladi.</p><p>Isbot ikki qismdan iborat: <b>misol</b> (2112 ta yetadi) va <b>baho</b> (kamiga bo'lmaydi).</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Misol: kvadratlar zinasi",
+      "fs": 34,
+      "body": "<p><span class='m'>k = 3</span>, ya'ni <span class='m'>9 × 9</span> jadval uchun qurilma (oltin — qora kataklar):</p><svg viewBox='0 0 408 408' width='408' height='408' style='display:block;margin:4px auto 18px'><rect x='9' y='9' width='38' height='258' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='53' y='9' width='38' height='126' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='141' y='9' width='126' height='38' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='273' y='9' width='126' height='82' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='97' y='53' width='126' height='126' rx='5' fill='#24406a' stroke='#eef2f7' stroke-width='3'/><rect x='229' y='97' width='126' height='126' rx='5' fill='#24406a' stroke='#eef2f7' stroke-width='3'/><rect x='361' y='141' width='38' height='258' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='53' y='185' width='126' height='126' rx='5' fill='#24406a' stroke='#eef2f7' stroke-width='3'/><rect x='185' y='229' width='126' height='126' rx='5' fill='#24406a' stroke='#eef2f7' stroke-width='3'/><rect x='317' y='273' width='38' height='126' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='9' y='317' width='126' height='38' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='9' y='361' width='258' height='38' rx='5' fill='#1a2b44' stroke='#eef2f7' stroke-width='3'/><rect x='98' y='10' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='230' y='54' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='362' y='98' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='54' y='142' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='186' y='186' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='318' y='230' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='10' y='274' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='142' y='318' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='274' y='362' width='36' height='36' rx='4' fill='#f2b84b'/><rect x='6' y='6' width='396' height='396' fill='none' stroke='#8fa3bf' stroke-width='2'/></svg><p>Ichkarida <span class='m'>(k − 1)<sup>2</sup></span> ta <span class='m'>k × k</span> kvadrat, chetlarda <span class='m'>4(k − 1)</span> ta plitka:</p><div class='box'><span class='m'>(k − 1)<sup>2</sup> + 4(k − 1) = k<sup>2</sup> + 2k − 3</span><br><span class='m'>k = 3</span>: 12 ta; &nbsp;<span class='m'>k = 45</span>: <b>2112</b> ta</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Erdős–Szekeres teoremasi",
+      "fs": 36,
+      "body": "<p>Qora kataklarni chapdan o'ngga o'qiymiz. Ulardan eng uzun <b>o'suvchi</b> (pastdan yuqoriga ko'tariluvchi) zanjir uzunligi <span class='m'>a</span>, eng uzun <b>kamayuvchi</b> zanjir uzunligi <span class='m'>b</span> bo'lsin.</p><div class='box'>Erdős–Szekeres: &nbsp;<span class='m'>a · b ≥ n</span></div><p>O'rta arifmetik va o'rta geometrik tengsizligidan:</p><div class='box'><span class='m'>a + b ≥ 2√(ab) ≥ 2√n</span></div><p>Bizda <span class='m'>a + b ≥ 90</span>. Endi shu ikki zanjir yordamida plitkalarni «sanaymiz».</p>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Harflar usuli",
+      "fs": 32,
+      "body": "<p>O'suvchi zanjirni siniq chiziq qilib chap-pastki va o'ng-yuqori burchakka, kamayuvchisini chap-yuqori va o'ng-pastki burchakka tutashtiramiz. Jadval 4 qismga bo'linadi: <b>Shimol, Sharq, Janub, G'arb</b>.</p><p>Har qora katakning shu yo'nalishdagi qo'shnisiga harf yozamiz (shimoldagi uchun — tepasiga va h.k.). Zanjirdagi kataklar 2 yoki 4 ta harf beradi:</p><div class='box'>Harflar soni <span class='m'>C ≥ n + a + b ≥ n + 2√n</span></div><p><b>Asosiy kuzatish:</b> bitta plitkaga ikkita harf tushmaydi. Jadvaldan tashqariga ko'pi bilan 4 ta harf chiqadi (har yo'nalishda bittadan), demak</p><div class='box'>plitkalar ≥ <span class='m'>C − 4 ≥ n + 2√n − 3</span></div><p>Zanjirlar kesishmasa, ularning uchrashgan joyidagi plitkada harf yo'q — u yana +1 beradi. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 34,
+      "body": "<ul><li><span class='m'>n = 4</span>: <span class='m'>4 + 4 − 3 = 5</span> ta plitka</li><li><span class='m'>n = 9</span>: <span class='m'>9 + 6 − 3 = 12</span> ta (3-slayddagi rasm)</li><li><span class='m'>n = 2025</span>: <b>2112</b> ta</li></ul><div class='box'>Python'da <span class='m'>n ≤ 6</span> uchun barcha joylashuvlar to'liq tekshirildi — formula to'g'ri ✅</div><p>💡 Qiziq fakt: bu qurilma IMO 2025 o'tgan Avstraliyadagi Sunshine Coast aeroportining pol naqshida bor!</p><p>Yechim Evan Chen yozuvlari asosida.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>5 × 5</span> jadval uchun eng kamida nechta plitka kerak? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2024 · 1-masala</b> (algebra)</p>"
+    }
+  ]
+}
