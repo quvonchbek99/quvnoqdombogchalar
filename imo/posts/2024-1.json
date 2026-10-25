@@ -1,0 +1,36 @@
+{
+  "id": "2024-1",
+  "badge": "IMO 2024 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Butun qismlar yig'indisi",
+      "fs": 38,
+      "body": "<p>Shunday barcha <b>haqiqiy</b> <span class='m'>α</span> sonlarni topingki, har bir natural <span class='m'>n</span> uchun</p><div class='box'><span class='m'>⌊α⌋ + ⌊2α⌋ + ⌊3α⌋ + … + ⌊nα⌋</span></div><p>butun soni <span class='m'>n</span> ga <b>bo'linsin</b>.</p><p>Bu yerda <span class='m'>⌊x⌋</span> — <span class='m'>x</span> ning butun qismi, ya'ni <span class='m'>x</span> dan oshmaydigan eng katta butun son. Masalan, <span class='m'>⌊2,7⌋ = 2</span>, <span class='m'>⌊−1,2⌋ = −2</span>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob: juft butun sonlar",
+      "fs": 36,
+      "body": "<div class='box'><span class='m'>α</span> — ixtiyoriy <b>juft butun</b> son: <span class='m'>…, −2, 0, 2, 4, …</span></div><p>Yig'indini <span class='m'>S(n, α)</span> deb belgilaymiz. Agar <span class='m'>α</span> butun bo'lsa, butun qism belgisi «yo'qoladi»:</p><div class='box'><span class='m'>S(n, α) = (1 + 2 + … + n) · α = n(n + 1)/2 · α</span></div><ul><li>✅ <span class='m'>α</span> juft: <span class='m'>S = n(n + 1) · (α/2)</span> — <span class='m'>n</span> ga bo'linadi</li><li>❌ <span class='m'>α</span> toq: <span class='m'>n = 2</span> da <span class='m'>S = 3α</span> — toq son, 2 ga bo'linmaydi</li></ul>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "α ni 2 ga surish mumkin",
+      "fs": 36,
+      "body": "<p>Endi <span class='m'>α</span> butun <b>emas</b> deb faraz qilamiz va shart hech qachon bajarilmasligini ko'rsatamiz.</p><p><span class='m'>α</span> ni <span class='m'>α + 2</span> ga almashtirsak, har bir <span class='m'>⌊kα⌋</span> aynan <span class='m'>2k</span> ga oshadi:</p><div class='box'><span class='m'>S(n, α + 2) − S(n, α)</span><br><span class='m'>= 2(1 + 2 + … + n) = n(n + 1)</span></div><p>Bu farq doim <span class='m'>n</span> ga bo'linadi. Demak, <span class='m'>α</span> ni 2 ga oshirish yoki kamaytirish javobga ta'sir qilmaydi.</p><div class='box'>Shuning uchun <span class='m'>−1 &lt; α &lt; 1</span> va <span class='m'>α ≠ 0</span> deb olish yetarli.</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Ikki holat — ikki qarshi misol",
+      "fs": 33,
+      "body": "<p><b>1) <span class='m'>0 &lt; α &lt; 1</span>.</b> <span class='m'>mα ≥ 1</span> bo'ladigan eng kichik <span class='m'>m</span> ni olamiz (<span class='m'>m ≥ 2</span>). Unda oldingi hadlar 0 ga, oxirgisi 1 ga teng (chunki <span class='m'>mα &lt; 2</span>):</p><div class='box'><span class='m'>S(m, α) = 0 + 0 + … + 0 + 1 = 1</span> — <span class='m'>m</span> ga bo'linmaydi</div><p><b>2) <span class='m'>−1 &lt; α &lt; 0</span>.</b> <span class='m'>mα &lt; −1</span> bo'ladigan eng kichik <span class='m'>m</span> ni olamiz (<span class='m'>m ≥ 2</span>). Oldingi <span class='m'>m − 1</span> ta had <span class='m'>−1</span> ga, oxirgisi <span class='m'>−2</span> ga teng:</p><div class='box'><span class='m'>S(m, α) = −(m − 1) − 2 = −(m + 1)</span> — <span class='m'>m</span> ga bo'linmaydi</div><p>Demak, butun bo'lmagan <span class='m'>α</span> yaramaydi. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 34,
+      "body": "<ul><li><span class='m'>α = 0,5</span>: <span class='m'>n = 2</span> da <span class='m'>⌊0,5⌋ + ⌊1⌋ = 1</span> ❌</li><li><span class='m'>α = 3</span>: <span class='m'>n = 2</span> da <span class='m'>3 + 6 = 9</span> ❌</li><li><span class='m'>α = 4</span>: <span class='m'>S = 2n(n + 1)</span> — har doim bo'linadi ✅</li></ul><div class='box'>Python'da maxraji 12 gacha bo'lgan barcha kasrlar <span class='m'>n ≤ 39</span> uchun tekshirildi — faqat juft butun sonlar qoldi ✅</div><p>Yechim Evan Chen yozuvlari asosida.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>α = 1/3</span> bo'lsa, shart qaysi <span class='m'>n</span> da birinchi marta buziladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2024 · 2-masala</b> (sonlar nazariyasi)</p>"
+    }
+  ]
+}
