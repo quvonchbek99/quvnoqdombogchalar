@@ -78,7 +78,7 @@ service cloud.firestore {
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.status == 'pending'
         && request.resource.data.img is string && request.resource.data.img.size() <= 700000
-        && request.resource.data.img.matches('^data:image/.*')
+        && request.resource.data.img.matches('^data:image/(png|jpeg|jpg|webp);base64,[A-Za-z0-9+/=]+$') // faqat rasm (SVG ichida skript bo'lishi mumkin)
         && request.resource.data.note is string && request.resource.data.note.size() <= 200
         && request.resource.data.name is string && request.resource.data.name.size() <= 40
         && request.resource.data.group is string && request.resource.data.group.size() <= 20

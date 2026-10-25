@@ -231,8 +231,14 @@
       var fresh = qs.filter(function (q) { return q.src === "gen" && q.options.length === 4 && !inBank[norm(q.q)]; })
         .map(function (q) { return { topicId: topicId, topic: titleOf(topicId), q: q.q, options: q.options, correct: q.correct }; });
       if (!fresh.length) return;
-      fetch(url, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ action: "addQuestions", questions: fresh }) }).catch(function () {});
+      // Bazaga faqat o'qituvchi akkaunti yozadi (server idToken'ni tekshiradi); oddiy o'quvchida so'rov yuborilmaydi
+      var me = window.kaAccount && window.kaAccount.me ? window.kaAccount.me() : null;
+      if (!me || !me.cloud || !window.kaCloud || !window.kaCloud.idToken) return; // bulut akkaunti yo'q — Firebase'ni bekorga yuklamaymiz
+      window.kaCloud.idToken().then(function (tok) {
+        if (!tok) return;
+        fetch(url, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "addQuestions", idToken: tok, questions: fresh }) }).catch(function () {});
+      }, function () {});
     } catch (e) {}
   }
   var chosen = PER_TEST;

@@ -2,6 +2,8 @@
 <html lang="uz">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Funksiya Ovchisi — Kuvonch Academy</title>
 <meta name="description" content="Funksiya Ovchisi — formula va grafikni moslashtiring, funksiya xossalarini toping, tabiatdagi shakllarni (favvora, to'lqin, chig'anoq, kungaboqar, kamalak) aniqlang. Kamera (qo'l) yoki sichqoncha bilan. Kuvonch Academy.">
@@ -763,7 +765,9 @@ async function startHands(){
 (function(){
   const c=navigator.connection; if(c&&(c.saveData||/2g/.test(c.effectiveType||''))) return;
   const go=()=>{ if(ctrl==='hand'&&!camOn) prepHands().catch(()=>{}); };
-  window.addEventListener('load',()=>setTimeout(go,400));
+  // telefonda qo'l modeli ishga tushganda sahifa 1–3 soniya qotadi — u yerda faqat tanlanganda/boshlanganda yuklaymiz
+  const weak=/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)||(navigator.hardwareConcurrency||8)<=4;
+  if(!weak) window.addEventListener('load',()=>('requestIdleCallback' in window)?requestIdleCallback(go,{timeout:4000}):setTimeout(go,1500));
   const box=document.getElementById('ctrlOpts');
   if(box) box.addEventListener('click',e=>{ if(e.target.closest('[data-c="hand"]')) setTimeout(go,0); });
 })();

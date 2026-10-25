@@ -12,7 +12,15 @@
  *  5. Worker manzili (masalan https://kuvonch-ai.USERNAME.workers.dev) ni ai-slayd.html ichidagi
  *     DEFAULT_WORKER = "" ga yozing (yoki sahifadagi ⚙️ bo'limiga kiriting).
  */
-const ALLOW = ["https://kuvonch.uz", "https://www.kuvonch.uz", "https://quvonchbek99.github.io", "http://localhost:8766", "http://127.0.0.1:5500"];
+const ALLOW = ["https://kuvonch.uz", "https://www.kuvonch.uz", "https://quvonchbek99.github.io"]; // localhost olib tashlandi — begonalar kalitingizni sarflamasin
+// Bitta IP dan daqiqasiga ko'pi bilan 6 ta so'rov (worker nusxasi ichida; kalit limitini himoya qiladi)
+const HITS = new Map();
+function tooMany(ip) {
+  const now = Date.now(), arr = (HITS.get(ip) || []).filter(t => now - t < 60000);
+  arr.push(now); HITS.set(ip, arr);
+  if (HITS.size > 5000) HITS.clear();
+  return arr.length > 6;
+}
 const MODEL = "gemini-flash-latest"; // gemini-2.0-flash 2026-yil 1-iyundan o'chirilgan
 
 export default {
@@ -28,6 +36,7 @@ export default {
     const url = new URL(req.url);
     if (req.method !== "POST" || url.pathname !== "/generate") return new Response(JSON.stringify({ ok: true, info: "Kuvonch Academy AI proxy. POST /generate" }), { headers: cors });
     if (!ALLOW.includes(origin)) return new Response(JSON.stringify({ error: "origin ruxsat etilmagan" }), { status: 403, headers: cors });
+    if (tooMany(req.headers.get("CF-Connecting-IP") || "?")) return new Response(JSON.stringify({ error: "juda ko'p so'rov, bir daqiqadan keyin urinib ko'ring" }), { status: 429, headers: cors });
     if (!env.GEMINI_KEY) return new Response(JSON.stringify({ error: "GEMINI_KEY sozlanmagan" }), { status: 500, headers: cors });
 
     // oddiy himoya: so'rov hajmi

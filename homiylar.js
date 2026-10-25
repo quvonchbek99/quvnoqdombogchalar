@@ -70,6 +70,7 @@ window.HOMIYLAR = [
   document.head.appendChild(css);
 
   function statsHTML() {
+    if (!H.length) return "";
     var tot = H.reduce(function (s, h) { return s + (+h.summa || 0); }, 0), n = H.length, links = H.filter(function (h) { return !h.summa; }).length;
     return '<div class="hm-stats"><div><b>' + n + '</b><small>homiy</small></div><div><b>' + fmt(tot) + '</b><small>so\'m jami</small></div><div><b>' + Math.max(0, Math.round(tot / 10000)) + '</b><small>piyola kofe</small></div><div><b>' + links + '</b><small>havola bilan</small></div></div>';
   }
@@ -78,7 +79,8 @@ window.HOMIYLAR = [
     if (!R.length) return '<div class="hm-empty">Hali homiylar ro\'yxati bo\'sh — birinchi bo\'ling! Kofe uchun hissa qo\'shing yoki saytni ulashib, havolani Telegram\'da (@miir1999) yuboring: ismingiz shu yerda chiqadi.</div>';
     return '<ol class="hm-list">' + R.map(function (h, i) {
       var cls = i === 0 ? "top1" : i === 1 ? "top2" : i === 2 ? "top3" : "", medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : String(i + 1);
-      var who = h.havola ? '<a href="' + esc(h.havola) + '" target="_blank" rel="noopener nofollow">' + esc(h.havola.replace(/^https?:\/\/(www\.)?/, "").slice(0, 36)) + '</a>' : "";
+      var safe = /^https?:\/\//i.test(String(h.havola || "")) ? String(h.havola) : "";
+      var who = safe ? '<a href="' + esc(safe) + '" target="_blank" rel="noopener noreferrer nofollow">' + esc(safe.replace(/^https?:\/\/(www\.)?/, "").slice(0, 36)) + '</a>' : "";
       return '<li class="hm-row ' + cls + '"><div class="hm-n">' + medal + '</div><div class="hm-who"><b>' + esc(h.ism) + '</b>' + who + (h.xabar ? '<small>“' + esc(h.xabar) + '”</small>' : "") + '</div><div class="hm-amt">' + (h.summa ? fmt(h.summa) + " so'm" : "🔗 havola") + '<small>' + daraja(+h.summa || 0) + " " + kofe(+h.summa || 0) + (h.sana ? " · " + esc(h.sana) : "") + '</small></div></li>';
     }).join("") + "</ol>";
   }
@@ -103,7 +105,7 @@ window.HOMIYLAR = [
     var host = document.getElementById("homiylar");
     if (host) host.innerHTML = '<div class="hm-wrap"><div class="hm-head"><h3>🏆 Homiylar reytingi</h3><small>Pul yoki havola bilan qo\'llab-quvvatlaganlar</small></div>' + statsHTML() + listHTML(host.getAttribute("data-limit") ? +host.getAttribute("data-limit") : 50) + "</div>";
     // 2) Doimiy "Buy me a coffee" bandi — footer oldidan (donat.html da shart emas)
-    if (/donat\.html$/.test(location.pathname) || document.querySelector(".bmc-band")) return;
+    if (/donat\.html$/.test(location.pathname) || document.querySelector(".bmc-band") || document.getElementById("qollab")) return;
     var foot = document.querySelector("footer");
     var top3 = rank().slice(0, 3);
     var band = document.createElement("section"); band.className = "bmc-band";

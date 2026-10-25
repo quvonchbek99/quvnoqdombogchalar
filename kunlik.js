@@ -29,38 +29,51 @@
   var art = ARTICLES[dayIndex() % ARTICLES.length];
   var artHTML = card("Kun maqolasi", '<div style="font-weight:700;color:#eef2ff;margin-bottom:6px">' + esc(art.t) + '</div><div style="color:#c9d4ff;font-size:14.5px;line-height:1.5">' + esc(art.m) + '</div>');
   var wID = "ka-kunlik-w", cID = "ka-kunlik-c";
+  // Ob-havo va valyuta kursi matematika sahifasiga aloqasiz — faqat data-extra="1" berilgan joyda chiqadi
+  var extra = el.getAttribute("data-extra") === "1";
   el.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:12px;max-width:1100px;margin:18px auto;padding:0 16px">' +
     artHTML +
-    card("Ob-havo", '<div id="' + wID + '" style="color:#c9d4ff;font-size:14.5px">Joylashuv aniqlanmoqda…</div>') +
-    card("Valyuta · USD → so'm", '<div id="' + cID + '" style="color:#c9d4ff;font-size:14.5px">Kurs yuklanmoqda…</div>') +
+    (extra ? card("Ob-havo", '<div id="' + wID + '" style="color:#c9d4ff;font-size:14.5px">Yuklanmoqda…</div>') +
+    card("Valyuta · USD → so'm", '<div id="' + cID + '" style="color:#c9d4ff;font-size:14.5px">Kurs yuklanmoqda…</div>') : "") +
     '</div>';
 
   function fmt(n, d) { return Number(n).toLocaleString("ru-RU", { minimumFractionDigits: d, maximumFractionDigits: d }).replace(/ /g, " "); }
+  function getJSON(url, ms) {
+    var ctl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctl) ctl.abort(); }, ms || 7000);
+    return fetch(url, ctl ? { signal: ctl.signal } : {}).then(function (r) { clearTimeout(t); if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
   function weather(lat, lon, label) {
     var url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,weather_code&timezone=auto";
-    fetch(url).then(function (r) { return r.json(); }).then(function (j) {
-      var c = j.current || {}, box = document.getElementById(wID);
-      if (!box || c.temperature_2m == null) return;
+    var fail = function () { var box = document.getElementById(wID); if (box) box.textContent = "Ob-havo ma'lumoti hozircha yo'q."; };
+    getJSON(url).then(function (j) {
+      var c = (j && j.current) || {}, box = document.getElementById(wID);
+      if (!box) return;
+      if (c.temperature_2m == null) return fail();
       box.innerHTML = '<div style="font-size:26px;font-weight:800;color:#eef2ff">' + Math.round(c.temperature_2m) + '°C</div>' +
         '<div>' + esc(WMO[c.weather_code] || "Ob-havo") + ' · ' + esc(label) + '</div>';
-    }).catch(function () { var box = document.getElementById(wID); if (box) box.textContent = "Ob-havo ma'lumoti topilmadi."; });
+    }).catch(fail);
   }
-  function startWeather() {
-    var fallback = function () { weather(41.31, 69.24, "Toshkent"); };
-    if (!navigator.geolocation) return fallback();
-    navigator.geolocation.getCurrentPosition(function (p) {
-      weather(p.coords.latitude.toFixed(2), p.coords.longitude.toFixed(2), "sizning joyingiz");
-    }, fallback, { timeout: 8000, maximumAge: 1800000 });
+  // Joylashuv so'ralmaydi (ruxsat oynasi chiqmaydi, javob berilmasa "aniqlanmoqda…" da qotib qolardi) — Toshkent ob-havosi
+  function startWeather() { weather(41.31, 69.24, "Toshkent"); }
+  function showRate(val, diff, date) {
+    var box = document.getElementById(cID); if (!box) return;
+    box.innerHTML = '<div style="font-size:26px;font-weight:800;color:#eef2ff">' + fmt(val, 2) + " so'm</div>" +
+      '<div>1 AQSH dollari' + (diff == null ? "" : " · " + (diff >= 0 ? "▲ +" : "▼ ") + fmt(diff, 2)) + (date ? " · " + esc(date) : "") + '</div>';
   }
   function rate() {
-    fetch("https://cbu.uz/ru/arkhiv-kursov-valyut/json/").then(function (r) { return r.json(); }).then(function (list) {
-      var u = (list || []).filter(function (x) { return x.Ccy === "USD"; })[0], box = document.getElementById(cID);
-      if (!u || !box) return;
-      var diff = parseFloat(String(u.Diff).replace(",", ".")) || 0;
-      box.innerHTML = '<div style="font-size:26px;font-weight:800;color:#eef2ff">' + fmt(parseFloat(u.Rate), 2) + " so'm</div>" +
-        '<div>1 AQSH dollari · ' + (diff >= 0 ? "▲ +" : "▼ ") + fmt(diff, 2) + " · " + esc(u.Date) + '</div>';
-    }).catch(function () { var box = document.getElementById(cID); if (box) box.textContent = "Kurs ma'lumoti topilmadi."; });
+    var fail = function () { var box = document.getElementById(cID); if (box) box.textContent = "Kurs ma'lumoti hozircha yo'q."; };
+    // 1) Markaziy bank; ishlamasa 2) ochiq zaxira manba
+    getJSON("https://cbu.uz/ru/arkhiv-kursov-valyut/json/", 6000).then(function (list) {
+      var u = (list || []).filter(function (x) { return x.Ccy === "USD"; })[0];
+      if (!u) throw new Error("no usd");
+      showRate(parseFloat(u.Rate), parseFloat(String(u.Diff).replace(",", ".")) || 0, u.Date);
+    }).catch(function () {
+      getJSON("https://open.er-api.com/v6/latest/USD", 6000).then(function (j) {
+        var v = j && j.rates && j.rates.UZS; if (!v) throw new Error("no uzs");
+        showRate(v, null, "");
+      }).catch(fail);
+    });
   }
-  startWeather();
-  rate();
+  if (extra) { startWeather(); rate(); }
 })();

@@ -1130,8 +1130,12 @@
   (function () {
     var c = navigator.connection, slow = !!(c && (c.saveData || /2g/.test(c.effectiveType || "")));
     if (slow) return;
-    // sahifa chizilishi bilanoq (kutmasdan) yuklashni boshlaymiz — yuklash fon rejimida, start oynasini sekinlatmaydi
-    setTimeout(function () { if (!camOn && !mouseMode) prepHands().catch(function () {}); }, 50);
+    // Telefonda qo'l modeli (WASM) ishga tushishi asosiy oqimni 1–3 soniya band qiladi va start oynasi qotib qoladi —
+    // shuning uchun telefonda model faqat "Kamera bilan" bosilganda yuklanadi (yuklanish oynasi ko'rinib turadi).
+    // Kompyuterda esa brauzer bo'sh qolganda oldindan tayyorlab qo'yamiz.
+    if (/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) || (navigator.hardwareConcurrency || 8) <= 4) return;
+    var go = function () { if (!camOn && !mouseMode) prepHands().catch(function () {}); };
+    if ("requestIdleCallback" in window) requestIdleCallback(go, { timeout: 4000 }); else setTimeout(go, 1500);
   })();
   function startCamera() {
     loadEl.style.display = "flex"; $("kv-lt").textContent = "KAMERA YUKLANMOQDA…";
@@ -1147,7 +1151,7 @@
         (function pump() {
           if (!camOn) return;
           pumpN = (pumpN || 0) + 1;
-          if (!busy && video.readyState >= 2 && (!mob || pumpN % 2 === 0)) { busy = true; vw = video.videoWidth || vw; vh = video.videoHeight || vh; handsObj.send({ image: video }).then(function () { busy = false; }, function () { busy = false; }); }
+          if (!busy && video.readyState >= 2 && (S.run || S.cd > 0) && !document.hidden && (!mob || pumpN % 2 === 0)) { busy = true; vw = video.videoWidth || vw; vh = video.videoHeight || vh; handsObj.send({ image: video }).then(function () { busy = false; }, function () { busy = false; }); }
           requestAnimationFrame(pump);
         })();
       });

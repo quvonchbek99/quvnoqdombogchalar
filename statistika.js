@@ -1,4 +1,15 @@
 /* Kuvonch Academy — anonim tashrif statistikasi (Google Analytics 4 + Yandex Metrika). Ism/guruh yuborilmaydi. */
+/* Himoya: sayt boshqa (begona) saytning iframe'i ichida ochilsa — clickjacking — o'zini to'liq oynaga chiqaradi */
+(function () {
+  try {
+    if (window.top === window.self) return;
+    var same = false;
+    try { same = window.top.location.hostname === location.hostname; } catch (e) {}
+    if (same) return;
+    document.documentElement.style.visibility = "hidden"; // ko'rinmas sahifani "bosdirib" bo'lmaydi
+    try { window.top.location.replace(location.href); } catch (e) {}
+  } catch (e) {}
+})();
 /* + Service worker barcha sahifalarda: o'yin modellari (qo'l/ko'z) bir marta yuklangach, keyingi safar keshdan darhol ochiladi */
 (function () {
   try {

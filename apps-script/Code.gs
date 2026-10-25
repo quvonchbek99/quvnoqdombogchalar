@@ -177,6 +177,8 @@ var BANK_MAX_PER_TOPIC = 400;
 var BANK_MAX_TOTAL = 15000;
 function bankNorm(s) { return String(s || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
 function handleAddQuestions(data) {
+  // Faqat o'qituvchi (admins ro'yxatidagi Firebase akkaunt) savol qo'sha oladi — aks holda begonalar bazaga istalgan matn yozardi
+  if (!verifyAdmin(data && data.idToken)) return { ok: false, error: "Ruxsat yo'q" };
   var qs = (data && data.questions) || [];
   if (!qs.length) return { ok: true, added: 0 };
   var lock = LockService.getScriptLock();

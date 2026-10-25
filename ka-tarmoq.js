@@ -18,6 +18,7 @@
   function R(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
   function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function sane(m, max) { try { return JSON.stringify(m).length <= max; } catch (e) { return false; } }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function isP(n) { if (n < 2) return false; for (var p = 2; p * p <= n; p++) if (n % p === 0) return false; return true; }
   function factor(n) { var f = [], m = n; for (var p = 2; p * p <= m; p++) while (m % p === 0) { f.push(p); m /= p; } if (m > 1) f.push(m); return f; }
@@ -177,9 +178,12 @@
           });
           peer.on("disconnected", function () { try { peer.reconnect(); } catch (e) {} });
           peer.on("connection", function (conn) {
-            var helloed = false;
+            var helloed = false, win = 0, cnt = 0;
             conn.on("data", function (msg) {
               if (!msg || typeof msg !== "object") return;
+              // begona o'yinchidan juda katta yoki juda tez-tez xabar kelsa — e'tiborsiz qoldiramiz (sahifa qotib qolmasin)
+              var nowT = Date.now(); if (nowT - win > 1000) { win = nowT; cnt = 0; }
+              if (++cnt > 30 || !sane(msg, 4000)) return;
               if (!helloed) {
                 if (msg.type !== "hello") return;
                 var ok = opts.onConn ? opts.onConn(conn.peer, msg) : true;
@@ -214,7 +218,7 @@
           var conn = peer.connect(PREFIX + code, { reliable: true });
           conn.on("open", function () { conn.send(Object.assign({ type: "hello" }, hello)); });
           conn.on("data", function (msg) {
-            if (!msg || typeof msg !== "object") return;
+            if (!msg || typeof msg !== "object" || !sane(msg, 300000)) return;
             if (!settled) {
               if (msg.type === "reject") { settled = true; clearTimeout(to); try { peer.destroy(); } catch (e) {} rej(new Error(msg.why || "Xona qabul qilmadi")); return; }
               settled = true; clearTimeout(to);

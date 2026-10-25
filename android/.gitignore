@@ -4,3 +4,7 @@ app/build/
 local.properties
 *.iml
 .idea/
+
+# imzo kaliti hech qachon repoga qo'yilmaydi
+*.jks
+*.keystore

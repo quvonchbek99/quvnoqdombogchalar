@@ -12,10 +12,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("../kuvonch-release.jks")
-            storePassword System.getenv("KA_KS_PASS") ?: "kuvonch2026"
+            storeFile file(System.getenv("KA_KS_FILE") ?: "../kuvonch-release.jks")
+            storePassword System.getenv("KA_KS_PASS")
             keyAlias "kuvonch"
-            keyPassword System.getenv("KA_KS_PASS") ?: "kuvonch2026"
+            keyPassword System.getenv("KA_KS_PASS")
         }
     }
     buildTypes {

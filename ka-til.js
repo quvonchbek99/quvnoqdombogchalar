@@ -55,14 +55,39 @@
   function apply(root) {
     busy = true;
     try { walk(root || document.body); if (!root || root === document.body) { document.documentElement.lang = lang; if (!window.__kaTitle) window.__kaTitle = document.title; var t = lang === "uz" ? null : tr(window.__kaTitle); document.title = t || window.__kaTitle; } }
-    finally { busy = false; }
+    finally { if (obs && (!root || root === document.body)) obs.takeRecords(); busy = false; }
+  }
+  // Faqat o'zgargan tugunlarni tarjima qilamiz (avval har o'zgarishda butun sahifa qayta aylanardi —
+  // taymerli o'yinlarda va katta sahifalarda telefon qotib qolardi).
+  var pend = [], pendAttr = [], full = false;
+  function flush() {
+    timer = 0;
+    if (lang === "uz" && !dict) { pend = []; pendAttr = []; full = false; return; }
+    busy = true;
+    try {
+      if (full) walk(document.body);
+      else {
+        for (var i = 0; i < pend.length; i++) { var n = pend[i]; if (n.isConnected !== false) walk(n); }
+        for (var j = 0; j < pendAttr.length; j++) { var el = pendAttr[j]; if (el.isConnected !== false && !(el.closest && el.closest("#ka-til-box"))) attrs(el); }
+      }
+    } finally {
+      pend = []; pendAttr = []; full = false;
+      if (obs) obs.takeRecords(); // o'zimiz qilgan o'zgarishlar qayta navbatga tushmasin
+      busy = false;
+    }
   }
   function watch() {
     if (obs) return;
     obs = new MutationObserver(function (ms) {
       if (busy || lang === "uz" && !dict) return;
-      clearTimeout(timer);
-      timer = setTimeout(function () { apply(document.body); }, 60);
+      if (!full) for (var i = 0; i < ms.length; i++) {
+        var m = ms[i];
+        if (m.type === "childList") { for (var j = 0; j < m.addedNodes.length; j++) pend.push(m.addedNodes[j]); }
+        else if (m.type === "characterData") pend.push(m.target);
+        else pendAttr.push(m.target);
+        if (pend.length + pendAttr.length > 600) { full = true; pend = []; pendAttr = []; break; }
+      }
+      if (!timer) timer = setTimeout(flush, 40);
     });
     obs.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
   }
