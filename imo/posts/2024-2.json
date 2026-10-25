@@ -1,0 +1,36 @@
+{
+  "id": "2024-2",
+  "badge": "IMO 2024 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "EKUBi o'zgarmay qoladigan juftlar",
+      "fs": 38,
+      "body": "<p>Shunday barcha <b>natural</b> sonlar juftligi <span class='m'>(a, b)</span> ni topingki, quyidagi shart bajarilsin: shunday natural <span class='m'>g</span> va <span class='m'>N</span> sonlar mavjudki, barcha <span class='m'>n ≥ N</span> uchun</p><div class='box'><span class='m'>EKUB(a<sup>n</sup> + b, b<sup>n</sup> + a) = g</span></div><p>Boshqacha aytganda, <span class='m'>x<sub>n</sub> = EKUB(a<sup>n</sup> + b, b<sup>n</sup> + a)</span> ketma-ketligi biror joydan boshlab <b>o'zgarmas</b> bo'lib qoladi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob: faqat (1, 1)",
+      "fs": 36,
+      "body": "<div class='box'>Javob: <span class='m'>(a, b) = (1, 1)</span></div><p>Bu juftlik yaraydi: <span class='m'>EKUB(1 + 1, 1 + 1) = 2</span> — har doim.</p><p>Endi teskarisini ko'rsatamiz: ketma-ketlik o'zgarmas bo'lib qolsa, albatta <span class='m'>a = b = 1</span>.</p><p>Asosiy g'oya — ushbu sonni qarash:</p><div class='box'><span class='m'>M = ab + 1</span></div><p>Ko'rinib turibdiki, <span class='m'>EKUB(a, M) = EKUB(b, M) = 1</span>. Demak, Eyler teoremasiga ko'ra <span class='m'>a<sup>φ(M)</sup> ≡ b<sup>φ(M)</sup> ≡ 1 (mod M)</span>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "«n = −1» hiylasi",
+      "fs": 35,
+      "body": "<p>Nega <span class='m'>M = ab + 1</span>? Agar «<span class='m'>n = −1</span>» qo'yib bo'lsa edi:</p><div class='box'><span class='m'>1/a + b = (ab + 1)/a</span>,  <span class='m'>1/b + a = (ab + 1)/b</span></div><p>Ikkala son ham <span class='m'>ab + 1</span> ga «bo'linadi». Lekin <span class='m'>n</span> manfiy bo'la olmaydi — shuning uchun <span class='m'>n ≡ −1 (mod φ(M))</span> ni olamiz.</p><p><span class='m'>n</span> — <span class='m'>φ(M)</span> ning yetarlicha katta karralisi bo'lsin, toki</p><div class='box'><span class='m'>x<sub>n−1</sub> = x<sub>n</sub> = x<sub>n+1</sub> = g</span></div><p>Shu uch hadni ketma-ket tekshiramiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Uch had — uch xulosa",
+      "fs": 32,
+      "body": "<p><b>1) <span class='m'>x<sub>n−1</sub></span>.</b> <span class='m'>a<sup>n</sup> ≡ 1</span> bo'lgani uchun:</p><div class='box'><span class='m'>a(a<sup>n−1</sup> + b) = a<sup>n</sup> + ab ≡ 1 + ab ≡ 0 (mod M)</span></div><p>Xuddi shunday <span class='m'>b(b<sup>n−1</sup> + a) ≡ 0</span>. <span class='m'>a</span> va <span class='m'>b</span> sonlari <span class='m'>M</span> bilan o'zaro tub, demak <span class='m'>M | g</span>.</p><p><b>2) <span class='m'>x<sub>n</sub></span>.</b> Endi <span class='m'>M | x<sub>n</sub></span>:</p><div class='box'><span class='m'>0 ≡ a<sup>n</sup> + b ≡ 1 + b</span>,  <span class='m'>0 ≡ b<sup>n</sup> + a ≡ 1 + a</span></div><p>Ya'ni <span class='m'>a ≡ b ≡ −1 (mod M)</span>.</p><p><b>3) <span class='m'>x<sub>n+1</sub></span>.</b> <span class='m'>0 ≡ a<sup>n+1</sup> + b ≡ a + b ≡ −2 (mod M)</span>.</p><div class='box'>Demak <span class='m'>M | 2</span>, ya'ni <span class='m'>ab + 1 = 2</span> ⇒ <span class='m'>a = b = 1</span>. ∎</div>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Aldamchi juftlik (18, 9)",
+      "fs": 34,
+      "body": "<p><span class='m'>a = 18, b = 9</span> uchun ketma-ketlik «o'zgarmas» ko'rinadi:</p><div class='box'><span class='m'>27, 9, 9, 9, 9, 9, 9, …</span></div><p>Lekin <span class='m'>M = 18 · 9 + 1 = 163</span>, <span class='m'>φ(163) = 162</span>. <span class='m'>n = 161 ≡ −1</span> da:</p><div class='box'><span class='m'>x<sub>161</sub> = 1467 = 9 · 163</span> — 9 emas! ❌</div><p>Python'da <span class='m'>a, b ≤ 15</span> uchun tekshirildi — faqat <span class='m'>(1, 1)</span> qoldi ✅ Yechim Evan Chen yozuvlari asosida.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>(2, 3)</span> uchun <span class='m'>x<sub>n</sub></span> ning birinchi 5 hadini toping. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2024 · 3-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
