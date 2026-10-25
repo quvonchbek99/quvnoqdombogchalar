@@ -91,16 +91,31 @@
     });
     obs.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
   }
-  function loadDict(l) {
+  // Katta sahifalarning matn tarjimalari alohida faylda — boshqa sahifalar ularni yuklamaydi
+  var EXTRA = { "mashqlar.html": "mashq", "sat-dars.html": "sat" };
+  function extraName() {
+    var a = document.documentElement.getAttribute("data-til-extra");
+    if (a) return a;
+    var f = (location.pathname.split("/").pop() || "index.html");
+    return EXTRA[f] || "";
+  }
+  var loaded = {};
+  function addScript(src) {
     return new Promise(function (ok) {
-      if (l === "uz") { dict = null; return ok(); }
-      window.KA_TR = window.KA_TR || {};
-      if (window.KA_TR[l]) { dict = window.KA_TR[l]; return ok(); }
-      var s = document.createElement("script"); s.src = "ka-til-" + l + ".js";
-      s.onload = function () { dict = window.KA_TR[l] || null; ok(); };
-      s.onerror = function () { dict = null; ok(); };
+      if (loaded[src]) return ok();
+      var s = document.createElement("script"); s.src = src;
+      s.onload = function () { loaded[src] = 1; ok(); };
+      s.onerror = function () { ok(); };
       document.head.appendChild(s);
     });
+  }
+  function loadDict(l) {
+    if (l === "uz") { dict = null; return Promise.resolve(); }
+    window.KA_TR = window.KA_TR || {};
+    var main = window.KA_TR[l] ? Promise.resolve() : addScript("ka-til-" + l + ".js");
+    var ex = extraName();
+    return main.then(function () { return ex ? addScript("ka-til-" + l + "-" + ex + ".js") : null; })
+      .then(function () { dict = window.KA_TR[l] || null; });
   }
   function set(l) {
     if (!SR[l]) return Promise.resolve();

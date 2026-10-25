@@ -30,6 +30,7 @@ header nav a{color:var(--dim);text-decoration:none;font-size:14px;margin-left:16
 .tab{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--soft);color:var(--dim);font:600 14px inherit;font-family:inherit;cursor:pointer;white-space:nowrap;text-decoration:none}
 .tab.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#08131f;border-color:transparent}
 .tab.new::after{content:"YANGI";font-size:9px;font-weight:800;background:var(--gold);color:#3a2c02;padding:1px 5px;border-radius:6px;margin-left:4px}
+html[lang=ru] .tab.new::after{content:"НОВОЕ"}html[lang=en] .tab.new::after{content:"NEW"}html[lang=kk] .tab.new::after{content:"ЖАҢА"}html[lang=ky] .tab.new::after{content:"ЖАҢЫ"}
 .hero{padding:22px 0 8px}
 .hero .ico{font-size:46px}
 .hero h1{margin:4px 0 6px;font-size:clamp(26px,4vw,38px)}

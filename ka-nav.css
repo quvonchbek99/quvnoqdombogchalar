@@ -39,3 +39,8 @@
 .knav-head::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,#35f0c4 18%,#a27bff 42%,#ff5e8e 66%,#ffc23d 86%,transparent);opacity:.65}
 .knav-head .brand-badge{background:conic-gradient(from 200deg,#35f0c4,#a27bff,#ff5e8e,#ffc23d,#35f0c4)}
 .knav a[aria-current="page"]{background:linear-gradient(120deg,#35f0c4,#a27bff);box-shadow:0 6px 22px -8px rgba(162,123,255,.7)}
+/* "yangi" belgisi CSS ichida — tarjimasi til bo'yicha */
+html[lang=ru] .knav a.new::after{content:"новое"}
+html[lang=en] .knav a.new::after{content:"new"}
+html[lang=kk] .knav a.new::after{content:"жаңа"}
+html[lang=ky] .knav a.new::after{content:"жаңы"}
