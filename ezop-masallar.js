@@ -503,5 +503,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u juda past uchib, ovchiga yaqin kelgan edi", "Chunki o'qning patlari o'zining patlaridan yasalgan edi", "Chunki ovchi uni kaptar deb adashtirgan edi"],
     javob: 1,
     izoh: "Burgutning o'z patlari unga qarshi qurol bo'ldi. Masal ba'zan o'zimizga tegishli narsa ham bizga zarar yetkazishi mumkinligini eslatadi."
+  },
+  {
+    id: "ez-064", mavzu: "sabr", sarlavha: "Ikki baqa va sut",
+    matn: "Ikki baqa tunda sut to'ldirilgan chuqur idishga tushib qoldi. Idishning devorlari sirpanchiq edi va chiqish uchun hech narsa yo'q edi. Birinchi baqa: \"Bu yerdan chiqish mumkin emas\", deb umidsizlanib, oyoqlarini tepishdan to'xtadi va cho'kib ketdi. Ikkinchi baqa esa tinmay oyoqlarini tepib suzaverdi, shu tufayli sut asta-sekin qotib, unga tayanch bo'lgan qattiq qatlam hosil bo'ldi.",
+    savol: "Ikkinchi baqa nima uchun omon qoldi?",
+    variantlar: ["U boshqa baqalardan kuchliroq bo'lgani uchun", "U umidsizlikka berilmay, oxirigacha harakat qilgani uchun", "U idish yonidan yordam chaqirib, odam kelishini kutgani uchun"],
+    javob: 1,
+    izoh: "Ikkinchi baqa tinmay harakat qilgani uchun sut qotib, unga chiqish yo'li ochildi. Qiyin paytda taslim bo'lmaslik ko'pincha yechimga olib keladi."
   }
 ];
