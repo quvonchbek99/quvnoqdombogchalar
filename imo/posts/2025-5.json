@@ -1,0 +1,42 @@
+{
+  "id": "2025-5",
+  "badge": "IMO 2025 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA (O'YIN)",
+      "title": "Alisa va Bazza o'yini",
+      "fs": 34,
+      "body": "<p>Musbat <span class='m'>λ</span> soni ikkala o'yinchiga ma'lum. <span class='m'>n</span>-yurishda (<span class='m'>n = 1, 2, 3, …</span>):</p><ul><li><span class='m'>n</span> <b>toq</b> — Alisa manfiy bo'lmagan <span class='m'>x<sub>n</sub></span> ni shunday tanlaydiki,<div class='box'><span class='m'>x<sub>1</sub> + x<sub>2</sub> + … + x<sub>n</sub> ≤ λn</span></div></li><li><span class='m'>n</span> <b>juft</b> — Bazza manfiy bo'lmagan <span class='m'>x<sub>n</sub></span> ni shunday tanlaydiki,<div class='box'><span class='m'>x<sub>1</sub><sup>2</sup> + x<sub>2</sub><sup>2</sup> + … + x<sub>n</sub><sup>2</sup> ≤ n</span></div></li></ul><p>Mos son tanlay olmagan o'yinchi yutqazadi; o'yin cheksiz davom etsa — durang.</p><p><span class='m'>λ</span> ning qaysi qiymatlarida <b>Alisa</b>, qaysilarida <b>Bazza</b> yutuq strategiyasiga ega?</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob va asosiy g'oya",
+      "fs": 35,
+      "body": "<div class='box'><span class='m'>λ &gt; 1/√2</span> — Alisa yutadi;<br><span class='m'>λ &lt; 1/√2</span> — Bazza yutadi;<br><span class='m'>λ = 1/√2</span> — hech kim yutishni kafolatlay olmaydi.</div><p>Alisa yig'indini, Bazza kvadratlar yig'indisini cheklaydi. Strategiyalar juda sodda:</p><ul><li><b>Alisa</b> uzoq vaqt <span class='m'>0</span> o'ynab, «zaxira» yig'adi, so'ng bitta <b>katta son</b> bilan zarba beradi.</li><li><b>Bazza</b> har safar mumkin bo'lgan <b>eng katta</b> sonni tanlab, Alisaning yig'indisini tez to'ldiradi.</li></ul>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Alisa 0 o'ynasa, yutqazmaydi",
+      "fs": 34,
+      "body": "<p><span class='m'>λ ≥ 1/√2</span> bo'lsin va Alisa har doim <span class='m'>0</span> o'ynasin. <span class='m'>2k</span>-yurishdan keyin Bazzaning sonlari uchun <span class='m'>x<sub>2</sub><sup>2</sup> + … + x<sub>2k</sub><sup>2</sup> ≤ 2k</span>.</p><p>Koshi–Bunyakovskiy tengsizligi bo'yicha:</p><div class='box'><span class='m'>x<sub>2</sub> + x<sub>4</sub> + … + x<sub>2k</sub> ≤ √(k · 2k) = √2 · k</span></div><p>Lekin <span class='m'>√2 · k &lt; λ(2k + 1)</span>, chunki <span class='m'>λ(2k + 1) ≥ (2k + 1)/√2 &gt; √2 · k</span>.</p><p>Demak <span class='m'>(2k + 1)</span>-yurishda Alisa uchun kamida <span class='m'>0</span> soni doim ruxsat etilgan — u <b>hech qachon yutqazmaydi</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "λ > 1/√2: Alisaning zarbasi",
+      "fs": 34,
+      "body": "<p>Endi <span class='m'>λ &gt; 1/√2</span>. Alisa 0 o'ynab turib, <span class='m'>(2k + 1)</span>-yurishda ruxsat etilgan eng katta sonni tanlaydi:</p><div class='box'><span class='m'>x<sub>2k+1</sub> ≥ λ(2k + 1) − √2 · k</span></div><p>Bu ifoda <span class='m'>k</span> ga nisbatan <b>chiziqli</b> o'sadi: <span class='m'>(2λ − √2)k + λ</span>, bunda <span class='m'>2λ − √2 &gt; 0</span>. <span class='m'>√(2k + 2)</span> esa faqat ildiz tezligida o'sadi.</p><p>Demak yetarlicha katta <span class='m'>k</span> uchun <span class='m'>x<sub>2k+1</sub> &gt; √(2k + 2)</span>, ya'ni</p><div class='box'><span class='m'>x<sub>1</sub><sup>2</sup> + … + x<sub>2k+1</sub><sup>2</sup> &gt; 2k + 2</span></div><p>Bazza <span class='m'>(2k + 2)</span>-yurishda hech qanday son tanlay olmaydi — <b>Alisa yutdi</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "λ ≤ 1/√2: Bazzaning strategiyasi",
+      "fs": 32,
+      "body": "<p>Bazza har doim eng kattasini o'ynaydi: <span class='m'>x<sub>2i+2</sub> = √(2 − x<sub>2i+1</sub><sup>2</sup>)</span>. U holda har juftlik uchun <span class='m'>x<sub>2i+1</sub><sup>2</sup> + x<sub>2i+2</sub><sup>2</sup> = 2</span>.</p><p><span class='m'>0 ≤ t ≤ √2</span> da <span class='m'>t + √(2 − t<sup>2</sup>) ≥ √2</span> (kvadratga ko'taring!). Shuning uchun</p><div class='box'><span class='m'>λ(2k + 1) ≥ x<sub>1</sub> + … + x<sub>2k+1</sub> ≥ √2 · k + x<sub>2k+1</sub></span></div><p>Bundan <span class='m'>x<sub>2k+1</sub> ≤ λ(2k + 1) − √2 · k ≤ 1/√2 &lt; √2</span>, ya'ni Bazzaning yurishi doim mumkin — u <b>yutqazmaydi</b>.</p><p>Agar <span class='m'>λ &lt; 1/√2</span> bo'lsa, katta <span class='m'>k</span> da <span class='m'>λ(2k + 1) − √2 · k &lt; 0</span> — Alisa son tanlay olmaydi, <b>Bazza yutdi</b>. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 32,
+      "body": "<p><b>λ = 1:</b> Alisa 1, 3, 5, 7-yurishlarda 0 o'ynaydi. Bazzaning yig'indisi <span class='m'>≤ 4√2 ≈ 5,66</span>.</p><div class='box'>9-yurishda Alisa: <span class='m'>x<sub>9</sub> ≥ 9 − 5,66 = 3,34 &gt; √10 ≈ 3,16</span>.<br>Kvadratlar yig'indisi <span class='m'>&gt; 10</span> — Bazza 10-yurishda yutqazadi ✅</div><p><b>λ = 0,5:</b> 4-yurishdan keyin yig'indi <span class='m'>≥ 2√2 ≈ 2,83 &gt; 0,5 · 5 = 2,5</span> — Alisa 5-yurishda yutqazadi ✅</p><p>Yechim Evan Chen yozuvlari asosida; Python'da tekshirildi.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>λ = 0,6</span> bo'lsa, Bazza strategiyasiga qarshi Alisa eng ko'pi bilan nechanchi yurishgacha chiday oladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2025 · 6-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
