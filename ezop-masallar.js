@@ -535,5 +535,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u asalni yetarlicha yemagan edi", "Chunki qanotlari asalga yopishib qolgan edi", "Chunki bog'da shamol juda kuchli esayotgan edi"],
     javob: 1,
     izoh: "Pashsha shirinlikka berilib, qanotlarini asalga botirib qo'ydi, shuning uchun uchib keta olmadi. Ortiqcha ishtiyoq xavfni ko'rmaslikka olib kelishi mumkin."
+  },
+  {
+    id: "ez-068", mavzu: "mantiq", sarlavha: "Bo'ri va qo'y terisi",
+    matn: "Bo'ri qo'ylar galasiga kirish uchun qo'y terisini kiyib oldi. Cho'pon uni o'z qo'yi deb o'ylab, galaga qo'shib qo'ya qoldi. Bir kecha ochlikka chiday olmagan bo'ri galadan bitta qo'yni tutib, sudrab ketmoqchi bo'ldi. Shu payt cho'pon uyg'onib, bo'rini darhol tutib oldi.",
+    savol: "Cho'pon bo'rini nima uchun tanib oldi?",
+    variantlar: ["Chunki bo'ri qo'ylar orasida ularni tutishga urindi", "Chunki bo'ri qo'y terisini yechib tashlagan edi", "Chunki bo'ri galaning oldida ovoz chiqarib kuylagan edi"],
+    javob: 0,
+    izoh: "Qo'y terisi bo'riga tashqi ko'rinish berdi, ammo uning qo'yni tutishga intilishi haqiqiy tabiatini fosh qildi. Odamni tashqi ko'rinishidan emas, qilgan ishlaridan baholash kerak."
   }
 ];
