@@ -519,5 +519,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u donni yetarli deb topmagan", "Chunki u donga qo'nishdan oldin atrofni tekshirmagan", "Chunki dalada boshqa qushlar yo'q edi"],
     javob: 1,
     izoh: "Chumchuq ko'ringan foydaga shoshilib, xavfni ko'rmadi. Qaror qabul qilishdan oldin vaziyatni tekshirish muhim."
+  },
+  {
+    id: "ez-066", mavzu: "mantiq", sarlavha: "Sichqon va yong'oq",
+    matn: "Sichqon omborxonada yerga to'kilgan yong'oqlarni topdi va bittasini og'ziga olib, uyasiga qaytmoqchi bo'ldi. Chiqish uchun tor teshikka kirganda, yong'oq teshik og'zida tiqilib qoldi. U ko'p harakat qildi, ammo yong'oqni tishlab turib chiqa olmadi. Nihoyat yong'oqni tashlab, o'zi sudralib teshikdan chiqib ketdi.",
+    savol: "Sichqon nima uchun yong'oqni tashlashga majbur bo'ldi?",
+    variantlar: ["Chunki yong'oq achchiq edi", "Chunki yong'oq bilan teshikdan chiqib bo'lmasdi", "Chunki omborda boshqa yong'oq ko'p edi"],
+    javob: 1,
+    izoh: "Yong'oq bilan teshikdan chiqish imkonsiz bo'lgani uchun sichqon yo'lni ochish uchun uni tashlashi kerak edi. Ba'zan bir narsaga ortiqcha yopishish bizni asosiy maqsaddan chalg'itadi."
   }
 ];
