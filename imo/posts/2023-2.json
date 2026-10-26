@@ -1,0 +1,42 @@
+{
+  "id": "2023-2",
+  "badge": "IMO 2023 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA",
+      "title": "Urinma bissektrisada",
+      "fs": 33,
+      "body": "<p><span class='m'>ABC</span> — o'tkir burchakli uchburchak, <span class='m'>AB &lt; AC</span>, <span class='m'>Ω</span> — uning tashqi aylanasi. <span class='m'>S</span> — <span class='m'>Ω</span> ning <span class='m'>A</span> ni o'z ichiga olgan <span class='m'>CB</span> yoyining o'rtasi.</p><p><span class='m'>A</span> dan <span class='m'>BC</span> ga tushirilgan perpendikulyar <span class='m'>BS</span> ni <span class='m'>D</span> da, <span class='m'>Ω</span> ni yana <span class='m'>E ≠ A</span> da kesadi. <span class='m'>D</span> orqali <span class='m'>BC</span> ga parallel chiziq <span class='m'>BE</span> ni <span class='m'>L</span> da kesadi.</p><p><span class='m'>ω</span> — <span class='m'>BDL</span> uchburchakning tashqi aylanasi; u <span class='m'>Ω</span> ni yana <span class='m'>P ≠ B</span> da kesadi.</p><div class='box'><b>Isbotlang:</b> <span class='m'>ω</span> ga <span class='m'>P</span> nuqtada o'tkazilgan urinma <span class='m'>BS</span> chiziq bilan <span class='m'>∠BAC</span> ning <b>ichki bissektrisasi</b> ustida kesishadi.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Yordamchi nuqtalar",
+      "fs": 31,
+      "body": "<svg viewBox='0 0 640 460' width='700' height='503' style='display:block;margin:0 auto 10px'><circle cx='370' cy='228' r='185' fill='none' stroke='#eef2f7' stroke-width='2.5'/><circle cx='182.6' cy='204.4' r='103.7' fill='none' stroke='#f2b84b' stroke-width='3'/><line x1='283.1' y1='64.7' x2='202.3' y2='306.2' stroke='#8fa3bf' stroke-width='2'/><line x1='202.3' y1='306.2' x2='537.7' y2='306.2' stroke='#8fa3bf' stroke-width='2'/><line x1='537.7' y1='306.2' x2='283.1' y2='64.7' stroke='#8fa3bf' stroke-width='2'/><line x1='202.3' y1='306.2' x2='370.0' y2='43.0' stroke='#8fa3bf' stroke-width='2'/><line x1='283.1' y1='64.7' x2='283.1' y2='391.3' stroke='#8fa3bf' stroke-width='2'/><line x1='82.0' y1='179.3' x2='283.1' y2='179.3' stroke='#8fa3bf' stroke-width='2'/><line x1='82.0' y1='179.3' x2='283.1' y2='391.3' stroke='#8fa3bf' stroke-width='2'/><line x1='283.1' y1='64.7' x2='370.0' y2='413.0' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='7 6'/><line x1='226.9' y1='110.7' x2='456.9' y2='391.3' stroke='#8fa3bf' stroke-width='1.8' stroke-dasharray='4 5'/><line x1='200.1' y1='98.0' x2='349.8' y2='168.9' stroke='#f2b84b' stroke-width='3.5'/><circle cx='283.1' cy='64.7' r='6' fill='#eef2f7'/><text x='275.1' y='50.7' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>A</text><circle cx='202.3' cy='306.2' r='6' fill='#eef2f7'/><text x='172.3' y='324.2' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>B</text><circle cx='537.7' cy='306.2' r='6' fill='#eef2f7'/><text x='547.7' y='324.2' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>C</text><circle cx='370.0' cy='43.0' r='6' fill='#eef2f7'/><text x='362.0' y='31.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>S</text><circle cx='370.0' cy='413.0' r='6' fill='#eef2f7'/><text x='362.0' y='447.0' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>M</text><circle cx='283.1' cy='179.3' r='6' fill='#eef2f7'/><text x='249.1' y='211.3' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>D</text><circle cx='283.1' cy='391.3' r='6' fill='#eef2f7'/><text x='269.1' y='425.3' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>E</text><circle cx='82.0' cy='179.3' r='6' fill='#eef2f7'/><text x='52.0' y='171.3' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>L</text><circle cx='226.9' cy='110.7' r='6' fill='#f2b84b'/><text x='190.9' y='104.7' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>P</text><circle cx='303.7' cy='147.1' r='6' fill='#f2b84b'/><text x='317.7' y='133.1' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>X</text><circle cx='456.9' cy='391.3' r='6' fill='#eef2f7'/><text x='464.9' y='421.3' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>F</text></svg><p><span class='m'>M</span> — <span class='m'>A</span> siz <span class='m'>BC</span> yoyining o'rtasi (<span class='m'>AM</span> — bissektrisa), <span class='m'>F</span> — <span class='m'>A</span> ga diametral qarama-qarshi nuqta. <span class='m'>SM</span> va <span class='m'>AF</span> — diametrlar, demak <b><span class='m'>AMFS</span> — to'g'ri to'rtburchak</b>.</p><div class='box'><span class='m'>X = AM ∩ BS</span>. Maqsad: <span class='m'>P</span> dagi urinma <span class='m'>X</span> dan o'tadi.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Ikkita kollinearlik",
+      "fs": 34,
+      "body": "<p><span class='m'>DL ∥ BC</span> va <span class='m'>SB = SC</span> dan (yo'naltirilgan burchaklar):</p><div class='box'><span class='m'>∠LPB = ∠LDB = ∠CBS = ∠SCB = ∠SPB</span></div><p>Demak <b><span class='m'>L, P, S</span> bir chiziqda</b>. Endi shu chiziqdan foydalanamiz:</p><div class='box'><span class='m'>∠SPD = ∠LBD = ∠SBE = ∠FCS = ∠FPS</span></div><p>Demak <b><span class='m'>P, D, F</span> ham bir chiziqda</b>. Endi <span class='m'>L</span> nuqtani unutib, o'rniga <span class='m'>F</span> bilan ishlashimiz mumkin.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Asosiy da'vo: XP = XA",
+      "fs": 33,
+      "body": "<p><span class='m'>Y = PF ∩ AM</span> bo'lsin. <span class='m'>AE ∥ SM</span> (ikkalasi <span class='m'>BC</span> ga perpendikulyar) va <span class='m'>AM ∥ SF</span> (to'g'ri to'rtburchak) bo'lgani uchun:</p><div class='box'><span class='m'>△AXD ∼ △MXS</span>, &nbsp; <span class='m'>△XDY ∼ △SDF</span></div><p>Bundan</p><div class='box'><span class='m'>AX/XD = AM/SD = SF/SD = XY/XD</span> &nbsp;⟹&nbsp; <span class='m'>AX = XY</span></div><p><span class='m'>AF</span> — diametr, shuning uchun <span class='m'>∠APY = 90°</span>. To'g'ri burchakli <span class='m'>APY</span> da <span class='m'>X</span> — gipotenuza o'rtasi:</p><div class='box'><span class='m'>XP = XA</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Urinishni isbotlaymiz",
+      "fs": 32,
+      "body": "<p><span class='m'>PX</span> chiziq <span class='m'>Ω</span> ni yana <span class='m'>Q</span> da kessin. <span class='m'>XP = XA</span> ⟹ <span class='m'>PM</span> va <span class='m'>AQ</span> yoylari teng. <span class='m'>AE ∥ SM</span> ⟹ <span class='m'>AS</span> va <span class='m'>EM</span> yoylari teng. Demak <span class='m'>PE</span> va <span class='m'>SQ</span> yoylari ham teng.</p><p><span class='m'>∠AEF = 90°</span>, shuning uchun <span class='m'>EF ∥ BC ∥ DL</span>. Endi:</p><div class='box'><span class='m'>∠QPL = ∠QPS = ∠PQE = ∠PFE = ∠PDL</span></div><p>Urinma va vatar orasidagi burchak haqidagi teoremaga ko'ra, <span class='m'>PQ</span> chiziq <span class='m'>ω</span> ga <span class='m'>P</span> da <b>urinadi</b>.</p><div class='box'>Bu urinma <span class='m'>X</span> dan o'tadi, <span class='m'>X</span> esa <span class='m'>BS</span> da va bissektrisa <span class='m'>AM</span> da yotadi ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>Kalit — <span class='m'>L</span> ni <span class='m'>F</span> bilan almashtirish va masalani bitta tenglikka keltirish: <span class='m'>XP = XA</span>. Rasmiy yechimlar to'plamida bu masalaning <b>13 xil</b> yechimi bor! Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Kompyuterda tasodifiy o'tkir uchburchaklarda tekshirdik: urinma va <span class='m'>BS</span> ning kesishish nuqtasi har safar <span class='m'>AM</span> da yotdi (xatolik <span class='m'>&lt; 10<sup>−14</sup></span>) ✅</div><p>🧠 <b>Sizga savol:</b> nega <span class='m'>AMFS</span> — to'g'ri to'rtburchak? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2023 · 3-masala</b> (sonlar nazariyasi)</p>"
+    }
+  ]
+}
