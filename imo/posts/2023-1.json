@@ -1,0 +1,36 @@
+{
+  "id": "2023-1",
+  "badge": "IMO 2023 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Bo'luvchilar zanjiri",
+      "fs": 37,
+      "body": "<p><span class='m'>n &gt; 1</span> — <b>murakkab</b> son, <span class='m'>d<sub>1</sub> &lt; d<sub>2</sub> &lt; … &lt; d<sub>k</sub></span> esa uning barcha natural bo'luvchilari.</p><p><span class='m'>n</span> quyidagi xossaga ega bo'lsin: har bir <span class='m'>1 ≤ i ≤ k − 2</span> uchun</p><div class='box'><span class='m'>d<sub>i</sub></span> &nbsp;soni&nbsp; <span class='m'>d<sub>i+1</sub> + d<sub>i+2</sub></span> &nbsp;ga bo'linadi.</div><p>Ya'ni har bir bo'luvchi o'zidan keyingi ikkita bo'luvchining yig'indisini bo'ladi.</p><div class='box'>Shunday barcha murakkab <span class='m'>n</span> larni toping.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob: tub son darajalari",
+      "fs": 36,
+      "body": "<div class='box'>Javob: <span class='m'>n = p<sup>e</sup></span>, bu yerda <span class='m'>p</span> — tub, <span class='m'>e ≥ 2</span>.</div><p><b>Bular haqiqatan mos keladi.</b> <span class='m'>n = p<sup>e</sup></span> ning bo'luvchilari:</p><div class='box'><span class='m'>1, p, p<sup>2</sup>, …, p<sup>e</sup></span>, &nbsp;ya'ni <span class='m'>d<sub>i</sub> = p<sup>i−1</sup></span></div><p>Shart quyidagicha bo'ladi:</p><div class='box'><span class='m'>p<sup>i−1</sup> &nbsp;|&nbsp; p<sup>i</sup> + p<sup>i+1</sup></span></div><p>Bu aniq to'g'ri: o'ng tomondagi har ikki qo'shiluvchi <span class='m'>p<sup>i−1</sup></span> ga bo'linadi ✅</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Kichik va katta bo'luvchilar",
+      "fs": 35,
+      "body": "<p>Endi <span class='m'>n</span> ning kamida <b>ikkita</b> turli tub bo'luvchisi bor deylik. <span class='m'>p &lt; q</span> — eng kichik ikkitasi, <span class='m'>p<sup>e</sup></span> esa <span class='m'>n</span> ni bo'ladigan va <span class='m'>q</span> dan kichik bo'lgan <span class='m'>p</span> ning eng katta darajasi (<span class='m'>e ≥ 1</span>).</p><p><span class='m'>q</span> dan kichik bo'luvchilarda faqat <span class='m'>p</span> qatnashadi, shuning uchun eng kichik bo'luvchilar:</p><div class='box'><span class='m'>1, p, …, p<sup>e</sup>, q</span></div><p><span class='m'>d ↦ n/d</span> almashtirishi tartibni teskarisiga aylantiradi. Demak eng katta bo'luvchilar oxirida:</p><div class='box'><span class='m'>…, n/q, &nbsp;n/p<sup>e</sup>, &nbsp;n/p<sup>e−1</sup>, …, n</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Ziddiyat",
+      "fs": 36,
+      "body": "<p>Shartni shu uchta ketma-ket bo'luvchiga qo'llaymiz:</p><div class='box'><span class='m'>n/q &nbsp;|&nbsp; n/p<sup>e</sup> + n/p<sup>e−1</sup> = (p + 1)·n/p<sup>e</sup></span></div><p>Ikkala tomonni <span class='m'>n/q</span> ga bo'lsak, quyidagi son <b>butun</b> bo'lishi kerak:</p><div class='box'><span class='m'>q(p + 1) / p<sup>e</sup></span></div><p>Lekin <span class='m'>p</span> soni na <span class='m'>q</span> ni (boshqa tub son), na <span class='m'>p + 1</span> ni bo'ladi. Demak bu son butun emas — <b>ziddiyat!</b></p><p>Shunday qilib, faqat tub sonning darajalari mos keladi&nbsp;∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 35,
+      "body": "<p><span class='m'>n = 12</span>: bo'luvchilar <span class='m'>1, 2, 3, 4, 6, 12</span>.</p><div class='box'><span class='m'>2 ∤ 3 + 4 = 7</span> ❌ &nbsp;va&nbsp; <span class='m'>4 ∤ 6 + 12 = 18</span> ❌<br><span class='m'>p = 2, q = 3, e = 1</span>: <span class='m'>q(p+1)/p<sup>e</sup> = 9/2</span> — butun emas.</div><p>Python'da 5000 gacha barcha murakkab sonlarni tekshirdik: shartni faqat tub son darajalari qanoatlantirdi ✅ Yechim Evan Chen yozuvlari asosida.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 45</span> uchun shart birinchi marta qaysi <span class='m'>i</span> da buziladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2023 · 2-masala</b> (geometriya)</p>"
+    }
+  ]
+}
