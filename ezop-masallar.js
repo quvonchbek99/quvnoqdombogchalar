@@ -511,5 +511,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U boshqa baqalardan kuchliroq bo'lgani uchun", "U umidsizlikka berilmay, oxirigacha harakat qilgani uchun", "U idish yonidan yordam chaqirib, odam kelishini kutgani uchun"],
     javob: 1,
     izoh: "Ikkinchi baqa tinmay harakat qilgani uchun sut qotib, unga chiqish yo'li ochildi. Qiyin paytda taslim bo'lmaslik ko'pincha yechimga olib keladi."
+  },
+  {
+    id: "ez-065", mavzu: "mantiq", sarlavha: "Chumchuq va tuzoq",
+    matn: "Chumchuq har kuni don topadigan dalaga uchib borardi. Bir kuni dalada don ko'p ko'rindi, lekin donning ostida ingichka ip yashiringan edi. Chumchuq atrofni tekshirmay donga qo'nishi bilan ip tortilib, to'rga tushib qoldi. U qanotlarini qoqib ko'p urindi, ammo ozodlikka chiqa olmadi.",
+    savol: "Chumchuq nima uchun to'rga tushib qoldi?",
+    variantlar: ["Chunki u donni yetarli deb topmagan", "Chunki u donga qo'nishdan oldin atrofni tekshirmagan", "Chunki dalada boshqa qushlar yo'q edi"],
+    javob: 1,
+    izoh: "Chumchuq ko'ringan foydaga shoshilib, xavfni ko'rmadi. Qaror qabul qilishdan oldin vaziyatni tekshirish muhim."
   }
 ];
