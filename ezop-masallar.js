@@ -527,5 +527,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki yong'oq achchiq edi", "Chunki yong'oq bilan teshikdan chiqib bo'lmasdi", "Chunki omborda boshqa yong'oq ko'p edi"],
     javob: 1,
     izoh: "Yong'oq bilan teshikdan chiqish imkonsiz bo'lgani uchun sichqon yo'lni ochish uchun uni tashlashi kerak edi. Ba'zan bir narsaga ortiqcha yopishish bizni asosiy maqsaddan chalg'itadi."
+  },
+  {
+    id: "ez-067", mavzu: "sabab", sarlavha: "Pashsha va asal",
+    matn: "Pashsha bog'dagi ochiq asal idishiga qo'nib, to'yguncha shirinlik yedi. Keyin uchib ketmoqchi bo'lganida, qanotlari yopishqon asalga botib qolganini sezdi. U qanchalik silkinmasin, qanotlari ko'tarilmadi. Oxiri o'ziga achinib, asal shirinligining narxi shunchalik og'ir bo'lishini kech tushundi.",
+    savol: "Pashsha nima uchun uchib keta olmadi?",
+    variantlar: ["Chunki u asalni yetarlicha yemagan edi", "Chunki qanotlari asalga yopishib qolgan edi", "Chunki bog'da shamol juda kuchli esayotgan edi"],
+    javob: 1,
+    izoh: "Pashsha shirinlikka berilib, qanotlarini asalga botirib qo'ydi, shuning uchun uchib keta olmadi. Ortiqcha ishtiyoq xavfni ko'rmaslikka olib kelishi mumkin."
   }
 ];
