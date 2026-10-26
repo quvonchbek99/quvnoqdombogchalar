@@ -543,5 +543,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki bo'ri qo'ylar orasida ularni tutishga urindi", "Chunki bo'ri qo'y terisini yechib tashlagan edi", "Chunki bo'ri galaning oldida ovoz chiqarib kuylagan edi"],
     javob: 0,
     izoh: "Qo'y terisi bo'riga tashqi ko'rinish berdi, ammo uning qo'yni tutishga intilishi haqiqiy tabiatini fosh qildi. Odamni tashqi ko'rinishidan emas, qilgan ishlaridan baholash kerak."
+  },
+  {
+    id: "ez-069", mavzu: "mantiq", sarlavha: "Quruq yog'och va daryo",
+    matn: "Dehqon daryo ustiga yog'och ko'prik qurdi, lekin ustunlardan biri ichidan chirib qolgan edi. U chirigan joyni ko'rmaslik uchun ustunni loy bilan sirtdan yopib qo'ydi, shu tufayli ko'prik mustahkam ko'rindi. Bahordagi kuchli toshqin kelib, suv ko'prikning ostini yuvib ketdi va aynan chirigan ustun joyidan ko'prik sinib tushdi.",
+    savol: "Ko'prik nima uchun qulab tushdi?",
+    variantlar: ["Chunki bahordagi toshqin har qanday ko'prikni buzadi", "Chunki ustunning chirigan joyi yashirilgan va hech kim tekshirmagan edi", "Chunki dehqon ko'prikni juda tor qilib qurgan edi"],
+    javob: 1,
+    izoh: "Yashirilgan nuqson ko'pincha eng katta xavfga aylanadi. Muammoni ko'rmaslik uni yo'q qilmaydi, faqat keyinroq kattaroq zarar keltiradi."
   }
 ];
