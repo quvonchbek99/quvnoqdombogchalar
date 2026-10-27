@@ -1,0 +1,36 @@
+{
+  "id": "2022-2",
+  "badge": "IMO 2022 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Yagona sherik",
+      "fs": 37,
+      "body": "<p><span class='m'>ℝ<sup>+</sup></span> — musbat haqiqiy sonlar to'plami.</p><p>Shunday barcha <span class='m'>f : ℝ<sup>+</sup> → ℝ<sup>+</sup></span> funksiyalarni topingki, har bir <span class='m'>x ∈ ℝ<sup>+</sup></span> uchun</p><div class='box'><span class='m'>x·f(y) + y·f(x) ≤ 2</span></div><p>tengsizlikni qanoatlantiruvchi <b>aynan bitta</b> <span class='m'>y ∈ ℝ<sup>+</sup></span> mavjud bo'lsin.</p><p>Bunday <span class='m'>y</span> ni <span class='m'>x</span> ning <b>sherigi</b> deymiz. Shart simmetrik: <span class='m'>y</span> sherigi <span class='m'>x</span> bo'lsa, <span class='m'>x</span> ham <span class='m'>y</span> ning sherigi.</p>"
+    },
+    {
+      "kicker": "YECHIM · JAVOB",
+      "title": "f(x) = 1/x ishlaydi",
+      "fs": 36,
+      "body": "<p>Javob: <span class='m'>f(x) = 1/x</span>. Tekshiramiz:</p><div class='box'><span class='m'>x·f(y) + y·f(x) = x/y + y/x ≥ 2</span></div><p>Bu o'rta arifmetik ≥ o'rta geometrik (AM ≥ GM) tengsizligi. Tenglik <b>faqat</b> <span class='m'>y = x</span> da.</p><p>Demak <span class='m'>≤ 2</span> ni faqat <span class='m'>y = x</span> qanoatlantiradi ✅</p><p>Endi boshqa funksiya yo'qligini isbotlash qoldi. Buning uchun ikki qadam kerak.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Har kim — o'zining sherigi",
+      "fs": 34,
+      "body": "<p>Faraz qilaylik, <span class='m'>a ≠ b</span> sonlar sherik. Sherik yagona, demak <span class='m'>a</span> o'zining sherigi emas:</p><div class='box'><span class='m'>a·f(a) + a·f(a) &gt; 2</span> ⇒ <span class='m'>f(a) &gt; 1/a</span></div><p>Xuddi shunday <span class='m'>f(b) &gt; 1/b</span>. Unda</p><div class='box'><span class='m'>2 ≥ a·f(b) + b·f(a) &gt; a/b + b/a ≥ 2</span></div><p>Ziddiyat! Demak har bir <span class='m'>x</span> ning sherigi — <b>o'zi</b>. Bundan ikki xulosa:</p><ul><li><span class='m'>2x·f(x) ≤ 2</span>, ya'ni <span class='m'>f(x) ≤ 1/x</span>;</li><li><span class='m'>x ≠ y</span> bo'lsa, <span class='m'>x·f(y) + y·f(x) &gt; 2</span>.</li></ul>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "f(x) < 1/x bo'la olmaydi",
+      "fs": 34,
+      "body": "<p>Faraz qilaylik, biror <span class='m'>x</span> da <span class='m'>f(x) &lt; 1/x</span>. Aqlli tanlov qilamiz:</p><div class='box'><span class='m'>y = 1/f(x)</span> &nbsp;⇒&nbsp; <span class='m'>y &gt; x</span>, ya'ni <span class='m'>y ≠ x</span></div><p>1-qadamdan <span class='m'>f(y) ≤ 1/y = f(x)</span>. Shuning uchun</p><div class='box'><span class='m'>x·f(y) + y·f(x) ≤ x·f(x) + 1 &lt; 1 + 1 = 2</span></div><p>Ya'ni <span class='m'>y ≠ x</span> ham <span class='m'>x</span> ning sherigi bo'lib chiqdi — bu birinchi qadamga zid.</p><p>Demak <span class='m'>f(x) ≥ 1/x</span> va <span class='m'>f(x) ≤ 1/x</span>, ya'ni <span class='m'>f(x) = 1/x</span>. ∎</p>"
+    },
+    {
+      "kicker": "JAVOB VA SAVOL",
+      "title": "Javob",
+      "fs": 35,
+      "body": "<div class='box'><span class='m'>f(x) = 1/x</span></div><p>Kalit g'oyalar: <b>AM ≥ GM</b> tengsizligi va «sherik» tushunchasining <b>simmetriyasi</b>. Avval «har kim o'zining sherigi» ekanini, so'ng ikki tomonlama baho <span class='m'>f(x) ≤ 1/x ≤ f(x)</span> ni olamiz.</p><p>Yechim Evan Chen yozuvlari asosida. Muallif: Merlijn Staps (Niderlandiya).</p><p>🧠 <b>Sizga savol:</b> <span class='m'>f(x) = 1/(2x)</span> bo'lsa, <span class='m'>x = 1</span> uchun shartni qanoatlantiruvchi <span class='m'>y</span> lar qaysi oraliqni tashkil qiladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2022 · 3-masala</b> (sonlar nazariyasi)</p>"
+    }
+  ]
+}
