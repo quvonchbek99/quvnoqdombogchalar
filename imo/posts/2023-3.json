@@ -1,0 +1,42 @@
+{
+  "id": "2023-3",
+  "badge": "IMO 2023 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Ko'phad va ketma-ketlik",
+      "fs": 35,
+      "body": "<p><span class='m'>k ≥ 2</span> butun son berilgan. Shunday cheksiz natural sonlar ketma-ketliklarini <span class='m'>a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, …</span> toping, ular uchun quyidagi ko'rinishdagi ko'phad mavjud bo'lsin:</p><div class='box'><span class='m'>P(x) = x<sup>k</sup> + c<sub>k−1</sub>x<sup>k−1</sup> + … + c<sub>1</sub>x + c<sub>0</sub></span></div><p>bu yerda <span class='m'>c<sub>0</sub>, c<sub>1</sub>, …, c<sub>k−1</sub></span> — <b>manfiy bo'lmagan butun sonlar</b>, va har bir <span class='m'>n ≥ 1</span> uchun</p><div class='box'><span class='m'>P(a<sub>n</sub>) = a<sub>n+1</sub> · a<sub>n+2</sub> · … · a<sub>n+k</sub></span></div><p>Ya'ni ko'phad bitta hadni keyingi <span class='m'>k</span> ta hadning ko'paytmasiga aylantiradi.</p>"
+    },
+    {
+      "kicker": "YECHIM · JAVOB",
+      "title": "Arifmetik progressiyalar",
+      "fs": 35,
+      "body": "<div class='box'><b>Javob:</b> barcha arifmetik progressiyalar <span class='m'>a<sub>n</sub> = a<sub>1</sub> + (n − 1)d</span>, &nbsp;<span class='m'>d ≥ 0</span> butun.</div><p><b>Nega mos keladi?</b> Progressiyada <span class='m'>a<sub>n+i</sub> = a<sub>n</sub> + id</span>, shuning uchun</p><div class='box'><span class='m'>a<sub>n+1</sub> · … · a<sub>n+k</sub> = (a<sub>n</sub> + d)(a<sub>n</sub> + 2d)…(a<sub>n</sub> + kd)</span></div><p>Demak <span class='m'>P(x) = (x + d)(x + 2d)…(x + kd)</span> ni olamiz. Qavslarni ochsak, bosh koeffitsiyent 1, qolganlari esa manfiy emas ✅</p><p>Endi qiyin qism: <b>boshqa ketma-ketliklar yo'qligini</b> isbotlash.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Ketma-ketlik o'sadi",
+      "fs": 33,
+      "body": "<p>Ikki qo'shni tenglikni bir-biriga bo'lamiz:</p><div class='box'><span class='m'>a<sub>n+k</sub> = a<sub>n</sub> · P(a<sub>n</sub>) / P(a<sub>n−1</sub>)</span></div><p><span class='m'>P</span> natural sonlarda <b>qat'iy o'suvchi</b> (koeffitsiyentlar manfiy emas).</p><p>Faraz qilaylik, <span class='m'>a<sub>n</sub> &lt; a<sub>n−1</sub></span>. U holda <span class='m'>P(a<sub>n</sub>) &lt; P(a<sub>n−1</sub>)</span>, demak <span class='m'>a<sub>n+k</sub> &lt; a<sub>n</sub></span>. Bu yana bir kamayishni beradi va h.k. — natural sonlarning <b>cheksiz kamayuvchi</b> zanjiri hosil bo'ladi. Bu mumkin emas!</p><div class='box'>Demak <span class='m'>a<sub>1</sub> ≤ a<sub>2</sub> ≤ …</span>. Agar biror joyda <span class='m'>a<sub>n</sub> = a<sub>n−1</sub></span> bo'lsa, xuddi shu formuladan ketma-ketlik butunlay <b>o'zgarmas</b> chiqadi.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Qadamlar chegaralangan",
+      "fs": 34,
+      "body": "<p>Endi ketma-ketlik qat'iy o'sadi deb hisoblaymiz. <span class='m'>C = c<sub>0</sub> + c<sub>1</sub> + … + c<sub>k−1</sub> + 1</span> bo'lsin. U holda <span class='m'>P(x) &lt; x<sup>k</sup> + Cx<sup>k−1</sup></span>.</p><p>Hadlar qat'iy o'sgani uchun <span class='m'>a<sub>n+i</sub> ≥ a<sub>n</sub> + i</span>, shuning uchun</p><div class='box'><span class='m'>a<sub>n+k</sub> = P(a<sub>n</sub>) / (a<sub>n+1</sub>…a<sub>n+k−1</sub>)</span><br><span class='m'>&lt; (a<sub>n</sub><sup>k</sup> + Ca<sub>n</sub><sup>k−1</sup>) / ((a<sub>n</sub>+1)…(a<sub>n</sub>+k−1))</span><br><span class='m'>&lt; a<sub>n</sub> + C + 1</span></div><p>Natija: har bir qadam <span class='m'>a<sub>n+1</sub> − a<sub>n</sub></span> ko'pi bilan <span class='m'>C</span> ga teng. Ayirmalar <b>cheklangan</b> qiymatlar qabul qiladi!</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Ayirmalar takrorlanadi",
+      "fs": 33,
+      "body": "<p>Har bir <span class='m'>n</span> uchun <span class='m'>k</span> ta ketma-ket ayirmani yozamiz:</p><div class='box'><span class='m'>Δ(n) = (d<sub>1</sub>, …, d<sub>k</sub>)</span>, &nbsp;<span class='m'>d<sub>i</sub> = a<sub>n+i</sub> − a<sub>n+i−1</sub></span></div><p>Bunday kortejlar ko'pi bilan <span class='m'>C<sup>k</sup></span> ta, demak qaysidir kortej <b>cheksiz ko'p marta</b> uchraydi. Uning uchun cheksiz ko'p <span class='m'>x = a<sub>N</sub></span> da</p><div class='box'><span class='m'>P(x) = (x + d<sub>1</sub>)(x + d<sub>1</sub> + d<sub>2</sub>)…(x + d<sub>1</sub> + … + d<sub>k</sub>)</span></div><p>Ikki ko'phad cheksiz ko'p nuqtada teng bo'lsa, ular <b>aynan teng</b>. Demak <span class='m'>P</span> faqat bitta kortej bilan mos keladi, ya'ni <span class='m'>Δ(n)</span> oxir-oqibat o'zgarmas bo'ladi.</p><div class='box'>Ketma-ketlik bir joydan boshlab progressiya; birinchi qadamdagi formula bilan orqaga yurib, u <b>boshidan</b> progressiya ekanini olamiz ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>Uch kalit: <b>monotonlik</b> (cheksiz tushish yo'q), <b>chegaralangan qadamlar</b> va <b>«qutilar prinsipi»</b> — cheklangan ko'p variantdan biri cheksiz takrorlanadi. Yechim Evan Chen yozuvlari asosida.</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>k = 2</span> va <span class='m'>k = 3</span> uchun kichik koeffitsiyentli barcha <span class='m'>P</span> va boshlang'ich hadlarni sinadik — 25 qadam davomida butun qolgan har bir ketma-ketlik arifmetik progressiya bo'ldi ✅</div><p>🧠 <b>Sizga savol:</b> <span class='m'>k = 2</span>, <span class='m'>a<sub>n</sub> = 2n + 1</span> bo'lsa, <span class='m'>P(x)</span> qanday ko'phad? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2023 · 4-masala</b> (tengsizlik)</p>"
+    }
+  ]
+}
