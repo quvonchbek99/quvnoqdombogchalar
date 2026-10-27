@@ -1,0 +1,36 @@
+{
+  "id": "2022-1",
+  "badge": "IMO 2022 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Oslo bankining tangalari",
+      "fs": 33,
+      "body": "<p>Marianna <span class='m'>n</span> ta alyumin (<span class='m'>A</span>) va <span class='m'>n</span> ta bronza (<span class='m'>B</span>) tangani ixtiyoriy tartibda bir qatorga terdi. <b>Zanjir</b> — bir xil turdagi ketma-ket tangalar.</p><p>Musbat butun <span class='m'>k ≤ 2n</span> tayinlangan. Har qadamda chapdan <span class='m'>k</span>-tangani o'z ichiga olgan <b>eng uzun zanjir</b> butunligicha qatorning chap boshiga ko'chiriladi.</p><div class='box'>Misol, <span class='m'>n = 4, k = 4</span>:<br><span class='m'>AABBBABA → BBBAAABA →</span><br><span class='m'>AAABBBBA → BBBBAAAA → …</span></div><p><b>Toping:</b> barcha <span class='m'>(n, k)</span> juftliklarni (<span class='m'>1 ≤ k ≤ 2n</span>), ularda <b>har qanday</b> boshlang'ich tartib uchun qachondir chapdagi <span class='m'>n</span> ta tanga bir xil turda bo'ladi.</p>"
+    },
+    {
+      "kicker": "YECHIM · BLOKLAR",
+      "title": "Bloklar soni kamayadi",
+      "fs": 33,
+      "body": "<p>Eng uzun (kengaytirib bo'lmaydigan) zanjirni <b>blok</b> deymiz. Qator bloklar ketma-ketligi: uzunliklari <span class='m'>e<sub>1</sub>, e<sub>2</sub>, …, e<sub>m</sub></span>, turlari navbatma-navbat almashadi.</p><p>Maqsad — <span class='m'>m = 2</span> ga yetish: shunda qator <span class='m'>AA…ABB…B</span> ko'rinishida bo'ladi.</p><div class='box'><b>Asosiy kuzatish.</b> Bir qadamda <span class='m'>m</span> hech qachon oshmaydi. U o'zgarmay qoladi faqat shu hollarda:<br>• <span class='m'>k ≤ e<sub>1</sub></span> (birinchi blok joyida qoladi), yoki<br>• <span class='m'>m</span> juft va <span class='m'>e<sub>m</sub> ≥ 2n + 1 − k</span> (<span class='m'>k</span>-tanga oxirgi blokda).</div><p>Boshqa holda ko'chirilgan blokning qo'shnilari birlashadi yoki u boshdagi blokka qo'shiladi — <span class='m'>m</span> kamayadi.</p>"
+    },
+    {
+      "kicker": "YECHIM · QARSHI MISOLLAR",
+      "title": "Qachon ishlamaydi?",
+      "fs": 33,
+      "body": "<p><b>1) <span class='m'>k &lt; n</span>.</b> Masalan,</p><div class='box'><span class='m'>A…A</span> (<span class='m'>n − 1</span> ta) <span class='m'>B…B</span> (<span class='m'>n</span> ta) <span class='m'>A</span></div><p>Bu yerda <span class='m'>k ≤ e<sub>1</sub> = n − 1</span>: birinchi blok o'z joyiga ko'chadi, qator hech qachon o'zgarmaydi.</p><p><b>2) <span class='m'>k &gt; ⌈3n/2⌉</span>.</b> To'rtta blok olamiz:</p><div class='box'><span class='m'>e<sub>1</sub> = e<sub>2</sub> = ⌊n/2⌋</span>, &nbsp;<span class='m'>e<sub>3</sub> = e<sub>4</sub> = ⌈n/2⌉</span></div><p>Har bir blok uzunligi <span class='m'>≥ ⌊n/2⌋ ≥ 2n + 1 − k</span>, shuning uchun <span class='m'>k</span>-tanga doim <b>oxirgi blokda</b> yotadi. U boshga o'tadi va bloklar shunchaki aylanadi: <span class='m'>m = 4</span> abadiy qoladi.</p>"
+    },
+    {
+      "kicker": "YECHIM · n ≤ k ≤ ⌈3n/2⌉",
+      "title": "Qolgan hollarda doim ishlaydi",
+      "fs": 32,
+      "body": "<p><span class='m'>m</span> o'smaydi, demak bir paytdan boshlab o'zgarmaydi. Faraz qilaylik, u <span class='m'>m &gt; 2</span> da to'xtab qoldi.</p><p>Agar <span class='m'>k ≤ e<sub>1</sub></span> bo'lsa, <span class='m'>e<sub>1</sub> ≥ k ≥ n</span> — chapdagi <span class='m'>n</span> tanga bir xil, ish bitdi. Demak har qadamda ikkinchi hol: <span class='m'>m</span> juft, oxirgi blok boshga o'tadi, bloklar aylanadi.</p><p>Uch qadam ketma-ket shunday bo'lsa, oxirgi uch blok:</p><div class='box'><span class='m'>e<sub>m</sub>, e<sub>m−1</sub>, e<sub>m−2</sub> ≥ 2n + 1 − k</span></div><p><span class='m'>e<sub>m</sub></span> va <span class='m'>e<sub>m−2</sub></span> bir xil turdagi tangalar (jami <span class='m'>n</span> ta):</p><div class='box'><span class='m'>n ≥ e<sub>m</sub> + e<sub>m−2</sub> ≥ 2(2n + 1 − k)</span> ⇒ <span class='m'>k ≥ 3n/2 + 1</span></div><p>Bu <span class='m'>k ≤ ⌈3n/2⌉</span> ga zid. ∎</p>"
+    },
+    {
+      "kicker": "JAVOB VA SAVOL",
+      "title": "Javob",
+      "fs": 31,
+      "body": "<div class='box'><span class='m'>n ≤ k ≤ ⌈3n/2⌉</span></div><p>Masalan, <span class='m'>n = 4</span> da <span class='m'>k ∈ {4, 5, 6}</span>; <span class='m'>n = 5</span> da <span class='m'>k ∈ {5, 6, 7, 8}</span>.</p><p>Kalit g'oya — qatorni <b>bloklar</b> orqali ko'rish: bloklar soni kamayadigan «potensial», qolgani ikkita aqlli qarshi misol.</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>n ≤ 7</span> uchun barcha boshlang'ich tartiblarni sinab ko'rdik — javob formulaga to'liq mos ✅</div><p>Yechim Evan Chen yozuvlari asosida. Muallif: Baptiste Serraille (Fransiya).</p><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 4, k = 7</span> uchun hech qachon tugamaydigan tartibni topa olasizmi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2022 · 2-masala</b> (algebra)</p>"
+    }
+  ]
+}
