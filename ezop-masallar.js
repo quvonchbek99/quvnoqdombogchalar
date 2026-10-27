@@ -567,5 +567,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki shahar taomlari unga umuman yoqmadi", "Chunki shahar ziyofatida xavf ko'p edi va u tinchlikni boylikdan ustun qo'ydi", "Chunki shahar sichqoni uni haqorat qilgan edi"],
     javob: 1,
     izoh: "Shahar ziyofati boy bo'lsa-da, doimiy xavf bilan birga keldi. Boylik qo'rquv bilan birga bo'lsa, u haqiqiy baxt keltirmaydi, shuning uchun tinchlik qadrliroq."
+  },
+  {
+    id: "ez-072", mavzu: "mantiq", sarlavha: "Ochko'z sichqon",
+    matn: "Ochlikdan qiynalgan sichqon dehqonning omboridagi don xaltasiga kirmoqchi bo'ldi. Xaltaning teshigi juda tor edi, shuning uchun u ichkariga sig'a olmadi. Sichqon bir chetda o'ylanib turdi-da, avval ko'proq yeb semirish kerak, deb qaror qildi. U kunlab don yedi va haqiqatan ham ancha semirib ketdi. Endi esa u teshikdan chiqishga harakat qilganda, tanasi tor joyga hech sig'madi.",
+    savol: "Sichqon nima uchun endi teshikdan chiqa olmadi?",
+    variantlar: ["Chunki teshik bu paytda butunlay yopilib qolgan edi", "Chunki u ko'proq yeb semirib, teshikdan o'tadigan darajada ozg'in bo'lmay qoldi", "Chunki dehqon uni xaltaning ichida ushlab qoldi"],
+    javob: 1,
+    izoh: "Sichqon ichkariga kirish uchun semirish kerak deb o'yladi, lekin aynan shu semirishi uni teshikdan chiqarmadi. Hiyla bilan maqsadga erishmoqchi bo'lish ko'pincha o'z-o'ziga zarar keltiradi."
   }
 ];
