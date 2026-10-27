@@ -583,5 +583,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular bir-biriga bog'langan edi", "Chunki qush ularni juda yaxshi ko'rardi", "Chunki ular suvdan chiqib ketgan edi"],
     javob: 0,
     izoh: "Qurbaqa sichqonni oyog'iga bog'lab olgan edi, shuning uchun ikkalasi bir bo'lib qoldi. Aldash va hiyla ko'pincha o'ziga ham qaytadi."
+  },
+  {
+    id: "ez-074", mavzu: "ibrat", sarlavha: "Fil va pashsha",
+    matn: "Katta fil yo'lda ketayotganda qulog'iga bir pashsha qo'nib oldi. Pashsha o'zining vizillashi filni haydayotganini o'ylab, mag'rurlanib dedi: \"Men bo'lmasam, sen yo'lni topa olmaysan!\" Fil esa bir silkinib qulog'ini qimirlatdi, pashsha uchib ketdi, fil esa hech narsa bo'lmagandek yurishda davom etdi.",
+    savol: "Pashsha nimani noto'g'ri tushundi?",
+    variantlar: ["Fil uning ovozidan qo'rqib yo'l bo'ylab ketayotgan edi", "U filni qiziqtirish uchun ko'p vizillagan edi", "U o'zining filni boshqarayotganini o'ylagan edi, aslida fil uni sezmagan edi"],
+    javob: 2,
+    izoh: "Kichik narsa o'zining ta'sirini katta deb o'ylashi mumkin. Haqiqatda kuch o'zini ko'rsatish bilan emas, amal bilan o'lchanadi."
   }
 ];
