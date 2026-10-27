@@ -575,5 +575,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki teshik bu paytda butunlay yopilib qolgan edi", "Chunki u ko'proq yeb semirib, teshikdan o'tadigan darajada ozg'in bo'lmay qoldi", "Chunki dehqon uni xaltaning ichida ushlab qoldi"],
     javob: 1,
     izoh: "Sichqon ichkariga kirish uchun semirish kerak deb o'yladi, lekin aynan shu semirishi uni teshikdan chiqarmadi. Hiyla bilan maqsadga erishmoqchi bo'lish ko'pincha o'z-o'ziga zarar keltiradi."
+  },
+  {
+    id: "ez-073", mavzu: "ahloq", sarlavha: "Qurbaqa va sichqon",
+    matn: "Bir ko'lda sichqon va qurbaqa yashardi. Qurbaqa sichqonga do'stlik ko'rsatib, uni suv ustida sayr qildirmoqchi bo'ldi va oyog'ini sichqonning oyog'iga bog'lab oldi. Suvga sho'ng'igach, qurbaqa sichqonni qutqarish o'rniga uni cho'ktirmoqchi bo'ldi, sichqon esa bo'g'ilib qoldi. Shu payt havoda uchib yurgan qush suv yuzida ikkalasini birdan ilib ketdi.",
+    savol: "Qush nima uchun qurbaqa va sichqonni birga ilib ketdi?",
+    variantlar: ["Chunki ular bir-biriga bog'langan edi", "Chunki qush ularni juda yaxshi ko'rardi", "Chunki ular suvdan chiqib ketgan edi"],
+    javob: 0,
+    izoh: "Qurbaqa sichqonni oyog'iga bog'lab olgan edi, shuning uchun ikkalasi bir bo'lib qoldi. Aldash va hiyla ko'pincha o'ziga ham qaytadi."
   }
 ];
