@@ -559,5 +559,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Uni bozorda sotish uchun semirtirmoqchi edi", "Qo'y unga har kuni sut berardi", "U qo'yga juda muhtoj edi va yolg'iz edi"],
     javob: 0,
     izoh: "Cho'ponning mehribonligi samimiy emas, balki maqsadli edi: u qo'yni semirtirib sotmoqchi edi. Ochiq mehr va ortiqcha in'omlar ortida yashirin maqsad bo'lishi mumkinligini o'ylab ko'rish kerak."
+  },
+  {
+    id: "ez-071", mavzu: "qanoat", sarlavha: "Shahar va dala sichqonlari",
+    matn: "Dala sichqoni o'z uyida oddiy don bilan tinch yashardi. Bir kuni uni shahardagi do'sti mehmonga chaqirdi va unga turli-tuman boy taomlar tayyorladi. Ziyofat avjiga chiqqanda eshik ochilib, uyga odam kirib keldi va sichqonlar qochib yashirinishga majbur bo'ldi. Dala sichqoni yuragi hanuz tez urayotgan holda dedi: \"Sen boy ovqat yeysan-u, har lahza qo'rquvda yashaysan. Men esa oddiy donim bilan xavfsiz yashashni afzal ko'raman.\"",
+    savol: "Dala sichqoni nega shahar hayotini afzal ko'rmadi?",
+    variantlar: ["Chunki shahar taomlari unga umuman yoqmadi", "Chunki shahar ziyofatida xavf ko'p edi va u tinchlikni boylikdan ustun qo'ydi", "Chunki shahar sichqoni uni haqorat qilgan edi"],
+    javob: 1,
+    izoh: "Shahar ziyofati boy bo'lsa-da, doimiy xavf bilan birga keldi. Boylik qo'rquv bilan birga bo'lsa, u haqiqiy baxt keltirmaydi, shuning uchun tinchlik qadrliroq."
   }
 ];
