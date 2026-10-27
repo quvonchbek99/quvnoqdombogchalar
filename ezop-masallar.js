@@ -551,5 +551,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki bahordagi toshqin har qanday ko'prikni buzadi", "Chunki ustunning chirigan joyi yashirilgan va hech kim tekshirmagan edi", "Chunki dehqon ko'prikni juda tor qilib qurgan edi"],
     javob: 1,
     izoh: "Yashirilgan nuqson ko'pincha eng katta xavfga aylanadi. Muammoni ko'rmaslik uni yo'q qilmaydi, faqat keyinroq kattaroq zarar keltiradi."
+  },
+  {
+    id: "ez-070", mavzu: "ehtiyotkorlik", sarlavha: "Qo'y va cho'pon",
+    matn: "Bir qo'y har kuni cho'ponning yoniga kelib, unga ergashardi. Cho'pon uni silab, shirin o't va ko'k yaproqlar berar, ortiqcha narsa talab qilmasdi. Qo'y bu mehrdan xursand bo'lib, yil bo'yi unga sodiq qoldi. Kuz kelganda esa cho'pon qo'yni bozorga olib ketdi, chunki u uni ancha semirtirgan edi.",
+    savol: "Cho'pon qo'yga nima uchun shunchalik mehribon edi?",
+    variantlar: ["Uni bozorda sotish uchun semirtirmoqchi edi", "Qo'y unga har kuni sut berardi", "U qo'yga juda muhtoj edi va yolg'iz edi"],
+    javob: 0,
+    izoh: "Cho'ponning mehribonligi samimiy emas, balki maqsadli edi: u qo'yni semirtirib sotmoqchi edi. Ochiq mehr va ortiqcha in'omlar ortida yashirin maqsad bo'lishi mumkinligini o'ylab ko'rish kerak."
   }
 ];
