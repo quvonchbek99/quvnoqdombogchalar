@@ -70,15 +70,6 @@ a{color:inherit}
   text-wrap:balance}
 .hero .lead{font-size:clamp(17px,1.9vw,20px);color:#c5cef0;max-width:30em;margin:0 0 28px}
 .hero-act{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
-.hello{display:inline-flex;align-items:center;gap:12px;border:0;cursor:pointer;font:600 15px/1 var(--body);color:#060a1a;
-  background:linear-gradient(92deg,var(--teal),#9af7ff 45%,var(--violet));padding:14px 20px 14px 16px;border-radius:999px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.2) inset,0 12px 40px -10px rgba(53,240,196,.6);transition:transform .2s,box-shadow .2s}
-.hello:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.3) inset,0 18px 46px -10px rgba(162,123,255,.7)}
-.hello .eq{display:inline-flex;align-items:flex-end;gap:3px;height:16px}
-.hello .eq i{width:3px;height:6px;border-radius:2px;background:#060a1a}
-.hello.on .eq i{animation:eq .7s ease-in-out infinite alternate}
-.hello.on .eq i:nth-child(2){animation-delay:.2s}.hello.on .eq i:nth-child(3){animation-delay:.4s}
-@keyframes eq{to{height:16px}}
 .hint{color:var(--haze);font-size:14px;display:inline-flex;align-items:center;gap:8px}
 .hint::before{content:"";width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#fff 0 18%,rgba(255,255,255,.25) 19% 40%,transparent 42%);box-shadow:0 0 12px 2px rgba(255,255,255,.35)}
 .prism-spot{height:100%;min-height:280px}
@@ -212,7 +203,7 @@ details.apk-help div{padding:8px 2px 0}
 <h1 id="sarlavha">Bugun nimani o'rganamiz?</h1>
 <p class="lead">Matematika, ingliz va rus tili, o'yinlar — o'zbek tilida, bepul va telefonda ham qulay.</p>
 <div class="hero-act">
-<button class="hello" id="salomBtn" type="button"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>Salomlashuvni tinglash</button>
+<a class="bg-chip" id="bugun-chip" href="#bugun">📅 Bugun</a>
 <span class="hint">Nurni barmoq yoki sichqoncha bilan boshqaring</span>
 </div>
 </div>
@@ -249,6 +240,8 @@ details.apk-help div{padding:8px 2px 0}
 <div id="ka-qidiruv" class="search" data-base="mashqlar.html"></div>
 </div>
 </section>
+
+<section class="bugun" id="bugun" aria-label="Bugun: sana, yil oxiri, tengkunlik va shu kuni tug'ilgan olimlar"></section>
 
 <section class="band" aria-labelledby="mashhur">
 <h2 id="mashhur">Ko'pchilik shu yerdan boshlaydi</h2>
@@ -312,10 +305,10 @@ details.apk-help div{padding:8px 2px 0}
 
 <script>document.getElementById('yil').textContent=new Date().getFullYear();</script>
 <script src="ka-nur.js"></script>
-<script src="ka-intro.js"></script>
+<script src="ka-bugun.js?v=20261028"></script>
 <script src="ka-effektlar.js"></script>
 <script src="homiylar.js"></script>
-<script src="ka-qidiruv.js?v=20261020"></script>
+<script src="ka-qidiruv.js?v=20261028"></script>
 <script src="akkount.js"></script>
 <script src="ka-til.js"></script>
 </body>
