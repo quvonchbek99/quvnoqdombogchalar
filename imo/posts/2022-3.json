@@ -1,0 +1,42 @@
+{
+  "id": "2022-3",
+  "badge": "IMO 2022 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Doiradagi tub sonlar",
+      "fs": 37,
+      "body": "<p><span class='m'>k</span> — natural son, <span class='m'>S</span> — <b>toq tub sonlarning</b> chekli to'plami.</p><p><span class='m'>S</span> ning elementlarini aylana bo'ylab shunday joylashtiramizki, <b>har ikki qo'shni</b> sonning ko'paytmasi biror natural <span class='m'>x</span> uchun</p><div class='box'><span class='m'>x<sup>2</sup> + x + k</span></div><p>ko'rinishida bo'lsin.</p><p>Bunday joylashtirish (burish va ko'zgu aksigacha aniqlikda) <b>ko'pi bilan bitta</b> usulda mumkinligini isbotlang.</p>"
+    },
+    {
+      "kicker": "YECHIM · REJA",
+      "title": "Eng kattasini olib tashlaymiz",
+      "fs": 35,
+      "body": "<p><span class='m'>x<sup>2</sup> + x + k</span> ko'rinishidagi sonlarni <b>«yaxshi»</b> deymiz (<span class='m'>x ≥ 0</span> ham ruxsat — bu faqat kuchliroq tasdiq).</p><p>Foydali kuzatish: <span class='m'>x</span> ni <span class='m'>−1 − x</span> ga almashtirsak, qiymat o'zgarmaydi. Demak <span class='m'>x</span> ni istalgan butun son deb olsak ham bo'ladi.</p><div class='box'><b>Reja:</b> <span class='m'>S</span> dagi eng katta tub <span class='m'>p</span> ni olamiz. Uning ikki qo'shnisi <span class='m'>q, r</span> unda kichik.</div><p>Ikki narsani ko'rsatamiz: <b>(1)</b> <span class='m'>q</span> va <span class='m'>r</span> faqat <span class='m'>p</span> ga qarab bir qiymatli aniqlanadi; <b>(2)</b> <span class='m'>p</span> ni olib tashlasak ham <span class='m'>qr</span> yaxshi — aylana «buzilmaydi».</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-DA'VO",
+      "title": "Kichik sheriklar ko'pi bilan 2 ta",
+      "fs": 34,
+      "body": "<p>Faraz qilaylik <span class='m'>q &lt; p</span> va <span class='m'>pq = x<sup>2</sup> + x + k</span>, <span class='m'>x ≥ 0</span>.</p><p><span class='m'>x<sup>2</sup> &lt; pq &lt; p<sup>2</sup></span>, demak <span class='m'>0 ≤ x &lt; p</span>. Shu bilan birga</p><div class='box'><span class='m'>x<sup>2</sup> + x + k ≡ 0 (mod p)</span></div><p>Kvadrat taqqoslama <span class='m'>[0, p−1]</span> oraliqda <b>ko'pi bilan 2 ta</b> yechimga ega. Har bir <span class='m'>x</span> esa <span class='m'>q = (x<sup>2</sup>+x+k)/p</span> ni aniqlaydi.</p><p>Agar ikkita shunday <span class='m'>q ↔ x</span>, <span class='m'>r ↔ y</span> bo'lsa, Viyet teoremasidan <span class='m'>x + y ≡ −1</span>, <span class='m'>xy ≡ k (mod p)</span>. <span class='m'>0 &lt; x + y &lt; 2p</span> bo'lgani uchun:</p><div class='box'><span class='m'>x + y + 1 = p</span>, &nbsp; <span class='m'>p | xy − k</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 2-DA'VO",
+      "title": "qr ham yaxshi son!",
+      "fs": 34,
+      "body": "<p>Kalit ayniyat (normalar ko'paytmasi; qavslarni ochib tekshirish mumkin):</p><div class='box'><span class='m'>(x<sup>2</sup>+x+k)(y<sup>2</sup>+y+k) = a<sup>2</sup> + ab + kb<sup>2</sup></span><br><span class='m'>a = xy − k</span>, &nbsp; <span class='m'>b = x + y + 1</span></div><p>1-da'vodan <span class='m'>b = p</span> va <span class='m'>a = p·m</span> (<span class='m'>m</span> — butun). U holda</p><div class='box'><span class='m'>pq · pr = p<sup>2</sup>(m<sup>2</sup> + m + k)</span></div><p>Ikkala tomonni <span class='m'>p<sup>2</sup></span> ga bo'lamiz:</p><div class='box'><span class='m'>qr = m<sup>2</sup> + m + k</span> &nbsp;— yaxshi son ✅</div>"
+    },
+    {
+      "kicker": "YECHIM · INDUKSIYA",
+      "title": "Joylashtirish yagona",
+      "fs": 35,
+      "body": "<p><span class='m'>|S|</span> bo'yicha induksiya. <span class='m'>|S| ≤ 3</span> da aylanadagi tartib baribir yagona.</p><p>Eng katta <span class='m'>p</span> ning qo'shnilari <span class='m'>q, r &lt; p</span> va <span class='m'>pq</span>, <span class='m'>pr</span> yaxshi. 1-da'vo bo'yicha <span class='m'>{q, r}</span> — <b>aynan o'sha</b> ikki tub son, ular faqat <span class='m'>p</span> va <span class='m'>k</span> ga bog'liq.</p><p><span class='m'>p</span> ni o'chiramiz: endi <span class='m'>q</span> va <span class='m'>r</span> qo'shni, 2-da'vo bo'yicha <span class='m'>qr</span> yaxshi. Demak <span class='m'>S \\ {p}</span> uchun to'g'ri joylashtirish hosil bo'ldi — u induksiya bo'yicha <b>yagona</b>.</p><div class='box'><span class='m'>p</span> esa faqat <span class='m'>q</span> va <span class='m'>r</span> orasiga qo'yiladi. Demak butun joylashtirish yagona. ∎</div>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 34,
+      "body": "<p><span class='m'>k = 1</span>, &nbsp;<span class='m'>S = {3, 7, 19}</span>:</p><p><span class='m'>3·7 = 21 = 4<sup>2</sup>+4+1</span>, &nbsp;<span class='m'>3·19 = 57 = 7<sup>2</sup>+7+1</span>, &nbsp;<span class='m'>7·19 = 133 = 11<sup>2</sup>+11+1</span> ✅</p><div class='box'><span class='m'>p = 19</span>: <span class='m'>x = 7</span>, <span class='m'>y = 11</span>, <span class='m'>x+y+1 = 19</span> ✅<br><span class='m'>m = (77 − 1)/19 = 4</span> ⇒ <span class='m'>3·7 = 4<sup>2</sup>+4+1</span> ✅</div><p>Yechim Evan Chen yozuvlari asosida. Muallif: Ankan Bhattacharya (AQSh).</p><p>🧠 <b>Sizga savol:</b> <span class='m'>k = 1</span> da <span class='m'>{3, 7, 13}</span> ni aylanaga joylashtirib bo'ladimi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2022 · 4-masala</b> (geometriya)</p>"
+    }
+  ]
+}
