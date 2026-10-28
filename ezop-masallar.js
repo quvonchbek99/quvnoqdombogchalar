@@ -623,5 +623,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki qo'rqinchoq juda chiroyli bo'lib qolgan edi", "Chunki dehqon qushlarni yaxshi ko'rib qoldi", "Chunki ular qo'rqinchoq hech qachon harakat qilmasligini payqadi"],
     javob: 2,
     izoh: "Qushlar bir necha kuzatuvdan so'ng qo'rqinchoq xavf tug'dirmasligini anglab yetdi. Tajriba va kuzatish to'g'ri xulosaga olib keladi."
+  },
+  {
+    id: "ez-079", mavzu: "mehnat", sarlavha: "Dehqon va xiralashgan bolta",
+    matn: "Bir dehqon daraxtni kesish uchun dalaga bordi, ammo boltasi uzoq vaqtdan beri charxlanmagan va xiralashgan edi. U soatlab urinib ko'rdi, lekin daraxt zo'rg'a silkindi, xolos. Shu payt yo'ldan o'tayotgan qo'shnisi unga boltani avval charxlashni maslahat berdi. Dehqon toshda boltani sayqallab, o'tkirlab oldi va yana daraxtga yondashdi. Bu safar daraxt bir necha zarbadayoq qulab tushdi.",
+    savol: "Dehqon daraxtni nima uchun bu safar tez kesib tashladi?",
+    variantlar: ["Chunki daraxt bu safar o'zi qulab tushmoqchi edi", "Chunki u avval boltani o'tkirlab, ishni samarali qiladigan vositani tayyorladi", "Chunki qo'shnisi unga daraxtni kesib berish uchun kelgan edi"],
+    javob: 1,
+    izoh: "Ishga kirishishdan oldin vositani tayyorlash ish samaradorligini oshiradi. Xiralashgan bolta ko'p kuch sarflashga, o'tkir bolta esa kamroq kuch bilan ko'proq natija berishga olib keladi."
   }
 ];
