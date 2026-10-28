@@ -599,5 +599,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ulkan ajdaho", "Bitta kichkina sichqon", "Ko'p miqdordagi oltin"],
     javob: 1,
     izoh: "Katta shov-shuv va ulkan kutishlar ortida ko'pincha kichik natija bo'ladi. Gapni hajmiga emas, haqiqiy natijasiga qarab baholash kerak."
+  },
+  {
+    id: "ez-076", mavzu: "ehtiyotkorlik", sarlavha: "Maymun va mushuk",
+    matn: "Bir kuni maymun va mushuk olov yoniga kelib, kul ostida kashtan pishayotganini ko'rishdi. Mushuk maymunga qarab: \"Sen juda chaqqonsan, kashtanlarni olib ber, men yeyman\", dedi. Maymun olovga qo'lini suqib, bir-bir kashtanlarni chiqardi. Panjalari kuyib, u kashtanlardan birortasini ham tatib ko'rolmadi, mushuk esa barcha kashtanlarni yeb qo'ydi.",
+    savol: "Maymun nima uchun kashtanlardan foyda ko'rmadi?",
+    variantlar: ["Chunki kashtanlar hali pishmagan edi", "Chunki u boshqaning foydasi uchun xavfli ishga aralashgan edi", "Chunki mushuk kashtanlarni yashirib qo'ygan edi"],
+    javob: 1,
+    izoh: "Maymun boshqaning manfaati uchun o'z panjasini xavf ostiga qo'ydi. Birovning gapiga ko'r-ko'rona ergashish va o'zi uchun xavf tug'diradigan ishga kirishish oxir-oqibatda zarar keltiradi."
   }
 ];
