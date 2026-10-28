@@ -615,5 +615,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki tulki suvga yaqinlasha olmadi", "Chunki baliqlar xavfni sezib, tez chuqur joyga qochdi", "Chunki baliqlar tulkiga o'zlari yaqinlashib kelgan edi"],
     javob: 1,
     izoh: "Baliqlar xavfni oldindan sezib, o'zlarini himoya qildi. Bu hodisa ehtiyotkorlik va vaziyatni tez baholash qanchalik muhimligini ko'rsatadi."
+  },
+  {
+    id: "ez-078", mavzu: "mantiq", sarlavha: "Qo'rqinchoq va chumchuqlar",
+    matn: "Dehqon ekinzorini qushlardan saqlash uchun dalaga odam qiyofasidagi qo'rqinchoq o'rnatdi. Dastlab chumchuqlar uni ko'rib, qanot qoqib qochib ketishdi. Bir necha kundan so'ng ular qo'rqinchoq hech qachon qimirlamasligini, shamolda ham tebranmasligini payqab qolishdi. Shundan keyin ular qo'rqinchoqning yoniga bemalol qo'nib, don cho'qiy boshladi.",
+    savol: "Chumchuqlar nima uchun qo'rqinchoqdan qo'rqishni to'xtatdi?",
+    variantlar: ["Chunki qo'rqinchoq juda chiroyli bo'lib qolgan edi", "Chunki dehqon qushlarni yaxshi ko'rib qoldi", "Chunki ular qo'rqinchoq hech qachon harakat qilmasligini payqadi"],
+    javob: 2,
+    izoh: "Qushlar bir necha kuzatuvdan so'ng qo'rqinchoq xavf tug'dirmasligini anglab yetdi. Tajriba va kuzatish to'g'ri xulosaga olib keladi."
   }
 ];
