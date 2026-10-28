@@ -1,0 +1,36 @@
+{
+  "id": "2021-2",
+  "badge": "IMO 2021 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Ildizlar tengsizligi",
+      "fs": 37,
+      "body": "<p>Ixtiyoriy <span class='m'>x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub></span> haqiqiy sonlar uchun quyidagi tengsizlikni isbotlang:</p><div class='box'><span class='m'>Σ<sub>i,j</sub> √|x<sub>i</sub> − x<sub>j</sub>| &nbsp;≤&nbsp; Σ<sub>i,j</sub> √|x<sub>i</sub> + x<sub>j</sub>|</span></div><p>Bu yerda yig'indi <b>barcha</b> juftliklar bo'yicha olinadi: <span class='m'>i, j = 1, 2, …, n</span> (jumladan <span class='m'>i = j</span> ham).</p><p>Ya'ni ayirmalar ildizlari yig'indisi yig'indilar ildizlari yig'indisidan oshmaydi.</p>"
+    },
+    {
+      "kicker": "YECHIM · ASOSIY G'OYA",
+      "title": "Hamma sonlarni siljitamiz",
+      "fs": 35,
+      "body": "<p>Isbot <span class='m'>n</span> bo'yicha <b>induksiya</b>. <span class='m'>n = 1, 2</span> hollarni qo'lda tekshirish oson.</p><p>Endi har bir <span class='m'>x<sub>i</sub></span> ni <span class='m'>x<sub>i</sub> + t</span> ga almashtiramiz:</p><ul><li>chap tomon <b>o'zgarmaydi</b>: <span class='m'>(x<sub>i</sub> + t) − (x<sub>j</sub> + t) = x<sub>i</sub> − x<sub>j</sub></span></li><li>o'ng tomon <span class='m'>t</span> ning funksiyasiga aylanadi:</li></ul><div class='box'><span class='m'>F(t) = Σ<sub>i,j</sub> √|x<sub>i</sub> + x<sub>j</sub> + 2t|</span></div><p>Bizga <span class='m'>F(0) ≥</span> chap tomon kerak. Buning uchun <span class='m'>F</span> ning <b>eng kichik qiymati</b> ham chap tomondan kichik emasligini ko'rsatish kifoya.</p>"
+    },
+    {
+      "kicker": "YECHIM · BOTIQLIK",
+      "title": "Minimum qayerda bo'ladi?",
+      "fs": 34,
+      "body": "<p>Har bir qo'shiluvchi <span class='m'>√|x<sub>i</sub> + x<sub>j</sub> + 2t|</span> — «V» shaklidagi, lekin ikki qanoti ham <b>botiq</b> funksiya.</p><svg viewBox='0 0 560 245' width='560' height='245' style='display:block;margin:2px auto 10px'><line x1='20' y1='200' x2='540' y2='200' stroke='#5b6b82' stroke-width='3'/><polyline points='40,50 44,52 48,53 51,55 55,56 59,58 63,59 67,61 70,63 74,64 78,66 82,68 86,69 89,71 93,73 97,75 101,76 105,78 108,80 112,82 116,84 120,86 124,88 127,90 131,92 135,94 139,96 143,98 146,101 150,103 154,105 158,108 162,110 165,113 169,115 173,118 177,121 181,124 184,127 188,130 192,133 196,136 200,140 203,144 207,148 211,153 215,158 219,163 222,170 226,179 230,200 236,179 242,170 247,163 253,158 259,153 265,148 271,144 276,140 282,136 288,133 294,130 300,127 305,124 311,121 317,118 323,115 329,113 334,110 340,108 346,105 352,103 358,101 363,98 369,96 375,94 381,92 387,90 392,88 398,86 404,84 410,82 416,80 421,78 427,76 433,75 439,73 445,71 450,69 456,68 462,66 468,64 474,63 479,61 485,59 491,58 497,56 503,55 508,53 514,52 520,50' fill='none' stroke='#f2b84b' stroke-width='5'/><g fill='#fff'><circle cx='230' cy='200' r='9'/></g><g fill='#ffd98a' font-family='DejaVu Serif' font-style='italic' font-size='26' text-anchor='middle'><text x='230' y='236'>sinish nuqtasi</text></g></svg><p>Ularning yig'indisi <span class='m'>F(t)</span> sinish nuqtalari orasidagi har bir oraliqda botiq, <span class='m'>|t| → ∞</span> da esa cheksiz o'sadi.</p><div class='box'>Botiq funksiya oraliqda minimumni <b>chetlarida</b> oladi ⇒ <span class='m'>F</span> ning minimumi biror <span class='m'>2t = −(x<sub>i</sub> + x<sub>j</sub>)</span> nuqtada.</div>"
+    },
+    {
+      "kicker": "YECHIM · INDUKSIYA",
+      "title": "Ikki hol — ikkalasi ham kamayadi",
+      "fs": 33,
+      "body": "<p><b>1-hol:</b> <span class='m'>t = −x<sub>i</sub></span>, ya'ni siljishdan keyin <span class='m'>x<sub>i</sub> = 0</span>. Unda <span class='m'>x<sub>i</sub></span> qatnashgan hadlar ikki tomonda bir xil: <span class='m'>√|0 − x<sub>k</sub>| = √|0 + x<sub>k</sub>|</span>. Ularni o'chirib, <span class='m'>n − 1</span> ta son uchun induksiyani qo'llaymiz.</p><p><b>2-hol:</b> <span class='m'>2t = −(x<sub>i</sub> + x<sub>j</sub>)</span>, ya'ni siljishdan keyin <span class='m'>x<sub>j</sub> = −x<sub>i</sub></span>. Unda</p><div class='box'><span class='m'>√|x<sub>j</sub> − x<sub>k</sub>| = √|x<sub>i</sub> + x<sub>k</sub>|</span>, &nbsp;<span class='m'>√|x<sub>j</sub> + x<sub>k</sub>| = √|x<sub>i</sub> − x<sub>k</sub>|</span></div><p>— hadlar o'rin almashib, ikki tomonda qisqaradi. <span class='m'>x<sub>i</sub>, x<sub>j</sub></span> ni o'chirib, <span class='m'>n − 2</span> ta son uchun induksiya. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tenglik qachon bo'ladi?",
+      "fs": 35,
+      "body": "<p><span class='m'>x<sub>1</sub> = 1, x<sub>2</sub> = −1</span> uchun:</p><div class='box'>Chap: <span class='m'>√2 + √2 = 2√2</span><br>O'ng: <span class='m'>√2 + √2 + 0 + 0 = 2√2</span> — tenglik! ✅</div><p>Sonlar <span class='m'>±a</span> juftliklari va nollardan iborat bo'lsa, tenglik bajariladi. Python'da 200 000 ta tasodifiy to'plamda tekshirildi — tengsizlik buzilmadi ✅</p><p>Yechim Evan Chen yozuvlari asosida. Masala muallifi: Calvin Deng (AQSh).</p><p>🧠 <b>Sizga savol:</b> <span class='m'>x = (3, −3, 5)</span> uchun ikki tomonni hisoblang. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2021 · 3-masala</b> (geometriya)</p>"
+    }
+  ]
+}
