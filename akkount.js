@@ -5,6 +5,7 @@
  * - Testdagi har bir to'g'ri javob uchun +10 coin (har savolga bir marta, birinchi tanlov hisoblanadi)
  * - Tarix, daraja, shu qurilmadagi reyting
  * Ma'lumotlar shu brauzerda (localStorage) saqlanadi; parol bilan ochilgan akkaunt bulutga (Firebase, ka-bulut.js) ham yoziladi.
+ * Parollar: ko'rsatish 👁, nusxalash 📋, o'ylab berish 🎲, qurilmada/brauzerda saqlash, Gmail orqali tiklash va o'zgartirish.
  * Ulash: <script src="akkount.js"></script>
  */
 (function () {
@@ -184,6 +185,30 @@
   .acc-toast.on{opacity:1;transform:translate(-50%,0)}
   .acc-links{background:#0e1730;border:1px solid #243252;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;font-size:13px}.acc-lrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.acc-links .ig-in{background:#111a2e;border:1px solid #243252;color:#eef2ff;border-radius:8px;padding:6px 8px;width:130px;font-size:13px}
   .acc-fixed{position:fixed;left:10px;top:8px;z-index:960;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  .acc-pw{display:flex;align-items:stretch;gap:6px;min-width:0}
+  .acc-pw input{flex:1 1 auto;min-width:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace!important;letter-spacing:.02em!important}
+  .acc-pw input[readonly]{background:#0b1220;border:1px dashed #3a4a78;color:#eef2ff;border-radius:10px;padding:9px 10px;font-size:15px}
+  .acc-ic{flex:0 0 auto;min-width:42px;min-height:40px;background:#111a2e;border:1px solid #243252;color:#eef2ff;border-radius:10px;font-size:16px;line-height:1;cursor:pointer;padding:0 8px}
+  .acc-ic:hover{border-color:#7c9bff;background:#16223d}
+  .acc-btn.sm{padding:8px 11px;font-size:13px}
+  .acc-form .acc-chk{flex-direction:row;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-weight:600;color:#cfd8f0;font-size:13px;cursor:pointer}
+  .acc-form .acc-chk input{width:18px;height:18px;padding:0;accent-color:#8b5cf6;flex:0 0 auto}
+  .acc-chk small{display:block;color:#8090b0;font-weight:500;font-size:11.5px;margin-top:1px}
+  .acc-sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;border:0!important;opacity:0;pointer-events:none;overflow:hidden}
+  .acc-keys{background:linear-gradient(180deg,#141d3d,#0e1730);border:1px solid #3d4a8a;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+  .acc-kh{font-weight:800;font-size:15px}.acc-kh small{color:#9fb0d0;font-weight:500}
+  .acc-kr{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:8px;min-height:40px}
+  .acc-kr>span:first-child{color:#9fb0d0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .acc-kr>b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .acc-kr .acc-pw{grid-column:2/4}
+  .acc-kr i.dim{font-style:normal}
+  .acc-link{background:none;border:0;color:#9fb6ff;text-decoration:underline;cursor:pointer;font:600 13px/1.4 inherit;padding:4px 0;text-align:left}
+  .acc-link:hover{color:#c7d4ff}
+  .acc-opt{background:#0e1628;border:1px solid #243252;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+  .acc-saved{display:flex;flex-direction:column;gap:6px;border-top:1px solid #1d2a48;padding-top:8px}
+  .acc-saved-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px}
+  .dim{color:#9fb0d0;font-size:12.5px}
+  .acc-banner.ok{background:rgba(94,230,199,.1);border-color:rgba(94,230,199,.4);color:#c9fff1}
   `;
   document.head.appendChild(el("style", null, css));
 
@@ -202,6 +227,76 @@
   document.body.appendChild(toastEl);
   var toastT;
   function toast(t) { toastEl.textContent = t; toastEl.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove("on"); }, 1400); }
+
+  // ---------- Parollar: qurilmada saqlash, ko'rsatish, nusxalash, brauzerga saqlash ----------
+  var LS_KEYS = "ka.kirish.v1";
+  function keysAll() { try { var d = JSON.parse(localStorage.getItem(LS_KEYS) || "{}"); return d && typeof d === "object" ? d : {}; } catch (e) { return {}; } }
+  function keysPut(k) { try { localStorage.setItem(LS_KEYS, JSON.stringify(k)); } catch (e) {} }
+  function keySave(uid, name, group, pw) { if (!uid || !pw) return; var k = keysAll(); k[uid] = { name: name, group: group || "", pw: pw, at: Date.now() }; keysPut(k); }
+  function keyGet(uid) { var k = keysAll(); return uid && k[uid] ? k[uid] : null; }
+  function keyDel(uid) { var k = keysAll(); if (k[uid]) { delete k[uid]; keysPut(k); } }
+  function credId(name, group) { return name + (group ? " | " + group : ""); }
+  function hasBrowserKeys() { return !!(window.PasswordCredential && navigator.credentials && navigator.credentials.get); }
+  function browserStore(name, group, pw) {
+    try { if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) navigator.credentials.store(new window.PasswordCredential({ id: credId(name, group), password: pw, name: name })).catch(function () {}); } catch (e) {}
+  }
+  function browserGet() {
+    try {
+      if (!hasBrowserKeys()) return Promise.resolve(null);
+      return navigator.credentials.get({ password: true, mediation: "required" }).then(function (c) {
+        if (!c || !c.password) return null; var p = String(c.id).split(" | "); return { name: p[0], group: p.slice(1).join(" | "), pw: c.password };
+      }, function () { return null; });
+    } catch (e) { return Promise.resolve(null); }
+  }
+  var WORDS = ["Tulki", "Burgut", "Lochin", "Kamalak", "Yulduz", "Daryo", "Bulut", "Anor", "Shamol", "Quyosh", "Arslon", "Kitob", "Qalam", "Sayyora", "Olmos", "Zumrad", "Chinor", "Bahor"];
+  function rnd(n) { try { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n; } catch (e) { return Math.floor(Math.random() * n); } }
+  function genPw() { var d = ""; for (var i = 0; i < 4; i++) d += rnd(10); return WORDS[rnd(WORDS.length)] + "-" + d; }
+  function copyText(t) {
+    function fb() { var ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0"; document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {} ta.remove(); return ok; }
+    try { if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t).then(function () { return true; }, fb); } catch (e) {}
+    return Promise.resolve(fb());
+  }
+  function pwHTML(name, o) {
+    o = o || {};
+    return '<span class="acc-pw"><input name="' + name + '" type="password" maxlength="64" autocomplete="' + (o.ac || "current-password") + '"' + (o.req ? " required" : "") + (o.ro ? " readonly" : "") +
+      (o.min ? ' minlength="' + o.min + '"' : "") + (o.ph ? ' placeholder="' + esc(o.ph) + '"' : "") + (o.val ? ' value="' + esc(o.val) + '"' : "") + ' spellcheck="false" autocapitalize="off" autocorrect="off">' +
+      '<button type="button" class="acc-ic" data-pw="eye" title="Ko\'rsatish" aria-label="Parolni ko\'rsatish">👁</button>' +
+      '<button type="button" class="acc-ic" data-pw="copy" title="Nusxalash" aria-label="Parolni nusxalash">📋</button>' +
+      (o.gen ? '<button type="button" class="acc-ic" data-pw="gen" title="Parol o\'ylab berish" aria-label="Parol o\'ylab berish">🎲</button>' : "") + "</span>";
+  }
+  function userHidden(v) { return '<input class="acc-sr" type="text" name="username" autocomplete="username" tabindex="-1" aria-hidden="true" value="' + esc(v || "") + '">'; }
+  function saveChk(on) { return '<label class="acc-chk"><input type="checkbox" name="keep"' + (on === false ? "" : " checked") + '><span>💾 Parolni shu qurilmada saqlash<small>Umumiy (maktab) kompyuterida belgini olib tashlang</small></span></label>'; }
+  function credText(name, group, pw) { return "Kuvonch Academy — kirish ma'lumotlari\nSayt: https://kuvonch.uz\nIsm va familiya: " + name + "\nGuruh: " + (group || "(bo'sh)") + "\nParol: " + pw + "\n\nBoshqa qurilmada: «Kirish» → «Boshqa qurilmadan kirish».\nGmail ulangan bo'lsa: «Gmail bilan kirish»."; }
+  function download(fn, text) { try { var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" })); a.download = fn; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 800); return true; } catch (e) { return false; } }
+  function fileName(n) { return "kuvonch-kirish-" + (String(n || "akkount").toLowerCase().replace(/[^a-z0-9а-яёўқғҳ]+/gi, "-").replace(/^-+|-+$/g, "") || "akkount") + ".txt"; }
+  // 👁 / 📋 / 🎲 tugmalari — barcha oynalar uchun bitta tinglovchi
+  card.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest ? e.target.closest("[data-pw],[data-copy]") : null; if (!b || !card.contains(b)) return;
+    e.preventDefault();
+    if (b.hasAttribute("data-copy")) { copyText(b.getAttribute("data-copy")).then(function (ok) { toast(ok ? "Nusxalandi 📋" : "Nusxalab bo'lmadi"); }); return; }
+    var box = b.closest(".acc-pw"), inp = box && box.querySelector("input"); if (!inp) return;
+    var a = b.getAttribute("data-pw"), eye = box.querySelector('[data-pw="eye"]');
+    function show(on) { inp.type = on ? "text" : "password"; if (eye) { eye.textContent = on ? "🙈" : "👁"; eye.setAttribute("aria-label", on ? "Parolni yashirish" : "Parolni ko'rsatish"); eye.title = on ? "Yashirish" : "Ko'rsatish"; } }
+    if (a === "eye") show(inp.type === "password");
+    else if (a === "copy") { if (!inp.value) { toast("Parol hali yozilmagan"); return; } copyText(inp.value).then(function (ok) { toast(ok ? "Parol nusxalandi 📋" : "Nusxalab bo'lmadi"); }); }
+    else if (a === "gen") { inp.value = genPw(); show(true); inp.dispatchEvent(new Event("input", { bubbles: true })); toast("Parol tayyor — saqlab qo'ying 💾"); }
+  });
+  var COVER = '<div class="acc-cover"><button class="acc-x" type="button" aria-label="Yopish">✕</button></div>';
+  function bindX() { var x = $(".acc-x", card); if (x) x.onclick = function () { gate ? skipGate() : close(); }; }
+  function keysHTML(name, group, pw, o) {
+    o = o || {};
+    return '<div class="acc-keys"><div class="acc-kh">🔐 Kirish ma\'lumotlari' + (o.sub ? ' <small>' + o.sub + "</small>" : "") + "</div>" +
+      '<div class="acc-kr"><span>Ism</span><b>' + esc(name) + '</b><button type="button" class="acc-ic" data-copy="' + esc(name) + '" title="Nusxalash" aria-label="Ismni nusxalash">📋</button></div>' +
+      '<div class="acc-kr"><span>Guruh</span><b>' + (group ? esc(group) : '<i class="dim">bo\'sh</i>') + "</b>" + (group ? '<button type="button" class="acc-ic" data-copy="' + esc(group) + '" title="Nusxalash" aria-label="Guruhni nusxalash">📋</button>' : "<span></span>") + "</div>" +
+      '<div class="acc-kr"><span>Parol</span>' + (pw ? pwHTML("kpw", { ro: 1, val: pw }) : '<i class="dim">shu qurilmada saqlanmagan</i><button type="button" class="acc-btn sm" data-a="savepw">💾 Saqlash</button>') + "</div>" +
+      (pw ? '<div class="acc-btns"><button type="button" class="acc-btn sm" data-a="copyall">📋 Hammasini nusxalash</button><button type="button" class="acc-btn sm" data-a="dl">⬇️ Faylga saqlash</button>' +
+        (o.forget ? '<button type="button" class="acc-btn sm danger" data-a="forget">Qurilmadan o\'chirish</button>' : "") + "</div>" : "") + "</div>";
+  }
+  function wireKeys(name, group, pw) {
+    var ca = $('[data-a="copyall"]', card); if (ca) ca.onclick = function () { copyText(credText(name, group, pw)).then(function (ok) { toast(ok ? "Hammasi nusxalandi 📋" : "Nusxalab bo'lmadi"); }); };
+    var dl = $('[data-a="dl"]', card); if (dl) dl.onclick = function () { if (download(fileName(name), credText(name, group, pw))) toast("Fayl yuklab olindi ⬇️"); };
+  }
+  function errHTML(er, extra) { return esc(window.kaCloud ? window.kaCloud.uzError(er) : "Xatolik.") + (extra || ""); }
 
   // Header'dagi chip
   var chip = el("button", { class: "acc-chip", type: "button", title: "Akkount" });
@@ -228,19 +323,15 @@
       '<button class="acc-btn" type="button" data-a="cloud">☁️ Boshqa qurilmadan kirish</button>' +
       '<button class="acc-btn" type="button" data-a="google">🔵 Gmail bilan kirish</button>' +
       (gate ? '<button class="acc-btn" type="button" data-a="skip">Akkountsiz davom etish</button>' : "") + "</div>" +
+      '<div class="acc-btns"><button type="button" class="acc-link" data-a="forgot">🔑 Parolni unutdingizmi? Tiklash</button></div>' +
       (memOnly ? '<div class="acc-banner">Brauzer ma\'lumot saqlashga ruxsat bermayapti (maxfiy oyna?). Akkount sahifa yopilguncha ishlaydi.</div>' : "") +
       "</div>";
     $(".acc-x", card).onclick = function () { gate ? skipGate() : close(); };
     $('[data-a="new"]', card).onclick = function () { showForm(); };
     $('[data-a="cloud"]', card).onclick = function () { showCloudLogin(); };
     var sk = $('[data-a="skip"]', card); if (sk) sk.onclick = skipGate;
-    $('[data-a="google"]', card).onclick = async function () {
-      var b = this; b.disabled = true; b.textContent = "Google oynasi…";
-      try {
-        var K = await cloud(); if (!K) throw 0;
-        var r = await K.loginGoogle(); var id = adoptCloud(r.uid, r.data.name, r.data.group, r.data); login(id);
-      } catch (er) { showLogin(window.kaCloud ? window.kaCloud.uzError(er) : "Gmail bilan kirib bo'lmadi."); }
-    };
+    $('[data-a="google"]', card).onclick = function () { googleFlow(this, "login", function (t) { var m = $(".acc-msg", card); if (!m) { m = el("div", { class: "acc-msg" }); $(".acc-btns", card).before(m); } m.innerHTML = t; }); };
+    $('[data-a="forgot"]', card).onclick = function () { showRecover(); };
     $$(".acc-user", card).forEach(function (b) { b.onclick = function () { askPin(b.getAttribute("data-id")); }; });
     open();
   }
@@ -264,53 +355,347 @@
     setTimeout(function () { inp.focus(); }, 50);
   }
 
-  // Bulutdagi akkaunt: sessiya saqlangan bo'lsa parolsiz, aks holda parol so'raladi
-  function askCloudPass(id) {
-    var u = DB[id];
+  // Bulutdagi akkaunt: sessiya bo'lsa parolsiz; saqlangan parol bo'lsa — o'zi kiradi; aks holda parol so'raladi
+  function askCloudPass(id, why) {
+    var u = DB[id], saved = keyGet(u.cloud);
     cloud().then(function (K) { return K ? K.session() : null; }).then(function (uid) {
       if (uid && uid === u.cloud) return login(id);
-      card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button">✕</button></div>' +
+      if (saved && !why) {
+        return cloud().then(function (K) { return K ? K.login(u.name, u.group, saved.pw) : Promise.reject({ code: "auth/network-request-failed" }); })
+          .then(function (r) { adoptCloud(r.uid, u.name, u.group, r.data); login(r.uid); }, function (er) { askCloudPass(id, er && er.code === "auth/network-request-failed" ? "net" : "old"); });
+      }
+      card.innerHTML = COVER +
         '<div class="acc-top">' + avatarHTML(u, 96) + '<div class="acc-name"><h3>' + esc(u.name) + '</h3><div class="sub">' + esc(u.group || "") + "</div></div></div>" +
-        '<div class="acc-body"><form class="acc-form"><label>Parol<input type="password" autocomplete="current-password" required></label>' +
-        '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Kirish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
-      var f = $("form", card), inp = $("input", f), msg = $(".acc-msg", f);
-      $(".acc-x", card).onclick = function () { gate ? skipGate() : close(); };
+        '<div class="acc-body">' + (why === "old" ? '<div class="acc-banner">Saqlangan parol ishlamadi — ehtimol boshqa qurilmada o\'zgartirilgan. Yangi parolni kiriting.</div>' : "") +
+        '<form class="acc-form">' + userHidden(credId(u.name, u.group)) + '<label>Parol' + pwHTML("pw", { req: 1, val: saved && saved.pw }) + "</label>" + saveChk(true) +
+        '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Kirish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div>' +
+        '<div class="acc-btns"><button type="button" class="acc-link" data-a="forgot">🔑 Parolni unutdingizmi? Tiklash</button></div></form></div>';
+      var f = $("form", card), inp = f.pw, msg = $(".acc-msg", f);
+      bindX();
       $('[data-a="back"]', card).onclick = function () { showLogin(); };
+      $('[data-a="forgot"]', card).onclick = function () { showRecover({ name: u.name, group: u.group }); };
       f.onsubmit = async function (e) {
-        e.preventDefault(); msg.textContent = "Tekshirilmoqda…";
+        e.preventDefault(); msg.className = "acc-msg ok"; msg.textContent = "Tekshirilmoqda…";
         try {
-          var K = await cloud(); if (!K) { msg.textContent = "Internet bilan aloqa yo'q."; return; }
+          var K = await cloud(); if (!K) { msg.className = "acc-msg"; msg.textContent = "Internet bilan aloqa yo'q."; return; }
           var r = await K.login(u.name, u.group, inp.value);
+          if (f.keep.checked) keySave(r.uid, u.name, u.group, inp.value); else keyDel(r.uid);
+          browserStore(u.name, u.group, inp.value);
           adoptCloud(r.uid, u.name, u.group, r.data); login(r.uid);
-        } catch (er) { msg.textContent = (window.kaCloud ? window.kaCloud.uzError(er) : "Xatolik."); inp.value = ""; inp.focus(); }
+        } catch (er) { msg.className = "acc-msg"; msg.innerHTML = errHTML(er, ' <button type="button" class="acc-link" data-a="forgot2">Tiklash</button>'); var b2 = $('[data-a="forgot2"]', card); if (b2) b2.onclick = function () { showRecover({ name: u.name, group: u.group }); }; inp.focus(); inp.select(); }
       };
       setTimeout(function () { inp.focus(); }, 50);
+      open();
     });
   }
 
   // Boshqa qurilmadan kirish: ism + guruh + parol
-  function showCloudLogin() {
-    card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button">✕</button></div>' +
+  function showCloudLogin(pre) {
+    pre = pre || {};
+    var k = keysAll(), kids = Object.keys(k);
+    card.innerHTML = COVER +
       '<div class="acc-body" style="padding-top:18px"><h3 style="margin:0;font-size:22px">☁️ Boshqa qurilmadan kirish</h3>' +
-      '<div class="acc-banner">Akkauntni ochgan paytdagi ism, guruh va parolni kiriting — tangalaringiz va natijalaringiz shu qurilmaga keladi.</div>' +
-      '<form class="acc-form"><div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required></label>' +
-      '<label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25"></label></div>' +
-      '<label>Parol<input name="pw" type="password" autocomplete="current-password" required></label>' +
-      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Kirish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
+      '<div class="acc-banner">Akkauntni ochgan paytdagi <b>ism</b>, <b>guruh</b> va <b>parolni</b> kiriting — tangalaringiz va natijalaringiz shu qurilmaga keladi. Katta-kichik harf farq qilmaydi.</div>' +
+      (kids.length ? '<div class="acc-saved-row"><span class="dim">💾 Saqlangan:</span>' + kids.map(function (id) { return '<button type="button" class="acc-btn sm" data-fill="' + esc(id) + '">' + esc(k[id].name) + (k[id].group ? " · " + esc(k[id].group) : "") + "</button>"; }).join("") + "</div>" : "") +
+      '<form class="acc-form">' + userHidden("") + '<div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required autocomplete="off"></label>' +
+      '<label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25" autocomplete="off"></label></div>' +
+      '<label>Parol' + pwHTML("pw", { req: 1 }) + "</label>" + saveChk(true) +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Kirish</button>' +
+      (hasBrowserKeys() ? '<button class="acc-btn" type="button" data-a="bro">🌐 Brauzer saqlaganidan olish</button>' : "") +
+      '<button class="acc-btn" type="button" data-a="back">← Orqaga</button></div>' +
+      '<div class="acc-btns"><button type="button" class="acc-link" data-a="forgot">🔑 Parolni unutdingizmi? Tiklash</button><button type="button" class="acc-link" data-a="google">🔵 Gmail bilan kirish</button></div></form></div>';
     var f = $("form", card), msg = $(".acc-msg", f);
-    $(".acc-x", card).onclick = function () { gate ? skipGate() : close(); };
+    function syncUser() { f.username.value = credId(f.name.value.trim(), f.group.value.trim()); }
+    f.name.value = pre.name || ""; f.group.value = pre.group || ""; if (pre.pw) f.pw.value = pre.pw; syncUser();
+    f.name.oninput = f.group.oninput = syncUser;
+    bindX();
     $('[data-a="back"]', card).onclick = function () { showLogin(); };
+    $('[data-a="forgot"]', card).onclick = function () { showRecover({ name: f.name.value.trim(), group: f.group.value.trim() }); };
+    $('[data-a="google"]', card).onclick = function () { googleFlow(this, "login", function (t) { msg.className = "acc-msg"; msg.innerHTML = t; }); };
+    $$("[data-fill]", card).forEach(function (b) { b.onclick = function () { var x = k[b.getAttribute("data-fill")]; f.name.value = x.name; f.group.value = x.group; f.pw.value = x.pw; syncUser(); f.requestSubmit ? f.requestSubmit() : f.onsubmit(new Event("submit")); }; });
+    var bro = $('[data-a="bro"]', card);
+    if (bro) bro.onclick = function () { browserGet().then(function (c) { if (!c) { msg.className = "acc-msg"; msg.textContent = "Brauzerda bu sayt uchun saqlangan parol topilmadi."; return; } f.name.value = c.name; f.group.value = c.group; f.pw.value = c.pw; syncUser(); msg.className = "acc-msg ok"; msg.textContent = "Brauzerdan olindi — «Kirish»ni bosing."; }); };
+    f.onsubmit = async function (e) {
+      if (e && e.preventDefault) e.preventDefault();
+      var name = f.name.value.trim().replace(/\s+/g, " "), group = f.group.value.trim(), pw = f.pw.value;
+      if (!name || !pw) { msg.className = "acc-msg"; msg.textContent = "Ism va parolni kiriting."; return; }
+      msg.className = "acc-msg ok"; msg.textContent = "Tekshirilmoqda…";
+      try {
+        var K = await cloud(); if (!K) { msg.className = "acc-msg"; msg.textContent = "Internet bilan aloqa yo'q."; return; }
+        var r;
+        try { r = await K.login(name, group, pw); }
+        catch (er) {
+          // guruh yozilgan, lekin akkaunt guruhsiz ochilgan bo'lishi mumkin
+          if (group && er && /invalid|wrong|not-found/.test(er.code || "")) { r = await K.login(name, "", pw); group = ""; } else throw er;
+        }
+        var g2 = r.data && r.data.group != null ? r.data.group : group, n2 = (r.data && r.data.name) || name;
+        if (f.keep.checked) keySave(r.uid, n2, g2, pw); else keyDel(r.uid);
+        browserStore(n2, g2, pw);
+        var id = adoptCloud(r.uid, n2, g2, r.data); login(id);
+      } catch (er) {
+        msg.className = "acc-msg";
+        msg.innerHTML = errHTML(er) + (er && /invalid|wrong|not-found/.test(er.code || "") ? '<br><span class="dim">Ism va guruh akkount ochilgandagi bilan bir xil bo\'lishi kerak (masalan, guruh bo\'sh qoldirilgan bo\'lsa — bo\'sh qoldiring). </span><button type="button" class="acc-link" data-a="forgot3">Parolni tiklash →</button>' : "");
+        var b3 = $('[data-a="forgot3"]', card); if (b3) b3.onclick = function () { showRecover({ name: name, group: f.group.value.trim() }); };
+      }
+    };
+    setTimeout(function () { (pre.name ? f.pw : f.name).focus(); }, 50);
+    open();
+  }
+
+  // Gmail oqimi: kirish yoki parolni tiklash
+  async function googleFlow(btn, mode, onErr, pre) {
+    var t0 = btn && btn.textContent;
+    if (btn) { btn.disabled = true; btn.textContent = "Google oynasi…"; }
+    try {
+      var K = await cloud(); if (!K) throw { code: "auth/network-request-failed" };
+      var info = await K.googleStart();
+      if (info.data) {
+        if (mode === "reset") return showNewPw(info);
+        var id = adoptCloud(info.uid, info.data.name, info.data.group, info.data); return login(id);
+      }
+      if (mode === "new") return showGoogleNew(info, pre);
+      showGoogleChoice(info, mode === "reset" ? "Bu Gmail hali hech bir akkountga ulanmagan — shuning uchun u orqali parolni tiklab bo'lmaydi. Quyidagilardan birini tanlang:" : null);
+    } catch (er) {
+      if (btn) { btn.disabled = false; btn.textContent = t0; }
+      if (onErr) onErr(errHTML(er));
+    }
+  }
+
+  // Parolni tiklash: qurilmadagi, brauzerdagi yoki Gmail orqali yangi parol
+  function showRecover(pre) {
+    pre = pre || {};
+    var k = keysAll(), ids = Object.keys(k).sort(function (a, b) { var m = function (x) { return norm(k[x].name) === norm(pre.name) ? 0 : 1; }; return m(a) - m(b); }), n = 1;
+    card.innerHTML = COVER +
+      '<div class="acc-body" style="padding-top:18px"><h3 style="margin:0;font-size:22px">🔑 Parolni tiklash</h3>' +
+      '<div class="acc-opt"><b>' + (n++) + '. 💾 Shu qurilmada saqlangan parollar</b>' +
+      (ids.length ? ids.map(function (id) { var x = k[id]; return '<div class="acc-saved"><div><b>' + esc(x.name) + '</b> <span class="dim">' + esc(x.group || "guruhsiz") + "</span></div>" + pwHTML("s" + id.slice(0, 8), { ro: 1, val: x.pw }) + '<div class="acc-btns"><button type="button" class="acc-btn sm primary" data-use="' + esc(id) + '">Shu bilan kirish</button></div></div>'; }).join("") : '<span class="dim">Bu qurilmada saqlangan parol yo\'q.</span>') + "</div>" +
+      (hasBrowserKeys() ? '<div class="acc-opt"><b>' + (n++) + '. 🌐 Brauzer xotirasidan</b><span class="dim">Chrome yoki Yandex bu sayt uchun parolni eslab qolgan bo\'lsa — ko\'rsatadi.</span><div class="acc-btns"><button type="button" class="acc-btn" data-a="bro">Brauzerdan olish</button></div><div class="bro-out"></div></div>' : "") +
+      '<div class="acc-opt"><b>' + (n++) + '. 🔵 Gmail orqali yangi parol qo\'yish</b><span class="dim">Akkountga Gmail ulangan bo\'lsa: Google orqali kirasiz va yangi parol qo\'yasiz. Tangalar saqlanadi.</span><div class="acc-btns"><button type="button" class="acc-btn primary" data-a="gre">🔵 Gmail bilan tiklash</button></div></div>' +
+      '<div class="acc-msg"></div>' +
+      '<div class="acc-banner">Hech biri bo\'lmasa, eski parolni tiklab bo\'lmaydi: parollar shifrlangan holda saqlanadi, ularni hatto o\'qituvchi ham ko\'ra olmaydi. Yangi akkount oching va albatta Gmail ulang.</div>' +
+      '<div class="acc-btns"><button class="acc-btn" type="button" data-a="back">← Orqaga</button><button class="acc-btn" type="button" data-a="new">➕ Yangi akkount</button></div></div>';
+    var msg = $(".acc-msg", card);
+    bindX();
+    $('[data-a="back"]', card).onclick = function () { showCloudLogin(pre); };
+    $('[data-a="new"]', card).onclick = function () { showForm(); };
+    $$("[data-use]", card).forEach(function (b) {
+      b.onclick = async function () {
+        var x = k[b.getAttribute("data-use")]; msg.className = "acc-msg ok"; msg.textContent = "Tekshirilmoqda…";
+        try { var K = await cloud(); if (!K) throw { code: "auth/network-request-failed" }; var r = await K.login(x.name, x.group, x.pw); keySave(r.uid, x.name, x.group, x.pw); login(adoptCloud(r.uid, x.name, x.group, r.data)); }
+        catch (er) { msg.className = "acc-msg"; msg.innerHTML = /invalid|wrong/.test((er && er.code) || "") ? "Bu saqlangan parol eskirgan (boshqa joyda o'zgartirilgan). Gmail orqali tiklang." : errHTML(er); }
+      };
+    });
+    var bro = $('[data-a="bro"]', card);
+    if (bro) bro.onclick = function () {
+      browserGet().then(function (c) {
+        var out = $(".bro-out", card);
+        if (!c) { out.innerHTML = '<span class="dim">Brauzerda bu sayt uchun saqlangan parol topilmadi.</span>'; return; }
+        out.innerHTML = '<div class="acc-saved"><div><b>' + esc(c.name) + '</b> <span class="dim">' + esc(c.group || "guruhsiz") + "</span></div>" + pwHTML("bpw", { ro: 1, val: c.pw }) + '<div class="acc-btns"><button type="button" class="acc-btn sm primary" data-a="bgo">Shu bilan kirish</button></div></div>';
+        $('[data-a="bgo"]', card).onclick = function () { showCloudLogin({ name: c.name, group: c.group, pw: c.pw }); };
+      });
+    };
+    $('[data-a="gre"]', card).onclick = function () { googleFlow(this, "reset", function (t) { msg.className = "acc-msg"; msg.innerHTML = t; }); };
+    open();
+  }
+
+  // Gmail tasdiqlangandan keyin yangi parol
+  function showNewPw(info) {
+    var d = info.data;
+    card.innerHTML = COVER +
+      '<div class="acc-top">' + avatarHTML({ av: d.av }, 96) + '<div class="acc-name"><h3>🔑 Yangi parol</h3><div class="sub">' + esc(d.name) + (d.group ? " · " + esc(d.group) : "") + "</div></div></div>" +
+      '<div class="acc-body"><div class="acc-banner ok">✔ Gmail orqali tasdiqlandi: <b>' + esc(info.email || "") + "</b></div>" +
+      '<form class="acc-form">' + userHidden(credId(d.name, d.group)) + '<label>Yangi parol (kamida 6 ta belgi)' + pwHTML("pw", { ac: "new-password", req: 1, min: 6, gen: 1, ph: "🎲 bosing — parol o'ylab beradi" }) + "</label>" + saveChk(true) +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Saqlash</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
+    var f = $("form", card), msg = $(".acc-msg", f);
+    bindX();
+    $('[data-a="back"]', card).onclick = function () { cloud().then(function (K) { if (K) K.signOut(); }); showLogin(); };
+    f.onsubmit = async function (e) {
+      e.preventDefault(); var pw = f.pw.value;
+      if (pw.length < 6) { msg.textContent = "Parol kamida 6 ta belgidan iborat bo'lsin."; return; }
+      msg.className = "acc-msg ok"; msg.textContent = "Saqlanmoqda…";
+      try {
+        var K = await cloud(); await K.changePassword(d.name, d.group || "", null, pw);
+        var id = adoptCloud(info.uid, d.name, d.group, d);
+        if (f.keep.checked) keySave(id, d.name, d.group, pw); else keyDel(id);
+        browserStore(d.name, d.group, pw);
+        setCur(id); syncIdentity(); renderChip();
+        showKeys(id, pw, "✅ Parol yangilandi!");
+      } catch (er) { msg.className = "acc-msg"; msg.innerHTML = errHTML(er); }
+    };
+    setTimeout(function () { f.pw.focus(); }, 50);
+    open();
+  }
+
+  // Gmail hech bir akkountga ulanmagan: yangi akkount yoki mavjudiga ulash
+  function showGoogleChoice(info, note) {
+    card.innerHTML = COVER +
+      '<div class="acc-body" style="padding-top:18px"><h3 style="margin:0;font-size:20px">🔵 ' + esc(info.email || "Gmail") + "</h3>" +
+      '<div class="acc-banner">' + esc(note || "Bu Gmail hali hech bir akkountga ulanmagan. Nima qilamiz?") + "</div>" +
+      '<div class="acc-opt"><b>🔗 Mavjud akkountimga ulash</b><span class="dim">Akkauntingiz bor bo\'lsa — ism, guruh va parolni bir marta kiriting. Gmail unga ulanadi, tangalar saqlanadi, keyin parolsiz kirasiz.</span><div class="acc-btns"><button type="button" class="acc-btn primary" data-a="gatt">Ulash</button></div></div>' +
+      '<div class="acc-opt"><b>➕ Shu Gmail bilan yangi akkount ochish</b><span class="dim">Keyin «Gmail bilan kirish» tugmasi bilan parolsiz kirasiz.</span><div class="acc-btns"><button type="button" class="acc-btn" data-a="gnew">Yangi akkount</button></div></div>' +
+      '<div class="acc-btns"><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></div>';
+    bindX();
+    $('[data-a="gatt"]', card).onclick = function () { showGoogleAttach(info); };
+    $('[data-a="gnew"]', card).onclick = function () { showGoogleNew(info); };
+    $('[data-a="back"]', card).onclick = function () { cloud().then(function (K) { if (K) K.signOut(); }); showLogin(); };
+    open();
+  }
+
+  function showGoogleAttach(info) {
+    var k = keysAll(), kids = Object.keys(k);
+    card.innerHTML = COVER +
+      '<div class="acc-body" style="padding-top:18px"><h3 style="margin:0;font-size:20px">🔗 Gmail\'ni akkountga ulash</h3>' +
+      '<div class="acc-banner">Gmail: <b>' + esc(info.email || "") + '</b>. Akkountingizning ism, guruh va parolini kiriting.</div>' +
+      (kids.length ? '<div class="acc-saved-row"><span class="dim">💾 Saqlangan:</span>' + kids.map(function (id) { return '<button type="button" class="acc-btn sm" data-fill="' + esc(id) + '">' + esc(k[id].name) + (k[id].group ? " · " + esc(k[id].group) : "") + "</button>"; }).join("") + "</div>" : "") +
+      '<form class="acc-form">' + userHidden("") + '<div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required autocomplete="off"></label><label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25" autocomplete="off"></label></div>' +
+      '<label>Parol' + pwHTML("pw", { req: 1 }) + "</label>" + saveChk(true) +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Ulash va kirish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
+    var f = $("form", card), msg = $(".acc-msg", f);
+    function syncUser() { f.username.value = credId(f.name.value.trim(), f.group.value.trim()); }
+    f.name.oninput = f.group.oninput = syncUser;
+    $$("[data-fill]", card).forEach(function (b) { b.onclick = function () { var x = k[b.getAttribute("data-fill")]; f.name.value = x.name; f.group.value = x.group; f.pw.value = x.pw; syncUser(); }; });
+    bindX();
+    $('[data-a="back"]', card).onclick = function () { showGoogleChoice(info); };
     f.onsubmit = async function (e) {
       e.preventDefault();
-      var name = f.name.value.trim().replace(/\s+/g, " "), group = f.group.value.trim();
-      msg.textContent = "Tekshirilmoqda…";
+      var name = f.name.value.trim().replace(/\s+/g, " "), group = f.group.value.trim(), pw = f.pw.value;
+      msg.className = "acc-msg ok"; msg.textContent = "Ulanmoqda…";
       try {
-        var K = await cloud(); if (!K) { msg.textContent = "Internet bilan aloqa yo'q."; return; }
-        var r = await K.login(name, group, f.pw.value);
-        var id = adoptCloud(r.uid, name, group, r.data); login(id);
-      } catch (er) { msg.textContent = (window.kaCloud ? window.kaCloud.uzError(er) : "Xatolik."); }
+        var K = await cloud(); var r = await K.googleAttach(name, group, pw);
+        var n2 = (r.data && r.data.name) || name, g2 = r.data && r.data.group != null ? r.data.group : group;
+        if (f.keep.checked) keySave(r.uid, n2, g2, pw); else keyDel(r.uid);
+        browserStore(n2, g2, pw);
+        var id = adoptCloud(r.uid, n2, g2, r.data); login(id);
+        setTimeout(function () { toast(r.email ? "🔵 Gmail ulandi: " + r.email : "Kirdingiz. Gmail'ni profilda «Gmail ulash» orqali ulang."); }, 1500);
+      } catch (er) { msg.className = "acc-msg"; msg.innerHTML = errHTML(er); }
     };
     setTimeout(function () { f.name.focus(); }, 50);
+    open();
+  }
+
+  function showGoogleNew(info, pre) {
+    pre = pre || {};
+    var av = Math.floor(Math.random() * AVATARS.length);
+    card.innerHTML = COVER +
+      '<div class="acc-top">' + avatarHTML({ av: av }, 96) + '<div class="acc-name"><h3>➕ Gmail bilan yangi akkount</h3><div class="sub">' + esc(info.email || "") + "</div></div></div>" +
+      '<div class="acc-body"><form class="acc-form">' + userHidden("") +
+      '<div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required placeholder="Masalan: Aziza Karimova"></label><label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25"></label></div>' +
+      '<label>Parol (ixtiyoriy — Gmail\'siz qurilmada ism va guruh bilan kirish uchun)' + pwHTML("pw", { ac: "new-password", min: 6, gen: 1, ph: "bo'sh qoldirsangiz — faqat Gmail bilan kirasiz" }) + "</label>" + saveChk(true) +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Akkount ochish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
+    var f = $("form", card), msg = $(".acc-msg", f);
+    function syncUser() { f.username.value = credId(f.name.value.trim(), f.group.value.trim()); }
+    f.name.value = pre.name || info.gname || ""; f.group.value = pre.group || ""; syncUser();
+    f.name.oninput = f.group.oninput = syncUser;
+    bindX();
+    $('[data-a="back"]', card).onclick = function () { showGoogleChoice(info); };
+    f.onsubmit = async function (e) {
+      e.preventDefault();
+      var name = f.name.value.trim().replace(/\s+/g, " "), group = f.group.value.trim(), pw = f.pw.value;
+      if (name.length < 2) { msg.textContent = "Ismni yozing."; return; }
+      if (pw && pw.length < 6) { msg.textContent = "Parol kamida 6 ta belgidan iborat bo'lsin (yoki bo'sh qoldiring)."; return; }
+      msg.className = "acc-msg ok"; msg.textContent = "Akkount ochilmoqda…";
+      try {
+        var K = await cloud();
+        var loc = null; Object.keys(DB).forEach(function (id) { var o = DB[id]; if (!o.cloud && norm(o.name) === norm(name) && norm(o.group) === norm(group)) loc = o; });
+        var p = { name: name, group: group, av: loc ? (loc.av | 0) : av, coins: loc ? loc.coins | 0 : 0, correct: loc ? loc.correct | 0 : 0, answered: loc ? loc.answered | 0 : 0, tests: loc ? loc.tests | 0 : 0 };
+        var uid = await K.googleCreate(p, pw || null);
+        var id = adoptCloud(uid, name, group, p);
+        if (pw) { if (f.keep.checked) keySave(id, name, group, pw); browserStore(name, group, pw); setCur(id); syncIdentity(); renderChip(); showKeys(id, pw, "✅ Akkount ochildi!"); }
+        else login(id);
+      } catch (er) {
+        msg.className = "acc-msg";
+        msg.innerHTML = er && er.code === "auth/email-already-in-use" ? "Bu ism va guruh bilan akkount allaqachon bor. <button type=\"button\" class=\"acc-link\" data-a=\"toatt\">Gmail'ni o'sha akkountga ulash →</button>" : errHTML(er);
+        var ta = $('[data-a="toatt"]', card); if (ta) ta.onclick = function () { showGoogleAttach(info); };
+      }
+    };
+    setTimeout(function () { f.name.focus(); }, 50);
+    open();
+  }
+
+  // Akkount ochilgach / parol o'zgargach: kirish ma'lumotlarini saqlab qo'yish oynasi
+  function showKeys(id, pw, head, already) {
+    var u = DB[id]; if (!u) return showLogin();
+    card.innerHTML = COVER +
+      '<div class="acc-top">' + avatarHTML(u, 96) + '<div class="acc-name"><h3>' + esc(head || "✅ Akkount ochildi!") + '</h3><div class="sub">Kirish ma\'lumotlarini hozir saqlab qo\'ying</div></div></div>' +
+      '<div class="acc-body">' + keysHTML(u.name, u.group, pw, { sub: "— boshqa qurilmadan kirish uchun" }) +
+      '<div class="acc-banner">💡 Parolni unutsangiz, uni <b>Gmail</b> orqali tiklaysiz. Hoziroq ulab qo\'ying (bir marta):</div>' +
+      '<div class="acc-btns g-row"><button class="acc-btn" type="button" data-a="glink">🔵 Gmail ulash</button><span class="g-msg dim"></span></div>' +
+      '<div class="acc-btns"><button class="acc-btn primary" type="button" data-a="go">Davom etish →</button></div></div>';
+    wireKeys(u.name, u.group, pw);
+    var gl = $('[data-a="glink"]', card), gm = $(".g-msg", card);
+    function done(em) { gl.hidden = true; gm.innerHTML = '<b style="color:#5ee6c7">✔ Gmail ulangan: ' + esc(em) + "</b>"; }
+    cloud().then(function (K) { return K ? K.googleEmail() : null; }).then(function (em) { if (em) done(em); });
+    gl.onclick = async function () {
+      gm.textContent = "Google oynasi ochilmoqda…";
+      try { var K = await cloud(); var em = await K.linkGoogle(); done(em); toast("Gmail ulandi ✅"); }
+      catch (er) { gm.innerHTML = '<span style="color:#ff8585">' + errHTML(er) + "</span>"; }
+    };
+    function go() { already ? showProfile() : login(id); }
+    $('[data-a="go"]', card).onclick = go;
+    $(".acc-x", card).onclick = function () { if (already) close(); else go(); };
+    open();
+  }
+
+  // Profil: parolni o'zgartirish (Gmail bilan ochilgan akkountga parol qo'yish)
+  function showChangePw() {
+    var u = me(); if (!u || !u.cloud) return showProfile();
+    var saved = keyGet(u.cloud);
+    card.innerHTML = COVER +
+      '<div class="acc-top">' + avatarHTML(u, 96) + '<div class="acc-name"><h3 class="cp-h">🔑 Parolni o\'zgartirish</h3><div class="sub">' + esc(u.name) + (u.group ? " · " + esc(u.group) : "") + "</div></div></div>" +
+      '<div class="acc-body"><form class="acc-form">' + userHidden(credId(u.name, u.group)) +
+      '<label class="old-l">Hozirgi parol' + pwHTML("old", { val: saved && saved.pw }) + "</label>" +
+      '<label>Yangi parol (kamida 6 ta belgi)' + pwHTML("pw", { ac: "new-password", req: 1, min: 6, gen: 1, ph: "🎲 bosing — parol o'ylab beradi" }) + "</label>" + saveChk(true) +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Saqlash</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div>' +
+      '<div class="acc-btns"><button type="button" class="acc-link" data-a="forgot">Hozirgi parolni unutdim — Gmail orqali tiklash</button></div></form></div>';
+    var f = $("form", card), msg = $(".acc-msg", f), noPw = false;
+    bindX();
+    $('[data-a="back"]', card).onclick = function () { showProfile(); };
+    $('[data-a="forgot"]', card).onclick = function () { googleFlow(this, "reset", function (t) { msg.className = "acc-msg"; msg.innerHTML = t; }); };
+    cloud().then(function (K) { return K ? K.session().then(function (uid) { return uid === u.cloud ? K.hasPassword() : true; }) : true; }).then(function (has) {
+      if (has) return; noPw = true; $(".old-l", card).hidden = true; $(".cp-h", card).textContent = "🔑 Parol qo'yish";
+      msg.className = "acc-msg ok"; msg.textContent = "Akkount Gmail bilan ochilgan. Parol qo'ysangiz, Gmail'siz qurilmada ism va guruh bilan ham kirasiz.";
+    });
+    f.onsubmit = async function (e) {
+      e.preventDefault(); var pw = f.pw.value, old = noPw ? null : f.old.value;
+      if (pw.length < 6) { msg.className = "acc-msg"; msg.textContent = "Yangi parol kamida 6 ta belgidan iborat bo'lsin."; return; }
+      if (!noPw && !old) { msg.className = "acc-msg"; msg.textContent = "Hozirgi parolni kiriting."; return; }
+      msg.className = "acc-msg ok"; msg.textContent = "Saqlanmoqda…";
+      try {
+        var K = await cloud(); if (!K) throw { code: "auth/network-request-failed" };
+        await K.changePassword(u.name, u.group || "", old, pw);
+        if (f.keep.checked) keySave(u.cloud, u.name, u.group, pw); else keyDel(u.cloud);
+        browserStore(u.name, u.group, pw);
+        showKeys(curId(), pw, noPw ? "✅ Parol qo'yildi!" : "✅ Parol o'zgartirildi!", true);
+      } catch (er) { msg.className = "acc-msg"; msg.innerHTML = /invalid|wrong/.test((er && er.code) || "") ? "Hozirgi parol noto'g'ri." : errHTML(er); }
+    };
+    setTimeout(function () { (saved ? f.pw : f.old).focus(); }, 50);
+    open();
+  }
+
+  // Profil: parolni shu qurilmada saqlash (avval tekshiriladi)
+  function showSavePw() {
+    var u = me(); if (!u || !u.cloud) return showProfile();
+    card.innerHTML = COVER +
+      '<div class="acc-top">' + avatarHTML(u, 96) + '<div class="acc-name"><h3>💾 Parolni saqlash</h3><div class="sub">' + esc(u.name) + (u.group ? " · " + esc(u.group) : "") + "</div></div></div>" +
+      '<div class="acc-body"><div class="acc-banner">Parolingizni kiriting — to\'g\'riligini tekshirib, shu qurilmada saqlaymiz. Keyin uni 👁 bilan ko\'rib, 📋 bilan nusxalaysiz.</div>' +
+      '<form class="acc-form">' + userHidden(credId(u.name, u.group)) + '<label>Parol' + pwHTML("pw", { req: 1 }) + "</label>" +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Tekshirib saqlash</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div>' +
+      '<div class="acc-btns"><button type="button" class="acc-link" data-a="forgot">Parolni unutdim — Gmail orqali yangisini qo\'yish</button></div></form></div>';
+    var f = $("form", card), msg = $(".acc-msg", f);
+    bindX();
+    $('[data-a="back"]', card).onclick = function () { showProfile(); };
+    $('[data-a="forgot"]', card).onclick = function () { googleFlow(this, "reset", function (t) { msg.className = "acc-msg"; msg.innerHTML = t; }); };
+    f.onsubmit = async function (e) {
+      e.preventDefault(); msg.className = "acc-msg ok"; msg.textContent = "Tekshirilmoqda…";
+      try {
+        var K = await cloud(); if (!K) throw { code: "auth/network-request-failed" };
+        var uid = await K.verifyPassword(u.name, u.group || "", f.pw.value);
+        if (uid !== u.cloud) throw { code: "auth/user-mismatch" };
+        keySave(u.cloud, u.name, u.group, f.pw.value); browserStore(u.name, u.group, f.pw.value);
+        toast("Parol saqlandi 💾"); showProfile();
+      } catch (er) { msg.className = "acc-msg"; msg.innerHTML = /invalid|wrong/.test((er && er.code) || "") ? "Parol noto'g'ri." : errHTML(er); }
+    };
+    setTimeout(function () { f.pw.focus(); }, 50);
     open();
   }
 
@@ -343,16 +728,21 @@
       '<div class="acc-photo"><label class="acc-btn" style="text-transform:none;letter-spacing:0;font-size:14px;color:#eef2ff;flex-direction:row;cursor:pointer">📷 Rasm yuklash<input type="file" accept="image/*" hidden></label>' +
       '<button class="acc-btn" type="button" data-a="nophoto">Rasmni olib tashlash</button></div>' +
       '<div class="acc-avpick">' + AVATARS.map(function (a, i) { return '<button type="button" data-av="' + i + '" aria-label="Avatar">' + avatarHTML({ av: i }, 40) + "</button>"; }).join("") + "</div>" +
+      userHidden("") +
       '<div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required placeholder="Masalan: Aziza Karimova"></label>' +
       '<label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25"></label></div>' +
-      (cloudAcc ? '<div class="acc-banner">☁️ Akkaunt bulutda. Ism va guruhni o\'zgartirib bo\'lmaydi (kirish shularga bog\'langan).</div>' :
-        '<label>' + (editId ? "Bulutga ulash uchun parol (kamida 6 ta belgi)" : "Parol (kamida 6 ta belgi)") + '<input name="pw" type="password" autocomplete="new-password" minlength="6" maxlength="64"' + (editId ? "" : " required") +
-        ' placeholder="' + (editId ? "bo\'sh qoldirsangiz akkaunt faqat shu qurilmada qoladi" : "boshqa qurilmadan kirish uchun kerak") + '"></label>') +
-      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">' + (editId ? "Saqlash" : "Akkount ochish") + '</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div>' +
+      (cloudAcc ? '<div class="acc-banner">☁️ Akkaunt bulutda. Ism va guruhni o\'zgartirib bo\'lmaydi (kirish shularga bog\'langan). Parolni profildagi «🔑 Parolni o\'zgartirish» orqali almashtiring.</div>' :
+        '<label>' + (editId ? "Bulutga ulash uchun parol (kamida 6 ta belgi)" : "Parol (kamida 6 ta belgi)") + pwHTML("pw", { ac: "new-password", min: 6, req: !editId, gen: 1, ph: editId ? "bo'sh qoldirsangiz akkaunt faqat shu qurilmada qoladi" : "🎲 bosing — parol o'ylab beradi" }) + "</label>" + saveChk(true)) +
+      '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">' + (editId ? "Saqlash" : "Akkount ochish") + '</button>' +
+      (editId ? "" : '<button class="acc-btn" type="button" data-a="gnew">🔵 Gmail bilan ochish</button>') + '<button class="acc-btn" type="button" data-a="back">← Orqaga</button></div>' +
       "</form></div>";
     var f = $("form", card), pv = $(".pv", card), msg = $(".acc-msg", f);
     f.name.value = u.name || ""; f.group.value = u.group || "";
     if (cloudAcc) { f.name.readOnly = true; f.group.readOnly = true; }
+    function syncUser() { f.username.value = credId(f.name.value.trim(), f.group.value.trim()); }
+    syncUser(); f.name.addEventListener("input", syncUser); f.group.addEventListener("input", syncUser);
+    var gn = $('[data-a="gnew"]', f);
+    if (gn) gn.onclick = function () { googleFlow(this, "new", function (t) { msg.className = "acc-msg"; msg.innerHTML = t; }, { name: f.name.value.trim(), group: f.group.value.trim() }); };
     function redraw() {
       pv.innerHTML = avatarHTML({ av: draft.av, photo: draft.photo }, 110);
       $$(".acc-avpick button", f).forEach(function (b) { b.setAttribute("aria-pressed", !draft.photo && +b.getAttribute("data-av") === draft.av ? "true" : "false"); });
@@ -388,7 +778,9 @@
         } catch (er) { msg.className = "acc-msg"; msg.textContent = K.uzError(er); return; }
       }
       DB[id] = rec; save();
-      if (editId) { syncIdentity(); renderChip(); showProfile(); toast("Saqlandi ✅"); }
+      if (pw && rec.cloud) { if (f.keep && f.keep.checked) keySave(id, rec.name, rec.group, pw); browserStore(rec.name, rec.group, pw); }
+      if (editId) { syncIdentity(); renderChip(); if (pw && rec.cloud) showKeys(id, pw, "☁️ Bulutga ulandi!", true); else { showProfile(); toast("Saqlandi ✅"); } }
+      else if (pw && rec.cloud) { setCur(id); DB[id].last = Date.now(); save(); syncIdentity(); renderChip(); showKeys(id, pw); }
       else login(id);
     };
     setTimeout(function () { f.name.focus(); }, 50);
@@ -408,8 +800,9 @@
       '<div class="acc-stat"><b>' + (u.correct || 0) + '</b><span>To\'g\'ri javob</span></div><div class="acc-stat"><b>' + acc + '%</b><span>Aniqlik</span></div></div>' +
       '<div><div style="display:flex;justify-content:space-between;font-size:12px;color:#9fb0d0;margin-bottom:4px"><span>' + lv + "-daraja</span><span>" + pct + " / 100 🪙 → " + (lv + 1) + "-daraja</span></div>" +
       '<div class="acc-bar"><i style="width:' + pct + '%"></i></div></div>' +
+      (u.cloud ? keysHTML(u.name, u.group, (keyGet(u.cloud) || {}).pw, { forget: 1 }) + '<div class="acc-btns"><button class="acc-btn sm" type="button" data-a="chpw">🔑 Parolni o\'zgartirish</button></div>' : "") +
       (u.cloud ? "" : '<div class="acc-banner">☁️ Akkaunt faqat shu qurilmada. <a href="#" data-a="tocloud" style="color:#ffd479;font-weight:700">Parol qo\'yib bulutga ulang</a> — tangalar yo\'qolmaydi, boshqa qurilmadan ham kirasiz.</div>') +
-      '<div class="acc-links"><div class="acc-lrow"><span>📧 Gmail</span><span class="g-st">…</span></div>' +
+      '<div class="acc-links"><div class="acc-lrow"><span>📧 Gmail <small class="dim">— parolni unutsangiz, shu orqali tiklaysiz</small></span><span class="g-st">…</span></div>' +
       '<div class="acc-lrow"><span>📸 Instagram</span><span><input class="ig-in" maxlength="30" placeholder="@foydalanuvchi" value="' + esc(u.instagram ? "@" + u.instagram : "") + '"> <button class="acc-btn ig-save" type="button" style="padding:6px 10px;font-size:12px">Saqlash</button></span></div>' +
       '<div class="acc-lmsg" style="font-size:12px;color:#9fb0d0"></div></div>' +
       '<div class="acc-tabs"><button class="acc-tab" data-t="tarix" type="button">📜 Tarix</button><button class="acc-tab" data-t="reyting" type="button">🏆 Reyting</button></div>' +
@@ -465,6 +858,12 @@
       };
     })();
     var tc = $('[data-a="tocloud"]', card); if (tc) tc.onclick = function (e) { e.preventDefault(); showForm(curId()); };
+    if (u.cloud) {
+      var kk = keyGet(u.cloud); if (kk) wireKeys(u.name, u.group, kk.pw);
+      var sp = $('[data-a="savepw"]', card); if (sp) sp.onclick = showSavePw;
+      var fg = $('[data-a="forget"]', card); if (fg) fg.onclick = function () { keyDel(u.cloud); toast("Parol bu qurilmadan o'chirildi"); showProfile(tab); };
+      $('[data-a="chpw"]', card).onclick = showChangePw;
+    }
     $('[data-a="switch"]', card).onclick = function () { showLogin(); };
     $('[data-a="logout"]', card).onclick = logout;
     $('[data-a="del"]', card).onclick = function () {
@@ -472,6 +871,7 @@
       if (b.dataset.sure) {
         var cu = me();
         if (cu && cu.cloud) cloud().then(function (K) { if (K) K.session().then(function () { return K.deleteProfile(); }).then(function () { K.signOut(); }); });
+        if (cu && cu.cloud) keyDel(cu.cloud);
         delete DB[curId()]; save(); setCur(""); renderChip(); showLogin(); return;
       }
       b.dataset.sure = "1"; b.textContent = "Rostdan o'chirilsinmi? Yana bosing";

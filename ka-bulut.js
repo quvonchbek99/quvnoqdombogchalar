@@ -48,7 +48,12 @@
     if (c === "auth/too-many-requests") return "Juda ko'p urinish. Bir ozdan keyin qayta urinib ko'ring.";
     if (c === "auth/network-request-failed" || c === "unavailable") return "Internet bilan aloqa yo'q. Keyinroq urinib ko'ring.";
     if (c === "auth/operation-not-allowed") return "Bu kirish usuli hali yoqilmagan (o'qituvchi Firebase'da yoqishi kerak).";
-    if (c === "auth/unauthorized-domain") return "Bu sayt manzili Google kirishi uchun ruxsat etilmagan (Firebase → Authorized domains).";
+    if (c === "auth/unauthorized-domain") return "Gmail bilan kirish «" + location.hostname + "» manzilida hali yoqilmagan (Firebase → Authentication → Settings → Authorized domains ga qo'shish kerak). Hozircha ism, guruh va parol bilan kiring.";
+    if (c === "auth/requires-recent-login") return "Xavfsizlik uchun hozirgi parolni kiriting (yoki chiqib, qayta kiring).";
+    if (c === "auth/missing-password") return "Parolni kiriting.";
+    if (c === "auth/user-mismatch") return "Bu parol boshqa akkountniki.";
+    if (c === "auth/user-token-expired" || c === "auth/user-disabled") return "Kirish muddati tugagan — qayta kiring.";
+    if (c === "auth/no-such-provider") return "Bu akkountga Gmail ulanmagan.";
     if (c === "auth/popup-closed-by-user" || c === "auth/cancelled-popup-request") return "Google oynasi yopildi.";
     if (c === "auth/popup-blocked") return "Brauzer Google oynasini blokladi. Popup'ga ruxsat bering.";
     if (c === "auth/credential-already-in-use" || c === "auth/email-already-in-use-google") return "Bu Gmail boshqa akkountga allaqachon ulangan.";
@@ -74,6 +79,9 @@
   // Profilni serverga yozish. Qoida: tanga bir yozuvda ko'pi bilan +200 va yozuvlar orasida 2 soniya,
   // shuning uchun katta o'sish bo'laklarga bo'linadi.
   var cloudState = null;   // serverda hozir turgan qiymatlar
+  var pendingG = null;     // profili yo'q Gmail kirishi: { cred, uid } — mavjud akkountga ulash uchun
+  function pwEmail(u) { var p = ((u && u.providerData) || []).filter(function (x) { return x.providerId === "password"; })[0]; return p ? p.email : null; }
+  function gInfo(u) { var g = ((u && u.providerData) || []).filter(function (x) { return x.providerId === "google.com"; })[0]; return g || null; }
   var pushing = false;
   async function push(p) {
     var c = await load(), u = c.auth.currentUser;
@@ -161,6 +169,73 @@
       if (!snap.exists()) { try { await r.user.delete(); } catch (e) { try { await c.A.signOut(c.auth); } catch (e2) {} } throw { code: "no-profile" }; }
       window.__kaCloudAuth = c.auth; cloudState = null;
       return { uid: r.user.uid, data: snap.data() };
+    },
+    // ---- Gmail: kirish / yangi akkount / mavjud akkountga ulash (profil topilmasa o'chirmaydi) ----
+    googleStart: async function () {
+      var c = await load();
+      var r = await c.A.signInWithPopup(c.auth, new c.A.GoogleAuthProvider());
+      window.__kaCloudAuth = c.auth; cloudState = null;
+      var snap = await c.F.getDoc(c.F.doc(c.db, "users", r.user.uid)), g = gInfo(r.user) || {};
+      var info = { uid: r.user.uid, data: snap.exists() ? snap.data() : null, email: g.email || r.user.email || "", gname: g.displayName || r.user.displayName || "", hasPw: !!pwEmail(r.user) };
+      pendingG = info.data ? null : { cred: c.A.GoogleAuthProvider.credentialFromResult(r), uid: r.user.uid };
+      return info;
+    },
+    // Gmail bilan kirgan, profili yo'q foydalanuvchi uchun yangi akkount (+ ixtiyoriy parol: ism+guruh bilan ham kirish)
+    googleCreate: async function (p, password) {
+      var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser;
+      if (!u) throw { code: "auth/requires-recent-login" };
+      if (password && !pwEmail(u)) {
+        try { await c.A.linkWithCredential(u, c.A.EmailAuthProvider.credential(await emailFor(p.name, p.group), password)); }
+        catch (e) { var k = e && e.code; if (k === "auth/email-already-in-use" || k === "auth/credential-already-in-use") throw { code: "auth/email-already-in-use" }; if (k !== "auth/provider-already-linked") throw e; }
+      }
+      var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000);
+      await c.F.setDoc(c.F.doc(c.db, "users", u.uid), first);
+      cloudState = { coins: first.coins, correct: first.correct, answered: first.answered, tests: first.tests }; pendingG = null;
+      return u.uid;
+    },
+    // Gmail'ni ism+guruh+parol bilan ochilgan mavjud akkountga ulash
+    googleAttach: async function (name, group, password) {
+      var c = await load(); await c.auth.authStateReady();
+      var pg = pendingG, u = c.auth.currentUser;
+      if (u && pg && u.uid === pg.uid) {
+        var s0 = await c.F.getDoc(c.F.doc(c.db, "users", u.uid));
+        if (!s0.exists()) { try { await u.delete(); } catch (e) { try { await c.A.signOut(c.auth); } catch (e2) {} } }
+      }
+      var cr = await c.A.signInWithEmailAndPassword(c.auth, await emailFor(name, group), password);
+      window.__kaCloudAuth = c.auth; cloudState = null;
+      var email = null, linkErr = null, g0 = gInfo(cr.user);
+      if (g0) email = g0.email || "ulangan";
+      else if (pg && pg.cred) {
+        try { var lr = await c.A.linkWithCredential(cr.user, pg.cred), g = gInfo(lr.user); email = g ? (g.email || "ulangan") : "ulangan"; }
+        catch (e) { if (e && e.code === "auth/provider-already-linked") email = "ulangan"; else linkErr = e; }
+      } else linkErr = { code: "auth/requires-recent-login" };
+      pendingG = null;
+      var snap = await c.F.getDoc(c.F.doc(c.db, "users", cr.user.uid));
+      return { uid: cr.user.uid, data: snap.exists() ? snap.data() : null, email: email, linkErr: linkErr };
+    },
+    hasPassword: async function () { try { var c = await load(); await c.auth.authStateReady(); return !!pwEmail(c.auth.currentUser); } catch (e) { return false; } },
+    // Parolni tekshirish (kirish orqali) — uid qaytaradi
+    verifyPassword: async function (name, group, password) {
+      var c = await load();
+      var r = await c.A.signInWithEmailAndPassword(c.auth, await emailFor(name, group), password);
+      window.__kaCloudAuth = c.auth; cloudState = null; return r.user.uid;
+    },
+    // Parolni o'zgartirish yoki (Gmail orqali kirgandan keyin) yangi parol qo'yish
+    changePassword: async function (name, group, oldPw, newPw) {
+      var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser, email = await emailFor(name, group);
+      if (!u) {
+        if (!oldPw) throw { code: "auth/requires-recent-login" };
+        u = (await c.A.signInWithEmailAndPassword(c.auth, email, oldPw)).user; window.__kaCloudAuth = c.auth; cloudState = null; oldPw = null;
+      }
+      var pe = pwEmail(u);
+      if (pe) {
+        if (oldPw) await c.A.reauthenticateWithCredential(u, c.A.EmailAuthProvider.credential(pe, oldPw));
+        await c.A.updatePassword(u, newPw);
+      } else {
+        try { await c.A.linkWithCredential(u, c.A.EmailAuthProvider.credential(email, newPw)); }
+        catch (e) { var k = e && e.code; if (k === "auth/email-already-in-use" || k === "auth/credential-already-in-use") throw { code: "auth/email-already-in-use" }; throw e; }
+      }
+      return u.uid;
     },
     signOut: async function () { try { var c = await load(); cloudState = null; await c.A.signOut(c.auth); } catch (e) {} },
     push: push,
