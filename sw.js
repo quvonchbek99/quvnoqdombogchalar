@@ -4,7 +4,7 @@
    - Rasm/shrift: keshdan darhol, orqada yangilanadi
    - MediaPipe qo'l modeli va @versiyali CDN fayllari: bir marta yuklangach keshdan (o'zgarmaydi)
    - Audio/video/APK/ZIP/PDF: service worker ishlatmaydi (iPhone'da ovoz to'xtab qolmasin, xotira to'lmasin) */
-const CACHE = 'ka-v6';
+const CACHE = 'ka-v7';
 const MAX_ITEMS = 400;
 const CDN = ['cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'unpkg.com', 'fonts.googleapis.com', 'fonts.gstatic.com', 'www.desmos.com', 'storage.googleapis.com'];
 const SKIP = /\.(mp3|mp4|m4a|wav|ogg|webm|apk|zip|pdf)$/i;

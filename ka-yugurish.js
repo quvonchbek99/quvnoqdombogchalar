@@ -81,12 +81,17 @@
   window.KAV_EXT = {
     topics: TOPICS,
     mech: { yugurish: { e: "🏃", n: "Yugurish", how: HOW, time: 90, hands: 1 } },
-    src: { yugurish: TOPICS },
+    src: { yugurish: TOPICS },   // poyga mavzulari dvigatelning TOPICS ro'yxatidan olinadi
     games: [
       { t: "Ma'bad yo'li: tezlik, masofa, vaqt", m: "yugurish", k: "harakat", th: "oltin", i: "Temple Run" },
       { t: "Xavfli yugurish: uchrashuv va quvish", m: "yugurish", k: "uchrashuv", th: "olov", i: "Danger Dash" },
       { t: "Daryo bo'yi: oqim bo'ylab va qarshi", m: "yugurish", k: "daryo", th: "suv", i: "River Run" },
-      { t: "Kosmik yugurish: tezlanish", m: "yugurish", k: "tezlanish", th: "galaktika", i: "Space Run" }
+      { t: "Kosmik yugurish: tezlanish", m: "yugurish", k: "tezlanish", th: "galaktika", i: "Space Run" },
+      /* Mavzuli poyga (ka-virtual.js dagi poyga mexanikasi, darvozalarda savol javoblari) */
+      { t: "Poyga: ko'paytirish jadvali", m: "poyga", k: "kopaytirish", th: "olov", i: "Poyga" },
+      { t: "Poyga: tenglamalar", m: "poyga", k: "tenglama", th: "neon", i: "Poyga" },
+      { t: "Poyga: kasrlar", m: "poyga", k: "kasr", th: "suv", i: "Poyga" },
+      { t: "Poyga: manfiy sonlar", m: "poyga", k: "manfiy", th: "galaktika", i: "Poyga" }
     ],
     install: function (M, X) {
       var st = document.createElement("style"); st.textContent = ".kv-q{font-size:clamp(17px,3.1vw,30px)!important;top:50px}.kv-sub{display:none}"; document.head.appendChild(st);

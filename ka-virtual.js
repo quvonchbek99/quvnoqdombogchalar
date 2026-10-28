@@ -1,6 +1,6 @@
 /*!
  * Kuvonch Academy — VIRTUAL o'yinlar (kamera + qo'l kuzatuvi)
- * 63 ta o'yin (47 matematik + poyga + grafik doskasi + 10 ta fizika + 4 ta yugurish — ka-yugurish.js). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
+ * 67 ta o'yin (47 matematik + poyga + grafik doskasi + 10 ta fizika + 4 ta yugurish + 4 ta mavzuli poyga — ka-yugurish.js). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
  * Qo'l kuzatuvi: MediaPipe Hands (brauzerda ishlaydi, video hech qayerga yuborilmaydi).
  * O'yin sahifasi:  <script>window.KAV_ID=5</script><script src="ka-virtual.js"></script>
  * Ro'yxat sahifasi: <script>window.KAV_HUB=1</script><script src="ka-virtual.js"></script>
@@ -871,7 +871,7 @@
     { t: "Issiqlik miqdori Q = cmΔt", m: "nishon", k: "issiqlik", th: "kamalak", i: "Fizika — issiqlik", fan: "fizika" }
   ];
   if (EXT && EXT.games) GAMES.push.apply(GAMES, EXT.games);
-  var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS, poyga: { poyga: { n: "Qo'shish va ayirish (tezlik)" } }, grafik: { grafik: { n: "Funksiya grafiklari" } } };
+  var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS, poyga: Object.assign({}, TOPICS, { poyga: { n: "Qo'shish va ayirish (tezlik)" } }), grafik: { grafik: { n: "Funksiya grafiklari" } } };
   if (EXT && EXT.src) for (var es in EXT.src) SRC[es] = EXT.src[es];
   var PAIRN = { kopaytirish: "Ko'paytma juftlari", kasrFoiz: "Kasr = foiz", tenglama: "Tenglama = yechim" };
   GAMES.forEach(function (g, i) {
@@ -1373,7 +1373,7 @@
   var HOLD = 0.55;
   // Daraja 1…5: o'yin davomida o'quvchiga moslashadi (3 ta ketma-ket to'g'ri → yuqoriga, 2 ta ketma-ket xato → pastga)
   function lvl() { return S.lv || 1; }
-  function topicG() { if (G.m === "xotira") return { kopaytirish: 3, kasrFoiz: 6, tenglama: 6 }[G.k] || 5; if (G.m === "poyga") return 2; if (G.m === "grafik") return 8; var t = SRC[G.m] && SRC[G.m][G.k]; return (t && t.g) || 4; }
+  function topicG() { if (G.m === "xotira") return { kopaytirish: 3, kasrFoiz: 6, tenglama: 6 }[G.k] || 5; if (G.m === "poyga") return (TOPICS[G.k] || {}).g || 2; if (G.m === "grafik") return 8; var t = SRC[G.m] && SRC[G.m][G.k]; return (t && t.g) || 4; }
   // Boshlang'ich daraja: sinf tanlangan bo'lsa — mavzu o'tiladigan sinfga nisbatan, aks holda qiyinlik bo'yicha
   function startLevel() {
     var d = CFG.diff | 0 || 2, sn = CFG.sinf | 0;
@@ -1390,7 +1390,7 @@
   // Qiyinlik: harakatlanuvchi o'yinlarda tezlik ko'paytuvchisi
   var MOVE = { yomgir: 1, orbita: 1, kesish: 1, tutish: 1, pufak: 1, nishon: 1 };
   function spd() { return MOVE[G.m] ? [0.72, 1, 1.3][(CFG.diff | 0 || 2) - 1] : 1; }
-  function qText(q) { return /\?/.test(q.q) ? q.q : q.q + " = ?"; }
+  function qText(q) { return /\?/.test(q.q) ? q.q : /=/.test(q.q) ? q.q + (/x/.test(q.q) ? ".  x = ?" : "") : q.q + " = ?"; }
   function showQ(q, pre) { setQ((pre || "") + (q.boss ? "👑 " : "") + qText(q), q.rep, q.boss); }
   // To'g'ri javobdan keyin ekranda qisqa ko'rinadigan yozuv: "7 × ? = 56" → "7 × 8 = 56", matnli savol → "… → 8"
   function qDone(q, v) {
@@ -2424,6 +2424,8 @@
     var KEYS = [{ l: "arrowleft", r: "arrowright", b: "arrowdown", n: "arrowup" }, { l: "a", r: "d", b: "s", n: "w" }, { l: "j", r: "l", b: "k", n: "i" }, { l: "4", r: "6", b: "5", n: "8" }];
     var KEYTXT = ["← → · ↓ tormoz · ↑ nitro", "A D · S tormoz · W nitro", "J L · K tormoz · I nitro", "4 6 · 5 tormoz · 8 nitro"];
     var OBN = { konus: "Konus! −15%", moy: "Moy dog'i! Sirpanish", tosiq: "To'siq! −40%", chuqur: "Chuqur! −20%" };
+    // Mavzuli poyga: darvozalarda amal emas, savol javoblari (to'g'risi tezlikni oshiradi, noto'g'risi kamaytiradi)
+    var TOPIC = G.k !== "poyga" && TOPICS[G.k] ? TOPICS[G.k] : null, lastQ = null;
     function nPlayers() { return clamp(CFG.racers | 0 || 1, 1, 4); }
     function humans() { return racers.filter(function (r) { return r.human; }); }
     function mkRacer(i, human, sp, d, x, col) { return { i: i, human: human, x: x, tx: x, sp: sp, dist: d, col: col, gear: 1, boost: 0, hit: 0, shift: 0, braking: false, nitro: 0, shield: 0, streak: 0, slide: 0, slideV: 0, bump: 0, zk: 1, gm: 400, maxSp: sp, lane: 1, base: sp }; }
@@ -2440,9 +2442,10 @@
       return { sign: sign, k: "add", v: v, s: (sign > 0 ? "+" : "−") + (s.length > 2 ? "(" + s + ")" : s) };
     }
     function applyOp(o, sp) { return Math.max(MINSP, o.k === "mul" ? sp * o.v : o.k === "div" ? sp / o.v : sp + o.sign * o.v); }
-    function opTxt(o) { return o.k !== "add" ? o.s : o.s + (/[×:+²(]/.test(o.s.slice(1)) ? " = " + (o.sign > 0 ? "+" : "−") + o.v : ""); }
+    function opTxt(o) { if (TOPIC) return o.s + (o.ok ? " ✓" : " ✗"); return o.k !== "add" ? o.s : o.s + (/[×:+²(]/.test(o.s.slice(1)) ? " = " + (o.sign > 0 ? "+" : "−") + o.v : ""); }
     function gapNow() { var m = 0; racers.forEach(function (r) { if (r.human) m = Math.max(m, r.sp); }); return 230 + m * 0.45; }
     function makeRow(z) {
+      if (TOPIC) { var q = askQ(TOPIC), o3 = makeOpts(q, 3); while (o3.length < 3) o3.push({ s: "?", ok: false }); return { z: z, q: q, ops: o3.slice(0, 3).map(function (x) { return x.ok ? { sign: 1, k: "mul", v: lvl() >= 4 ? 1.5 : 1.3, s: x.s, ok: true } : { sign: -1, k: "div", v: 1.7, s: x.s, ok: false }; }), done: {} }; }
       var l = lvl(), ops = [op(l, 1), op(l, R(0, 2) ? -1 : 1), op(l, -1)];
       return { z: z, ops: shuffle(ops), done: {} };
     }
@@ -2603,7 +2606,7 @@
           var L = proj(V, me, LANES[li] - 0.27, ob.z), Rr = proj(V, me, LANES[li] + 0.27, ob.z), hgt = (Rr.x - L.x) * 0.55, done = ob.row.done[me.i];
           if (done === li) return;
           ctx.globalAlpha = done != null ? 0.35 : 1;
-          var col = o.sign > 0 ? "#22c55e" : "#ef4444";
+          var col = TOPIC && done == null ? "#3b82f6" : o.sign > 0 ? "#22c55e" : "#ef4444";
           ctx.fillStyle = "#ddd"; ctx.fillRect(L.x - 2, L.y - hgt * 1.6, Math.max(2, (Rr.x - L.x) * 0.04), hgt * 1.6); ctx.fillRect(Rr.x - Math.max(2, (Rr.x - L.x) * 0.04) + 2, Rr.y - hgt * 1.6, Math.max(2, (Rr.x - L.x) * 0.04), hgt * 1.6);
           ctx.fillStyle = col + "cc"; ctx.strokeStyle = "#fff"; ctx.lineWidth = Math.max(1, hgt * 0.05); rr(L.x, L.y - hgt * 1.6, Rr.x - L.x, hgt * 0.75, Math.max(2, hgt * 0.12)); ctx.fill(); ctx.stroke();
           ctx.fillStyle = col + "33"; ctx.fillRect(L.x, L.y - hgt * 0.85, Rr.x - L.x, hgt * 0.85);
@@ -2627,11 +2630,13 @@
       // keyingi darvoza — oldindan yechish uchun
       var nxt = null; rows.forEach(function (rw) { var z = rw.z - me.dist; if (z > 3.2 && rw.done[me.i] == null && (!nxt || rw.z < nxt.z)) nxt = rw; });
       var top = V.y + (V.y < 10 ? 54 : 10), small = V.w < 520;
+      if (TOPIC && me.i === 0 && nxt && nxt.q !== lastQ) { lastQ = nxt.q; qEl.style.display = ""; showQ(nxt.q); }
+      if (TOPIC) top += qEl.offsetHeight + 4;
       if (nxt) {
         var cw = Math.min(118, (V.w - 40) / 3), chh = small ? 30 : 36, x0 = V.x + V.w / 2 - cw * 1.5 - 6;
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
         nxt.ops.forEach(function (o, li) {
-          ctx.fillStyle = o.sign > 0 ? "rgba(34,197,94,.85)" : "rgba(239,68,68,.85)"; rr(x0 + li * (cw + 6), top, cw, chh, 9); ctx.fill();
+          ctx.fillStyle = TOPIC ? "rgba(59,130,246,.85)" : o.sign > 0 ? "rgba(34,197,94,.85)" : "rgba(239,68,68,.85)"; rr(x0 + li * (cw + 6), top, cw, chh, 9); ctx.fill();
           ctx.fillStyle = "#fff"; ctx.font = "900 " + Math.min(small ? 15 : 19, cw / Math.max(3, o.s.length * 0.62)) + "px " + FONT; ctx.fillText(o.s, x0 + li * (cw + 6) + cw / 2, top + chh / 2 + 1);
         });
         ctx.fillStyle = "#fff"; ctx.font = "700 12px " + FONT; ctx.shadowColor = "#000"; ctx.shadowBlur = 6; ctx.fillText("↑ keyingi darvoza: " + Math.max(0, Math.round(nxt.z - me.dist - 3.2)) + " m", V.x + V.w / 2, top + chh + 12); ctx.shadowBlur = 0;
@@ -2697,7 +2702,7 @@
         S.score = [0, 0, 0, 0]; window.__KAV_RACE = function () { return { racers: racers, obs: obs, rows: rows }; };
         if (!mouseMode && CFG.hands < n) { CFG.hands = n; try { if (handsObj) handsObj.setOptions({ maxNumHands: n }); } catch (e) {} }
         engines = []; for (var e = 0; e < n; e++) engines.push(mkEngine(n === 1 ? 0 : -0.7 + 1.4 * e / (n - 1)));
-        setQ(""); qEl.style.display = "none";
+        setQ(""); qEl.style.display = "none"; lastQ = null;
         if (!$("kv-snd")) { var sb = document.createElement("span"); sb.className = "kv-pill"; sb.id = "kv-snd"; sb.style.cursor = "pointer"; sb.textContent = "🔊 Motor"; sb.onclick = function () { SND = !SND; sb.textContent = SND ? "🔊 Motor" : "🔇 Motor"; }; hud.appendChild(sb); }
       },
       stop: function () { engines.forEach(function (en) { en && en.stop(); }); engines = []; window.removeEventListener("keydown", onKey); window.removeEventListener("keyup", onKey); qEl.style.display = ""; },
@@ -2760,6 +2765,7 @@
               if (o.sign > 0) { S.ok++; S.streak++; S.best = Math.max(S.best, S.streak); r.streak++; r.boost = 0.9; whoosh(true); burst(cx, cy - 40, 30, ["#22c55e", "#b6ff00", "#ffffff"], 1); if (r.streak % 3 === 0 && r.nitro < 3) { r.nitro++; ftext(cx, cy - 140, "🔥 +1 nitro! " + (mouseMode || !camOn ? "(" + KEYTXT[r.i].split("· ")[2] + ")" : "(chimdang 🤏)"), "#4dd2ff"); } }
               else { S.bad++; S.streak = 0; r.streak = 0; r.hit = 0.4; whoosh(false); burst(cx, cy - 40, 20, ["#ef4444", "#ff8a80"], 0.8); }
               ftext(cx, cy - 90, opTxt(o) + " → " + Math.round(r.sp) + " km/soat", o.sign > 0 ? "#5ee67a" : "#ff6b6b");
+              if (TOPIC) { if (o.ok) { S.up++; S.dn = 0; if (S.up >= 3 && S.lv < 5) { S.lv++; S.up = 0; S.maxLv = Math.max(S.maxLv, S.lv); banner("⬆ " + S.lv + "-daraja!", TH.acc2); } ftext(cx, cy - 130, qDone(rw.q, o.s), "#fff"); } else { S.dn++; S.up = 0; if (S.dn >= 2) { S.dn = 0; if (S.lv > 1) S.lv--; } logMiss(rw.q); teach((n > 1 ? PNAME[r.i] + ": " : "") + rw.q.e, false); } return; }
               var bestOp = rw.ops.reduce(function (a, b) { return applyOp(a, old) >= applyOp(b, old) ? a : b; });
               if (bestOp !== o && applyOp(bestOp, old) > r.sp + 0.5) { var bx = opTxt(bestOp); teach((n > 1 ? PNAME[r.i] + ": " : "") + "Eng yaxshisi " + bx + " edi (" + Math.round(old) + " → " + Math.round(applyOp(bestOp, old)) + ")" + (o.sign < 0 ? ", siz " + o.s + " ni oldingiz" : ""), "hint", 2200); if (o.sign < 0) logMiss(null, Math.round(old) + " km/soatda " + o.s + " tezlikni kamaytiradi; eng yaxshisi " + bx); }
             }
