@@ -1,0 +1,36 @@
+{
+  "id": "2021-1",
+  "badge": "IMO 2021 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Ikki dasta karta",
+      "fs": 37,
+      "body": "<p><span class='m'>n ≥ 100</span> butun son. Ivan <span class='m'>n, n + 1, …, 2n</span> sonlarini har birini alohida kartaga yozdi.</p><p>So'ng bu <span class='m'>n + 1</span> ta kartani aralashtirib, <b>ikki dastaga</b> ajratdi.</p><div class='box'>Dastalardan kamida birida yig'indisi <b>to'liq kvadrat</b> bo'lgan ikkita karta borligini isbotlang.</div><p>Masalan, <span class='m'>n = 100</span> da kartalar: <span class='m'>100, 101, …, 200</span>.</p>"
+    },
+    {
+      "kicker": "YECHIM · ASOSIY G'OYA",
+      "title": "Uchta «sehrli» karta",
+      "fs": 35,
+      "body": "<p>Faraz qilaylik, shunday uchta karta <span class='m'>a &lt; b &lt; c</span> topildiki, ularning <b>har qanday ikkitasining</b> yig'indisi to'liq kvadrat.</p><svg viewBox='0 0 520 300' width='520' height='300' style='display:block;margin:4px auto 14px'><g stroke='#f2b84b' stroke-width='4'><line x1='260' y1='50' x2='80' y2='250'/><line x1='260' y1='50' x2='440' y2='250'/><line x1='80' y1='250' x2='440' y2='250'/></g><g fill='#1a2b44' stroke='#fff' stroke-width='4'><circle cx='260' cy='50' r='38'/><circle cx='80' cy='250' r='38'/><circle cx='440' cy='250' r='38'/></g><g fill='#fff' font-family='DejaVu Serif' font-style='italic' font-size='38' text-anchor='middle'><text x='260' y='63'>b</text><text x='80' y='263'>a</text><text x='440' y='263'>c</text></g><g fill='#ffd98a' font-family='DejaVu Serif' font-style='italic' font-size='28' text-anchor='middle'><text x='130' y='140'>□</text><text x='390' y='140'>□</text><text x='260' y='285'>□</text></g></svg><p>Uchta kartani ikki dastaga bo'lsak, <b>kaptarlar qoidasiga</b> ko'ra ikkitasi albatta bir dastaga tushadi — ularning yig'indisi kvadrat! ✅</p><div class='box'>Demak, faqat shunday uchlikni <span class='m'>[n; 2n]</span> oralig'ida topish kifoya.</div>"
+    },
+    {
+      "kicker": "YECHIM · UCHLIKNI QURISH",
+      "title": "Ketma-ket uchta kvadrat",
+      "fs": 35,
+      "body": "<p>Yig'indilarni ketma-ket kvadratlar qilib tanlaymiz:</p><div class='box'><span class='m'>a + b = (2k − 1)<sup>2</sup></span><br><span class='m'>a + c = (2k)<sup>2</sup></span><br><span class='m'>b + c = (2k + 1)<sup>2</sup></span></div><p>Bu sistemani yechsak:</p><div class='box'><span class='m'>a = 2k<sup>2</sup> − 4k</span>, &nbsp;<span class='m'>b = 2k<sup>2</sup> + 1</span>, &nbsp;<span class='m'>c = 2k<sup>2</sup> + 4k</span></div><p>Tekshiruv: <span class='m'>a + b = 4k<sup>2</sup> − 4k + 1 = (2k − 1)<sup>2</sup></span> — qolganlari ham xuddi shunday.</p>"
+    },
+    {
+      "kicker": "YECHIM · k NI TANLASH",
+      "title": "Oraliqlar hamma joyni qoplaydi",
+      "fs": 34,
+      "body": "<p>Uchala son kartalar orasida bo'lishi uchun <span class='m'>n ≤ a</span> va <span class='m'>c ≤ 2n</span> kerak, ya'ni</p><div class='box'><span class='m'>k<sup>2</sup> + 2k ≤ n ≤ 2k<sup>2</sup> − 4k</span></div><p>Bu <span class='m'>I<sub>k</sub></span> oraliqlari:</p><ul><li><span class='m'>k = 9</span>: &nbsp;<span class='m'>99 ≤ n ≤ 126</span></li><li><span class='m'>k = 10</span>: &nbsp;<span class='m'>120 ≤ n ≤ 160</span></li><li><span class='m'>k = 11</span>: &nbsp;<span class='m'>143 ≤ n ≤ 198</span> …</li></ul><p><span class='m'>k ≥ 9</span> da <span class='m'>2k<sup>2</sup> − 4k ≥ (k + 1)<sup>2</sup> + 2(k + 1)</span>, ya'ni har bir oraliq keyingisiga ulanib ketadi.</p><div class='box'>Demak har qanday <span class='m'>n ≥ 99</span> uchun mos <span class='m'>k</span> bor. ∎</div>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 35,
+      "body": "<p><span class='m'>n = 100</span>, <span class='m'>k = 9</span>: kartalar <span class='m'>126, 163, 198</span></p><div class='box'><span class='m'>126 + 163 = 289 = 17<sup>2</sup></span><br><span class='m'>126 + 198 = 324 = 18<sup>2</sup></span><br><span class='m'>163 + 198 = 361 = 19<sup>2</sup></span> ✅</div><p>Qiziq fakt: <span class='m'>n = 98</span> da tasdiq <b>noto'g'ri</b> — kvadrat yig'indisiz bo'linish mavjud.</p><p>Yechim Evan Chen yozuvlari asosida. Masala Avstraliya taklifi.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 150</span> uchun qaysi uchta kartani olasiz? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2021 · 2-masala</b> (algebra)</p>"
+    }
+  ]
+}
