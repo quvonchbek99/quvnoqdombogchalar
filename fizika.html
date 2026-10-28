@@ -1403,7 +1403,7 @@ Lw({ id: "tezlik", g: "mex", n: "Tekis harakat tezligi", a: "v = s / t", tags: "
   m: "Tezlik — jismning vaqt birligida bosib o'tgan yo'li. Undan yo'lni ham topamiz: s = v·t.",
   sy: [["v", "v", "tezlik", "m/s"], ["s", "s", "yo'l", "m"], ["t", "t", "vaqt", "s"]],
   sl: [{ id: "s", k: "s", nm: "Yo'l", sy: "s", min: 20, max: 200, step: 10, v: 120, u: "m" }, { id: "t", k: "t", nm: "Vaqt", sy: "t", min: 2, max: 40, step: 1, v: 12, u: "s" }],
-  go: [["virtual-50.html", "🖐 Kamera o'yini: Raketa"], ["virtual-51.html", "🖐 Yo'l s = v·t"], ["#lab:tezlik", "🧪 Tajriba"]],
+  go: [["virtual-50.html", "🖐 Kamera o'yini: Raketa"], ["virtual-51.html", "🖐 O'lchov birliklari: km/soat ↔ m/s"], ["#lab:tezlik", "🧪 Tajriba"]],
   res: function (V) { var v = V.s / V.t; return SI("v", "v") + " = " + SI("s", "s") + " / " + SI("t", "t") + " = " + VU("s", V.s, "m") + " / " + VU("t", V.t, "s") + " " + RV("v", v, "m/s") + "<small>Bu " + fx(v * 3.6, 3) + " km/soat (1 m/s = 3,6 km/soat).</small>"; },
   draw: function (c, w, h, dt, V, S) {
     bgLab(c, w, h, 20);
