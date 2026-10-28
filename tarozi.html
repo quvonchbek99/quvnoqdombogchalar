@@ -6,7 +6,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Tarozi laboratoriyasi — tortish, taqqoslash va tenglama | Kuvonch Academy</title>
-<meta name="description" content="Virtual tarozi laboratoriyasi: pallali laboratoriya tarozisida tortish (±0,01 g), elektron tarozi va TARA, massalarni taqqoslash (g, kg, mg), tenglama tarozisi va zichlikni aniqlash. Barmoq, sichqoncha yoki kamera bilan. Bepul.">
+<meta name="description" content="Virtual tarozi laboratoriyasi: laboratoriya tarozisi (±0,01 g), bozor tarozisi (kg), yuk tarozisi (tonna, sentner), birliklar zinapoyasi (t, s, kg, g, mg, karat, funt, pud), elektron tarozi, taqqoslash, tenglama tarozisi va zichlik. Barmoq, sichqoncha yoki kamera (qo'l skeleti) bilan. Bepul.">
 <link rel="canonical" href="https://kuvonch.uz/tarozi.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kuvonch Academy">
@@ -67,8 +67,15 @@ h1 span{background:linear-gradient(100deg,var(--teal),var(--violet));-webkit-bac
 .stage{position:relative;background:#0a1029}
 #cv{display:block;width:100%;height:auto;touch-action:none;cursor:grab;outline:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 #cv:focus-visible{box-shadow:inset 0 0 0 2px var(--amber)}
-#cam-v{position:absolute;right:8px;bottom:8px;width:116px;height:87px;object-fit:cover;transform:scaleX(-1);border-radius:10px;border:1px solid #2c3b72;background:#000;display:none;opacity:.92;pointer-events:none}
-.cam-msg{position:absolute;left:10px;right:10px;bottom:10px;display:none;padding:10px 12px;border-radius:12px;background:rgba(6,10,26,.92);border:1px solid #3a2a58;color:var(--chalk);font-size:14px}
+#hand-cv{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;display:none;z-index:2}
+.cam-box{position:absolute;right:8px;bottom:8px;width:184px;height:138px;transition:left .25s,right .25s,top .25s,bottom .25s;border-radius:12px;overflow:hidden;border:1px solid #2c3b72;background:#000;display:none;pointer-events:none;z-index:3;box-shadow:0 12px 30px -12px rgba(0,0,0,.9)}
+.cam-box video{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);opacity:.8}
+.cam-box canvas{position:absolute;left:0;top:0;width:100%;height:100%}
+.cam-live{position:absolute;left:6px;top:5px;font:700 10px/1 var(--body);color:#ff5e8e;letter-spacing:.06em;background:rgba(6,10,26,.75);padding:3px 6px;border-radius:6px}
+.cam-hud{position:absolute;left:5px;right:5px;bottom:5px;font:600 10px/1.2 var(--body);color:#35f0c4;background:rgba(6,10,26,.75);padding:3px 6px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cam-box.tl{left:8px;top:8px;right:auto;bottom:auto}.cam-box.tr{right:8px;top:8px;left:auto;bottom:auto}.cam-box.bl{left:8px;bottom:8px;right:auto;top:auto}.cam-box.br{right:8px;bottom:8px;left:auto;top:auto}
+@media (max-width:520px){.cam-box{width:120px;height:90px}.cam-hud{font-size:8.5px}.cam-live{font-size:9px}}
+.cam-msg{position:absolute;left:10px;right:10px;bottom:10px;z-index:4;display:none;padding:10px 12px;border-radius:12px;background:rgba(6,10,26,.92);border:1px solid #3a2a58;color:var(--chalk);font-size:14px}
 .cam-msg.show{display:block}
 .tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px;border-top:1px solid var(--line);background:#0b1230}
 .tools .sep{flex-basis:100%;height:0}
@@ -153,22 +160,28 @@ footer a:hover{text-decoration:underline}
 <section class="hero">
 <span class="kicker">⚖️ Virtual laboratoriya</span>
 <h1>Tarozi <span>laboratoriyasi</span></h1>
-<p class="lead">Buyumlarni haqiqiy laboratoriya tarozisidagidek torting, massalarni taqqoslang va tenglamani tarozi yordamida yeching. Toshlarni barmoq yoki sichqoncha bilan suring, teginsangiz — o'zi joylashadi. Kamerani yoqsangiz, qo'lingiz bilan boshqarasiz.</p>
+<p class="lead">Grammdan tonnagacha: tuxumni laboratoriya tarozisida, tarvuzni bozor tarozisida, filni yuk tarozisida torting. Massalarni taqqoslang, birliklar zinapoyasida t → s → kg → g → mg o'tishni o'rganing va tenglamani tarozi yordamida yeching. Toshlarni barmoq yoki sichqoncha bilan suring, teginsangiz — o'zi joylashadi. Kamerani yoqsangiz, qo'lingiz 21 nuqtali skelet bo'lib ko'rinadi va tarozini qo'l bilan boshqarasiz.</p>
 <ul class="chips">
 <li>⚖️ Tortish: ±0,01 g aniqlik</li>
+<li>🧺 Bozor tarozisi: 10 g … 10 kg</li>
+<li>🚛 Yuk tarozisi: tonna, sentner</li>
+<li>🪜 Birliklar zinapoyasi</li>
 <li>🔢 Elektron tarozi va TARA</li>
-<li>⇄ Taqqoslash: mg, g, kg</li>
+<li>⇄ Taqqoslash: mg, g, kg, s, t</li>
 <li>𝑥 Tenglama tarozisi</li>
 <li>ρ Zichlikni aniqlash</li>
-<li>🖐 Kamera bilan boshqarish</li>
+<li>🖐 Kamera: qo'l skeleti</li>
 </ul>
 </section>
 
 <section class="labsec" aria-label="Laboratoriya">
 <div class="tabs" role="tablist" aria-label="Rejimlar">
 <button class="tab" role="tab" data-mode="weigh" aria-selected="true">⚖️ Pallali tarozi</button>
+<button class="tab" role="tab" data-mode="bozor" aria-selected="false">🧺 Bozor tarozisi (kg)</button>
+<button class="tab" role="tab" data-mode="yuk" aria-selected="false">🚛 Yuk tarozisi (t, s)</button>
 <button class="tab" role="tab" data-mode="digital" aria-selected="false">🔢 Elektron tarozi</button>
 <button class="tab" role="tab" data-mode="compare" aria-selected="false">⇄ Taqqoslash</button>
+<button class="tab" role="tab" data-mode="birlik" aria-selected="false">🪜 Birliklar</button>
 <button class="tab" role="tab" data-mode="eq" aria-selected="false">𝑥 Tenglama tarozisi</button>
 <button class="tab" role="tab" data-mode="dens" aria-selected="false">ρ Zichlik</button>
 </div>
@@ -180,7 +193,8 @@ footer a:hover{text-decoration:underline}
 </div>
 <div class="stage" id="stage">
 <canvas id="cv" tabindex="0" role="application" aria-label="Tarozi laboratoriyasi. Strelkalar bilan buyum tanlang, Enter bilan pallaga qo'ying yoki qaytaring." aria-describedby="panel"></canvas>
-<video id="cam-v" playsinline muted aria-hidden="true"></video>
+<canvas id="hand-cv" aria-hidden="true"></canvas>
+<div class="cam-box br" id="cam-box" aria-hidden="true"><video id="cam-v" playsinline muted></video><canvas id="cam-sk"></canvas><span class="cam-live" id="cam-live">● JONLI</span><span class="cam-hud" id="cam-hud">Qo'l qidirilmoqda…</span></div>
 <div class="cam-msg" id="cam-msg" role="status"></div>
 </div>
 <div class="tools" id="tools"></div>
@@ -213,13 +227,31 @@ footer a:hover{text-decoration:underline}
 <div class="tcard">
 <h3>🧮 Massa birliklari</h3>
 <table class="utbl">
-<tr><td>1 t (tonna)</td><td>1000 kg</td></tr>
+<tr><td>1 t (tonna)</td><td>10 s = 1000 kg</td></tr>
 <tr><td>1 s (sentner)</td><td>100 kg</td></tr>
 <tr><td>1 kg</td><td>1000 g</td></tr>
 <tr><td>1 g</td><td>1000 mg</td></tr>
 <tr><td>1 mg</td><td>0,001 g</td></tr>
+<tr><td>1 karat (qimmatbaho tosh)</td><td>0,2 g</td></tr>
+<tr><td>1 unsiya</td><td>≈ 28,35 g</td></tr>
+<tr><td>1 funt (= 16 unsiya)</td><td>≈ 453,6 g</td></tr>
+<tr><td>1 pud</td><td>≈ 16,38 kg</td></tr>
 </table>
 <p style="margin-top:10px">Taqqoslashdan oldin massalarni bir xil birlikka keltiring: 0,25 kg = 250 g &gt; 240 g.</p>
+</div>
+<div class="tcard">
+<h3>🚛 Katta massalar: tonna va sentner</h3>
+<p>Katta yuklarning massasi bir necha birlikda yoziladi: <b>2 t 3 s 40 kg</b>. Bitta birlikka o'tkazish uchun har bir qismni kg ga aylantirib qo'shamiz:</p>
+<p class="fml">2 t 3 s 40 kg = 2000 + 300 + 40 = <span class="q-m">2340 kg</span> = 23,4 s = 2,34 t</p>
+<p><b>Qoida (zinapoya):</b> katta birlikdan kichigiga tushsak — ko'paytiramiz (×10, ×100, ×1000), kichigidan kattasiga chiqsak — bo'lamiz.</p>
+<p>Bozor tarozisida cho'yan toshlar (gira) 10 g dan 10 kg gacha, yuk tarozisida esa tonna bloklari va sentner barabanlari ishlatiladi.</p>
+</div>
+<div class="tcard">
+<h3>🖐 Kamera qo'lni qanday ko'radi?</h3>
+<p>Sun'iy intellekt modeli (MediaPipe Hands) kamera tasviridan qo'lning <b>21 nuqtasini</b> topadi: bilak, har bir barmoqning bo'g'imlari va uchlari. Nuqtalarni chiziqlar bilan tutashtirsak — qo'l skeleti hosil bo'ladi.</p>
+<p><b>Chimdish</b> — bosh barmoq uchi (4-nuqta) va ko'rsatkich barmoq uchi (8-nuqta) orasidagi masofa kichrayganda:</p>
+<p class="fml">d = √((x₄ − x₈)² + (y₄ − y₈)²)</p>
+<p>Qo'l kameradan uzoq-yaqinligidan qat'i nazar ishlashi uchun d kaft uzunligiga bo'linadi: nisbat 0,3 dan kichik bo'lsa — «ushlash», 0,42 dan katta bo'lsa — «qo'yib yuborish».</p>
 </div>
 <div class="tcard">
 <h3>ρ Zichlik</h3>
@@ -287,7 +319,8 @@ var MET = {
   copper: [0, "#5a2410", .3, "#d9774a", .5, "#ffc3a0", .7, "#c0603a", 1, "#4a1d0c"],
   lead: [0, "#2e3440", .3, "#7b8596", .5, "#a9b3c4", .7, "#6c7586", 1, "#272c36"],
   iron: [0, "#16181f", .3, "#474d5c", .5, "#7a8292", .7, "#3f4553", 1, "#121419"],
-  paint: [0, "#1f2436", .3, "#4f566d", .5, "#6f788f", .7, "#474e63", 1, "#1a1e2d"]
+  paint: [0, "#1f2436", .3, "#4f566d", .5, "#6f788f", .7, "#474e63", 1, "#1a1e2d"],
+  blue: [0, "#15203a", .3, "#3f5d99", .5, "#9db6e8", .7, "#3a5590", 1, "#121a30"]
 };
 function metal(x0, x1, kind) { return lg(x0, 0, x1, 0, MET[kind] || MET.steel); }
 function txt(s, x, y, size, color, align, weight, font) { ctx.font = (weight || 600) + " " + size + "px " + (font || FONT); ctx.fillStyle = color; ctx.textAlign = align || "center"; ctx.textBaseline = "middle"; ctx.fillText(s, x, y); }
@@ -385,6 +418,162 @@ function dJug(x, y, w, h, ml, cap) { var l = x - w / 2, t = y - h, ih = h * .84,
 function dBox(x, y, w, h, c) { var l = x - w / 2, t = y - h; ctx.fillStyle = lg(0, t, 0, y, [0, c || "#d9a066", 1, "#8a5a2b"]); rr(l, t, w, h, 3); ctx.fill(); ctx.fillStyle = "rgba(255,240,200,.35)"; ctx.fillRect(x - w * .08, t, w * .16, h); ctx.strokeStyle = "rgba(60,30,0,.5)"; ctx.lineWidth = 1; rr(l, t, w, h, 3); ctx.stroke(); }
 function dSack(x, y, w, h) { var l = x - w / 2, t = y - h; ctx.fillStyle = lg(l, 0, l + w, 0, [0, "#8c7a55", .5, "#e6d6a8", 1, "#7a6743"]); ctx.beginPath(); ctx.moveTo(l + w * .2, t + h * .12); ctx.quadraticCurveTo(x, t - h * .05, l + w * .8, t + h * .12); ctx.quadraticCurveTo(l + w * 1.08, t + h * .6, l + w * .92, y); ctx.lineTo(l + w * .08, y); ctx.quadraticCurveTo(l - w * .08, t + h * .6, l + w * .2, t + h * .12); ctx.fill(); ctx.strokeStyle = "#6b5532"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(l + w * .3, t + h * .14); ctx.lineTo(l + w * .7, t + h * .14); ctx.stroke(); }
 function dVial(x, y, w, h, c) { var l = x - w / 2, t = y - h; ctx.fillStyle = c || "#a27bff"; rr(l, t + h * .25, w, h * .75, w / 2); ctx.fill(); ctx.fillStyle = "rgba(255,255,255,.4)"; ctx.fillRect(l + w * .2, t + h * .32, w * .14, h * .5); ctx.fillStyle = "#e8ecf6"; rr(l + w * .1, t, w * .8, h * .3, 3); ctx.fill(); }
+
+/* ----- og'ir toshlar: cho'yan gira (g, kg), sentner barabani (s), tonna bloki (t) ----- */
+function drawGira(x, y, w, h, num, unit) {
+  var r = w / 2, top = y - h * .74, hw = Math.max(2.2, w * .12);
+  ctx.fillStyle = metal(x - r, x + r, "iron");
+  ctx.beginPath(); ctx.moveTo(x - r * .74, top); ctx.lineTo(x + r * .74, top); ctx.quadraticCurveTo(x + r, top + 2, x + r, top + h * .18); ctx.lineTo(x + r, y - 3); ctx.quadraticCurveTo(x + r, y, x + r - 3, y); ctx.lineTo(x - r + 3, y); ctx.quadraticCurveTo(x - r, y, x - r, y - 3); ctx.lineTo(x - r, top + h * .18); ctx.quadraticCurveTo(x - r, top + 2, x - r * .74, top); ctx.fill();
+  ctx.strokeStyle = metal(x - r, x + r, "steel"); ctx.lineWidth = hw; ctx.beginPath(); ctx.moveTo(x - r * .46, top + 1); ctx.quadraticCurveTo(x - r * .46, y - h, x, y - h + hw / 2); ctx.quadraticCurveTo(x + r * .46, y - h, x + r * .46, top + 1); ctx.stroke();
+  ctx.fillStyle = "rgba(255,255,255,.13)"; ctx.fillRect(x - r * .78, top + 3, Math.max(1.5, w * .1), h * .55);
+  txt(num, x, y - h * .43, Math.max(6.5, w * .34), "#ffc23d", "center", 800);
+  txt(unit, x, y - h * .17, Math.max(6, w * .22), "#c9d1ef", "center", 700);
+}
+function drawDrum(x, y, w, h, label) {
+  dCyl(x, y, w, h, "blue", null);
+  ctx.fillStyle = "rgba(255,194,61,.9)"; ctx.fillRect(x - w / 2, y - h * .66, w, Math.max(2, h * .07));
+  ctx.strokeStyle = metal(x - 6, x + 6, "steel"); ctx.lineWidth = Math.max(2, w * .06); ctx.beginPath(); ctx.ellipse(x, y - h + Math.max(2.5, w * .14), w * .22, h * .13, 0, Math.PI, 0); ctx.stroke();
+  txt(label, x, y - h * .38, Math.max(8, w * .3), "#f3f5ff", "center", 800);
+}
+function drawSlab(x, y, w, h, label) {
+  var l = x - w / 2, t = y - h, i;
+  ctx.fillStyle = lg(0, t, 0, y, [0, "#a9b2c6", .14, "#6b7590", 1, "#262b3a"]); rr(l, t, w, h, 3); ctx.fill();
+  ctx.save(); ctx.beginPath(); ctx.rect(l, t + h * .1, w, h * .18); ctx.clip(); ctx.fillStyle = "#ffc23d"; ctx.fillRect(l, t + h * .1, w, h * .18); ctx.fillStyle = "#11151f";
+  for (i = -2; i < w / 7 + 2; i++) { var sx = l + i * 8; ctx.beginPath(); ctx.moveTo(sx, t + h * .28); ctx.lineTo(sx + 4, t + h * .28); ctx.lineTo(sx + 8, t + h * .1); ctx.lineTo(sx + 4, t + h * .1); ctx.closePath(); ctx.fill(); }
+  ctx.restore();
+  ctx.fillStyle = "#0b0f1e"; rr(l + w * .12, y - h * .24, w * .22, h * .16, 2); ctx.fill(); rr(l + w * .66, y - h * .24, w * .22, h * .16, 2); ctx.fill();
+  ctx.strokeStyle = metal(x - 8, x + 8, "steel"); ctx.lineWidth = Math.max(2, w * .045); ctx.beginPath(); ctx.ellipse(x, t, w * .14, h * .2, 0, Math.PI, 0); ctx.stroke();
+  txt(label, x, t + h * .57, Math.max(8, h * .34), "#f3f5ff", "center", 800);
+}
+
+/* ----- bozor mahsulotlari ----- */
+function dPack(x, y, w, h, c, name, sub, band) {
+  var l = x - w / 2, t = y - h;
+  ctx.fillStyle = lg(l, 0, l + w, 0, [0, "#bfc6d4", .35, c, 1, "#9aa3b6"]); rr(l, t, w, h, 4); ctx.fill();
+  ctx.fillStyle = band; ctx.fillRect(l, t + h * .34, w, h * .32);
+  txt(name, x, t + h * .44, Math.max(6, w * (name.length > 4 ? .15 : .22)), "#fff", "center", 800);
+  txt(sub, x, t + h * .58, Math.max(6, w * .2), "#fff", "center", 800);
+  ctx.fillStyle = "rgba(255,255,255,.35)"; ctx.fillRect(l + 3, t + 3, 3, h - 6);
+}
+function dOnion(x, y, w, h) {
+  var cy = y - h * .46;
+  [[-.22, .16, .25], [.21, .17, .25], [0, -.06, .26], [-.14, -.3, .2], [.15, -.29, .2]].forEach(function (p) {
+    var cx = x + p[0] * w, yy = cy + p[1] * h, r = p[2] * w * .66, g = ctx.createRadialGradient(cx - r * .3, yy - r * .3, 1, cx, yy, r);
+    g.addColorStop(0, "#ffe2a0"); g.addColorStop(.6, "#d9902e"); g.addColorStop(1, "#7a4512"); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, yy, r, 0, 7); ctx.fill();
+  });
+  ctx.save(); ctx.beginPath(); ctx.ellipse(x, cy, w * .5, h * .5, 0, 0, 7); ctx.clip();
+  ctx.strokeStyle = "rgba(255,70,80,.8)"; ctx.lineWidth = 1; ctx.beginPath();
+  for (var i = -5; i <= 5; i++) { ctx.moveTo(x + i * w * .13, y); ctx.lineTo(x + i * w * .13 + w * .35, y - h); ctx.moveTo(x + i * w * .13, y); ctx.lineTo(x + i * w * .13 - w * .35, y - h); }
+  ctx.stroke(); ctx.restore();
+  ctx.strokeStyle = "#d12a3a"; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(x - 5, y - h + 1); ctx.lineTo(x + 5, y - h + 1); ctx.stroke();
+}
+function dCabbage(x, y, w, h) {
+  var cy = y - h / 2;
+  [[0, 0, .5, "#2f8a3c"], [-.13, .06, .37, "#58b862"], [.13, .05, .35, "#4fae5a"], [0, -.05, .3, "#9be59f"]].forEach(function (p) { ctx.fillStyle = p[3]; ctx.beginPath(); ctx.ellipse(x + p[0] * w, cy + p[1] * h, p[2] * w, p[2] * h, 0, 0, 7); ctx.fill(); });
+  ctx.strokeStyle = "rgba(30,90,40,.55)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, y - h * .08); ctx.quadraticCurveTo(x - w * .12, cy, x + 1, y - h * .9); ctx.moveTo(x - w * .32, cy + h * .1); ctx.quadraticCurveTo(x - w * .2, cy - h * .2, x - w * .05, y - h * .85); ctx.stroke();
+}
+function dBasket(x, y, w, h) {
+  var l = x - w / 2, t = y - h * .56, i;
+  [[-.24, .04], [0, -.04], [.24, .04], [-.12, -.2], [.13, -.19]].forEach(function (p) { dApple(x + p[0] * w, t + p[1] * h + h * .12, w * .3, w * .3); });
+  ctx.fillStyle = lg(0, t, 0, y, [0, "#e0a96a", 1, "#7a4a1e"]); ctx.beginPath(); ctx.moveTo(l, t); ctx.lineTo(l + w, t); ctx.lineTo(l + w * .88, y); ctx.lineTo(l + w * .12, y); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = "rgba(70,35,10,.55)"; ctx.lineWidth = 1;
+  for (i = 1; i < 4; i++) { var yy = t + (y - t) * i / 4; ctx.beginPath(); ctx.moveTo(l + w * .03 * i, yy); ctx.lineTo(l + w - w * .03 * i, yy); ctx.stroke(); }
+  for (i = 1; i < 7; i++) { ctx.beginPath(); ctx.moveTo(l + w * i / 7, t); ctx.lineTo(l + w * .12 + w * .76 * i / 7, y); ctx.stroke(); }
+  ctx.fillStyle = "#c48a4a"; ctx.fillRect(l - 1, t - 2, w + 2, 4);
+}
+function dBucket(x, y, w, h) {
+  var l = x - w / 2, t = y - h * .8;
+  ctx.fillStyle = lg(l, 0, l + w, 0, MET.alu); ctx.beginPath(); ctx.moveTo(l, t); ctx.lineTo(l + w, t); ctx.lineTo(l + w * .86, y); ctx.lineTo(l + w * .14, y); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = "rgba(80,170,255,.9)"; ctx.beginPath(); ctx.ellipse(x, t + 2, w / 2 - 2, h * .06, 0, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#5d6782"; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.ellipse(x, t, w * .48, h * .2, 0, Math.PI, 0); ctx.stroke();
+  ctx.strokeStyle = "rgba(40,48,66,.45)"; ctx.lineWidth = 1; [.3, .65].forEach(function (f) { ctx.beginPath(); ctx.moveTo(l + w * .05 * f * 2, t + (y - t) * f); ctx.lineTo(l + w - w * .05 * f * 2, t + (y - t) * f); ctx.stroke(); });
+}
+function dNon3(x, y, w, h) { dNon(x, y, w, h * .44); dNon(x + w * .03, y - h * .3, w * .94, h * .42); dNon(x - w * .02, y - h * .58, w * .9, h * .42); }
+
+/* ----- katta yuklar (yuk tarozisi) ----- */
+function dWheat(x, y, w, h) { dSack(x, y, w, h); txt("BUG'DOY", x, y - h * .5, Math.max(6, w * .17), "#5a4420", "center", 800); txt("50 kg", x, y - h * .32, Math.max(6, w * .2), "#5a4420", "center", 800); }
+function dSheep(x, y, w, h) {
+  var cy = y - h * .58;
+  ctx.fillStyle = "#2a2430"; [-.28, -.12, .12, .26].forEach(function (f) { ctx.fillRect(x + f * w - w * .03, y - h * .36, w * .06, h * .36); });
+  ctx.fillStyle = "#f4f1ea"; [[-.28, 0, .24], [-.1, -.12, .26], [.1, -.1, .26], [.26, .02, .22], [0, .08, .28], [-.2, .1, .22], [.18, .1, .22]].forEach(function (c) { ctx.beginPath(); ctx.arc(x + c[0] * w, cy + c[1] * h, c[2] * h, 0, 7); ctx.fill(); });
+  ctx.fillStyle = "#2a2430"; ctx.beginPath(); ctx.ellipse(x + w * .42, cy - h * .06, w * .1, h * .17, .35, 0, 7); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(x + w * .35, cy - h * .2, w * .06, h * .05, -.5, 0, 7); ctx.fill();
+  ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(x + w * .45, cy - h * .11, Math.max(1, h * .03), 0, 7); ctx.fill();
+}
+function dCow(x, y, w, h) {
+  var bt = y - h * .8, bb = y - h * .36, l = x - w * .42, r = x + w * .28;
+  ctx.fillStyle = "#3a2a20"; [l + w * .04, l + w * .16, r - w * .16, r - w * .05].forEach(function (lx) { ctx.fillRect(lx, bb - 2, w * .06, y - bb + 2); });
+  ctx.strokeStyle = "#3a2a20"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(l + 2, bt + h * .08); ctx.quadraticCurveTo(l - w * .08, bt + h * .22, l - w * .05, bb); ctx.stroke();
+  ctx.fillStyle = "#f3efe6"; rr(l, bt, r - l, bb - bt, h * .16); ctx.fill();
+  ctx.save(); rr(l, bt, r - l, bb - bt, h * .16); ctx.clip(); ctx.fillStyle = "#1d1a1f";
+  [[.15, .3, .14, .12], [.52, .6, .15, .14], [.78, .22, .1, .1], [.32, .9, .1, .08]].forEach(function (s) { ctx.beginPath(); ctx.ellipse(l + s[0] * (r - l), bt + s[1] * (bb - bt), s[2] * w, s[3] * h, .4, 0, 7); ctx.fill(); });
+  ctx.restore();
+  ctx.fillStyle = "#ff9fb5"; ctx.beginPath(); ctx.ellipse(r - w * .16, bb + h * .02, w * .06, h * .05, 0, 0, 7); ctx.fill();
+  var hx = r + w * .08, hy = bt + h * .1;
+  ctx.strokeStyle = "#d8c9a0"; ctx.lineWidth = Math.max(1.5, w * .025); ctx.beginPath(); ctx.moveTo(hx - w * .05, hy - h * .02); ctx.quadraticCurveTo(hx - w * .1, hy - h * .2, hx - w * .02, hy - h * .2); ctx.moveTo(hx + w * .04, hy - h * .03); ctx.quadraticCurveTo(hx + w * .08, hy - h * .2, hx + w * .14, hy - h * .16); ctx.stroke();
+  ctx.fillStyle = "#f3efe6"; ctx.beginPath(); ctx.ellipse(hx, hy + h * .08, w * .1, h * .15, -.3, 0, 7); ctx.fill();
+  ctx.fillStyle = "#e9a3a3"; ctx.beginPath(); ctx.ellipse(hx + w * .05, hy + h * .2, w * .07, h * .06, -.3, 0, 7); ctx.fill();
+  ctx.fillStyle = "#11151f"; ctx.beginPath(); ctx.arc(hx + w * .02, hy + h * .04, Math.max(1, h * .025), 0, 7); ctx.fill();
+}
+function dCar(x, y, w, h) {
+  var l = x - w / 2, wr = h * .2, by = y - wr * .9;
+  ctx.fillStyle = lg(0, y - h, 0, by, [0, "#9cc4ff", 1, "#2d5fc4"]);
+  ctx.beginPath(); ctx.moveTo(l + w * .2, y - h * .55); ctx.lineTo(l + w * .33, y - h * .96); ctx.lineTo(l + w * .7, y - h * .96); ctx.lineTo(l + w * .83, y - h * .55); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = "rgba(205,232,255,.88)"; ctx.beginPath(); ctx.moveTo(l + w * .26, y - h * .57); ctx.lineTo(l + w * .36, y - h * .88); ctx.lineTo(l + w * .5, y - h * .88); ctx.lineTo(l + w * .5, y - h * .57); ctx.closePath(); ctx.moveTo(l + w * .53, y - h * .57); ctx.lineTo(l + w * .53, y - h * .88); ctx.lineTo(l + w * .68, y - h * .88); ctx.lineTo(l + w * .77, y - h * .57); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = lg(0, y - h * .6, 0, by, [0, "#6aa0f5", 1, "#1f4aa3"]); rr(l, y - h * .6, w, h * .6 - wr * .5, h * .12); ctx.fill();
+  ctx.fillStyle = "#ffe08a"; ctx.fillRect(l + w - 4, y - h * .5, 3, h * .1); ctx.fillStyle = "#ff5e8e"; ctx.fillRect(l + 1, y - h * .5, 3, h * .1);
+  [l + w * .22, l + w * .78].forEach(function (cx) { ctx.fillStyle = "#11151f"; ctx.beginPath(); ctx.arc(cx, y - wr, wr, 0, 7); ctx.fill(); ctx.fillStyle = "#9aa4bb"; ctx.beginPath(); ctx.arc(cx, y - wr, wr * .45, 0, 7); ctx.fill(); });
+}
+function dElephant(x, y, w, h) {
+  var g = "#8d97ad", gd = "#6b7590", cy = y - h * .55, hx = x + w * .3, hy = cy - h * .12;
+  ctx.fillStyle = gd; [-.3, -.12, .08, .22].forEach(function (f) { rr(x + f * w - w * .055, y - h * .45, w * .11, h * .45, 3); ctx.fill(); });
+  ctx.strokeStyle = gd; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - w * .42, cy - h * .05); ctx.quadraticCurveTo(x - w * .5, cy + h * .05, x - w * .47, cy + h * .2); ctx.stroke();
+  ctx.fillStyle = lg(0, y - h, 0, y - h * .3, [0, "#b3bccf", 1, g]); ctx.beginPath(); ctx.ellipse(x - w * .06, cy, w * .38, h * .32, 0, 0, 7); ctx.fill();
+  ctx.strokeStyle = g; ctx.lineCap = "round"; ctx.lineWidth = w * .075; ctx.beginPath(); ctx.moveTo(hx + h * .12, hy + h * .06); ctx.quadraticCurveTo(hx + w * .2, hy + h * .3, hx + w * .15, y - h * .1); ctx.stroke(); ctx.lineCap = "butt";
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(hx, hy, h * .24, 0, 7); ctx.fill();
+  ctx.fillStyle = "#7a849c"; ctx.beginPath(); ctx.ellipse(hx - h * .16, hy + h * .03, w * .1, h * .21, -.2, 0, 7); ctx.fill();
+  ctx.strokeStyle = "#f6f0dc"; ctx.lineWidth = Math.max(2, w * .025); ctx.beginPath(); ctx.moveTo(hx + h * .1, hy + h * .15); ctx.quadraticCurveTo(hx + w * .1, hy + h * .3, hx + w * .19, hy + h * .19); ctx.stroke();
+  ctx.fillStyle = "#11151f"; ctx.beginPath(); ctx.arc(hx + h * .08, hy - h * .05, Math.max(1.2, h * .03), 0, 7); ctx.fill();
+}
+function dTruck(x, y, w, h) {
+  var l = x - w / 2, wr = h * .15, i, cl = l + w * .69;
+  ctx.fillStyle = lg(0, y - h, 0, y - wr * 2, [0, "#ffd36b", 1, "#c98a12"]); rr(l, y - h, w * .66, h - wr * 1.6, 3); ctx.fill();
+  ctx.strokeStyle = "rgba(90,50,0,.45)"; ctx.lineWidth = 1; for (i = 1; i < 5; i++) { ctx.beginPath(); ctx.moveTo(l + w * .66 * i / 5, y - h + 3); ctx.lineTo(l + w * .66 * i / 5, y - wr * 1.6 - 3); ctx.stroke(); }
+  ctx.fillStyle = lg(0, y - h * .72, 0, y, [0, "#ff8fb0", 1, "#b8255a"]); ctx.beginPath(); ctx.moveTo(cl, y - wr * 1.4); ctx.lineTo(cl, y - h * .72); ctx.lineTo(cl + w * .2, y - h * .72); ctx.lineTo(l + w, y - h * .42); ctx.lineTo(l + w, y - wr * 1.4); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = "rgba(205,232,255,.88)"; ctx.beginPath(); ctx.moveTo(cl + w * .04, y - h * .45); ctx.lineTo(cl + w * .04, y - h * .66); ctx.lineTo(cl + w * .18, y - h * .66); ctx.lineTo(l + w * .97, y - h * .45); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = "#2b3146"; ctx.fillRect(l, y - wr * 1.7, w, wr * .5);
+  [l + w * .13, l + w * .33, l + w * .85].forEach(function (cx) { ctx.fillStyle = "#11151f"; ctx.beginPath(); ctx.arc(cx, y - wr, wr, 0, 7); ctx.fill(); ctx.fillStyle = "#9aa4bb"; ctx.beginPath(); ctx.arc(cx, y - wr, wr * .42, 0, 7); ctx.fill(); });
+}
+function dTractor(x, y, w, h) {
+  var l = x - w / 2, R = h * .36, r = h * .2;
+  ctx.fillStyle = lg(0, y - h * .7, 0, y - r, [0, "#7ee08a", 1, "#1f8a3a"]); rr(l + w * .3, y - h * .62, w * .62, h * .34, 4); ctx.fill();
+  ctx.fillStyle = "rgba(200,230,255,.45)"; ctx.fillRect(l + w * .15, y - h * .95, w * .3, h * .46);
+  ctx.strokeStyle = "#1f8a3a"; ctx.lineWidth = 3; ctx.strokeRect(l + w * .14, y - h * .96, w * .32, h * .5);
+  ctx.fillStyle = "#1f8a3a"; ctx.fillRect(l + w * .1, y - h, w * .4, h * .06);
+  ctx.fillStyle = "#2b3146"; ctx.fillRect(l + w * .78, y - h * .86, w * .04, h * .26);
+  ctx.fillStyle = "#11151f"; ctx.beginPath(); ctx.arc(l + w * .26, y - R, R, 0, 7); ctx.fill(); ctx.beginPath(); ctx.arc(l + w * .84, y - r, r, 0, 7); ctx.fill();
+  ctx.fillStyle = "#ffc23d"; ctx.beginPath(); ctx.arc(l + w * .26, y - R, R * .45, 0, 7); ctx.fill(); ctx.beginPath(); ctx.arc(l + w * .84, y - r, r * .45, 0, 7); ctx.fill();
+}
+function dBale(x, y, w, h) {
+  var l = x - w / 2, t = y - h;
+  ctx.fillStyle = lg(0, t, 0, y, [0, "#ffffff", 1, "#c3cad8"]); rr(l, t, w, h, 4); ctx.fill();
+  ctx.fillStyle = "rgba(190,198,216,.95)"; for (var i = 0; i < 14; i++) { ctx.beginPath(); ctx.arc(l + 3 + ((i * 37) % 100) / 100 * (w - 6), t + 3 + ((i * 53) % 100) / 100 * (h - 6), 2.2, 0, 7); ctx.fill(); }
+  ctx.fillStyle = "#5d6782"; [.22, .52, .82].forEach(function (f) { ctx.fillRect(l, t + h * f - 1, w, 2); });
+  txt("PAXTA", x, t + h * .37, Math.max(7, w * .17), "#55607e", "center", 800);
+}
+function dConcrete(x, y, w, h) {
+  var l = x - w / 2, t = y - h;
+  ctx.strokeStyle = "#8a94ab"; ctx.lineWidth = 2; [.25, .75].forEach(function (f) { ctx.beginPath(); ctx.arc(l + w * f, t + 1, h * .13, Math.PI, 0); ctx.stroke(); });
+  ctx.fillStyle = lg(0, t, 0, y, [0, "#c3c8d4", 1, "#6f7686"]); ctx.fillRect(l, t, w, h);
+  ctx.fillStyle = "rgba(60,66,80,.35)"; for (var i = 0; i < 18; i++) ctx.fillRect(l + ((i * 41) % 97) / 97 * (w - 2), t + ((i * 29) % 89) / 89 * (h - 2), 2, 2);
+  txt("BETON", x, t + h * .55, Math.max(7, h * .3), "#3a4258", "center", 800);
+}
+/* taqqoslash uchun katta konteyner */
+function dCont(x, y, w, h, c) {
+  var l = x - w / 2, t = y - h; ctx.fillStyle = lg(0, t, 0, y, [0, c, 1, "#1a2033"]); rr(l, t, w, h, 3); ctx.fill();
+  ctx.strokeStyle = "rgba(0,0,0,.35)"; ctx.lineWidth = 1; for (var i = 1; i < 9; i++) { ctx.beginPath(); ctx.moveTo(l + w * i / 9, t + 3); ctx.lineTo(l + w * i / 9, y - 3); ctx.stroke(); }
+  ctx.fillStyle = "rgba(255,255,255,.2)"; ctx.fillRect(l + 2, t + 2, w - 4, 2);
+}
 
 var MAT = {
   al: { n: "Alyuminiy", s: "Al", r: 2.7, met: "alu", V: [10, 12, 15, 20, 25] },
@@ -513,6 +702,14 @@ function drawStirrup(b, ex, ey, px, py) {
 }
 function drawPanDish(b, px, py, back) {
   var rx = b.panW / 2, ry = 7 * K;
+  if (b.platform) { // yuk tarozisi: tekis po'lat platforma
+    if (back) return;
+    var th = 9 * K, x0 = px - rx;
+    ctx.fillStyle = lg(0, py - 2, 0, py + th, [0, "#d3d9e8", .35, "#7b849a", 1, "#262b3a"]); rr(x0, py - 2, b.panW, th, 2 * K); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.rect(x0, py + th - 5 * K, b.panW, 4 * K); ctx.clip(); ctx.fillStyle = "#ffc23d"; ctx.fillRect(x0, py + th - 5 * K, b.panW, 4 * K); ctx.fillStyle = "#11151f";
+    for (var sx = x0 - 10; sx < x0 + b.panW + 10; sx += 10 * K) { ctx.beginPath(); ctx.moveTo(sx, py + th - 1 * K); ctx.lineTo(sx + 5 * K, py + th - 5 * K); ctx.lineTo(sx + 9 * K, py + th - 5 * K); ctx.lineTo(sx + 4 * K, py + th - 1 * K); ctx.closePath(); ctx.fill(); }
+    ctx.restore(); return;
+  }
   if (back) { ctx.fillStyle = lg(px - rx, 0, px + rx, 0, MET.chrome); ctx.beginPath(); ctx.ellipse(px, py, rx, ry, 0, Math.PI, 2 * Math.PI); ctx.fill(); ctx.fillStyle = "rgba(20,26,44,.35)"; ctx.beginPath(); ctx.ellipse(px, py, rx * .94, ry * .7, 0, 0, 7); ctx.fill(); return; }
   ctx.fillStyle = lg(px - rx, 0, px + rx, 0, MET.chrome);
   ctx.beginPath(); ctx.moveTo(px - rx, py); ctx.quadraticCurveTo(px, py + ry * 3.2, px + rx, py); ctx.ellipse(px, py, rx, ry, 0, 0, Math.PI); ctx.fill();
@@ -683,7 +880,7 @@ cv.addEventListener("keydown", function (e) {
   else if ((e.key === "Enter" || e.key === " ") && kbOn && list[kbI]) { cur.tap(list[kbI]); e.preventDefault(); }
   else if (e.key === "Escape") kbOn = false;
   else return;
-  if (kbOn && list[kbI]) { var it = list[kbI]; $("cv").setAttribute("aria-label", "Tanlangan: " + (it.kind === "w" ? wLabel(it.mg) + " tarozi toshi" : (it.n || it.sn || "buyum")) + ". Enter — joylash yoki qaytarish."); }
+  if (kbOn && list[kbI]) { var it = list[kbI]; $("cv").setAttribute("aria-label", "Tanlangan: " + (it.aria ? it.aria : it.kind === "w" ? wLabel(it.mg) + " tarozi toshi" : (it.n || it.sn || "buyum")) + ". Enter — joylash yoki qaytarish."); }
   wake();
 });
 cv.addEventListener("blur", function () { kbOn = false; wake(); });
@@ -770,6 +967,7 @@ function drawCase(r, title, kind) {
 }
 function drawPiece(it) {
   if (it.hidden) return;
+  if (it.draw) { it.draw(it); return; }
   if (it.kind === "w") { if (it.mg >= 1000) drawGramWeight(it.x, it.y, it.mg); else drawMgPlate(it.x, it.y, it.mg); }
   else if (it.kind === "o") drawObj(it, it.x, it.y);
   else if (it.draw) it.draw(it);
@@ -932,6 +1130,215 @@ modes.weigh = (function () {
   M.debug = function () { return { items: items, objs: objs, weights: weights, B: B, put: put, state: M.state }; };
   return M;
 })();
+
+/* ================= 7b. REJIMLAR: Bozor tarozisi (kg) va Yuk tarozisi (t, s) =================
+   Ichkarida hamma massa mg da: 1 g = 10³, 1 kg = 10⁶, 1 s = 10⁸, 1 t = 10⁹ mg. */
+function tsk(mg) { var kg = Math.round(mg / 1e6), t = Math.floor(kg / 1000), s = Math.floor(kg % 1000 / 100), k = kg % 100, a = []; if (t) a.push(t + " t"); if (s) a.push(s + " s"); if (k || !a.length) a.push(k + " kg"); return a.join(" "); }
+function kgg(mg) { var g = Math.round(mg / 1000), k = Math.floor(g / 1000), r = g % 1000, a = []; if (k) a.push(k + " kg"); if (r || !a.length) a.push(r + " g"); return a.join(" "); }
+function heavyMode(cfg) {
+  var M = { title: cfg.title };
+  var B, items = [], weights = [], objs = [], shelf = {}, box = {}, lens = {}, measured = 0, lastKey = "", note = "";
+  M.size = function (n) { return n ? { W: 380, H: 660 } : { W: 960, H: 590 }; };
+  M.init = function () {
+    B = new Balance({ thMax: 10 * Math.PI / 180, div: cfg.div, T: cfg.T, zeta: .34, ref: cfg.ref, divLabel: cfg.divLabel, platform: !!cfg.platform });
+    weights = cfg.weights.map(function (mg) { var d = cfg.wsize(mg); return mkItem({ kind: "w", mg: mg, bw: d.w, bh: d.h, zone: "box", aria: cfg.wname(mg) + " tarozi toshi", draw: cfg.wdraw }); });
+    var b = parseInt(lsGet(cfg.key + "N"), 10); M.best = isNaN(b) ? 0 : b;
+    newObjs();
+  };
+  function newObjs() {
+    var keys = shuffle(Object.keys(cfg.objs)).slice(0, NARROW ? 4 : 5);
+    objs = keys.map(function (k) {
+      var o = cfg.objs[k], mg = o.gen() * cfg.unit;
+      if (mg % (2 * cfg.tol) === cfg.tol) mg += cfg.unit; // aniq yarmida bo'lmasin
+      return mkItem({ kind: "o", key: k, n: o.n, sn: o.sn || o.n, bw: o.w, bh: o.h, mg: mg, zone: "shelf", aria: o.n, f: o.f, draw: function (it) { o.d(it.x, it.y, it.w, it.h); } });
+    });
+    weights.forEach(function (w) { if (w.zone !== "box") setZone(w, "box"); });
+    items = objs.concat(weights); lastKey = ""; note = ""; needUI = true;
+    if (cur === M) M.layout();
+  }
+  M.layout = function () {
+    items.forEach(function (it) { it.w = it.bw * K; it.h = it.bh * K; });
+    if (NARROW) { TY = 350; B.cx = 190; B.py = 122; B.L = 128; B.hang = 126; B.panW = cfg.platform ? 112 : 104; B.baseW = 150; lens = { x: 190, y: 52, r: 42 }; shelf = { x0: 8, x1: 372, y0: 364, y1: 470 }; }
+    else { TY = 392; B.cx = 360; B.py = 104; B.L = 200; B.hang = 172; B.panW = cfg.platform ? 200 : 168; B.baseW = 230; lens = { x: 822, y: 162, r: 88 }; shelf = { x0: 18, x1: 432, y0: 406, y1: 578 }; box = { x0: 448, x1: 942, y0: 404, y1: 578 }; }
+    B.baseY = TY;
+    measureLabels(objs, 10 * K + 1.5, "sn");
+    var maxH = 0; objs.forEach(function (o) { maxH = Math.max(maxH, o.h); });
+    var rowH = Math.max(58 * K, maxH + 24 * K), n = rowsLayout(objs, shelf.x0 + 10, shelf.x1 - 10, 0, rowH, 12 * K), top = shelf.y0 + 26 * K, base0;
+    if (NARROW) { base0 = top + maxH + 4 * K; shelf.y1 = base0 + (n - 1) * rowH + 22 * K; box = { x0: 8, x1: 372, y0: shelf.y1 + 10, y1: shelf.y1 + 10 + 168 }; M.hNeed = box.y1 + 10; }
+    else if (n > 1) { base0 = top + maxH + 4 * K; shelf.y1 = Math.max(578, base0 + (n - 1) * rowH + 22); box.y1 = shelf.y1; M.hNeed = shelf.y1 + 12; }
+    else base0 = top + Math.max(maxH + 8 * K, (shelf.y1 - top) * .62);
+    objs.forEach(function (o) { o.hy += base0; });
+    var gA = weights.filter(function (w) { return w.mg >= cfg.split; }), gB = weights.filter(function (w) { return w.mg < cfg.split; });
+    ctx.font = "600 " + (10 * K + 1) + "px " + FONT; weights.forEach(function (w) { w.labW = ctx.measureText(cfg.wname(w.mg)).width + 4; });
+    var hA = 0, hB = 0; gA.forEach(function (w) { hA = Math.max(hA, w.h); }); gB.forEach(function (w) { hB = Math.max(hB, w.h); });
+    var ya = box.y0 + 30 * K + hA, yb = ya + 26 * K + hB;
+    rowsLayout(gA, box.x0 + 10, box.x1 - 10, ya, 0, NARROW ? 4 : 10);
+    rowsLayout(gB, box.x0 + 10, box.x1 - 10, yb, 0, NARROW ? 6 : 12);
+  };
+  function onPan(z) { return items.filter(function (it) { return it.zone === z; }); }
+  function objOnPans() { for (var i = 0; i < objs.length; i++) if (objs[i].zone === "L" || objs[i].zone === "R") return objs[i]; return null; }
+  function put(it, z) {
+    if (it.kind === "o" && (z === "L" || z === "R")) objs.forEach(function (o) { if (o !== it && (o.zone === "L" || o.zone === "R")) setZone(o, "shelf"); });
+    setZone(it, z); needUI = true;
+  }
+  function home(it) { return it.kind === "o" ? "shelf" : "box"; }
+  M.tap = function (it) {
+    if (it.zone === "L" || it.zone === "R") { put(it, home(it)); return; }
+    if (it.kind === "o") put(it, "L"); else { var o = objOnPans(); put(it, o && o.zone === "R" ? "L" : "R"); }
+  };
+  M.hit = function (x, y) { return hitItem(drawOrder(items), x, y); };
+  M.canDrag = function () { return true; };
+  M.drop = function (it) { var p = B.pans(); if (nearPan(p.L, B, it.x, it.y - it.h / 2)) put(it, "L"); else if (nearPan(p.R, B, it.x, it.y - it.h / 2)) put(it, "R"); else put(it, home(it)); };
+  M.kbItems = function () { return items; };
+  function wsum(z) { var s = 0; items.forEach(function (it) { if (it.kind === "w" && it.zone === z) s += it.mg; }); return s; }
+  M.state = function () {
+    var L = sumMg(onPan("L")), R = sumMg(onPan("R")), o = objOnPans(), d = R - L, st = { L: L, R: R, d: d, obj: o, over: L > cfg.max || R > cfg.max, settled: B.settled() };
+    st.bal = !st.over && Math.abs(d) < cfg.tol && st.settled && !B.locked;
+    if (o) { var other = o.zone === "L" ? "R" : "L"; st.meas = wsum(other) - wsum(o.zone); }
+    return st;
+  };
+  M.update = function (dt) {
+    var L = sumMg(onPan("L")), R = sumMg(onPan("R"));
+    B.step(dt, L, R, cfg.max);
+    var p = B.pans(), dy = B.platform ? -2 : 4 * K;
+    ["L", "R"].forEach(function (z) { var l = onPan(z).sort(function (a, b) { return (a.kind === "o" ? 0 : 1) - (b.kind === "o" ? 0 : 1) || b.mg - a.mg; }); arrangeOn(l, p[z].x, p[z].y + dy, B.panW * .92, 2 * K); });
+    items.forEach(function (it) { if (it.zone === "box" || it.zone === "shelf") { it.tx = it.hx; it.ty = it.hy; it.row = 0; } });
+    settle(items, dt);
+    var st = M.state(), key = [st.over, st.settled, st.bal, st.obj ? st.obj.key + st.obj.mg : "", st.L, st.R, B.locked, st.settled ? Math.round(B.reading() * 10) : 0].join("|");
+    if (st.bal && st.obj && !st.obj.done && st.meas > 0) { st.obj.done = true; measured++; if (measured > M.best) { M.best = measured; lsSet(cfg.key + "N", measured); } }
+    if (key !== lastKey) { lastKey = key; needUI = true; }
+    var mv = !B.settled() || B.locked && Math.abs(B.theta) > 1e-4;
+    for (var i = 0; i < items.length && !mv; i++) if (items[i].ox || items[i].oy || items[i].drag) mv = true;
+    return mv;
+  };
+  M.draw = function () {
+    drawRoom(TY);
+    drawCase(shelf, cfg.shelfTitle, "mat"); drawCase(box, cfg.boxTitle);
+    homeSlots(weights, box, function (w) { return cfg.wname(w.mg); });
+    objs.forEach(function (o) { txt(o.sn, o.hx, o.hy + 12 * K, 10 * K + 1.5, o.zone === "shelf" ? "#e6fff8" : "#5f7f8a", "center", 600); });
+    var p = B.pans(), panItems = drawOrder(items.filter(function (it) { return !it.drag && (it.zone === "L" || it.zone === "R"); }));
+    drawBalance(B, { contents: function () { panItems.forEach(drawPiece); }, label: cfg.baseLabel });
+    var wl = wsum("L"), wr = wsum("R");
+    if (wl) tag("toshlar: " + cfg.fmt(wl), p.L.x, p.L.y + 26 * K, "#ffc23d", 10 * K + 1.5);
+    if (wr) tag("toshlar: " + cfg.fmt(wr), p.R.x, p.R.y + 26 * K, "#ffc23d", 10 * K + 1.5);
+    drawLens(B, lens.x, lens.y, lens.r);
+    var st = M.state();
+    if (st.over) tag("⚠ Tarozi chegarasi " + cfg.maxTxt, B.cx, B.py + B.hang + 22 * K, "#ff5e8e", 13 * K + 1);
+    else if (st.bal && st.obj) tag("✓ Muvozanat! " + cfg.fmt(st.meas), B.cx, B.py + B.hang + 22 * K, "#35f0c4", 14 * K + 1);
+    items.forEach(function (it) { if (!it.drag && (it.zone === "box" || it.zone === "shelf")) { shadowAt(it.x, it.y + 1, it.w * .9, .3); drawPiece(it); } });
+    var dr = items.filter(function (it) { return it.drag; })[0];
+    if (dr) { panZoneHL(B, dr); drawPiece(dr); }
+  };
+  M.tools = function () {
+    return '<button class="btn' + (B && B.locked ? " on" : "") + '" data-act="lock" aria-pressed="' + (B && B.locked) + '" title="Arretir — shayinni ushlab turadi">🔒 Arretir</button>' +
+      '<button class="btn" data-act="clear">↩ Toshlarni qaytarish</button>' +
+      '<button class="btn vio" data-act="new">🎲 Yangi yuklar</button>';
+  };
+  M.act = function (a) {
+    if (a === "lock") { B.locked = !B.locked; needTools = true; needUI = true; }
+    else if (a === "clear") { items.forEach(function (it) { if (it.zone === "L" || it.zone === "R") setZone(it, home(it)); }); needUI = true; }
+    else if (a === "new") newObjs();
+    else if (a === "qa") {
+      var st = M.state(), o = st.obj; if (!o || !o.q || !st.bal) return;
+      var v = pnum(val("hq-" + cfg.key)), ans = st.meas / o.q.f;
+      if (isNaN(v)) { note = "Son kiriting (masalan: 2,35 yoki 1340)."; needUI = true; return; }
+      note = ""; o.q.v = v; o.q.ans = ans; o.q.ok = Math.abs(v - ans) < 1e-9 * Math.max(1, ans);
+      if (o.q.ok) coins(1, "Tarozi: " + cfg.coinName); needUI = true;
+    }
+  };
+  M.panel = function () {
+    if (!B) return "";
+    var st = M.state(), o = st.obj, wl = wsum("L"), wr = wsum("R");
+    var h = '<div class="score"><span>Tortilgan yuklar: <b>' + measured + '</b></span><span>Rekord: <b>' + M.best + '</b></span><span>Chap pallada toshlar: <b class="res">' + cfg.fmt(wl) + '</b></span><span>O\'ng pallada toshlar: <b class="res">' + cfg.fmt(wr) + '</b></span></div>';
+    if (!o) return h + cfg.howto + (wl || wr ? '<p class="muted">Pallada faqat toshlar bor.</p>' : '<p class="muted">Bo\'sh pallalar muvozanatda — tarozi nolga keltirilgan.</p>');
+    var other = o.zone === "L" ? "R" : "L", ow = items.filter(function (i) { return i.zone === other && i.kind === "w"; }), sw = items.filter(function (i) { return i.zone === o.zone && i.kind === "w"; });
+    var lst = function (l) { return l.sort(function (a, b) { return b.mg - a.mg; }).map(function (i) { return cfg.wname(i.mg); }).join(" + "); };
+    h += '<p>' + (o.zone === "L" ? "Chap" : "O'ng") + ' pallada: <b>' + esc(o.n) + '</b>' + (sw.length ? " + " + lst(sw) : "") + '. ' + (other === "R" ? "O'ng" : "Chap") + ' pallada: ' + (ow.length ? "<b>" + lst(ow) + "</b>" : "hali tosh yo'q") + '.</p>';
+    if (B.locked) return h + '<p class="warn">🔒 Arretir yoqilgan — shayin ushlab turilibdi. Toshlarni qo\'yib bo\'lgach, arretirni oching.</p>';
+    if (st.over) return h + '<p class="big-res bad">⚠ Tarozi chegarasi ' + cfg.maxTxt + '! Shayin tirgakka urildi — yukni kamaytiring.</p>';
+    if (!st.settled) return h + '<p class="warn">Shayin tebranmoqda… to\'xtashini kuting.</p>';
+    if (st.bal) {
+      var m = st.meas, q = o.q || (o.q = { u: pick(cfg.qUnits) });
+      q.f = q.u.f;
+      h += '<p class="big-res ok">✓ Muvozanat! Strelka nolda.</p>';
+      h += '<p class="big-res">O\'lchash natijasi: <span class="q-m">m</span> = ' + cfg.big(m) + '</p>';
+      h += '<p class="res">' + cfg.conv(m) + '</p>';
+      h += '<p class="muted">Aniq qiymat (kompyuter biladi): ' + cfg.exact(o.mg) + '. Farq ' + cfg.diff(Math.abs(o.mg - m)) + ' — tarozi xatoligi (' + cfg.err + ') ichida.</p>';
+      if (o.f) h += '<p class="muted">💡 ' + o.f + '</p>';
+      if (q.ok == null) h += '<div class="ask"><label for="hq-' + cfg.key + '">🎯 Natijani <b>' + q.u.n + '</b> yozing: <span class="q-m">m</span> =</label><input class="num" id="hq-' + cfg.key + '" inputmode="decimal" autocomplete="off" data-enter="qa" aria-label="Massa, ' + q.u.s + '"><span>' + q.u.s + '</span><button class="btn pri" data-act="qa">Tekshirish</button></div>' + (note ? '<p class="warn">' + note + '</p>' : '');
+      else h += '<p>' + (q.ok ? '<span class="ok">✓ To\'g\'ri! +1 tanga.</span> ' : '<span class="bad">✗ Siz yozdingiz: ' + ft(q.v, 6) + ' ' + q.u.s + '.</span> ') + 'Javob: <span class="q-m">m</span> = <b>' + ft(m / q.f, 6) + ' ' + q.u.s + '</b>. ' + q.u.hint + '</p>';
+      return h + '<p class="muted">Keyingi yukni torting yoki «Yangi yuklar» tugmasini bosing.</p>';
+    }
+    var heavyObj = (o.zone === "L" ? -st.d : st.d) > 0, rd = B.reading(), within = Math.abs(st.d) < cfg.div * 10;
+    h += '<p class="big-res ' + (heavyObj ? "warn" : "bad") + '">' + (heavyObj ? "Yuk og'irroq — yana tosh qo'shing." : "Toshlar og'irroq — kattasini olib, kichigini qo'ying.") + '</p>';
+    h += '<p class="muted">' + (within ? 'Strelka ' + fx(Math.abs(rd), 1) + ' bo\'linmaga og\'di ≈ ' + cfg.fmt(Math.round(Math.abs(rd)) * cfg.div) + ' farq (1 bo\'linma = ' + cfg.divLabel + ').' : 'Shayin tirgakka tegib turibdi: farq 10 bo\'linmadan (' + cfg.fmt(cfg.div * 10) + ') katta.') + '</p>';
+    return h;
+  };
+  M.debug = function () { return { items: items, objs: objs, weights: weights, B: B, put: put, state: M.state }; };
+  return M;
+}
+var Q_G = { n: "grammda", s: "g", f: 1e3, hint: "1 kg = 1000 g, shuning uchun kg dagi sonni 1000 ga ko'paytiramiz." };
+modes.bozor = heavyMode({
+  key: "bozor", coinName: "Bozor", title: "<b>Bozor tarozisi</b> · cho'yan toshlar · Max 20 kg · 1 bo'linma = 10 g",
+  unit: 1000, div: 10000, tol: 5000, ref: 5e6, max: 20e6, maxTxt: "20 kg", T: 1.8, divLabel: "10 g", split: 1e6,
+  weights: [10e6, 5e6, 2e6, 2e6, 1e6, 500000, 200000, 200000, 100000, 50000, 20000, 20000, 10000],
+  wsize: function (mg) { var D = 12 + 14 * Math.cbrt(mg / 1e6); return { w: D, h: D * 1.15 }; },
+  wname: function (mg) { return mg >= 1e6 ? ft(mg / 1e6) + " kg" : ft(mg / 1000) + " g"; },
+  wdraw: function (it) { var k = it.mg >= 1e6; drawGira(it.x, it.y, it.w, it.h, k ? ft(it.mg / 1e6) : ft(it.mg / 1000), k ? "kg" : "g"); },
+  shelfTitle: "Bozordagi mahsulotlar", boxTitle: "Cho'yan toshlar (gira): 10 g … 10 kg", baseLabel: "Max 20 kg",
+  fmt: function (mg) { return ft(mg / 1e6, 3) + " kg"; },
+  big: function (m) { return ft(m / 1e6, 2) + " kg ± 0,01 kg"; },
+  conv: function (m) { return "= " + kgg(m) + " = " + fmtInt(m / 1000) + " g = " + ft(m / 1e8, 4) + " s"; },
+  exact: function (mg) { return fmtInt(mg / 1000) + " g"; },
+  diff: function (d) { return Math.round(d / 1000) + " g"; },
+  err: "±10 g",
+  howto: '<p><b>Bozorda qanday tortiladi:</b> 1) Mahsulotni <b>chap pallaga</b> qo\'ying (suring yoki teging). 2) O\'ng pallaga girani <b>kattasidan</b> boshlab qo\'ying: 10 kg, 5 kg, 2 kg… 3) Og\'ir kelsa — olib, kichigini qo\'ying. 4) Strelka nolda to\'xtasa — toshlarni qo\'shib, natijani kg va g da yozing.</p>',
+  qUnits: [Q_G, { n: "kilogrammda", s: "kg", f: 1e6, hint: "Grammni 1000 ga bo'lamiz: 1 kg = 1000 g." }],
+  objs: {
+    tarvuz: { n: "Tarvuz", w: 84, h: 72, gen: function () { return rint(4200, 9800); }, d: dWater, f: "Tarvuz massasining katta qismi — suv." },
+    qovun: { n: "Qovun", w: 80, h: 48, gen: function () { return rint(1800, 4200); }, d: dMelon },
+    kartoshka: { n: "Kartoshka (to'r)", sn: "Kartoshka", w: 74, h: 40, gen: function () { return rint(2400, 5200); }, d: dPotato },
+    piyoz: { n: "Piyoz (to'r)", sn: "Piyoz", w: 52, h: 58, gen: function () { return rint(1500, 3400); }, d: dOnion },
+    karam: { n: "Karam", w: 52, h: 46, gen: function () { return rint(1200, 3300); }, d: dCabbage },
+    savat: { n: "Olma savati", w: 70, h: 56, gen: function () { return rint(3500, 7200); }, d: dBasket },
+    un: { n: "Un (2 kg)", sn: "Un", w: 44, h: 58, gen: function () { return rint(1985, 2035); }, d: function (x, y, w, h) { dPack(x, y, w, h, "#efe8d4", "UN", "2 kg", "#9a6a22"); }, f: "Qadoqdagi «2 kg» — taxminiy massa; tarozi aniq qiymatni ko'rsatadi." },
+    guruch: { n: "Guruch (1 kg)", sn: "Guruch", w: 40, h: 52, gen: function () { return rint(995, 1020); }, d: function (x, y, w, h) { dPack(x, y, w, h, "#f6f6f2", "GURUCH", "1 kg", "#1f8a3a"); } },
+    chelak: { n: "Chelakda suv (10 l)", sn: "Chelak suv", w: 50, h: 54, gen: function () { return 10000 + rint(550, 900); }, d: dBucket, f: "10 l suv = 10 kg (1 l suv = 1 kg). Ortig'i — chelakning o'z massasi." },
+    non: { n: "Non (3 dona)", sn: "Non ×3", w: 76, h: 36, gen: function () { return rint(740, 900); }, d: dNon3 }
+  }
+});
+modes.yuk = heavyMode({
+  key: "yuk", coinName: "Yuk tarozisi", title: "<b>Yuk tarozisi</b> · tonna va sentner toshlari · Max 12 t · 1 bo'linma = 10 kg", platform: true,
+  unit: 1e6, div: 1e7, tol: 5e6, ref: 2e9, max: 12e9, maxTxt: "12 t", T: 2.3, divLabel: "10 kg", split: 1e8,
+  weights: [5e9, 2e9, 2e9, 1e9, 5e8, 2e8, 2e8, 1e8, 5e7, 2e7, 2e7, 1e7],
+  wsize: function (mg) { var w; if (mg >= 1e9) { w = 30 + 16 * Math.sqrt(mg / 1e9); return { w: w, h: w * .6 }; } if (mg >= 1e8) { w = 24 + 8 * Math.sqrt(mg / 1e8); return { w: w, h: w * .95 }; } w = 14 + 3 * Math.sqrt(mg / 1e6); return { w: w, h: w * 1.15 }; },
+  wname: function (mg) { return mg >= 1e9 ? ft(mg / 1e9) + " t" : mg >= 1e8 ? ft(mg / 1e8) + " s" : ft(mg / 1e6) + " kg"; },
+  wdraw: function (it) { if (it.mg >= 1e9) drawSlab(it.x, it.y, it.w, it.h, ft(it.mg / 1e9) + " t"); else if (it.mg >= 1e8) drawDrum(it.x, it.y, it.w, it.h, ft(it.mg / 1e8) + " s"); else drawGira(it.x, it.y, it.w, it.h, ft(it.mg / 1e6), "kg"); },
+  shelfTitle: "Tortiladigan yuklar", boxTitle: "Toshlar: tonna (t), sentner (s), kg", baseLabel: "Max 12 t",
+  fmt: function (mg) { return tsk(mg); },
+  big: function (m) { return tsk(m) + " ± 10 kg"; },
+  conv: function (m) { return "= " + fmtInt(m / 1e6) + " kg = " + ft(m / 1e8, 2) + " s = " + ft(m / 1e9, 3) + " t"; },
+  exact: function (mg) { return fmtInt(mg / 1e6) + " kg"; },
+  diff: function (d) { return Math.round(d / 1e6) + " kg"; },
+  err: "±10 kg",
+  howto: '<p><b>Katta yukni tortish:</b> 1) Yukni <b>chap platformaga</b> qo\'ying. 2) O\'ngga avval <b>tonna</b> bloklarini, keyin <b>sentner</b> barabanlarini, oxirida <b>kg</b> toshlarini qo\'ying. 3) Natijani «2 t 3 s 40 kg» ko\'rinishida yozing. Eslatma: 1 t = 10 s = 1000 kg, 1 s = 100 kg.</p>',
+  qUnits: [
+    { n: "kilogrammda", s: "kg", f: 1e6, hint: "1 t = 1000 kg, 1 s = 100 kg — hammasini kg ga aylantirib qo'shamiz." },
+    { n: "sentnerda", s: "s", f: 1e8, hint: "1 s = 100 kg: kilogrammni 100 ga bo'lamiz (1 t = 10 s)." },
+    { n: "tonnada", s: "t", f: 1e9, hint: "1 t = 1000 kg: kilogrammni 1000 ga bo'lamiz." }
+  ],
+  objs: {
+    bugdoy: { n: "Bug'doy qopi", sn: "Bug'doy", w: 34, h: 42, gen: function () { return rint(48, 52); }, d: dWheat, f: "Bir qop ≈ 50 kg = 0,5 s. Ikki qop — taxminan 1 sentner." },
+    qoy: { n: "Qo'y", w: 56, h: 42, gen: function () { return rint(45, 90); }, d: dSheep },
+    toy: { n: "Paxta toyi", w: 50, h: 46, gen: function () { return rint(205, 235); }, d: dBale, f: "Paxta tolasi presslanib, toylarga joylanadi." },
+    sigir: { n: "Sigir", w: 92, h: 62, gen: function () { return rint(420, 720); }, d: dCow },
+    mashina: { n: "Yengil avtomobil", sn: "Avtomobil", w: 104, h: 46, gen: function () { return rint(1150, 1600); }, d: dCar },
+    beton: { n: "Beton blok", w: 74, h: 40, gen: function () { return rint(1850, 2000); }, d: dConcrete },
+    traktor: { n: "Traktor", w: 96, h: 66, gen: function () { return rint(2900, 4300); }, d: dTractor },
+    fil: { n: "Fil", w: 112, h: 82, gen: function () { return rint(2700, 5800); }, d: dElephant, f: "Fil — quruqlikdagi eng og'ir hayvon." },
+    yukm: { n: "Yuk mashinasi", sn: "Yuk mashinasi", w: 132, h: 66, gen: function () { return rint(4200, 7800); }, d: dTruck }
+  }
+});
 
 /* ================= 8. Elektron tarozi (umumiy) ================= */
 var SEG = { "0": "abcdef", "1": "bc", "2": "abged", "3": "abgcd", "4": "fgbc", "5": "afgcd", "6": "afgedc", "7": "abc", "8": "abcdefg", "9": "abcdfg", "-": "g", "O": "abcdef", "L": "fed", " ": "" };
@@ -1145,16 +1552,17 @@ modes.digital = (function () {
 })();
 
 /* ================= 10. REJIM: Taqqoslash ================= */
-function massTxt(mg, unit) { if (unit === "mg") return fmtInt(mg) + " mg"; if (unit === "g") return ft(mg / 1000, 3) + " g"; if (unit === "kg") return ft(mg / 1e6, 6) + " kg"; return ""; }
+function massTxt(mg, unit) { if (unit === "mg") return fmtInt(mg) + " mg"; if (unit === "g") return ft(mg / 1000, 3) + " g"; if (unit === "kg") return ft(mg / 1e6, 6) + " kg"; if (unit === "s") return ft(mg / 1e8, 4) + " s"; if (unit === "t") return ft(mg / 1e9, 4) + " t"; return ""; }
 function cmpItem(mg, unit, side) {
   var o = mkItem({ kind: "c", mg: mg, unit: unit, side: side, label: massTxt(mg, unit) });
+  if (mg >= 5e7) { var s3 = 40 + 22 * Math.min(1.4, Math.cbrt(mg / 1e9)); o.bw = s3 * 1.5; o.bh = s3 * .78; o.draw = function (it) { dCont(it.x, it.y, it.w, it.h, side === "L" ? "#2f9f86" : "#6f55c7"); }; return o; }
   if (mg < 5000) { o.bw = 18; o.bh = 34; o.draw = function (it) { dVial(it.x, it.y, it.w, it.h, side === "L" ? "#35f0c4" : "#a27bff"); }; }
   else if (mg <= 300000) { var s = 22 + 26 * Math.cbrt(mg / 300000); o.bw = s * 1.15; o.bh = s; o.draw = function (it) { dBox(it.x, it.y, it.w, it.h, side === "L" ? "#4fd8b4" : "#9a7cf0"); }; }
   else { var s2 = 40 + 30 * Math.cbrt(mg / 3e6); o.bw = s2; o.bh = s2 * 1.05; o.draw = function (it) { dSack(it.x, it.y, it.w, it.h); }; }
   return o;
 }
 function genCmp(lv) {
-  var t = lv === 4 ? pick([2, 3, 5, 6]) : lv, A, Bm, uA, uB, inst, ans, r = Math.random();
+  var t = lv === 4 ? pick([2, 3, 5, 6, 7]) : lv === 5 ? 7 : lv, A, Bm, uA, uB, inst, ans, r = Math.random();
   if (t === 1) {
     uA = uB = "g"; ans = "g"; inst = "lab";
     if (r < .15) { A = Bm = rint(20, 190) * 1000; }
@@ -1172,6 +1580,16 @@ function genCmp(lv) {
     var m1 = t === 3 ? rint(2, 50) * 100 : rint(21, 499) * 10;
     if (r < .15) Bm = m1; else if (r < .45) { var k3 = rint(2, 4); Bm = m1 * k3; } else { do { Bm = m1 + (Math.random() < .5 ? -1 : 1) * rint(1, 9) * (t === 3 ? 100 : 10); } while (Bm <= 0 || Bm === m1); }
     A = m1; Bm = Bm;
+  } else if (t === 7) {
+    // t, s ↔ kg (yuk tarozisi)
+    ans = "kg"; inst = "yuk"; var kd = rint(0, 2), a1, b1, st7 = kd === 2 ? 100 : 10;
+    if (kd === 0) { uA = "t"; uB = "kg"; a1 = rint(12, 95) * 50; }
+    else if (kd === 1) { uA = "s"; uB = "kg"; a1 = rint(3, 90) * 10; }
+    else { uA = "t"; uB = "s"; a1 = rint(5, 60) * 100; }
+    if (r < .15) b1 = a1;
+    else if (r < .45) { var k7 = rint(2, 3); b1 = a1 * k7 <= 9900 ? a1 * k7 : a1 % k7 === 0 ? a1 / k7 : a1 + st7; }
+    else { do { b1 = a1 + (Math.random() < .5 ? -1 : 1) * rint(1, 9) * st7; } while (b1 <= 0 || b1 === a1); }
+    A = a1 * 1e6; Bm = b1 * 1e6;
   }
   // tomonlarni aralashtiramiz
   var L = { mg: A, u: uA }, R = { mg: Bm, u: uB }; if (Math.random() < .5) { var tmp = L; L = R; R = tmp; }
@@ -1184,12 +1602,12 @@ modes.compare = (function () {
   M.size = function (n) { return n ? { W: 380, H: 430 } : { W: 960, H: 430 }; };
   M.init = function () {
     B = new Balance({ thMax: 10 * Math.PI / 180, div: 10, T: 1.6, zeta: .28, ref: 100000 });
-    var b = parseInt(lsGet("cmpBest"), 10); best = isNaN(b) ? 0 : b; var l = parseInt(lsGet("cmpLv"), 10); lv = l >= 1 && l <= 4 ? l : 1;
+    var b = parseInt(lsGet("cmpBest"), 10); best = isNaN(b) ? 0 : b; var l = parseInt(lsGet("cmpLv"), 10); lv = l >= 1 && l <= 5 ? l : 1;
     next();
   };
   function next() {
     T = genCmp(lv); ph = "predict"; res = {}; note = ""; B.locked = true;
-    B.div = T.inst === "lab" ? 10 : 1000; B.ref = T.inst === "lab" ? 100000 : 1e6;
+    B.div = T.inst === "lab" ? 10 : T.inst === "yuk" ? 1e7 : 1000; B.ref = T.inst === "lab" ? 100000 : T.inst === "yuk" ? 1e9 : 1e6;
     items = [cmpItem(T.L.mg, T.L.u, "L"), cmpItem(T.R.mg, T.R.u, "R")];
     items[0].zone = "L"; items[1].zone = "R";
     if (cur === M) M.layout(); needUI = true; needTools = true;
@@ -1211,16 +1629,16 @@ modes.compare = (function () {
   M.draw = function () {
     drawRoom(TY);
     var p = B.pans();
-    drawBalance(B, { contents: function () { items.forEach(drawPiece); }, label: T.inst === "lab" ? "Laboratoriya tarozisi · Max 200 g · 1 bo'l. = 10 mg" : "Pallali tarozi · Max 10 kg · 1 bo'l. = 1 g" });
+    drawBalance(B, { contents: function () { items.forEach(drawPiece); }, label: T.inst === "lab" ? "Laboratoriya tarozisi · Max 200 g · 1 bo'l. = 10 mg" : T.inst === "yuk" ? "Yuk tarozisi · Max 10 t · 1 bo'l. = 10 kg" : "Pallali tarozi · Max 10 kg · 1 bo'l. = 1 g" });
     items.forEach(function (it) { tag((it.zone === "L" ? "A: " : "B: ") + it.label, it.x, it.y - it.h - 16 * K, it.zone === "L" ? "#35f0c4" : "#a27bff", 13 * K + 1.5); });
     if (ph !== "predict" && B.settled()) { var d = T.R.mg - T.L.mg; tag(d === 0 ? "A = B — muvozanat" : d > 0 ? "B og'irroq (A < B)" : "A og'irroq (A > B)", B.cx, B.py - 48 * K, d === 0 ? "#35f0c4" : "#ffc23d", 12 * K + 2); }
   };
   M.tools = function () {
     var h = '<span class="lbl">Daraja:</span><span class="seg" role="group" aria-label="Daraja">';
-    [["1", "g va g"], ["2", "kg va g"], ["3", "mg va g"], ["4", "aralash"]].forEach(function (d) { h += '<button class="btn' + (lv === +d[0] ? " on" : "") + '" data-act="lv" data-lv="' + d[0] + '" aria-pressed="' + (lv === +d[0]) + '" title="' + d[1] + '">' + d[0] + '</button>'; });
+    [["1", "g va g"], ["2", "kg va g"], ["3", "mg va g"], ["4", "aralash"], ["5", "t, s va kg"]].forEach(function (d) { h += '<button class="btn' + (lv === +d[0] ? " on" : "") + '" data-act="lv" data-lv="' + d[0] + '" aria-pressed="' + (lv === +d[0]) + '" title="' + d[1] + '">' + d[0] + '</button>'; });
     return h + '</span><button class="btn vio" data-act="next">🎲 Yangi juftlik</button>';
   };
-  function u(un) { return un === "mg" ? 1 : un === "g" ? 1000 : 1e6; }
+  function u(un) { return un === "mg" ? 1 : un === "g" ? 1000 : un === "kg" ? 1e6 : un === "s" ? 1e8 : 1e9; }
   function sameUnit() { return massTxt(T.L.mg, T.ans) + " va " + massTxt(T.R.mg, T.ans); }
   M.act = function (a, el) {
     if (a === "lv") { lv = +el.getAttribute("data-lv"); lsSet("cmpLv", lv); streak = 0; next(); return; }
@@ -1259,7 +1677,7 @@ modes.compare = (function () {
     if (ph === "watch") return h + '<p class="warn">Tarozi qo\'yib yuborildi — tebranish to\'xtashini kuting…</p>';
     var dd = Math.abs(T.L.mg - T.R.mg) / u(T.ans);
     if (ph === "diff") return h + '<div class="ask"><label for="in-diff">Massalar farqi Δ<span class="q-m">m</span> = </label><input class="num" id="in-diff" inputmode="decimal" autocomplete="off" data-enter="diff" aria-label="Farq, ' + T.ans + '"><span>' + T.ans + '</span><button class="btn pri" data-act="diff">Javob</button></div>' + (note ? '<p class="warn">' + note + '</p>' : '') + '<p class="muted">Avval ikkala massani ' + T.ans + ' ga aylantiring, keyin kattasidan kichigini ayiring.</p>';
-    h += '<p>' + (res.diff ? '<span class="ok">✓</span>' : '<span class="bad">✗ (siz: ' + ft(res.dv, 6) + ')</span>') + ' Δ<span class="q-m">m</span> = ' + ft(dd, 6) + ' ' + T.ans + (T.ans === "mg" ? ' = ' + ft(dd / 1000, 6) + ' g' : T.ans === "g" ? ' = ' + ft(dd / 1000, 6) + ' kg' : '') + '</p>';
+    h += '<p>' + (res.diff ? '<span class="ok">✓</span>' : '<span class="bad">✗ (siz: ' + ft(res.dv, 6) + ')</span>') + ' Δ<span class="q-m">m</span> = ' + ft(dd, 6) + ' ' + T.ans + (T.ans === "mg" ? ' = ' + ft(dd / 1000, 6) + ' g' : T.ans === "g" ? ' = ' + ft(dd / 1000, 6) + ' kg' : T.ans === "kg" ? ' = ' + ft(dd / 100, 6) + ' s' : '') + '</p>';
     if (ph === "ratio") return h + '<div class="ask"><label for="in-ratio">Og\'irrog\'i yengilidan necha marta og\'ir?</label><input class="num" id="in-ratio" inputmode="decimal" autocomplete="off" data-enter="ratio"><span>marta</span><button class="btn pri" data-act="ratio">Javob</button></div>' + (note ? '<p class="warn">' + note + '</p>' : '');
     if (T.ratio) h += '<p>' + (res.ratio ? '<span class="ok">✓</span>' : '<span class="bad">✗ (siz: ' + ft(res.rv, 4) + ')</span>') + ' ' + ft(Math.max(T.L.mg, T.R.mg) / u(T.ans), 6) + ' : ' + ft(Math.min(T.L.mg, T.R.mg) / u(T.ans), 6) + ' = <b>' + T.ratio + '</b> marta.</p>';
     if (res.up) h += '<p class="ok">🎉 3 ta ketma-ket to\'g\'ri! Keyingi daraja: ' + lv + '.</p>';
@@ -1590,11 +2008,228 @@ modes.dens = (function () {
   return M;
 })();
 
-/* ================= 13. Kamera (MediaPipe Hands) ================= */
+/* ================= 12b. REJIM: Birliklar zinapoyasi ================= */
+var LAD = [
+  { u: "t", n: "tonna", f: 1e9, ex: "avtomobil ≈ 1,5 t", rel: "1 t = 1000 kg" },
+  { u: "s", n: "sentner", f: 1e8, ex: "2 qop un (50 kg) = 1 s", rel: "1 s = 100 kg" },
+  { u: "kg", n: "kilogramm", f: 1e6, ex: "1 l suv = 1 kg", rel: "1 kg = 1000 g" },
+  { u: "g", n: "gramm", f: 1e3, ex: "qog'oz qisqich ≈ 1 g", rel: "1 g = 1000 mg" },
+  { u: "mg", n: "milligramm", f: 1, ex: "chumoli ≈ 1–5 mg", rel: "1 mg = 0,001 g" }
+];
+var LADF = [10, 100, 1000, 1000];
+var XU = [
+  { u: "karat", t: "1 karat = 0,2 g" },
+  { u: "unsiya", t: "1 unsiya ≈ 28,35 g" },
+  { u: "funt", t: "1 funt ≈ 453,6 g" },
+  { u: "pud", t: "1 pud ≈ 16,38 kg" }
+];
+function li(u) { for (var i = 0; i < LAD.length; i++) if (LAD[i].u === u) return i; return -1; }
+function nice(v) { return ft(v, 6); }
+function numOpts(ans, wr, d) {
+  var f = function (v) { return d == null ? nice(v) : ft(v, d); }, A = f(ans), out = [A], seen = {}; seen[A] = 1;
+  wr.concat([ans * 10, ans / 10, ans * 100, ans / 100, ans * 2, ans + 1]).forEach(function (c) { var s = f(c); if (out.length < 4 && c > 0 && isFinite(c) && !seen[s] && s !== "0") { seen[s] = 1; out.push(s); } });
+  return { ans: A, opts: shuffle(out) };
+}
+function ladQ(val, fu, tu) {
+  var i = li(fu), j = li(tu), mg = val * LAD[i].f, F = LAD[i].f / LAD[j].f, ans = mg / LAD[j].f;
+  var r = numOpts(ans, [ans / 10, ans * 10, val / F]);
+  var path = [], k; if (i <= j) for (k = i; k <= j; k++) path.push(k); else for (k = i; k >= j; k--) path.push(k);
+  var hops = path.map(function (p) { return { s: p, v: nice(mg / LAD[p].f) + " " + LAD[p].u }; }), ex = [];
+  for (k = 0; k < path.length - 1; k++) { var a = path[k], b = path[k + 1]; ex.push(hops[k].v + (a < b ? " · " : " : ") + (a < b ? LADF[a] : LADF[b]) + " = " + hops[k + 1].v); }
+  return { text: nice(val) + " " + fu + " = ? " + tu, full: nice(val) + " " + fu + " = " + r.ans + " " + tu, from: fu, to: tu, path: path, hops: hops, ans: r.ans, opts: r.opts, xu: [], expl: ex.join(";  ") + ".", rule: i < j ? "Katta birlikdan kichigiga tushganda — ko'paytiramiz." : "Kichik birlikdan kattasiga chiqqanda — bo'lamiz." };
+}
+function compQ(parts, tu) {
+  var mg = 0, j = li(tu); parts.forEach(function (p) { mg += p[0] * LAD[li(p[1])].f; });
+  var ans = mg / LAD[j].f, tin = parts.map(function (p) { return p[0] + " " + p[1]; }).join(" "), p0 = parts[0][0] * LAD[li(parts[0][1])].f / LAD[j].f;
+  var r = numOpts(ans, [parseFloat(parts.map(function (p) { return String(p[0]); }).join("")), ans - p0 + p0 / 10, ans - p0 + p0 * 10]);
+  var i0 = li(parts[0][1]), path = [], k; for (k = i0; k <= j; k++) path.push(k);
+  var hops = [{ s: i0, v: tin }]; for (k = i0 + 1; k <= j; k++) hops.push({ s: k, v: nice(mg / LAD[k].f) + " " + LAD[k].u });
+  return { text: tin + " = ? " + tu, full: tin + " = " + r.ans + " " + tu, from: parts[0][1], to: tu, path: path, hops: hops, ans: r.ans, opts: r.opts, xu: [],
+    expl: parts.map(function (p) { return p[0] + " " + p[1] + " = " + nice(p[0] * LAD[li(p[1])].f / LAD[j].f) + " " + tu; }).join(";  ") + ";  jami: " + r.ans + " " + tu + ".", rule: "Har bir qismni bitta birlikka aylantirib, keyin qo'shamiz." };
+}
+function cs(t, s, k) { var a = []; if (t) a.push(t + " t"); if (s) a.push(s + " s"); if (k || !a.length) a.push(k + " kg"); return a.join(" "); }
+function toCompQ() {
+  var T = rint(1, 9), S = rint(1, 9), Kk = rint(1, 9) * 10, kg = T * 1000 + S * 100 + Kk, A = cs(T, S, Kk), out = [A], seen = {}; seen[A] = 1;
+  [cs(T * 10 + S, 0, Kk), cs(T, Math.floor(kg % 1000 / 10), 0), cs(T, S, Kk * 10), cs(T + 1, S, Kk), cs(T, S + 1, Kk)].forEach(function (c) { if (out.length < 4 && !seen[c]) { seen[c] = 1; out.push(c); } });
+  return { text: fmtInt(kg) + " kg = ? (t, s, kg)", full: fmtInt(kg) + " kg = " + A, from: "kg", to: "t", path: [2, 1, 0], xu: [],
+    hops: [{ s: 2, v: fmtInt(kg) + " kg" }, { s: 1, v: nice(kg / 100) + " s" }, { s: 0, v: A }], ans: A, opts: shuffle(out),
+    expl: fmtInt(kg) + " kg = " + T * 1000 + " kg + " + S * 100 + " kg + " + Kk + " kg = " + A + ".", rule: "1 t = 1000 kg, 1 s = 100 kg: avval tonnalarni, keyin sentnerlarni ajratamiz." };
+}
+function xQ(k) {
+  var n, a, wr, d = 6, ap = false, fx2 = -1, tu, fu, xs = [], to = -1;
+  if (k === 0) { n = rint(1, 40); a = n * 0.2; wr = [n * 2, n / 5, n * 0.02]; fu = "karat"; tu = "g"; xs = [0]; to = 3; }
+  else if (k === 1) { n = rint(1, 12); a = n * 5; wr = [n * 0.2, n * 50, n * 2]; fu = "g"; tu = "karat"; xs = [0]; fx2 = 3; }
+  else if (k === 2) { n = rint(2, 12); a = n * 28.349523; d = 1; ap = true; wr = [n * 2.835, n * 283.5, n * 16]; fu = "unsiya"; tu = "g"; xs = [1]; to = 3; }
+  else if (k === 3) { n = rint(1, 8); a = n * 453.59237; d = 1; ap = true; wr = [n * 45.36, n * 4535.9, n * 1000]; fu = "funt"; tu = "g"; xs = [2]; to = 3; }
+  else if (k === 4) { n = rint(1, 10); a = n * 16.3807; d = 2; ap = true; wr = [n * 16, n * 1.638, n * 163.8]; fu = "pud"; tu = "kg"; xs = [3]; to = 2; }
+  else if (k === 5) { n = 16 * rint(1, 5); a = n / 16; wr = [n / 10, n * 16, n / 100]; fu = "unsiya"; tu = "funt"; xs = [1, 2]; }
+  else { n = rint(1, 9); a = n * 2.2046226; d = 1; ap = true; wr = [n * 0.4536, n * 22, n * 0.22]; fu = "kg"; tu = "funt"; xs = [2]; fx2 = 2; }
+  var r = numOpts(a, wr, d), eq = ap ? " ≈ " : " = ", hops = [];
+  hops.push(fx2 >= 0 ? { s: fx2, v: n + " " + fu } : { x: xs[0], v: n + " " + fu });
+  hops.push(to >= 0 ? { s: to, v: r.ans + " " + tu } : { x: xs[xs.length - 1], v: r.ans + " " + tu });
+  var ex = { 0: n + " · 0,2 g = " + r.ans + " g", 1: n + " g : 0,2 g = " + r.ans + " karat (1 g = 5 karat)", 2: n + " · 28,35 g ≈ " + r.ans + " g", 3: n + " · 453,6 g ≈ " + r.ans + " g", 4: n + " · 16,38 kg ≈ " + r.ans + " kg", 5: "1 funt = 16 unsiya, shuning uchun " + n + " : 16 = " + r.ans + " funt", 6: "1 kg ≈ 2,2 funt, shuning uchun " + n + " · 2,2 ≈ " + r.ans + " funt" }[k];
+  return { text: n + " " + fu + eq + "? " + tu, full: n + " " + fu + eq + r.ans + " " + tu, from: fu, to: tu, path: to >= 0 ? [to] : fx2 >= 0 ? [fx2] : [], xu: xs, hops: hops, ans: r.ans, opts: r.opts, expl: ex + ".", rule: ap ? "Bu birliklar metrik emas — qiymat taxminiy (≈), yaxlitlab yozamiz." : k === 5 ? "Funt va unsiya — ingliz birliklari: 1 funt aynan 16 unsiyaga teng." : "Karat — qimmatbaho toshlar massasi birligi: 1 karat = 200 mg = 0,2 g." };
+}
+function pk(a) { return a[Math.floor(Math.random() * a.length)]; }
+function genU(lv) {
+  var k;
+  if (lv === 1) return Math.random() < .5 ? ladQ(pk([rint(2, 9), rint(1, 39) * .25, rint(11, 99) / 10]), "kg", "g") : ladQ(pk([rint(1, 99) * 50, rint(101, 999) * 10]), "g", "kg");
+  if (lv === 2) {
+    k = rint(0, 5);
+    if (k === 0) return ladQ(pk([rint(2, 9), rint(11, 95) / 10]), "t", "kg");
+    if (k === 1) return ladQ(rint(1, 80) * 100, "kg", "t");
+    if (k === 2) return ladQ(pk([rint(2, 20), rint(5, 95) / 10]), "s", "kg");
+    if (k === 3) return ladQ(rint(1, 99) * 10, "kg", "s");
+    if (k === 4) return ladQ(pk([rint(1, 9), rint(11, 95) / 10]), "t", "s");
+    return ladQ(rint(1, 99), "s", "t");
+  }
+  if (lv === 3) {
+    k = rint(0, 4);
+    if (k === 0) return ladQ(pk([rint(1, 9) / 10, rint(1, 99) / 100, rint(1, 9) / 1000]), "g", "mg");
+    if (k === 1) return ladQ(rint(1, 199) * 5, "mg", "g");
+    if (k === 2) return ladQ(pk([rint(1, 9) / 10, rint(1, 99) / 100, rint(1, 9) / 1000]), "kg", "g");
+    if (k === 3) return ladQ(rint(1, 9) / 1000, "kg", "mg");
+    return ladQ(rint(1, 9) * 500, "mg", "kg");
+  }
+  if (lv === 4) {
+    k = rint(0, 5);
+    if (k === 0) return compQ([[rint(1, 9), "t"], [rint(1, 9), "s"]], "kg");
+    if (k === 1) return compQ([[rint(1, 9), "s"], [rint(1, 99), "kg"]], "kg");
+    if (k === 2) return compQ([[rint(1, 9), "kg"], [rint(1, 199) * 5, "g"]], "g");
+    if (k === 3) return compQ([[rint(1, 5), "t"], [rint(5, 95), "kg"]], "kg");
+    if (k === 4) return compQ([[rint(1, 9), "t"], [rint(1, 9), "s"]], "s");
+    return toCompQ();
+  }
+  return xQ(rint(0, 6));
+}
+modes.birlik = (function () {
+  var M = { title: "<b>Birliklar zinapoyasi</b> · pastga tushsangiz — ko'paytiring, yuqoriga chiqsangiz — bo'ling" };
+  var Q = null, lv = 1, pts = 0, streak = 0, best = 0, ph = "ask", picked = -1, anim = 0, tiles = [], steps = [], chips = [], qy = 0, res = {};
+  M.size = function (n) { return n ? { W: 380, H: 520 } : { W: 960, H: 510 }; };
+  M.init = function () { var b = parseInt(lsGet("birBest"), 10); best = isNaN(b) ? 0 : b; var l = parseInt(lsGet("birLv"), 10); lv = l >= 1 && l <= 5 ? l : 1; next(); };
+  function next() { for (var i = 0; i < 20; i++) { Q = genU(lv); if (Q.opts.length === 4) break; } ph = "ask"; picked = -1; anim = 0; res = {}; needUI = true; needTools = true; }
+  M.layout = function () {
+    steps = []; tiles = []; var i;
+    if (NARROW) {
+      for (i = 0; i < 5; i++) steps.push({ x: 8 + i * 73, y: 54 + i * 26, w: 69, fl: 262 });
+      chips = XU.map(function (u, k) { return { x: 8 + (k % 2) * 184, y: 276 + Math.floor(k / 2) * 30, w: 180, h: 25 }; });
+      qy = 362; for (i = 0; i < 4; i++) tiles.push({ x: 8 + (i % 2) * 184, y: qy + 28 + Math.floor(i / 2) * 60, w: 180, h: 52 });
+    } else {
+      for (i = 0; i < 5; i++) steps.push({ x: 26 + i * 182, y: 58 + i * 36, w: 172, fl: 318 });
+      chips = XU.map(function (u, k) { return { x: 26 + k * 230, y: 334, w: 218, h: 28 }; });
+      qy = 398; for (i = 0; i < 4; i++) tiles.push({ x: 26 + i * 230, y: qy + 26, w: 218, h: 62 });
+    }
+    M.hNeed = tiles[3].y + tiles[3].h + 14;
+  };
+  function tileAt(x, y) { for (var i = 0; i < tiles.length; i++) { var t = tiles[i]; if (x >= t.x && x <= t.x + t.w && y >= t.y && y <= t.y + t.h) return i; } return -1; }
+  function hopPos(h) { if (h.s != null) { var s = steps[h.s]; return { x: s.x + s.w / 2, y: s.y - 15 }; } var c = chips[h.x]; return { x: c.x + c.w / 2, y: c.y - 8 }; }
+  function answer(i) {
+    if (ph !== "ask" || !Q.opts[i]) return;
+    picked = i; res.ok = Q.opts[i] === Q.ans; ph = "done"; anim = 0;
+    if (res.ok) { pts++; streak++; if (streak > best) { best = streak; lsSet("birBest", best); } coins(lv >= 4 ? 2 : 1, "Tarozi: Birliklar"); if (streak % 3 === 0 && lv < 5) { lv++; lsSet("birLv", lv); res.up = true; } }
+    else streak = 0;
+    needUI = true; needTools = true;
+  }
+  M.press = function (x, y) { var t = tileAt(x, y); if (t < 0) return; if (ph === "ask") answer(t); else next(); };
+  M.overBtn = function (x, y) { return tileAt(x, y) >= 0; };
+  M.hit = function () { return null; }; M.canDrag = function () { return false; }; M.drop = function () {}; M.tap = function () {};
+  M.update = function (dt) {
+    if (ph === "done" && anim < Q.hops.length - 1) { anim = RM ? Q.hops.length - 1 : Math.min(Q.hops.length - 1, anim + dt * 1.5); return true; }
+    return ph === "ask"; // savol paytida ko'rsatkich «nafas oladi»
+  };
+  function arrow(x0, y0, x1, y1, cy, col, lw, dash) {
+    ctx.save(); ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = lw; if (dash) ctx.setLineDash([5, 4]);
+    var cx = (x0 + x1) / 2; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(cx, cy, x1, y1); ctx.stroke(); ctx.setLineDash([]);
+    var a = Math.atan2(y1 - cy, x1 - cx), s = 5 + lw; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x1 - Math.cos(a - .45) * s, y1 - Math.sin(a - .45) * s); ctx.lineTo(x1 - Math.cos(a + .45) * s, y1 - Math.sin(a + .45) * s); ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+  M.draw = function () {
+    var t = performance.now() / 1000, i, onP = {}, dir = 0;
+    ctx.fillStyle = lg(0, 0, 0, H, [0, "#0a1230", 1, "#0c1438"]); ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = "rgba(147,163,204,.05)"; ctx.lineWidth = 1; ctx.beginPath(); for (var gx = 0; gx <= W; gx += 24) { ctx.moveTo(gx + .5, 0); ctx.lineTo(gx + .5, H); } for (var gy = 0; gy <= H; gy += 24) { ctx.moveTo(0, gy + .5); ctx.lineTo(W, gy + .5); } ctx.stroke();
+    Q.path.forEach(function (p) { onP[p] = 1; }); if (Q.path.length > 1) dir = Q.path[1] > Q.path[0] ? 1 : -1;
+    // o'tishlar: pastga ×, yuqoriga :
+    for (i = 0; i < 4; i++) {
+      var a = steps[i], b = steps[i + 1], bx = a.x + a.w + (b.x - a.x - a.w) / 2, used = onP[i] && onP[i + 1], fs = NARROW ? 9 : 12, top = a.y;
+      var dCol = used && dir > 0 ? "#35f0c4" : "rgba(53,240,196,.35)", uCol = used && dir < 0 ? "#a27bff" : "rgba(162,123,255,.32)";
+      arrow(a.x + a.w * .62, top - 4, b.x + b.w * .3, b.y - 4, top - (NARROW ? 16 : 22), dCol, used && dir > 0 ? 2.6 : 1.4, false);
+      arrow(b.x + b.w * .18, b.y - 10, a.x + a.w * .84, top - 10, top - (NARROW ? 34 : 46), uCol, used && dir < 0 ? 2.6 : 1.4, true);
+      tag("×" + LADF[i], bx + (NARROW ? 6 : 16), top - (NARROW ? 13 : 16), used && dir > 0 ? "#35f0c4" : "#4f8f86", fs);
+      tag(":" + LADF[i], bx - (NARROW ? 6 : 16), top - (NARROW ? 33 : 45), used && dir < 0 ? "#a27bff" : "#6b5aa0", fs);
+    }
+    // pog'onalar
+    steps.forEach(function (s, k) {
+      var u = LAD[k].u, fr = Q.from === u, to = Q.to === u, c = fr ? "#ffc23d" : to ? "#35f0c4" : onP[k] ? "#a27bff" : "#2c3b72";
+      ctx.fillStyle = lg(0, s.y, 0, s.fl, [0, onP[k] ? "#1e2b66" : "#141d45", 1, "#0b1233"]); rr(s.x, s.y, s.w, s.fl - s.y, 10 * K); ctx.fill();
+      ctx.lineWidth = fr || to ? 2.6 : 1.2; ctx.strokeStyle = c; ctx.stroke();
+      ctx.fillStyle = fr ? "rgba(255,194,61,.28)" : to ? "rgba(53,240,196,.25)" : "rgba(255,255,255,.07)"; rr(s.x + 1, s.y + 1, s.w - 2, 7 * K, 4); ctx.fill();
+      txt(u, s.x + s.w / 2, s.y + (NARROW ? 25 : 34), NARROW ? 21 : 32, fr ? "#ffc23d" : to ? "#35f0c4" : "#f3f5ff", "center", 800, FONTD);
+      txt(LAD[k].n, s.x + s.w / 2, s.y + (NARROW ? 47 : 62), NARROW ? 9.5 : 13, "#93a3cc", "center", 700);
+      txt(LAD[k].rel, s.x + s.w / 2, s.y + (NARROW ? 66 : 84), NARROW ? 8.5 : 12, "#c9d1ef", "center", 600);
+      if (!NARROW) txt(LAD[k].ex, s.x + s.w / 2, s.y + 104, 11, "#6f80b3", "center", 600);
+    });
+    ctx.fillStyle = "rgba(255,255,255,.12)"; ctx.fillRect(steps[0].x, steps[0].fl, steps[4].x + steps[4].w - steps[0].x, 1.5);
+    txt("Boshqa birliklar:", chips[0].x, chips[0].y - (NARROW ? 7 : 9), NARROW ? 9 : 11, "#93a3cc", "left", 700);
+    chips.forEach(function (c, k) { var on = Q.xu.indexOf(k) >= 0; rr(c.x, c.y, c.w, c.h, 8); ctx.fillStyle = on ? "rgba(255,194,61,.16)" : "rgba(16,26,58,.85)"; ctx.fill(); ctx.strokeStyle = on ? "#ffc23d" : "#2c3b72"; ctx.lineWidth = on ? 2 : 1; ctx.stroke(); txt(XU[k].t, c.x + c.w / 2, c.y + c.h / 2 + .5, NARROW ? 10.5 : 13, on ? "#ffe9a6" : "#c9d1ef", "center", 700); });
+    // savol
+    var qtxt = ph === "ask" ? Q.text : Q.full, qs = NARROW ? 18 : 26;
+    ctx.font = "800 " + qs + "px " + FONT; while (ctx.measureText(qtxt).width > W - 20 && qs > 11) { qs -= 1; ctx.font = "800 " + qs + "px " + FONT; }
+    txt(qtxt, W / 2, qy, qs, ph === "ask" ? "#f3f5ff" : res.ok ? "#35f0c4" : "#ffc23d", "center", 800);
+    // javob kataklari
+    tiles.forEach(function (tl, k) {
+      var hov = ph === "ask" && (ptr.src !== "touch" || camOn) && ptr.x >= tl.x && ptr.x <= tl.x + tl.w && ptr.y >= tl.y && ptr.y <= tl.y + tl.h, ok = Q.opts[k] === Q.ans;
+      var bg = "#111b3e", bd = hov ? "#35f0c4" : "#2c3b72";
+      if (ph === "done") { if (ok) { bg = "rgba(53,240,196,.18)"; bd = "#35f0c4"; } else if (k === picked) { bg = "rgba(255,94,142,.16)"; bd = "#ff5e8e"; } }
+      rr(tl.x, tl.y, tl.w, tl.h, 12); ctx.fillStyle = bg; ctx.fill(); ctx.strokeStyle = bd; ctx.lineWidth = hov || ph === "done" && (ok || k === picked) ? 2.4 : 1.2; ctx.stroke();
+      txt("ABCD"[k], tl.x + 14, tl.y + 14, NARROW ? 10 : 11, "#93a3cc", "center", 800);
+      var os = NARROW ? 15 : 19; ctx.font = "800 " + os + "px " + FONT; while (ctx.measureText(Q.opts[k]).width > tl.w - 30 && os > 9) { os -= 1; ctx.font = "800 " + os + "px " + FONT; }
+      txt(Q.opts[k], tl.x + tl.w / 2 + 6, tl.y + tl.h / 2 + 1, os, ph === "done" && ok ? "#35f0c4" : "#f3f5ff", "center", 800);
+      if (ph === "done" && (ok || k === picked)) txt(ok ? "✓" : "✗", tl.x + tl.w - 14, tl.y + 14, 14, ok ? "#35f0c4" : "#ff5e8e", "center", 800);
+    });
+    if (ph === "done") txt("Keyingi savol — istalgan katakni bosing", W / 2, tiles[3].y + tiles[3].h + 9, NARROW ? 9.5 : 11, "#93a3cc", "center", 600);
+    // yo'l bo'ylab sakrovchi son
+    var n = Q.hops.length, A = ph === "ask" ? 0 : anim, k0 = Math.floor(A), f = A - k0, p0 = hopPos(Q.hops[k0]), p1 = hopPos(Q.hops[Math.min(n - 1, k0 + 1)]);
+    var e = f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2, x = p0.x + (p1.x - p0.x) * e, y = p0.y + (p1.y - p0.y) * e - Math.sin(Math.PI * e) * (NARROW ? 26 : 40);
+    var lab = Q.hops[f < .5 ? k0 : Math.min(n - 1, k0 + 1)].v, pulse = ph === "ask" ? 1 + Math.sin(t * 4) * .12 : 1;
+    if (ph === "ask") { var pe = hopPos(Q.hops[n - 1]); tag("?", pe.x, pe.y, "#35f0c4", NARROW ? 13 : 16); }
+    ctx.save(); ctx.shadowColor = "#ffc23d"; ctx.shadowBlur = 16; ctx.fillStyle = "#ffc23d"; ctx.beginPath(); ctx.arc(x, y + (NARROW ? 12 : 16), (NARROW ? 5 : 7) * pulse, 0, 7); ctx.fill(); ctx.restore();
+    tag(lab, x, y - 2, "#ffc23d", NARROW ? 11 : 14);
+  };
+  M.tools = function () {
+    var h = '<span class="lbl">Daraja:</span><span class="seg" role="group" aria-label="Daraja">';
+    [["1", "kg ↔ g"], ["2", "t, s, kg"], ["3", "mg, g, kg (o'nli kasr)"], ["4", "2 t 3 s 40 kg ko'rinishi"], ["5", "karat, unsiya, funt, pud"]].forEach(function (d) { h += '<button class="btn' + (lv === +d[0] ? " on" : "") + '" data-act="lv" data-lv="' + d[0] + '" aria-pressed="' + (lv === +d[0]) + '" title="' + d[1] + '">' + d[0] + '</button>'; });
+    return h + '</span><button class="btn vio" data-act="next">🎲 Yangi savol</button>';
+  };
+  M.act = function (a, el) {
+    if (a === "lv") { lv = +el.getAttribute("data-lv"); lsSet("birLv", lv); streak = 0; next(); return; }
+    if (a === "next") { next(); return; }
+    if (a === "ans") answer(+el.getAttribute("data-i"));
+  };
+  M.panel = function () {
+    if (!Q) return "";
+    var names = ["kg ↔ g", "t, s va kg", "mg, g, kg", "t s kg aralash", "karat, unsiya, funt, pud"];
+    var h = '<div class="score"><span>Ball: <b>' + pts + '</b></span><span>Ketma-ket: <b>' + streak + '</b></span><span>Rekord: <b>' + best + '</b></span><span>Daraja: <b>' + lv + ' · ' + names[lv - 1] + '</b></span></div>';
+    h += '<p class="eqn">' + esc(ph === "ask" ? Q.text : Q.full) + '</p>';
+    if (ph === "ask") return h + '<div class="ask" role="group" aria-label="Javob variantlari">' + Q.opts.map(function (o, i) { return '<button class="btn" data-act="ans" data-i="' + i + '">' + "ABCD"[i] + ') ' + esc(o) + '</button>'; }).join("") + '</div><p class="muted">Sariq — qaysi birlikdan, yashil — qaysi birlikka. Zinapoyada pastga tushsangiz ko\'paytirasiz, yuqoriga chiqsangiz bo\'lasiz. Kamerada: katakni chimdib tanlang.</p>';
+    h += '<p>' + (res.ok ? '<span class="ok">✓ To\'g\'ri!</span>' : '<span class="bad">✗ Xato.</span> To\'g\'ri javob: <b>' + esc(Q.full) + '</b>.') + '</p>';
+    h += '<p>' + esc(Q.expl) + '</p><p class="muted">' + esc(Q.rule) + '</p>';
+    if (res.up) h += '<p class="ok">🎉 3 ta ketma-ket to\'g\'ri! Keyingi daraja: ' + lv + '.</p>';
+    return h + '<p><button class="btn vio" data-act="next">Keyingi savol →</button></p>';
+  };
+  M.debug = function () { return { Q: function () { return Q; }, answer: answer, gen: genU, ph: function () { return ph; } }; };
+  return M;
+})();
+
+/* ================= 13. Kamera (MediaPipe Hands) — qo'l skeleti bilan boshqarish ================= */
 var MP = "https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/";
 var camOn = false, camStream = null, hands = null, handsP = null, camBusy = false, camN = 0, video = $("cam-v"), camBtn = $("cam-btn"), camMsg = $("cam-msg"), hcur = $("hand-cur");
-var hand = { x: 0, y: 0, sx: -1, sy: -1, pinch: false, seen: 0, lost: 0 };
+var camBox = $("cam-box"), camLive = $("cam-live"), handCv = $("hand-cv"), hctx = handCv.getContext("2d"), camSk = $("cam-sk"), sctx = camSk.getContext("2d"), camHud = $("cam-hud");
+var hand = { x: 0, y: 0, sx: -1, sy: -1, pinch: false, seen: 0, lost: 0, s: 0, s2: 0 };
 var MOB = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+/* 21 nuqta: 0 — bilak, 1–4 bosh barmoq, 5–8 ko'rsatkich, 9–12 o'rta, 13–16 nomsiz, 17–20 jimjiloq */
+var PALM = [[0, 1], [0, 5], [5, 9], [9, 13], [13, 17], [0, 17]];
+var FING = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]];
+var FCOL = ["#ffc23d", "#35f0c4", "#a27bff", "#ff5e8e", "#7cc4ff"];
+var fpsN = 0, fpsT = 0, fps = 0;
 function camSay(s, keep) { camMsg.textContent = s; camMsg.classList.toggle("show", !!s); clearTimeout(camSay.t); if (s && !keep) camSay.t = setTimeout(function () { camMsg.classList.remove("show"); }, 6000); }
 function loadScript(src) { return new Promise(function (ok, bad) { var s = document.createElement("script"); s.src = src; s.crossOrigin = "anonymous"; s.onload = ok; s.onerror = function () { bad(new Error("load")); }; document.head.appendChild(s); }); }
 function prepHands() {
@@ -1602,7 +2237,7 @@ function prepHands() {
     handsP = (window.Hands ? Promise.resolve() : loadScript(MP + "hands.js")).then(function () {
       if (!hands) {
         hands = new window.Hands({ locateFile: function (f) { return MP + f; } });
-        hands.setOptions({ maxNumHands: 1, modelComplexity: MOB ? 0 : 1, minDetectionConfidence: 0.6, minTrackingConfidence: 0.5 });
+        hands.setOptions({ maxNumHands: MOB ? 1 : 2, modelComplexity: MOB ? 0 : 1, minDetectionConfidence: 0.6, minTrackingConfidence: 0.5 });
         hands.onResults(onHands);
       }
       return hands.initialize ? hands.initialize() : null;
@@ -1619,9 +2254,10 @@ function startCam() {
     .then(function (s) { camStream = s; video.srcObject = s; return video.play(); })
     .then(function () { return model; })
     .then(function () {
-      camOn = true; video.style.display = "block"; camBtn.disabled = false; camBtn.classList.add("on"); camBtn.setAttribute("aria-pressed", "true"); camBtn.textContent = "✋ Kamerani o'chirish";
+      camOn = true; camBox.style.display = "block"; handCv.style.display = "block"; camBtn.disabled = false; camBtn.classList.add("on"); camBtn.setAttribute("aria-pressed", "true"); camBtn.textContent = "✋ Kamerani o'chirish";
       try { stage.scrollIntoView({ block: "center", behavior: RM ? "auto" : "smooth" }); } catch (e) {}
-      camSay("Ko'rsatkich barmog'ingiz — kursor. Barmoqlarni qisib (chimdib) buyumni ushlang, ochsangiz — qo'yib yuborasiz.");
+      camSay("Kamera qo'lingizni 21 nuqtali skelet qilib ko'radi. Ko'rsatkich barmoq — kursor; bosh va ko'rsatkich barmoqni qissangiz (chimdisangiz) — ushlaysiz, ochsangiz — qo'yib yuborasiz.");
+      fpsN = 0; fpsT = performance.now();
       (function pump() {
         if (!camOn) return; camN++;
         if (!camBusy && video.readyState >= 2 && !document.hidden && (!MOB || camN % 2 === 0)) { camBusy = true; hands.send({ image: video }).then(function () { camBusy = false; }, function () { camBusy = false; }); }
@@ -1635,27 +2271,114 @@ function startCam() {
       camSay(n === "NotAllowedError" || n === "SecurityError" ? "Kameraga ruxsat berilmadi. Brauzer sozlamalarida ruxsat bering yoki barmoq/sichqoncha bilan davom eting." : n === "NotFoundError" || n === "OverconstrainedError" ? "Kamera topilmadi. Barmoq yoki sichqoncha bilan ishlashingiz mumkin." : "Kamera yoki qo'l modeli yuklanmadi (internetni tekshiring). Barmoq yoki sichqoncha bilan davom eting.");
     });
 }
+function clearSkel() { try { hctx.setTransform(1, 0, 0, 1, 0, 0); hctx.clearRect(0, 0, handCv.width, handCv.height); sctx.setTransform(1, 0, 0, 1, 0, 0); sctx.clearRect(0, 0, camSk.width, camSk.height); } catch (e) {} }
 function stopCam(silent) {
   camOn = false;
   if (camStream) { camStream.getTracks().forEach(function (t) { try { t.stop(); } catch (e) {} }); camStream = null; }
   try { video.pause(); video.srcObject = null; } catch (e) {}
-  video.style.display = "none"; hcur.style.display = "none"; camBtn.disabled = false; camBtn.classList.remove("on"); camBtn.setAttribute("aria-pressed", "false"); camBtn.textContent = "📷 Kamera bilan";
-  if (hand.pinch && ptr.down) { var p = toLocal(hand.x, hand.y); pUp(p.x, p.y); } hand.pinch = false; hand.sx = -1;
+  camBox.style.display = "none"; handCv.style.display = "none"; clearSkel(); hcur.style.display = "none"; camBtn.disabled = false; camBtn.classList.remove("on"); camBtn.setAttribute("aria-pressed", "false"); camBtn.textContent = "📷 Kamera bilan";
+  if (hand.pinch && ptr.down) { var p = toLocal(hand.x, hand.y); pUp(p.x, p.y); } hand.pinch = false; hand.sx = -1; hand.s = 0; hand.s2 = 0;
   if (!silent) camSay("");
 }
 camBtn.addEventListener("click", function () { if (camOn) stopCam(); else startCam(); });
 window.addEventListener("pagehide", function () { if (camOn) stopCam(true); });
+
+/* ---- skelet chizish ---- */
+function fitCv(c, w, h) { var d = Math.min(window.devicePixelRatio || 1, 2), bw = Math.max(1, Math.round(w * d)), bh = Math.max(1, Math.round(h * d)); if (c.width !== bw) c.width = bw; if (c.height !== bh) c.height = bh; return d; }
+function bones(c, P, lw, small) {
+  c.lineCap = "round"; c.lineJoin = "round";
+  c.fillStyle = "rgba(53,240,196,.10)"; c.beginPath(); [0, 1, 5, 9, 13, 17].forEach(function (k, j) { c[j ? "lineTo" : "moveTo"](P[k].x, P[k].y); }); c.closePath(); c.fill();
+  c.strokeStyle = "rgba(6,10,26,.6)"; c.lineWidth = lw + 3; c.beginPath();
+  PALM.forEach(function (e) { c.moveTo(P[e[0]].x, P[e[0]].y); c.lineTo(P[e[1]].x, P[e[1]].y); });
+  FING.forEach(function (f) { c.moveTo(P[f[0]].x, P[f[0]].y); for (var k = 1; k < 4; k++) c.lineTo(P[f[k]].x, P[f[k]].y); });
+  c.stroke();
+  c.strokeStyle = "rgba(225,235,255,.9)"; c.lineWidth = lw; c.beginPath(); PALM.forEach(function (e) { c.moveTo(P[e[0]].x, P[e[0]].y); c.lineTo(P[e[1]].x, P[e[1]].y); }); c.stroke();
+  FING.forEach(function (f, fi) {
+    c.strokeStyle = FCOL[fi]; if (!small) { c.shadowColor = FCOL[fi]; c.shadowBlur = 10; }
+    c.beginPath(); c.moveTo(P[f[0]].x, P[f[0]].y); for (var k = 1; k < 4; k++) c.lineTo(P[f[k]].x, P[f[k]].y); c.stroke();
+  });
+  c.shadowBlur = 0;
+}
+function joints(c, P, jr, small) {
+  for (var k = 0; k < 21; k++) {
+    var tip = k > 0 && k % 4 === 0, r = jr * (tip ? 1.35 : 1) * clamp(1 - (P[k].z || 0) * 3, .7, 1.6);
+    c.fillStyle = "#ffffff"; c.beginPath(); c.arc(P[k].x, P[k].y, r, 0, 7); c.fill();
+    c.strokeStyle = k === 0 ? "#93a3cc" : FCOL[Math.floor((k - 1) / 4)]; c.lineWidth = small ? 1 : 1.8; c.stroke();
+  }
+}
+function corners(c, x0, y0, x1, y1, col, L, lw) {
+  c.strokeStyle = col; c.lineWidth = lw; c.beginPath();
+  c.moveTo(x0, y0 + L); c.lineTo(x0, y0); c.lineTo(x0 + L, y0); c.moveTo(x1 - L, y0); c.lineTo(x1, y0); c.lineTo(x1, y0 + L);
+  c.moveTo(x1, y1 - L); c.lineTo(x1, y1); c.lineTo(x1 - L, y1); c.moveTo(x0 + L, y1); c.lineTo(x0, y1); c.lineTo(x0, y1 - L); c.stroke();
+}
+function bbox(P) { var b = { x0: 1e9, y0: 1e9, x1: -1e9, y1: -1e9 }; P.forEach(function (p) { b.x0 = Math.min(b.x0, p.x); b.y0 = Math.min(b.y0, p.y); b.x1 = Math.max(b.x1, p.x); b.y1 = Math.max(b.y1, p.y); }); return b; }
+function pill(c, s, x, y, col, size) {
+  c.font = "700 " + size + "px " + FONT; var tw = c.measureText(s).width + 12;
+  c.fillStyle = "rgba(6,10,26,.85)"; c.beginPath(); if (c.roundRect) c.roundRect(x, y - size, tw, size * 1.6, 6); else c.rect(x, y - size, tw, size * 1.6); c.fill();
+  c.strokeStyle = col; c.lineWidth = 1; c.stroke(); c.fillStyle = col; c.textAlign = "left"; c.textBaseline = "middle"; c.fillText(s, x + 6, y - size * .2);
+}
+function sideName(hd) { var l = hd && hd.label; if (!l) return "Qo'l"; return l === "Left" ? "O'ng qo'l" : "Chap qo'l"; } // kirish rasmi ko'zgu emas — MediaPipe yorliqlari teskari
+function drawSkeletons(hs, hd, ci, pin) {
+  var rw = stage.clientWidth, rh = stage.clientHeight, d = fitCv(handCv, rw, rh), small = rw < 520;
+  hctx.setTransform(d, 0, 0, d, 0, 0); hctx.clearRect(0, 0, rw, rh);
+  hs.forEach(function (lm, i) {
+    var P = lm.map(function (p) { return { x: (1 - p.x - .1) / .8 * rw, y: (p.y - .1) / .8 * rh, z: p.z || 0 }; });
+    var palm = Math.hypot(P[0].x - P[9].x, P[0].y - P[9].y) || 1, want = clamp((small ? 52 : 78) / palm, .35, 1.4), key = i === ci ? "s" : "s2";
+    hand[key] = hand[key] ? hand[key] + (want - hand[key]) * .3 : want;
+    var s = hand[key], ox = P[8].x, oy = P[8].y, ax = ox, ay = oy;
+    if (i === ci) { var r = stage.getBoundingClientRect(); ax = hand.x - r.left; ay = hand.y - r.top; } // skelet uchi = kursor
+    P = P.map(function (p) { return { x: ax + (p.x - ox) * s, y: ay + (p.y - oy) * s, z: p.z }; });
+    var main = i === ci, pinch = main && pin, b = bbox(P), pad = small ? 8 : 12;
+    hctx.save(); hctx.globalAlpha = main ? 1 : .5;
+    corners(hctx, b.x0 - pad, b.y0 - pad, b.x1 + pad, b.y1 + pad, pinch ? "#35f0c4" : "rgba(147,163,204,.85)", small ? 9 : 14, 2);
+    bones(hctx, P, clamp(4.6 * s, 2.4, 6), false);
+    var t = P[4], q = P[8];
+    hctx.setLineDash(pinch ? [] : [4, 4]); hctx.strokeStyle = pinch ? "#35f0c4" : "rgba(255,255,255,.65)"; hctx.lineWidth = 2; hctx.beginPath(); hctx.moveTo(t.x, t.y); hctx.lineTo(q.x, q.y); hctx.stroke(); hctx.setLineDash([]);
+    if (pinch) { hctx.fillStyle = "rgba(53,240,196,.32)"; hctx.beginPath(); hctx.arc((t.x + q.x) / 2, (t.y + q.y) / 2, small ? 10 : 15, 0, 7); hctx.fill(); }
+    joints(hctx, P, clamp(4 * s, 2.2, 5.2), false);
+    var sc = hd[i] && hd[i].score ? Math.round(hd[i].score * 100) + "%" : "", lab = main ? (pinch ? "✊ " + sideName(hd[i]) + " · ushlayapti" : "✋ " + sideName(hd[i]) + " · " + sc) : "2-qo'l · " + sideName(hd[i]);
+    if (main && pinch && ptr.item && ptr.item.drag) { var it = ptr.item; lab = "✊ Ushlandi: " + (it.sn || it.n || (it.aria ? it.aria.replace(" tarozi toshi", " tosh") : it.kind === "w" ? wLabel(it.mg) + " tosh" : it.label || "buyum")); }
+    pill(hctx, lab, b.x0 - pad, b.y0 - pad - (small ? 9 : 11), pinch ? "#35f0c4" : "#c9d1ef", small ? 10 : 12);
+    hctx.restore();
+  });
+}
+/* kamera oynachasi qo'lga xalaqit bermasin: qo'l yaqinlashsa — eng uzoq burchakka o'tadi */
+var boxPos = "br";
+function placeBox(hx, hy, rw, rh) {
+  var C = { tl: [0, 0], tr: [rw, 0], bl: [0, rh], br: [rw, rh] }, dg = Math.hypot(rw, rh), d = function (k) { return Math.hypot(hx - C[k][0], hy - C[k][1]); };
+  if (d(boxPos) > dg * .42) return;
+  var best = boxPos; Object.keys(C).forEach(function (k) { if (d(k) > d(best)) best = k; });
+  if (best !== boxPos) { camBox.classList.remove(boxPos); boxPos = best; camBox.classList.add(best); }
+}
+function drawPreview(hs, ci, pin) {
+  var bw = camBox.clientWidth, bh = camBox.clientHeight, d = fitCv(camSk, bw, bh), vw = video.videoWidth || 4, vh = video.videoHeight || 3, k = Math.max(bw / vw, bh / vh), ox = (vw * k - bw) / 2, oy = (vh * k - bh) / 2;
+  sctx.setTransform(d, 0, 0, d, 0, 0); sctx.clearRect(0, 0, bw, bh);
+  hs.forEach(function (lm, i) {
+    var P = lm.map(function (p) { return { x: (1 - p.x) * vw * k - ox, y: p.y * vh * k - oy, z: p.z || 0 }; }), b = bbox(P);
+    sctx.save(); sctx.globalAlpha = i === ci ? 1 : .6;
+    corners(sctx, b.x0 - 4, b.y0 - 4, b.x1 + 4, b.y1 + 4, i === ci && pin ? "#35f0c4" : "#ffc23d", 6, 1.5);
+    bones(sctx, P, 1.6, true); joints(sctx, P, 1.6, true); sctx.restore();
+  });
+}
 function onHands(r) {
   if (!camOn) return;
-  var lm = r.multiHandLandmarks && r.multiHandLandmarks[0];
-  if (!lm) { hand.lost++; if (hand.lost > 6) { hcur.style.display = "none"; if (hand.pinch) { hand.pinch = false; var q = toLocal(hand.x, hand.y); pUp(q.x, q.y); } } return; }
+  fpsN++; var now = performance.now(); if (now - fpsT > 1000) { fps = Math.round(fpsN * 1000 / (now - fpsT)); fpsN = 0; fpsT = now; }
+  var hs = r.multiHandLandmarks || [], hd = r.multiHandedness || [];
+  var rect = stage.getBoundingClientRect(), ci = 0;
+  if (hs.length > 1 && hand.sx >= 0) { var bd = 1e9; hs.forEach(function (l, i) { var dx = rect.left + clamp((1 - l[8].x - .1) / .8, 0, 1) * rect.width - hand.sx, dy = rect.top + clamp((l[8].y - .1) / .8, 0, 1) * rect.height - hand.sy, dd = dx * dx + dy * dy; if (dd < bd) { bd = dd; ci = i; } }); }
+  var lm = hs[ci];
+  if (!lm) {
+    hand.lost++; camHud.textContent = "Qo'l ko'rinmayapti — kaftingizni kameraga ko'rsating";
+    if (hand.lost > 6) { hcur.style.display = "none"; clearSkel(); if (hand.pinch) { hand.pinch = false; var q = toLocal(hand.x, hand.y); pUp(q.x, q.y); } }
+    return;
+  }
   hand.lost = 0;
-  var rect = stage.getBoundingClientRect();
   // oyna (ko'zgu) ko'rinishi: x ni teskari olamiz; markaziy 80% maydon laboratoriyaning to'liq eniga to'g'ri keladi
   var nx = clamp((1 - lm[8].x - .1) / .8, 0, 1), ny = clamp((lm[8].y - .1) / .8, 0, 1);
   var tx = rect.left + nx * rect.width, ty = rect.top + ny * rect.height;
   if (hand.sx < 0) { hand.sx = tx; hand.sy = ty; } hand.sx += (tx - hand.sx) * .45; hand.sy += (ty - hand.sy) * .45;
   hand.x = hand.sx; hand.y = hand.sy;
+  // chimdish: bosh (4) va ko'rsatkich (8) uchlari orasidagi masofa kaft o'lchamiga nisbatan: d = √((x₄−x₈)² + (y₄−y₈)²)
   var size = Math.hypot(lm[0].x - lm[9].x, lm[0].y - lm[9].y) || .1, d = Math.hypot(lm[4].x - lm[8].x, lm[4].y - lm[8].y);
   var pin = hand.pinch ? d < size * .42 : d < size * .3; // gisterezis: titrashga qarshi
   hcur.style.display = "block"; hcur.style.transform = "translate(" + hand.x.toFixed(1) + "px," + hand.y.toFixed(1) + "px)"; hcur.classList.toggle("pinch", pin);
@@ -1665,13 +2388,17 @@ function onHands(r) {
   else pMove(p.x, p.y);
   // qo'l bilan ushlanganda — kichik siljishda ham sudrash boshlanadi
   if (hand.pinch && ptr.item && !ptr.item.drag && cur.canDrag && cur.canDrag(ptr.item) && Math.abs(p.x - ptr.sx) + Math.abs(p.y - ptr.sy) > 3) pMove(p.x, p.y);
+  camHud.textContent = "21 nuqta · " + hs.length + " qo'l · " + (pin ? "✊ chimdish" : "✋ ochiq") + " · d/kaft = " + fx(d / size, 2);
+  drawSkeletons(hs, hd, ci, pin); drawPreview(hs, ci, pin);
+  placeBox(hand.x - rect.left, hand.y - rect.top, rect.width, rect.height);
+  camLive.textContent = "● JONLI · " + fps + " kadr/s";
 }
 
 /* ================= 14. Ishga tushirish ================= */
-["compare", "eq", "dens"].forEach(function (k) { var m = modes[k], a = m.act; m.act = function (x, el, ev) { if (x === "next" || x === "new" || x === "lv") clearForm(); a.call(m, x, el, ev); }; });
+["compare", "eq", "dens", "bozor", "yuk", "birlik"].forEach(function (k) { var m = modes[k], a = m.act; m.act = function (x, el, ev) { if (x === "next" || x === "new" || x === "lv") clearForm(); a.call(m, x, el, ev); }; });
 var aCheckEq = modes.eq.act; modes.eq.act = function (x, el, ev) { aCheckEq.call(modes.eq, x, el, ev); if (x === "check" || x === "retry") clearForm(); };
 
-window.kaTarozi = { simHand: function (lm) { var c = camOn; camOn = true; onHands({ multiHandLandmarks: lm ? [lm] : [] }); camOn = c; }, modes: modes, setMode: setMode, state: function () { return cur.debug ? cur.debug() : null; }, cur: function () { return curKey; }, toClient: toClient, pDown: pDown, pMove: pMove, pUp: pUp, size: function () { return { W: W, H: H }; }, panelText: function () { return panel.textContent; } };
+window.kaTarozi = { simHand: function (lm, more) { var c = camOn; camOn = true; onHands({ multiHandLandmarks: lm ? [lm].concat(more || []) : [], multiHandedness: [{ label: "Left", score: .97 }, { label: "Right", score: .93 }] }); camOn = c; }, showSkel: function (on) { handCv.style.display = on ? "block" : "none"; camBox.style.display = on ? "block" : "none"; }, modes: modes, setMode: setMode, state: function () { return cur.debug ? cur.debug() : null; }, cur: function () { return curKey; }, toClient: toClient, pDown: pDown, pMove: pMove, pUp: pUp, size: function () { return { W: W, H: H }; }, panelText: function () { return panel.textContent; } };
 var start = lsGet("mode"); try { var h = (location.hash || "").replace("#", ""); if (modes[h]) start = h; } catch (e) {}
 setMode(modes[start] ? start : "weigh");
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (cur) { resize(); wake(); } }).catch(function () {});
