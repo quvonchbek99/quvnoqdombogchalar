@@ -163,6 +163,7 @@ footer a:hover{text-decoration:underline}
 <p class="lead">Grammdan tonnagacha: tuxumni laboratoriya tarozisida, tarvuzni bozor tarozisida, filni yuk tarozisida torting. Massalarni taqqoslang, birliklar zinapoyasida t → s → kg → g → mg o'tishni o'rganing va tenglamani tarozi yordamida yeching. Toshlarni barmoq yoki sichqoncha bilan suring, teginsangiz — o'zi joylashadi. Kamerani yoqsangiz, qo'lingiz 21 nuqtali skelet bo'lib ko'rinadi va tarozini qo'l bilan boshqarasiz.</p>
 <ul class="chips">
 <li>⚖️ Tortish: ±0,01 g aniqlik</li>
+<li>♾️ Har bir toshdan istalgancha</li>
 <li>🧺 Bozor tarozisi: 10 g … 10 kg</li>
 <li>🚛 Yuk tarozisi: tonna, sentner</li>
 <li>🪜 Birliklar zinapoyasi</li>
@@ -335,7 +336,7 @@ function drawRoom(tableY) {
   ctx.fillStyle = lg(0, tableY, 0, H, [0, "#2e3866", .025, "#1d2652", .35, "#161e45", 1, "#0a0f2c"]); ctx.fillRect(0, tableY, W, H - tableY);
   ctx.fillStyle = "rgba(255,255,255,.16)"; ctx.fillRect(0, tableY, W, 1.5);
 }
-function tag(s, x, y, color, size) { size = size || 11 * K + 1; ctx.font = "700 " + size + "px " + FONT; var tw = ctx.measureText(s).width + 10 * K; rr(x - tw / 2, y - size * .75, tw, size * 1.5, 6 * K); ctx.fillStyle = "rgba(6,10,26,.82)"; ctx.fill(); ctx.strokeStyle = color || "#2c3b72"; ctx.lineWidth = 1; ctx.stroke(); txt(s, x, y + .5, size, color || "#f3f5ff", "center", 700); }
+function tag(s, x, y, color, size) { size = size || 11 * K + 1; ctx.font = "700 " + size + "px " + FONT; var tw = ctx.measureText(s).width + 10 * K; x = clamp(x, tw / 2 + 2, W - tw / 2 - 2); rr(x - tw / 2, y - size * .75, tw, size * 1.5, 6 * K); ctx.fillStyle = "rgba(6,10,26,.82)"; ctx.fill(); ctx.strokeStyle = color || "#2c3b72"; ctx.lineWidth = 1; ctx.stroke(); txt(s, x, y + .5, size, color || "#f3f5ff", "center", 700); }
 
 /* ----- tarozi toshlari ----- */
 function gwBase(mg) { var D = 12 + 5.2 * Math.cbrt(mg / 1000); return { w: D, h: D * 1.3 }; }
@@ -988,298 +989,210 @@ var WSET = [100000, 50000, 20000, 20000, 10000, 5000, 2000, 2000, 1000, 500, 200
 function makeWeights(set) { return set.map(function (mg) { var d = mg >= 1000 ? gwBase(mg) : mgBase(mg); return mkItem({ kind: "w", mg: mg, bw: d.w, bh: d.h, zone: "box" }); }); }
 function wList(list) { return list.filter(function (i) { return i.kind === "w"; }).sort(function (a, b) { return b.mg - a.mg; }).map(function (i) { return wLabel(i.mg); }).join(" + "); }
 
-/* ================= 7. REJIM: Pallali tarozi ================= */
-modes.weigh = (function () {
-  var M = { title: "<b>Shayinli laboratoriya tarozisi</b> · Max 200 g · 1 bo'linma = 10 mg" };
-  var B, items = [], weights = [], objs = [], shelf = {}, box = {}, lens = {}, measured = 0, lastKey = "", stBal = false;
-  M.size = function (n) { return n ? { W: 380, H: 630 } : { W: 960, H: 560 }; };
-  M.init = function () {
-    B = new Balance({ thMax: 10 * Math.PI / 180, div: 10, T: 1.5, zeta: .36, ref: 100000, divLabel: "10 mg" });
-    weights = makeWeights(WSET);
-    var b = parseInt(lsGet("weighN"), 10); measured = 0; M.best = isNaN(b) ? 0 : b;
-    newObjs();
-  };
-  function newObjs() {
-    var keys = shuffle(["tuxum", "olma", "qalam", "qogoz", "tanga", "kalit", "brusok"]).slice(0, NARROW ? 3 : 4);
-    objs = keys.map(function (k) { return makeObj(k); }); objs.push(makeObj("silindr"));
-    objs.forEach(function (o) { if (o.mg % 10 === 5) o.mg += 1; o.zone = "shelf"; });
-    weights.forEach(function (w) { if (w.zone !== "box") setZone(w, "box"); });
-    items = objs.concat(weights); lastKey = ""; needUI = true;
-    if (cur === M) M.layout();
-  }
-  M.layout = function () {
-    items.forEach(function (it) { it.w = it.bw * K; it.h = it.bh * K; });
-    if (NARROW) { TY = 336; B.cx = 190; B.py = 124; B.L = 126; B.hang = 108; B.panW = 104; B.baseW = 150; lens = { x: 190, y: 56, r: 46 }; shelf = { x0: 8, x1: 372, y0: 348, y1: 462 }; box = { x0: 8, x1: 372, y0: 472, y1: 620 }; }
-    else { TY = 372; B.cx = 360; B.py = 112; B.L = 180; B.hang = 150; B.panW = 140; B.baseW = 210; lens = { x: 812, y: 160, r: 92 }; shelf = { x0: 18, x1: 432, y0: 388, y1: 548 }; box = { x0: 448, x1: 942, y0: 386, y1: 548 }; }
-    B.baseY = TY;
-    measureLabels(objs, 10 * K + 1.5, "sn");
-    var maxH = 0; objs.forEach(function (o) { maxH = Math.max(maxH, o.h); });
-    var rowH = Math.max(58 * K, maxH + 24 * K), n = rowsLayout(objs, shelf.x0 + 10, shelf.x1 - 10, 0, rowH, 12 * K), top = shelf.y0 + 26 * K, base0;
-    if (NARROW) {
-      base0 = top + maxH + 4 * K; shelf.y1 = base0 + (n - 1) * rowH + 22 * K;
-      box = { x0: 8, x1: 372, y0: shelf.y1 + 10, y1: shelf.y1 + 10 + 150 }; M.hNeed = box.y1 + 10;
-    } else base0 = n > 1 ? top + maxH + 4 * K : top + Math.max(maxH + 8 * K, (shelf.y1 - top) * .62);
-    objs.forEach(function (o) { o.hy += base0; });
-    var gw = weights.filter(function (w) { return w.mg >= 1000; }), mw = weights.filter(function (w) { return w.mg < 1000; });
-    ctx.font = "600 " + (10 * K + 1) + "px " + FONT; weights.forEach(function (w) { w.labW = ctx.measureText(wLabel(w.mg)).width + 4; });
-    var gy = box.y0 + 26 * K + 50 * K, my = gy + 54 * K;
-    rowsLayout(gw, box.x0 + 12, box.x1 - 12, gy, 0, NARROW ? 5 : 10);
-    rowsLayout(mw, box.x0 + 12, box.x1 - 12, my, 0, NARROW ? 6 : 12);
-  };
-  function onPan(z) { return items.filter(function (it) { return it.zone === z; }); }
-  function objOnPans() { for (var i = 0; i < objs.length; i++) if (objs[i].zone === "L" || objs[i].zone === "R") return objs[i]; return null; }
-  function put(it, z) {
-    if (it.kind === "o" && (z === "L" || z === "R")) objs.forEach(function (o) { if (o !== it && (o.zone === "L" || o.zone === "R")) setZone(o, "shelf"); });
-    setZone(it, z); needUI = true;
-  }
-  function home(it) { return it.kind === "o" ? "shelf" : "box"; }
-  M.tap = function (it) {
-    if (it.zone === "L" || it.zone === "R") { put(it, home(it)); return; }
-    if (it.kind === "o") put(it, "L");
-    else { var o = objOnPans(); put(it, o && o.zone === "R" ? "L" : "R"); }
-  };
-  M.hit = function (x, y) { return hitItem(drawOrder(items), x, y); };
-  M.canDrag = function () { return true; };
-  M.drop = function (it, x, y) {
-    var p = B.pans();
-    if (nearPan(p.L, B, it.x, it.y - it.h / 2)) put(it, "L");
-    else if (nearPan(p.R, B, it.x, it.y - it.h / 2)) put(it, "R");
-    else put(it, home(it));
-  };
-  M.kbItems = function () { return items; };
-  function sums() { return { L: sumMg(onPan("L")), R: sumMg(onPan("R")) }; }
-  M.state = function () {
-    var s = sums(), o = objOnPans(), d = s.R - s.L, st = { L: s.L, R: s.R, d: d, obj: o, over: s.L > 200000 || s.R > 200000, settled: B.settled() };
-    st.bal = !st.over && Math.abs(d) < 5 && st.settled && !B.locked;
-    if (o) { var other = o.zone === "L" ? "R" : "L", wO = 0, wS = 0; items.forEach(function (it) { if (it.kind === "w" && it.zone === other) wO += it.mg; if (it.kind === "w" && it.zone === o.zone) wS += it.mg; }); st.meas = wO - wS; }
-    return st;
-  };
-  M.update = function (dt) {
-    var s = sums();
-    B.step(dt, s.L, s.R, 200000);
-    var p = B.pans();
-    ["L", "R"].forEach(function (z) { var l = onPan(z).sort(function (a, b) { return (a.kind === "o" ? 0 : 1) - (b.kind === "o" ? 0 : 1) || b.mg - a.mg; }); arrangeOn(l, p[z].x, p[z].y + 4 * K, B.panW * .9, 2 * K); });
-    items.forEach(function (it) { if (it.zone === "box" || it.zone === "shelf") { it.tx = it.hx; it.ty = it.hy; it.row = 0; } });
-    settle(items, dt);
-    var st = M.state(), key = [st.over, st.settled, st.bal, st.obj ? st.obj.key + st.obj.mg : "", st.L, st.R, B.locked, st.settled ? Math.round(B.reading() * 10) : 0].join("|");
-    if (st.bal && st.obj && !st.obj.done && st.meas > 0) { st.obj.done = true; measured++; if (measured > M.best) { M.best = measured; lsSet("weighN", measured); } }
-    stBal = st.bal;
-    if (key !== lastKey) { lastKey = key; needUI = true; }
-    var mv = !B.settled() || B.locked && Math.abs(B.theta) > 1e-4;
-    for (var i = 0; i < items.length && !mv; i++) if (items[i].ox || items[i].oy || items[i].drag) mv = true;
-    return mv;
-  };
-  M.draw = function () {
-    drawRoom(TY);
-    drawCase(shelf, "Tortiladigan buyumlar", "mat"); drawCase(box, "Tarozi toshlari to'plami");
-    homeSlots(weights, box, function (w) { return wLabel(w.mg); });
-    objs.forEach(function (o) { txt(o.sn, o.hx, o.hy + 12 * K, 10 * K + 1.5, o.zone === "shelf" ? "#e6fff8" : "#5f7f8a", "center", 600); });
-    var p = B.pans(), panItems = drawOrder(items.filter(function (it) { return !it.drag && (it.zone === "L" || it.zone === "R"); }));
-    drawBalance(B, { contents: function () { panItems.forEach(drawPiece); } });
-    var s = sums();
-    var wl = 0, wr = 0; items.forEach(function (it) { if (it.kind === "w") { if (it.zone === "L") wl += it.mg; if (it.zone === "R") wr += it.mg; } });
-    if (wl) tag("toshlar: " + ft(wl / 1000, 2) + " g", p.L.x, p.L.y + 26 * K, "#ffc23d", 10 * K + 1.5);
-    if (wr) tag("toshlar: " + ft(wr / 1000, 2) + " g", p.R.x, p.R.y + 26 * K, "#ffc23d", 10 * K + 1.5);
-    drawLens(B, lens.x, lens.y, lens.r);
-    var st = M.state();
-    if (st.over) tag("⚠ Tarozi chegarasi 200 g", B.cx, B.py + B.hang + 22 * K, "#ff5e8e", 13 * K + 1);
-    else if (st.bal && st.obj) tag("✓ Muvozanat!", B.cx, B.py + B.hang + 22 * K, "#35f0c4", 14 * K + 1);
-    items.forEach(function (it) { if (!it.drag && (it.zone === "box" || it.zone === "shelf")) { shadowAt(it.x, it.y + 1, it.w * .9, .3); drawPiece(it); } });
-    var dr = items.filter(function (it) { return it.drag; })[0];
-    if (dr) { panZoneHL(B, dr); drawPiece(dr); }
-  };
-  M.tools = function () {
-    return '<button class="btn' + (B && B.locked ? " on" : "") + '" data-act="lock" aria-pressed="' + (B && B.locked) + '" title="Arretir — shayinni ushlab turadi">🔒 Arretir</button>' +
-      '<button class="btn" data-act="clear">↩ Toshlarni qaytarish</button>' +
-      '<button class="btn vio" data-act="new">🎲 Yangi buyumlar</button>';
-  };
-  M.act = function (a) {
-    if (a === "lock") { B.locked = !B.locked; needTools = true; needUI = true; }
-    else if (a === "clear") { items.forEach(function (it) { if (it.zone === "L" || it.zone === "R") setZone(it, home(it)); }); needUI = true; }
-    else if (a === "new") newObjs();
-  };
-  M.panel = function () {
-    if (!B) return "";
-    var st = M.state(), o = st.obj, h = '<div class="score"><span>O\'lchangan buyumlar: <b>' + measured + '</b></span><span>Rekord: <b>' + M.best + '</b></span><span>Chap: <b class="res">' + ft(st.L / 1000, 3) + ' g</b>' + (o && o.zone === "L" ? " (buyum bilan)" : "") + '</span><span>O\'ng: <b class="res">' + ft(st.R / 1000, 3) + ' g</b>' + (o && o.zone === "R" ? " (buyum bilan)" : "") + '</span></div>';
-    if (!o) {
-      h += '<p><b>Qanday tortiladi:</b> 1) Buyumni <b>chap pallaga</b> qo\'ying (suring yoki ustiga teging). 2) O\'ng pallaga toshlarni <b>kattasidan boshlab</b> qo\'ying. 3) Og\'ir kelsa — tosh olib, kichigini qo\'ying. 4) Strelka nolda to\'xtasa — muvozanat.</p>';
-      if (st.R || st.L) h += '<p class="muted">Pallada faqat toshlar bor. Toshlar massasi: chapda ' + ft(st.L / 1000, 2) + ' g, o\'ngda ' + ft(st.R / 1000, 2) + ' g.</p>';
-      else h += '<p class="muted">Bo\'sh pallalar muvozanatda — tarozi nolga keltirilgan.</p>';
-      return h;
-    }
-    var other = o.zone === "L" ? "R" : "L", ow = items.filter(function (i) { return i.zone === other; }), sw = items.filter(function (i) { return i.zone === o.zone && i.kind === "w"; });
-    h += '<p>' + (o.zone === "L" ? "Chap" : "O'ng") + ' pallada: <b>' + esc(o.n) + '</b>' + (sw.length ? " + " + wList(sw) : "") + '. ' + (other === "R" ? "O'ng" : "Chap") + ' pallada: ' + (ow.length ? "<b>" + wList(ow) + "</b>" : "hali tosh yo'q") + '.</p>';
-    if (B.locked) return h + '<p class="warn">🔒 Arretir yoqilgan — shayin ushlab turilibdi. Toshlarni qo\'yib bo\'lgach, arretirni oching.</p>';
-    if (st.over) return h + '<p class="big-res bad">⚠ Tarozi chegarasi 200 g! Pallalardan birida ' + ft(Math.max(st.L, st.R) / 1000, 2) + ' g bor. Shayin tirgakka urildi — yukni kamaytiring.</p>';
-    if (!st.settled) return h + '<p class="warn">Shayin tebranmoqda… to\'xtashini kuting.</p>';
-    if (st.bal) {
-      var m = st.meas, mg = m, kg = m / 1e6;
-      h += '<p class="big-res ok">✓ Muvozanat! Strelka nolda.</p>';
-      h += '<p class="big-res">O\'lchash natijasi: <span class="q-m">m</span> = ' + fx(m / 1000, 2) + ' g ± 0,01 g</p>';
-      h += '<p class="res">= ' + fmtInt(mg) + ' mg = ' + ft(kg, 5) + ' kg' + (sw.length ? ' &nbsp;(toshlar ikkala pallada: ' + ft(sumMg(ow) / 1000, 2) + ' g − ' + ft(sumMg(sw) / 1000, 2) + ' g)' : '') + '</p>';
-      h += '<p class="muted">Aniq qiymat (kompyuter biladi): ' + ft(objMass(o) / 1000, 3) + ' g. Farq ' + Math.abs(objMass(o) - m) + ' mg — bu tarozi xatoligi (±10 mg) ichida.</p>';
-      if (o.key === "silindr") { var mt = MAT[o.mat]; h += '<p>Tekshiring: <span class="q-m">m</span> = <span class="q-r">ρ</span>·<span class="q-v">V</span> = ' + ft(mt.r, 1) + ' g/sm³ · ' + o.V + ' sm³ = <b>' + ft(mt.r * o.V, 2) + ' g</b> (' + mt.n.toLowerCase() + ').</p>'; }
-      if (o.key === "brusok") h += '<p>Tekshiring: <span class="q-m">m</span> = <span class="q-r">ρ</span>·<span class="q-v">V</span> = 0,5 g/sm³ · ' + o.V + ' sm³ = <b>' + ft(0.5 * o.V, 2) + ' g</b> (qarag\'ay).</p>';
-      return h + '<p class="muted">Keyingi buyumni torting yoki «Yangi buyumlar» tugmasini bosing.</p>';
-    }
-    var heavyObj = (o.zone === "L" ? -st.d : st.d) > 0, rd = B.reading(), within = Math.abs(st.d) < 100;
-    h += '<p class="big-res ' + (heavyObj ? "warn" : "bad") + '">' + (heavyObj ? "Buyum og'irroq — yana tosh qo'shing." : "Toshlar og'irroq — kattasini olib, kichigini qo'ying.") + '</p>';
-    h += '<p class="muted">' + (within ? 'Strelka ' + fx(Math.abs(rd), 1) + ' bo\'linmaga og\'di ≈ ' + Math.round(Math.abs(rd) * 10) + ' mg farq (1 bo\'linma = 10 mg). Strelka yengil palla tomonga og\'adi.' : 'Shayin tirgakka tegib turibdi: farq 100 mg (10 bo\'linma) dan katta.') + '</p>';
-    return h;
-  };
-  M.debug = function () { return { items: items, objs: objs, weights: weights, B: B, put: put, state: M.state }; };
-  return M;
-})();
-
 /* ================= 7b. REJIMLAR: Bozor tarozisi (kg) va Yuk tarozisi (t, s) =================
    Ichkarida hamma massa mg da: 1 g = 10³, 1 kg = 10⁶, 1 s = 10⁸, 1 t = 10⁹ mg. */
 function tsk(mg) { var kg = Math.round(mg / 1e6), t = Math.floor(kg / 1000), s = Math.floor(kg % 1000 / 100), k = kg % 100, a = []; if (t) a.push(t + " t"); if (s) a.push(s + " s"); if (k || !a.length) a.push(k + " kg"); return a.join(" "); }
 function kgg(mg) { var g = Math.round(mg / 1000), k = Math.floor(g / 1000), r = g % 1000, a = []; if (k) a.push(k + " kg"); if (r || !a.length) a.push(r + " g"); return a.join(" "); }
 function heavyMode(cfg) {
+  /* «Cheksiz zaxira»: har bir tosh va har bir yuk o'z uyachasiga (slot) ega. Uyachadan olingan zahoti
+     o'rniga yangisi paydo bo'ladi — har biridan istalgancha olish mumkin. Uyaga qaytgan nusxa qo'nib bo'lgach yo'qoladi. */
   var M = { title: cfg.title };
-  var B, items = [], weights = [], objs = [], shelf = {}, box = {}, lens = {}, measured = 0, lastKey = "", note = "";
+  var B, items = [], wslots = [], oslots = [], shelf = {}, box = {}, lens = {}, measured = 0, lastKey = "", note = "", uid = 0, qBy = {}, doneBy = {};
+  var CAP = 40, cnt = cfg.countLabel || "Tortilgan yuklar", word = cfg.objWord || "Yuk";
   M.size = function (n) { return n ? { W: 380, H: 660 } : { W: 960, H: 590 }; };
   M.init = function () {
-    B = new Balance({ thMax: 10 * Math.PI / 180, div: cfg.div, T: cfg.T, zeta: .34, ref: cfg.ref, divLabel: cfg.divLabel, platform: !!cfg.platform });
-    weights = cfg.weights.map(function (mg) { var d = cfg.wsize(mg); return mkItem({ kind: "w", mg: mg, bw: d.w, bh: d.h, zone: "box", aria: cfg.wname(mg) + " tarozi toshi", draw: cfg.wdraw }); });
+    B = new Balance({ thMax: 10 * Math.PI / 180, div: cfg.div, T: cfg.T, zeta: cfg.zeta || .34, ref: cfg.ref, divLabel: cfg.divLabel, platform: !!cfg.platform });
+    wslots = cfg.weights.filter(function (mg, i, a) { return a.indexOf(mg) === i; }).map(function (mg, i) { /* cheksiz zaxira — takror uyachalar shart emas */ var d = cfg.wsize(mg); return { i: i, kind: "w", mg: mg, bw: d.w, bh: d.h, w: d.w * K, h: d.h * K, hx: 0, hy: 0 }; });
     var b = parseInt(lsGet(cfg.key + "N"), 10); M.best = isNaN(b) ? 0 : b;
     newObjs();
   };
-  function newObjs() {
-    var keys = shuffle(Object.keys(cfg.objs)).slice(0, NARROW ? 4 : 5);
-    objs = keys.map(function (k) {
-      var o = cfg.objs[k], mg = o.gen() * cfg.unit;
-      if (mg % (2 * cfg.tol) === cfg.tol) mg += cfg.unit; // aniq yarmida bo'lmasin
-      return mkItem({ kind: "o", key: k, n: o.n, sn: o.sn || o.n, bw: o.w, bh: o.h, mg: mg, zone: "shelf", aria: o.n, f: o.f, draw: function (it) { o.d(it.x, it.y, it.w, it.h); } });
-    });
-    weights.forEach(function (w) { if (w.zone !== "box") setZone(w, "box"); });
-    items = objs.concat(weights); lastKey = ""; note = ""; needUI = true;
-    if (cur === M) M.layout();
+  function makeObjItem(key) {
+    var it;
+    if (cfg.mk) it = cfg.mk(key);
+    else {
+      var o = cfg.objs[key], mg = o.gen() * cfg.unit;
+      it = mkItem({ kind: "o", key: key, n: o.n, sn: o.sn || o.n, bw: o.w, bh: o.h, w: o.w * K, h: o.h * K, mg: mg, aria: o.n, f: o.f, draw: function (q) { o.d(q.x, q.y, q.w, q.h); } });
+    }
+    if (it.mg % (2 * cfg.tol) === cfg.tol) it.mg += cfg.unit; // aniq yarmida bo'lmasin
+    it.uid = ++uid; return it;
   }
-  M.layout = function () {
-    items.forEach(function (it) { it.w = it.bw * K; it.h = it.bh * K; });
+  function spawn(S) {
+    var it = S.kind === "w" ? mkItem({ kind: "w", mg: S.mg, bw: S.bw, bh: S.bh, aria: cfg.wname(S.mg) + " tarozi toshi", draw: cfg.wdraw }) : makeObjItem(S.key);
+    if (S.kind === "w") it.uid = ++uid;
+    it.S = S; it.zone = S.kind === "w" ? "box" : "shelf"; it.w = it.bw * K; it.h = it.bh * K;
+    it.x = it.tx = S.hx; it.y = it.ty = S.hy; it.placed = true; it.fresh = false;
+    if (S.kind === "o") S.sn = it.sn;
+    items.push(it); return it;
+  }
+  function newObjs() {
+    var keys = cfg.keys ? cfg.keys() : shuffle(Object.keys(cfg.objs)).slice(0, NARROW ? 4 : 5);
+    items = []; qBy = {}; doneBy = {};
+    oslots = keys.map(function (k, i) { var t = makeObjItem(k); return { i: i, kind: "o", key: k, bw: t.bw, bh: t.bh, w: t.bw * K, h: t.bh * K, sn: t.sn, hx: 0, hy: 0 }; });
+    lastKey = ""; note = ""; needUI = true;
+    if (cur === M) M.layout(); else layoutSlots();
+    stock();
+  }
+  function isHome(it) { return it.zone === (it.kind === "o" ? "shelf" : "box"); }
+  /* uyachalarni to'ldirish va uyaga qaytgan ortiqcha nusxalarni olib tashlash */
+  function stock() {
+    var home = {};
+    items.forEach(function (it) { if (isHome(it) && !it.drag) { var k = it.kind + it.S.i; (home[k] = home[k] || []).push(it); } });
+    var del = [];
+    Object.keys(home).forEach(function (k) {
+      var l = home[k]; if (l.length < 2) return;
+      var keep = l.filter(function (it) { return !it.ret; })[0] || l[0];
+      l.forEach(function (it) { if (it !== keep && it.ret && !it.ox && !it.oy) del.push(it); });
+    });
+    if (del.length) items = items.filter(function (it) { return del.indexOf(it) < 0; });
+    wslots.concat(oslots).forEach(function (S) { if (!home[S.kind + S.i]) spawn(S); });
+  }
+  function layoutSlots() {
+    if (!B) return;
     if (NARROW) { TY = 350; B.cx = 190; B.py = 122; B.L = 128; B.hang = 126; B.panW = cfg.platform ? 112 : 104; B.baseW = 150; lens = { x: 190, y: 52, r: 42 }; shelf = { x0: 8, x1: 372, y0: 364, y1: 470 }; }
     else { TY = 392; B.cx = 360; B.py = 104; B.L = 200; B.hang = 172; B.panW = cfg.platform ? 200 : 168; B.baseW = 230; lens = { x: 822, y: 162, r: 88 }; shelf = { x0: 18, x1: 432, y0: 406, y1: 578 }; box = { x0: 448, x1: 942, y0: 404, y1: 578 }; }
     B.baseY = TY;
-    measureLabels(objs, 10 * K + 1.5, "sn");
-    var maxH = 0; objs.forEach(function (o) { maxH = Math.max(maxH, o.h); });
-    var rowH = Math.max(58 * K, maxH + 24 * K), n = rowsLayout(objs, shelf.x0 + 10, shelf.x1 - 10, 0, rowH, 12 * K), top = shelf.y0 + 26 * K, base0;
+    wslots.concat(oslots).forEach(function (S) { S.w = S.bw * K; S.h = S.bh * K; });
+    measureLabels(oslots, 10 * K + 1.5, "sn");
+    var maxH = 0; oslots.forEach(function (o) { maxH = Math.max(maxH, o.h); });
+    var rowH = Math.max(58 * K, maxH + 24 * K), n = rowsLayout(oslots, shelf.x0 + 10, shelf.x1 - 10, 0, rowH, 12 * K), top = shelf.y0 + 26 * K, base0;
     if (NARROW) { base0 = top + maxH + 4 * K; shelf.y1 = base0 + (n - 1) * rowH + 22 * K; box = { x0: 8, x1: 372, y0: shelf.y1 + 10, y1: shelf.y1 + 10 + 168 }; M.hNeed = box.y1 + 10; }
     else if (n > 1) { base0 = top + maxH + 4 * K; shelf.y1 = Math.max(578, base0 + (n - 1) * rowH + 22); box.y1 = shelf.y1; M.hNeed = shelf.y1 + 12; }
     else base0 = top + Math.max(maxH + 8 * K, (shelf.y1 - top) * .62);
-    objs.forEach(function (o) { o.hy += base0; });
-    var gA = weights.filter(function (w) { return w.mg >= cfg.split; }), gB = weights.filter(function (w) { return w.mg < cfg.split; });
-    ctx.font = "600 " + (10 * K + 1) + "px " + FONT; weights.forEach(function (w) { w.labW = ctx.measureText(cfg.wname(w.mg)).width + 4; });
+    oslots.forEach(function (o) { o.hy += base0; });
+    var gA = wslots.filter(function (w) { return w.mg >= cfg.split; }), gB = wslots.filter(function (w) { return w.mg < cfg.split; });
+    ctx.font = "600 " + (10 * K + 1) + "px " + FONT; wslots.forEach(function (w) { w.labW = ctx.measureText(cfg.wname(w.mg)).width + 4; });
     var hA = 0, hB = 0; gA.forEach(function (w) { hA = Math.max(hA, w.h); }); gB.forEach(function (w) { hB = Math.max(hB, w.h); });
     var ya = box.y0 + 30 * K + hA, yb = ya + 26 * K + hB;
     rowsLayout(gA, box.x0 + 10, box.x1 - 10, ya, 0, NARROW ? 4 : 10);
     rowsLayout(gB, box.x0 + 10, box.x1 - 10, yb, 0, NARROW ? 6 : 12);
+  }
+  M.layout = function () {
+    layoutSlots();
+    items.forEach(function (it) { it.w = it.bw * K; it.h = it.bh * K; if (isHome(it) && !it.drag) { it.x = it.tx = it.S.hx; it.y = it.ty = it.S.hy; it.ox = it.oy = 0; } });
   };
   function onPan(z) { return items.filter(function (it) { return it.zone === z; }); }
-  function objOnPans() { for (var i = 0; i < objs.length; i++) if (objs[i].zone === "L" || objs[i].zone === "R") return objs[i]; return null; }
+  function group() { return items.filter(function (it) { return it.kind === "o" && (it.zone === "L" || it.zone === "R"); }); }
+  function goHome(it) { it.ret = true; it.nohit = true; setZone(it, it.kind === "o" ? "shelf" : "box"); }
   function put(it, z) {
-    if (it.kind === "o" && (z === "L" || z === "R")) objs.forEach(function (o) { if (o !== it && (o.zone === "L" || o.zone === "R")) setZone(o, "shelf"); });
+    if (z !== "L" && z !== "R") { goHome(it); needUI = true; return; }
+    if (it.zone !== z && onPan(z).length >= CAP) { note = "Pallada joy qolmadi (" + CAP + " ta). Avval ba'zilarini olib tashlang."; goHome(it); needUI = true; return; }
+    if (it.kind === "o") { var oz = z === "L" ? "R" : "L"; group().forEach(function (o) { if (o.zone === oz) goHome(o); }); } // yuklar faqat bitta pallada
+    it.ret = false; it.nohit = false; note = "";
     setZone(it, z); needUI = true;
   }
-  function home(it) { return it.kind === "o" ? "shelf" : "box"; }
+  function side() { var g = group(); return g.length ? g[0].zone : null; }
   M.tap = function (it) {
-    if (it.zone === "L" || it.zone === "R") { put(it, home(it)); return; }
-    if (it.kind === "o") put(it, "L"); else { var o = objOnPans(); put(it, o && o.zone === "R" ? "L" : "R"); }
+    if (it.zone === "L" || it.zone === "R") { goHome(it); needUI = true; return; }
+    var sd = side();
+    if (it.kind === "o") put(it, sd || "L"); else put(it, sd === "R" ? "L" : "R");
   };
   M.hit = function (x, y) { return hitItem(drawOrder(items), x, y); };
   M.canDrag = function () { return true; };
-  M.drop = function (it) { var p = B.pans(); if (nearPan(p.L, B, it.x, it.y - it.h / 2)) put(it, "L"); else if (nearPan(p.R, B, it.x, it.y - it.h / 2)) put(it, "R"); else put(it, home(it)); };
-  M.kbItems = function () { return items; };
+  M.drop = function (it) { var p = B.pans(); if (nearPan(p.L, B, it.x, it.y - it.h / 2)) put(it, "L"); else if (nearPan(p.R, B, it.x, it.y - it.h / 2)) put(it, "R"); else { goHome(it); needUI = true; } };
+  M.kbItems = function () { return items.filter(function (it) { return !it.nohit; }); };
   function wsum(z) { var s = 0; items.forEach(function (it) { if (it.kind === "w" && it.zone === z) s += it.mg; }); return s; }
+  function sig(g) { return g.map(function (o) { return o.uid; }).sort(function (a, b) { return a - b; }).join(","); }
   M.state = function () {
-    var L = sumMg(onPan("L")), R = sumMg(onPan("R")), o = objOnPans(), d = R - L, st = { L: L, R: R, d: d, obj: o, over: L > cfg.max || R > cfg.max, settled: B.settled() };
+    var L = sumMg(onPan("L")), R = sumMg(onPan("R")), g = group(), sd = g.length ? g[0].zone : null, d = R - L;
+    var st = { L: L, R: R, d: d, objs: g, side: sd, over: L > cfg.max || R > cfg.max, settled: B.settled() };
     st.bal = !st.over && Math.abs(d) < cfg.tol && st.settled && !B.locked;
-    if (o) { var other = o.zone === "L" ? "R" : "L"; st.meas = wsum(other) - wsum(o.zone); }
+    if (sd) { st.meas = wsum(sd === "L" ? "R" : "L") - wsum(sd); st.exact = sumMg(g); st.sig = sig(g); }
     return st;
   };
   M.update = function (dt) {
     var L = sumMg(onPan("L")), R = sumMg(onPan("R"));
     B.step(dt, L, R, cfg.max);
     var p = B.pans(), dy = B.platform ? -2 : 4 * K;
-    ["L", "R"].forEach(function (z) { var l = onPan(z).sort(function (a, b) { return (a.kind === "o" ? 0 : 1) - (b.kind === "o" ? 0 : 1) || b.mg - a.mg; }); arrangeOn(l, p[z].x, p[z].y + dy, B.panW * .92, 2 * K); });
-    items.forEach(function (it) { if (it.zone === "box" || it.zone === "shelf") { it.tx = it.hx; it.ty = it.hy; it.row = 0; } });
+    ["L", "R"].forEach(function (z) { var l = onPan(z).sort(function (a, b) { return (a.kind === "o" ? 0 : 1) - (b.kind === "o" ? 0 : 1) || b.mg - a.mg || a.uid - b.uid; }); arrangeOn(l, p[z].x, p[z].y + dy, B.panW * .92, 2 * K); });
+    items.forEach(function (it) { if (isHome(it)) { it.tx = it.S.hx; it.ty = it.S.hy; it.row = 0; } });
     settle(items, dt);
-    var st = M.state(), key = [st.over, st.settled, st.bal, st.obj ? st.obj.key + st.obj.mg : "", st.L, st.R, B.locked, st.settled ? Math.round(B.reading() * 10) : 0].join("|");
-    if (st.bal && st.obj && !st.obj.done && st.meas > 0) { st.obj.done = true; measured++; if (measured > M.best) { M.best = measured; lsSet(cfg.key + "N", measured); } }
+    var n0 = items.length; stock();
+    var st = M.state(), key = [st.over, st.settled, st.bal, st.sig || "", st.L, st.R, B.locked, note, st.settled ? Math.round(B.reading() * 10) : 0].join("|");
+    if (st.bal && st.side && st.meas > 0 && !doneBy[st.sig]) { doneBy[st.sig] = 1; measured++; if (measured > M.best) { M.best = measured; lsSet(cfg.key + "N", measured); } }
     if (key !== lastKey) { lastKey = key; needUI = true; }
-    var mv = !B.settled() || B.locked && Math.abs(B.theta) > 1e-4;
+    var mv = n0 !== items.length || !B.settled() || B.locked && Math.abs(B.theta) > 1e-4;
     for (var i = 0; i < items.length && !mv; i++) if (items[i].ox || items[i].oy || items[i].drag) mv = true;
     return mv;
   };
   M.draw = function () {
     drawRoom(TY);
-    drawCase(shelf, cfg.shelfTitle, "mat"); drawCase(box, cfg.boxTitle);
-    homeSlots(weights, box, function (w) { return cfg.wname(w.mg); });
-    objs.forEach(function (o) { txt(o.sn, o.hx, o.hy + 12 * K, 10 * K + 1.5, o.zone === "shelf" ? "#e6fff8" : "#5f7f8a", "center", 600); });
+    drawCase(shelf, cfg.shelfTitle + " · ∞", "mat"); drawCase(box, cfg.boxTitle + " · har biridan ∞");
+    homeSlots(wslots, box, function (w) { return cfg.wname(w.mg); });
+    oslots.forEach(function (o) { txt(o.sn, o.hx, o.hy + 12 * K, 10 * K + 1.5, "#e6fff8", "center", 600); });
     var p = B.pans(), panItems = drawOrder(items.filter(function (it) { return !it.drag && (it.zone === "L" || it.zone === "R"); }));
     drawBalance(B, { contents: function () { panItems.forEach(drawPiece); }, label: cfg.baseLabel });
-    var wl = wsum("L"), wr = wsum("R");
-    if (wl) tag("toshlar: " + cfg.fmt(wl), p.L.x, p.L.y + 26 * K, "#ffc23d", 10 * K + 1.5);
-    if (wr) tag("toshlar: " + cfg.fmt(wr), p.R.x, p.R.y + 26 * K, "#ffc23d", 10 * K + 1.5);
+    var wl = wsum("L"), wr = wsum("R"), nL = onPan("L").filter(function (i) { return i.kind === "w"; }).length, nR = onPan("R").filter(function (i) { return i.kind === "w"; }).length;
+    if (wl) tag("toshlar (" + nL + " ta): " + cfg.fmt(wl), p.L.x, p.L.y + 26 * K, "#ffc23d", 10 * K + 1.5);
+    if (wr) tag("toshlar (" + nR + " ta): " + cfg.fmt(wr), p.R.x, p.R.y + 26 * K, "#ffc23d", 10 * K + 1.5);
     drawLens(B, lens.x, lens.y, lens.r);
     var st = M.state();
     if (st.over) tag("⚠ Tarozi chegarasi " + cfg.maxTxt, B.cx, B.py + B.hang + 22 * K, "#ff5e8e", 13 * K + 1);
-    else if (st.bal && st.obj) tag("✓ Muvozanat! " + cfg.fmt(st.meas), B.cx, B.py + B.hang + 22 * K, "#35f0c4", 14 * K + 1);
-    items.forEach(function (it) { if (!it.drag && (it.zone === "box" || it.zone === "shelf")) { shadowAt(it.x, it.y + 1, it.w * .9, .3); drawPiece(it); } });
+    else if (st.bal && st.side) tag("✓ Muvozanat! " + cfg.fmt(st.meas), B.cx, B.py + B.hang + 22 * K, "#35f0c4", 14 * K + 1);
+    var homeL = items.filter(function (it) { return !it.drag && isHome(it); });
+    homeL.forEach(function (it) { if (!it.ret) shadowAt(it.S.hx, it.S.hy + 1, it.w * .9, .3); });
+    homeL.sort(function (a, b) { return (a.ret ? 1 : 0) - (b.ret ? 1 : 0); }).forEach(drawPiece);
     var dr = items.filter(function (it) { return it.drag; })[0];
     if (dr) { panZoneHL(B, dr); drawPiece(dr); }
   };
   M.tools = function () {
     return '<button class="btn' + (B && B.locked ? " on" : "") + '" data-act="lock" aria-pressed="' + (B && B.locked) + '" title="Arretir — shayinni ushlab turadi">🔒 Arretir</button>' +
       '<button class="btn" data-act="clear">↩ Toshlarni qaytarish</button>' +
-      '<button class="btn vio" data-act="new">🎲 Yangi yuklar</button>';
+      '<button class="btn" data-act="clearall">🧹 Pallalarni bo\'shatish</button>' +
+      '<button class="btn vio" data-act="new">🎲 Yangi ' + (cfg.newWord || "yuklar") + '</button>';
   };
   M.act = function (a) {
     if (a === "lock") { B.locked = !B.locked; needTools = true; needUI = true; }
-    else if (a === "clear") { items.forEach(function (it) { if (it.zone === "L" || it.zone === "R") setZone(it, home(it)); }); needUI = true; }
+    else if (a === "clear") { items.forEach(function (it) { if (it.kind === "w" && (it.zone === "L" || it.zone === "R")) goHome(it); }); note = ""; needUI = true; }
+    else if (a === "clearall") { items.forEach(function (it) { if (it.zone === "L" || it.zone === "R") goHome(it); }); note = ""; needUI = true; }
     else if (a === "new") newObjs();
     else if (a === "qa") {
-      var st = M.state(), o = st.obj; if (!o || !o.q || !st.bal) return;
-      var v = pnum(val("hq-" + cfg.key)), ans = st.meas / o.q.f;
+      var st = M.state(), q = st.sig && qBy[st.sig]; if (!q || !st.bal) return;
+      var v = pnum(val("hq-" + cfg.key)), ans = st.meas / q.u.f;
       if (isNaN(v)) { note = "Son kiriting (masalan: 2,35 yoki 1340)."; needUI = true; return; }
-      note = ""; o.q.v = v; o.q.ans = ans; o.q.ok = Math.abs(v - ans) < 1e-9 * Math.max(1, ans);
-      if (o.q.ok) coins(1, "Tarozi: " + cfg.coinName); needUI = true;
+      note = ""; q.v = v; q.ok = Math.abs(v - ans) < 1e-9 * Math.max(1, ans);
+      if (q.ok) coins(1, "Tarozi: " + cfg.coinName); needUI = true;
     }
   };
+  function names(g) { var c = {}, order = []; g.forEach(function (o) { if (!c[o.n]) { c[o.n] = 0; order.push(o.n); } c[o.n]++; }); return order.map(function (n) { return esc(n) + (c[n] > 1 ? " ×" + c[n] : ""); }).join(" + "); }
+  function lst(l) { var c = {}, ks = []; l.forEach(function (i) { if (!c[i.mg]) { c[i.mg] = 0; ks.push(i.mg); } c[i.mg]++; }); return ks.sort(function (a, b) { return b - a; }).map(function (mg) { return (c[mg] > 1 ? c[mg] + " × " : "") + cfg.wname(mg); }).join(" + "); }
   M.panel = function () {
     if (!B) return "";
-    var st = M.state(), o = st.obj, wl = wsum("L"), wr = wsum("R");
-    var h = '<div class="score"><span>Tortilgan yuklar: <b>' + measured + '</b></span><span>Rekord: <b>' + M.best + '</b></span><span>Chap pallada toshlar: <b class="res">' + cfg.fmt(wl) + '</b></span><span>O\'ng pallada toshlar: <b class="res">' + cfg.fmt(wr) + '</b></span></div>';
-    if (!o) return h + cfg.howto + (wl || wr ? '<p class="muted">Pallada faqat toshlar bor.</p>' : '<p class="muted">Bo\'sh pallalar muvozanatda — tarozi nolga keltirilgan.</p>');
-    var other = o.zone === "L" ? "R" : "L", ow = items.filter(function (i) { return i.zone === other && i.kind === "w"; }), sw = items.filter(function (i) { return i.zone === o.zone && i.kind === "w"; });
-    var lst = function (l) { return l.sort(function (a, b) { return b.mg - a.mg; }).map(function (i) { return cfg.wname(i.mg); }).join(" + "); };
-    h += '<p>' + (o.zone === "L" ? "Chap" : "O'ng") + ' pallada: <b>' + esc(o.n) + '</b>' + (sw.length ? " + " + lst(sw) : "") + '. ' + (other === "R" ? "O'ng" : "Chap") + ' pallada: ' + (ow.length ? "<b>" + lst(ow) + "</b>" : "hali tosh yo'q") + '.</p>';
+    var st = M.state(), g = st.objs, wl = wsum("L"), wr = wsum("R");
+    var h = '<div class="score"><span>' + cnt + ': <b>' + measured + '</b></span><span>Rekord: <b>' + M.best + '</b></span><span>Chap pallada toshlar: <b class="res">' + cfg.fmt(wl) + '</b></span><span>O\'ng pallada toshlar: <b class="res">' + cfg.fmt(wr) + '</b></span></div>';
+    if (note) h += '<p class="warn">' + esc(note) + '</p>';
+    var tip = '<p class="muted">♾️ Har bir tosh va har bir ' + word.toLowerCase() + 'dan istalgancha olish mumkin: olgan zahotingiz o\'rniga yangisi chiqadi. Bir nechta ' + word.toLowerCase() + 'ni bitta pallaga qo\'yib, birga tortsangiz ham bo\'ladi.</p>';
+    if (!g.length) return h + cfg.howto + tip + (wl || wr ? '<p class="muted">Pallada faqat toshlar bor.</p>' : '<p class="muted">Bo\'sh pallalar muvozanatda — tarozi nolga keltirilgan.</p>');
+    var sd = st.side, other = sd === "L" ? "R" : "L", ow = items.filter(function (i) { return i.zone === other && i.kind === "w"; }), sw = items.filter(function (i) { return i.zone === sd && i.kind === "w"; });
+    h += '<p>' + (sd === "L" ? "Chap" : "O'ng") + ' pallada: <b>' + names(g) + '</b>' + (sw.length ? " + " + lst(sw) : "") + '. ' + (other === "R" ? "O'ng" : "Chap") + ' pallada: ' + (ow.length ? "<b>" + lst(ow) + "</b>" : "hali tosh yo'q") + '.</p>';
     if (B.locked) return h + '<p class="warn">🔒 Arretir yoqilgan — shayin ushlab turilibdi. Toshlarni qo\'yib bo\'lgach, arretirni oching.</p>';
     if (st.over) return h + '<p class="big-res bad">⚠ Tarozi chegarasi ' + cfg.maxTxt + '! Shayin tirgakka urildi — yukni kamaytiring.</p>';
     if (!st.settled) return h + '<p class="warn">Shayin tebranmoqda… to\'xtashini kuting.</p>';
     if (st.bal) {
-      var m = st.meas, q = o.q || (o.q = { u: pick(cfg.qUnits) });
-      q.f = q.u.f;
+      var m = st.meas, q = qBy[st.sig] || (qBy[st.sig] = { u: pick(cfg.qUnits) });
       h += '<p class="big-res ok">✓ Muvozanat! Strelka nolda.</p>';
-      h += '<p class="big-res">O\'lchash natijasi: <span class="q-m">m</span> = ' + cfg.big(m) + '</p>';
+      h += '<p class="big-res">O\'lchash natijasi' + (g.length > 1 ? ' (' + g.length + ' ta birga)' : '') + ': <span class="q-m">m</span> = ' + cfg.big(m) + '</p>';
       h += '<p class="res">' + cfg.conv(m) + '</p>';
-      h += '<p class="muted">Aniq qiymat (kompyuter biladi): ' + cfg.exact(o.mg) + '. Farq ' + cfg.diff(Math.abs(o.mg - m)) + ' — tarozi xatoligi (' + cfg.err + ') ichida.</p>';
-      if (o.f) h += '<p class="muted">💡 ' + o.f + '</p>';
-      if (q.ok == null) h += '<div class="ask"><label for="hq-' + cfg.key + '">🎯 Natijani <b>' + q.u.n + '</b> yozing: <span class="q-m">m</span> =</label><input class="num" id="hq-' + cfg.key + '" inputmode="decimal" autocomplete="off" data-enter="qa" aria-label="Massa, ' + q.u.s + '"><span>' + q.u.s + '</span><button class="btn pri" data-act="qa">Tekshirish</button></div>' + (note ? '<p class="warn">' + note + '</p>' : '');
-      else h += '<p>' + (q.ok ? '<span class="ok">✓ To\'g\'ri! +1 tanga.</span> ' : '<span class="bad">✗ Siz yozdingiz: ' + ft(q.v, 6) + ' ' + q.u.s + '.</span> ') + 'Javob: <span class="q-m">m</span> = <b>' + ft(m / q.f, 6) + ' ' + q.u.s + '</b>. ' + q.u.hint + '</p>';
-      return h + '<p class="muted">Keyingi yukni torting yoki «Yangi yuklar» tugmasini bosing.</p>';
+      h += '<p class="muted">Aniq qiymat (kompyuter biladi): ' + cfg.exact(st.exact) + '. Farq ' + cfg.diff(Math.abs(st.exact - m)) + ' — tarozi xatoligi (' + cfg.err + ') ichida.</p>';
+      if (g.length > 1) h += '<p class="muted">Har biri alohida: ' + g.map(function (o) { return esc(o.sn) + " — " + cfg.exact(o.mg); }).join("; ") + '.</p>';
+      if (g.length === 1 && cfg.extra) h += cfg.extra(g[0]);
+      var f = g.filter(function (o) { return o.f; })[0]; if (f) h += '<p class="muted">💡 ' + f.f + '</p>';
+      if (q.ok == null) h += '<div class="ask"><label for="hq-' + cfg.key + '">🎯 Natijani <b>' + q.u.n + '</b> yozing: <span class="q-m">m</span> =</label><input class="num" id="hq-' + cfg.key + '" inputmode="decimal" autocomplete="off" data-enter="qa" aria-label="Massa, ' + q.u.s + '"><span>' + q.u.s + '</span><button class="btn pri" data-act="qa">Tekshirish</button></div>';
+      else h += '<p>' + (q.ok ? '<span class="ok">✓ To\'g\'ri! +1 tanga.</span> ' : '<span class="bad">✗ Siz yozdingiz: ' + ft(q.v, 6) + ' ' + q.u.s + '.</span> ') + 'Javob: <span class="q-m">m</span> = <b>' + ft(m / q.u.f, 6) + ' ' + q.u.s + '</b>. ' + q.u.hint + '</p>';
+      return h + '<p class="muted">Yana ' + word.toLowerCase() + ' qo\'shing, boshqasini torting yoki «Yangi ' + (cfg.newWord || "yuklar") + '» tugmasini bosing.</p>';
     }
-    var heavyObj = (o.zone === "L" ? -st.d : st.d) > 0, rd = B.reading(), within = Math.abs(st.d) < cfg.div * 10;
-    h += '<p class="big-res ' + (heavyObj ? "warn" : "bad") + '">' + (heavyObj ? "Yuk og'irroq — yana tosh qo'shing." : "Toshlar og'irroq — kattasini olib, kichigini qo'ying.") + '</p>';
+    var heavyObj = (sd === "L" ? -st.d : st.d) > 0, rd = B.reading(), within = Math.abs(st.d) < cfg.div * 10;
+    h += '<p class="big-res ' + (heavyObj ? "warn" : "bad") + '">' + (heavyObj ? word + " og'irroq — yana tosh qo'shing." : "Toshlar og'irroq — kattasini olib, kichigini qo'ying.") + '</p>';
     h += '<p class="muted">' + (within ? 'Strelka ' + fx(Math.abs(rd), 1) + ' bo\'linmaga og\'di ≈ ' + cfg.fmt(Math.round(Math.abs(rd)) * cfg.div) + ' farq (1 bo\'linma = ' + cfg.divLabel + ').' : 'Shayin tirgakka tegib turibdi: farq 10 bo\'linmadan (' + cfg.fmt(cfg.div * 10) + ') katta.') + '</p>';
     return h;
   };
-  M.debug = function () { return { items: items, objs: objs, weights: weights, B: B, put: put, state: M.state }; };
+  M.debug = function () {
+    return { items: function () { return items; }, objs: function () { return items.filter(function (i) { return i.kind === "o" && i.zone === "shelf" && !i.ret; }); }, weights: function () { return items.filter(function (i) { return i.kind === "w" && i.zone === "box" && !i.ret; }); }, B: B, put: put, state: M.state, take: function (kind, mg, z) { var S = (kind === "w" ? wslots : oslots).filter(function (s) { return kind === "w" ? s.mg === mg : s.key === mg; })[0]; var it = items.filter(function (i) { return i.S === S && isHome(i) && !i.ret; })[0]; put(it, z); stock(); return it; } };
+  };
   return M;
 }
 var Q_G = { n: "grammda", s: "g", f: 1e3, hint: "1 kg = 1000 g, shuning uchun kg dagi sonni 1000 ga ko'paytiramiz." };
 modes.bozor = heavyMode({
-  key: "bozor", coinName: "Bozor", title: "<b>Bozor tarozisi</b> · cho'yan toshlar · Max 20 kg · 1 bo'linma = 10 g",
+  key: "bozor", coinName: "Bozor", objWord: "Mahsulot", newWord: "mahsulotlar", title: "<b>Bozor tarozisi</b> · cho'yan toshlar · Max 20 kg · 1 bo'linma = 10 g",
   unit: 1000, div: 10000, tol: 5000, ref: 5e6, max: 20e6, maxTxt: "20 kg", T: 1.8, divLabel: "10 g", split: 1e6,
   weights: [10e6, 5e6, 2e6, 2e6, 1e6, 500000, 200000, 200000, 100000, 50000, 20000, 20000, 10000],
   wsize: function (mg) { var D = 12 + 14 * Math.cbrt(mg / 1e6); return { w: D, h: D * 1.15 }; },
@@ -1337,6 +1250,36 @@ modes.yuk = heavyMode({
     traktor: { n: "Traktor", w: 96, h: 66, gen: function () { return rint(2900, 4300); }, d: dTractor },
     fil: { n: "Fil", w: 112, h: 82, gen: function () { return rint(2700, 5800); }, d: dElephant, f: "Fil — quruqlikdagi eng og'ir hayvon." },
     yukm: { n: "Yuk mashinasi", sn: "Yuk mashinasi", w: 132, h: 66, gen: function () { return rint(4200, 7800); }, d: dTruck }
+  }
+});
+
+/* ================= 7. REJIM: Pallali (laboratoriya) tarozi — umumiy dvigatelda ================= */
+modes.weigh = heavyMode({
+  key: "weigh", coinName: "Laboratoriya", title: "<b>Shayinli laboratoriya tarozisi</b> · Max 200 g · 1 bo'linma = 10 mg",
+  unit: 1, div: 10, tol: 5, ref: 100000, max: 200000, maxTxt: "200 g", T: 1.5, zeta: .36, divLabel: "10 mg", split: 1000,
+  countLabel: "O'lchangan buyumlar", objWord: "Buyum", newWord: "buyumlar",
+  weights: WSET,
+  wsize: function (mg) { return mg >= 1000 ? gwBase(mg) : mgBase(mg); },
+  wname: function (mg) { return wLabel(mg); },
+  wdraw: function (it) { if (it.mg >= 1000) drawGramWeight(it.x, it.y, it.mg); else drawMgPlate(it.x, it.y, it.mg); },
+  shelfTitle: "Tortiladigan buyumlar", boxTitle: "Tarozi toshlari to'plami",
+  fmt: function (mg) { return ft(mg / 1000, 2) + " g"; },
+  big: function (m) { return fx(m / 1000, 2) + " g ± 0,01 g"; },
+  conv: function (m) { return "= " + fmtInt(m) + " mg = " + ft(m / 1e6, 5) + " kg"; },
+  exact: function (mg) { return ft(mg / 1000, 3) + " g"; },
+  diff: function (d) { return Math.round(d) + " mg"; },
+  err: "±10 mg",
+  howto: '<p><b>Qanday tortiladi:</b> 1) Buyumni <b>chap pallaga</b> qo\'ying (suring yoki ustiga teging). 2) O\'ng pallaga toshlarni <b>kattasidan boshlab</b> qo\'ying. 3) Og\'ir kelsa — tosh olib, kichigini qo\'ying. 4) Strelka nolda to\'xtasa — muvozanat.</p>',
+  qUnits: [
+    { n: "milligrammda", s: "mg", f: 1, hint: "1 g = 1000 mg: grammdagi sonni 1000 ga ko'paytiramiz." },
+    { n: "kilogrammda", s: "kg", f: 1e6, hint: "1 kg = 1000 g: grammdagi sonni 1000 ga bo'lamiz." }
+  ],
+  keys: function () { var k = shuffle(["tuxum", "olma", "qalam", "qogoz", "tanga", "kalit", "brusok"]).slice(0, NARROW ? 3 : 4); k.push("silindr"); return k; },
+  mk: function (key) { var o = makeObj(key); o.aria = o.n; return o; },
+  extra: function (o) {
+    if (o.key === "silindr") { var mt = MAT[o.mat]; return '<p>Tekshiring: <span class="q-m">m</span> = <span class="q-r">ρ</span>·<span class="q-v">V</span> = ' + ft(mt.r, 1) + ' g/sm³ · ' + o.V + ' sm³ = <b>' + ft(mt.r * o.V, 2) + ' g</b> (' + mt.n.toLowerCase() + ').</p>'; }
+    if (o.key === "brusok") return '<p>Tekshiring: <span class="q-m">m</span> = <span class="q-r">ρ</span>·<span class="q-v">V</span> = 0,5 g/sm³ · ' + o.V + ' sm³ = <b>' + ft(0.5 * o.V, 2) + ' g</b> (qarag\'ay).</p>';
+    return "";
   }
 });
 
