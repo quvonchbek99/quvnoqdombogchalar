@@ -607,5 +607,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki kashtanlar hali pishmagan edi", "Chunki u boshqaning foydasi uchun xavfli ishga aralashgan edi", "Chunki mushuk kashtanlarni yashirib qo'ygan edi"],
     javob: 1,
     izoh: "Maymun boshqaning manfaati uchun o'z panjasini xavf ostiga qo'ydi. Birovning gapiga ko'r-ko'rona ergashish va o'zi uchun xavf tug'diradigan ishga kirishish oxir-oqibatda zarar keltiradi."
+  },
+  {
+    id: "ez-077", mavzu: "ehtiyotkorlik", sarlavha: "Tulki va baliq",
+    matn: "Issiq kunlarning birida och tulki daryo bo'yiga keldi. Suv tiniq edi va undagi baliqlar kumush parchalardek suzib yurardi. Tulki panjasini suvga tiqib, ulardan birini ilib olmoqchi bo'ldi. Ammo baliqlar uning soyasini sezib, bir zumda chuqur joyga qochib ketishdi. Tulki necha marta urinib ko'rsa ham, panjasiga faqat loy ilindi.",
+    savol: "Tulki baliqlarni nima uchun ushlay olmadi?",
+    variantlar: ["Chunki tulki suvga yaqinlasha olmadi", "Chunki baliqlar xavfni sezib, tez chuqur joyga qochdi", "Chunki baliqlar tulkiga o'zlari yaqinlashib kelgan edi"],
+    javob: 1,
+    izoh: "Baliqlar xavfni oldindan sezib, o'zlarini himoya qildi. Bu hodisa ehtiyotkorlik va vaziyatni tez baholash qanchalik muhimligini ko'rsatadi."
   }
 ];
