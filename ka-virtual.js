@@ -1,6 +1,6 @@
 /*!
  * Kuvonch Academy — VIRTUAL o'yinlar (kamera + qo'l kuzatuvi)
- * 59 ta o'yin (47 matematik + poyga + grafik doskasi + 10 ta fizika). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
+ * 63 ta o'yin (47 matematik + poyga + grafik doskasi + 10 ta fizika + 4 ta yugurish — ka-yugurish.js). Kamera bir nechta qo'lni (1–4) bir vaqtda sezadi.
  * Qo'l kuzatuvi: MediaPipe Hands (brauzerda ishlaydi, video hech qayerga yuborilmaydi).
  * O'yin sahifasi:  <script>window.KAV_ID=5</script><script src="ka-virtual.js"></script>
  * Ro'yxat sahifasi: <script>window.KAV_HUB=1</script><script src="ka-virtual.js"></script>
@@ -645,6 +645,9 @@
     };
     for (var k in T) TOPICS[k] = T[k];
   })();
+  /* ---- Kengaytma (alohida fayl, masalan ka-yugurish.js): mavzular ---- */
+  var EXT = window.KAV_EXT || null;
+  if (EXT && EXT.topics) for (var ek in EXT.topics) TOPICS[ek] = EXT.topics[ek];
 
 
   // Juftlar (xotira o'yini): [chap, o'ng]
@@ -802,6 +805,7 @@
     burchak: { e: "📐", n: "Burchak", how: "Ikki qo'lning ko'rsatkich barmoqlari bilan chiziq hosil qiling (bitta qo'l bo'lsa — ko'rsatkich barmoq yo'nalishi). Yoki javobni yozing / 🎤 ayting. Chiziq gorizontal bilan kerakli burchak hosil qilsin va 3 soniya ushlab turing — 3·2·1 sanaladi va javob qabul qilinadi." }
   };
 
+  if (EXT && EXT.mech) for (var em in EXT.mech) MECH[em] = EXT.mech[em];
   /* ======================= 47 TA O'YIN ======================= */
   // m — mexanika, k — mavzu kaliti, th — vizual mavzu, i — ilhom manbai (asl sahifa nomi)
   var GAMES = [
@@ -866,7 +870,9 @@
     { t: "Og'irlik kuchi P = m·g", m: "yomgir", k: "ogirlik", th: "olov", i: "Fizika — og'irlik", fan: "fizika" },
     { t: "Issiqlik miqdori Q = cmΔt", m: "nishon", k: "issiqlik", th: "kamalak", i: "Fizika — issiqlik", fan: "fizika" }
   ];
+  if (EXT && EXT.games) GAMES.push.apply(GAMES, EXT.games);
   var SRC = { pufak: TOPICS, yomgir: TOPICS, orbita: TOPICS, nishon: TOPICS, pianino: TOPICS, barmoq: TOPICS, kesish: RULES, tutish: RULES, savat: BINS, tartib: ORDERS, sonoq: LINES, burchak: ANGLES, tutash: CHAINS, poyga: { poyga: { n: "Qo'shish va ayirish (tezlik)" } }, grafik: { grafik: { n: "Funksiya grafiklari" } } };
+  if (EXT && EXT.src) for (var es in EXT.src) SRC[es] = EXT.src[es];
   var PAIRN = { kopaytirish: "Ko'paytma juftlari", kasrFoiz: "Kasr = foiz", tenglama: "Tenglama = yechim" };
   GAMES.forEach(function (g, i) {
     g.id = i + 1;
@@ -969,6 +975,8 @@
   if (G.m === "barmoq" && CFG.hands < 2) CFG.hands = 2;
   if (G.duel) CFG.duel = true;
   if (G.m === "grafik") CFG.time = 180;
+  if (MK.time) CFG.time = MK.time;
+  if (MK.hands) CFG.hands = MK.hands;
 
   /* ----------------------- DOM ----------------------- */
   var css = [
@@ -2810,6 +2818,13 @@
   var SND = true;
 
   /* ======================= ASOSIY TSIKL ======================= */
+  // Kengaytma mexanikalari (alohida JS fayl): dvigatel ichki funksiyalariga kirish
+  if (EXT && EXT.install) EXT.install(M, {
+    get ctx() { return ctx; }, get W() { return W; }, get H() { return H; }, get U() { return U; }, get FONT() { return FONT; }, get TH() { return TH; }, get G() { return G; },
+    get CFG() { return CFG; }, get S() { return S; }, get hands() { return hands; }, get pointers() { return pointers; }, get mouseMode() { return mouseMode; }, get t() { return tGlobal; },
+    TOPICS: TOPICS, lvl: lvl, askQ: askQ, showQ: showQ, setQ: setQ, makeOpts: makeOpts, good: good, bad: bad, qDone: qDone, beep: beep, tone: tone, burst: burst, ftext: ftext,
+    drawBox: drawBox, drawBall: drawBall, fitFont: fitFont, teach: teach, banner: banner, rr: rr, R: R, pick: pick, shuffle: shuffle, clamp: clamp, mstr: mstr, dec: dec, Qz: Qz, typ: typ, lv: lv, esc: esc
+  });
   var mech = null, last = performance.now();
   function frame(now) {
     var rdt = Math.min(0.5, Math.max(0, (now - last) / 1000)), dt = Math.min(0.05, rdt); last = now; tGlobal += dt;
