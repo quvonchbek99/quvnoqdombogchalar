@@ -1,0 +1,42 @@
+{
+  "id": "2022-5",
+  "badge": "IMO 2022 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Daraja = faktorial + tub",
+      "fs": 37,
+      "body": "<p>Shunday barcha natural sonlar uchligi <span class='m'>(a, b, p)</span> ni toping (<span class='m'>p</span> — tub son), ular uchun</p><div class='box' style='text-align:center'><span class='m'>a<sup>p</sup> = b! + p</span></div><p>Bu yerda <span class='m'>b! = 1 · 2 · 3 · … · b</span>.</p><p>Bir qarashda oddiy tenglama — lekin yechim uchun <b>Vilson teoremasi</b>, <b>bo'linish</b> va <b>baholash</b> kerak bo'ladi.</p><p>Javob qanday chiqishini taxmin qila olasizmi? 🤔</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "b juda katta bo'la olmaydi",
+      "fs": 33,
+      "body": "<p><span class='m'>a = 1</span> bo'lmaydi, demak <span class='m'>a ≥ 2</span>.</p><p>Agar <span class='m'>b ≥ 2p</span> bo'lsa, <span class='m'>b!</span> soni <span class='m'>p<sup>2</sup></span> ga bo'linadi, ya'ni <span class='m'>b! + p</span> soni <span class='m'>p</span> ga bo'linadi, ammo <span class='m'>p<sup>2</sup></span> ga emas.</p><p>Lekin <span class='m'>p | a<sup>p</sup></span> bo'lsa, <span class='m'>p | a</span>, demak <span class='m'>p<sup>p</sup> | a<sup>p</sup></span>. Ziddiyat!</p><p><span class='m'>b = 2p − 1</span> holi ham <b>Vilson teoremasi</b> <span class='m'>(p − 1)! ≡ −1 (mod p)</span> yordamida chiqarib tashlanadi.</p><div class='box'><span class='m'>b ≤ 2p − 2</span> &nbsp;⇒&nbsp; <span class='m'>a<sup>p</sup> &lt; p<sup>2p</sup></span> &nbsp;⇒&nbsp; <span class='m'>a &lt; p<sup>2</sup></span></div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "a kichik bo'la olmaydi",
+      "fs": 34,
+      "body": "<p>Faraz qilaylik, <span class='m'>a &lt; p</span>. U holda</p><div class='box'><span class='m'>b! + p = a<sup>p</sup> ≥ a<sup>a</sup> + p &gt; a! + p</span> &nbsp;⇒&nbsp; <span class='m'>b &gt; a</span></div><p>Demak <span class='m'>a | b!</span>. Tenglamani <span class='m'>a</span> moduli bo'yicha qaraymiz:</p><div class='box'><span class='m'>0 ≡ 0 + p (mod a)</span> &nbsp;⇒&nbsp; <span class='m'>a | p</span></div><p>Ammo <span class='m'>2 ≤ a &lt; p</span> — bu mumkin emas. Demak</p><div class='box'><span class='m'>a ≥ p</span> &nbsp;va bundan &nbsp;<span class='m'>b ≥ p</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Aslida a = p",
+      "fs": 35,
+      "body": "<p><span class='m'>b ≥ p</span> bo'lgani uchun <span class='m'>p | b! + p = a<sup>p</sup></span>, ya'ni <span class='m'>p | a</span>.</p><p><span class='m'>a = pk</span> deymiz. 1-qadamdan <span class='m'>a &lt; p<sup>2</sup></span>, demak <span class='m'>k &lt; p ≤ b</span>, ya'ni <span class='m'>k | b!</span>.</p><p>Unda <span class='m'>k</span> soni <span class='m'>a<sup>p</sup> − b! = p</span> ni ham bo'lishi kerak. <span class='m'>k &lt; p</span> bo'lgani uchun faqat <span class='m'>k = 1</span>.</p><div class='box' style='text-align:center'><span class='m'>a = p</span>, &nbsp; ya'ni &nbsp; <span class='m'>b! = p<sup>p</sup> − p</span></div><p>Endi tenglama faqat ikki noma'lumli bo'ldi!</p>"
+    },
+    {
+      "kicker": "YECHIM · YAKUN",
+      "title": "Kichik p va Zsigmondi",
+      "fs": 32,
+      "body": "<p><b>p = 2:</b> <span class='m'>b! = 2</span> ⇒ <span class='m'>b = 2</span> → <span class='m'>(2, 2, 2)</span> ✅</p><p><b>p = 3:</b> <span class='m'>b! = 24</span> ⇒ <span class='m'>b = 4</span> → <span class='m'>(3, 4, 3)</span> ✅</p><p><b>p ≥ 5:</b> <span class='m'>b! = p(p<sup>p−1</sup> − 1)</span>. <b>Zsigmondi teoremasi</b> bo'yicha <span class='m'>p<sup>p−1</sup> − 1</span> ning shunday tub bo'luvchisi <span class='m'>q</span> bor, unda</p><div class='box'><span class='m'>q ≡ 1 (mod p − 1)</span>, &nbsp; <span class='m'>q ≠ p</span> &nbsp;⇒&nbsp; <span class='m'>q ≥ 2p − 1</span></div><p>Lekin <span class='m'>q | b!</span>, demak <span class='m'>q ≤ b ≤ 2p − 2</span>. Ziddiyat! ∎</p><div class='box' style='text-align:center'>Javob: <span class='m'>(2, 2, 2)</span> va <span class='m'>(3, 4, 3)</span></div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 35,
+      "body": "<p><span class='m'>2<sup>2</sup> = 2! + 2 = 4</span> ✅</p><p><span class='m'>3<sup>3</sup> = 4! + 3 = 27</span> ✅</p><div class='box'>Asosiy g'oya: <b>baholash</b> (<span class='m'>p ≤ b ≤ 2p − 2</span>) + <b>bo'linish</b> → <span class='m'>a = p</span> → kichik hollar.</div><p>Yechim Evan Chen yozuvlari asosida. Muallif: Tijs Buggenhout (Belgiya).</p><p>🧠 <b>Sizga savol:</b> <span class='m'>a<sup>2</sup> = b! + 2</span> tenglamaning barcha natural yechimlarini toping. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2022 · 6-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
