@@ -591,5 +591,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Fil uning ovozidan qo'rqib yo'l bo'ylab ketayotgan edi", "U filni qiziqtirish uchun ko'p vizillagan edi", "U o'zining filni boshqarayotganini o'ylagan edi, aslida fil uni sezmagan edi"],
     javob: 2,
     izoh: "Kichik narsa o'zining ta'sirini katta deb o'ylashi mumkin. Haqiqatda kuch o'zini ko'rsatish bilan emas, amal bilan o'lchanadi."
+  },
+  {
+    id: "ez-075", mavzu: "ibrat", sarlavha: "Tog' va sichqon",
+    matn: "Vodiyda ulkan bir tog' turardi, uning ichidan tez-tez gumburlagan ovozlar eshitilar, yer silkinardi. Odamlar qo'rqib, nima bo'layotganini bilishga intilishdi. Bir kuni tog' qattiq ingrab, yorilgandek bo'ldi va bu voqea butun vodiyga tarqaldi. Ko'p odamlar tog'dan ulkan bir ajdaho yoki boshqa dahshatli narsa chiqishini kutib, uning atrofiga yig'ilishdi. Uzoq kutishdan so'ng tog' yorilib, undan faqat bitta kichkina sichqon sudralib chiqdi.",
+    savol: "Tog' yorilganda undan nima chiqdi?",
+    variantlar: ["Ulkan ajdaho", "Bitta kichkina sichqon", "Ko'p miqdordagi oltin"],
+    javob: 1,
+    izoh: "Katta shov-shuv va ulkan kutishlar ortida ko'pincha kichik natija bo'ladi. Gapni hajmiga emas, haqiqiy natijasiga qarab baholash kerak."
   }
 ];
