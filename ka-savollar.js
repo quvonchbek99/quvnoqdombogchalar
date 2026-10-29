@@ -182,7 +182,7 @@
   // yozuvni tozalash: "1π" → "π", "+ −9" → "− 9", "− −9" → "+ 9", "1x" → "x", "x¹" → "x", "·-2" → "·(−2)"
   function tidy(v) {
     if (typeof v !== "string") return v;
-    return v.replace(/(^|[^\d.,\/])1π/g, "$1π")
+    return v.replace(/(^|[^\d.,\/])1(π|√)/g, "$1$2")
       .replace(/\+ [−-](?=\s?\d|\s?[a-z(√])/g, "− ").replace(/([^\w(]|^)[−-] [−-](?=\s?\d)/g, "$1+ ")
       .replace(/(^|[\s(=+−\-·:;])1(?=[xyzab](?![a-zA-Z']))/g, "$1")      // 1x → x, −1x → −x
       .replace(/([a-z])¹(?![⁰¹²³⁴⁵⁶⁷⁸⁹])/g, "$1")                         // x¹ → x

@@ -13,14 +13,14 @@
   }
   function txtQ(q, a, w, steps, hint) { return { q: q, a: a, hint: hint || "javob", type: "text", w: uniq(w).filter(function (x) { return x !== String(a); }).slice(0, 4), steps: steps }; }
   function bank(list) { var it = pick(list); return txtQ(it[0], it[1], it[2], it[3]); }
-  function pi(k) { return k + "π"; }
+  function pi(k) { k = +k; return (k === 1 ? "" : k) + "π"; }
   function piQ(q, k, steps, extra) {
-    var w = (extra || []).concat([k + 1, k - 1, 2 * k, k * 2 + 1, Math.max(1, Math.round(k / 2))]).filter(function (x) { return x > 0 && x !== k; });
+    var w = (extra || []).concat([k + 1, k - 1, 2 * k, k * 2 + 1, Math.max(1, Math.round(k / 2)), k + 2, 4 * k, k + 3]).filter(function (x) { return x > 0 && x !== k; });
     return txtQ(q, pi(k), uniq(w).map(pi), steps, "π ko'paytmasi");
   }
   function rootQ(q, k, r, steps, extra) { // k√r
     var w = (extra || []).concat([k + 1, k - 1, 2 * k, k * 2 + 2, k + 2]).filter(function (x) { return x > 0 && x !== k; });
-    var f = function (x) { return (x === 1 ? "" : x) + "√" + r; };
+    var f = function (x) { x = +x; return (x === 1 ? "" : x) + "√" + r; };
     return txtQ(q, f(k), uniq(w).map(f), steps, "ildizli ifoda");
   }
   var TRI = [[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [9, 40, 41]];
@@ -88,7 +88,7 @@
     ["Trapetsiyaning o'rta chizig'i nimaga teng?", "asoslari yig'indisining yarmiga", ["asoslari ayirmasiga", "asoslari ko'paytmasiga", "balandligiga"], ["m = (a + b)/2"]],
     ["Trapetsiya yuzi formulasi qaysi?", "S = (a + b)/2 · h", ["S = a · h", "S = (a · b)/2", "S = a + b + h"], ["O'rta chiziq × balandlik"]],
     ["Teng yonli trapetsiyada nima teng bo'ladi?", "yon tomonlari va diagonallari", ["asoslari", "faqat balandligi", "hech narsa"], ["Teng yonli trapetsiyada diagonallar teng va asosdagi burchaklar teng"]],
-    ["Trapetsiyaga aylana ichki chizilishi uchun qanday shart kerak?", "asoslar yig'indisi yon tomonlar yig'indisiga teng", ["asoslari teng", "diagonallari teng", "balandligi asosdan katta"], ["Tashqi to'rtburchakka aylana chizilsa, qarama-qarshi tomonlar yig'indisi teng"]],
+    ["Trapetsiyaga aylana ichki chizilishi uchun qanday shart kerak?", "asoslar yig'indisi yon tomonlar yig'indisiga teng", ["asoslari teng", "diagonallari teng", "balandligi asosdan katta"], ["To'rtburchakka aylana ichki chizilsa, qarama-qarshi tomonlar yig'indilari teng", "Trapetsiyada: a + b = c + d (asoslar yig'indisi = yon tomonlar yig'indisi)"]],
     ["Rombning yuzi diagonallar orqali qanday topiladi?", "S = d₁·d₂ / 2", ["S = d₁ + d₂", "S = d₁·d₂", "S = (d₁ + d₂)/2"], ["Yuz diagonallar ko'paytmasining yarmi"]]
   ];
   G.t72 = function (L) {
@@ -174,7 +174,7 @@
       return piQ("Radiusi " + r9 + " bo'lgan doira sektorining burchagi " + o2[0] + "°. Sektor yuzini toping (π ko'paytmasi).", area,
         ["S = πr²α/360 = π·" + r9 * r9 + "·" + o2[0] + "/360 = " + area + "π"]); }
     if (k === 10) { var ang = pick([20, 25, 30, 35, 40, 55]);
-      return numQ("Aylananing diametriga tiralgan ABC burchakda C nuqta aylana ustida, ∠A = " + ang + "°. ∠B ni toping.", 90 - ang,
+      return numQ("AB — aylana diametri, C nuqta aylanada yotadi. ABC uchburchakda ∠A = " + ang + "°. ∠B ni toping.", 90 - ang,
         ["Diametrga tiralgan ichki burchak ∠C = 90°", "∠B = 180° − 90° − " + ang + "° = " + (90 - ang) + "°"]); }
     if (k === 11) { var ra = R(2, 9);
       return piQ("Diametri " + 2 * ra + " bo'lgan doiraning yuzini toping (π ko'paytmasi).", ra * ra, ["r = " + ra, "S = πr² = " + ra * ra + "π"]); }
@@ -211,8 +211,8 @@
       return rootQ("Tomoni " + a6 + " bo'lgan muntazam oltiburchakning yuzini toping.", 3 * a6 * a6 / 2, 3, ["S = 3√3·a²/2 = 3√3·" + a6 * a6 + "/2 = " + 3 * a6 * a6 / 2 + "√3"]); }
     if (k === 7) { var a7 = R(2, 12);
       return numQ("Tomoni " + a7 + " bo'lgan kvadratga ichki chizilgan aylana radiusini toping.", a7 / 2 === Math.floor(a7 / 2) ? a7 / 2 : a7, ["r = a/2 = " + a7 + "/2"]).a % 1 === 0 ? numQ("Tomoni " + (a7 % 2 ? a7 + 1 : a7) + " bo'lgan kvadratga ichki chizilgan aylana radiusini toping.", (a7 % 2 ? a7 + 1 : a7) / 2, ["r = a/2"]) : bank(T74); }
-    if (k === 8) { var P = R(3, 12) * 2, r = R(2, 9);
-      return numQ("Muntazam ko'pburchakning perimetri " + P + ", apofemasi " + r + ". Yuzini toping.", P * r / 2, ["S = (1/2)·P·r = (1/2)·" + P + "·" + r + " = " + P * r / 2]); }
+    if (k === 8) { var r = R(2, 9), P = 2 * R(Math.ceil(Math.PI * r) + 1, Math.ceil(Math.PI * r) + 12);
+      return numQ("Radiusi " + r + " bo'lgan aylanaga tashqi chizilgan ko'pburchakning perimetri " + P + ". Yuzini toping.", P * r / 2, ["Tashqi chizilgan ko'pburchak uchun S = p·r (p — yarim perimetr)", "S = (1/2)·" + P + "·" + r + " = " + P * r / 2]); }
     if (k === 9) { var m = R(5, 12), s = R(2, 10);
       return numQ("Muntazam " + m + " burchakning tomoni " + s + ". Perimetrini toping.", m * s, ["P = n·a = " + m + "·" + s + " = " + m * s]); }
     if (k === 10) { var a10 = pick([6, 12, 18, 24, 30]);
@@ -232,7 +232,7 @@
     ["To'g'ri prizmaning yon sirti formulasi qaysi?", "S_yon = P_asos · H", ["S_yon = S_asos · H", "S_yon = 2P_asos", "S_yon = P_asos / H"], ["Asos perimetri × balandlik"]],
     ["To'g'ri burchakli parallelepiped diagonali formulasi qaysi?", "d² = a² + b² + c²", ["d = a + b + c", "d² = a² + b²", "d = abc"], ["Uch o'lcham kvadratlari yig'indisining ildizi"]],
     ["Parallelepipedning diagonallari qanday kesishadi?", "bir nuqtada teng ikkiga bo'linadi", ["kesishmaydi", "perpendikulyar", "uchdan bir nisbatda"], ["To'rt diagonal bir nuqtada kesishib teng ikkiga bo'linadi"]],
-    ["Kubning barcha yoqlari qanday shakl?", "kvadrat", ["to'g'ri to'rtburchak", "romb", "parallelogramm"], ["Kub — 6 ta teng kvadratdan iborat"]],
+    ["Kubning barcha yoqlari qanday shakl?", "teng kvadratlar", ["teng uchburchaklar", "trapetsiyalar", "teng beshburchaklar"], ["Kub — 6 ta teng kvadratdan iborat"]],
     ["Parallelepipedda nechta yoq bor?", "6", ["4", "8", "12"], ["6 yoq, 8 uch, 12 qirra"]]
   ];
   var BOX = [[1, 2, 2, 3], [2, 3, 6, 7], [2, 4, 4, 6], [3, 4, 12, 13], [4, 4, 7, 9], [1, 4, 8, 9], [6, 6, 7, 11], [2, 10, 11, 15]];
@@ -303,7 +303,8 @@
       return numQ("Muntazam to'rtburchakli piramidaning hajmi: asos tomoni " + a7 + ", balandligi " + h7 * 3 + ". Hajmini toping.", a7 * a7 * h7, ["V = (1/3)·" + a7 * a7 + "·" + h7 * 3 + " = " + a7 * a7 * h7]); }
     if (k === 8) { var s8 = R(2, 12);
       return txtQ("Muntazam tetraedrning qirrasi " + s8 + ". Uning to'la sirtida nechta teng tomonli uchburchak bor va ularning har birining tomoni nechaga teng?", "4 ta, tomoni " + s8,
-        ["4 ta teng tomonli uchburchak, hammasi " + s8 + " tomonli", "6 ta qirra, barchasi teng"], "javob"); }
+        ["3 ta, tomoni " + s8, "4 ta, tomoni " + (s8 % 2 ? s8 * 2 : s8 / 2), "6 ta, tomoni " + s8, "8 ta, tomoni " + s8],
+        ["Muntazam tetraedr — 4 ta teng tomonli uchburchak yoqdan iborat", "Har bir yoqning tomoni tetraedr qirrasiga teng: " + s8]); }
     if (k === 9) { var a9 = pick([4, 6, 8]), hh = pick([3, 6]);
       var b9 = a9 - 2, A1 = a9 * a9, B1 = b9 * b9, vol = hh * (A1 + a9 * b9 + B1) / 3;
       return numQ("Kesik piramidaning asoslari kvadrat: tomonlari " + a9 + " va " + b9 + ", balandligi " + hh + ". Hajmini toping (V = h/3·(S₁ + S₂ + √(S₁S₂))).", vol,

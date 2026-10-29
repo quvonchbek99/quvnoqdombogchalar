@@ -89,7 +89,7 @@
         steps: ["Modul — sonning noldan masofasi: " + Math.abs(n2)] }; }
     if (k === 2) { var n3 = R(1000, 99999), m = pick([10, 100, 1000]), nm = { 10: "o'nlar", 100: "yuzlar", 1000: "minglar" }[m];
       return { q: n3 + " sonini " + nm + " xonasigacha yaxlitlang.", a: Math.round(n3 / m) * m, hint: "son",
-        w: [Math.floor(n3 / m) * m, Math.ceil(n3 / m) * m, Math.round(n3 / m) * m + m, Math.round(n3 / m) * m - m].filter(function (x) { return x !== Math.round(n3 / m) * m; }),
+        w: [Math.floor(n3 / m) * m, Math.ceil(n3 / m) * m, Math.round(n3 / m) * m + m, Math.round(n3 / m) * m - m, Math.round(n3 / (m * 10)) * m * 10, Math.round(n3 / m) * m + 2 * m].filter(function (x) { return x !== Math.round(n3 / m) * m && x > 0; }),
         steps: ["Keyingi raqam 5 dan kichik bo'lsa pastga, aks holda yuqoriga", n3 + " ≈ " + Math.round(n3 / m) * m] }; }
     if (k === 3) { var n4 = R(1, 49); return { q: "Rim raqamidagi " + roman(n4) + " sonini arab raqamida yozing.", a: n4, hint: "son", w: nearW(n4, 5, 6),
       steps: [roman(n4) + " = " + n4] }; }
@@ -130,7 +130,7 @@
   /* ===== 52. Ko'phadni ko'paytuvchilarga ajratish ===== */
   G.t52 = function (L) {
     var k = pick(L === 1 ? [0, 1] : [0, 1, 2]);
-    var x1 = RNZ(-8, 8), x2 = RNZ(-8, 8); if (x1 === x2) x2 = x1 + 1;
+    var x1 = RNZ(-8, 8), x2; do { x2 = RNZ(-8, 8); } while (x2 === x1);
     if (k === 0) { var b = -(x1 + x2), c = x1 * x2;
       var f = "(x " + (x1 > 0 ? "− " + x1 : "+ " + (-x1)) + ")(x " + (x2 > 0 ? "− " + x2 : "+ " + (-x2)) + ")";
       return { q: poly([1, b, c]) + " ni ko'paytuvchilarga ajratish uchun ildizlari qanday?", a: ms(Math.min(x1, x2)) + "; " + ms(Math.max(x1, x2)), hint: "x₁; x₂", type: "text",
@@ -162,7 +162,7 @@
       steps: ["|x| < a → −a < x < a", "Javob: (" + ms(-c) + "; " + c + ")"] };
     return { q: "|x| > " + c + " tengsizlikni yeching.", a: "(−∞; " + ms(-c) + ")∪(" + c + "; +∞)", hint: "oraliq", type: "text",
       w: ["(" + ms(-c) + "; " + c + ")", "[" + ms(-c) + "; " + c + "]", "(" + c + "; +∞)", "(−∞; " + ms(-c) + ")"],
-      steps: ["|x| > a → x < −a yoki x > a", "Javob: (−∞; " + ms(-c) + ")∪(" + c + "; +∞)"] };
+      steps: ["|x| > a → x &lt; −a yoki x &gt; a", "Javob: (−∞; " + ms(-c) + ")∪(" + c + "; +∞)"] };
   };
 
   /* ===== 54. Arifmetik progressiya ===== */
@@ -200,9 +200,10 @@
     if (k === 2) { var i = R(2, 7), v1 = b1 * Math.pow(q, i - 1), v2 = b1 * Math.pow(q, i);
       return { q: "b" + i + " = " + ms(v1) + ", b" + (i + 1) + " = " + ms(v2) + ". q ni toping.", a: q, hint: "son", w: nearW(q, 5, 3),
         steps: ["q = b" + (i + 1) + " / b" + i + " = " + ms(v2) + " : " + ms(v1), "= " + ms(q)] }; }
-    if (k === 3) { var den = pick([2, 3, 4, 5, 10]), b0 = den * R(1, 8), inf = b0 / (1 - 1 / den);
+    if (k === 3) { var den = pick([2, 3, 4, 5, 10]), b0 = (den - 1) * R(1, 8), inf = b0 * den / (den - 1);
       return { q: "Cheksiz kamayuvchi progressiyada b₁ = " + b0 + ", q = 1/" + den + ". Yig'indisini toping.", a: inf, hint: "son",
-        w: nearW(inf, 5, Math.max(3, Math.round(inf / 3))), steps: ["S = b₁/(1 − q) = " + b0 + "/(1 − 1/" + den + ")", "= " + inf] }; }
+        w: nearW(inf, 5, Math.max(3, Math.round(inf / 3))).concat([b0 * 2]).filter(function (v) { return v > 0 && v !== inf; }),
+        steps: ["S = b₁/(1 − q) = " + b0 + "/(1 − 1/" + den + ")", "= " + b0 + " : " + (den - 1) + "/" + den + " = " + b0 + "·" + den + "/" + (den - 1), "= " + inf] }; }
     var m = R(1, 6), g1 = Math.pow(2, m), g3 = Math.pow(2, m + 2);
     return { q: "Geometrik progressiyada b₁ = " + g1 + ", b₃ = " + g3 + " (q > 0). b₂ ni toping.", a: Math.pow(2, m + 1), hint: "son",
       w: nearW(Math.pow(2, m + 1), 5, Math.max(3, Math.pow(2, m))), steps: ["b₂² = b₁·b₃ = " + (g1 * g3), "b₂ = √" + (g1 * g3) + " = " + Math.pow(2, m + 1)] };
@@ -237,17 +238,16 @@
       while (s % xs.length !== 0) { xs[0]++; s++; }
       return { q: xs.join("; ") + " sonlarining arifmetik o'rtasini toping.", a: s / xs.length, hint: "son", w: nearW(s / xs.length, 5, 6),
         steps: ["Yig'indi: " + s, s + " : " + xs.length + " = " + s / xs.length] }; }
-    if (k === 1) { var g = pick([2, 3, 4, 5, 6, 8, 10, 12]), m = pick([1, 2, 3, 4]);
+    if (k === 1) { var g = pick([2, 3, 4, 5, 6, 8, 10, 12]), m = pick([2, 3, 4]);
       var a = g / m > 0 ? g * m : g, b = g / m;
       a = g * m; b = Math.round(g / m) === g / m ? g / m : g;
       var gm = Math.sqrt(a * b);
       if (gm !== Math.round(gm)) { a = 4; b = 9; gm = 6; }
-      return { q: a + " va " + b + " sonlarining geometrik o'rtasini toping.", a: gm, hint: "son", w: nearW(gm, 5, 4).concat([(a + b) / 2]).filter(function (x) { return x !== gm; }),
+      return { q: a + " va " + b + " sonlarining geometrik o'rtasini toping.", a: gm, hint: "son", w: nearW(gm, 5, 4).concat([(a + b) / 2]).filter(function (x) { return x !== gm && x > 0; }),
         steps: ["√(a·b) = √" + (a * b), "= " + gm] }; }
-    if (k === 2) { var p = pick([2, 3, 4, 6]), q = pick([3, 6, 12]);
+    if (k === 2) { var hp = pick([[3, 6], [2, 6], [4, 12], [6, 12], [10, 15], [12, 24], [6, 3], [15, 10], [5, 20], [12, 4]]), p = hp[0], q = hp[1];
       var hm = 2 * p * q / (p + q);
-      if (hm !== Math.round(hm)) { p = 3; q = 6; hm = 4; }
-      return { q: p + " va " + q + " sonlarining garmonik o'rtasini toping.", a: hm, hint: "son", w: nearW(hm, 5, 3).concat([(p + q) / 2]).filter(function (x) { return x !== hm; }),
+      return { q: p + " va " + q + " sonlarining garmonik o'rtasini toping.", a: hm, hint: "son", w: nearW(hm, 5, 3).concat([(p + q) / 2]).filter(function (x) { return x !== hm && x > 0; }),
         steps: ["2ab/(a+b) = 2·" + p + "·" + q + "/(" + p + " + " + q + ")", "= " + hm] }; }
     return { q: "Ikki musbat son uchun arifmetik, geometrik va garmonik o'rtalar qanday tartibda joylashadi?",
       a: "garmonik ≤ geometrik ≤ arifmetik", hint: "tartib", type: "text",
@@ -262,7 +262,7 @@
     var k = pick(L === 1 ? [0] : L === 2 ? [0, 1] : [1, 2]);
     if (k === 0) return { q: "Determinantni hisoblang: | " + ms(a) + " " + ms(b) + " ; " + ms(c) + " " + ms(d) + " |", a: det, hint: "son", w: nearW(det, 5, Math.max(4, Math.abs(det) / 2)).concat([a * d + b * c]),
       steps: ["Δ = ad − bc = " + ms(a) + "·" + ms(d) + " − " + ms(b) + "·" + ms(c), "= " + det] };
-    if (k === 1) { if (det === 0) { d += 1; det = a * d - b * c; if (det === 0) { d += 1; det = a * d - b * c; } }
+    if (k === 1) { var gd = 0; while ((det === 0 || d === 0 || b === 0) && gd++ < 50) { a = RNZ(-6, 6); b = RNZ(-6, 6); c = RNZ(-6, 6); d = RNZ(-6, 6); det = a * d - b * c; }
       var x = RNZ(-5, 5), y = RNZ(-5, 5), e = a * x + b * y, f = c * x + d * y;
       return { q: "Kramer usuli bilan yeching: " + ms(a) + "x + " + ms(b) + "y = " + ms(e) + " ; " + ms(c) + "x + " + ms(d) + "y = " + ms(f) + ". x ni toping.",
         a: x, hint: "son", w: nearW(x, 5, 4).concat([y]).filter(function (v) { return v !== x; }),
@@ -355,7 +355,7 @@
       var out = 1, inn = m;
       for (var i = 2; i * i <= inn; i++) while (inn % (i * i) === 0) { out *= i; inn /= i * i; }
       return { q: "√" + m + " ni soddalashtiring.", a: out + "√" + inn, hint: "k√m", type: "text",
-        w: ["√" + m, (out + 1) + "√" + inn, out + "√" + (inn + 1), String(out * inn)],
+        w: [(out * out) + "√" + inn, (out + 1) + "√" + inn, out + "√" + (inn + 1), String(out * inn), inn + "√" + out],
         steps: ["√" + m + " = √(" + out * out + "·" + inn + ") = " + out + "√" + inn] }; }
     if (k === 2) { var b = pick([4, 8, 9, 16, 27, 25, 32, 64, 81, 125]);
       var tbl = { 4: ["1/2", 2], 9: ["1/2", 3], 16: ["1/2", 4], 25: ["1/2", 5], 81: ["1/2", 9], 8: ["1/3", 2], 27: ["1/3", 3], 64: ["1/3", 4], 125: ["1/3", 5], 32: ["1/5", 2] };
@@ -372,7 +372,7 @@
 
   /* ===== 63. Vyet teoremasi ===== */
   G.t63 = function (L) {
-    var x1 = RNZ(-9, 9), x2 = RNZ(-9, 9); if (x1 === x2) x2 = x1 + 1;
+    var x1 = RNZ(-9, 9), x2; do { x2 = RNZ(-9, 9); } while (x2 === x1);
     var b = -(x1 + x2), c = x1 * x2;
     var k = pick(L === 1 ? [0, 1] : L === 2 ? [0, 1, 2] : [2, 3, 4]);
     if (k === 0) return { q: poly([1, b, c]) + " = 0 tenglamada ildizlar yig'indisini toping.", a: x1 + x2, hint: "son", w: nearW(x1 + x2, 5, 4).concat([c, -c]).filter(function (v) { return v !== x1 + x2; }),
@@ -388,7 +388,7 @@
       w: [poly([1, -b, c]) + " = 0", poly([1, b, -c]) + " = 0", poly([1, -b, -c]) + " = 0", poly([1, x1, x2]) + " = 0"],
       steps: ["x² − (x₁+x₂)x + x₁x₂ = 0", "x² − " + ms(x1 + x2) + "x + " + ms(c) + " = 0 → " + poly([1, b, c]) + " = 0"] };
     return { q: poly([1, b, c]) + " = 0 tenglamada 1/x₁ + 1/x₂ ni toping.", a: fr(x1 + x2, c), hint: "kasr", type: "text",
-      w: [fr(c, x1 + x2), fr(-(x1 + x2), c), String(x1 + x2), String(c)],
+      w: (x1 + x2 !== 0 ? [fr(c, x1 + x2)] : ["1", "−1"]).concat([fr(-(x1 + x2), c), String(x1 + x2), String(c), fr(x1 + x2 + 1, c)]),
       steps: ["1/x₁ + 1/x₂ = (x₁ + x₂)/(x₁x₂)", "= " + (x1 + x2) + "/" + c + " = " + fr(x1 + x2, c)] };
   };
 
@@ -433,11 +433,12 @@
     if (k === 0) return { q: "P(x) = " + poly([a, b, c, d]) + " ko'phadni (x " + (r > 0 ? "− " + r : "+ " + (-r)) + ") ga bo'lgandagi qoldiqni toping.",
       a: val, hint: "son", w: nearW(val, 5, Math.max(5, Math.abs(val) / 2)),
       steps: ["Bezu teoremasi: qoldiq = P(" + ms(r) + ")", "P(" + ms(r) + ") = " + val] };
-    if (k === 1) { // ildiz bo'ladigan holat
-      var d2 = d - val;
+    if (k === 1) { // ildiz bo'ladigan yoki bo'lmaydigan holat
+      var yes = Math.random() < .5, d2 = d - val + (yes ? 0 : RNZ(-5, 5));
+      var rem = val + (d2 - d);
       return { q: "P(x) = " + poly([a, b, c, d2]) + " ko'phad (x " + (r > 0 ? "− " + r : "+ " + (-r)) + ") ga qoldiqsiz bo'linadimi?",
-        a: "ha", hint: "ha / yo'q", type: "text", w: ["yo'q"],
-        steps: ["P(" + ms(r) + ") = 0 → Bezu teoremasi bo'yicha qoldiqsiz bo'linadi"] }; }
+        a: yes ? "ha" : "yo'q", hint: "ha / yo'q", type: "text", w: [yes ? "yo'q" : "ha"],
+        steps: ["Bezu teoremasi: qoldiq = P(" + ms(r) + ")", "P(" + ms(r) + ") = " + ms(rem) + (yes ? " → qoldiqsiz bo'linadi" : " ≠ 0 → qoldiqsiz bo'linmaydi")] }; }
     return { q: "Gorner sxemasi nima uchun ishlatiladi?", a: "ko'phadni (x − a) ga bo'lish va qiymatini hisoblash", hint: "maqsad", type: "text",
       w: ["kvadrat tenglamani yechish", "logarifm hisoblash", "matritsani aylantirish"],
       steps: ["Gorner sxemasi — ko'phadni chiziqli ikkihadga bo'lishning tez usuli; qoldiq P(a) ga teng"] };
@@ -502,7 +503,7 @@
   /* ===== 70. Aniqmas integral ===== */
   G.t70 = function (L) {
     var k = pick(L === 1 ? [0, 1] : L === 2 ? [0, 1, 2] : [2, 3, 4]);
-    var n = R(1, L === 3 ? 7 : 4), c = R(2, 9);
+    var n = R(2, L === 3 ? 7 : 4), c = R(2, 9);
     if (k === 0) return { q: "∫x" + sup(n) + " dx ni toping.", a: "x" + sup(n + 1) + "/" + (n + 1) + " + C", hint: "ifoda", type: "text",
       w: ["x" + sup(n - 1) + "/" + n + " + C", n + "x" + sup(n - 1) + " + C", "x" + sup(n + 1) + " + C", (n + 1) + "x" + sup(n) + " + C"],
       steps: ["∫xⁿ dx = xⁿ⁺¹/(n+1) + C", "= x" + sup(n + 1) + "/" + (n + 1) + " + C"] };
