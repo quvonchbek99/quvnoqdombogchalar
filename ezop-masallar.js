@@ -647,5 +647,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki yoriq chelakdan tomchilagan suv ham foydali joyga yetkazilishi mumkin edi", "Chunki yoriq chelak ustida hech qanday kamchilik yo'q edi", "Chunki qo'shnisi unga yangi chelak sotib olib berishni va'da qilgan edi"],
     javob: 0,
     izoh: "Kamchilikni darhol yo'q qilish shart emas. Kamchilikni boshqacha yo'naltirib, undan foyda olish mumkin bo'ladi."
+  },
+  {
+    id: "ez-082", mavzu: "sabr", sarlavha: "Burgut va qo'ng'iz",
+    matn: "Burgut qo'ng'izning uyasini oyoqlari bilan buzib tashlagan edi. Qo'ng'iz uni kechirmadi va burgutning tuxumlarini topguncha uni kuzatib yurdi. Burgut tuxumlarini baland qoyadagi uyasiga qo'yib, o'zi ov qilish uchun uchib ketdi. Qo'ng'iz esa burgut uzoqlashishini sabr bilan kutdi, so'ng uyaga yetib borib tuxumlarni yerga dumalatib tushirdi.",
+    savol: "Qo'ng'iz burgut tuxumlarini nega yo'q qila oldi?",
+    variantlar: ["Chunki u burgutdan kuchliroq edi va uni yengdi", "Chunki u burgutning uzoqlashgan vaqtini sabr bilan kutib, qulay paytda harakat qildi", "Chunki burgut tuxumlarini ataylab unga berib ketgan edi"],
+    javob: 1,
+    izoh: "Kuchli dushman ham e'tiborsiz qolgan paytda zaiflashadi. Sabr va to'g'ri paytni kutish kichik kuchga ham katta natija berishi mumkin."
   }
 ];
