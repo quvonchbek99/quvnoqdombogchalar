@@ -31,6 +31,7 @@
     return P;
   }
 
+  function tday(ms) { return Math.floor((ms + 5 * 3600000) / 86400000); } // Toshkent kuni (UTC+5)
   function norm(s) { return String(s || "").replace(/[ʻʼ‘’`]/g, "'").replace(/[−–—]/g, "-").replace(/\s+/g, " ").trim().toLowerCase(); }
 
   // Ism+guruhdan maxfiy bo'lmagan "email" (ismni serverga email sifatida yozmaymiz)
@@ -60,6 +61,7 @@
     if (c === "auth/provider-already-linked") return "Gmail allaqachon ulangan.";
     if (c === "no-profile") return "Bu Gmail hali hech bir akkountga ulanmagan. Avval parol bilan kiring va profilda «Gmail ulash» ni bosing.";
     if (c === "permission-denied") return "Ruxsat yo'q.";
+    if (c === "kam-tanga") return "Bilimcoin yetmaydi" + (e.need ? " — yana " + e.need + " ₿ kerak." : ".");
     return "Xatolik yuz berdi. Qayta urinib ko'ring.";
   }
 
@@ -97,7 +99,7 @@
       }
       if (!cloudState) {
         var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000);
-        await c.F.setDoc(ref, first);
+        await c.F.setDoc(ref, first, { merge: true });
         cloudState = { coins: first.coins, correct: first.correct, answered: first.answered, tests: first.tests };
       }
       for (var guard = 0; guard < 60; guard++) {
@@ -107,7 +109,7 @@
         next.answered = Math.max(next.answered, cloudState.answered);
         next.tests = Math.max(next.tests, cloudState.tests);
         next.coins = Math.max(next.coins, cloudState.coins);
-        await c.F.setDoc(ref, next);
+        await c.F.setDoc(ref, next, { merge: true });
         var gain = next.coins !== cloudState.coins;
         cloudState = { coins: next.coins, correct: next.correct, answered: next.answered, tests: next.tests };
         if (next.coins >= target.coins) break;
@@ -236,6 +238,44 @@
         catch (e) { var k = e && e.code; if (k === "auth/email-already-in-use" || k === "auth/credential-already-in-use") throw { code: "auth/email-already-in-use" }; throw e; }
       }
       return u.uid;
+    },
+    // ---- Bilim daraxti va Bilimcoin ₿ (kuniga 1 ta; qoidalar firestore.rules'da) ----
+    tday: tday,
+    daraxt: async function () {
+      var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser; if (!u) return null;
+      var s = await c.F.getDoc(c.F.doc(c.db, "users", u.uid)); if (!s.exists()) return null;
+      var d = s.data();
+      return { uid: u.uid, bc: d.bc | 0, suv: d.suv | 0, streak: d.streak | 0, dailyAt: d.dailyAt && d.dailyAt.toMillis ? d.dailyAt.toMillis() : 0 };
+    },
+    suvQuy: async function () {
+      var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser;
+      if (!u) throw { code: "auth/requires-recent-login" };
+      var ref = c.F.doc(c.db, "users", u.uid), s = await c.F.getDoc(ref);
+      if (!s.exists()) throw { code: "no-profile" };
+      var d = s.data(), last = d.dailyAt && d.dailyAt.toMillis ? d.dailyAt.toMillis() : 0, now = Date.now();
+      var r = { uid: u.uid, bc: d.bc | 0, suv: d.suv | 0, streak: d.streak | 0, dailyAt: last, already: true };
+      if (last && tday(last) >= tday(now)) return r;
+      var streak = last && tday(last) === tday(now) - 1 ? (d.streak | 0) + 1 : 1;
+      await c.F.updateDoc(ref, { bc: r.bc + 1, suv: r.suv + 1, streak: streak, dailyAt: c.F.serverTimestamp(), updated: c.F.serverTimestamp() });
+      return { uid: u.uid, bc: r.bc + 1, suv: r.suv + 1, streak: streak, dailyAt: now, already: false };
+    },
+    // Pro sotib olish: 7 kun = 15 ₿, 30 kun = 50 ₿ (ikkala yozuv bitta paketda — qoidalar tekshiradi)
+    PRO_NARX: { 7: 15, 30: 50 },
+    buyPro: async function (days) {
+      var cost = { 7: 15, 30: 50 }[days]; if (!cost) throw { code: "bad-days" };
+      var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser;
+      if (!u) throw { code: "auth/requires-recent-login" };
+      var uref = c.F.doc(c.db, "users", u.uid), pref = c.F.doc(c.db, "premium", u.uid);
+      var us = await c.F.getDoc(uref); if (!us.exists()) throw { code: "no-profile" };
+      var bc = us.data().bc | 0; if (bc < cost) throw { code: "kam-tanga", need: cost - bc };
+      var old = 0; try { var ps = await c.F.getDoc(pref); if (ps.exists() && ps.data().until && ps.data().until.toMillis) old = ps.data().until.toMillis(); } catch (e) {}
+      var base = old > Date.now() ? old : Date.now() - 600000; // soat farqi uchun 10 daqiqa zaxira
+      var until = c.F.Timestamp.fromMillis(base + days * 86400000);
+      var b = c.F.writeBatch(c.db);
+      b.update(uref, { bc: bc - cost, updated: c.F.serverTimestamp() });
+      b.set(pref, { until: until, by: u.uid, at: c.F.serverTimestamp(), days: days });
+      await b.commit();
+      return { bc: bc - cost, until: until.toDate() };
     },
     signOut: async function () { try { var c = await load(); cloudState = null; await c.A.signOut(c.auth); } catch (e) {} },
     push: push,

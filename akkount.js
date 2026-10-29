@@ -305,6 +305,7 @@
   // chip logotip/menyuni yopmasligi uchun tepada joy qoldiramiz (o'yin canvas sahifalaridan tashqari)
   try { if (!document.querySelector("canvas")) { var pt = parseFloat(getComputedStyle(document.body).paddingTop) || 0; document.body.style.paddingTop = (pt + 44) + "px"; } } catch (e) {}
   function renderChip() {
+    try { window.dispatchEvent(new Event("ka-acc")); } catch (e) {}
     var u = me();
     chip.innerHTML = u ? avatarHTML(u, 28) + '<span>' + esc(u.name.split(" ")[0]) + '</span><span class="coin">🪙 ' + (u.coins || 0) + "</span>"
       : '<span class="acc-av" style="width:28px;height:28px;font-size:15px;background:#243252">👤</span><span>Kirish</span>';
@@ -979,7 +980,7 @@
 
   // Boshqa modullar uchun
   window.kaAccount = {
-    me: me, open: function () { me() ? showProfile() : showLogin(); },
+    me: me, open: function () { me() ? showProfile() : showLogin(); }, cloud: cloud,
     addCoins: function (n, why) { var u = me(); if (!u) return false; n = Math.max(0, Math.min(200, Math.floor(+n || 0))); if (!n) return false; u.coins = (u.coins || 0) + n; save(); renderChip(); toast("+" + n + " 🪙"); return true; },
     // O'qituvchi jadvaliga natija yuborish (faqat akkauntga kirgan o'quvchi uchun)
     sendResult: function (topic, correct, total) {
@@ -995,5 +996,7 @@
     }
   };
   renderChip();
+  // Bilim daraxti va Bilimcoin ₿ — har bir sahifada
+  try { if (!window.kaDaraxt && !/[?&]daraxt=0/.test(location.search)) { var ds = document.createElement("script"); ds.src = CLOUD_SRC.replace(/ka-bulut\.js$/, "ka-daraxt.js"); ds.async = true; document.head.appendChild(ds); } } catch (e) {}
   if (location.hash === "#akkount") setTimeout(function () { window.kaAccount.open(); }, 300);
 })();

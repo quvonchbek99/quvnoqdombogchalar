@@ -13,8 +13,14 @@ service cloud.firestore {
         && get(/databases/$(database)/documents/premium/$(request.auth.uid)).data.until > request.time;
     }
     function str(v, n) { return v is string && v.size() >= 1 && v.size() <= n; }
+    // Bilimcoin ₿: har kuni 1 ta (Toshkent vaqti bo'yicha kun), faqat Pro sotib olishda kamayadi
+    function cost(days) { return days == 7 ? 15 : (days == 30 ? 50 : 1000000); }
+    function tday(t) { return (t + duration.value(5, 'h')).date(); }
     function validProfile(d) {
-      return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated'])
+      return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated','bc','suv','streak','dailyAt'])
+        && d.get('bc', 0) is int && d.get('bc', 0) >= 0
+        && d.get('suv', 0) is int && d.get('suv', 0) >= 0
+        && d.get('streak', 0) is int && d.get('streak', 0) >= 0
         && str(d.name, 40)
         && d.group is string && d.group.size() <= 20
         && d.av is int && d.av >= 0 && d.av < 12
@@ -25,12 +31,52 @@ service cloud.firestore {
         && d.updated == request.time;
     }
 
+    function sameDaily() {
+      return request.resource.data.get('bc', 0) == resource.data.get('bc', 0)
+        && request.resource.data.get('suv', 0) == resource.data.get('suv', 0)
+        && request.resource.data.get('streak', 0) == resource.data.get('streak', 0)
+        && request.resource.data.get('dailyAt', null) == resource.data.get('dailyAt', null);
+    }
+    // Kunlik suv quyish: +1 ₿, +1 suv, kuniga bir marta
+    function dailyClaim() {
+      return request.resource.data.get('bc', 0) == resource.data.get('bc', 0) + 1
+        && request.resource.data.get('suv', 0) == resource.data.get('suv', 0) + 1
+        && request.resource.data.get('streak', 0) >= 1
+        && request.resource.data.get('streak', 0) <= resource.data.get('streak', 0) + 1
+        && request.resource.data.dailyAt == request.time
+        && (!('dailyAt' in resource.data) || tday(request.time) > tday(resource.data.dailyAt));
+    }
+    // Pro sotib olish: shu yozuvning o'zida premium hujjati ham yoziladi
+    function purchase(uid) {
+      let pp = /databases/$(database)/documents/premium/$(uid);
+      return existsAfter(pp)
+        && getAfter(pp).data.get('at', null) == request.time
+        && request.resource.data.get('bc', 0) == resource.data.get('bc', 0) - cost(getAfter(pp).data.get('days', 0))
+        && request.resource.data.get('suv', 0) == resource.data.get('suv', 0)
+        && request.resource.data.get('streak', 0) == resource.data.get('streak', 0)
+        && request.resource.data.get('dailyAt', null) == resource.data.get('dailyAt', null);
+    }
+    function buyPro(uid) {
+      let d = request.resource.data;
+      let up = /databases/$(database)/documents/users/$(uid);
+      return d.keys().hasOnly(['until','by','at','days'])
+        && d.by == uid && d.at == request.time
+        && (d.days == 7 || d.days == 30)
+        && d.until is timestamp && d.until > request.time
+        && (d.until <= request.time + duration.value(d.days, 'd')
+            || (resource != null && d.until <= resource.data.until + duration.value(d.days, 'd')))
+        && exists(up) && get(up).data.get('bc', 0) >= cost(d.days)
+        && getAfter(up).data.get('bc', 0) == get(up).data.get('bc', 0) - cost(d.days);
+    }
+
     // O'quvchi profili: hamma kirgan foydalanuvchi reytingni ko'ra oladi, o'zgartirish faqat egasiga
     match /users/{uid} {
       allow read: if signedIn();
       allow create: if signedIn() && request.auth.uid == uid
         && validProfile(request.resource.data)
-        && request.resource.data.coins <= 5000;
+        && request.resource.data.coins <= 5000
+        && request.resource.data.get('bc', 0) == 0
+        && request.resource.data.get('suv', 0) == 0;
       allow update: if signedIn() && request.auth.uid == uid
         && validProfile(request.resource.data)
         && request.resource.data.coins >= resource.data.coins
@@ -39,7 +85,8 @@ service cloud.firestore {
         && request.resource.data.answered >= resource.data.answered
         && request.resource.data.tests >= resource.data.tests
         && (request.resource.data.coins == resource.data.coins
-            || request.time > resource.data.updated + duration.value(2, 's'));
+            || request.time > resource.data.updated + duration.value(2, 's'))
+        && (sameDaily() || dailyClaim() || purchase(uid));
       allow delete: if signedIn() && request.auth.uid == uid;
     }
 
@@ -69,6 +116,8 @@ service cloud.firestore {
     match /premium/{uid} {
       allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
       allow write: if isAdmin();
+      // o'quvchi Bilimcoin ₿ evaziga o'zi uchun Pro oladi (7 kun = 15 ₿, 30 kun = 50 ₿)
+      allow create, update: if signedIn() && request.auth.uid == uid && buyPro(uid);
     }
 
     // To'lov cheklari: egasi yuboradi va o'zinikini ko'radi; tasdiqlash/rad etish faqat o'qituvchi
