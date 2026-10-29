@@ -326,6 +326,9 @@
     var ttab = el("button", { class: "ka-tab ka-graph-tab", type: "button" }, "🪢 Arqon tortish");
     ttab.onclick = function () { Tug.open(); };
     tabs.appendChild(ttab);
+    var vtab = el("button", { class: "ka-tab ka-graph-tab", type: "button" }, "⚡ Viktorina");
+    vtab.onclick = function () { Tug.open(null, "viktorina.html"); };
+    tabs.appendChild(vtab);
 
     var noRes = el("div", { class: "ka-noresult ka-hidden" }, "Hech narsa topilmadi.");
     hub.appendChild(noRes);
@@ -445,6 +448,9 @@
     var tb = el("button", { type: "button", class: "ka-drawbtn", style: "width:100%;justify-content:center;margin-top:0" }, "🪢 Arqon tortish o'yini");
     tb.onclick = function () { closeDrawer(); Tug.open(); };
     dBody.appendChild(tb);
+    var vb = el("button", { type: "button", class: "ka-drawbtn", style: "width:100%;justify-content:center;margin-top:0" }, "⚡ Jonli viktorina (Kahoot uslubida)");
+    vb.onclick = function () { closeDrawer(); Tug.open(null, "viktorina.html"); };
+    dBody.appendChild(vb);
     panes.forEach(function (o, i) {
       var links = $$("a[href^='#']", o.pane);
       if (!links.length) return;
@@ -1067,12 +1073,12 @@
    * Bu yerda faqat o'sha sahifaga yo'naltiriladi — ochiq turgan mavzu bilan.
    */
   var Tug = {
-    open: function (tid) {
+    open: function (tid, page) {
       if (!tid) {
         var open = sections.filter(function (s) { return !s.classList.contains("collapsed"); })[0];
         tid = open ? open.id : "";
       }
-      location.href = "arqon.html" + (tid && /^[a-z]\d+$/.test(tid) ? "?mavzu=" + tid : "");
+      location.href = (page || "arqon.html") + (tid && /^[a-z]\d+$/.test(tid) ? "?mavzu=" + tid : "");
     },
     close: function () {}
   };

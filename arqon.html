@@ -191,10 +191,10 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 .mist .it .q{font-weight:700}
 .mist .it .a{color:#7dffd9}
 .mist .it ol{margin:4px 0 0;color:var(--text-dim);padding-left:20px}
-.flash{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(.9);font:900 clamp(26px,5vw,64px)/1.1 inherit;padding:10px 22px;border-radius:18px;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;z-index:15;color:#081019;text-align:center;white-space:nowrap}
+.flash{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(.9);font-weight:900;font-size:clamp(26px,5vw,64px);line-height:1.1;padding:10px 22px;border-radius:18px;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;z-index:15;color:#081019;text-align:center;white-space:nowrap}
 .flash.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .paused .g-play{filter:blur(14px);pointer-events:none}
-.pz{position:absolute;inset:auto 0 0;top:30%;display:none;align-items:center;justify-content:center;font:900 clamp(40px,8vw,90px)/1 inherit;z-index:12;pointer-events:none}
+.pz{position:absolute;inset:auto 0 0;top:30%;display:none;align-items:center;justify-content:center;font-weight:900;font-size:clamp(40px,8vw,90px);line-height:1;z-index:12;pointer-events:none}
 .paused .pz{display:flex}
 /* SVG elementlari */
 .anc{transition:transform .25s}
@@ -213,15 +213,15 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 <nav class="knav" aria-label="Bo'limlar">
 <a href="index.html">🏠 Bosh sahifa</a>
 <a href="matematika.html">📐 Matematika</a>
+<a href="sinf-oyinlari.html" aria-current="page">🎯 Sinf o'yinlari</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
 <a href="mashqlar.html">📘 Mavzular</a>
-<a href="oyinlar.html" aria-current="page">🎮 O'yinlar</a>
-<a href="royale.html">⚔️ Royale</a>
 </nav>
 </header>
 <script>(function(){var a=document.querySelector('.knav [aria-current]');if(a){var n=a.parentNode;n.scrollLeft=Math.max(0,a.offsetLeft-n.clientWidth/2+a.offsetWidth/2)}})()</script>
 
 <div class="hero">
-<span class="kicker">🪢 Jamoaviy o'yin</span>
+<span class="kicker">🪢 Sinf o'yinlari</span>
 <h1>Arqon <span>tortish</span></h1>
 <p class="lead">Har bir mavzu bo'yicha: 1 kishi robotga qarshi yoki 2 dan 10 tagacha jamoa. To'g'ri javob — arqon sizga tortiladi, xato — darhol yechimi ko'rsatiladi.</p>
 </div>
@@ -292,7 +292,7 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 
 <footer>
 <div>&copy; <span id="year"></span> Kuvonch Academy</div>
-<div><a href="oyinlar.html">Barcha o'yinlar</a> · <a href="mashqlar.html">Mavzular</a> · <a href="donat.html">💛 Qo'llab-quvvatlash</a></div>
+<div><a href="sinf-oyinlari.html">Sinf o'yinlari</a> · <a href="viktorina.html">Jonli viktorina</a> · <a href="mashqlar.html">Mavzular</a> · <a href="donat.html">💛 Qo'llab-quvvatlash</a></div>
 </footer>
 </div>
 
