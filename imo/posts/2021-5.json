@@ -1,0 +1,36 @@
+{
+  "id": "2021-5",
+  "badge": "IMO 2021 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Ikki olmaxon va 2021 ta yong'oq",
+      "fs": 34,
+      "body": "<p>Olmaxonlar Bushy va Jumpy qishga <b>2021</b> ta yong'oq yig'di. Jumpy ularni <span class='m'>1</span> dan <span class='m'>2021</span> gacha raqamladi va daraxt atrofida aylana bo'ylab 2021 ta chuqurcha qazidi.</p><p>Ertasi kuni Bushy har bir chuqurchaga bittadan yong'oqni <b>raqamlarga qaramay</b> joylab qo'ydi. Jumpy 2021 ta yurish qiladi: <span class='m'>k</span>-yurishda u <span class='m'>k</span>-yong'oqning <b>ikki qo'shnisi</b> o'rnini almashtiradi.</p><div class='box'>Isbotlang: shunday <span class='m'>k</span> bor-ki, <span class='m'>k</span>-yurishda almashtirilgan <span class='m'>a</span> va <span class='m'>b</span> yong'oqlar uchun <span class='m'>a &lt; k &lt; b</span> bo'ladi.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Teskarisini faraz qilamiz",
+      "fs": 34,
+      "body": "<p>Faraz qilaylik, bunday <span class='m'>k</span> yo'q. U holda har bir <span class='m'>k</span>-yurishda almashtirilgan <span class='m'>a, b</span> yong'oqlar <b>ikkalasi ham</b> <span class='m'>k</span> dan kichik yoki <b>ikkalasi ham</b> <span class='m'>k</span> dan katta.</p><p><b>«Chegara» usuli:</b> <span class='m'>k</span>-yurishdan so'ng <span class='m'>1, 2, …, k</span> yong'oqlarni <b style='color:#e0625a'>qizil</b>ga, qolganlarini <b>qora</b>ga bo'yaymiz.</p><div class='box'><span class='m'>a, b</span> bir xil rangda ⇒ ularni almashtirish aylanadagi <b>ranglar manzarasini o'zgartirmaydi</b></div><p>Demak har qadamda manzarada faqat bitta o'zgarish bo'ladi: <span class='m'>k</span>-yong'oq qizilga aylanadi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Soddalashgan o'yin",
+      "fs": 34,
+      "body": "<p>Ranglar tilida jarayon bunday: har qadamda bitta qora yong'oq qizilga bo'yaladi, va uning <b>ikkala qo'shnisi bir xil rangda</b> (ikkalasi qizil yoki ikkalasi qora).</p><div class='box'>Qora yong'oqlarning ketma-ket blokiga qaraymiz. Blok chetidagi yong'oqning bir qo'shnisi qora, biri qizil — uni <b>bo'yab bo'lmaydi</b>.</div><p>Demak qora blok faqat <b>ichidan</b> bo'linadi: uzunligi <span class='m'>L</span> bo'lgan blok <span class='m'>i</span> va <span class='m'>L − 1 − i</span> uzunlikdagi ikki blokka ajraladi (<span class='m'>i ≥ 1</span>).</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Juft blok yo'qolmaydi",
+      "fs": 32,
+      "body": "<svg viewBox='0 0 600 250' width='600' height='250' style='display:block;margin:0 auto 14px'><circle cx='50' cy='40' r='22' fill='#e0625a'/><circle cx='120' cy='40' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='190' cy='40' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='260' cy='40' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='330' cy='40' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='400' cy='40' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='470' cy='40' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='540' cy='40' r='22' fill='#e0625a'/><text x='300' y='105' fill='#f2b84b' font-size='30' text-anchor='middle' font-family='DejaVu Sans'>↓  6 = 2 + 1 + 3</text><circle cx='50' cy='160' r='22' fill='#e0625a'/><circle cx='120' cy='160' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='190' cy='160' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='260' cy='160' r='22' fill='#e0625a' stroke='#f2b84b' stroke-width='5'/><circle cx='330' cy='160' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='400' cy='160' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='470' cy='160' r='22' fill='#1b2230' stroke='#eef2f7' stroke-width='3'/><circle cx='540' cy='160' r='22' fill='#e0625a'/><line x1='105' y1='200' x2='205' y2='200' stroke='#f2b84b' stroke-width='4'/><text x='155' y='236' fill='#f2b84b' font-size='24' text-anchor='middle' font-family='DejaVu Sans'>juft</text><line x1='315' y1='200' x2='485' y2='200' stroke='#8fa3bf' stroke-width='4'/><text x='400' y='236' fill='#8fa3bf' font-size='24' text-anchor='middle' font-family='DejaVu Sans'>toq</text></svg><p>1-qadamdan keyin faqat 1-yong'oq qizil: <b>2020</b> ta qora yong'oqdan iborat juft blok bor.</p><ul><li>Uzunligi <span class='m'>2</span> bo'lgan blok: ikkala yong'oq ham chetda — <b>hech qachon o'zgarmaydi</b>.</li><li><span class='m'>L ≥ 4</span> juft: <span class='m'>i + (L − 1 − i) = L − 1</span> toq ⇒ bo'laklardan biri <b>juft</b> va musbat.</li></ul><div class='box'>Har doim musbat juft uzunlikli qora blok qoladi. Ammo 2021-yurishdan so'ng <b>hamma</b> yong'oq qizil! Ziddiyat. ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oyalar",
+      "fs": 33,
+      "body": "<ul><li><b>Teskarisini faraz</b> → almashtirilganlar bir tomonda</li><li><b>Chegara usuli</b> → raqamlar o'rniga ikki rang</li><li><b>Invariant</b> → juft qora blok doim saqlanadi</li><li><b>Juftlik</b> → 2021 toq bo'lgani hal qiladi</li></ul><p>Python'da <span class='m'>n = 3, …, 9</span> uchun barcha joylashuvlar tekshirildi: <span class='m'>n</span> toq bo'lsa tasdiq doim to'g'ri, juft bo'lsa qarshi misollar bor ✅</p><p>Yechim Evan Chen yozuvlari asosida. Masala Ispaniya tomonidan taklif qilingan.</p><p>🧠 <b>Sizga savol:</b> 4 ta yong'oq uchun tasdiq noto'g'ri. Qarshi misol topa olasizmi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2021 · 6-masala</b> (algebra)</p>"
+    }
+  ]
+}
