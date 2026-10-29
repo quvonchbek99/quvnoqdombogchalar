@@ -23,7 +23,7 @@
     var k = pick(lv(L, [0, 1, 2], [1, 3, 4, 5], [4, 6, 7]));
     if (k === 0) {
       // qaysi to'plamning standart og'ishi katta — tarqoqlik bo'yicha
-      var c = R(10, 40), A = [c - 1, c, c, c + 1, c + 1], B = [c - 9, c - 4, c, c + 3, c + 10];
+      var c = R(10, 40), A = [c - 1, c, c, c, c + 1], B = [c - 9, c - 4, c, c + 3, c + 10];
       var swap = R(0, 1), X = swap ? B : A, Y = swap ? A : B, ans = swap ? "A" : "B";
       return txtQ("A = " + fmtSet(X) + " va B = " + fmtSet(Y) + " to'plamlarining o'rta qiymati teng. Qaysi to'plamning standart og'ishi katta?", ans, ["A", "B", "Teng", "Aniqlab bo'lmaydi"],
         ["Standart og'ish — qiymatlar o'rtachadan qanchalik tarqoqligi. " + (swap ? "A" : "B") + " to'plamda qiymatlar o'rtachadan uzoqroq → og'ish katta."], "A/B");
@@ -123,7 +123,7 @@
   function cx(a, b) { return (a === 0 && b !== 0 ? "" : a) + (b === 0 ? "" : (b > 0 ? (a === 0 ? "" : " + ") : (a === 0 ? "−" : " − ")) + (Math.abs(b) === 1 ? "" : Math.abs(b)) + "i"); }
   G.t102 = function (L) {
     var k = pick(lv(L, [0, 1], [1, 2, 3], [3, 4, 5]));
-    if (k === 0) { var n = pick([2, 3, 4, 5, 6, 7, 8]), r = ["1", "i", "−1", "−i"][n % 4]; return txtQ("i^" + n + " nechaga teng? (i² = −1)", r, ["1", "i", "−1", "−i"], ["i² = −1, i³ = −i, i⁴ = 1; daraja 4 ga bo'linganda qoldiq " + (n % 4) + " → " + r]); }
+    if (k === 0) { var n = pick([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 21]), r = ["1", "i", "−1", "−i"][n % 4]; return txtQ("i^" + n + " nechaga teng? (i — mavhum birlik)", r, ["1", "i", "−1", "−i"], ["i² = −1, i³ = −i, i⁴ = 1; daraja 4 ga bo'linganda qoldiq " + (n % 4) + " → " + r]); }
     var a = R(1, 7), b = R(1, 7), c = R(1, 7), d = R(1, 7);
     if (k === 1) return txtQ("(" + cx(a, b) + ") + (" + cx(c, -d) + ") ni hisoblang.", cx(a + c, b - d), [cx(a + c, b + d), cx(a - c, b - d), cx(a + c, -(b - d))], ["Haqiqiy qismlar: " + a + " + " + c + " = " + (a + c) + "; mavhum: " + b + " − " + d + " = " + (b - d)]);
     if (k === 2) return numQ("(" + cx(a, b) + ")(" + cx(c, d) + ") ko'paytmasining haqiqiy qismi?", a * c - b * d, ["(a+bi)(c+di) = (ac − bd) + (ad + bc)i; ac − bd = " + a * c + " − " + b * d + " = " + (a * c - b * d)], "son", [a * c + b * d, a * d + b * c, a * c]);

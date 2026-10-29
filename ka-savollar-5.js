@@ -5,7 +5,7 @@
   var H = S.H, R = H.R, RNZ = H.RNZ, pick = H.pick, shuffle = H.shuffle, gcd = H.gcd, fr = H.fr, ms = H.ms, par = H.par, poly = H.poly, nearW = H.nearW;
   function lcm(a, b) { return Math.abs(a * b) / gcd(a, b); }
   function wT(right, list) { return list.filter(function (x) { return x !== right; }); }
-  var SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻", "−": "⁻" };
+  var SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻", "−": "⁻", "+": "⁺", "x": "ˣ", "y": "ʸ", "n": "ⁿ", "(": "⁽", ")": "⁾", "=": "⁼" };
   function sup(n) { return String(n).split("").map(function (c) { return SUP[c] || c; }).join(""); }
   function sub(n) { var SB = { "0": "₀", "1": "₁", "2": "₂", "3": "₃", "4": "₄", "5": "₅", "6": "₆", "7": "₇", "8": "₈", "9": "₉" }; return String(n).split("").map(function (c) { return SB[c] || c; }).join(""); }
   function roman(n) { var v = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], s = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"], r = ""; for (var i = 0; i < v.length; i++) while (n >= v[i]) { r += s[i]; n -= v[i]; } return r; }

@@ -82,7 +82,7 @@
       return { q: "Arifmetik progressiyada a" + i1 + " = " + ms(v1) + ", a" + i2 + " = " + ms(v2) + ". d ni toping.", a: d, hint: "son", w: nearW(d, 5, 4),
         steps: ["a" + i2 + " − a" + i1 + " = (" + i2 + " − " + i1 + ")d", ms(v2) + " − " + ms(v1) + " = " + (i2 - i1) + "d", "d = " + d] }; }
     if (k === 3) { var p = RNZ(-9, 9), q2 = RNZ(-9, 9), mid = (p + q2) / 2;
-      if (mid !== Math.round(mid)) { q2 = p + 2 * RNZ(-5, 5); mid = (p + q2) / 2; }
+      if (mid !== Math.round(mid) || q2 === p) { q2 = p + 2 * RNZ(-5, 5); mid = (p + q2) / 2; }
       return { q: ms(p) + " va " + ms(q2) + " sonlari orasidagi arifmetik o'rtani toping.", a: mid, hint: "son", w: nearW(mid, 5, 4),
         steps: ["Arifmetik o'rta = (a + b)/2", "(" + ms(p) + " + " + ms(q2) + ")/2 = " + mid] }; }
     var b1 = pick([1, 2, 3, -2, 5, -1]), qq = pick([2, 3, -2, -3]), m = R(4, L === 3 ? 9 : 6);
@@ -93,9 +93,9 @@
       return { q: "Geometrik progressiyada b₁ = " + ms(b1) + ", q = " + ms(qq) + ". S" + m + " ni toping.", a: sm, hint: "son", w: nearW(sm, 5, Math.max(5, Math.abs(sm) / 3)),
         steps: ["Sₙ = b₁(qⁿ − 1)/(q − 1)", "S" + m + " = " + ms(b1) + "(" + par(qq) + "^" + m + " − 1)/(" + ms(qq) + " − 1) = " + sm] }; }
     // cheksiz kamayuvchi
-    var den = pick([2, 3, 4, 5]), b0 = den * R(1, 6), inf = b0 / (1 - 1 / den);
+    var den = pick([2, 3, 4, 5]), b0 = (den - 1) * R(1, 6), inf = b0 * den / (den - 1);
     return { q: "Cheksiz kamayuvchi geometrik progressiyada b₁ = " + b0 + ", q = 1/" + den + ". Yig'indisini toping.", a: inf, hint: "son",
-      w: nearW(inf, 5, Math.max(3, Math.round(inf / 3))), steps: ["S = b₁/(1 − q)", "S = " + b0 + "/(1 − 1/" + den + ") = " + b0 + "/" + fr(den - 1, den) + " = " + inf] };
+      w: nearW(inf, 5, Math.max(3, Math.round(inf / 3))).concat([b0 * (den - 1) / den, b0 * 2]), steps: ["S = b₁/(1 − q)", "1 − 1/" + den + " = " + fr(den - 1, den), "S = " + b0 + " : (" + fr(den - 1, den) + ") = " + b0 + "·" + den + "/" + (den - 1) + " = " + inf] };
   };
 
   /* ---- 5. Funksiya tushunchasi ---- */
@@ -177,7 +177,7 @@
     var k = pick(L === 1 ? [0, 1] : L === 2 ? [0, 1, 2] : [2, 3]);
     if (k === 0) { var base = R(3, 15) * 1000, perKm = R(1, 9) * 100, km = R(3, 20), tot = base + perKm * km;
       return { q: "Taksi " + base + " so'm asosiy haq va har km uchun " + perKm + " so'm oladi. " + km + " km yo'l uchun qancha to'lanadi?", a: tot, hint: "so'm",
-        w: nearW(tot, 5, perKm * 2), steps: ["y = " + base + " + " + perKm + "x", "y = " + base + " + " + perKm + "·" + km + " = " + tot + " so'm"] }; }
+        w: [tot + perKm, tot - perKm, tot + 2 * perKm, base * km + perKm, perKm * km, tot - base + perKm].filter(function (v) { return v > 0 && v !== tot; }), steps: ["y = " + base + " + " + perKm + "x", "y = " + base + " + " + perKm + "·" + km + " = " + tot + " so'm"] }; }
     if (k === 1) { var st = R(20, 80), rate = R(2, 9), dys = R(3, 12), end = st + rate * dys;
       return { q: "Suv havzasida " + st + " m³ suv bor, har kuni " + rate + " m³ qo'shiladi. " + dys + " kundan keyin qancha suv bo'ladi?", a: end, hint: "m³",
         w: nearW(end, 5, rate * 2), steps: ["V(t) = " + st + " + " + rate + "t", "V(" + dys + ") = " + st + " + " + rate + "·" + dys + " = " + end + " m³"] }; }
@@ -217,13 +217,15 @@
       var A = num * x, B = c * x + d;
       // (num·x)/(c·x + d) = A/B — teng kuchli: num·x·B = A·(c x + d) → oddiy chiziqli
       return { q: "(" + poly([num, 0]) + ")/(" + poly([c, d]) + ") = " + fr(A, B) + " tenglamani yeching.", a: x, hint: "son", w: nearW(x, 5),
-        steps: ["Krest ko'paytirish: " + ms(num) + "x·" + B + " = " + A + "(" + poly([c, d]) + ")", "x = " + ms(x)] }; }
+        steps: (function () { var gA = gcd(A, B) || 1, An = A / gA, Bn = B / gA; if (Bn < 0) { An = -An; Bn = -Bn; }
+          return ["Krest ko'paytirish: " + (Bn === 1 ? poly([num, 0]) : ms(num) + "x·" + Bn) + " = " + (An === 1 ? "" : An === -1 ? "−" : ms(An)) + "(" + poly([c, d]) + ")", "x = " + ms(x)]; })() }; }
     if (k === 1) { var p = RNZ(-7, 7), q = RNZ(-7, 7); if (p === q) q = p + 2;
       // 1/(x−p) = 1/(x−q) → yechimi yo'q; shuning uchun: a/(x−p) = b holati
       var a2 = RNZ(-8, 8); if (x === p) x = p + 2;
       var rhs = a2 / (x - p); var g = gcd(a2, x - p) || 1;
       return { q: fr(a2, 1) + "/(x " + (p > 0 ? "− " + p : "+ " + (-p)) + ") = " + fr(a2 / g, (x - p) / g) + " tenglamani yeching.", a: x, hint: "son", w: nearW(x, 5),
-        steps: ["Krest ko'paytirish: " + ms(a2) + "·" + ((x - p) / g) + " = " + (a2 / g) + "(x " + (p > 0 ? "− " + p : "+ " + (-p)) + ")", "x = " + ms(x)] }; }
+        steps: (function () { var Nn = a2 / g, Dn = (x - p) / g; if (Dn < 0) { Nn = -Nn; Dn = -Dn; }
+          return ["Krest ko'paytirish: " + ms(a2) + (Dn === 1 ? "" : "·" + Dn) + " = " + (Nn === 1 ? "" : Nn === -1 ? "−" : ms(Nn)) + "(x " + (p > 0 ? "− " + p : "+ " + (-p)) + ")", "x = " + ms(x)]; })() }; }
     var p2 = RNZ(-6, 6);
     return { q: "1/(x " + (p2 > 0 ? "− " + p2 : "+ " + (-p2)) + ") = 1/(x " + (p2 > 0 ? "− " + p2 : "+ " + (-p2)) + ") tenglama uchun x qanday qiymat <b>qabul qila olmaydi</b>?",
       a: p2, hint: "son", w: nearW(p2, 5), steps: ["Maxraj nolga teng bo'lmaydi: x " + (p2 > 0 ? "− " + p2 : "+ " + (-p2)) + " ≠ 0", "x ≠ " + ms(p2)] };
@@ -248,7 +250,7 @@
 
   /* ---- 12. Ratsional tengsizliklar ---- */
   G.t12 = function (L) {
-    var p = RNZ(-6, 6), q = RNZ(-6, 6); if (p === q) q = p + 2;
+    var p = RNZ(-6, 6), q; do { q = RNZ(-6, 6); } while (q === p);
     if (p > q) { var t = p; p = q; q = t; }
     var pos = Math.random() < .5;
     var ans = pos ? "(−∞; " + ms(p) + ")∪(" + ms(q) + "; +∞)" : iv(p, q);
@@ -287,7 +289,8 @@
         steps: [ms(a2) + "x = " + ms(rhs) + " − " + ms(b2) + " = " + (rhs - b2), "x = " + ms(x)] }; }
     var p = RNZ(-6, 6), n = R(2, 9), xx = p + n;
     return { q: "x/(x " + (p > 0 ? "− " + p : "+ " + (-p)) + ") = " + fr(xx, n) + " tenglamani yeching.", a: xx, hint: "son", w: nearW(xx, 5),
-      steps: ["Krest ko'paytirish: " + n + "x = " + xx + "(x " + (p > 0 ? "− " + p : "+ " + (-p)) + ")", "x = " + ms(xx) + " (maxraj ≠ 0 shart bajariladi)"] };
+      steps: (function () { var g2 = gcd(xx, n) || 1, Xn = xx / g2, Nn = n / g2; if (Nn < 0) { Xn = -Xn; Nn = -Nn; }
+        return ["Krest ko'paytirish: " + (Nn === 1 ? "" : Nn) + "x = " + (Xn === 1 ? "" : Xn === -1 ? "−" : ms(Xn)) + "(x " + (p > 0 ? "− " + p : "+ " + (-p)) + ")", "x = " + ms(xx) + " (maxraj ≠ 0 shart bajariladi)"]; })() };
   };
 
   /* ---- 15. Sodda irratsional tenglamalar ---- */
@@ -343,19 +346,22 @@
   G.t18 = function (L) {
     var k = pick(L === 1 ? [0, 1] : [0, 1, 2, 3]);
     if (k === 0) { var a = R(2, 12), b = R(2, 12), g = gcd(a, b);
-      return { q: fr(a * 3, b * 3) + " kasrni qisqartiring.", a: fr(a, b), hint: "kasr", type: "text",
-        w: [fr(b, a), fr(a + 1, b), fr(a, b + 1), String(a * b)], steps: ["Surat va maxrajni 3 ga qisqartiramiz", "Javob: " + fr(a, b)] }; }
+      if (a === b) b = a + R(1, 5);
+      var kq = pick([2, 3, 4, 5, 6]), gg = gcd(a, b) * kq;
+      return { q: (a * kq) + "/" + (b * kq) + " kasrni qisqartiring.", a: fr(a, b), hint: "kasr", type: "text",
+        w: [fr(b, a), fr(a + 1, b), fr(a, b + 1), (a * kq / gcd(a * kq, 2 * b * kq) * 2 === a * kq ? fr(a * kq, b * kq * 2) : fr(a * kq + 1, b * kq))],
+        steps: ["Surat va maxrajning EKUBi: EKUB(" + (a * kq) + "; " + (b * kq) + ") = " + gg, (a * kq) + "/" + (b * kq) + " = " + (a * kq / gg) + "/" + (b * kq / gg)] }; }
     if (k === 1) { var n = pick([8, 12, 18, 20, 27, 32, 45, 50, 72, 75, 98]);
       var out = 1, inn = n;
       for (var i = 2; i * i <= inn; i++) while (inn % (i * i) === 0) { out *= i; inn /= i * i; }
       return { q: "√" + n + " ni ildizdan chiqarib soddalashtiring.", a: (out === 1 ? "" : out) + "√" + inn, hint: "k√m", type: "text",
-        w: ["√" + n, (out + 1) + "√" + inn, out + "√" + (inn + 1), String(out * inn)],
+        w: [(out * out) + "√" + inn, (out + 1) + "√" + inn, out + "√" + (inn + 1), String(out * inn), inn + "√" + out],
         steps: ["√" + n + " = √(" + (out * out) + "·" + inn + ")", "= " + out + "√" + inn] }; }
     if (k === 2) { var p = R(2, 9), q = R(2, 9);
       return { q: "(" + p + " + √" + q + ")(" + p + " − √" + q + ") ni hisoblang.", a: p * p - q, hint: "son", w: nearW(p * p - q, 5, 6),
         steps: ["(a + b)(a − b) = a² − b²", "= " + p + "² − " + q + " = " + (p * p - q)] }; }
-    var x = R(2, 9), y = R(2, 9);
-    return { q: "x = " + x + ", y = " + y + " bo'lsa, (x² − y²)/(x − y) ni hisoblang (x ≠ y).", a: x === y ? x + y : x + y, hint: "son", w: nearW(x + y, 5, 5),
+    var x = R(2, 9), y = R(2, 9); if (y === x) y = x + R(1, 4);
+    return { q: "x = " + x + ", y = " + y + " bo'lsa, (x² − y²)/(x − y) ni hisoblang.", a: x + y, hint: "son", w: nearW(x + y, 5, 5),
       steps: ["(x² − y²)/(x − y) = x + y", "= " + x + " + " + y + " = " + (x + y)] };
   };
 

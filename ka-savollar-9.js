@@ -69,7 +69,7 @@
     if(k===5){var a5=R(2,8);return numQ("Qirrasi "+a5+" bo'lgan kubda qarama-qarshi ikki yoq orasidagi masofa nechaga teng?",a5,["Parallel yoqlar orasidagi masofa = qirra"]);}
     if(k===6){var h6=R(2,9);return numQ("Burchak 45° li og'ma tekislik bilan, nuqtadan tekislikka masofa "+h6+". Proyeksiya uzunligini toping.",h6,["45° da proyeksiya = masofa = "+h6]);}
     if(k===7){var x=R(2,8);return numQ("Tekislikka tushirilgan og'ma tekislik bilan 30° burchak hosil qiladi, masofa "+x+". Og'ma uzunligini toping.",2*x,["sin30° = h/l → l = h : ½ = "+2*x]);}
-    if(k===8)return numQ("Ikki yoqli burchak 90° bo'lsa, tekisliklar qanday joylashgan? 1 — perpendikulyar, 2 — parallel. Raqamni yozing.",1,["90° — perpendikulyar tekisliklar"]);
+    if(k===8)return {q:"Ikki yoqli burchak 90° bo'lsa, tekisliklar qanday joylashgan?",a:"perpendikulyar",hint:"javob",type:"text",w:["parallel","ustma-ust tushadi","kesishmaydi"],steps:["Ikki yoqli burchak 90° → tekisliklar perpendikulyar"]};
     return bank(T87);
   };
 

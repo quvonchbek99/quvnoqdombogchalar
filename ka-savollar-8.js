@@ -4,7 +4,7 @@
   var S = window.kaSavol; if (!S) return;
   var H = S.H, R = H.R, pick = H.pick, nearW = H.nearW, G = {};
   function uniq(a){var s={},o=[];a.forEach(function(x){x=String(x);if(!s[x]){s[x]=1;o.push(x);}});return o;}
-  function numQ(q,a,steps){var ws=nearW(a,4,Math.max(2,Math.round(Math.abs(a)*.25))).filter(function(x){return x!==a;});return{q:q,a:a,hint:"son",w:ws.slice(0,5),steps:steps};}
+  function numQ(q,a,steps){var ws=nearW(a,6,Math.max(2,Math.round(Math.abs(a)*.25))).filter(function(x){return x!==a&&(a<=0||x>0);});return{q:q,a:a,hint:"son",w:ws.slice(0,5),steps:steps};}
   function txtQ(q,a,w,steps,hint){return{q:q,a:a,hint:hint||"javob",type:"text",w:uniq(w).filter(function(x){return x!==String(a);}).slice(0,4),steps:steps};}
   function bank(l){var it=pick(l);return txtQ(it[0],it[1],it[2],it[3]);}
   function lv(L,a,b,c){return L===1?a:L===2?b:c;}
@@ -37,7 +37,7 @@
     if(k===7){var a7=pick([6,12,18,24]);return rootQ("Tomoni "+a7+" bo'lgan teng tomonli uchburchakka tashqi chizilgan aylana radiusini toping.",a7/3,3,["R = a√3/3 = "+a7+"√3/3 = "+a7/3+"√3"]);}
     if(k===8){var r8=R(2,9);return numQ("Radiusi "+r8+" bo'lgan aylanaga tashqi chizilgan kvadratning tomonini toping.",2*r8,["a = 2r = "+2*r8]);}
     if(k===9){var R9=R(2,9);return numQ("Radiusi "+R9+" bo'lgan aylanaga ichki chizilgan kvadratning yuzini toping.",2*R9*R9,["d = 2R = "+2*R9,"S = d²/2 = "+4*R9*R9+"/2 = "+2*R9*R9]);}
-    if(k===10){var p=R(3,10),r=R(2,6);return numQ("Uchburchakka ichki aylana chizilgan: perimetri "+2*p+", r = "+r+". Uchburchak yuzini toping (S = p·r).",p*r,["Yarim perimetr p = "+p,"S = p·r = "+p+"·"+r+" = "+p*r]);}
+    if(k===10){var tr=pick([[3,4,5,1],[6,8,10,2],[5,12,13,2],[9,12,15,3],[8,15,17,3],[13,14,15,4],[12,16,20,4],[7,24,25,3]]),p=(tr[0]+tr[1]+tr[2])/2,r=tr[3];return numQ("Uchburchakning tomonlari "+tr[0]+", "+tr[1]+", "+tr[2]+" (perimetri "+2*p+"), unga ichki chizilgan aylana radiusi r = "+r+". Uchburchak yuzini toping (S = p·r).",p*r,["Yarim perimetr p = "+2*p+"/2 = "+p,"S = p·r = "+p+"·"+r+" = "+p*r]);}
     return bank(T80);
   };
 
@@ -57,9 +57,9 @@
     if(k===2){var r=R(2,9);return numQ("Radiusi "+r+" bo'lgan sharga tashqi chizilgan silindrning balandligini toping.",2*r,["H = 2R = "+2*r]);}
     if(k===3){var r3=R(2,9);return numQ("Radiusi "+r3+" bo'lgan sharga tashqi chizilgan kubning qirrasini toping.",2*r3,["a = 2r = "+2*r3]);}
     if(k===4){var r4=R(2,9),h=R(2,10);return numQ("Sharga tashqi chizilgan silindr: shar radiusi "+r4+". Silindr asosining radiusi nechaga teng?",r4,["Silindr asosi radiusi = R = "+r4]);}
-    if(k===5){var a5=R(2,9);return numQ("Qirrasi "+a5+" bo'lgan kub ichidagi eng katta shar hajmi uchun radius nechaga teng (R = a/2) — a = "+2*a5+" bo'lganda?",a5,["R = "+2*a5+"/2 = "+a5]);}
+    if(k===5){var a5=R(2,9);return numQ("Qirrasi "+2*a5+" bo'lgan kubga ichki chizilgan sharning radiusini toping.",a5,["Ichki chizilgan shar kub yoqlariga urinadi → diametri = qirra","R = a/2 = "+2*a5+"/2 = "+a5]);}
     if(k===6){var t=pick([[3,4,5],[5,12,13],[6,8,10]]);return numQ("Konus o'q kesimi uchburchakka ichki aylana: asos radiusi "+t[0]+", balandligi "+t[1]+". Yasovchisini toping.",t[2],["l² = "+t[0]+"² + "+t[1]+"² = "+t[2]*t[2],"l = "+t[2]]);}
-    if(k===7){var t7=pick([[3,4,5,1],[6,8,10,2],[5,12,13,2]]);return numQ("Konus: asos radiusi "+t7[0]+", balandligi "+t7[1]+", yasovchisi "+t7[2]+". O'q kesimidagi uchburchakka ichki chizilgan aylana radiusi r = S/p ni toping (shu konusga ichki chizilgan shar radiusi).",t7[0]*t7[1]/(t7[0]+t7[2]),["S = r_asos·H = "+t7[0]*t7[1],"p = (2·"+t7[2]+" + 2·"+t7[0]+")/2 = "+(t7[0]+t7[2]),"r = "+t7[0]*t7[1]+"/"+(t7[0]+t7[2])]);}
+    if(k===7){var t7=pick([[3,4,5],[6,8,10],[9,12,15],[12,9,15],[12,16,20],[15,20,25],[8,15,17]]),S7=t7[0]*t7[1],p7=t7[0]+t7[2];return numQ("Konus: asos radiusi "+t7[0]+", balandligi "+t7[1]+", yasovchisi "+t7[2]+". O'q kesimidagi uchburchakka ichki chizilgan aylana radiusi r = S/p ni toping (shu konusga ichki chizilgan shar radiusi).",S7/p7,["O'q kesimi: asosi "+2*t7[0]+", yon tomonlari "+t7[2]+", balandligi "+t7[1],"S = ½·"+2*t7[0]+"·"+t7[1]+" = "+S7,"p = ("+t7[2]+" + "+t7[2]+" + "+2*t7[0]+")/2 = "+p7,"r = S/p = "+S7+"/"+p7+" = "+S7/p7]);}
     if(k===8){var s=R(2,6);return rootQ("Muntazam tetraedr qirrasi "+3*s+". Balandligini toping (H = a√6/3).",s,6,["H = "+3*s+"√6/3 = "+s+"√6"]);}
     if(k===9){var d=R(2,9)*2;return numQ("Sharning diametri "+d+". Unga ichki chizilgan kubning fazoviy diagonali necha?",d,["Kub fazoviy diagonali = shar diametri = "+d]);}
     return bank(T81);
@@ -84,7 +84,7 @@
     if(k===4){var t4=pick([[3,4,5],[6,8,10],[5,12,13],[8,15,17]]);return numQ("Koordinata boshidan ("+t4[0]+"; "+t4[1]+") nuqtagacha masofani toping.",t4[2],["d = √("+t4[0]+"² + "+t4[1]+"²) = √"+t4[2]*t4[2]+" = "+t4[2]]);}
     if(k===5){var m=R(1,6),n=R(1,6);return numQ("To'g'ri to'rtburchak uchlari (0; 0), ("+m+"; 0), ("+m+"; "+n+"), (0; "+n+"). Yuzini toping.",m*n,["S = "+m+"·"+n+" = "+m*n]);}
     if(k===6){var b=R(2,9),h=R(2,8);return numQ("Uchburchak uchlari (0; 0), ("+b+"; 0), ("+R(0,b)+"; "+h+"). Yuzini toping (asos Ox da).",b*h/2,["S = ½·"+b+"·"+h+" = "+b*h/2]);}
-    if(k===7){var kk=R(1,4),bb=R(-5,5),xx=R(1,5);return numQ("y = "+(kk===1?"":kk)+"x "+(bb<0?"− "+(-bb):"+ "+bb)+" to'g'ri chiziqda x = "+xx+" bo'lganda y ni toping.",kk*xx+bb,["y = "+kk+"·"+xx+" + ("+bb+") = "+(kk*xx+bb)]);}
+    if(k===7){var kk=R(1,4),bb=R(-5,5),xx=R(1,5);return numQ("y = "+(kk===1?"":kk)+"x "+(bb<0?"− "+(-bb):"+ "+bb)+" to'g'ri chiziqda x = "+xx+" bo'lganda y ni toping.",kk*xx+bb,["y = "+(kk===1?"":kk+"·")+xx+" "+(bb<0?"− "+(-bb):"+ "+bb)+" = "+(kk*xx+bb)]);}
     if(k===8){var r=R(2,8);return numQ("Markazi (0; 0), radiusi "+r+" bo'lgan aylana tenglamasi x² + y² = r². r² ni toping.",r*r,["r² = "+r+"² = "+r*r]);}
     if(k===9){var a9=R(1,5),b9=R(1,5),r9=R(2,6);return numQ("(x − "+a9+")² + (y − "+b9+")² = "+r9*r9+" aylananing radiusini toping.",r9,["r² = "+r9*r9+" → r = "+r9]);}
     if(k===10){var kq=R(1,5),m0=R(-4,4);return numQ("y = "+kq+"x "+(m0<0?"− "+(-m0):"+ "+m0)+" to'g'ri chiziqning Oy o'qi bilan kesishish nuqtasi ordinatasini toping.",m0,["x = 0 da y = "+m0]);}

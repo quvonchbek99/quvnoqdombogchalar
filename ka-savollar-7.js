@@ -321,7 +321,7 @@
     ["Silindrning o'q kesimi qanday shakl?", "to'g'ri to'rtburchak", ["doira", "uchburchak", "trapetsiya"], ["O'q kesimi 2r × H to'g'ri to'rtburchak"]],
     ["Asosga parallel kesim silindrda qanday shakl beradi?", "asosga teng doira", ["kichikroq doira", "ellips", "to'g'ri to'rtburchak"], ["Parallel kesim asosga teng doira"]],
     ["Silindrning yon sirti yoyilmasi qanday shakl?", "to'g'ri to'rtburchak", ["doira", "sektor", "uchburchak"], ["Tomonlari 2πr va H"]],
-    ["Teng yonli silindr deb nimaga aytiladi?", "o'q kesimi kvadrat bo'lgan silindr", ["balandligi radiusga teng silindr", "asosi kvadrat silindr", "yasovchisi og'ma silindr"], ["H = 2r"]],
+    ["Teng tomonli silindr deb nimaga aytiladi?", "o'q kesimi kvadrat bo'lgan silindr", ["balandligi radiusga teng silindr", "asosi kvadrat silindr", "yasovchisi og'ma silindr"], ["H = 2r"]],
     ["Silindr yon sirti formulasi qaysi?", "S_yon = 2πrH", ["S_yon = πr²H", "S_yon = πrH", "S_yon = 2πr²"], ["Aylana uzunligi × balandlik"]],
     ["Silindr hajmi formulasi qaysi?", "V = πr²H", ["V = 2πrH", "V = (1/3)πr²H", "V = πrH"], ["Asos yuzi × balandlik"]],
     ["Silindr to'la sirti formulasi qaysi?", "S = 2πr(r + H)", ["S = 2πrH", "S = πr(r + H)", "S = 2πr²H"], ["Yon sirt + 2 asos"]]
@@ -333,7 +333,7 @@
     if (k === 1) return piQ("Silindrning radiusi " + r + ", balandligi " + h + ". Hajmini toping (π ko'paytmasi).", r * r * h, ["V = πr²H = π·" + r * r + "·" + h + " = " + r * r * h + "π"]);
     if (k === 2) return piQ("Silindrning radiusi " + r + ", balandligi " + h + ". To'la sirtini toping (π ko'paytmasi).", 2 * r * (r + h), ["S = 2πr(r + H) = 2π·" + r + "·" + (r + h) + " = " + 2 * r * (r + h) + "π"]);
     if (k === 3) return numQ("Silindrning radiusi " + r + ", balandligi " + h + ". O'q kesimining yuzini toping.", 2 * r * h, ["O'q kesimi — to'g'ri to'rtburchak 2r × H", "S = " + 2 * r + "·" + h + " = " + 2 * r * h]);
-    if (k === 4) return numQ("Teng yonli silindrning radiusi " + r + ". Balandligini toping.", 2 * r, ["O'q kesimi kvadrat → H = 2r = " + 2 * r]);
+    if (k === 4) return numQ("Teng tomonli silindrning (o'q kesimi kvadrat) radiusi " + r + ". Balandligini toping.", 2 * r, ["O'q kesimi kvadrat → H = 2r = " + 2 * r]);
     if (k === 5) { var t = pick([[6, 8, 10], [8, 6, 10], [10, 24, 26], [12, 16, 20]]);
       return numQ("Silindr asosining diametri " + t[0] + ", balandligi " + t[1] + ". O'q kesimining diagonalini toping.", t[2], ["d² = " + t[0] + "² + " + t[1] + "² = " + t[2] * t[2], "d = " + t[2]]); }
     if (k === 6) { var c = R(2, 9);
@@ -410,7 +410,7 @@
     if (k === 6) { var rc = R(2, 9);
       return numQ("Sharga tashqi chizilgan silindrning (o'q kesimi kvadrat) balandligi nechaga teng, agar shar radiusi " + rc + " bo'lsa?", 2 * rc, ["Silindr balandligi = shar diametri = 2R = " + 2 * rc]); }
     if (k === 7) { var rs = pick([3, 6, 9]);
-      return numQ("Shar radiusi " + rs + ". Sirt yuzi nechta π ga teng bo'lsa, undagi sondan radiusni toping: " + 4 * rs * rs + "π.", rs, ["4πR² = " + 4 * rs * rs + "π → R² = " + rs * rs, "R = " + rs]); }
+      return numQ("Sharning sirt yuzi " + 4 * rs * rs + "π. Radiusini toping.", rs, ["4πR² = " + 4 * rs * rs + "π → R² = " + rs * rs, "R = " + rs]); }
     if (k === 8) { var rb = R(2, 8);
       return numQ("Sharni markazidan kesganda kesimning radiusi shar radiusiga teng. Shar radiusi " + rb + " bo'lsa, katta doiraning diametri nechaga teng?", 2 * rb, ["Katta doira radiusi = R = " + rb, "Diametr = " + 2 * rb]); }
     return bank(T79);

@@ -99,7 +99,7 @@
       return { q: "y = " + poly([a, b, c]) + " funksiyaning nollarini (x o'qi bilan kesishish nuqtalarini) toping.",
         a: ms(srt[0]) + "; " + ms(srt[1]), hint: "x₁; x₂", type: "text", kind: "nol",
         w: shuffle([ms(srt[0]) + "; " + ms(srt[1] + 1), ms(srt[0] - 1) + "; " + ms(srt[1]), ms(-srt[0]) + "; " + ms(-srt[1]), ms(srt[0]) + "; " + ms(srt[1] + 2), ms(srt[0] + 1) + "; " + ms(srt[1] - 1), "nollari yo'q"]).slice(0, 5),
-        steps: ["y = 0: " + poly([a, b, c]) + " = 0", "D = " + ms(b) + "² − 4·" + ms(a) + "·" + ms(c) + " = " + (b * b - 4 * a * c), "x₁ = " + ms(srt[0]) + ", x₂ = " + ms(srt[1])] };
+        steps: ["y = 0: " + poly([a, b, c]) + " = 0", "D = " + par(b) + "² − 4·" + par(a) + "·" + par(c) + " = " + ms(b * b - 4 * a * c), "x₁ = " + ms(srt[0]) + ", x₂ = " + ms(srt[1])] };
     }
     if (k === 7) { // diskriminant va ildizlar soni
       a = pick([1, 2, -1]); b = RNZ(-8, 8); c = RNZ(-8, 8); D = b * b - 4 * a * c;
@@ -119,7 +119,7 @@
     }
     if (k === 9) { // kanonik ko'rinish
       a = pick([1, 2, -1, -3]); var m = RNZ(-5, 5), n = R(-9, 9);
-      return { q: "y = " + (a === 1 ? "" : a === -1 ? "−" : ms(a)) + "(x " + (m > 0 ? "− " + m : "+ " + (-m)) + ")² " + (n >= 0 ? "+ " + n : "− " + (-n)) + " parabolaning uchini toping.",
+      return { q: "y = " + (a === 1 ? "" : a === -1 ? "−" : ms(a)) + "(x " + (m > 0 ? "− " + m : "+ " + (-m)) + ")²" + (n > 0 ? " + " + n : n < 0 ? " − " + (-n) : "") + " parabolaning uchini toping.",
         a: "(" + ms(m) + "; " + ms(n) + ")", hint: "(x₀; y₀)", w: pairW(m, n, 6), type: "text", kind: "kanonik",
         steps: ["y = a(x − m)² + n ko'rinishida uchi (m; n)", "Uchi: (" + ms(m) + "; " + ms(n) + ")"] };
     }
@@ -141,8 +141,9 @@
       x1 = RNZ(-6, 6); x2 = RNZ(-6, 6); if (x1 === x2) x2 = x1 + 2;
       b = -(x1 + x2); c = x1 * x2;
       return { q: "Nollari x₁ = " + ms(x1) + " va x₂ = " + ms(x2) + " bo'lgan y = x² + bx + c funksiyada b va c ni toping.",
-        a: ms(b) + "; " + ms(c), hint: "b; c", type: "text", kind: "tuzish",
-        w: shuffle([ms(-b) + "; " + ms(c), ms(b) + "; " + ms(-c), ms(-b) + "; " + ms(-c), ms(x1) + "; " + ms(x2), ms(b + 1) + "; " + ms(c)]).slice(0, 5),
+        a: "b = " + ms(b) + ", c = " + ms(c), hint: "b, c", type: "text", kind: "tuzish",
+        w: shuffle([[-b, c], [b, -c], [-b, -c], [x1, x2], [b + 1, c], [b, c + 1], [b - 1, c]].filter(function (v) { return v[0] !== b || v[1] !== c; })
+          .map(function (v) { return "b = " + ms(v[0]) + ", c = " + ms(v[1]); })).slice(0, 5),
         steps: ["Vyet: x₁ + x₂ = −b → b = −(" + ms(x1) + " + " + ms(x2) + ") = " + ms(b),
           "x₁·x₂ = c → c = " + ms(x1) + "·" + ms(x2) + " = " + ms(c)] };
     }
@@ -204,6 +205,7 @@
       var base = parseFloat(A);
       if (!isNaN(base) && /^-?\d+(\.\d+)?$/.test(A)) {
         nearW(base, 6).forEach(function (v) {
+          if (base > 0 && v <= 0) return; // musbat kattalik uchun manfiy variant bermaymiz
           var s = String(v), k = eqKey(s); if (out.length >= 5 || s === A || seen[k]) return; seen[k] = 1; out.push(s);
         });
       }

@@ -66,7 +66,7 @@
     if(k===2){var n2=R(5,10),m2=R(2,3);return numQ("C("+n2+","+m2+") = ?",C(n2,m2),[n2+"!/("+m2+"!·"+(n2-m2)+"!) = "+C(n2,m2)]);}
     if(k===3){var n3=R(6,12);return numQ(n3+" kishidan 2 kishilik komissiyani necha usulda tanlash mumkin?",C(n3,2),["C("+n3+",2) = "+C(n3,2)]);}
     if(k===4){var n4=R(6,10);return numQ(n4+" o'quvchidan sardor, o'rinbosar va kotibni (turli shaxslar) necha usulda tanlash mumkin?",A(n4,3),["Tartib muhim: A("+n4+",3) = "+A(n4,3)]);}
-    if(k===5){var n5=R(7,12),m5=R(3,4);return numQ(n5+" ta noma'lum olmadan "+m5+" tasini tanlash usullari soni?",C(n5,m5),["C("+n5+","+m5+") = "+C(n5,m5)]);}
+    if(k===5){var n5=R(7,12),m5=R(3,4);return numQ(n5+" ta turli (har xil) olmadan "+m5+" tasini tanlash usullari soni?",C(n5,m5),["C("+n5+","+m5+") = "+C(n5,m5)]);}
     if(k===6){var m6=R(3,6),w6=R(3,6);return numQ(m6+" yigit va "+w6+" qizdan 1 yigit va 1 qizdan iborat juftni necha usulda tanlash mumkin?",m6*w6,[m6+"·"+w6+" = "+m6*w6]);}
     if(k===7){var m7=R(4,7),w7=R(3,5);return numQ(m7+" yigit va "+w7+" qizdan 2 yigit va 1 qizdan iborat guruhni necha usulda tanlash mumkin?",C(m7,2)*w7,["C("+m7+",2)·"+w7+" = "+C(m7,2)+"·"+w7+" = "+C(m7,2)*w7]);}
     if(k===8)return numQ("'KITOB' so'zining (5 ta turli harf) harflarini o'rin almashtirib, nechta turli so'z hosil qilish mumkin?",120,["5! = 120"]);
@@ -162,7 +162,7 @@
     if(k===2){var a2=R(12,30),b2=R(12,30),u=R(a2+b2-10,a2+b2-3);if(u<Math.max(a2,b2))return bank(T95);return numQ("|A| = "+a2+", |B| = "+b2+", |A ∪ B| = "+u+". |A ∩ B| ni toping.",a2+b2-u,[a2+" + "+b2+" − "+u+" = "+(a2+b2-u)]);}
     if(k===3){var n3=pick([60,100,120]);var d=pick([[2,3],[3,5],[2,5]]);var cnt=Math.floor(n3/d[0])+Math.floor(n3/d[1])-Math.floor(n3/(d[0]*d[1]));return numQ("1 dan "+n3+" gacha sonlardan nechtasi "+d[0]+" ga yoki "+d[1]+" ga bo'linadi?",cnt,[Math.floor(n3/d[0])+" + "+Math.floor(n3/d[1])+" − "+Math.floor(n3/(d[0]*d[1]))+" = "+cnt]);}
     if(k===4){var n4=pick([60,100,120]);var d4=pick([[2,3],[3,5],[2,5]]);var cnt4=n4-(Math.floor(n4/d4[0])+Math.floor(n4/d4[1])-Math.floor(n4/(d4[0]*d4[1])));return numQ("1 dan "+n4+" gacha sonlardan nechtasi "+d4[0]+" ga ham, "+d4[1]+" ga ham bo'linmaydi?",cnt4,[n4+" − (yoki-yoki bo'linadiganlar)"]);}
-    if(k===5){var a5=R(10,20),b5=R(8,15),c5=R(5,12),ab=R(2,5),bc=R(2,4),ac=R(2,4),abc=R(1,2);return numQ("Uch to'plam: |A| = "+a5+", |B| = "+b5+", |C| = "+c5+", |A∩B| = "+ab+", |B∩C| = "+bc+", |A∩C| = "+ac+", |A∩B∩C| = "+abc+". |A∪B∪C| ni toping.",a5+b5+c5-ab-bc-ac+abc,["Σ − ikkitalik kesishmalar + uchtalik kesishma","= "+(a5+b5+c5-ab-bc-ac+abc)]);}
+    if(k===5){var abc=R(1,2),ab=abc+R(1,3),bc=abc+R(1,2),ac=abc+R(1,2),a5=ab+ac-abc+R(3,9),b5=ab+bc-abc+R(3,8),c5=bc+ac-abc+R(2,6);return numQ("Uch to'plam: |A| = "+a5+", |B| = "+b5+", |C| = "+c5+", |A∩B| = "+ab+", |B∩C| = "+bc+", |A∩C| = "+ac+", |A∩B∩C| = "+abc+". |A∪B∪C| ni toping.",a5+b5+c5-ab-bc-ac+abc,["Σ − ikkitalik kesishmalar + uchtalik kesishma","= "+(a5+b5+c5-ab-bc-ac+abc)]);}
     if(k===6){var n6=R(20,30),a6=R(10,18);return numQ("Sinfda "+n6+" o'quvchi, "+a6+" tasi futbolni yaxshi ko'radi. Futbolni yoqtirmaydiganlar soni?",n6-a6,[n6+" − "+a6+" = "+(n6-a6)]);}
     return bank(T95);
   };

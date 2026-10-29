@@ -4,7 +4,7 @@
   var S = window.kaSavol; if (!S) return;
   var H = S.H, R = H.R, RNZ = H.RNZ, pick = H.pick, shuffle = H.shuffle, fr = H.fr, ms = H.ms, par = H.par, poly = H.poly, nearW = H.nearW;
   function wT(right, list) { return list.filter(function (x) { return x !== right; }); }
-  var SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻", "−": "⁻" };
+  var SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻", "−": "⁻", "+": "⁺", "x": "ˣ", "y": "ʸ", "n": "ⁿ", "(": "⁽", ")": "⁾", "=": "⁼" };
   function sup(n) { return String(n).split("").map(function (c) { return SUP[c] || c; }).join(""); }
   var G = {};
 
@@ -60,9 +60,10 @@
       steps: ["log x + log y = log(xy)", "= " + m + " + " + p + " = " + (m + p)] };
     if (k === 1) return { q: "log" + sub(a) + " " + Math.pow(a, m + p) + " − log" + sub(a) + " " + Math.pow(a, p) + " ni hisoblang.", a: m, hint: "son", w: nearW(m, 5, 3).concat([m + p]),
       steps: ["log x − log y = log(x/y)", "= " + (m + p) + " − " + p + " = " + m] };
-    if (k === 2) return { q: a + sup(m) + " : " + a + sup(p > m ? m : p) + " ni daraja ko'rinishida yozing.", a: a + "^" + (m - (p > m ? m : p)), hint: "a^n", type: "text",
-      w: [a + "^" + (m + p), a + "^" + (m * p), "1", a + "^" + (m - (p > m ? m : p) + 1)],
-      steps: ["aᵐ : aⁿ = aᵐ⁻ⁿ", "= " + a + "^" + (m - (p > m ? m : p))] };
+    if (k === 2) { var mm = Math.max(m, p) + 1, pp = Math.min(m, p); if (pp >= mm) pp = mm - 1;
+      return { q: a + sup(mm) + " : " + a + sup(pp) + " ni daraja ko'rinishida yozing.", a: a + "^" + (mm - pp), hint: "a^n", type: "text",
+        w: [a + "^" + (mm + pp), a + "^" + (mm * pp), a + "^" + (mm - pp + 1), a + "^" + (pp - mm)],
+        steps: ["aᵐ : aⁿ = aᵐ⁻ⁿ", "= " + a + "^(" + mm + " − " + pp + ") = " + a + "^" + (mm - pp)] }; }
     if (k === 3) return { q: "(" + a + sup(m) + ")" + sup(p) + " ni bitta daraja ko'rinishida yozing.", a: a + "^" + (m * p), hint: "a^n", type: "text",
       w: [a + "^" + (m + p), a + "^" + (m * p + 1), (a * a) + "^" + (m * p), a + "^" + Math.abs(m - p)],
       steps: ["(aᵐ)ⁿ = aᵐⁿ", "= " + a + "^" + (m * p)] };
@@ -159,7 +160,7 @@
   G.t28 = function (L) {
     var a = pick([2, 3, 5, 10]), n = R(1, 5);
     var k = pick([0, 1, 2, 3]);
-    if (k === 0) return { q: a + sup("log" + sub(a) + " " + Math.pow(a, n)) + " ni hisoblang.", a: Math.pow(a, n), hint: "son",
+    if (k === 0) return { q: a + "^(log" + sub(a) + " " + Math.pow(a, n) + ") ni hisoblang.", a: Math.pow(a, n), hint: "son",
       w: [n, Math.pow(a, n - 1), Math.pow(a, n + 1), a * n], steps: ["a^(log" + sub("a") + " x) = x", "= " + Math.pow(a, n)] };
     if (k === 1) return { q: "log" + sub(a) + " (" + a + sup(n) + " · " + a + ") ni hisoblang.", a: n + 1, hint: "son", w: nearW(n + 1, 5, 3),
       steps: [a + sup(n) + "·" + a + " = " + a + sup(n + 1), "log" + sub(a) + " " + a + sup(n + 1) + " = " + (n + 1)] };

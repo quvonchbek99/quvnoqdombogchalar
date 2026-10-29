@@ -22,14 +22,19 @@
       .replace(/\s+/g, "").replace(/;$/, "");
   }
   function same(inp, ans) {
+    // "b = 0, c = −1" ↔ "0; −1" (tartib muhim)
+    if (/^[a-z]\s*=.*,\s*[a-z]\s*=/i.test(String(ans).trim())) {
+      var lab = function (v) { return String(v).toLowerCase().replace(/[−–—]/g, "-").replace(/[a-z]\s*=\s*/g, "").replace(/\s+/g, "").replace(/[,;]/g, ";"); };
+      return !!String(inp).trim() && lab(ans) === lab(inp);
+    }
     var A = norm(ans), B = norm(inp);
     if (!B) return false;
     if (A === B) return true;
     // sonli javob
     var na = parseFloat(A), nb = parseFloat(B);
     if (/^-?\d+(\.\d+)?$/.test(A) && /^-?\d+(\.\d+)?$/.test(B)) return Math.abs(na - nb) < 1e-9;
-    // ro'yxat (x1; x2) — tartib muhim emas
-    if (A.indexOf(";") > 0) {
+    // ildizlar ro'yxati x1; x2 — tartib muhim emas (qavsli juftlik/oraliqda tartib muhim: (2; 3) ≠ (3; 2))
+    if (A.indexOf(";") > 0 && !/[(\[]/.test(A)) {
       var pa = A.replace(/[()\[\]]/g, "").split(";").map(function (x) { return x.trim(); }).sort();
       var pb = B.replace(/[()\[\]]/g, "").split(";").map(function (x) { return x.trim(); }).sort();
       if (pa.length === pb.length && pa.join("|") === pb.join("|")) return true;
