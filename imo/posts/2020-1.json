@@ -1,0 +1,36 @@
+{
+  "id": "2020-1",
+  "badge": "IMO 2020 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA",
+      "title": "1 : 2 : 3 nisbatli burchaklar",
+      "fs": 35,
+      "body": "<p><span class='m'>ABCD</span> — qavariq to'rtburchak, <span class='m'>P</span> nuqta uning ichida. Burchaklar uchun quyidagi nisbatlar bajariladi:</p><div class='box' style='text-align:center'><span class='m'>∠PAD : ∠PBA : ∠DPA = 1 : 2 : 3</span><br><span class='m'>∠CBP : ∠BAP : ∠BPC = 1 : 2 : 3</span></div><p><b>Isbotlang:</b> quyidagi uchta to'g'ri chiziq <b>bitta nuqtada</b> kesishadi:</p><ul><li><span class='m'>∠ADP</span> ning ichki bissektrisasi,</li><li><span class='m'>∠PCB</span> ning ichki bissektrisasi,</li><li><span class='m'>AB</span> kesmaning o'rta perpendikulyari.</li></ul>"
+    },
+    {
+      "kicker": "YECHIM · CHIZMA",
+      "title": "Nomzod nuqta: O",
+      "fs": 33,
+      "body": "<svg viewBox='0 0 700 430' width='700' height='430' style='display:block;margin:0 auto 10px'><line x1='66.2' y1='323.2' x2='633.8' y2='323.2' stroke='#eef2f7' stroke-width='3'/><line x1='633.8' y1='323.2' x2='432.7' y2='36.0' stroke='#eef2f7' stroke-width='3'/><line x1='432.7' y1='36.0' x2='207.4' y2='88.2' stroke='#eef2f7' stroke-width='3'/><line x1='207.4' y1='88.2' x2='66.2' y2='323.2' stroke='#eef2f7' stroke-width='3'/><line x1='309.3' y1='104.4' x2='66.2' y2='323.2' stroke='#8fa3bf' stroke-width='2.5'/><line x1='309.3' y1='104.4' x2='633.8' y2='323.2' stroke='#8fa3bf' stroke-width='2.5'/><line x1='309.3' y1='104.4' x2='432.7' y2='36.0' stroke='#8fa3bf' stroke-width='2.5'/><line x1='309.3' y1='104.4' x2='207.4' y2='88.2' stroke='#8fa3bf' stroke-width='2.5'/><line x1='350.0' y1='394.0' x2='66.2' y2='323.2' stroke='#f2b84b' stroke-width='1.8' stroke-dasharray='5 5'/><line x1='350.0' y1='394.0' x2='633.8' y2='323.2' stroke='#f2b84b' stroke-width='1.8' stroke-dasharray='5 5'/><line x1='350.0' y1='394.0' x2='309.3' y2='104.4' stroke='#f2b84b' stroke-width='1.8' stroke-dasharray='5 5'/><line x1='350.0' y1='394.0' x2='432.7' y2='36.0' stroke='#f2b84b' stroke-width='3'/><line x1='350.0' y1='394.0' x2='207.4' y2='88.2' stroke='#f2b84b' stroke-width='3'/><line x1='350.0' y1='411.0' x2='350.0' y2='19.0' stroke='#f2b84b' stroke-width='2' stroke-dasharray='8 6'/><circle cx='66.2' cy='323.2' r='6' fill='#eef2f7'/><text x='36.2' y='351.2' fill='#eef2f7' font-size='30' font-family='DejaVu Serif' font-style='italic'>A</text><circle cx='633.8' cy='323.2' r='6' fill='#eef2f7'/><text x='643.8' y='351.2' fill='#eef2f7' font-size='30' font-family='DejaVu Serif' font-style='italic'>B</text><circle cx='432.7' cy='36.0' r='6' fill='#eef2f7'/><text x='444.7' y='28.0' fill='#eef2f7' font-size='30' font-family='DejaVu Serif' font-style='italic'>C</text><circle cx='207.4' cy='88.2' r='6' fill='#eef2f7'/><text x='173.4' y='82.2' fill='#eef2f7' font-size='30' font-family='DejaVu Serif' font-style='italic'>D</text><circle cx='309.3' cy='104.4' r='6' fill='#eef2f7'/><text x='301.3' y='88.4' fill='#eef2f7' font-size='30' font-family='DejaVu Serif' font-style='italic'>P</text><circle cx='350.0' cy='394.0' r='6' fill='#f2b84b'/><text x='362.0' y='420.0' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic'>O</text></svg><p><span class='m'>O</span> — <span class='m'>△PAB</span> ga tashqi chizilgan aylananing markazi. Aynan shu nuqta izlanayotgan kesishish nuqtasi ekanini ko'rsatamiz.</p><div class='box'><span class='m'>OA = OB</span> bo'lgani uchun <span class='m'>O</span> albatta <span class='m'>AB</span> ning o'rta perpendikulyarida yotadi ✅</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "B, O, P, C bitta aylanada",
+      "fs": 34,
+      "body": "<p>Belgilaymiz: <span class='m'>∠CBP = β</span>, u holda <span class='m'>∠BAP = 2β</span>, <span class='m'>∠BPC = 3β</span>.</p><p><span class='m'>△BPC</span> da uchinchi burchak:</p><div class='box' style='text-align:center'><span class='m'>∠BCP = 180° − β − 3β = 180° − 4β</span></div><p>Markaziy burchak ichki chizilgan burchakdan ikki marta katta:</p><div class='box' style='text-align:center'><span class='m'>∠BOP = 2·∠BAP = 4β</span></div><p>Demak <span class='m'>∠BCP + ∠BOP = 180°</span>, ya'ni <span class='m'>BOPC</span> to'rtburchak <b>aylanaga ichki chizilgan</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Teng vatarlar → bissektrisa",
+      "fs": 34,
+      "body": "<p><span class='m'>B, O, P, C</span> aylanasida <span class='m'>OB = OP</span> (ikkalasi ham <span class='m'>△PAB</span> aylanasining radiusi). Teng vatarlarga teng ichki chizilgan burchaklar mos keladi:</p><div class='box' style='text-align:center'><span class='m'>∠OCB = ∠OCP</span></div><p>Demak <span class='m'>CO</span> — <span class='m'>∠PCB</span> ning bissektrisasi ✅</p><p><span class='m'>D</span> uchun xuddi shunday: <span class='m'>∠PAD = α</span> bo'lsa, <span class='m'>∠ADP = 180° − 4α</span> va <span class='m'>∠AOP = 2·∠ABP = 4α</span>. Shuning uchun <span class='m'>A, O, P, D</span> bitta aylanada, <span class='m'>OA = OP</span> ⇒ <span class='m'>DO</span> — <span class='m'>∠ADP</span> ning bissektrisasi ✅</p><div class='box'>Uchala chiziq ham <span class='m'>O</span> dan o'tadi. ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 35,
+      "body": "<p>🔑 Kalit — to'g'ri <b>nomzod nuqtani</b> topish: <span class='m'>△PAB</span> aylanasining markazi. Undan keyin hammasi «aylanaga ichki chizilgan to'rtburchak» belgisi bilan hal bo'ladi.</p><div class='box'>Qiziq fakt: 1 : 2 : 3 nisbatning faqat bitta xossasi ishlatildi — o'rtadagi son chetdagi ikkitasining o'rta arifmetigi: <span class='m'>(1 + 3) / 2 = 2</span>.</div><p>🧠 <b>Sizga savol:</b> nisbat <span class='m'>1 : 3 : 5</span> bo'lganda ham shu isbot ishlaydimi? Javobni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2020 · 2-masala</b> (algebra, tengsizlik)</p>"
+    }
+  ]
+}
