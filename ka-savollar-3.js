@@ -4,7 +4,7 @@
   var S = window.kaSavol; if (!S) return;
   var H = S.H, R = H.R, RNZ = H.RNZ, pick = H.pick, shuffle = H.shuffle, fr = H.fr, ms = H.ms, par = H.par, poly = H.poly, nearW = H.nearW;
   function wT(right, list) { return list.filter(function (x) { return x !== right; }); }
-  var SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  var SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻", "−": "⁻" };
   function sup(n) { return String(n).split("").map(function (c) { return SUP[c] || c; }).join(""); }
   var G = {};
 
@@ -240,13 +240,12 @@
   /* ---- 32. STEM topshiriq ---- */
   G.t32 = function (L) {
     var k = pick(L === 1 ? [0, 1] : [0, 1, 2, 3]);
-    if (k === 0) { var h = R(3, 20), ang = pick([30, 45, 60]);
-      var tv = { 30: "√3", 45: "1", 60: "√3/3" }[ang];
+    if (k === 0) { var h = R(3, 20), ang = pick([30, 60]);
       return { q: ang + "° burchak ostida ko'rinadigan " + h + " m balandlikdagi minoragacha masofa qanday ifoda bilan hisoblanadi?",
         a: h + "/tg " + ang + "°", hint: "ifoda", type: "text", w: [h + "·tg " + ang + "°", h + "/sin " + ang + "°", h + "·sin " + ang + "°", h + "/cos " + ang + "°"],
         steps: ["tg(burchak) = balandlik / masofa", "masofa = " + h + "/tg " + ang + "°"] }; }
     if (k === 1) { var v = R(40, 120), t = R(2, 6);
-      return { q: "Avtomobil " + v + " km/soat tezlik bilan " + t + " soat yurdi. Qancha yo'l bosdi (km)?", a: v * t, hint: "km", w: nearW(v * t, 5, v / 2),
+      return { q: "Avtomobil " + v + " km/soat tezlik bilan " + t + " soat yurdi. Qancha yo'l bosdi (km)?", a: v * t, hint: "km", w: nearW(v * t, 5, Math.max(3, Math.round(v / 2))).filter(function (x) { return x > 0; }),
         steps: ["S = v·t = " + v + "·" + t + " = " + v * t + " km"] }; }
     if (k === 2) { var a = R(2, 12), b = R(2, 12), c = R(2, 12), vol = a * b * c;
       return { q: a + "×" + b + "×" + c + " cm o'lchamli to'g'ri burchakli parallelepipedning hajmini toping (cm³).", a: vol, hint: "cm³",

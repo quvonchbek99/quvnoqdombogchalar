@@ -30,7 +30,7 @@
   }
   // bitta songa yaqin, takrorlanmas noto'g'ri variantlar
   function nearW(a, n, spread) {
-    var out = [], t = 0; spread = spread || Math.max(2, Math.round(Math.abs(a) * .4) + 2);
+    var out = [], t = 0; spread = Math.max(1, Math.round(spread || Math.max(2, Math.round(Math.abs(a) * .4) + 2)));
     while (out.length < n && t++ < 300) { var d = RNZ(-spread, spread), w = a + d; if (out.indexOf(w) < 0 && w !== a) out.push(w); }
     return out;
   }
@@ -161,19 +161,50 @@
   var REG = { t1: t1 };
   var TITLES = { t1: "Kvadrat funksiya va uning grafigi" };
 
-  // noto'g'ri variantlarni tozalash: javobga teng yoki takroriy variantlarni olib tashlaymiz
+  // Javobni solishtirish uchun kalit: "2; −2" = "−2; 2" (ildizlar ro'yxati), "0.5" = "1/2", "x = 3" = "x=3"
+  function eqKey(v) {
+    var s = String(v).replace(/<[^>]+>/g, "").replace(/[−–—]/g, "-").replace(/\s+/g, "").replace(/,(?=\d{1,2}(\D|$))/g, ".").toLowerCase();
+    var num = function (t) {
+      var m = /^(-?\d+(?:\.\d+)?)(?:\/(-?\d+(?:\.\d+)?))?$/.exec(t);
+      if (!m) return null; var d = m[2] != null ? +m[2] : 1; if (!d) return null;
+      return String(Math.round((+m[1] / d) * 1e9) / 1e9);
+    };
+    var n = num(s); if (n != null) return "n:" + n;
+    // qavssiz ro'yxat (tenglama ildizlari) — tartib ahamiyatsiz
+    if (/^[-\d.\/;]+$/.test(s) && s.indexOf(";") > -1) {
+      var parts = s.split(";").map(function (t) { return num(t); });
+      if (parts.every(function (t) { return t != null; })) return "l:" + parts.sort().join(";");
+    }
+    return "s:" + s;
+  }
+  // noto'g'ri variantlarni tozalash: javobga teng (yoki unga teng kuchli) va takroriy variantlarni olib tashlaymiz
+  // yozuvni tozalash: "1π" → "π", "+ −9" → "− 9", "− −9" → "+ 9", "1x" → "x", "x¹" → "x", "·-2" → "·(−2)"
+  function tidy(v) {
+    if (typeof v !== "string") return v;
+    return v.replace(/(^|[^\d.,\/])1π/g, "$1π")
+      .replace(/\+ [−-](?=\s?\d|\s?[a-z(√])/g, "− ").replace(/([^\w(]|^)[−-] [−-](?=\s?\d)/g, "$1+ ")
+      .replace(/(^|[\s(=+−\-·:;])1(?=[xyzab](?![a-zA-Z']))/g, "$1")      // 1x → x, −1x → −x
+      .replace(/([a-z])¹(?![⁰¹²³⁴⁵⁶⁷⁸⁹])/g, "$1")                         // x¹ → x
+      .replace(/·\s?[−-](\d+(?:[.,]\d+)?)/g, "·(−$1)");                    // 3·-2 → 3·(−2)
+  }
   function clean(p) {
-    var A = String(p.a), seen = {}, out = [];
+    p.q = tidy(p.q);
+    if (typeof p.a === "string") p.a = tidy(p.a);
+    if (Array.isArray(p.w)) p.w = p.w.map(tidy);
+    if (Array.isArray(p.steps)) p.steps = p.steps.map(tidy);
+    else if (typeof p.steps === "string") p.steps = [tidy(p.steps)];
+    var A = String(p.a), AK = eqKey(A), seen = {}, out = [];
+    seen[AK] = 1;
     (p.w || []).forEach(function (w) {
-      var s = String(w);
-      if (s === A || s === "" || s === "NaN" || s === "undefined" || seen[s]) return;
-      seen[s] = 1; out.push(s);
+      var s = typeof w === "number" && isFinite(w) && Math.round(w) !== w ? String(Math.round(w * 100) / 100) : String(w), k = eqKey(s);
+      if (s === A || s === "" || s === "NaN" || s === "undefined" || seen[k]) return;
+      seen[k] = 1; out.push(s);
     });
     if (out.length < 3) {
       var base = parseFloat(A);
       if (!isNaN(base) && /^-?\d+(\.\d+)?$/.test(A)) {
         nearW(base, 6).forEach(function (v) {
-          var s = String(v); if (out.length >= 5 || s === A || seen[s]) return; seen[s] = 1; out.push(s);
+          var s = String(v), k = eqKey(s); if (out.length >= 5 || s === A || seen[k]) return; seen[k] = 1; out.push(s);
         });
       }
     }

@@ -25,9 +25,10 @@
       return { q: "Kubik tashlanadi. " + (even ? "Juft" : "Toq") + " raqam chiqish ehtimolini toping.", a: "1/2", hint: "kasr", type: "text",
         w: ["1/3", "1/6", "2/3", "1/4"], steps: [(even ? "Juft: 2, 4, 6" : "Toq: 1, 3, 5") + " → m = 3", "P = 3/6 = 1/2"] }; }
     if (k === 4) { var lim = R(2, 5);
-      var m = 6 - lim;
+      var m = 6 - lim, fav = [];
+      for (var d = lim + 1; d <= 6; d++) fav.push(d);
       return { q: "Kubik tashlanadi. " + lim + " dan katta raqam chiqish ehtimolini toping.", a: fr(m, 6), hint: "kasr", type: "text",
-        w: [fr(lim, 6), fr(6 - lim + 1, 6), fr(m, 5), "1/2"], steps: ["Qulay raqamlar: " + (lim + 1) + "…6 → m = " + m, "P = " + fr(m, 6)] }; }
+        w: [fr(lim, 6), fr(m + 1, 6), fr(m, 5), fr(m - 1 || 5, 6), "1/6", "5/6"], steps: ["Qulay raqamlar: " + fav.join(", ") + " → m = " + m, "P = " + m + "/6 = " + fr(m, 6)] }; }
     if (k === 5) { var p1 = R(1, 9), tot2 = 10;
       return { q: "Hodisaning ehtimoli " + fr(p1, tot2) + " bo'lsa, qarama-qarshi hodisa ehtimolini toping.",
         a: fr(tot2 - p1, tot2), hint: "kasr", type: "text", w: [fr(p1, tot2), fr(tot2, p1), "1", "0"],
@@ -53,7 +54,7 @@
     if (k === 4) { var g = R(3, 6), bb = R(3, 6), take = 2;
       var totC = C(g + bb, take), favC = C(g, take);
       return { q: "Qutida " + g + " ta qizil va " + bb + " ta ko'k shar bor. Tasodifiy 2 ta olinganda ikkisi ham qizil bo'lish ehtimolini toping.",
-        a: fr(favC, totC), hint: "kasr", type: "text", w: [fr(C(bb, 2), totC), fr(g, g + bb), fr(favC, totC + 1), "1/2"],
+        a: fr(favC, totC), hint: "kasr", type: "text", w: [fr(C(bb, 2), totC), fr(g, g + bb), fr(favC, totC + 1), "1/2", fr(g * g, (g + bb) * (g + bb)), fr(favC + 1, totC), fr(g - 1, g + bb)],
         steps: ["Jami: C(" + (g + bb) + ";2) = " + totC, "Qulay: C(" + g + ";2) = " + favC, "P = " + fr(favC, totC)] }; }
     var dg = R(3, 5);
     return { q: "1, 2, 3, 4, 5 raqamlaridan (takrorlanmaydi) nechta " + dg + " xonali son tuzish mumkin?", a: A(5, dg), hint: "son",
@@ -106,11 +107,12 @@
       steps: ["Qo'shni burchaklar yig'indisi 180°", "180° − " + ang + "° = " + (180 - ang) + "°"] };
   };
 
+  function kpi(k) { return (k === 1 ? "" : k) + "π"; }
   /* ---- 41. Geometrik masalalar ---- */
   G.t41 = function (L) {
     var k = pick(L === 1 ? [0, 1, 2] : L === 2 ? [0, 1, 2, 3] : [3, 4, 5]);
     if (k === 0) { var a = R(2, 15), b = R(2, 15);
-      return { q: "To'rtburchakning tomonlari " + a + " va " + b + ". Yuzini toping.", a: a * b, hint: "yuz", w: [2 * (a + b), a + b, a * b + a, a * b - b].filter(function (x) { return x !== a * b; }),
+      return { q: "To'g'ri to'rtburchakning tomonlari " + a + " va " + b + ". Yuzini toping.", a: a * b, hint: "yuz", w: [2 * (a + b), a + b, a * b + a, a * b - b].filter(function (x) { return x !== a * b; }),
         steps: ["S = a·b = " + a + "·" + b + " = " + a * b] }; }
     if (k === 1) { var base = R(2, 16), h = 2 * R(1, 9);
       return { q: "Uchburchakning asosi " + base + ", balandligi " + h + ". Yuzini toping.", a: base * h / 2, hint: "yuz",
@@ -120,11 +122,11 @@
       return { q: "To'g'ri burchakli uchburchakning katetlari " + tri[0] + " va " + tri[1] + ". Gipotenuzani toping.", a: tri[2], hint: "son",
         w: [tri[0] + tri[1], tri[2] + 1, tri[2] - 1, tri[1] - tri[0]], steps: ["c² = a² + b² = " + tri[0] * tri[0] + " + " + tri[1] * tri[1] + " = " + tri[2] * tri[2], "c = " + tri[2]] }; }
     if (k === 3) { var r = R(1, 12);
-      return { q: "Radiusi " + r + " bo'lgan aylananing uzunligini π orqali yozing.", a: (2 * r) + "π", hint: "k·π", type: "text",
-        w: [r * r + "π", r + "π", (4 * r) + "π", (r * 2 + 1) + "π"], steps: ["C = 2πr = 2π·" + r + " = " + 2 * r + "π"] }; }
+      return { q: "Radiusi " + r + " bo'lgan aylananing uzunligini π orqali yozing.", a: kpi(2 * r), hint: "k·π", type: "text",
+        w: [kpi(r * r), kpi(r), kpi(4 * r), kpi(r * 2 + 1)], steps: ["C = 2πr = 2π·" + r + " = " + kpi(2 * r)] }; }
     if (k === 4) { var r2 = R(1, 12);
-      return { q: "Radiusi " + r2 + " bo'lgan doiraning yuzini π orqali yozing.", a: (r2 * r2) + "π", hint: "k·π", type: "text",
-        w: [(2 * r2) + "π", (r2 * 2) + "π", (r2 * r2 + 1) + "π", (4 * r2) + "π"], steps: ["S = πr² = π·" + r2 + "² = " + r2 * r2 + "π"] }; }
+      return { q: "Radiusi " + r2 + " bo'lgan doiraning yuzini π orqali yozing.", a: kpi(r2 * r2), hint: "k·π", type: "text",
+        w: [kpi(2 * r2), kpi(r2 * r2 + 1), kpi(4 * r2), kpi(r2 * r2 + 2 * r2), kpi(r2 + 1)], steps: ["S = πr² = π·" + r2 + "² = " + kpi(r2 * r2)] }; }
     var s = R(2, 15);
     return { q: "Tomoni " + s + " bo'lgan kvadratning diagonalini ildiz ko'rinishida yozing.", a: s + "√2", hint: "k√2", type: "text",
       w: [s + "√3", (2 * s) + "√2", s * s + "√2", s + "√2/2"], steps: ["d = a√2 = " + s + "√2"] };
@@ -175,10 +177,13 @@
     if (k === 4) { var n2 = R(3, 8);
       return { q: n2 + " burchakli piramidaning yoqlari sonini toping.", a: n2 + 1, hint: "son", w: [n2, 2 * n2, n2 + 2, 3 * n2],
         steps: [n2 + " ta yon yoq + 1 ta asos = " + (n2 + 1)] }; }
-    var V = R(2, 9), E = R(5, 15), Fc = 2 - V + E;
+    // faqat mavjud ko'pyoqlar (prizma, piramida, Platon jismlari)
+    var nn = R(3, 10), tp = pick([0, 1, 2]), pv = tp === 0 ? [2 * nn, 3 * nn, nn + " burchakli prizma"] : tp === 1 ? [nn + 1, 2 * nn, nn + " burchakli piramida"]
+      : pick([[4, 6, "tetraedr"], [8, 12, "kub"], [6, 12, "oktaedr"], [20, 30, "dodekaedr"], [12, 30, "ikosaedr"]]);
+    var V = pv[0], E = pv[1], Fc = 2 - V + E;
     return { q: "Ko'pyoqda uchlari " + V + " ta, qirralari " + E + " ta. Eyler formulasi bo'yicha yoqlari sonini toping.",
       a: Fc, hint: "son", w: nearW(Fc, 4, 3).filter(function (x) { return x > 0; }),
-      steps: ["U − Q + Y = 2", Fc + " = 2 − " + V + " + " + E] };
+      steps: ["U − Q + Y = 2 → Y = 2 − U + Q", "Y = 2 − " + V + " + " + E + " = " + Fc, "(Masalan: " + pv[2] + ")"] };
   };
 
   /* ---- 45. Ko'pyoqlarni tasvirlash ---- */
