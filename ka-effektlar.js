@@ -51,20 +51,33 @@
         setTimeout(function () { e.style.transitionDelay = ""; e.classList.remove("ka-rv", "up", "zoom", "left", "right", "flip", "in"); }, 1400 + batch * 70);
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
-    var n = 0;
+    var n = 0, used = 0;
+    // juda katta sahifalarda (mashqlar) faqat yuqori darajadagi bloklar jonlanadi — har bir elementni o'lchash sahifani sekinlashtiradi
+    var BIG = document.getElementsByTagName("*").length > 3000, CAP = BIG ? 60 : 400;
+    function prepOne(e) {
+      if (e.__kaRv || used >= CAP) return;
+      e.__kaRv = 1;
+      if ((BIG && e.closest(".topic")) || e.closest("[role=dialog],.modal,#testModal,.km,.ka-menu,nav,header,footer,.ka-kuvi,.acc-bg,.kd-bg") || getComputedStyle(e).position === "fixed") return;
+      var r = e.getBoundingClientRect();
+      if (r.top < innerHeight * 0.9 && r.bottom > 0) return; // birinchi ekrandagilar darhol ko'rinadi
+      used++;
+      var k = e.classList.contains("topic-chip") ? "zoom" : kinds[n++ % kinds.length];
+      e.classList.add("ka-rv", k); io.observe(e);
+    }
     function prepare(root) {
-      Array.prototype.forEach.call((root || document).querySelectorAll(SEL), function (e) {
-        if (e.__kaRv || e.closest("[role=dialog],.modal,#testModal,.km,.ka-menu,nav,header,footer") || getComputedStyle(e).position === "fixed") return;
-        var r = e.getBoundingClientRect();
-        e.__kaRv = 1;
-        if (r.top < innerHeight * 0.9 && r.bottom > 0) return; // birinchi ekrandagilar darhol ko'rinadi
-        var k = e.classList.contains("topic-chip") ? "zoom" : kinds[n++ % kinds.length];
-        e.classList.add("ka-rv", k); io.observe(e);
-      });
+      if (root && root.matches && root.matches(SEL)) prepOne(root);
+      Array.prototype.forEach.call((root || document).querySelectorAll(SEL), prepOne);
     }
     if (document.readyState === "complete") prepare(); else addEventListener("load", function () { prepare(); });
-    // keyin qo'shilgan bloklar (masalan, admin mavzulari) uchun
-    if ("MutationObserver" in window) { var mt = 0; new MutationObserver(function () { clearTimeout(mt); mt = setTimeout(function () { prepare(); }, 400); }).observe(document.body, { childList: true, subtree: true }); }
+    // keyin qo'shilgan bloklar (masalan, admin mavzulari) uchun — faqat yangi qo'shilgan tugunlar tekshiriladi
+    if ("MutationObserver" in window) {
+      var mt = 0, pend = [];
+      new MutationObserver(function (ms) {
+        for (var i = 0; i < ms.length; i++) { var an = ms[i].addedNodes; for (var j = 0; j < an.length; j++) { var nd = an[j]; if (nd.nodeType === 1 && pend.length < 200) pend.push(nd); } }
+        if (!pend.length) return;
+        clearTimeout(mt); mt = setTimeout(function () { var l = pend; pend = []; l.forEach(function (nd) { if (nd.isConnected) prepare(nd); }); }, 400);
+      }).observe(document.body, { childList: true, subtree: true });
+    }
   }
 
   /* ================= 2) Maskot "Kuvi" — robot-qahramon (2-avlod) =================
@@ -107,14 +120,16 @@
   var LED = { love: "#ff8fc6", angry: "#ff7b7b", sad: "#8fb2ff", sleepy: "#7fa0c0", dizzy: "#d6a8ff" };
 
   var kcss = `
+  .ka-kuvi,.ka-ball,.ka-shadow{will-change:transform;contain:layout paint}
   .ka-kuvi{position:fixed;bottom:calc(4px + var(--kb,0px));left:0;width:84px;height:104px;z-index:900;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation}
-  .ka-kuvi svg{width:100%;height:100%;overflow:visible;display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+  .ka-kuvi svg{width:100%;height:100%;overflow:visible;display:block}
+  @media (min-width:900px) and (hover:hover){.ka-kuvi svg{filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}}
   .ka-kuvi .face *{transition:none}
   .ka-kuvi .jet{transition:opacity .25s}
   .ka-kuvi .fl{transform-box:fill-box;transform-origin:50% 0}
   .ka-kuvi .zz{font:800 11px sans-serif;fill:#9fb0d0}
   .ka-ball{position:fixed;bottom:calc(4px + var(--kb,0px));left:0;width:28px;height:28px;z-index:899;pointer-events:none}
-  .ka-shadow{position:fixed;bottom:calc(1px + var(--kb,0px));height:8px;border-radius:50%;background:rgba(0,0,0,.3);z-index:898;pointer-events:none;filter:blur(2px)}
+  .ka-shadow{position:fixed;left:0;width:54px;transform-origin:50% 50%;bottom:calc(1px + var(--kb,0px));height:8px;border-radius:50%;background:rgba(0,0,0,.3);z-index:898;pointer-events:none;filter:blur(2px)}
   .ka-say{position:fixed;bottom:calc(116px + var(--kb,0px));max-width:250px;background:#fff;color:#14203a;font:600 14px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:10px 12px;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.35);z-index:903;opacity:0;transform:translateY(8px) scale(.95);transition:opacity .25s,transform .25s;pointer-events:none}
   .ka-say.on{opacity:1;transform:none}
   .ka-say::after{content:"";position:absolute;bottom:-8px;left:var(--tx,30px);border:8px solid transparent;border-bottom:0;border-top-color:#fff}
@@ -322,7 +337,8 @@
     // ---------- fitBottom: pastdagi suzuvchi tugmalar ustidan yursin ----------
     function fitBottom() {
       var mine = [k, ball, sh, say, x], off = 0;
-      Array.prototype.forEach.call(document.body.querySelectorAll("body *"), function (e) {
+      // faqat body'ning yuqori qatlamidagi elementlar (fixed tugmalar odatda shu yerda) — butun DOMni aylanmaymiz
+      Array.prototype.forEach.call(document.body.querySelectorAll("body > *, body > * > *"), function (e) {
         if (mine.indexOf(e) >= 0 || mine.some(function (m) { return m.contains(e); }) || e.classList.contains("ka-spark")) return;
         var cs = getComputedStyle(e); if (cs.position !== "fixed" || cs.display === "none" || cs.visibility === "hidden") return;
         var r = e.getBoundingClientRect(); if (r.height > 0 && r.height < 120 && r.width < innerWidth * 0.9 && innerHeight - r.bottom < 40) off = Math.max(off, innerHeight - r.top + 4);
@@ -341,11 +357,14 @@
       speak(g + " Men Kuvi — bosib ko'ring!", 3.6); wave = 2;
     }, 900);
 
-    var raf = 0;
+    var raf = 0, fN = 0, rK = null;
     function frame(now) {
       raf = requestAnimationFrame(frame);
-      var dt = Math.min(0.05, (now - last) / 1000); last = now; t += dt;
-      if (document.hidden) return;
+      if (document.hidden) { last = now; return; }
+      // tejamkor: oddiy holatda 30 kadr/s, sakrash/uchishda 60, uyquda 12 (telefon qizimasin, sahifa silliq aylansin)
+      var minDt = mode === "fly" || jumpT >= 0 || spin > 0 ? 0 : mode === "sleep" ? 80 : 32;
+      if (now - last < minDt) return;
+      var dt = Math.min(0.08, (now - last) / 1000); last = now; t += dt; fN++;
       idleFor += dt;
 
       // his-tuyg'u taymeri
@@ -353,7 +372,8 @@
       // uyqu
       if (mode !== "sleep" && mode !== "fly" && idleFor > 28 && !reduce) { mode = "sleep"; setEmo("sleepy", 1e9); speak(LINES.sleepy[0], 2); }
       // ko'zlar barmoq/sichqonchaga qaraydi
-      var r = k.getBoundingClientRect(), tx = 0, ty = 0;
+      if (!rK || fN % 6 === 0) rK = k.getBoundingClientRect();
+      var r = rK, tx = 0, ty = 0;
       if (pX >= 0 && mode !== "sleep") { var dx = pX - (r.left + r.width / 2), dy = pY - (r.top + 30), dd = Math.hypot(dx, dy) || 1; tx = dx / dd * 3; ty = dy / dd * 2; }
       else tx = dir * 1.5;
       lookX += (tx - lookX) * Math.min(1, dt * 8); lookY += (ty - lookY) * Math.min(1, dt * 8);
@@ -430,7 +450,7 @@
       ballAngle += (stopped > 0 || mode === "sleep" ? 0 : dir * speed * dt / 14 * 57);
       ball.style.transform = "translate(" + bx + "px," + (-by) + "px) rotate(" + ballAngle + "deg)";
       var shw = 54 - Math.min(34, jy / 4);
-      sh.style.width = shw + "px"; sh.style.left = (px + 42 - shw / 2) + "px"; sh.style.opacity = String(1 - Math.min(.7, jy / 160));
+      sh.style.transform = "translateX(" + (px + 15).toFixed(1) + "px) scaleX(" + (shw / 54).toFixed(3) + ")"; sh.style.opacity = String(1 - Math.min(.7, jy / 160)).slice(0, 5);
       x.style.left = (px + 70) + "px"; x.style.transform = "translateY(" + (-jy - bob) + "px)";
       if (sayT > 0) {
         sayT -= dt; var sx = Math.max(8, Math.min(W - 262, px - 20)); say.style.left = sx + "px"; say.style.setProperty("--tx", Math.max(10, Math.min(232, px + 42 - sx - 8)) + "px");

@@ -184,7 +184,7 @@
   .acc-toast{position:fixed;left:50%;top:18px;transform:translate(-50%,-30px);z-index:4000;background:#ffd479;color:#2b1d00;font:800 16px/1 -apple-system,BlinkMacSystemFont,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;transition:all .25s;pointer-events:none}
   .acc-toast.on{opacity:1;transform:translate(-50%,0)}
   .acc-links{background:#0e1730;border:1px solid #243252;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;font-size:13px}.acc-lrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.acc-links .ig-in{background:#111a2e;border:1px solid #243252;color:#eef2ff;border-radius:8px;padding:6px 8px;width:130px;font-size:13px}
-  .acc-fixed{position:fixed;left:10px;top:8px;z-index:960;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  .acc-fixed{position:fixed;left:10px;top:8px;z-index:960;box-shadow:0 4px 14px rgba(0,0,0,.35);view-transition-name:ka-akkount}
   .acc-pw{display:flex;align-items:stretch;gap:6px;min-width:0}
   .acc-pw input{flex:1 1 auto;min-width:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace!important;letter-spacing:.02em!important}
   .acc-pw input[readonly]{background:#0b1220;border:1px dashed #3a4a78;color:#eef2ff;border-radius:10px;padding:9px 10px;font-size:15px}
@@ -996,6 +996,14 @@
     }
   };
   renderChip();
+  // Silliq va tez o'tish: havola ustiga borganda (yoki bosilganda) keyingi sahifa oldindan yuklanadi
+  try {
+    if (window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules") && !document.querySelector('script[type="speculationrules"]')) {
+      var spr = document.createElement("script"); spr.type = "speculationrules";
+      spr.textContent = JSON.stringify({ prefetch: [{ source: "document", eagerness: "moderate", where: { and: [{ href_matches: "/*" }, { not: { href_matches: ["/*.apk", "/*.pdf", "/*.zip", "/*.mp3", "/*.mp4", "/*.json"] } }, { not: { selector_matches: "[download], [target=_blank], [data-noprefetch]" } }] } }] });
+      document.head.appendChild(spr);
+    }
+  } catch (e) {}
   // Bilim daraxti va Bilimcoin ₿ — har bir sahifada
   try { if (!window.kaDaraxt && !/[?&]daraxt=0/.test(location.search)) { var ds = document.createElement("script"); ds.src = CLOUD_SRC.replace(/ka-bulut\.js$/, "ka-daraxt.js"); ds.async = true; document.head.appendChild(ds); } } catch (e) {}
   if (location.hash === "#akkount") setTimeout(function () { window.kaAccount.open(); }, 300);

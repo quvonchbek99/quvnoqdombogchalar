@@ -823,8 +823,11 @@ function fit(a) {
   return true;
 }
 function kick() { if (!raf && !D.hidden) { lastT = 0; raf = requestAnimationFrame(frame); } }
+var lastF = 0, SMALLF = W.innerWidth < 760;
 function frame(ts) {
   raf = 0; if (D.hidden) return;
+  if (SMALLF && lastF && ts - lastF < 30) { raf = requestAnimationFrame(frame); return; } // telefonda 30 kadr/s
+  lastF = ts;
   var dt = lastT ? Math.min(0.05, (ts - lastT) / 1000) : 1 / 60; lastT = ts;
   var more = false;
   for (var i = 0; i < AN.length; i++) {

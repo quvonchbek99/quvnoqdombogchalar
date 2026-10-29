@@ -24,7 +24,7 @@
     var sr = stage.getBoundingClientRect();
     W = Math.max(1, sr.width); H = Math.max(1, sr.height);
     small = W < 980;
-    dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
+    dpr = Math.min(window.devicePixelRatio || 1, W < 560 ? 1 : small ? 1.5 : 2); // telefonda yumshoq nur uchun 1x yetarli — 2 barobar tez
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
     var sp = spot && spot.getBoundingClientRect();
     if (sp && sp.width > 40 && getComputedStyle(spot).display !== "none") {
@@ -160,7 +160,15 @@
     if (sig !== lastSig) { lastSig = sig; measure(); }
   }
 
-  function loop(now) { raf = 0; if (!running) return; draw(now); raf = requestAnimationFrame(loop); }
+  var lastDraw = 0;
+  function loop(now) {
+    raf = 0; if (!running) return;
+    // tejamkor: nur barmoq/sichqonchaga ergashganda 60, o'zi suzganda 30 (telefonda 24) kadr/s
+    var calm = now - lastPointer > 8000; // uzoq tegilmasa — sekin, tejamkor suzish
+    var minDt = pointerOn || flareT > 0 || ringT < 1 ? 0 : calm ? (small ? 80 : 50) : small ? 41 : 32;
+    if (now - lastDraw >= minDt) { lastDraw = now; draw(now); }
+    raf = requestAnimationFrame(loop);
+  }
   function start() { if (running || reduce) return; running = true; raf = requestAnimationFrame(loop); }
   function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
   function sync() { if (visible && !document.hidden) start(); else stop(); }

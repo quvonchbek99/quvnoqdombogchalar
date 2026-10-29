@@ -31,7 +31,7 @@
 
   // ---------- CSS ----------
   var css = `
-  .kd-pill{position:fixed;right:10px;top:8px;z-index:960;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px 0 6px;border-radius:999px;border:1px solid #2b5a3c;background:rgba(10,24,18,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#eafff1;font:800 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .2s,border-color .2s,padding .25s,opacity .25s}
+  .kd-pill{view-transition-name:ka-daraxt;position:fixed;right:10px;top:8px;z-index:960;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px 0 6px;border-radius:999px;border:1px solid #2b5a3c;background:rgba(10,24,18,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#eafff1;font:800 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .2s,border-color .2s,padding .25s,opacity .25s}
   .kd-pill:hover{border-color:#5ee6a0;transform:translateY(-1px)}
   .kd-pill .kd-ic{width:26px;height:26px;display:block}
   .kd-pill .kd-bc{color:#ffd479;font-variant-numeric:tabular-nums;white-space:nowrap}
