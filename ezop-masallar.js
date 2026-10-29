@@ -655,5 +655,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u burgutdan kuchliroq edi va uni yengdi", "Chunki u burgutning uzoqlashgan vaqtini sabr bilan kutib, qulay paytda harakat qildi", "Chunki burgut tuxumlarini ataylab unga berib ketgan edi"],
     javob: 1,
     izoh: "Kuchli dushman ham e'tiborsiz qolgan paytda zaiflashadi. Sabr va to'g'ri paytni kutish kichik kuchga ham katta natija berishi mumkin."
+  },
+  {
+    id: "ez-083", mavzu: "mehnat", sarlavha: "Chumchuq va uya",
+    matn: "Kuz kunlarining birida chumchuq uyasining tomi teshilganini ko'rdi. Havo ochiq edi va quyosh charaqlab turardi, shuning uchun u tuzatishni ertaga qoldirdi. Ertasi kuni yomg'ir yog'di, uya ho'l bo'lib, bolalari sovqotib qoldi. Chumchuq boshini changallab: \"Teshikni o'z vaqtida yopsam bo'lardi\", dedi.",
+    savol: "Chumchuq uyasini nega yomg'irdan oldin tuzatmadi?",
+    variantlar: ["Chunki u teshikni ko'rmagan edi", "Chunki yomg'ir yog'ishini oldindan bilib bo'lmasdi", "Chunki zarur ishni qulay paytda emas, keyinga qoldirgan edi"],
+    javob: 2,
+    izoh: "Chumchuq teshikni ko'rgan, ya'ni tuzatish kerakligini bilgan. Ishni 'ertaga' deb qoldirish esa uni xavfli holatga soldi. Zarur ishni vaqtida bajarish ko'p muammolarning oldini oladi."
   }
 ];
