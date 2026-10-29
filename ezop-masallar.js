@@ -639,5 +639,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki chiroq uni ataylab tutib olmoqchi edi", "Chunki u oldingi ogohlantirishlardan xulosa chiqarmay, xavfli yorug'likka qayta-qayta yaqinlashdi", "Chunki kechqurun uchish har doim halokatli bo'ladi"],
     javob: 1,
     izoh: "Oldingi tajribadan saboq olmaslik xavfni takrorlashga olib keladi. Kapalakning halokati chiroq yomonligidan emas, uning ehtiyotkorlik yo'qligidan kelib chiqdi."
+  },
+  {
+    id: "ez-081", mavzu: "ijodkorlik", sarlavha: "Yoriq chelak",
+    matn: "Dehqonning ikkita chelagi bor edi: biri butun, ikkinchisi tubidan yoriq edi. Har kuni u ikkala chelakni ariqdan suv bilan to'ldirib uyiga olib kelardi. Yo'lda yoriq chelakdagi suv tomchilab kamayib, uyga yetguncha yarmi qolmasdi. Qo'shnisi uni tashlab yuborishni maslahat berdi. Dehqon esa chelakni tashlamay, uni sabzi ekilgan poliz yoniga qo'yib, suv tomchilaydigan qilib sozladi.",
+    savol: "Dehqon yoriq chelakni nega tashlamadi?",
+    variantlar: ["Chunki yoriq chelakdan tomchilagan suv ham foydali joyga yetkazilishi mumkin edi", "Chunki yoriq chelak ustida hech qanday kamchilik yo'q edi", "Chunki qo'shnisi unga yangi chelak sotib olib berishni va'da qilgan edi"],
+    javob: 0,
+    izoh: "Kamchilikni darhol yo'q qilish shart emas. Kamchilikni boshqacha yo'naltirib, undan foyda olish mumkin bo'ladi."
   }
 ];
