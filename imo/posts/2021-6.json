@@ -1,0 +1,36 @@
+{
+  "id": "2021-6",
+  "badge": "IMO 2021 · 6-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Yig'indilari m<sup>k</sup> bo'lgan qism to'plamlar",
+      "fs": 34,
+      "body": "<p><span class='m'>m ≥ 2</span> butun son, <span class='m'>A</span> — butun sonlardan iborat chekli to'plam (sonlar musbat bo'lishi shart emas). <span class='m'>B<sub>1</sub>, B<sub>2</sub>, …, B<sub>m</sub></span> lar <span class='m'>A</span> ning qism to'plamlari.</p><p>Har bir <span class='m'>k = 1, 2, …, m</span> uchun <span class='m'>B<sub>k</sub></span> ning elementlari yig'indisi <span class='m'>m<sup>k</sup></span> ga teng.</p><div class='box'>Isbotlang: <span class='m'>A</span> to'plamda kamida <span class='m'>m/2</span> ta element bor.</div><p>Bu — IMO 2021 ning eng qiyin masalasi. Yechim esa qisqa va chiroyli: <b>sanash</b> va <b>Dirixle prinsipi</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Juda ko'p sonlar yasaymiz",
+      "fs": 34,
+      "body": "<p><span class='m'>n = |A|</span> deb belgilaymiz. Har bir <span class='m'>c<sub>i</sub> ∈ {0, 1, …, m − 1}</span> tanlov uchun quyidagi sonni olamiz:</p><div class='box' style='text-align:center'><span class='m'>X = c<sub>1</sub>m + c<sub>2</sub>m<sup>2</sup> + … + c<sub>m</sub>m<sup>m</sup></span></div><p>Bu — <span class='m'>X</span> ning <span class='m'>m</span> lik sanoq sistemasidagi yozuvi (oxirgi raqami 0). Yozuv yagona bo'lgani uchun <b>turli tanlovlar turli</b> <span class='m'>X</span> beradi.</p><div class='box'>Jami <span class='m'>m<sup>m</sup></span> ta har xil son: <span class='m'>0</span> dan <span class='m'>m<sup>m+1</sup></span> gacha bo'lgan, <span class='m'>m</span> ga karrali barcha sonlar.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Yig'indini A orqali yozamiz",
+      "fs": 33,
+      "body": "<p>Shartga ko'ra <span class='m'>m<sup>i</sup></span> — bu <span class='m'>B<sub>i</sub></span> elementlari yig'indisi. Uni <span class='m'>X</span> ga qo'yamiz va <b>har bir</b> <span class='m'>a ∈ A</span> bo'yicha guruhlaymiz:</p><div class='box' style='text-align:center'><span class='m'>X = Σ<sub>a∈A</sub> f<sub>a</sub>(X) · a</span>,<br><span class='m'>f<sub>a</sub>(X) = Σ c<sub>i</sub></span> <span style='font-size:28px'>(</span><span class='m'>a ∈ B<sub>i</sub></span> <span style='font-size:28px'>bo'lgan barcha <span class='m'>i</span> bo'yicha)</span></div><p>Ya'ni <span class='m'>f<sub>a</sub>(X)</span> — <span class='m'>a</span> son <span class='m'>X</span> ga necha marta «kirgani».</p><div class='box'>Har bir <span class='m'>c<sub>i</sub> ≤ m − 1</span>, qo'shiluvchilar ko'pi bilan <span class='m'>m</span> ta ⇒ <span class='m'>0 ≤ f<sub>a</sub>(X) ≤ m(m − 1)</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Dirixle prinsipi",
+      "fs": 33,
+      "body": "<p><span class='m'>X</span> son butunlay <span class='m'>n</span> ta butun sondan iborat <span class='m'>(f<sub>a</sub>(X))<sub>a∈A</sub></span> to'plam bilan aniqlanadi. Har biri <span class='m'>m(m − 1) + 1</span> ta qiymat oladi.</p><div class='box'>Turli <span class='m'>X</span> larga turli to'plamlar mos keladi ⇒ <span class='m'>X</span> lar soni ko'pi bilan <span class='m'>(m<sup>2</sup> − m + 1)<sup>n</sup></span></div><p>Lekin 1-qadamda <span class='m'>m<sup>m</sup></span> ta har xil <span class='m'>X</span> yasadik. Demak:</p><div class='box' style='text-align:center'><span class='m'>m<sup>m</sup> ≤ (m<sup>2</sup> − m + 1)<sup>n</sup> &lt; (m<sup>2</sup>)<sup>n</sup> = m<sup>2n</sup></span></div><p>Bundan <span class='m'>m &lt; 2n</span>, ya'ni <span class='m'>|A| = n &gt; m/2</span>. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oyalar",
+      "fs": 33,
+      "body": "<ul><li><b>Sanoq sistemasi</b> → <span class='m'>m<sup>m</sup></span> ta har xil son</li><li><b>Yig'indini almashtirish</b> → har biri <span class='m'>A</span> elementlari kombinatsiyasi</li><li><b>Kichik koeffitsiyentlar</b> → <span class='m'>0 ≤ f<sub>a</sub> ≤ m(m − 1)</span></li><li><b>Dirixle prinsipi</b> → <span class='m'>m<sup>m</sup> ≤ (m<sup>2</sup> − m + 1)<sup>n</sup></span></li></ul><p>Python'da <span class='m'>m = 2, …, 39</span> uchun tekshirildi: tengsizlik faqat <span class='m'>n ≥ m/2</span> da bajariladi ✅</p><p>Yechim Evan Chen yozuvlari asosida. Masala Avstriya tomonidan taklif qilingan.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>m = 3</span> bo'lsa (yig'indilar 3, 9, 27), <span class='m'>A</span> da kamida nechta element bo'lishi kerak? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2020 · 1-masala</b> (geometriya)</p>"
+    }
+  ]
+}
