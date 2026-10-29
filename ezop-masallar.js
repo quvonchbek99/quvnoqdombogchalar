@@ -631,5 +631,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki daraxt bu safar o'zi qulab tushmoqchi edi", "Chunki u avval boltani o'tkirlab, ishni samarali qiladigan vositani tayyorladi", "Chunki qo'shnisi unga daraxtni kesib berish uchun kelgan edi"],
     javob: 1,
     izoh: "Ishga kirishishdan oldin vositani tayyorlash ish samaradorligini oshiradi. Xiralashgan bolta ko'p kuch sarflashga, o'tkir bolta esa kamroq kuch bilan ko'proq natija berishga olib keladi."
+  },
+  {
+    id: "ez-080", mavzu: "ehtiyotkorlik", sarlavha: "Kapalak va chiroq",
+    matn: "Kechqurun bog'dagi kapalak yorqin chiroqni ko'rib, unga qarab uchib keldi. Birinchi marta uning issiqligi qanotini biroz kuydirdi, lekin kapalak buni tasodif deb o'yladi. Ertasi kuni yana xuddi shu chiroqqa yaqinlashdi va yana qanotlarini kuydirib oldi. Shunga qaramay, u chiroq atrofida aylanishdan to'xtamadi va oxiri uchib kelib, alangaga o'zini urdi.",
+    savol: "Kapalak nima uchun halok bo'ldi?",
+    variantlar: ["Chunki chiroq uni ataylab tutib olmoqchi edi", "Chunki u oldingi ogohlantirishlardan xulosa chiqarmay, xavfli yorug'likka qayta-qayta yaqinlashdi", "Chunki kechqurun uchish har doim halokatli bo'ladi"],
+    javob: 1,
+    izoh: "Oldingi tajribadan saboq olmaslik xavfni takrorlashga olib keladi. Kapalakning halokati chiroq yomonligidan emas, uning ehtiyotkorlik yo'qligidan kelib chiqdi."
   }
 ];
