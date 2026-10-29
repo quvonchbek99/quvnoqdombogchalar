@@ -1,0 +1,42 @@
+{
+  "id": "2021-3",
+  "badge": "IMO 2021 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA",
+      "title": "Uchta to'g'ri chiziq — bitta nuqta",
+      "fs": 33,
+      "body": "<p><span class='m'>ABC</span> — o'tkir burchakli uchburchak, <span class='m'>AB &gt; AC</span>. <span class='m'>D</span> — uchburchak ichidagi nuqta va <span class='m'>∠DAB = ∠CAD</span>.</p><ul><li><span class='m'>AC</span> kesmada <span class='m'>E</span> nuqta: <span class='m'>∠ADE = ∠BCD</span>;</li><li><span class='m'>AB</span> kesmada <span class='m'>F</span> nuqta: <span class='m'>∠FDA = ∠DBC</span>;</li><li><span class='m'>AC</span> to'g'ri chiziqda <span class='m'>X</span> nuqta: <span class='m'>CX = BX</span>.</li></ul><p><span class='m'>O<sub>1</sub></span> va <span class='m'>O<sub>2</sub></span> — <span class='m'>ADC</span> va <span class='m'>EXD</span> uchburchaklariga tashqi chizilgan aylanalar markazlari.</p><div class='box'><span class='m'>BC</span>, <span class='m'>EF</span> va <span class='m'>O<sub>1</sub>O<sub>2</sub></span> to'g'ri chiziqlar <b>bir nuqtada</b> kesishishini isbotlang.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "BCEF — vatarli to'rtburchak",
+      "fs": 31,
+      "body": "<svg viewBox='0 0 496 540' width='496' height='540' style='display:block;margin:0 auto 8px'><circle cx='123.0' cy='387.5' r='114.0' fill='none' stroke='#5b6b82' stroke-width='2'/><circle cx='254.4' cy='193.0' r='181.0' fill='none' stroke='#5b6b82' stroke-width='2'/><circle cx='317.4' cy='471.2' r='150.7' fill='none' stroke='#f2b84b' stroke-width='3'/><line x1='52.2' y1='492.2' x2='466.6' y2='492.2' stroke='#8fa3bf' stroke-width='2.2'/><line x1='466.6' y1='492.2' x2='220.3' y2='328.1' stroke='#8fa3bf' stroke-width='2.2'/><line x1='168.1' y1='492.2' x2='220.3' y2='328.1' stroke='#8fa3bf' stroke-width='2.2'/><line x1='220.3' y1='328.1' x2='317.4' y2='23.2' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='6 6'/><line x1='466.6' y1='492.2' x2='317.4' y2='23.2' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='6 6'/><line x1='220.3' y1='328.1' x2='236.1' y2='373.1' stroke='#8fa3bf' stroke-width='2.2'/><line x1='236.1' y1='373.1' x2='207.7' y2='367.9' stroke='#8fa3bf' stroke-width='2.2'/><line x1='236.1' y1='373.1' x2='240.6' y2='341.6' stroke='#8fa3bf' stroke-width='2.2'/><line x1='52.2' y1='492.2' x2='240.6' y2='341.6' stroke='#8fa3bf' stroke-width='2.2'/><line x1='52.2' y1='492.2' x2='278.7' y2='157.1' stroke='#f2b84b' stroke-width='3.5' stroke-dasharray='10 7'/><circle cx='220.3' cy='328.1' r='6' fill='#eef2f7'/><text x='228.3' y='316.1' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>A</text><circle cx='466.6' cy='492.2' r='6' fill='#eef2f7'/><text x='474.6' y='522.2' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>B</text><circle cx='168.1' cy='492.2' r='6' fill='#eef2f7'/><text x='160.1' y='524.2' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>C</text><circle cx='236.1' cy='373.1' r='6' fill='#eef2f7'/><text x='242.1' y='403.1' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>D</text><circle cx='207.7' cy='367.9' r='6' fill='#eef2f7'/><text x='173.7' y='371.9' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>E</text><circle cx='240.6' cy='341.6' r='6' fill='#eef2f7'/><text x='250.6' y='335.6' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>F</text><circle cx='317.4' cy='23.2' r='6' fill='#eef2f7'/><text x='329.4' y='31.2' fill='#eef2f7' font-size='28' font-family='DejaVu Serif' font-style='italic'>X</text><circle cx='52.2' cy='492.2' r='6' fill='#f2b84b'/><text x='38.2' y='524.2' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>Z</text><circle cx='123.0' cy='387.5' r='6' fill='#f2b84b'/><text x='75.0' y='393.5' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>O<tspan font-size='19' dy='6'>1</tspan></text><circle cx='254.4' cy='193.0' r='6' fill='#f2b84b'/><text x='266.4' y='219.0' fill='#f2b84b' font-size='28' font-family='DejaVu Serif' font-style='italic'>O<tspan font-size='19' dy='6'>2</tspan></text></svg><p><span class='m'>D′</span> — <span class='m'>D</span> ning izogonal qo'shmasi. Burchak shartlaridan <span class='m'>CEDD′</span> va <span class='m'>BFDD′</span> aylanaga ichki chizilgan. Nuqta darajasi bo'yicha:</p><div class='box'><span class='m'>AE·AC = AD·AD′ = AF·AB</span> ⇒ <span class='m'>B, C, E, F</span> bir aylanada</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Z nuqtadan urinma",
+      "fs": 34,
+      "body": "<p><span class='m'>Z = EF ∩ BC</span> deb olamiz. <span class='m'>ℓ</span> — <span class='m'>(BCD)</span> aylanaga <span class='m'>D</span> nuqtada urinma.</p><p><span class='m'>α = ∠BAD</span>, <span class='m'>β = ∠BCD</span>, <span class='m'>γ = ∠DBC</span> kabi burchaklarni belgilab hisoblasak, <span class='m'>ℓ</span> bilan <span class='m'>DE</span> orasidagi burchak <span class='m'>∠DFE</span> ga teng chiqadi. Urinma-vatar teoremasiga ko'ra <span class='m'>ℓ</span> <b><span class='m'>(DEF)</span> ga ham urinadi</b>.</p><p><span class='m'>ℓ</span>, <span class='m'>BC</span>, <span class='m'>EF</span> — <span class='m'>(BCD)</span>, <span class='m'>(DEF)</span>, <span class='m'>(BCEF)</span> aylanalarining juft-juft radikal o'qlari. Demak ular bitta nuqta — <span class='m'>Z</span> da kesishadi va:</p><div class='box'><span class='m'>ZD<sup>2</sup> = ZB·ZC = ZE·ZF</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Miquel nuqtasi va umumiy vatar",
+      "fs": 32,
+      "body": "<p><span class='m'>M</span> — <span class='m'>BCEF</span> ning Miquel nuqtasi: <span class='m'>A, M, Z</span> bir to'g'ri chiziqda va <span class='m'>ZM·ZA = ZE·ZF</span>. Burchaklarni sanab, <span class='m'>B, X, M, E</span> ham bir aylanada ekani chiqadi.</p><p><span class='m'>R = AC ∩ BM</span> uchun nuqta darajasi:</p><div class='box'><span class='m'>RC·RA = RM·RB = RE·RX</span></div><p>Demak <span class='m'>R</span> — <span class='m'>(ACD)</span> va <span class='m'>(DEX)</span> ning radikal o'qida. Ularning ikkinchi kesishish nuqtasi <span class='m'>N</span> bo'lsa, <span class='m'>RN·RD = RM·RB</span> ⇒ <span class='m'>B, D, M, N</span> ham bir aylanada.</p><div class='box'><span class='m'>(ACD)</span>, <span class='m'>(BDMN)</span>, <span class='m'>(DEX)</span> — hammasi <span class='m'>D</span> va <span class='m'>N</span> dan o'tadi ⇒ markazlari <b>bir to'g'ri chiziqda</b></div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Inversiya — so'nggi zarba",
+      "fs": 34,
+      "body": "<p>Markazi <span class='m'>Z</span>, radiusi <span class='m'>ZD</span> bo'lgan inversiyani olamiz. 2- va 3-qadamlardan:</p><div class='box'><span class='m'>ZC·ZB = ZD<sup>2</sup> = ZM·ZA</span></div><p>Demak inversiya <span class='m'>C ↔ B</span>, <span class='m'>A ↔ M</span> almashtiradi, <span class='m'>D</span> esa joyida qoladi. Shuning uchun <span class='m'>(ACD)</span> aylana <span class='m'>(MBD)</span> ga o'tadi.</p><p>Aylana va uning inversiyadagi tasviri markazlari inversiya markazi bilan <b>bir to'g'ri chiziqda</b> yotadi ⇒ <span class='m'>O<sub>1</sub></span>, <span class='m'>(BDMN)</span> markazi va <span class='m'>Z</span> kollinear.</p><div class='box'>3-qadam bilan birga: <span class='m'>O<sub>2</sub></span> ham shu chiziqda ⇒ <span class='m'>O<sub>1</sub>O<sub>2</sub></span> chiziq <span class='m'>Z = BC ∩ EF</span> dan o'tadi. ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oyalar",
+      "fs": 34,
+      "body": "<ul><li><b>Izogonal qo'shma</b> → <span class='m'>BCEF</span> vatarli</li><li><b>Radikal markaz</b> → <span class='m'>ZD<sup>2</sup> = ZB·ZC</span></li><li><b>Miquel nuqtasi</b> → uchta aylana umumiy vatarli</li><li><b>Inversiya</b> → markazlar <span class='m'>Z</span> orqali bir chiziqda</li></ul><p>Python'da ~1000 ta tasodifiy uchburchakda tekshirildi — uch chiziq har doim bir nuqtada kesishdi ✅</p><p>Yechim Evan Chen yozuvlari asosida (Abdullahil Kafi yechimi). Masala muallifi: Mykhailo Shtandenko (Ukraina).</p><p>🧠 <b>Sizga savol:</b> nega <span class='m'>AB &gt; AC</span> sharti kerak? <span class='m'>AB = AC</span> bo'lsa nima bo'ladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2021 · 4-masala</b> (geometriya)</p>"
+    }
+  ]
+}
