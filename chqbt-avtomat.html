@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AK-74: to'liqsiz ajratish va yig'ish — ChQBT virtual trenajyori | Kuvonch Academy</title>
+<meta name="description" content="ChQBT amaliy mashg'uloti uchun virtual trenajyor: Kalashnikov avtomatini (AK-74) tozalash uchun to'liqsiz qismlarga ajratish va yig'ish tartibi. Avval xavfsizlik tekshiruvi, 3D o'quv modeli, qadamma-qadam animatsiya, tartib mashqi, norma va test. Bepul.">
+<link rel="canonical" href="https://kuvonch.uz/chqbt-avtomat.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="AK-74: to'liqsiz ajratish va yig'ish — ChQBT virtual trenajyori">
+<meta property="og:description" content="Xavfsizlik tekshiruvi, to'liqsiz ajratish va teskari tartibda yig'ish — 3D o'quv modelida qadamma-qadam, mashq, norma va test.">
+<meta property="og:url" content="https://kuvonch.uz/chqbt-avtomat.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<style>
+:root{
+  --night:#060a1a;--night-2:#0c1330;--line:#1d2850;--chalk:#f3f5ff;--haze:#93a3cc;
+  --teal:#35f0c4;--violet:#a27bff;--rose:#ff5e8e;--amber:#ffc23d;
+  --bg:var(--night);--bg-soft:#0f1834;--card:#101a3a;--border:var(--line);--text:var(--chalk);--text-dim:var(--haze);--accent:var(--teal);--accent-2:var(--violet);
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --body:"Golos Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --p1:#ff5e8e;--p2:#ffc23d;--p3:#35f0c4;--p4:#a27bff;--p5:#4fb3ff;--p6:#ff8c42;--p7:#b6f03c;--p8:#e879f9;
+}
+*{box-sizing:border-box}
+html{background:var(--night);-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(70% 40% at 80% 0%,rgba(162,123,255,.13),transparent 70%),radial-gradient(50% 30% at 0% 30%,rgba(53,240,196,.07),transparent 70%),var(--night);color:var(--chalk);font:400 16px/1.55 var(--body);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media (max-width:520px){.wrap{padding:0 16px}}
+.knav a{font-family:var(--body)}
+.knav-head .brand{font-family:var(--display);font-weight:700;font-size:16px}
+.hero{padding:30px 0 6px}
+.kicker{display:inline-block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(53,240,196,.35);background:rgba(53,240,196,.08);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+h1{font:800 clamp(26px,5.2vw,46px)/1.05 var(--display);letter-spacing:-.03em;margin:0 0 12px}
+h1 span{background:linear-gradient(100deg,var(--teal),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:#c5cef0;max-width:48em;margin:0 0 14px;font-size:clamp(15px,1.7vw,18px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;padding:0;list-style:none}
+.chips li{font-size:13px;color:var(--haze);border:1px solid var(--line);background:rgba(16,26,58,.6);border-radius:999px;padding:5px 11px}
+
+/* xavfsizlik bloki */
+.safety{margin:18px 0 6px;border:1px solid rgba(255,194,61,.5);background:linear-gradient(135deg,rgba(255,194,61,.13),rgba(255,94,142,.06) 60%,rgba(16,26,58,.5));border-radius:18px;padding:16px 18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;box-shadow:0 18px 50px -34px rgba(255,194,61,.6)}
+.safety .ic{font-size:34px;line-height:1;padding-top:2px}
+.safety h2{font:700 clamp(17px,2.2vw,20px)/1.25 var(--display);margin:0 0 8px;color:var(--amber);letter-spacing:-.01em}
+.safety ol{margin:0;padding-left:22px;color:#e9ecff;font-size:15px}
+.safety li{margin:4px 0}
+.safety li::marker{color:var(--amber);font-weight:700}
+.safety .note{margin:10px 0 0;color:var(--haze);font-size:14px}
+@media (max-width:520px){.safety{grid-template-columns:1fr;padding:14px}.safety .ic{display:none}.safety ol{padding-left:20px;font-size:14.5px}}
+
+/* tushuntirish */
+.theory{padding:30px 0 6px}
+.theory h2{font:700 clamp(21px,2.6vw,28px)/1.15 var(--display);letter-spacing:-.02em;margin:0 0 6px}
+.theory .sub{color:var(--haze);margin:0 0 16px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tcard{background:rgba(16,26,58,.6);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
+.tcard h3{margin:0 0 8px;font:700 16px/1.25 var(--display);letter-spacing:-.01em}
+.tcard p{margin:0 0 8px;color:#c9d1ef;font-size:15px}
+.tcard p:last-child{margin-bottom:0}
+.tcard ul{margin:0;padding-left:20px;color:#c9d1ef;font-size:15px}
+.tcard li{margin:3px 0}
+.fml{font:700 18px/1.4 var(--body);margin:6px 0 10px;color:var(--chalk)}
+.q-m{color:var(--teal);font-weight:700}.q-v{color:var(--violet);font-weight:700}.q-r{color:var(--rose);font-weight:700}.q-a{color:var(--amber);font-weight:700}
+.chain{list-style:none;margin:8px 0 6px;padding:0;display:flex;flex-wrap:wrap;gap:7px 4px;align-items:center}
+.chain li{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;padding:4px 10px 4px 4px;border-radius:999px;background:#0c1330;border:1px solid var(--line);color:#dfe5ff;animation:lit 10s infinite both;animation-delay:calc(var(--i) * .9s)}
+.chain li b{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;background:var(--c);color:#060a1a;font-size:12px;flex:0 0 auto}
+.chain li.ar{color:#56669a;font-weight:700;padding:0 1px;font-size:13px;background:none;border:0;animation:none;border-radius:0}
+.chain li.chk{border-style:dashed;border-color:rgba(255,194,61,.55)}
+@keyframes lit{0%,9%{box-shadow:none;border-color:var(--line)}3%{box-shadow:0 0 0 2px var(--c),0 0 18px -2px var(--c);border-color:var(--c)}}
+.utbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.utbl td,.utbl th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.utbl th{color:var(--haze);font-weight:600;font-size:13px}
+.utbl td.n{white-space:nowrap;font-weight:700}
+.utbl td.nm{font-weight:700;min-width:6.5em}
+@media (max-width:520px){.utbl{font-size:13.5px}.utbl td,.utbl th{padding:6px 3px}}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:0}
+
+/* laboratoriya */
+.labsec{padding:18px 0 10px;scroll-margin-top:10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.tab{min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#0c1330;color:var(--haze);font:600 14px/1.1 var(--body);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.tab:hover{color:var(--chalk);border-color:#2c3b72}
+.tab[aria-selected="true"]{color:#060a1a;background:linear-gradient(120deg,var(--teal),var(--violet));border-color:transparent;box-shadow:0 8px 24px -10px rgba(162,123,255,.7)}
+@media (max-width:520px){.tabs{gap:6px;display:grid;grid-template-columns:1fr 1fr}.tab{padding:10px 8px;font-size:13.5px}}
+.lab{background:linear-gradient(180deg,#0c1330,#090f27);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset}
+.lab-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:#0a1130;min-height:46px}
+.dots{display:flex;gap:6px;flex:0 0 auto}.dots i{width:10px;height:10px;border-radius:50%;background:#ff5e8e}.dots i:nth-child(2){background:#ffc23d}.dots i:nth-child(3){background:#35f0c4}
+.lab-title{flex:1 1 auto;min-width:0;font:600 13px/1.3 var(--body);color:var(--haze);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lab-title b{color:var(--chalk);font-weight:700}
+.lab-body{display:grid;grid-template-columns:minmax(0,1fr) 350px}
+.lab-main{min-width:0;display:flex;flex-direction:column}
+.side{border-left:1px solid var(--line);background:#0b1230;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+@media (max-width:920px){.lab-body{grid-template-columns:1fr}.side{border-left:0;border-top:1px solid var(--line)}}
+@media (min-width:921px){.side{height:0;min-height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#2c3b72 transparent}}
+.stage{position:relative;height:clamp(360px,44vw,560px);background:radial-gradient(80% 70% at 50% 35%,#121c46,#0a1029 70%);overflow:hidden}
+@media (max-width:520px){.stage{height:400px}}
+#gl{display:block;position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;cursor:grab;outline:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+#gl.ptr{cursor:pointer}
+#gl:active{cursor:grabbing}
+#gl:focus-visible{box-shadow:inset 0 0 0 2px var(--amber)}
+.lbls{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.l3{position:absolute;left:0;top:0;display:none;align-items:center;gap:5px;white-space:nowrap;font:700 12px/1 var(--body);padding:3px 8px 3px 3px;border-radius:999px;background:rgba(6,10,26,.84);border:1px solid var(--c);color:#f3f5ff;will-change:transform;box-shadow:0 6px 16px -8px rgba(0,0,0,.9)}
+.l3 i{width:18px;height:18px;border-radius:50%;background:var(--c);color:#060a1a;font-style:normal;font-size:11px;display:grid;place-items:center;flex:0 0 auto}
+.l3.num{padding:3px}
+.l3.num span{display:none}
+.l3.base{--c:#56669a;color:var(--haze);font-weight:600}
+.l3.base i{display:none}
+.l3.base{padding:4px 9px}
+.l3.badge{--c:var(--teal);font-size:13px;padding:6px 11px;color:var(--teal);animation:pop .35s ease-out}
+.l3.badge.warn{--c:var(--amber);color:var(--amber)}
+.l3.arrow{--c:rgba(53,240,196,.6);color:var(--teal);font-weight:600;font-size:11.5px;padding:3px 8px}
+@keyframes pop{0%{opacity:0;margin-top:8px}100%{opacity:1;margin-top:0}}
+.info{position:absolute;left:8px;top:8px;max-width:min(380px,calc(100% - 232px));background:rgba(6,10,26,.9);border:1px solid #2c3b72;border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.4;z-index:3;opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s;pointer-events:none;color:#d9dffa}
+.info.show{opacity:1;transform:none}
+.info b{display:block;color:var(--chalk);font-size:14.5px;margin-bottom:2px}
+.info b .dot{width:10px;height:10px}
+.vbtns{position:absolute;right:8px;top:8px;display:flex;gap:6px;z-index:3}
+.vbtn{width:44px;height:44px;border-radius:12px;border:1px solid #2c3b72;background:rgba(10,16,40,.82);color:var(--chalk);font:700 16px/1 var(--body);cursor:pointer;display:grid;place-items:center;padding:0}
+.vbtn:hover{border-color:var(--teal)}
+.cd{position:absolute;inset:0;display:none;place-items:center;font:800 clamp(56px,10vw,96px)/1 var(--display);color:var(--amber);text-shadow:0 0 40px rgba(255,194,61,.5);z-index:4;pointer-events:none;background:rgba(6,10,26,.35)}
+.cd.go{color:var(--teal);font-size:clamp(34px,6vw,60px);text-shadow:0 0 40px rgba(53,240,196,.5)}
+.s-hint{position:absolute;left:10px;bottom:8px;right:60px;font-size:12px;color:var(--haze);z-index:2;pointer-events:none;transition:opacity .4s;text-shadow:0 1px 3px #000}
+.s-hint.hide{opacity:0}
+.s-hint .hs{display:none}
+.tmr3d{position:absolute;left:10px;bottom:10px;z-index:3;display:none;align-items:baseline;gap:8px;padding:6px 12px;border-radius:12px;background:rgba(6,10,26,.86);border:1px solid rgba(255,194,61,.45);font:800 24px/1 var(--display);color:var(--chalk);font-variant-numeric:tabular-nums;pointer-events:none}
+.tmr3d small{font:600 12px var(--body);color:var(--haze)}
+.tools:empty,.tools.empty{display:none}
+.lab.off .stage{height:150px}
+.lab.off .vbtns,.lab.off .s-hint,.lab.off #exp-w,.lab.off .tmr3d{display:none!important}
+@media (max-width:620px){
+  .info{top:58px;max-width:calc(100% - 16px);right:8px}
+  .s-hint .hl{display:none}.s-hint .hs{display:inline}
+  .l3.badge{font-size:11.5px;padding:4px 8px}
+  .l3{font-size:11px}
+}
+.load{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:var(--haze);font-size:15px;z-index:1}
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:#0b1230}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.exp{display:flex;align-items:center;gap:10px;flex:1 1 240px;min-width:0;font-size:13px;color:var(--haze);min-height:44px}
+.exp span{white-space:nowrap}
+.exp input{flex:1 1 auto;min-width:80px;accent-color:var(--teal);height:44px;margin:0;cursor:pointer}
+.btn{min-height:44px;min-width:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#111b3e;color:var(--chalk);font:600 14px/1.15 var(--body);cursor:pointer;transition:background .15s,border-color .15s,transform .1s}
+.btn:hover{border-color:#34478a;background:#142250}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.pri{background:linear-gradient(120deg,var(--teal),#9af7ff);color:#03131a;border-color:transparent}
+.btn.vio{background:linear-gradient(120deg,var(--violet),#c9b2ff);color:#12082a;border-color:transparent}
+.btn.amb{background:linear-gradient(120deg,var(--amber),#ffe08a);color:#2a1a00;border-color:transparent}
+.btn.on{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal);color:var(--teal)}
+.brow{display:flex;flex-wrap:wrap;gap:8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.seg .btn{border:0;border-radius:0;background:#0e1736;min-width:48px}
+.seg .btn+.btn{border-left:1px solid var(--line)}
+.seg .btn.on{background:rgba(53,240,196,.14);box-shadow:none}
+
+/* yon panel */
+.side>*{flex-shrink:0}
+.side h3{margin:0;font:700 17px/1.3 var(--display);letter-spacing:-.01em}
+.side p{margin:0;color:#c9d1ef;font-size:14.5px}
+.side .muted{color:var(--haze);font-size:13.5px}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.tagp{display:inline-block;font:700 11px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid}
+.tagp.dis{color:var(--rose);border-color:rgba(255,94,142,.45);background:rgba(255,94,142,.08)}
+.tagp.asm{color:var(--teal);border-color:rgba(53,240,196,.45);background:rgba(53,240,196,.08)}
+.tagp.safe{color:var(--amber);border-color:rgba(255,194,61,.5);background:rgba(255,194,61,.1)}
+.stepn{font:700 13px var(--body);color:var(--haze);font-variant-numeric:tabular-nums}
+.why{border-left:3px solid var(--violet);padding:7px 10px;background:rgba(162,123,255,.08);border-radius:0 10px 10px 0;font-size:14px!important}
+.why b{color:var(--violet)}
+.slist{list-style:none;margin:0;padding:4px;max-height:268px;overflow:auto;border:1px solid var(--line);border-radius:12px;position:relative;background:#0a1029;overscroll-behavior:contain}
+.slist button{width:100%;text-align:left;display:flex;gap:9px;align-items:center;min-height:44px;padding:6px 8px;border-radius:9px;border:0;background:transparent;color:var(--haze);font:500 13.5px/1.25 var(--body);cursor:pointer}
+.slist button:hover{background:#111b3e;color:var(--chalk)}
+.slist button i{width:20px;height:20px;border-radius:50%;flex:0 0 auto;background:#1a2550;border:2px solid var(--c);display:grid;place-items:center;font-style:normal;font-size:10.5px;font-weight:800;color:var(--chalk)}
+.slist button.done{color:#7d8bb5}
+.slist button.done i{background:var(--c);color:#060a1a}
+.slist button.cur{background:rgba(53,240,196,.1);color:var(--chalk);font-weight:700;box-shadow:inset 0 0 0 1px rgba(53,240,196,.45)}
+.slist .sep{font:700 10.5px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#56669a;padding:9px 8px 4px}
+.prog{height:8px;border-radius:99px;background:#0c1330;border:1px solid var(--line);overflow:hidden;flex:0 0 auto}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--violet));transition:width .3s}
+.fb{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#0c1330;font-size:14.5px;line-height:1.45;min-height:46px}
+.fb.ok{border-color:rgba(53,240,196,.5);background:rgba(53,240,196,.08)}
+.fb.bad{border-color:rgba(255,94,142,.5);background:rgba(255,94,142,.08)}
+.fb.inf{border-color:rgba(255,194,61,.45);background:rgba(255,194,61,.07)}
+.fb b.ok,.ok{color:var(--teal)}.bad{color:var(--rose)}.warn{color:var(--amber)}
+.score{display:flex;flex-wrap:wrap;gap:6px}
+.score span{font-size:12.5px;color:var(--haze);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#0c1330;white-space:nowrap}
+.score b{color:var(--chalk);font-variant-numeric:tabular-nums}
+.tray{display:flex;flex-wrap:wrap;gap:6px}
+.chip{min-height:44px;padding:8px 12px 8px 9px;border-radius:12px;border:1px solid var(--line);background:#111b3e;color:var(--chalk);font:600 13.5px/1.2 var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-align:left;transition:border-color .15s,background .15s}
+.chip:hover{border-color:var(--c);background:#142250}
+.chip i{width:14px;height:14px;border-radius:50%;background:var(--c);flex:0 0 auto}
+.chip.act i{border-radius:4px}
+.chip.glow{border-color:var(--c);box-shadow:0 0 0 2px var(--c)}
+.shake{animation:shake .35s}
+@keyframes shake{20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+.qtext{font:600 16px/1.45 var(--body);color:var(--chalk)}
+.qtext i{color:#c9d1ef;font-weight:500}
+.qopts{display:grid;gap:8px}
+.qopt{min-height:48px;text-align:left;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#111b3e;color:var(--chalk);font:600 14.5px/1.3 var(--body);cursor:pointer}
+.qopt:hover:not(:disabled){border-color:#34478a;background:#142250}
+.qopt:disabled{cursor:default}
+.qopt.ok{border-color:var(--teal);background:rgba(53,240,196,.13);color:var(--chalk)}
+.qopt.bad{border-color:var(--rose);background:rgba(255,94,142,.12)}
+.timer{font:800 clamp(38px,5vw,52px)/1 var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--chalk)}
+.timer small{font-size:.42em;color:var(--haze);font-weight:600;margin-left:4px}
+.grade{font:800 20px/1.2 var(--display)}
+.ntbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.ntbl th,.ntbl td{padding:6px 5px;border-bottom:1px solid var(--line);text-align:center}
+.ntbl th{color:var(--haze);font-weight:600}
+.ntbl td:first-child,.ntbl th:first-child{text-align:left}
+.g-alo{color:var(--teal)}.g-yaxshi{color:#9ad7ff}.g-qon{color:var(--amber)}.g-yoq{color:var(--rose)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+footer{border-top:1px solid var(--line);margin-top:34px;padding:24px 0 34px;color:var(--haze);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script async src="statistika.js"></script>
+<style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="english/">🇬🇧 Ingliz tili</a>
+<a href="rus-tili/">🇷🇺 Rus tili</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="sinf-oyinlari.html" class="new">🎯 Sinf o'yinlari</a>
+<a href="fizika.html">⚛️ Fizika lab</a>
+<a href="tarozi.html">⚖️ Tarozi</a>
+</nav>
+</header>
+
+<section class="hero">
+<span class="kicker">🎖 ChQBT · Virtual trenajyor</span>
+<h1>Avtomatni to'liqsiz <span>ajratish va yig'ish</span></h1>
+<p class="lead">«Chaqiruvga qadar boshlang'ich tayyorgarlik» fanidagi amaliy mashg'ulot: Kalashnikov avtomatini (AK-74) tozalash va ko'zdan kechirish uchun to'liqsiz qismlarga ajratish hamda teskari tartibda yig'ish. 3D o'quv modelida har bir qadamni ko'ring, tartibni mashq qiling, normaga vaqt o'lchang va o'zingizni sinab ko'ring.</p>
+<ul class="chips">
+<li>🛡 Avval xavfsizlik</li>
+<li>📘 Qadamma-qadam animatsiya</li>
+<li>🧩 Tartib mashqi</li>
+<li>⏱ Norma (a'lo / yaxshi / qoniqarli)</li>
+<li>❓ Savollar</li>
+<li>🧊 3D o'quv modeli</li>
+</ul>
+</section>
+
+<section class="safety" aria-labelledby="sf-h">
+<div class="ic" aria-hidden="true">⚠️</div>
+<div>
+<h2 id="sf-h">Xavfsizlik — har doim birinchi</h2>
+<ol>
+<li>Qurol bilan har qanday mashg'ulot <b>faqat o'qituvchi ruxsati va nazorati ostida</b>, sinfda o'rganish uchun bajariladi.</li>
+<li>Ajratishdan oldin qurol o'qlanmaganligi tekshiriladi: <b>do'konni ajratish → saqlagichni tushirish → patronnikni ko'zdan kechirish → nazorat tushirish</b>.</li>
+<li>Stvol doimo <b>xavfsiz yo'nalishga</b> qaratiladi — hech qachon odamga qaratilmaydi.</li>
+<li>Mashg'ulotda faqat o'quv (bo'sh) do'kon ishlatiladi. Qismlar stolga tartib bilan qo'yiladi, kuch ishlatilmaydi.</li>
+</ol>
+<p class="note">Bu sahifa — ChQBT darsiga tayyorlanish uchun virtual trenajyor. U haqiqiy mashg'ulot o'rnini bosmaydi, balki tartibni oldindan o'rganishga yordam beradi.</p>
+</div>
+</section>
+
+<section class="theory" aria-labelledby="in-h">
+<h2 id="in-h">Avval — qisqa tushuntirish</h2>
+<p class="sub">To'liqsiz ajratish nima, qanday tartibda bajariladi va nega yig'ish teskari tartibda?</p>
+<div class="tgrid">
+<div class="tcard">
+<h3>🎯 To'liqsiz ajratish nima?</h3>
+<p>Bu avtomatni <b>tozalash, moylash va ko'zdan kechirish</b> uchun uning asosiy qismlarini ajratish. Stvol qutisi stvol bilan birga <b>yaxlit qoladi</b>.</p>
+<p class="fml"><span class="q-r">Ajratish</span>: 1 → 8 &nbsp;·&nbsp; <span class="q-m">Yig'ish</span>: 8 → 1</p>
+<p>Ajratilgan qismlar stolga <b>ajratish tartibida</b> qo'yiladi. Yig'ishda oxirgi ajratilgan qism birinchi bo'lib joyiga qaytadi.</p>
+</div>
+<div class="tcard">
+<h3>🔧 Ajratish tartibi — 8 qadam</h3>
+<ol class="chain" aria-label="Ajratish tartibi">
+<li style="--c:var(--p1);--i:0"><b>1</b>Do'kon + tekshiruv</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p2);--i:1"><b>2</b>Penal</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p3);--i:2"><b>3</b>Shompol</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p4);--i:3"><b>4</b>Stvol qutisi qopqog'i</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p5);--i:4"><b>5</b>Qaytaruvchi mexanizm</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p6);--i:5"><b>6</b>Zatvor ramasi (zatvor bilan)</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p7);--i:6"><b>7</b>Zatvor</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p8);--i:7"><b>8</b>Gaz trubkasi (qoplama bilan)</li>
+</ol>
+<p><span class="q-a">1-qadam</span> ichida qurol o'qlanmaganligi tekshiriladi: saqlagich pastga, patronnik ko'zdan kechiriladi, nazorat tushirish.</p>
+</div>
+<div class="tcard">
+<h3>🔁 Yig'ish — teskari tartibda</h3>
+<ol class="chain" aria-label="Yig'ish tartibi">
+<li style="--c:var(--p8);--i:0"><b>8</b>Gaz trubkasi</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p7);--i:1"><b>7</b>Zatvor ramaga</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p6);--i:2"><b>6</b>Zatvor ramasi</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p5);--i:3"><b>5</b>Qaytaruvchi mexanizm</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p4);--i:4"><b>4</b>Qopqoq</li><li class="ar" aria-hidden="true">→</li>
+<li class="chk" style="--c:var(--amber);--i:5"><b>✓</b>Nazorat tushirish + saqlagich</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p3);--i:6"><b>3</b>Shompol</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p2);--i:7"><b>2</b>Penal</li><li class="ar" aria-hidden="true">→</li>
+<li style="--c:var(--p1);--i:8"><b>1</b>Do'kon</li>
+</ol>
+<p>Qopqoq yopilgach nazorat tushirish bajariladi va avtomat saqlagichga qo'yiladi. Do'kon <b>eng oxirida</b> biriktiriladi.</p>
+</div>
+</div>
+</section>
+
+<section class="labsec" id="lab-sec" aria-label="Virtual trenajyor">
+<div class="tabs" role="tablist" aria-label="Rejimlar">
+<button class="tab" role="tab" id="t-learn" data-mode="learn" aria-selected="true" aria-controls="side">📘 O'rganish</button>
+<button class="tab" role="tab" id="t-mashq" data-mode="mashq" aria-selected="false" aria-controls="side">🧩 Mashq</button>
+<button class="tab" role="tab" id="t-norma" data-mode="norma" aria-selected="false" aria-controls="side">⏱ Norma</button>
+<button class="tab" role="tab" id="t-quiz" data-mode="quiz" aria-selected="false" aria-controls="side">❓ Savollar</button>
+</div>
+<div class="lab" id="lab">
+<div class="lab-bar">
+<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+<span class="lab-title" id="lab-title"></span>
+</div>
+<div class="lab-body">
+<div class="lab-main">
+<div class="stage" id="stage">
+<canvas id="gl" tabindex="0" role="application" aria-label="AK-74 avtomatining 3D o'quv modeli. Har bir qism alohida rangda. Suring — aylantirish, g'ildirak yoki ikki barmoq — kattalashtirish."></canvas>
+<div class="lbls" id="lbls" aria-hidden="true"></div>
+<div class="info" id="info" role="status" aria-live="polite"></div>
+<div class="vbtns">
+<button class="vbtn" id="v-lbl" type="button" title="Nomlar: to'liq / raqam / yashirin" aria-label="Qism nomlarini ko'rsatish usuli">🏷</button>
+<button class="vbtn" id="v-reset" type="button" title="Ko'rinishni tiklash" aria-label="Ko'rinishni tiklash">⟲</button>
+<button class="vbtn" id="v-in" type="button" title="Yaqinlashtirish" aria-label="Yaqinlashtirish">＋</button>
+<button class="vbtn" id="v-out" type="button" title="Uzoqlashtirish" aria-label="Uzoqlashtirish">－</button>
+</div>
+<div class="cd" id="cd" aria-hidden="true"></div>
+<div class="s-hint" id="s-hint"><span class="hl">👆 Suring — aylantirish · 🔍 g'ildirak / ikki barmoq — kattalashtirish · qismga teging — nomi va vazifasi</span><span class="hs">👆 Suring — aylantirish · 🤏 kattalashtirish · teging — nomi</span></div>
+<div class="tmr3d" id="tmr3d" aria-hidden="true"></div>
+<div class="load" id="load">⏳ 3D o'quv modeli yuklanmoqda…</div>
+</div>
+<div class="tools" id="tools">
+<div class="nav" id="nav">
+<button class="btn" type="button" id="l-prev" aria-label="Oldingi qadam">◀ Oldingi</button>
+<button class="btn pri" type="button" id="l-next" aria-label="Keyingi qadam">Keyingi ▶</button>
+<button class="btn" type="button" id="l-auto" aria-pressed="false">⏵ Avto</button>
+</div>
+<label class="exp" id="exp-w"><span>💥 Ajratilgan ko'rinish</span><input type="range" id="exp" min="0" max="100" value="0" aria-label="Ajratilgan (exploded) ko'rinish darajasi"></label>
+</div>
+</div>
+<aside class="side" id="side" aria-label="Topshiriq paneli"></aside>
+</div>
+</div>
+</section>
+
+<section class="theory" aria-labelledby="th-h">
+<h2 id="th-h">Ma'lumotnoma</h2>
+<p class="sub">Qismlar, norma va ko'p uchraydigan xatolar — dars oldidan takrorlash uchun.</p>
+<div class="tgrid">
+<div class="tcard" style="grid-column:1/-1">
+<h3>🧩 Qismlar va ularning vazifasi</h3>
+<table class="utbl">
+<tr><th>№</th><th>Qism</th><th>Vazifasi</th></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p1)"></span>1</td><td class="nm">Do'kon (magazin)</td><td>Avtomatga pastdan biriktiriladigan olinadigan qism; xavfsizlik uchun har doim birinchi ajratiladi va eng oxirida biriktiriladi.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p2)"></span>2</td><td class="nm">Jihozlar penali</td><td>Qo'ndoq uyasida saqlanadi; ichida avtomatni tozalash va moylash uchun jihozlar (artgich, cho'tka, otvyortka) bor.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p3)"></span>3</td><td class="nm">Shompol</td><td>Stvol ostidagi uzun metall tayoq — stvolni tozalash va moylashda ishlatiladi.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p4)"></span>4</td><td class="nm">Stvol qutisi qopqog'i</td><td>Stvol qutisining ustini yopib, ichidagi qismlarni chang va ifloslanishdan himoya qiladi.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p5)"></span>5</td><td class="nm">Qaytaruvchi mexanizm</td><td>Prujina va yo'naltiruvchi sterjendan iborat; zatvor ramasini oldingi holatiga qaytarib turadi.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p6)"></span>6</td><td class="nm">Zatvor ramasi</td><td>Zatvorni o'zida olib yuradigan harakatlanuvchi qism; o'ng tomonidagi dastasidan tortiladi.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p7)"></span>7</td><td class="nm">Zatvor</td><td>Stvol kanalini orqa tomondan berkitib turadigan qism; tozalash uchun zatvor ramasidan ajratiladi.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:var(--p8)"></span>8</td><td class="nm">Gaz trubkasi (stvol qoplamasi bilan)</td><td>Stvol ustidagi trubka va qoplama; qoplama avtomatni ushlaganda qo'lni himoya qiladi.</td></tr>
+<tr><td class="n"><span class="dot" style="--c:#56669a"></span>—</td><td class="nm">Stvol qutisi va stvol</td><td>Avtomatning asosi (qo'ndoq va dasta bilan); to'liqsiz ajratishda yaxlit qoladi.</td></tr>
+</table>
+</div>
+<div class="tcard">
+<h3>⏱ Norma (ma'lumot uchun)</h3>
+<div id="norma-ref">
+<table class="utbl">
+<tr><th>Mashq</th><th>A'lo</th><th>Yaxshi</th><th>Qoniqarli</th></tr>
+<tr><td>To'liqsiz ajratish</td><td>15 s</td><td>17 s</td><td>19 s</td></tr>
+<tr><td>Yig'ish</td><td>25 s</td><td>27 s</td><td>30 s</td></tr>
+</table>
+</div>
+<p style="margin-top:10px">Qiymatlarni amaldagi ChQBT darsligi bilan solishtiring. Virtual trenajyorda vaqt haqiqiy mashg'ulotdan farq qiladi — u faqat tartibni puxta o'rganish uchun mo'ljal.</p>
+</div>
+<div class="tcard">
+<h3>⚠️ Ko'p uchraydigan xatolar</h3>
+<ul>
+<li>Xavfsizlik tekshiruvini (patronnik, nazorat tushirish) tashlab ketish.</li>
+<li>Qopqoqdan oldin qaytaruvchi mexanizmni olishga urinish.</li>
+<li>Zatvorni zatvor ramasi stvol qutisida turganda ajratmoqchi bo'lish.</li>
+<li>Qismlarni stolga tartibsiz qo'yish — keyin yig'ish tartibi buziladi.</li>
+<li>Yig'ishdan keyin nazorat tushirish va saqlagichga qo'yishni unutish.</li>
+<li>Kuch ishlatish: har bir qism o'z yo'nalishida yengil chiqadi.</li>
+</ul>
+</div>
+<div class="tcard">
+<h3>🧽 Ajratishdan keyin</h3>
+<p>To'liqsiz ajratish avtomatni <b>tozalash va moylash</b> uchun kerak: qismlar toza latta bilan artiladi, chang va qurum tozalanadi, so'ng yupqa moy qatlami surtiladi.</p>
+<p>Ish o'qituvchi nazoratida bajariladi. Yig'ib bo'lgach, qismlar to'g'ri joylashganini o'qituvchi tekshiradi.</p>
+</div>
+<div class="tcard">
+<h3>🎮 Trenajyordan qanday foydalanish</h3>
+<p><b>📘 O'rganish</b> — har bir qadam animatsiya bilan; «Keyingi» tugmasini bosing.</p>
+<p><b>🧩 Mashq</b> — qismlarni 3D modelda bosing (yoki suring) yoki pastdagi tugmalardan tanlang. Xato tartibda — nima uchunligini aytib beramiz.</p>
+<p><b>⏱ Norma</b> — vaqtga qarshi; har bir noto'g'ri tartib vaqtga qo'shiladi.</p>
+<p><b>❓ Savollar</b> — qism nomlari va tartib bo'yicha test; ketma-ket 3 ta to'g'ri javob — keyingi daraja.</p>
+</div>
+</div>
+</section>
+
+<footer>
+<div>&copy; <span id="year">2026</span> Kuvonch Academy</div>
+<div><a href="oyinlar.html">🎮 O'yinlar</a> · <a href="fizika.html">⚛️ Fizika laboratoriyasi</a> · <a href="matematika.html">📐 Matematika</a> · <a href="index.html">Bosh sahifa</a></div>
+</footer>
+</div>
+<script>
+/*! Kuvonch Academy — ChQBT: avtomatni to'liqsiz ajratish va yig'ish (virtual trenajyor) */
+(function () {
+"use strict";
+/* ================= 1. Yordamchilar ================= */
+var $ = function (id) { return document.getElementById(id); };
+var RM = false;
+try { RM = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); } catch (e) {}
+function lsGet(k) { try { return localStorage.getItem("ka.avtomat." + k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem("ka.avtomat." + k, String(v)); } catch (e) {} }
+function coins(n, why) { try { if (window.kaAccount && window.kaAccount.addCoins) window.kaAccount.addCoins(n, why); } catch (e) {} }
+function fx(v, d) { var p = Math.pow(10, d); return (Math.round(v * p) / p).toFixed(d).replace(".", ","); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+
+/* ================= 2. Norma (sozlanadigan) =================
+   ChQBT normasi, soniyalarda. DIQQAT: qiymatlarni amaldagi ChQBT darsligi /
+   o'quv dasturidagi normativ bilan tekshiring va kerak bo'lsa shu yerda o'zgartiring. */
+var NORMA = {
+  dis: { alo: 15, yaxshi: 17, qoniqarli: 19 },   /* to'liqsiz ajratish */
+  asm: { alo: 25, yaxshi: 27, qoniqarli: 30 }    /* to'liqsiz ajratishdan keyin yig'ish */
+};
+var NORMA_PENALTY = 1;   /* har bir noto'g'ri tartib uchun qo'shiladigan soniya (trenajyor qoidasi) */
+
+/* ================= 3. Qismlar va harakatlar ================= */
+var PARTS = {
+  magazine: { n: 1, name: "Do'kon (magazin)", short: "Do'kon", color: "#ff5e8e", purpose: "Avtomatga pastdan biriktiriladigan olinadigan qism; xavfsizlik uchun har doim birinchi ajratiladi va eng oxirida biriktiriladi." },
+  penal: { n: 2, name: "Jihozlar penali", short: "Penal", color: "#ffc23d", purpose: "Qo'ndoq uyasida saqlanadi; ichida avtomatni tozalash va moylash uchun jihozlar (artgich, cho'tka, otvyortka) bor." },
+  rod: { n: 3, name: "Shompol", short: "Shompol", color: "#35f0c4", purpose: "Stvol ostidagi uzun metall tayoq — stvolni tozalash va moylashda ishlatiladi." },
+  cover: { n: 4, name: "Stvol qutisi qopqog'i", short: "Qopqoq", color: "#a27bff", purpose: "Stvol qutisining ustini yopib, ichidagi qismlarni chang va ifloslanishdan himoya qiladi." },
+  spring: { n: 5, name: "Qaytaruvchi mexanizm", short: "Qaytaruvchi mexanizm", color: "#4fb3ff", purpose: "Prujina va yo'naltiruvchi sterjendan iborat; zatvor ramasini oldingi holatiga qaytarib turadi." },
+  carrier: { n: 6, name: "Zatvor ramasi", short: "Zatvor ramasi", color: "#ff8c42", purpose: "Zatvorni o'zida olib yuradigan harakatlanuvchi qism; o'ng tomonidagi dastasidan tortiladi." },
+  bolt: { n: 7, name: "Zatvor", short: "Zatvor", color: "#b6f03c", purpose: "Stvol kanalini orqa tomondan berkitib turadigan qism; tozalash uchun zatvor ramasidan ajratiladi." },
+  gastube: { n: 8, name: "Gaz trubkasi (stvol qoplamasi bilan)", short: "Gaz trubkasi", color: "#e879f9", purpose: "Stvol ustidagi trubka va qoplama; qoplama avtomatni ushlaganda qo'lni himoya qiladi." }
+};
+var EXTRA = {
+  base: { name: "Stvol qutisi va stvol", color: "#7d879e", purpose: "Avtomatning asosi (qo'ndoq va dasta bilan). To'liqsiz ajratishda yaxlit qoladi — qismlarga bo'linmaydi." },
+  selector: { name: "O'tkazgich-saqlagich", color: "#c8d0e4", purpose: "Yuqori holat — saqlagich. Tekshiruv uchun pastga tushiriladi, yig'ib bo'lgach yana yuqoriga qo'yiladi." },
+  grip: { name: "Dasta", color: "#c8d0e4", purpose: "Nazorat tushirishda avtomat dastasidan ushlanadi, stvol esa xavfsiz yo'nalishga qaratiladi." }
+};
+var PORDER = ["magazine", "penal", "rod", "cover", "spring", "carrier", "bolt", "gastube"];
+var SAFE_C = "#ffc23d";
+var ACT = {
+  magazine: { t: "Do'konni ajratish", c: "Do'kon", p: "magazine",
+    d: "Avtomatni chap qo'l bilan ushlab, stvolni xavfsiz yo'nalishga qarating. O'ng qo'l bilan do'konni ushlang, bosh barmoq bilan do'kon tutqichini bosing va do'konning pastki qismini oldinga surib ajrating.",
+    w: "Har qanday ish do'konni ajratishdan boshlanadi — bu xavfsizlikning birinchi qadami." },
+  selector: { t: "Saqlagichni pastga tushirish", c: "Saqlagichni tushirish", hl: "selector",
+    d: "O'tkazgich-saqlagichni yuqori holatdan pastga tushiring — shundagina zatvor ramasini orqaga tortish mumkin bo'ladi.",
+    w: "Do'kondan keyin saqlagich pastga tushiriladi: aks holda zatvor ramasini tortib, patronnikni tekshirib bo'lmaydi." },
+  chamber: { t: "Patronnikni ko'zdan kechirish", c: "Patronnikni tekshirish", hl: "carrier",
+    d: "Zatvor ramasini dastasidan orqaga torting va patronnik bo'shligini ko'zdan kechiring, so'ng ramani qo'yib yuboring.",
+    w: "Patronnik bo'shligiga ishonch hosil qilmasdan ajratishni boshlash mumkin emas." },
+  release: { t: "Nazorat tushirish", c: "Nazorat tushirish", hl: "grip",
+    d: "Stvolni xavfsiz yo'nalishga qaratib, tepkini bosing. Shu bilan qurol o'qlanmaganligi tekshiruvi tugaydi — endi ajratish mumkin.",
+    w: "Tekshiruv nazorat tushirish bilan yakunlanadi — shundan keyingina qismlar ajratiladi." },
+  penal: { t: "Penalni qo'ndoqdan chiqarish", c: "Penal", p: "penal",
+    d: "Qo'ndoq uyasining qopqog'ini barmoq bilan bosing — penal prujina yordamida chiqadi. Uni olib, ichidagi tozalash jihozlarini chiqaring.",
+    w: "Tekshiruvdan keyin avval tozalash jihozlari tayyorlanadi: birinchi bo'lib qo'ndoqdagi penal olinadi." },
+  rod: { t: "Shompolni ajratish", c: "Shompol", p: "rod",
+    d: "Shompol uchini stvoldan biroz uzoqlashtirib, tirgakdan chiqaring va oldinga tortib oling.",
+    w: "Penaldan keyin shompol olinadi — u ham tozalash jihozi." },
+  cover: { t: "Stvol qutisi qopqog'ini ajratish", c: "Stvol qutisi qopqog'i", p: "cover",
+    d: "Bosh barmoq bilan qaytaruvchi mexanizm yo'naltiruvchi sterjeni uchini oldinga bosing va qopqoqning orqa qismini yuqoriga ko'tarib ajrating.",
+    w: "Qopqoq ichki qismlarni yopib turadi — ular bilan ishlashdan oldin qopqoq olinadi." },
+  spring: { t: "Qaytaruvchi mexanizmni ajratish", c: "Qaytaruvchi mexanizm", p: "spring",
+    d: "Yo'naltiruvchi sterjen uchini oldinga surib, stvol qutisidagi uyasidan chiqaring va qaytaruvchi mexanizmni orqaga tortib oling.",
+    w: "Qaytaruvchi mexanizm zatvor ramasini oldinga itarib turadi — rama undan keyin chiqariladi." },
+  carrier: { t: "Zatvor ramasini zatvor bilan ajratish", c: "Zatvor ramasi", p: "carrier",
+    d: "Zatvor ramasini dastasidan oxirigacha orqaga torting, ko'tarib, zatvor bilan birga stvol qutisidan chiqaring.",
+    w: "Zatvor zatvor ramasi ichida — avval ramani zatvor bilan birga chiqarish kerak." },
+  bolt: { t: "Zatvorni zatvor ramasidan ajratish", c: "Zatvor", p: "bolt",
+    d: "Zatvor ramasini qo'lda ushlab, zatvorni orqaga suring, buring va oldinga chiqarib oling.",
+    w: "Zatvor faqat zatvor ramasi chiqarilgandan keyin undan ajratiladi." },
+  gastube: { t: "Gaz trubkasini stvol qoplamasi bilan ajratish", c: "Gaz trubkasi", p: "gastube",
+    d: "Gaz trubkasi tutqichini yuqoriga burang, gaz trubkasini orqa uchidan ko'tarib, stvoldan ajrating.",
+    w: "Gaz trubkasi eng oxirida ajratiladi: zatvor ramasining porsheni uning ichida joylashgan edi." },
+
+  a_gastube: { t: "Gaz trubkasini stvol qoplamasi bilan biriktirish", c: "Gaz trubkasi", p: "gastube",
+    d: "Gaz trubkasining old uchini joyiga kiyg'izing, orqa uchini stvolga bosing va tutqichni pastga burab mahkamlang.",
+    w: "Yig'ish teskari tartibda: oxirgi ajratilgan gaz trubkasi birinchi bo'lib joyiga qo'yiladi." },
+  a_bolt: { t: "Zatvorni zatvor ramasiga biriktirish", c: "Zatvor", p: "bolt",
+    d: "Zatvorni zatvor ramasi kanaliga kiriting, buring va oldinga suring.",
+    w: "Zatvor ramasini o'rnatishdan oldin zatvor unga biriktiriladi." },
+  a_carrier: { t: "Zatvor ramasini zatvor bilan stvol qutisiga biriktirish", c: "Zatvor ramasi", p: "carrier",
+    d: "Ramani porsheni bilan gaz trubkasiga kiriting, stvol qutisiga tushiring va oldinga suring.",
+    w: "Qaytaruvchi mexanizm zatvor ramasiga tayanadi — avval rama joyiga qo'yiladi." },
+  a_spring: { t: "Qaytaruvchi mexanizmni biriktirish", c: "Qaytaruvchi mexanizm", p: "spring",
+    d: "Qaytaruvchi mexanizmni zatvor ramasi kanaliga kiriting, prujinani siqib, sterjen uchini stvol qutisi uyasiga joylang.",
+    w: "Qopqoqdan oldin qaytaruvchi mexanizm joylanadi: qopqoq uning sterjeni bilan mahkamlanadi." },
+  a_cover: { t: "Stvol qutisi qopqog'ini biriktirish", c: "Stvol qutisi qopqog'i", p: "cover",
+    d: "Qopqoqning old uchini o'ymaga kiriting va orqa qismini bosing — sterjen uchi qopqoq teshigidan chiqib, uni mahkamlaydi.",
+    w: "Nazorat tushirishdan oldin stvol qutisi qopqog'i yopilgan bo'lishi kerak." },
+  a_release: { t: "Nazorat tushirish va saqlagichga qo'yish", c: "Nazorat tushirish + saqlagich", hl: "selector",
+    d: "Stvolni xavfsiz yo'nalishga qaratib tepkini bosing, so'ng o'tkazgichni yuqori — saqlagich holatiga qo'ying.",
+    w: "Qopqoq yopilgach, nazorat tushirish bajariladi va avtomat saqlagichga qo'yiladi." },
+  a_rod: { t: "Shompolni biriktirish", c: "Shompol", p: "rod",
+    d: "Shompolni stvol ostidagi teshikdan kiriting va uchini tirgakka joylang.",
+    w: "Saqlagichga qo'yilgach tozalash jihozlari joyiga qaytariladi: avval shompol." },
+  a_penal: { t: "Penalni qo'ndoq uyasiga joylash", c: "Penal", p: "penal",
+    d: "Jihozlarni penalga solib, qo'ndoq uyasiga kiriting va uya qopqog'ini yoping.",
+    w: "Shompoldan keyin penal qo'ndoq uyasiga joylanadi." },
+  a_magazine: { t: "Do'konni biriktirish", c: "Do'kon", p: "magazine",
+    d: "Do'kon ilgagini stvol qutisi o'ymasiga kiriting va do'konni o'zingizga burib, tutqich chiqillagancha bosing. Mashg'ulotda faqat o'quv (bo'sh) do'kon ishlatiladi.",
+    w: "Do'kon eng oxirida biriktiriladi." }
+};
+var DIS = ["magazine", "selector", "chamber", "release", "penal", "rod", "cover", "spring", "carrier", "bolt", "gastube"];
+var ASM = ["a_gastube", "a_bolt", "a_carrier", "a_spring", "a_cover", "a_release", "a_rod", "a_penal", "a_magazine"];
+var SAFETY_IDS = { magazine: 1, selector: 1, chamber: 1, release: 1, a_release: 1 };
+function actColor(id) { var a = ACT[id]; return a && a.p ? PARTS[a.p].color : SAFE_C; }
+function hlKey(id) { var a = ACT[id]; if (!a) return null; return a.hl || a.p; }
+
+/* mantiqiy holat: att — qism joyida (1) yoki stolda (0); bolt=1 — zatvor ramasi ichida */
+function freshState() { return { att: { magazine: 1, penal: 1, rod: 1, cover: 1, spring: 1, carrier: 1, bolt: 1, gastube: 1 }, sel: 0, chk: 0, rel: 0 }; }
+function cloneSt(s) { var a = {}, k; for (k in s.att) a[k] = s.att[k]; return { att: a, sel: s.sel, chk: s.chk, rel: s.rel }; }
+function applyAct(s, id) {
+  if (id === "selector") s.sel = 1;
+  else if (id === "chamber") s.chk = 1;
+  else if (id === "release") s.rel = 1;
+  else if (id === "a_release") s.sel = 0;
+  else if (id.indexOf("a_") === 0) s.att[id.slice(2)] = 1;
+  else s.att[id] = 0;
+  return s;
+}
+function stateAfter(list) { var s = freshState(); for (var i = 0; i < list.length; i++) applyAct(s, list[i]); return s; }
+var DIS_END = stateAfter(DIS);
+var S = freshState();   /* joriy mantiqiy holat */
+
+/* ================= 4. 3D ko'rinish (three.js r128) ================= */
+var THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+var T = null;
+var cv = $("gl"), stage = $("stage"), lblBox = $("lbls"), infoEl = $("info");
+var V = { ready: false, failed: false, st: freshState(), explode: 0, tweens: [], parts: {}, mats: {}, picks: [], labels: [], badges: [], hl: null, hlT: 0, hover: null, lblMode: "full", lblHide: false, arrow: false, fit: 20, W: 1, H: 1 };
+var renderer, scene, camera, root, selP, latchP, arrowG, rc, ndc, TGT, tmpV;
+var SEL_DOWN = -0.38, LATCH_UP = 2.1, MAT_Y = -2.4;
+var HOME = {}, TABLE = {}, BL = null, KNOB = null;
+var EXP_OFF = { magazine: [0.15, -0.45, 0], penal: [-1.05, 0, 0], rod: [0, -0.32, 0], cover: [0, 1.75, 0], spring: [-0.25, 1.25, 0], carrier: [-0.2, 0.8, 0], gastube: [0, 0.3, 0] };
+var BOLT_EXP = [0.85, 0, 0];
+var TABLE_XZ = { magazine: [-4.45, 1.6], penal: [-3.0, 1.6], rod: [0.25, 1.6], cover: [4.4, 1.6], spring: [-3.55, 3.3], carrier: [-0.35, 3.3], bolt: [2.4, 3.3], gastube: [4.6, 3.3] };
+var DELTA = {
+  magazine: [{ rz: 0.35 }, { rz: 0.35, x: 0.2, y: -0.75 }],
+  penal: [{ x: -1.15 }],
+  rod: [{ y: -0.1 }, { x: 2.3, y: -0.12 }],
+  cover: [{ y: 0.16, rz: -0.12 }, { x: -0.45, y: 0.75, rz: -0.12 }],
+  spring: [{ x: 0.1 }, { x: 0.1, y: 0.2 }, { x: -0.95, y: 0.4 }],
+  carrier: [{ x: -0.5 }, { x: -0.5, y: 0.7 }, { x: -0.8, y: 1.0 }],
+  bolt: [{ x: -0.12 }, { x: -0.12, rx: 0.9 }, { x: 0.95, y: 0.05, rx: 0.9 }],
+  gastube: [{ y: 0.1, rz: -0.18 }, { x: -0.35, y: 0.55, rz: -0.18 }]
+};
+var C = { th: 0.3, ph: 0.44, zoom: 1, gTh: 0.3, gPh: 0.44, gZoom: 1 };
+var TH0 = 0.3, PH0 = 0.44;
+
+function loadThree() {
+  if (loadThree.s) return; loadThree.s = 1;
+  if (window.THREE) { initView(); return; }
+  var s = document.createElement("script");
+  s.src = THREE_URL; s.async = true;
+  s.onload = initView; s.onerror = fail;
+  document.head.appendChild(s);
+}
+function fail() {
+  V.failed = true;
+  $("lab").classList.add("off");
+  $("tools").classList.toggle("empty", mode !== "learn");
+  $("load").innerHTML = "3D model yuklanmadi (internet aloqasini tekshiring).<br>Mashq, norma va savollar tugmalar orqali ishlayveradi.";
+  $("s-hint").style.display = "none";
+  renderSide();
+}
+
+function M(hex, rough) { return new T.MeshStandardMaterial({ color: hex, roughness: rough == null ? 0.62 : rough, metalness: 0.08, emissive: hex, emissiveIntensity: 0 }); }
+function rrect(x, y, w, h, r) { var s = new T.Shape(); s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r); s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h); s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r); s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s; }
+function ext(shape, depth, m, bev) { bev = bev == null ? 0.03 : bev; var g = new T.ExtrudeGeometry(shape, { depth: depth, bevelEnabled: bev > 0, bevelThickness: bev, bevelSize: bev, bevelSegments: 2, curveSegments: 10 }); g.translate(0, 0, -depth / 2); return new T.Mesh(g, m); }
+function cylX(r, len, m, x, y, z, seg) { var g = new T.CylinderGeometry(r, r, len, seg || 18); g.rotateZ(Math.PI / 2); var me = new T.Mesh(g, m); me.position.set(x, y, z || 0); return me; }
+function boxM(w, h, d, m, x, y, z) { var me = new T.Mesh(new T.BoxGeometry(w, h, d), m); me.position.set(x, y, z || 0); return me; }
+var HIDE = null;
+function proxy(mesh, pk) { mesh.material = HIDE; mesh.userData.proxy = 1; mesh.userData.pick = pk; V.picks.push(mesh); return mesh; }
+function addPick(parent, mesh, pk) { mesh.userData.pick = pk; parent.add(mesh); V.picks.push(mesh); return mesh; }
+function P(o) { return { p: o.position.clone(), r: new T.Vector3(o.rotation.x, o.rotation.y, o.rotation.z) }; }
+function mk(p, r) { return { p: p.clone(), r: r ? r.clone() : new T.Vector3() }; }
+function addD(ps, d) { return { p: new T.Vector3(ps.p.x + (d.x || 0), ps.p.y + (d.y || 0), ps.p.z + (d.z || 0)), r: new T.Vector3(ps.r.x + (d.rx || 0), ps.r.y + (d.ry || 0), ps.r.z + (d.rz || 0)) }; }
+function setPose(o, ps) { o.position.copy(ps.p); o.rotation.set(ps.r.x, ps.r.y, ps.r.z); }
+
+function build() {
+  HIDE = new T.MeshBasicMaterial({ visible: false });
+  var mBase = M(0x5d6880, 0.55), mFur = M(0x78839c, 0.78), mDark = M(0x444d64, 0.5), mSel = M(0xa3acc4, 0.4), mGrip = M(0x78839c, 0.78);
+  V.mats.selector = [mSel]; V.mats.grip = [mGrip];
+  var base = new T.Group(); root.add(base);
+  var bp = { base: 1 };
+  /* stvol qutisi, stvol, qo'ndoq — yaxlit asos */
+  addPick(base, ext(rrect(-1.8, -0.32, 3.0, 0.5, 0.06), 0.34, mBase), bp);
+  addPick(base, ext(rrect(1.0, -0.2, 0.32, 0.6, 0.05), 0.3, mBase), bp);
+  addPick(base, cylX(0.085, 4.6, mDark, 3.5, 0.02, 0), bp);
+  addPick(base, cylX(0.12, 0.42, mDark, 5.95, 0.02, 0), bp);
+  addPick(base, ext(rrect(3.5, -0.07, 0.3, 0.46, 0.05), 0.22, mBase), bp);
+  addPick(base, ext(rrect(1.3, -0.3, 1.75, 0.3, 0.1), 0.3, mFur), bp);
+  var st = new T.Shape(); st.moveTo(-1.75, 0.16); st.lineTo(-5.03, -0.02); st.lineTo(-5.03, -0.96); st.lineTo(-4.55, -0.94); st.quadraticCurveTo(-3.1, -0.62, -1.75, -0.24); st.lineTo(-1.75, 0.16);
+  addPick(base, ext(st, 0.3, mFur), bp);
+  addPick(base, boxM(0.06, 1.0, 0.38, mDark, -5.07, -0.48, 0), bp);
+  var mTrap = M(0xffc23d, 0.6);
+  var trap = new T.Mesh(new T.CylinderGeometry(0.1, 0.1, 0.03, 22).rotateZ(Math.PI / 2), mTrap); trap.position.set(-5.11, -0.55, 0);
+  addPick(base, trap, { part: "penal" });
+  base.add(proxy(new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.08, 12).rotateZ(Math.PI / 2)), { part: "penal" })); V.picks[V.picks.length - 1].position.set(-5.12, -0.55, 0);
+  var gp = new T.Shape(); gp.moveTo(-0.98, -0.3); gp.lineTo(-0.6, -0.3); gp.lineTo(-0.74, -1.02); gp.quadraticCurveTo(-0.92, -1.12, -1.14, -1.0); gp.lineTo(-0.98, -0.3);
+  addPick(base, ext(gp, 0.26, mGrip), { action: "release" });
+  var guard = new T.Mesh(new T.TorusGeometry(0.21, 0.026, 8, 22, Math.PI).rotateZ(Math.PI), mGrip); guard.position.set(-0.32, -0.32, 0);
+  addPick(base, guard, { action: "release" });
+  /* o'tkazgich-saqlagich (o'ng tomonda) */
+  selP = new T.Group(); selP.position.set(-0.95, 0.1, 0.235); base.add(selP);
+  addPick(selP, boxM(1.15, 0.08, 0.035, mSel, 0.575, 0, 0), { action: "selector" });
+  addPick(selP, boxM(0.09, 0.17, 0.05, mSel, 1.12, -0.05, 0.01), { action: "selector" });
+  selP.add(proxy(boxM(1.3, 0.28, 0.14, null, 0.6, -0.03, 0.02), { action: "selector" }));
+  /* gaz trubkasi tutqichi */
+  latchP = new T.Group(); latchP.position.set(1.17, 0.3, 0.17); base.add(latchP);
+  latchP.add(boxM(0.05, 0.2, 0.035, mSel, 0, -0.08, 0));
+
+  function partGroup(id) {
+    var g = new T.Group(), m = M(new T.Color(PARTS[id].color).getHex(), 0.6);
+    V.mats[id] = [m]; root.add(g);
+    V.parts[id] = { g: g, m: m, id: id };
+    g.userData.part = id;
+    return { g: g, m: m };
+  }
+  var q;
+  /* 1. Do'kon */
+  q = partGroup("magazine");
+  var ms = new T.Shape(); ms.moveTo(0.04, -0.3); ms.lineTo(0.64, -0.3); ms.quadraticCurveTo(0.68, -1.0, 1.26, -1.58); ms.lineTo(0.66, -1.8); ms.quadraticCurveTo(0.1, -1.08, 0.04, -0.3);
+  addPick(q.g, ext(ms, 0.22, q.m), { part: "magazine" });
+  /* 2. Penal */
+  q = partGroup("penal");
+  addPick(q.g, cylX(0.075, 0.55, q.m, -4.65, -0.55, 0), { part: "penal" });
+  addPick(q.g, cylX(0.085, 0.05, q.m, -4.95, -0.55, 0), { part: "penal" });
+  /* 3. Shompol */
+  q = partGroup("rod");
+  addPick(q.g, cylX(0.028, 4.3, q.m, 3.5, -0.16, 0, 10), { part: "rod" });
+  addPick(q.g, cylX(0.05, 0.1, q.m, 5.7, -0.16, 0, 12), { part: "rod" });
+  q.g.add(proxy(cylX(0.11, 4.4, null, 3.5, -0.16, 0, 8), { part: "rod" }));
+  /* 4. Stvol qutisi qopqog'i */
+  q = partGroup("cover");
+  q.m.side = T.DoubleSide;
+  var cg = new T.CylinderGeometry(0.205, 0.205, 2.8, 22, 1, false, 0, Math.PI); cg.rotateZ(Math.PI / 2); cg.scale(1, 1.25, 1);
+  var cm = new T.Mesh(cg, q.m); cm.position.set(-0.4, 0.18, 0);
+  addPick(q.g, cm, { part: "cover" });
+  /* 5. Qaytaruvchi mexanizm */
+  q = partGroup("spring");
+  addPick(q.g, cylX(0.022, 1.95, q.m, -0.775, 0.27, 0, 8), { part: "spring" });
+  var pts = [], N = 15 * 14;
+  for (var i = 0; i <= N; i++) { var t = i / N, a = t * Math.PI * 2 * 15; pts.push(new T.Vector3(-1.62 + 1.78 * t, 0.27 + 0.056 * Math.cos(a), 0.056 * Math.sin(a))); }
+  addPick(q.g, new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 330, 0.013, 6, false), q.m), { part: "spring" });
+  addPick(q.g, boxM(0.16, 0.13, 0.15, q.m, -1.78, 0.27, 0), { part: "spring" });
+  q.g.add(proxy(cylX(0.1, 2.1, null, -0.75, 0.27, 0, 8), { part: "spring" }));
+  /* 6. Zatvor ramasi */
+  q = partGroup("carrier");
+  addPick(q.g, ext(rrect(-0.3, 0.08, 1.1, 0.26, 0.05), 0.2, q.m), { part: "carrier" });
+  addPick(q.g, cylX(0.042, 2.62, q.m, 2.06, 0.3, 0, 12), { part: "carrier" });
+  addPick(q.g, cylX(0.06, 0.1, q.m, 3.36, 0.3, 0, 14), { part: "carrier" });
+  addPick(q.g, boxM(0.1, 0.07, 0.24, q.m, 0.55, 0.2, 0.24), { part: "carrier" });
+  var knob = new T.Mesh(new T.SphereGeometry(0.065, 14, 10), q.m); knob.position.set(0.55, 0.2, 0.38);
+  addPick(q.g, knob, { part: "carrier" });
+  q.g.add(proxy(new T.Mesh(new T.SphereGeometry(0.18, 8, 6)), { part: "carrier" })); V.picks[V.picks.length - 1].position.set(0.55, 0.2, 0.38);
+  /* 7. Zatvor */
+  q = partGroup("bolt");
+  addPick(q.g, cylX(0.068, 0.5, q.m, 0.86, 0.17, 0), { part: "bolt" });
+  addPick(q.g, boxM(0.08, 0.05, 0.2, q.m, 1.06, 0.17, 0), { part: "bolt" });
+  addPick(q.g, cylX(0.032, 0.25, q.m, 0.5, 0.17, 0, 10), { part: "bolt" });
+  addPick(q.g, boxM(0.07, 0.06, 0.07, q.m, 0.78, 0.25, 0), { part: "bolt" });
+  q.g.add(proxy(cylX(0.13, 0.8, null, 0.8, 0.17, 0, 8), { part: "bolt" }));
+  /* 8. Gaz trubkasi qoplama bilan */
+  q = partGroup("gastube");
+  addPick(q.g, cylX(0.07, 2.35, q.m, 2.425, 0.3, 0), { part: "gastube" });
+  addPick(q.g, ext(rrect(1.32, 0.2, 1.6, 0.27, 0.11), 0.3, q.m), { part: "gastube" });
+  V.mats.penal.push(mTrap);
+
+  /* markazlash va pozitsiyalar */
+  var bb = {};
+  PORDER.forEach(function (id) {
+    var g = V.parts[id].g; g.updateMatrixWorld(true);
+    var b = new T.Box3();
+    g.children.forEach(function (ch) { if (!ch.userData.proxy) b.expandByObject(ch); });
+    var c = b.getCenter(new T.Vector3());
+    g.children.forEach(function (ch) { ch.position.sub(c); });
+    g.position.copy(c);
+    bb[id] = { c: c, s: b.getSize(new T.Vector3()) };
+    HOME[id] = c.clone();
+    var xz = TABLE_XZ[id], r = new T.Vector3(), y;
+    if (id === "magazine") { r.x = -Math.PI / 2; y = MAT_Y + bb[id].s.z / 2 + 0.02; }
+    else y = MAT_Y + bb[id].s.y / 2 + 0.02;
+    TABLE[id] = mk(new T.Vector3(xz[0], y, xz[1]), r);
+  });
+  /* zatvorni zatvor ramasiga bola qilib qo'yamiz */
+  BL = HOME.bolt.clone().sub(HOME.carrier);
+  KNOB = new T.Vector3(0.55, 0.2, 0.38).sub(HOME.carrier);
+  V.parts.carrier.g.add(V.parts.bolt.g);
+  V.parts.bolt.g.position.copy(BL);
+
+  /* stol (gilamcha) */
+  var MX0 = -5.9, MX1 = 7.1, MZ0 = -1.1, MZ1 = 4.2;
+  var cw = 1024, ch = Math.round(1024 * (MZ1 - MZ0) / (MX1 - MX0));
+  var c2 = document.createElement("canvas"); c2.width = cw; c2.height = ch;
+  var x2 = c2.getContext("2d");
+  var ux = function (x) { return (x - MX0) / (MX1 - MX0) * cw; }, uz = function (z) { return (z - MZ0) / (MZ1 - MZ0) * ch; }, us = cw / (MX1 - MX0);
+  x2.fillStyle = "#0e1739"; x2.fillRect(0, 0, cw, ch);
+  x2.strokeStyle = "rgba(147,163,204,.07)"; x2.lineWidth = 1;
+  for (var gx = Math.ceil(MX0 * 2) / 2; gx <= MX1; gx += 0.5) { x2.beginPath(); x2.moveTo(ux(gx), 0); x2.lineTo(ux(gx), ch); x2.stroke(); }
+  for (var gz = Math.ceil(MZ0 * 2) / 2; gz <= MZ1; gz += 0.5) { x2.beginPath(); x2.moveTo(0, uz(gz)); x2.lineTo(cw, uz(gz)); x2.stroke(); }
+  x2.strokeStyle = "rgba(53,240,196,.35)"; x2.lineWidth = 3; x2.strokeRect(6, 6, cw - 12, ch - 12);
+  x2.setLineDash([7, 6]); x2.lineWidth = 2;
+  PORDER.forEach(function (id) {
+    var w = bb[id].s.x, d = id === "magazine" ? bb[id].s.y : bb[id].s.z, xz = TABLE_XZ[id];
+    d = Math.max(d, 0.32) + 0.16; w += 0.2;
+    var X = ux(xz[0] - w / 2), Z = uz(xz[1] - d / 2), Wd = w * us, Dd = d * us;
+    x2.strokeStyle = PARTS[id].color; x2.globalAlpha = 0.55; x2.strokeRect(X, Z, Wd, Dd); x2.globalAlpha = 1;
+    var cx = X - 2, cz = Z + Dd + 16;
+    x2.fillStyle = PARTS[id].color; x2.beginPath(); x2.arc(cx + 14, cz, 12, 0, 7); x2.fill();
+    x2.fillStyle = "#060a1a"; x2.font = "800 15px system-ui,sans-serif"; x2.textAlign = "center"; x2.textBaseline = "middle"; x2.fillText(String(PARTS[id].n), cx + 14, cz + 1);
+  });
+  x2.setLineDash([]);
+  x2.fillStyle = "rgba(147,163,204,.8)"; x2.font = "600 19px system-ui,sans-serif"; x2.textAlign = "center"; x2.textBaseline = "alphabetic";
+  x2.fillText("STOL: qismlar ajratish tartibida qo'yiladi (1 → 8) · yig'ish — teskari tartibda (8 → 1)", cw / 2, ch - 14);
+  var tex = new T.CanvasTexture(c2);
+  tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  var mat = new T.Mesh(new T.PlaneGeometry(MX1 - MX0, MZ1 - MZ0), new T.MeshStandardMaterial({ map: tex, roughness: 0.95, metalness: 0 }));
+  mat.rotation.x = -Math.PI / 2; mat.position.set((MX0 + MX1) / 2, MAT_Y, (MZ0 + MZ1) / 2);
+  scene.add(mat);
+  /* yumshoq soya */
+  var c3 = document.createElement("canvas"); c3.width = 256; c3.height = 64;
+  var x3 = c3.getContext("2d"), rg = x3.createRadialGradient(128, 32, 4, 128, 32, 128);
+  rg.addColorStop(0, "rgba(0,0,0,.55)"); rg.addColorStop(1, "rgba(0,0,0,0)");
+  x3.fillStyle = rg; x3.fillRect(0, 0, 256, 64);
+  var sh = new T.Mesh(new T.PlaneGeometry(12.5, 2.2), new T.MeshBasicMaterial({ map: new T.CanvasTexture(c3), transparent: true, depthWrite: false }));
+  sh.rotation.x = -Math.PI / 2; sh.position.set(0.5, MAT_Y + 0.01, 0); scene.add(sh);
+  /* xavfsiz yo'nalish ko'rsatkichi */
+  arrowG = new T.Group(); arrowG.position.set(6.28, 0.12, 0); arrowG.rotation.z = 1.0;
+  var am = new T.MeshBasicMaterial({ color: 0x35f0c4, transparent: true, opacity: 0.7 });
+  arrowG.add(cylX(0.028, 0.55, am, 0.28, 0, 0, 10));
+  var cone = new T.Mesh(new T.ConeGeometry(0.085, 0.24, 14).rotateZ(-Math.PI / 2), am); cone.position.set(0.66, 0, 0); arrowG.add(cone);
+  arrowG.visible = false; scene.add(arrowG);
+}
+
+/* ----- yorliqlar ----- */
+function buildLabels() {
+  PORDER.forEach(function (id) {
+    var el = document.createElement("div"); el.className = "l3"; el.style.setProperty("--c", PARTS[id].color);
+    el.innerHTML = "<i>" + PARTS[id].n + "</i><span>" + esc(PARTS[id].short) + "</span>";
+    lblBox.appendChild(el);
+    var off = { magazine: [0.25, -0.62, 0.12], penal: [0, 0.1, 0], rod: [1.55, -0.04, 0], cover: [-0.75, 0.3, 0], spring: [0.3, 0.1, 0], carrier: [KNOB.x, KNOB.y - 0.04, KNOB.z], bolt: [0, 0.1, 0], gastube: [0.45, 0.16, 0] }[id];
+    V.labels.push({ id: id, el: el, obj: V.parts[id].g, a: new T.Vector3(off[0], off[1], off[2]) });
+  });
+  var be = document.createElement("div"); be.className = "l3 base"; be.innerHTML = "<span>Stvol qutisi va stvol — yaxlit qoladi</span>"; lblBox.appendChild(be);
+  V.labels.push({ id: "base", el: be, obj: root, a: new T.Vector3(-2.9, -0.62, 0.2) });
+  var ae = document.createElement("div"); ae.className = "l3 arrow"; ae.innerHTML = "<span>xavfsiz yo'nalish ↗</span>"; lblBox.appendChild(ae);
+  V.labels.push({ id: "arrow", el: ae, obj: arrowG, a: new T.Vector3(0.62, 0, 0) });
+}
+var BELOW_ON = { magazine: 1, rod: 1, carrier: 1 };
+function labelBelow(id) { return V.st.att[id] && !(id === "bolt" && !V.st.att.carrier) ? !!BELOW_ON[id] && !(id === "carrier" && V.explode > 0.3) : TABLE_XZ[id][1] > 2.5; }
+function partVisible(id) {
+  var a = V.st.att, e = V.explode > 0.3;
+  if (id === "penal") return !a.penal || e;
+  if (id === "spring") return !a.cover || !a.spring || e;
+  if (id === "bolt") return !a.carrier || !a.bolt || !a.cover || e;
+  return true;
+}
+function updLabels() {
+  var w = V.W, h = V.H, hideAll = V.lblHide;
+  for (var i = 0; i < V.labels.length; i++) {
+    var L = V.labels[i], show;
+    if (L.id === "arrow") show = V.arrow;
+    else if (L.id === "base") show = !hideAll && V.lblMode === "full";
+    else show = !hideAll && V.lblMode !== "off" && partVisible(L.id);
+    if (show) {
+      tmpV.copy(L.a).applyMatrix4(L.obj.matrixWorld).project(camera);
+      if (tmpV.z > 1 || tmpV.z < -1) show = false;
+    }
+    if (!show) { if (L.vis !== false) { L.el.style.display = "none"; L.vis = false; } continue; }
+    if (L.vis !== true) { L.el.style.display = "flex"; L.vis = true; }
+    var x = (tmpV.x * 0.5 + 0.5) * w, y = (-tmpV.y * 0.5 + 0.5) * h, dn = L.id !== "base" && L.id !== "arrow" && labelBelow(L.id);
+    L.el.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) " + (L.id === "arrow" ? "translate(calc(-100% - 10px),-50%)" : "translate(-50%," + (dn ? "18%" : "-115%") + ")");
+    if (L.id !== "base" && L.id !== "arrow") { var num = V.lblMode === "num"; if (L.num !== num) { L.el.classList.toggle("num", num); L.num = num; } }
+  }
+  for (var j = 0; j < V.badges.length; j++) {
+    var B = V.badges[j];
+    tmpV.copy(B.a).applyMatrix4(B.obj.matrixWorld).project(camera);
+    B.el.style.transform = "translate(" + ((tmpV.x * 0.5 + 0.5) * w).toFixed(1) + "px," + ((-tmpV.y * 0.5 + 0.5) * h).toFixed(1) + "px) translate(-50%,-130%)";
+  }
+}
+function badge(text, obj, anchor, ms, warn) {
+  if (!V.ready) return;
+  var el = document.createElement("div"); el.className = "l3 badge" + (warn ? " warn" : ""); el.style.display = "flex"; el.textContent = text;
+  lblBox.appendChild(el);
+  var B = { el: el, obj: obj, a: anchor };
+  V.badges.push(B); wake();
+  setTimeout(function () { var k = V.badges.indexOf(B); if (k >= 0) V.badges.splice(k, 1); if (el.parentNode) el.parentNode.removeChild(el); }, ms || 1800);
+}
+function clearBadges() { V.badges.forEach(function (B) { if (B.el.parentNode) B.el.parentNode.removeChild(B.el); }); V.badges = []; }
+
+/* ----- tween (silliq harakat) ----- */
+function ease(f) { return f * f * (3 - 2 * f); }
+function tween(o, keys, dur, done, delay) {
+  var w = [0], tot = 0;
+  for (var i = 1; i < keys.length; i++) { var a = keys[i - 1], b = keys[i]; tot += a.p.distanceTo(b.p) + 0.45 * a.r.distanceTo(b.r) + 0.04; w.push(tot); }
+  var tw = { o: o, keys: keys, w: w, tot: tot, dur: Math.max(0.01, RM ? Math.min(dur, 0.15) : dur), t: -(delay || 0), done: done };
+  V.tweens.push(tw); wake(); return tw;
+}
+function stepTween(tw, dt) {
+  tw.t += dt; if (tw.t < 0) return false;
+  var u = Math.min(1, tw.t / tw.dur), s = u * tw.tot, i = 1;
+  while (i < tw.w.length - 1 && tw.w[i] < s) i++;
+  var a = tw.keys[i - 1], b = tw.keys[i], seg = (tw.w[i] - tw.w[i - 1]) || 1, f = ease(clamp((s - tw.w[i - 1]) / seg, 0, 1));
+  tw.o.position.lerpVectors(a.p, b.p, f);
+  tw.o.rotation.set(a.r.x + (b.r.x - a.r.x) * f, a.r.y + (b.r.y - a.r.y) * f, a.r.z + (b.r.z - a.r.z) * f);
+  return u >= 1;
+}
+function finishAll() {
+  var list = V.tweens; V.tweens = [];
+  list.forEach(function (tw) { setPose(tw.o, tw.keys[tw.keys.length - 1]); if (tw.done) tw.done(); });
+}
+function isTw(o) { for (var i = 0; i < V.tweens.length; i++) if (V.tweens[i].o === o) return true; return false; }
+function homePose(id) { var e = EXP_OFF[id] || [0, 0, 0], t = V.explode; return mk(new T.Vector3(HOME[id].x + e[0] * t, HOME[id].y + e[1] * t, HOME[id].z + e[2] * t)); }
+function boltLocal() { var t = V.st.att.carrier ? V.explode : 0; return mk(new T.Vector3(BL.x + BOLT_EXP[0] * t, BL.y + BOLT_EXP[1] * t, BL.z + BOLT_EXP[2] * t)); }
+function rotTo(o, rz, dur) { var a = P(o), b = mk(a.p, new T.Vector3(a.r.x, a.r.y, rz)); tween(o, [a, b], dur); }
+
+/* holatni bir zumda o'rnatish */
+function setInstant(st) {
+  if (!V.ready) return;
+  finishAll(); clearBadges();
+  V.st = cloneSt(st);
+  var car = V.parts.carrier.g, bolt = V.parts.bolt.g;
+  PORDER.forEach(function (id) {
+    var g = V.parts[id].g;
+    if (id === "bolt") {
+      if (st.att.bolt) { car.add(g); setPose(g, boltLocal()); }
+      else { root.add(g); setPose(g, TABLE.bolt); }
+    } else setPose(g, st.att[id] ? homePose(id) : TABLE[id]);
+  });
+  selP.rotation.z = st.sel ? SEL_DOWN : 0;
+  latchP.rotation.z = st.att.gastube ? 0 : LATCH_UP;
+  wake();
+}
+/* bitta harakatni animatsiya qilish (fwd=false — teskari) */
+function animAct(id, fwd, dur, st) {
+  if (!V.ready) return;
+  var bms = dur < 0.6 ? 900 : 0;
+  finishAll();
+  V.st = cloneSt(st || S);
+  var car = V.parts.carrier.g;
+  if (id === "selector") { rotTo(selP, fwd ? SEL_DOWN : 0, dur * 0.5); if (fwd) badge("↓ Saqlagich tushirildi", selP, new T.Vector3(1.1, -0.1, 0), bms || 1500, true); return; }
+  if (id === "a_release") { rotTo(selP, fwd ? 0 : SEL_DOWN, dur * 0.5); if (fwd) badge("✓ Nazorat tushirish · 🔒 saqlagichda", selP, new T.Vector3(0.6, 0, 0), bms || 2200); return; }
+  if (id === "chamber") {
+    if (fwd) { var a = P(car); tween(car, [a, addD(a, { x: -0.5 }), addD(a, { x: -0.5 }), a], dur); badge("✓ Patronnik bo'sh", root, new T.Vector3(1.15, 0.3, 0.2), bms || 2200); }
+    return;
+  }
+  if (id === "release") { if (fwd) badge("✓ Nazorat tushirish bajarildi", root, new T.Vector3(-0.9, -1.15, 0.2), bms || 2000); return; }
+  var isA = id.indexOf("a_") === 0, p = isA ? id.slice(2) : id, remove = isA ? !fwd : fwd;
+  var g = V.parts[p].g, ds = DELTA[p], keys, cur, home, i;
+  if (remove) {
+    if (p === "bolt") root.attach(g);
+    cur = P(g); keys = [cur];
+    for (i = 0; i < ds.length; i++) keys.push(addD(cur, ds[i]));
+    keys.push(addD(TABLE[p], { y: 1.0 })); keys.push(TABLE[p]);
+    if (p === "gastube") rotTo(latchP, LATCH_UP, dur * 0.25);
+    tween(g, keys, dur);
+  } else {
+    if (p === "bolt") { if (g.parent !== root) root.attach(g); var cp = P(car); home = mk(cp.p.clone().add(BL)); }
+    else home = homePose(p);
+    cur = P(g); keys = [cur, addD(cur, { y: 1.0 })];
+    for (i = ds.length - 1; i >= 0; i--) keys.push(addD(home, ds[i]));
+    keys.push(home);
+    tween(g, keys, dur, function () {
+      if (p === "bolt") { car.add(g); setPose(g, boltLocal()); }
+      if (p === "gastube") latchP.rotation.z = 0;
+    });
+  }
+}
+function applyExplode() {
+  if (!V.ready) return;
+  PORDER.forEach(function (id) {
+    var g = V.parts[id].g;
+    if (isTw(g)) return;
+    if (id === "bolt") { if (V.st.att.bolt && g.parent === V.parts.carrier.g) setPose(g, boltLocal()); }
+    else if (V.st.att[id]) setPose(g, homePose(id));
+  });
+  wake();
+}
+function setExplode(t, syncSlider) {
+  V.explode = clamp(t, 0, 1);
+  if (syncSlider !== false) $("exp").value = Math.round(V.explode * 100);
+  applyExplode();
+}
+function setHL(key) { V.hl = key; V.hlT = now(); wake(); }
+function setArrow(on) { V.arrow = !!on; if (V.ready) { arrowG.visible = V.arrow; wake(); } }
+
+/* ----- kamera ----- */
+function fitDist() {
+  var vf = camera.fov * Math.PI / 180, hf = 2 * Math.atan(Math.tan(vf / 2) * camera.aspect);
+  var narrow = camera.aspect < 1.15;
+  TGT.y = narrow ? -1.2 : -1.05; TGT.x = narrow ? 0.8 : 0.85;
+  return Math.max((narrow ? 5.95 : 6.5) / Math.tan(hf / 2), 3.15 / Math.tan(vf / 2));
+}
+function camApply() {
+  var d = V.fit * C.zoom, cp = Math.cos(C.ph);
+  camera.position.set(TGT.x + d * Math.sin(C.th) * cp, TGT.y + d * Math.sin(C.ph), TGT.z + d * Math.cos(C.th) * cp);
+  camera.lookAt(TGT);
+}
+function updCam(dt) {
+  var k = RM ? 1 : 1 - Math.exp(-dt * 12);
+  var dth = C.gTh - C.th, dph = C.gPh - C.ph, dz = C.gZoom - C.zoom;
+  C.th += dth * k; C.ph += dph * k; C.zoom += dz * k;
+  camApply();
+  return Math.abs(dth) + Math.abs(dph) + Math.abs(dz) > 1e-4;
+}
+function resetView() { C.gTh = TH0; C.gPh = PH0; C.gZoom = 1; wake(); }
+function resize() {
+  if (!V.ready) return;
+  var w = Math.max(1, stage.clientWidth), h = Math.max(1, stage.clientHeight);
+  if (w === V.W && h === V.H) return;
+  V.W = w; V.H = h;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+  V.fit = fitDist();
+  wake();
+}
+
+/* ----- kadr sikli: faqat harakat bo'lganda ishlaydi ----- */
+var raf = 0, lastT = 0;
+function wake() { if (!V.ready || raf || document.hidden) return; raf = requestAnimationFrame(frame); }
+function frame(t) {
+  raf = 0;
+  var dt = lastT ? Math.min(0.05, (t - lastT) / 1000) : 1 / 60; lastT = t;
+  var busy = false, i;
+  if (V.tweens.length) {
+    var done = [];
+    for (i = 0; i < V.tweens.length; i++) if (stepTween(V.tweens[i], dt)) done.push(V.tweens[i]);
+    if (done.length) { V.tweens = V.tweens.filter(function (x) { return done.indexOf(x) < 0; }); done.forEach(function (tw) { if (tw.done) tw.done(); }); }
+    busy = true;
+  }
+  if (updCam(dt)) busy = true;
+  if (updHL()) busy = true;
+  renderer.render(scene, camera);
+  updLabels();
+  if (busy) wake(); else lastT = 0;
+}
+document.addEventListener("visibilitychange", function () { if (!document.hidden) { lastT = 0; wake(); } });
+var HL_PULSE = 2600;
+function updHL() {
+  var tt = now(), pulse = V.hl && !RM && tt - V.hlT < HL_PULSE, k, j;
+  var hv = V.hover;
+  for (k in V.mats) {
+    var val = 0;
+    if (k === V.hl) val = pulse ? 0.22 + 0.22 * Math.sin((tt - V.hlT) / 140) : 0.32;
+    else if (k === hv) val = 0.2;
+    for (j = 0; j < V.mats[k].length; j++) V.mats[k][j].emissiveIntensity = Math.max(0, val);
+  }
+  return !!pulse;
+}
+
+/* ----- tanlash (raycast) ----- */
+function pickAt(cx, cy) {
+  if (!V.ready) return null;
+  var r = cv.getBoundingClientRect();
+  ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+  rc.setFromCamera(ndc, camera);
+  var hits = rc.intersectObjects(V.picks, false);
+  for (var i = 0; i < hits.length; i++) { var pk = hits[i].object.userData.pick; if (pk) return pk; }
+  return null;
+}
+function pickKey(pk) { if (!pk) return null; if (pk.part) return pk.part; if (pk.action === "selector") return "selector"; if (pk.action === "release") return "grip"; return null; }
+function infoFor(pk) { if (!pk) return null; if (pk.part) return PARTS[pk.part]; if (pk.action === "selector") return EXTRA.selector; if (pk.action === "release") return EXTRA.grip; return EXTRA.base; }
+var infoTimer = 0;
+function showInfo(pk, extra) {
+  var d = infoFor(pk);
+  if (!d) { infoEl.classList.remove("show"); return; }
+  infoEl.innerHTML = "<b><span class='dot' style='--c:" + d.color + "'></span>" + esc(d.name) + "</b>" + esc(d.purpose) + (extra ? "<br><span class='warn'>" + esc(extra) + "</span>" : "");
+  infoEl.classList.add("show");
+  clearTimeout(infoTimer);
+  infoTimer = setTimeout(function () { infoEl.classList.remove("show"); }, 5200);
+}
+var flashUntil = 0;
+function flash(html, ms) {
+  flashUntil = now() + Math.min(ms || 3200, 2200);
+  infoEl.innerHTML = html; infoEl.classList.add("show");
+  clearTimeout(infoTimer); infoTimer = setTimeout(function () { infoEl.classList.remove("show"); }, ms || 3200);
+}
+function hideHint() { var h = $("s-hint"); if (h) h.classList.add("hide"); }
+
+function bindPointer() {
+  var ptrs = {}, down = null, pinch0 = 0, z0 = 1;
+  function count() { return Object.keys(ptrs).length; }
+  function dist2() { var k = Object.keys(ptrs), a = ptrs[k[0]], b = ptrs[k[1]]; return Math.hypot(a.x - b.x, a.y - b.y); }
+  cv.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    try { cv.setPointerCapture(e.pointerId); } catch (er) {}
+    ptrs[e.pointerId] = { x: e.clientX, y: e.clientY };
+    if (count() === 1) down = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false, used: false, pk: pickAt(e.clientX, e.clientY) };
+    else if (count() === 2) { if (down) { down.moved = true; down.used = true; } pinch0 = dist2(); z0 = C.gZoom; }
+    hideHint();
+  });
+  cv.addEventListener("pointermove", function (e) {
+    var pr = ptrs[e.pointerId];
+    if (!pr) { if (e.pointerType === "mouse") hoverAt(e.clientX, e.clientY); return; }
+    var dx = e.clientX - pr.x, dy = e.clientY - pr.y; pr.x = e.clientX; pr.y = e.clientY;
+    if (count() >= 2) { var d = dist2(); if (pinch0 > 0) { C.gZoom = clamp(z0 * pinch0 / Math.max(20, d), 0.45, 2.2); wake(); } return; }
+    if (!down || down.id !== e.pointerId) return;
+    var dd = Math.hypot(e.clientX - down.x, e.clientY - down.y);
+    if (dd > 7) down.moved = true;
+    if (down.pk && dragActs() && actionable(down.pk)) { if (!down.used && dd > 34) { down.used = true; gesture(down.pk); } return; }
+    if (down.moved) { C.gTh -= dx * 0.0085; C.gPh = clamp(C.gPh + dy * 0.0065, 0.04, 1.35); wake(); }
+  });
+  function up(e) {
+    if (!ptrs[e.pointerId]) return;
+    delete ptrs[e.pointerId];
+    if (down && down.id === e.pointerId) { if (!down.moved && !down.used) tap(down.pk); down = null; }
+    if (count() < 2) pinch0 = 0;
+  }
+  cv.addEventListener("pointerup", up);
+  cv.addEventListener("pointercancel", up);
+  cv.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse" && !ptrs[e.pointerId]) { V.hover = null; cv.classList.remove("ptr"); wake(); } });
+  cv.addEventListener("wheel", function (e) { e.preventDefault(); C.gZoom = clamp(C.gZoom * Math.exp(e.deltaY * 0.0012), 0.45, 2.2); hideHint(); wake(); }, { passive: false });
+  cv.addEventListener("keydown", function (e) {
+    var k = e.key, h = true;
+    if (k === "ArrowLeft") C.gTh -= 0.15; else if (k === "ArrowRight") C.gTh += 0.15;
+    else if (k === "ArrowUp") C.gPh = clamp(C.gPh + 0.1, 0.04, 1.35); else if (k === "ArrowDown") C.gPh = clamp(C.gPh - 0.1, 0.04, 1.35);
+    else if (k === "+" || k === "=") C.gZoom = clamp(C.gZoom / 1.15, 0.45, 2.2); else if (k === "-") C.gZoom = clamp(C.gZoom * 1.15, 0.45, 2.2);
+    else if (k === "0") resetView(); else h = false;
+    if (h) { e.preventDefault(); wake(); }
+  });
+}
+var hoverRaf = 0, hoverXY = null;
+function hoverAt(x, y) {
+  hoverXY = [x, y];
+  if (hoverRaf) return;
+  hoverRaf = requestAnimationFrame(function () {
+    hoverRaf = 0;
+    var pk = pickAt(hoverXY[0], hoverXY[1]), key = pickKey(pk);
+    cv.classList.toggle("ptr", !!pk && !pk.base);
+    if (key !== V.hover) { V.hover = key; wake(); if (pk && !pk.base && now() > flashUntil) showInfo(pk); }
+  });
+}
+
+/* ================= 5. Rejimlar ================= */
+var side = $("side"), mode = "learn";
+var TITLES = {
+  learn: "<b>📘 O'rganish</b> — har bir qadam animatsiya bilan",
+  mashq: "<b>🧩 Mashq</b> — to'g'ri tartibda ajrating, so'ng yig'ing",
+  norma: "<b>⏱ Norma</b> — vaqtga qarshi",
+  quiz: "<b>❓ Savollar</b> — qism nomlari va tartib"
+};
+function dragActs() { return mode === "mashq" ? (MQ.phase === "dis" || MQ.phase === "asm") : (mode === "norma" && NR.running); }
+function actionable(pk) { return !!pk && !pk.base; }
+/* 3D dagi bosishni harakatga aylantirish */
+function pickToAct(pk, phase) {
+  if (!pk || pk.base) return null;
+  if (phase === "dis") {
+    if (pk.action === "selector") return "selector";
+    if (pk.action === "release") return "release";
+    if (pk.part === "carrier") { if (!S.chk) return "chamber"; if (!S.att.carrier && S.att.bolt) return "bolt"; return "carrier"; }
+    return pk.part;
+  }
+  if (pk.action) return "a_release";
+  return "a_" + pk.part;
+}
+function gesture(pk) {
+  if (mode === "mashq") { var a = pickToAct(pk, MQ.phase); if (a) mqAttempt(a, true); }
+  else if (mode === "norma" && NR.running) { var b = pickToAct(pk, NR.phase); if (b) nrAttempt(b, true); }
+}
+function tap(pk) {
+  if (dragActs() && actionable(pk)) { gesture(pk); return; }
+  if (pk) showInfo(pk); else infoEl.classList.remove("show");
+}
+function setMode(m) {
+  if (!TITLES[m]) m = "learn";
+  learnAutoStop();
+  if (NR.cdT) { clearTimeout(NR.cdT); NR.cdT = 0; }
+  clearTimeout(NR.resT); NR.resT = 0; $("cd").style.display = "none";
+  if (NR.running) nrStop(true);
+  mode = m; lsSet("tab", m);
+  var tabs = document.querySelectorAll(".tab");
+  for (var i = 0; i < tabs.length; i++) tabs[i].setAttribute("aria-selected", tabs[i].getAttribute("data-mode") === m ? "true" : "false");
+  $("lab-title").innerHTML = TITLES[m];
+  $("nav").style.display = m === "learn" ? "flex" : "none";
+  $("exp-w").style.display = m === "norma" ? "none" : "flex";
+  $("tools").classList.toggle("empty", m === "norma" || (V.failed && m !== "learn"));
+  V.lblHide = false; setHL(null); setArrow(false); infoEl.classList.remove("show");
+  if (m === "learn") { setExplode(0); learnGo(0, false); }
+  else if (m === "mashq") { setExplode(0); mqStart(); }
+  else if (m === "norma") { setExplode(0); S = freshState(); setInstant(S); NR.phase = null; NR.res = null; renderSide(); }
+  else if (m === "quiz") { setExplode(0); S = freshState(); setInstant(S); qzStart(); }
+}
+function renderSide() {
+  var ae = document.activeElement, wasChip = ae && ae.classList && (ae.classList.contains("chip") || ae.classList.contains("qopt"));
+  if (mode === "learn") renderLearn();
+  else if (mode === "mashq") renderMashq();
+  else if (mode === "norma") renderNorma();
+  else renderQuiz();
+  if (wasChip) { var f = side.querySelector(".chip,.qopt:not(:disabled),.btn.pri"); if (f) try { f.focus({ preventScroll: true }); } catch (e) {} }
+}
+
+/* ----- 5.1 O'rganish ----- */
+var LSTEPS = ["intro"].concat(DIS, ["mid"], ASM, ["end"]);
+var L = { i: 0, auto: 0 };
+var LSPECIAL = {
+  intro: { t: "Boshlashdan oldin", d: "Avtomat stolda, stvol xavfsiz yo'nalishga qaratilgan. Ish faqat o'qituvchi ruxsati bilan boshlanadi. Birinchi navbatda qurol o'qlanmaganligi tekshiriladi (1–4-qadamlar).", w: "Xavfsizlik tekshiruvisiz birorta ham qism ajratilmaydi." },
+  mid: { t: "Ajratish tugadi", d: "Barcha qismlar stolga ajratish tartibida (1 → 8) qo'yildi. Endi ularni tozalash va moylash mumkin. Yig'ish teskari tartibda bajariladi.", w: "Qismlar tartib bilan yotsa, yig'ishda adashmaysiz: oxirgisidan boshlaysiz." },
+  end: { t: "Yig'ish tugadi", d: "Avtomat yig'ildi va saqlagichga qo'yildi. Yig'ishdan keyin o'qituvchi qismlar to'g'ri joylashganini tekshiradi.", w: "Endi «🧩 Mashq» bo'limida tartibni o'zingiz bajarib ko'ring." }
+};
+function isAct(s) { return !!ACT[s]; }
+function lStateAt(i) { var a = []; for (var k = 1; k <= i; k++) if (isAct(LSTEPS[k])) a.push(LSTEPS[k]); return stateAfter(a); }
+function learnStepVisuals() {
+  var s = LSTEPS[L.i];
+  setHL(isAct(s) ? hlKey(s) : null);
+  setArrow(s === "intro" || SAFETY_IDS[s] === 1);
+}
+function learnGo(j, animate) {
+  j = clamp(j, 0, LSTEPS.length - 1);
+  var prev = L.i; L.i = j;
+  var s = LSTEPS[j];
+  if (animate && j === prev + 1 && isAct(s)) { S = lStateAt(j); animAct(s, true, 1.6, S); }
+  else if (animate && j === prev - 1 && isAct(LSTEPS[prev])) { S = lStateAt(j); animAct(LSTEPS[prev], false, 1.1, S); }
+  else if (animate && isAct(s)) { var s0 = lStateAt(j - 1); setInstant(s0); S = lStateAt(j); animAct(s, true, 1.6, S); }
+  else { S = lStateAt(j); setInstant(S); }
+  learnStepVisuals();
+  renderSide();
+}
+function learnAutoStop() { if (L.auto) { clearTimeout(L.auto); L.auto = 0; } var b = $("l-auto"); b.setAttribute("aria-pressed", "false"); b.textContent = "⏵ Avto"; b.classList.remove("on"); }
+function learnAutoTick() {
+  if (L.i >= LSTEPS.length - 1) { learnAutoStop(); return; }
+  learnGo(L.i + 1, true);
+  L.auto = setTimeout(learnAutoTick, RM ? 3800 : 3300);
+}
+$("l-next").addEventListener("click", function () { learnAutoStop(); if (L.i < LSTEPS.length - 1) learnGo(L.i + 1, true); });
+$("l-prev").addEventListener("click", function () { learnAutoStop(); if (L.i > 0) learnGo(L.i - 1, true); });
+$("l-auto").addEventListener("click", function () {
+  if (L.auto) { learnAutoStop(); return; }
+  if (L.i >= LSTEPS.length - 1) learnGo(0, false);
+  var b = $("l-auto"); b.setAttribute("aria-pressed", "true"); b.textContent = "⏸ To'xtatish"; b.classList.add("on");
+  L.auto = setTimeout(learnAutoTick, 500);
+});
+function renderLearn() {
+  var s = LSTEPS[L.i], info = isAct(s) ? ACT[s] : LSPECIAL[s];
+  var di = DIS.indexOf(s), cls, nm;
+  if (s === "intro" || (di >= 0 && di < 4)) { cls = "safe"; nm = "🛡 Xavfsizlik tekshiruvi"; }
+  else if (di >= 0 || s === "mid") { cls = "dis"; nm = "🔧 Ajratish"; }
+  else { cls = "asm"; nm = s === "a_release" ? "🛡 Yig'ish · tekshiruv" : "🔁 Yig'ish"; if (s === "a_release") cls = "safe"; }
+  var h = "<div class='srow'><span class='tagp " + cls + "'>" + nm + "</span><span class='stepn'>" + (L.i + 1) + " / " + LSTEPS.length + "</span></div>";
+  h += "<h3>" + esc(info.t) + "</h3><p>" + esc(info.d) + "</p>";
+  if (info.w) h += "<p class='why'><b>Nima uchun hozir?</b> " + esc(info.w) + "</p>";
+  h += "<div class='prog' aria-hidden='true'><i style='width:" + Math.round(L.i / (LSTEPS.length - 1) * 100) + "%'></i></div>";
+  h += "<ol class='slist' id='slist'>";
+  for (var i = 0; i < LSTEPS.length; i++) {
+    var x = LSTEPS[i];
+    if (i === 1) h += "<li class='sep'>Xavfsizlik va ajratish</li>";
+    if (x === "mid") h += "<li class='sep'>Stol</li>";
+    if (i === LSTEPS.length - 10) h += "<li class='sep'>Yig'ish — teskari tartibda</li>";
+    var t = isAct(x) ? ACT[x].t : LSPECIAL[x].t, col = isAct(x) ? actColor(x) : "#56669a";
+    var c2 = i === L.i ? "cur" : i < L.i ? "done" : "";
+    h += "<li><button type='button' class='" + c2 + "' data-j='" + i + "'" + (i === L.i ? " aria-current='step'" : "") + "><i style='--c:" + col + "'>" + (i < L.i ? "✓" : "") + "</i>" + esc(t) + "</button></li>";
+  }
+  h += "</ol>";
+  side.innerHTML = h;
+  var cur = side.querySelector(".slist .cur"), list = $("slist");
+  if (cur && list) list.scrollTop = Math.max(0, cur.offsetTop - list.clientHeight / 2 + 22);
+  $("l-prev").disabled = L.i === 0;
+  $("l-next").disabled = L.i >= LSTEPS.length - 1;
+}
+
+/* ----- 5.2 Mashq ----- */
+var MQ = { phase: "dis", idx: 0, err: 0, errPh: 0, score: 0, streak: 0, order: [], msg: "", cls: "", lvl: clamp(parseInt(lsGet("mlvl"), 10) || 1, 1, 3), best: parseInt(lsGet("mbest"), 10) || 0, glow: null };
+function mqSeq() { return MQ.phase === "asm" ? ASM : DIS; }
+function mqStart() {
+  S = freshState(); setInstant(S); setHL(null);
+  MQ.phase = "dis"; MQ.idx = 0; MQ.err = 0; MQ.errPh = 0; MQ.score = 0; MQ.streak = 0; MQ.glow = null;
+  MQ.order = shuffle(DIS.slice());
+  MQ.msg = "Boshlang: birinchi navbatda <b>xavfsizlik tekshiruvi</b>. Qismni 3D modelda bosing (yoki tortib suring) yoki pastdagi tugmalardan tanlang."; MQ.cls = "inf";
+  setArrow(true);
+  renderSide();
+}
+function mqAsm() {
+  MQ.phase = "asm"; MQ.idx = 0; MQ.errPh = 0; MQ.glow = null;
+  MQ.order = shuffle(ASM.slice());
+  MQ.msg = "Endi <b>teskari tartibda</b> yig'ing: oxirgi ajratilgan qism birinchi joyiga qo'yiladi. Stoldagi qismni bosing yoki tugmani tanlang."; MQ.cls = "inf";
+  setHL(null); setArrow(false);
+  renderSide();
+}
+function mqAttempt(id, from3d) {
+  if (MQ.phase === "done" || MQ.phase === "wait") return;
+  var seq = mqSeq(), exp = seq[MQ.idx], pos = seq.indexOf(id);
+  if (pos < 0) return;
+  if (pos < MQ.idx) { MQ.msg = "«" + esc(ACT[id].c) + "» — bu qadam allaqachon bajarilgan."; MQ.cls = "inf"; renderSide(); return; }
+  if (id === exp) {
+    MQ.idx++; MQ.streak++;
+    MQ.score += 10 + 2 * Math.min(MQ.streak, 5);
+    S = applyAct(S, id);
+    animAct(id, true, 0.95, S);
+    MQ.glow = null; setHL(null);
+    setArrow(MQ.phase === "dis" ? MQ.idx < 4 : seq[MQ.idx] === "a_release");
+    MQ.msg = "<b class='ok'>✓ To'g'ri:</b> " + esc(ACT[id].t) + "." + (MQ.streak >= 3 ? " <span class='warn'>Seriya: " + MQ.streak + " 🔥</span>" : ""); MQ.cls = "ok";
+    if (from3d) flash("<b class='ok'>✓ " + esc(ACT[id].t) + "</b>" + esc(ACT[id].d), 2600);
+    if (MQ.score > MQ.best) { MQ.best = MQ.score; lsSet("mbest", MQ.best); }
+    if (MQ.idx >= seq.length) mqPhaseDone();
+  } else {
+    MQ.err++; MQ.errPh++; MQ.streak = 0;
+    MQ.msg = "<b class='bad'>Hali emas:</b> «" + esc(ACT[id].c) + "». " + esc(ACT[exp].w); MQ.cls = "bad";
+    if (MQ.lvl === 1) { MQ.glow = exp; setHL(hlKey(exp)); }
+    if (V.ready && from3d) { var p = ACT[id].p; if (p && V.parts[p]) badge("✗ hali emas", V.parts[p].g, new T.Vector3(0, 0.25, 0), 1100, true); flash("<b class='bad'>Hali emas: " + esc(ACT[id].c) + "</b>" + esc(ACT[exp].w), 3600); }
+  }
+  renderSide();
+  if (MQ.cls === "bad") { var fb = side.querySelector(".fb"); if (fb) { fb.classList.remove("shake"); void fb.offsetWidth; fb.classList.add("shake"); } }
+}
+function mqPhaseDone() {
+  var clean = MQ.errPh === 0, up = "";
+  if (clean) { coins(2, "ChQBT trenajyori"); if (MQ.lvl < 3) { MQ.lvl++; lsSet("mlvl", MQ.lvl); up = " 🎉 <b>" + MQ.lvl + "-daraja ochildi!</b>"; } }
+  if (MQ.phase === "dis") {
+    MQ.phase = "wait";
+    MQ.msg = "<b class='ok'>Ajratish tugadi!</b> Qismlar stolda 1 → 8 tartibda. Xatolar: <b>" + MQ.errPh + "</b>." + (clean ? " Xatosiz — +2 tanga." : "") + up; MQ.cls = "ok";
+  } else {
+    MQ.phase = "done";
+    var c = parseInt(lsGet("mdone"), 10) || 0; lsSet("mdone", c + 1);
+    MQ.msg = "<b class='ok'>Yig'ish tugadi!</b> Avtomat saqlagichda. Jami xatolar: <b>" + MQ.err + "</b>, ball: <b>" + MQ.score + "</b>." + (clean ? " Xatosiz yig'ish — +2 tanga." : "") + up; MQ.cls = "ok";
+  }
+}
+function renderMashq() {
+  var seq = mqSeq(), wait = MQ.phase === "wait", done = MQ.phase === "done";
+  var h = "<div class='score'><span>Ball: <b>" + MQ.score + "</b></span><span>Seriya: <b>" + MQ.streak + "</b></span><span>Xato: <b>" + MQ.err + "</b></span><span>Rekord: <b>" + MQ.best + "</b></span></div>";
+  var phName = (MQ.phase === "asm" || done) ? "🔁 2-bosqich · Yig'ish" : "🔧 1-bosqich · Ajratish";
+  var cnt = done ? ASM.length + "/" + ASM.length : wait ? DIS.length + "/" + DIS.length : MQ.idx + "/" + seq.length;
+  var pc = done ? 100 : wait ? 50 : (MQ.phase === "asm" ? 50 + MQ.idx / ASM.length * 50 : MQ.idx / DIS.length * 50);
+  var phCls = (MQ.phase === "asm" || done) ? "asm" : (MQ.idx < 4 && !wait ? "safe" : "dis");
+  if (!wait && !done && MQ.phase === "asm" && seq[MQ.idx] === "a_release") phCls = "safe";
+  h += "<div class='srow'><span class='tagp " + phCls + "'>" + phName + "</span><span class='stepn'>" + cnt + "</span></div>";
+  h += "<div class='prog' aria-hidden='true'><i style='width:" + Math.round(pc) + "%'></i></div>";
+  h += "<div class='fb " + MQ.cls + "' role='status' aria-live='polite'>" + MQ.msg + "</div>";
+  if (wait) h += "<div class='brow'><button class='btn pri' type='button' data-cmd='mq-asm'>▶ Yig'ishga o'tish</button></div>";
+  if (done) h += "<div class='brow'><button class='btn pri' type='button' data-cmd='mq-restart'>↺ Yana mashq</button></div>";
+  if (!wait && !done) {
+    var showChips = MQ.lvl < 3 || !V.ready;
+    if (showChips) {
+      h += "<p class='muted'>" + (MQ.phase === "dis" ? "Keyingi harakatni tanlang:" : "Qaysi qism joyiga qo'yiladi?") + "</p><div class='tray'>";
+      MQ.order.forEach(function (id) {
+        if (seq.indexOf(id) < MQ.idx) return;
+        var a = ACT[id];
+        h += "<button type='button' class='chip" + (a.p ? "" : " act") + (MQ.glow === id ? " glow" : "") + "' style='--c:" + actColor(id) + "' data-a='" + id + "'><i></i>" + esc(a.c) + "</button>";
+      });
+      h += "</div>";
+    } else h += "<p class='muted'>3-daraja: tugmalar yo'q — qismlarni faqat 3D modelda toping. Saqlagich, zatvor ramasi dastasi va dasta (nazorat tushirish) ham modelda bosiladi.</p>";
+  }
+  h += "<div class='srow'><span class='muted'>Daraja:</span><span class='seg' role='group' aria-label='Mashq darajasi'>";
+  for (var l = 1; l <= 3; l++) h += "<button type='button' class='btn" + (MQ.lvl === l ? " on" : "") + "' data-cmd='lvl' data-l='" + l + "' aria-pressed='" + (MQ.lvl === l) + "'>" + l + "</button>";
+  h += "</span></div>";
+  h += "<p class='muted'>" + ["", "1 — xatoda to'g'ri qism yorishadi", "2 — faqat izoh beriladi", "3 — tugmalarsiz, faqat 3D model"][MQ.lvl] + ". Xatosiz bosqich — keyingi daraja.</p>";
+  if (!done) h += "<div class='brow'><button class='btn' type='button' data-cmd='mq-restart'>↺ Qaytadan boshlash</button></div>";
+  side.innerHTML = h;
+}
+
+/* ----- 5.3 Norma ----- */
+var NR = { phase: null, running: false, t0: 0, idx: 0, err: 0, iv: 0, cdT: 0, resT: 0, res: null, msg: "", cls: "", order: [] };
+function nrBest(ph) { var v = parseFloat(lsGet("best_" + ph)); return isFinite(v) && v > 0 ? v : null; }
+function grade(ph, t) { var n = NORMA[ph]; return t <= n.alo ? "alo" : t <= n.yaxshi ? "yaxshi" : t <= n.qoniqarli ? "qon" : "yoq"; }
+var GNAME = { alo: "A'lo (5)", yaxshi: "Yaxshi (4)", qon: "Qoniqarli (3)", yoq: "Norma bajarilmadi" };
+function nrSeq() { return NR.phase === "asm" ? ASM : DIS; }
+function nrStart(ph) {
+  if (NR.running) nrStop(true);
+  NR.phase = ph; NR.idx = 0; NR.err = 0; NR.res = null; NR.msg = ""; NR.cls = "";
+  NR.order = shuffle((ph === "asm" ? ASM : DIS).slice());
+  S = ph === "asm" ? cloneSt(DIS_END) : freshState();
+  setExplode(0); setInstant(S); setHL(null); setArrow(ph === "dis");
+  var cd = $("cd"), n = 3;
+  clearTimeout(NR.resT); NR.resT = 0;
+  cd.className = "cd"; cd.style.display = "grid"; cd.textContent = "3";
+  function tick() {
+    n--;
+    if (n > 0) { cd.textContent = String(n); NR.cdT = setTimeout(tick, 650); }
+    else if (n === 0) { cd.className = "cd go"; cd.textContent = "Boshlang!"; NR.cdT = setTimeout(tick, 450); nrGo(); }
+    else { cd.style.display = "none"; NR.cdT = 0; }
+  }
+  NR.cdT = setTimeout(tick, 650);
+  renderSide();
+}
+function nrGo() {
+  NR.running = true; NR.t0 = now(); tmr3d(true);
+  NR.msg = NR.phase === "dis" ? "Avval xavfsizlik tekshiruvi, keyin qismlar." : "Teskari tartibda yig'ing."; NR.cls = "inf";
+  renderSide();
+  NR.iv = setInterval(nrTimer, 100);
+}
+function nrElapsed() { return NR.running ? (now() - NR.t0) / 1000 : 0; }
+function nrTimer() {
+  var t = fx(nrElapsed(), 1), el = $("tmr"), o = $("tmr3d");
+  if (el) el.innerHTML = t + "<small>s</small>";
+  if (o) o.innerHTML = "⏱ " + t + " <small>s · " + NR.idx + "/" + nrSeq().length + (NR.err ? " · +" + (NR.err * NORMA_PENALTY) + " s" : "") + "</small>";
+}
+function tmr3d(on) { var o = $("tmr3d"); o.style.display = on ? "flex" : "none"; if (on) { hideHint(); nrTimer(); } }
+function nrStop(silent) {
+  NR.running = false; if (NR.iv) { clearInterval(NR.iv); NR.iv = 0; } tmr3d(false);
+  if (!silent) renderSide();
+}
+function nrAttempt(id, from3d) {
+  if (!NR.running) return;
+  var seq = nrSeq(), exp = seq[NR.idx], pos = seq.indexOf(id);
+  if (pos < 0 || pos < NR.idx) return;
+  if (id === exp) {
+    NR.idx++;
+    S = applyAct(S, id);
+    animAct(id, true, 0.4, S);
+    setArrow(NR.phase === "dis" ? NR.idx < 4 : seq[NR.idx] === "a_release");
+    NR.msg = "<b class='ok'>✓</b> " + esc(ACT[id].t); NR.cls = "ok";
+    if (NR.idx >= seq.length) { nrFinish(); return; }
+  } else {
+    NR.err++;
+    NR.msg = "<b class='bad'>+" + NORMA_PENALTY + " s — tartib buzildi.</b> " + esc(ACT[exp].w); NR.cls = "bad";
+    if (from3d) flash("<b class='bad'>+" + NORMA_PENALTY + " s — tartib buzildi</b>" + esc(ACT[exp].w), 2400);
+  }
+  renderSide();
+}
+function nrFinish() {
+  var raw = nrElapsed();
+  nrStop(true);
+  var total = raw + NR.err * NORMA_PENALTY, g = grade(NR.phase, total), best = nrBest(NR.phase), rec = false;
+  if (best === null || total < best) { lsSet("best_" + NR.phase, total.toFixed(2)); rec = best !== null; }
+  if (g === "alo") coins(2, "ChQBT norma");
+  NR.res = { raw: raw, total: total, g: g, rec: rec, err: NR.err, ph: NR.phase };
+  setArrow(false);
+  var cd = $("cd"); cd.className = "cd go"; cd.style.display = "grid";
+  cd.innerHTML = "<span style='text-align:center'>" + GNAME[g] + "<br><span style='font-size:.55em;color:#f3f5ff'>" + fx(total, 1) + " s" + (rec ? " · 🏆 rekord" : "") + "</span></span>";
+  clearTimeout(NR.resT); NR.resT = setTimeout(function () { cd.style.display = "none"; NR.resT = 0; }, 2600);
+  renderSide();
+}
+function normTable() {
+  var h = "<table class='ntbl'><tr><th>Mashq</th><th>A'lo</th><th>Yaxshi</th><th>Qon.</th><th>Rekord</th></tr>";
+  [["dis", "Ajratish"], ["asm", "Yig'ish"]].forEach(function (r) {
+    var n = NORMA[r[0]], b = nrBest(r[0]);
+    h += "<tr><td>" + r[1] + "</td><td>" + n.alo + " s</td><td>" + n.yaxshi + " s</td><td>" + n.qoniqarli + " s</td><td>" + (b === null ? "—" : fx(b, 1) + " s") + "</td></tr>";
+  });
+  return h + "</table>";
+}
+function renderNorma() {
+  var h = "";
+  if (NR.running || NR.cdT) {
+    var seq = nrSeq();
+    h += "<div class='srow'><span class='tagp " + (NR.phase === "dis" ? "dis" : "asm") + "'>" + (NR.phase === "dis" ? "⏱ Ajratish normasi" : "⏱ Yig'ish normasi") + "</span><span class='stepn'>" + NR.idx + "/" + seq.length + "</span></div>";
+    h += "<div class='srow'><div class='timer' id='tmr'>" + fx(nrElapsed(), 1) + "<small>s</small></div><span class='score'><span>Xato: <b>" + NR.err + "</b> (+" + (NR.err * NORMA_PENALTY) + " s)</span></span></div>";
+    h += "<div class='prog' aria-hidden='true'><i style='width:" + Math.round(NR.idx / seq.length * 100) + "%'></i></div>";
+    h += "<div class='fb " + NR.cls + "' role='status' aria-live='polite'>" + (NR.msg || "Tayyorlaning…") + "</div>";
+    if (NR.running) {
+      h += "<div class='tray'>";
+      NR.order.forEach(function (id) {
+        if (seq.indexOf(id) < NR.idx) return;
+        h += "<button type='button' class='chip" + (ACT[id].p ? "" : " act") + "' style='--c:" + actColor(id) + "' data-a='" + id + "'><i></i>" + esc(ACT[id].c) + "</button>";
+      });
+      h += "</div>";
+    }
+    h += "<div class='brow'><button class='btn' type='button' data-cmd='nr-stop'>■ To'xtatish</button></div>";
+  } else {
+    h += "<h3>Normaga vaqt o'lchash</h3>";
+    h += "<p>Taymer 3-2-1 dan keyin boshlanadi. Har bir noto'g'ri tartib vaqtga <b>+" + NORMA_PENALTY + " s</b> qo'shadi. Qismlarni 3D modelda bosing yoki tugmalardan tanlang.</p>";
+    if (NR.res) {
+      var r = NR.res;
+      h += "<div class='fb ok' role='status'><div class='grade g-" + r.g + "'>" + GNAME[r.g] + "</div>" +
+        "Natija: <b>" + fx(r.total, 1) + " s</b>" + (r.err ? " (vaqt " + fx(r.raw, 1) + " s + " + r.err + " xato × " + NORMA_PENALTY + " s)" : " — xatosiz") +
+        (r.rec ? "<br><span class='warn'>🏆 Yangi rekord!</span>" : "") + (r.g === "alo" ? "<br>+2 tanga" : "") + "</div>";
+    }
+    h += normTable();
+    h += "<div class='brow'><button class='btn pri' type='button' data-cmd='nr-dis'>▶ Ajratish normasi</button><button class='btn vio' type='button' data-cmd='nr-asm'>▶ Yig'ish normasi</button></div>";
+    h += "<p class='muted'>⚠️ Norma qiymatlari ma'lumot uchun (sozlanadi). Amaldagi darslik bilan solishtiring. Virtual vaqt haqiqiy mashg'ulotdagidan farq qiladi.</p>";
+  }
+  side.innerHTML = h;
+}
+
+/* ----- 5.4 Savollar ----- */
+var PN = { magazine: "Do'kon", penal: "Penal", rod: "Shompol", cover: "Stvol qutisi qopqog'i", spring: "Qaytaruvchi mexanizm", carrier: "Zatvor ramasi", bolt: "Zatvor", gastube: "Gaz trubkasi" };
+var PNV = PORDER.map(function (k) { return PN[k]; });
+var CHAIN = "1 Do'kon (+ tekshiruv) → 2 Penal → 3 Shompol → 4 Qopqoq → 5 Qaytaruvchi mexanizm → 6 Zatvor ramasi → 7 Zatvor → 8 Gaz trubkasi.";
+function optsFrom(ans, pool, n) { var o = [ans]; shuffle(pool.filter(function (x) { return x !== ans; })).slice(0, n - 1).forEach(function (x) { o.push(x); }); return shuffle(o); }
+var QG = [
+  { lv: 1, f: function () { var p = pick(PORDER); return { q: "Qaysi qism haqida gap ketyapti?<br><i>«" + esc(PARTS[p].purpose) + "»</i>", o: optsFrom(PN[p], PNV, 4), a: PN[p], why: PARTS[p].name + ": " + PARTS[p].purpose }; } },
+  { lv: 1, need3d: true, f: function () { var p = pick(PORDER); return { q: "3D modelda <b>miltillab yoritilgan</b> qism qanday ataladi?", o: optsFrom(PN[p], PNV, 4), a: PN[p], why: PARTS[p].name + ": " + PARTS[p].purpose, show: p }; } },
+  { lv: 1, f: function () { var a = "Do'konni ajratish va o'qlanmaganligini tekshirish"; return { q: "To'liqsiz ajratish <b>nimadan boshlanadi</b>?", o: shuffle([a, "Stvol qutisi qopqog'ini ajratish", "Shompolni ajratish", "Zatvorni ajratish"]), a: a, why: "Har doim avval do'kon ajratiladi va qurol o'qlanmaganligi tekshiriladi: saqlagich pastga → patronnik → nazorat tushirish." }; } },
+  { lv: 1, f: function () { var a = "Stvol qutisi stvol bilan"; return { q: "To'liqsiz ajratishda qaysi qism <b>yaxlit qoladi</b> (ajratilmaydi)?", o: shuffle([a, "Zatvor ramasi", "Do'kon", "Shompol"]), a: a, why: "Stvol qutisi stvol, qo'ndoq va dasta bilan birga asos bo'lib qoladi; qolgan 8 ta qism ajratiladi." }; } },
+  { lv: 1, f: function () { var a = "O'qituvchi (mashg'ulot rahbari)"; return { q: "Qurol bilan mashg'ulotni <b>kimning ruxsati</b> bilan boshlash mumkin?", o: shuffle([a, "Ruxsat shart emas", "Sinf sardori", "Navbatchi o'quvchi"]), a: a, why: "Qurol bilan har qanday ish faqat o'qituvchi ruxsati va nazorati ostida bajariladi." }; } },
+  { lv: 1, f: function () { var a = "Xavfsiz yo'nalishga (yuqoriga-oldinga)"; return { q: "Nazorat tushirishda stvol <b>qayerga</b> qaratiladi?", o: shuffle([a, "Istalgan tomonga — tekshiruv shart emas", "Stvolni stolga tirab qo'yiladi", "Eshik tomonga"]), a: a, why: "Stvol doimo xavfsiz yo'nalishga qaratiladi — bu asosiy xavfsizlik qoidasi." }; } },
+  { lv: 2, f: function () { var i = Math.floor(Math.random() * 7), p = PORDER[i], n = PORDER[i + 1]; return { q: "Ajratishda <b>«" + PN[p] + "»</b>dan keyin nima ajratiladi?", o: optsFrom(PN[n], PNV.filter(function (x) { return x !== PN[p]; }), 4), a: PN[n], why: ACT[n].w + " Tartib: " + CHAIN }; } },
+  { lv: 2, f: function () { var four = shuffle(PORDER.slice()).slice(0, 4), first = four.slice().sort(function (a, b) { return PORDER.indexOf(a) - PORDER.indexOf(b); })[0]; return { q: "Quyidagilardan qaysi biri <b>eng oldin</b> ajratiladi?", o: shuffle(four.map(function (k) { return PN[k]; })), a: PN[first], why: "Tartib: " + CHAIN }; } },
+  { lv: 2, f: function () {
+      var pairs = [["Do'kon ajratilgach", "Saqlagichni pastga tushirish"], ["Saqlagich pastga tushirilgach", "Zatvor ramasini tortib, patronnikni ko'zdan kechirish"], ["Patronnik ko'zdan kechirilgach", "Nazorat tushirish"]];
+      var k = Math.floor(Math.random() * 3), pool = ["Saqlagichni pastga tushirish", "Zatvor ramasini tortib, patronnikni ko'zdan kechirish", "Nazorat tushirish", "Stvol qutisi qopqog'ini ajratish", "Shompolni ajratish"];
+      return { q: "Xavfsizlik tekshiruvi: <b>" + pairs[k][0] + "</b> nima qilinadi?", o: optsFrom(pairs[k][1], pool, 4), a: pairs[k][1], why: "Tekshiruv tartibi: do'konni ajratish → saqlagichni tushirish → patronnikni ko'zdan kechirish → nazorat tushirish." }; } },
+  { lv: 2, f: function () { var i = 1 + Math.floor(Math.random() * 7), p = PORDER[i]; return { q: "To'liqsiz ajratishning <b>" + (i + 1) + "-qadami</b> qaysi?", o: optsFrom(PN[p], PNV, 4), a: PN[p], why: "Tartib: " + CHAIN }; } },
+  { lv: 3, f: function () { var i = Math.floor(Math.random() * (ASM.length - 1)), a = ASM[i], n = ASM[i + 1], pool = ASM.map(function (x) { return ACT[x].t; }).filter(function (x) { return x !== ACT[a].t; }); return { q: "Yig'ishda <b>«" + ACT[a].t + "»</b>dan keyin nima qilinadi?", o: optsFrom(ACT[n].t, pool, 4), a: ACT[n].t, why: ACT[n].w }; } },
+  { lv: 3, f: function () { var a = ACT.a_gastube.t; return { q: "Yig'ish <b>qaysi qadamdan boshlanadi</b>?", o: shuffle([a, ACT.a_magazine.t, ACT.a_bolt.t, ACT.a_cover.t]), a: a, why: "Yig'ish teskari tartibda: oxirgi ajratilgan gaz trubkasi birinchi joyiga qo'yiladi." }; } },
+  { lv: 3, f: function () { var a = ACT.a_magazine.t; return { q: "Yig'ishning <b>eng oxirgi</b> qadami qaysi?", o: shuffle([a, ACT.a_penal.t, ACT.a_release.t, ACT.a_cover.t]), a: a, why: "Do'kon eng oxirida biriktiriladi (mashg'ulotda — o'quv do'koni)." }; } },
+  { lv: 3, f: function () { var a = "Stvol qutisi qopqog'i biriktirilgandan keyin"; return { q: "Yig'ishda <b>nazorat tushirish va saqlagichga qo'yish</b> qachon bajariladi?", o: shuffle([a, "Do'kon biriktirilgandan keyin", "Gaz trubkasidan oldin", "Zatvor ramaga biriktirilgach darhol"]), a: a, why: ACT.a_release.w }; } },
+  { lv: 3, f: function () { var a = "Zatvor zatvor ramasiga biriktiriladi"; return { q: "Zatvor ramasini stvol qutisiga qo'yishdan <b>oldin</b> nima qilinadi?", o: shuffle([a, "Qopqoq yopiladi", "Do'kon biriktiriladi", "Shompol joyiga qo'yiladi"]), a: a, why: ACT.a_bolt.w }; } }
+];
+var QZ = { lvl: 1, streak: 0, ok: 0, n: 0, ROUND: 10, cur: null, ans: -1, best: parseInt(lsGet("qbest"), 10) || 0, lastQ: "", over: false };
+function qzStart() { QZ.lvl = 1; QZ.streak = 0; QZ.ok = 0; QZ.n = 0; QZ.over = false; qzNext(); }
+function genQ() {
+  var pool = [];
+  QG.forEach(function (g) { if (g.lv <= QZ.lvl && (!g.need3d || V.ready)) { pool.push(g); if (g.lv === QZ.lvl) { pool.push(g); pool.push(g); } } });
+  var q = null;
+  for (var k = 0; k < 8; k++) { q = pick(pool).f(); if (q.q !== QZ.lastQ) break; }
+  QZ.lastQ = q.q;
+  return q;
+}
+function qzNext() {
+  if (QZ.n >= QZ.ROUND) { qzOver(); return; }
+  QZ.cur = genQ(); QZ.ans = -1; QZ.n++;
+  if (QZ.cur.show && V.ready) { S = freshState(); setInstant(S); setExplode(1); V.lblHide = true; setHL(QZ.cur.show); }
+  else { V.lblHide = false; setHL(null); }
+  wake();
+  renderSide();
+}
+function qzAnswer(i) {
+  if (!QZ.cur || QZ.ans >= 0) return;
+  QZ.ans = i;
+  var ok = QZ.cur.o[i] === QZ.cur.a;
+  if (ok) {
+    QZ.ok++; QZ.streak++;
+    coins(1, "ChQBT savollari");
+    if (QZ.streak % 3 === 0 && QZ.lvl < 3) { QZ.lvl++; QZ.up = true; } else QZ.up = false;
+  } else { QZ.streak = 0; QZ.up = false; }
+  if (QZ.cur.show) { V.lblHide = false; wake(); }
+  renderSide();
+}
+function qzOver() {
+  QZ.over = true; QZ.cur = null;
+  if (QZ.ok > QZ.best) { QZ.best = QZ.ok; lsSet("qbest", QZ.best); QZ.newBest = true; } else QZ.newBest = false;
+  V.lblHide = false; setHL(null); setExplode(0);
+  renderSide();
+}
+function renderQuiz() {
+  var h = "<div class='score'><span>To'g'ri: <b>" + QZ.ok + "/" + Math.max(0, QZ.n - (QZ.cur && QZ.ans < 0 ? 1 : 0)) + "</b></span><span>Seriya: <b>" + QZ.streak + "</b></span><span>Daraja: <b>" + QZ.lvl + "</b></span><span>Rekord: <b>" + QZ.best + "/" + QZ.ROUND + "</b></span></div>";
+  if (QZ.over) {
+    h += "<h3>Natija: " + QZ.ok + " / " + QZ.ROUND + "</h3>";
+    var msg = QZ.ok >= 9 ? "A'lo! Tartibni puxta bilasiz." : QZ.ok >= 7 ? "Yaxshi! Bir-ikki joyni takrorlang." : "«📘 O'rganish» bo'limida tartibni yana bir bor ko'rib chiqing.";
+    h += "<div class='fb ok'>" + msg + (QZ.newBest ? "<br><span class='warn'>🏆 Yangi rekord!</span>" : "") + "</div>";
+    h += "<div class='brow'><button class='btn pri' type='button' data-cmd='qz-restart'>↺ Yangi savollar</button></div>";
+    side.innerHTML = h; return;
+  }
+  var q = QZ.cur;
+  h += "<div class='srow'><span class='tagp asm'>Savol " + QZ.n + " / " + QZ.ROUND + "</span><span class='stepn'>" + ["", "Nomlar", "Ajratish tartibi", "Yig'ish tartibi"][QZ.lvl] + "</span></div>";
+  h += "<div class='qtext'>" + q.q + "</div><div class='qopts'>";
+  q.o.forEach(function (o, i) {
+    var c = "";
+    if (QZ.ans >= 0) { if (o === q.a) c = " ok"; else if (i === QZ.ans) c = " bad"; }
+    h += "<button type='button' class='qopt" + c + "' data-o='" + i + "'" + (QZ.ans >= 0 ? " disabled" : "") + ">" + esc(o) + "</button>";
+  });
+  h += "</div>";
+  if (QZ.ans >= 0) {
+    var ok = q.o[QZ.ans] === q.a;
+    h += "<div class='fb " + (ok ? "ok" : "bad") + "' role='status' aria-live='polite'><b class='" + (ok ? "ok" : "bad") + "'>" + (ok ? pick(["✓ To'g'ri!", "✓ Barakalla!", "✓ Aynan shunday!"]) : "✗ Noto'g'ri. To'g'ri javob: " + esc(q.a) + ".") + "</b> " + esc(q.why) + (QZ.up ? "<br><span class='warn'>🎉 " + QZ.lvl + "-daraja: " + ["", "", "ajratish tartibi", "yig'ish tartibi"][QZ.lvl] + " savollari qo'shildi!</span>" : "") + "</div>";
+    h += "<div class='brow'><button class='btn pri' type='button' data-cmd='qz-next'>" + (QZ.n >= QZ.ROUND ? "Natijani ko'rish ▶" : "Keyingi savol ▶") + "</button></div>";
+  }
+  side.innerHTML = h;
+}
+
+/* ----- umumiy tugmalar ----- */
+side.addEventListener("click", function (e) {
+  var b = e.target.closest ? e.target.closest("button") : null;
+  if (!b || !side.contains(b)) return;
+  var a = b.getAttribute("data-a"), j = b.getAttribute("data-j"), o = b.getAttribute("data-o"), cmd = b.getAttribute("data-cmd");
+  if (a) { if (mode === "mashq") mqAttempt(a); else if (mode === "norma") nrAttempt(a); return; }
+  if (j !== null) { learnAutoStop(); learnGo(parseInt(j, 10), true); return; }
+  if (o !== null) { qzAnswer(parseInt(o, 10)); return; }
+  if (cmd === "mq-asm") mqAsm();
+  else if (cmd === "mq-restart") mqStart();
+  else if (cmd === "lvl") { MQ.lvl = parseInt(b.getAttribute("data-l"), 10); lsSet("mlvl", MQ.lvl); MQ.glow = null; setHL(null); renderSide(); }
+  else if (cmd === "nr-dis") nrStart("dis");
+  else if (cmd === "nr-asm") nrStart("asm");
+  else if (cmd === "nr-stop") { if (NR.cdT) { clearTimeout(NR.cdT); NR.cdT = 0; $("cd").style.display = "none"; } nrStop(false); S = freshState(); setInstant(S); setArrow(false); renderSide(); }
+  else if (cmd === "qz-next") qzNext();
+  else if (cmd === "qz-restart") qzStart();
+});
+var tabsEl = document.querySelectorAll(".tab");
+for (var ti = 0; ti < tabsEl.length; ti++) tabsEl[ti].addEventListener("click", function () { setMode(this.getAttribute("data-mode")); });
+document.querySelector(".tabs").addEventListener("keydown", function (e) {
+  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+  var list = Array.prototype.slice.call(tabsEl), i = list.indexOf(document.activeElement); if (i < 0) return;
+  var n = list[(i + (e.key === "ArrowRight" ? 1 : list.length - 1)) % list.length]; n.focus(); n.click(); e.preventDefault();
+});
+$("exp").addEventListener("input", function () { setExplode(this.value / 100, false); });
+$("v-reset").addEventListener("click", resetView);
+$("v-in").addEventListener("click", function () { C.gZoom = clamp(C.gZoom / 1.2, 0.45, 2.2); wake(); });
+$("v-out").addEventListener("click", function () { C.gZoom = clamp(C.gZoom * 1.2, 0.45, 2.2); wake(); });
+var LMODES = ["full", "num", "off"], LNAMES = { full: "Nomlar: to'liq", num: "Nomlar: faqat raqam", off: "Nomlar yashirin" };
+$("v-lbl").addEventListener("click", function () {
+  V.lblMode = LMODES[(LMODES.indexOf(V.lblMode) + 1) % 3]; lsSet("lbl", V.lblMode);
+  this.title = LNAMES[V.lblMode]; this.textContent = V.lblMode === "full" ? "🏷" : V.lblMode === "num" ? "🔢" : "🚫";
+  infoEl.innerHTML = "<b>" + LNAMES[V.lblMode] + "</b>"; infoEl.classList.add("show"); clearTimeout(infoTimer); infoTimer = setTimeout(function () { infoEl.classList.remove("show"); }, 1400);
+  wake();
+});
+(function () {
+  var lm = lsGet("lbl");
+  V.lblMode = LMODES.indexOf(lm) >= 0 ? lm : (stage.clientWidth < 620 ? "num" : "full");
+  var b = $("v-lbl"); b.textContent = V.lblMode === "full" ? "🏷" : V.lblMode === "num" ? "🔢" : "🚫"; b.title = LNAMES[V.lblMode];
+})();
+/* norma jadvali (ma'lumotnoma) konstantalardan */
+(function () {
+  var h = "<table class='utbl'><tr><th>Mashq</th><th>A'lo</th><th>Yaxshi</th><th>Qoniqarli</th></tr>";
+  h += "<tr><td>To'liqsiz ajratish</td><td>" + NORMA.dis.alo + " s</td><td>" + NORMA.dis.yaxshi + " s</td><td>" + NORMA.dis.qoniqarli + " s</td></tr>";
+  h += "<tr><td>Yig'ish</td><td>" + NORMA.asm.alo + " s</td><td>" + NORMA.asm.yaxshi + " s</td><td>" + NORMA.asm.qoniqarli + " s</td></tr></table>";
+  $("norma-ref").innerHTML = h;
+})();
+try { $("year").textContent = new Date().getFullYear(); } catch (e) {}
+
+/* ================= 6. Ishga tushirish ================= */
+function initView() {
+  T = window.THREE;
+  if (!T || V.ready) { if (!T) fail(); return; }
+  try {
+    renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, powerPreference: "high-performance" });
+  } catch (e) { fail(); return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x0a1029, 1);
+  scene = new T.Scene();
+  camera = new T.PerspectiveCamera(34, 1, 0.1, 200);
+  TGT = new T.Vector3(0.65, -1.05, 1.4);
+  tmpV = new T.Vector3();
+  scene.add(new T.HemisphereLight(0xd6deff, 0x1b2148, 0.95));
+  var dl = new T.DirectionalLight(0xffffff, 0.85); dl.position.set(4, 9, 7); scene.add(dl);
+  var dl2 = new T.DirectionalLight(0xb9a3ff, 0.32); dl2.position.set(-7, 3, -5); scene.add(dl2);
+  root = new T.Group(); scene.add(root);
+  build();
+  rc = new T.Raycaster(); ndc = new T.Vector2();
+  buildLabels();
+  V.ready = true;
+  resize();
+  camApply();
+  setInstant(S);
+  setArrow(V.arrow);
+  $("load").style.display = "none";
+  bindPointer();
+  if (window.ResizeObserver) new ResizeObserver(function () { resize(); }).observe(stage);
+  else window.addEventListener("resize", resize);
+  if (mode === "learn") learnStepVisuals();
+  renderSide();
+  wake();
+}
+/* 3D faqat bo'lim ko'rinishga yaqinlashganda yuklanadi */
+if ("IntersectionObserver" in window) {
+  var io = new IntersectionObserver(function (en) { for (var i = 0; i < en.length; i++) if (en[i].isIntersecting) { io.disconnect(); loadThree(); break; } }, { rootMargin: "300px 0px" });
+  io.observe(stage);
+} else loadThree();
+
+window.kaAvtomat = {
+  DIS: DIS, ASM: ASM, ACT: ACT, PARTS: PARTS, NORMA: NORMA, PENALTY: NORMA_PENALTY,
+  state: function () { return cloneSt(S); }, view3d: function () { return cloneSt(V.st); },
+  mode: function () { return mode; }, setMode: setMode,
+  learn: { next: function () { $("l-next").click(); }, prev: function () { $("l-prev").click(); }, go: function (j) { learnGo(j, true); }, st: function () { return { i: L.i, step: LSTEPS[L.i], n: LSTEPS.length }; } },
+  mashq: { attempt: mqAttempt, st: function () { return { phase: MQ.phase, idx: MQ.idx, err: MQ.err, score: MQ.score, streak: MQ.streak, lvl: MQ.lvl, msg: MQ.msg }; }, asm: mqAsm, restart: mqStart },
+  norma: { start: nrStart, attempt: nrAttempt, grade: grade, st: function () { return { phase: NR.phase, running: NR.running, idx: NR.idx, err: NR.err, res: NR.res }; } },
+  quiz: { st: function () { return { lvl: QZ.lvl, streak: QZ.streak, ok: QZ.ok, n: QZ.n, cur: QZ.cur, ans: QZ.ans, over: QZ.over }; }, answer: qzAnswer, next: qzNext, gen: genQ },
+  view: {
+    ready: function () { return V.ready; }, failed: function () { return V.failed; },
+    screenOf: function (id) { if (!V.ready) return null; var o = id === "selector" ? selP : V.parts[id].g, v = new T.Vector3(); if (id === "selector") v.set(0.9, 0, 0); else if (id === "carrier") v.set(-1.01, -0.1, 0.24); o.updateMatrixWorld(true); v.applyMatrix4(o.matrixWorld).project(camera); var r = cv.getBoundingClientRect(); return { x: r.left + (v.x * 0.5 + 0.5) * r.width, y: r.top + (-v.y * 0.5 + 0.5) * r.height }; },
+    pickAt: pickAt, busy: function () { return V.tweens.length > 0; }, explode: setExplode, finish: finishAll
+  }
+};
+setMode(lsGet("tab") || "learn");
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

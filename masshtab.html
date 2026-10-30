@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tomonlar oshsa, yuza va hajm qanday o'zgaradi? — o'xshashlik koeffitsiyenti k | Kuvonch Academy</title>
+<meta name="description" content="O'xshash shakllar: tomonlar k marta oshsa, perimetr k marta, yuza k² marta, hajm k³ marta oshadi. Kvadratlar bilan qoplash va kublarni taxlash animatsiyalari, 2D va 3D laboratoriya (kub, parallelepiped, silindr, shar, konus, piramida) va «Necha marta oshdi?» o'yini. Bepul.">
+<link rel="canonical" href="https://kuvonch.uz/masshtab.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Tomonlar oshsa, yuza va hajm qanday o'zgaradi?">
+<meta property="og:description" content="P × k, S × k², V × k³ — qoplash, taxlash, 3D jismlar va «Necha marta oshdi?» o'yini: pitsa narxi, fil oyoqlari va bo'yoq masalalari.">
+<meta property="og:url" content="https://kuvonch.uz/masshtab.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<style>
+:root{
+  --night:#060a1a;--night-2:#0c1330;--line:#1d2850;--chalk:#f3f5ff;--haze:#93a3cc;
+  --teal:#35f0c4;--violet:#a27bff;--rose:#ff5e8e;--amber:#ffc23d;--sky:#7cc4ff;
+  --bg:var(--night);--bg-soft:#0f1834;--card:#101a3a;--border:var(--line);--text:var(--chalk);--text-dim:var(--haze);--accent:var(--teal);--accent-2:var(--violet);
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --body:"Golos Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--night);-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(70% 40% at 80% 0%,rgba(162,123,255,.13),transparent 70%),radial-gradient(50% 30% at 0% 30%,rgba(53,240,196,.07),transparent 70%),var(--night);color:var(--chalk);font:400 16px/1.55 var(--body);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media (max-width:520px){.wrap{padding:0 16px}}
+.knav a{font-family:var(--body)}
+.knav-head .brand{font-family:var(--display);font-weight:700;font-size:16px}
+.hero{padding:30px 0 6px}
+.kicker{display:inline-block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(53,240,196,.35);background:rgba(53,240,196,.08);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+h1{font:800 clamp(25px,5vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0 0 12px}
+h1 span{background:linear-gradient(100deg,var(--teal),var(--violet) 55%,var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:#c5cef0;max-width:48em;margin:0 0 14px;font-size:clamp(15px,1.7vw,18px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;padding:0;list-style:none}
+.chips li{font-size:13px;color:var(--haze);border:1px solid var(--line);background:rgba(16,26,58,.6);border-radius:999px;padding:5px 11px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 4px}
+.hero-btns a{text-decoration:none;display:inline-flex;align-items:center}
+sub,sup{font-size:.72em;line-height:0}
+.c-k{color:var(--amber)}.c-p{color:var(--teal)}.c-s{color:var(--violet)}.c-v{color:var(--rose)}.c-o{color:var(--sky)}
+
+.theory{padding:26px 0 8px}
+.theory h2,.labsec h2{font:700 clamp(21px,2.6vw,28px)/1.15 var(--display);letter-spacing:-.02em;margin:0 0 6px}
+.theory .sub{color:var(--haze);margin:0 0 18px;max-width:52em}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:14px}
+.tcard{background:rgba(16,26,58,.6);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
+.tcard h3{margin:0 0 8px;font:700 16px/1.25 var(--display);letter-spacing:-.01em}
+.tcard p{margin:0 0 8px;color:#c9d1ef;font-size:15px}
+.tcard p:last-child{margin-bottom:0}
+.fml{font:700 18px/1.5 var(--body);margin:6px 0 10px;color:var(--chalk);font-variant-numeric:tabular-nums}
+.ahead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.ahead h3{margin:0}
+.agrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.agrid{grid-template-columns:1fr}}
+.agrid figure{margin:0;min-width:0}
+.agrid canvas{display:block;width:100%;border-radius:12px;background:linear-gradient(180deg,#0b1438,#0a1130);border:1px solid var(--line)}
+.agrid figcaption{font-size:14px;color:#c9d1ef;margin:8px 2px 0}
+.agrid figcaption b{font-family:var(--display);font-size:14.5px}
+.utbl{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.utbl th,.utbl td{padding:6px 6px;border-bottom:1px solid var(--line);text-align:center}
+.utbl th{color:var(--haze);font-weight:600}
+.utbl td:first-child{color:var(--amber);font-weight:700}
+
+.labsec{padding:20px 0 10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px}
+.tab{min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#0c1330;color:var(--haze);font:600 14px/1.1 var(--body);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.tab:hover{color:var(--chalk);border-color:#2c3b72}
+.tab[aria-selected="true"]{color:#060a1a;background:linear-gradient(120deg,var(--teal),var(--violet));border-color:transparent;box-shadow:0 8px 24px -10px rgba(162,123,255,.7)}
+@media (max-width:520px){.tabs{gap:6px}.tab{flex:1 1 auto;padding:10px 8px;font-size:13px}}
+.lab{background:linear-gradient(180deg,#0c1330,#090f27);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset}
+.lab-bar{display:flex;align-items:center;gap:10px;padding:8px 10px 8px 14px;border-bottom:1px solid var(--line);background:#0a1130;min-height:46px}
+.dots{display:flex;gap:6px;flex:0 0 auto}.dots i{width:10px;height:10px;border-radius:50%;background:#ff5e8e}.dots i:nth-child(2){background:#ffc23d}.dots i:nth-child(3){background:#35f0c4}
+.lab-title{flex:1 1 auto;min-width:0;font:600 13px/1.3 var(--body);color:var(--haze);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lab-title b{color:var(--chalk);font-weight:700}
+.pane[hidden]{display:none}
+.btn{min-height:44px;min-width:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#111b3e;color:var(--chalk);font:600 14px/1.15 var(--body);cursor:pointer;transition:background .15s,border-color .15s,transform .1s}
+.btn:hover{border-color:#34478a;background:#142250}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.pri{background:linear-gradient(120deg,var(--teal),#9af7ff);color:#03131a;border-color:transparent}
+.btn.vio{background:linear-gradient(120deg,var(--violet),#c9b2ff);color:#12082a;border-color:transparent}
+.btn.on{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal);color:var(--teal)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:100%;flex-wrap:wrap}
+.seg .btn{border:0;border-radius:0;background:#0e1736;padding:10px 12px}
+.seg .btn+.btn{border-left:1px solid var(--line)}
+.seg .btn.on{background:rgba(53,240,196,.12);box-shadow:none}
+.shapes{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);background:#0b1230}
+.shp{min-height:44px;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:#0e1736;color:var(--haze);font:600 14px/1.1 var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.shp.on{color:#060a1a;background:linear-gradient(120deg,var(--teal),#9af7ff);border-color:transparent}
+.stage{position:relative;background:#0a1029}
+.stage canvas{display:block;width:100%;touch-action:none;outline:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+#c3{touch-action:pan-y;cursor:grab;background:radial-gradient(80% 70% at 50% 35%,#16225a,#0a1029 70%)}
+.ov{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl3{position:absolute;left:0;top:0;transform:translate(-50%,-100%);white-space:nowrap;font:700 12.5px/1.25 var(--body);padding:4px 8px;border-radius:8px;background:rgba(6,10,26,.8);border:1px solid rgba(255,255,255,.18);text-align:center}
+.lbl3.o{color:var(--sky);border-color:rgba(124,196,255,.45)}
+.lbl3.n{color:#d9c8ff;border-color:rgba(162,123,255,.6)}
+.msg3{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--haze);font-size:14px;text-align:center;padding:0 16px}
+.badges{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;pointer-events:none}
+.badge{font:800 14px/1 var(--display);padding:8px 10px;border-radius:10px;background:rgba(6,10,26,.82);border:1px solid var(--line);white-space:nowrap}
+@media (max-width:520px){.badge{font-size:12px;padding:6px 8px}.lbl3{font-size:11px;padding:3px 6px}}
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:12px 14px;border-top:1px solid var(--line);background:#0b1230}
+.ctl{display:flex;align-items:center;gap:10px;flex:1 1 calc(50% - 9px);min-width:0}
+.ctl.hide{display:none}
+.ctl>label{flex:0 0 auto;font:600 14px/1.2 var(--body);color:var(--haze);min-width:74px}
+.ctl>label b{font:800 17px/1 Georgia,"Times New Roman",serif;font-style:italic;margin-right:3px}
+.ctl output{flex:0 0 auto;min-width:54px;text-align:right;font:800 16px/1 var(--body);color:var(--amber);font-variant-numeric:tabular-nums}
+.opts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;flex:1 1 100%}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1 1 auto;min-width:60px;height:44px;margin:0;background:transparent;cursor:pointer;--c:var(--amber);--p:50%}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--c) var(--p),#1d2850 var(--p))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:5px solid var(--c);margin-top:-9px;box-shadow:0 2px 10px rgba(0,0,0,.55)}
+input[type=range]::-moz-range-track{height:8px;border-radius:99px;background:#1d2850}
+input[type=range]::-moz-range-progress{height:8px;border-radius:99px;background:var(--c)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:5px solid var(--c)}
+@media (max-width:640px){.ctl{flex-basis:100%}}
+.panel{padding:14px 16px 16px;font-size:15px;border-top:1px solid var(--line);min-height:56px}
+.panel p{margin:0 0 8px}
+.muted{color:var(--haze);font-size:14px}
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:0 0 10px}
+@media (max-width:560px){.cmp{grid-template-columns:1fr}}
+.cbox{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:rgba(16,26,58,.5);font-variant-numeric:tabular-nums;font-size:14.5px;min-width:0}
+.cbox h4{margin:0 0 6px;font:700 13px/1.2 var(--display)}
+.cbox.o h4{color:var(--sky)}.cbox.n h4{color:var(--violet)}
+.cbox div{margin:2px 0}
+.ratios{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+.ratio{border-radius:12px;padding:8px 12px;background:#0c1330;border:1px solid var(--line);font:700 15px/1.35 var(--body);font-variant-numeric:tabular-nums}
+.ratio b{font-family:var(--display);font-size:16px}
+.ok{color:var(--teal)}.bad{color:var(--rose)}.warn{color:var(--amber)}
+
+/* o'yin */
+.game{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0}
+@media (max-width:860px){.game{grid-template-columns:1fr}}
+.gq{padding:14px 16px 16px;min-width:0}
+.gv{padding:14px 16px 16px;border-left:1px solid var(--line);min-width:0}
+@media (max-width:860px){.gv{border-left:0;border-bottom:1px solid var(--line);order:-1;padding-bottom:10px}.vcap{display:none}}
+#qv{display:block;width:100%;border-radius:14px;background:linear-gradient(180deg,#0b1438,#0a1130);border:1px solid var(--line)}
+.lvls{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.lv{min-height:44px;min-width:44px;padding:6px 10px;border-radius:12px;border:1px solid var(--line);background:#0e1736;color:var(--haze);font:700 13px/1.1 var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.lv.cur{color:#060a1a;background:linear-gradient(120deg,var(--teal),var(--violet));border-color:transparent}
+.lv.done:not(.cur){border-color:rgba(53,240,196,.45);color:var(--teal)}
+.lv:disabled{opacity:.45;cursor:not-allowed}
+.qcard{border:1px solid var(--line);background:rgba(16,26,58,.55);border-radius:14px;padding:12px 14px;margin:0 0 12px}
+.qcard h4{margin:0 0 6px;font:700 13.5px/1.3 var(--display);color:var(--teal)}
+.qtext{font:600 17px/1.45 var(--body);margin:0}
+.qtext b{color:var(--amber)}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.ch{min-height:54px;padding:10px 12px;border-radius:14px;border:1px solid #2a3a72;background:#0e1736;color:var(--chalk);font:800 19px/1.2 var(--body);cursor:pointer;font-variant-numeric:tabular-nums;transition:transform .1s,background .15s,border-color .15s}
+.ch:hover:not(:disabled){border-color:var(--teal);background:#122052}
+.ch:active{transform:translateY(1px)}
+.ch .kb{font:600 11px var(--body);color:var(--haze);margin-right:8px;vertical-align:2px}
+.ch.right{background:rgba(53,240,196,.16);border-color:var(--teal);color:var(--teal)}
+.ch.wrong{background:rgba(255,94,142,.13);border-color:var(--rose);color:var(--rose)}
+.ch:disabled{cursor:default}
+.fb{border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:15px;background:#0c1330;border:1px solid var(--line)}
+.fb.good{border-color:rgba(53,240,196,.5);background:rgba(53,240,196,.07)}
+.fb.miss{border-color:rgba(255,94,142,.45);background:rgba(255,94,142,.06)}
+.fb .f{display:block;margin-top:6px;font-weight:700;color:#e6e9fb}
+.score{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.score span{font-size:13px;color:var(--haze);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#0c1330}
+.score b{color:var(--chalk)}
+.vcap{font-size:13px;color:var(--haze);margin:8px 2px 0}
+.brow{display:flex;flex-wrap:wrap;gap:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+footer{border-top:1px solid var(--line);margin-top:34px;padding:24px 0 34px;color:var(--haze);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script async src="statistika.js"></script>
+<style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="english/">🇬🇧 Ingliz tili</a>
+<a href="rus-tili/">🇷🇺 Rus tili</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="sinf-oyinlari.html" class="new">🎯 Sinf o'yinlari</a>
+<a href="fizika.html">⚛️ Fizika lab</a>
+<a href="tarozi.html">⚖️ Tarozi</a>
+</nav>
+</header>
+
+<section class="hero">
+<span class="kicker">📐 Geometriya · o'xshashlik · 7–11-sinf</span>
+<h1>Tomonlar oshsa, <span>yuza va hajm</span> qanday o'zgaradi?</h1>
+<p class="lead">Kvadratning tomonini 3 marta uzaytirsak, u 3 marta emas, 9 marta katta bo'ladi! Kub esa 27 marta. Avval qoplash va taxlash animatsiyalarida sababini ko'ring, keyin 2D va 3D laboratoriyada k ni o'zgartirib, formulalarni jonli kuzating va «Necha marta oshdi?» o'yinida o'zingizni sinang.</p>
+<ul class="chips">
+<li>📏 Perimetr × k</li>
+<li>⬛ Yuza × k²</li>
+<li>🧊 Hajm × k³</li>
+<li>🧱 Kub, silindr, shar, konus, piramida</li>
+<li>🍕 Pitsa narxi</li>
+<li>🐘 Kvadrat-kub qonuni</li>
+</ul>
+<div class="hero-btns"><a class="btn vio" href="#nazariya">📘 Avval nazariya</a><a class="btn pri" href="#lab-h">🧪 Laboratoriya va o'yin</a></div>
+</section>
+
+<section class="theory" id="nazariya" aria-labelledby="th-h">
+<h2 id="th-h">Avval tushunib olamiz: o'xshash shakllar</h2>
+<p class="sub">Shaklning <b>barcha</b> chiziqli o'lchamlari (tomonlar, radius, balandlik) bir xil <b class="c-k">k</b> marta o'zgarsa, biz unga <b>o'xshash</b> shakl olamiz. <b class="c-k">k</b> — o'xshashlik koeffitsiyenti (masshtab). k &gt; 1 — kattalashadi, k &lt; 1 — kichrayadi.</p>
+<div class="tcard">
+<div class="ahead"><h3>Ko'rib turing: <span class="c-k">k = <span id="tk-val">3</span></span></h3>
+<span class="seg" role="group" aria-label="k ni tanlang"><button class="btn" type="button" data-tk="2">k = 2</button><button class="btn on" type="button" data-tk="3">k = 3</button><button class="btn" type="button" data-tk="4">k = 4</button><button class="btn" type="button" id="tk-play" aria-label="Animatsiyani qaytadan">▶</button></span></div>
+<div class="agrid">
+<figure><canvas id="t1" aria-label="Perimetr animatsiyasi"></canvas><figcaption><b class="c-p">Perimetr × k</b> — har bir tomon k marta uzaydi, demak ularning yig'indisi ham k marta.</figcaption></figure>
+<figure><canvas id="t2" aria-label="Yuza animatsiyasi: katta kvadrat kichik kvadratlar bilan qoplanadi"></canvas><figcaption><b class="c-s">Yuza × k²</b> — katta kvadratga k qator, har qatorda k tadan kichik kvadrat sig'adi: k·k = k².</figcaption></figure>
+<figure><canvas id="t3" aria-label="Hajm animatsiyasi: katta kub kichik kublar bilan to'ldiriladi"></canvas><figcaption><b class="c-v">Hajm × k³</b> — k qavat, har qavatda k·k ta kichik kub: k·k·k = k³.</figcaption></figure>
+</div>
+</div>
+<div class="tgrid">
+<div class="tcard">
+<h3>Qoida</h3>
+<p class="fml"><span class="c-p">P₂</span> = <span class="c-k">k</span>·<span class="c-p">P₁</span><br><span class="c-s">S₂</span> = <span class="c-k">k²</span>·<span class="c-s">S₁</span><br><span class="c-v">V₂</span> = <span class="c-k">k³</span>·<span class="c-v">V₁</span></p>
+<table class="utbl"><tr><th>k</th><th>P</th><th>S</th><th>V</th></tr>
+<tr><td>2</td><td>×2</td><td>×4</td><td>×8</td></tr>
+<tr><td>3</td><td>×3</td><td>×9</td><td>×27</td></tr>
+<tr><td>10</td><td>×10</td><td>×100</td><td>×1000</td></tr>
+<tr><td>½</td><td>×½</td><td>×¼</td><td>×⅛</td></tr></table>
+</div>
+<div class="tcard">
+<h3>Nega aynan k² va k³?</h3>
+<p><b>Yuza</b> — ikki o'lchamli: uzunlik × kenglik. Ikkalasi ham k marta oshsa: (k·a)·(k·b) = <b class="c-k">k²</b>·ab.</p>
+<p><b>Hajm</b> — uch o'lchamli: (k·a)·(k·b)·(k·c) = <b class="c-k">k³</b>·abc.</p>
+<p>Bu har qanday shakl uchun to'g'ri: doirada S = π(k·r)² = <b class="c-k">k²</b>·πr², sharda V = ⁴⁄₃π(k·r)³ = <b class="c-k">k³</b>·⁴⁄₃πr³.</p>
+</div>
+<div class="tcard">
+<h3>Tomonlar har xil oshsa</h3>
+<p>Shakl endi o'xshash bo'lmaydi, lekin ko'paytuvchilar baribir <b>ko'paytiriladi</b>:</p>
+<p class="fml">a × 2, b × 3 ⇒ S × <span class="c-k">2·3 = 6</span></p>
+<p class="fml">a × 2, b × 3, c × ½ ⇒ V × <span class="c-k">3</span></p>
+<p>Silindrda r × 2, h × 3 ⇒ V = πr²h × <span class="c-k">2²·3 = 12</span>.</p>
+</div>
+<div class="tcard">
+<h3>🐘 Hayotda: kvadrat-kub qonuni</h3>
+<p>Hayvon k marta katta bo'lsa, massasi <b>k³</b> marta, oyog'ining kesimi esa faqat <b>k²</b> marta oshadi. Shuning uchun filning oyoqlari juda yo'g'on, chumoli esa o'zidan og'ir yukni ko'taradi.</p>
+<p>🍕 Diametri 2 marta katta pitsa — 4 marta ko'p pitsa. 🎨 Bak 2 marta katta bo'lsa — bo'yoq 4 marta, suv esa 8 marta ko'p.</p>
+</div>
+</div>
+</section>
+
+<section class="labsec" aria-labelledby="lab-h">
+<h2 id="lab-h">Laboratoriya va o'yin</h2>
+<div class="tabs" role="tablist" aria-label="Bo'limlar">
+<button class="tab" role="tab" data-pane="p2" aria-selected="true">📐 Tekis shakllar</button>
+<button class="tab" role="tab" data-pane="p3" aria-selected="false">🧊 Jismlar (3D)</button>
+<button class="tab" role="tab" data-pane="pg" aria-selected="false">🎮 O'yin: necha marta?</button>
+</div>
+<div class="lab">
+<div class="lab-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="lab-title" id="lab-title"><b>Tekis shakllar</b> · perimetr va yuza</span></div>
+
+<div class="pane" id="p2">
+<div class="shapes" role="group" aria-label="Shakl">
+<button class="shp on" type="button" data-s2="sq">⬛ Kvadrat</button>
+<button class="shp" type="button" data-s2="rect">▬ To'g'ri to'rtburchak</button>
+<button class="shp" type="button" data-s2="tri">◣ Uchburchak</button>
+<button class="shp" type="button" data-s2="circ">⚪ Doira</button>
+</div>
+<div class="stage"><canvas id="c2" tabindex="0" aria-label="Shakllar maydoni. Katta shaklning burchagidagi tutqichni surib, k ni o'zgartirish mumkin."></canvas><div class="badges" id="b2"></div></div>
+<div class="ctrls">
+<div class="opts"><span class="seg" role="group" aria-label="O'zgartirish usuli"><button class="btn on" type="button" data-m2="k">Hammasi k marta</button><button class="btn" type="button" data-m2="sep" id="m2sep">Tomonlar alohida</button></span>
+<span class="seg" role="group" aria-label="Tez tanlash"><button class="btn" type="button" data-q2="0.5">½</button><button class="btn" type="button" data-q2="1">1</button><button class="btn" type="button" data-q2="2">2</button><button class="btn" type="button" data-q2="3">3</button><button class="btn" type="button" data-q2="4">4</button></span></div>
+<div class="ctl" id="k2c"><label for="k2"><b class="c-k">k</b> =</label><input type="range" id="k2" min="0.5" max="4" step="0.1"><output id="k2o"></output></div>
+<div class="ctl hide" id="a2c"><label for="a2"><b class="c-k">a</b> ×</label><input type="range" id="a2" min="0.5" max="4" step="0.1"><output id="a2o"></output></div>
+<div class="ctl hide" id="b2c"><label for="b2r"><b class="c-k">b</b> ×</label><input type="range" id="b2r" min="0.5" max="4" step="0.1"><output id="b2o"></output></div>
+</div>
+<div class="panel" id="panel2" aria-live="polite"></div>
+</div>
+
+<div class="pane" id="p3" hidden>
+<div class="shapes" role="group" aria-label="Jism">
+<button class="shp on" type="button" data-s3="cube">🧊 Kub</button>
+<button class="shp" type="button" data-s3="box">📦 Parallelepiped</button>
+<button class="shp" type="button" data-s3="cyl">🥫 Silindr</button>
+<button class="shp" type="button" data-s3="sph">🔮 Shar</button>
+<button class="shp" type="button" data-s3="cone">🍦 Konus</button>
+<button class="shp" type="button" data-s3="pyr">🔺 Piramida</button>
+</div>
+<div class="stage" id="st3"><canvas id="c3" aria-label="3D sahna: chapda asl jism, o'ngda kattalashtirilgani. Gorizontal surib aylantiring."></canvas><div class="ov" id="ov3"></div><div class="badges" id="b3"></div><div class="msg3" id="msg3">3D yuklanmoqda…</div></div>
+<div class="ctrls">
+<div class="opts"><span class="seg" role="group" aria-label="O'zgartirish usuli"><button class="btn on" type="button" data-m3="k">Hammasi k marta</button><button class="btn" type="button" data-m3="sep" id="m3sep">O'lchamlar alohida</button></span>
+<button class="btn" type="button" id="fill3">🧱 Asl nusxalar bilan to'ldirish</button></div>
+<div class="ctl" id="k3c"><label for="k3"><b class="c-k">k</b> =</label><input type="range" id="k3" min="0.5" max="4" step="0.1"><output id="k3o"></output></div>
+<div class="ctl hide" data-p3="0"><label for="p30"><b class="c-k" id="p30l">a</b> ×</label><input type="range" id="p30" min="0.5" max="4" step="0.1"><output id="p30o"></output></div>
+<div class="ctl hide" data-p3="1"><label for="p31"><b class="c-k" id="p31l">b</b> ×</label><input type="range" id="p31" min="0.5" max="4" step="0.1"><output id="p31o"></output></div>
+<div class="ctl hide" data-p3="2"><label for="p32"><b class="c-k" id="p32l">c</b> ×</label><input type="range" id="p32" min="0.5" max="4" step="0.1"><output id="p32o"></output></div>
+</div>
+<div class="panel" id="panel3" aria-live="polite"></div>
+</div>
+
+<div class="pane" id="pg" hidden>
+<div class="game">
+<div class="gq" id="gq"></div>
+<div class="gv"><canvas id="qv" aria-label="Javobning ko'rgazmali isboti"></canvas><p class="vcap" id="vcap">Javob bergach, rasm nega shunday ekanini ko'rsatadi.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div>&copy; <span id="year">2026</span> Kuvonch Academy</div>
+<div><a href="oyinlar.html">🎮 O'yinlar</a> · <a href="matematika.html">📐 Matematika</a> · <a href="fizika.html">⚛️ Fizika laboratoriyasi</a> · <a href="index.html">Bosh sahifa</a></div>
+</footer>
+</div>
+<script>
+/*! Kuvonch Academy — Masshtab: tomonlar oshsa, yuza va hajm */
+(function () {
+"use strict";
+/* ================= 1. Yordamchilar ================= */
+var $ = function (id) { return document.getElementById(id); };
+var RM = false;
+try { RM = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); } catch (e) {}
+var FONT = '"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
+var FONTD = '"Unbounded","Golos Text",system-ui,sans-serif';
+var COL = { k: "#ffc23d", p: "#35f0c4", s: "#a27bff", v: "#ff5e8e", o: "#7cc4ff" };
+function lsGet(k) { try { return localStorage.getItem("ka.masshtab." + k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem("ka.masshtab." + k, String(v)); } catch (e) {} }
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+function lerp(a, b, k) { return a + (b - a) * k; }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function coins(n, why) { try { if (window.kaAccount && window.kaAccount.addCoins) window.kaAccount.addCoins(n, why); } catch (e) {} }
+/* son: vergul bilan, ortiqcha nollarsiz, 10 000 dan boshlab bo'shliq bilan */
+function nf(v, maxd) {
+  if (maxd == null) maxd = 3; var p = Math.pow(10, maxd), r = Math.round(v * p) / p; if (Math.abs(r) < 0.5 / p) r = 0;
+  var neg = r < 0; r = Math.abs(r); var s = r.toFixed(maxd); if (s.indexOf(".") >= 0) s = s.replace(/0+$/, "").replace(/\.$/, "");
+  var parts = s.split("."), ip = parts[0];
+  if (ip.length > 4) { var o = ""; while (ip.length > 3) { o = " " + ip.slice(-3) + o; ip = ip.slice(0, -3); } ip = ip + o; }
+  return (neg ? "−" : "") + ip + (parts[1] ? "," + parts[1] : "");
+}
+function kStr(k) { return Math.abs(k - 0.5) < 1e-9 ? "½" : nf(k, 2); }
+function fitCanvas(c, w, h) { var d = Math.min(window.devicePixelRatio || 1, 2); c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + "px"; var x = c.getContext("2d"); x.setTransform(d, 0, 0, d, 0, 0); return x; }
+function rr(c, x, y, w, h, r) { r = Math.min(r, w / 2, h / 2); c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+function txt(c, s, x, y, size, col, align, wt, font) { c.font = (wt || 700) + " " + size + "px " + (font || FONT); c.fillStyle = col; c.textAlign = align || "center"; c.textBaseline = "middle"; c.fillText(s, x, y); }
+function easeOut(t) { t = clamp(t, 0, 1); return 1 - Math.pow(1 - t, 3); }
+function easeBack(t) { t = clamp(t, 0, 1); var c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); }
+function setP(r) { var p = (r.value - r.min) / (r.max - r.min) * 100; r.style.setProperty("--p", p + "%"); }
+
+/* ================= 2. Umumiy chizmalar (nazariya, o'yin isboti) ================= */
+/* izometriya: x — o'ngga-pastga, y — chapga-pastga, z — yuqoriga */
+function isoP(ox, oy, s, x, y, z) { return [ox + (x - y) * s * 0.866, oy + (x + y) * s * 0.5 - z * s]; }
+function isoFace(c, pts, fill, stroke) { c.beginPath(); c.moveTo(pts[0][0], pts[0][1]); for (var i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]); c.closePath(); c.fillStyle = fill; c.fill(); if (stroke) { c.strokeStyle = stroke; c.lineWidth = 1; c.stroke(); } }
+var PAL_V = ["#cdb8ff", "#8f6cf2", "#6a46d4"], PAL_O = ["#bfe6ff", "#58a8ee", "#3a7fc4"], PAL_T = ["#a8fff0", "#2fcfa9", "#1d9b7e"];
+function isoCube(c, ox, oy, s, x, y, z, pal, w, d, h) {
+  w = w || 1; d = d || 1; h = h || 1;
+  var P = function (a, b, cc) { return isoP(ox, oy, s, a, b, cc); };
+  var st = "rgba(10,14,40,.55)";
+  isoFace(c, [P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], pal[0], st);
+  isoFace(c, [P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], pal[1], st);
+  isoFace(c, [P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], pal[2], st);
+}
+function isoBoxWire(c, ox, oy, s, nx, ny, nz, col, alpha) {
+  var P = function (a, b, cc) { return isoP(ox, oy, s, a, b, cc); };
+  c.save(); c.globalAlpha = alpha == null ? 1 : alpha; c.strokeStyle = col; c.lineWidth = 1.5;
+  c.setLineDash([4, 4]); c.beginPath(); var a = P(0, 0, 0); c.moveTo(a[0], a[1]); var b = P(nx, 0, 0); c.lineTo(b[0], b[1]); a = P(0, 0, 0); c.moveTo(a[0], a[1]); b = P(0, ny, 0); c.lineTo(b[0], b[1]); a = P(0, 0, 0); c.moveTo(a[0], a[1]); b = P(0, 0, nz); c.lineTo(b[0], b[1]); c.stroke(); c.setLineDash([]);
+  var E = [[[nx, 0, 0], [nx, ny, 0]], [[0, ny, 0], [nx, ny, 0]], [[nx, 0, 0], [nx, 0, nz]], [[0, ny, 0], [0, ny, nz]], [[nx, ny, 0], [nx, ny, nz]], [[0, 0, nz], [nx, 0, nz]], [[0, 0, nz], [0, ny, nz]], [[nx, 0, nz], [nx, ny, nz]], [[0, ny, nz], [nx, ny, nz]]];
+  c.beginPath(); E.forEach(function (e) { var p = P(e[0][0], e[0][1], e[0][2]), q = P(e[1][0], e[1][1], e[1][2]); c.moveTo(p[0], p[1]); c.lineTo(q[0], q[1]); }); c.stroke();
+  c.restore();
+}
+function cubeOrder(nx, ny, nz) { var a = []; for (var z = 0; z < nz; z++) for (var y = 0; y < ny; y++) for (var x = 0; x < nx; x++) a.push([x, y, z]); a.sort(function (p, q) { return (p[2] - q[2]) || ((p[0] + p[1]) - (q[0] + q[1])) || (p[0] - q[0]); }); return a; }
+function painterOrder(list) { return list.slice().sort(function (p, q) { return (p[0] + p[1] + p[2]) - (q[0] + q[1] + q[2]) || p[2] - q[2]; }); }
+/* hajm: n = ko'rsatilgan kublar soni (to'ldirish tartibi qavatma-qavat), fall — oxirgi kubning tushishi */
+function drawStack(c, ox, oy, s, nx, ny, nz, n, prog, pal) {
+  var fill = cubeOrder(nx, ny, nz).slice(0, n);
+  var lastI = fill.length - 1, draw = painterOrder(fill.map(function (p, i) { return [p[0], p[1], p[2], i]; }));
+  draw.forEach(function (p) { var off = p[3] === lastI ? (1 - easeOut(prog)) * 2.2 : 0; isoCube(c, ox, oy, s, p[0], p[1], p[2] + off, pal); });
+}
+/* kvadratlar bilan qoplash (to'g'ri to'rtburchak hujayralar) */
+function drawTiles(c, x0, y0, cw, chh, nx, ny, n, prog, col, stroke) {
+  var k = 0;
+  for (var j = 0; j < ny; j++) for (var i = 0; i < nx; i++) {
+    if (k >= n) return; var last = k === n - 1, sc = last ? easeBack(prog) : 1;
+    var cx = x0 + (i + 0.5) * cw, cy = y0 - (j + 0.5) * chh;
+    c.save(); c.translate(cx, cy); c.scale(sc, sc); c.fillStyle = col; c.fillRect(-cw / 2 + 1.5, -chh / 2 + 1.5, cw - 3, chh - 3); c.strokeStyle = stroke; c.lineWidth = 1; c.strokeRect(-cw / 2 + 1.5, -chh / 2 + 1.5, cw - 3, chh - 3); c.restore();
+    k++;
+  }
+}
+/* uchburchakni k² ta teng uchburchakka bo'lish */
+function triCells(k) { var out = []; for (var j = 0; j < k; j++) { for (var i = 0; i < k - j; i++) { out.push([[i, j], [i + 1, j], [i, j + 1]]); if (i < k - j - 1) out.push([[i + 1, j], [i + 1, j + 1], [i, j + 1]]); } } return out; }
+
+/* ================= 3. Nazariya animatsiyalari ================= */
+var TH = { k: 3, t: 0, run: false, vis: false, cv: [], last: 0 };
+function thSizes() {
+  TH.cv = ["t1", "t2", "t3"].map(function (id) { var c = $(id), w = c.clientWidth || 300, h = Math.round(clamp(w * 0.78, 200, 280)); return { c: c, x: fitCanvas(c, w, h), w: w, h: h }; });
+}
+function thDraw() {
+  var k = TH.k, t = TH.t;
+  // 1) perimetr
+  var A = TH.cv[0], c = A.x, w = A.w, h = A.h; c.clearRect(0, 0, w, h);
+  var u = Math.min((w - 70) / (k + 1.6), (h - 70) / k), x0 = 22, y0 = h - 34;
+  c.fillStyle = "rgba(124,196,255,.22)"; c.fillRect(x0, y0 - u, u, u); c.strokeStyle = COL.o; c.lineWidth = 2.5; c.strokeRect(x0, y0 - u, u, u);
+  txt(c, "1", x0 + u / 2, y0 + 12, 12, COL.o);
+  var bx = x0 + u + 0.6 * u, L = 4 * k, pr = clamp(t / 2.2, 0, 1), dl = pr * L;
+  c.strokeStyle = "rgba(53,240,196,.2)"; c.lineWidth = 2; c.strokeRect(bx, y0 - k * u, k * u, k * u);
+  var path = [[bx, y0], [bx + k * u, y0], [bx + k * u, y0 - k * u], [bx, y0 - k * u], [bx, y0]];
+  c.strokeStyle = COL.p; c.lineWidth = 4; c.lineCap = "round"; c.beginPath(); c.moveTo(path[0][0], path[0][1]);
+  var rem = dl, seg;
+  for (seg = 0; seg < 4 && rem > 0; seg++) { var a = path[seg], b = path[seg + 1], f = Math.min(1, rem / k); c.lineTo(a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f); rem -= k; }
+  c.stroke();
+  c.fillStyle = "#fff";
+  for (var i = 1; i <= Math.floor(dl + 1e-9) && i < L; i++) { var sgi = Math.floor(i / k), fi = (i - sgi * k) / k, p = path[sgi], q = path[sgi + 1]; c.beginPath(); c.arc(p[0] + (q[0] - p[0]) * fi, p[1] + (q[1] - p[1]) * fi, 2.6, 0, 7); c.fill(); }
+  txt(c, "P = " + Math.min(L, Math.floor(dl + 1e-9)) + " (birlik)", bx + k * u / 2, y0 + 14, 13, COL.p);
+  txt(c, "1 → 4", x0 + u / 2, 16, 12.5, COL.o);
+  if (pr >= 1) txt(c, "4 → " + L + " = 4·" + k, bx + k * u / 2, 16, 14, COL.p, "center", 800);
+  // 2) yuza
+  A = TH.cv[1]; c = A.x; w = A.w; h = A.h; c.clearRect(0, 0, w, h);
+  u = Math.min((w - 60) / (k + 1.5), (h - 64) / k); x0 = 20; y0 = h - 30;
+  c.fillStyle = "rgba(124,196,255,.35)"; c.fillRect(x0, y0 - u, u, u); c.strokeStyle = COL.o; c.lineWidth = 2; c.strokeRect(x0, y0 - u, u, u);
+  txt(c, "1", x0 + u / 2, y0 - u / 2, 13, "#fff");
+  bx = x0 + u + 0.5 * u;
+  c.strokeStyle = "rgba(162,123,255,.45)"; c.setLineDash([5, 4]); c.strokeRect(bx, y0 - k * u, k * u, k * u); c.setLineDash([]);
+  var N = k * k, per = 1.9 / N, n = Math.min(N, Math.floor(t / per) + 1), pg = clamp((t - (n - 1) * per) / per, 0, 1);
+  if (t <= 0) n = 0;
+  drawTiles(c, bx, y0, u, u, k, k, n, pg, "rgba(162,123,255,.55)", "#cdb8ff");
+  txt(c, n + " ta", bx + k * u / 2, y0 + 14, 13, COL.s);
+  if (n >= N && pg >= 1) txt(c, N + " = " + k + "² ta kvadrat", bx + k * u / 2, 16, 14, COL.s, "center", 800); else txt(c, "S = 1", x0 + u / 2, 16, 12.5, COL.o);
+  // 3) hajm
+  A = TH.cv[2]; c = A.x; w = A.w; h = A.h; c.clearRect(0, 0, w, h);
+  var s = Math.min((w - 44) / (1.732 * (k + 1)), (h - 64) / (2 * k)), ox = w - 12 - 0.866 * k * s, oy = 36 + k * s;
+  var N3 = k * k * k; per = 2.4 / N3; n = Math.min(N3, Math.floor(t / per) + 1); pg = clamp((t - (n - 1) * per) / per, 0, 1); if (t <= 0) n = 0;
+  isoBoxWire(c, ox, oy, s, k, k, k, "rgba(255,94,142,.55)");
+  drawStack(c, ox, oy, s, k, k, k, n, pg, PAL_V);
+  var sx = 14 + 0.866 * s, sy = h - 26 - s;
+  isoCube(c, sx, sy, s, 0, 0, 0, PAL_O);
+  txt(c, "1", sx, sy + s * 1.35, 12, COL.o);
+  txt(c, n + " ta", w - 34, h - 16, 13, COL.v);
+  if (n >= N3 && pg >= 1) txt(c, N3 + " = " + k + "³ ta kub", w / 2, 16, 14, COL.v, "center", 800); else txt(c, "V = 1", sx, 16, 12.5, COL.o);
+}
+function thLoop(ts) {
+  if (!TH.vis || document.hidden) { TH.run = false; TH.last = 0; return; }
+  var dt = TH.last ? Math.min(0.05, (ts - TH.last) / 1000) : 1 / 60; TH.last = ts;
+  TH.t += dt; thDraw();
+  if (TH.t < 2.8) requestAnimationFrame(thLoop); else { TH.run = false; TH.last = 0; }
+}
+function thStart() { TH.t = RM ? 99 : 0; if (RM) { thDraw(); return; } if (!TH.run && TH.vis) { TH.run = true; TH.last = 0; requestAnimationFrame(thLoop); } else if (!TH.vis) thDraw(); }
+document.querySelectorAll("[data-tk]").forEach(function (b) { b.addEventListener("click", function () { TH.k = +b.getAttribute("data-tk"); $("tk-val").textContent = TH.k; document.querySelectorAll("[data-tk]").forEach(function (o) { o.classList.toggle("on", o === b); }); thStart(); }); });
+$("tk-play").addEventListener("click", thStart);
+
+/* ================= 4. 2D laboratoriya ================= */
+var S2 = { shape: "sq", mode: "k", k: 3, a: 2, b: 3, fa: 3, fb: 3, drag: false };
+var SH2 = {
+  sq: { n: "Kvadrat", a: 2, b: 2, sep: false },
+  rect: { n: "To'g'ri to'rtburchak", a: 3, b: 2, sep: true },
+  tri: { n: "To'g'ri burchakli uchburchak", a: 3, b: 2, sep: true },
+  circ: { n: "Doira", a: 1.5, b: 1.5, sep: false }
+};
+var c2 = $("c2"), x2 = null, W2 = 600, H2 = 360, run2 = false, last2 = 0, vis2 = true;
+function tgt2() { var sh = SH2[S2.shape]; return S2.mode === "k" || !sh.sep ? { a: S2.k, b: S2.k } : { a: S2.a, b: S2.b }; }
+function geo2(shape, a, b) {
+  var sh = SH2[shape], A = sh.a * a, B = sh.b * b;
+  if (shape === "sq") return { P: 4 * A, S: A * A, dims: "a = " + nf(A) + " sm" };
+  if (shape === "rect") return { P: 2 * (A + B), S: A * B, dims: "a = " + nf(A) + " sm, b = " + nf(B) + " sm" };
+  if (shape === "tri") { var C = Math.hypot(A, B); return { P: A + B + C, S: A * B / 2, dims: "a = " + nf(A) + ", b = " + nf(B) + ", c = " + nf(C, 2) + " sm" }; }
+  return { P: 2 * Math.PI * A, S: Math.PI * A * A, dims: "r = " + nf(A) + " sm" };
+}
+function size2() { W2 = c2.clientWidth || 600; H2 = Math.round(clamp(W2 * (W2 < 640 ? 0.78 : 0.42), 260, 430)); x2 = fitCanvas(c2, W2, H2); }
+var view2 = { u: 40 };
+function draw2() {
+  var c = x2, w = W2, h = H2, sh = SH2[S2.shape], fa = S2.fa, fb = S2.fb;
+  c.clearRect(0, 0, w, h);
+  var dm = S2.drag ? 4 : 1, A0 = sh.a, B0 = sh.b, wid = Math.max(A0, A0 * (S2.drag ? dm : fa)) * (S2.shape === "circ" ? 2 : 1), hei = Math.max(B0, B0 * (S2.drag ? dm : fb)) * (S2.shape === "circ" ? 2 : 1);
+  var m = 34, mt = 34, uT = Math.min((w - m * 2 - (w < 640 ? 0 : 120)) / wid, (h - m - mt - 14) / hei);
+  view2.u = view2.u ? lerp(view2.u, uT, 0.25) : uT; if (Math.abs(view2.u - uT) < 0.05) view2.u = uT;
+  var u = view2.u, oy = h - m, oxT = S2.drag ? m + 10 : Math.max(m + 10, (w - wid * uT) / 2 - (w < 640 ? 0 : 30));
+  view2.oxa = view2.oxa == null ? oxT : lerp(view2.oxa, oxT, 0.25); if (Math.abs(view2.oxa - oxT) < 0.3) view2.oxa = oxT;
+  var ox = view2.oxa; view2.ox = oxT; view2.oy = oy; view2.uT = uT;
+  // fon to'ri (1 sm)
+  var gs = u >= 14 ? 1 : u >= 5 ? 5 : 10;
+  c.strokeStyle = "rgba(147,163,204,.08)"; c.lineWidth = 1; c.beginPath();
+  for (var gx = ox; gx < w; gx += gs * u) { c.moveTo(Math.round(gx) + 0.5, 0); c.lineTo(Math.round(gx) + 0.5, oy); }
+  for (var gy = oy; gy > 0; gy -= gs * u) { c.moveTo(ox, Math.round(gy) + 0.5); c.lineTo(w, Math.round(gy) + 0.5); }
+  c.stroke();
+  c.strokeStyle = "rgba(147,163,204,.35)"; c.beginPath(); c.moveTo(ox, oy + 0.5); c.lineTo(w - 6, oy + 0.5); c.moveTo(ox - 0.5, oy); c.lineTo(ox - 0.5, 6); c.stroke();
+  var A = A0 * fa * u, B = B0 * fb * u, a = A0 * u, b = B0 * u;
+  c.save();
+  if (S2.shape === "sq" || S2.shape === "rect") {
+    c.fillStyle = "rgba(162,123,255,.22)"; c.fillRect(ox, oy - B, A, B);
+    c.strokeStyle = "rgba(205,184,255,.7)"; c.lineWidth = 1.2; c.setLineDash([4, 3]); c.beginPath();
+    for (var i = 1; i * a < A - 0.5; i++) { c.moveTo(ox + i * a, oy); c.lineTo(ox + i * a, oy - B); }
+    for (var j = 1; j * b < B - 0.5; j++) { c.moveTo(ox, oy - j * b); c.lineTo(ox + A, oy - j * b); }
+    c.stroke(); c.setLineDash([]);
+    c.strokeStyle = COL.s; c.lineWidth = 3; c.strokeRect(ox, oy - B, A, B);
+    c.fillStyle = "rgba(124,196,255,.38)"; c.fillRect(ox, oy - b, a, b); c.strokeStyle = COL.o; c.lineWidth = 2.5; c.setLineDash([6, 4]); c.strokeRect(ox, oy - b, a, b); c.setLineDash([]);
+  } else if (S2.shape === "tri") {
+    c.beginPath(); c.moveTo(ox, oy); c.lineTo(ox + A, oy); c.lineTo(ox, oy - B); c.closePath(); c.fillStyle = "rgba(162,123,255,.22)"; c.fill();
+    c.save(); c.clip(); c.strokeStyle = "rgba(205,184,255,.7)"; c.lineWidth = 1.2; c.setLineDash([4, 3]); c.beginPath();
+    for (i = 1; i * a < A - 0.5; i++) { c.moveTo(ox + i * a, oy); c.lineTo(ox + i * a, oy - B); }
+    for (j = 1; j * b < B - 0.5; j++) { c.moveTo(ox, oy - j * b); c.lineTo(ox + A, oy - j * b); }
+    for (var mm = 1; mm < Math.max(fa, fb) * 2 + 2; mm++) { c.moveTo(ox + mm * a, oy); c.lineTo(ox, oy - mm * b); }
+    c.stroke(); c.restore(); c.setLineDash([]);
+    c.strokeStyle = COL.s; c.lineWidth = 3; c.beginPath(); c.moveTo(ox, oy); c.lineTo(ox + A, oy); c.lineTo(ox, oy - B); c.closePath(); c.stroke();
+    c.beginPath(); c.moveTo(ox, oy); c.lineTo(ox + a, oy); c.lineTo(ox, oy - b); c.closePath(); c.fillStyle = "rgba(124,196,255,.38)"; c.fill(); c.strokeStyle = COL.o; c.lineWidth = 2.5; c.setLineDash([6, 4]); c.stroke(); c.setLineDash([]);
+  } else {
+    var R = A, r = a, cx = ox + R, cy = oy - R;
+    c.strokeStyle = "rgba(205,184,255,.35)"; c.lineWidth = 1; c.setLineDash([4, 3]); c.beginPath();
+    for (i = 1; i * 2 * r < 2 * R - 0.5; i++) { c.moveTo(ox + i * 2 * r, oy); c.lineTo(ox + i * 2 * r, oy - 2 * R); c.moveTo(ox, oy - i * 2 * r); c.lineTo(ox + 2 * R, oy - i * 2 * r); }
+    c.stroke(); c.setLineDash([]);
+    c.strokeStyle = "rgba(162,123,255,.3)"; c.strokeRect(ox, oy - 2 * R, 2 * R, 2 * R);
+    c.fillStyle = "rgba(124,196,255,.08)";
+    for (i = 0; i * 2 * r < 2 * R - 0.5; i++) for (j = 0; j * 2 * r < 2 * R - 0.5; j++) { c.beginPath(); c.arc(ox + (2 * i + 1) * r, oy - (2 * j + 1) * r, r, 0, 7); c.fill(); }
+    c.beginPath(); c.arc(cx, cy, R, 0, 7); c.fillStyle = "rgba(162,123,255,.24)"; c.fill(); c.strokeStyle = COL.s; c.lineWidth = 3; c.stroke();
+    c.beginPath(); c.arc(ox + r, oy - r, r, 0, 7); c.fillStyle = "rgba(124,196,255,.4)"; c.fill(); c.strokeStyle = COL.o; c.lineWidth = 2.5; c.setLineDash([6, 4]); c.stroke(); c.setLineDash([]);
+    c.strokeStyle = COL.s; c.lineWidth = 2; c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + R * 0.707, cy - R * 0.707); c.stroke();
+    txt(c, "R = " + nf(sh.a * fa, 2), cx + R * 0.38 + 18, cy - R * 0.38 - 4, 12.5, "#d9c8ff", "left");
+    c.strokeStyle = COL.o; c.beginPath(); c.moveTo(ox + r, oy - r); c.lineTo(ox + 2 * r, oy - r); c.stroke();
+    c.restore();
+    handle2(ox + 2 * R, oy - 2 * R); legend2();
+    return;
+  }
+  c.restore();
+  // o'lcham yozuvlari
+  txt(c, nf(sh.a * fa, 2) + " sm", ox + A / 2, oy + 14, 12.5, "#d9c8ff");
+  txt(c, nf(sh.b * fb, 2) + " sm", ox - 6, oy - B / 2, 12.5, "#d9c8ff", "right");
+  if (S2.shape === "tri") handle2(ox + A / 2, oy - B / 2); else handle2(ox + A, oy - B);
+  legend2();
+}
+function legend2() {
+  var c = x2, f = W2 < 640 ? 11.5 : 12.5, y = 16, x = 12;
+  c.fillStyle = "rgba(124,196,255,.45)"; c.fillRect(x, y - 6, 14, 12); c.strokeStyle = COL.o; c.setLineDash([3, 2]); c.lineWidth = 1.5; c.strokeRect(x, y - 6, 14, 12); c.setLineDash([]);
+  txt(c, "asl", x + 20, y, f, COL.o, "left");
+  c.fillStyle = "rgba(162,123,255,.45)"; c.fillRect(x + 50, y - 6, 14, 12); c.strokeStyle = COL.s; c.lineWidth = 2; c.strokeRect(x + 50, y - 6, 14, 12);
+  txt(c, "yangi (× " + (Math.abs(S2.fa - S2.fb) < 0.01 ? nf(S2.fa, 2) : nf(S2.fa, 2) + " va " + nf(S2.fb, 2)) + ")", x + 70, y, f, "#d9c8ff", "left");
+}
+function handle2(x, y) { var c = x2; c.beginPath(); c.arc(x, y, 9, 0, 7); c.fillStyle = "#ffc23d"; c.fill(); c.strokeStyle = "#060a1a"; c.lineWidth = 2; c.stroke(); c.beginPath(); c.arc(x, y, 15, 0, 7); c.strokeStyle = "rgba(255,194,61,.45)"; c.lineWidth = 2; c.stroke(); S2.hx = x; S2.hy = y; }
+function update2(dt) {
+  var t = tgt2(), k = RM ? 1 : 1 - Math.exp(-dt * 9), mv = false;
+  S2.fa = lerp(S2.fa, t.a, k); S2.fb = lerp(S2.fb, t.b, k);
+  if (Math.abs(S2.fa - t.a) < 0.002) S2.fa = t.a; else mv = true;
+  if (Math.abs(S2.fb - t.b) < 0.002) S2.fb = t.b; else mv = true;
+  return mv;
+}
+function loop2(ts) {
+  if (!vis2 || document.hidden || $("p2").hidden) { run2 = false; last2 = 0; return; }
+  var dt = last2 ? Math.min(0.05, (ts - last2) / 1000) : 1 / 60; last2 = ts;
+  var mv = update2(dt); var uBefore = view2.u; draw2();
+  if (mv || S2.drag || Math.abs(view2.u - uBefore) > 0.01 || view2.oxa !== view2.ox) requestAnimationFrame(loop2); else { run2 = false; last2 = 0; }
+}
+function wake2() { if (!run2) { run2 = true; last2 = 0; requestAnimationFrame(loop2); } }
+function panel2() {
+  var sh = SH2[S2.shape], t = tgt2(), g1 = geo2(S2.shape, 1, 1), g2 = geo2(S2.shape, t.a, t.b), sim = Math.abs(t.a - t.b) < 1e-9;
+  var Pn = S2.shape === "circ" ? "C (aylana uzunligi)" : "P", Pf, Sf;
+  if (S2.shape === "sq") { Pf = "P = 4a"; Sf = "S = a²"; } else if (S2.shape === "rect") { Pf = "P = 2(a + b)"; Sf = "S = a·b"; } else if (S2.shape === "tri") { Pf = "P = a + b + c"; Sf = "S = a·b / 2"; } else { Pf = "C = 2πr"; Sf = "S = πr²"; }
+  var rP = g2.P / g1.P, rS = g2.S / g1.S, h = '<div class="cmp">';
+  h += '<div class="cbox o"><h4>Asl shakl</h4><div>' + g1.dims + '</div><div><span class="c-p">' + Pf + '</span> = <b>' + nf(g1.P, 2) + ' sm</b></div><div><span class="c-s">' + Sf + '</span> = <b>' + nf(g1.S, 2) + ' sm²</b></div></div>';
+  h += '<div class="cbox n"><h4>' + (sim ? "Yangi shakl (k = " + kStr(t.a) + ")" : "Yangi shakl (a × " + kStr(t.a) + ", b × " + kStr(t.b) + ")") + '</h4><div>' + g2.dims + '</div><div><span class="c-p">' + Pf.split(" =")[0] + '₂</span> = <b>' + nf(g2.P, 2) + ' sm</b></div><div><span class="c-s">S₂</span> = <b>' + nf(g2.S, 2) + ' sm²</b></div></div></div>';
+  h += '<div class="ratios">';
+  if (sim) {
+    h += '<span class="ratio"><span class="c-p">' + Pn.split(" ")[0] + '₂ : ' + Pn.split(" ")[0] + '₁</span> = ' + nf(g2.P, 2) + ' : ' + nf(g1.P, 2) + ' = <b class="c-k">' + nf(rP, 3) + '</b> = k</span>';
+    h += '<span class="ratio"><span class="c-s">S₂ : S₁</span> = ' + nf(g2.S, 2) + ' : ' + nf(g1.S, 2) + ' = <b class="c-k">' + nf(rS, 3) + '</b> = k² = ' + kStr(t.a) + '²</span>';
+  } else {
+    h += '<span class="ratio"><span class="c-s">S₂ : S₁</span> = <b class="c-k">' + kStr(t.a) + ' · ' + kStr(t.b) + ' = ' + nf(rS, 3) + '</b></span>';
+    h += '<span class="ratio"><span class="c-p">P₂ : P₁</span> = <b class="c-k">' + nf(rP, 3) + '</b> <span class="muted">— oddiy k emas</span></span>';
+  }
+  h += '</div>';
+  if (sim && S2.shape !== "circ" && Math.abs(t.a - Math.round(t.a)) < 1e-9 && t.a >= 2) h += '<p class="muted">Katta shakl ichida asl shaklning <b>' + nf(rS) + ' ta</b> nusxasi bor (punktir chiziqlar). ' + (S2.shape === "tri" ? "Uchburchak ham k² ta teng uchburchakka bo'linadi!" : "") + '</p>';
+  else if (S2.shape === "circ") h += '<p class="muted">Doirani kvadratchalar bilan qoplab bo\'lmaydi, lekin u kvadratga ichki chizilgan: kvadrat k² marta oshsa, doira ham aynan k² marta oshadi. S = π(k·r)² = k²·πr².</p>';
+  else if (!sim) h += '<p class="muted">Tomonlar har xil oshdi — shakl o\'xshash emas. Yuza baribir ko\'paytuvchilar ko\'paytmasicha oshadi: S = (k₁·a)·(k₂·b) = k₁·k₂·ab.</p>';
+  else if (t.a < 1) h += '<p class="muted">k &lt; 1 — shakl kichraydi: tomoni ' + nf(1 / t.a, 2) + ' marta, yuzasi ' + nf(1 / rS, 2) + ' marta kichik.</p>';
+  else h += '<p class="muted">Sariq tutqichni sudrab ko\'ring yoki k ni 2, 3, 4 ga qo\'ying — kichik nusxalarni sanash oson bo\'ladi.</p>';
+  $("panel2").innerHTML = h;
+  $("b2").innerHTML = '<span class="badge c-p">' + (S2.shape === "circ" ? "C" : "P") + ' × ' + nf(rP, 2) + '</span><span class="badge c-s">S × ' + nf(rS, 2) + '</span>';
+}
+var kR2 = $("k2"), aR2 = $("a2"), bR2 = $("b2r");
+function sync2() {
+  kR2.value = S2.k; aR2.value = S2.a; bR2.value = S2.b; [kR2, aR2, bR2].forEach(setP);
+  $("k2o").textContent = kStr(S2.k); $("a2o").textContent = "× " + kStr(S2.a); $("b2o").textContent = "× " + kStr(S2.b);
+  var sh = SH2[S2.shape], sep = S2.mode === "sep" && sh.sep;
+  $("k2c").classList.toggle("hide", sep); $("a2c").classList.toggle("hide", !sep); $("b2c").classList.toggle("hide", !sep);
+  $("m2sep").disabled = !sh.sep;
+  document.querySelectorAll("[data-m2]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-m2") === (sep ? "sep" : "k")); });
+  $("b2r").previousElementSibling.querySelector("b").textContent = "b";
+  panel2(); wake2();
+}
+kR2.addEventListener("input", function () { S2.k = +kR2.value; sync2(); });
+aR2.addEventListener("input", function () { S2.a = +aR2.value; sync2(); });
+bR2.addEventListener("input", function () { S2.b = +bR2.value; sync2(); });
+document.querySelectorAll("[data-q2]").forEach(function (b) { b.addEventListener("click", function () { var v = +b.getAttribute("data-q2"); if (S2.mode === "sep" && SH2[S2.shape].sep) { S2.a = v; S2.b = v; } else S2.k = v; sync2(); }); });
+document.querySelectorAll("[data-m2]").forEach(function (b) { b.addEventListener("click", function () { S2.mode = b.getAttribute("data-m2"); if (S2.mode === "sep") { S2.a = S2.k; S2.b = S2.k; } else S2.k = S2.a; sync2(); }); });
+document.querySelectorAll("[data-s2]").forEach(function (b) { b.addEventListener("click", function () { S2.shape = b.getAttribute("data-s2"); document.querySelectorAll("[data-s2]").forEach(function (o) { o.classList.toggle("on", o === b); }); lsSet("s2", S2.shape); sync2(); }); });
+(function () {
+  var pid = null, scroll = false, ly = 0;
+  function loc(e) { var r = c2.getBoundingClientRect(); return { x: (e.clientX - r.left) * W2 / r.width, y: (e.clientY - r.top) * H2 / r.height }; }
+  function apply(p) {
+    var sh = SH2[S2.shape], u = view2.uT || view2.u, ox = view2.ox || 44, oy = view2.oy || H2 - 34, sep = S2.mode === "sep" && sh.sep, mul = S2.shape === "circ" ? 2 : S2.shape === "tri" ? 0.5 : 1;
+    var fx = (p.x - ox) / (u * sh.a * mul), fy = (oy - p.y) / (u * sh.b * mul);
+    var q = function (v) { return Math.round(clamp(v, 0.5, 4) * 10) / 10; };
+    if (sep) { S2.a = q(fx); S2.b = q(fy); } else S2.k = q(Math.max(fx, fy) * 0.5 + Math.min(fx, fy) * 0.5);
+    sync2();
+  }
+  c2.addEventListener("pointerdown", function (e) {
+    var p = loc(e); pid = e.pointerId; ly = e.clientY;
+    if (S2.hx != null && Math.hypot(p.x - S2.hx, p.y - S2.hy) < 30) { S2.drag = true; scroll = false; e.preventDefault(); try { c2.setPointerCapture(pid); } catch (er) {} wake2(); }
+    else if (e.pointerType === "touch") { scroll = true; try { c2.setPointerCapture(pid); } catch (er) {} }
+  });
+  c2.addEventListener("pointermove", function (e) {
+    var p = loc(e);
+    if (!S2.drag && !scroll) { if (e.pointerType === "mouse") c2.style.cursor = S2.hx != null && Math.hypot(p.x - S2.hx, p.y - S2.hy) < 30 ? "grab" : "default"; return; }
+    if (e.pointerId !== pid) return;
+    if (scroll) { var dy = e.clientY - ly; ly = e.clientY; if (dy) window.scrollBy(0, -dy); return; }
+    apply(p);
+  });
+  function end(e) { if (e.pointerId !== pid) return; S2.drag = false; scroll = false; pid = null; wake2(); }
+  c2.addEventListener("pointerup", end); c2.addEventListener("pointercancel", end);
+  c2.addEventListener("keydown", function (e) { var d = e.key === "ArrowUp" || e.key === "ArrowRight" ? 0.1 : e.key === "ArrowDown" || e.key === "ArrowLeft" ? -0.1 : 0; if (!d) return; e.preventDefault(); if (S2.mode === "sep" && SH2[S2.shape].sep) { S2.a = clamp(Math.round((S2.a + d) * 10) / 10, 0.5, 4); S2.b = clamp(Math.round((S2.b + d) * 10) / 10, 0.5, 4); } else S2.k = clamp(Math.round((S2.k + d) * 10) / 10, 0.5, 4); sync2(); });
+})();
+
+/* ================= 5. 3D laboratoriya (three.js r128, kerak bo'lganda yuklanadi) ================= */
+var THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+var DS = 0.5; // 1 sm = 0.5 sahna birligi
+var SH3 = {
+  cube: { n: "Kub", d: { a: 2 }, keys: [], sep: false },
+  box: { n: "Parallelepiped", d: { a: 3, b: 2, c: 1.5 }, keys: ["a", "b", "c"], sep: true },
+  cyl: { n: "Silindr", d: { r: 1, h: 2 }, keys: ["r", "h"], sep: true },
+  sph: { n: "Shar", d: { r: 1.2 }, keys: [], sep: false },
+  cone: { n: "Konus", d: { r: 1, h: 2 }, keys: ["r", "h"], sep: true },
+  pyr: { n: "Piramida", d: { a: 2, h: 2 }, keys: ["a", "h"], sep: true }
+};
+var S3 = { shape: "cube", mode: "k", k: 2, m: { a: 2, b: 3, c: 1, r: 2, h: 3 }, f: { a: 2, b: 2, c: 2, r: 2, h: 2 }, th: -0.6, ph: 0.42, dist: 9, tgt: [0, 1, 0], fill: null, ready: false, loading: false };
+function mult3() { var sh = SH3[S3.shape], o = {}, sep = S3.mode === "sep" && sh.sep; ["a", "b", "c", "r", "h"].forEach(function (k) { o[k] = sep && sh.keys.indexOf(k) >= 0 ? S3.m[k] : S3.k; }); return o; }
+function geo3(shape, m) {
+  var d = SH3[shape].d, a, b, c, r, h, l;
+  switch (shape) {
+    case "cube": a = d.a * m.a; return { V: a * a * a, S: 6 * a * a, dims: "a = " + nf(a, 2) + " sm", Vf: "V = a³", Sf: "S = 6a²" };
+    case "box": a = d.a * m.a; b = d.b * m.b; c = d.c * m.c; return { V: a * b * c, S: 2 * (a * b + b * c + a * c), dims: "a = " + nf(a, 2) + ", b = " + nf(b, 2) + ", c = " + nf(c, 2) + " sm", Vf: "V = a·b·c", Sf: "S = 2(ab + bc + ac)" };
+    case "cyl": r = d.r * m.r; h = d.h * m.h; return { V: Math.PI * r * r * h, S: 2 * Math.PI * r * (r + h), dims: "r = " + nf(r, 2) + ", h = " + nf(h, 2) + " sm", Vf: "V = πr²h", Sf: "S = 2πr(r + h)" };
+    case "sph": r = d.r * m.r; return { V: 4 / 3 * Math.PI * r * r * r, S: 4 * Math.PI * r * r, dims: "r = " + nf(r, 2) + " sm", Vf: "V = ⁴⁄₃πr³", Sf: "S = 4πr²" };
+    case "cone": r = d.r * m.r; h = d.h * m.h; l = Math.hypot(r, h); return { V: Math.PI * r * r * h / 3, S: Math.PI * r * (r + l), dims: "r = " + nf(r, 2) + ", h = " + nf(h, 2) + " sm", Vf: "V = ⅓πr²h", Sf: "S = πr(r + l)" };
+    case "pyr": a = d.a * m.a; h = d.h * m.h; l = Math.hypot(h, a / 2); return { V: a * a * h / 3, S: a * a + 2 * a * l, dims: "a = " + nf(a, 2) + ", h = " + nf(h, 2) + " sm", Vf: "V = ⅓a²h", Sf: "S = a² + 2a·l" };
+  }
+}
+function vRatioText(shape, m, sep) {
+  if (!sep) return "k³ = " + kStr(m.a) + "³";
+  if (shape === "box") return kStr(m.a) + "·" + kStr(m.b) + "·" + kStr(m.c);
+  if (shape === "pyr") return kStr(m.a) + "²·" + kStr(m.h);
+  return kStr(m.r) + "²·" + kStr(m.h);
+}
+function panel3() {
+  var sh = SH3[S3.shape], m = mult3(), sep = S3.mode === "sep" && sh.sep, g1 = geo3(S3.shape, { a: 1, b: 1, c: 1, r: 1, h: 1 }), g2 = geo3(S3.shape, m);
+  var rV = g2.V / g1.V, rS = g2.S / g1.S, h = '<div class="cmp">';
+  h += '<div class="cbox o"><h4>Asl ' + sh.n.toLowerCase() + '</h4><div>' + g1.dims + '</div><div><span class="c-s">' + g1.Sf + '</span> = <b>' + nf(g1.S, 2) + ' sm²</b></div><div><span class="c-v">' + g1.Vf + '</span> = <b>' + nf(g1.V, 2) + ' sm³</b></div></div>';
+  h += '<div class="cbox n"><h4>Yangi ' + (sep ? "(o'lchamlar alohida)" : "(k = " + kStr(S3.k) + ")") + '</h4><div>' + g2.dims + '</div><div><span class="c-s">S₂</span> = <b>' + nf(g2.S, 2) + ' sm²</b></div><div><span class="c-v">V₂</span> = <b>' + nf(g2.V, 2) + ' sm³</b></div></div></div>';
+  h += '<div class="ratios"><span class="ratio"><span class="c-v">V₂ : V₁</span> = <b class="c-k">' + vRatioText(S3.shape, m, sep) + ' = ' + nf(rV, 3) + '</b></span>';
+  h += '<span class="ratio"><span class="c-s">S₂ : S₁</span> = <b class="c-k">' + (sep ? nf(rS, 3) : "k² = " + nf(rS, 3)) + '</b>' + (sep ? ' <span class="muted">— sodda daraja emas</span>' : "") + '</span></div>';
+  if (!sep) h += '<p class="muted">Sirt (bo\'yoq, qog\'oz) — ikki o\'lchamli, shuning uchun <b>k²</b>; hajm (suv, massa) — uch o\'lchamli, shuning uchun <b>k³</b>. k = ' + kStr(S3.k) + ' da hajm sirtga qaraganda ' + nf(rV / rS, 2) + ' marta tezroq o\'sdi.</p>';
+  else h += '<p class="muted">Har bir o\'lcham o\'z ko\'paytuvchisi bilan o\'zgardi — hajm formulasidagi ko\'paytuvchilar ko\'paytiriladi: ' + g1.Vf + '.</p>';
+  $("panel3").innerHTML = h;
+  $("b3").innerHTML = '<span class="badge c-s">S × ' + nf(rS, 2) + '</span><span class="badge c-v">V × ' + nf(rV, 2) + '</span>';
+  var canFill = (S3.shape === "cube" || S3.shape === "box") && ["a", "b", "c"].every(function (k) { return Math.abs(m[k] - Math.round(m[k])) < 1e-9 && m[k] >= 1; }) && m.a * m.b * m.c <= 64 && m.a * m.b * m.c > 1;
+  var fb = $("fill3"); fb.disabled = !canFill; fb.title = canFill ? "" : "Kub yoki parallelepiped, butun ko'paytuvchilar (≤ 4) uchun";
+}
+var kR3 = $("k3");
+function sync3() {
+  var sh = SH3[S3.shape], sep = S3.mode === "sep" && sh.sep;
+  kR3.value = S3.k; setP(kR3); $("k3o").textContent = kStr(S3.k);
+  $("k3c").classList.toggle("hide", sep);
+  [0, 1, 2].forEach(function (i) {
+    var row = document.querySelector('[data-p3="' + i + '"]'), key = sh.keys[i];
+    row.classList.toggle("hide", !sep || !key);
+    if (key) { $("p3" + i + "l").textContent = key; var r = $("p3" + i); r.value = S3.m[key]; setP(r); $("p3" + i + "o").textContent = "× " + kStr(S3.m[key]); }
+  });
+  $("m3sep").disabled = !sh.sep;
+  document.querySelectorAll("[data-m3]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-m3") === (sep ? "sep" : "k")); });
+  if (S3.fill) S3.fill = null;
+  panel3(); wake3();
+}
+kR3.addEventListener("input", function () { S3.k = +kR3.value; sync3(); });
+[0, 1, 2].forEach(function (i) { $("p3" + i).addEventListener("input", function () { var key = SH3[S3.shape].keys[i]; if (key) { S3.m[key] = +$("p3" + i).value; sync3(); } }); });
+document.querySelectorAll("[data-m3]").forEach(function (b) { b.addEventListener("click", function () { S3.mode = b.getAttribute("data-m3"); if (S3.mode === "sep") SH3[S3.shape].keys.forEach(function (k) { S3.m[k] = S3.k; }); sync3(); }); });
+document.querySelectorAll("[data-s3]").forEach(function (b) { b.addEventListener("click", function () { S3.shape = b.getAttribute("data-s3"); document.querySelectorAll("[data-s3]").forEach(function (o) { o.classList.toggle("on", o === b); }); lsSet("s3", S3.shape); if (T3) buildShape(); sync3(); }); });
+$("fill3").addEventListener("click", function () { if (!T3) return; var m = mult3(); S3.fill = { t: 0, nx: Math.round(m.a), ny: Math.round(m.b), nz: Math.round(m.c), dur: RM ? 0.01 : 2.6 }; wake3(); });
+
+var T3 = null, run3 = false, last3 = 0, vis3 = false;
+function load3() {
+  if (window.THREE) { init3(); return; }
+  if (S3.loading) return; S3.loading = true;
+  var s = document.createElement("script"); s.src = THREE_URL; s.async = true;
+  s.onload = function () { try { init3(); } catch (e) { $("msg3").textContent = "3D sahnani ochib bo'lmadi: " + e.message; } };
+  s.onerror = function () { $("msg3").textContent = "3D kutubxona yuklanmadi — internet aloqasini tekshiring. Formulalar pastda ishlayveradi."; S3.loading = false; };
+  document.head.appendChild(s);
+}
+function init3() {
+  if (T3) return;
+  var THREE = window.THREE, cv = $("c3");
+  var R = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
+  R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  var scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(36, 1.6, 0.05, 400);
+  scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x1c1638, 0.85));
+  var dl = new THREE.DirectionalLight(0xffffff, 0.85); dl.position.set(5, 9, 7); scene.add(dl);
+  var dl2 = new THREE.DirectionalLight(0x8fb0ff, 0.35); dl2.position.set(-6, 3, -5); scene.add(dl2);
+  var floor = new THREE.Mesh(new THREE.CircleGeometry(30, 64), new THREE.MeshBasicMaterial({ color: 0x0d1638 })); floor.rotation.x = -Math.PI / 2; floor.position.y = -0.002; scene.add(floor);
+  var grid = new THREE.GridHelper(40, 80, 0x2c3b72, 0x172352); grid.position.y = 0.001; scene.add(grid);
+  var shadowMat = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.35, depthWrite: false });
+  function mkObj(col, op) {
+    var g = new THREE.Group();
+    var mat = new THREE.MeshStandardMaterial({ color: col, roughness: 0.42, metalness: 0.08, transparent: op < 1, opacity: op });
+    var mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), mat);
+    var edges = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1)), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.55 }));
+    var sh = new THREE.Mesh(new THREE.CircleGeometry(0.5, 40), shadowMat); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.004;
+    var inner = new THREE.Group(); inner.add(mesh); inner.add(edges);
+    g.add(sh); g.add(inner);
+    scene.add(g);
+    return { g: g, inner: inner, mesh: mesh, edges: edges, shadow: sh, mat: mat };
+  }
+  var O = mkObj(0x7cc4ff, 0.9), N = mkObj(0xa27bff, 0.92);
+  var instGeo = new THREE.BoxGeometry(1, 1, 1), instMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4, metalness: 0.05 });
+  var inst = new THREE.InstancedMesh(instGeo, instMat, 64); scene.add(inst);
+  var cA = new THREE.Color(0x7cc4ff), cB = new THREE.Color(0x35f0c4);
+  for (var i = 0; i < 64; i++) if (inst.setColorAt) inst.setColorAt(i, i % 2 ? cA : cB);
+  if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
+  inst.count = 0; inst.frustumCulled = false;
+  T3 = { THREE: THREE, R: R, scene: scene, cam: cam, O: O, N: N, inst: inst, mtx: new THREE.Matrix4(), v: new THREE.Vector3() };
+  buildShape(); size3();
+  $("msg3").style.display = "none";
+  // ustiga yozuvlar
+  $("ov3").innerHTML = '<div class="lbl3 o" id="l3o"></div><div class="lbl3 n" id="l3n"></div>';
+  // aylantirish
+  var pid = null, px = 0, py = 0, ptype = "mouse";
+  cv.addEventListener("pointerdown", function (e) { pid = e.pointerId; px = e.clientX; py = e.clientY; ptype = e.pointerType; cv.style.cursor = "grabbing"; try { cv.setPointerCapture(pid); } catch (er) {} });
+  cv.addEventListener("pointermove", function (e) { if (e.pointerId !== pid) return; var dx = e.clientX - px, dy = e.clientY - py; px = e.clientX; py = e.clientY; S3.th -= dx * 0.008; if (ptype !== "touch") S3.ph = clamp(S3.ph + dy * 0.006, 0.08, 1.35); wake3(); });
+  function end(e) { if (e.pointerId !== pid) return; pid = null; cv.style.cursor = "grab"; }
+  cv.addEventListener("pointerup", end); cv.addEventListener("pointercancel", end);
+  cv.setAttribute("tabindex", "0");
+  cv.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") S3.th += 0.12; else if (e.key === "ArrowRight") S3.th -= 0.12; else if (e.key === "ArrowUp") S3.ph = clamp(S3.ph + 0.08, 0.08, 1.35); else if (e.key === "ArrowDown") S3.ph = clamp(S3.ph - 0.08, 0.08, 1.35); else return; e.preventDefault(); wake3(); });
+  S3.ready = true; S3.f = mult3();
+  wake3();
+}
+function shapeGeo(shape) {
+  var THREE = T3.THREE, d = SH3[shape].d, g;
+  switch (shape) {
+    case "cube": g = new THREE.BoxGeometry(d.a * DS, d.a * DS, d.a * DS); g.translate(0, d.a * DS / 2, 0); return { g: g, w: d.a * DS, h: d.a * DS, dpt: d.a * DS, thr: 1 };
+    case "box": g = new THREE.BoxGeometry(d.a * DS, d.c * DS, d.b * DS); g.translate(0, d.c * DS / 2, 0); return { g: g, w: d.a * DS, h: d.c * DS, dpt: d.b * DS, thr: 1 };
+    case "cyl": g = new THREE.CylinderGeometry(d.r * DS, d.r * DS, d.h * DS, 56); g.translate(0, d.h * DS / 2, 0); return { g: g, w: 2 * d.r * DS, h: d.h * DS, dpt: 2 * d.r * DS, thr: 30 };
+    case "sph": g = new THREE.SphereGeometry(d.r * DS, 48, 32); g.translate(0, d.r * DS, 0); return { g: g, w: 2 * d.r * DS, h: 2 * d.r * DS, dpt: 2 * d.r * DS, thr: 89 };
+    case "cone": g = new THREE.ConeGeometry(d.r * DS, d.h * DS, 56); g.translate(0, d.h * DS / 2, 0); return { g: g, w: 2 * d.r * DS, h: d.h * DS, dpt: 2 * d.r * DS, thr: 30 };
+    case "pyr": g = new THREE.ConeGeometry(d.a * DS / Math.SQRT2, d.h * DS, 4); g.rotateY(Math.PI / 4); g.translate(0, d.h * DS / 2, 0); return { g: g, w: d.a * DS, h: d.h * DS, dpt: d.a * DS, thr: 1 };
+  }
+}
+function buildShape() {
+  var THREE = T3.THREE, info = shapeGeo(S3.shape);
+  [T3.O, T3.N].forEach(function (o) {
+    o.mesh.geometry.dispose(); o.edges.geometry.dispose();
+    o.mesh.geometry = info.g; o.edges.geometry = new THREE.EdgesGeometry(info.g, info.thr);
+  });
+  if (S3.shape === "sph") { [T3.O, T3.N].forEach(function (o) { o.edges.visible = false; }); } else [T3.O, T3.N].forEach(function (o) { o.edges.visible = true; });
+  T3.info = info; S3.fill = null; T3.inst.count = 0;
+}
+function scale3(f) {
+  switch (S3.shape) {
+    case "cube": case "sph": return [f.a, f.a, f.a];
+    case "box": return [f.a, f.c, f.b];
+    case "cyl": case "cone": return [f.r, f.h, f.r];
+    case "pyr": return [f.a, f.h, f.a];
+  }
+}
+function size3() { if (!T3) return; var cv = $("c3"), w = cv.clientWidth || 600, h = Math.round(clamp(w * (w < 640 ? 0.85 : 0.5), 280, 480)); cv.style.height = h + "px"; T3.R.setSize(w, h, false); T3.cam.aspect = w / h; T3.cam.updateProjectionMatrix(); T3.W = w; T3.H = h; wake3(); }
+function frame3(dt) {
+  var t = mult3(), k = RM ? 1 : 1 - Math.exp(-dt * 7), mv = false;
+  ["a", "b", "c", "r", "h"].forEach(function (key) { S3.f[key] = lerp(S3.f[key], t[key], k); if (Math.abs(S3.f[key] - t[key]) < 0.002) S3.f[key] = t[key]; else mv = true; });
+  var info = T3.info, sc = scale3(S3.f), sw = info.w * sc[0], sh = info.h * sc[1], sd = info.dpt * sc[2];
+  var gap = 0.55 + 0.12 * Math.max(sw, info.w), total = info.w + gap + sw;
+  var ox = -total / 2 + info.w / 2, nx = total / 2 - sw / 2;
+  T3.O.g.position.set(ox, 0, 0); T3.N.g.position.set(nx, 0, 0);
+  T3.O.inner.scale.set(1, 1, 1); T3.N.inner.scale.set(sc[0], sc[1], sc[2]);
+  T3.O.shadow.scale.set(info.w * 1.25, info.dpt * 1.25, 1); T3.N.shadow.scale.set(sw * 1.25, sd * 1.25, 1);
+  // to'ldirish animatsiyasi
+  var inst = T3.inst;
+  if (S3.fill) {
+    var F = S3.fill; F.t += dt; var Ntot = F.nx * F.ny * F.nz, per = F.dur / Ntot, shown = Math.min(Ntot, Math.floor(F.t / per) + 1);
+    var ord = cubeOrder(F.nx, F.ny, F.nz);
+    var cw = info.w, chh = info.h, cd = info.dpt;
+    for (var i = 0; i < shown; i++) {
+      var p = ord[i], prog = clamp((F.t - i * per) / (per * 3), 0, 1), drop = (1 - easeOut(prog)) * 1.6;
+      T3.mtx.makeScale(cw * 0.94, chh * 0.94, cd * 0.94);
+      T3.mtx.setPosition(nx - sw / 2 + (p[0] + 0.5) * cw, (p[2] + 0.5) * chh + drop, -sd / 2 + (p[1] + 0.5) * cd);
+      inst.setMatrixAt(i, T3.mtx);
+    }
+    inst.count = shown; inst.instanceMatrix.needsUpdate = true;
+    T3.N.mat.opacity = 0.16; T3.N.mat.depthWrite = false; T3.N.mat.transparent = true;
+    if (F.t < F.dur + per * 3) mv = true; else F.done = true;
+    S3.fillN = shown; S3.fillTot = Ntot;
+  } else { inst.count = 0; T3.N.mat.opacity = 0.92; T3.N.mat.depthWrite = true; S3.fillN = 0; }
+  // kamera
+  var maxH = Math.max(info.h, sh), maxD = Math.max(info.dpt, sd), rad = 0.5 * Math.sqrt(total * total + maxH * maxH + maxD * maxD);
+  var vf = T3.cam.fov * Math.PI / 180, hf = 2 * Math.atan(Math.tan(vf / 2) * T3.cam.aspect), dist = rad / Math.sin(Math.min(vf, hf) / 2) * 1.02 + 0.4;
+  var kk = RM ? 1 : 1 - Math.exp(-dt * 5);
+  S3.dist = lerp(S3.dist, dist, kk); S3.tgt[1] = lerp(S3.tgt[1], maxH * 0.45, kk);
+  if (Math.abs(S3.dist - dist) > 0.003) mv = true;
+  var cp = Math.cos(S3.ph);
+  T3.cam.position.set(Math.sin(S3.th) * cp * S3.dist, S3.tgt[1] + Math.sin(S3.ph) * S3.dist, Math.cos(S3.th) * cp * S3.dist);
+  T3.cam.lookAt(0, S3.tgt[1], 0);
+  T3.R.render(T3.scene, T3.cam);
+  // yozuvlar
+  var g1 = geo3(S3.shape, { a: 1, b: 1, c: 1, r: 1, h: 1 }), m = mult3(), g2 = geo3(S3.shape, m);
+  place3("l3o", ox, info.h + 0.12, "Asl: " + g1.dims + "<br>V₁ = " + nf(g1.V, 2) + " sm³");
+  var extra = S3.fill ? "<br>" + S3.fillN + " ta asl nusxa" + (S3.fill.done ? " ✓" : "") : "";
+  place3("l3n", nx, sh + 0.12, "Yangi: " + g2.dims + "<br>V₂ = " + nf(g2.V, 2) + " sm³" + extra);
+  return mv;
+}
+function place3(id, x, y, html) {
+  var el = $(id); if (!el) return; var v = T3.v.set(x, y, 0).project(T3.cam);
+  var sx = (v.x * 0.5 + 0.5) * T3.W, sy = (-v.y * 0.5 + 0.5) * T3.H;
+  if (el._h !== html) { el.innerHTML = html; el._h = html; }
+  var bw = el.offsetWidth || 120; sx = clamp(sx, bw / 2 + 4, T3.W - bw / 2 - 4); sy = clamp(sy, (el.offsetHeight || 40) + 4, T3.H - 4);
+  el.style.transform = "translate(" + (sx - bw / 2).toFixed(1) + "px," + (sy - (el.offsetHeight || 40)).toFixed(1) + "px)";
+}
+function loop3(ts) {
+  if (!vis3 || document.hidden || $("p3").hidden || !T3) { run3 = false; last3 = 0; return; }
+  var dt = last3 ? Math.min(0.05, (ts - last3) / 1000) : 1 / 60; last3 = ts;
+  var mv = frame3(dt);
+  if (mv) requestAnimationFrame(loop3); else { run3 = false; last3 = 0; }
+}
+function wake3() { if (T3 && !run3) { run3 = true; last3 = 0; requestAnimationFrame(loop3); } }
+
+/* ================= 6. O'yin: «Necha marta oshdi?» ================= */
+var GL = [
+  { n: 1, ic: "⬛", name: "Yuza va perimetr" },
+  { n: 2, ic: "🧊", name: "Hajm va sirt" },
+  { n: 3, ic: "🔁", name: "Teskari: k ni toping" },
+  { n: 4, ic: "✖️", name: "Har xil ko'paytuvchilar" },
+  { n: 5, ic: "🍕", name: "Hayotiy masalalar" },
+  { n: 6, ic: "👑", name: "Usta" }
+];
+var GM = { lvl: 1, unlocked: 1, q: null, score: 0, streak: 0, lvlStreak: 0, answered: false, rec: { best: 0, right: 0, streak: 0, done: {} } };
+try { var r0 = JSON.parse(lsGet("rec") || "null"); if (r0 && typeof r0 === "object") { GM.rec.best = +r0.best || 0; GM.rec.right = +r0.right || 0; GM.rec.streak = +r0.streak || 0; GM.rec.done = r0.done || {}; } } catch (e) {}
+GM.unlocked = clamp(parseInt(lsGet("lvl") || "1", 10) || 1, 1, 6); GM.lvl = GM.unlocked;
+function saveRec() { lsSet("rec", JSON.stringify(GM.rec)); lsSet("lvl", GM.unlocked); }
+function distract(ans, cands) {
+  var out = [ans], seen = {}; seen[nf(ans, 3)] = 1;
+  shuffle(cands.slice()).forEach(function (c) { if (out.length >= 4) return; if (!(c > 0) || !isFinite(c)) return; var key = nf(c, 3); if (seen[key]) return; seen[key] = 1; out.push(c); });
+  var extra = [ans * 2, ans + 1, ans * 3, ans / 2, ans + 2, ans * 4];
+  for (var i = 0; out.length < 4 && i < extra.length; i++) { var key = nf(extra[i], 3); if (!seen[key] && extra[i] > 0) { seen[key] = 1; out.push(extra[i]); } }
+  return shuffle(out);
+}
+var SHP2 = [{ id: "sq", n: "Kvadratning", side: "tomoni" }, { id: "rect", n: "To'g'ri to'rtburchakning", side: "ikkala tomoni ham" }, { id: "tri", n: "Uchburchakning", side: "barcha tomonlari" }, { id: "circ", n: "Doiraning", side: "radiusi" }];
+var SHP3 = [{ id: "cube", n: "Kubning", side: "qirrasi" }, { id: "sph", n: "Sharning", side: "radiusi" }, { id: "box", n: "Parallelepipedning", side: "barcha qirralari" }, { id: "cyl", n: "Silindrning", side: "radiusi ham, balandligi ham" }, { id: "cone", n: "Konusning", side: "radiusi ham, balandligi ham" }, { id: "pyr", n: "Piramidaning", side: "barcha qirralari" }];
+function qL1() {
+  var s = pick(SHP2), k = pick([2, 3, 4, 5, 10, 2, 3]), shrink = Math.random() < 0.2, perim = Math.random() < 0.3;
+  var verbS = shrink ? "kichraysa" : "oshsa", verbQ = shrink ? "kichrayadi" : "oshadi";
+  var what = perim ? (s.id === "circ" ? "aylana uzunligi" : "perimetri") : "yuzasi", ans = perim ? k : k * k;
+  var text = s.n + " " + s.side + " <b>" + k + " marta</b> " + verbS + ", " + what + " necha marta " + verbQ + "?";
+  var viz = perim ? { kind: "perim", k: Math.min(k, 6) } : (k <= 6 ? { kind: "area", shape: s.id, kx: k, ky: k } : { kind: "formula", lines: ["S₂ = (" + k + "a)² = " + (k * k) + "·a²", k + " qator × " + k + " ta = " + (k * k)] });
+  var expl = perim ? "Perimetr — chiziq uzunligi (bir o'lchamli): har bir tomon " + k + " marta, demak yig'indi ham <b>" + k + " marta</b>." : "Yuza ikki o'lchamli: uzunlik ham, kenglik ham " + k + " marta ⇒ " + k + "·" + k + " = <b>" + (k * k) + "</b> (k²).";
+  return { text: text, ans: ans, opts: distract(ans, [k, k * k, k * k * k, 2 * k, 4 * k]), expl: expl, viz: viz };
+}
+function qL2() {
+  var s = pick(SHP3), k = pick([2, 3, 4, 2, 3, 5, 10]), surf = Math.random() < 0.35;
+  var ans = surf ? k * k : k * k * k, what = surf ? "to'la sirt yuzasi (bo'yoq miqdori)" : "hajmi";
+  var text = s.n + " " + s.side + " <b>" + k + " marta</b> oshsa, " + what + " necha marta oshadi?";
+  var viz = surf ? { kind: "area", shape: "sq", kx: k, ky: k, note: "har bir yog'i" } : (k <= 5 ? { kind: "vol", nx: k, ny: k, nz: k } : { kind: "formula", lines: ["V₂ = (" + k + "a)³", "= " + nf(k * k * k) + "·a³"] });
+  var expl = surf ? "Sirt — yuza, ya'ni ikki o'lchamli: k² = " + k + "² = <b>" + ans + "</b>." : "Hajm uch o'lchamli: " + k + "·" + k + "·" + k + " = <b>" + nf(ans) + "</b> (k³).";
+  return { text: text, ans: ans, opts: distract(ans, [k, k * k, k * k * k, 3 * k, 2 * k * k]), expl: expl, viz: viz };
+}
+function qL3() {
+  var k = pick([2, 3, 4, 5]), t = pick(["sqA", "cubeV", "circA", "sphV", "cubeS2V", "sphV2S", "sqP2A"]), text, ans, expl, viz, c;
+  switch (t) {
+    case "sqA": text = "Kvadratning yuzasi <b>" + (k * k) + " marta</b> oshdi. Tomoni necha marta oshgan?"; ans = k; c = [k * k, k * k / 2, 2 * k, k + 1]; expl = "k² = " + (k * k) + " ⇒ k = √" + (k * k) + " = <b>" + k + "</b>."; viz = { kind: "area", shape: "sq", kx: k, ky: k }; break;
+    case "cubeV": text = "Kubning hajmi <b>" + (k * k * k) + " marta</b> oshdi. Qirrasi necha marta oshgan?"; ans = k; c = [k * k, 3 * k, k + 1, 2 * k]; expl = "k³ = " + (k * k * k) + " ⇒ k = ∛" + (k * k * k) + " = <b>" + k + "</b>."; viz = k <= 5 ? { kind: "vol", nx: k, ny: k, nz: k } : null; break;
+    case "circA": text = "Doiraning yuzasi <b>" + (k * k) + " marta</b> oshdi. Radiusi necha marta oshgan?"; ans = k; c = [k * k, k * k / 2, 2 * k, k + 1]; expl = "S = πr² ⇒ k² = " + (k * k) + ", k = <b>" + k + "</b>."; viz = { kind: "area", shape: "circ", kx: k, ky: k }; break;
+    case "sphV": text = "Sharning hajmi <b>" + (k * k * k) + " marta</b> oshdi. Radiusi necha marta oshgan?"; ans = k; c = [k * k, 3 * k, k * k * k, k + 1]; expl = "V = ⁴⁄₃πr³ ⇒ k³ = " + (k * k * k) + ", k = <b>" + k + "</b>."; viz = k <= 5 ? { kind: "vol", nx: k, ny: k, nz: k } : null; break;
+    case "cubeS2V": k = pick([2, 3]); text = "Kubning sirt yuzasi <b>" + (k * k) + " marta</b> oshdi. Hajmi necha marta oshadi?"; ans = k * k * k; c = [k * k, k * k * k * k, k, k * k * 2]; expl = "Avval k: k² = " + (k * k) + " ⇒ k = " + k + ". Keyin hajm: k³ = <b>" + (k * k * k) + "</b>."; viz = { kind: "vol", nx: k, ny: k, nz: k }; break;
+    case "sphV2S": k = pick([2, 3, 4]); text = "Sharning hajmi <b>" + (k * k * k) + " marta</b> oshdi. Sirt yuzasi necha marta oshadi?"; ans = k * k; c = [k, k * k * k, 3 * k, 2 * k]; expl = "k³ = " + (k * k * k) + " ⇒ k = " + k + "; sirt: k² = <b>" + (k * k) + "</b>."; viz = { kind: "area", shape: "circ", kx: k, ky: k }; break;
+    default: text = "Kvadratning perimetri <b>" + k + " marta</b> oshdi. Yuzasi necha marta oshadi?"; ans = k * k; c = [k, 2 * k, k * k * k, 4 * k]; expl = "Perimetr k marta ⇒ tomon ham k = " + k + " marta. Yuza: k² = <b>" + (k * k) + "</b>."; viz = { kind: "area", shape: "sq", kx: k, ky: k };
+  }
+  return { text: text, ans: ans, opts: distract(ans, c), expl: expl, viz: viz || { kind: "formula", lines: [expl.replace(/<[^>]+>/g, "")] } };
+}
+function qL4() {
+  var t = pick(["rect", "rect", "tri", "box", "box", "cyl", "cone", "sq23"]), p = pick([2, 3, 4]), q = pick([2, 3, 4]), r = pick([1, 2, 3]), text, ans, expl, viz, c;
+  if (p === q && t !== "box") q = p === 2 ? 3 : 2;
+  switch (t) {
+    case "rect": text = "To'g'ri to'rtburchakning bo'yi <b>" + p + " marta</b>, eni <b>" + q + " marta</b> oshdi. Yuzasi necha marta oshadi?"; ans = p * q; c = [p + q, p * p * q * q, Math.max(p, q), p * q * 2]; expl = "S = a·b ⇒ (" + p + "a)·(" + q + "b) = <b>" + (p * q) + "</b>·ab."; viz = { kind: "area", shape: "rect", kx: p, ky: q }; break;
+    case "sq23": text = "Kvadratning bir tomoni <b>" + p + " marta</b>, ikkinchisi <b>" + q + " marta</b> uzaytirildi (to'g'ri to'rtburchak hosil bo'ldi). Yuzasi necha marta oshdi?"; ans = p * q; c = [p + q, p * p, q * q, (p + q) * 2]; expl = "Yuza = bo'y × en: " + p + "·" + q + " = <b>" + (p * q) + "</b>."; viz = { kind: "area", shape: "rect", kx: p, ky: q, base: "sq" }; break;
+    case "tri": text = "Uchburchakning asosi <b>" + p + " marta</b>, balandligi <b>" + q + " marta</b> oshdi. Yuzasi necha marta oshadi?"; ans = p * q; c = [p + q, (p * q) / 2, p * p * q, p * q * 2]; expl = "S = a·h / 2 ⇒ ko'paytuvchilar ko'paytiriladi: " + p + "·" + q + " = <b>" + (p * q) + "</b>."; viz = { kind: "area", shape: "rect", kx: p, ky: q, note: "uchburchak = to'rtburchakning yarmi" }; break;
+    case "box": var r2 = pick([1, 2]); text = "Qutining bo'yi <b>" + p + "</b>, eni <b>" + q + "</b>, balandligi <b>" + r2 + " marta</b> oshdi. Hajmi necha marta oshadi?"; ans = p * q * r2; c = [p + q + r2, p * q, ans * 2, Math.max(p, q) * 3]; expl = "V = a·b·c ⇒ " + p + "·" + q + "·" + r2 + " = <b>" + ans + "</b>."; viz = ans <= 48 ? { kind: "vol", nx: p, ny: q, nz: r2 } : null; break;
+    case "cyl": text = "Silindrning radiusi <b>" + p + " marta</b>, balandligi <b>" + r + " marta</b> oshdi. Hajmi necha marta oshadi?"; ans = p * p * r; c = [p * r, p + r, p * r * r, p * p * p * r]; expl = "V = πr²h ⇒ radius kvadratda: " + p + "²·" + r + " = <b>" + ans + "</b>."; viz = { kind: "formula", lines: ["V = π·r²·h", "π·(" + p + "r)²·(" + r + "h)", "= " + ans + "·πr²h"] }; break;
+    case "cone": text = "Konusning radiusi <b>" + p + " marta</b> oshdi, balandligi o'zgarmadi. Hajmi necha marta oshadi?"; ans = p * p; c = [p, p * p * p, 2 * p, p * p / 3]; expl = "V = ⅓πr²h ⇒ faqat r² o'zgaradi: " + p + "² = <b>" + ans + "</b>."; viz = { kind: "area", shape: "circ", kx: p, ky: p, note: "asos yuzasi" }; break;
+  }
+  return { text: text, ans: ans, opts: distract(ans, c), expl: expl, viz: viz || { kind: "formula", lines: [expl.replace(/<[^>]+>/g, "")] } };
+}
+function qL5() {
+  var t = pick(["pizza", "pizza", "elephantM", "elephantA", "elephantP", "paint", "tank", "paintKg", "model", "ice", "iceS", "snow", "melon"]), text, ans, expl, viz, c, unit = "", d1, d2, k, pr;
+  switch (t) {
+    case "pizza": d1 = 20; d2 = pick([30, 40]); k = d2 / d1; pr = pick([24000, 32000, 40000]); ans = pr * k * k; text = "🍕 Diametri " + d1 + " sm pitsa " + nf(pr) + " so'm turadi. Xuddi shunday qalinlikdagi diametri <b>" + d2 + " sm</b> pitsaning adolatli narxi qancha?"; c = [pr * k, pr * k * k * k, pr + pr * (k - 1) / 2, pr * 2.5]; unit = " so'm"; expl = "Diametr " + nf(k) + " marta ⇒ yuza (pitsa miqdori) " + nf(k) + "² = " + nf(k * k) + " marta ⇒ " + nf(pr) + "·" + nf(k * k) + " = <b>" + nf(ans) + " so'm</b>."; viz = k === 2 ? { kind: "area", shape: "circ", kx: 2, ky: 2 } : { kind: "formula", lines: ["k = " + d2 + " : " + d1 + " = 1,5", "S × 1,5² = 2,25"] }; break;
+    case "elephantM": k = pick([2, 3]); ans = k * k * k; text = "🐘 Hayvonning barcha o'lchamlari (bo'yi, eni, oyoqlari) <b>" + k + " marta</b> kattalashsa, uning massasi necha marta oshadi?"; c = [k, k * k, 2 * k]; expl = "Massa hajmga proporsional: k³ = <b>" + ans + "</b>."; viz = { kind: "vol", nx: k, ny: k, nz: k }; break;
+    case "elephantA": k = pick([2, 3]); ans = k * k; text = "🐘 Hayvon barcha o'lchamlari bo'yicha <b>" + k + " marta</b> kattalashdi. Oyog'ining ko'ndalang kesim yuzasi necha marta oshadi?"; c = [k, k * k * k, 2 * k]; expl = "Kesim — yuza: k² = <b>" + ans + "</b>. Massa esa k³ = " + (k * k * k) + " marta oshadi!"; viz = { kind: "area", shape: "circ", kx: k, ky: k, note: "oyoq kesimi" }; break;
+    case "elephantP": k = pick([2, 3, 4]); ans = k; text = "🐘 Hayvon <b>" + k + " marta</b> kattalashdi. Oyog'ining har bir sm² kesimiga tushadigan og'irlik (bosim) necha marta oshadi?"; c = [k * k, k * k * k, 1]; expl = "Og'irlik k³, kesim k² ⇒ bosim k³ : k² = <b>k = " + k + "</b>. Shuning uchun katta hayvonlarning oyoqlari ancha yo'g'on bo'ladi (kvadrat-kub qonuni)."; viz = { kind: "formula", lines: ["Og'irlik × " + (k * k * k), "Kesim × " + (k * k), "Bosim × " + (k * k * k) + " : " + (k * k) + " = " + k] }; break;
+    case "paint": k = pick([2, 3]); ans = k * k; text = "🎨 Kubsimon bakning qirrasi <b>" + k + " marta</b> katta qilib yasaldi. Uni bo'yash uchun bo'yoq necha marta ko'p kerak?"; c = [k, k * k * k, 2 * k]; expl = "Bo'yoq sirtga sarflanadi: k² = <b>" + ans + "</b>."; viz = { kind: "area", shape: "sq", kx: k, ky: k, note: "har bir yog'i" }; break;
+    case "tank": k = pick([2, 3]); ans = k * k * k; text = "🚰 Kubsimon bakning qirrasi <b>" + k + " marta</b> katta. Unga necha marta ko'p suv sig'adi?"; c = [k, k * k, 3 * k]; expl = "Suv — hajm: k³ = <b>" + ans + "</b>."; viz = { kind: "vol", nx: k, ny: k, nz: k }; break;
+    case "paintKg": k = pick([2, 3]); var kg = pick([1.5, 2, 2.5]); ans = kg * k * k; unit = " kg"; text = "🎨 Kichik kubsimon qutini bo'yashga " + nf(kg) + " kg bo'yoq ketdi. Qirrasi <b>" + k + " marta</b> katta qutiga qancha bo'yoq kerak?"; c = [kg * k, kg * k * k * k, kg + k]; expl = "Sirt k² = " + (k * k) + " marta ⇒ " + nf(kg) + "·" + (k * k) + " = <b>" + nf(ans) + " kg</b>."; viz = { kind: "area", shape: "sq", kx: k, ky: k, note: "har bir yog'i" }; break;
+    case "model": var M = pick([10, 20, 50]), a0 = pick([3, 4, 6]); ans = a0 * M * M; unit = " sm²"; text = "🏠 Uy maketi <b>1 : " + M + "</b> masshtabda. Maketdagi derazaning yuzasi " + a0 + " sm². Haqiqiy deraza yuzasi necha sm²?"; c = [a0 * M, a0 * M * M * M, a0 * M * 2]; expl = "Uzunliklar " + M + " marta ⇒ yuza " + M + "² = " + nf(M * M) + " marta: " + a0 + "·" + nf(M * M) + " = <b>" + nf(ans) + " sm²</b>."; viz = { kind: "formula", lines: ["k = " + M, "S × " + M + "² = " + nf(M * M)] }; break;
+    case "ice": ans = 8; text = "🧊 Qirrasi 4 sm muz kubini qirrasi 2 sm bo'lgan kubchalarga bo'ldik. Nechta kubcha chiqadi?"; c = [2, 4, 16, 6]; expl = "Qirra 2 marta kichik ⇒ hajm 2³ = <b>8</b> marta kichik ⇒ 8 ta kubcha."; viz = { kind: "vol", nx: 2, ny: 2, nz: 2 }; break;
+    case "iceS": ans = 2; text = "🧊 Kubni 8 ta teng kubchaga bo'ldik (har qirrasi 2 marta kichik). Barcha kubchalarning umumiy sirti asl kub sirtidan necha marta katta?"; c = [4, 8, 1, 0.5]; expl = "Har bir kubcha sirti 2² = 4 marta kichik, kubchalar 8 ta ⇒ 8 : 4 = <b>2</b> marta. Shuning uchun maydalangan shakar tezroq eriydi!"; viz = { kind: "vol", nx: 2, ny: 2, nz: 2 }; break;
+    case "snow": k = pick([2, 3]); ans = k * k * k; text = "⛄ Qor to'pining radiusi <b>" + k + " marta</b> oshdi. Massasi necha marta oshdi?"; c = [k, k * k, 2 * k]; expl = "Massa ~ hajm ~ r³: " + k + "³ = <b>" + ans + "</b>."; viz = { kind: "vol", nx: k, ny: k, nz: k }; break;
+    case "melon": k = 2; ans = 4; text = "🍉 Tarvuzning diametri qo'shnisinikidan <b>2 marta</b> katta. Uning po'chog'i (sirti) necha marta ko'p?"; c = [2, 8, 6]; expl = "Sirt — yuza: 2² = <b>4</b> marta. Eti esa (hajm) 2³ = 8 marta ko'p!"; viz = { kind: "area", shape: "circ", kx: 2, ky: 2 }; break;
+  }
+  return { text: text, ans: ans, opts: distract(ans, c), expl: expl, viz: viz, unit: unit };
+}
+function genQ(lvl) { var f = [qL1, qL2, qL3, qL4, qL5][lvl - 1] || pick([qL1, qL2, qL3, qL4, qL5, qL3, qL4]); var q = f(); q.unit = q.unit || ""; return q; }
+var gq = $("gq");
+function renderGame(fb) {
+  var q = GM.q, h = '<div class="lvls" role="group" aria-label="Darajalar">';
+  GL.forEach(function (L) { var cls = "lv" + (L.n === GM.lvl ? " cur" : "") + (GM.rec.done[L.n] ? " done" : ""); h += '<button class="' + cls + '" type="button" data-lv="' + L.n + '"' + (L.n > GM.unlocked && L.n !== GM.lvl ? " disabled" : "") + ' title="' + L.name + '">' + (L.n > GM.unlocked && L.n !== GM.lvl ? "🔒" : L.ic) + " " + L.n + "</button>"; });
+  h += '</div><div class="qcard"><h4>' + GL[GM.lvl - 1].ic + " " + GM.lvl + "-daraja · " + GL[GM.lvl - 1].name + '</h4><p class="qtext">' + q.text + "</p></div>";
+  h += '<div class="choices" role="group" aria-label="Javoblar">';
+  q.opts.forEach(function (o, i) {
+    var cls = "ch"; if (GM.answered) { if (Math.abs(o - q.ans) < 1e-9) cls += " right"; else if (i === GM.picked) cls += " wrong"; }
+    h += '<button class="' + cls + '" type="button" data-o="' + i + '"' + (GM.answered ? " disabled" : "") + '><span class="kb">' + (i + 1) + "</span>" + (q.unit ? nf(o) + q.unit : "× " + nf(o)) + "</button>";
+  });
+  h += "</div>";
+  if (fb) h += fb;
+  if (GM.answered) h += '<div class="brow"><button class="btn pri" type="button" data-act="next">Keyingi savol ▶</button></div>';
+  var dots = ""; for (var k = 0; k < 3; k++) dots += k < GM.lvlStreak ? "●" : "○";
+  h += '<div class="score"><span>Ball: <b>' + GM.score + '</b></span><span>Seriya: <b>' + GM.streak + '</b></span><span>Keyingi daraja: <b>' + dots + '</b></span><span>Rekord: <b>' + GM.rec.best + '</b></span><span>✔ Jami: <b>' + GM.rec.right + "</b></span></div>";
+  gq.innerHTML = h;
+}
+var lastFb = "";
+function newQ(lvl) {
+  if (lvl) GM.lvl = lvl;
+  GM.q = genQ(GM.lvl); GM.answered = false; GM.picked = -1; lastFb = "";
+  renderGame(""); VZ.set(GM.q.viz, false);
+  $("vcap").textContent = "Javob bergach, rasm nega shunday ekanini ko'rsatadi.";
+  return GM.q;
+}
+function answer(i) {
+  if (GM.answered) return null;
+  var q = GM.q, ok = Math.abs(q.opts[i] - q.ans) < 1e-9; GM.answered = true; GM.picked = i;
+  var fb, up = false;
+  if (ok) {
+    var pts = 10 * GM.lvl + GM.streak * 2; GM.score += pts; GM.streak++; GM.lvlStreak++; GM.rec.right++;
+    if (GM.score > GM.rec.best) GM.rec.best = GM.score; if (GM.streak > GM.rec.streak) GM.rec.streak = GM.streak;
+    coins(GM.lvl >= 4 ? 2 : 1, "Necha marta oshdi?");
+    if (GM.lvlStreak >= 3) { GM.rec.done[GM.lvl] = true; if (GM.lvl < 6) { GM.lvl++; up = true; if (GM.lvl > GM.unlocked) GM.unlocked = GM.lvl; } GM.lvlStreak = 0; }
+    fb = '<div class="fb good">✔ <b>To\'g\'ri!</b> +' + pts + " ball." + (up ? " 🎉 <b>Yangi daraja: " + GM.lvl + " — " + GL[GM.lvl - 1].name + "!</b>" : "") + '<span class="f">' + q.expl + "</span></div>";
+  } else {
+    GM.streak = 0; GM.lvlStreak = 0;
+    fb = '<div class="fb miss">✗ To\'g\'ri javob: <b>' + (q.unit ? nf(q.ans) + q.unit : "× " + nf(q.ans)) + '</b>. Mana nega:<span class="f">' + q.expl + "</span></div>";
+  }
+  saveRec(); lastFb = fb;
+  renderGame(fb); VZ.set(q.viz, true);
+  $("vcap").textContent = ok ? "Isbot: rasmda sanab ko'ring." : "Rasmga qarang — nusxalarni sanang.";
+  var nb = gq.querySelector('[data-act="next"]'); if (nb) try { nb.focus({ preventScroll: true }); } catch (e) {}
+  return ok;
+}
+gq.addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b) return;
+  if (b.hasAttribute("data-o")) answer(+b.getAttribute("data-o"));
+  else if (b.getAttribute("data-act") === "next") newQ();
+  else if (b.hasAttribute("data-lv")) newQ(+b.getAttribute("data-lv"));
+});
+document.addEventListener("keydown", function (e) {
+  if ($("pg").hidden || e.target.tagName === "INPUT") return;
+  var r = $("pg").getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) return;
+  if (/^[1-4]$/.test(e.key) && !GM.answered) { answer(+e.key - 1); e.preventDefault(); }
+  else if (e.key === "Enter" && GM.answered && e.target.tagName !== "BUTTON") { newQ(); e.preventDefault(); }
+});
+
+/* ---- isbot rasmi ---- */
+var VZ = (function () {
+  var c = $("qv"), x = null, w = 400, h = 280, v = null, t = 0, anim = false, run = false, last = 0;
+  function size() { w = c.clientWidth || 400; h = Math.round(clamp(w * (w < 600 ? 0.56 : 0.68), 190, 320)); x = fitCanvas(c, w, h); }
+  function total() { if (!v) return 1; if (v.kind === "area") return v.shape === "tri" ? v.kx * v.kx : v.kx * v.ky; if (v.kind === "vol") return v.nx * v.ny * v.nz; return 1; }
+  function dur() { var n = total(); return v && (v.kind === "area" || v.kind === "vol") ? clamp(n * 0.09, 0.8, 2.6) : 1.2; }
+  function draw() {
+    x.clearRect(0, 0, w, h); if (!v) return;
+    var p = anim ? clamp(t / dur(), 0, 1) : 0, N = total(), n = anim ? Math.min(N, Math.floor(p * N + 1e-9) + (p > 0 ? 1 : 0)) : 0, sub = anim ? clamp(p * N - (n - 1), 0, 1) : 0;
+    if (p >= 1) { n = N; sub = 1; }
+    if (v.kind === "area") drawArea(n, sub, N);
+    else if (v.kind === "vol") drawVol(n, sub, N);
+    else if (v.kind === "perim") drawPerim(p);
+    else drawFormula(p);
+  }
+  function caption(s, col, y) { txt(x, s, w / 2, y || 18, w < 380 ? 13 : 14.5, col || "#e6e9fb", "center", 800, FONTD); }
+  function drawArea(n, sub, N) {
+    var kx = v.kx, ky = v.ky, isC = v.shape === "circ", isT = v.shape === "tri" && kx === ky;
+    var ra = v.shape === "rect" && v.base !== "sq" ? 1.5 : 1, a = ra, b = 1;
+    var u = Math.min((w - 70) / (kx * a + a + 0.5), (h - 74) / (ky * b)), ox = 18, oy = h - 26;
+    // asl
+    x.fillStyle = "rgba(124,196,255,.4)"; x.strokeStyle = COL.o; x.lineWidth = 2;
+    if (isC) { x.beginPath(); x.arc(ox + a * u / 2, oy - b * u / 2, a * u / 2, 0, 7); x.fill(); x.stroke(); }
+    else if (v.shape === "tri") { x.beginPath(); x.moveTo(ox, oy); x.lineTo(ox + a * u, oy); x.lineTo(ox, oy - b * u); x.closePath(); x.fill(); x.stroke(); }
+    else { x.fillRect(ox, oy - b * u, a * u, b * u); x.strokeRect(ox, oy - b * u, a * u, b * u); }
+    txt(x, "1", ox + a * u / 2, oy + 12, 12, COL.o);
+    var bx = ox + a * u + 0.5 * u, BW = kx * a * u, BH = ky * b * u;
+    x.save(); x.setLineDash([5, 4]); x.strokeStyle = "rgba(162,123,255,.6)"; x.lineWidth = 2;
+    if (isC) { x.strokeRect(bx, oy - BH, BW, BH); x.setLineDash([]); x.beginPath(); x.arc(bx + BW / 2, oy - BH / 2, Math.min(BW, BH) / 2, 0, 7); x.strokeStyle = COL.s; x.lineWidth = 3; x.stroke(); }
+    else if (v.shape === "tri") { x.beginPath(); x.moveTo(bx, oy); x.lineTo(bx + BW, oy); x.lineTo(bx, oy - BH); x.closePath(); x.stroke(); }
+    else x.strokeRect(bx, oy - BH, BW, BH);
+    x.restore();
+    if (isT) {
+      var cells = triCells(kx);
+      for (var i = 0; i < Math.min(n, cells.length); i++) {
+        var T = cells[i], sc = i === n - 1 ? easeBack(sub) : 1, cx = (T[0][0] + T[1][0] + T[2][0]) / 3, cy = (T[0][1] + T[1][1] + T[2][1]) / 3;
+        x.beginPath(); T.forEach(function (pt, j) { var px = bx + (cx + (pt[0] - cx) * sc) * a * u, py = oy - (cy + (pt[1] - cy) * sc) * b * u; if (j) x.lineTo(px, py); else x.moveTo(px, py); }); x.closePath();
+        x.fillStyle = i % 2 ? "rgba(162,123,255,.75)" : "rgba(162,123,255,.5)"; x.fill(); x.strokeStyle = "#cdb8ff"; x.lineWidth = 1; x.stroke();
+      }
+    } else {
+      drawTiles(x, bx, oy, a * u, b * u, kx, ky, n, sub, isC ? "rgba(162,123,255,.28)" : "rgba(162,123,255,.55)", "#cdb8ff");
+      if (isC) { for (var j2 = 0, cc = 0; j2 < ky; j2++) for (var i2 = 0; i2 < kx; i2++, cc++) { if (cc >= n) break; x.beginPath(); x.arc(bx + (i2 + 0.5) * a * u, oy - (j2 + 0.5) * b * u, a * u / 2 - 2, 0, 7); x.strokeStyle = "rgba(124,196,255,.7)"; x.lineWidth = 1.2; x.stroke(); } }
+    }
+    if (n > 0) txt(x, n + " ta", bx + BW / 2, oy + 13, 13, COL.s);
+    if (n >= N && sub >= 1) caption((v.shape === "rect" && kx !== ky ? kx + " · " + ky + " = " : (kx + "² = ")) + N + (isC ? " (doira ham shuncha)" : " ta nusxa"), COL.s);
+    else caption(v.note ? v.note + ": " + (kx === ky ? "k = " + kx : kx + " va " + ky) : (anim ? "" : "Asl shakl nechta sig'adi?"), "#c9d1ef");
+  }
+  function drawVol(n, sub, N) {
+    var nx = v.nx, ny = v.ny, nz = v.nz, span = (nx + ny) * 0.866, s = Math.min((w - 70) / (span + 1.9), (h - 60) / ((nx + ny) * 0.5 + nz + 0.2));
+    var ox = w - 16 - nx * 0.866 * s, oy = h - 22 - (nx + ny) * 0.5 * s;
+    isoBoxWire(x, ox, oy, s, nx, ny, nz, "rgba(255,94,142,.6)");
+    drawStack(x, ox, oy, s, nx, ny, nz, n, sub, PAL_V);
+    var sx = 16 + 0.866 * s, sy = h - 30 - s;
+    isoCube(x, sx, sy, s, 0, 0, 0, PAL_O); txt(x, "1", sx, sy + s * 1.25, 12, COL.o);
+    if (n > 0) txt(x, n + " ta", w - 30, h - 12, 13, COL.v);
+    if (n >= N && sub >= 1) caption((nx === ny && ny === nz ? nx + "³ = " : nx + "·" + ny + "·" + nz + " = ") + N + " ta nusxa", COL.v);
+    else caption(anim ? "" : "Asl kub nechta sig'adi?", "#c9d1ef");
+  }
+  function drawPerim(p) {
+    var k = v.k, u = Math.min((w - 80) / (k + 1.6), (h - 70) / k), ox = 20, oy = h - 28;
+    x.strokeStyle = COL.o; x.lineWidth = 3; x.strokeRect(ox, oy - u, u, u); txt(x, "P = 4", ox + u / 2, oy + 13, 12, COL.o);
+    var bx = ox + u * 1.6, L = 4 * k, dl = p * L, path = [[bx, oy], [bx + k * u, oy], [bx + k * u, oy - k * u], [bx, oy - k * u], [bx, oy]];
+    x.strokeStyle = "rgba(53,240,196,.2)"; x.lineWidth = 2; x.strokeRect(bx, oy - k * u, k * u, k * u);
+    x.strokeStyle = COL.p; x.lineWidth = 4; x.lineCap = "round"; x.beginPath(); x.moveTo(bx, oy); var rem = dl;
+    for (var s2 = 0; s2 < 4 && rem > 0; s2++) { var A = path[s2], B = path[s2 + 1], f = Math.min(1, rem / k); x.lineTo(A[0] + (B[0] - A[0]) * f, A[1] + (B[1] - A[1]) * f); rem -= k; } x.stroke();
+    x.fillStyle = "#fff"; for (var i = 1; i <= Math.floor(dl + 1e-9) && i < L; i++) { var si = Math.floor(i / k), fi = (i - si * k) / k, P0 = path[si], P1 = path[si + 1]; x.beginPath(); x.arc(P0[0] + (P1[0] - P0[0]) * fi, P0[1] + (P1[1] - P0[1]) * fi, 2.6, 0, 7); x.fill(); }
+    caption(p >= 1 ? "P = 4·" + k + " = " + L + " — " + k + " marta" : (anim ? "P = " + Math.floor(dl) : "Har bir tomon k marta uzun"), COL.p);
+  }
+  function drawFormula(p) {
+    var lines = v.lines || [], f = w < 380 ? 17 : 20, y0 = h / 2 - (lines.length - 1) * f * 0.85;
+    lines.forEach(function (s, i) { x.globalAlpha = anim ? clamp(p * lines.length * 1.2 - i, 0, 1) : (i === 0 ? 1 : 0.25); txt(x, s, w / 2, y0 + i * f * 1.7, f, i === lines.length - 1 ? COL.k : "#e6e9fb", "center", 800); });
+    x.globalAlpha = 1;
+  }
+  function loop(ts) { if (document.hidden || $("pg").hidden) { run = false; last = 0; return; } var dt = last ? Math.min(0.05, (ts - last) / 1000) : 1 / 60; last = ts; t += dt; draw(); if (anim && t < dur() + 0.1) requestAnimationFrame(loop); else { run = false; last = 0; } }
+  return {
+    size: function () { size(); draw(); },
+    set: function (viz, go) { v = viz; anim = !!go; t = RM && go ? 99 : 0; if (!x) size(); draw(); if (anim && !RM && !run) { run = true; last = 0; requestAnimationFrame(loop); } },
+    state: function () { return { v: v, anim: anim, t: t }; }
+  };
+})();
+
+/* ================= 7. Bo'limlar (tablar) ================= */
+var PT = { p2: "<b>Tekis shakllar</b> · perimetr va yuza", p3: "<b>Jismlar (3D)</b> · sirt va hajm", pg: "<b>O'yin</b> · necha marta oshdi?" };
+function setPane(id) {
+  document.querySelectorAll(".tab").forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-pane") === id ? "true" : "false"); });
+  ["p2", "p3", "pg"].forEach(function (p) { $(p).hidden = p !== id; });
+  $("lab-title").innerHTML = PT[id]; lsSet("pane", id);
+  if (id === "p2") { size2(); wake2(); }
+  if (id === "p3") { load3(); if (T3) { size3(); wake3(); } }
+  if (id === "pg") { if (!GM.q) newQ(GM.lvl); VZ.size(); }
+}
+document.querySelectorAll(".tab").forEach(function (b) { b.addEventListener("click", function () { setPane(b.getAttribute("data-pane")); }); });
+
+/* ================= 8. Ishga tushirish ================= */
+try { var y = $("year"); if (y) y.textContent = new Date().getFullYear(); } catch (e) {}
+var s2s = lsGet("s2"); if (SH2[s2s]) { S2.shape = s2s; document.querySelectorAll("[data-s2]").forEach(function (o) { o.classList.toggle("on", o.getAttribute("data-s2") === s2s); }); }
+var s3s = lsGet("s3"); if (SH3[s3s]) { S3.shape = s3s; document.querySelectorAll("[data-s3]").forEach(function (o) { o.classList.toggle("on", o.getAttribute("data-s3") === s3s); }); }
+S2.fa = S2.k; S2.fb = S2.k;
+size2(); sync2(); sync3(); thSizes(); thDraw();
+var pane0 = lsGet("pane"); setPane(pane0 === "p3" || pane0 === "pg" ? pane0 : "p2");
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(function (es) { TH.vis = es[0].isIntersecting; if (TH.vis) thStart(); }, { threshold: 0.25 }).observe($("t2"));
+  new IntersectionObserver(function (es) { vis2 = es[0].isIntersecting; if (vis2) wake2(); }, { rootMargin: "100px" }).observe(c2);
+  new IntersectionObserver(function (es) { vis3 = es[0].isIntersecting; if (vis3) wake3(); }, { rootMargin: "100px" }).observe($("st3"));
+} else { TH.vis = true; vis3 = true; thStart(); }
+document.addEventListener("visibilitychange", function () { if (!document.hidden) { wake2(); wake3(); } });
+var rzT = 0;
+window.addEventListener("resize", function () { cancelAnimationFrame(rzT); rzT = requestAnimationFrame(function () { thSizes(); thDraw(); if (!$("p2").hidden) { size2(); wake2(); } if (!$("p3").hidden) size3(); if (!$("pg").hidden) VZ.size(); }); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { thDraw(); wake2(); }).catch(function () {});
+
+window.kaMasshtab = {
+  geo2: geo2, geo3: geo3, genQ: genQ, newQ: newQ, answer: answer, game: function () { return GM; }, setPane: setPane,
+  S2: S2, S3: S3, sync2: sync2, sync3: sync3, mult3: mult3, three: function () { return !!T3; },
+  fill: function () { $("fill3").click(); }, vz: VZ, th: TH, t3: function () { return T3; }, running: function () { return { r2: run2, r3: run3, th: TH.run }; },
+  step3: function (sec) { if (!T3) return; var n = Math.round(sec * 60); for (var i = 0; i < n; i++) frame3(1 / 60); },
+  step2: function (sec) { var n = Math.round(sec * 60); for (var i = 0; i < n; i++) update2(1 / 60); draw2(); }
+};
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
