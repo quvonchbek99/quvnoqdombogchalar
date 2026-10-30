@@ -1,0 +1,36 @@
+{
+  "id": "2020-3",
+  "badge": "IMO 2020 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Rangli toshlarni ikki uyumga bo'lish",
+      "fs": 36,
+      "body": "<p>Og'irliklari <span class='m'>1, 2, 3, …, 4n</span> bo'lgan <b>4n ta tosh</b> bor. Har bir tosh <span class='m'>n</span> ta rangdan biriga bo'yalgan va har bir rangdan <b>aynan 4 ta</b> tosh bor.</p><p><b>Isbotlang:</b> toshlarni shunday <b>ikki uyumga</b> ajratish mumkinki,</p><div class='box'>• ikkala uyumning umumiy og'irligi <b>teng</b> bo'ladi;<br>• har bir uyumda har bir rangdan <b>aynan 2 tadan</b> tosh bo'ladi.</div><p>Ranglar qanday taqsimlangan bo'lmasin — bu har doim mumkin! Kalit g'oya graflar nazariyasida yashiringan 👀</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Toshlarni juftlaymiz",
+      "fs": 35,
+      "body": "<p>Birinchi kalit kuzatuv — juda oddiy:</p><div class='box' style='text-align:center'><span class='m'>1 + 4n = 2 + (4n − 1) = 3 + (4n − 2) = …</span></div><p>Ya'ni toshlarni <span class='m'>2n</span> ta juftga ajratamiz: <span class='m'>k</span> va <span class='m'>4n + 1 − k</span>. Har bir juftning yig'indisi bir xil: <span class='m'>4n + 1</span>.</p><p>Har bir juftni <b>ip</b> bilan bog'laymiz. Agar ipning ikki uchidagi toshlar <b>doim bir uyumga</b> tushsa va har uyumga <span class='m'>n</span> tadan ip tushsa, og'irliklar avtomatik teng bo'ladi:</p><div class='box' style='text-align:center'><span class='m'>n · (4n + 1)</span> = <span class='m'>n · (4n + 1)</span> ✅</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Masalani graf tiliga o'giramiz",
+      "fs": 34,
+      "body": "<p>Bir xil rangli 4 ta toshni bitta <b>qutiga</b> solamiz — <span class='m'>n</span> ta quti. Endi:</p><ul><li>quti — grafning <b>uchi</b>;</li><li>ip — <b>qirra</b> (bir qutidagi ikki toshni bog'lasa — <b>sirtmoq</b>, u 2 marta hisoblanadi).</li></ul><p>Har bir qutidan 4 ta ip uchi chiqadi, ya'ni har bir uchning darajasi <b>4</b>.</p><p>Har ipni ikki rangdan biriga bo'yaymiz: <b>oltin</b> ip → 1-uyum, <b>oq</b> ip → 2-uyum. Unda masala shunga keladi:</p><div class='box'>Har bir uchida <b>2 ta oltin</b> va <b>2 ta oq</b> qirra uchrashadigan qilib qirralarni bo'yash mumkin.</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Eyler sikli ishni hal qiladi",
+      "fs": 34,
+      "body": "<p>Barcha uchlarning darajasi <b>juft</b> (4). Shuning uchun har bir bog'liq bo'lakda <b>Eyler sikli</b> bor — har bir qirradan aynan bir marta o'tib, boshlang'ich nuqtaga qaytadigan yo'l.</p><p><span class='m'>k</span> ta uchli bo'lakda <span class='m'>4k/2 = 2k</span> ta qirra — <b>juft</b> son. Sikl bo'ylab qirralarni navbatma-navbat bo'yaymiz:</p><div class='box' style='text-align:center'>oltin → oq → oltin → oq → …</div><p>Sikl uchdan har o'tganda bitta kiruvchi va bitta chiquvchi qirra ishlatadi — ular <b>ketma-ket</b>, demak har xil rangda. Har bir uchdan sikl <b>2 marta</b> o'tadi ⇒ 2 ta oltin + 2 ta oq. Sirtmoq ham to'g'ri hisoblanadi (oltin, oq, oltin). Sikl uzunligi juft bo'lgani uchun boshi va oxiri ham mos keladi. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "n = 2 uchun tekshiramiz",
+      "fs": 32,
+      "body": "<p>Qizil: <span class='m'>1, 2, 3, 7</span> &nbsp; Ko'k: <span class='m'>4, 5, 6, 8</span>. Iplar: 1–8, 2–7, 3–6, 4–5.</p><svg viewBox='0 0 560 210' width='560' height='210' style='display:block;margin:0 auto 6px'><path d='M206,100 Q280,40 354,100' fill='none' stroke='#f2b84b' stroke-width='5'/><path d='M206,130 Q280,190 354,130' fill='none' stroke='#f2b84b' stroke-width='5'/><path d='M134,96 C40,30 40,200 134,134' fill='none' stroke='#eef2f7' stroke-width='5'/><path d='M426,96 C520,30 520,200 426,134' fill='none' stroke='#eef2f7' stroke-width='5'/><circle cx='170' cy='115' r='40' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><circle cx='390' cy='115' r='40' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='170' y='127' text-anchor='middle' font-size='34' font-weight='700' fill='#eef2f7'>Q</text><text x='390' y='127' text-anchor='middle' font-size='34' font-weight='700' fill='#eef2f7'>K</text><text x='280' y='52' text-anchor='middle' font-size='26' fill='#f2b84b'>1–8</text><text x='280' y='200' text-anchor='middle' font-size='26' fill='#f2b84b'>3–6</text><text x='22' y='124' text-anchor='middle' font-size='24' fill='#eef2f7'>2–7</text><text x='538' y='124' text-anchor='middle' font-size='24' fill='#eef2f7'>4–5</text></svg><div class='box'>Sikl: Q →(1–8)→ K →(4–5)→ K →(3–6)→ Q →(2–7)→ Q<br>1-uyum: <span class='m'>1+8+3+6 = 18</span> &nbsp; 2-uyum: <span class='m'>2+7+4+5 = 18</span> ✅</div><p>🧠 <b>Sizga savol:</b> qizil <span class='m'>1, 4, 6, 7</span>, ko'k <span class='m'>2, 3, 5, 8</span> bo'lsa, uyumlarni toping. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2020 · 4-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
