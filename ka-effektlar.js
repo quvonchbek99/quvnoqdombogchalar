@@ -34,6 +34,10 @@
       ticking = false;
       var h = document.documentElement.scrollHeight - innerHeight;
       prog.style.width = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + "%";
+      // tez aylantirilganda o'tkazib yuborilgan (yuqorida qolib ketgan) bloklar ko'rinmas qolmasin
+      Array.prototype.forEach.call(document.querySelectorAll(".ka-rv:not(.in)"), function (e) {
+        if (e.getBoundingClientRect().bottom < 0) e.classList.remove("ka-rv", "up", "zoom", "left", "right", "flip");
+      });
     });
   }
   addEventListener("scroll", onScroll, { passive: true }); onScroll();

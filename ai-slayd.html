@@ -280,7 +280,9 @@ textarea{resize:vertical;min-height:64px}
   <input type="password" id="gKey" autocomplete="off" placeholder="AIza…">
   <label class="lbl" for="gWorker">Yoki Worker manzili</label>
   <input type="url" id="gWorker" autocomplete="off" placeholder="https://kuvonch-ai.xxx.workers.dev">
-  <p>Bepul kalit: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. Sayt egasi kalitni Cloudflare Worker'ga joylashi mumkin — repo'dagi <code>tools/ai-worker.js</code>.</p>
+  <p>Bepul kalit: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>.</p>
+  <p>⚠️ Kalit kuvonch.uz serveriga yuborilmaydi, faqat shu brauzer xotirasida turadi. Ammo bu mutlaq xavfsizlik emas: shu qurilmaga kira oladigan odam yoki zararli brauzer kengaytmasi uni o'qishi mumkin. Shuning uchun <b>umumiy kompyuterda kalit kiritmang</b>, ishingiz tugagach uni o'chiring va Google AI Studio'da kalitga kunlik limit qo'ying. Kalit kerak bo'lmasligi uchun «Bepul AI (Puter)» rejimini tanlang.</p>
+  <p><button type="button" id="gKeyDel" class="btn gh" style="padding:6px 10px;font-size:13px">Kalitni shu brauzerdan o'chirish</button></p>
   <p id="quota" hidden></p>
  </div>
 </fieldset>
@@ -1273,6 +1275,7 @@ function init(){
  var c=gcfg();$("#gKey").value=c.key||"";$("#gWorker").value=c.worker||"";
  var sc=function(){lsSet(LS_CFG,{key:str($("#gKey").value),worker:str($("#gWorker").value)});drawQuota()};
  $("#gKey").onchange=sc;$("#gWorker").onchange=sc;
+ $("#gKeyDel").onclick=function(){$("#gKey").value="";sc();$("#gKeyDel").textContent="O'chirildi ✓";};
  var eng=function(){$("#gemCfg").hidden=(($("input[name=eng]:checked")||{}).value!=="gemini");drawQuota()};
  $$("input[name=eng]").forEach(function(r){r.onchange=function(){eng();savePref()}});eng();
  $("#go").addEventListener("pointerdown",function(){if(($("input[name=eng]:checked")||{}).value==="puter"&&!window.puter&&!init.pl){init.pl=1;loadScript(PUTER_URL).catch(function(){init.pl=0})}});

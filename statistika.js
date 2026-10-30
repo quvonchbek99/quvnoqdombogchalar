@@ -10,6 +10,15 @@
     try { window.top.location.replace(location.href); } catch (e) {}
   } catch (e) {}
 })();
+/* + "Davom ettirish": oxirgi ochilgan sahifa (bosh sahifadan tashqari) faqat shu brauzerda eslab qolinadi */
+(function () {
+  try {
+    var p = location.pathname.replace(/\/index\.html$/, "/");
+    if (p === "/" || /^\/(donat|premium|maxfiylik|havolalar|404)\.html$/.test(p)) return;
+    var t = (document.title || "").replace(/\s*[—|·-]\s*Kuvonch Academy.*$/i, "").trim();
+    localStorage.setItem("ka.oxirgi", JSON.stringify({ u: p + location.search, t: t.slice(0, 60), d: Date.now() }));
+  } catch (e) {}
+})();
 /* + Service worker barcha sahifalarda: o'yin modellari (qo'l/ko'z) bir marta yuklangach, keyingi safar keshdan darhol ochiladi */
 (function () {
   try {

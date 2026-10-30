@@ -1635,7 +1635,9 @@ if (typeof module !== "undefined" && module.exports) module.exports = VS;
     sx.appendChild(stat("Mediana", VS.fmtShort(st.median)));
     sx.appendChild(stat("Eng qimmat", VS.fmtShort(st.max)));
     sx.appendChild(stat("Takliflar", String(st.n)));
+    sx.appendChild(stat("Tekshirildi", new Date().toLocaleTimeString("uz-UZ", { hour: "2-digit", minute: "2-digit" }) + " (beta)"));
     var res = $("res"); res.innerHTML = "";
+    if (vis.length) res.appendChild(el("div", "hint", "⚠️ Beta: narxlar do'kon sahifalaridan avtomatik olingan va taxminiy — xotira hajmi, versiya (global/Xitoy), kafolat va yetkazib berish farq qilishi mumkin. Sotib olishdan oldin havola orqali do'konning o'zida tekshiring."));
     var bestO = st.minOffer;
     if (!vis.length) {
       res.appendChild(el("div", "empty", L.done ? "Mos taklif topilmadi. Filtrlarni o'chirib ko'ring yoki yuqoridagi havolalardan foydalaning." : "Qidirilmoqda…"));

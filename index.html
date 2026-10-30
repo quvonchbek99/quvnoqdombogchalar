@@ -19,6 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kuvonch.uz/og-image.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"Kuvonch Academy","url":"https://kuvonch.uz/","logo":"https://kuvonch.uz/icon-512.png","description":"O'zbek tilidagi bepul ta'lim platformasi: matematika, ingliz va rus tili, testlar, o'yinlar va o'qituvchilar uchun vositalar.","founder":{"@type":"Person","name":"Mashrapov Quvonchbek"},"sameAs":["https://www.instagram.com/kuvonch_academy/","https://www.youtube.com/@miirsp","https://t.me/mqm199"]}</script>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#060a1a">
 <link rel="icon" href="icon-192.png">
@@ -65,7 +66,7 @@ a{color:inherit}
 #nur{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 .hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;min-height:min(56vh,520px)}
 .hero-copy{padding:26px 0 30px;max-width:640px}
-.hero h1{font:800 clamp(38px,6.4vw,82px)/.98 var(--display);letter-spacing:-.035em;margin:0 0 22px;
+.hero h1{font:800 clamp(30px,4.6vw,60px)/1.02 var(--display);letter-spacing:-.03em;margin:0 0 20px;
   background:linear-gradient(100deg,#fff 0%,#fff 52%,#d6dcff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
   text-wrap:balance}
 .hero .lead{font-size:clamp(17px,1.9vw,20px);color:#c5cef0;max-width:30em;margin:0 0 28px}
@@ -73,6 +74,26 @@ a{color:inherit}
 .hint{color:var(--haze);font-size:14px;display:inline-flex;align-items:center;gap:8px}
 .hint::before{content:"";width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#fff 0 18%,rgba(255,255,255,.25) 19% 40%,transparent 42%);box-shadow:0 0 12px 2px rgba(255,255,255,.35)}
 .prism-spot{height:100%;min-height:280px}
+/* uchta asosiy tugma */
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.cta{--c:var(--teal);display:inline-flex;align-items:center;gap:8px;padding:13px 18px;border-radius:14px;font:700 15px/1 var(--body);text-decoration:none;color:var(--chalk);
+  background:color-mix(in srgb,var(--c) 14%,rgba(12,19,48,.8));border:1px solid color-mix(in srgb,var(--c) 55%,transparent);transition:transform .2s,box-shadow .2s,background .2s}
+.cta:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--c) 24%,rgba(12,19,48,.8));box-shadow:0 14px 30px -14px var(--c)}
+.cta-mat{--c:var(--teal);background:var(--teal);color:#06231b;border-color:transparent}
+.cta-mat:hover{background:#5ff5d2}
+.cta-til{--c:var(--violet)}.cta-ust{--c:var(--amber)}
+.bg-chip.davom{border-color:var(--teal);color:var(--teal)}
+[hidden]{display:none!important}
+.bg-chip.davom b{font-weight:600;max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* ---------- Kimga: 3 yo'nalish ---------- */
+.role-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.role{--c:var(--teal);padding:20px;border-radius:18px;background:rgba(16,26,58,.6);border:1px solid var(--line);border-top:3px solid var(--c)}
+.role h3{margin:0 0 6px;font:700 19px/1.2 var(--display);letter-spacing:-.01em}
+.role p{margin:0 0 12px;color:var(--haze);font-size:14px}
+.role ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.role li a{display:block;padding:9px 12px;border-radius:10px;background:rgba(6,10,26,.55);border:1px solid transparent;text-decoration:none;font-size:14.5px;transition:border-color .2s,transform .2s}
+.role li a:hover{border-color:var(--c);transform:translateX(3px)}
+.r-oq{--c:var(--teal)}.r-us{--c:var(--amber)}.r-mu{--c:var(--violet)}
 
 /* ---------- 4 eshik: har biri o'z nuri rangida ---------- */
 .doors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:6px}
@@ -156,13 +177,16 @@ details.apk-help div{padding:8px 2px 0}
   .doors{grid-template-columns:repeat(2,minmax(0,1fr))}
   .picks{grid-template-columns:repeat(2,minmax(0,1fr))}
   .soc{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .role-grid{grid-template-columns:1fr}
   .hero-copy{padding-bottom:150px}
 }
 @media (max-width:560px){
   .wrap{padding:0 16px}
   .band,.give{padding-left:16px;padding-right:16px}
   .hero-copy{padding:8px 0 140px}
-  .hero h1{font-size:clamp(34px,10.5vw,46px)}
+  .hero h1{font-size:clamp(28px,8vw,38px)}
+  .hero-cta{flex-direction:column}
+  .cta{width:100%;justify-content:center;padding:14px 16px;font-size:16px}
   .door{min-height:150px;padding:16px 14px;border-radius:16px}
   .door .glyph{font-size:96px;bottom:-18px}
   .door p{font-size:13px}
@@ -203,9 +227,15 @@ details.apk-help div{padding:8px 2px 0}
 <div class="wrap">
 <div class="hero">
 <div class="hero-copy">
-<h1 id="sarlavha">Bugun nimani o'rganamiz?</h1>
-<p class="lead">Matematika, ingliz va rus tili, o'yinlar — o'zbek tilida, bepul va telefonda ham qulay.</p>
+<h1 id="sarlavha">O'rganing. Mashq qiling. Natijangizni ko'ring.</h1>
+<p class="lead">Matematika, ingliz tili, rus tili va interaktiv o'yinlar. Bepul darslar, avtomatik tekshiriladigan testlar va o'qituvchilar uchun raqamli vositalar — bitta platformada.</p>
+<div class="hero-cta">
+<a class="cta cta-mat" href="matematika.html">📐 Matematikani o'rganish</a>
+<a class="cta cta-til" href="english/">🗣 Til o'rganishni boshlash</a>
+<a class="cta cta-ust" href="ustoz.html">🧑‍🏫 O'qituvchi vositalari</a>
+</div>
 <div class="hero-act">
+<a class="bg-chip davom" id="davom-chip" href="#" hidden>▶ Davom ettirish: <b></b></a>
 <a class="bg-chip" id="bugun-chip" href="#bugun">📅 Bugun</a>
 <span class="hint">Nurni barmoq yoki sichqoncha bilan boshqaring</span>
 </div>
@@ -244,6 +274,46 @@ details.apk-help div{padding:8px 2px 0}
 </div>
 </section>
 
+<section class="band roles" aria-labelledby="kimga">
+<h2 id="kimga">Siz kimsiz? Shunga qarab boshlang</h2>
+<p class="sub">Har bir yo'nalishda faqat sizga kerakli bo'limlar.</p>
+<div class="role-grid">
+<div class="role r-oq">
+<h3>🎒 O'quvchi</h3>
+<p>Darslar, testlar, o'yinlar va shaxsiy natijalar.</p>
+<ul>
+<li><a href="noldan-pigacha.html">Noldan π gacha — bosqichma-bosqich</a></li>
+<li><a href="mashqlar.html">Mavzular bo'yicha testlar</a></li>
+<li><a href="sertifikat.html">Milliy sertifikat va SAT sinovlari</a></li>
+<li><a href="oyinlar.html">Ta'limiy o'yinlar</a></li>
+<li><a href="#" data-akkaunt>Mening natijalarim</a></li>
+</ul>
+</div>
+<div class="role r-us">
+<h3>🧑‍🏫 O'qituvchi</h3>
+<p>Test yaratish, sinf viktorinasi, natijalar va hisobot.</p>
+<ul>
+<li><a href="sinf-oyinlari.html">Sinf viktorinasi (80 tagacha o'quvchi)</a></li>
+<li><a href="ai-slayd.html">AI slayd, test va uy vazifasi</a></li>
+<li><a href="ustoz.html">O'quvchilar natijalari paneli</a></li>
+<li><a href="jamoa.html">Jamoaviy o'yinlar</a></li>
+<li><a href="qollanma.html">Qo'llanma</a></li>
+</ul>
+</div>
+<div class="role r-mu">
+<h3>🌱 Mustaqil o'rganuvchi</h3>
+<p>Til kurslari, matematika yo'l xaritasi va takrorlash.</p>
+<ul>
+<li><a href="english/">Ingliz tili: 100 grammatika moduli, 3600 so'z</a></li>
+<li><a href="rus-tili/">Rus tili: A0 dan C1 gacha</a></li>
+<li><a href="matematika.html">Matematika yo'l xaritasi</a></li>
+<li><a href="sat-english.html">SAT English va IELTS</a></li>
+<li><a href="reels.html">Qisqa video darslar</a></li>
+</ul>
+</div>
+</div>
+</section>
+
 <section class="bugun" id="bugun" aria-label="Bugun: sana, yil oxiri, tengkunlik va shu kuni tug'ilgan olimlar"></section>
 
 <section class="band" aria-labelledby="mashhur">
@@ -267,7 +337,9 @@ details.apk-help div{padding:8px 2px 0}
 <a class="btn solid" href="kuvonch-academy.apk" download id="apkBtn">📱 Android ilova</a>
 </div>
 </div>
-<details class="apk-help" id="apkHelp"><summary>Xiaomi telefonda o'rnatishda ogohlantirish chiqsa</summary><div>Bu telefonning o'zi ko'rsatadigan umumiy ogohlantirish, ilova xavfsiz. Birinchi oynada <b>Install</b> ni bosing, keyingi oynada o'ng yuqoridagi menyudan bir martalik ruxsatni tanlang. Ilovasiz ham bo'ladi: brauzerda kuvonch.uz ni ochib, «Bosh ekranga qo'shish» ni bosing.</div></details>
+<details class="apk-help" id="apkHelp"><summary>Android ilova haqida: versiya, manba va o'rnatishdagi ogohlantirish</summary><div>
+<b>Versiya 2.1</b> · 2,6 MB · faqat shu sahifadan (kuvonch.uz) yuklab oling — boshqa manbalardagi nusxalarga ishonmang. Ilova kuvonch.uz saytini ochadigan oddiy qobiq; kodi <a href="https://github.com/quvonchbek99/quvnoqdombogchalar/tree/main/android" target="_blank" rel="noopener noreferrer">GitHub'da ochiq</a>.<br>
+Telefon «Noma'lum manba» yoki «Xavfli bo'lishi mumkin» deb ogohlantirsa — bu ilova Play Market orqali emas, to'g'ridan-to'g'ri o'rnatilayotgani uchun chiqadigan standart xabar. Davom etishni o'zingiz hal qilasiz; shubhangiz bo'lsa, ilovasiz foydalaning: brauzerda kuvonch.uz ni ochib, «Bosh ekranga qo'shish» ni bosing — hamma imkoniyat bir xil ishlaydi.</div></details>
 <script>if(/KuvonchAcademyApp/.test(navigator.userAgent)){var b=document.getElementById('apkBtn');if(b)b.remove();var h=document.getElementById('apkHelp');if(h)h.remove();}</script>
 </section>
 
@@ -306,7 +378,10 @@ details.apk-help div{padding:8px 2px 0}
 </div>
 </footer>
 
-<script>document.getElementById('yil').textContent=new Date().getFullYear();</script>
+<script>document.getElementById('yil').textContent=new Date().getFullYear();
+/* Davom ettirish: statistika.js har sahifada oxirgi ochilgan dars/testni eslab qoladi */
+(function(){try{var o=JSON.parse(localStorage.getItem('ka.oxirgi')||'null');var c=document.getElementById('davom-chip');if(!o||!o.u||!c)return;c.href=o.u;c.querySelector('b').textContent=o.t||o.u;c.hidden=false;}catch(e){}})();
+document.querySelectorAll('[data-akkaunt]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();if(window.kaAccount)kaAccount.open();});});</script>
 <script src="ka-nur.js"></script>
 <script src="ka-bugun.js?v=20261028"></script>
 <script src="ka-effektlar.js"></script>

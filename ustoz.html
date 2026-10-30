@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0b1220">
 <title>O'qituvchi paneli — Kuvonch Academy</title>
+<meta name="description" content="Kuvonch Academy o'qituvchi paneli: o'quvchilar natijalari, guruhlar, test urinishlari va CSV eksport. Faqat tasdiqlangan o'qituvchilar uchun.">
 <link rel="icon" href="icon-192.png">
 <style>
 :root{--bg:#0b1220;--soft:#111a2e;--card:#141f38;--bd:#243252;--tx:#eef2ff;--dim:#9fb0d0;--ac:#5ee6c7;--ac2:#7c9bff;--gold:#ffd479;--bad:#ff8585}
@@ -63,9 +64,9 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 </section>
 
 <section class="card" id="noadmin" hidden>
-  <b>Bu akkaunt o'qituvchi ro'yxatida emas.</b>
-  <p class="hint">Firebase konsolida <code>admins</code> to'plamiga shu UID bilan hujjat qo'shilishi kerak:</p>
-  <p><code id="uid"></code></p>
+  <b>Bu akkaunt hali o'qituvchi sifatida tasdiqlanmagan.</b>
+  <p class="hint">O'qituvchi paneliga kirish uchun quyidagi kodni <a href="https://t.me/miir1999" target="_blank" rel="noopener noreferrer" style="color:var(--ac2)">Telegram @miir1999</a> ga yuboring. Tasdiqlangach shu sahifani qayta oching.</p>
+  <p><code id="uid"></code> <button type="button" id="uidCopy" style="margin-left:8px">Nusxa olish</button></p>
   <button id="out1" type="button">Chiqish</button>
 </section>
 
@@ -249,6 +250,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
   ["#fg", "#fd"].forEach(function (s) { $(s).onchange = render; });
   ["#ft", "#fn"].forEach(function (s) { $(s).oninput = render; });
   $("#reload").onclick = load; $("#csv").onclick = exportCsv; $("#out1").onclick = signOut; $("#out2").onclick = signOut;
+  $("#uidCopy").onclick = function () { var t = $("#uid").textContent; try { navigator.clipboard.writeText(t).then(function () { $("#uidCopy").textContent = "Nusxalandi ✓"; }); } catch (e) {} };
   Array.prototype.forEach.call(document.querySelectorAll("#t1 th"), function (th) {
     th.onclick = function () { var k = th.getAttribute("data-k"); if (sortK === k) sortDir = -sortDir; else { sortK = k; sortDir = (k === "name" || k === "group") ? 1 : -1; } render(); };
   });
