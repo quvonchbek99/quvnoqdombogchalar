@@ -679,5 +679,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ular o'yinni tugatishga shoshilmadi", "Ular o'z zavqi uchun boshqalarning azobini hisobga olmadi", "Ular suvda suzishni yaxshi bilmasdi"],
     javob: 1,
     izoh: "Bolalar uchun o'yin bo'lgan narsa qurbaqalar uchun jiddiy xavf edi. Zavq olish uchun boshqa jonzotga zarar yetkazmaslik kerak."
+  },
+  {
+    id: "ez-086", mavzu: "mantiq", sarlavha: "Tulki va niqob",
+    matn: "Tulki bir kuni teatr sahnasi ortida odamlar tashlab ketgan katta, chiroyli niqobni topdi. Niqob tashqaridan juda go'zal va jozibali ko'rinardi, ammo ichi bo'sh edi. Tulki uni aylanib ko'rib, hayratda dedi: \"Qanday ajoyib bosh! Afsuski, ichida aql yo'q.\" Shunday deb u niqobni chetga surib, o'z yo'lida davom etdi.",
+    savol: "Tulki niqob haqida qanday xulosaga keldi?",
+    variantlar: ["Niqob juda go'zal, shuning uchun uni albatta olish kerak", "Tashqi ko'rinish qanchalik chiroyli bo'lmasin, ichki mazmun muhimroq", "Niqob sahnada ishlatilgani uchun unga tegish mumkin emas"],
+    javob: 1,
+    izoh: "Niqob tashqaridan go'zal ko'rinsa ham ichi bo'sh edi. Masal shuni ko'rsatadiki, insonni yoki narsani faqat tashqi ko'rinishiga qarab baholash xato, mazmunni hisobga olish kerak."
   }
 ];
