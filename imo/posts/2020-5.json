@@ -1,0 +1,36 @@
+{
+  "id": "2020-5",
+  "badge": "IMO 2020 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Kartalar va o'rta qiymatlar",
+      "fs": 36,
+      "body": "<p>Stolda <span class='m'>n &gt; 1</span> ta karta bor, har biriga <b>natural son</b> yozilgan.</p><p>Kartalar quyidagi xossaga ega: istalgan <b>ikki karta</b> sonlarining o'rta arifmetigi</p><div class='box'><span class='m'>(a + b) / 2</span></div><p>qandaydir bir yoki bir nechta kartadagi sonlarning <b>o'rta geometrigiga</b> teng:</p><div class='box'><span class='m'>(a + b) / 2 = <sup>m</sup>√(c<sub>1</sub> · c<sub>2</sub> · … · c<sub>m</sub>)</span></div><p>Qanday <span class='m'>n</span> larda bundan barcha kartalardagi sonlar <b>teng</b> ekani kelib chiqadi?</p>"
+    },
+    {
+      "kicker": "JAVOB VA TAYYORGARLIK",
+      "title": "Javob: barcha n uchun",
+      "fs": 35,
+      "body": "<p>Teskarisini faraz qilamiz: sonlar <span class='m'>a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub></span> xossaga ega, lekin hammasi teng <b>emas</b>.</p><p><b>1. Qisqartirish.</b> Agar hammasining EKUBi <span class='m'>d &gt; 1</span> bo'lsa, barchasini <span class='m'>d</span> ga bo'lamiz. O'rta arifmetik ham, o'rta geometrik ham <span class='m'>d</span> marta kichrayadi — xossa saqlanadi.</p><div class='box'>Demak <span class='m'>EKUB(a<sub>1</sub>, …, a<sub>n</sub>) = 1</span> deb olsak bo'ladi.</div><p><b>2. Tartiblash.</b> <span class='m'>a<sub>1</sub> ≥ a<sub>2</sub> ≥ … ≥ a<sub>n</sub></span>. Sonlar teng emas, demak eng kattasi <span class='m'>a<sub>1</sub> ≥ 2</span>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Tub bo'luvchini tanlaymiz",
+      "fs": 34,
+      "body": "<p><span class='m'>a<sub>1</sub> ≥ 2</span>, shuning uchun uning biror <b>tub bo'luvchisi</b> <span class='m'>p</span> bor.</p><p>EKUB 1 ga teng, demak <span class='m'>p</span> ga bo'linmaydigan son ham bor. Ular ichida <b>eng kattasi</b> <span class='m'>a<sub>k</sub></span> bo'lsin:</p><div class='box'><span class='m'>p | a<sub>1</sub>, a<sub>2</sub>, …, a<sub>k−1</sub></span>, &nbsp; lekin &nbsp;<span class='m'>p ∤ a<sub>k</sub></span></div><p>Shunda <span class='m'>a<sub>1</sub> ≠ a<sub>k</sub></span>, ya'ni <span class='m'>a<sub>1</sub> &gt; a<sub>k</sub></span>, va <span class='m'>a<sub>k</sub></span> dan keyingi barcha sonlar <span class='m'>a<sub>k</sub></span> dan katta emas.</p><p>Endi aynan shu ikki karta — <span class='m'>a<sub>1</sub></span> va <span class='m'>a<sub>k</sub></span> ni olamiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Ziddiyat",
+      "fs": 33,
+      "body": "<p><span class='m'>x = (a<sub>1</sub> + a<sub>k</sub>) / 2</span> bo'lsin. Shartga ko'ra</p><div class='box'><span class='m'>x<sup>m</sup> = c<sub>1</sub> · c<sub>2</sub> · … · c<sub>m</sub></span></div><p>O'ng tomon butun son, <span class='m'>x</span> esa ratsional — demak <span class='m'>x</span> ham <b>butun</b>. <span class='m'>a<sub>1</sub> + a<sub>k</sub> = 2x</span> son <span class='m'>p</span> ga bo'linmaydi (<span class='m'>p | a<sub>1</sub></span>, <span class='m'>p ∤ a<sub>k</sub></span>), shuning uchun <span class='m'>p ∤ x</span>.</p><p>Demak tanlangan kartalarning <b>hech biri</b> <span class='m'>p</span> ga bo'linmaydi ⇒ ularning har biri <span class='m'>≤ a<sub>k</sub></span>. Unda:</p><div class='box'><span class='m'>x = <sup>m</sup>√(c<sub>1</sub>…c<sub>m</sub>) ≤ a<sub>k</sub> &lt; (a<sub>1</sub> + a<sub>k</sub>)/2 = x</span> ✖</div><p>Ziddiyat! Demak barcha sonlar teng. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya: tub son «filtri»",
+      "fs": 34,
+      "body": "<p>Kompyuterda <span class='m'>n = 2, 3, 4</span> ta karta va kichik sonlar uchun barcha variantlarni tekshirdik — teng bo'lmagan misol <b>topilmadi</b> ✅</p><div class='box'>💡 Eng katta ikki <b>har xil</b> sonni olish yetmaydi! Kartalar <span class='m'>27, 27, 9, 8</span> bo'lsa: <span class='m'>(27 + 9)/2 = 18 = <sup>3</sup>√(27·27·8)</span>. Shuning uchun <span class='m'>p</span> ga bo'linmaydigan eng katta son kerak.</div><p>🧠 <b>Sizga savol:</b> yechimni eng <b>kichik</b> sonlardan boshlab qursak, qaysi holat alohida tekshirilishi kerak? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2020 · 6-masala</b> (kombinatorik geometriya)</p>"
+    }
+  ]
+}
