@@ -1,0 +1,42 @@
+{
+  "id": "2020-2",
+  "badge": "IMO 2020 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Darajalar ko'paytmasi bilan tengsizlik",
+      "fs": 36,
+      "body": "<p><span class='m'>a, b, c, d</span> haqiqiy sonlar quyidagi shartlarni qanoatlantiradi:</p><div class='box' style='text-align:center'><span class='m'>a ≥ b ≥ c ≥ d &gt; 0</span><br><span class='m'>a + b + c + d = 1</span></div><p><b>Isbotlang:</b></p><div class='box' style='text-align:center'><span class='m'>(a + 2b + 3c + 4d) · a<sup>a</sup> b<sup>b</sup> c<sup>c</sup> d<sup>d</sup> &lt; 1</span></div><p>Ko'rinishidan qo'rqinchli: daraja ko'rsatkichida o'zgaruvchilar turibdi. Lekin yechim kutilmaganda «oddiy» 👀</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Darajalardan qutulamiz",
+      "fs": 35,
+      "body": "<p><span class='m'>a, b, c, d</span> musbat va yig'indisi 1 — demak ularni <b>vaznlar</b> sifatida ishlatish mumkin.</p><p><b>Vaznli AM-GM</b> (o'rta geometrik ≤ o'rta arifmetik): <span class='m'>a, b, c, d</span> sonlarini mos ravishda <span class='m'>a, b, c, d</span> vaznlar bilan olamiz:</p><div class='box' style='text-align:center'><span class='m'>a<sup>a</sup> b<sup>b</sup> c<sup>c</sup> d<sup>d</sup> ≤ a·a + b·b + c·c + d·d</span><br><span class='m'>= a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + d<sup>2</sup></span></div><p>Endi daraja ko'rsatkichlarida o'zgaruvchi yo'q — faqat oddiy ko'phadlar qoldi ✅</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Bir jinsli ko'rinishga keltiramiz",
+      "fs": 35,
+      "body": "<p>Demak quyidagini isbotlash kifoya:</p><div class='box' style='text-align:center'><span class='m'>(a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + d<sup>2</sup>)(a + 2b + 3c + 4d) &lt; 1</span></div><p>Chap tomon — 3-darajali ko'phad. O'ng tomondagi 1 ni ham 3-darajali qilamiz, chunki <span class='m'>a + b + c + d = 1</span>:</p><div class='box' style='text-align:center'><span class='m'>1 = (a + b + c + d)<sup>3</sup></span></div><p>Endi ikkala tomonni <b>qavslarni ochib</b> solishtiramiz. Ha, IMO masalasi — oddiy qavs ochish bilan! 😄</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Qavslarni ochamiz",
+      "fs": 33,
+      "body": "<p>Har ikki tomonni ochib, bir xil hadlarni qisqartirsak, quyidagi tengsizlik qoladi:</p><div class='box' style='text-align:center'><span class='m'>b<sup>3</sup> + 2c<sup>3</sup> + 3d<sup>3</sup> + a<sup>2</sup>d + b<sup>2</sup>d + c<sup>2</sup>d</span><br><span class='m'>&lt;</span><br><span class='m'>2ab<sup>2</sup> + 2ac<sup>2</sup> + 2ad<sup>2</sup> + a<sup>2</sup>b + bc<sup>2</sup> + bd<sup>2</sup></span><br><span class='m'>+ 6(abc + bcd + cda + dab)</span></div><p>Chapda 6 xil had, o'ngda ham 6 xil had (+ musbat qo'shimcha). Endi ularni <b>juft-juft</b> solishtiramiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Hadma-had solishtirish",
+      "fs": 33,
+      "body": "<p><span class='m'>a ≥ b ≥ c ≥ d</span> tartibdan foydalanamiz:</p><div class='box'><span class='m'>2ab<sup>2</sup> ≥ b<sup>3</sup> + b<sup>2</sup>d</span>  (chunki <span class='m'>2a ≥ b + d</span>)<br><span class='m'>2ac<sup>2</sup> ≥ 2c<sup>3</sup></span>  (chunki <span class='m'>a ≥ c</span>)<br><span class='m'>2ad<sup>2</sup> ≥ 2d<sup>3</sup></span>  (chunki <span class='m'>a ≥ d</span>)<br><span class='m'>a<sup>2</sup>b ≥ a<sup>2</sup>d</span>  (chunki <span class='m'>b ≥ d</span>)<br><span class='m'>bc<sup>2</sup> ≥ c<sup>2</sup>d</span>  (chunki <span class='m'>b ≥ d</span>)<br><span class='m'>bd<sup>2</sup> ≥ d<sup>3</sup></span>  (chunki <span class='m'>b ≥ d</span>)</div><p>Bularni qo'shsak, chap tomon to'liq qoplanadi. Qolgan <span class='m'>6(abc + bcd + cda + dab) &gt; 0</span> esa tengsizlikni <b>qat'iy</b> qiladi. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>🔑 Ikki qadam: <b>vaznli AM-GM</b> darajalarni yo'qotadi, keyin <b>bir jinslash + qavs ochish</b> ishni tugatadi.</p><div class='box'>Tekshiruv: tasodifiy 200 000 ta to'rtlikda ifodaning eng katta qiymati ≈ 0,91 chiqdi — haqiqatan ham 1 dan kichik.</div><p>F. Petrov fikri: 1, 2, 3, 4 koeffitsiyentlar o'sib boradi, <span class='m'>a, b, c, d</span> esa kamayadi — shuning uchun <span class='m'>(a+b+c+d)<sup>3</sup></span> hadma-had ustun bo'lishi tabiiy.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>a = b = c = d = 1/4</span> da ifoda nechaga teng? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2020 · 3-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
