@@ -1,0 +1,36 @@
+{
+  "id": "2020-4",
+  "badge": "IMO 2020 · 4-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Ikki kanatli yo'l kompaniyasi",
+      "fs": 34,
+      "body": "<p>Butun son <span class='m'>n &gt; 1</span>. Tog' yonbag'rida har xil balandlikda <span class='m'>n<sup>2</sup></span> ta <b>bekat</b> bor. <b>A</b> va <b>B</b> kompaniyalarining har biri <span class='m'>k</span> tadan kanat vagoniga ega: har vagon bir bekatdan <b>balandroq</b> bekatga to'xtovsiz olib chiqadi.</p><p>Bitta kompaniya vagonlarining <span class='m'>k</span> ta boshlanish nuqtasi har xil, <span class='m'>k</span> ta tugash nuqtasi ham har xil; balandroqdan boshlangan vagon balandroqda tugaydi.</p><p>Ikki bekat kompaniya tomonidan <b>bog'langan</b> — agar pastkisidan yuqorisiga faqat shu kompaniya vagonlari bilan chiqish mumkin bo'lsa.</p><div class='box'>Qanday eng kichik <span class='m'>k</span> da ikkala kompaniya tomonidan bog'langan ikki bekat <b>albatta</b> topiladi?</div>"
+    },
+    {
+      "kicker": "JAVOB VA MISOL",
+      "title": "Javob: k = n² − n + 1",
+      "fs": 33,
+      "body": "<p>Avval <span class='m'>k = n<sup>2</sup> − n</span> yetmasligini ko'rsatamiz. Bekatlarni pastdan yuqoriga <span class='m'>1, 2, …, n<sup>2</sup></span> deb raqamlab, <span class='m'>n × n</span> jadvalga qatorlab joylaymiz (<span class='m'>n = 3</span>):</p><svg viewBox='0 0 560 280' width='560' height='280' style='display:block;margin:0 auto 10px'><line x1='150' y1='230' x2='410' y2='230' stroke='#f2b84b' stroke-width='6'/><line x1='150' y1='140' x2='410' y2='140' stroke='#f2b84b' stroke-width='6'/><line x1='150' y1='50' x2='410' y2='50' stroke='#f2b84b' stroke-width='6'/><line x1='150' y1='230' x2='150' y2='50' stroke='#eef2f7' stroke-width='4' stroke-dasharray='12 8'/><line x1='280' y1='230' x2='280' y2='50' stroke='#eef2f7' stroke-width='4' stroke-dasharray='12 8'/><line x1='410' y1='230' x2='410' y2='50' stroke='#eef2f7' stroke-width='4' stroke-dasharray='12 8'/><circle cx='150' cy='230' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='150' y='240' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>1</text><circle cx='280' cy='230' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='280' y='240' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>2</text><circle cx='410' cy='230' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='410' y='240' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>3</text><circle cx='150' cy='140' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='150' y='150' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>4</text><circle cx='280' cy='140' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='280' y='150' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>5</text><circle cx='410' cy='140' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='410' y='150' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>6</text><circle cx='150' cy='50' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='150' y='60' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>7</text><circle cx='280' cy='50' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='280' y='60' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>8</text><circle cx='410' cy='50' r='30' fill='#1b2a44' stroke='#eef2f7' stroke-width='3'/><text x='410' y='60' text-anchor='middle' font-size='28' font-weight='700' fill='#eef2f7'>9</text><text x='452' y='60' font-size='26' fill='#f2b84b'>A</text><text x='452' y='270' font-size='26' fill='#eef2f7'>B</text></svg><ul><li><b style='color:#f2b84b'>A</b>: har <b>qatorda</b> qo'shni bekatlar <span class='m'>i → i+1</span>;</li><li><b>B</b>: har <b>ustunda</b> <span class='m'>i → i+n</span>.</li></ul><div class='box'>Har biri <span class='m'>n(n−1)</span> ta vagon. A faqat bir qatordagilarni, B faqat bir ustundagilarni bog'laydi — umumiy juft <b>yo'q</b>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Vagonlar — yo'llar to'plami",
+      "fs": 34,
+      "body": "<p>Bitta kompaniyani graf deb qaraymiz: bekatlar — uchlar, vagonlar — qirralar.</p><p>Har bekatdan <b>ko'pi bilan bitta</b> vagon chiqadi va <b>ko'pi bilan bitta</b> vagon kiradi (boshlanish va tugash nuqtalari har xil). Vagonlar faqat yuqoriga yuradi, demak sikl yo'q.</p><div class='box'>Demak graf bir nechta <b>zanjirdan</b> (yo'ldan) iborat. Bir zanjirdagi istalgan ikki bekat — <b>bog'langan</b>: pastkisidan zanjir bo'ylab yuqorisiga chiqamiz.</div><p>Har bir vagon zanjirlar sonini 1 taga kamaytiradi, shuning uchun zanjirlar soni:</p><div class='box' style='text-align:center'><span class='m'>n<sup>2</sup> − k</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Dirixle prinsipi",
+      "fs": 34,
+      "body": "<p>Endi <span class='m'>k = n<sup>2</sup> − n + 1</span> bo'lsin. U holda A ham, B ham aynan</p><div class='box' style='text-align:center'><span class='m'>n<sup>2</sup> − k = n − 1</span> ta zanjirga</div><p>ega. <span class='m'>n<sup>2</sup></span> ta bekat A ning <span class='m'>n − 1</span> ta zanjiriga bo'lingan, <span class='m'>n<sup>2</sup> &gt; n(n − 1)</span> bo'lgani uchun A ning qaysidir zanjirida <b>kamida</b> <span class='m'>n + 1</span> ta bekat bor.</p><p>Bu <span class='m'>n + 1</span> ta bekat B ning atigi <span class='m'>n − 1</span> ta zanjiriga tushadi ⇒ ulardan <b>ikkitasi</b> B ning bitta zanjirida.</p><div class='box'>Bu ikki bekat A da ham, B da ham bir zanjirda — ikkala kompaniya tomonidan bog'langan! ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya: komponentlarni sanash",
+      "fs": 33,
+      "body": "<p><span class='m'>n = 2</span> (4 ta bekat) uchun kompyuterda barcha variantlarni tekshirdik: <span class='m'>k = 1, 2</span> da qarshi misol bor, <span class='m'>k = 3</span> da esa doim bog'langan juft topiladi ✅</p><div class='box'>💡 <span class='m'>n<sup>2</sup></span> ta bekat — katta ishora: jadval ko'rinishi qurilmani ham, javobni ham beradi. «Balandroqdan boshlangan vagon balandroqda tugaydi» sharti esa aslida <b>keraksiz</b>!</div><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 4</span> bo'lsa, javob nechaga teng va qarshi misolda har kompaniyada nechta vagon bo'ladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2020 · 5-masala</b> (sonlar nazariyasi)</p>"
+    }
+  ]
+}
