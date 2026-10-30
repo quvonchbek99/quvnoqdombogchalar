@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Rubik kubigi — formulalar bilan tushunish va yechish | Kuvonch Academy</title>
+<meta name="description" content="Rubik kubigini formulalar orqali o'rganing: tomonlar va belgilar (R, R', R2), silliq 3D kub, haqiqiy yechuvchi (Kotsemba algoritmi) qadamma-qadam, o'z kubingizni bo'yab yechish, 7 qadamli boshlang'ich usul, 43 kvintillion holat matematikasi va formula tartibi. Bepul.">
+<link rel="canonical" href="https://kuvonch.uz/rubik.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Rubik kubigi — formulalar bilan tushunish va yechish">
+<meta property="og:description" content="3D Rubik kubigi: belgilar, formulalar, haqiqiy yechuvchi, o'z kubingizni yechish, boshlang'ich usul va guruhlar nazariyasi.">
+<meta property="og:url" content="https://kuvonch.uz/rubik.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<style>
+:root{
+  --night:#060a1a;--night-2:#0c1330;--line:#1d2850;--chalk:#f3f5ff;--haze:#93a3cc;
+  --teal:#35f0c4;--violet:#a27bff;--rose:#ff5e8e;--amber:#ffc23d;
+  --bg:var(--night);--bg-soft:#0f1834;--card:#101a3a;--border:var(--line);--text:var(--chalk);--text-dim:var(--haze);--accent:var(--teal);--accent-2:var(--violet);
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --body:"Golos Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --cU:#ffd60a;--cR:#ff8c1a;--cF:#2bd67f;--cD:#f3f5ff;--cL:#ff5468;--cB:#5c9bff;
+}
+*{box-sizing:border-box}
+html{background:var(--night);-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(70% 40% at 80% 0%,rgba(162,123,255,.13),transparent 70%),radial-gradient(50% 30% at 0% 30%,rgba(53,240,196,.07),transparent 70%),var(--night);color:var(--chalk);font:400 16px/1.55 var(--body);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media (max-width:520px){.wrap{padding:0 16px}}
+.knav a{font-family:var(--body)}
+.knav-head .brand{font-family:var(--display);font-weight:700;font-size:16px}
+.hero{padding:30px 0 6px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:center}
+@media (min-width:900px){.hero{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}}
+.kicker{display:inline-block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(53,240,196,.35);background:rgba(53,240,196,.08);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+h1{font:800 clamp(26px,5.2vw,46px)/1.05 var(--display);letter-spacing:-.03em;margin:0 0 12px}
+h1 span{background:linear-gradient(100deg,var(--teal),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:#c5cef0;max-width:48em;margin:0 0 14px;font-size:clamp(15px,1.7vw,18px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;padding:0;list-style:none}
+.chips li{font-size:13px;color:var(--haze);border:1px solid var(--line);background:rgba(16,26,58,.6);border-radius:999px;padding:5px 11px}
+.hero-art{position:relative;display:flex;justify-content:center}
+#cv-hero{width:min(100%,340px);aspect-ratio:1/1;display:block}
+@media (max-width:899px){.hero-art{display:none}}
+
+/* ---------- tushuntirish ---------- */
+.theory{padding:30px 0 6px}
+.theory h2,.sec-h{font:700 clamp(21px,2.6vw,28px)/1.15 var(--display);letter-spacing:-.02em;margin:0 0 6px}
+.theory .sub,.sec-sub{color:var(--haze);margin:0 0 18px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tgrid.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.tcard{background:rgba(16,26,58,.6);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
+.tcard h3{margin:0 0 8px;font:700 16px/1.25 var(--display);letter-spacing:-.01em}
+.tcard p{margin:0 0 8px;color:#c9d1ef;font-size:15px}
+.tcard p:last-child{margin-bottom:0}
+.demo-cv{display:block;width:100%;aspect-ratio:4/3;border-radius:12px;background:radial-gradient(60% 60% at 50% 45%,rgba(162,123,255,.16),rgba(6,10,26,0) 70%),#0a1029;border:1px solid var(--line);margin:6px 0 10px;touch-action:pan-y;cursor:grab}
+.demo-cv.wide{aspect-ratio:16/9}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:100%}
+.seg .btn{border:0;border-radius:0;background:#0e1736}
+.seg .btn+.btn{border-left:1px solid var(--line)}
+.seg .btn.on{background:rgba(53,240,196,.12);box-shadow:none;color:var(--teal)}
+.flegend{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:4px 0 8px;padding:0;list-style:none;font-size:14px}
+.flegend li{display:flex;align-items:center;gap:8px;min-width:0}
+.flegend b{font:800 15px/1 var(--display);width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:#0a1029;border:2px solid currentColor;flex:0 0 auto}
+.flegend span{color:#c9d1ef}
+.nb{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.nb .btn{min-width:46px;padding:8px 10px;font-family:var(--display);font-size:15px}
+.nb .btn.f-U{color:var(--cU)}.nb .btn.f-R{color:var(--cR)}.nb .btn.f-F{color:var(--cF)}.nb .btn.f-D{color:var(--cD)}.nb .btn.f-L{color:var(--cL)}.nb .btn.f-B{color:var(--cB)}
+.nb .btn.on{background:rgba(53,240,196,.12)}
+.ntxt{font-size:15px;color:#dfe5ff;min-height:3.2em;margin:0}
+.big-tok{font:800 22px/1 var(--display);margin-right:4px}
+
+/* rangli harflar */
+.f-U{color:var(--cU)}.f-R{color:var(--cR)}.f-F{color:var(--cF)}.f-D{color:var(--cD)}.f-L{color:var(--cL)}.f-B{color:var(--cB)}
+.c-U{color:var(--cU)}.c-R{color:var(--cR)}.c-F{color:var(--cF)}.c-D{color:var(--cD)}.c-L{color:var(--cL)}.c-B{color:var(--cB)}
+.toks{display:flex;flex-wrap:wrap;gap:5px;align-items:center;min-height:34px}
+.tok{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:34px;padding:0 8px;border-radius:9px;border:1px solid var(--line);background:#0a1130;font:700 15px/1 var(--display);letter-spacing:-.01em;transition:background .15s,transform .15s,border-color .15s,opacity .15s}
+.tok.dim{opacity:.45}
+.tok.setup{border-style:dashed}
+.tok.done{opacity:.5}
+.tok.cur{background:#1b2a5e;border-color:var(--amber);box-shadow:0 0 0 2px rgba(255,194,61,.35);transform:translateY(-2px)}
+button.tok{cursor:pointer}
+.fml{font:800 clamp(18px,2.4vw,24px)/1.35 var(--display);letter-spacing:-.01em;margin:4px 0 8px;word-spacing:.12em}
+kbd{font:700 12.5px/1 var(--display);padding:4px 6px;border-radius:6px;border:1px solid #2c3b72;background:#0a1130;color:var(--chalk)}
+
+/* ---------- laboratoriya ---------- */
+.labsec{padding:24px 0 10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.tab{min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#0c1330;color:var(--haze);font:600 14px/1.1 var(--body);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.tab:hover{color:var(--chalk);border-color:#2c3b72}
+.tab[aria-selected="true"]{color:#060a1a;background:linear-gradient(120deg,var(--teal),var(--violet));border-color:transparent;box-shadow:0 8px 24px -10px rgba(162,123,255,.7)}
+@media (max-width:520px){.tabs{gap:6px}.tab{flex:1 1 auto;padding:10px 8px;font-size:13.5px}}
+.lab{background:linear-gradient(180deg,#0c1330,#090f27);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset}
+.lab-bar{display:flex;align-items:center;gap:8px;padding:8px 10px 8px 14px;border-bottom:1px solid var(--line);background:#0a1130}
+.dots{display:flex;gap:6px;flex:0 0 auto}.dots i{width:10px;height:10px;border-radius:50%;background:#ff5e8e}.dots i:nth-child(2){background:#ffc23d}.dots i:nth-child(3){background:#35f0c4}
+.lab-title{flex:1 1 auto;min-width:0;font:600 13px/1.3 var(--body);color:var(--haze);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lab-title b{color:var(--chalk);font-weight:700}
+.lab-bar .btn{min-height:44px;padding:8px 10px;font-size:13px;white-space:nowrap;flex:0 0 auto}
+.lab-body{display:grid;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.lab-body{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr)}.side{border-left:1px solid var(--line)}}
+.lab-left{min-width:0;display:flex;flex-direction:column}
+.stage{position:relative;height:min(94vw,440px);background:radial-gradient(55% 50% at 50% 46%,rgba(162,123,255,.20),rgba(53,240,196,.04) 55%,rgba(6,10,26,0) 75%),#080d24;overflow:hidden;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+@media (min-width:900px){.stage{height:520px}}
+.stage.paint{cursor:crosshair}
+.stage canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block;outline:none}
+#cv3{opacity:0;transition:opacity .4s}
+#cv3.on{opacity:1}
+.st-load{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-size:12.5px;color:var(--haze);background:rgba(6,10,26,.78);border:1px solid var(--line);padding:6px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis}
+.st-load:empty{display:none}
+.mv-flash{position:absolute;left:14px;top:12px;font:800 clamp(30px,6vw,46px)/1 var(--display);letter-spacing:-.02em;text-shadow:0 4px 20px rgba(0,0,0,.8);opacity:0;pointer-events:none;transform:translateY(-4px)}
+.mv-flash.show{animation:flash .7s ease-out}
+@keyframes flash{0%{opacity:0;transform:translateY(6px) scale(.9)}15%{opacity:1;transform:none}70%{opacity:1}100%{opacity:0;transform:translateY(-6px)}}
+.st-hud{position:absolute;right:12px;top:12px;font:700 13px/1.2 var(--body);color:var(--chalk);background:rgba(6,10,26,.72);border:1px solid var(--line);padding:6px 10px;border-radius:10px;pointer-events:none;text-align:right}
+.st-hud:empty{display:none}
+.toast{position:absolute;left:50%;top:14px;transform:translate(-50%,-10px);max-width:calc(100% - 28px);padding:9px 14px;border-radius:12px;background:rgba(10,17,48,.95);border:1px solid #34478a;color:var(--chalk);font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;text-align:center;z-index:5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.ok{border-color:var(--teal);color:#dffcf4}
+.toast.bad{border-color:var(--rose)}
+.st-help{position:absolute;left:12px;bottom:10px;font-size:12px;color:#6f7fae;pointer-events:none}
+.pad{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;padding:10px;border-top:1px solid var(--line);background:#0b1230}
+.pad[hidden]{display:none}
+.mv{min-height:46px;border-radius:11px;border:1px solid var(--line);background:#111b3e;color:var(--chalk)!important;font:800 16px/1 var(--display);cursor:pointer;position:relative;padding:0;transition:background .12s,transform .08s}
+.mv::after{content:"";position:absolute;left:10px;right:10px;bottom:5px;height:3px;border-radius:2px;background:#fff;opacity:.9}
+.mv:hover{background:#16245a}
+.mv.f-U::after{background:var(--cU)}.mv.f-R::after{background:var(--cR)}.mv.f-F::after{background:var(--cF)}.mv.f-D::after{background:var(--cD)}.mv.f-L::after{background:var(--cL)}.mv.f-B::after{background:var(--cB)}
+.mv:active{transform:translateY(1px) scale(.97)}
+.mv:disabled{opacity:.35;cursor:not-allowed}
+.btn{min-height:44px;min-width:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#111b3e;color:var(--chalk);font:600 14px/1.15 var(--body);cursor:pointer;transition:background .15s,border-color .15s,transform .1s}
+.btn:hover{border-color:#34478a;background:#142250}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.pri{background:linear-gradient(120deg,var(--teal),#9af7ff);color:#03131a;border-color:transparent}
+.btn.vio{background:linear-gradient(120deg,var(--violet),#c9b2ff);color:#12082a;border-color:transparent}
+.btn.rose{background:linear-gradient(120deg,var(--rose),#ff9bb8);color:#2a0612;border-color:transparent}
+.btn.on{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal);color:var(--teal)}
+.btn.sm{min-height:40px;padding:8px 11px;font-size:13.5px}
+.side{padding:14px 16px 18px;min-width:0;border-top:1px solid var(--line)}
+@media (min-width:900px){.side{border-top:0;max-height:none}}
+.pane{display:none}
+.pane.on{display:block;animation:fadein .25s ease-out}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.ph{font:700 17px/1.25 var(--display);margin:0 0 6px;letter-spacing:-.01em}
+.muted{color:var(--haze);font-size:14px;margin:0 0 10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.lbl{font-size:13px;color:var(--haze)}
+.box{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:rgba(10,17,48,.55);margin:0 0 10px}
+.box .lbl{display:block;margin-bottom:6px}
+.status{margin:6px 0 0;font-weight:600;min-height:1.5em}
+.ok{color:var(--teal)}.bad{color:var(--rose)}.warn{color:var(--amber)}
+.score{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.score span{font-size:13px;color:var(--haze);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#0c1330}
+.score b{color:var(--chalk)}
+.prog{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:13.5px;color:var(--haze)}
+.prog[hidden]{display:none}
+.bar{flex:1 1 auto;height:10px;border-radius:99px;background:#0a1130;border:1px solid var(--line);overflow:hidden;min-width:80px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--violet));transition:width .2s}
+.phase{font-size:14px;color:#c9d1ef;margin:0 0 8px}
+.phase b{color:var(--chalk)}
+.ph1{color:var(--violet)}.ph2{color:var(--teal)}
+.sol .tok.p1{border-bottom:3px solid var(--violet)}
+.sol .tok.p2{border-bottom:3px solid var(--teal)}
+.ctrl{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.ctrl .btn{flex:1 1 0;min-width:48px;font-size:16px;padding:8px 6px}
+.now{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:rgba(10,17,48,.6);display:flex;gap:12px;align-items:center;min-height:64px}
+.now .big{font:800 34px/1 var(--display);min-width:58px;text-align:center}
+.now p{margin:0;font-size:14.5px;color:#dfe5ff}
+input[type=range]{accent-color:var(--teal);width:140px;max-width:50%;height:30px}
+.inp{min-height:46px;flex:1 1 200px;min-width:0;padding:8px 12px;border-radius:12px;border:1px solid #2a3a72;background:#070c22;color:var(--chalk);font:700 17px var(--display);letter-spacing:.02em}
+.inp:focus{border-color:var(--teal);outline:none}
+
+/* bo'yash */
+.palette{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.pc{width:46px;height:46px;border-radius:12px;border:2px solid rgba(255,255,255,.15);cursor:pointer;position:relative;box-shadow:inset 0 -6px 12px rgba(0,0,0,.25)}
+.pc.on{outline:3px solid var(--chalk);outline-offset:2px}
+.pc.er{background:repeating-linear-gradient(45deg,#2a3358 0 6px,#1a2244 6px 12px)}
+.pc small{position:absolute;right:-6px;top:-8px;font:700 10px/1 var(--body);background:#0a1130;border:1px solid var(--line);border-radius:99px;padding:2px 5px;color:var(--haze)}
+.pc small.full{color:var(--teal);border-color:var(--teal)}
+.pc small.over{color:var(--rose);border-color:var(--rose)}
+.netw{margin:0 0 10px}
+.net{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;width:100%;max-width:480px}
+.net .cell{aspect-ratio:1/1;border-radius:5px;border:0;padding:0;cursor:pointer;box-shadow:inset 0 -3px 6px rgba(0,0,0,.25);min-width:0}
+.net .cell.X{background:#2a3358;box-shadow:inset 0 0 0 1px #3a4778}
+.net .cell.ctr{cursor:not-allowed;position:relative}
+.net .cell.ctr::after{content:attr(data-l);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:800 11px/1 var(--display);color:rgba(6,10,26,.7)}
+.net .cell.err{outline:2px solid var(--rose);outline-offset:-1px;animation:blink 1s 3}
+@keyframes blink{50%{outline-color:transparent}}
+.net .cell.sel{box-shadow:inset 0 0 0 2px #fff}
+.bigface{display:none;margin:0 0 10px}
+.bigface .fsel{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 8px}
+.bigface .fsel .btn{flex:1 1 0;min-width:44px;padding:8px 4px;font-family:var(--display)}
+.bigface .g3{display:grid;grid-template-columns:repeat(3,64px);gap:6px;justify-content:center}
+.bigface .g3 .cell{width:64px;height:64px;border-radius:10px;border:0;cursor:pointer;box-shadow:inset 0 -5px 10px rgba(0,0,0,.25)}
+.bigface .g3 .cell.X{background:#2a3358;box-shadow:inset 0 0 0 1px #3a4778}
+@media (max-width:640px){.bigface{display:block}}
+.msg{font-size:14.5px;margin:6px 0 0}
+.msg ul{margin:6px 0 0;padding-left:20px}
+.msg li{margin:0 0 5px}
+
+/* usul */
+.steps{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin:0 0 10px;max-width:360px}
+.stp{width:100%;min-width:0;height:44px;border-radius:14px;border:1px solid var(--line);background:#0c1330;color:var(--haze);font:800 16px/1 var(--display);cursor:pointer;position:relative}
+.stp.on{background:linear-gradient(120deg,var(--teal),var(--violet));color:#060a1a;border-color:transparent}
+.stp.done::after{content:"✓";position:absolute;right:-4px;top:-4px;width:18px;height:18px;border-radius:50%;background:var(--teal);color:#03131a;font:800 11px/18px var(--body)}
+.ucard{border:1px solid var(--line);border-radius:16px;padding:12px;background:rgba(10,17,48,.55);margin:0 0 10px}
+.uhead{display:flex;gap:12px;align-items:center;margin:0 0 8px}
+.uhead canvas{width:96px;height:96px;flex:0 0 auto;border-radius:12px;background:#0a1029;border:1px solid var(--line)}
+.uhead h4{margin:0 0 4px;font:700 16px/1.25 var(--display)}
+.uhead p{margin:0;font-size:14px;color:#c9d1ef}
+.uinfo{font-size:14px;color:#c9d1ef;margin:0 0 8px}
+.case{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 0;border-top:1px dashed var(--line)}
+.case .cl{flex:1 1 100%;font-size:13.5px;color:var(--haze)}
+.case .fml{margin:0;flex:1 1 auto;font-size:17px}
+.case .btn{flex:0 0 auto}
+.demo-bar{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:rgba(10,17,48,.6);margin:0 0 10px}
+.demo-bar[hidden]{display:none}
+.demo-bar .note{font-size:14px;color:#dfe5ff;margin:6px 0 0;min-height:1.4em}
+
+/* o'yin */
+.ba{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px;align-items:center;margin:0 0 8px}
+.ba figure{margin:0;text-align:center;min-width:0}
+.ba canvas{width:100%;aspect-ratio:1/1;display:block;border-radius:12px;background:radial-gradient(60% 60% at 50% 45%,rgba(162,123,255,.14),rgba(6,10,26,0) 70%),#0a1029;border:1px solid var(--line)}
+.ba figcaption{font-size:13px;color:var(--haze);margin-top:4px}
+.ba .arr{font:800 22px/1 var(--display);color:var(--amber)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
+.opts .btn{font-family:var(--display);font-size:14px;font-weight:700;padding:10px 8px;line-height:1.35;word-spacing:.08em}
+.opts .btn:disabled{opacity:.55;cursor:default}
+.opts .btn.right,.opts .btn.wrong{opacity:1}
+.opts .btn.right{border-color:var(--teal);background:rgba(53,240,196,.14);color:var(--teal)}
+.opts .btn.wrong{border-color:var(--rose);background:rgba(255,94,142,.12);color:var(--rose)}
+@media (max-width:420px){.opts{grid-template-columns:1fr}}
+.fb{font-size:14.5px;min-height:1.5em;margin:0 0 10px}
+.fbw{display:flex;gap:10px;align-items:center;margin-top:4px}
+.fbw canvas{width:96px;height:96px;flex:0 0 auto;border-radius:10px;border:1px solid var(--line);background:#0a1029}
+.fbw p{margin:0}
+
+/* vaqt */
+.lvls{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.lvls .btn{min-width:44px;padding:8px 6px;font-family:var(--display)}
+.timer{font:800 clamp(40px,7vw,56px)/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:2px 0 8px;background:linear-gradient(100deg,var(--teal),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left}
+.tbl th{color:var(--haze);font-weight:600}
+.tbl td.cur{color:var(--amber);font-weight:700}
+
+/* matematika */
+.math{padding:34px 0 10px}
+.ftab{width:100%;border-collapse:collapse;font-size:14.5px}
+.ftab td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.ftab td:first-child{font:800 17px/1.2 var(--display);white-space:nowrap;color:var(--amber);width:1%}
+.ftab td:nth-child(2){font:700 14px/1.3 var(--display);white-space:nowrap;color:var(--teal);text-align:right;width:1%}
+.ftab td:last-child{color:#c9d1ef}
+.bignum{font:800 clamp(19px,3.4vw,32px)/1.2 var(--display);letter-spacing:-.02em;margin:12px 0 6px;background:linear-gradient(100deg,var(--teal),var(--violet) 60%,var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.prodline{font:700 15px/1.5 var(--body);color:#dfe5ff;overflow-wrap:anywhere}
+.chart{width:100%;height:auto;display:block;margin:6px 0}
+.otool{margin-top:14px;background:linear-gradient(160deg,rgba(53,240,196,.08),rgba(162,123,255,.06) 60%,rgba(16,26,58,.6));border:1px solid #2a3b78;border-radius:18px;padding:18px}
+.otool h3{margin:0 0 6px;font:700 18px/1.25 var(--display)}
+.ask{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.exs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.exs .btn{font-family:var(--display);font-size:13px;padding:8px 10px;min-height:40px}
+.ores{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
+@media (min-width:760px){.ores{grid-template-columns:minmax(0,220px) minmax(0,1fr)}}
+.obig{text-align:center;border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(6,10,26,.5)}
+.obig .n{font:800 clamp(44px,8vw,64px)/1 var(--display);letter-spacing:-.04em;background:linear-gradient(100deg,var(--amber),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.obig .t{font-size:13px;color:var(--haze);margin-top:4px}
+.cycs{display:flex;flex-wrap:wrap;gap:10px}
+.cyc{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:14px;padding:8px 10px;background:rgba(10,17,48,.6);font-size:13.5px;color:#c9d1ef}
+.cyc svg{width:54px;height:54px;flex:0 0 auto}
+.cyc b{color:var(--chalk)}
+.lcmline{font:700 15px/1.5 var(--body);margin:10px 0 0;color:#dfe5ff;overflow-wrap:anywhere}
+footer{border-top:1px solid var(--line);margin-top:34px;padding:24px 0 34px;color:var(--haze);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script async src="statistika.js"></script>
+<style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="english/">🇬🇧 Ingliz tili</a>
+<a href="rus-tili/">🇷🇺 Rus tili</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="sinf-oyinlari.html" class="new">🎯 Sinf o'yinlari</a>
+<a href="fizika.html">⚛️ Fizika lab</a>
+<a href="tarozi.html">⚖️ Tarozi</a>
+</nav>
+</header>
+
+<section class="hero">
+<div>
+<span class="kicker">🧊 Interaktiv laboratoriya</span>
+<h1>Rubik kubigi — <span>formulalar</span> bilan</h1>
+<p class="lead">Kubni tushunish uchun uning tilini o'rganamiz: har bir tomon harf bilan belgilanadi, burilishlar ketma-ketligi esa <b>formula</b> deyiladi. Avval belgilarni o'rganing, keyin 3D kubda mashq qiling, kompyuter yechimini qadamma-qadam kuzating, haqiqiy kubingizni bo'yab yechtiring va 7 qadamli boshlang'ich usulni o'zlashtiring.</p>
+<ul class="chips">
+<li>🔤 R, R', R2 belgilari</li>
+<li>🧊 3D kub — 18 burilish</li>
+<li>🤖 Haqiqiy yechuvchi</li>
+<li>🎨 O'z kubingizni yeching</li>
+<li>📘 7 qadamli usul</li>
+<li>🔢 43 kvintillion holat</li>
+<li>🔁 Formula tartibi</li>
+<li>🎯 O'yin va rekordlar</li>
+</ul>
+</div>
+<div class="hero-art" aria-hidden="true"><canvas id="cv-hero"></canvas></div>
+</section>
+
+<section class="theory" id="tushuntirish" aria-labelledby="ex-h">
+<h2 id="ex-h">Avval tushunib olamiz</h2>
+<p class="sub">To'rt narsani bilsangiz, istalgan formulani o'qiy olasiz. Rasmlarni barmoq yoki sichqoncha bilan aylantirish mumkin.</p>
+<div class="tgrid">
+<div class="tcard">
+<h3>🧩 Kub nimadan iborat?</h3>
+<canvas class="demo-cv" id="cv-parts" aria-label="Kub qismlari: markaz, qirra va burchaklar"></canvas>
+<div class="seg" id="parts-seg" role="group" aria-label="Qismlarni ajratish"><button class="btn sm on" data-v="all">Hammasi</button><button class="btn sm" data-v="c">Markaz · 6</button><button class="btn sm" data-v="e">Qirra · 12</button><button class="btn sm" data-v="k">Burchak · 8</button></div>
+<p style="margin-top:10px" id="parts-txt">Kub 26 ta kichik kubchadan iborat: <b>6 ta markaz</b> (1 rangli), <b>12 ta qirra</b> (2 rangli) va <b>8 ta burchak</b> (3 rangli). Burilishda qirra doim qirra joyiga, burchak — burchak joyiga o'tadi.</p>
+</div>
+<div class="tcard">
+<h3>🧭 Tomonlar nomi</h3>
+<canvas class="demo-cv wide" id="cv-faces" aria-label="Kubning 6 tomoni: old va orqa ko'rinish"></canvas>
+<ul class="flegend">
+<li class="c-F"><b>F</b><span><i>Front</i> — old</span></li>
+<li class="c-B"><b>B</b><span><i>Back</i> — orqa</span></li>
+<li class="c-U"><b>U</b><span><i>Up</i> — tepa</span></li>
+<li class="c-D"><b>D</b><span><i>Down</i> — past</span></li>
+<li class="c-L"><b>L</b><span><i>Left</i> — chap</span></li>
+<li class="c-R"><b>R</b><span><i>Right</i> — o'ng</span></li>
+</ul>
+<p>Markazlar hech qachon joyidan siljimaydi, shuning uchun tomon rangini markaz belgilaydi. Bizning kubda: tepa — <b class="c-U">sariq</b>, old — <b class="c-F">yashil</b>, o'ng — <b class="c-R">to'q sariq</b>.</p>
+</div>
+<div class="tcard">
+<h3>🔤 Belgilash: R, R' va R2</h3>
+<canvas class="demo-cv" id="cv-note" aria-label="Burilish namoyishi"></canvas>
+<div class="nb" id="note-f" role="group" aria-label="Tomon"><button class="btn f-U" data-f="U">U</button><button class="btn f-D" data-f="D">D</button><button class="btn f-L" data-f="L">L</button><button class="btn f-R on" data-f="R">R</button><button class="btn f-F" data-f="F">F</button><button class="btn f-B" data-f="B">B</button></div>
+<div class="seg" id="note-q" role="group" aria-label="Yo'nalish"><button class="btn sm on" data-q="">soat bo'yicha</button><button class="btn sm" data-q="'">' teskari</button><button class="btn sm" data-q="2">2 · 180°</button></div>
+<p class="ntxt" id="note-txt" style="margin-top:10px"></p>
+</div>
+<div class="tcard">
+<h3>🧪 Formula (algoritm) nima?</h3>
+<canvas class="demo-cv" id="cv-alg" aria-label="Formula namoyishi"></canvas>
+<div class="toks" id="alg-toks" style="margin-bottom:8px"></div>
+<div class="row"><button class="btn pri sm" id="alg-play">▶ R U R' U'</button><button class="btn sm" id="alg-six">🔁 6 marta takrorlash</button></div>
+<p id="alg-txt">Formula — burilishlar ketma-ketligi, chapdan o'ngga o'qiladi: <b>R U R' U'</b> = «R, keyin U, keyin R', keyin U'». Har qanday formulani yetarlicha takrorlasangiz, kub albatta boshlang'ich holatiga qaytadi!</p>
+<p class="muted" style="margin:0">Bekor qilish uchun teskari tartibda, har bir harfni teskari qilib bajaring: (R U R' U')⁻¹ = U R U' R'.</p>
+</div>
+</div>
+</section>
+
+<section class="labsec" id="lab-sec" aria-label="3D laboratoriya">
+<h2 class="sec-h">🧊 3D laboratoriya</h2>
+<p class="sec-sub">Kubni barmoq yoki sichqoncha bilan aylantiring. Burilish tugmalari yoki klaviatura: <kbd>R</kbd> <kbd>L</kbd> <kbd>U</kbd> <kbd>D</kbd> <kbd>F</kbd> <kbd>B</kbd>, teskari uchun <kbd>Shift</kbd>, orqaga — <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</p>
+<div class="tabs" role="tablist" aria-label="Rejimlar">
+<button class="tab" role="tab" data-tab="kub" aria-selected="true">🧊 Erkin kub</button>
+<button class="tab" role="tab" data-tab="yech" aria-selected="false">🤖 Yechuvchi</button>
+<button class="tab" role="tab" data-tab="boya" aria-selected="false">🎨 O'z kubingizni yeching</button>
+<button class="tab" role="tab" data-tab="usul" aria-selected="false">📘 Boshlang'ich usul</button>
+<button class="tab" role="tab" data-tab="oyin" aria-selected="false">🎯 Formulani top</button>
+<button class="tab" role="tab" data-tab="vaqt" aria-selected="false">⏱ Tezkor yechish</button>
+</div>
+<div class="lab" id="lab">
+<div class="lab-bar">
+<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+<span class="lab-title" id="lab-title"></span>
+<button class="btn on" id="b-lbl" type="button" aria-pressed="true" title="Tomon harflarini ko'rsatish">🔤 Harflar</button>
+<button class="btn" id="b-view" type="button" title="Ko'rinishni tiklash">🎥</button>
+</div>
+<div class="lab-body">
+<div class="lab-left">
+<div class="stage" id="stage" tabindex="0" role="application" aria-label="3D Rubik kubigi. Aylantirish uchun suring, burish uchun R, L, U, D, F, B tugmalarini bosing.">
+<canvas id="cv2d" aria-hidden="true"></canvas>
+<canvas id="cv3" aria-hidden="true"></canvas>
+<div class="mv-flash" id="mv-flash" aria-hidden="true"></div>
+<div class="st-hud" id="st-hud" aria-live="polite"></div>
+<div class="toast" id="toast" role="status"></div>
+<div class="st-load" id="st-load"></div>
+</div>
+<div class="pad" id="pad" role="group" aria-label="Burilish tugmalari"></div>
+</div>
+<div class="side" id="side">
+
+<div class="pane on" data-pane="kub">
+<h3 class="ph">🧊 Erkin mashq</h3>
+<p class="muted">Har bir tugma bitta burilish. Masalan, <b class="f-R">R</b> — o'ng tomon, <b class="f-R">R'</b> — teskari, <b class="f-R">R2</b> — 180°. Aralashtiring va o'zingiz yig'ib ko'ring.</p>
+<div class="row"><button class="btn pri" id="k-scr">🎲 Aralashtirish</button><button class="btn" id="k-undo">↶ Orqaga</button><button class="btn" id="k-reset">⟲ Yig'ilgan holat</button></div>
+<div class="row"><span class="lbl">Tezlik:</span><div class="seg" id="k-speed"><button class="btn sm" data-v="0.55">Sekin</button><button class="btn sm on" data-v="1">O'rta</button><button class="btn sm" data-v="1.9">Tez</button></div></div>
+<div class="box"><span class="lbl">Aralashtirish formulasi (20 ta tasodifiy burilish)</span><div class="toks" id="k-scrtxt"><span class="muted" style="margin:0">— hali aralashtirilmagan</span></div></div>
+<div class="box"><span class="lbl">Sizning burilishlaringiz: <b id="k-cnt">0</b></span><div class="toks" id="k-hist"></div></div>
+<p class="status" id="k-status"></p>
+</div>
+
+<div class="pane" data-pane="yech">
+<h3 class="ph">🤖 Kompyuter yechadi</h3>
+<p class="muted">Kotsemba ikki bosqichli algoritmi istalgan holatni odatda 18–22 burilishda yechadi. Kubni aralashtiring (yoki «O'z kubingizni yeching» bo'limida bo'yang) va «Yechimni top» ni bosing.</p>
+<div class="row"><button class="btn" id="y-scr">🎲 Aralashtirish</button><button class="btn pri" id="y-solve">🤖 Yechimni top</button></div>
+<div class="prog" id="y-prog" hidden><div class="bar"><i id="y-bar"></i></div><span id="y-ptxt"></span></div>
+<div id="y-res" hidden>
+<p class="phase" id="y-phase"></p>
+<div class="toks sol" id="y-toks"></div>
+<div class="ctrl"><button class="btn" id="y-first" title="Boshiga" aria-label="Boshiga">⏮</button><button class="btn" id="y-prev" title="Oldingi" aria-label="Oldingi burilish">◀</button><button class="btn pri" id="y-play" title="Ijro / pauza" aria-label="Ijro">▶</button><button class="btn" id="y-next" title="Keyingi" aria-label="Keyingi burilish">▶❘</button><button class="btn" id="y-last" title="Oxiriga" aria-label="Oxiriga">⏭</button></div>
+<div class="row"><span class="lbl">Tezlik</span><input type="range" id="y-spd" min="0.3" max="3" step="0.1" value="1" aria-label="Ijro tezligi"><b id="y-spdv" class="lbl">1×</b></div>
+<div class="now" id="y-now"></div>
+</div>
+<p class="status" id="y-status"></p>
+</div>
+
+<div class="pane" data-pane="boya">
+<h3 class="ph">🎨 O'z kubingizni yeching</h3>
+<p class="muted">Haqiqiy kubingizni <b class="c-U">sariq</b> markaz tepada, <b class="c-F">yashil</b> markaz sizga qaragan holda ushlang. Rangni tanlang va yoyilmadagi yoki 3D kubdagi katakchalarga bosing. Yon tomonlarni bo'yaganda sariq markaz tepada tursin; tepa (U) da ko'k tomon yuqorida, pastki (D) da yashil tomon yuqorida.</p>
+<div class="palette" id="p-pal" role="radiogroup" aria-label="Rang tanlash"></div>
+<div class="netw"><div class="net" id="p-net" aria-label="Kub yoyilmasi"></div></div>
+<div class="bigface" id="p-big"><div class="fsel" id="p-fsel"></div><div class="g3" id="p-g3"></div></div>
+<div class="row"><button class="btn" id="p-clear">🧹 Tozalash</button><button class="btn" id="p-copy">📋 Joriy kubdan</button><button class="btn" id="p-rand">🎲 Namuna</button></div>
+<div class="row"><button class="btn vio" id="p-check">✅ Tekshirish</button><button class="btn pri" id="p-solve">🤖 Yechish</button></div>
+<div class="msg" id="p-msg" aria-live="polite"></div>
+</div>
+
+<div class="pane" data-pane="usul">
+<h3 class="ph">📘 Boshlang'ich usul — 7 qadam</h3>
+<p class="muted">Kubni qatlamma-qatlam yig'amiz: avval pastki oq qatlam, keyin o'rta qatlam, oxirida sariq tepa. Har qadamda bitta formula yetarli.</p>
+<div class="steps" id="u-steps" role="tablist" aria-label="Qadamlar"></div>
+<div class="ucard" id="u-card"></div>
+<div class="demo-bar" id="u-demo" hidden><div class="toks" id="u-toks"></div><p class="note" id="u-note"></p></div>
+<div class="row"><button class="btn vio" id="u-prac">✍ Mashq</button><button class="btn" id="u-hint">💡 Maslahat</button><button class="btn" id="u-again">↺ Qayta boshlash</button></div>
+<div class="score" id="u-score"></div>
+<p class="status" id="u-status"></p>
+</div>
+
+<div class="pane" data-pane="oyin">
+<h3 class="ph">🎯 Formulani top</h3>
+<div class="score" id="g-score"></div>
+<div class="ba"><figure><canvas id="g-before" aria-label="Oldingi holat"></canvas><figcaption>Oldin</figcaption></figure><div class="arr" aria-hidden="true">→?</div><figure><canvas id="g-after" aria-label="Keyingi holat"></canvas><figcaption>Keyin</figcaption></figure></div>
+<p class="muted" id="g-q">Qaysi formula «Oldin» holatini «Keyin» holatiga keltirdi? (Kichik rasm — kubning orqa tomoni.)</p>
+<div class="opts" id="g-opts"></div>
+<div class="fb" id="g-fb" aria-live="polite"></div>
+<div class="row"><button class="btn vio" id="g-next">Keyingi ➜</button><button class="btn" id="g-show">🧊 3D da ko'rish</button></div>
+</div>
+
+<div class="pane" data-pane="vaqt">
+<h3 class="ph">⏱ Tezkor yechish</h3>
+<p class="muted">Kub tanlangan darajadagi burilishlar soni bilan aralashtiriladi. Birinchi burilishingizda soat yuradi — iloji boricha tez va kam burilishda yig'ing. Ketma-ket 3 marta yechsangiz, keyingi daraja ochiladi.</p>
+<div class="lvls" id="t-lvls" role="group" aria-label="Daraja"></div>
+<div class="timer" id="t-time">0,0 s</div>
+<div class="score" id="t-info"></div>
+<div class="row"><button class="btn pri" id="t-start">▶ Boshlash</button><button class="btn" id="t-hint">💡 Maslahat</button><button class="btn" id="t-give">🏳 Taslim</button></div>
+<div class="box"><span class="lbl">Aralashtirish</span><div class="toks" id="t-scr"><span class="muted" style="margin:0">«Boshlash» ni bosing</span></div></div>
+<p class="status" id="t-status"></p>
+<table class="tbl" id="t-rec"></table>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<section class="math" id="matematika" aria-labelledby="m-h">
+<h2 class="sec-h" id="m-h">🔢 Kubning matematikasi</h2>
+<p class="sec-sub">Rubik kubigi — guruhlar nazariyasining eng chiroyli misoli: har bir formula almashtirish (permutatsiya), ularning to'plami esa guruh.</p>
+<div class="tgrid two">
+<div class="tcard">
+<h3>Nechta turli holat bor?</h3>
+<p>Har bir ko'paytuvchini alohida sanaymiz:</p>
+<table class="ftab">
+<tr><td>8!</td><td>40 320</td><td>8 ta burchakni 8 ta burchak joyiga qo'yish usullari: 8·7·6·5·4·3·2·1.</td></tr>
+<tr><td>3⁷</td><td>2 187</td><td>Har bir burchak 3 xil buralishi mumkin. Lekin 7 tasining buralishi ma'lum bo'lsa, 8-siniki o'z-o'zidan aniqlanadi: buralishlar yig'indisi doim 3 ga karrali.</td></tr>
+<tr><td>12!</td><td>479 001 600</td><td>12 ta qirrani 12 ta qirra joyiga qo'yish usullari.</td></tr>
+<tr><td>2¹¹</td><td>2 048</td><td>Har bir qirra to'g'ri yoki ag'darilgan bo'ladi. 12-sining holati qolgan 11 tasidan aniqlanadi: ag'darilganlar soni doim juft.</td></tr>
+<tr><td>÷ 2</td><td>juft-toqlik</td><td>Har bir chorak burilish 4 ta burchakni ham, 4 ta qirrani ham aylantiradi — ikkalasi bir vaqtda toq yoki juft almashtirish bo'ladi. Shuning uchun faqat ikki qirraning o'rnini almashtirib bo'lmaydi.</td></tr>
+</table>
+<p class="prodline" style="margin-top:12px">8! · 3⁷ · 12! · 2¹¹ ÷ 2 =</p>
+<div class="bignum" id="m-big">43 252 003 274 489 856 000</div>
+<p>≈ 4,3·10¹⁹ — taxminan <b>43 kvintillion</b>. Har soniyada bitta holatni ko'rsangiz, hammasini ko'rish uchun ~1,37 trillion yil kerak — bu Koinot yoshidan (~13,8 milliard yil) qariyb 100 baravar ko'p.</p>
+</div>
+<div class="tcard">
+<h3>Xudo soni — 20</h3>
+<p>2010-yilda T. Rokiki, H. Kotsemba, M. Devidson va J. Detridj Google kompyuterlarida isbotlashdi: <b>har qanday holatni 20 ta yoki undan kam burilishda yechish mumkin</b> (R2 ham 1 ta burilish hisoblanadi). Quyida — har bir masofadagi holatlar soni (logarifmik shkala):</p>
+<svg class="chart" id="m-chart" viewBox="0 0 460 230" role="img" aria-label="Holatlarning masofa bo'yicha taqsimoti"></svg>
+<p class="muted" style="margin:0 0 8px">16–20 uchun sonlar taxminiy. Eng ko'p holat 18 burilish masofasida, 20 tasini talab qiladiganlar esa juda kam (~490 million). Ulardan biri — «superflip»: hamma 12 qirra joyida, lekin ag'darilgan.</p>
+<button class="btn vio sm" id="m-sflip">🧊 Superflipni 3D da ko'rsat</button>
+</div>
+<div class="tcard">
+<h3>Nega bo'yalgan kub har doim ham yechilmaydi?</h3>
+<p>Kubni qismlarga ajratib, tasodifiy yig'sangiz, 8!·3⁸·12!·2¹² holat chiqadi — bu <b>12 baravar</b> ko'p. Demak, tasodifiy yig'ilgan kubning faqat <b>1/12</b> qismigina yechiladi:</p>
+<p class="fml" style="font-size:18px"><span class="warn">×3</span> burchak buralishi · <span class="ok">×2</span> qirra ag'darilishi · <span class="bad">×2</span> juft-toqlik = 12</p>
+<p>«O'z kubingizni yeching» bo'limidagi tekshiruv aynan shu uch qoidani tekshiradi va xatoni o'zbekcha tushuntiradi.</p>
+</div>
+<div class="tcard">
+<h3>Formula tartibi va guruhlar</h3>
+<p>Har bir formula 48 ta rangli stikerning almashtirishi. Uni takrorlasak, stikerlar sikllar bo'ylab aylanadi; barcha sikllar bir vaqtda yopilganda kub qaytadi:</p>
+<p class="fml" style="font-size:18px">tartib = EKUK(sikl uzunliklari)</p>
+<p>Masalan, <b>R U</b>: 7 ta qirra 7-siklda; 5 ta burchak 5-siklda, lekin har aylanishda buraladi (5·3 = 15); yana bitta burchak joyida buraladi (3). EKUK(7, 15, 3) = <b>105</b>. Eng katta tartib — <b>1260</b> (masalan, R U2 D' B D').</p>
+</div>
+</div>
+<div class="otool" id="otool">
+<h3>🔁 Formula tartibi — jonli hisoblagich</h3>
+<p class="muted" style="margin:0">Istalgan formulani yozing (masalan, <b>R U</b> yoki <b>(R U R' U')3</b>). Sahifa kubni simulyatsiya qilib, necha marta takrorlansa kub qaytishini hisoblaydi.</p>
+<div class="ask"><label class="sr" for="o-in">Formula</label><input class="inp" id="o-in" value="R U" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="btn pri" id="o-go">Hisobla</button></div>
+<div class="exs" id="o-ex"></div>
+<div class="ores" id="o-res"></div>
+<div class="row" style="margin-top:12px"><button class="btn vio" id="o-3d">🧊 3D kubda ko'rsat</button><span class="lbl" id="o-3dt"></span></div>
+</div>
+</section>
+
+<footer>
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Rubik kubigi</div>
+<div><a href="oyinlar.html">🎮 O'yinlar</a> · <a href="fizika.html">⚛️ Fizika laboratoriyasi</a> · <a href="matematika.html">📐 Matematika</a> · <a href="index.html">Bosh sahifa</a></div>
+</footer>
+</div>
+<script>
+/*! Kuvonch Academy — Rubik kubigi: formulalar bilan tushunish va yechish */
+(function () {
+"use strict";
+/* ================= 1. Yordamchilar ================= */
+var $ = function (id) { return document.getElementById(id); };
+var RM = false;
+try { RM = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); } catch (e) {}
+var DPR = Math.min(2, window.devicePixelRatio || 1);
+function lsGet(k) { try { return localStorage.getItem("ka.rubik." + k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem("ka.rubik." + k, String(v)); } catch (e) {} }
+function lsNum(k, d) { var v = parseFloat(lsGet(k)); return isFinite(v) ? v : d; }
+function rint(a, b) { return Math.floor(a + Math.random() * (b - a + 1)); }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function coins(n, why) { try { if (window.kaAccount && window.kaAccount.addCoins) window.kaAccount.addCoins(n, why); } catch (e) {} }
+function fmtInt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+function fsec(ms) { return (ms / 1000).toFixed(1).replace(".", ","); }
+function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+var FCOL = { U: "#ffd60a", R: "#ff7a00", F: "#14c25f", D: "#f3f5fa", L: "#e8213b", B: "#1d6cff", X: "#38436b", G: "#262f52" };
+
+/*MODEL-START*/
+/* Kub modeli: 54 ta stiker (Kociemba tartibi: U R F D L B, har birida 9 ta) */
+var FACES = "URFDLB";
+var AXS = { U: [1, 1], R: [0, 1], F: [2, 1], D: [1, -1], L: [0, -1], B: [2, -1] };
+var NORMS = { U: [0, 1, 0], R: [1, 0, 0], F: [0, 0, 1], D: [0, -1, 0], L: [-1, 0, 0], B: [0, 0, -1] };
+var OPP = { U: "D", D: "U", R: "L", L: "R", F: "B", B: "F" };
+var FP = [];
+(function () {
+  for (var i = 0; i < 54; i++) {
+    var f = FACES[(i / 9) | 0], k = i % 9, r = (k / 3) | 0, c = k % 3, p;
+    switch (f) {
+      case "U": p = [c - 1, 1, r - 1]; break;
+      case "R": p = [1, 1 - r, 1 - c]; break;
+      case "F": p = [c - 1, 1 - r, 1]; break;
+      case "D": p = [c - 1, -1, 1 - r]; break;
+      case "L": p = [-1, 1 - r, c - 1]; break;
+      default: p = [1 - c, 1 - r, -1];
+    }
+    FP.push({ f: f, p: p, n: NORMS[f], k: k });
+  }
+})();
+/* tomonga qarab turib soat strelkasi bo'yicha 90° */
+function rotQ(v, a, s) {
+  var x = v[0], y = v[1], z = v[2];
+  if (s > 0) { if (a === 0) return [x, z, -y]; if (a === 1) return [-z, y, x]; return [y, -x, z]; }
+  if (a === 0) return [x, -z, y]; if (a === 1) return [z, y, -x]; return [-y, x, z];
+}
+var MP = {}, MOVES = [];
+(function () {
+  var idx = {};
+  FP.forEach(function (o, i) { idx[o.p.join() + "|" + o.n.join()] = i; });
+  FACES.split("").forEach(function (f) {
+    var a = AXS[f][0], s = AXS[f][1], d = [];
+    for (var i = 0; i < 54; i++) { var o = FP[i]; d.push(o.p[a] === s ? idx[rotQ(o.p, a, s).join() + "|" + rotQ(o.n, a, s).join()] : i); }
+    var d2 = composeP(d, d), d3 = composeP(d2, d);
+    MP[f] = d; MP[f + "'"] = d3; MP[f + "2"] = d2;
+    MOVES.push(f, f + "'", f + "2");
+  });
+})();
+function composeP(a, b) { var r = new Array(54); for (var i = 0; i < 54; i++) r[i] = b[a[i]]; return r; }
+function idPerm() { var r = []; for (var i = 0; i < 54; i++) r.push(i); return r; }
+var SOLVED = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB";
+function solvedArr() { return SOLVED.split(""); }
+function applyMove(s, m) { var d = MP[m], n = new Array(54); for (var i = 0; i < 54; i++) n[d[i]] = s[i]; return n; }
+function applyMoves(s, ms) { for (var i = 0; i < ms.length; i++) s = applyMove(s, ms[i]); return s; }
+function isSolvedS(s) { for (var f = 0; f < 6; f++) { var c = s[f * 9 + 4]; for (var k = 0; k < 9; k++) if (s[f * 9 + k] !== c) return false; } return true; }
+function moveFace(m) { return m[0]; }
+function moveQ(m) { return m.length === 1 ? 1 : m[1] === "2" ? 2 : 3; }
+function mkMove(f, q) { q = ((q % 4) + 4) % 4; return q === 0 ? null : f + (q === 1 ? "" : q === 2 ? "2" : "'"); }
+function invMove(m) { return mkMove(m[0], 4 - moveQ(m)); }
+function invAlg(ms) { var r = []; for (var i = ms.length - 1; i >= 0; i--) r.push(invMove(ms[i])); return r; }
+/* yonma-yon bir xil tomonlarni birlashtirish: R R → R2, R R' → (yo'q) */
+function simplify(ms) {
+  var out = [];
+  ms.forEach(function (m) {
+    var L = out.length;
+    if (L && out[L - 1][0] === m[0]) { var nm = mkMove(m[0], moveQ(out[L - 1]) + moveQ(m)); out.pop(); if (nm) out.push(nm); }
+    else out.push(m);
+  });
+  return out;
+}
+function algStr(ms) { return ms.join(" "); }
+/* formulani o'qish: "R U R' U'", "(R U)3", "RUR'U'", "R2' " */
+function parseAlg(str) {
+  var s = String(str == null ? "" : str), i = 0, err = null;
+  function seq(depth) {
+    var out = [];
+    while (i < s.length && !err) {
+      var ch = s[i];
+      if (/[\s,.;]/.test(ch)) { i++; continue; }
+      if (ch === "(" || ch === "[") { i++; var inner = seq(depth + 1); if (err) return out; if (s[i] !== ")" && s[i] !== "]") { err = "Qavs yopilmagan: «)» yetishmayapti."; return out; } i++; var m = /^\s*[x×*]?\s*(\d{1,3})/i.exec(s.slice(i)); var rep = 1; if (m) { rep = parseInt(m[1], 10); i += m[0].length; } if (rep > 200) { err = "Takrorlash juda katta (200 dan oshmasin)."; return out; } for (var r = 0; r < rep; r++) out = out.concat(inner); continue; }
+      if (ch === ")" || ch === "]") { if (depth === 0) { err = "Ortiqcha «)» qavs."; } return out; }
+      var up = ch.toUpperCase();
+      if ("UDLRFB".indexOf(up) >= 0) {
+        i++; var q = 1;
+        while (i < s.length && /[\s]/.test(s[i]) && /['’′`2]/.test(s[i + 1] || "")) i++;
+        if (s[i] === "2") { q = 2; i++; if (/['’′`]/.test(s[i] || "")) i++; }
+        else if (/['’′`]/.test(s[i] || "")) { q = 3; i++; if (s[i] === "2") { q = 2; i++; } }
+        out.push(mkMove(up, q));
+        continue;
+      }
+      err = "«" + ch + "» — noma'lum belgi. Faqat U, D, L, R, F, B harflari, ' (teskari) va 2 (180°) ishlatiladi.";
+      return out;
+    }
+    return out;
+  }
+  var moves = seq(0);
+  if (!err && moves.length > 4000) err = "Formula juda uzun.";
+  return { moves: err ? [] : moves, err: err };
+}
+/* qismlar (kubchalar) */
+var CF = [[8, 9, 20], [6, 18, 38], [0, 36, 47], [2, 45, 11], [29, 26, 15], [27, 44, 24], [33, 53, 42], [35, 17, 51]];
+var CC = ["URF", "UFL", "ULB", "UBR", "DFR", "DLF", "DBL", "DRB"];
+var EF = [[5, 10], [7, 19], [3, 37], [1, 46], [32, 16], [28, 25], [30, 43], [34, 52], [23, 12], [21, 41], [50, 39], [48, 14]];
+var EC = ["UR", "UF", "UL", "UB", "DR", "DF", "DL", "DB", "FR", "FL", "BL", "BR"];
+var CNAME = { U: "sariq", R: "to'q sariq", F: "yashil", D: "oq", L: "qizil", B: "ko'k", X: "bo'yalmagan" };
+var PNAME = { U: "tepa", R: "o'ng", F: "old", D: "past", L: "chap", B: "orqa" };
+function permParity(p) { var n = p.length, seen = [], par = 0; for (var i = 0; i < n; i++) { if (seen[i]) continue; var j = i, len = 0; while (!seen[j]) { seen[j] = 1; j = p[j]; len++; } par += len - 1; } return par & 1; }
+function sortStr(a) { return a.split("").sort().join(""); }
+function posName(code) { return code.split("").map(function (c) { return PNAME[c]; }).join("–"); }
+function colName(code) { return code.split("").map(function (c) { return CNAME[c]; }).join("–"); }
+/* stikerlardan kubchalarga: cp[i] — i-joydagi burchak raqami, co — buralish */
+function decompose(s) {
+  var cp = [], co = [], ep = [], eo = [], errs = [], i, j;
+  for (i = 0; i < 8; i++) {
+    var c = CF[i].map(function (x) { return s[x]; }), code = c.join(""), ori = -1;
+    for (j = 0; j < 3; j++) if (c[j] === "U" || c[j] === "D") { ori = j; break; }
+    var found = -1, mirror = false;
+    if (ori >= 0) {
+      var c1 = c[(ori + 1) % 3], c2 = c[(ori + 2) % 3];
+      for (j = 0; j < 8; j++) { if (CC[j][1] === c1 && CC[j][2] === c2 && CC[j][0] === c[ori]) found = j; else if (sortStr(CC[j]) === sortStr(code)) mirror = true; }
+    }
+    if (found < 0) {
+      var setOk = false; for (j = 0; j < 8; j++) if (sortStr(CC[j]) === sortStr(code)) setOk = true;
+      if (code.indexOf("X") >= 0) errs.push({ t: "x" });
+      else if (setOk || mirror) errs.push({ t: "cmirror", pos: CC[i], code: code, msg: posName(CC[i]) + " burchak (" + colName(code) + "): ranglar ko'zgudagidek teskari tartibda. Bunday burchak haqiqiy kubda yo'q — shu burchakning ikki stikerini almashtirib ko'ring." });
+      else errs.push({ t: "cbad", pos: CC[i], code: code, msg: posName(CC[i]) + " burchak (" + colName(code) + "): bunday ranglar birikmasi bo'lmaydi. Har bir burchakda sariq yoki oq, hamda qarama-qarshi bo'lmagan ikki rang bo'ladi." });
+      cp.push(-1); co.push(0);
+    } else { cp.push(found); co.push(ori % 3); }
+  }
+  for (i = 0; i < 12; i++) {
+    var a = s[EF[i][0]], b = s[EF[i][1]], f2 = -1, o2 = 0;
+    for (j = 0; j < 12; j++) { if (EC[j][0] === a && EC[j][1] === b) { f2 = j; o2 = 0; break; } if (EC[j][1] === a && EC[j][0] === b) { f2 = j; o2 = 1; break; } }
+    if (f2 < 0) {
+      if (a === "X" || b === "X") errs.push({ t: "x" });
+      else if (a === b) errs.push({ t: "ebad", pos: EC[i], msg: posName(EC[i]) + " qirra: ikkala stiker ham " + CNAME[a] + ". Bitta qirrada bir xil rang ikki marta bo'lmaydi." });
+      else errs.push({ t: "ebad", pos: EC[i], msg: posName(EC[i]) + " qirra (" + CNAME[a] + "–" + CNAME[b] + "): bu ranglar qarama-qarshi tomonlarniki, ular bitta qirrada uchrashmaydi." });
+      ep.push(-1); eo.push(0);
+    } else { ep.push(f2); eo.push(o2); }
+  }
+  return { cp: cp, co: co, ep: ep, eo: eo, errs: errs };
+}
+/* to'liq tekshiruv: bo'yalgan kubni yechish mumkinmi? */
+function validateS(s) {
+  var errs = [], cnt = {}, k;
+  "URFDLBX".split("").forEach(function (c) { cnt[c] = 0; });
+  for (k = 0; k < 54; k++) cnt[s[k]] = (cnt[s[k]] || 0) + 1;
+  if (cnt.X) errs.push("Hali " + cnt.X + " ta katakcha bo'yalmagan. Avval hamma 54 ta stikerni bo'yang.");
+  "URFDLB".split("").forEach(function (c) { if (cnt[c] !== 9 && !cnt.X) errs.push(cap(CNAME[c]) + " rang " + cnt[c] + " ta — har bir rang aniq 9 ta bo'lishi kerak."); else if (cnt[c] > 9) errs.push(cap(CNAME[c]) + " rang " + cnt[c] + " ta — 9 tadan oshib ketdi."); });
+  for (k = 0; k < 6; k++) if (s[k * 9 + 4] !== FACES[k]) errs.push("Markazlar qo'zg'almaydi: " + PNAME[FACES[k]] + " markaz " + CNAME[FACES[k]] + " bo'lishi kerak.");
+  if (errs.length) return { ok: false, errs: errs, stage: "count" };
+  var d = decompose(s);
+  d.errs.forEach(function (e) { if (e.msg) errs.push(e.msg); });
+  if (errs.length) return { ok: false, errs: errs, stage: "piece", d: d };
+  var seenC = {}, seenE = {}, i;
+  for (i = 0; i < 8; i++) { if (seenC[d.cp[i]] != null) errs.push("«" + colName(CC[d.cp[i]]) + "» burchagi ikki marta uchradi (" + posName(CC[seenC[d.cp[i]]]) + " va " + posName(CC[i]) + "). Har bir burchak kubda bitta."); seenC[d.cp[i]] = i; }
+  for (i = 0; i < 12; i++) { if (seenE[d.ep[i]] != null) errs.push("«" + colName(EC[d.ep[i]]) + "» qirrasi ikki marta uchradi (" + posName(EC[seenE[d.ep[i]]]) + " va " + posName(EC[i]) + "). Har bir qirra kubda bitta."); seenE[d.ep[i]] = i; }
+  if (errs.length) return { ok: false, errs: errs, stage: "dup", d: d };
+  var tw = 0, fl = 0; for (i = 0; i < 8; i++) tw += d.co[i]; for (i = 0; i < 12; i++) fl += d.eo[i];
+  if (tw % 3) errs.push("Bitta burchak buralib qolgan: burchaklar buralishlari yig'indisi " + tw + " — u 3 ga bo'linishi kerak (×3 qoidasi). Haqiqiy kubda bu faqat burchak sug'urib olinib, burab qo'yilganda bo'ladi. Burchak stikerlarini qayta tekshiring.");
+  if (fl % 2) errs.push("Bitta qirra ag'darilgan: ag'darilgan qirralar soni toq (" + fl + "), juft bo'lishi kerak (×2 qoidasi). Qirralarning ikki rangini qayta tekshiring.");
+  if (permParity(d.cp) !== permParity(d.ep)) errs.push("Ikkita qism o'rni almashib qolgan: burchaklar va qirralar almashtirishlarining juft-toqligi mos emas (÷2 qoidasi). Ehtimol, ikki qirra yoki ikki burchak ranglari adashtirilgan.");
+  return { ok: !errs.length, errs: errs, stage: errs.length ? "group" : "ok", d: d };
+}
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function gcd(a, b) { while (b) { var t = a % b; a = b; b = t; } return a; }
+function lcm(a, b) { return a / gcd(a, b) * b; }
+/* formula tartibi: necha marta takrorlansa kub qaytadi */
+function algOrder(moves) {
+  var q = idPerm(); moves.forEach(function (m) { q = composeP(q, MP[m]); });
+  var seen = [], ord = 1, i;
+  for (i = 0; i < 54; i++) { if (seen[i]) continue; var j = i, len = 0; while (!seen[j]) { seen[j] = 1; j = q[j]; len++; } ord = lcm(ord, len); }
+  var st = applyMoves(solvedArr(), moves), d = decompose(st), cyc = { c: [], e: [] };
+  var sc = [];
+  for (i = 0; i < 8; i++) { if (sc[i]) continue; var a = i, L = 0, t = 0, mem = []; while (!sc[a]) { sc[a] = 1; t += d.co[a]; mem.push(a); a = d.cp[a]; L++; } t %= 3; if (L > 1 || t) cyc.c.push({ len: L, tw: t, eff: t ? 3 * L : L, mem: mem }); }
+  var se = [];
+  for (i = 0; i < 12; i++) { if (se[i]) continue; var b = i, L2 = 0, f = 0, mem2 = []; while (!se[b]) { se[b] = 1; f += d.eo[b]; mem2.push(b); b = d.ep[b]; L2++; } f %= 2; if (L2 > 1 || f) cyc.e.push({ len: L2, fl: f, eff: f ? 2 * L2 : L2, mem: mem2 }); }
+  return { order: moves.length ? ord : 1, cyc: cyc };
+}
+function axisOf(f) { return AXS[f][0]; }
+function randomScramble(n, rnd) {
+  rnd = rnd || Math.random;
+  var out = [], f, last = null, last2 = null, guard = 0;
+  while (out.length < n && guard++ < 10000) {
+    f = FACES[Math.floor(rnd() * 6)];
+    if (f === last) continue;
+    if (last && last2 && axisOf(f) === axisOf(last) && f === last2) continue;
+    if (last && OPP[f] === last && last2 === f) continue;
+    out.push(f + ["", "'", "2"][Math.floor(rnd() * 3)]);
+    last2 = last; last = f;
+  }
+  return out;
+}
+/*MODEL-END*/
+
+var FN = { U: "Tepa tomonni", D: "Pastki tomonni", L: "Chap tomonni", R: "O'ng tomonni", F: "Old tomonni", B: "Orqa tomonni" };
+var FLOOK = { U: "tepadan", D: "pastdan", L: "chapdan", R: "o'ngdan", F: "oldindan", B: "orqadan" };
+var FGO = { U: ["old", "chap"], D: ["old", "o'ng"], L: ["tepa", "old"], R: ["old", "tepa"], F: ["tepa", "o'ng"], B: ["tepa", "chap"] };
+var FSW = { U: "old ↔ orqa, chap ↔ o'ng", D: "old ↔ orqa, chap ↔ o'ng", L: "tepa ↔ past, old ↔ orqa", R: "tepa ↔ past, old ↔ orqa", F: "tepa ↔ past, chap ↔ o'ng", B: "tepa ↔ past, chap ↔ o'ng" };
+function moveDir(m) { var q = moveQ(m); return q === 1 ? "soat strelkasi bo'yicha 90°" : q === 3 ? "soat strelkasiga teskari 90°" : "180° (ikki marta)"; }
+function moveDesc(m) {
+  var f = m[0], q = moveQ(m), g = FGO[f];
+  var flow = q === 1 ? g[0] + " → " + g[1] : q === 3 ? g[1] + " → " + g[0] : FSW[f];
+  return FN[f] + " (" + CNAME[f] + " markaz) " + FLOOK[f] + " qaraganda " + moveDir(m) + " burish. Ranglar: " + flow + ".";
+}
+function tokHTML(m, cls, attr) { return '<span class="tok f-' + m[0] + (cls ? " " + cls : "") + '"' + (attr || "") + ">" + m + "</span>"; }
+function toksHTML(ms, cls) { return ms.map(function (m) { return tokHTML(m, cls); }).join(""); }
+function fmlHTML(str) { return parseAlg(str).moves.map(function (m) { return '<span class="f-' + m[0] + '">' + m + "</span>"; }).join(" "); }
+function P_(str) { return parseAlg(str).moves; }
+
+/* ================= 2. 2D kub chizgich (dasturiy 3D) ================= */
+var MINI = (function () {
+  var RGB = {};
+  Object.keys(FCOL).forEach(function (k) { var h = FCOL[k]; RGB[k] = [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)]; });
+  var TAN = FP.map(function (o) { var n = o.n; return n[0] ? [[0, 1, 0], [0, 0, 1]] : n[1] ? [[1, 0, 0], [0, 0, 1]] : [[1, 0, 0], [0, 1, 0]]; });
+  function rotA(v, a, ang) {
+    var c = Math.cos(ang), s = Math.sin(ang), x = v[0], y = v[1], z = v[2];
+    if (a === 0) return [x, y * c - z * s, y * s + z * c];
+    if (a === 1) return [x * c + z * s, y, -x * s + z * c];
+    return [x * c - y * s, x * s + y * c, z];
+  }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+  function add(a, b, k) { return [a[0] + b[0] * k, a[1] + b[1] * k, a[2] + b[2] * k]; }
+  function norm(a) { var l = Math.sqrt(dot(a, a)) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
+  function basis(yaw, pitch) {
+    var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    return { v: [sy * cp, sp, cy * cp], r: [cy, 0, -sy], u: [-sy * sp, cp, -cy * sp] };
+  }
+  function poly(ctx, P) { ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]); for (var k = 1; k < P.length; k++) ctx.lineTo(P[k][0], P[k][1]); ctx.closePath(); }
+  function lp(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; }
+  function rq(ctx, P, r) {
+    ctx.beginPath();
+    for (var k = 0; k < 4; k++) {
+      var A = P[k], Bq = P[(k + 1) % 4], C = P[(k + 2) % 4];
+      var s = lp(A, Bq, r), e = lp(A, Bq, 1 - r), n2 = lp(Bq, C, r);
+      if (k === 0) ctx.moveTo(s[0], s[1]);
+      ctx.lineTo(e[0], e[1]); ctx.quadraticCurveTo(Bq[0], Bq[1], n2[0], n2[1]);
+    }
+    ctx.closePath();
+  }
+  function draw(ctx, w, h, s, o) {
+    o = o || {};
+    var B = basis(o.yaw == null ? .62 : o.yaw, o.pitch == null ? .5 : o.pitch);
+    var S = Math.min(w, h) * (o.zoom || .16), cx = o.cx == null ? w / 2 : o.cx, cy = o.cy == null ? h / 2 : o.cy;
+    var L = norm([B.v[0] * .5 + .3, B.v[1] * .5 + .85, B.v[2] * .5 + .3]);
+    var P = function (p) { return [cx + dot(p, B.r) * S, cy - dot(p, B.u) * S]; };
+    var a = -1, sg = 0, ang = 0;
+    if (o.anim && o.anim.m) { var f0 = o.anim.m[0], q0 = moveQ(o.anim.m); a = AXS[f0][0]; sg = AXS[f0][1]; ang = -sg * (q0 === 3 ? -1 : q0) * Math.PI / 2 * o.anim.t; }
+    var hits = o.hits ? [] : null;
+    if (o.shadow !== false) {
+      var sc = P([0, -2.25, 0]), g = ctx.createRadialGradient(sc[0], sc[1], 1, sc[0], sc[1], S * 2.3);
+      g.addColorStop(0, "rgba(0,0,0,.42)"); g.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.save(); ctx.translate(sc[0], sc[1]); ctx.scale(1, Math.max(.1, Math.abs(B.v[1]))); ctx.translate(-sc[0], -sc[1]);
+      if (B.v[1] > -.05) { ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sc[0], sc[1], S * 2.3, 0, 7); ctx.fill(); }
+      ctx.restore();
+    }
+    var groups = a < 0 ? [0] : (B.v[a] * sg > 0 ? [0, 1] : [1, 0]);
+    for (var gi = 0; gi < groups.length; gi++) {
+      var rot = groups[gi] === 1;
+      if (a >= 0) {
+        var cn = [0, 0, 0]; cn[a] = rot ? -sg : sg;
+        if (dot(cn, B.v) > 0) {
+          var b1 = (a + 1) % 3, b2 = (a + 2) % 3, pts = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(function (d) { var p = [0, 0, 0]; p[a] = sg * .5; p[b1] = d[0] * 1.49; p[b2] = d[1] * 1.49; return P(rot ? rotA(p, a, ang) : p); });
+          poly(ctx, pts); ctx.fillStyle = "#04050a"; ctx.fill();
+        }
+      }
+      for (var i = 0; i < 54; i++) {
+        var fp = FP[i], inL = a >= 0 && fp.p[a] === sg;
+        if (a >= 0 && inL !== rot) continue;
+        var n = fp.n, p = fp.p, t1 = TAN[i][0], t2 = TAN[i][1];
+        if (rot) { n = rotA(n, a, ang); p = rotA(p, a, ang); t1 = rotA(t1, a, ang); t2 = rotA(t2, a, ang); }
+        var vis = dot(n, B.v); if (vis <= .002) continue;
+        var c = add(p, n, .5);
+        var cell = [add(add(c, t1, -.515), t2, -.515), add(add(c, t1, .515), t2, -.515), add(add(c, t1, .515), t2, .515), add(add(c, t1, -.515), t2, .515)].map(P);
+        poly(ctx, cell); ctx.fillStyle = "#0b0d15"; ctx.fill();
+        var k2 = .41, st = [add(add(c, t1, -k2), t2, -k2), add(add(c, t1, k2), t2, -k2), add(add(c, t1, k2), t2, k2), add(add(c, t1, -k2), t2, k2)].map(P);
+        var col = s[i] || "X"; if (o.mask && o.mask(i)) col = "G";
+        var rgb = RGB[col] || RGB.X, sh = .6 + .42 * Math.max(0, dot(n, L));
+        ctx.fillStyle = "rgb(" + Math.min(255, rgb[0] * sh | 0) + "," + Math.min(255, rgb[1] * sh | 0) + "," + Math.min(255, rgb[2] * sh | 0) + ")";
+        rq(ctx, st, .25); ctx.fill();
+        if (!o.flat && col !== "G") {
+          var gl = ctx.createLinearGradient(st[0][0], st[0][1], st[2][0], st[2][1]);
+          gl.addColorStop(0, "rgba(255,255,255," + (.14 + .14 * vis).toFixed(3) + ")"); gl.addColorStop(.55, "rgba(255,255,255,0)");
+          ctx.fillStyle = gl; ctx.fill();
+        }
+        if (o.hl && o.hl[i]) { ctx.lineWidth = Math.max(2, S * .07); ctx.strokeStyle = o.hl[i]; ctx.stroke(); }
+        if (hits) hits.push({ i: i, poly: st });
+      }
+    }
+    if (o.labels) {
+      for (var fi = 0; fi < 6; fi++) {
+        var F = FACES[fi], nn = NORMS[F], vv = dot(nn, B.v); if (vv < .3) continue;
+        var lc = P([nn[0] * 1.52, nn[1] * 1.52, nn[2] * 1.52]), rr = S * .3;
+        ctx.globalAlpha = Math.min(1, (vv - .3) * 3);
+        ctx.beginPath(); ctx.arc(lc[0], lc[1], rr, 0, 7); ctx.fillStyle = "rgba(6,10,26,.82)"; ctx.fill();
+        ctx.lineWidth = Math.max(1.5, S * .05); ctx.strokeStyle = F === "D" ? "#9aa6c8" : FCOL[F]; ctx.stroke();
+        ctx.fillStyle = "#fff"; ctx.font = "800 " + Math.round(rr * 1.05) + 'px "Unbounded","Golos Text",sans-serif'; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(F, lc[0], lc[1] + rr * .06);
+        ctx.globalAlpha = 1;
+      }
+    }
+    if (o.arrow) drawArrow(ctx, o.arrow, P, B, S);
+    return hits;
+  }
+  function drawArrow(ctx, m, P, B, S) {
+    var f = m[0], q = moveQ(m), n = NORMS[f];
+    if (dot(n, B.v) < .1) return;
+    var t1 = n[0] ? [0, 1, 0] : [1, 0, 0], e2 = q === 3 ? cross(n, t1) : cross(t1, n);
+    var c = [n[0] * 1.55, n[1] * 1.55, n[2] * 1.55], R = .98, span = q === 2 ? 5.2 : 4.0, a0 = .9, pts = [];
+    for (var k = 0; k <= 36; k++) { var th = a0 + span * k / 36; pts.push(P(add(add(c, t1, R * Math.cos(th)), e2, R * Math.sin(th)))); }
+    ctx.save(); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    function path(to) { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (var k = 1; k <= to; k++) ctx.lineTo(pts[k][0], pts[k][1]); }
+    path(34); ctx.lineWidth = S * .2; ctx.strokeStyle = "rgba(6,10,26,.7)"; ctx.stroke();
+    path(34); ctx.lineWidth = S * .1; ctx.strokeStyle = "#ffc23d"; ctx.stroke();
+    function head(k) {
+      var A = pts[k - 2], Bp = pts[k], dx = Bp[0] - A[0], dy = Bp[1] - A[1], l = Math.hypot(dx, dy) || 1, ux = dx / l, uy = dy / l, z = S * .34;
+      ctx.beginPath(); ctx.moveTo(Bp[0] + ux * z * .5, Bp[1] + uy * z * .5); ctx.lineTo(Bp[0] - ux * z * .6 - uy * z * .55, Bp[1] - uy * z * .6 + ux * z * .55); ctx.lineTo(Bp[0] - ux * z * .6 + uy * z * .55, Bp[1] - uy * z * .6 - ux * z * .55); ctx.closePath();
+      ctx.fillStyle = "#ffc23d"; ctx.strokeStyle = "rgba(6,10,26,.75)"; ctx.lineWidth = S * .05; ctx.stroke(); ctx.fill();
+    }
+    head(36); if (q === 2) head(18);
+    ctx.restore();
+  }
+  function inPoly(P, x, y) {
+    var ins = false;
+    for (var i = 0, j = P.length - 1; i < P.length; j = i++) { var xi = P[i][0], yi = P[i][1], xj = P[j][0], yj = P[j][1]; if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) ins = !ins; }
+    return ins;
+  }
+  function hit(hits, x, y) { if (!hits) return -1; for (var k = hits.length - 1; k >= 0; k--) if (inPoly(hits[k].poly, x, y)) return hits[k].i; return -1; }
+  return { draw: draw, hit: hit, rotA: rotA, basis: basis };
+})();
+
+/* canvasni CSS o'lchamiga moslash */
+function setupCv(cv) {
+  var r = cv.getBoundingClientRect(), w = Math.max(10, r.width), h = Math.max(10, r.height);
+  var W = Math.round(w * DPR), H = Math.round(h * DPR);
+  if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+  var ctx = cv.getContext("2d"); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  return { ctx: ctx, w: w, h: h };
+}
+/* kichik ko'rinish: old + orqa (o'yin va qadamlar rasmlari uchun) */
+function drawStateCard(cv, s, o) {
+  o = o || {};
+  var z = setupCv(cv), w = z.w, h = z.h; z.ctx.clearRect(0, 0, w, h);
+  MINI.draw(z.ctx, w, h, s, { yaw: o.yaw == null ? .62 : o.yaw, pitch: o.pitch == null ? .5 : o.pitch, zoom: o.back === false ? .16 : .145, cx: o.back === false ? w / 2 : w * .43, cy: o.back === false ? h / 2 : h * .43, mask: o.mask, shadow: false });
+  if (o.back !== false) {
+    z.ctx.save(); z.ctx.globalAlpha = .95;
+    MINI.draw(z.ctx, w, h, s, { yaw: (o.yaw == null ? .62 : o.yaw) + Math.PI, pitch: -(o.pitch == null ? .5 : o.pitch), zoom: .058, cx: w * .83, cy: h * .83, mask: o.mask, shadow: false, flat: true });
+    z.ctx.restore();
+  }
+}
+
+/* ================= 3. Tushuntirish namoyishlari ================= */
+var MINIS = {
+  list: [], raf: 0,
+  wake: function () { if (!MINIS.raf && !document.hidden) MINIS.raf = requestAnimationFrame(MINIS.frame); },
+  frame: function (t) { MINIS.raf = 0; var busy = false; for (var i = 0; i < MINIS.list.length; i++) if (MINIS.list[i].tick(t)) busy = true; if (busy) MINIS.wake(); }
+};
+function Mini(cv, o) {
+  var M = { cv: cv, o: o, s: solvedArr(), q: [], anim: null, yaw: o.yaw == null ? .62 : o.yaw, pitch: o.pitch == null ? .48 : o.pitch, vis: false, paused: 0, dirty: true, arrow: null, size: null };
+  M.resize = function () { M.size = null; M.dirty = true; MINIS.wake(); };
+  M.draw = function () {
+    if (!M.size) M.size = setupCv(cv);
+    var z = M.size; z.ctx.clearRect(0, 0, z.w, z.h);
+    if (o.render) o.render(M, z);
+    else MINI.draw(z.ctx, z.w, z.h, M.s, { yaw: M.yaw, pitch: M.pitch, zoom: o.zoom || .15, anim: M.anim && M.anim.m ? { m: M.anim.m, t: M.anim.t || 0 } : null, arrow: M.anim && M.anim.m && M.anim.arrow ? M.anim.m : M.arrow, mask: o.mask, labels: o.labels });
+    M.dirty = false;
+  };
+  M.push = function (it) { M.q.push(it); MINIS.wake(); };
+  M.play = function (moves, opt) { opt = opt || {}; moves.forEach(function (m, k) { M.q.push({ m: m, dur: opt.dur || 700, arrow: opt.arrow !== false, start: opt.start ? (function (kk) { return function () { opt.start(kk, m); }; })(k) : null, done: k === moves.length - 1 ? opt.done : null }); }); MINIS.wake(); };
+  M.stop = function () { M.q.length = 0; M.anim = null; M.dirty = true; MINIS.wake(); };
+  M.tick = function (t) {
+    if (!M.vis) { if (!M.paused) M.paused = t; return false; }
+    if (M.paused) { var d = t - M.paused; if (M.anim) M.anim.t0 += d; M.paused = 0; }
+    var g = 0;
+    while (g++ < 200) {
+      if (!M.anim) {
+        if (!M.q.length) break;
+        var it = M.q.shift();
+        if (it.fn) { it.fn(); M.dirty = true; continue; }
+        M.anim = { m: it.m, wait: it.wait, t0: t, dur: RM ? 0 : (it.m ? it.dur : it.wait), arrow: it.arrow, done: it.done };
+        if (it.start) it.start();
+      }
+      var A = M.anim, k = A.dur ? (t - A.t0) / A.dur : 1;
+      if (k < 1) { A.t = ease(k); M.dirty = true; break; }
+      M.anim = null;
+      if (A.m) M.s = applyMove(M.s, A.m);
+      M.dirty = true;
+      if (A.done) A.done();
+    }
+    if (M.dirty) M.draw();
+    return !!(M.anim || M.q.length);
+  };
+  // aylantirish (gorizontal surish — yaw, sichqoncha bilan — pitch ham)
+  var dr = null;
+  cv.addEventListener("pointerdown", function (e) { dr = { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, mouse: e.pointerType === "mouse", moved: false }; try { cv.setPointerCapture(e.pointerId); } catch (er) {} });
+  cv.addEventListener("pointermove", function (e) {
+    if (!dr) return;
+    var dx = e.clientX - dr.x, dy = e.clientY - dr.y; dr.x = e.clientX; dr.y = e.clientY;
+    if (Math.abs(e.clientX - dr.sx) + Math.abs(e.clientY - dr.sy) > 5) dr.moved = true;
+    M.yaw -= dx * .011; if (dr.mouse) M.pitch = clamp(M.pitch + dy * .011, -1.4, 1.4);
+    M.dirty = true; if (!M.anim) M.draw();
+  });
+  function up() { if (dr && !dr.moved && o.tap) o.tap(); dr = null; }
+  cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", function () { dr = null; });
+  MINIS.list.push(M);
+  return M;
+}
+var IO_OK = typeof IntersectionObserver !== "undefined";
+function watchVis(el, cb, margin) {
+  if (!IO_OK) { cb(true); return; }
+  new IntersectionObserver(function (es) { es.forEach(function (e) { cb(e.isIntersecting); }); }, { rootMargin: margin || "80px" }).observe(el);
+}
+
+var intro = {};
+function initIntro() {
+  /* hero: kub o'zini yig'adi */
+  var heroScr = P_("R U F' L2 D B' R2 U' F2 L");
+  var hero = Mini($("cv-hero"), { zoom: .16, yaw: .66, pitch: .5 });
+  hero.s = applyMoves(solvedArr(), heroScr);
+  var heroDone = false;
+  watchVis($("cv-hero"), function (v) {
+    hero.vis = v; hero.dirty = true; MINIS.wake();
+    if (v && !heroDone) { heroDone = true; hero.push({ wait: 700 }); hero.play(invAlg(heroScr), { dur: 420, arrow: false }); }
+  });
+  intro.hero = hero;
+
+  /* qismlar */
+  var partSel = "all";
+  var parts = Mini($("cv-parts"), {
+    zoom: .175, yaw: .62, pitch: .5,
+    mask: function (i) { var k = i % 9; if (partSel === "all") return false; if (partSel === "c") return k !== 4; if (partSel === "e") return k % 2 === 0; return !(k === 0 || k === 2 || k === 6 || k === 8); }
+  });
+  var PTXT = {
+    all: "Kub 26 ta kichik kubchadan iborat: <b>6 ta markaz</b> (1 rangli), <b>12 ta qirra</b> (2 rangli) va <b>8 ta burchak</b> (3 rangli). Burilishda qirra doim qirra joyiga, burchak — burchak joyiga o'tadi.",
+    c: "<b>Markazlar</b> (6 ta) faqat o'z o'qi atrofida aylanadi, joyidan siljimaydi. Shuning uchun har bir tomonning rangini markaz belgilaydi: sariq markazli tomon oxirida butunlay sariq bo'ladi.",
+    e: "<b>Qirralar</b> (12 ta) — ikki tomon tutashgan joydagi 2 rangli kubchalar. Qirra joyida bo'lsa ham, ag'darilgan (ranglari teskari) bo'lishi mumkin.",
+    k: "<b>Burchaklar</b> (8 ta) — uch tomon tutashgan joydagi 3 rangli kubchalar. Burchak joyida turib, 3 xil buralgan bo'lishi mumkin."
+  };
+  $("parts-seg").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    partSel = b.getAttribute("data-v");
+    [].forEach.call(this.children, function (x) { x.classList.toggle("on", x === b); });
+    $("parts-txt").innerHTML = PTXT[partSel]; parts.dirty = true; parts.draw();
+  });
+  watchVis($("cv-parts"), function (v) { parts.vis = v; if (v) { parts.dirty = true; MINIS.wake(); } });
+  intro.parts = parts;
+
+  /* tomonlar: old va orqa ko'rinish */
+  var faces = Mini($("cv-faces"), {
+    yaw: .62, pitch: .45,
+    render: function (M, z) {
+      var c = z.ctx, w = z.w, h = z.h, zz = Math.min(w / 2, h - 18) / 5.9;
+      MINI.draw(c, w, h, M.s, { yaw: M.yaw, pitch: M.pitch, zoom: zz / Math.min(w, h), cx: w * .26, cy: (h - 16) * .5, labels: true, shadow: false });
+      MINI.draw(c, w, h, M.s, { yaw: M.yaw + Math.PI, pitch: -M.pitch, zoom: zz / Math.min(w, h), cx: w * .74, cy: (h - 16) * .5, labels: true, shadow: false });
+      c.fillStyle = "#93a3cc"; c.font = '600 12px "Golos Text",sans-serif'; c.textAlign = "center"; c.textBaseline = "alphabetic";
+      c.fillText("oldidan: U, F, R", w * .27, h - 8); c.fillText("orqadan: D, B, L", w * .73, h - 8);
+    }
+  });
+  watchVis($("cv-faces"), function (v) { faces.vis = v; if (v) { faces.dirty = true; MINIS.wake(); } });
+  intro.faces = faces;
+
+  /* belgilash */
+  var nf = "R", nq = "";
+  var note = Mini($("cv-note"), { zoom: .168, yaw: .62, pitch: .48, labels: true, tap: function () { runNote(); } });
+  function runNote() {
+    var m = nf + nq, front = "URF".indexOf(nf) >= 0;
+    note.stop(); note.s = solvedArr(); note.arrow = null;
+    note.yaw = front ? .62 : .62 + Math.PI; note.pitch = front ? .48 : -.48;
+    $("note-txt").innerHTML = '<span class="big-tok f-' + m[0] + '">' + m + "</span> — " + esc(moveDesc(m)) + (front ? "" : ' <span class="muted">(rasm orqa tomondan)</span>');
+    for (var r = 0; r < 3; r++) {
+      note.play([m], { dur: moveQ(m) === 2 ? 1150 : 850 });
+      if (r < 2) { note.push({ wait: 650 }); note.push({ fn: function () { note.s = solvedArr(); } }); note.push({ wait: 350 }); }
+    }
+    note.push({ fn: function () { note.arrow = m; } });
+  }
+  $("note-f").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; nf = b.getAttribute("data-f"); [].forEach.call(this.children, function (x) { x.classList.toggle("on", x === b); }); runNote(); });
+  $("note-q").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; nq = b.getAttribute("data-q"); [].forEach.call(this.children, function (x) { x.classList.toggle("on", x === b); }); runNote(); });
+  var noteStarted = false;
+  watchVis($("cv-note"), function (v) { note.vis = v; note.dirty = true; MINIS.wake(); if (v && !noteStarted) { noteStarted = true; runNote(); } });
+  $("note-txt").innerHTML = '<span class="big-tok f-R">R</span> — ' + esc(moveDesc("R"));
+  intro.note = note;
+
+  /* formula */
+  var ALG = P_("R U R' U'");
+  var alg = Mini($("cv-alg"), { zoom: .175, yaw: .62, pitch: .48, labels: false });
+  function algToks(cur, done) { $("alg-toks").innerHTML = ALG.map(function (m, k) { return tokHTML(m, k === cur ? "cur" : k < done ? "done" : ""); }).join(""); }
+  algToks(-1, 0);
+  function playAlg(times) {
+    alg.stop(); alg.s = solvedArr(); alg.arrow = null;
+    var dur = times > 1 ? 330 : 750;
+    for (var r = 0; r < times; r++) {
+      (function (rr) {
+        alg.push({ fn: function () { if (times > 1) $("alg-txt").innerHTML = "Takrorlash: <b>" + (rr + 1) + " / " + times + "</b>. Kubga qarang — u asta-sekin qaytib kelmoqda…"; } });
+        alg.play(ALG, { dur: dur, arrow: times === 1, start: function (k) { algToks(k, k); }, done: function () { algToks(-1, 4); } });
+      })(r);
+    }
+    alg.push({ fn: function () {
+      $("alg-txt").innerHTML = times > 1 ? "🎉 <b>6 marta takrorlandi — kub boshlang'ich holatiga qaytdi!</b> Demak, R U R' U' formulasining <b>tartibi 6</b> ga teng. Buni pastdagi «Formula tartibi» hisoblagichida tekshiring." : "Formula bajarildi: kubning faqat bir qismi o'zgardi (tepa va o'ng tomonga qarang). Buni yana 5 marta bajarsangiz, kub qaytadi!";
+    } });
+  }
+  $("alg-play").addEventListener("click", function () { playAlg(1); });
+  $("alg-six").addEventListener("click", function () { playAlg(6); });
+  watchVis($("cv-alg"), function (v) { alg.vis = v; alg.dirty = true; MINIS.wake(); });
+  intro.alg = alg;
+  intro.playAlg = playAlg; intro.runNote = runNote;
+
+  var rt = 0;
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { MINIS.list.forEach(function (m) { m.resize(); }); }, 120); });
+}
+
+/* ================= 4. Yechuvchi (Kotsemba, cubejs — Web Worker ichida) ================= */
+var CUBEJS = "https://cdn.jsdelivr.net/npm/cubejs@1.3.2/lib/";
+var THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+function loadScript(src) {
+  return new Promise(function (res, rej) {
+    var s = document.createElement("script"); s.src = src; s.async = true;
+    s.onload = function () { res(); }; s.onerror = function () { rej(new Error("Yuklanmadi: " + src)); };
+    document.head.appendChild(s);
+  });
+}
+function solverWorkerMain() {
+  /* ishchi (worker) ichida bajariladi: jadvallarni bosqichma-bosqich hisoblab, foizini yuboradi */
+  var W = [["m", "twist", 15], ["m", "flip", 16], ["m", "FRtoBR", 89], ["m", "URFtoDLF", 124], ["m", "URtoDF", 126], ["m", "URtoUL", 5], ["m", "UBtoDF", 6], ["m", "mergeURtoDF", 52], ["p", "sliceTwist", 419], ["p", "sliceFlip", 399], ["p", "sliceURFtoDLFParity", 234], ["p", "sliceURtoDFParity", 241]];
+  function inG1(c) { var i; for (i = 0; i < 8; i++) if (c.co[i]) return false; for (i = 0; i < 12; i++) if (c.eo[i]) return false; for (i = 8; i < 12; i++) if (c.ep[i] < 8) return false; return true; }
+  self.onmessage = function (e) {
+    var d = e.data;
+    if (d.cmd === "init") {
+      try {
+        var tot = 0, acc = 0, i;
+        for (i = 0; i < W.length; i++) tot += W[i][2];
+        for (i = 0; i < W.length; i++) {
+          if (W[i][0] === "m") Cube.computeMoveTables(W[i][1]); else Cube.computePruningTables(W[i][1]);
+          acc += W[i][2]; self.postMessage({ cmd: "prog", p: acc / tot });
+        }
+        self.postMessage({ cmd: "ready" });
+      } catch (er) { self.postMessage({ cmd: "err", msg: String(er && er.message || er) }); }
+    } else if (d.cmd === "solve") {
+      try {
+        var c = Cube.fromString(d.f), t = Date.now(), sol = c.solve(), ms = Date.now() - t;
+        var arr = sol ? String(sol).trim().split(/\s+/).filter(Boolean) : [];
+        var c2 = Cube.fromString(d.f), p1 = 0;
+        if (!inG1(c2)) for (var k = 0; k < arr.length; k++) { c2.move(arr[k]); if (inG1(c2)) { p1 = k + 1; break; } }
+        self.postMessage({ cmd: "sol", id: d.id, sol: arr.join(" "), ms: ms, p1: p1 });
+      } catch (er2) { self.postMessage({ cmd: "sol", id: d.id, err: String(er2 && er2.message || er2) }); }
+    }
+  };
+}
+var SOLVER = (function () {
+  var st = "idle", w = null, readyP = null, cbs = [], pend = {}, seq = 0, main = false, lastP = 0;
+  function emit(p, ph) { lastP = p; cbs.forEach(function (cb) { try { cb(p, ph); } catch (e) {} }); }
+  function fallbackMain() {
+    main = true; st = "init"; emit(.05, "main");
+    return loadScript(CUBEJS + "cube.js").then(function () { return loadScript(CUBEJS + "solve.js"); }).then(function () {
+      return new Promise(function (res) { setTimeout(function () { window.Cube.initSolver(); st = "ready"; emit(1, "ready"); res(); }, 60); });
+    });
+  }
+  function ensure(cb) {
+    if (cb) { cbs.push(cb); if (st === "ready") cb(1, "ready"); }
+    if (readyP) return readyP;
+    readyP = new Promise(function (res, rej) {
+      st = "load"; emit(0, "load");
+      Promise.all(["cube.js", "solve.js"].map(function (f) { return fetch(CUBEJS + f).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); }); }))
+        .then(function (tx) {
+          try {
+            var src = tx[0] + "\n;\n" + tx[1] + "\n;\n(" + solverWorkerMain.toString() + ")();";
+            w = new Worker(URL.createObjectURL(new Blob([src], { type: "application/javascript" })));
+          } catch (e) { w = null; }
+          if (!w) { fallbackMain().then(res, rej); return; }
+          w.onmessage = function (e) {
+            var d = e.data;
+            if (d.cmd === "prog") emit(d.p, "init");
+            else if (d.cmd === "ready") { st = "ready"; emit(1, "ready"); res(); }
+            else if (d.cmd === "err") { st = "error"; readyP = null; rej(new Error(d.msg)); }
+            else if (d.cmd === "sol") { var p = pend[d.id]; delete pend[d.id]; if (p) { if (d.err) p.rej(new Error(d.err)); else p.res(d); } }
+          };
+          w.onerror = function (er) { try { er.preventDefault(); } catch (x) {} if (st !== "ready") { try { w.terminate(); } catch (x) {} w = null; fallbackMain().then(res, rej); } };
+          st = "init"; emit(0, "init"); w.postMessage({ cmd: "init" });
+        })
+        .catch(function () { fallbackMain().then(res, function (er) { st = "error"; readyP = null; rej(er); }); });
+    });
+    return readyP;
+  }
+  function solve(f) {
+    return ensure().then(function () {
+      if (main || !w) {
+        var c = window.Cube.fromString(f), t = Date.now(), sol = c.solve();
+        var arr = sol ? String(sol).trim().split(/\s+/).filter(Boolean) : [];
+        return { sol: arr.join(" "), ms: Date.now() - t, p1: 0 };
+      }
+      return new Promise(function (res, rej) { var id = ++seq; pend[id] = { res: res, rej: rej }; w.postMessage({ cmd: "solve", id: id, f: f }); });
+    });
+  }
+  return { ensure: ensure, solve: solve, state: function () { return st; }, ready: function () { return st === "ready"; }, progress: function () { return lastP; }, off: function (cb) { var i = cbs.indexOf(cb); if (i >= 0) cbs.splice(i, 1); } };
+})();
+
+
+/* yig'ilgan holatga yaqin (≤ 7 burilish) holatlar uchun ENG QISQA yechim: ikki tomonlama qidiruv (tarmoqsiz ishlaydi) */
+var NEAR = (function () {
+  var goal = null;
+  function ok(prev, m) { if (!prev) return true; var a = prev[0], b = m[0]; if (a === b) return false; if (OPP[a] === b && FACES.indexOf(a) > FACES.indexOf(b)) return false; return true; }
+  function build() {
+    goal = new Map(); goal.set(SOLVED, []);
+    var fr = [[solvedArr(), []]];
+    for (var d = 1; d <= 3; d++) {
+      var nf = [];
+      for (var i = 0; i < fr.length; i++) {
+        var s = fr[i][0], p = fr[i][1], pv = p[p.length - 1];
+        for (var j = 0; j < 18; j++) { var m = MOVES[j]; if (!ok(pv, m)) continue; var ns = applyMove(s, m), k = ns.join(""); if (goal.has(k)) continue; var np = p.concat([m]); goal.set(k, np); nf.push([ns, np]); }
+      }
+      fr = nf;
+    }
+  }
+  function solve(f, maxD) {
+    if (f === SOLVED) return [];
+    if (!goal) build();
+    var g = goal.get(f); if (g) return invAlg(g);
+    var seen = new Set([f]), fr = [[f.split(""), []]], lim = Math.max(1, Math.min(4, (maxD || 7) - 3));
+    for (var d = 1; d <= lim; d++) {
+      var nf = [], best = null;
+      for (var i = 0; i < fr.length; i++) {
+        var s = fr[i][0], p = fr[i][1], pv = p[p.length - 1];
+        for (var j = 0; j < 18; j++) {
+          var m = MOVES[j]; if (!ok(pv, m)) continue;
+          var ns = applyMove(s, m), k = ns.join(""); if (seen.has(k)) continue; seen.add(k);
+          var gp = goal.get(k);
+          if (gp && (!best || gp.length < best[1].length)) best = [p.concat([m]), gp];
+          if (d < lim) nf.push([ns, p.concat([m])]);
+        }
+      }
+      if (best) return simplify(best[0].concat(invAlg(best[1])));
+      fr = nf;
+    }
+    return null;
+  }
+  return { solve: solve };
+})();
+function solveAny(f, cb) {
+  var t = now(), n = NEAR.solve(f, 6);
+  if (n) return Promise.resolve({ sol: n.join(" "), ms: Math.round(now() - t), p1: -1, opt: true });
+  return SOLVER.ensure(cb).then(function () { return SOLVER.solve(f); });
+}
+
+/* ================= 5. Dvigatel: holat, navbat, animatsiya ================= */
+var ENG = { s: solvedArr(), q: [], anim: null, hist: [], speed: 1, lock: false };
+var VIEW = null, LABELS = true, labVisible = false, labInit = false, raf = 0, curTab = "kub";
+var CAM = { yaw: .62, pitch: .5, vy: 0, vp: 0, tw: null, dragging: false };
+var moveListeners = [];
+var stage = $("stage");
+function onMove(fn) { moveListeners.push(fn); }
+function instant() { return RM || document.hidden || (!labVisible && !ENG.lock); }
+function moveDur(m, o) { var b = o.dur || (o.fast === 2 ? 42 : o.fast ? 90 : 260 / ENG.speed); return moveQ(m) === 2 ? b * 1.45 : b; }
+function enqueue(moves, o) {
+  o = o || {};
+  moves.forEach(function (m, k) {
+    ENG.q.push({ m: m, dur: moveDur(m, o), rec: !!o.rec, user: !!o.user, play: !!o.play, arrow: !!o.arrow, fast: !!o.fast, k: k, start: o.start, each: o.each, cb: k === moves.length - 1 ? o.done : null });
+  });
+  if (!moves.length && o.done) ENG.q.push({ fn: o.done });
+  wake();
+}
+function qWait(ms) { ENG.q.push({ wait: ms }); wake(); }
+function qFn(fn) { ENG.q.push({ fn: fn }); wake(); }
+function busy() { return !!(ENG.anim || ENG.q.length); }
+function setCube(s) { ENG.q.length = 0; ENG.anim = null; ENG.s = s.slice(); wake(); }
+function stopQueue() { ENG.q.length = 0; if (ENG.anim && ENG.anim.wait) ENG.anim = null; }
+function stepEngine(t) {
+  var g = 0;
+  while (g++ < 600) {
+    if (!ENG.anim) {
+      if (!ENG.q.length) break;
+      var it = ENG.q.shift();
+      if (it.fn) { it.fn(); continue; }
+      if (it.wait) ENG.anim = { wait: true, t0: t, dur: instant() ? 0 : it.wait, t: 0 };
+      else { ENG.anim = { it: it, t0: t, dur: instant() ? 0 : it.dur, t: 0 }; if (!it.fast) flash(it.m); if (it.start) it.start(it.k, it.m); }
+    }
+    var A = ENG.anim, k = A.dur ? (t - A.t0) / A.dur : 1;
+    if (k < 1) { A.t = ease(k); break; }
+    ENG.anim = null;
+    if (!A.wait) finishMove(A.it);
+  }
+}
+function finishMove(it) {
+  ENG.s = applyMove(ENG.s, it.m);
+  if (it.rec) ENG.hist.push(it.m);
+  for (var i = 0; i < moveListeners.length; i++) moveListeners[i](it);
+  if (it.each) it.each(it.k, it.m);
+  if (it.cb) it.cb(it);
+}
+function camStep(t) {
+  if (CAM.tw) {
+    var k = Math.min(1, (t - CAM.tw.t0) / CAM.tw.dur), e = ease(k);
+    CAM.yaw = lerp(CAM.tw.y0, CAM.tw.y1, e); CAM.pitch = lerp(CAM.tw.p0, CAM.tw.p1, e);
+    if (k >= 1) CAM.tw = null;
+    return true;
+  }
+  if (!CAM.dragging && (Math.abs(CAM.vy) > 2e-4 || Math.abs(CAM.vp) > 2e-4)) {
+    CAM.yaw += CAM.vy; CAM.pitch = clamp(CAM.pitch + CAM.vp, -1.45, 1.45); CAM.vy *= .92; CAM.vp *= .92; return true;
+  }
+  return false;
+}
+function camTo(yaw, pitch, dur) {
+  var y0 = CAM.yaw, d = yaw - y0; d = ((d + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+  CAM.tw = { y0: y0, y1: y0 + d, p0: CAM.pitch, p1: pitch, t0: now(), dur: RM ? 1 : (dur || 800) }; CAM.vy = CAM.vp = 0; wake();
+}
+function displayState() { return curTab === "boya" && PAINT.s ? PAINT.s : ENG.s; }
+function frame(t) {
+  raf = 0;
+  stepEngine(t);
+  var moving = camStep(t);
+  if (VIEW && labVisible) {
+    var A = ENG.anim && !ENG.anim.wait ? ENG.anim : null;
+    VIEW.render(displayState(), A ? { m: A.it.m, t: A.t, id: A.it } : null, CAM, { labels: LABELS, arrow: A && A.it.arrow ? A.it.m : null });
+  }
+  if ((busy() || moving) && !document.hidden) wake();
+}
+function wake() { if (!raf && !document.hidden) raf = requestAnimationFrame(frame); }
+document.addEventListener("visibilitychange", function () { if (!document.hidden) { wake(); MINIS.wake(); } });
+
+/* ================= 6. Ko'rinishlar: three.js (asosiy) va 2D (zaxira) ================= */
+function CanvasView(cv) {
+  var ctx = cv.getContext("2d"), w = 10, h = 10, hits = null;
+  return {
+    kind: "2d",
+    resize: function (W, H) { w = W; h = H; cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); },
+    render: function (s, anim, cam, opt) {
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, w, h);
+      hits = MINI.draw(ctx, w, h, s, { yaw: cam.yaw, pitch: cam.pitch, anim: anim, arrow: opt.arrow, labels: opt.labels, zoom: .148, hits: true });
+    },
+    pick: function (x, y) { return MINI.hit(hits, x, y); }
+  };
+}
+function ThreeView(cv) {
+  var T = window.THREE;
+  var renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: "high-performance" });
+  renderer.setPixelRatio(DPR);
+  renderer.outputEncoding = T.sRGBEncoding;
+  renderer.toneMapping = T.NoToneMapping;
+  var scene = new T.Scene(), camera = new T.PerspectiveCamera(30, 1, .1, 100), dist = 11;
+  function lin(hex) { return new T.Color(hex).convertSRGBToLinear(); }
+  /* yorug'lik muhiti (aks ettirish uchun) */
+  try {
+    var env = new T.Scene();
+    env.add(new T.Mesh(new T.BoxGeometry(12, 12, 12), new T.MeshBasicMaterial({ color: lin("#1a2240"), side: T.BackSide })));
+    var panel = function (w2, h2, x, y, z, col, k) { var m = new T.Mesh(new T.PlaneGeometry(w2, h2), new T.MeshBasicMaterial({ color: lin(col).multiplyScalar(k), side: T.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 0, 0); env.add(m); };
+    panel(7, 4, 0, 5.8, 1.5, "#ffffff", 3); panel(3, 5, 5.8, 1.2, 2.5, "#e8f0ff", 1.6); panel(4, 3, -5.8, .8, -1, "#b89cff", 1.2); panel(5, 2.2, 0, -.6, 5.8, "#ffffff", .9); panel(4, 4, 0, -5.8, 0, "#35f0c4", .35);
+    var pm = new T.PMREMGenerator(renderer); scene.environment = pm.fromScene(env, .04).texture; pm.dispose();
+  } catch (e) {}
+  scene.add(new T.HemisphereLight(0xe6eeff, 0x1a2140, .22));
+  var key = new T.DirectionalLight(0xffffff, .62); key.position.set(3, 8, 6); scene.add(key);
+  var fill = new T.DirectionalLight(0xdfe8ff, .22); fill.position.set(6, 1, 3); scene.add(fill);
+  var rim = new T.DirectionalLight(0xb49bff, .3); rim.position.set(-7, -2, -6); scene.add(rim);
+  /* geometriya */
+  function rrShape(h, r) { var s = new T.Shape(); s.moveTo(-h + r, -h); s.lineTo(h - r, -h); s.quadraticCurveTo(h, -h, h, -h + r); s.lineTo(h, h - r); s.quadraticCurveTo(h, h, h - r, h); s.lineTo(-h + r, h); s.quadraticCurveTo(-h, h, -h, h - r); s.lineTo(-h, -h + r); s.quadraticCurveTo(-h, -h, -h + r, -h); return s; }
+  var SZ = .965, BV = .07, HALF = SZ / 2;
+  var bodyGeo = new T.ExtrudeGeometry(rrShape(HALF - BV, .03), { depth: SZ - 2 * BV, bevelEnabled: true, bevelThickness: BV, bevelSize: BV, bevelSegments: 4, curveSegments: 5 });
+  bodyGeo.translate(0, 0, -(SZ - 2 * BV) / 2);
+  var stGeo = new T.ExtrudeGeometry(rrShape(.4, .12), { depth: .006, bevelEnabled: true, bevelThickness: .007, bevelSize: .012, bevelSegments: 2, curveSegments: 5 });
+  stGeo.translate(0, 0, .007);
+  var bodyMat = new T.MeshStandardMaterial({ color: lin("#0d0f18"), roughness: .38, metalness: .2, envMapIntensity: .7 });
+  var mats = {};
+  "URFDLBX".split("").forEach(function (c) { mats[c] = new T.MeshStandardMaterial({ color: lin(FCOL[c]), roughness: c === "X" ? .75 : .3, metalness: 0, envMapIntensity: c === "X" ? .25 : .55 }); });
+  var root = new T.Group(), pivot = new T.Group(); scene.add(root); root.add(pivot);
+  var cubies = [], stickers = [], pickables = [], byPos = {}, Z = new T.Vector3(0, 0, 1);
+  for (var x = -1; x <= 1; x++) for (var y = -1; y <= 1; y++) for (var z = -1; z <= 1; z++) {
+    if (!x && !y && !z) continue;
+    var g = new T.Group(); g.position.set(x, y, z); g.userData.p = [x, y, z];
+    var body = new T.Mesh(bodyGeo, bodyMat); g.add(body); pickables.push(body);
+    root.add(g); cubies.push(g); byPos[[x, y, z].join()] = g;
+  }
+  FP.forEach(function (fp, i) {
+    var m = new T.Mesh(stGeo, mats.X), n = new T.Vector3(fp.n[0], fp.n[1], fp.n[2]);
+    m.position.copy(n).multiplyScalar(HALF - .002); m.quaternion.setFromUnitVectors(Z, n); m.userData.idx = i;
+    byPos[fp.p.join()].add(m); stickers[i] = m; pickables.push(m);
+  });
+  /* soya */
+  var sc = document.createElement("canvas"); sc.width = sc.height = 128;
+  var sx = sc.getContext("2d"), sg = sx.createRadialGradient(64, 64, 4, 64, 64, 62); sg.addColorStop(0, "rgba(0,0,0,.6)"); sg.addColorStop(.55, "rgba(0,0,0,.25)"); sg.addColorStop(1, "rgba(0,0,0,0)"); sx.fillStyle = sg; sx.fillRect(0, 0, 128, 128);
+  var shadow = new T.Mesh(new T.PlaneGeometry(6.4, 6.4), new T.MeshBasicMaterial({ map: new T.CanvasTexture(sc), transparent: true, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.y = -2.25; scene.add(shadow);
+  /* harflar */
+  var labels = [];
+  FACES.split("").forEach(function (f) {
+    var c = document.createElement("canvas"); c.width = c.height = 128; var x2 = c.getContext("2d");
+    x2.beginPath(); x2.arc(64, 64, 52, 0, 7); x2.fillStyle = "rgba(6,10,26,.86)"; x2.fill(); x2.lineWidth = 9; x2.strokeStyle = f === "D" ? "#c8d0ea" : FCOL[f]; x2.stroke();
+    x2.fillStyle = "#ffffff"; x2.font = '800 60px "Unbounded","Golos Text",sans-serif'; x2.textAlign = "center"; x2.textBaseline = "middle"; x2.fillText(f, 64, 68);
+    var tex = new T.CanvasTexture(c); tex.encoding = T.sRGBEncoding;
+    var sp = new T.Sprite(new T.SpriteMaterial({ map: tex, transparent: true, depthWrite: false })); var n = NORMS[f];
+    sp.position.set(n[0] * 2.2, n[1] * 2.2, n[2] * 2.2); sp.scale.set(.6, .6, 1); scene.add(sp); labels.push(sp);
+  });
+  /* yo'nalish strelkasi */
+  function mkArrow(dbl) {
+    var grp = new T.Group(), mat = new T.MeshBasicMaterial({ color: lin("#ffc23d"), side: T.DoubleSide, transparent: true, opacity: .96, depthWrite: false });
+    var R = 1.02, a0 = 2.4, a1 = a0 - (dbl ? 5.0 : 3.9), pts = [];
+    for (var k = 0; k <= 40; k++) { var th = a0 + (a1 - a0) * k / 40; pts.push(new T.Vector3(R * Math.cos(th), R * Math.sin(th), 0)); }
+    grp.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 64, .06, 8, false), mat));
+    function head(th) { var tan = new T.Vector3(Math.sin(th), -Math.cos(th), 0), cone = new T.Mesh(new T.ConeGeometry(.17, .38, 20), mat); cone.position.set(R * Math.cos(th), R * Math.sin(th), 0).addScaledVector(tan, .17); cone.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), tan); grp.add(cone); }
+    head(a1); if (dbl) head((a0 + a1) / 2);
+    grp.visible = false; grp.renderOrder = 5; scene.add(grp);
+    return grp;
+  }
+  var arrows = { 1: mkArrow(false), 2: mkArrow(true) };
+  var lastKey = "", curAnim = null, ray = new T.Raycaster(), W = 10, H = 10, AXN = ["x", "y", "z"];
+  function setColors(s) { var k = s.join(""); if (k === lastKey) return; lastKey = k; for (var i = 0; i < 54; i++) stickers[i].material = mats[s[i]] || mats.X; }
+  function release() { pivot.rotation.set(0, 0, 0); while (pivot.children.length) root.add(pivot.children[0]); curAnim = null; }
+  function setAnim(anim) {
+    if (!anim) { if (curAnim) release(); return; }
+    var f = anim.m[0], a = AXS[f][0], s = AXS[f][1];
+    if (curAnim !== anim.id) {
+      release(); curAnim = anim.id;
+      for (var i = 0; i < cubies.length; i++) if (cubies[i].userData.p[a] === s) pivot.add(cubies[i]);
+    }
+    var q = moveQ(anim.m);
+    pivot.rotation.set(0, 0, 0); pivot.rotation[AXN[a]] = -s * (q === 3 ? -1 : q) * Math.PI / 2 * anim.t;
+  }
+  function fit() {
+    var vf = 15 * Math.PI / 180, hf = Math.atan(Math.tan(vf) * camera.aspect), r = 2.75;
+    dist = r / Math.sin(Math.min(vf, hf)) * 1.02;
+  }
+  return {
+    kind: "3d",
+    resize: function (w, h) { W = w; H = h; renderer.setSize(w, h, false); camera.aspect = w / h; fit(); camera.updateProjectionMatrix(); },
+    render: function (s, anim, cam, opt) {
+      setColors(s); setAnim(anim);
+      var cp = Math.cos(cam.pitch);
+      camera.position.set(dist * Math.sin(cam.yaw) * cp, dist * Math.sin(cam.pitch), dist * Math.cos(cam.yaw) * cp);
+      camera.up.set(0, 1, 0); camera.lookAt(0, 0, 0);
+      for (var i = 0; i < 6; i++) labels[i].visible = !!opt.labels;
+      shadow.visible = cam.pitch > -.08; shadow.material.opacity = clamp(cam.pitch * 2.2, 0, 1);
+      arrows[1].visible = arrows[2].visible = false;
+      if (opt.arrow) {
+        var m = opt.arrow, q = moveQ(m), ar = arrows[q === 2 ? 2 : 1], n = NORMS[m[0]], nv = new T.Vector3(n[0], n[1], n[2]);
+        ar.visible = true; ar.position.copy(nv).multiplyScalar(1.56); ar.quaternion.setFromUnitVectors(Z, nv); ar.scale.set(q === 3 ? -1 : 1, 1, 1);
+      }
+      renderer.render(scene, camera);
+    },
+    pick: function (px, py) {
+      ray.setFromCamera({ x: px / W * 2 - 1, y: -(py / H) * 2 + 1 }, camera);
+      var hs = ray.intersectObjects(pickables, false);
+      if (!hs.length) return -1; var o = hs[0].object; return o.userData.idx == null ? -1 : o.userData.idx;
+    }
+  };
+}
+
+/* ================= 7. Laboratoriyani ishga tushirish (dangasa) ================= */
+function resizeStage() { if (!VIEW) return; var r = stage.getBoundingClientRect(); VIEW.resize(Math.max(50, Math.round(r.width)), Math.max(50, Math.round(r.height))); wake(); }
+function initLab() {
+  if (labInit) return; labInit = true;
+  VIEW = CanvasView($("cv2d")); resizeStage();
+  $("st-load").textContent = "3D yuklanmoqda…";
+  loadScript(THREE_URL).then(function () {
+    try {
+      if (!window.THREE) throw new Error("THREE yo'q");
+      var tv = ThreeView($("cv3"));
+      VIEW = tv; resizeStage();
+      $("cv3").classList.add("on"); $("cv2d").style.visibility = "hidden"; $("st-load").textContent = "";
+      wake();
+    } catch (e) { $("st-load").textContent = "WebGL ishlamadi — soddalashtirilgan ko'rinish"; setTimeout(function () { $("st-load").textContent = ""; }, 4000); }
+  }).catch(function () { $("st-load").textContent = "3D kutubxona yuklanmadi — soddalashtirilgan ko'rinish"; setTimeout(function () { $("st-load").textContent = ""; }, 5000); });
+  if (typeof ResizeObserver !== "undefined") new ResizeObserver(function () { resizeStage(); }).observe(stage);
+  else window.addEventListener("resize", resizeStage);
+}
+watchVis($("lab"), function (v) { labVisible = v; if (v) { initLab(); wake(); } }, "300px");
+
+/* ================= 8. Kiritish: aylantirish, bosish, tugmalar, klaviatura ================= */
+var toastT = 0;
+function toast(msg, cls, ms) { var el = $("toast"); el.innerHTML = msg; el.className = "toast show" + (cls ? " " + cls : ""); clearTimeout(toastT); toastT = setTimeout(function () { el.className = "toast"; }, ms || 2200); }
+function flash(m) { var el = $("mv-flash"); el.textContent = m; el.className = "mv-flash f-" + m[0]; void el.offsetWidth; el.className = "mv-flash f-" + m[0] + " show"; }
+function hud(html) { $("st-hud").innerHTML = html || ""; }
+(function () {
+  var ptr = null;
+  stage.addEventListener("pointerdown", function (e) {
+    if (e.button > 0) return;
+    initLab();
+    ptr = { id: e.pointerId, x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, t: now(), lt: now(), drag: false };
+    try { stage.setPointerCapture(e.pointerId); } catch (er) {}
+    CAM.vy = CAM.vp = 0; CAM.tw = null;
+  });
+  stage.addEventListener("pointermove", function (e) {
+    if (!ptr || e.pointerId !== ptr.id) return;
+    var dx = e.clientX - ptr.x, dy = e.clientY - ptr.y, t = now();
+    if (!ptr.drag && Math.hypot(e.clientX - ptr.sx, e.clientY - ptr.sy) > 6) { ptr.drag = true; CAM.dragging = true; }
+    if (ptr.drag) {
+      var k = .0088, dt = Math.max(8, t - ptr.lt);
+      CAM.yaw -= dx * k; CAM.pitch = clamp(CAM.pitch + dy * k, -1.45, 1.45);
+      CAM.vy = -dx * k * 16 / dt; CAM.vp = dy * k * 16 / dt; wake();
+    }
+    ptr.x = e.clientX; ptr.y = e.clientY; ptr.lt = t;
+  });
+  function end(e) {
+    if (!ptr || e.pointerId !== ptr.id) return;
+    if (!ptr.drag && now() - ptr.t < 600 && e.type === "pointerup") {
+      var r = stage.getBoundingClientRect();
+      if (VIEW && curTab === "boya") { var idx = VIEW.pick(e.clientX - r.left, e.clientY - r.top); if (idx >= 0) paintCell(idx); }
+    }
+    if (now() - ptr.lt > 90 || RM) { CAM.vy = CAM.vp = 0; }
+    CAM.dragging = false; ptr = null; wake();
+  }
+  stage.addEventListener("pointerup", end); stage.addEventListener("pointercancel", end);
+})();
+/* burilish tugmalari */
+(function () {
+  var pad = $("pad"), h = "";
+  ["", "'", "2"].forEach(function (sfx) { "UDLRFB".split("").forEach(function (f) { var m = f + sfx; h += '<button class="mv f-' + f + '" type="button" data-m="' + m + '" title="' + esc(moveDesc(m)) + '">' + m + "</button>"; }); });
+  pad.innerHTML = h;
+  pad.addEventListener("click", function (e) { var b = e.target.closest(".mv"); if (b) userMove(b.getAttribute("data-m")); });
+})();
+function padAllowed() { return !!(TABS[curTab] && TABS[curTab].pad); }
+function userMove(m) {
+  initLab();
+  if (!padAllowed()) return;
+  if (ENG.lock) { toast("Namoyish tugashini kuting yoki «↺ Qayta boshlash» ni bosing"); return; }
+  if (ENG.q.length > 2) return;
+  enqueue([m], { rec: true, user: true });
+}
+function undo() {
+  if (ENG.lock || !padAllowed()) return;
+  if (ENG.q.length > 1 || !ENG.hist.length) return;
+  var m = ENG.hist.pop();
+  enqueue([invMove(m)], { undo: true, user: true });
+}
+document.addEventListener("keydown", function (e) {
+  var t = e.target, tg = t && t.tagName;
+  if (tg === "INPUT" || tg === "TEXTAREA" || tg === "SELECT" || (t && t.isContentEditable)) return;
+  if (!labVisible) return;
+  if ((e.ctrlKey || e.metaKey) && !e.altKey && (e.key === "z" || e.key === "Z")) { if (padAllowed()) { e.preventDefault(); undo(); } return; }
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  var k = (e.key || "").toUpperCase();
+  if (k.length !== 1 || "UDLRFB".indexOf(k) < 0 || !padAllowed()) return;
+  e.preventDefault();
+  userMove(k + (e.shiftKey ? "'" : ""));
+});
+$("b-lbl").addEventListener("click", function () { LABELS = !LABELS; this.classList.toggle("on", LABELS); this.setAttribute("aria-pressed", String(LABELS)); lsSet("lbl", LABELS ? 1 : 0); wake(); });
+$("b-view").addEventListener("click", function () { var v = TABS[curTab] && TABS[curTab].view; camTo(v ? v[0] : .62, v ? v[1] : .5); });
+if (lsGet("lbl") === "0") { LABELS = false; $("b-lbl").classList.remove("on"); $("b-lbl").setAttribute("aria-pressed", "false"); }
+
+/* ================= 9. Rejimlar (tablar) ================= */
+var TABS = {}, GRP = {}, tabDone = false;
+function flushAnim() { var A = ENG.anim; ENG.anim = null; ENG.q.length = 0; if (A && !A.wait) finishMove(A.it); ENG.q.length = 0; }
+function setTab(k, quiet) {
+  if (!TABS[k]) k = "kub";
+  if (tabDone && k === curTab) return;
+  var P = TABS[curTab], N = TABS[k];
+  if (tabDone) {
+    if (OSHOW) stopShow("");
+    if (P.leave) P.leave();
+    flushAnim(); ENG.lock = false;
+    if (P.grp) GRP[P.grp] = { s: ENG.s.slice(), hist: ENG.hist.slice() };
+    if (N.grp && N.grp !== P.grp) { var g = GRP[N.grp]; ENG.s = g ? g.s.slice() : solvedArr(); ENG.hist = g ? g.hist.slice() : []; }
+  }
+  curTab = k; tabDone = true;
+  [].forEach.call(document.querySelectorAll(".tab"), function (b) { b.setAttribute("aria-selected", String(b.getAttribute("data-tab") === k)); });
+  [].forEach.call(document.querySelectorAll(".pane"), function (p) { p.classList.toggle("on", p.getAttribute("data-pane") === k); });
+  $("pad").hidden = !N.pad;
+  stage.classList.toggle("paint", k === "boya");
+  $("lab-title").innerHTML = N.title;
+  hud("");
+  if (N.view) camTo(N.view[0], N.view[1], 700);
+  if (N.enter) N.enter();
+  lsSet("tab", k);
+  if (!quiet) initLab();
+  wake();
+}
+document.querySelector(".tabs").addEventListener("click", function (e) { var b = e.target.closest(".tab"); if (b) setTab(b.getAttribute("data-tab")); });
+
+/* ---------- 9.1 Erkin kub ---------- */
+var KUB = { scr: null, celebrated: false };
+TABS.kub = { pad: true, grp: "main", title: "<b>Erkin kub</b> · aralashtiring va yig'ing", enter: function () { renderKub(); } };
+function renderKub() {
+  var h = ENG.hist, n = h.length;
+  $("k-cnt").textContent = n;
+  $("k-hist").innerHTML = n ? (n > 36 ? '<span class="lbl">…</span>' : "") + toksHTML(h.slice(-36)) : '<span class="muted" style="margin:0">— hali burilish yo\'q</span>';
+  var sol = isSolvedS(ENG.s);
+  $("k-status").innerHTML = sol ? '<span class="ok">✅ Kub yig\'ilgan.</span>' : '<span class="warn">Kub aralash.</span> O\'zingiz yig\'ib ko\'ring yoki «🤖 Yechuvchi» ga o\'ting.';
+  if (curTab === "kub") hud(n ? "Burilishlar: <b>" + n + "</b>" : "");
+}
+function scrambleMain(after) {
+  initLab();
+  if (ENG.lock) return;
+  flushAnim(); setCube(solvedArr());
+  var sc = randomScramble(20);
+  KUB.scr = sc; KUB.celebrated = false; ENG.hist = []; SOL = null; renderSol();
+  $("k-scrtxt").innerHTML = toksHTML(sc);
+  enqueue(sc, { fast: true, done: function () { renderKub(); if (after) after(); } });
+  renderKub();
+  return sc;
+}
+$("k-scr").addEventListener("click", function () { scrambleMain(); });
+$("k-undo").addEventListener("click", undo);
+$("k-reset").addEventListener("click", function () { if (ENG.lock) return; flushAnim(); setCube(solvedArr()); ENG.hist = []; KUB.scr = null; SOL = null; $("k-scrtxt").innerHTML = '<span class="muted" style="margin:0">— hali aralashtirilmagan</span>'; renderKub(); });
+$("k-speed").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; ENG.speed = parseFloat(b.getAttribute("data-v")) || 1; [].forEach.call(this.children, function (x) { x.classList.toggle("on", x === b); }); lsSet("spd", ENG.speed); });
+(function () { var sp = lsNum("spd", 1); [].forEach.call($("k-speed").children, function (x) { var v = parseFloat(x.getAttribute("data-v")); x.classList.toggle("on", Math.abs(v - sp) < .01); if (Math.abs(v - sp) < .01) ENG.speed = v; }); })();
+onMove(function (it) {
+  if (curTab !== "kub") return;
+  renderKub();
+  if (it.user && KUB.scr && !KUB.celebrated && isSolvedS(ENG.s)) { KUB.celebrated = true; toast("🎉 Barakalla! Kub yig'ildi — " + ENG.hist.length + " ta burilish", "ok", 3500); coins(2, "Rubik: erkin yig'ish"); }
+});
+
+/* ---------- 9.2 Yechuvchi ---------- */
+var SOL = null;
+TABS.yech = { pad: true, grp: "main", title: "<b>Yechuvchi</b> · Kotsemba ikki bosqichli algoritmi", enter: function () { renderSol(); if (!SOL && !$("y-status").innerHTML) yStatus(isSolvedS(ENG.s) ? "Kub yig'ilgan. Avval 🎲 aralashtiring yoki tugmalar bilan o'zingiz aralashtiring." : "Kub tayyor. «🤖 Yechimni top» ni bosing."); }, leave: function () { if (SOL) SOL.playing = false; } };
+function yStatus(h) { $("y-status").innerHTML = h || ""; }
+function spd() { return parseFloat($("y-spd").value) || 1; }
+function showProg(p, ph, t0) {
+  var el = $("y-prog"); el.hidden = ph === "ready";
+  $("y-bar").style.width = Math.round(Math.max(.03, p) * 100) + "%";
+  var sec = " (" + fsec(now() - t0) + " s)";
+  $("y-ptxt").textContent = ph === "load" ? "Yechuvchi yuklanmoqda…" + sec : ph === "main" ? "Jadvallar hisoblanmoqda — bir necha soniya…" + sec : "Jadvallar hisoblanmoqda: " + Math.round(p * 100) + "%" + sec;
+}
+function solveCurrent() {
+  initLab();
+  if (curTab !== "yech") setTab("yech");
+  if (busy()) { toast("Burilish tugashini kuting…"); return; }
+  if (isSolvedS(ENG.s)) { yStatus('<span class="ok">Kub allaqachon yig\'ilgan.</span> Avval 🎲 aralashtiring.'); return; }
+  var v = validateS(ENG.s); if (!v.ok) { yStatus('<span class="bad">Bu holatni yechib bo\'lmaydi:</span> ' + esc(v.errs[0])); return; }
+  var f = ENG.s.join(""), t0 = now(), first = !SOLVER.ready();
+  $("y-solve").disabled = true; SOL = null; renderSol();
+  yStatus(first ? "Yechuvchi birinchi marta tayyorlanmoqda (bir marta, keyin tez ishlaydi)…" : "Yechim qidirilmoqda…");
+  var cb = function (p, ph) { showProg(p, ph, t0); };
+  solveAny(f, cb).then(function (r) {
+    SOLVER.off(cb); $("y-prog").hidden = true;
+    $("y-solve").disabled = false;
+    if (ENG.s.join("") !== f) { yStatus('<span class="warn">Kub o\'zgarib qoldi — qayta bosing.</span>'); return; }
+    var ms = r.sol ? r.sol.split(" ").filter(Boolean) : [];
+    if (!isSolvedS(applyMoves(f.split(""), ms))) { yStatus('<span class="bad">Xatolik: yechim tekshiruvdan o\'tmadi.</span>'); return; }
+    SOL = { start: f.split(""), moves: ms, idx: 0, p1: r.p1 == null ? 0 : r.p1, ms: r.ms, playing: false, opt: !!r.opt };
+    renderSol();
+    yStatus('<span class="ok">✅ Yechim topildi: ' + ms.length + " ta burilish</span> (" + (r.ms < 1000 ? r.ms + " ms" : fsec(r.ms) + " s") + "). ▶ ni bosing yoki ◀ ▶❘ bilan qadamma-qadam yuring.");
+  }).catch(function (e) {
+    SOLVER.off(cb); $("y-solve").disabled = false; $("y-prog").hidden = true;
+    yStatus('<span class="bad">Yechuvchini yuklab bo\'lmadi.</span> Internet aloqasini tekshirib, qayta urinib ko\'ring.');
+  });
+}
+function faceVisible(f) { var b = MINI.basis(CAM.yaw, CAM.pitch), n = NORMS[f]; return n[0] * b.v[0] + n[1] * b.v[1] + n[2] * b.v[2] > .05; }
+function renderSol() {
+  var box = $("y-res");
+  if (!SOL) { box.hidden = true; if (curTab === "yech") hud(""); return; }
+  box.hidden = false;
+  var n = SOL.moves.length, p1 = SOL.p1, k = SOL.idx;
+  $("y-phase").innerHTML = SOL.opt
+    ? "<b>" + n + " ta burilish</b> — bu <b>eng qisqa</b> yechim! Kub yig'ilgan holatdan atigi " + n + " qadam uzoqda edi, kompyuter barcha variantlarni tekshirib chiqdi."
+    : p1 > 0 && p1 < n
+    ? '<b class="ph1">1-bosqich: ' + p1 + " ta burilish</b> — kub G1 kichik guruhiga o'tadi: hamma burchak va qirralar to'g'ri yo'nalgan, o'rta qatlam qirralari o'rta qatlamda. " + '<b class="ph2">2-bosqich: ' + (n - p1) + " ta</b> — faqat U, D, R2, L2, F2, B2 bilan joylashtirish."
+    : p1 === 0 ? "<b>" + n + " ta burilish</b> — kub boshidanoq G1 da edi, faqat 2-bosqich (U, D, R2, L2, F2, B2) kerak bo'ldi." : "<b>" + n + " ta burilish</b>.";
+  if (!SOL.opt) $("y-phase").innerHTML += ' <span class="muted">Eng qisqa yechim odatda 18–20 ta bo\'ladi, lekin uni topish juda uzoq — Kotsemba algoritmi tez va yetarlicha qisqa yechimni tanlaydi.</span>';
+  $("y-toks").innerHTML = SOL.moves.map(function (m, i) { return '<button type="button" class="tok f-' + m[0] + (p1 > 0 && i < p1 ? " p1" : " p2") + (i < k ? " done" : i === k ? " cur" : "") + '" data-k="' + i + '" title="' + (i + 1) + '-burilishgacha o\'tish">' + m + "</button>"; }).join("");
+  $("y-play").textContent = SOL.playing ? "⏸" : "▶";
+  $("y-play").setAttribute("aria-label", SOL.playing ? "Pauza" : "Ijro");
+  var nowEl = $("y-now");
+  if (k >= n) nowEl.innerHTML = '<div class="big ok">✓</div><p><b>Kub yig\'ildi!</b> ' + n + " ta burilish. ◀ bilan orqaga qaytib, istalgan qadamni qayta ko'ring yoki tokenni bosing.</p>";
+  else {
+    var m = SOL.moves[k], ph = SOL.opt ? '<span class="ph2">eng qisqa yo\'l</span>' : p1 > 0 && k < p1 ? '<span class="ph1">1-bosqich</span>' : '<span class="ph2">2-bosqich</span>';
+    nowEl.innerHTML = '<div class="big f-' + m[0] + '">' + m + "</div><p><b>" + (k + 1) + "/" + n + "</b> · " + ph + "<br>" + esc(moveDesc(m)) + (faceVisible(m[0]) ? "" : ' <span class="warn">Bu tomon hozir orqada — kubni aylantirib qarang.</span>') + "</p>";
+  }
+  if (curTab === "yech") hud("Qadam: <b>" + k + " / " + n + "</b>");
+}
+function solStep(dir) {
+  if (!SOL || busy()) return false;
+  var n = SOL.moves.length, d = 430 / spd();
+  if (dir > 0) {
+    if (SOL.idx >= n) return false;
+    enqueue([SOL.moves[SOL.idx]], { play: true, arrow: true, dur: d, done: function () { if (!SOL) return; SOL.idx++; renderSol(); afterStep(); } });
+  } else {
+    if (SOL.idx <= 0) return false;
+    SOL.idx--; renderSol();
+    enqueue([invMove(SOL.moves[SOL.idx])], { play: true, arrow: true, dur: d, done: function () { renderSol(); } });
+  }
+  return true;
+}
+function afterStep() {
+  if (!SOL) return;
+  if (SOL.idx >= SOL.moves.length) { if (SOL.playing) { SOL.playing = false; renderSol(); toast("🎉 Kub yig'ildi! " + SOL.moves.length + " ta burilish", "ok"); } return; }
+  if (SOL.playing) { qWait(220 / spd()); qFn(function () { if (SOL && SOL.playing) solStep(1); }); }
+}
+function solJump(k) { if (!SOL) return; SOL.playing = false; flushAnim(); SOL.idx = clamp(k, 0, SOL.moves.length); ENG.s = applyMoves(SOL.start, SOL.moves.slice(0, SOL.idx)); renderSol(); wake(); }
+$("y-solve").addEventListener("click", solveCurrent);
+$("y-scr").addEventListener("click", function () { scrambleMain(function () { if (curTab === "yech") yStatus("Aralashtirildi. Endi «🤖 Yechimni top» ni bosing."); }); yStatus("Aralashtirilmoqda…"); });
+$("y-play").addEventListener("click", function () {
+  if (!SOL) return;
+  if (SOL.playing) { SOL.playing = false; stopQueue(); renderSol(); return; }
+  if (SOL.idx >= SOL.moves.length) solJump(0);
+  SOL.playing = true; renderSol(); if (!busy()) solStep(1);
+});
+$("y-next").addEventListener("click", function () { if (!SOL) return; SOL.playing = false; stopQueue(); renderSol(); solStep(1); });
+$("y-prev").addEventListener("click", function () { if (!SOL) return; SOL.playing = false; stopQueue(); renderSol(); solStep(-1); });
+$("y-first").addEventListener("click", function () { solJump(0); });
+$("y-last").addEventListener("click", function () { if (SOL) solJump(SOL.moves.length); });
+$("y-toks").addEventListener("click", function (e) { var b = e.target.closest(".tok"); if (b) solJump(+b.getAttribute("data-k")); });
+$("y-spd").addEventListener("input", function () { $("y-spdv").textContent = spd().toFixed(1).replace(".", ",") + "×"; });
+onMove(function (it) {
+  if (!it.user || !SOL) return;
+  if (curTab === "yech" || curTab === "kub") { SOL = null; renderSol(); if (curTab === "yech") yStatus('<span class="warn">Kub o\'zgardi</span> — yangi yechim uchun «🤖 Yechimni top» ni bosing.'); }
+});
+
+/* ---------- 9.3 O'z kubingizni yeching (bo'yash) ---------- */
+var PAINT = { s: null, col: "D", face: "F" };
+var PAL = ["U", "D", "F", "B", "R", "L", "X"];
+var NETPOS = { U: [0, 3], L: [3, 0], F: [3, 3], R: [3, 6], B: [3, 9], D: [6, 3] };
+function paintReset() { PAINT.s = SOLVED.split("").map(function (c, i) { return i % 9 === 4 ? c : "X"; }); }
+paintReset();
+TABS.boya = { pad: false, grp: null, title: "<b>O'z kubingiz</b> · bo'yang → tekshiring → yeching", view: [.62, .5], enter: function () { renderPaint(); } };
+function cellStyle(el, c) { el.classList.toggle("X", c === "X"); el.style.background = c === "X" ? "" : FCOL[c]; }
+(function buildPaint() {
+  var h = "";
+  for (var i = 0; i < 54; i++) {
+    var f = FACES[(i / 9) | 0], k = i % 9, r = (k / 3) | 0, c = k % 3, o = NETPOS[f];
+    h += '<button type="button" class="cell' + (k === 4 ? " ctr" : "") + '" data-i="' + i + '" data-l="' + (k === 4 ? f : "") + '" style="grid-row:' + (o[0] + r + 1) + ";grid-column:" + (o[1] + c + 1) + '" aria-label="' + PNAME[f] + " tomon, " + (k + 1) + '-katak"' + (k === 4 ? ' aria-disabled="true"' : "") + "></button>";
+  }
+  $("p-net").innerHTML = h;
+  $("p-net").addEventListener("click", function (e) { var b = e.target.closest(".cell"); if (!b) return; var i = +b.getAttribute("data-i"); PAINT.face = FACES[(i / 9) | 0]; paintCell(i); renderBig(); });
+  $("p-pal").innerHTML = PAL.map(function (c) { return '<button type="button" class="pc' + (c === "X" ? " er" : "") + '" data-c="' + c + '" role="radio" aria-checked="false" title="' + (c === "X" ? "O'chirg'ich" : cap(CNAME[c])) + '" aria-label="' + (c === "X" ? "O'chirg'ich" : cap(CNAME[c])) + '"' + (c !== "X" ? ' style="background:' + FCOL[c] + '"' : "") + "><small></small></button>"; }).join("");
+  $("p-pal").addEventListener("click", function (e) { var b = e.target.closest(".pc"); if (!b) return; PAINT.col = b.getAttribute("data-c"); renderPal(); });
+  $("p-fsel").innerHTML = "URFDLB".split("").map(function (f) { return '<button type="button" class="btn sm f-' + f + '" data-f="' + f + '" title="' + cap(PNAME[f]) + '">' + f + "</button>"; }).join("");
+  $("p-fsel").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; PAINT.face = b.getAttribute("data-f"); renderBig(); });
+  var g = ""; for (var j = 0; j < 9; j++) g += '<button type="button" class="cell" data-k="' + j + '"></button>';
+  $("p-g3").innerHTML = g;
+  $("p-g3").addEventListener("click", function (e) { var b = e.target.closest(".cell"); if (!b) return; paintCell(FACES.indexOf(PAINT.face) * 9 + (+b.getAttribute("data-k"))); });
+})();
+function paintCell(i) {
+  if (i % 9 === 4) { toast("Markaz rangi o'zgarmaydi — u tomonni belgilaydi"); return; }
+  PAINT.s[i] = PAINT.col;
+  var el = $("p-net").children[i]; cellStyle(el, PAINT.col); el.classList.remove("err");
+  renderPal(); renderBig(); $("p-msg").innerHTML = "";
+  wake();
+}
+function renderPal() {
+  var cnt = {}; PAL.forEach(function (c) { cnt[c] = 0; }); PAINT.s.forEach(function (c) { cnt[c]++; });
+  [].forEach.call($("p-pal").children, function (b) {
+    var c = b.getAttribute("data-c"), sm = b.firstChild, on = c === PAINT.col;
+    b.classList.toggle("on", on); b.setAttribute("aria-checked", String(on));
+    sm.textContent = c === "X" ? cnt.X : cnt[c] + "/9"; sm.className = c === "X" ? "" : cnt[c] === 9 ? "full" : cnt[c] > 9 ? "over" : "";
+  });
+}
+function renderBig() {
+  var fi = FACES.indexOf(PAINT.face);
+  [].forEach.call($("p-fsel").children, function (b) { b.classList.toggle("on", b.getAttribute("data-f") === PAINT.face); });
+  [].forEach.call($("p-g3").children, function (b, k) { cellStyle(b, PAINT.s[fi * 9 + k]); b.disabled = k === 4; b.setAttribute("aria-label", PNAME[PAINT.face] + " tomon, " + (k + 1) + "-katak"); });
+}
+function renderPaint() { [].forEach.call($("p-net").children, function (b, i) { cellStyle(b, PAINT.s[i]); b.classList.remove("err"); }); renderPal(); renderBig(); wake(); }
+function badFacelets(s) {
+  var d = decompose(s), bad = {};
+  d.errs.forEach(function (e) { if (!e.pos) return; var a = e.pos.length === 3 ? CF[CC.indexOf(e.pos)] : EF[EC.indexOf(e.pos)]; a.forEach(function (x) { bad[x] = 1; }); });
+  var sc = {}, se = {}, i;
+  for (i = 0; i < 8; i++) if (d.cp[i] >= 0) { (sc[d.cp[i]] = sc[d.cp[i]] || []).push(i); }
+  for (i = 0; i < 12; i++) if (d.ep[i] >= 0) { (se[d.ep[i]] = se[d.ep[i]] || []).push(i); }
+  Object.keys(sc).forEach(function (k) { if (sc[k].length > 1) sc[k].forEach(function (p) { CF[p].forEach(function (x) { bad[x] = 1; }); }); });
+  Object.keys(se).forEach(function (k) { if (se[k].length > 1) se[k].forEach(function (p) { EF[p].forEach(function (x) { bad[x] = 1; }); }); });
+  return Object.keys(bad).map(Number);
+}
+function paintCheck() {
+  var v = validateS(PAINT.s), el = $("p-msg");
+  [].forEach.call($("p-net").children, function (b) { b.classList.remove("err"); });
+  if (v.ok) {
+    el.innerHTML = '<p class="ok"><b>✅ Hammasi to\'g\'ri!</b> 9 tadan rang, barcha qirra va burchaklar haqiqiy, buralish, ag\'darilish va juft-toqlik qoidalari bajarilgan. ' + (isSolvedS(PAINT.s) ? "Bu kub allaqachon yig'ilgan." : "«🤖 Yechish» ni bosing.") + "</p>";
+    return v;
+  }
+  if (v.stage === "piece" || v.stage === "dup") badFacelets(PAINT.s).forEach(function (i) { $("p-net").children[i].classList.add("err"); });
+  var extra = v.stage === "group" ? '<p class="muted" style="margin:6px 0 0">Bu — kubning matematik qoidasi. Sababini pastdagi «🔢 Kubning matematikasi» bo\'limida o\'qing.</p>' : v.stage === "piece" || v.stage === "dup" ? '<p class="muted" style="margin:6px 0 0">Xato katakchalar qizil bilan belgilandi. Tomonni noto\'g\'ri yo\'nalishda bo\'yamadingizmi? Yon tomonlarda sariq markaz tepada bo\'lishi kerak.</p>' : "";
+  el.innerHTML = '<p class="bad" style="margin:0"><b>❌ Kubda xatolik bor:</b></p><ul>' + v.errs.slice(0, 5).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" + extra;
+  return v;
+}
+$("p-check").addEventListener("click", paintCheck);
+$("p-solve").addEventListener("click", function () {
+  var v = paintCheck(); if (!v.ok) return;
+  if (isSolvedS(PAINT.s)) { toast("Bu kub allaqachon yig'ilgan 🙂"); return; }
+  GRP.main = { s: PAINT.s.slice(), hist: [] }; SOL = null; KUB.scr = null;
+  setTab("yech"); solveCurrent();
+});
+$("p-clear").addEventListener("click", function () { paintReset(); renderPaint(); $("p-msg").innerHTML = ""; });
+$("p-copy").addEventListener("click", function () { var src = GRP.main && TABS[curTab].grp !== "main" ? GRP.main.s : ENG.s; PAINT.s = src.slice(); renderPaint(); $("p-msg").innerHTML = '<p class="muted">Joriy kub holati nusxalandi.</p>'; });
+$("p-rand").addEventListener("click", function () { PAINT.s = applyMoves(solvedArr(), randomScramble(22)); renderPaint(); $("p-msg").innerHTML = '<p class="muted">Tasodifiy, lekin haqiqiy (yechiladigan) namuna. Bir-ikki katakni o\'zgartirib, «Tekshirish» qanday xato topishini ko\'ring.</p>'; });
+
+/* ---------- 9.4 Boshlang'ich usul ---------- */
+var SEXY = "R U R' U'", NIK = "U R U' L' U R' U' L", SUNE = "R U R' U R U2 R'", FRU = "F R U R' U' F'", TWI = "R' D' R D";
+function rep(str, n, last) { var g = []; for (var i = 0; i < n; i++) g.push([str, (i + 1) + "-marta" + (i === n - 1 ? (last || " — tayyor!") : "")]); return g; }
+var T2 = TWI + " " + TWI, T4 = T2 + " " + T2;
+function genBase(list, n) { var s = solvedArr(); for (var i = 0; i < n; i++) s = applyMoves(s, P_(pick(list))); return s; }
+var BASES = {
+  ll: function () { return genBase([SUNE, FRU, NIK, "U", "U'", "U2", "R U2 R' U' R U' R'"], 6); },
+  eo: function () { return genBase([SUNE, NIK, "U", "U'", "U2"], 6); },
+  ep: function () { return genBase([NIK, "U2 " + NIK + " U2", "U " + NIK + " U'", T2 + " U " + T4 + " U'"], 4); },
+  co: function () { return genBase([T2 + " U " + T4 + " U'", T4 + " U2 " + T2 + " U2", "U " + T2 + " U " + T4 + " U2"], 3); },
+  none: function () { return solvedArr(); }
+};
+function okE(d, a, b) { for (var i = a; i <= b; i++) if (d.ep[i] !== i || d.eo[i]) return false; return true; }
+function okC(d, a, b) { for (var i = a; i <= b; i++) if (d.cp[i] !== i || d.co[i]) return false; return true; }
+var PRED = {
+  cross: function (s) { return okE(decompose(s), 4, 7); },
+  layer1: function (s) { var d = decompose(s); return okE(d, 4, 7) && okC(d, 4, 7); },
+  f2l: function (s) { var d = decompose(s); return okE(d, 4, 11) && okC(d, 4, 7); },
+  ycross: function (s) { return PRED.f2l(s) && s[1] === "U" && s[3] === "U" && s[5] === "U" && s[7] === "U"; },
+  yedges: function (s) { var d = decompose(s); return PRED.ycross(s) && okE(d, 0, 3); },
+  ycorn: function (s) { var d = decompose(s); if (!PRED.yedges(s)) return false; for (var i = 0; i < 4; i++) if (d.cp[i] !== i) return false; return true; },
+  solved: function (s) { return isSolvedS(s); }
+};
+var STEPS = [
+  { t: "Oq xoch", view: [.62, -.35], pic: [.62, -.8], base: "ll", pred: "cross", show: { e: [4, 5, 6, 7] },
+    goal: "Pastki tomonda oq xoch: 4 ta oq qirra joyida, yon ranglari markazlarga mos.",
+    info: "«Gul» usuli: avval 4 ta oq qirrani sariq markaz atrofiga yig'ing (oq rangi tepaga qarasin). So'ng har birini U bilan o'z rangli markazi ustiga olib keling va shu tomonni 180° buring (masalan, F2).",
+    done: "Oq qirra o'z joyida — xoch bitta qirraga to'ldi.",
+    cases: [
+      { lb: "Oq rang tepaga qaragan", f: "U · F2", sol: [["U", "U bilan qirrani o'z rangli (yashil) markazi ustiga olib kelamiz"], ["F2", "Old tomonni 180° buramiz — qirra pastga, o'z joyiga tushadi"]] },
+      { lb: "Oq rang oldga qaragan (qirra ag'darilgan)", f: "U' R' F R", sol: [["U'", "Qirrani o'ng tomonga suramiz"], ["R' F R", "Qirra o'ng tomon orqali aylanib, oq rangi pastga qaragan holda tushadi"]] }
+    ] },
+  { t: "Oq burchaklar", view: [.62, -.3], pic: [.62, -.8], base: "ll", pred: "layer1", show: { e: [4, 5, 6, 7], c: [4, 5, 6, 7] },
+    goal: "Oq burchaklarni joylang — butun pastki qatlam yig'iladi.",
+    info: "Oq burchakni U bilan o'z joyining (o'ng-old-past) ustiga keltiring va R U R' U' ni burchak joyiga tushguncha takrorlang. Oq rang qayerga qaraganiga qarab 1, 3 yoki 5 marta kerak bo'ladi.",
+    done: "Burchak joyiga tushdi, pastki qatlam butun.",
+    cases: [
+      { lb: "Burchak tepada, oq rang o'ngga qaragan → 1 marta", f: SEXY, sol: rep(SEXY, 1) },
+      { lb: "Burchak tepada, oq rang tepaga qaragan → 3 marta", f: "(R U R' U') ×3", sol: rep(SEXY, 3) },
+      { lb: "Burchak tepada, oq rang oldga qaragan → 5 marta", f: "(R U R' U') ×5", sol: rep(SEXY, 5) },
+      { lb: "Burchak joyida, lekin buralgan → 2 marta", f: "(R U R' U') ×2", sol: rep(SEXY, 2) }
+    ] },
+  { t: "O'rta qatlam", view: [.62, .32], pic: [.62, .3], base: "ll", pred: "f2l", show: { e: [4, 5, 6, 7, 8, 9, 10, 11], c: [4, 5, 6, 7] },
+    goal: "O'rta qatlamning 4 ta qirrasini joylang — ikki qatlam tayyor.",
+    info: "Tepada sariq rangsiz qirrani toping. U bilan uning old rangini markazga moslang (teskari «T» shakli). Qirraning tepadagi rangi o'ng markaznikiga teng bo'lsa — o'ngga, chap markaznikiga teng bo'lsa — chapga joylaymiz.",
+    done: "Qirra o'rta qatlamga tushdi, pastki qatlam ham joyida.",
+    cases: [
+      { lb: "Qirra o'ngga ketadi (tepadagi rangi — to'q sariq)", f: "U R U' R' U' F' U F", sol: [["U R U' R'", "O'ng burchakni vaqtincha tepaga chiqaramiz"], ["U' F' U F", "Qirra va burchakni birga joyiga tushiramiz"]] },
+      { lb: "Qirra chapga ketadi (tepadagi rangi — qizil)", f: "U' L' U L U F U' F'", sol: [["U' L' U L", "Chap burchakni vaqtincha tepaga chiqaramiz"], ["U F U' F'", "Qirra va burchakni birga joyiga tushiramiz"]] }
+    ] },
+  { t: "Sariq xoch", view: [.62, .7], pic: [.62, 1.0], base: "eo", pred: "ycross", show: { e: [4, 5, 6, 7, 8, 9, 10, 11], c: [4, 5, 6, 7], yU: 1 },
+    goal: "Tepada sariq xoch hosil qiling (qirralarning yon ranglari hali mos kelmasa ham bo'ladi).",
+    info: "Tepadagi sariq qirralarga qarang: nuqta, «L» shakli yoki chiziq. Chiziqni gorizontal, «L» ni chap-orqaga qo'yib, F R U R' U' F' ni bajaring.",
+    done: "Sariq xoch tayyor!",
+    cases: [
+      { lb: "Gorizontal chiziq → 1 marta", f: FRU, sol: [[FRU, "Chiziq xochga aylanadi"]] },
+      { lb: "«L» shakli chap-orqada → 2 marta", f: "(F R U R' U' F') ×2", sol: [[FRU, "1-marta: «L» → chiziq"], [FRU, "2-marta: chiziq → xoch"]] },
+      { lb: "Faqat sariq nuqta", f: "F R U R' U' F' · U2 · (F R U R' U' F') ×2", sol: [[FRU, "Nuqta → «L» shakli"], ["U2", "«L» ni chap-orqaga burab qo'yamiz"], [FRU, "«L» → chiziq"], [FRU, "Chiziq → xoch"]] }
+    ] },
+  { t: "Sariq qirralar", view: [.62, .62], pic: [.62, .75], base: "ep", pred: "yedges", show: { e: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], c: [4, 5, 6, 7] },
+    goal: "Sariq xoch qirralarining yon ranglarini markazlarga moslang.",
+    info: "U bilan burib, nechta qirra o'z markaziga mos kelishini qarang. Ikki qo'shni qirra to'g'ri bo'lsa, ularni orqa va o'ng tomonga qo'yib, formulani bajaring va oxirida U.",
+    done: "Barcha sariq qirralar joyida.",
+    cases: [
+      { lb: "Ikki qo'shni qirra to'g'ri: orqada va o'ngda", f: "R U R' U R U2 R' · U", sol: [[SUNE, "Old va chap qirralar o'rin almashadi"], ["U", "Tepa qatlamni joyiga buramiz"]] },
+      { lb: "Qarama-qarshi ikki qirra to'g'ri: chapda va o'ngda", f: "R U R' U R U2 R' · U' · R U R' U R U2 R'", sol: [[SUNE, "1-marta formula: qirralar holati o'zgaradi"], ["U'", "Tepa qatlamni burib, navbatdagi holatga moslaymiz"], [SUNE, "2-marta formula — hamma qirralar joyida!"]] }
+    ] },
+  { t: "Sariq burchaklarni joylash", view: [.62, .62], pic: [.62, .75], base: "co", pred: "ycorn", show: { e: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], c: [0, 1, 2, 3, 4, 5, 6, 7] },
+    goal: "Sariq burchaklarni o'z joyiga qo'ying (buralgan bo'lsa ham mayli).",
+    info: "Burchak joyida = uning 3 rangi atrofdagi 3 markaz rangi bilan bir xil. Joyida turgan burchak o'ng-old-tepada bo'lsin: formula shu burchakni qo'zg'atmay, qolgan uchtasini aylantiradi.",
+    done: "Hamma sariq burchaklar o'z joyida.",
+    cases: [
+      { lb: "O'ng-old burchak joyida → 1 marta", f: NIK, sol: [[NIK, "Qolgan 3 ta burchak aylanib, joyiga tushadi"]] },
+      { lb: "O'ng-old burchak joyida → 2 marta", f: "(U R U' L' U R' U' L) ×2", sol: [[NIK, "1-marta: burchaklar bir qadam aylandi"], [NIK, "2-marta: hammasi joyida"]] },
+      { lb: "Hech biri joyida emas", f: "U R U' L' U R' U' L · U · … · U'", sol: [[NIK, "Avval bir marta — bitta burchak joyiga tushadi"], ["U", "U bilan o'sha burchakni o'ng-old joyga olib kelamiz"], [NIK, "Yana formula — qolgan uchtasi aylanadi"], ["U'", "Tepa qatlamni qaytaramiz"]] }
+    ] },
+  { t: "Burchaklarni burish", view: [.62, .55], pic: [.62, .75], base: "none", pred: "solved", show: null,
+    goal: "Oxirgi qadam: sariq burchaklarni burab, kubni to'liq yig'ing!",
+    info: "Buralgan burchakni o'ng-old-tepa joyga qo'ying va R' D' R D ni sariq rang tepaga qaraguncha takrorlang (2 yoki 4 marta). So'ng faqat U bilan keyingi buralgan burchakni shu joyga keltiring. Pastki qatlam vaqtincha buziladi — qo'rqmang, oxirida o'zi tiklanadi!",
+    done: "Kub to'liq yig'ildi! 🎉",
+    cases: [
+      { lb: "Ikki burchak buralgan", f: "(R' D' R D) ×2 · U · (R' D' R D) ×4 · U'", sol: rep(TWI, 2, " — 1-burchakda sariq tepaga qaradi").concat([["U", "Keyingi buralgan burchakni o'ng-old joyga olib kelamiz"]], rep(TWI, 4, " — 2-burchak ham tayyor"), [["U'", "Tepa qatlamni joyiga qaytaramiz"]]) },
+      { lb: "Uch burchak buralgan", f: "(R' D' R D) ×2 · U · (R' D' R D) ×2 · U · (R' D' R D) ×2 · U2", sol: [[T2, "1-burchak: 2 marta"], ["U", "Keyingi burchak"], [T2, "2-burchak: 2 marta"], ["U", "Keyingi burchak"], [T2, "3-burchak: 2 marta"], ["U2", "Tepa qatlamni joyiga qaytaramiz"]] }
+    ] }
+];
+var LU = { step: clamp(lsNum("ustep", 0) | 0, 0, 6), done: lsNum("udone", 0) | 0, lv: clamp(lsNum("ulv", 1) | 0, 1, 3), streak: 0, score: lsNum("uscore", 0) | 0, demo: null, prac: null, last: null };
+TABS.usul = { pad: true, grp: "usul", title: "<b>Boshlang'ich usul</b> · qatlamma-qatlam", enter: function () { renderLesson(); if (!LU.prac && !LU.demo && !GRP.usul) previewStep(); camTo(STEPS[LU.step].view[0], STEPS[LU.step].view[1], 700); }, leave: function () { stopLesson(); } };
+function maskFor(si) {
+  var S = STEPS[si]; if (!S.show) return null;
+  var on = {}; [4, 13, 22, 31, 40, 49].forEach(function (i) { on[i] = 1; });
+  (S.show.e || []).forEach(function (e) { EF[e].forEach(function (x) { on[x] = 1; }); });
+  (S.show.c || []).forEach(function (c) { CF[c].forEach(function (x) { on[x] = 1; }); });
+  if (S.show.yU) [1, 3, 5, 7].forEach(function (x) { on[x] = 1; });
+  return function (i) { return !on[i]; };
+}
+function flatSol(sol) { var r = []; sol.forEach(function (g) { r = r.concat(P_(g[0])); }); return r; }
+function fmlText(f) { return esc(f).replace(/([UDLRFB])(2'|2|')?/g, function (m0, a) { return '<span class="f-' + a + '">' + m0 + "</span>"; }); }
+function renderLesson() {
+  var h = "";
+  for (var i = 0; i < 7; i++) h += '<button type="button" class="stp' + (i === LU.step ? " on" : "") + (LU.done & (1 << i) ? " done" : "") + '" data-s="' + i + '" role="tab" aria-selected="' + (i === LU.step) + '" title="' + (i + 1) + ". " + STEPS[i].t + '">' + (i + 1) + "</button>";
+  $("u-steps").innerHTML = h;
+  var S = STEPS[LU.step];
+  $("u-card").innerHTML = '<div class="uhead"><canvas id="u-pic" aria-label="Qadam maqsadi"></canvas><div><h4>' + (LU.step + 1) + "-qadam · " + S.t + "</h4><p><b>Maqsad:</b> " + S.goal + '</p></div></div><p class="uinfo">' + S.info + "</p>" +
+    S.cases.map(function (c, k) { return '<div class="case"><span class="cl">' + esc(c.lb) + '</span><span class="fml">' + fmlText(c.f) + '</span><button type="button" class="btn sm pri" data-case="' + k + '">▶ Ko\'rsat</button></div>'; }).join("");
+  drawStateCard($("u-pic"), solvedArr(), { mask: maskFor(LU.step), yaw: S.pic[0], pitch: S.pic[1], back: false });
+  $("u-score").innerHTML = "<span>Mashq darajasi: <b>" + LU.lv + "/3</b></span><span>Seriya: <b>" + (LU.streak % 3) + "/3</b></span><span>Ball: <b>" + LU.score + "</b></span><span>O'zlashtirilgan qadamlar: <b>" + popcount(LU.done) + "/7</b></span>";
+}
+function popcount(x) { var c = 0; while (x) { c += x & 1; x >>= 1; } return c; }
+function stopLesson() { stopQueue(); ENG.lock = false; LU.demo = null; }
+function preState(si, sol) { return applyMoves(BASES[STEPS[si].base](), invAlg(flatSol(sol))); }
+function previewStep() { var S = STEPS[LU.step]; flushAnim(); setCube(preState(LU.step, S.cases[0].sol)); ENG.hist = []; LU.prac = null; $("u-demo").hidden = true; $("u-status").innerHTML = "Har bir holat uchun «▶ Ko'rsat» ni bosing, keyin «✍ Mashq» bilan o'zingiz bajaring."; }
+function uNote(h) { $("u-note").innerHTML = h; }
+function demoToks(sol) {
+  var h = "";
+  sol.forEach(function (g, k) { if (k) h += '<span class="lbl" aria-hidden="true">·</span>'; P_(g[0]).forEach(function (m) { h += tokHTML(m, g[0].length <= 3 && /^[U]/.test(g[0]) ? "setup" : ""); }); });
+  $("u-toks").innerHTML = h;
+}
+function hlTok(k) { [].forEach.call($("u-toks").querySelectorAll(".tok"), function (t, i) { t.classList.toggle("done", k < 0 ? true : i < k); t.classList.toggle("cur", i === k); }); }
+function runDemo(si, ci) {
+  initLab(); flushAnim(); stopLesson();
+  var S = STEPS[si], C = S.cases[ci];
+  setCube(preState(si, C.sol)); ENG.hist = [];
+  camTo(S.view[0], S.view[1], 700);
+  ENG.lock = true; LU.prac = null; LU.demo = { si: si, ci: ci }; LU.last = { si: si, ci: ci };
+  demoToks(C.sol); $("u-demo").hidden = false; hlTok(-2);
+  uNote("Boshlang'ich holat: <b>" + esc(C.lb) + "</b>. Diqqat bilan kuzating…");
+  $("u-status").innerHTML = "▶ Namoyish: " + esc(S.t) + " — " + esc(C.lb);
+  qWait(1100);
+  var idx = 0;
+  C.sol.forEach(function (g, k) {
+    var ms = P_(g[0]), base = idx;
+    qFn(function () { uNote("<b>" + (k + 1) + "/" + C.sol.length + ":</b> " + fmlText(g[0]) + " — " + esc(g[1])); });
+    enqueue(ms, { play: true, arrow: true, dur: 470 / ENG.speed, start: function (kk) { hlTok(base + kk); } });
+    idx += ms.length;
+    qWait(380);
+  });
+  qFn(function () {
+    ENG.lock = false; LU.demo = null; hlTok(-1);
+    var ok = PRED[S.pred](ENG.s);
+    uNote((ok ? "✅ " : "") + esc(S.done) + " Endi «✍ Mashq» bilan o'zingiz bajaring.");
+    $("u-status").innerHTML = "";
+  });
+}
+function startPractice() {
+  initLab(); flushAnim(); stopLesson();
+  var si = LU.step, S = STEPS[si], pool = [];
+  for (var k = 0; k < S.cases.length; k++) pool.push(k);
+  if (LU.lv === 1) pool = pool.slice(0, Math.min(2, pool.length));
+  var ci = pick(pool), C = S.cases[ci], sol = C.sol.slice(), start = null, g = 0;
+  if (LU.lv >= 3 || (LU.lv === 2 && Math.random() < .5)) {
+    var a = pick(["U", "U'", "U2"]);
+    if (si <= 3) sol = [[a, "Avval tepa qatlamni burib, holatni formulaga moslang"]].concat(sol);
+    else if (si <= 5) sol = [[a, "Tepa qatlamni burib, holatni formulaga moslang"]].concat(sol, [[invMove(a), "Tepa qatlamni qaytaring"]]);
+  }
+  do { start = preState(si, sol); } while (PRED[S.pred](start) && g++ < 8);
+  setCube(start); ENG.hist = [];
+  camTo(S.view[0], S.view[1], 700);
+  LU.prac = { si: si, ci: ci, sol: sol, start: start.slice(), moves: 0, done: false, hint: 0, len: flatSol(sol).length };
+  $("u-demo").hidden = true;
+  $("u-status").innerHTML = "✍ <b>Mashq</b> (" + esc(C.lb) + "). Maqsad: " + esc(S.goal) + " Tugmalar yoki klaviaturadan foydalaning.";
+  hud("Mashq · " + S.t);
+}
+function lessonHint() {
+  var S = STEPS[LU.step];
+  if (!LU.prac || LU.prac.done) { $("u-status").innerHTML = "💡 " + esc(S.info); return; }
+  LU.prac.hint++;
+  demoToks(LU.prac.sol); $("u-demo").hidden = false; hlTok(-2);
+  uNote("💡 Yechim: " + LU.prac.sol.map(function (g) { return "<b>" + fmlText(g[0]) + "</b> — " + esc(g[1]); }).join("; ") + ". Agar adashsangiz, «↺ Qayta boshlash» ni bosing.");
+}
+onMove(function (it) {
+  if (curTab !== "usul" || !it.user || !LU.prac || LU.prac.done) return;
+  var P = LU.prac, S = STEPS[P.si];
+  P.moves++;
+  hud("Mashq · burilishlar: <b>" + P.moves + "</b>");
+  if (PRED[S.pred](ENG.s)) {
+    P.done = true; LU.streak++; LU.score += 10 * LU.lv * (P.hint ? 1 : 2);
+    LU.done |= (1 << P.si);
+    coins(1, "Rubik: boshlang'ich usul");
+    var up = LU.streak % 3 === 0 && LU.lv < 3;
+    if (up) LU.lv++;
+    lsSet("udone", LU.done); lsSet("ulv", LU.lv); lsSet("uscore", LU.score);
+    $("u-status").innerHTML = '<span class="ok">✅ Barakalla! ' + P.moves + " ta burilishda bajardingiz" + (P.moves <= P.len ? " — eng qisqa yo'l!" : "") + "</span> " + (up ? "⬆️ Mashq darajasi " + LU.lv + " ga oshdi. " : "") + "«✍ Mashq» — yangi misol" + (P.si < 6 ? ", yoki keyingi qadamga o'ting." : ".");
+    toast("✅ " + S.t + ": bajarildi!" + (up ? " Daraja " + LU.lv : ""), "ok");
+    renderLesson();
+  } else if (P.moves === P.len * 2 + 6) {
+    $("u-status").innerHTML = '<span class="warn">Ko\'p burilish bo\'ldi.</span> «💡 Maslahat» ni ko\'ring yoki «↺ Qayta boshlash» ni bosing.';
+  }
+});
+$("u-steps").addEventListener("click", function (e) { var b = e.target.closest(".stp"); if (!b) return; LU.step = +b.getAttribute("data-s"); lsSet("ustep", LU.step); stopLesson(); renderLesson(); previewStep(); camTo(STEPS[LU.step].view[0], STEPS[LU.step].view[1], 700); });
+$("u-card").addEventListener("click", function (e) { var b = e.target.closest("[data-case]"); if (b) runDemo(LU.step, +b.getAttribute("data-case")); });
+$("u-prac").addEventListener("click", startPractice);
+$("u-hint").addEventListener("click", lessonHint);
+$("u-again").addEventListener("click", function () {
+  if (LU.prac) { flushAnim(); stopLesson(); setCube(LU.prac.start); ENG.hist = []; LU.prac.moves = 0; LU.prac.done = false; $("u-status").innerHTML = "↺ Mashq qaytadan boshlandi."; hud(""); }
+  else if (LU.last) runDemo(LU.last.si, LU.last.ci);
+  else previewStep();
+});
+
+/* ---------- 9.5 Formulani top ---------- */
+var FAMOUS = [
+  { f: "R U R' U'", n: "«Sexy move» — o'ng qo'l formulasi" },
+  { f: "U R U' R' U' F' U F", n: "O'rta qatlam (o'ngga)" },
+  { f: "U' L' U L U F U' F'", n: "O'rta qatlam (chapga)" },
+  { f: "F R U R' U' F'", n: "Sariq xoch formulasi" },
+  { f: "R U R' U R U2 R'", n: "Sune" },
+  { f: "R U2 R' U' R U' R'", n: "Anti-Sune" },
+  { f: "U R U' L' U R' U' L", n: "Burchaklarni aylantirish" },
+  { f: "R' D' R D", n: "Burchakni burish" },
+  { f: "L' U' L U", n: "Chap qo'l formulasi" },
+  { f: "F U R U' R' F'", n: "Sariq xoch (2-variant)" },
+  { f: "R U R' U' R' F R2 U' R' U' R U R' F'", n: "T-almashtirish" },
+  { f: "R2 U R U R' U' R' U' R' U R'", n: "U-almashtirish" }
+];
+var GLV = ["", "Bitta burilish", "Ikki burilish", "Mashhur formulalar", "Uch burilish", "O'xshash formulalar", "Aralash kubda"];
+var G = { lv: clamp(lsNum("glv", 1) | 0, 1, 6), streak: 0, score: 0, best: lsNum("gbest", 0), q: null, answered: false, pickK: -1 };
+TABS.oyin = { pad: false, grp: "oyin", title: "<b>Formulani top</b> · oldin → keyin", view: [.62, .5], enter: function () { if (!G.q) newQ(); else renderQ(); } };
+function mirrorAlg(ms) { return ms.map(function (m) { var f = m[0], q = moveQ(m); f = f === "R" ? "L" : f === "L" ? "R" : f; return mkMove(f, q === 2 ? 2 : 4 - q); }); }
+function genQ(lv) {
+  var before = lv >= 6 ? applyMoves(solvedArr(), randomScramble(7)) : solvedArr(), ans, name = "";
+  if (lv === 1) ans = randomScramble(1); else if (lv === 2) ans = randomScramble(2); else if (lv === 4) ans = randomScramble(3);
+  else { var F0 = pick(FAMOUS); ans = P_(F0.f); name = F0.n; }
+  var key = function (ms) { return applyMoves(before, ms).join(""); };
+  var seen = {}, cands = [], guard = 0;
+  seen[key(ans)] = 1; seen[before.join("")] = 1;
+  while (cands.length < 3 && guard++ < 400) {
+    var c, r = Math.random();
+    if (lv === 1) c = r < .45 ? [mkMove(ans[0][0], rint(1, 3))] : randomScramble(1);
+    else if (lv === 2 || lv === 4) { if (r < .3) c = ans.slice().reverse(); else if (r < .65) { c = ans.slice(); var j = rint(0, c.length - 1); c[j] = mkMove(c[j][0], rint(1, 3)); } else c = randomScramble(ans.length); }
+    else if (lv === 5) { var t = guard % 4; c = t === 0 ? invAlg(ans) : t === 1 ? mirrorAlg(ans) : t === 2 ? simplify(["U"].concat(ans, ["U'"])) : P_(pick(FAMOUS).f); }
+    else c = P_(pick(FAMOUS).f);
+    if (!c || !c.length) continue;
+    var k2 = key(c); if (seen[k2]) continue; seen[k2] = 1; cands.push(c);
+  }
+  return { before: before, ans: ans, name: name, opts: shuffle([ans].concat(cands)), after: applyMoves(before, ans) };
+}
+function famousName(ms) { var s = ms.join(" "); for (var i = 0; i < FAMOUS.length; i++) if (P_(FAMOUS[i].f).join(" ") === s) return FAMOUS[i].n; return ""; }
+function newQ() { G.q = genQ(G.lv); G.answered = false; G.pickK = -1; renderQ(); $("g-fb").innerHTML = ""; if (curTab === "oyin") { flushAnim(); setCube(G.q.before); } }
+function renderQ() {
+  var q = G.q;
+  $("g-score").innerHTML = "<span>Daraja <b>" + G.lv + "</b> · " + GLV[G.lv] + "</span><span>Ball: <b>" + G.score + "</b></span><span>Seriya: <b>" + (G.streak % 3) + "/3</b></span><span>Rekord: <b>" + G.best + "</b></span>";
+  drawStateCard($("g-before"), q.before); drawStateCard($("g-after"), q.after);
+  $("g-opts").innerHTML = q.opts.map(function (o, k) { var cls = ""; if (G.answered) { if (o === q.ans) cls = " right"; else if (k === G.pickK) cls = " wrong"; } return '<button type="button" class="btn' + cls + '" data-k="' + k + '"' + (G.answered ? " disabled" : "") + ">" + fmlHTML(o.join(" ")) + "</button>"; }).join("");
+  $("g-next").disabled = !G.answered;
+}
+function gloss(ms) { var SN = { U: "tepa", D: "past", L: "chap", R: "o'ng", F: "old", B: "orqa" }; return ms.map(function (m) { var q = moveQ(m); return '<b class="f-' + m[0] + '">' + m + "</b> " + SN[m[0]] + (q === 1 ? " ↻" : q === 3 ? " ↺" : " 180°"); }).join(", "); }
+function answerQ(k) {
+  if (G.answered) return;
+  var q = G.q, o = q.opts[k], ok = o === q.ans;
+  G.answered = true; G.pickK = k;
+  if (ok) {
+    G.streak++; G.score += 10 * G.lv;
+    coins(G.lv >= 3 ? 2 : 1, "Rubik: formulani top");
+    var up = G.streak % 3 === 0 && G.lv < 6;
+    if (up) { G.lv++; lsSet("glv", G.lv); }
+    if (G.score > G.best) { G.best = G.score; lsSet("gbest", G.best); }
+    $("g-fb").innerHTML = '<span class="ok"><b>✅ To\'g\'ri!</b></span> ' + (q.name ? "<b>" + esc(q.name) + "</b>: " : "") + gloss(q.ans) + "." + (up ? ' <span class="warn">⬆️ Daraja ' + G.lv + ": " + GLV[G.lv] + "!</span>" : "");
+    if (up) toast("⬆️ Yangi daraja: " + GLV[G.lv], "ok");
+  } else {
+    G.streak = 0;
+    var nm = famousName(o);
+    $("g-fb").innerHTML = '<span class="bad"><b>❌ Yo\'q.</b></span> To\'g\'ri javob: <b>' + fmlHTML(q.ans.join(" ")) + "</b>" + (q.name ? " (" + esc(q.name) + ")" : "") + " — " + gloss(q.ans) + '.<div class="fbw"><canvas id="g-wrong" aria-label="Siz tanlagan formula natijasi"></canvas><p class="muted">Siz tanlagan ' + (nm ? "«" + esc(nm) + "» " : "") + "formula esa kubni chapdagi holatga keltiradi — «Keyin» rasmi bilan solishtiring.</p></div>";
+    drawStateCard($("g-wrong"), applyMoves(q.before, o));
+  }
+  renderQ();
+}
+$("g-opts").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) answerQ(+b.getAttribute("data-k")); });
+$("g-next").addEventListener("click", newQ);
+$("g-show").addEventListener("click", function () {
+  if (!G.q) return; initLab(); flushAnim(); stopQueue();
+  setCube(G.q.before); camTo(.62, .5, 500);
+  qWait(500); enqueue(G.q.ans, { play: true, arrow: true, dur: 560 });
+  if (!G.answered) toast("Javob berishdan oldin ko'rish ham mumkin — lekin o'zingiz topishga harakat qiling 😉");
+});
+
+/* ---------- 9.6 Tezkor yechish ---------- */
+var LEN = [1, 2, 3, 4, 5, 6, 8, 10, 14, 20];
+var TT = { unl: clamp(lsNum("tunl", 1) | 0, 1, 10), lv: 1, streak: 0, st: "idle", t0: 0, moves: 0, scr: null, hint: false, iv: 0, el: 0 };
+TT.lv = clamp(lsNum("tlv", 1) | 0, 1, TT.unl);
+TABS.vaqt = { pad: true, grp: "vaqt", title: "<b>Tezkor yechish</b> · vaqtga qarshi", enter: function () { renderTimed(); }, leave: function () { if (TT.st === "scr") { TT.st = "idle"; tStatus("Aralashtirish to'xtatildi. «▶ Boshlash» ni qayta bosing."); } } };
+function tStatus(h) { $("t-status").innerHTML = h || ""; }
+function tShowTime(ms) { $("t-time").textContent = fsec(ms) + " s"; }
+function renderTimed() {
+  var h = "";
+  for (var i = 1; i <= 10; i++) h += '<button type="button" class="btn' + (i === TT.lv ? " on" : "") + '" data-l="' + i + '"' + (i > TT.unl ? ' disabled title="Ochilmagan"' : ' title="' + LEN[i - 1] + ' ta burilish"') + ">" + (i > TT.unl ? "🔒" : i) + "</button>";
+  $("t-lvls").innerHTML = h;
+  var best = lsNum("tbest" + TT.lv, 0);
+  $("t-info").innerHTML = "<span>Daraja <b>" + TT.lv + "</b> · " + LEN[TT.lv - 1] + " ta burilish</span><span>Seriya: <b>" + TT.streak + "/3</b></span><span>Rekord: <b>" + (best ? fsec(best) + " s" : "—") + "</b></span>" + (TT.st === "run" ? "<span>Burilishlar: <b>" + TT.moves + "</b></span>" : "");
+  var r = "<tr><th>Daraja</th><th>Aralash</th><th>Rekord</th></tr>";
+  for (var j = 1; j <= 10; j++) { var b = lsNum("tbest" + j, 0), bm = lsNum("tbm" + j, 0); r += "<tr><td" + (j === TT.lv ? ' class="cur"' : "") + ">" + j + "</td><td>" + LEN[j - 1] + " burilish</td><td>" + (j > TT.unl ? "🔒" : b ? fsec(b) + " s · " + bm + " bur." : "—") + "</td></tr>"; }
+  $("t-rec").innerHTML = r;
+  if (curTab === "vaqt") hud(TT.st === "run" ? "⏱ Burilishlar: <b>" + TT.moves + "</b>" : "");
+}
+function tStop() { clearInterval(TT.iv); TT.iv = 0; }
+function tStart() {
+  initLab(); flushAnim(); stopQueue(); tStop();
+  TT.scr = randomScramble(LEN[TT.lv - 1]); TT.moves = 0; TT.hint = false; TT.st = "scr";
+  setCube(solvedArr()); ENG.hist = []; tShowTime(0);
+  $("t-scr").innerHTML = toksHTML(TT.scr);
+  tStatus("Aralashtirilmoqda…"); ENG.lock = true;
+  qWait(350);
+  enqueue(TT.scr, { fast: TT.scr.length > 6 ? 1 : 0, dur: TT.scr.length > 6 ? 0 : 230, done: function () { ENG.lock = false; TT.st = "ready"; tStatus("Tayyor! Birinchi burilishingizda soat yuradi. ⏱"); renderTimed(); } });
+  renderTimed();
+}
+function tFinish() {
+  tStop(); TT.st = "done";
+  var ms = now() - TT.t0, key = "tbest" + TT.lv, best = lsNum(key, 0), rec = !TT.hint && (!best || ms < best);
+  tShowTime(ms);
+  if (rec) { lsSet(key, Math.round(ms)); lsSet("tbm" + TT.lv, TT.moves); }
+  TT.streak++;
+  var unlocked = false;
+  if (TT.streak >= 3 && TT.lv === TT.unl && TT.unl < 10) { TT.unl++; lsSet("tunl", TT.unl); TT.streak = 0; unlocked = true; }
+  coins(2, "Rubik: tezkor yechish");
+  tStatus('<span class="ok">🎉 Yig\'dingiz: ' + fsec(ms) + " s, " + TT.moves + " ta burilish</span>" + (rec ? " — 🏆 yangi rekord!" : TT.hint ? " (maslahat ishlatildi — rekord hisoblanmaydi)" : "") + (unlocked ? ' <span class="warn">🔓 ' + TT.unl + "-daraja ochildi!</span>" : ""));
+  toast(rec ? "🏆 Yangi rekord: " + fsec(ms) + " s" : "🎉 " + fsec(ms) + " s", "ok", 3000);
+  renderTimed();
+}
+onMove(function (it) {
+  if (curTab !== "vaqt" || !it.user) return;
+  if (TT.st === "ready") { TT.st = "run"; TT.t0 = now(); tStop(); TT.iv = setInterval(function () { if (TT.st === "run") tShowTime(now() - TT.t0); }, 100); tStatus("⏱ Vaqt ketdi!"); }
+  if (TT.st !== "run") return;
+  TT.moves++;
+  if (isSolvedS(ENG.s)) tFinish(); else renderTimed();
+});
+function tHint() {
+  if (TT.st !== "run" && TT.st !== "ready") { tStatus("Avval «▶ Boshlash» ni bosing."); return; }
+  TT.hint = true;
+  var f = ENG.s.join("");
+  if (TT.moves === 0) { var m = invAlg(TT.scr)[0]; toast('💡 Keyingi burilish: <b class="f-' + m[0] + '">' + m + "</b> (aralashtirishning teskarisi!)"); return; }
+  var t0 = now();
+  tStatus("💡 Yechuvchi o'ylamoqda…");
+  solveAny(f, function (p, ph) { if (ph !== "ready") tStatus("💡 Yechuvchi tayyorlanmoqda: " + Math.round(p * 100) + "% (" + fsec(now() - t0) + " s)"); }).then(function (r) {
+    if (ENG.s.join("") !== f) return;
+    var ms = r.sol ? r.sol.split(" ") : []; if (!ms.length) return;
+    toast('💡 Keyingi burilish: <b class="f-' + ms[0][0] + '">' + ms[0] + "</b> · " + (r.opt ? "yechimgacha " + ms.length + " ta burilish (eng qisqa)" : "yana " + ms.length + " tagacha"), "", 3500);
+    tStatus("💡 Maslahat: <b>" + ms[0] + "</b>. Bu urinish rekordga hisoblanmaydi.");
+  }).catch(function () { tStatus('<span class="bad">Yechuvchi yuklanmadi.</span>'); });
+}
+function tGive() {
+  if (TT.st !== "run" && TT.st !== "ready") return;
+  tStop(); TT.st = "idle"; TT.streak = 0;
+  var f = ENG.s.join("");
+  var show = function (ms) {
+    $("t-scr").innerHTML = '<span class="lbl" style="margin-right:4px">Yechim:</span>' + toksHTML(ms);
+    tStatus("🏳 Mana yechim — kuzating. Keyingi safar albatta chiqadi!");
+    ENG.lock = true; qWait(300); enqueue(ms, { play: true, arrow: true, dur: 420, done: function () { ENG.lock = false; renderTimed(); } });
+  };
+  if (TT.moves === 0) show(invAlg(TT.scr));
+  else { tStatus("Yechim qidirilmoqda…"); solveAny(f).then(function (r) { if (ENG.s.join("") === f) show(r.sol ? r.sol.split(" ") : []); }).catch(function () { tStatus("Yechuvchi yuklanmadi."); }); }
+  renderTimed();
+}
+$("t-start").addEventListener("click", tStart);
+$("t-hint").addEventListener("click", tHint);
+$("t-give").addEventListener("click", tGive);
+$("t-lvls").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b || b.disabled) return; TT.lv = +b.getAttribute("data-l"); lsSet("tlv", TT.lv); if (TT.st === "run" || TT.st === "ready") { tStop(); TT.st = "idle"; } TT.streak = 0; renderTimed(); tStatus("Daraja " + TT.lv + ": " + LEN[TT.lv - 1] + " ta burilish. «▶ Boshlash» ni bosing."); });
+
+/* ================= 10. Matematika ================= */
+var SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹" };
+function sup(n) { return String(n).split("").map(function (c) { return SUP[c]; }).join(""); }
+(function buildChart() {
+  var V = [1, 18, 243, 3240, 43239, 574908, 7618438, 100803036, 1332343288, 17596479795, 232248063316, 3063288809012, 40374425656248, 531653418284628, 6989320578825358, 9.1365146187124313e16, 1.1e18, 1.2e19, 2.9e19, 1.5e18, 4.9e8];
+  var T = ["1", "18", "243", "3 240", "43 239", "574 908", "7 618 438", "100 803 036", "1 332 343 288", "17 596 479 795", "232 248 063 316", "3 063 288 809 012", "40 374 425 656 248", "531 653 418 284 628", "6 989 320 578 825 358", "91 365 146 187 124 313", "≈ 1,1·10¹⁸", "≈ 1,2·10¹⁹", "≈ 2,9·10¹⁹", "≈ 1,5·10¹⁸", "≈ 490 000 000"];
+  var W = 460, H = 230, l = 40, r = 6, t = 10, b = 34, bw = (W - l - r) / 21, ih = H - t - b, h = "";
+  h += '<defs><linearGradient id="mg1" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#35f0c4"/><stop offset="1" stop-color="#a27bff"/></linearGradient><pattern id="mg2" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#6f58c9"/><rect width="3" height="6" fill="#a27bff"/></pattern></defs>';
+  for (var e = 0; e <= 20; e += 5) { var y = t + ih * (1 - e / 20); h += '<line x1="' + l + '" x2="' + (W - r) + '" y1="' + y.toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="#1d2850" stroke-width="1"/><text x="' + (l - 5) + '" y="' + (y + 4).toFixed(1) + '" fill="#93a3cc" font-size="11" text-anchor="end" font-family="Golos Text,sans-serif">10' + sup(e) + "</text>"; }
+  V.forEach(function (v, i) {
+    var hh = Math.max(1.5, ih * Math.log10(v) / 20), x = l + i * bw + 1.5, y2 = H - b - hh, est = i >= 16;
+    h += '<rect x="' + x.toFixed(1) + '" y="' + y2.toFixed(1) + '" width="' + (bw - 3).toFixed(1) + '" height="' + hh.toFixed(1) + '" rx="2" fill="' + (i === 20 ? "#ff5e8e" : est ? "url(#mg2)" : "url(#mg1)") + '"><title>' + i + " burilish: " + T[i] + " holat</title></rect>";
+    if (i % 2 === 0) h += '<text x="' + (x + (bw - 3) / 2).toFixed(1) + '" y="' + (H - b + 14) + '" fill="#93a3cc" font-size="10.5" text-anchor="middle" font-family="Golos Text,sans-serif">' + i + "</text>";
+  });
+  h += '<text x="' + (l + (W - l - r) / 2) + '" y="' + (H - 4) + '" fill="#93a3cc" font-size="11" text-anchor="middle" font-family="Golos Text,sans-serif">yechish uchun kerak bo\'lgan eng kam burilishlar soni</text>';
+  $("m-chart").innerHTML = h;
+})();
+/* katta son: raqamlar chapdan o'ngga «joylashadi» */
+(function () {
+  var el = $("m-big"), FIN = "43 252 003 274 489 856 000", done = false;
+  watchVis(el, function (v) {
+    if (!v || done || RM) return; done = true;
+    var t0 = now(), D = 1500;
+    (function step() {
+      var k = Math.min(1, (now() - t0) / D), n = Math.floor(k * FIN.length), s = "";
+      for (var i = 0; i < FIN.length; i++) s += i < n || FIN[i] === " " ? FIN[i] : String((Math.random() * 10) | 0);
+      el.textContent = s;
+      if (k < 1 && !document.hidden) requestAnimationFrame(step); else el.textContent = FIN;
+    })();
+  }, "0px");
+})();
+/* 3D kubda uzun ketma-ketlik ko'rsatish */
+var OSHOW = null;
+function stopShow(msg) { if (!OSHOW) return; OSHOW = null; stopQueue(); ENG.lock = false; $("o-3d").textContent = "🧊 3D kubda ko'rsat"; $("m-sflip").textContent = "🧊 Superflipni 3D da ko'rsat"; if (msg != null) hud(msg); }
+function showOn3D(moves, reps, label, btn, opt) {
+  opt = opt || {};
+  if (OSHOW) { stopShow(""); return; }
+  setTab("kub"); initLab(); flushAnim();
+  setCube(solvedArr()); ENG.hist = []; KUB.scr = null; SOL = null; renderKub();
+  try { $("lab-sec").scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" }); } catch (e) { $("lab-sec").scrollIntoView(); }
+  var total = moves.length * reps, fast = total > 160 ? 2 : total > 48 ? 1 : 0;
+  OSHOW = { btn: btn }; ENG.lock = true; btn.textContent = "⏹ To'xtatish";
+  camTo(.62, .5, 600); qWait(700);
+  for (var r = 0; r < reps; r++) {
+    (function (rr) { qFn(function () { hud(label + (reps > 1 ? "<br>Takror: <b>" + (rr + 1) + " / " + reps + "</b>" : "")); }); })(r);
+    enqueue(moves, { play: true, fast: fast || undefined, dur: fast ? 0 : (opt.dur || 330), arrow: !fast });
+  }
+  qFn(function () {
+    var ok = isSolvedS(ENG.s);
+    OSHOW = null; ENG.lock = false; btn.textContent = opt.btnText || "🧊 3D kubda ko'rsat";
+    hud(opt.end ? opt.end(ok) : (ok ? "✅ " + reps + " marta — kub qaytdi!" : ""));
+    if (opt.after) opt.after(ok);
+  });
+}
+$("m-sflip").addEventListener("click", function () {
+  var btn = this;
+  showOn3D(P_("R L U2 F U' D F2 R2 B2 L U2 F' B' U R2 D F2 U R2 U"), 1, "<b>Superflip</b> · 20 burilish", btn, { dur: 380, btnText: "🧊 Superflipni 3D da ko'rsat", end: function () { return "Superflip: hamma qirra ag'darildi!"; }, after: function () { toast("Superflip tayyor: 12 ta qirraning hammasi joyida, lekin ag'darilgan. Uni 20 tadan kam burilishda yechib bo'lmaydi!", "ok", 5200); } });
+});
+/* formula tartibi */
+var ORD = null;
+var OEX = ["R U", "R U R' U'", "R", "R2 U2", "F R U R' U' F'", "R U R' U R U2 R'", "U R U' L' U R' U' L", "R' D' R D", "R L", "R U2 D' B D'"];
+$("o-ex").innerHTML = OEX.map(function (x) { return '<button type="button" class="btn" data-x="' + esc(x) + '">' + fmlHTML(x) + "</button>"; }).join("");
+$("o-ex").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; $("o-in").value = b.getAttribute("data-x"); orderRender(); });
+function ringSVG(k, col, mark) {
+  var h = '<svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="19" fill="none" stroke="' + col + '" stroke-opacity=".4" stroke-width="2" stroke-dasharray="3 3"/>';
+  var rr = k > 9 ? 2.6 : k > 6 ? 3.2 : 4.2;
+  if (k === 1) h += '<circle cx="27" cy="27" r="7" fill="' + col + '"/>';
+  else for (var i = 0; i < k; i++) { var a = -Math.PI / 2 + 2 * Math.PI * i / k; h += '<circle cx="' + (27 + 19 * Math.cos(a)).toFixed(1) + '" cy="' + (27 + 19 * Math.sin(a)).toFixed(1) + '" r="' + rr + '" fill="' + col + '"/>'; }
+  if (k > 1) h += '<path d="M 40 9 l 5 -1 l -1 5" fill="none" stroke="' + col + '" stroke-width="2" stroke-linecap="round"/>';
+  if (mark) h += '<text x="27" y="31" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Golos Text,sans-serif">' + mark + "</text>";
+  return h + "</svg>";
+}
+function orderRender() {
+  var str = $("o-in").value, p = parseAlg(str), el = $("o-res");
+  $("o-3dt").textContent = "";
+  if (p.err) { el.innerHTML = '<p class="bad" style="margin:0">' + esc(p.err) + "</p>"; ORD = null; return; }
+  if (!p.moves.length) { el.innerHTML = '<p class="muted" style="margin:0">Formula yozing, masalan: R U</p>'; ORD = null; return; }
+  var o = algOrder(p.moves), n = o.order, len = p.moves.length;
+  ORD = { moves: p.moves, n: n };
+  var effs = [], parts = [];
+  o.cyc.c.forEach(function (c) {
+    effs.push(c.eff);
+    parts.push('<div class="cyc">' + ringSVG(c.len, "#ffc23d", c.tw ? "↻" : "") + "<span><b>" + c.len + " ta burchak</b> " + (c.len === 1 ? "joyida buraladi" : c.len + "-siklda aylanadi") + (c.tw ? (c.len > 1 ? ", har aylanishda buraladi" : "") + " → " + c.len + "·3 = <b>" + c.eff + "</b>" : " → <b>" + c.eff + "</b>") + "</span></div>");
+  });
+  o.cyc.e.forEach(function (c) {
+    effs.push(c.eff);
+    parts.push('<div class="cyc">' + ringSVG(c.len, "#35f0c4", c.fl ? "⇅" : "") + "<span><b>" + c.len + " ta qirra</b> " + (c.len === 1 ? "joyida ag'dariladi" : c.len + "-siklda aylanadi") + (c.fl ? (c.len > 1 ? ", ag'dariladi" : "") + " → " + c.len + "·2 = <b>" + c.eff + "</b>" : " → <b>" + c.eff + "</b>") + "</span></div>");
+  });
+  var uniq = effs.filter(function (v, i) { return effs.indexOf(v) === i; }).sort(function (a, b) { return a - b; });
+  var fx = len > 30 ? len + " ta burilish" : fmlHTML(p.moves.join(" "));
+  el.innerHTML = '<div class="obig"><div class="n">' + fmtInt(n) + '</div><div class="t">marta takrorlansa, kub boshlang\'ich holatiga qaytadi</div></div><div><p style="margin:0 0 10px">(' + fx + ")<sup>" + fmtInt(n) + "</sup> = yig'ilgan kub · jami <b>" + fmtInt(n * len) + "</b> ta burilish.</p>" +
+    (parts.length ? '<div class="cycs">' + parts.join("") + '</div><p class="lcmline">Tartib = EKUK(' + uniq.join(", ") + ") = <b>" + fmtInt(n) + "</b></p>" : '<p class="ok">Bu formula kubni umuman o\'zgartirmaydi — tartibi 1.</p>') + "</div>";
+}
+var ordT = 0;
+$("o-in").addEventListener("input", function () { clearTimeout(ordT); ordT = setTimeout(orderRender, 180); });
+$("o-in").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); orderRender(); } });
+$("o-go").addEventListener("click", orderRender);
+$("o-3d").addEventListener("click", function () {
+  if (OSHOW) { stopShow(""); return; }
+  orderRender(); if (!ORD) return;
+  var total = ORD.n * ORD.moves.length;
+  if (total > 1600) { $("o-3dt").textContent = "Juda uzun: " + fmtInt(total) + " ta burilish. 3D da ko'rsatish uchun qisqaroq formula tanlang (≤ 1600)."; return; }
+  showOn3D(ORD.moves, ORD.n, "<b>" + esc(ORD.moves.length > 12 ? ORD.moves.length + " burilishli formula" : ORD.moves.join(" ")) + "</b>", this, {});
+});
+orderRender();
+
+/* ================= 11. Ishga tushirish ================= */
+try { $("year").textContent = new Date().getFullYear(); } catch (e) {}
+initIntro();
+renderKub(); renderLesson(); renderTimed();
+(function () { var t = lsGet("tab"); try { var h = (location.hash || "").replace("#", ""); if (TABS[h]) t = h; } catch (e) {} setTab(TABS[t] ? t : "kub", true); })();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { MINIS.list.forEach(function (m) { m.dirty = true; }); MINIS.wake(); if (curTab === "usul") renderLesson(); if (G.q && curTab === "oyin") renderQ(); }).catch(function () {});
+
+window.kaRubik = {
+  m: { applyMoves: applyMoves, applyMove: applyMove, parseAlg: parseAlg, algOrder: algOrder, validateS: validateS, decompose: decompose, isSolvedS: isSolvedS, invAlg: invAlg, randomScramble: randomScramble, SOLVED: SOLVED, MP: MP, FP: FP },
+  state: function () { return ENG.s.join(""); },
+  setState: function (s) { flushAnim(); setCube(String(s).split("")); },
+  apply: function (str) { flushAnim(); setCube(applyMoves(ENG.s, parseAlg(str).moves)); },
+  busy: busy, eng: ENG, cam: CAM, near: NEAR, solveAny: solveAny,
+  view: function () { return VIEW ? VIEW.kind : null; },
+  setTab: setTab, tab: function () { return curTab; },
+  solver: SOLVER, solve: function (f) { return SOLVER.solve(f); },
+  sol: function () { return SOL; }, solveCurrent: solveCurrent,
+  steps: STEPS, pred: PRED, preState: preState, lesson: LU, runDemo: runDemo, startPractice: startPractice,
+  game: G, genQ: genQ, answerQ: answerQ, newQ: newQ,
+  timed: TT, tStart: tStart,
+  paint: PAINT, paintCheck: paintCheck, renderPaint: renderPaint,
+  order: function (s) { return algOrder(parseAlg(s).moves).order; },
+  intro: intro, userMove: userMove, scramble: scrambleMain
+};
+
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
