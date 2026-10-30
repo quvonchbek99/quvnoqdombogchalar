@@ -695,5 +695,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ikkinchi kema, chunki uning kapitani ishni keyinga qoldirgan edi", "Birinchi kema, chunki kapitan oldindan tayyorgarlik ko'rgan edi", "Ikkala kema ham bir xil taqdirga uchradi, chunki havo bir xil edi"],
     javob: 1,
     izoh: "Birinchi kapitan xavf kelmasdan oldin kemani tekshirib, yamagan edi. Shuning uchun bo'ron kelganda kema bardosh berdi. Ishni vaqtida bajarish katta muammolarning oldini oladi."
+  },
+  {
+    id: "ez-088", mavzu: "mantiq", sarlavha: "Ikki yo'lovchi",
+    matn: "Ikki yo'lovchi bir shaharga borish uchun birga yo'lga chiqdi. Birinchisi yo'l xaritasini oldi va har bir burilishda unga qarab yurdi. Ikkinchisi esa \"Men yo'lni yaxshi bilaman\" deb xaritani e'tiborsiz qoldirdi. Kechqurun ikkinchisi tog' yonbag'rida adashib sarson bo'lib qoldi, birinchisi esa shaharga o'z vaqtida yetib keldi.",
+    savol: "Birinchi yo'lovchi nega shaharga o'z vaqtida yetib keldi?",
+    variantlar: ["Chunki u yo'lda hech qachon to'xtamadi", "Chunki u tasodifan to'g'ri yo'lga tushib qoldi", "Chunki u xaritaga tayanib, yo'nalishni tekshirib bordi"],
+    javob: 2,
+    izoh: "Birinchi yo'lovchi ishonchli xaritaga tayanib, har bir qadamda yo'nalishni tekshirib bordi. Ishonchli ma'lumotdan foydalanish adashishning oldini oladi."
   }
 ];
