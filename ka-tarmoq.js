@@ -1,6 +1,6 @@
 /*!
  * Kuvonch Academy — jamoaviy o'yin va chempionat uchun umumiy dvigatel
- *  - Xona kodi orqali ulanish (PeerJS / WebRTC, server kerak emas)
+ *  - Xona kodi orqali ulanish (MQTT relay: ochiq brokerlar, shifrlangan xabarlar)
  *  - Har bir o'yin mavzusida savollar generatori (har safar yangi sonlar)
  *  - Natijani o'qituvchining Google jadvaliga yuborish
  * Ulash: <script src="ka-tarmoq.js"></script>
@@ -9,8 +9,7 @@
   "use strict";
   if (window.KANet) return;
 
-  var PEER_SRC = "https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.5/peerjs.min.js";
-  var PREFIX = "kuvonch-ka-v1-";
+  var SCRIPT_BASE = ((document.currentScript && document.currentScript.src) || "").replace(/[^/?#]*([?#].*)?$/, "");
   var RESULTS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxeBUPBTqpJ8rw9PH4mW8dlonvIJCjeP9ijTfq84R6MrFqCeIjf04uoQsEgVqne2xYBTA/exec";
   var ALPH = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 
@@ -140,93 +139,266 @@
     return out;
   }
 
-  /* ---------------- tarmoq (PeerJS) ---------------- */
-  var peerLoading = null;
-  function loadPeer() {
-    if (window.Peer) return Promise.resolve();
-    if (peerLoading) return peerLoading;
-    peerLoading = new Promise(function (res, rej) {
-      var s = document.createElement("script"); s.src = PEER_SRC; s.onload = res;
-      s.onerror = function () { peerLoading = null; rej(new Error("Internet yo'q yoki kutubxona yuklanmadi")); };
+  /* ---------------- tarmoq (MQTT relay) ----------------
+   * Avval PeerJS (WebRTC) ishlatilgan edi: uning bepul serveri ishlamay qolsa yoki mobil internet
+   * to'g'ridan-to'g'ri ulanishga yo'l bermasa, o'quvchilar ulana olmasdi.
+   * Endi xabarlar ochiq MQTT brokerlari orqali o'tadi (2 ta broker — biri ishlamasa, ikkinchisi).
+   * Mavzu nomi xona kodidan SHA-256 bilan olinadi, xabarlar AES-GCM bilan shifrlanadi.
+   * Tashqi API o'zgarmagan: host(opts) -> {code, send, broadcast, kick, close}, join(code, hello, opts) -> {id, send, close}. */
+  var MQTT_SRC = SCRIPT_BASE + "mqtt.min.js?v=5.16.1";
+  var BROKERS = ["wss://broker.emqx.io:8084/mqtt", "wss://broker.hivemq.com:8884/mqtt"];
+  var NS = "kuvonch-ka-v2/";
+  var mqttLoading = null;
+  function loadMqtt() {
+    if (window.mqtt && window.mqtt.connect) return Promise.resolve();
+    if (mqttLoading) return mqttLoading;
+    mqttLoading = new Promise(function (res, rej) {
+      var s = document.createElement("script"); s.src = MQTT_SRC;
+      s.onload = function () { if (window.mqtt && window.mqtt.connect) res(); else { mqttLoading = null; rej(new Error("Tarmoq kutubxonasi yuklanmadi")); } };
+      s.onerror = function () { mqttLoading = null; rej(new Error("Internet yo'q yoki kutubxona yuklanmadi")); };
       document.head.appendChild(s);
     });
-    return peerLoading;
+    return mqttLoading;
   }
   function genCode() { var s = ""; for (var i = 0; i < 5; i++) s += ALPH[Math.floor(Math.random() * ALPH.length)]; return s; }
   function normCode(c) { return String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 5); }
-  var PEER_OPTS = { debug: 0, config: { iceServers: [{ urls: "stun:stun.l.google.com:19302" }, { urls: "stun:global.stun.twilio.com:3478" }] } };
+  function rid(n) { var a = "abcdefghijkmnpqrstuvwxyz23456789", s = "", r = new Uint8Array(n); crypto.getRandomValues(r); for (var i = 0; i < n; i++) s += a[r[i] % a.length]; return s; }
+  function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); }
+  function b64(u8) { var s = ""; for (var i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+  function unb64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
 
-  // Xona ochish. opts: {onConn(conn, hello) -> true/xato matni, onMsg(id,msg), onLeave(id)}
+  // Xona kodi -> {t: mavzu prefiksi, key: AES kaliti}
+  function room(code) {
+    if (!(window.crypto && crypto.subtle)) return Promise.reject(new Error("Brauzer eski — yangilang yoki boshqa brauzerda oching"));
+    var enc = new TextEncoder();
+    return Promise.all([
+      crypto.subtle.digest("SHA-256", enc.encode("kuvonch-ka|t|" + code)),
+      crypto.subtle.digest("SHA-256", enc.encode("kuvonch-ka|k|" + code))
+    ]).then(function (h) {
+      return crypto.subtle.importKey("raw", h[1], { name: "AES-GCM" }, false, ["encrypt", "decrypt"]).then(function (key) {
+        return { t: NS + hex(h[0]).slice(0, 24), key: key };
+      });
+    });
+  }
+  function seal(R, obj) {
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, R.key, new TextEncoder().encode(JSON.stringify(obj))).then(function (ct) {
+      var u = new Uint8Array(12 + ct.byteLength); u.set(iv, 0); u.set(new Uint8Array(ct), 12);
+      return "e" + b64(u);
+    });
+  }
+  function unseal(R, str) {
+    if (str.charAt(0) !== "e") return Promise.reject(new Error("bad"));
+    var u = unb64(str.slice(1));
+    return crypto.subtle.decrypt({ name: "AES-GCM", iv: u.subarray(0, 12) }, R.key, u.subarray(12)).then(function (pt) {
+      return JSON.parse(new TextDecoder().decode(pt));
+    });
+  }
+  // Xabarlar tartibi buzilmasin: shifrlash/ochish navbat bilan
+  function queue() { var q = Promise.resolve(); return function (fn) { q = q.then(fn).catch(function () {}); }; }
+  function mconnect(url, will) {
+    var o = { clientId: "ka" + rid(14), clean: true, keepalive: 20, reconnectPeriod: 1500, connectTimeout: 12000, resubscribe: true, protocolVersion: 4 };
+    if (will) o.will = will;
+    return window.mqtt.connect(url, o);
+  }
+
+  // Xona ochish. opts: {onConn(id, hello) -> true/xato matni, onJoin(id, hello), onMsg(id,msg), onLeave(id), onError(e)}
   function host(opts) {
-    return loadPeer().then(function () {
+    var code = genCode();
+    return loadMqtt().then(function () { return room(code); }).then(function (R) {
       return new Promise(function (res, rej) {
-        var tries = 0;
-        (function attempt() {
-          var code = genCode(), peer = new window.Peer(PREFIX + code, PEER_OPTS), conns = {};
-          var api = {
-            code: code, peer: peer, conns: conns,
-            send: function (id, msg) { var c = conns[id]; if (c && c.open) try { c.send(msg); } catch (e) {} },
-            broadcast: function (msg, except) { for (var id in conns) if (id !== except) api.send(id, msg); },
-            kick: function (id, why) { var c = conns[id]; if (!c) return; api.send(id, { type: "kick", why: why || "" }); setTimeout(function () { try { c.close(); } catch (e) {} }, 300); delete conns[id]; },
-            close: function () { try { peer.destroy(); } catch (e) {} }
-          };
-          peer.on("open", function () { res(api); });
-          peer.on("error", function (e) {
-            if (e && e.type === "unavailable-id" && tries++ < 5) { try { peer.destroy(); } catch (x) {} attempt(); return; }
-            if (opts.onError) opts.onError(e);
-            rej(e);
-          });
-          peer.on("disconnected", function () { try { peer.reconnect(); } catch (e) {} });
-          peer.on("connection", function (conn) {
-            var helloed = false, win = 0, cnt = 0;
-            conn.on("data", function (msg) {
-              if (!msg || typeof msg !== "object") return;
-              // begona o'yinchidan juda katta yoki juda tez-tez xabar kelsa — e'tiborsiz qoldiramiz (sahifa qotib qolmasin)
-              var nowT = Date.now(); if (nowT - win > 1000) { win = nowT; cnt = 0; }
-              if (++cnt > 30 || !sane(msg, 4000)) return;
-              if (!helloed) {
+        var clients = [], conns = {}, peers = {}, settled = false, closed = false, hbTimer = 0, infoTimer = 0;
+        var outQ = queue(), inQ = queue();
+        var api = {
+          code: code, conns: conns,
+          send: function (id, msg) {
+            var p = peers[id]; if (!p || closed) return;
+            var c = clients[p.b];
+            outQ(function () { return seal(R, msg).then(function (s) { if (c && c.connected) c.publish(R.t + "/p/" + id, s, { qos: 0 }); }); });
+          },
+          broadcast: function (msg, except) { for (var id in conns) if (id !== except) api.send(id, msg); },
+          kick: function (id, why) {
+            if (!peers[id]) return;
+            api.send(id, { type: "kick", why: why || "" });
+            delete conns[id];
+            setTimeout(function () { if (!conns[id]) delete peers[id]; }, 1500);
+          },
+          close: function () {
+            if (closed) return;
+            outQ(function () {
+              closed = true; clearInterval(hbTimer); clearInterval(infoTimer);
+              clients.forEach(function (c) {
+                if (!c) return;
+                try { if (c.connected) { c.publish(R.t + "/a", "~gone", { qos: 0 }); c.publish(R.t + "/i", "", { qos: 0, retain: true }); } } catch (e) {}
+                setTimeout(function () { try { c.end(true); } catch (e) {} }, 600);
+              });
+            });
+          }
+        };
+        function leave(id) {
+          if (!peers[id]) return;
+          delete peers[id];
+          if (conns[id]) { delete conns[id]; if (opts.onLeave) opts.onLeave(id); }
+        }
+        function info(c) { try { c.publish(R.t + "/i", "~on " + Date.now(), { qos: 0, retain: true }); } catch (e) {} }
+        function handle(bi, str) {
+          if (closed) return;
+          if (str.slice(0, 5) === "~bye ") { // o'quvchi uzildi (broker yoki o'quvchining o'zi yuboradi)
+            var a = str.split(" ");
+            inQ(function () { var p0 = peers[a[1]]; if (p0 && p0.n === a[2]) leave(a[1]); });
+            return;
+          }
+          if (str.length > 8000) return;
+          inQ(function () {
+            return unseal(R, str).then(function (env) {
+              if (closed || !env || typeof env !== "object" || typeof env.f !== "string" || env.f.length > 40) return;
+              var id = env.f, msg = env.m, p = peers[id];
+              if (!msg || typeof msg !== "object" || !sane(msg, 4000)) return;
+              var nowT = Date.now();
+              if (p && p.n !== env.n) { // shu o'quvchi qayta ulandi
                 if (msg.type !== "hello") return;
-                var ok = opts.onConn ? opts.onConn(conn.peer, msg) : true;
-                if (ok !== true) { try { conn.send({ type: "reject", why: ok }); } catch (e) {} setTimeout(function () { try { conn.close(); } catch (e) {} }, 400); return; }
-                helloed = true; conns[conn.peer] = conn;
-                if (opts.onJoin) opts.onJoin(conn.peer, msg);
+                leave(id); p = null;
+              }
+              if (!p) {
+                if (msg.type !== "hello") return;
+                p = peers[id] = { b: bi, n: env.n, ok: false, win: nowT, cnt: 0 };
+              }
+              p.b = bi;
+              if (nowT - p.win > 1000) { p.win = nowT; p.cnt = 0; }
+              if (++p.cnt > 30) return; // juda tez-tez xabar — e'tiborsiz
+              if (!p.ok) {
+                if (msg.type !== "hello") return;
+                var ok = opts.onConn ? opts.onConn(id, msg) : true;
+                p.ok = true;
+                if (ok !== true) {
+                  api.send(id, { type: "reject", why: ok });
+                  setTimeout(function () { if (peers[id] === p) delete peers[id]; }, 1500);
+                  return;
+                }
+                conns[id] = { peer: id, open: true };
+                if (opts.onJoin) opts.onJoin(id, msg);
                 return;
               }
-              if (opts.onMsg) opts.onMsg(conn.peer, msg);
+              if (msg.type === "hello") return;
+              if (opts.onMsg) opts.onMsg(id, msg);
             });
-            var gone = function () { if (conns[conn.peer]) { delete conns[conn.peer]; if (opts.onLeave) opts.onLeave(conn.peer); } };
-            conn.on("close", gone); conn.on("error", gone);
           });
-        })();
+        }
+        var to = setTimeout(function () {
+          if (settled) return; settled = true; api.close();
+          var e = new Error("Tarmoqqa ulanib bo'lmadi"); e.type = "network";
+          if (opts.onError) opts.onError(e);
+          rej(e);
+        }, 20000);
+        BROKERS.forEach(function (url, bi) {
+          var c;
+          try { c = mconnect(url); } catch (e) { return; }
+          clients[bi] = c;
+          c.on("connect", function () {
+            if (closed) return;
+            c.subscribe(R.t + "/h", { qos: 0 });
+            info(c);
+            if (!settled) { settled = true; clearTimeout(to); res(api); }
+          });
+          c.on("message", function (topic, payload) { handle(bi, payload.toString()); });
+          c.on("error", function () {});
+        });
+        // o'quvchilarga "o'qituvchi ekrani ochiq" signali va xona ma'lumotini yangilab turish
+        hbTimer = setInterval(function () { clients.forEach(function (c) { if (c && c.connected) try { c.publish(R.t + "/a", "~hb", { qos: 0 }); } catch (e) {} }); }, 10000);
+        infoTimer = setInterval(function () { clients.forEach(function (c) { if (c && c.connected) info(c); }); }, 60000);
+        window.addEventListener("pagehide", function () { api.close(); });
       });
     });
   }
 
-  // Xonaga qo'shilish. hello: {name, group, ...}; opts: {onMsg(msg), onClose()}
+  // Xonaga qo'shilish. hello: {name, ...}; opts: {onMsg(msg), onClose()}
+  var SELF_KEY = "ka.tarmoq.self.v2";
+  function selfId(code) {
+    var m = {};
+    try { m = JSON.parse(sessionStorage.getItem(SELF_KEY) || "{}") || {}; } catch (e) {}
+    if (!m[code]) { m[code] = rid(10); try { sessionStorage.setItem(SELF_KEY, JSON.stringify(m)); } catch (e) {} }
+    return m[code];
+  }
   function join(code, hello, opts) {
     code = normCode(code);
-    return loadPeer().then(function () {
+    return loadMqtt().then(function () { return room(code); }).then(function (R) {
       return new Promise(function (res, rej) {
-        var peer = new window.Peer(PEER_OPTS), settled = false;
-        var to = setTimeout(function () { if (!settled) { settled = true; try { peer.destroy(); } catch (e) {} rej(new Error("Xona topilmadi yoki javob bermadi. Kodni tekshiring.")); } }, 15000);
-        peer.on("error", function (e) {
-          if (settled) { if (opts.onClose) opts.onClose(); return; }
-          settled = true; clearTimeout(to); try { peer.destroy(); } catch (x) {}
-          rej(new Error(e && e.type === "peer-unavailable" ? "Bunday kodli xona yo'q. Kodni tekshiring." : "Ulanib bo'lmadi: " + (e && e.type || e)));
-        });
-        peer.on("open", function () {
-          var conn = peer.connect(PREFIX + code, { reliable: true });
-          conn.on("open", function () { conn.send(Object.assign({ type: "hello" }, hello)); });
-          conn.on("data", function (msg) {
-            if (!msg || typeof msg !== "object" || !sane(msg, 300000)) return;
-            if (!settled) {
-              if (msg.type === "reject") { settled = true; clearTimeout(to); try { peer.destroy(); } catch (e) {} rej(new Error(msg.why || "Xona qabul qilmadi")); return; }
-              settled = true; clearTimeout(to);
-              res({ id: peer.id, send: function (m) { if (conn.open) try { conn.send(m); } catch (e) {} }, close: function () { try { peer.destroy(); } catch (e) {} } });
-            }
-            if (opts.onMsg) opts.onMsg(msg);
+        var id = selfId(code), n = rid(8), settled = false, dead = false, clients = [], C = null, found = false;
+        var lastHost = Date.now(), downSince = 0, watch = 0, probe = 0, outQ = queue(), inQ = queue();
+        var hi = Object.assign({ type: "hello" }, hello);
+        var TP = R.t + "/p/" + id, TA = R.t + "/a", TI = R.t + "/i";
+        function willFor(nn) { return { topic: R.t + "/h", payload: "~bye " + id + " " + nn, qos: 0, retain: false }; }
+        function kill() { dead = true; clearInterval(watch); clearTimeout(probe); clients.forEach(function (c) { try { c.end(true); } catch (e) {} }); }
+        function fail(msg) { if (settled) return; settled = true; clearTimeout(to); kill(); rej(new Error(msg)); }
+        function bye() { if (C && C.connected) try { C.publish(R.t + "/h", "~bye " + id + " " + n, { qos: 0 }); } catch (e) {} }
+        function lost() { // aloqa butunlay yo'qoldi
+          if (dead) return;
+          if (!settled) return fail("Ulanib bo'lmadi: aloqa uzildi");
+          bye(); kill(); if (opts.onClose) opts.onClose();
+        }
+        function send(m) {
+          if (dead) return;
+          var nn = n;
+          outQ(function () { return seal(R, { f: id, n: nn, m: m }).then(function (s) { if (C && C.connected && !dead) C.publish(R.t + "/h", s, { qos: 0 }); }); });
+        }
+        function onPeerMsg(str) {
+          if (dead) return;
+          if (str === "~hb") { lastHost = Date.now(); return; }
+          if (str === "~gone") { if (settled) lost(); else fail("O'qituvchi xonani yopgan"); return; }
+          inQ(function () {
+            return unseal(R, str).then(function (msg) {
+              if (dead || !msg || typeof msg !== "object" || !sane(msg, 300000)) return;
+              lastHost = Date.now();
+              if (!settled) {
+                if (msg.type === "reject") return fail(msg.why || "Xona qabul qilmadi");
+                settled = true; clearTimeout(to);
+                res({ id: id, send: send, close: function () { bye(); dead = true; setTimeout(kill, 300); } });
+                watch = setInterval(function () {
+                  if (dead) return;
+                  var t = Date.now();
+                  if (!C.connected) { if (!downSince) downSince = t; if (t - downSince > 45000) lost(); }
+                  else { downSince = 0; if (t - lastHost > 45000) lost(); } // o'qituvchi ekrani javob bermayapti
+                }, 3000);
+              }
+              if (opts.onMsg) opts.onMsg(msg);
+              if (msg.type === "kick") kill();
+            });
           });
-          conn.on("close", function () { if (settled && opts.onClose) opts.onClose(); });
+        }
+        function choose(c) { // xona topilgan broker — qolganlarini yopamiz
+          if (found) return; found = true; C = c; clearTimeout(probe);
+          clients.forEach(function (o) { if (o !== c) try { o.end(true); } catch (e) {} });
+          clients = [c];
+          c.unsubscribe(TI);
+          c.subscribe([TP, TA], { qos: 0 }, function () { send(hi); });
+          // internet uzilib qayta ulansa — o'qituvchiga yana salom beramiz (ochkolar saqlanadi)
+          c.on("reconnect", function () { n = rid(8); c.options.will = willFor(n); });
+          c.on("connect", function () {
+            if (dead) return;
+            lastHost = Date.now();
+            c.subscribe([TP, TA], { qos: 0 }, function () { send(hi); });
+          });
+        }
+        var to = setTimeout(function () {
+          fail(found ? "Xona javob bermadi. O'qituvchi ekrani ochiqligini va kodni tekshiring." : "Internetga ulanib bo'lmadi. Internetni tekshirib, qayta urinib ko'ring.");
+        }, 20000);
+        BROKERS.forEach(function (url) {
+          var c;
+          try { c = mconnect(url, willFor(n)); } catch (e) { return; }
+          clients.push(c);
+          var first = true;
+          c.on("connect", function () {
+            if (!first || dead) return; first = false;
+            if (found) { if (c !== C) try { c.end(true); } catch (e) {} return; }
+            c.subscribe(TI, { qos: 0 });
+            if (!probe) probe = setTimeout(function () { if (!found) fail("Bunday kodli xona yo'q. Kodni tekshiring."); }, 7000);
+          });
+          c.on("message", function (topic, payload) {
+            if (dead) return;
+            if (topic === TI) { if (!found && payload.toString().slice(0, 4) === "~on ") choose(c); return; }
+            if (c === C) onPeerMsg(payload.toString());
+          });
+          c.on("error", function () {});
         });
       });
     });
