@@ -1,0 +1,42 @@
+{
+  "id": "2019-1",
+  "badge": "IMO 2019 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Butun sonlarda funksional tenglama",
+      "fs": 37,
+      "body": "<p><span class='m'>ℤ</span> — butun sonlar to'plami. Shunday barcha <span class='m'>f : ℤ → ℤ</span> funksiyalarni toping, ixtiyoriy <span class='m'>a, b</span> butun sonlar uchun</p><div class='box' style='text-align:center'><span class='m'>f(2a) + 2f(b) = f(f(a + b))</span></div><p>tenglik bajarilsin.</p><p>💡 Funksional tenglamalarda odatiy yo'l: <b>javobni taxmin qilish</b>, so'ng boshqa yechim yo'qligini <b>isbotlash</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Chiziqli yechimlarni topamiz",
+      "fs": 35,
+      "body": "<p>Avval <span class='m'>f(x) = cx + k</span> ko'rinishini sinaymiz. Chap tomon:</p><div class='box'><span class='m'>2ca + k + 2cb + 2k = 2c(a+b) + 3k</span></div><p>O'ng tomon: <span class='m'>f(c(a+b) + k) = c<sup>2</sup>(a+b) + ck + k</span>.</p><p>Koeffitsiyentlarni tenglaymiz: <span class='m'>c<sup>2</sup> = 2c</span> va <span class='m'>2k = ck</span>.</p><ul><li><span class='m'>c = 0</span> ⇒ <span class='m'>k = 0</span>: &nbsp;<span class='m'>f(x) ≡ 0</span></li><li><span class='m'>c = 2</span> ⇒ <span class='m'>k</span> ixtiyoriy: &nbsp;<span class='m'>f(x) = 2x + k</span></li></ul><p>Endi <b>boshqa yechim yo'qligini</b> isbotlaymiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "f(2x) ni f(x) orqali ifodalaymiz",
+      "fs": 36,
+      "body": "<p><span class='m'>P(a, b)</span> — berilgan tenglik bo'lsin.</p><p><span class='m'>P(0, x)</span>: &nbsp;<span class='m'>f(0) + 2f(x) = f(f(x))</span></p><p><span class='m'>P(x, 0)</span>: &nbsp;<span class='m'>f(2x) + 2f(0) = f(f(x))</span></p><p>O'ng tomonlari bir xil, demak chap tomonlarini tenglaymiz:</p><div class='box' style='text-align:center'><span class='m'>f(2x) = 2f(x) − f(0)</span></div><p>Bu tenglik har qanday butun <span class='m'>x</span> uchun o'rinli.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Additivlik kelib chiqadi",
+      "fs": 34,
+      "body": "<p><span class='m'>P(a, b)</span> va <span class='m'>P(0, a + b)</span> ikkalasida ham o'ng tomon <span class='m'>f(f(a+b))</span>:</p><div class='box'><span class='m'>f(2a) + 2f(b) = f(0) + 2f(a + b)</span></div><p>2-qadamdagi <span class='m'>f(2a) = 2f(a) − f(0)</span> ni qo'yib, 2 ga bo'lamiz:</p><div class='box'><span class='m'>(f(a) − f(0)) + (f(b) − f(0)) = f(a+b) − f(0)</span></div><p>Ya'ni <span class='m'>g(x) = f(x) − f(0)</span> funksiya <b>additiv</b>:</p><div class='box' style='text-align:center'><span class='m'>g(a) + g(b) = g(a + b)</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Butun sonlarda additiv = chiziqli",
+      "fs": 35,
+      "body": "<p><span class='m'>g(0) = 0</span> va <span class='m'>g(n + 1) = g(n) + g(1)</span>. Induksiya bilan <span class='m'>g(n) = n·g(1)</span>, manfiy <span class='m'>n</span> uchun esa <span class='m'>g(−n) = −g(n)</span>.</p><div class='box'>Demak <span class='m'>f(x) = cx + k</span>, bu yerda <span class='m'>c = g(1)</span>, <span class='m'>k = f(0)</span>.</div><p>1-qadamga ko'ra, faqat ikki holat qoladi:</p><div class='box' style='text-align:center'><span class='m'>f(x) ≡ 0</span> &nbsp; yoki &nbsp; <span class='m'>f(x) = 2x + k</span>, &nbsp;<span class='m'>k ∈ ℤ</span></div><p>Ikkalasi ham tenglamani qanoatlantiradi. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya: ikki tenglikni solishtirish",
+      "fs": 34,
+      "body": "<p>O'ng tomoni bir xil bo'lgan ikki o'rniga qo'yishni tanlab, <span class='m'>f(f(…))</span> ni yo'qotdik — qolgani Koshi tenglamasi.</p><p>Kompyuterda <span class='m'>f(x) = cx + k</span> ni <span class='m'>|c| ≤ 4</span>, <span class='m'>|k| ≤ 5</span> uchun tekshirdik — faqat <span class='m'>f ≡ 0</span> va <span class='m'>f(x) = 2x + k</span> mos keldi ✅</p><div class='box'>💡 Evan Chen izohi: xuddi shu isbot <span class='m'>f(2a) + 2f(b) = g(a + b)</span> uchun ham ishlaydi (<span class='m'>g</span> — ixtiyoriy funksiya).</div><p>🧠 <b>Sizga savol:</b> <span class='m'>f(x) = 2x + 7</span> uchun <span class='m'>a = 1, b = 2</span> da ikki tomonni hisoblang. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2019 · 2-masala</b> (geometriya)</p>"
+    }
+  ]
+}
