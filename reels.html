@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kuvonch Reels — qisqa videolar | Kuvonch Academy</title>
+<meta name="description" content="Kuvonch Academy qisqa videolari: sayt imkoniyatlari, matematika tarixi, Pifagor teoremasi, IMO masalalari, ibratli hikoyalar va Ezop masallari — 9:16 Reels.">
+<link rel="canonical" href="https://kuvonch.uz/reels.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Kuvonch Reels — qisqa videolar">
+<meta property="og:description" content="Matematika, ibratli hikoyalar va Ezop masallari — qisqa videolar.">
+<meta property="og:url" content="https://kuvonch.uz/reels.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#000;--txt:#fff;--mut:rgba(255,255,255,.75);--acc:#5ee6c7;--acc2:#7c9bff;--gold:#ffd479}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;color:var(--txt);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow:hidden;-webkit-text-size-adjust:100%}
+button,a{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+/* yuqori panel */
+.top{position:fixed;left:0;right:0;top:0;z-index:20;padding:calc(8px + env(safe-area-inset-top)) 12px 10px;background:linear-gradient(rgba(0,0,0,.72),rgba(0,0,0,0));display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.top>*{pointer-events:auto}
+.bar{display:flex;align-items:center;gap:10px}
+.bar a.home{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:800;font-size:17px}
+.bar a.home i{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#5ee6c7,#7c9bff);color:#08131f;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-weight:900}
+.bar .sp{flex:1}
+.bar button{border:0;background:rgba(255,255,255,.14);border-radius:999px;min-width:40px;height:40px;padding:0 12px;font-weight:800;cursor:pointer}
+.cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cats::-webkit-scrollbar{display:none}
+.cats button{flex:none;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.35);border-radius:999px;padding:6px 13px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap}
+.cats button.on{background:#fff;color:#000;border-color:#fff}
+.cats button small{opacity:.65;font-weight:600;margin-left:4px}
+/* lenta */
+.feed{height:100%;overflow-y:scroll;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none}
+.feed::-webkit-scrollbar{display:none}
+.reel{position:relative;height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}
+.stage{position:relative;height:100%;aspect-ratio:9/16;max-width:100%;background:#050a14}
+@media (max-aspect-ratio:9/16){.stage{width:100%;height:auto;max-height:100%}}
+.stage video,.stage img.pst{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#050a14}
+.stage img.pst{transition:opacity .25s}
+.stage.playing img.pst{opacity:0;pointer-events:none}
+.bg{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(36px) brightness(.45);transform:scale(1.1)}
+.tapzone{position:absolute;inset:0;z-index:2;cursor:pointer}
+.bigplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:3;pointer-events:none}
+.bigplay svg{width:38px;height:38px;margin-left:5px}
+.stage.paused .bigplay{display:flex}
+.info{position:absolute;left:0;right:64px;bottom:0;z-index:4;padding:60px 14px calc(18px + env(safe-area-inset-bottom));background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.78));pointer-events:none}
+.info>*{pointer-events:auto}
+.info .cat{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.info h2{margin:0 0 4px;font-size:17px;line-height:1.3;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.info p{margin:0 0 8px;color:var(--mut);font-size:14px;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.info a.cta{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:linear-gradient(135deg,#ffd479,#ff9f6b);color:#1d1200;font-weight:800;font-size:14px;text-decoration:none}
+.side{position:absolute;right:8px;bottom:calc(90px + env(safe-area-inset-bottom));z-index:5;display:flex;flex-direction:column;gap:14px;align-items:center}
+.side button{width:48px;height:48px;border-radius:50%;border:0;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.side button svg{width:26px;height:26px}
+.side button.liked svg path{fill:#ff4d6d;stroke:#ff4d6d}
+.side small{display:block;text-align:center;font-size:12px;font-weight:700;margin-top:-10px;text-shadow:0 1px 2px #000}
+.prog{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.18);z-index:6}
+.prog i{display:block;height:100%;width:0;background:var(--acc)}
+.missing{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;color:var(--mut);padding:20px;z-index:3}
+.stage.err .missing{display:flex}
+.stage.err .bigplay,.stage.err .prog{display:none}
+.missing b{display:block;font-size:40px;margin-bottom:6px}
+.hint{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);padding:8px 14px;border-radius:999px;font-weight:700;font-size:14px;transition:opacity .4s;pointer-events:none;white-space:nowrap}
+.hint.off{opacity:0}
+.toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:40;background:rgba(0,0,0,.8);padding:10px 16px;border-radius:12px;font-weight:700;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+/* kompyuterda: chap tomonda ro'yxat */
+.navbtns{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:15;display:none;flex-direction:column;gap:10px}
+.navbtns button{width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.14);cursor:pointer;font-size:20px;font-weight:900}
+@media (min-width:900px) and (pointer:fine){.navbtns{display:flex}}
+@media (prefers-reduced-motion:reduce){.feed{scroll-behavior:auto}}
+</style>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="top">
+<div class="bar"><a class="home" href="index.html" aria-label="Bosh sahifa"><i>K</i>Reels</a><span class="sp"></span>
+<button type="button" id="snd" aria-label="Ovozni yoqish">🔇</button></div>
+<div class="cats" id="cats" role="tablist" aria-label="Toifalar"></div>
+</div>
+<main class="feed" id="feed" aria-label="Videolar lentasi"></main>
+<div class="navbtns"><button type="button" id="up" aria-label="Oldingi video">↑</button><button type="button" id="down" aria-label="Keyingi video">↓</button></div>
+<div class="hint" id="hint">↕ Keyingi video uchun suring</div>
+<div class="toast" id="toast"></div>
+<script src="ka-reels.js"></script>
+<script src="ezop-masallar.js"></script>
+<script>
+(function () {
+  "use strict";
+  var CATS = [["all", "Hammasi"], ["sayt", "🌐 Sayt"], ["matematika", "📐 Matematika"], ["hikoya", "📖 Hikoyalar"], ["ezop", "🦊 Ezop masallari"]];
+  var CAT_NAME = { sayt: "Kuvonch Academy", matematika: "Matematika", hikoya: "Ibratli hikoyalar", ezop: "Ezop masallari" };
+  var LS_LIKE = "ka.reels.likes.v1", LS_SND = "ka.reels.sound.v1";
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function lsGet(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function toast(t) { var el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove("on"); }, 1300); }
+
+  // Ezop masallari — ezop-masallar.js dan (eng yangisi birinchi)
+  var ezop = (window.EZOP_MASALLAR || []).slice().reverse().map(function (m) {
+    return { id: m.id, cat: "ezop", src: "media/ezop/" + m.id + ".mp4", poster: "media/poster/ezop/" + m.id + ".jpg", title: m.sarlavha, desc: "Ezop masali · " + (m.mavzu || ""), link: "ezop-oyin.html", linkText: "🦊 Masal bo'yicha savollar" };
+  });
+  var ALL = (window.KA_REELS || []).concat(ezop);
+  var likes = lsGet(LS_LIKE, {}), sound = !!lsGet(LS_SND, false), cat = "all", items = [], io = null, cur = null;
+
+  var ICON = {
+    play: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15l12-7.5z"/></svg>',
+    heart: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7.5-4.6-9.6-9.2C1 8.6 3 5 6.6 5c2.1 0 3.4 1.2 4.4 2.6C12 6.2 13.3 5 15.4 5 19 5 21 8.6 19.6 11.8 17.5 16.4 12 21 12 21z"/></svg>',
+    share: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>',
+    dl: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
+  };
+
+  function renderCats() {
+    var box = $("#cats");
+    box.innerHTML = CATS.map(function (c) {
+      var n = c[0] === "all" ? ALL.length : ALL.filter(function (x) { return x.cat === c[0]; }).length;
+      return n ? '<button type="button" role="tab" data-c="' + c[0] + '" class="' + (c[0] === cat ? "on" : "") + '">' + c[1] + "<small>" + n + "</small></button>" : "";
+    }).join("");
+    box.onclick = function (e) { var b = e.target.closest("button[data-c]"); if (!b || b.dataset.c === cat) return; cat = b.dataset.c; renderCats(); build(); };
+  }
+  function build(startId) {
+    var feed = $("#feed");
+    if (io) io.disconnect();
+    if (cur) { try { cur.v.pause(); } catch (e) {} cur = null; }
+    items = ALL.filter(function (x) { return cat === "all" || x.cat === cat; });
+    feed.innerHTML = items.map(function (x, i) {
+      var lk = likes[x.id];
+      return '<section class="reel" data-i="' + i + '" id="r-' + esc(x.id) + '" aria-label="' + esc(x.title) + '">' +
+        '<div class="bg" style="background-image:url(\'' + esc(x.poster) + '\')"></div>' +
+        '<div class="stage paused"><img class="pst" alt="" loading="lazy" src="' + esc(x.poster) + '" onerror="this.style.display=\'none\'">' +
+        '<video playsinline webkit-playsinline preload="none" loop></video><div class="missing"><span><b>🎬</b>Bu video tez orada chiqadi</span></div>' +
+        '<div class="tapzone"></div><div class="bigplay">' + ICON.play + '</div><div class="prog"><i></i></div></div>' +
+        '<div class="info"><span class="cat">' + esc(CAT_NAME[x.cat] || "") + "</span><h2>" + esc(x.title) + "</h2>" + (x.desc ? "<p>" + esc(x.desc) + "</p>" : "") +
+        (x.link ? '<a class="cta" href="' + esc(x.link) + '">' + esc(x.linkText || "Ochish") + "</a>" : "") + "</div>" +
+        '<div class="side"><button type="button" data-a="like" class="' + (lk ? "liked" : "") + '" aria-label="Yoqdi">' + ICON.heart + '</button><small>' + (lk ? "Yoqdi" : "") + "</small>" +
+        '<button type="button" data-a="share" aria-label="Ulashish">' + ICON.share + '</button><button type="button" data-a="dl" aria-label="Yuklab olish">' + ICON.dl + "</button></div></section>";
+    }).join("") || '<section class="reel"><p style="color:#aaa">Bu toifada hozircha video yo\'q</p></section>';
+    io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        var sec = en.target, i = +sec.dataset.i;
+        if (en.isIntersecting && en.intersectionRatio > .6) activate(i);
+        else if (cur && cur.i === i && en.intersectionRatio < .4) deactivate();
+      });
+    }, { threshold: [0, .4, .6, 1] });
+    Array.prototype.forEach.call(feed.querySelectorAll(".reel[data-i]"), function (s) { io.observe(s); });
+    feed.scrollTop = 0;
+    if (startId) { var s = document.getElementById("r-" + startId); if (s) feed.scrollTop = s.offsetTop; }
+  }
+  function sec(i) { return $("#feed").querySelector('.reel[data-i="' + i + '"]'); }
+  function prime(i) { // keyingi videoni oldindan tayyorlab qo'yamiz
+    var s = sec(i); if (!s) return; var v = $("video", s), x = items[i];
+    if (!v.getAttribute("src")) { v.setAttribute("src", x.src); v.preload = "metadata"; }
+  }
+  function activate(i) {
+    if (cur && cur.i === i) return;
+    deactivate();
+    var s = sec(i); if (!s) return;
+    var st = $(".stage", s), v = $("video", s), x = items[i], bar = $(".prog i", s);
+    if (!v.getAttribute("src")) v.setAttribute("src", x.src);
+    v.preload = "auto"; v.muted = !sound;
+    v.onerror = function () { st.classList.add("err"); };
+    v.ontimeupdate = function () { if (v.duration) bar.style.width = (v.currentTime / v.duration * 100) + "%"; };
+    v.onplaying = function () { st.classList.add("playing"); st.classList.remove("paused"); };
+    v.onpause = function () { st.classList.add("paused"); };
+    cur = { i: i, v: v, st: st };
+    var p = v.play(); if (p && p.catch) p.catch(function () { v.muted = true; v.play().catch(function () { st.classList.add("paused"); }); });
+    prime(i + 1);
+    if (history.replaceState) history.replaceState(null, "", "#" + x.id);
+    try { document.title = x.title + " — Kuvonch Reels"; } catch (e) {}
+  }
+  function deactivate() {
+    if (!cur) return;
+    try { cur.v.pause(); } catch (e) {}
+    cur = null;
+  }
+  $("#feed").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-a]"), s = e.target.closest(".reel[data-i]"); if (!s) return;
+    var i = +s.dataset.i, x = items[i];
+    if (b) {
+      var a = b.dataset.a;
+      if (a === "like") {
+        likes[x.id] = !likes[x.id]; if (!likes[x.id]) delete likes[x.id]; lsSet(LS_LIKE, likes);
+        b.classList.toggle("liked", !!likes[x.id]); b.nextElementSibling.textContent = likes[x.id] ? "Yoqdi" : "";
+        if (likes[x.id]) toast("❤️ Yoqdi");
+      } else if (a === "share") {
+        var url = location.origin + location.pathname + "#" + x.id;
+        if (navigator.share) navigator.share({ title: x.title, text: x.title + " — Kuvonch Academy", url: url }).catch(function () {});
+        else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { toast("🔗 Havola nusxalandi"); }, function () { toast(url); });
+        else toast(url);
+      } else if (a === "dl") {
+        var l = document.createElement("a"); l.href = x.src; l.download = x.src.split("/").pop(); document.body.appendChild(l); l.click(); l.remove();
+      }
+      return;
+    }
+    if (e.target.closest(".tapzone")) {
+      if (!cur || cur.i !== i) { activate(i); return; }
+      if (cur.v.paused) cur.v.play().catch(function () {}); else cur.v.pause();
+    }
+  });
+  function setSound(on) {
+    sound = on; lsSet(LS_SND, on);
+    $("#snd").textContent = on ? "🔊" : "🔇"; $("#snd").setAttribute("aria-label", on ? "Ovozni o'chirish" : "Ovozni yoqish");
+    if (cur) { cur.v.muted = !on; if (on && cur.v.paused) cur.v.play().catch(function () {}); }
+  }
+  $("#snd").onclick = function () { setSound(!sound); toast(sound ? "🔊 Ovoz yoqildi" : "🔇 Ovoz o'chirildi"); };
+  function step(d) { var f = $("#feed"); f.scrollBy({ top: d * f.clientHeight, behavior: "smooth" }); }
+  $("#up").onclick = function () { step(-1); }; $("#down").onclick = function () { step(1); };
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === "j") { e.preventDefault(); step(1); }
+    else if (e.key === "ArrowUp" || e.key === "PageUp" || e.key === "k") { e.preventDefault(); step(-1); }
+    else if (e.key === " " && cur) { e.preventDefault(); if (cur.v.paused) cur.v.play().catch(function () {}); else cur.v.pause(); }
+    else if (e.key === "m") $("#snd").click();
+  });
+  document.addEventListener("visibilitychange", function () { if (document.hidden && cur) cur.v.pause(); });
+  setTimeout(function () { $("#hint").classList.add("off"); }, 3500);
+  $("#feed").addEventListener("scroll", function () { $("#hint").classList.add("off"); }, { passive: true });
+  // #id yoki ?toifa= bilan ochish
+  var start = decodeURIComponent((location.hash || "").slice(1)), q = /[?&]toifa=(\w+)/.exec(location.search);
+  if (q && CATS.some(function (c) { return c[0] === q[1]; })) cat = q[1];
+  if (start && !ALL.some(function (x) { return x.id === start; })) start = "";
+  setSound(sound); renderCats(); build(start);
+  addEventListener("hashchange", function () {
+    var id = decodeURIComponent(location.hash.slice(1)); if (!id || (cur && items[cur.i] && items[cur.i].id === id)) return;
+    if (!items.some(function (x) { return x.id === id; })) { if (!ALL.some(function (x) { return x.id === id; })) return; cat = "all"; renderCats(); build(id); return; }
+    var s = document.getElementById("r-" + id); if (s) $("#feed").scrollTop = s.offsetTop;
+  });
+  window.kaReels = { items: function () { return items; }, current: function () { return cur && items[cur.i]; } };
+})();
+</script>
+</body>
+</html>

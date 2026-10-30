@@ -1,0 +1,30 @@
+/*! Kuvonch Academy — Reels ro'yxati. Yangi video qo'shish: media/ ga .mp4 (9:16) va media/poster/ ga .jpg qo'ying, so'ng shu ro'yxatga qator qo'shing.
+ *  Ezop masallari bu yerga yozilmaydi — ezop-masallar.js dan avtomatik olinadi (media/ezop/<id>.mp4). */
+window.KA_REELS = [
+  { id: "reklama-viktorina", cat: "sayt", src: "media/reklama/reklama-viktorina.mp4", poster: "media/poster/reklama-viktorina.jpg",
+    title: "Jonli viktorina — Kahoot uslubida, o'zbek tilida", desc: "Savol katta ekranda, javob telefonda. 110 ta mavzu, tez va to'g'ri javobga ko'p ochko.", link: "viktorina.html", linkText: "⚡ Viktorinani ochish" },
+  { id: "reklama-arqon", cat: "sayt", src: "media/reklama/reklama-arqon.mp4", poster: "media/poster/reklama-arqon.jpg",
+    title: "Arqon tortish — butun sinf bilan", desc: "1 dan 10 tagacha jamoa, 3 daraja. Xato bo'lsa — yechimi ko'rsatiladi.", link: "arqon.html", linkText: "🪢 O'ynash" },
+  { id: "reklama-sayt", cat: "sayt", src: "media/reklama/reklama-sayt.mp4", poster: "media/poster/reklama-sayt.jpg",
+    title: "kuvonch.uz — matematikani o'ynab o'rganing", desc: "110 ta mavzu, testlar, 67 ta virtual o'yin va sinf o'yinlari — bepul.", link: "index.html", linkText: "🏠 Bosh sahifa" },
+  { id: "kuvonch-uz-reels", cat: "sayt", src: "media/kuvonch-uz-reels-20s.mp4", poster: "media/poster/kuvonch-uz-reels-20s.jpg",
+    title: "Matematika va ingliz tili qiyinmi?", desc: "Kuvonch Academy bilan o'ynab o'rganing.", link: "index.html", linkText: "🏠 Bosh sahifa" },
+  { id: "matematika-tarixi-1", cat: "matematika", src: "media/matematika-tarixi-1-qism.mp4", poster: "media/poster/matematika-tarixi-1-qism.jpg",
+    title: "Matematika tarixi · 1-qism: Matematika qanday paydo bo'lgan?", desc: "Suyakdagi kertiklardan birinchi raqamlargacha.", link: "matematika.html", linkText: "📐 Matematika bo'limi" },
+  { id: "matematika-tarixi-2", cat: "matematika", src: "media/matematika-tarixi-2-qism.mp4", poster: "media/poster/matematika-tarixi-2-qism.jpg",
+    title: "Matematika tarixi · 2-qism: Xitoydan Samarqandgacha", desc: "Sharq olimlari va ularning kashfiyotlari.", link: "matematika.html", linkText: "📐 Matematika bo'limi" },
+  { id: "matematika-tarixi-3", cat: "matematika", src: "media/matematika-tarixi-3-qism.mp4", poster: "media/poster/matematika-tarixi-3-qism.jpg",
+    title: "Matematika tarixi · 3-qism: Papirus, nol va Yer radiusi", desc: "Qadimgi Misr, Hindiston va Yunoniston.", link: "matematika.html", linkText: "📐 Matematika bo'limi" },
+  { id: "matematika-tarixi-4", cat: "matematika", src: "media/matematika-tarixi-4-qism.mp4", poster: "media/poster/matematika-tarixi-4-qism.jpg",
+    title: "Matematika tarixi · 4-qism: Raqamlardan kompyutergacha", desc: "Fibonachchidan sun'iy intellektgacha.", link: "matematika.html", linkText: "📐 Matematika bo'limi" },
+  { id: "pifagor-1", cat: "matematika", src: "media/pifagor-teoremasi-1-qism.mp4", poster: "media/poster/pifagor-teoremasi-1-qism.jpg",
+    title: "Pifagor teoremasi · 1-qism: Pifagor va uning mashhur teoremasi", desc: "a² + b² = c² qayerdan kelgan?", link: "mashqlar.html", linkText: "📘 Mavzular" },
+  { id: "pifagor-2", cat: "matematika", src: "media/pifagor-teoremasi-2-qism.mp4", poster: "media/poster/pifagor-teoremasi-2-qism.jpg",
+    title: "Pifagor teoremasi · 2-qism: Isboti va hayotda qo'llanishi", desc: "Teorema isboti va kundalik hayotdagi misollar.", link: "mashqlar.html", linkText: "📘 Mavzular" },
+  { id: "imo-2025-5", cat: "matematika", src: "media/imo-2025-5-v2.mp4", poster: "media/poster/imo-2025-5-v2.jpg",
+    title: "IMO 2025 · 5-masala: Alisa va Bazza o'yini", desc: "Xalqaro matematika olimpiadasi masalasi va yechimi.", link: "olimpiada.html", linkText: "🏅 Olimpiada" },
+  { id: "uch-sovga", cat: "hikoya", src: "media/uch-sovga.mp4", poster: "media/poster/uch-sovga.jpg",
+    title: "Uch sovg'a — ibratli hikmat", desc: "Qisqa ibratli hikoya.", link: "", linkText: "" },
+  { id: "zohid-va-latcha", cat: "hikoya", src: "media/zohid-va-latcha.mp4", poster: "media/poster/zohid-va-latcha.jpg",
+    title: "Zohid va latcha — Kalila va Dimna", desc: "Kalila va Dimna hikoyalaridan.", link: "", linkText: "" }
+];
