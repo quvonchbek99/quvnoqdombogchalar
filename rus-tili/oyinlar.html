@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rus tili o'yinlari — ТЕТРАДЬ</title>
+<meta name="description" content="Rus tili o'yinlari: alifbo va o'qish, jins (он/она/оно) savatlari, kelishik qo'shimchalari, fe'l tuslash poygasi, gap tuzish va tinglash. Har bir o'yin avval qoidani o'zbekcha tushuntiradi. Bepul.">
+<link rel="canonical" href="https://kuvonch.uz/rus-tili/oyinlar.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rus tili o'yinlari — ТЕТРАДЬ">
+<meta property="og:description" content="Alifbo, jins, kelishik, tuslash, gap tuzish va tinglash o'yinlari — darajalar, seriya va rekordlar bilan.">
+<meta property="og:url" content="https://kuvonch.uz/rus-tili/oyinlar.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F6F52'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23F4FBF6'%3EТ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/tetrad.css">
+<style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
+<style>
+:root{--blue:#2E5C9E;--blue-bg:#E1E9F6;--rose-bg:#F6E2DE;--green-bg:#DDEBE2}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--blue:#8FB3EA;--blue-bg:#1F2E45;--rose-bg:#40261F;--green-bg:#1E3A2C}}
+:root[data-theme="dark"]{--blue:#8FB3EA;--blue-bg:#1F2E45;--rose-bg:#40261F;--green-bg:#1E3A2C}
+/* akkount.js tugmasi (chapda) va daraxt (o'ngda) sarlavhani yopmasin */
+body::before{content:"";position:fixed;left:0;right:0;top:0;height:48px;background:var(--paper);z-index:25}
+header.site{top:48px}
+.page-head .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.page-head .chip{background:var(--paper-line)}
+.gtabs{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 16px}
+.gtabs button{min-height:44px;border:1.5px solid var(--paper-alt);background:var(--paper-line);padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:700;font-size:14.5px;box-shadow:var(--card-shadow);transition:background .15s,border-color .15s,color .15s}
+.gtabs button:hover{border-color:var(--accent)}
+.gtabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+@media (max-width:520px){.gtabs{gap:6px}.gtabs button{flex:1 1 calc(50% - 6px);padding:8px 8px;font-size:14px}}
+.learn{position:relative;background:var(--paper-line);border-radius:12px;box-shadow:var(--card-shadow);padding:16px 18px 18px 34px;margin-bottom:16px;overflow:hidden}
+.learn::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--margin);opacity:.45}
+.learn h2{font-family:var(--font-hand);color:var(--margin);font-size:30px;font-weight:700;margin:0 0 4px}
+.learn>p{color:var(--ink);font-size:16px}
+.learn>p+p{margin-top:6px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px;margin-top:12px}
+.rl{padding:10px 12px;border-radius:10px;background:var(--paper);border:1px solid var(--paper-alt);font-size:15px}
+.rl .k{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2px}
+.rl .ru,.learn .ru{font-size:17px}
+.c-g{color:var(--accent);font-weight:700}.c-r{color:var(--margin);font-weight:700}.c-b{color:var(--blue);font-weight:700}.c-o{color:var(--gold);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:10px;font-size:14px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;background:currentColor;vertical-align:0}
+.game{background:var(--paper-line);border-radius:14px;box-shadow:var(--card-shadow);padding:16px;position:relative;overflow:hidden}
+.modes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.modes button{min-height:40px;padding:7px 12px;border-radius:8px;border:1.5px solid var(--paper-alt);background:var(--paper);font-weight:700;font-size:14px;cursor:pointer}
+.modes button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--green-bg)}
+.gbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.gstats{display:flex;flex-wrap:wrap;gap:6px}
+.gstats span{font-size:13px;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--paper-alt);color:var(--ink-soft);white-space:nowrap}
+.gstats b{color:var(--ink)}
+.gq{text-align:center;padding:8px 2px 14px}
+.qsub{color:var(--ink-soft);font-size:15px;margin-top:6px}
+.qbig{font-family:var(--font-display);font-size:clamp(34px,8vw,54px);font-weight:700;line-height:1.1;letter-spacing:.01em}
+.qsent{font-family:var(--font-display);font-size:clamp(21px,4.6vw,29px);line-height:1.35}
+.gapw{display:inline-block;min-width:3.2em;border-bottom:3px solid var(--margin);color:var(--margin);margin:0 .12em}
+.uz{color:var(--ink-soft);font-size:15px}
+.gopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{position:relative;min-height:58px;padding:10px 12px 10px 32px;border-radius:12px;border:1.5px solid var(--paper-alt);background:var(--paper);font-family:var(--font-display);font-size:20px;font-weight:700;cursor:pointer;transition:border-color .15s,background .15s;animation:pop .32s both;overflow-wrap:anywhere;color:var(--ink)}
+.opt i{position:absolute;left:10px;top:50%;transform:translateY(-50%);font:700 12px var(--font-body);color:var(--ink-soft);font-style:normal}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);animation:pulse .45s}
+.opt.no{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);animation:shake .4s}
+.gopts.lat .opt{font-family:var(--font-body);font-size:18px}
+.gopts.big .opt{font-size:30px}
+.fb{min-height:26px;margin-top:12px;font-size:15.5px;line-height:1.55}
+.fb .ok{color:var(--ok)}.fb .bad{color:var(--bad)}
+.fb a{color:var(--accent);font-weight:700}
+.gctl{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.gctl .btn{min-width:140px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}}
+@keyframes pulse{50%{transform:scale(1.05)}}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-2deg)}}
+.say{width:40px;height:40px}
+.bigsay{width:84px;height:84px;border-radius:50%;border:2px solid var(--accent);background:var(--green-bg);color:var(--accent);font-size:34px;cursor:pointer;display:inline-grid;place-items:center;box-shadow:var(--card-shadow);animation:bob 2.4s ease-in-out infinite}
+.bigsay:active{transform:scale(.95)}
+.no-tts .bigsay,.no-tts .slow{display:none}
+.notts{display:none}.no-tts .notts{display:block}
+/* alifbo */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px;margin-top:12px}
+.lt{min-height:52px;border-radius:10px;border:1.5px solid var(--paper-alt);background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.05;padding:4px 2px;color:var(--ink)}
+.lt small{font:700 11.5px var(--font-body);color:var(--accent);margin-top:2px}
+.lt.g2{border-color:color-mix(in srgb,var(--margin) 60%,transparent)}
+.lt.g2 small{color:var(--margin)}
+.lt.nm{background:color-mix(in srgb,var(--gold) 16%,var(--paper))}
+.lt.on{outline:2px solid var(--accent);outline-offset:1px}
+.linfo{display:flex;gap:14px;align-items:center;margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--paper);border:1px dashed var(--rule);min-height:64px;font-size:15px}
+.linfo .lb{font-family:var(--font-display);font-size:40px;font-weight:700;flex:none;min-width:58px;text-align:center}
+/* jins */
+.sort-stage{display:flex;justify-content:center;min-height:120px;align-items:center}
+.swc{position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:14px 22px;border-radius:14px;background:repeating-linear-gradient(var(--paper-line) 0 31px,color-mix(in srgb,var(--rule) 40%,transparent) 31px 32px);border:1.5px solid var(--paper-alt);box-shadow:var(--card-shadow);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;animation:pop .3s both;max-width:100%}
+.swc.drag{cursor:grabbing;z-index:20;box-shadow:0 18px 30px -10px rgba(0,0,0,.4)}
+.swc .ru{font-size:clamp(30px,7vw,42px);font-weight:700;line-height:1.15}
+.swc .row{display:flex;align-items:center;gap:8px}
+.baskets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.bk{position:relative;min-height:118px;border-radius:14px 14px 22px 22px;border:2px solid;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;cursor:pointer;padding:8px 4px;transition:transform .15s,box-shadow .15s;color:var(--ink)}
+.bk .em{font-size:28px;line-height:1.1}
+.bk .p{font-family:var(--font-display);font-size:26px;font-weight:700;line-height:1.15}
+.bk small{font-size:13px;color:var(--ink-soft)}
+.bk .cnt{position:absolute;top:6px;right:8px;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.bk.m{border-color:var(--blue);background:var(--blue-bg)}.bk.m .p{color:var(--blue)}
+.bk.f{border-color:var(--margin);background:var(--rose-bg)}.bk.f .p{color:var(--margin)}
+.bk.n{border-color:var(--accent);background:var(--green-bg)}.bk.n .p{color:var(--accent)}
+.bk.hot{transform:translateY(-4px) scale(1.04);box-shadow:0 12px 22px -12px rgba(0,0,0,.45)}
+.bk.right{animation:pulse .45s}
+.bk.wrongb{animation:shake .4s}
+/* tuslash poyga */
+.race{display:flex;align-items:center;gap:10px;margin:2px 0 8px}
+.tbar{flex:1;height:10px;border-radius:99px;background:var(--paper-alt);overflow:hidden}
+.tbar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));transform-origin:left center}
+.tleft{font-weight:700;font-variant-numeric:tabular-nums;min-width:3.2em;text-align:right}
+.rstart{text-align:center;padding:14px 6px 6px}
+.rstart .big{font-family:var(--font-hand);font-size:34px;color:var(--margin)}
+.rres{text-align:center;padding:8px 4px}
+.rres b{font-size:22px}
+/* gap tuzish */
+.bans{min-height:72px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;border-radius:12px;border:2px dashed var(--rule);background:repeating-linear-gradient(var(--paper) 0 35px,color-mix(in srgb,var(--rule) 30%,transparent) 35px 36px)}
+.bans.good{border-color:var(--ok);border-style:solid}
+.bans.badd{border-color:var(--bad);border-style:solid;animation:shake .4s}
+.bhint{text-align:center;font-size:14px;min-height:22px;margin:6px 0 0}
+.bbank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:62px;padding:10px 2px}
+.tile{min-height:46px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--paper-alt);background:var(--paper-line);box-shadow:0 3px 0 var(--paper-alt);font-family:var(--font-display);font-size:19px;font-weight:700;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--ink);position:relative}
+.tile:hover:not(:disabled){border-color:var(--accent)}
+.tile.drag{z-index:20;cursor:grabbing;box-shadow:0 14px 26px -10px rgba(0,0,0,.45)}
+.tile:disabled{cursor:default;opacity:1}
+.bctl{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.sent-ans{font-family:var(--font-display);font-size:18px}
+.r-s{color:var(--accent);font-weight:700}.r-v{color:var(--margin);font-weight:700}.r-o{color:var(--blue);font-weight:700}.r-t{color:var(--gold);font-weight:700}.r-d{color:var(--ink-soft);font-weight:700}
+.conf{position:absolute;left:50%;top:40%;width:9px;height:9px;border-radius:2px;pointer-events:none;animation:cf .9s ease-out forwards;z-index:30}
+@keyframes cf{to{transform:translate(var(--x),var(--y)) rotate(320deg);opacity:0}}
+.kbhint{font-size:13px;color:var(--ink-soft);margin-top:10px;text-align:center}
+@media (max-width:520px){.game{padding:14px 12px}.learn{padding:14px 14px 16px 28px}.learn::before{left:15px}.opt{font-size:18px;min-height:54px}.gopts.big .opt{font-size:26px}.kbhint{display:none}.bk{min-height:104px}.bk .p{font-size:22px}}
+@media (hover:none){.kbhint{display:none}}
+</style>
+</head>
+<body>
+<div class="binding" aria-hidden="true"></div>
+
+<header class="site">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">ТЕТРАДЬ</span><span class="brand-tag">Rus tili onlayn</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navLinks">Menyu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://kuvonch.uz/" class="ka-home" title="Kuvonch Academy — bosh sahifa">🏠 Kuvonch Academy</a></li>
+      <li><a href="index.html">Bosh sahifa</a></li>
+      <li><a href="darslar.html">Darslar</a></li>
+      <li><a href="padejlar.html">Kelishiklar</a></li>
+      <li><a href="lugat.html">Lug'at</a></li>
+      <li><a href="tog.html">TOG</a></li>
+      <li><a href="mashqlar.html">Mashqlar</a></li>
+      <li><a href="oyinlar.html" aria-current="page">O'yinlar</a></li>
+      <li><a href="kitoblar.html">Kitoblar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">O'ynab o'rganamiz</p>
+      <h1>Rus tili <span class="hand" style="font-size:1.15em">o'yinlari</span></h1>
+      <p class="lead">Har bir o'yin avval qoidani o'zbekcha tushuntiradi, keyin savollar bilan mustahkamlaydi. Ketma-ket 3 ta to'g'ri javob — yangi daraja. Rekordlaringiz shu qurilmada saqlanadi.</p>
+      <div class="chips"><span class="chip">🔤 Alifbo</span><span class="chip">⚖️ он / она / оно</span><span class="chip">🧩 Kelishiklar</span><span class="chip gold">⏱ Tuslash poygasi</span><span class="chip">🧱 Gap tuzish</span><span class="chip">🎧 Tinglash</span></div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-bottom:64px">
+    <div class="gtabs" role="tablist" aria-label="O'yinlar">
+      <button type="button" role="tab" id="t-alifbo" aria-controls="p-alifbo" aria-selected="true" data-tab="alifbo">🔤 Alifbo</button>
+      <button type="button" role="tab" id="t-jins" aria-controls="p-jins" aria-selected="false" data-tab="jins">⚖️ Jins</button>
+      <button type="button" role="tab" id="t-kel" aria-controls="p-kel" aria-selected="false" data-tab="kel">🧩 Kelishik</button>
+      <button type="button" role="tab" id="t-tus" aria-controls="p-tus" aria-selected="false" data-tab="tus">⏱ Tuslash</button>
+      <button type="button" role="tab" id="t-gap" aria-controls="p-gap" aria-selected="false" data-tab="gap">🧱 Gap tuzish</button>
+      <button type="button" role="tab" id="t-tin" aria-controls="p-tin" aria-selected="false" data-tab="tin">🎧 Tinglash</button>
+    </div>
+
+    <!-- 1. ALIFBO -->
+    <section class="pane" id="p-alifbo" role="tabpanel" aria-labelledby="t-alifbo">
+      <div class="learn">
+        <h2>Avval tushunib olamiz</h2>
+        <p>Rus alifbosida <b>33 ta harf</b>: 10 ta unli, 21 ta undosh va 2 ta belgi (<span class="ru">ъ, ь</span>). Ko'p harf lotinchaga o'xshaydi, lekin ba'zilari <span class="c-r">«aldamchi»</span> — boshqacha o'qiladi.</p>
+        <div class="rules">
+          <div class="rl"><span class="k">Aldamchi harflar</span><span class="ru c-r">Р</span> — p emas, <b>r</b>: <span class="ru">роза</span> → roza<br><span class="ru c-r">Н</span> — h emas, <b>n</b>: <span class="ru">нос</span> → nos<br><span class="ru c-r">В</span> — b emas, <b>v</b>: <span class="ru">вода</span> → voda<br><span class="ru c-r">С</span> — c emas, <b>s</b>; <span class="ru c-r">У</span> — <b>u</b>; <span class="ru c-r">Х</span> — <b>x</b></div>
+          <div class="rl"><span class="k">Ikki tovushli unlilar</span><span class="ru c-g">Я</span> = y + a: <span class="ru">яблоко</span> → yabloko<br><span class="ru c-g">Ю</span> = y + u, <span class="ru c-g">Ё</span> = y + o<br><span class="ru c-g">Е</span> = so'z boshida «ye» (<span class="ru">ель</span> → yel'), undoshdan keyin «e» (<span class="ru">нет</span> → net)</div>
+          <div class="rl"><span class="k">O'zbekchada yo'q</span><span class="ru c-o">Ы</span> — qalin i (<span class="ru">сыр</span>)<br><span class="ru c-o">Щ</span> — yumshoq, cho'ziq sh'<br><span class="ru c-o">Ц</span> — bitta harf = «ts»<br><span class="ru c-o">Ъ, Ь</span> — tovushsiz belgilar: <span class="ru">мат</span> (mot) ≠ <span class="ru">мать</span> (ona)</div>
+        </div>
+        <p class="muted" style="margin-top:10px;font-size:14.5px">Harfni bosing — nomi va misol so'zi eshittiriladi. <span class="c-r">Qizil</span> — aldamchi harflar, <span class="c-o">sariq fon</span> — o'zbek tilida aynan mos tovushi yo'q.</p>
+        <div class="lgrid" id="lgrid"></div>
+        <div class="linfo" id="linfo" aria-live="polite"><span class="muted">Harfni tanlang…</span></div>
+      </div>
+      <div class="game">
+        <div class="modes" data-pane="alifbo"><button type="button" data-m="snd" aria-pressed="true">🎯 Harf ↔ tovush</button><button type="button" data-m="read" aria-pressed="false">📖 So'zni o'qi</button></div>
+        <div class="mode" data-m="snd"></div>
+        <div class="mode" data-m="read" hidden></div>
+        <p class="kbhint">Klaviatura: 1–4 — javob, Enter — keyingi savol.</p>
+      </div>
+    </section>
+
+    <!-- 2. JINS -->
+    <section class="pane" id="p-jins" role="tabpanel" aria-labelledby="t-jins" hidden>
+      <div class="learn">
+        <h2>Avval tushunib olamiz</h2>
+        <p>Rus tilida har bir ot <b>uch jinsdan</b> biriga kiradi. Jinsni ko'pincha <b>so'zning oxiri</b> aytib beradi. Tekshirish usuli: oldiga <span class="ru c-b">мой</span> / <span class="ru c-r">моя</span> / <span class="ru c-g">моё</span> qo'yib ko'ring.</p>
+        <div class="rules">
+          <div class="rl"><span class="k">он — erkak jinsi</span>undosh yoki <b>-й</b>: <span class="ru">сто<span class="c-b">л</span>, музе<span class="c-b">й</span>, ча<span class="c-b">й</span></span> — <span class="ru c-b">мой</span> стол</div>
+          <div class="rl"><span class="k">она — ayol jinsi</span><b>-а, -я</b>: <span class="ru">мам<span class="c-r">а</span>, книг<span class="c-r">а</span>, недел<span class="c-r">я</span></span> — <span class="ru c-r">моя</span> мама</div>
+          <div class="rl"><span class="k">оно — o'rta jins</span><b>-о, -е</b>: <span class="ru">окн<span class="c-g">о</span>, мор<span class="c-g">е</span>, солнц<span class="c-g">е</span></span> — <span class="ru c-g">моё</span> окно</div>
+          <div class="rl"><span class="k">-ь — yodlang!</span><span class="ru">ден<span class="c-o">ь</span></span> — он, <span class="ru">ноч<span class="c-o">ь</span></span> — она. Maslahat: <span class="ru">-тель</span> (учитель) va oy nomlari (январь) — он; <span class="ru">-ость</span> (радость) — она.</div>
+          <div class="rl"><span class="k">Istisnolar</span><span class="ru">папа, дедушка, мужчина</span> — он (erkak kishi); <span class="ru">кофе</span> — он; <span class="ru">имя, время</span> — оно; <span class="ru">такси, метро</span> — оно (o'zgarmas so'zlar).</div>
+        </div>
+      </div>
+      <div class="game" id="g-jins"></div>
+    </section>
+
+    <!-- 3. KELISHIK -->
+    <section class="pane" id="p-kel" role="tabpanel" aria-labelledby="t-kel" hidden>
+      <div class="learn">
+        <h2>Avval tushunib olamiz</h2>
+        <p>Rus tilida otning oxiri gapdagi vazifasiga qarab o'zgaradi — bu <b>kelishik</b> (падеж). Kelishikni <b>savol</b> va oldidagi <b>predlog</b> yoki <b>fe'l</b> aniqlaydi.</p>
+        <div class="rules">
+          <div class="rl"><span class="k">Родительный · кого? чего?</span><span class="c-r">нет, у, из, от, около</span>: <span class="ru">нет стол<span class="c-r">а</span>, у мам<span class="c-r">ы</span></span></div>
+          <div class="rl"><span class="k">Дательный · кому? чему?</span><span class="c-r">к</span>, «kimga?»: <span class="ru">звоню брат<span class="c-r">у</span>, к мам<span class="c-r">е</span></span></div>
+          <div class="rl"><span class="k">Винительный · кого? что?</span>«kimni? nimani?», <span class="c-r">в/на</span> + qayerga?: <span class="ru">вижу мам<span class="c-r">у</span>, иду в школ<span class="c-r">у</span></span></div>
+          <div class="rl"><span class="k">Творительный · кем? чем?</span><span class="c-r">с</span> (bilan), <span class="c-r">перед, под, над, за</span>: <span class="ru">с брат<span class="c-r">ом</span>, с мам<span class="c-r">ой</span></span></div>
+          <div class="rl"><span class="k">Предложный · о ком? о чём? где?</span><span class="c-r">о</span> (haqida), <span class="c-r">в/на</span> + qayerda?: <span class="ru">о мам<span class="c-r">е</span>, в школ<span class="c-r">е</span></span></div>
+          <div class="rl"><span class="k">Именительный · кто? что?</span>Ega — lug'atdagi shakl: <span class="ru">брат, мама, окно</span>. Jonsiz он/оно-so'z tushumda o'zgarmaydi: <span class="ru">вижу стол, окно</span>.</div>
+        </div>
+        <p class="muted" style="margin-top:10px;font-size:14.5px">To'liq jadvallar: <a href="padejlar.html#otlar" style="color:var(--accent);font-weight:700">Kelishiklar sahifasi →</a></p>
+      </div>
+      <div class="game" id="g-kel"></div>
+    </section>
+
+    <!-- 4. TUSLASH -->
+    <section class="pane" id="p-tus" role="tabpanel" aria-labelledby="t-tus" hidden>
+      <div class="learn">
+        <h2>Avval tushunib olamiz</h2>
+        <p>Hozirgi zamonda fe'lning oxiri <b>shaxsga</b> qarab o'zgaradi (tuslanadi). Rus tilida ikki xil tuslanish bor — farqi unlida: I da <span class="c-b">-е-</span>, II da <span class="c-r">-и-</span>.</p>
+        <div class="rules">
+          <div class="rl"><span class="k">I tuslanish · -ать, -ять</span><span class="ru">читать → чита-</span><br><span class="ru">я чита<span class="c-b">ю</span>, ты чита<span class="c-b">ешь</span>, он чита<span class="c-b">ет</span><br>мы чита<span class="c-b">ем</span>, вы чита<span class="c-b">ете</span>, они чита<span class="c-b">ют</span></span></div>
+          <div class="rl"><span class="k">II tuslanish · -ить</span><span class="ru">говорить → говор-</span><br><span class="ru">я говор<span class="c-r">ю</span>, ты говор<span class="c-r">ишь</span>, он говор<span class="c-r">ит</span><br>мы говор<span class="c-r">им</span>, вы говор<span class="c-r">ите</span>, они говор<span class="c-r">ят</span></span></div>
+          <div class="rl"><span class="k">Eslatma</span>Asos (основа) = noaniq shakl − <span class="ru">-ть</span> (I) yoki − <span class="ru">-ить/-еть</span> (II). <span class="ru">смотреть</span> — II tuslanish: <span class="ru">смотр<span class="c-r">ю</span>, смотр<span class="c-r">ишь</span></span>.</div>
+        </div>
+      </div>
+      <div class="game" id="g-tus"></div>
+    </section>
+
+    <!-- 5. GAP TUZISH -->
+    <section class="pane" id="p-gap" role="tabpanel" aria-labelledby="t-gap" hidden>
+      <div class="learn">
+        <h2>Avval tushunib olamiz</h2>
+        <p>O'zbek tilida kesim (fe'l) gap <b>oxirida</b> turadi. Rus tilida esa odatda tartib: <span class="r-s">ega</span> → <span class="r-v">kesim</span> → <span class="r-o">to'ldiruvchi</span>.</p>
+        <div class="rules">
+          <div class="rl"><span class="k">O'zbekcha</span><span class="r-s">Men</span> <span class="r-o">kitob</span> <span class="r-v">o'qiyapman</span>.</div>
+          <div class="rl"><span class="k">Ruscha</span><span class="ru"><span class="r-s">Я</span> <span class="r-v">читаю</span> <span class="r-o">книгу</span>.</span></div>
+          <div class="rl"><span class="k">Hol (qachon? qayerda?)</span>ko'pincha boshida yoki oxirida: <span class="ru"><span class="r-t">Летом</span> <span class="r-s">мы</span> <span class="r-v">ездим</span> <span class="r-t">на море</span>.</span></div>
+        </div>
+        <div class="legend"><span class="r-s">ega</span><span class="r-v">kesim</span><span class="r-o">to'ldiruvchi</span><span class="r-t">hol</span><span class="r-d">aniqlovchi</span></div>
+        <p class="muted" style="margin-top:8px;font-size:14.5px">Maslahat: bosh harf bilan yozilgan so'z — gapning boshi, nuqta yoki so'roq belgisi turgan so'z — oxiri.</p>
+      </div>
+      <div class="game" id="g-gap"></div>
+    </section>
+
+    <!-- 6. TINGLASH -->
+    <section class="pane" id="p-tin" role="tabpanel" aria-labelledby="t-tin" hidden>
+      <div class="learn">
+        <h2>Avval tushunib olamiz</h2>
+        <p>Rus tilida so'z yozilishidan biroz boshqacha eshitiladi. Uchta asosiy qoida:</p>
+        <div class="rules">
+          <div class="rl"><span class="k">Urg'usiz «о» → «a»</span><span class="ru">молоко́</span> → [malako], <span class="ru">вода́</span> → [vada]</div>
+          <div class="rl"><span class="k">Oxirgi jarangli → jarangsiz</span><span class="ru">хлеб</span> → [xlep], <span class="ru">друг</span> → [druk], <span class="ru">сад</span> → [sat]</div>
+          <div class="rl"><span class="k">Yumshoq undosh</span><span class="ru">ь, е, ё, и, ю, я</span> oldidagi undosh yumshoq: <span class="ru">мать, нет, люди</span></div>
+        </div>
+        <p class="muted" style="margin-top:10px;font-size:14.5px">So'zlar <a href="lugat.html" style="color:var(--accent);font-weight:700">Lug'at</a> bo'limidan olinadi. Urg'u belgisi (<span class="ru">а́</span>) qaysi bo'g'in kuchli aytilishini ko'rsatadi.</p>
+      </div>
+      <p class="notts note">Brauzeringiz ovozli o'qishni (Web Speech) qo'llamaydi. Chrome yoki Safari'da oching — boshqa o'yinlar ovozsiz ham ishlaydi.</p>
+      <div class="game" id="g-tin"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span><span class="brand-mark" style="font-size:15px">ТЕТРАДЬ</span> · © <span id="year"></span></span>
+    <span><a href="padejlar.html">Kelishiklar</a> · <a href="lugat.html">Lug'at</a> · <a href="mashqlar.html">Mashqlar</a></span>
+  </div>
+</footer>
+
+<script src="assets/tetrad.js"></script>
+<script src="assets/lugat-data.js"></script>
+<script>
+(function(){
+"use strict";
+var T = window.Tetrad || {}, W = window.TETRAD_WORDS || [];
+var $ = function(s, r){ return (r || document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+var RM = false; try{ RM = matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+function rnd(n){ return Math.floor(Math.random() * n); }
+function pick(a){ return a[rnd(a.length)]; }
+function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--){ var j = rnd(i + 1), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function clean(s){ return String(s).replace(/́/g, ''); }
+function lsGet(k, d){ try{ var v = localStorage.getItem('ka.rus.' + k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } }
+function lsSet(k, v){ try{ localStorage.setItem('ka.rus.' + k, JSON.stringify(v)); }catch(e){} }
+function coins(n, why){ try{ window.kaAccount && window.kaAccount.addCoins(n, "Rus tili: " + why); }catch(e){} }
+function toast(m){ if (T.toast) T.toast(m); }
+function vis(el){ return !!(el && el.offsetParent); }
+
+/* ---------- ovoz ---------- */
+var synth = window.speechSynthesis, TTS = !!(synth && window.SpeechSynthesisUtterance), voice = null;
+function pv(){ try{ voice = (synth.getVoices() || []).filter(function(v){ return /^ru(-|_|$)/i.test(v.lang); })[0] || null; }catch(e){} }
+if (TTS){ pv(); try{ synth.addEventListener('voiceschanged', pv); }catch(e){} } else document.documentElement.classList.add('no-tts');
+function say(t, rate){ if (!TTS) return; try{ synth.cancel(); var u = new SpeechSynthesisUtterance(clean(t)); u.lang = 'ru-RU'; u.rate = rate || 0.88; if (voice) u.voice = voice; synth.speak(u); }catch(e){} }
+var SVG = T.SAY_SVG || '🔊';
+function sayBtn(t){ return '<button type="button" class="say" data-sp="' + esc(clean(t)) + '" aria-label="Tinglash" title="Tinglash">' + SVG + '</button>'; }
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('[data-sp]');
+  if (b){ e.preventDefault(); say(b.getAttribute('data-sp'), +b.getAttribute('data-rate') || 0.88); }
+});
+
+/* ---------- transliteratsiya (o'zbek lotin) ---------- */
+var TL = {'а':'a','б':'b','в':'v','г':'g','д':'d','ё':'yo','ж':'j','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'x','ц':'ts','ч':'ch','ш':'sh','щ':"sh'",'ъ':'','ы':'i','ь':"'",'э':'e','ю':'yu','я':'ya'};
+var VOWB = 'аеёиоуыэюяъь';
+function tlSeg(w){ w = clean(w).toLowerCase(); var o = []; for (var i = 0; i < w.length; i++){ var c = w[i]; if (c === 'е'){ var p = w[i - 1]; o.push(!p || VOWB.indexOf(p) >= 0 || !TL.hasOwnProperty(p) ? 'ye' : 'e'); } else o.push(TL.hasOwnProperty(c) ? TL[c] : c); } return o; }
+function tl(w){ return tlSeg(w).join(''); }
+/* noto'g'ri o'qishlar (faqat aniq xato bo'ladiganlari; akanye, jarangsizlanish, е/ь kabi bahsli holatlar yo'q) */
+var CONF = {'в':['b'],'н':['h'],'р':['p'],'с':['c'],'у':['y'],'х':['h'],'и':['n'],'я':['r'],'п':['n'],'г':['r'],'ч':['ts'],'ц':['ch'],'к':['q'],'э':['ye'],'ё':['e'],'ы':['bi'],'д':['g'],'а':['o'],'м':['n'],'т':['m'],'л':['p'],'ш':['ch'],'ж':['z'],'б':['d'],'ф':['v'],'ю':['u']};
+function readOpts(word){
+  var cw = clean(word).toLowerCase(), seg = tlSeg(cw), ok = seg.join(''), pos = [];
+  for (var i = 0; i < cw.length; i++) if (CONF[cw[i]] && !(cw[i] === 'ю' && i > 0)) pos.push(i);
+  if (pos.length < 2) return null;
+  var seen = {}; seen[ok] = 1; var out = [];
+  for (var t = 0; t < 60 && out.length < 3; t++){
+    var s = seg.slice(), ps = shuffle(pos).slice(0, pos.length > 3 && Math.random() < 0.4 ? 2 : 1);
+    ps.forEach(function(p){ s[p] = pick(CONF[cw[p]]); });
+    var v = s.join(''); if (!seen[v]){ seen[v] = 1; out.push(v); }
+  }
+  return out.length === 3 ? {ok: ok, d: out} : null;
+}
+
+/* ---------- alifbo ma'lumoti ----------
+ harf | tovush (o'zbek lotin) | nomi (TTS) | misol | emoji | tarjima | guruh (1 o'xshash, 2 aldamchi, 3 yangi) */
+var LET = ("А|a|а|арбуз|🍉|tarvuz|1;Б|b|бэ|банан|🍌|banan|3;В|v|вэ|вода|💧|suv|2;Г|g|гэ|гора|⛰️|tog'|3;Д|d|дэ|дом|🏠|uy|3;" +
+ "Е|ye / e|е|ель|🌲|archa|2;Ё|yo|ё|ёж|🦔|tipratikan|3;Ж|j|жэ|жираф|🦒|jirafa|3;З|z|зэ|заяц|🐇|quyon|3;И|i|и|индюк|🦃|kurka|3;" +
+ "Й|y (qisqa i)|и краткое|йогурт|🥛|yogurt|3;К|k|ка|кот|🐈|mushuk|1;Л|l|эль|лиса|🦊|tulki|3;М|m|эм|мяч|⚽|to'p|1;Н|n|эн|нос|👃|burun|2;" +
+ "О|o|о|облако|☁️|bulut|1;П|p|пэ|пингвин|🐧|pingvin|3;Р|r|эр|рыба|🐟|baliq|2;С|s|эс|солнце|☀️|quyosh|2;Т|t|тэ|тигр|🐅|yo'lbars|1;" +
+ "У|u|у|утка|🦆|o'rdak|2;Ф|f|эф|флаг|🚩|bayroq|3;Х|x|ха|хлеб|🍞|non|2;Ц|ts|цэ|цветок|🌸|gul|3;Ч|ch|че|чай|🍵|choy|3;Ш|sh|ша|шар|🎈|shar|3;" +
+ "Щ|sh' (yumshoq)|ща|щенок|🐶|kuchukcha|3;Ъ|ajratish belgisi|твёрдый знак|подъезд|🏢|podyezd|3;Ы|qalin i|ы|сыр|🧀|pishloq|3;" +
+ "Ь|yumshatish belgisi|мягкий знак|конь|🐎|ot|3;Э|e|э|экран|📺|ekran|3;Ю|yu|ю|юбка|👗|yubka|3;Я|ya|я|яблоко|🍎|olma|3").split(';').map(function(s){
+  var p = s.split('|'); return {L:p[0], s:p[1], n:p[2], w:p[3], e:p[4], uz:p[5], g:+p[6]};
+});
+var NOTE = {
+  'А':"Doim «a»: арбуз → arbuz.", 'Б':"«b»: банан → banan.", 'В':"Lotincha B ga o'xshaydi, lekin «v» o'qiladi: вода → voda.",
+  'Г':"Doim «g»: гора → gora. Faqat -ого/-его oxirida «v»: его → [yevo].", 'Д':"«d»: дом → dom.",
+  'Е':"So'z boshida va unlidan keyin «ye» (ель → yel'), undoshdan keyin «e» va undoshni yumshatadi (нет → net).",
+  'Ё':"Doim «yo» va doim urg'uli. Kitoblarda ko'pincha nuqtasiz «е» deb yoziladi.", 'Ж':"Yumshoq «j» — «jurnal», «garaj» so'zlaridagi kabi.",
+  'З':"«z»: заяц → zayats.", 'И':"Lotincha N ning teskarisiga o'xshaydi, lekin «i»: индюк → indyuk.", 'Й':"Qisqa «y», ko'pincha unlidan keyin: чай → chay, мой → moy.",
+  'К':"Rus tilida «q» tovushi yo'q: кот → kot (qot emas).", 'Л':"«l»: лиса → lisa.", 'М':"«m»: мяч → myach.", 'Н':"Lotincha H ga o'xshaydi, lekin «n»: нос → nos.",
+  'О':"Urg'uli bo'lsa «o», urg'usiz bo'lsa «a» ga yaqin: молоко́ → [malako].", 'П':"Lotincha n ga o'xshaydi, lekin «p»: пингвин → pingvin.",
+  'Р':"Lotincha P ga o'xshaydi, lekin «r»: рыба → riba.", 'С':"Lotincha C ga o'xshaydi, lekin doim «s»: сок → sok.", 'Т':"«t»: тигр → tigr.",
+  'У':"Lotincha Y ga o'xshaydi, lekin «u»: утка → utka.", 'Ф':"«f»: флаг → flag.", 'Х':"O'zbekcha «x» kabi: хлеб → xleb.",
+  'Ц':"Bitta harf — ikki tovush «ts»: цветок → tsvetok.", 'Ч':"«ch»: чай → chay. «что» so'zida «sh»: [shto].", 'Ш':"«sh», doim qattiq: шар → shar.",
+  'Щ':"O'zbek tilida yo'q: yumshoq va cho'ziq «sh'»: щенок → sh'enok.", 'Ъ':"Tovushi yo'q. Undoshdan keyin е, ё, ю, я ni ajratib o'qitadi (o'zbekcha tutuq belgisiga o'xshaydi): подъезд → podyezd.",
+  'Ы':"O'zbek tilida alohida harfi yo'q. Qalin «i» — «qiz», «tish» so'zlaridagi i ga yaqin. So'z boshida deyarli kelmaydi.",
+  'Ь':"Tovushi yo'q. Oldingi undoshni yumshatadi: мат (mot) — мать (ona).", 'Э':"Doim «e», undoshni yumshatmaydi: экран → ekran, это → eto.",
+  'Ю':"Ikki tovush «y + u»: юбка → yubka. Undoshdan keyin uni yumshatadi: люди → lyudi.", 'Я':"Ikki tovush «y + a»: яблоко → yabloko. Undoshdan keyin: мяч → myach."
+};
+var NOMATCH = {'Ц':1,'Щ':1,'Ъ':1,'Ы':1,'Ь':1};
+var CLASH = {'Е':'Э','Э':'Е','И':'ЫЙ','Ы':'И','Й':'И','Ш':'Щ','Щ':'Ш'};
+var SHORT = {'Ъ':'—','Ь':'—','Й':'y','Щ':"sh'",'Ы':'qalin i','Е':'ye/e'};
+
+function letterGrid(){
+  var g = $('#lgrid'), info = $('#linfo');
+  g.innerHTML = LET.map(function(l, i){
+    return '<button type="button" class="lt' + (l.g === 2 ? ' g2' : '') + (NOMATCH[l.L] ? ' nm' : '') + '" data-i="' + i + '" aria-label="' + l.L + ' — ' + esc(l.s) + '">' + l.L + l.L.toLowerCase() + '<small>' + esc(SHORT[l.L] || l.s) + '</small></button>';
+  }).join('');
+  g.addEventListener('click', function(e){
+    var b = e.target.closest('.lt'); if (!b) return;
+    var l = LET[+b.getAttribute('data-i')];
+    $$('.lt.on', g).forEach(function(x){ x.classList.remove('on'); }); b.classList.add('on');
+    info.innerHTML = '<span class="lb">' + l.L + l.L.toLowerCase() + '</span><span><b>' + esc(l.s) + '</b> — ' + esc(NOTE[l.L] || '') + '<br>' + l.e + ' <span class="ru" style="font-weight:700">' + l.w + '</span> → ' + esc(tl(l.w)) + ' <span class="uz">(' + esc(l.uz) + ')</span> ' + sayBtn(l.w) + '</span>';
+    say(l.n + '. ' + l.w);
+  });
+}
+
+/* ---------- jins ma'lumoti (lug'atdan + qo'shimcha) ---------- */
+var PRON = {m:'он', f:'она', n:'оно'}, POSS = {m:'мой', f:'моя', n:'моё'};
+function mkJ(c, show, g, uz){
+  var e = c.slice(-1), lv = 1, why;
+  if (g === 'm'){
+    if (c === 'кофе'){ lv = 3; why = "«кофе» — istisno: adabiy tilda <b>он</b> (мой кофе, чёрный кофе)."; }
+    else if (/[бвгджзклмнпрстфхцчшщ]$/.test(c)) why = "undosh bilan tugaydi → <b>он</b>.";
+    else if (e === 'й') why = "<b>-й</b> bilan tugaydi → <b>он</b>.";
+    else if (e === 'ь'){ lv = 2; why = "<b>-ь</b> bilan tugagan so'zlar он ham, она ham bo'ladi — bu so'zni yodlang: <b>он</b>." + (/тель$/.test(c) ? " (-тель → doim он: kasb egasi)" : /(январь|февраль|апрель|июнь|июль|сентябрь|октябрь|ноябрь|декабрь)$/.test(c) ? " (oy nomlari — он)" : ""); }
+    else if (/[ая]$/.test(c)){ lv = 3; why = "-" + e + " bilan tugasa ham <b>erkak kishini</b> bildiradi → <b>он</b>."; }
+    else { lv = 3; why = "istisno → <b>он</b>."; }
+  } else if (g === 'f'){
+    if (/[ая]$/.test(c)) why = "<b>-" + e + "</b> bilan tugaydi → <b>она</b>.";
+    else if (e === 'ь'){ lv = 2; why = "<b>-ь</b> bilan tugagan so'zlar он ham, она ham bo'ladi — bu so'zni yodlang: <b>она</b>." + (/ость$/.test(c) ? " (-ость → doim она)" : ""); }
+    else { lv = 3; why = "istisno → <b>она</b>."; }
+  } else {
+    if (/мя$/.test(c)){ lv = 3; why = "<b>-мя</b> bilan tugaydigan so'zlar (имя, время) → <b>оно</b>."; }
+    else if (/[оеё]$/.test(c)) why = "<b>-" + e + "</b> bilan tugaydi → <b>оно</b>.";
+    else { lv = 3; why = "o'zgarmaydigan chet so'z (такси, хобби) → <b>оно</b>."; }
+  }
+  return {c:c, w:show, g:g, uz:uz, lv:lv, why:'<span class="ru">' + POSS[g] + ' ' + c + '</span> — ' + why};
+}
+var JINS = [], jseen = {};
+W.forEach(function(w){
+  var m = /\((м|ж|ср)\)\s*$/.exec(w.uz), c = clean(w.ru).trim();
+  if (!m || /[\s-]/.test(c) || jseen[c]) return; jseen[c] = 1;
+  JINS.push(mkJ(c, w.ru.trim(), {'м':'m','ж':'f','ср':'n'}[m[1]], w.uz.replace(/\s*\((м|ж|ср)\)\s*$/, '')));
+});
+[['дядя','m',"amaki / tog'a"],['юноша','m','yigit'],['музей','m','muzey'],['словарь','m',"lug'at"],['конь','m','ot'],['поле','n','dala'],['здание','n','bino'],['кафе','n','kafe'],['пианино','n','pianino'],['площадь','f','maydon'],['тетрадь','f','daftar']].forEach(function(x){
+  if (!jseen[x[0]]){ jseen[x[0]] = 1; JINS.push(mkJ(x[0], x[0], x[1], x[2])); }
+});
+
+/* ---------- kelishik ma'lumoti ----------
+ shakllar: Им,Род,Дат,Вин,Твор,Пр | tur | jonli | tarjima | 6 ta gap~sabab ("-" — yo'q) */
+var CASES = [
+  {ru:'Именительный', uz:'bosh kelishik', q:'кто? что?'},
+  {ru:'Родительный', uz:'qaratqich', q:'кого? чего?'},
+  {ru:'Дательный', uz:"jo'nalish", q:'кому? чему?'},
+  {ru:'Винительный', uz:'tushum', q:'кого? что?'},
+  {ru:'Творительный', uz:'vosita', q:'кем? чем?'},
+  {ru:'Предложный', uz:"o'rin-payt", q:'о ком? о чём? где?'}
+];
+var R0 = "Ega (kim? nima?) — bosh kelishik, lug'atdagi shakl.";
+var KEL = [
+ "брат,брата,брату,брата,братом,брате|m|1|aka / uka|Где мой {}?~|Дома нет {}.~«нет» (yo'q) dan keyin — родительный.|Я звоню {}.~«звонить кому?» — kimga qo'ng'iroq qilaman?|Я жду {}.~«ждать кого?» — kimni kutaman? Jonli он-so'z tushumda -а oladi.|Я гуляю с {}.~«с» (bilan) — творительный.|Я думаю о {}.~«о» (haqida) — предложный.",
+ "друг,друга,другу,друга,другом,друге|m|1|do'st|Это мой {}.~|У него нет {}.~«нет» dan keyin — родительный.|Я дарю {} книгу.~«дарить кому?» — kimga sovg'a qilaman?|Я встречаю {}.~«встречать кого?» — kimni kutib olaman? Jonli → -а.|Я играю с {}.~«с» (bilan) — творительный.|Я рассказываю о {}.~«о» (haqida) — предложный.",
+ "папа,папы,папе,папу,папой,папе|a|1|dada|Мой {} — врач.~Ega — bosh kelishik. (папа -а bilan tugasa ham erkak: мой папа)|У {} есть машина.~«у» predlogi (kimda?) — родительный.|Я помогаю {}.~«помогать кому?» — kimga yordam beraman?|Я люблю {}.~«любить кого?» — kimni yaxshi ko'raman?|Я работаю в саду с {}.~«с» (bilan) — творительный.|Я часто думаю о {}.~«о» (haqida) — предложный.",
+ "мама,мамы,маме,маму,мамой,маме|a|1|oyi|Где моя {}?~|У {} красивая сумка.~«у» predlogi (kimda?) — родительный.|Я звоню {}.~«звонить кому?» — kimga?|Я встречаю {}.~«встречать кого?» — kimni?|Я хожу в магазин с {}.~«с» (bilan) — творительный.|Я рассказываю о {}.~«о» (haqida) — предложный.",
+ "сестра,сестры,сестре,сестру,сестрой,сестре|a|1|opa / singil|Моя {} учится в школе.~|У {} новая тетрадь.~«у» predlogi — родительный.|Я помогаю {}.~«помогать кому?» — kimga?|Я вижу {}.~«видеть кого?» — kimni ko'raman?|Я гуляю с {}.~«с» (bilan) — творительный.|Я думаю о {}.~«о» (haqida) — предложный.",
+ "подруга,подруги,подруге,подругу,подругой,подруге|a|1|dugona|Это моя {}.~|У {} новый телефон.~«у» predlogi — родительный.|Я пишу {} письмо.~«писать кому?» — kimga yozaman?|Я вижу {}.~«видеть кого?» — kimni?|Я иду в кино с {}.~«с» (bilan) — творительный.|Я помню о {}.~«о» (haqida) — предложный.",
+ "учитель,учителя,учителю,учителя,учителем,учителе|s|1|o'qituvchi|Где наш {}?~|У {} новый стол.~«у» predlogi — родительный.|Я отвечаю {}.~«отвечать кому?» — kimga javob beraman?|Мы слушаем {}.~«слушать кого?» — kimni tinglaymiz? Jonli → -я.|Я говорю с {}.~«с» (bilan) — творительный.|Мы говорим об {}.~«об» (haqida; unli oldidan о → об) — предложный.",
+ "дом,дома,дому,дом,домом,доме|m|0|uy|Это наш {}.~|Я выхожу из {}.~«из» (…dan) — родительный.|Мы подходим к {}.~«к» (…ga, yoniga) — дательный.|Я вижу большой {}.~«видеть что?» — jonsiz он-so'z tushumda o'zgarmaydi.|Перед {} растут цветы.~«перед» (oldida) — творительный.|Мы живём в этом {}.~«в» + qayerda? — предложный.",
+ "парк,парка,парку,парк,парком,парке|m|0|bog', park|Где {}?~|Около {} есть кафе.~«около» (yonida) — родительный.|Мы идём к {}.~«к» (…ga) — дательный.|Завтра мы пойдём в {}.~«в» + qayerga? (yo'nalish) — винительный.|За {} течёт река.~«за» + qayerda? (orqasida) — творительный.|Мы гуляем в {}.~«в» + qayerda? — предложный.",
+ "школа,школы,школе,школу,школой,школе|a|0|maktab|Это наша {}.~|Около {} есть парк.~«около» (yonida) — родительный.|Мы подходим к {}.~«к» (…ga) — дательный.|Мы идём в нашу {}.~«в» + qayerga? — винительный: -а → -у.|Перед {} стоят деревья.~«перед» (oldida) — творительный.|Я учусь в {}.~«в» + qayerda? — предложный.",
+ "книга,книги,книге,книгу,книгой,книге|a|0|kitob|Где моя {}?~|У меня нет {}.~«нет» dan keyin — родительный.|-|Я читаю интересную {}.~«читать что?» — nimani o'qiyman? Tushum: -а → -у.|Под {} лежит ручка.~«под» (ostida) — творительный.|Это слово есть в {}.~«в» + qayerda? — предложный.",
+ "ручка,ручки,ручке,ручку,ручкой,ручке|a|0|ruchka|Это моя {}.~|У тебя нет {}?~«нет» dan keyin — родительный.|-|Я ищу свою {}.~«искать что?» — nimani qidiraman? Tushum.|Я пишу {}.~«писать чем?» — nima bilan yozaman? Творительный (vosita).|-",
+ "окно,окна,окну,окно,окном,окне|o|0|deraza|Это большое {}.~|В комнате нет {}.~«нет» dan keyin — родительный.|Кошка подходит к {}.~«к» (…ga) — дательный.|Я открываю большое {}.~«открывать что?» — оно-so'z tushumda o'zgarmaydi.|Под {} стоит стол.~«под» (ostida) — творительный.|Кошка сидит на {}.~«на» + qayerda? — предложный.",
+ "молоко,молока,молоку,молоко,молоком,молоке|o|0|sut|Вот {}.~|Стакан {} стоит на столе.~Miqdor: «стакан чего?» — nimaning? Родительный.|-|Кошка любит {}.~«любить что?» — tushum, оно-so'z o'zgarmaydi.|Я пью чай с {}.~«с» (bilan) — творительный.|В {} есть кальций.~«в» + qayerda? — предложный.",
+ "письмо,письма,письму,письмо,письмом,письме|o|0|xat|Это новое {} от бабушки.~|У меня нет {}.~«нет» dan keyin — родительный.|Я рад {}.~«рад чему?» — nimadan xursandman? Дательный.|Я пишу это {}.~«писать что?» — tushum, оно-so'z o'zgarmaydi.|Я доволен {}.~«доволен чем?» — творительный.|В {} три страницы.~«в» + qayerda? — предложный.",
+ "неделя,недели,неделе,неделю,неделей,неделе|y|0|hafta|Эта {} была трудной.~|В конце {} у нас экзамен.~«в конце чего?» — nimaning oxirida? Родительный.|-|Всю {} шёл дождь.~Vaqt davomiyligi «всю неделю» (butun hafta) — винительный: -я → -ю.|-|На этой {} у нас экскурсия.~«на» + qachon? (shu haftada) — предложный.",
+ "море,моря,морю,море,морем,море|e|0|dengiz|Какое тёплое {}!~|Мы живём недалеко от {}.~«от» (…dan) — родительный.|Мы идём к {}.~«к» (…ga) — дательный.|Я люблю тёплое {}.~«любить что?» — оно-so'z tushumda o'zgarmaydi.|Над {} летят птицы.~«над» (ustida) — творительный.|Мы плаваем в тёплом {}.~«в» + qayerda? — предложный."
+].map(function(s){
+  var p = s.split('|');
+  return {f:p[0].split(','), t:p[1], an:p[2] === '1', uz:p[3], fr:p.slice(4).map(function(x){ if (x === '-') return null; var q = x.split('~'); return {s:q[0], r:q[1] || R0}; })};
+});
+var TEND = {
+  m:['—','+ -а','+ -у','= bosh kelishik','+ -ом','+ -е'],
+  a:['-а','-а → -ы','-а → -е','-а → -у','-а → -ой','-а → -е'],
+  o:['-о','-о → -а','-о → -у','= bosh kelishik','-о → -ом','-о → -е'],
+  s:['-ь','-ь → -я','-ь → -ю','-ь → -я','-ь → -ем','-ь → -е'],
+  y:['-я','-я → -и','-я → -е','-я → -ю','-я → -ей','-я → -е'],
+  e:['-е','-е → -я','-е → -ю','= bosh kelishik','-е → -ем','-е → -е']
+};
+function hlForm(base, form){ var st = base.replace(/[аяоеь]$/, ''); if (form.indexOf(st) !== 0 || form === st) return esc(form); return esc(st) + '<span class="end">' + esc(form.slice(st.length)) + '</span>'; }
+
+/* ---------- fe'llar ---------- */
+var VERBS = [
+ ['читать',1,"o'qimoq"],['делать',1,'qilmoq'],['знать',1,'bilmoq'],['играть',1,"o'ynamoq"],['думать',1,"o'ylamoq"],['гулять',1,'sayr qilmoq'],
+ ['слушать',1,'tinglamoq'],['понимать',1,'tushunmoq'],['работать',1,'ishlamoq'],['отдыхать',1,'dam olmoq'],['повторять',1,'takrorlamoq'],['отвечать',1,'javob bermoq'],
+ ['говорить',2,'gapirmoq'],['звонить',2,"qo'ng'iroq qilmoq"],['помнить',2,'eslamoq'],['строить',2,'qurmoq'],['смотреть',2,"qaramoq, tomosha qilmoq"],
+ ['варить',2,'pishirmoq'],['дарить',2,"sovg'a qilmoq"],['хвалить',2,'maqtamoq'] ].map(function(v){
+  return {inf:v[0], c:v[1], uz:v[2], st: v[1] === 1 ? v[0].slice(0, -2) : v[0].slice(0, -3)};
+});
+var END = {1:['ю','ешь','ет','ем','ете','ют'], 2:['ю','ишь','ит','им','ите','ят']};
+var PERS = [['я'],['ты'],['он','она'],['мы'],['вы'],['они']];
+
+/* ---------- gaplar (s ega, v kesim, o to'ldiruvchi, t hol, d aniqlovchi) ---------- */
+var SENT = [
+ "Я:s читаю:v книгу.:o|Men kitob o'qiyapman.", "Мама:s пьёт:v чай.:o|Oyim choy ichyapti.", "Кошка:s пьёт:v молоко.:o|Mushuk sut ichyapti.",
+ "Папа:s читает:v газету.:o|Dadam gazeta o'qiyapti.", "Он:s пишет:v письмо.:o|U xat yozyapti.", "Я:s люблю:v маму.:o|Men oyimni yaxshi ko'raman.",
+ "Ты:s говоришь:v по-русски?:t|Sen ruscha gapirasanmi?", "Мы:s любим:v футбол.:o|Biz futbolni yaxshi ko'ramiz.",
+ "Это:s мой:d старший:d брат.:v|Bu mening akam.", "Мы:s идём:v в:t школу.:t|Biz maktabga ketyapmiz.", "Я:s живу:v в:t Ташкенте.:t|Men Toshkentda yashayman.",
+ "Моя:d сестра:s любит:v музыку.:o|Opam musiqani yaxshi ko'radi.", "У:t меня:t есть:v собака.:s|Mening itim bor.", "Бабушка:s печёт:v вкусный:d хлеб.:o|Buvim mazali non yopyapti.",
+ "Учитель:s объясняет:v новую:d тему.:o|O'qituvchi yangi mavzuni tushuntiryapti.", "Мы:s живём:v в:t Узбекистане.:t|Biz O'zbekistonda yashaymiz.",
+ "Мой:d брат:s играет:v в:o футбол.:o|Akam futbol o'ynaydi.", "Летом:t мы:s ездим:v на:t море.:t|Yozda biz dengizga boramiz.",
+ "Моя:d мама:s работает:v в:t больнице.:t|Oyim kasalxonada ishlaydi.", "Сегодня:t я:s иду:v в:t школу.:t|Bugun men maktabga boraman.",
+ "Мой:d друг:s хорошо:t говорит:v по-русски.:t|Do'stim ruscha yaxshi gapiradi.|Мой друг говорит хорошо по-русски.",
+ "В:t нашей:d школе:t большая:d библиотека.:s|Maktabimizda katta kutubxona bor.", "Я:s каждый:t день:t делаю:v зарядку.:o|Men har kuni badantarbiya qilaman.|Я делаю каждый день зарядку.",
+ "Вечером:t мы:s смотрим:v фильм:o всей:t семьёй.:t|Kechqurun butun oila bo'lib film ko'ramiz.", "После:t уроков:t я:s играю:v с:o друзьями.:o|Darslardan keyin men do'stlarim bilan o'ynayman.",
+ "Моя:d сестра:s учится:v в:t пятом:d классе.:t|Singlim beshinchi sinfda o'qiydi.", "Каждое:t утро:t я:s пью:v зелёный:d чай.:o|Har kuni ertalab men ko'k choy ichaman.",
+ "Зимой:t в:t Ташкенте:t иногда:t идёт:v снег.:s|Qishda Toshkentda ba'zan qor yog'adi.|Зимой иногда в Ташкенте идёт снег.",
+ "Мой:d папа:s работает:v врачом:o в:t большой:d больнице.:t|Dadam katta kasalxonada shifokor bo'lib ishlaydi.",
+ "Летом:t мы:s всей:t семьёй:t ездим:v на:t море.:t|Yozda butun oila bo'lib dengizga boramiz.|Летом мы ездим всей семьёй на море.",
+ "Моя:d младшая:d сестра:s очень:t любит:v рисовать:o цветы.:o|Singlim gul chizishni juda yaxshi ko'radi.",
+ "Сегодня:t после:t уроков:t мы:s пойдём:v в:t парк.:t|Bugun darslardan keyin biz parkka boramiz.|Сегодня мы после уроков пойдём в парк.",
+ "Наша:d семья:s живёт:v в:t большом:d новом:d доме.:t|Oilamiz katta yangi uyda yashaydi.|Наша семья живёт в новом большом доме."
+].map(function(s){
+  var p = s.split('|'), toks = p[0].split(' ').map(function(t){ var k = t.lastIndexOf(':'); return {w:t.slice(0, k), r:t.slice(k + 1)}; });
+  var main = toks.map(function(t){ return t.w; }).join(' ');
+  return {toks:toks, uz:p[1], ans:[main].concat(p.slice(2)), n:toks.length};
+});
+
+/* ---------- tinglash uchun so'zlar ---------- */
+function stripUz(u){ return String(u).replace(/\s*\((м|ж|ср|ko'plik)\)\s*$/, ''); }
+var TW = W.filter(function(w){ var c = clean(w.ru); return c.length <= 18 && !/[()\/]/.test(c); });
+var RW = W.filter(function(w){ var c = clean(w.ru).toLowerCase(); return /^[а-яё]+$/.test(c) && !/(ого|его|что|ться|тся)/.test(c); });
+
+/* =====================================================================
+   O'YIN DVIGATELI
+   ===================================================================== */
+var active = null;
+function Game(key, name, root, gen, o){
+  o = o || {}; var g = this;
+  g.key = key; g.name = name; g.gen = gen; g.o = o; g.root = root;
+  g.level = Math.max(1, Math.min(5, +lsGet(key + '.lvl', 1) || 1));
+  g.best = +lsGet(key + '.best', 0) || 0; g.score = 0; g.streak = 0; g.done = true; g.q = null; g.race = null;
+  root.innerHTML = (o.top || '') + '<div class="gbar"><div class="gstats"><span title="Ball">⭐ <b class="s-sc">0</b></span><span title="Ketma-ket to\'g\'ri javoblar">🔥 <b class="s-st">0</b></span><span title="Daraja">📶 <b class="s-lv"></b>/5</span><span title="Rekord">🏆 <b class="s-bs"></b></span></div>' + (o.bar || '') + '</div><div class="gmain"><div class="gq"></div><div class="gbody"></div></div><div class="fb" aria-live="polite"></div><div class="gctl"><button type="button" class="btn btn-primary g-next" hidden>Keyingi →</button></div>' + (o.foot || '');
+  g.qEl = $('.gq', root); g.body = $('.gbody', root); g.fb = $('.fb', root); g.nx = $('.g-next', root);
+  g.nx.addEventListener('click', function(){ g.next(); });
+  g.upd();
+}
+Game.prototype.upd = function(){ var r = this.root; $('.s-sc', r).textContent = this.score; $('.s-st', r).textContent = this.streak; $('.s-lv', r).textContent = this.level; $('.s-bs', r).textContent = this.best; };
+Game.prototype.next = function(){
+  clearTimeout(this.t); this.done = false; this.nx.hidden = true;
+  if (!this.race) this.fb.innerHTML = '';
+  var q, prev = this.q && this.q.id;
+  for (var k = 0; k < 25; k++){ q = this.gen(this.level, this); if (q && (q.id == null || q.id !== prev)) break; }
+  this.q = q; this.qEl.innerHTML = q.html || ''; this.body.innerHTML = '';
+  if (q.opts) this.renderOpts(q); else if (q.build) buildUI(this, q); else if (q.render) q.render(this.body, this);
+  if (q.say && TTS){ var s = q.say; setTimeout(function(){ say(s); }, 220); }
+};
+Game.prototype.renderOpts = function(q){
+  var g = this, box = document.createElement('div');
+  box.className = 'gopts ' + (q.oc || '');
+  q.opts.forEach(function(t, i){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'opt';
+    b.style.animationDelay = (i * 40) + 'ms'; b.innerHTML = '<i>' + (i + 1) + '</i>' + t;
+    b.addEventListener('click', function(){ g.choose(i); }); box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Game.prototype.choose = function(i){
+  if (this.done || !this.q.opts || i >= this.q.opts.length) return;
+  var q = this.q;
+  $$('.opt', this.body).forEach(function(b, j){ b.disabled = true; if (j === q.ok) b.classList.add('ok'); else if (j === i) b.classList.add('no'); });
+  this.resolve(i === q.ok, q.opts[q.ok]);
+};
+Game.prototype.resolve = function(ok, ans){
+  if (this.done) return; this.done = true;
+  var g = this, q = this.q, up = false, pts = 0;
+  if (ok){
+    this.streak++; pts = 10 + 5 * (this.level - 1); this.score += pts;
+    if (this.streak % 3 === 0 && this.level < 5){ this.level++; up = true; lsSet(this.key + '.lvl', this.level); }
+    if (this.score > this.best){ this.best = this.score; lsSet(this.key + '.best', this.best); }
+    if (this.race) this.race.ok++; else coins(this.level >= 3 ? 2 : 1, this.name);
+  } else { this.streak = 0; if (this.race) this.race.bad++; }
+  this.fb.innerHTML = (ok ? '<b class="ok">✓ To\'g\'ri! +' + pts + '</b> ' : '<b class="bad">✗ Xato.</b> To\'g\'ri javob: <b class="ru">' + ans + '</b>. ') + (q.why || '');
+  if (up){ toast('🎉 ' + this.level + '-daraja! Endi biroz qiyinroq.'); confetti(this.root); }
+  this.upd();
+  if (q.sayAfter && TTS) say(q.sayAfter);
+  if (this.race){ this.t = setTimeout(function(){ if (g.race && g.race.on) g.next(); }, ok ? 380 : 1300); return; }
+  this.nx.hidden = false;
+  if (ok && q.auto !== false) this.t = setTimeout(function(){ if (g.done && vis(g.root)) g.next(); }, q.wait || 2300);
+};
+function confetti(root){
+  if (RM) return; var cols = ['#2F6F52','#B94A3D','#B98A2E','#2E5C9E','#6FCB9F'];
+  for (var i = 0; i < 18; i++){
+    var s = document.createElement('span'); s.className = 'conf'; s.style.background = cols[i % cols.length];
+    var a = Math.random() * Math.PI * 2, d = 60 + Math.random() * 110;
+    s.style.setProperty('--x', Math.cos(a) * d + 'px'); s.style.setProperty('--y', Math.sin(a) * d - 40 + 'px');
+    root.appendChild(s); setTimeout(function(n){ return function(){ n.remove(); }; }(s), 950);
+  }
+}
+
+/* ---------- so'z kartochkalari (gap tuzish) ---------- */
+function buildUI(g, q){
+  var b = q.build, body = g.body, toks = b.tokens, st = {bank: toks.map(function(_, i){ return i; }), ans: []};
+  body.innerHTML = '<div class="bans" aria-label="Javob qatori"></div><p class="bhint muted"></p><div class="bbank" aria-label="So\'zlar"></div><div class="bctl"><button type="button" class="btn btn-ghost btn-sm b-back">⌫ Orqaga</button><button type="button" class="btn btn-ghost btn-sm b-clr">↺ Tozalash</button></div>';
+  var ansEl = $('.bans', body), bankEl = $('.bbank', body), hint = $('.bhint', body);
+  var els = toks.map(function(t, i){ var e = document.createElement('button'); e.type = 'button'; e.className = 'tile'; e.textContent = t; bind(e, i); return e; });
+  function rects(){ return els.map(function(e){ return e.getBoundingClientRect(); }); }
+  function flip(f){
+    if (RM) return;
+    els.forEach(function(e, i){ var a = f[i], r = e.getBoundingClientRect(), dx = a.left - r.left, dy = a.top - r.top; if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return; e.style.transition = 'none'; e.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; e._f = 1; });
+    void body.offsetWidth;
+    els.forEach(function(e){ if (e._f){ e._f = 0; e.style.transition = 'transform .3s cubic-bezier(.2,.8,.2,1)'; e.style.transform = ''; } });
+  }
+  function lay(f){
+    st.bank.sort(function(a, c){ return a - c; });
+    st.bank.forEach(function(i){ bankEl.appendChild(els[i]); }); st.ans.forEach(function(i){ ansEl.appendChild(els[i]); });
+    hint.textContent = st.ans.length ? (st.bank.length ? st.bank.length + " ta so'z qoldi" : '') : "So'zlarni bosing yoki yuqoriga sudrang 👇";
+    if (f) flip(f);
+  }
+  function move(i, toAns, idx){
+    var f = rects(); els[i].style.transform = '';
+    st.bank = st.bank.filter(function(x){ return x !== i; }); st.ans = st.ans.filter(function(x){ return x !== i; });
+    if (toAns){ if (idx == null || idx > st.ans.length) st.ans.push(i); else st.ans.splice(idx, 0, i); } else st.bank.push(i);
+    lay(f); check();
+  }
+  function check(){
+    if (g.done || st.bank.length) return;
+    var s = st.ans.map(function(i){ return toks[i]; }).join(' '), ok = b.answers.indexOf(s) >= 0;
+    ansEl.classList.add(ok ? 'good' : 'badd'); els.forEach(function(e){ e.disabled = true; });
+    $('.bctl', body).hidden = true; bankEl.hidden = true; hint.hidden = true;
+    g.resolve(ok, esc(b.answers[0]));
+  }
+  function insIdx(i, x, y){
+    var list = st.ans.filter(function(k){ return k !== i; });
+    for (var n = 0; n < list.length; n++){ var r = els[list[n]].getBoundingClientRect(); if (y < r.top - 4) return n; if (y <= r.bottom + 4 && x < r.left + r.width / 2) return n; }
+    return list.length;
+  }
+  function bind(e, i){
+    var d = null;
+    function tap(){ if (!g.done) move(i, st.ans.indexOf(i) < 0); }
+    e.addEventListener('pointerdown', function(ev){ if (g.done || ev.button > 0) return; d = {x:ev.clientX, y:ev.clientY, m:false}; e.style.transition = 'none'; try{ e.setPointerCapture(ev.pointerId); }catch(_){} });
+    e.addEventListener('pointermove', function(ev){ if (!d) return; var dx = ev.clientX - d.x, dy = ev.clientY - d.y; if (!d.m && dx * dx + dy * dy > 64){ d.m = true; e.classList.add('drag'); } if (d.m){ e.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(1.06)'; ev.preventDefault(); } });
+    function end(ev, cancel){
+      if (!d) return; var m = d.m; d = null; e.classList.remove('drag');
+      if (!m){ if (!cancel) tap(); return; }
+      if (cancel){ var f = rects(); e.style.transform = ''; flip(f); return; }
+      var ar = ansEl.getBoundingClientRect(), x = ev.clientX, y = ev.clientY;
+      if (y >= ar.top - 24 && y <= ar.bottom + 24 && x >= ar.left - 10 && x <= ar.right + 10) move(i, true, insIdx(i, x, y)); else move(i, false);
+    }
+    e.addEventListener('pointerup', function(ev){ end(ev, false); });
+    e.addEventListener('pointercancel', function(ev){ end(ev, true); });
+    e.addEventListener('click', function(ev){ if (ev.detail === 0) tap(); });
+  }
+  $('.b-back', body).addEventListener('click', function(){ if (st.ans.length) move(st.ans[st.ans.length - 1], false); });
+  $('.b-clr', body).addEventListener('click', function(){ if (!st.ans.length) return; var f = rects(); st.bank = st.bank.concat(st.ans); st.ans = []; lay(f); });
+  g.back = function(){ if (!g.done && st.ans.length) move(st.ans[st.ans.length - 1], false); };
+  lay();
+}
+
+/* =====================================================================
+   GENERATORLAR
+   ===================================================================== */
+function optsFrom(correct, wrongs){ var all = shuffle([correct].concat(wrongs)); return {opts: all, ok: all.indexOf(correct)}; }
+
+/* Alifbo: harf ↔ tovush */
+function genSnd(L){
+  var pool = LET.filter(function(l){ return L === 1 ? l.g <= 2 : L === 2 ? l.g === 3 : true; });
+  var t = pick(pool), dir = L >= 2 && Math.random() < 0.5 ? 1 : 0;
+  var others = shuffle(pool.filter(function(l){ return l !== t && (CLASH[t.L] || '').indexOf(l.L) < 0; })).slice(0, 3);
+  var ex = t.e + ' <span class="ru">' + t.w + '</span> → ' + esc(tl(t.w)) + ' (' + esc(t.uz) + ')';
+  var why = '<span class="ru"><b>' + t.L + '</b></span> = <b>' + esc(t.s) + '</b>. ' + esc(NOTE[t.L] || '') + ' Misol: ' + ex + '.';
+  if (dir === 0){
+    var o = optsFrom(esc(t.s), others.map(function(l){ return esc(l.s); }));
+    return {id:t.L, html:'<div class="qbig">' + t.L + ' ' + t.L.toLowerCase() + '</div><p class="qsub">Bu harf qanday o\'qiladi?</p>', opts:o.opts, ok:o.ok, oc:'lat', why:why, sayAfter:t.n + '. ' + t.w};
+  }
+  var o2 = optsFrom(t.L + t.L.toLowerCase(), others.map(function(l){ return l.L + l.L.toLowerCase(); }));
+  var lbl = /belgisi/.test(t.s) ? '<b>' + esc(t.s) + '</b> — qaysi harf?' : '«<b>' + esc(t.s) + '</b>» tovushini qaysi harf beradi?';
+  return {id:t.L, html:'<div class="qsent" style="font-family:var(--font-body)">' + lbl + '</div>', opts:o2.opts, ok:o2.ok, oc:'big', why:why, sayAfter:t.n + '. ' + t.w};
+}
+/* Alifbo: so'zni o'qi */
+function genRead(L){
+  var maxLen = L === 1 ? 4 : L === 2 ? 6 : L === 3 ? 8 : 30, minLen = L >= 4 ? 5 : 2;
+  var pool = RW.filter(function(w){ var n = clean(w.ru).length; return n <= maxLen && n >= minLen; });
+  if (pool.length < 10) pool = RW;
+  for (var k = 0; k < 40; k++){
+    var w = pick(pool), r = readOpts(w.ru);
+    if (!r) continue;
+    var c = clean(w.ru).toLowerCase(), o = optsFrom(r.ok, r.d);
+    return {id:c, html:'<div class="qbig">' + esc(c) + '</div><p class="qsub">O\'zbek lotin harflarida qanday o\'qiladi?</p>', opts:o.opts.map(esc), ok:o.ok, oc:'lat',
+      why:'<span class="ru"><b>' + esc(w.ru) + '</b></span> → <b>' + esc(r.ok) + '</b> — «' + esc(stripUz(w.uz)) + '». Harfma-harf: ' + (function(sg){ return c.split('').map(function(ch, i){ return '<span class="ru">' + ch + '</span>=' + esc(sg[i] || '·'); }).join(' '); })(tlSeg(c)), sayAfter:w.ru};
+  }
+  return genSnd(L);
+}
+/* Jins */
+function genJins(L){
+  var pool = JINS.filter(function(x){ return x.lv <= Math.min(3, L); });
+  if (L >= 3 && Math.random() < 0.35){ var hard = JINS.filter(function(x){ return x.lv >= 2; }); if (hard.length) pool = hard; }
+  var w = pick(pool);
+  return {id:w.c, w:w, html:'<p class="qsub">So\'zni to\'g\'ri savatga tashlang yoki savatni bosing</p>', render:function(body, g){ sortUI(body, g, w); }, why:w.why, sayAfter:POSS[w.g] + ' ' + w.c, auto:true, wait:2400};
+}
+var BK = [['m','👨','он','мой'],['f','👩','она','моя'],['n','☀️','оно','моё']];
+function sortUI(body, g, w){
+  g.cnt = g.cnt || {m:0, f:0, n:0};
+  body.innerHTML = '<div class="sort-stage"><div class="swc" tabindex="0" aria-label="' + esc(w.c) + '"><span class="ru">' + esc(w.w) + '</span><span class="row"><span class="uz">' + esc(w.uz) + '</span>' + sayBtn(w.c) + '</span></div></div>' +
+    '<div class="baskets">' + BK.map(function(b, i){ return '<button type="button" class="bk ' + b[0] + '" data-g="' + b[0] + '" aria-label="' + b[2] + '"><span class="cnt">' + g.cnt[b[0]] + '</span><span class="em">' + b[1] + '</span><span class="p">' + b[2] + '</span><small>' + b[3] + ' …</small></button>'; }).join('') + '</div>';
+  var card = $('.swc', body), bks = $$('.bk', body), d = null;
+  function bkAt(x, y){ for (var i = 0; i < bks.length; i++){ var r = bks[i].getBoundingClientRect(); if (x >= r.left - 6 && x <= r.right + 6 && y >= r.top - 10 && y <= r.bottom + 6) return bks[i]; } return null; }
+  function fly(to, cb){
+    if (RM){ cb(); return; }
+    var a = card.getBoundingClientRect(), b = to.getBoundingClientRect();
+    card.style.transition = 'transform .38s cubic-bezier(.5,0,.3,1), opacity .38s';
+    var base = card._t || {x:0, y:0};
+    card.style.transform = 'translate(' + (base.x + b.left + b.width / 2 - (a.left + a.width / 2)) + 'px,' + (base.y + b.top + b.height / 2 - (a.top + a.height / 2)) + 'px) scale(.25)';
+    card.style.opacity = '0'; setTimeout(cb, 380);
+  }
+  function answer(gk){
+    if (g.done || card._busy) return; card._busy = 1;
+    var ok = gk === w.g, target = $('.bk.' + w.g, body), chosen = $('.bk.' + gk, body);
+    bks.forEach(function(x){ x.classList.remove('hot'); x.disabled = true; });
+    function land(){ g.cnt[w.g]++; $('.cnt', target).textContent = g.cnt[w.g]; target.classList.add('right'); g.resolve(ok, PRON[w.g] + ' (' + POSS[w.g] + ')'); }
+    if (ok) fly(target, land);
+    else { chosen.classList.add('wrongb'); card.style.transition = ''; setTimeout(function(){ fly(target, land); }, RM ? 0 : 420); }
+  }
+  bks.forEach(function(b){ b.addEventListener('click', function(){ answer(b.getAttribute('data-g')); }); });
+  g.sortKey = function(n){ if (BK[n]) answer(BK[n][0]); };
+  card.addEventListener('pointerdown', function(ev){ if (g.done || ev.target.closest('.say')) return; d = {x:ev.clientX, y:ev.clientY, m:false}; card.style.transition = 'none'; try{ card.setPointerCapture(ev.pointerId); }catch(_){} });
+  card.addEventListener('pointermove', function(ev){
+    if (!d) return; var dx = ev.clientX - d.x, dy = ev.clientY - d.y;
+    if (!d.m && dx * dx + dy * dy > 64){ d.m = true; card.classList.add('drag'); }
+    if (!d.m) return; ev.preventDefault();
+    card._t = {x:dx, y:dy}; card.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + Math.max(-8, Math.min(8, dx / 20)) + 'deg)';
+    var h = bkAt(ev.clientX, ev.clientY); bks.forEach(function(x){ x.classList.toggle('hot', x === h); });
+  });
+  function end(ev, cancel){
+    if (!d) return; var m = d.m; d = null; card.classList.remove('drag');
+    if (!m) return;
+    var h = cancel ? null : bkAt(ev.clientX, ev.clientY);
+    bks.forEach(function(x){ x.classList.remove('hot'); });
+    if (h) answer(h.getAttribute('data-g'));
+    else { card._t = {x:0, y:0}; card.style.transition = 'transform .3s cubic-bezier(.2,.8,.2,1)'; card.style.transform = ''; }
+  }
+  card.addEventListener('pointerup', function(ev){ end(ev, false); });
+  card.addEventListener('pointercancel', function(ev){ end(ev, true); });
+}
+/* Kelishik */
+function genKel(L){
+  var cs = L === 1 ? [0,1,3] : L === 2 ? [0,1,3,5] : L === 3 ? [1,2,3,5] : [1,2,3,4,5];
+  var types = L >= 4 ? null : {m:1, a:1, o:1};
+  var cand = [];
+  KEL.forEach(function(n, ni){ if (types && !types[n.t]) return; cs.forEach(function(c){ if (n.fr[c]) cand.push([ni, c]); }); });
+  var p = pick(cand), n = KEL[p[0]], c = p[1], fr = n.fr[c], form = n.f[c];
+  var forms = []; n.f.forEach(function(x){ if (forms.indexOf(x) < 0) forms.push(x); });
+  var o = optsFrom(form, shuffle(forms.filter(function(x){ return x !== form; })).slice(0, 3));
+  var sent = esc(fr.s).replace('{}', '<span class="gapw">?</span>');
+  var full = fr.s.replace('{}', form);
+  var endTxt = c === 0 ? "lug'at shakli" : (c === 1 && n.t === 'a' && /и$/.test(form)) ? "-а → -и: г, к, х, ж, ш, ч, щ dan keyin ы o'rniga и yoziladi" : (c === 3 && n.an && n.t === 'm') ? '+ -а: jonli он-so\'z tushumda qaratqich bilan bir xil' : TEND[n.t][c];
+  return {id:n.f[0] + c, html:'<div class="qsent">' + sent + '</div><p class="qsub"><span class="ru">' + esc(n.f[0]) + '</span> — ' + esc(n.uz) + '</p>', opts:o.opts.map(esc), ok:o.ok,
+    why:'<b>' + CASES[c].ru + '</b> (' + CASES[c].uz + ', <span class="ru">' + CASES[c].q + '</span>). ' + esc(fr.r) + ' <span class="ru">' + (c === 0 ? esc(form) : esc(n.f[0]) + ' → ' + hlForm(n.f[0], form)) + '</span> (' + esc(endTxt) + '). <a href="padejlar.html#otlar">Jadval →</a>',
+    sayAfter:full, check:{full:full, form:form, c:c}};
+}
+/* Tuslash */
+function genTus(L){
+  var vp = VERBS.filter(function(v){ return L <= 2 ? v.c === 1 : true; });
+  var v = pick(vp), pi = L === 1 ? rnd(3) : rnd(6), pr = pick(PERS[pi]), end = END[v.c][pi], form = v.st + end;
+  var wrong = END[v.c].map(function(e){ return v.st + e; }).filter(function(x){ return x !== form; });
+  var o = optsFrom(form, shuffle(wrong).slice(0, 3));
+  return {id:v.inf + pi, html:'<div class="qbig" style="font-size:clamp(28px,6.5vw,44px)"><span class="c-g">' + pr + '</span> + <span class="' + (v.c === 1 ? 'c-b' : 'c-r') + '">' + v.inf + '</span></div><p class="qsub">' + esc(v.uz) + ' · hozirgi zamon</p>', opts:o.opts, ok:o.ok,
+    why:'<b>' + (v.c === 1 ? 'I' : 'II') + ' tuslanish</b> (' + v.inf + ' → ' + v.st + '-). «' + pr + '» → <b>-' + end + '</b>: <span class="ru">' + pr + ' ' + v.st + '<span class="end">' + end + '</span></span>.', sayAfter:pr + ' ' + form, check:{v:v, pi:pi, form:form}};
+}
+/* Gap tuzish */
+var lastS = [];
+function genGap(L){
+  var n = Math.min(7, L + 2), pool = SENT.filter(function(s){ return s.n === n && lastS.indexOf(s) < 0; });
+  if (!pool.length) pool = SENT.filter(function(s){ return s.n === n; });
+  var s = pick(pool); lastS.push(s); if (lastS.length > 4) lastS.shift();
+  var words = s.toks.map(function(t){ return t.w; }), toks;
+  for (var k = 0; k < 30; k++){ toks = shuffle(words); if (s.ans.indexOf(toks.join(' ')) < 0) break; }
+  var colored = s.toks.map(function(t){ return '<span class="r-' + t.r + '">' + esc(t.w) + '</span>'; }).join(' ');
+  return {id:s.ans[0], html:'<p class="qsub" style="margin:0">Gapni tuzing:</p><div class="qsent" style="font-family:var(--font-body);font-size:clamp(18px,4vw,23px);margin-top:4px">«' + esc(s.uz) + '»</div>', build:{tokens:toks, answers:s.ans},
+    why:'<br><span class="sent-ans">' + colored + '</span> ' + sayBtn(s.ans[0]) + '<br><span class="muted" style="font-size:14px"><span class="r-s">ega</span> · <span class="r-v">kesim</span> · <span class="r-o">to\'ldiruvchi</span> · <span class="r-t">hol</span> · <span class="r-d">aniqlovchi</span></span>' + (s.ans.length > 1 ? '<br><span class="muted" style="font-size:14px">Bu tartib ham to\'g\'ri: ' + esc(s.ans.slice(1).join(' / ')) + '</span>' : ''),
+    sayAfter:s.ans[0], auto:false};
+}
+/* Tinglash */
+function genTin(L){
+  for (var k = 0; k < 40; k++){
+    var w = pick(TW), c = clean(w.ru), u = stripUz(w.uz), day = W.filter(function(x){ return x.di === w.di; });
+    var useUz = L >= 3, seenR = {}, seenU = {}; seenR[c] = 1; seenU[u] = 1;
+    var d = shuffle(day).filter(function(x){ var cx = clean(x.ru), ux = stripUz(x.uz); if (seenR[cx] || seenU[ux] || !TW.includes(x)) return false; seenR[cx] = 1; seenU[ux] = 1; return true; }).slice(0, 3);
+    if (d.length < 3) continue;
+    var o = optsFrom(w, d), opts = o.opts.map(function(x){ return useUz ? esc(stripUz(x.uz)) : esc(x.ru); });
+    return {id:c, html:'<button type="button" class="bigsay" data-sp="' + esc(c) + '" aria-label="Yana tinglash">🔊</button><div style="margin-top:8px"><button type="button" class="btn btn-ghost btn-sm slow" data-sp="' + esc(c) + '" data-rate="0.5">🐢 Sekinroq</button></div><p class="qsub">' + (useUz ? 'Eshitgan so\'zingiz nimani bildiradi?' : 'Qaysi so\'zni eshitdingiz?') + '</p>',
+      opts:opts, ok:o.ok, oc:useUz ? 'lat' : '', say:c,
+      why:'<span class="ru"><b>' + esc(w.ru) + '</b></span> [' + esc(tl(c)) + '] — ' + esc(u) + ' ' + sayBtn(c)};
+  }
+}
+
+/* =====================================================================
+   SAHIFA: tablar, rejimlar, o'yinlarni ishga tushirish
+   ===================================================================== */
+var GAMES = {}, curTab = 'alifbo', modeOf = {alifbo:'snd'};
+function gameKey(){ return curTab === 'alifbo' ? 'alifbo.' + modeOf.alifbo : curTab; }
+function ensure(key){
+  if (GAMES[key]) return GAMES[key];
+  var g;
+  if (key === 'alifbo.snd') g = new Game('alifbo', 'Alifbo', $('#p-alifbo .mode[data-m="snd"]'), genSnd);
+  else if (key === 'alifbo.read') g = new Game('oqish', "So'zni o'qish", $('#p-alifbo .mode[data-m="read"]'), genRead);
+  else if (key === 'jins') g = new Game('jins', 'Jins', $('#g-jins'), genJins, {foot:'<p class="kbhint">Klaviatura: 1 — он, 2 — она, 3 — оно, Enter — keyingi.</p>'});
+  else if (key === 'kel') g = new Game('kelishik', 'Kelishik', $('#g-kel'), genKel, {foot:'<p class="kbhint">Klaviatura: 1–4 — javob, Enter — keyingi.</p>'});
+  else if (key === 'tus') g = tusGame();
+  else if (key === 'gap') g = new Game('gap', 'Gap tuzish', $('#g-gap'), genGap, {foot:'<p class="kbhint">Klaviatura: Backspace — oxirgi so\'zni qaytarish, Enter — keyingi.</p>'});
+  else if (key === 'tin'){ if (!TTS){ $('#g-tin').hidden = true; return null; } g = new Game('tinglash', 'Tinglash', $('#g-tin'), genTin); }
+  GAMES[key] = g;
+  if (key !== 'tus') g.next();
+  return g;
+}
+
+/* Tuslash: poyga (60 s) yoki mashq */
+function tusGame(){
+  var root = $('#g-tus'), RACE = 60000;
+  var g = new Game('tuslash', 'Tuslash', root, genTus, {
+    top:'<div class="modes"><button type="button" data-tm="race" aria-pressed="true">⏱ Poyga · 60 s</button><button type="button" data-tm="calm" aria-pressed="false">🐢 Mashq (vaqtsiz)</button></div>',
+    bar:'<div class="race" hidden style="flex:1 1 100%"><div class="tbar"><i></i></div><span class="tleft">60</span></div>',
+    foot:'<p class="kbhint">Klaviatura: 1–4 — javob. Poygada noto\'g\'ri javob izohi pastda qoladi.</p>'
+  });
+  var bar = $('.tbar i', root), left = $('.tleft', root), raceRow = $('.race', root), raf = 0, mode = 'race', bestRace = +lsGet('tuslash.race', 0) || 0;
+  function startScreen(){
+    clearTimeout(g.t); g.race = null; g.done = true; raceRow.hidden = true; g.fb.innerHTML = ''; g.nx.hidden = true;
+    g.qEl.innerHTML = '<div class="rstart"><div class="big">60 soniyada nechta fe\'l?</div><p class="qsub">Olmosh + fe\'l → to\'g\'ri shaklni tanlang. Rekord: <b>' + bestRace + '</b> ta</p></div>';
+    g.body.innerHTML = '<div style="text-align:center"><button type="button" class="btn btn-primary r-go" style="min-width:200px;font-size:17px">▶ Boshlash</button></div>';
+    $('.r-go', g.body).addEventListener('click', start);
+  }
+  function start(){
+    g.race = {on:true, ok:0, bad:0, end:performance.now() + RACE, left:RACE}; g.score = 0; g.streak = 0; g.upd();
+    raceRow.hidden = false; g.fb.innerHTML = ''; g.next(); cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
+  }
+  function tick(){
+    if (!g.race || !g.race.on) return;
+    var l = g.race.end - performance.now();
+    bar.style.transform = 'scaleX(' + Math.max(0, l / RACE) + ')'; left.textContent = Math.max(0, Math.ceil(l / 1000)) + ' s';
+    if (l <= 0){ finish(); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function finish(){
+    var r = g.race; r.on = false; g.done = true; clearTimeout(g.t);
+    $$('.opt', g.body).forEach(function(b){ b.disabled = true; });
+    var rec = r.ok > bestRace; if (rec){ bestRace = r.ok; lsSet('tuslash.race', bestRace); }
+    if (r.ok > 0) coins(Math.min(30, r.ok), 'Tuslash poygasi');
+    g.qEl.innerHTML = '<div class="rres"><div class="rstart"><div class="big">' + (rec ? '🏆 Yangi rekord!' : 'Vaqt tugadi!') + '</div></div><p><b class="c-g">✓ ' + r.ok + '</b> to\'g\'ri &nbsp; <b class="c-r">✗ ' + r.bad + '</b> xato</p><p class="qsub">Rekord: ' + bestRace + ' ta · Daraja: ' + g.level + '/5</p></div>';
+    g.body.innerHTML = '<div style="text-align:center"><button type="button" class="btn btn-primary r-go" style="min-width:200px">↻ Yana poyga</button></div>';
+    $('.r-go', g.body).addEventListener('click', start);
+    if (r.ok >= 15) confetti(root);
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (!g.race || !g.race.on) return;
+    if (document.hidden){ g.race.left = g.race.end - performance.now(); cancelAnimationFrame(raf); }
+    else { g.race.end = performance.now() + g.race.left; raf = requestAnimationFrame(tick); }
+  });
+  $$('[data-tm]', root).forEach(function(b){
+    b.addEventListener('click', function(){
+      mode = b.getAttribute('data-tm'); $$('[data-tm]', root).forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      cancelAnimationFrame(raf);
+      if (mode === 'race') startScreen(); else { g.race = null; raceRow.hidden = true; g.fb.innerHTML = ''; g.next(); }
+    });
+  });
+  g.pause = function(){ if (g.race && g.race.on){ g.race.on = false; cancelAnimationFrame(raf); clearTimeout(g.t); startScreen(); } };
+  startScreen();
+  return g;
+}
+
+function setTab(t, push){
+  if (!document.getElementById('p-' + t)) t = 'alifbo';
+  if (curTab === 'tus' && t !== 'tus' && GAMES.tus && GAMES.tus.pause) GAMES.tus.pause();
+  curTab = t;
+  $$('.gtabs [data-tab]').forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-tab') === t ? 'true' : 'false'); });
+  $$('.pane').forEach(function(p){ p.hidden = p.id !== 'p-' + t; });
+  active = ensure(gameKey());
+  lsSet('tab', t);
+  if (push) try{ history.replaceState(null, '', '#' + t); }catch(e){}
+}
+function setMode(m){
+  modeOf.alifbo = m;
+  $$('#p-alifbo .modes [data-m]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-m') === m ? 'true' : 'false'); });
+  $$('#p-alifbo .mode').forEach(function(d){ d.hidden = d.getAttribute('data-m') !== m; });
+  active = ensure(gameKey());
+}
+$$('.gtabs [data-tab]').forEach(function(b){ b.addEventListener('click', function(){ setTab(b.getAttribute('data-tab'), true); }); });
+$$('#p-alifbo .modes [data-m]').forEach(function(b){ b.addEventListener('click', function(){ setMode(b.getAttribute('data-m')); }); });
+
+document.addEventListener('keydown', function(e){
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  var tg = e.target; if (tg && (tg.tagName === 'INPUT' || tg.tagName === 'TEXTAREA' || tg.tagName === 'SELECT')) return;
+  var g = active; if (!g || !vis(g.root)) return;
+  if (e.key === 'Enter' && g.done && !g.nx.hidden){ e.preventDefault(); g.next(); return; }
+  if (/^[1-6]$/.test(e.key) && !g.done){
+    var n = +e.key - 1;
+    if (g.q && g.q.opts){ e.preventDefault(); g.choose(n); }
+    else if (g.q && g.q.render && g.sortKey){ e.preventDefault(); g.sortKey(n); }
+  }
+  if (e.key === 'Backspace' && g.q && g.q.build && g.back){ e.preventDefault(); g.back(); }
+});
+
+letterGrid();
+var h = location.hash.replace('#', ''), saved = lsGet('tab', 'alifbo');
+setTab(document.getElementById('p-' + h) ? h : (document.getElementById('p-' + saved) ? saved : 'alifbo'));
+
+/* test va tekshiruv uchun */
+window.kaRus = {LET:LET, JINS:JINS, KEL:KEL, VERBS:VERBS, END:END, SENT:SENT, tl:tl, readOpts:readOpts,
+  gen:{snd:genSnd, read:genRead, jins:genJins, kel:genKel, tus:genTus, gap:genGap, tin:genTin}, games:GAMES, setTab:setTab, setMode:setMode, active:function(){ return active; }};
+})();
+</script>
+<script src="../akkount.js"></script>
+</body>
+</html>
