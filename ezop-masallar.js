@@ -663,5 +663,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u teshikni ko'rmagan edi", "Chunki yomg'ir yog'ishini oldindan bilib bo'lmasdi", "Chunki zarur ishni qulay paytda emas, keyinga qoldirgan edi"],
     javob: 2,
     izoh: "Chumchuq teshikni ko'rgan, ya'ni tuzatish kerakligini bilgan. Ishni 'ertaga' deb qoldirish esa uni xavfli holatga soldi. Zarur ishni vaqtida bajarish ko'p muammolarning oldini oladi."
+  },
+  {
+    id: "ez-084", mavzu: "ehtiyotkorlik", sarlavha: "Ikki dehqon va daryo",
+    matn: "Bahorda ikki dehqon tog' daryosidan o'tishi kerak edi. Birinchisi oqimni bir oz kuzatib turdi, sayoz va toshloq joyni topib, ehtiyotkorlik bilan o'tdi. Ikkinchisi esa \"Vaqtim yo'q\", deb shoshilib, to'g'ri kuchli oqimga sakradi. Oqim uni bir necha metr narida qirg'oqqa zo'rg'a olib chiqdi.",
+    savol: "Birinchi dehqon nega xavfsiz o'tdi?",
+    variantlar: ["Chunki u oqimni kuzatib, sayoz va xavfsiz joyni tanlab ehtiyotkorlik bilan o'tdi", "Chunki u oqimga qarshi sakrab, eng tez yo'l bilan o'tdi", "Chunki daryo suvi sovuq emasligini oldindan bilgan edi"],
+    javob: 0,
+    izoh: "Xavfli vaziyatda shoshilmay, avval sharoitni kuzatish va xavfsiz yo'lni tanlash kerak. Shoshqaloqlik esa keraksiz xavfga olib boradi."
   }
 ];
