@@ -687,5 +687,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Niqob juda go'zal, shuning uchun uni albatta olish kerak", "Tashqi ko'rinish qanchalik chiroyli bo'lmasin, ichki mazmun muhimroq", "Niqob sahnada ishlatilgani uchun unga tegish mumkin emas"],
     javob: 1,
     izoh: "Niqob tashqaridan go'zal ko'rinsa ham ichi bo'sh edi. Masal shuni ko'rsatadiki, insonni yoki narsani faqat tashqi ko'rinishiga qarab baholash xato, mazmunni hisobga olish kerak."
+  },
+  {
+    id: "ez-087", mavzu: "mantiq", sarlavha: "Ikki kapitan",
+    matn: "Ikki kapitan bir xil kemada dengizga chiqdi. Birinchisi har kuni kemaning teshiklarini tekshirib, yorilgan joylarni darhol yamadi. Ikkinchisi esa \"Hali havo ochiq, keyinroq qilaman\" deb ishni qoldirib qo'ydi. Kuchli bo'ron ko'tarilganda birinchi kema omon qoldi, ikkinchisi esa suvga to'lib cho'kdi.",
+    savol: "Bo'ron kelganda qaysi kema omon qoldi va nega?",
+    variantlar: ["Ikkinchi kema, chunki uning kapitani ishni keyinga qoldirgan edi", "Birinchi kema, chunki kapitan oldindan tayyorgarlik ko'rgan edi", "Ikkala kema ham bir xil taqdirga uchradi, chunki havo bir xil edi"],
+    javob: 1,
+    izoh: "Birinchi kapitan xavf kelmasdan oldin kemani tekshirib, yamagan edi. Shuning uchun bo'ron kelganda kema bardosh berdi. Ishni vaqtida bajarish katta muammolarning oldini oladi."
   }
 ];
