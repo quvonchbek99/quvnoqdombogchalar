@@ -1,0 +1,2223 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Futbol fizikasi — zarba burchagi, Magnus effekti va shamol | Kuvonch Academy</title>
+<meta name="description" content="3D stadionda futbol fizikasi: tezlik tashkil etuvchilari (vₓ = v·cos α), og'irlik kuchi va parabola, havo qarshiligi, aylanish va Magnus effekti («banan» zarba, topspin, backspin), shamol. Jarima zarbasi, shamolli o'yin, burchak to'pi va burchak mashqi — sekin takror va kuchlar diagrammasi bilan. Bepul.">
+<link rel="canonical" href="https://kuvonch.uz/futbol.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Futbol fizikasi — «banan» zarba, Magnus effekti va shamol">
+<meta property="og:description" content="Nega to'p havoda buriladi? 3D stadionda jarima zarbasi, burchak to'pi va shamolli o'yin: burchak, aylanish va havo qarshiligini o'zingiz sinab ko'ring.">
+<meta property="og:url" content="https://kuvonch.uz/futbol.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<style>
+:root{
+  --night:#060a1a;--night-2:#0c1330;--line:#1d2850;--chalk:#f3f5ff;--haze:#93a3cc;
+  --teal:#35f0c4;--violet:#a27bff;--rose:#ff5e8e;--amber:#ffc23d;
+  --bg:var(--night);--bg-soft:#0f1834;--card:#101a3a;--border:var(--line);--text:var(--chalk);--text-dim:var(--haze);--accent:var(--teal);--accent-2:var(--violet);
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --body:"Golos Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --cv:#35f0c4;--cx:#7c9bff;--cy:#ffd66b;--cg:#ff5e8e;--cd:#ff9f43;--cm:#b48cff;--cw:#4fd1ff;
+}
+*{box-sizing:border-box}
+html{background:var(--night);-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(70% 40% at 80% 0%,rgba(162,123,255,.13),transparent 70%),radial-gradient(50% 30% at 0% 30%,rgba(53,240,196,.07),transparent 70%),var(--night);color:var(--chalk);font:400 16px/1.55 var(--body);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media (max-width:520px){.wrap{padding:0 16px}}
+.knav a{font-family:var(--body)}
+.knav-head .brand{font-family:var(--display);font-weight:700;font-size:16px}
+.hero{padding:30px 0 6px}
+.kicker{display:inline-block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(53,240,196,.35);background:rgba(53,240,196,.08);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+h1{font:800 clamp(26px,5.2vw,46px)/1.05 var(--display);letter-spacing:-.03em;margin:0 0 12px}
+h1 span{background:linear-gradient(100deg,var(--teal),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:#c5cef0;max-width:50em;margin:0 0 14px;font-size:clamp(15px,1.7vw,18px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;padding:0;list-style:none}
+.chips li{font-size:13px;color:var(--haze);border:1px solid var(--line);background:rgba(16,26,58,.6);border-radius:999px;padding:5px 11px}
+.sec-h{font:700 clamp(21px,2.6vw,28px)/1.15 var(--display);letter-spacing:-.02em;margin:0 0 6px}
+.sub{color:var(--haze);margin:0 0 14px}
+.cv{color:var(--cv);font-weight:700}.cx{color:var(--cx);font-weight:700}.cy{color:var(--cy);font-weight:700}.cg{color:var(--cg);font-weight:700}.cd{color:var(--cd);font-weight:700}.cm{color:var(--cm);font-weight:700}.cw{color:var(--cw);font-weight:700}
+.ok{color:var(--teal)}.bad{color:var(--rose)}.warn{color:var(--amber)}
+.fml{font:700 clamp(16px,1.9vw,19px)/1.45 var(--body);margin:6px 0 10px;color:var(--chalk);font-variant-numeric:tabular-nums}
+.fml small{font-weight:500;color:var(--haze);font-size:.78em}
+sub,sup{font-size:.7em;line-height:0}
+
+/* ---------- Tushuntirish ---------- */
+.explain{padding:26px 0 8px}
+.steps{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 0 10px;padding:2px;-webkit-overflow-scrolling:touch}
+.steps::-webkit-scrollbar{display:none}
+.step{flex:0 0 auto;min-height:44px;padding:8px 12px 8px 8px;border-radius:12px;border:1px solid var(--line);background:#0c1330;color:var(--haze);font:600 13.5px/1.1 var(--body);cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .2s,color .2s,border-color .2s}
+.step i{font-style:normal;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#16214a;color:var(--chalk);font-size:12px;font-weight:700}
+.step:hover{color:var(--chalk)}
+.step[aria-selected="true"]{color:var(--chalk);border-color:rgba(53,240,196,.6);background:rgba(53,240,196,.08)}
+.step[aria-selected="true"] i{background:var(--teal);color:#03131a}
+.exp-card{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);background:linear-gradient(180deg,#0c1330,#090f27);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.9)}
+.exp-vis{position:relative;border-right:1px solid var(--line);background:#071024;min-width:0}
+#ex-cv{display:block;width:100%;height:300px;touch-action:pan-y}
+.exp-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;border-top:1px solid var(--line);background:#0a1130;min-height:61px}
+.exp-txt{padding:16px 18px 18px;font-size:15px;color:#c9d1ef;min-width:0}
+.exp-txt h3{margin:0 0 8px;font:700 17px/1.3 var(--display);color:var(--chalk);letter-spacing:-.01em}
+.exp-txt p{margin:0 0 9px}
+.exp-txt ul{margin:0 0 9px;padding-left:20px}
+.exp-txt li{margin:0 0 4px}
+.exp-txt .note{font-size:13.5px;color:var(--haze);border-left:3px solid var(--violet);padding:4px 0 4px 10px;margin-top:8px}
+.exp-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.exp-nav span{color:var(--haze);font-size:14px}
+@media (max-width:860px){.exp-card{grid-template-columns:1fr}.exp-vis{border-right:0;border-bottom:1px solid var(--line)}}
+.exp-txt .ln{display:inline-block;min-width:2.3em;text-align:right;font-variant-numeric:tabular-nums}
+.ntbl{width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 8px}
+.ntbl td{padding:4px 2px;border-bottom:1px solid var(--line)}
+.ntbl td:last-child{text-align:right;color:var(--chalk);font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ---------- Tugma, slayder ---------- */
+.btn{min-height:44px;min-width:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#111b3e;color:var(--chalk);font:600 14px/1.15 var(--body);cursor:pointer;transition:background .15s,border-color .15s,transform .1s;-webkit-tap-highlight-color:transparent}
+.btn:hover{border-color:#34478a;background:#142250}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.pri{background:linear-gradient(120deg,var(--teal),#9af7ff);color:#03131a;border-color:transparent}
+.btn.vio{background:linear-gradient(120deg,var(--violet),#c9b2ff);color:#12082a;border-color:transparent}
+.btn.on{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal);color:var(--teal)}
+.btn.sm{min-height:40px;padding:8px 11px;font-size:13px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:100%;flex-wrap:nowrap}
+.seg .btn{border:0;border-radius:0;background:#0e1736;padding:9px 11px}
+.seg .btn+.btn{border-left:1px solid var(--line)}
+.seg .btn.on{background:rgba(53,240,196,.12);box-shadow:none}
+.rng{display:flex;flex-direction:column;min-width:0;flex:1 1 210px}
+.rng label{font-size:13px;color:var(--haze);display:flex;justify-content:space-between;gap:8px;line-height:1.2}
+.rng label b{color:var(--chalk);font-variant-numeric:tabular-nums;font-weight:700}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:40px;background:transparent;margin:0;cursor:pointer}
+input[type=range]:focus{outline:none}
+input[type=range]:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:linear-gradient(90deg,#1b2a5c,#2b3d7d)}
+input[type=range]::-moz-range-track{height:8px;border-radius:99px;background:linear-gradient(90deg,#1b2a5c,#2b3d7d)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b9fff0,var(--teal));border:2px solid #06221c;box-shadow:0 0 0 4px rgba(53,240,196,.18)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--teal);border:2px solid #06221c}
+input[type=range]:disabled{opacity:.45;cursor:not-allowed}
+select.num{min-height:44px;padding:8px 10px;border-radius:12px;border:1px solid #2a3a72;background:#070c22;color:var(--chalk);font:600 14px var(--body);max-width:100%}
+
+/* ---------- Laboratoriya ---------- */
+.labsec{padding:30px 0 10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.tab{min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#0c1330;color:var(--haze);font:600 14px/1.1 var(--body);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.tab:hover{color:var(--chalk);border-color:#2c3b72}
+.tab[aria-selected="true"]{color:#060a1a;background:linear-gradient(120deg,var(--teal),var(--violet));border-color:transparent;box-shadow:0 8px 24px -10px rgba(162,123,255,.7)}
+@media (max-width:520px){.tabs{gap:6px}.tab{flex:1 1 auto;padding:10px 9px;font-size:13px}}
+.lab{background:linear-gradient(180deg,#0c1330,#090f27);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset}
+.lab-bar{display:flex;align-items:center;gap:10px;padding:8px 10px 8px 14px;border-bottom:1px solid var(--line);background:#0a1130;flex-wrap:wrap}
+.dots{display:flex;gap:6px;flex:0 0 auto}.dots i{width:10px;height:10px;border-radius:50%;background:#ff5e8e}.dots i:nth-child(2){background:#ffc23d}.dots i:nth-child(3){background:#35f0c4}
+.lab-title{flex:1 1 180px;min-width:0;font:600 13px/1.3 var(--body);color:var(--haze)}
+.lab-title b{color:var(--chalk);font-weight:700}
+.lvl-wrap{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--haze)}
+.lvl-wrap select{min-height:40px;padding:6px 8px;font-size:13px}
+.stage{position:relative;background:radial-gradient(120% 80% at 50% 0%,#18245a,#050a1c 70%);overflow:hidden;height:380px;-webkit-user-select:none;user-select:none}
+@media (min-width:700px){.stage{height:min(56.25vw,600px)}}
+@media (min-width:1220px){.stage{height:600px}}
+#gl{display:block;position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;outline:none;cursor:crosshair;-webkit-tap-highlight-color:transparent}
+#gl:focus-visible{box-shadow:inset 0 0 0 2px var(--amber)}
+.hud{position:absolute;left:8px;top:8px;display:grid;grid-template-columns:repeat(3,minmax(0,auto));gap:4px;pointer-events:none;z-index:2}
+.hud div{background:rgba(6,10,26,.74);border:1px solid rgba(147,163,204,.2);border-radius:10px;padding:3px 8px 4px;font:600 10.5px/1.2 var(--body);color:var(--haze);min-width:66px}
+.hud b{display:block;color:var(--chalk);font:700 14px/1.2 var(--body);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hud b small{font-size:10px;color:var(--haze);font-weight:600;margin-left:2px}
+@media (min-width:700px){.hud{grid-template-columns:repeat(6,minmax(0,auto))}.hud div{min-width:84px;font-size:11px}.hud b{font-size:16px}}
+.windbox{position:absolute;right:8px;top:8px;width:82px;padding:4px 4px 5px;border-radius:12px;background:rgba(6,10,26,.74);border:1px solid rgba(79,209,255,.35);z-index:2;pointer-events:none;display:none;text-align:center}
+.windbox.show{display:block}
+#wind-cv{display:block;width:72px;height:72px;margin:0 auto}
+.windbox span{display:block;font:700 12px/1.2 var(--body);color:var(--cw);font-variant-numeric:tabular-nums}
+.windbox small{display:block;font:600 9.5px/1.25 var(--body);color:var(--haze)}
+@media (min-width:700px){.windbox{width:110px}#wind-cv{width:92px;height:92px}.windbox span{font-size:14px}.windbox small{font-size:11px}}
+.picker{position:absolute;left:8px;bottom:8px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;border-radius:14px;background:rgba(6,10,26,.62);border:1px solid rgba(147,163,204,.2)}
+#pick-cv{display:block;width:78px;height:78px;touch-action:none;cursor:pointer;border-radius:50%}
+.picker span{font:600 10.5px/1.15 var(--body);color:var(--haze);max-width:96px;text-align:center}
+.picker span b{color:var(--amber)}
+@media (min-width:700px){#pick-cv{width:100px;height:100px}.picker span{font-size:12px;max-width:124px}}
+.fab{position:absolute;right:10px;bottom:10px;z-index:3;width:74px;height:74px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#a7ffea,var(--teal) 52%,#12a584);color:#03131a;font:800 25px/1 var(--display);box-shadow:0 10px 30px -8px rgba(53,240,196,.75),0 0 0 6px rgba(53,240,196,.12);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;-webkit-tap-highlight-color:transparent;transition:transform .12s,filter .2s}
+.fab small{font:700 11px/1 var(--body)}
+.fab:active{transform:scale(.94)}
+.fab:disabled{filter:grayscale(1) brightness(.6);cursor:not-allowed}
+.fab.next{background:radial-gradient(circle at 35% 30%,#e3d6ff,var(--violet) 55%,#6b45d6);box-shadow:0 10px 30px -8px rgba(162,123,255,.8),0 0 0 6px rgba(162,123,255,.14)}
+.fab2{position:absolute;right:92px;bottom:16px;z-index:3;min-height:52px;min-width:52px;border-radius:16px;border:1px solid rgba(147,163,204,.35);background:rgba(10,16,40,.82);color:var(--chalk);font:700 13px/1.1 var(--body);cursor:pointer;display:none;padding:6px 10px}
+.fab2.show{display:block}
+@media (min-width:700px){.fab{width:84px;height:84px;font-size:28px}.fab2{right:106px;bottom:20px}}
+.bigmsg{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%) scale(.5);font:800 clamp(34px,8vw,76px)/1 var(--display);opacity:0;pointer-events:none;z-index:4;text-shadow:0 6px 30px rgba(0,0,0,.65);transition:opacity .25s,transform .45s cubic-bezier(.2,1.6,.4,1);white-space:nowrap;letter-spacing:-.02em}
+.bigmsg.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.bigmsg.g{background:linear-gradient(100deg,var(--teal),#fff 50%,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.bigmsg.m{color:var(--rose)}
+.bigmsg small{display:block;font:700 clamp(13px,2vw,18px)/1.2 var(--body);color:var(--chalk);text-align:center;margin-top:8px;-webkit-text-fill-color:var(--chalk)}
+.loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:5;background:radial-gradient(90% 70% at 50% 20%,#1a2760,#050a1c 75%);text-align:center;padding:20px;color:var(--haze)}
+.loading .spin{width:54px;height:54px;border-radius:50%;border:4px solid #1d2850;border-top-color:var(--teal);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loading b{color:var(--chalk);font:700 16px/1.3 var(--display)}
+.loading.hide{display:none}
+.legend{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:2;display:none;gap:8px;flex-wrap:wrap;justify-content:center;padding:5px 10px;border-radius:12px;background:rgba(6,10,26,.8);border:1px solid rgba(147,163,204,.2);font:600 11px/1.3 var(--body);color:var(--haze);pointer-events:none;max-width:calc(100% - 210px)}
+.legend.show{display:flex}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin-right:4px}
+@media (max-width:699px){.legend{bottom:auto;top:94px;max-width:calc(100% - 16px);flex-wrap:nowrap;gap:6px;font-size:10px;padding:3px 8px;white-space:nowrap}.legend i{width:9px;margin-right:3px}}
+.rbadge{position:absolute;left:50%;top:8px;transform:translateX(-50%);z-index:3;display:none;padding:4px 12px;border-radius:999px;background:rgba(255,94,142,.16);border:1px solid rgba(255,94,142,.55);color:#ffd0dd;font:700 12px/1.3 var(--body);pointer-events:none}
+.rbadge.show{display:block}
+@media (max-width:699px){.rbadge{top:auto;bottom:96px}}
+.tools{display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 14px;padding:10px 12px 12px;border-top:1px solid var(--line);background:#0b1230}
+.tools .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;flex:1 1 100%}
+.tools .lbl{font-size:13px;color:var(--haze)}
+.tools .hide{display:none!important}
+@media (max-width:520px){.rng{flex-basis:100%}}
+.chk{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 12px;border-radius:12px;border:1px solid var(--line);background:#0e1736;font:600 13.5px var(--body);color:var(--chalk);cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--teal)}
+.panel{padding:12px 14px 16px;border-top:1px solid var(--line);font-size:15px;min-height:60px}
+.panel p{margin:0 0 8px}
+.panel .muted{color:var(--haze);font-size:14px}
+.score{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.score span{font-size:13px;color:var(--haze);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#0c1330}
+.score b{color:var(--chalk)}
+.res-h{font:700 clamp(17px,2.2vw,21px)/1.35 var(--body);margin:0 0 6px}
+.task{font:600 15.5px/1.5 var(--body);margin:0 0 8px}
+.task b{color:var(--amber)}
+.why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:8px}
+@media (max-width:760px){.why{grid-template-columns:1fr}}
+.why canvas{display:block;width:100%;border-radius:14px;background:#071024;border:1px solid var(--line)}
+.shift{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.shift li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;padding:7px 10px;border-radius:10px;background:#0c1330;border:1px solid var(--line);font-size:14px}
+.shift li b{font-variant-numeric:tabular-nums;margin-left:auto;text-align:right}
+.shift li.top{border-color:rgba(255,94,142,.6);background:rgba(255,94,142,.08)}
+.tip{margin:8px 0 0;padding:8px 12px;border-radius:12px;background:rgba(53,240,196,.07);border:1px solid rgba(53,240,196,.3);font-size:14.5px}
+.chart{display:block;width:100%;height:240px;border-radius:14px;background:#071024;border:1px solid var(--line);margin-top:8px}
+.stars{color:var(--amber);letter-spacing:2px}
+
+/* ---------- Nazariya ---------- */
+.theory{padding:34px 0 10px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.tcard{background:rgba(16,26,58,.6);border:1px solid var(--line);border-radius:16px;padding:18px}
+.tcard h3{margin:0 0 8px;font:700 16px/1.25 var(--display);letter-spacing:-.01em}
+.tcard p{margin:0 0 8px;color:#c9d1ef;font-size:15px}
+.tcard p:last-child{margin-bottom:0}
+.utbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.utbl td{padding:6px 4px;border-bottom:1px solid var(--line)}
+.utbl td:last-child{text-align:right;color:var(--teal);font-weight:700}
+footer{border-top:1px solid var(--line);margin-top:34px;padding:24px 0 34px;color:var(--haze);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script async src="statistika.js"></script>
+<style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="english/">🇬🇧 Ingliz tili</a>
+<a href="rus-tili/">🇷🇺 Rus tili</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="sinf-oyinlari.html" class="new">🎯 Sinf o'yinlari</a>
+<a href="fizika.html">⚛️ Fizika lab</a>
+<a href="tarozi.html">⚖️ Tarozi</a>
+</nav>
+</header>
+<script>(function(){var a=document.querySelector('.knav [aria-current]');if(a){var n=a.parentNode;n.scrollLeft=Math.max(0,a.offsetLeft-n.clientWidth/2+a.offsetWidth/2)}})()</script>
+
+<section class="hero">
+<span class="kicker">⚽ Fizika + futbol</span>
+<h1>Futbol <span>fizikasi</span></h1>
+<p class="lead">Nega to'p havoda «banan» bo'lib buriladi? Nega haqiqiy zarba mukammal parabola emas? Avval tezlik, og'irlik kuchi, havo qarshiligi, Magnus kuchi va shamolni animatsiyalarda ko'ring — keyin 3D stadionda o'zingiz zarba bering: to'pning qayeriga tegishni, kuchni, yo'nalishni va burchakni tanlang.</p>
+<ul class="chips">
+<li>📐 vₓ = v·cos α</li>
+<li>🪂 Og'irlik → parabola</li>
+<li>💨 F = ½ρC<sub>d</sub>Av²</li>
+<li>🌀 Magnus effekti</li>
+<li>🌬 Shamol</li>
+<li>🏟 3D stadion</li>
+<li>🔁 Sekin takror</li>
+<li>🪙 Tangalar</li>
+</ul>
+</section>
+
+<section class="explain" id="explain" aria-labelledby="ex-h">
+<h2 class="sec-h" id="ex-h">Avval tushunib olamiz</h2>
+<p class="sub">6 qadam — har birida jonli animatsiya va formula. Raqamni bosing yoki «Keyingi» tugmasidan foydalaning.</p>
+<div class="steps" id="ex-steps" role="tablist" aria-label="Tushuntirish qadamlari"></div>
+<div class="exp-card">
+<div class="exp-vis"><canvas id="ex-cv" role="img" aria-label="Tushuntirish animatsiyasi"></canvas><div class="exp-ctl" id="ex-ctl"></div></div>
+<div class="exp-txt" id="ex-txt" aria-live="polite"></div>
+</div>
+<div class="exp-nav"><button class="btn" id="ex-prev" type="button">← Oldingi</button><span id="ex-count">1 / 6</span><button class="btn pri" id="ex-next" type="button">Keyingi →</button></div>
+</section>
+
+<section class="labsec" id="labsec" aria-labelledby="lab-h">
+<h2 class="sec-h" id="lab-h">3D stadion: endi o'zingiz uring</h2>
+<p class="sub">Kompyuterda: sichqoncha bilan nishonga oling va bosing. Telefonda: maydonni barmoq bilan suring (nishon), so'ng ⚽ tugmasini bosing. Chap pastdagi to'pga tegib, zarba nuqtasini tanlang.</p>
+<div class="tabs" role="tablist" aria-label="O'yin rejimlari">
+<button class="tab" role="tab" data-mode="fk" aria-selected="true">🎯 Jarima zarbasi</button>
+<button class="tab" role="tab" data-mode="wind" aria-selected="false">🌬 Shamolli o'yin</button>
+<button class="tab" role="tab" data-mode="corner" aria-selected="false">⚽ Burchak to'pi</button>
+<button class="tab" role="tab" data-mode="angle" aria-selected="false">📐 Burchak mashqi</button>
+<button class="tab" role="tab" data-mode="free" aria-selected="false">🧪 Erkin tajriba</button>
+</div>
+<div class="lab" id="lab">
+<div class="lab-bar">
+<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+<span class="lab-title" id="lab-title"></span>
+<label class="lvl-wrap" id="lvl-wrap">Daraja <select class="num" id="lvl-sel" aria-label="Darajani tanlash"></select></label>
+</div>
+<div class="stage" id="stage">
+<canvas id="gl" tabindex="0" role="application" aria-label="3D futbol maydoni. Strelkalar — nishon, plyus/minus — kuch, Probel — zarba, R — sekin takror, N — keyingi zarba."></canvas>
+<div class="hud" id="hud" aria-hidden="true">
+<div>🚀 Tezlik<b id="h-v">—</b></div>
+<div>🌀 Aylanish<b id="h-w">—</b></div>
+<div>⛰ Balandlik<b id="h-h">—</b></div>
+<div>📏 Masofa<b id="h-d">—</b></div>
+<div>↪ Burilish<b id="h-c">—</b></div>
+<div>⏱ Vaqt<b id="h-t">—</b></div>
+</div>
+<div class="windbox" id="windbox" aria-hidden="true"><canvas id="wind-cv"></canvas><span id="wind-v">0 m/s</span><small id="wind-s"></small></div>
+<div class="picker" id="picker"><canvas id="pick-cv" tabindex="0" role="slider" aria-label="To'pning zarba nuqtasi: strelkalar bilan tanlang" aria-valuetext="markaz"></canvas><span id="pick-lbl">Markaz</span></div>
+<button class="fab2" id="replay" type="button">🔁 Sekin<br>takror</button>
+<button class="fab" id="kick" type="button" aria-label="Zarba berish">⚽<small>Zarba</small></button>
+<div class="bigmsg" id="bigmsg" aria-hidden="true"></div>
+<div class="rbadge" id="rbadge">🔁 SEKIN TAKROR · 0,25×</div>
+<div class="legend" id="legend" aria-hidden="true"><span><i style="background:#ff5e8e"></i>og'irlik</span><span><i style="background:#ff9f43"></i>qarshilik</span><span><i style="background:#b48cff"></i>Magnus</span><span><i style="background:#4fd1ff"></i>shamol</span><span><i style="background:#35f0c4"></i>tezlik</span></div>
+<div class="loading" id="loading"><div class="spin"></div><b>3D stadion tayyorlanmoqda…</b><span id="load-msg">Maydon, darvoza va tribunalar chizilmoqda</span></div>
+</div>
+<div class="tools" id="tools">
+<div class="rng" id="c-pow"><label for="r-pow">💪 Kuch (boshlang'ich tezlik) <b id="v-pow">95 km/soat</b></label><input type="range" id="r-pow" min="40" max="125" step="1" value="95"></div>
+<div class="rng" id="c-yaw"><label for="r-yaw">↔ Yo'nalish <b id="v-yaw">0°</b></label><input type="range" id="r-yaw" min="-25" max="25" step="0.5" value="0"></div>
+<div class="rng" id="c-ang"><label for="r-ang">↗ Burchak α <b id="v-ang">15°</b></label><input type="range" id="r-ang" min="0" max="45" step="0.5" value="15"></div>
+<div class="row" id="c-spin"><span class="lbl">🦶 To'pning qayeriga:</span><div class="seg" id="spin-seg">
+<button class="btn sm on" type="button" data-cx="0" data-cy="0">⊙ Markaz</button><button class="btn sm" type="button" data-cx="-0.65" data-cy="0">◐ Chap</button><button class="btn sm" type="button" data-cx="0.65" data-cy="0">◑ O'ng</button><button class="btn sm" type="button" data-cx="0" data-cy="-0.6">◒ Past</button><button class="btn sm" type="button" data-cx="0" data-cy="0.55">◓ Tepa</button></div></div>
+<div class="row" id="c-free">
+<label class="chk"><input type="checkbox" id="f-drag" checked> 💨 Havo qarshiligi</label>
+<label class="chk"><input type="checkbox" id="f-mag" checked> 🌀 Magnus kuchi</label>
+<label class="chk"><input type="checkbox" id="f-wall"> 🧱 Devor</label>
+<label class="chk"><input type="checkbox" id="f-full"> 〰 To'liq traektoriya</label>
+<select class="num" id="f-dist" aria-label="Masofa"><option value="18">18 m</option><option value="22" selected>22 m</option><option value="26">26 m</option><option value="30">30 m</option></select>
+<select class="num" id="f-wind" aria-label="Shamol"><option value="0">🌬 Shamolsiz</option><option value="head">⬇ Qarshi 6 m/s</option><option value="tail">⬆ Orqadan 6 m/s</option><option value="left">➡ Chapdan 6 m/s</option><option value="right">⬅ O'ngdan 6 m/s</option></select>
+</div>
+<div class="row" id="c-act"><span class="lbl">🎥 Takror kamerasi:</span><div class="seg" id="cam-seg"><button class="btn sm on" type="button" data-cam="follow">Orqadan</button><button class="btn sm" type="button" data-cam="side">Yondan</button><button class="btn sm" type="button" data-cam="top">Tepadan</button><button class="btn sm" type="button" data-cam="goal">Darvozadan</button></div></div>
+</div>
+<div class="panel" id="panel" aria-live="polite"></div>
+</div>
+</section>
+
+<section class="theory" aria-labelledby="th-h">
+<h2 class="sec-h" id="th-h">Qisqa nazariya</h2>
+<p class="sub">O'yinda ishlatilgan formulalar va haqiqiy raqamlar bir joyda.</p>
+<div class="tgrid">
+<div class="tcard">
+<h3>📐 Nima uchun 45°?</h3>
+<p>Havosiz uchish uzoqligi:</p>
+<p class="fml">L = v² · sin 2α / g</p>
+<p>sin 2α eng katta qiymatga (1 ga) 2α = 90° da, ya'ni <b>α = 45°</b> da erishadi. 30° va 60° bir xil masofa beradi, chunki sin 60° = sin 120°.</p>
+<p>Havo bilan esa baland zarba havoda uzoqroq qoladi va ko'proq tezlik yo'qotadi — eng yaxshi burchak <b id="th-opt">≈ 40°</b> ga tushadi (v = 22 m/s uchun hisoblandi).</p>
+</div>
+<div class="tcard">
+<h3>🌀 Magnus kuchi qayoqqa?</h3>
+<p class="fml"><span class="cm">F<sub>M</sub></span> = ½ρC<sub>L</sub>Av² &nbsp;·&nbsp; <span class="cm">F<sub>M</sub></span> ∝ <span class="cw">ω</span> × <span class="cv">v</span></p>
+<table class="utbl">
+<tr><td>To'pning o'ng tomoniga</td><td>← chapga buriladi</td></tr>
+<tr><td>Chap tomoniga</td><td>o'ngga buriladi →</td></tr>
+<tr><td>Pastiga (backspin)</td><td>↑ suzadi</td></tr>
+<tr><td>Tepasiga (topspin)</td><td>↓ sho'ng'iydi</td></tr>
+</table>
+<p style="margin-top:8px">O'ng qo'l qoidasi: barmoqlarni aylanish yo'nalishida bukib, bosh barmoq <span class="cw">ω</span> ni ko'rsatadi; kuch <span class="cw">ω</span> va <span class="cv">v</span> ga perpendikulyar.</p>
+</div>
+<div class="tcard">
+<h3>💨 Qarshilik krizisi</h3>
+<p>To'pning qarshilik koeffitsienti C<sub>d</sub> tezlikka bog'liq: sekin to'pda ≈ 0,45, taxminan 11 m/s dan tezda esa ≈ 0,24 ga keskin tushadi (chegaraviy qatlam turbulent bo'ladi).</p>
+<p>Shuning uchun kuchli zarba havoda «yengil» uchadi, sekinlashgach esa qarshilik birdan oshib, to'p kutilmaganda pastga tushadi.</p>
+<p class="fml">C<sub>d</sub>(v) ≈ 0,24 + 0,21 / (1 + e<sup>(v−11)/1,6</sup>)</p>
+</div>
+<div class="tcard">
+<h3>🧮 Kompyuter qanday hisoblaydi?</h3>
+<p>Harakat tenglamasi <b>m·a = m·g + F<sub>q</sub> + F<sub>M</sub></b> ni formulada yechib bo'lmaydi, shuning uchun uni qadam-baqadam hisoblaymiz: har <b>1/240 s</b> da Runge–Kutta (RK4) usuli 4 marta tezlanishni o'lchab, o'rtachasini oladi.</p>
+<p id="th-test">Tekshiruv: havosiz va aylanishsiz holatda natija parabola formulasi bilan mos keladi.</p>
+</div>
+<div class="tcard">
+<h3>⚽ Futbol raqamlarda</h3>
+<table class="utbl">
+<tr><td>To'p massasi</td><td>0,41–0,45 kg</td></tr>
+<tr><td>To'p diametri</td><td>≈ 22 sm</td></tr>
+<tr><td>Darvoza</td><td>7,32 × 2,44 m</td></tr>
+<tr><td>Devorgacha masofa</td><td>9,15 m</td></tr>
+<tr><td>Kuchli zarba</td><td>25–35 m/s (90–125 km/soat)</td></tr>
+<tr><td>Aylanish</td><td>5–11 ayl/s (300–660 ayl/min)</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<footer>
+<div>&copy; <span id="year">2026</span> Kuvonch Academy</div>
+<div><a href="oyinlar.html">🎮 O'yinlar</a> · <a href="fizika.html">⚛️ Fizika laboratoriyasi</a> · <a href="matematika.html">📐 Matematika</a> · <a href="index.html">Bosh sahifa</a></div>
+</footer>
+</div>
+<script>
+/*! Kuvonch Academy — Futbol fizikasi */
+(function () {
+"use strict";
+/* ================= 1. Yordamchilar ================= */
+var $ = function (id) { return document.getElementById(id); };
+var RM = false;
+try { RM = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); } catch (e) {}
+var FONT = '"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
+var FONTD = '"Unbounded","Golos Text",system-ui,sans-serif';
+var DEG = Math.PI / 180;
+var COL = { v: "#35f0c4", x: "#7c9bff", y: "#ffd66b", g: "#ff5e8e", d: "#ff9f43", m: "#b48cff", w: "#4fd1ff", chalk: "#f3f5ff", haze: "#93a3cc", line: "#1d2850", amber: "#ffc23d" };
+function lsGet(k) { try { return localStorage.getItem("ka.futbol." + k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem("ka.futbol." + k, String(v)); } catch (e) {} }
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+function fmt(x, d) { if (x == null || !isFinite(x)) return "—"; d = d == null ? 1 : d; var s = Math.abs(x).toFixed(d); if (x < 0 && parseFloat(s) !== 0) s = "−" + s; return s.replace(".", ","); }
+function sci(v) { if (!(v > 0)) return "0"; if (v >= 0.01) return fmt(v, 3); var e = Math.floor(Math.log10(v)), m = v / Math.pow(10, e), S = "⁰¹²³⁴⁵⁶⁷⁸⁹"; return fmt(m, 1) + "·10" + ("−" + String(-e)).replace(/[0-9]/g, function (d) { return S[d]; }).replace("−", "⁻"); }
+function DPR() { return Math.min(2, window.devicePixelRatio || 1); }
+function coins(n) { try { window.kaAccount && window.kaAccount.addCoins(n, "Futbol fizikasi"); } catch (e) {} }
+function rnd(a, b) { return a + Math.random() * (b - a); }
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+/* ================= 2. Fizika: to'p harakati =================
+   Koordinatalar (o'ng qo'l sistemasi, three.js bilan bir xil): x — o'ngga, y — yuqoriga, z — darvozadan orqaga.
+   Darvoza chizig'i z = 0, maydon z > 0, zarba odatda −z tomonga.
+   m·a = m·g + F_q + F_M;  F_q = −½ρC_d A|v_nis|·v_nis;  F_M = ½ρC_L A|v_nis|² · (ω × v_nis)/(|ω||v_nis|);  v_nis = v − w (shamol) */
+var PH = { g: 9.81, rho: 1.2, m: 0.43, r: 0.11, A: Math.PI * 0.11 * 0.11, tau: 7, dt: 1 / 240 };
+function cdOf(s) { return 0.24 + 0.21 / (1 + Math.exp((s - 11) / 1.6)); }
+function clOf(S) { return S <= 0 ? 0 : Math.min(0.35, S / (1 + 1.6 * S)); }
+function mkEnv(o) { o = o || {}; return { g: o.g == null ? PH.g : o.g, drag: o.drag !== false, magnus: o.magnus !== false, wx: o.wx || 0, wy: 0, wz: o.wz || 0 }; }
+function envWith(e, ch) { var n = { g: e.g, drag: e.drag, magnus: e.magnus, wx: e.wx, wy: e.wy, wz: e.wz }; for (var k in ch) n[k] = ch[k]; return n; }
+function deriv(s, e, o) {
+  var vx = s[3], vy = s[4], vz = s[5];
+  var rx = vx - e.wx, ry = vy - e.wy, rz = vz - e.wz;
+  var sp = Math.sqrt(rx * rx + ry * ry + rz * rz);
+  var ax = 0, ay = -e.g, az = 0, k;
+  if (e.drag && sp > 1e-9) { k = 0.5 * PH.rho * cdOf(sp) * PH.A / PH.m * sp; ax -= k * rx; ay -= k * ry; az -= k * rz; }
+  var wx = s[6], wy = s[7], wz = s[8], wm = Math.sqrt(wx * wx + wy * wy + wz * wz);
+  if (e.magnus && wm > 1e-9 && sp > 0.3) {
+    k = 0.5 * PH.rho * clOf(PH.r * wm / sp) * PH.A / PH.m * sp / wm;
+    ax += k * (wy * rz - wz * ry); ay += k * (wz * rx - wx * rz); az += k * (wx * ry - wy * rx);
+  }
+  o[0] = vx; o[1] = vy; o[2] = vz; o[3] = ax; o[4] = ay; o[5] = az;
+  var kw = -1 / PH.tau; o[6] = kw * wx; o[7] = kw * wy; o[8] = kw * wz;
+}
+var K1 = new Float64Array(9), K2 = new Float64Array(9), K3 = new Float64Array(9), K4 = new Float64Array(9), KT = new Float64Array(9);
+function rk4(s, e, dt) {
+  var i;
+  deriv(s, e, K1);
+  for (i = 0; i < 9; i++) KT[i] = s[i] + 0.5 * dt * K1[i]; deriv(KT, e, K2);
+  for (i = 0; i < 9; i++) KT[i] = s[i] + 0.5 * dt * K2[i]; deriv(KT, e, K3);
+  for (i = 0; i < 9; i++) KT[i] = s[i] + dt * K3[i]; deriv(KT, e, K4);
+  for (i = 0; i < 9; i++) s[i] += dt / 6 * (K1[i] + 2 * K2[i] + 2 * K3[i] + K4[i]);
+}
+/* kuchlar (nyutonda) — diagramma va strelkalar uchun */
+function forcesOf(s, e) {
+  var rx = s[3] - e.wx, ry = s[4] - e.wy, rz = s[5] - e.wz, sp = Math.sqrt(rx * rx + ry * ry + rz * rz);
+  var f = { g: [0, -PH.m * e.g, 0], d: [0, 0, 0], m: [0, 0, 0], sp: sp, vr: [rx, ry, rz], cd: cdOf(sp), cl: 0 };
+  if (e.drag && sp > 1e-9) { var k = 0.5 * PH.rho * f.cd * PH.A * sp; f.d = [-k * rx, -k * ry, -k * rz]; }
+  var wm = Math.hypot(s[6], s[7], s[8]);
+  if (e.magnus && wm > 1e-9 && sp > 0.3) { f.cl = clOf(PH.r * wm / sp); var q = 0.5 * PH.rho * f.cl * PH.A * sp / wm; f.m = [q * (s[7] * rz - s[8] * ry), q * (s[8] * rx - s[6] * rz), q * (s[6] * ry - s[7] * rx)]; }
+  return f;
+}
+/* ψ — gorizontal yo'nalish (−z dan +x tomonga), α — yuqoriga burchak */
+function launch(p, v, psi, alpha, w) {
+  var s = new Float64Array(9);
+  s[0] = p[0]; s[1] = p[1]; s[2] = p[2];
+  s[3] = v * Math.cos(alpha) * Math.sin(psi); s[4] = v * Math.sin(alpha); s[5] = -v * Math.cos(alpha) * Math.cos(psi);
+  if (w) { s[6] = w[0]; s[7] = w[1]; s[8] = w[2]; }
+  return s;
+}
+/* Ermit interpolyatsiyasi: qadam ichidagi aniq kesishish nuqtasi (parabola uchun xatosiz) */
+function herm(p0, v0, p1, v1, h, u) { var u2 = u * u, u3 = u2 * u; return (2 * u3 - 3 * u2 + 1) * p0 + (u3 - 2 * u2 + u) * h * v0 + (-2 * u3 + 3 * u2) * p1 + (u3 - u2) * h * v1; }
+function hermD(p0, v0, p1, v1, h, u) { var u2 = u * u; return ((6 * u2 - 6 * u) * p0 + (3 * u2 - 4 * u + 1) * h * v0 + (-6 * u2 + 6 * u) * p1 + (3 * u2 - 2 * u) * h * v1) / h; }
+function interp(a, b, h, u, o) {
+  for (var i = 0; i < 3; i++) { o[i] = herm(a[i], a[i + 3], b[i], b[i + 3], h, u); o[i + 3] = hermD(a[i], a[i + 3], b[i], b[i + 3], h, u); o[i + 6] = a[i + 6] + (b[i + 6] - a[i + 6]) * u; }
+  return o;
+}
+function crossU(a, b, h, nx, ny, nz, d) {
+  var lo = 0, hi = 1, f0 = nx * a[0] + ny * a[1] + nz * a[2] - d;
+  for (var i = 0; i < 34; i++) {
+    var u = (lo + hi) / 2;
+    var f = nx * herm(a[0], a[3], b[0], b[3], h, u) + ny * herm(a[1], a[4], b[1], b[4], h, u) + nz * herm(a[2], a[5], b[2], b[5], h, u) - d;
+    if ((f > 0) === (f0 > 0)) lo = u; else hi = u;
+  }
+  return (lo + hi) / 2;
+}
+/* erkin uchish (to'qnashuvlarsiz): yerga tushguncha yoki tekislikni kesguncha */
+function flight(s0, e, opt) {
+  opt = opt || {};
+  var dt = opt.dt || PH.dt, tmax = opt.tmax || 8, st = opt.stride || 1, keep = !!opt.states;
+  var s = new Float64Array(s0), a = new Float64Array(9), t = 0, n = 0, H = s[1];
+  var res = { pts: [s[0], s[1], s[2], 0], st: keep ? [Array.prototype.slice.call(s).concat([0])] : null, land: null, cross: null, T: 0, H: 0 };
+  var pl = opt.plane, fprev = pl ? pl.nx * s[0] + pl.ny * s[1] + pl.nz * s[2] - pl.d : 0;
+  while (t < tmax) {
+    a.set(s); rk4(s, e, dt); t += dt; n++;
+    if (s[1] > H) H = s[1];
+    if (pl) {
+      var f = pl.nx * s[0] + pl.ny * s[1] + pl.nz * s[2] - pl.d;
+      if (fprev > 0 && f <= 0 && !res.cross) {
+        var u = crossU(a, s, dt, pl.nx, pl.ny, pl.nz, pl.d), c = interp(a, s, dt, u, new Float64Array(9));
+        res.cross = { s: c, t: t - dt + u * dt };
+        if (opt.stopAtPlane) { res.pts.push(c[0], c[1], c[2], res.cross.t); res.T = res.cross.t; break; }
+      }
+      fprev = f;
+    }
+    if (s[1] < PH.r && s[4] < 0) {
+      var u2 = crossU(a, s, dt, 0, 1, 0, PH.r), c2 = interp(a, s, dt, u2, new Float64Array(9));
+      res.land = { s: c2, t: t - dt + u2 * dt };
+      res.pts.push(c2[0], c2[1], c2[2], res.land.t); if (keep) res.st.push(Array.prototype.slice.call(c2).concat([res.land.t]));
+      res.T = res.land.t; break;
+    }
+    if (n % st === 0) { res.pts.push(s[0], s[1], s[2], t); if (keep) res.st.push(Array.prototype.slice.call(s).concat([t])); }
+  }
+  if (!res.T) res.T = t;
+  res.H = H;
+  return res;
+}
+function hdist(a, b) { return Math.hypot(a[0] - b[0], a[2] - b[2]); }
+/* uchish uzoqligi (yerdan yerga), α — gradusda */
+function rangeOf(v, aDeg, e) { var s = launch([0, PH.r, 0], v, 0, aDeg * DEG, null), f = flight(s, e, { tmax: 12 }); return f.land ? hdist(f.land.s, s) : NaN; }
+function optAngle(v, e) {
+  var best = 0, bestR = -1, a;
+  for (a = 10; a <= 70; a += 1) { var R = rangeOf(v, a, e); if (R > bestR) { bestR = R; best = a; } }
+  var lo = best - 1, hi = best + 1; // oltin kesim bilan aniqlashtiramiz
+  for (var i = 0; i < 22; i++) { var m1 = lo + (hi - lo) * 0.382, m2 = lo + (hi - lo) * 0.618; if (rangeOf(v, m1, e) < rangeOf(v, m2, e)) lo = m1; else hi = m2; }
+  var ao = (lo + hi) / 2; return { a: ao, R: rangeOf(v, ao, e) };
+}
+/* RK4 tekshiruvi: havosiz va aylanishsiz holat analitik parabola bilan solishtiriladi */
+function selfTest() {
+  var vac = mkEnv({ drag: false, magnus: false }), maxErr = 0, rangeErr = 0, hErr = 0;
+  [[15, 20], [25, 35], [30, 45], [20, 60], [12, 75], [28, 10]].forEach(function (c) {
+    var v = c[0], a = c[1] * DEG, s = launch([0, PH.r, 0], v, 0, a, null), t = 0;
+    for (var k = 0; k < 3000; k++) {
+      rk4(s, vac, PH.dt); t += PH.dt;
+      var ya = PH.r + v * Math.sin(a) * t - 0.5 * PH.g * t * t, za = -v * Math.cos(a) * t;
+      maxErr = Math.max(maxErr, Math.hypot(s[0], s[1] - ya, s[2] - za));
+      if (ya < PH.r) break;
+    }
+    var f = flight(launch([0, PH.r, 0], v, 0, a, null), vac);
+    rangeErr = Math.max(rangeErr, Math.abs(Math.abs(f.land.s[2]) - v * v * Math.sin(2 * a) / PH.g));
+    hErr = Math.max(hErr, Math.abs(f.H - PH.r - v * v * Math.sin(a) * Math.sin(a) / (2 * PH.g)));
+  });
+  /* qadamga yaqinlashish: dt = 1/240 va dt = 1/4000 (havo, aylanish, shamol bilan) */
+  var e2 = mkEnv({ wx: 3, wz: 2 }), w = [12, 55, -8];
+  var s1 = launch([0, PH.r, 20], 29, 0.1, 18 * DEG, w), s2 = new Float64Array(s1), i;
+  for (i = 0; i < 240; i++) rk4(s1, e2, 1 / 240);
+  for (i = 0; i < 4000; i++) rk4(s2, e2, 1 / 4000);
+  var conv = Math.hypot(s1[0] - s2[0], s1[1] - s2[1], s1[2] - s2[2]);
+  /* Magnus yo'nalishi: o'ng tomonga urilgan to'p (ω yuqoriga) chapga buriladi; backspin ko'taradi */
+  var full = mkEnv({}), noM = mkEnv({ magnus: false });
+  var cl = flight(launch([0, PH.r, 0], 26, 0, 12 * DEG, [0, 60, 0]), full, { plane: { nx: 0, ny: 0, nz: 1, d: -20 }, stopAtPlane: true });
+  var bs = flight(launch([0, PH.r, 0], 26, 0, 12 * DEG, [50, 0, 0]), full), ns = flight(launch([0, PH.r, 0], 26, 0, 12 * DEG, [50, 0, 0]), noM);
+  /* qarshilik: mexanik energiya kamayishi kerak */
+  var s3 = launch([0, PH.r, 0], 30, 0, 30 * DEG, null), E0 = 0.5 * 900 + PH.g * PH.r, mono = true, Ep = E0;
+  for (i = 0; i < 400; i++) { rk4(s3, mkEnv({ magnus: false }), PH.dt); var E = 0.5 * (s3[3] * s3[3] + s3[4] * s3[4] + s3[5] * s3[5]) + PH.g * s3[1]; if (E > Ep + 1e-9) mono = false; Ep = E; }
+  return {
+    parabolaMaxErr_mm: maxErr * 1000, rangeErr_mm: rangeErr * 1000, heightErr_mm: hErr * 1000, convergence_mm: conv * 1000,
+    curlLeft: cl.cross ? cl.cross.s[0] < -0.5 : false, curlLeft_m: cl.cross ? cl.cross.s[0] : null,
+    backspinLonger: bs.land && ns.land ? Math.abs(bs.land.s[2]) > Math.abs(ns.land.s[2]) : false,
+    energyDecreases: mono,
+    ok: maxErr < 1e-6 && rangeErr < 1e-5 && conv < 1e-3 && mono
+  };
+}
+
+/* ================= 3. Tushuntirish (2D animatsiyalar) ================= */
+var EX = (function () {
+  var cv = $("ex-cv"), ctx = cv.getContext("2d"), ctl = $("ex-ctl"), txt = $("ex-txt"), stepsEl = $("ex-steps");
+  var W = 600, H = 300, cur = 0, tStart = 0, raf = 0, visible = false, lastTxt = 0;
+  var st = { alpha: 38, auto: true, sub3: "top", sub4: "head", v6: 30 };
+  var D = {};
+  var STEPS = [
+    { k: "comp", n: "Tezlik qismlari" },
+    { k: "par", n: "Parabola" },
+    { k: "drag", n: "Havo qarshiligi" },
+    { k: "mag", n: "Magnus kuchi" },
+    { k: "wind", n: "Shamol" },
+    { k: "num", n: "Raqamlar" }
+  ];
+  function rec(s0, e, tmax) { var f = flight(s0, e, { states: true, tmax: tmax || 6 }); return f; }
+  function prep() {
+    var vac = mkEnv({ drag: false, magnus: false }), real = mkEnv({ magnus: false }), full = mkEnv({});
+    D.dragReal = rec(launch([0, PH.r, 0], 28, 0, 30 * DEG), real);
+    D.dragVac = rec(launch([0, PH.r, 0], 28, 0, 30 * DEG), vac);
+    /* banan: avval to'g'ri chiziq qayerga borishini topamiz, keyin boshlanish nuqtasini suramiz */
+    var spin = [0, 2 * Math.PI * 10.5, 0], psi = 10 * DEG, al = 15 * DEG, vC = 25, tgt = -2.6, pl25 = { plane: { nx: 0, ny: 0, nz: 1, d: -25 }, stopAtPlane: true };
+    var tmp = flight(launch([0, PH.r, 0], vC, psi, al, spin), full, pl25);
+    var x0 = tgt - (tmp.cross ? tmp.cross.s[0] : 0);
+    D.curl = rec(launch([x0, PH.r, 0], vC, psi, al, spin), full); D.curlX0 = x0; D.curlPsi = psi;
+    D.curlStraight = rec(launch([x0, PH.r, 0], vC, psi, al, [0, 0, 0]), full);
+    var cEnd = flight(launch([x0, PH.r, 0], vC, psi, al, spin), full, pl25);
+    D.curlDev = cEnd.cross ? cEnd.cross.s[0] - (x0 + 25 * Math.tan(psi)) : 0;   // to'g'ri chiziqqa nisbatan burilish
+    D.wallX = x0 + (tgt - x0) * 9.15 / 25 + 0.45;   // devor to'p → burchak to'g'ri chizig'ini yopadi
+    var sp8 = 2 * Math.PI * 8;
+    D.sBack = rec(launch([0, PH.r, 0], 26, 0, 14 * DEG, [sp8, 0, 0]), full);
+    D.sNone = rec(launch([0, PH.r, 0], 26, 0, 14 * DEG, [0, 0, 0]), full);
+    D.sTop = rec(launch([0, PH.r, 0], 26, 0, 14 * DEG, [-sp8, 0, 0]), full);
+    D.wNone = rec(launch([0, PH.r, 0], 25, 0, 25 * DEG), real);
+    D.wHead = rec(launch([0, PH.r, 0], 25, 0, 25 * DEG), envWith(real, { wz: 8 }));
+    D.wTail = rec(launch([0, PH.r, 0], 25, 0, 25 * DEG), envWith(real, { wz: -8 }));
+    D.wCross = rec(launch([0, PH.r, 0], 25, 0, 25 * DEG), envWith(real, { wx: 8 }));
+    D.parts = []; for (var i = 0; i < 46; i++) D.parts.push([Math.random(), Math.random(), 0.4 + Math.random() * 0.8]);
+  }
+  /* --- chizish yordamchilari --- */
+  function arrow(x1, y1, x2, y2, col, lw, hd) {
+    var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L < 2) return;
+    hd = hd || Math.min(13, 5 + L * 0.28); var ux = dx / L, uy = dy / L;
+    ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = lw || 3; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * hd * 0.7, y2 - uy * hd * 0.7); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x2, y2); ctx.lineTo(x2 - ux * hd - uy * hd * 0.5, y2 - uy * hd + ux * hd * 0.5); ctx.lineTo(x2 - ux * hd + uy * hd * 0.5, y2 - uy * hd - ux * hd * 0.5); ctx.closePath(); ctx.fill();
+  }
+  function label(s, x, y, col, size, align, bold) {
+    ctx.font = (bold === false ? "600 " : "700 ") + (size || 13) + "px " + FONT; ctx.textAlign = align || "left"; ctx.textBaseline = "middle";
+    ctx.lineWidth = 4; ctx.strokeStyle = "rgba(5,9,24,.88)"; ctx.lineJoin = "round"; ctx.strokeText(s, x, y);
+    ctx.fillStyle = col || COL.chalk; ctx.fillText(s, x, y);
+  }
+  function ball(x, y, r, rot) {
+    ctx.save(); ctx.translate(x, y);
+    var g = ctx.createRadialGradient(-r * 0.35, -r * 0.4, r * 0.1, 0, 0, r); g.addColorStop(0, "#ffffff"); g.addColorStop(1, "#b9c3e6");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.clip(); ctx.rotate(rot || 0);
+    ctx.fillStyle = "#18204a"; ctx.beginPath();
+    for (var i = 0; i < 5; i++) { var a = -Math.PI / 2 + i * 2 * Math.PI / 5; ctx.lineTo(Math.cos(a) * r * 0.36, Math.sin(a) * r * 0.36); } ctx.closePath(); ctx.fill();
+    for (i = 0; i < 5; i++) { var b = Math.PI / 2 + i * 2 * Math.PI / 5; ctx.beginPath(); ctx.arc(Math.cos(b) * r * 1.05, Math.sin(b) * r * 1.05, r * 0.34, 0, 7); ctx.fill(); }
+    ctx.strokeStyle = "#18204a"; ctx.lineWidth = Math.max(1, r * 0.07);
+    for (i = 0; i < 5; i++) { var c = -Math.PI / 2 + i * 2 * Math.PI / 5; ctx.beginPath(); ctx.moveTo(Math.cos(c) * r * 0.36, Math.sin(c) * r * 0.36); ctx.lineTo(Math.cos(c) * r * 0.78, Math.sin(c) * r * 0.78); ctx.stroke(); }
+    ctx.restore();
+    ctx.strokeStyle = "rgba(10,16,40,.8)"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.stroke();
+    ctx.restore();
+  }
+  function bg(field) {
+    var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#0a1438"); g.addColorStop(1, "#071024");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    if (field) {
+      for (var i = 0; i < 14; i++) { ctx.fillStyle = i % 2 ? "rgba(46,125,50,.30)" : "rgba(52,138,57,.24)"; ctx.fillRect(0, i * H / 14, W, H / 14 + 1); }
+    }
+  }
+  function sideMap(xmax, ymax, padL, padR, padT, padB) {
+    var aw = W - padL - padR, ah = H - padT - padB, sx = aw / xmax, sy = ah / ymax;
+    if (sy > sx * 2.4) sy = sx * 2.4;
+    return { X: function (x) { return padL + x * sx; }, Y: function (y) { return H - padB - y * sy; }, sx: sx, sy: sy, padL: padL, padB: padB };
+  }
+  function ground(m, xmax, step) {
+    var y0 = m.Y(0);
+    var g = ctx.createLinearGradient(0, y0, 0, H); g.addColorStop(0, "#2f7d3a"); g.addColorStop(1, "#173d1f");
+    ctx.fillStyle = g; ctx.fillRect(0, y0, W, H - y0);
+    ctx.strokeStyle = "rgba(255,255,255,.75)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(W, y0); ctx.stroke();
+    ctx.font = "600 11px " + FONT; ctx.fillStyle = "rgba(220,235,255,.75)"; ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (var x = step; x < xmax; x += step) { var px = m.X(x); if (px > W - 14) break; ctx.fillRect(px - 0.5, y0, 1, 5); ctx.fillText(x + " m", px, y0 + 7); }
+  }
+  function gridY(m, ymax, step) {
+    ctx.font = "600 10.5px " + FONT; ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    for (var y = step; y <= ymax; y += step) { var py = m.Y(y); if (py < 12) break; ctx.strokeStyle = "rgba(147,163,204,.10)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(m.padL, py); ctx.lineTo(W, py); ctx.stroke(); ctx.fillStyle = "rgba(147,163,204,.6)"; ctx.fillText(y + " m", 4, py); }
+  }
+  /* yo'l: f.st — [x,y,z,vx,vy,vz,wx,wy,wz,t] holatlar; side — yondan (oldinga = −z), top — tepadan */
+  function pathSide(f, m, upto, col, lw, dash) {
+    ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = lw || 3; ctx.lineJoin = "round"; ctx.lineCap = "round"; if (dash) ctx.setLineDash(dash);
+    ctx.beginPath(); var s0 = f.st[0];
+    for (var i = 0; i < f.st.length; i++) { var p = f.st[i]; if (p[9] > upto) break; var X = m.X(-(p[2] - s0[2])), Y = m.Y(p[1] - PH.r); if (i) ctx.lineTo(X, Y); else ctx.moveTo(X, Y); }
+    ctx.stroke(); ctx.restore();
+  }
+  function stAt(f, t) {
+    var a = f.st, n = a.length; if (t <= 0) return a[0]; if (t >= a[n - 1][9]) return a[n - 1];
+    var i = Math.min(n - 2, Math.floor(t / PH.dt)); while (i > 0 && a[i][9] > t) i--; while (i < n - 2 && a[i + 1][9] < t) i++;
+    var p = a[i], q = a[i + 1], u = (t - p[9]) / Math.max(1e-9, q[9] - p[9]), o = [];
+    for (var k = 0; k < 10; k++) o[k] = p[k] + (q[k] - p[k]) * u; return o;
+  }
+  function cycle(T, hold) { var el = (performance.now() - tStart) / 1000; if (RM) return T; var c = T + (hold == null ? 1.3 : hold); return Math.min(T, el % c); }
+  function bT(T, tau) { return RM ? T * 0.42 : tau; }   // harakatsiz rejimda to'p yo'l o'rtasida ko'rsatiladi
+  function setN(id, v) { var el = document.getElementById(id); if (el && el.textContent !== v) el.textContent = v; }
+
+  /* --- 1-qadam: tashkil etuvchilar --- */
+  function dComp(t) {
+    bg(false);
+    var a = st.auto && !RM ? 40 + 24 * Math.sin(t * 0.7) : st.alpha; st.cur = a;
+    var ar = a * DEG, v = 25, ox = Math.max(70, W * 0.13), oy = H - 54;
+    var L = Math.min(W - ox - 150, H - 104), vx = Math.cos(ar), vy = Math.sin(ar);
+    var g = ctx.createLinearGradient(0, oy, 0, H); g.addColorStop(0, "#2f7d3a"); g.addColorStop(1, "#173d1f"); ctx.fillStyle = g; ctx.fillRect(0, oy + 11, W, H - oy);
+    ctx.strokeStyle = "rgba(255,255,255,.7)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, oy + 11); ctx.lineTo(W, oy + 11); ctx.stroke();
+    // shu tezlik olib boradigan yo'l (xira parabola) — keyingi qadamga ko'prik
+    var Tf = 2 * v * vy / PH.g, Lf = v * vx * Tf, Hf = v * v * vy * vy / (2 * PH.g), sc = Math.min((W - ox - 20) / Math.max(1, Lf), (oy - 26) / Math.max(1, Hf));
+    ctx.save(); ctx.setLineDash([3, 7]); ctx.strokeStyle = "rgba(53,240,196,.28)"; ctx.lineWidth = 2; ctx.beginPath();
+    for (var k = 0; k <= 50; k++) { var tt = Tf * k / 50, px = ox + v * vx * tt * sc, py = oy - (v * vy * tt - PH.g * tt * tt / 2) * sc; if (k) ctx.lineTo(px, py); else ctx.moveTo(px, py); }
+    ctx.stroke(); ctx.restore();
+    var tx = ox + L * vx, ty = oy - L * vy;
+    ctx.save(); ctx.setLineDash([6, 6]); ctx.strokeStyle = "rgba(200,210,255,.35)"; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx, oy); ctx.moveTo(tx, ty); ctx.lineTo(ox, ty); ctx.stroke(); ctx.restore();
+    arrow(ox, oy, ox + L * vx, oy, COL.x, 4);
+    arrow(ox, oy, ox, oy - L * vy, COL.y, 4);
+    arrow(ox, oy, tx, ty, COL.v, 5.5, 16);
+    ctx.strokeStyle = COL.chalk; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(ox, oy, 42, -ar, 0); ctx.stroke();
+    label("α = " + fmt(a, 0) + "°", ox + 48 * Math.cos(ar / 2) + 6, oy - 48 * Math.sin(ar / 2), COL.chalk, 14);
+    ball(ox, oy, 11, 0);
+    label("v = 25 m/s", tx + 10, ty - 4, COL.v, 15);
+    label("vₓ = v·cos α = " + fmt(v * vx, 1) + " m/s", ox + L * vx / 2, oy + 28, COL.x, 13, "center");
+    label("v_y = " + fmt(v * vy, 1) + " m/s", ox + 8, oy - L * vy * 0.78, COL.y, 13, "left");
+    label("xira chiziq — shu tezlik bilan to'p yo'li", W - 10, 16, COL.haze, 11.5, "right", false);
+    var now = performance.now(); if (now - lastTxt > 120) { lastTxt = now; setN("n-a", fmt(a, 0)); setN("n-a2", fmt(a, 0)); setN("n-vx", fmt(v * vx, 1)); setN("n-vy", fmt(v * vy, 1)); setN("n-chk", fmt(v * vx * v * vx + v * vy * v * vy, 0)); var sl = $("ex-a"); if (sl && st.auto) sl.value = Math.round(a); }
+  }
+  /* --- 2-qadam: parabola --- */
+  function dPar(t) {
+    bg(false);
+    var a = clamp(st.alpha, 10, 80) * DEG, v = 20, g = PH.g, vx = v * Math.cos(a), vy0 = v * Math.sin(a);
+    var T = 2 * vy0 / g, Hm = vy0 * vy0 / (2 * g), L = vx * T;
+    var m = sideMap(Math.max(42, L * 1.1), Math.max(Hm * 1.3, 6), 40, 16, 22, 34);
+    gridY(m, Math.max(Hm * 1.3, 6), Hm > 12 ? 5 : 2); ground(m, Math.max(42, L * 1.1), 10);
+    var tau = cycle(T, 1.2), tb = bT(T, tau);
+    ctx.save(); ctx.setLineDash([4, 6]); ctx.strokeStyle = "rgba(147,163,204,.35)"; ctx.lineWidth = 2; ctx.beginPath();
+    for (var k = 0; k <= 60; k++) { var tt = T * k / 60; var X = m.X(vx * tt), Y = m.Y(vy0 * tt - g * tt * tt / 2); if (k) ctx.lineTo(X, Y); else ctx.moveTo(X, Y); } ctx.stroke(); ctx.restore();
+    ctx.fillStyle = COL.v; for (var q = 0; q <= tau + 1e-6; q += 0.1) { ctx.beginPath(); ctx.arc(m.X(vx * q), m.Y(vy0 * q - g * q * q / 2), 3.2, 0, 7); ctx.fill(); }
+    var bx = m.X(vx * tb), by = m.Y(vy0 * tb - g * tb * tb / 2), vyt = vy0 - g * tb, ks = Math.min(3.2, W / 200);
+    ctx.save(); ctx.setLineDash([5, 5]); ctx.strokeStyle = "rgba(255,214,107,.45)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(m.X(0), m.Y(Hm)); ctx.lineTo(m.X(L * 0.5), m.Y(Hm)); ctx.stroke(); ctx.restore();
+    label("H = " + fmt(Hm, 1) + " m", m.X(0) + 6, m.Y(Hm) - 11, COL.y, 12);
+    label("L = " + fmt(L, 1) + " m", m.X(L) - 4, m.Y(0) - 14, COL.chalk, 12, "right");
+    arrow(bx, by, bx + vx * ks, by, COL.x, 3.5);
+    arrow(bx, by, bx, by - vyt * ks, COL.y, 3.5);
+    arrow(bx, by, bx, by + 34, COL.g, 3.5);
+    label("g", bx + 8, by + 30, COL.g, 13);
+    ball(bx, by, 9, tb * 6);
+    label("t = " + fmt(tb, 2) + " s", W - 12, 16, COL.chalk, 13, "right");
+    label("v_y = " + fmt(vyt, 1) + " m/s", W - 12, 34, COL.y, 13, "right");
+    label("vₓ = " + fmt(vx, 1) + " m/s", W - 12, 52, COL.x, 13, "right");
+  }
+  /* --- 3-qadam: havo qarshiligi --- */
+  function dDrag() {
+    bg(false);
+    var R = D.dragReal, V = D.dragVac, Lv = Math.abs(V.land.s[2]), Lr = Math.abs(R.land.s[2]);
+    var m = sideMap(Lv * 1.06, V.H * 1.35, 40, 16, 22, 34);
+    gridY(m, V.H * 1.35, 5); ground(m, Lv * 1.06, 10);
+    var tau = cycle(R.T, 1.4), tb = bT(R.T, tau);
+    pathSide(V, m, 99, "rgba(147,163,204,.55)", 2.5, [6, 6]);
+    pathSide(R, m, tau, COL.v, 3.5);
+    label("havosiz: " + fmt(Lv, 1) + " m", m.X(Lv), m.Y(0) - 14, COL.haze, 12, "right");
+    if (tau >= R.T - 1e-3) label("havo bilan: " + fmt(Lr, 1) + " m", m.X(Lr) - 6, m.Y(0) - 14, COL.v, 13, "right");
+    var s = stAt(R, tb), bx = m.X(-s[2]), by = m.Y(s[1] - PH.r), f = forcesOf(s, mkEnv({ magnus: false })), kN = Math.min(15, W / 42);
+    var dl = Math.hypot(f.d[0], f.d[1], f.d[2]), hx = -f.d[2], hy = f.d[1];
+    arrow(bx, by, bx + hx * kN, by - hy * kN, COL.d, 4);
+    arrow(bx, by, bx, by + PH.m * PH.g * kN, COL.g, 4);
+    var sp = Math.hypot(s[3], s[4], s[5]);
+    arrow(bx, by, bx + (-s[5]) / sp * 30, by - s[4] / sp * 30, "rgba(53,240,196,.8)", 2);
+    label("F_q", bx + hx * kN - 8, by - hy * kN - 12, COL.d, 13, "right");
+    label("mg", bx + 8, by + PH.m * PH.g * kN - 4, COL.g, 13);
+    ball(bx, by, 9, tb * 7);
+    label("v = " + fmt(sp, 1) + " m/s", W - 12, 16, COL.v, 13, "right");
+    label("F_q = " + fmt(dl, 2) + " N", W - 12, 34, COL.d, 13, "right");
+    label("mg = " + fmt(PH.m * PH.g, 2) + " N", W - 12, 52, COL.g, 13, "right");
+    label("C_d = " + fmt(cdOf(sp), 2), W - 12, 70, COL.haze, 12, "right");
+  }
+  /* --- tepadan ko'rinish: oldinga — o'ngga, zarba beruvchining chapi — yuqoriga --- */
+  function topMap(fwd, latMin, latMax) {
+    var padL = 26, padR = 18, padT = 30, padB = 14, s = Math.min((W - padL - padR) / fwd, (H - padT - padB) / (latMax - latMin)), cy = padT + (H - padT - padB) / 2, mid = (latMin + latMax) / 2;
+    return { X: function (z) { return padL + (-z) * s; }, Y: function (x) { return cy + (x - mid) * s; }, s: s };
+  }
+  function grassV() {
+    var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#0e2d1a"); g.addColorStop(1, "#0b2415"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    for (var i = 0; i < 16; i++) { ctx.fillStyle = i % 2 ? "rgba(52,138,57,.22)" : "rgba(46,125,50,.12)"; ctx.fillRect(i * W / 16, 0, W / 16 + 1, H); }
+  }
+  function topPath(f, M, upto, col, lw, dash, zmin) {
+    ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineCap = "round"; if (dash) ctx.setLineDash(dash); ctx.beginPath();
+    for (var k = 0; k < f.st.length; k++) { var p = f.st[k]; if (p[9] > upto || (zmin != null && p[2] < zmin)) break; if (k) ctx.lineTo(M.X(p[2]), M.Y(p[0])); else ctx.moveTo(M.X(p[2]), M.Y(p[0])); }
+    ctx.stroke(); ctx.restore();
+  }
+  /* --- 4-qadam: Magnus --- */
+  function dMagTop() {
+    grassV();
+    var C = D.curl, S = D.curlStraight, M = topMap(27.2, -4.4, 4.4);
+    // darvoza (o'ngda) va to'r
+    ctx.strokeStyle = "rgba(255,255,255,.85)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(M.X(-25), 0); ctx.lineTo(M.X(-25), H); ctx.stroke();
+    ctx.fillStyle = "rgba(255,255,255,.12)"; ctx.fillRect(M.X(-25), M.Y(-3.66), 1.6 * M.s, 7.32 * M.s);
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(M.X(-25), M.Y(-3.66)); ctx.lineTo(M.X(-26.6), M.Y(-3.66)); ctx.lineTo(M.X(-26.6), M.Y(3.66)); ctx.lineTo(M.X(-25), M.Y(3.66)); ctx.stroke();
+    label("darvoza", M.X(-25.8), M.Y(3.66) + 14, COL.haze, 11, "center", false);
+    for (var i = 0; i < 4; i++) { ctx.fillStyle = "#e9475f"; ctx.beginPath(); ctx.arc(M.X(-9.15), M.Y(D.wallX - i * 0.55), Math.max(4, 0.26 * M.s), 0, 7); ctx.fill(); }
+    label("devor", M.X(-9.15), M.Y(D.wallX + 0.6) + 10, COL.haze, 11, "center", false);
+    var tau = cycle(C.T, 1.3), tb = bT(C.T, tau);
+    topPath(S, M, 99, "rgba(220,230,255,.45)", 2, [6, 6], -25.3);
+    topPath(C, M, tau, COL.m, 3.5, null, -26);
+    var q = stAt(C, tb); if (q[2] < -26) q = stAt(C, tb - 0.05);
+    var bx = M.X(q[2]), byy = M.Y(q[0]), vh = Math.hypot(q[3], q[5]), ux = -q[5] / vh, uy = q[3] / vh;
+    var f = forcesOf(q, mkEnv({})), fm = Math.hypot(f.m[0], f.m[2]) || 1, fx = -f.m[2] / fm, fy = f.m[0] / fm, nxp = -uy, nyp = ux, fn = fx * nxp + fy * nyp, br = Math.max(7, 0.5 * M.s);
+    // havo oqimi: to'pga nisbatan orqaga oqadi, kuchga teskari tomonga og'adi
+    ctx.strokeStyle = "rgba(200,225,255,.42)"; ctx.lineWidth = 1.5;
+    for (var j = -1; j <= 1; j += 2) { ctx.beginPath(); for (var u = 0; u <= 1.001; u += 0.1) { var off = j * (br + 9) - fn * u * u * 16, lx = bx + ux * (br + 2) - ux * u * 58 + nxp * off, ly = byy + uy * (br + 2) - uy * u * 58 + nyp * off; if (u === 0) ctx.moveTo(lx, ly); else ctx.lineTo(lx, ly); } ctx.stroke(); }
+    arrow(bx, byy, bx + ux * 38, byy + uy * 38, COL.v, 3);
+    arrow(bx, byy, bx + fx * 36, byy + fy * 36, COL.m, 4);
+    label("v", bx + ux * 38 + 8, byy + uy * 38, COL.v, 13);
+    label("F_M", bx + fx * 36 + 8, byy + fy * 36 - 6, COL.m, 13);
+    ctx.strokeStyle = COL.w; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(bx, byy, br + 7, 0.6, 0.6 - 4.4, true); ctx.stroke();
+    var ea = 0.6 - 4.4; arrow(bx + Math.cos(ea + 0.35) * (br + 7), byy + Math.sin(ea + 0.35) * (br + 7), bx + Math.cos(ea) * (br + 7), byy + Math.sin(ea) * (br + 7), COL.w, 2.5, 8);
+    ball(bx, byy, br, -tb * 2 * Math.PI * 9 * 0.25);
+    label("ω", bx + br + 10, byy + br + 8, COL.w, 13);
+    label("Tepadan ko'rinish · o'ng tomoniga urildi → chapga (yuqoriga) buriladi", 10, 15, COL.chalk, W < 520 ? 11 : 12.5, "left");
+    if (tau >= C.T - 1e-3 || RM) label("burilish ≈ " + fmt(Math.abs(D.curlDev), 1) + " m (uzuq chiziq — aylanishsiz yo'nalish)", W / 2, H - 14, COL.m, 12, "center");
+  }
+  function dMagSide() {
+    bg(false);
+    var A = [D.sBack, D.sNone, D.sTop], cols = [COL.y, COL.haze, COL.g], names = ["backspin: suzadi", "aylanishsiz", "topspin: sho'ng'iydi"];
+    var xm = Math.abs(D.sBack.land.s[2]) * 1.06, ym = D.sBack.H * 1.25;
+    var m = sideMap(xm, ym, 40, 16, 22, 34); gridY(m, ym, 2); ground(m, xm, 10);
+    var Tm = Math.max(D.sBack.T, D.sNone.T, D.sTop.T), tau = cycle(Tm, 1.3), tb = bT(D.sTop.T, tau);
+    A.forEach(function (f, i) {
+      pathSide(f, m, tau, cols[i], i === 1 ? 2.5 : 3.5, i === 1 ? [6, 6] : null);
+      var tt = Math.min(tb, f.T), s = stAt(f, tt), bx = m.X(-s[2]), by = m.Y(s[1] - PH.r);
+      if (i !== 1 && tt < f.T) { var fo = forcesOf(s, mkEnv({})), k = Math.min(16, W / 40); arrow(bx, by, bx - fo.m[2] * k, by - fo.m[1] * k, COL.m, 3.5); }
+      ball(bx, by, 8, (i === 0 ? -1 : i === 2 ? 1 : 0) * tt * 12);
+      if (tau >= f.T - 1e-3 || RM) label(names[i] + " · " + fmt(Math.abs(f.land.s[2]), 1) + " m", m.X(Math.abs(f.land.s[2])), m.Y(0) - 14 - i * 16, cols[i], 12, "right");
+    });
+    label("v = 26 m/s, α = 14°, 8 ayl/s", W - 12, 16, COL.chalk, 12.5, "right");
+    label("binafsha strelka — Magnus kuchi F_M", W - 12, 34, COL.m, 12, "right");
+  }
+  /* --- 5-qadam: shamol --- */
+  function particles(dx, dy, t) {
+    ctx.strokeStyle = "rgba(79,209,255,.45)"; ctx.lineWidth = 2; ctx.lineCap = "round";
+    D.parts.forEach(function (p) {
+      var sp = 0.18 * p[2], x, y;
+      if (dy) { x = p[0] * W; y = ((p[1] + t * sp * dy) % 1 + 1) % 1 * H; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y - dy * 18 * p[2]); ctx.stroke(); }
+      else { x = ((p[0] + t * sp * dx) % 1 + 1) % 1 * W; y = p[1] * (H - 60) + 10; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - dx * 18 * p[2], y); ctx.stroke(); }
+    });
+  }
+  function dWind(t) {
+    var sub = st.sub4;
+    if (sub === "cross") {
+      grassV();
+      var N = D.wNone, C = D.wCross, fw = Math.abs(N.land.s[2]) * 1.05, M = topMap(fw, -3, 5.5);
+      if (!RM) particles(0, 1, t);
+      var tau = cycle(Math.max(N.T, C.T), 1.3), tb = bT(C.T, tau);
+      ctx.save(); ctx.setLineDash([6, 6]); ctx.strokeStyle = "rgba(220,230,255,.5)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(M.X(0), M.Y(0)); ctx.lineTo(M.X(N.land.s[2]), M.Y(N.land.s[0])); ctx.stroke(); ctx.restore();
+      topPath(C, M, tau, COL.v, 3.5);
+      var q = stAt(C, Math.min(tb, C.T)); ball(M.X(q[2]), M.Y(q[0]), 8, tb * 5);
+      arrow(W - 40, 26, W - 40, 70, COL.w, 4); label("shamol 8 m/s", W - 50, 48, COL.w, 13, "right");
+      label("Tepadan ko'rinish · yon shamol", 10, 15, COL.chalk, 12.5, "left");
+      if (tau >= C.T - 1e-3 || RM) label("yonga surildi: " + fmt(C.land.s[0], 1) + " m", M.X(C.land.s[2]) - 6, M.Y(C.land.s[0]) + 18, COL.v, 13, "right");
+      label("shamolsiz", M.X(N.land.s[2]) - 6, M.Y(N.land.s[0]) - 12, COL.haze, 11.5, "right", false);
+      return;
+    }
+    bg(false);
+    var W2 = sub === "head" ? D.wHead : D.wTail, Nn = D.wNone, xm = Math.max(Math.abs(Nn.land.s[2]), Math.abs(W2.land.s[2])) * 1.07, ym = Math.max(Nn.H, W2.H) * 1.3;
+    var m = sideMap(xm, ym, 40, 16, 22, 34); gridY(m, ym, 5); ground(m, xm, 10);
+    var dir = sub === "head" ? -1 : 1;
+    if (!RM) particles(dir, 0, t);
+    var tau2 = cycle(Math.max(Nn.T, W2.T), 1.3), tb2 = bT(W2.T, tau2);
+    pathSide(Nn, m, 99, "rgba(147,163,204,.55)", 2.5, [6, 6]);
+    pathSide(W2, m, tau2, COL.v, 3.5);
+    var q2 = stAt(W2, Math.min(tb2, W2.T)), bx = m.X(-q2[2]), by = m.Y(q2[1] - PH.r), k2 = Math.min(3, W / 220);
+    var vX = -q2[5], vY = q2[4], wX = sub === "head" ? -8 : 8;
+    if (tb2 < W2.T) {
+      arrow(bx, by, bx + vX * k2, by - vY * k2, COL.v, 3);
+      ctx.save(); ctx.setLineDash([4, 4]); arrow(bx + vX * k2, by - vY * k2, bx + (vX - wX) * k2, by - vY * k2, COL.w, 2.5); ctx.restore();
+      arrow(bx, by, bx + (vX - wX) * k2, by - vY * k2, COL.d, 3);
+      label("v", bx + vX * k2 + 4, by - vY * k2 - 12, COL.v, 13);
+      label("−w", bx + (vX - wX / 2) * k2, by - vY * k2 - 12, COL.w, 12, "center");
+      label("v_nis", bx + (vX - wX) * k2 + 6, by - vY * k2 + 14, COL.d, 12);
+    }
+    ball(bx, by, 8, tb2 * 6);
+    arrow(dir > 0 ? 14 : 74, 30, dir > 0 ? 74 : 14, 30, COL.w, 4); label((sub === "head" ? "qarshi" : "orqadan") + " shamol 8 m/s", 82, 30, COL.w, 13);
+    if (tau2 >= W2.T - 1e-3 || RM) {
+      var d = Math.abs(W2.land.s[2]) - Math.abs(Nn.land.s[2]);
+      label("shamolsiz: " + fmt(Math.abs(Nn.land.s[2]), 1) + " m", W - 12, 54, COL.haze, 12, "right");
+      label("shamol bilan: " + fmt(Math.abs(W2.land.s[2]), 1) + " m (" + (d > 0 ? "+" : "") + fmt(d, 1) + " m)", W - 12, 72, COL.v, 13, "right");
+    }
+  }
+  /* --- 6-qadam: raqamlar --- */
+  function dNum() {
+    bg(false);
+    var narrow = W < 520, R = narrow ? Math.min(H * 0.22, 54) : Math.min(H * 0.3, W * 0.13), cx = narrow ? W * 0.5 : W * 0.22, cy = narrow ? R + 24 : H * 0.48;
+    ctx.fillStyle = "rgba(79,209,255,.10)"; ctx.beginPath(); ctx.ellipse(cx, cy, R * 1.0, R * 0.32, 0, 0, 7); ctx.fill();
+    ball(cx, cy, R, 0.4);
+    ctx.strokeStyle = COL.amber; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx - R, cy + R + 12); ctx.lineTo(cx + R, cy + R + 12); ctx.stroke();
+    arrow(cx, cy + R + 12, cx - R, cy + R + 12, COL.amber, 2, 7); arrow(cx, cy + R + 12, cx + R, cy + R + 12, COL.amber, 2, 7);
+    label("d = 22 sm", cx, cy + R + 26, COL.amber, 13, "center");
+    if (!narrow) { label("m = 0,43 kg", cx, cy - R - 16, COL.chalk, 14, "center"); label("A = πr² ≈ 0,038 m²", cx, cy + R + 44, COL.w, 12.5, "center"); }
+    else label("m = 0,43 kg · A ≈ 0,038 m²", cx, 12, COL.chalk, 12, "center");
+    var v = st.v6, w = 2 * Math.PI * 10, S = PH.r * w / v, Fg = PH.m * PH.g, Fd = 0.5 * PH.rho * cdOf(v) * PH.A * v * v, Fm = 0.5 * PH.rho * clOf(S) * PH.A * v * v;
+    var x0 = narrow ? 92 : W * 0.46, y0 = narrow ? cy + R + 48 : H * 0.24, bw = W - x0 - 70, bh = narrow ? 22 : 30, gap = narrow ? 12 : 22, mx = 12;
+    var rows = [["og'irlik mg", Fg, COL.g], ["qarshilik F_q", Fd, COL.d], ["Magnus F_M", Fm, COL.m]];
+    label("v = " + fmt(v, 0) + " m/s (" + fmt(v * 3.6, 0) + " km/soat), 10 ayl/s", narrow ? 10 : x0, y0 - 18, COL.chalk, 13, "left");
+    rows.forEach(function (r, i) {
+      var y = y0 + i * (bh + gap);
+      ctx.fillStyle = "rgba(147,163,204,.12)"; ctx.fillRect(x0, y, bw, bh);
+      ctx.fillStyle = r[2]; ctx.fillRect(x0, y, Math.min(bw, bw * r[1] / mx), bh);
+      label(r[0], x0 - 6, y + bh / 2, r[2], 12, "right");
+      label(fmt(r[1], 2) + " N", x0 + Math.min(bw, bw * r[1] / mx) + 6, y + bh / 2, COL.chalk, 12.5);
+    });
+  }
+  /* --- matnlar --- */
+  var TXT = [
+    function () { return '<h3>1. Tezlikni ikki qismga ajratamiz</h3><p>Oyoq to\'pga <span class="cv">v</span> tezlik beradi. U yerga nisbatan <b>α</b> burchak ostida yo\'nalgan. Bu tezlikni ikki <b>tashkil etuvchiga</b> ajratamiz:</p>' +
+      '<p class="fml"><span class="cx">vₓ</span> = <span class="cv">v</span>·cos α = 25·cos <span class="ln" style="min-width:1.3em" id="n-a">38</span>° = <span class="cx"><span class="ln" id="n-vx">19,7</span> m/s</span></p>' +
+      '<p class="fml"><span class="cy">v<sub>y</sub></span> = <span class="cv">v</span>·sin α = 25·sin <span class="ln" style="min-width:1.3em" id="n-a2">38</span>° = <span class="cy"><span class="ln" id="n-vy">15,4</span> m/s</span></p>' +
+      '<p>Gorizontal qism <span class="cx">vₓ</span> to\'pni oldinga olib boradi, vertikal qism <span class="cy">v<sub>y</sub></span> esa yuqoriga ko\'taradi. α oshsa — to\'p balandroq, lekin sekinroq oldinga uchadi.</p>' +
+      '<p class="note">Pifagor bilan tekshiring: vₓ² + v<sub>y</sub>² = <span class="ln" id="n-chk">625</span> = 25² ✓</p>'; },
+    function () { var a = clamp(st.alpha, 10, 80), r = a * DEG, v = 20; return '<h3>2. Og\'irlik kuchi → parabola</h3><p>Havo bo\'lmasa, to\'pga faqat <span class="cg">og\'irlik kuchi mg</span> ta\'sir qiladi — u doim pastga yo\'nalgan. Shuning uchun:</p><ul><li><span class="cx">vₓ</span> o\'zgarmaydi — nuqtalar (har 0,1 s) orasidagi gorizontal masofa bir xil;</li><li><span class="cy">v<sub>y</sub></span> har soniyada g = 9,81 m/s ga kamayadi, cho\'qqida 0 ga teng.</li></ul>' +
+      '<p class="fml">x = <span class="cx">vₓ</span>·t, &nbsp; y = <span class="cy">v<sub>y</sub></span>·t − <span class="cg">g</span>t²/2</p><p class="fml">y = x·tg α − <span class="cg">g</span>x² / (2v²cos²α) <small>— parabola</small></p>' +
+      '<p class="fml">H = v²sin²α / (2g) = ' + fmt(v * v * Math.sin(r) * Math.sin(r) / (2 * PH.g), 1) + ' m, &nbsp; L = v²·sin 2α / g = ' + fmt(v * v * Math.sin(2 * r) / PH.g, 1) + ' m</p><p class="note">v = 20 m/s, α = ' + fmt(a, 0) + '°. Slayder bilan α ni o\'zgartiring: 45° da L eng katta.</p>'; },
+    function () { var R = D.dragReal, V = D.dragVac, F = 0.5 * PH.rho * cdOf(28) * PH.A * 28 * 28; return '<h3>3. Havo qarshiligi — nega parabola buziladi</h3><p>Haqiqiy to\'p havoni itarib o\'tadi. <span class="cd">Qarshilik kuchi</span> tezlikka teskari yo\'nalgan va tezlik <b>kvadratiga</b> proporsional:</p>' +
+      '<p class="fml"><span class="cd">F<sub>q</sub></span> = ½ ρ C<sub>d</sub> A v²</p><p>ρ = 1,2 kg/m³ — havo zichligi, A = 0,038 m² — to\'pning kesim yuzasi, C<sub>d</sub> ≈ 0,24 — qarshilik koeffitsienti.</p>' +
+      '<p class="fml">v = 28 m/s: F<sub>q</sub> = ½·1,2·0,24·0,038·28² ≈ <span class="cd">' + fmt(F, 1) + ' N</span></p><p>Bu to\'pning og\'irligidan (<span class="cg">mg = 4,2 N</span>) ham katta! Natija: to\'p ' + fmt(Math.abs(V.land.s[2]) - Math.abs(R.land.s[2]), 0) + ' m qisqa uchadi, cho\'qqi oldinroqda, tushishi esa tikroq. Shuning uchun haqiqiy zarba — mukammal parabola emas.</p>'; },
+    function () { var s = launch([0, PH.r, 0], 25, 0, 0, [0, 2 * Math.PI * 10.5, 0]), f = forcesOf(s, mkEnv({})), Fm = Math.hypot(f.m[0], f.m[1], f.m[2]);
+      return '<h3>4. Aylanish va Magnus kuchi</h3><p>Aylanayotgan to\'p bir tomonidagi havoni o\'zi bilan ergashtiradi, ikkinchi tomonida unga qarshi harakatlanadi. Bosimlar farqi <span class="cm">Magnus kuchini</span> hosil qiladi:</p>' +
+      '<p class="fml"><span class="cm">F<sub>M</sub></span> = ½ ρ C<sub>L</sub> A v² &nbsp;<small>yo\'nalishi:</small> <span class="cm">F<sub>M</sub></span> ∝ <span class="cw">ω</span> × <span class="cv">v</span></p><p>Kuch tezlikka ham, aylanish o\'qiga ham <b>perpendikulyar</b>. C<sub>L</sub> ≈ 0,1–0,3 — aylanish parametriga S = rω/v bog\'liq.</p>' +
+      (st.sub3 === "top" ? '<p>To\'pni <b>o\'ng</b> tomonidan ursangiz, u tepadan qaraganda soat miliga teskari aylanadi va <b>chapga</b> buriladi — «banan» zarba devorni aylanib o\'tadi.</p>' : '<p><b>Tepasidan</b> urilgan to\'p (topspin) pastga bosiladi va keskin sho\'ng\'iydi. <b>Pastidan</b> urilgan to\'p (backspin) ko\'tarish kuchi oladi va uzoqroq «suzadi».</p>') +
+      '<p class="note">Rasmdagi zarba: v = 25 m/s, 10,5 ayl/s (630 ayl/min): S = ' + fmt(PH.r * 2 * Math.PI * 10.5 / 25, 2) + ', C<sub>L</sub> ≈ ' + fmt(f.cl, 2) + ', F<sub>M</sub> ≈ ' + fmt(Fm, 1) + ' N — 25 m da ' + fmt(Math.abs(D.curlDev), 1) + ' m burilish.</p>'; },
+    function () { var n = Math.abs(D.wNone.land.s[2]), h = Math.abs(D.wHead.land.s[2]), tl = Math.abs(D.wTail.land.s[2]);
+      return '<h3>5. Shamol — havo ham harakatlanadi</h3><p>Qarshilik va Magnus kuchi to\'pning yerga nisbatan emas, <b>havoga nisbatan</b> tezligiga bog\'liq:</p><p class="fml"><span class="cd">v<sub>nis</sub></span> = <span class="cv">v</span> − <span class="cw">w</span>, &nbsp; <span class="cd">F<sub>q</sub></span> = −½ρC<sub>d</sub>A·|v<sub>nis</sub>|·v<sub>nis</sub></p>' +
+      '<ul><li><b>Qarshi shamol:</b> |v<sub>nis</sub>| katta → qarshilik kuchli → ' + fmt(n, 0) + ' m o\'rniga ' + fmt(h, 0) + ' m.</li><li><b>Orqadan shamol:</b> |v<sub>nis</sub>| kichik → to\'p uzoqroq: ' + fmt(tl, 0) + ' m.</li><li><b>Yon shamol:</b> v<sub>nis</sub> yonga og\'adi → qarshilikning yon qismi to\'pni shamol tomonga suradi.</li></ul><p class="note">Shuning uchun shamolda nishonni shamolga qarshi tomonga biroz siljitib olish kerak.</p>'; },
+    function () { var T = window.kaFutbol && window.kaFutbol._test; return '<h3>6. Haqiqiy to\'p raqamlari</h3><table class="ntbl"><tr><td>Massa m</td><td>0,43 kg</td></tr><tr><td>Diametr d (radius r)</td><td>22 sm (0,11 m)</td></tr><tr><td>Kesim yuzasi A = πr²</td><td>0,038 m²</td></tr><tr><td>Havo zichligi ρ</td><td>1,2 kg/m³</td></tr><tr><td>C<sub>d</sub> (tez / sekin)</td><td>0,24 / 0,45</td></tr><tr><td>C<sub>L</sub></td><td>0,1 … 0,3</td></tr><tr><td>Og\'irlik mg</td><td>4,2 N</td></tr></table>' +
+      '<p class="fml">m·<b>a</b> = m·<span class="cg">g</span> + <span class="cd">F<sub>q</sub></span> + <span class="cm">F<sub>M</sub></span></p><p>Bu tenglamani kompyuter har <b>1/240 s</b> da Runge–Kutta (RK4) usulida qadam-baqadam yechadi.</p>' +
+      (T ? '<p class="note">✅ Tekshiruv: havosiz va aylanishsiz holatda RK4 parabola formulasidan atigi ' + sci(T.parabolaMaxErr_mm) + ' mm farq qiladi (amalda nol — faqat kompyuter yaxlitlashi); uchish uzoqligi L = v²sin2α/g bilan ' + sci(T.rangeErr_mm) + ' mm aniqlikda mos.</p>' : '') + '<p class="note">Slayder bilan tezlikni o\'zgartiring: og\'irlik o\'zgarmaydi, qarshilik va Magnus esa v² bilan o\'sadi.</p>'; }
+  ];
+  function buildCtl() {
+    var k = STEPS[cur].k, h = "";
+    if (k === "comp" || k === "par") h = '<div class="rng"><label for="ex-a">Burchak α <b id="ex-av">' + Math.round(st.alpha) + '°</b></label><input type="range" id="ex-a" min="10" max="80" step="1" value="' + Math.round(st.alpha) + '"></div>' + (k === "comp" ? '<button class="btn sm' + (st.auto ? ' on' : '') + '" type="button" id="ex-auto">▶ Avto</button>' : '');
+    else if (k === "mag") h = '<div class="seg"><button class="btn sm' + (st.sub3 === "top" ? " on" : "") + '" data-s3="top" type="button">🍌 Tepadan: banan</button><button class="btn sm' + (st.sub3 === "side" ? " on" : "") + '" data-s3="side" type="button">↕ Yondan: topspin/backspin</button></div>';
+    else if (k === "wind") h = '<div class="seg"><button class="btn sm' + (st.sub4 === "head" ? " on" : "") + '" data-s4="head" type="button">⬅ Qarshi</button><button class="btn sm' + (st.sub4 === "tail" ? " on" : "") + '" data-s4="tail" type="button">➡ Orqadan</button><button class="btn sm' + (st.sub4 === "cross" ? " on" : "") + '" data-s4="cross" type="button">↗ Yondan</button></div>';
+    else if (k === "num") h = '<div class="rng"><label for="ex-v">Tezlik v <b id="ex-vv">' + st.v6 + ' m/s</b></label><input type="range" id="ex-v" min="5" max="40" step="1" value="' + st.v6 + '"></div>';
+    else h = '<span class="muted" style="color:var(--haze);font-size:13.5px">Kulrang uzuq chiziq — havosiz parabola, yashil — haqiqiy yo\'l.</span>';
+    ctl.innerHTML = h;
+  }
+  ctl.addEventListener("input", function (ev) {
+    var t = ev.target;
+    if (t.id === "ex-a") { st.alpha = +t.value; st.auto = false; var b = $("ex-auto"); if (b) b.classList.remove("on"); $("ex-av").textContent = t.value + "°"; if (STEPS[cur].k === "par") txt.innerHTML = TXT[1](); tStart = performance.now(); wake(); }
+    if (t.id === "ex-v") { st.v6 = +t.value; $("ex-vv").textContent = t.value + " m/s"; wake(); }
+  });
+  ctl.addEventListener("click", function (ev) {
+    var b = ev.target.closest("button"); if (!b) return;
+    if (b.id === "ex-auto") { st.auto = !st.auto; b.classList.toggle("on", st.auto); }
+    if (b.dataset.s3) { st.sub3 = b.dataset.s3; buildCtl(); txt.innerHTML = TXT[3](); tStart = performance.now(); }
+    if (b.dataset.s4) { st.sub4 = b.dataset.s4; buildCtl(); tStart = performance.now(); }
+    wake();
+  });
+  function setStep(i) {
+    cur = clamp(i, 0, STEPS.length - 1); tStart = performance.now();
+    Array.prototype.forEach.call(stepsEl.children, function (b, j) { b.setAttribute("aria-selected", j === cur ? "true" : "false"); b.tabIndex = j === cur ? 0 : -1; });
+    var sb = stepsEl.children[cur]; if (sb && sb.scrollIntoView && stepsEl.scrollWidth > stepsEl.clientWidth) stepsEl.scrollLeft = Math.max(0, sb.offsetLeft - stepsEl.clientWidth / 2 + sb.offsetWidth / 2);
+    $("ex-count").textContent = (cur + 1) + " / " + STEPS.length;
+    $("ex-prev").disabled = cur === 0; $("ex-next").textContent = cur === STEPS.length - 1 ? "3D o'yinga ⚽" : "Keyingi →";
+    txt.innerHTML = TXT[cur](); buildCtl(); lastTxt = 0; draw(); wake();
+  }
+  function resize() {
+    var w = cv.parentNode.clientWidth || 600, h = w < 560 ? Math.round(clamp(w * 0.74, 250, 330)) : Math.round(clamp(w * 0.55, 300, 420)), d = DPR();
+    if (Math.abs(w - W) < 1 && Math.abs(h - H) < 1 && cv.width === Math.round(w * d)) return;
+    W = w; H = h; cv.style.height = h + "px"; cv.width = Math.round(w * d); cv.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0); draw();
+  }
+  function draw() {
+    var t = (performance.now() - tStart) / 1000, k = STEPS[cur].k;
+    ctx.save();
+    if (k === "comp") dComp(t); else if (k === "par") dPar(t); else if (k === "drag") dDrag(t);
+    else if (k === "mag") { if (st.sub3 === "top") dMagTop(t); else dMagSide(t); }
+    else if (k === "wind") dWind(t); else dNum(t);
+    ctx.restore();
+  }
+  function loop() { raf = 0; if (!visible || document.hidden) return; draw(); if (!RM) raf = requestAnimationFrame(loop); }
+  function wake() { if (RM) { draw(); return; } if (!raf && visible && !document.hidden) raf = requestAnimationFrame(loop); }
+  function init() {
+    prep();
+    stepsEl.innerHTML = STEPS.map(function (s, i) { return '<button class="step" role="tab" type="button" aria-selected="false" data-i="' + i + '"><i>' + (i + 1) + '</i>' + s.n + '</button>'; }).join("");
+    stepsEl.addEventListener("click", function (ev) { var b = ev.target.closest(".step"); if (b) setStep(+b.dataset.i); });
+    stepsEl.addEventListener("keydown", function (ev) { if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); setStep(cur + (ev.key === "ArrowRight" ? 1 : -1)); stepsEl.children[cur].focus(); } });
+    $("ex-prev").addEventListener("click", function () { setStep(cur - 1); });
+    $("ex-next").addEventListener("click", function () { if (cur === STEPS.length - 1) { var l = $("labsec"); if (l) l.scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" }); } else setStep(cur + 1); });
+    resize(); setStep(0);
+    window.addEventListener("resize", resize);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) wake(); }, { rootMargin: "60px" }).observe(cv);
+    else { visible = true; wake(); }
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
+  }
+  return { init: init, setStep: setStep, refresh: function () { txt.innerHTML = TXT[cur](); }, data: D, state: st };
+})();
+
+/* ================= 4. O'yin: vaziyatlar (setup) ================= */
+var GOAL = { hw: 3.66, h: 2.44, depth: 1.8, post: 0.06 };
+var ZK = 0.45;            // darvozabon tekisligi (darvoza chizig'idan 0,45 m oldinda)
+var MODES = {
+  fk: { name: "Jarima zarbasi", icon: "🎯" },
+  wind: { name: "Shamolli o'yin", icon: "🌬" },
+  corner: { name: "Burchak to'pi", icon: "⚽" },
+  angle: { name: "Burchak mashqi", icon: "📐" },
+  free: { name: "Erkin tajriba", icon: "🧪" }
+};
+var ZNAME = { TL: "chap yuqori burchak", TR: "o'ng yuqori burchak", BL: "chap pastki burchak", BR: "o'ng pastki burchak", L: "darvozaning chap yarmi", R: "darvozaning o'ng yarmi" };
+function zoneRect(k, w, h) {
+  var x0 = -GOAL.hw + 0.08, x1 = GOAL.hw - 0.08, y0 = 0.1, y1 = GOAL.h - 0.08;
+  if (k === "L") return { k: k, x0: x0, x1: -0.05, y0: y0, y1: y1 };
+  if (k === "R") return { k: k, x0: 0.05, x1: x1, y0: y0, y1: y1 };
+  var left = k[1] === "L", top = k[0] === "T";
+  return { k: k, x0: left ? x0 : x1 - w, x1: left ? x0 + w : x1, y0: top ? y1 - h : y0, y1: top ? y1 : y0 + h };
+}
+function yawTo(b, tx, tz) { return Math.atan2(tx - b[0], b[2] - tz); }
+function makeWall(b, n, J, nearSign) {
+  var L = Math.hypot(b[0], b[2]), nx = -b[0] / L, nz = -b[2] / L, tx = -nz, tz = nx;
+  var cx = b[0] + nx * 9.15, cz = b[2] + nz * 9.15;
+  var ns = nearSign || (b[0] > 0.6 ? 1 : b[0] < -0.6 ? -1 : (Math.random() < 0.5 ? -1 : 1));
+  var px = ns * GOAL.hw - b[0], pz = -b[2], pl = Math.hypot(px, pz); px /= pl; pz /= pl;
+  var sAlong = 9.15 / (px * nx + pz * nz), Px = b[0] + px * sAlong, Pz = b[2] + pz * sAlong;
+  var unp = (Px - cx) * tx + (Pz - cz) * tz, o = unp >= 0 ? 1 : -1, us = [];
+  for (var i = 0; i < n; i++) us.push(unp + o * 0.14 - o * i * 0.56);
+  return { n: n, cx: cx, cz: cz, nx: nx, nz: nz, tx: tx, tz: tz, us: us, J: J, ns: ns };
+}
+function wallJump(W, t) { if (!W || !W.J || t < 0.1 || t > 0.72) return 0; return W.J * Math.sin(Math.PI * (t - 0.1) / 0.62); }
+function makeAngleTask(d) {
+  var T = { d: d }, vac = mkEnv({ drag: false, magnus: false });
+  if (d === 1 || d === 2) { T.env = vac; T.v = pick([18, 20, 22]); }
+  else { T.v = pick([20, 22, 24]); T.env = mkEnv({ magnus: false }); }
+  if (d >= 5) { var ws = Math.round(rnd(4, 6.5) * 10) / 10, head = Math.random() < 0.5; T.env.wz = head ? ws : -ws; T.wind = { s: ws, head: head }; }
+  T.kind = (d === 2 || d === 4 || d === 6) ? "max" : "land";
+  T.drag = !!T.env.drag;
+  var o = T.drag ? optAngle(T.v, T.env) : { a: 45, R: T.v * T.v / PH.g };
+  T.aopt = o.a; T.Rmax = o.R;
+  if (T.kind === "land") {
+    T.L = Math.round(rnd(0.5, 0.9) * T.Rmax); T.tol = 1.5;
+    if (!T.drag) { T.a1 = 0.5 * Math.asin(clamp(PH.g * T.L / (T.v * T.v), 0, 1)) / DEG; T.a2 = 90 - T.a1; }
+  } else {
+    T.tol = 2;
+    T.Rok = Math.min(rangeOf(T.v, T.aopt - 2, T.env), rangeOf(T.v, T.aopt + 2, T.env));
+  }
+  T.curve = []; T.curveVac = [];
+  for (var a = 1; a <= 89; a += 2) { T.curve.push([a, T.drag || T.wind ? rangeOf(T.v, a, T.env) : T.v * T.v * Math.sin(2 * a * DEG) / PH.g]); T.curveVac.push([a, T.v * T.v * Math.sin(2 * a * DEG) / PH.g]); }
+  return T;
+}
+function makeSetup(mode, lvl, F) {
+  var d = Math.min(lvl, 6), S = { mode: mode, lvl: lvl, d: d, wall: null, keeper: null, zone: null, bonus: [], target: null, defs: [], pred: 0, task: null };
+  var wind = [0, 0];
+  if (mode === "fk" || mode === "wind" || mode === "free") {
+    var D, X, ns = Math.random() < 0.5 ? -1 : 1;
+    if (mode === "fk") { D = [18, 20, 21, 22.5, 23.5, 24.5][d - 1] + rnd(0, 1.2); X = d === 1 ? rnd(-1.2, 1.2) : d === 2 ? rnd(-3, 3) : ns * rnd(2, 6.5); }
+    else if (mode === "wind") { D = rnd(19, 23) + d * 0.6; X = rnd(-4, 4); }
+    else { D = F.dist; X = 0; }
+    var bz = Math.sqrt(Math.max(4, D * D - X * X));
+    S.ball = [X, PH.r, bz]; S.base = yawTo(S.ball, 0, 0); S.dist = D;
+    var nW = mode === "fk" ? [3, 4, 4, 5, 5, 5][d - 1] : mode === "wind" ? (d >= 3 ? 3 : 0) : (F.wall ? 4 : 0);
+    var J = mode === "fk" ? [0, 0, 0.15, 0.2, 0.26, 0.3][d - 1] : 0;
+    if (nW) S.wall = makeWall(S.ball, nW, J);
+    var near = S.wall ? S.wall.ns : ns;
+    if (mode === "fk") {
+      var kp = [null, null, [0.55, 2.4], [0.5, 2.8], [0.45, 3.2], [0.4, 3.6]][d - 1];
+      S.keeper = { x0: -near * 0.45, react: kp ? kp[0] : 0, vk: kp ? kp[1] : 0, active: !!kp };
+      if (d === 1) S.bonus = ["TL", "TR", "BL", "BR"].map(function (k) { return zoneRect(k, 1.8, 1.0); });
+      else {
+        var sz = [[2, 1.1], [2, 1.1], [1.8, 1.05], [1.65, 1.0], [1.5, 0.95], [1.4, 0.9]][d - 1];
+        var far = near > 0 ? "L" : "R", nr = near > 0 ? "R" : "L", ks = d === 2 ? ["T" + far, "B" + far] : ["T" + far, "B" + far, "T" + nr];
+        S.zone = zoneRect(pick(ks), sz[0], sz[1]);
+      }
+      S.pred = [0.55, 0.3, 0, 0, 0, 0][d - 1];
+    } else if (mode === "wind") {
+      S.keeper = { x0: rnd(-0.4, 0.4), react: 0, vk: 0, active: false };
+      var wr = [[2.5, 4], [3.5, 6], [4.5, 7.5], [5.5, 9], [6.5, 10], [7, 11]][d - 1], ws = rnd(wr[0], wr[1]), wa = rnd(0, 2 * Math.PI);
+      wind = [Math.cos(wa) * ws, Math.sin(wa) * ws];
+      if (d === 1) S.zone = zoneRect(pick(["L", "R"]));
+      else { var sz2 = d === 2 ? [2, 1.2] : [[2, 1.1], [1.7, 1.0], [1.5, 0.95], [1.3, 0.9]][Math.min(3, d - 3)]; S.zone = zoneRect(pick(["TL", "TR", "BL", "BR"]), sz2[0], sz2[1]); }
+      S.pred = [0.45, 0.25, 0, 0, 0, 0][d - 1];
+    } else {
+      S.keeper = null; S.pred = F.full ? 1 : 0.35;
+      var wm = { head: [0, -6], tail: [0, 6], left: [6, 0], right: [-6, 0] }[F.wind];
+      if (wm) wind = [wm[0], -wm[1]];
+    }
+    S.env = mode === "free" ? mkEnv({ drag: F.drag, magnus: F.mag, wx: wind[0], wz: wind[1] }) : mkEnv({ wx: wind[0], wz: wind[1] });
+    S.yawMax = 25; S.angMax = 45;
+  } else if (mode === "corner") {
+    var side = d <= 2 ? 1 : (Math.random() < 0.5 ? -1 : 1);
+    S.side = side; S.ball = [side * 33.6, PH.r, 0.45];
+    var tg = [[0, 7.5, 1.8], [-side * 2.2, 5.0, 1.5], [side * 2.0, 4.0, 1.3]];
+    var T = d <= 3 ? tg[d - 1].slice() : pick(tg).slice(); if (d >= 4) T[2] = [1.2, 1.05, 0.9][Math.min(2, d - 4)];
+    S.target = { x: T[0], z: T[1], R: T[2], y0: 0.4, y1: 2.7, req: [0.6, 0.9, 1.1, 1.3, 1.4, 1.5][d - 1] };
+    S.base = yawTo(S.ball, T[0], T[1]); S.dist = Math.hypot(S.ball[0] - T[0], S.ball[2] - T[1]);
+    if (d >= 3) S.defs.push([S.ball[0] + (T[0] - S.ball[0]) * 0.55, S.ball[2] + (T[1] - S.ball[2]) * 0.55]);
+    if (d >= 4) S.defs.push([side * 3.1, 1.4]);
+    if (d >= 5) { var cs = rnd(3, 5), ca = rnd(0, 2 * Math.PI); wind = [Math.cos(ca) * cs, Math.sin(ca) * cs]; }
+    S.env = mkEnv({ wx: wind[0], wz: wind[1] });
+    S.pred = [0.5, 0.3, 0, 0, 0, 0][d - 1]; S.yawMax = 35; S.angMax = 45;
+    S.keeper = { x0: side * 0.6, react: 0, vk: 0, active: false };
+  } else {
+    S.task = makeAngleTask(d); S.ball = [0, PH.r, 62]; S.base = 0; S.env = S.task.env; S.yawMax = 0; S.angMax = 85;
+    wind = [S.task.env.wx, S.task.env.wz];
+  }
+  S.wind = wind;
+  return S;
+}
+
+/* ================= 5. Zarbani hisoblash (to'qnashuvlar bilan) ================= */
+var WMAX = 2 * Math.PI * 11;   // 11 ayl/s — eng kuchli aylanish
+function kickState(S, A) {
+  if (S.mode === "angle") return launch(S.ball, S.task.v, 0, A.ang * DEG, null);
+  var v = A.pow / 3.6, off2 = A.cx * A.cx + A.cy * A.cy, veff = v * (1 - 0.12 * off2);
+  var psi = S.base + A.yaw * DEG, al = A.ang * DEG, wm = WMAX * Math.min(1.15, v / 28);
+  var Rx = Math.cos(psi), Rz = Math.sin(psi), wr = -A.cy * wm * 0.85;
+  return launch(S.ball, veff, psi, al, [Rx * wr, A.cx * wm, Rz * wr]);
+}
+function qInt(q, wx, wy, wz, dt) {
+  var wm = Math.sqrt(wx * wx + wy * wy + wz * wz); if (wm < 1e-9) return;
+  var h = wm * dt / 2, sn = Math.sin(h) / wm, ax = wx * sn, ay = wy * sn, az = wz * sn, aw = Math.cos(h);
+  var x = q[0], y = q[1], z = q[2], w = q[3];
+  q[0] = aw * x + ax * w + ay * z - az * y; q[1] = aw * y - ax * z + ay * w + az * x; q[2] = aw * z + ax * y - ay * x + az * w; q[3] = aw * w - ax * x - ay * y - az * z;
+  var n = Math.hypot(q[0], q[1], q[2], q[3]); q[0] /= n; q[1] /= n; q[2] /= n; q[3] /= n;
+}
+function segDist(px, py, ax, ay, bx, by) { var dx = bx - ax, dy = by - ay, l = dx * dx + dy * dy, u = l > 0 ? clamp(((px - ax) * dx + (py - ay) * dy) / l, 0, 1) : 0; return Math.hypot(px - ax - u * dx, py - ay - u * dy); }
+function keeperStep(K, kp, s, t, dt, e) {
+  if (!K.active || t < K.react || s[5] >= -0.5 || s[2] < ZK) return;
+  var tau = (s[2] - ZK) / (-s[5]), px = clamp(s[0] + s[3] * tau, -3.5, 3.5), py = clamp(s[1] + s[4] * tau - 0.5 * e.g * tau * tau, 0.25, 2.3);
+  var dx = px - kp.hx, dy = py - kp.hy, dl = Math.hypot(dx, dy), mv = K.vk * dt;
+  if (dl > mv) { dx *= mv / dl; dy *= mv / dl; }
+  kp.hx += dx; kp.hy += dy; kp.mv = true;
+  var bm = K.vk * 0.75 * dt; kp.bx += clamp(kp.hx - kp.bx, -bm, bm);
+  if (kp.hx - kp.bx > 1.15) kp.bx = kp.hx - 1.15; if (kp.bx - kp.hx > 1.15) kp.bx = kp.hx + 1.15;
+}
+function keeperReach(kp, x, y) {
+  var body = segDist(x, y, kp.bx, 0.2, kp.bx + (kp.hx - kp.bx) * 0.6, Math.min(1.65, Math.max(1.0, kp.hy * 0.85)));
+  if (!kp.mv) return Math.min(body - 0.27, Math.hypot(x - kp.bx + 0.62, y - 1.45) - 0.3, Math.hypot(x - kp.bx - 0.62, y - 1.45) - 0.3, segDist(x, y, kp.bx - 0.62, 1.45, kp.bx + 0.62, 1.45) - 0.12);
+  return Math.min(body - 0.27, Math.hypot(x - kp.hx, y - kp.hy) - 0.4);
+}
+function simulateShot(S, A) {
+  var e = S.env, dt = PH.dt, s = kickState(S, A), s0 = new Float64Array(s), a = new Float64Array(9), c = new Float64Array(9);
+  var q = [0, 0, 0, 1], t = 0, fr = [], R = { type: null }, ev = [], rolling = false;
+  var K = S.keeper, kp = K ? { hx: K.x0, hy: 1.3, bx: K.x0, mv: false } : null;
+  var W = S.wall, fw = W ? (s[0] - W.cx) * W.nx + (s[2] - W.cz) * W.nz : 0;
+  var crossed = false, inGoal = false, net = null, firstLand = null, postHit = null, postSt = null, tStop = 6.5;
+  var psi0 = Math.atan2(s[3], -s[5]), Rx = Math.cos(psi0), Rz = Math.sin(psi0);
+  var maxH = s[1], dev = 0, devS = 0, TG = S.target, close = { d: 1e9 }, defHit = false;
+  function push(pen) {
+    var dl = (s[0] - s0[0]) * Rx + (s[2] - s0[2]) * Rz;
+    if (!R.type && !postHit && !firstLand) { if (Math.abs(dl) > Math.abs(dev)) dev = dl; }
+    if (s[1] > maxH && !firstLand) maxH = s[1];
+    fr.push([t, s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], q[0], q[1], q[2], q[3], kp ? kp.bx : 0, kp ? kp.hx : 0, kp ? kp.hy : 0, pen || 0, maxH, dev, Math.hypot(s[0] - s0[0], s[2] - s0[2])]);
+  }
+  function decide(o) { if (!R.type || (R.type === "post" && o.type !== "post")) { o.t = o.t == null ? t : o.t; o.post = postHit; R = o; } }
+  push(0);
+  while (t < tStop) {
+    a.set(s); rk4(s, e, dt); t += dt;
+    qInt(q, s[6], s[7], s[8], dt);
+    if (kp) keeperStep(K, kp, s, t, dt, e);
+    var pen = 0;
+    /* devor */
+    if (W && (!R.type || R.type === "post")) {
+      var f = (s[0] - W.cx) * W.nx + (s[2] - W.cz) * W.nz;
+      if (fw < 0 && f >= 0) {
+        var u = crossU(a, s, dt, W.nx, 0, W.nz, W.cx * W.nx + W.cz * W.nz); interp(a, s, dt, u, c);
+        var tc = t - dt + u * dt, jh = wallJump(W, tc), lu = (c[0] - W.cx) * W.tx + (c[2] - W.cz) * W.tz, top = 1.86 + jh, hitW = false;
+        for (var i = 0; i < W.us.length; i++) {
+          var du = Math.abs(lu - W.us[i]);
+          if ((c[1] < 1.62 + jh + PH.r * 0.3 && du < 0.27 + PH.r * 0.8) || (c[1] < top + PH.r * 0.5 && du < 0.14 + PH.r * 0.7)) hitW = true;
+        }
+        if (hitW) {
+          s.set(c); var vn = s[3] * W.nx + s[5] * W.nz;
+          s[3] -= 1.35 * vn * W.nx; s[5] -= 1.35 * vn * W.nz; s[4] = s[4] * 0.5 + 1; s[6] *= 0.3; s[7] *= 0.3; s[8] *= 0.3;
+          decide({ type: "wall", t: tc, y: c[1], top: top, jump: jh, lu: lu, st: Array.prototype.slice.call(c) });
+        }
+      }
+      fw = (s[0] - W.cx) * W.nx + (s[2] - W.cz) * W.nz;
+    }
+    /* himoyachilar (burchak to'pi) */
+    if (S.defs.length && !defHit && (!R.type)) {
+      for (var j = 0; j < S.defs.length; j++) {
+        var dd = S.defs[j], dx = s[0] - dd[0], dz = s[2] - dd[1], dh = Math.hypot(dx, dz);
+        if (dh < 0.3 + PH.r && s[1] < 2.3 + PH.r * 0.5) {
+          defHit = true; var cst = Array.prototype.slice.call(s), nx = dx / dh, nz = dz / dh, vn2 = s[3] * nx + s[5] * nz;
+          if (vn2 < 0) { s[3] -= 1.5 * vn2 * nx; s[5] -= 1.5 * vn2 * nz; } s[3] *= 0.5; s[5] *= 0.5; s[4] = Math.abs(s[4]) * 0.4 + 3;
+          decide({ type: "defender", y: cst[1], st: cst, def: j });
+        }
+      }
+    }
+    /* nishon (burchak to'pi) */
+    if (TG && !R.type && !firstLand) {
+      var hd = Math.hypot(s[0] - TG.x, s[2] - TG.z);
+      if (hd < close.d) close = { d: hd, y: s[1], t: t, x: s[0], z: s[2], st: Array.prototype.slice.call(s) };
+      if (hd <= TG.R && s[1] >= TG.y0 && s[1] <= TG.y1) {
+        var cst2 = Array.prototype.slice.call(s);
+        if (Math.abs(dev) >= TG.req) {
+          decide({ type: "target", d: hd, y: s[1], dev: dev, st: cst2 });
+          var gx = clamp(s[0] * 0.25 + rnd(-1.8, 1.8), -3, 3), gy = rnd(0.5, 2.0), gz = -0.6, ddx = gx - s[0], ddy = gy - s[1], ddz = gz - s[2], dl = Math.hypot(ddx, ddy, ddz);
+          s[3] = ddx / dl * 14; s[4] = ddy / dl * 14 + 2.2; s[5] = ddz / dl * 14; s[6] = s[7] = s[8] = 0;
+        } else decide({ type: "curve", d: hd, y: s[1], dev: dev, st: cst2 });
+      }
+    }
+    /* darvozabon */
+    if (kp && S.mode !== "corner" && a[2] > ZK && s[2] <= ZK && (!R.type || R.type === "post")) {
+      var u3 = crossU(a, s, dt, 0, 0, 1, ZK); interp(a, s, dt, u3, c);
+      if (Math.abs(c[0]) < 4.3 && keeperReach(kp, c[0], c[1]) < PH.r) {
+        s.set(c); var sd = c[0] - kp.bx >= 0 ? 1 : -1;
+        s[5] = Math.abs(s[5]) * 0.28 + 1; s[3] = s[3] * 0.25 + sd * 2.5; s[4] = Math.abs(s[4]) * 0.3 + 1.5; s[6] *= 0.2; s[7] *= 0.2; s[8] *= 0.2;
+        decide({ type: "save", t: t - dt + u3 * dt, x: c[0], y: c[1], st: Array.prototype.slice.call(c), kx: kp.hx, ky: kp.hy });
+      }
+    }
+    /* ustun va to'sin */
+    var pr = GOAL.post + PH.r;
+    if (Math.abs(s[2]) < pr + 0.05 && s[1] < GOAL.h + pr) {
+      for (var k = -1; k <= 1; k += 2) {
+        var ppx = k * GOAL.hw, ex = s[0] - ppx, ez = s[2], ed = Math.hypot(ex, ez);
+        if (ed < pr && s[1] < GOAL.h + 0.03) { var enx = ex / ed, enz = ez / ed, evn = s[3] * enx + s[5] * enz; if (evn < 0) { s[3] -= 1.6 * evn * enx; s[5] -= 1.6 * evn * enz; } s[0] = ppx + enx * pr; s[2] = enz * pr; if (!postHit) { postHit = "post"; postSt = Array.prototype.slice.call(s); ev.push({ t: t, type: "post" }); decide({ type: "post", st: postSt, x: s[0], y: s[1] }); } }
+      }
+      if (Math.abs(s[0]) <= GOAL.hw) {
+        var by = s[1] - GOAL.h, bz = s[2], bd = Math.hypot(by, bz);
+        if (bd < pr) { var bny = by / bd, bnz = bz / bd, bvn = s[4] * bny + s[5] * bnz; if (bvn < 0) { s[4] -= 1.6 * bvn * bny; s[5] -= 1.6 * bvn * bnz; } s[1] = GOAL.h + bny * pr; s[2] = bnz * pr; if (!postHit) { postHit = "bar"; postSt = Array.prototype.slice.call(s); ev.push({ t: t, type: "bar" }); decide({ type: "post", st: postSt, x: s[0], y: s[1] }); } }
+      }
+    }
+    /* darvoza chizig'i */
+    if (!crossed && a[2] > 0 && s[2] <= 0) {
+      crossed = true; var u4 = crossU(a, s, dt, 0, 0, 1, 0); interp(a, s, dt, u4, c);
+      var inside = Math.abs(c[0]) < GOAL.hw && c[1] < GOAL.h;
+      inGoal = inside;
+      var oxx = Math.max(0, Math.abs(c[0]) - GOAL.hw), oyy = Math.max(0, c[1] - GOAL.h);
+      if (S.mode !== "corner" && S.mode !== "angle") decide({ type: inside ? "goal" : (oyy > oxx ? "over" : "wide"), t: t - dt + u4 * dt, x: c[0], y: c[1], st: Array.prototype.slice.call(c) });
+      if (S.mode === "corner" && R.type === "target") ev.push({ t: t, type: "goal", x: c[0], y: c[1] });
+    }
+    /* to'r */
+    if (inGoal && s[2] < 0) {
+      var back = -GOAL.depth + PH.r;
+      if (s[2] < back) {
+        pen = back - s[2];
+        if (!net) { net = { t: t, x: s[0], y: s[1], v: Math.hypot(s[3], s[4], s[5]) }; ev.push({ t: t, type: "net", x: s[0], y: s[1], v: net.v }); }
+        s[5] += (1600 * pen - 20 * s[5]) * dt; s[3] *= 1 - 4 * dt; s[4] *= 1 - 3 * dt; s[6] *= 1 - 6 * dt; s[7] *= 1 - 6 * dt; s[8] *= 1 - 6 * dt;
+      }
+      if (Math.abs(s[0]) > GOAL.hw - PH.r) { s[0] = Math.sign(s[0]) * (GOAL.hw - PH.r); if (s[3] * s[0] > 0) s[3] = -s[3] * 0.25; }
+      if (s[1] > GOAL.h - PH.r) { s[1] = GOAL.h - PH.r; if (s[4] > 0) s[4] = -s[4] * 0.25; }
+    } else if (!inGoal && s[2] < 0 && s[2] > -GOAL.depth) {
+      var ax0 = Math.abs(s[0]);
+      if (ax0 > GOAL.hw && ax0 < GOAL.hw + PH.r && s[1] < GOAL.h) { s[0] = Math.sign(s[0]) * (GOAL.hw + PH.r); if (s[3] * s[0] < 0) { s[3] = -s[3] * 0.3; s[5] *= 0.5; } }
+      if (ax0 < GOAL.hw && s[1] < GOAL.h + PH.r && s[1] > GOAL.h - 0.2 && s[4] < 0) { s[1] = GOAL.h + PH.r; s[4] = -s[4] * 0.3; s[3] *= 0.6; s[5] *= 0.6; }
+    }
+    /* yer */
+    if (s[1] < PH.r) {
+      if (!firstLand && a[1] >= PH.r) { var u5 = crossU(a, s, dt, 0, 1, 0, PH.r); firstLand = { t: t - dt + u5 * dt, st: Array.prototype.slice.call(interp(a, s, dt, u5, c)) }; ev.push({ t: firstLand.t, type: "land" }); }
+      if (s[4] < -1.1) { s[1] = PH.r; s[4] = -s[4] * 0.55; s[3] *= 0.8; s[5] *= 0.8; s[6] *= 0.6; s[7] *= 0.6; s[8] *= 0.6; }
+      else {
+        s[1] = PH.r; s[4] = 0; rolling = true;
+        var hv = Math.hypot(s[3], s[5]); if (hv > 1e-6) { var nv = Math.max(0, hv - 1.4 * dt); s[3] *= nv / hv; s[5] *= nv / hv; }
+        s[6] = s[5] / PH.r * -1 * 0 + s[6] * (1 - 2 * dt); s[8] *= 1 - 2 * dt; s[7] *= 1 - 3 * dt;
+      }
+    }
+    /* reklama taxtalari va chegaralar */
+    if (s[2] < -6.4) { s[2] = -6.4; s[5] = Math.abs(s[5]) * 0.3; }
+    if (s[2] > 66) { s[2] = 66; s[5] = -Math.abs(s[5]) * 0.3; }
+    if (Math.abs(s[0]) > 37.3) { s[0] = Math.sign(s[0]) * 37.3; s[3] = -s[3] * 0.3; }
+    push(pen);
+    if (rolling && Math.hypot(s[3], s[5]) < 0.25) break;
+    if (S.mode === "angle" && firstLand && t > firstLand.t + 1.6) break;
+    if (R.type && R.type !== "post" && t > R.t + 2.6) break;
+  }
+  /* yakuniy natija */
+  if (S.mode === "angle") {
+    var Ld = firstLand ? hdist(firstLand.st, s0) : NaN;
+    R = { type: "land", t: firstLand ? firstLand.t : t, L: Ld, st: firstLand ? firstLand.st : Array.prototype.slice.call(s) };
+  } else if (S.mode === "corner") {
+    if (!R.type || R.type === "post") {
+      var cl = close, lt = cl.st ? (cl.x - TG.x) * Math.cos(S.base) + (cl.z - TG.z) * Math.sin(S.base) : 0;
+      if (cl.d > 1e8) R = { type: "short", t: t };
+      else if (cl.y > TG.y1 && cl.d <= TG.R + 0.6) R = { type: "high", t: cl.t, y: cl.y, d: cl.d, st: cl.st };
+      else if (firstLand && firstLand.t < cl.t + 0.02 && cl.d > TG.R) R = { type: "short", t: firstLand.t, d: cl.d, st: firstLand.st };
+      else R = { type: "side", t: cl.t, y: cl.y, d: cl.d, lat: lt, st: cl.st };
+    }
+  } else if (R.type === "post") {
+    R.post = postHit;
+  } else if (!R.type) {
+    R = { type: "short", t: t, st: Array.prototype.slice.call(s), post: postHit };
+  }
+  return { fr: fr, R: R, ev: ev, s0: s0, T: t, net: net, firstLand: firstLand, maxH: maxH, dev: dev, aim: { pow: A.pow, yaw: A.yaw, ang: A.ang, cx: A.cx, cy: A.cy } };
+}
+
+/* ================= 6. Tahlil: qaysi kuch xalaqit berdi? ================= */
+function planeOf(S, R) {
+  if (R.type === "wall") { var W = S.wall; return { nx: -W.nx, ny: 0, nz: -W.nz, d: -(W.cx * W.nx + W.cz * W.nz), lat: function (p) { return (p[0] - W.cx) * W.tx + (p[2] - W.cz) * W.tz; } }; }
+  if (S.mode === "corner") { var T = S.target, dx = Math.sin(S.base), dz = -Math.cos(S.base), rx = Math.cos(S.base), rz = Math.sin(S.base); return { nx: -dx, ny: 0, nz: -dz, d: -(T.x * dx + T.z * dz), lat: function (p) { return (p[0] - T.x) * rx + (p[2] - T.z) * rz; } }; }
+  return { nx: 0, ny: 0, nz: 1, d: 0, lat: function (p) { return p[0]; } };
+}
+function analyze(S, shot) {
+  var R = shot.R, s0 = shot.s0, e = S.env, out = { shifts: {} };
+  if (S.mode === "angle") {
+    var land = function (env) { var f = flight(s0, env, { tmax: 12 }); return f.land ? hdist(f.land.s, s0) : NaN; };
+    out.L = land(e); out.Lvac = land(mkEnv({ drag: false, magnus: false })); out.LnoW = land(envWith(e, { wx: 0, wz: 0 }));
+    var ff = flight(s0, e, { states: true, tmax: 12 }), apex = ff.st[0];
+    ff.st.forEach(function (p) { if (p[1] > apex[1]) apex = p; }); out.diagState = apex; out.diagLabel = "cho'qqida";
+    return out;
+  }
+  var pl = planeOf(S, R), V = {
+    act: e, noM: envWith(e, { magnus: false }), noW: envWith(e, { wx: 0, wz: 0 }), noD: envWith(e, { drag: false }), vac: envWith(e, { drag: false, magnus: false, wx: 0, wz: 0 })
+  }, P = {};
+  Object.keys(V).forEach(function (k) {
+    var f = flight(s0, V[k], { plane: pl, stopAtPlane: true, tmax: 8 });
+    var sp = f.cross ? f.cross.s : (f.land ? f.land.s : s0), lat = pl.lat(sp);
+    if (!f.cross && f.land) { /* yerga tushgan bo'lsa: gorizontal tezlik bo'yicha tekislikkacha davom ettiramiz (sakrashlar yo'nalishni deyarli o'zgartirmaydi) */
+      var fl = sp[0] * pl.nx + sp[2] * pl.nz - pl.d, vh = -(sp[3] * pl.nx + sp[5] * pl.nz);
+      if (vh > 0.1 && fl > 0) { var tt = fl / vh; lat = pl.lat([sp[0] + sp[3] * tt, 0, sp[2] + sp[5] * tt]); }
+    }
+    P[k] = { lat: lat, y: sp[1], t: f.cross ? f.cross.t : NaN, hit: !!f.cross, st: sp };
+  });
+  var fd = s0[0] * pl.nx + s0[1] * pl.ny + s0[2] * pl.nz - pl.d, vn = -(s0[3] * pl.nx + s0[4] * pl.ny + s0[5] * pl.nz), tau = vn > 0.1 ? fd / vn : NaN;
+  var line = [s0[0] + s0[3] * tau, s0[1] + s0[4] * tau, s0[2] + s0[5] * tau];
+  out.P = P; out.line = { lat: pl.lat(line), y: line[1] }; out.dist = vn > 0.1 ? Math.hypot(line[0] - s0[0], line[2] - s0[2]) : 20;
+  out.bounced = !P.act.hit;
+  out.shifts = {
+    g: [P.vac.lat - out.line.lat, P.vac.y - out.line.y],
+    d: [P.act.lat - P.noD.lat, P.act.y - P.noD.y],
+    m: [P.act.lat - P.noM.lat, P.act.y - P.noM.y],
+    w: [P.act.lat - P.noW.lat, P.act.y - P.noW.y]
+  };
+  if (out.bounced) Object.keys(out.shifts).forEach(function (k) { out.shifts[k][1] = 0; });
+  out.diagState = R.st || (P.act.st); out.diagLabel = { post: "ustunga tegishda", wall: "devor oldida", goal: "darvoza chizig'ida", over: "darvoza chizig'ida", wide: "darvoza chizig'ida", save: "darvozabon oldida", defender: "himoyachi oldida" }[R.type] || "eng yaqin nuqtada";
+  return out;
+}
+function missVector(S, R, an) {
+  var lat = an.P.act.lat, y = an.P.act.y;
+  if (R.type === "wall") return [0, -1];
+  var box;
+  if (S.mode === "corner") { var T = S.target; box = { x0: -T.R, x1: T.R, y0: T.y0, y1: T.y1 }; }
+  else if (S.zone) box = S.zone;
+  else box = { x0: -GOAL.hw + PH.r, x1: GOAL.hw - PH.r, y0: PH.r, y1: GOAL.h - PH.r };
+  var nx = clamp(lat, box.x0, box.x1), ny = clamp(y, box.y0, box.y1), mx = lat - nx, my = an.bounced ? 0 : y - ny, ml = Math.hypot(mx, my);
+  if (ml < 1e-3) { var cx = (box.x0 + box.x1) / 2, cy = (box.y0 + box.y1) / 2; mx = lat - cx; my = y - cy; ml = Math.hypot(mx, my) || 1; }
+  return [mx / ml, my / ml, ml];
+}
+var FN = { g: "Og'irlik kuchi", d: "Havo qarshiligi", m: "Magnus kuchi", w: "Shamol" };
+var FC = { g: "cg", d: "cd", m: "cm", w: "cw" };
+function dirWord(dx, dy) {
+  if (Math.abs(dx) >= Math.abs(dy)) return dx > 0 ? "o'ngga" : "chapga";
+  return dy > 0 ? "yuqoriga" : "pastga";
+}
+function culprit(S, R, an) {
+  var mv = missVector(S, R, an), best = null, bv = 0.12;
+  ["g", "d", "m", "w"].forEach(function (k) { var sh = an.shifts[k], p = sh[0] * mv[0] + sh[1] * mv[1]; if (p > bv) { bv = p; best = k; } });
+  return { k: best || "aim", proj: bv, mv: mv };
+}
+
+/* ================= 7. Kuchlar diagrammasi (2D) ================= */
+function drawForceDiag(cv, s, e, title) {
+  var w = cv.clientWidth || 320, h = 236, d = DPR(), c = cv.getContext("2d");
+  cv.style.height = h + "px"; cv.width = Math.round(w * d); cv.height = Math.round(h * d); c.setTransform(d, 0, 0, d, 0, 0);
+  c.fillStyle = "#071024"; c.fillRect(0, 0, w, h);
+  var f = forcesOf(s, e), vh = Math.hypot(s[3], s[5]) || 1, fx = s[3] / vh, fz = s[5] / vh, rx = -fz, rz = fx;
+  function cp(F) { return { f: F[0] * fx + F[2] * fz, r: F[0] * rx + F[2] * rz, u: F[1] }; }
+  var G = cp(f.g), Dg = cp(f.d), M = cp(f.m), Wd = cp([e.wx, 0, e.wz]), Vv = cp([s[3], s[4], s[5]]);
+  var tot = { f: G.f + Dg.f + M.f, r: G.r + Dg.r + M.r, u: G.u + Dg.u + M.u };
+  var pw = w / 2, rad = Math.min(pw * 0.40, h * 0.34), mxF = Math.max(4.3, Math.hypot(Dg.f, Dg.u, Dg.r), Math.hypot(M.f, M.u, M.r), Math.hypot(tot.f, tot.u, tot.r)), k = rad / mxF;
+  function arr(x1, y1, x2, y2, col, lw, dash) {
+    var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L < 3) return; var ux = dx / L, uy = dy / L, hd = Math.min(10, 4 + L * 0.25);
+    c.save(); if (dash) c.setLineDash(dash); c.strokeStyle = col; c.fillStyle = col; c.lineWidth = lw; c.lineCap = "round";
+    c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2 - ux * hd * 0.7, y2 - uy * hd * 0.7); c.stroke(); c.setLineDash([]);
+    c.beginPath(); c.moveTo(x2, y2); c.lineTo(x2 - ux * hd - uy * hd * 0.5, y2 - uy * hd + ux * hd * 0.5); c.lineTo(x2 - ux * hd + uy * hd * 0.5, y2 - uy * hd - ux * hd * 0.5); c.closePath(); c.fill(); c.restore();
+  }
+  function lab(t, x, y, col, al) { c.font = "700 11.5px " + FONT; c.textAlign = al || "left"; c.textBaseline = "middle"; c.lineWidth = 3.5; c.strokeStyle = "rgba(5,9,24,.9)"; c.strokeText(t, x, y); c.fillStyle = col; c.fillText(t, x, y); }
+  function panel(ox, name, hx, hy) {
+    var cx = ox + pw / 2, cy = h / 2 + 10;
+    c.strokeStyle = "rgba(147,163,204,.12)"; c.lineWidth = 1; c.beginPath(); c.moveTo(ox + 10, cy); c.lineTo(ox + pw - 10, cy); c.moveTo(cx, 26); c.lineTo(cx, h - 8); c.stroke();
+    lab(name, ox + 10, 13, COL.chalk); lab(hx, ox + pw - 8, cy - 9, COL.haze, "right"); lab(hy, cx + 6, 30, COL.haze);
+    return { cx: cx, cy: cy };
+  }
+  function one(P, a, b, items) {
+    var vl = Math.hypot(a(Vv), b(Vv)) || 1;
+    arr(P.cx, P.cy, P.cx + a(Vv) / vl * rad * 0.9, P.cy - b(Vv) / vl * rad * 0.9, "rgba(53,240,196,.55)", 2, [5, 4]);
+    items.forEach(function (it) {
+      var X = a(it[0]) * k, Y = b(it[0]) * k, L = Math.hypot(X, Y); if (L < 3) return;
+      arr(P.cx, P.cy, P.cx + X, P.cy - Y, it[1], it[3] || 3.5, it[4]); if (L < 16) return;
+      var ux = X / L, uy = Y / L, sig = it[2] === "Σ", ox = sig ? uy * 14 : 0, oy = sig ? ux * 14 : 0; lab(it[2], P.cx + X + ux * 10 + ox, P.cy - Y - uy * 10 + oy, it[1], sig ? (uy > 0 ? "left" : "right") : ux < -0.3 ? "right" : ux > 0.3 ? "left" : "center");
+    });
+    c.fillStyle = "#e8edff"; c.beginPath(); c.arc(P.cx, P.cy, 7, 0, 7); c.fill(); c.strokeStyle = "#18204a"; c.lineWidth = 1.5; c.stroke();
+  }
+  var N = function (F) { return fmt(Math.hypot(F.f, F.r, F.u), 1) + " N"; };
+  var P1 = panel(0, "Yondan", "oldinga →", "↑ yuqori"), P2 = panel(pw, "Tepadan", "o'ngga →", "↑ oldinga");
+  c.strokeStyle = "rgba(147,163,204,.2)"; c.beginPath(); c.moveTo(pw, 24); c.lineTo(pw, h - 8); c.stroke();
+  var wl = Math.hypot(Wd.f, Wd.r), wItem = wl > 0.1 ? [{ f: Wd.f * 0.55, r: Wd.r * 0.55, u: 0 }, COL.w, "shamol " + fmt(wl, 1) + " m/s", 2.5, [6, 4]] : null;
+  var it1 = [[G, COL.g, "mg " + N(G)], [Dg, COL.d, "F_q " + N(Dg)], [M, COL.m, "F_M " + N(M)], [tot, "rgba(243,245,255,.75)", "Σ", 2, [3, 3]]];
+  var it2 = [[Dg, COL.d, "F_q"], [M, COL.m, "F_M"], [tot, "rgba(243,245,255,.75)", "Σ", 2, [3, 3]]];
+  if (wItem) { it1.push(wItem); it2.push(wItem); }
+  one(P1, function (F) { return F.f; }, function (F) { return F.u; }, it1);
+  one(P2, function (F) { return F.r; }, function (F) { return F.f; }, it2);
+  lab("v = " + fmt(Math.hypot(s[3], s[4], s[5]) * 3.6, 0) + " km/soat · " + (title || ""), w - 8, h - 12, COL.v, "right");
+}
+/* R(α) grafigi — burchak mashqi */
+function drawChart(cv, T, mark) {
+  var w = cv.clientWidth || 320, h = 240, d = DPR(), c = cv.getContext("2d");
+  cv.width = Math.round(w * d); cv.height = Math.round(h * d); c.setTransform(d, 0, 0, d, 0, 0);
+  c.fillStyle = "#071024"; c.fillRect(0, 0, w, h);
+  var pl = 44, pr = 12, pt = 26, pb = 30, ymax = Math.ceil(Math.max(T.v * T.v / PH.g, T.Rmax) / 10) * 10 + 5;
+  var X = function (a) { return pl + a / 90 * (w - pl - pr); }, Y = function (r) { return h - pb - r / ymax * (h - pt - pb); };
+  c.font = "600 10.5px " + FONT; c.fillStyle = "rgba(147,163,204,.75)"; c.textAlign = "center"; c.textBaseline = "top";
+  for (var a = 0; a <= 90; a += 15) { c.fillText(a + "°", X(a), h - pb + 6); c.fillStyle = "rgba(147,163,204,.08)"; c.fillRect(X(a), pt, 1, h - pt - pb); c.fillStyle = "rgba(147,163,204,.75)"; }
+  c.textAlign = "right"; c.textBaseline = "middle";
+  for (var r = 0; r <= ymax; r += 10) { c.fillText(r + " m", pl - 6, Y(r)); c.fillStyle = "rgba(147,163,204,.08)"; c.fillRect(pl, Y(r), w - pl - pr, 1); c.fillStyle = "rgba(147,163,204,.75)"; }
+  function curve(arr, col, lw, dash) { c.save(); if (dash) c.setLineDash(dash); c.strokeStyle = col; c.lineWidth = lw; c.beginPath(); arr.forEach(function (p, i) { if (i) c.lineTo(X(p[0]), Y(p[1])); else c.moveTo(X(p[0]), Y(p[1])); }); c.stroke(); c.restore(); }
+  var vacPts = [[0, 0]].concat(T.curveVac).concat([[90, 0]]);
+  curve(vacPts, "rgba(147,163,204,.7)", 2, [6, 5]);
+  if (T.drag || T.wind) curve([[0, 0]].concat(T.curve), COL.v, 3);
+  if (T.kind === "land") { c.save(); c.setLineDash([4, 4]); c.strokeStyle = COL.amber; c.lineWidth = 1.5; c.beginPath(); c.moveTo(pl, Y(T.L)); c.lineTo(w - pr, Y(T.L)); c.stroke(); c.restore(); }
+  function tag(t, x, y, col, al) { c.font = "700 11px " + FONT; c.textAlign = al || "left"; c.textBaseline = "middle"; c.lineWidth = 3; c.strokeStyle = "rgba(5,9,24,.9)"; c.strokeText(t, x, y); c.fillStyle = col; c.fillText(t, x, y); }
+  c.font = "700 11px " + FONT;
+  tag("havosiz: 45° da eng uzoq", X(45), Y(T.v * T.v / PH.g) - 10, COL.haze, "center");
+  if (mark && mark.show) {
+    if (T.drag || T.wind) { c.fillStyle = COL.v; c.beginPath(); c.arc(X(T.aopt), Y(T.Rmax), 4.5, 0, 7); c.fill(); tag("havo bilan: " + fmt(T.aopt, 1) + "°", X(T.aopt) - 6, Y(T.Rmax) + 14, COL.v, "right"); }
+    if (T.kind === "land") tag("L = " + T.L + " m", w - pr - 4, Y(T.L) - 9, COL.amber, "right");
+  }
+  if (mark && mark.a != null && isFinite(mark.R)) { c.fillStyle = mark.ok ? COL.v : COL.g; c.beginPath(); c.arc(X(mark.a), Y(mark.R), 6, 0, 7); c.fill(); c.strokeStyle = "#fff"; c.lineWidth = 1.5; c.stroke(); tag("siz: " + fmt(mark.a, 1) + "° → " + fmt(mark.R, 1) + " m", X(mark.a) + 9, Y(mark.R) - 12, mark.ok ? COL.v : COL.g, mark.a > 60 ? "right" : "left"); }
+  tag("R(α) — uchish uzoqligi", pl + 4, 12, COL.chalk);
+}
+
+/* ================= 8. 3D stadion (three.js r128 — faqat bo'lim ko'ringanda yuklanadi) ================= */
+function make3D() {
+  var T = window.THREE; if (!T || !T.WebGLRenderer) throw new Error("three.js yo'q");
+  var canvas = $("gl"), narrow = Math.min(window.innerWidth || 1200, (window.screen && screen.width) || 9999) < 700;
+  var renderer = new T.WebGLRenderer({ canvas: canvas, antialias: DPR() < 1.6, powerPreference: "high-performance" });
+  renderer.setPixelRatio(Math.min(DPR(), narrow ? 1.6 : 2));
+  var maxAniso = renderer.capabilities.getMaxAnisotropy ? renderer.capabilities.getMaxAnisotropy() : 1;
+  var scene = new T.Scene(), camera = new T.PerspectiveCamera(50, 1, 0.1, 700);
+  scene.fog = new T.Fog(0x0b1232, 90, 260);
+  function ctex(w, h, fn) { var c = document.createElement("canvas"); c.width = w; c.height = h; fn(c.getContext("2d"), w, h); return new T.CanvasTexture(c); }
+  /* --- osmon --- */
+  scene.background = ctex(512, 512, function (g, w, h) {
+    var gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#03061a"); gr.addColorStop(0.55, "#0b1440"); gr.addColorStop(0.8, "#1b2766"); gr.addColorStop(1, "#2b2f6e");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    for (var i = 0; i < 160; i++) { g.fillStyle = "rgba(255,255,255," + (0.2 + Math.random() * 0.6) + ")"; g.fillRect(Math.random() * w, Math.random() * h * 0.6, Math.random() < 0.1 ? 2 : 1, 1); }
+    var gl = g.createRadialGradient(w / 2, h * 1.05, 10, w / 2, h * 1.05, h * 0.7); gl.addColorStop(0, "rgba(162,123,255,.35)"); gl.addColorStop(1, "rgba(162,123,255,0)"); g.fillStyle = gl; g.fillRect(0, 0, w, h);
+  });
+  scene.add(new T.HemisphereLight(0xc9d8ff, 0x1a2f1c, 0.62));
+  var sun = new T.DirectionalLight(0xfff6e8, 0.52); sun.position.set(-30, 60, 45); scene.add(sun);
+  var sun2 = new T.DirectionalLight(0xb8c8ff, 0.24); sun2.position.set(40, 40, -30); scene.add(sun2);
+  /* --- maydon --- */
+  var ppm = narrow ? 14 : 22;
+  var pitchTex = ctex(80 * ppm, 72 * ppm, function (g, w, h) {
+    var X = function (x) { return (x + 40) * ppm; }, Z = function (z) { return (z + 8) * ppm; };
+    g.fillStyle = "#1d5527"; g.fillRect(0, 0, w, h);
+    for (var i = -2; i < 13; i++) { g.fillStyle = (i + 20) % 2 ? "#2b7f37" : "#236d2e"; g.fillRect(X(-40), Z(i * 5.5), 80 * ppm, 5.5 * ppm + 1); }
+    g.fillStyle = "rgba(10,40,16,.45)"; g.fillRect(0, 0, X(-34.6), h); g.fillRect(X(34.6), 0, w - X(34.6), h); g.fillRect(0, 0, w, Z(-0.6));
+    for (var k = 0; k < 14000; k++) { g.fillStyle = Math.random() < 0.5 ? "rgba(0,0,0,.06)" : "rgba(255,255,255,.035)"; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
+    g.strokeStyle = "rgba(255,255,255,.92)"; g.lineWidth = Math.max(2, 0.12 * ppm); g.lineCap = "square";
+    function L(pts) { g.beginPath(); pts.forEach(function (p, j) { if (j) g.lineTo(X(p[0]), Z(p[1])); else g.moveTo(X(p[0]), Z(p[1])); }); g.stroke(); }
+    L([[-34, 0], [34, 0]]); L([[-34, 0], [-34, 64]]); L([[34, 0], [34, 64]]); L([[-34, 52.5], [34, 52.5]]);
+    L([[-20.16, 0], [-20.16, 16.5], [20.16, 16.5], [20.16, 0]]); L([[-9.16, 0], [-9.16, 5.5], [9.16, 5.5], [9.16, 0]]);
+    g.beginPath(); g.arc(X(0), Z(52.5), 9.15 * ppm, 0, 7); g.stroke();
+    g.beginPath(); g.arc(X(0), Z(11), 9.15 * ppm, 0.645, Math.PI - 0.645); g.stroke();
+    g.beginPath(); g.arc(X(-34), Z(0), 1 * ppm, 0, Math.PI / 2); g.stroke(); g.beginPath(); g.arc(X(34), Z(0), 1 * ppm, Math.PI / 2, Math.PI); g.stroke();
+    g.fillStyle = "#fff"; [[0, 11], [0, 52.5]].forEach(function (p) { g.beginPath(); g.arc(X(p[0]), Z(p[1]), 0.16 * ppm, 0, 7); g.fill(); });
+  });
+  pitchTex.anisotropy = Math.min(8, maxAniso);
+  var pitch = new T.Mesh(new T.PlaneGeometry(80, 72), new T.MeshLambertMaterial({ map: pitchTex }));
+  pitch.rotation.x = -Math.PI / 2; pitch.position.set(0, 0, 28); scene.add(pitch);
+  var outer = new T.Mesh(new T.PlaneGeometry(320, 320), new T.MeshLambertMaterial({ color: 0x0f2a16 })); outer.rotation.x = -Math.PI / 2; outer.position.set(0, -0.03, 28); scene.add(outer);
+  /* --- tribunalar --- */
+  var crowdTex = ctex(512, 256, function (g, w, h) {
+    g.fillStyle = "#121a3a"; g.fillRect(0, 0, w, h);
+    var pal = ["#c9cfe8", "#2fc9a8", "#8f6be0", "#d9507a", "#d8a63a", "#4fa6d6", "#3a4478", "#2b3566", "#3a4478", "#2b3566", "#9aa3c7", "#c9844a"];
+    for (var r = 0; r < 16; r++) { g.fillStyle = r % 2 ? "#0e1532" : "#151e44"; g.fillRect(0, r * 16, w, 16); for (var s = 0; s < 64; s++) { if (Math.random() < 0.12) continue; var x = s * 8 + Math.random() * 2, y = r * 16 + 4 + Math.random() * 2; g.fillStyle = pal[Math.floor(Math.random() * pal.length)]; g.fillRect(x, y + 4, 6, 7); g.fillStyle = "#d9c2a8"; g.beginPath(); g.arc(x + 3, y + 2, 2.3, 0, 7); g.fill(); } }
+  });
+  crowdTex.wrapS = crowdTex.wrapT = T.RepeatWrapping;
+  function quad(p, mat, U, V) {
+    var gm = new T.BufferGeometry(), a = p[0], b = p[1], c = p[2], d = p[3];
+    gm.setAttribute("position", new T.Float32BufferAttribute([].concat(a, b, c, a, c, d), 3));
+    gm.setAttribute("uv", new T.Float32BufferAttribute([0, 0, U, 0, U, V, 0, 0, U, V, 0, V], 2));
+    gm.computeVertexNormals(); var m = new T.Mesh(gm, mat); scene.add(m); return m;
+  }
+  var crowdMat = new T.MeshBasicMaterial({ map: crowdTex, color: 0x8790b8 }), wallMat = new T.MeshBasicMaterial({ color: 0x0b1130 }), roofMat = new T.MeshBasicMaterial({ color: 0x1a2350 });
+  quad([[-62, 1.2, -10], [62, 1.2, -10], [62, 19, -34], [-62, 19, -34]], crowdMat, 14, 3);
+  quad([[44, 1.2, -12], [44, 1.2, 74], [68, 19, 74], [68, 19, -12]], crowdMat, 10, 3);
+  quad([[-44, 1.2, 74], [-44, 1.2, -12], [-68, 19, -12], [-68, 19, 74]], crowdMat, 10, 3);
+  quad([[-62, 0, -10], [62, 0, -10], [62, 1.2, -10], [-62, 1.2, -10]], wallMat, 1, 1);
+  quad([[44, 0, -12], [44, 0, 74], [44, 1.2, 74], [44, 1.2, -12]], wallMat, 1, 1);
+  quad([[-44, 0, 74], [-44, 0, -12], [-44, 1.2, -12], [-44, 1.2, 74]], wallMat, 1, 1);
+  quad([[-62, 19, -34], [62, 19, -34], [62, 23, -38], [-62, 23, -38]], roofMat, 1, 1);
+  quad([[68, 19, -12], [68, 19, 74], [72, 23, 74], [72, 23, -12]], roofMat, 1, 1);
+  quad([[-68, 19, 74], [-68, 19, -12], [-72, 23, -12], [-72, 23, 74]], roofMat, 1, 1);
+  /* --- reklama taxtalari (LED) --- */
+  var boardTex = ctex(1024, 64, function (g, w, h) {
+    var gr = g.createLinearGradient(0, 0, w, 0); gr.addColorStop(0, "#0b1640"); gr.addColorStop(0.5, "#1a1050"); gr.addColorStop(1, "#0b1640"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    g.font = "800 34px " + FONTD; g.textBaseline = "middle"; g.fillStyle = "#35f0c4"; g.fillText("KUVONCH ACADEMY", 24, 34); g.fillStyle = "#f3f5ff"; g.font = "700 30px " + FONT; g.fillText("⚽ FUTBOL FIZIKASI", 470, 34); g.fillStyle = "#ffc23d"; g.fillText("F = ½ρC·Av²", 790, 34);
+  });
+  boardTex.wrapS = T.RepeatWrapping;
+  function board(len, x, z, ry) { var t = boardTex.clone(); t.needsUpdate = true; t.repeat.set(Math.max(1, Math.round(len / 14)), 1); var m = new T.Mesh(new T.BoxGeometry(len, 0.9, 0.12), new T.MeshBasicMaterial({ map: t })); m.position.set(x, 0.45, z); m.rotation.y = ry || 0; scene.add(m); }
+  board(64, 0, -6.6); board(70, 37.8, 29, -Math.PI / 2); board(70, -37.8, 29, Math.PI / 2);
+  /* --- projektorlar --- */
+  var glowTex = ctex(128, 128, function (g, w) { var gr = g.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.2, "rgba(220,232,255,.6)"); gr.addColorStop(1, "rgba(160,190,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, w); });
+  var lampTex = ctex(128, 64, function (g, w, h) { g.fillStyle = "#28304f"; g.fillRect(0, 0, w, h); for (var i = 0; i < 8; i++) for (var j = 0; j < 4; j++) { g.fillStyle = "#fffbe8"; g.fillRect(4 + i * 15.5, 4 + j * 15, 12, 11); } });
+  var poleMat = new T.MeshLambertMaterial({ color: 0x3a4266 });
+  [[-52, -16], [52, -16], [-52, 66], [52, 66]].forEach(function (p) {
+    var pole = new T.Mesh(new T.CylinderGeometry(0.35, 0.65, 38, 8), poleMat); pole.position.set(p[0], 19, p[1]); scene.add(pole);
+    var head = new T.Group(); head.position.set(p[0], 38.5, p[1]);
+    var back = new T.Mesh(new T.BoxGeometry(8, 3.6, 0.6), poleMat); head.add(back);
+    var face = new T.Mesh(new T.PlaneGeometry(7.4, 3.1), new T.MeshBasicMaterial({ map: lampTex })); face.position.z = 0.31; head.add(face);
+    head.lookAt(0, 0, 26); scene.add(head);
+    var gl = new T.Sprite(new T.SpriteMaterial({ map: glowTex, color: 0xdfe8ff, transparent: true, blending: T.AdditiveBlending, depthWrite: false, fog: false }));
+    gl.scale.set(30, 30, 1); gl.position.set(p[0] * 0.98, 38.5, p[1] + (p[1] < 0 ? 0.8 : -0.8)); scene.add(gl);
+  });
+  /* --- darvoza --- */
+  var white = new T.MeshPhongMaterial({ color: 0xffffff, emissive: 0x333333, shininess: 60 }), grey = new T.MeshLambertMaterial({ color: 0x8890b0 });
+  var postG = new T.CylinderGeometry(GOAL.post, GOAL.post, GOAL.h + GOAL.post, 14);
+  [-1, 1].forEach(function (k) { var m = new T.Mesh(postG, white); m.position.set(k * GOAL.hw, (GOAL.h + GOAL.post) / 2, 0); scene.add(m); });
+  var bar = new T.Mesh(new T.CylinderGeometry(GOAL.post, GOAL.post, 2 * GOAL.hw + 2 * GOAL.post, 14), white); bar.rotation.z = Math.PI / 2; bar.position.set(0, GOAL.h, 0); scene.add(bar);
+  function rod(a, b, r) { var dx = b[0] - a[0], dy = b[1] - a[1], dz = b[2] - a[2], L = Math.hypot(dx, dy, dz), m = new T.Mesh(new T.CylinderGeometry(r, r, L, 6), grey); m.position.set((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), new T.Vector3(dx / L, dy / L, dz / L)); scene.add(m); }
+  var Dp = -GOAL.depth;
+  [-1, 1].forEach(function (k) { rod([k * GOAL.hw, 0.02, 0], [k * GOAL.hw, 0.02, Dp], 0.025); rod([k * GOAL.hw, 0, Dp], [k * GOAL.hw, GOAL.h, Dp], 0.03); rod([k * GOAL.hw, GOAL.h, 0], [k * GOAL.hw, GOAL.h, Dp], 0.025); });
+  rod([-GOAL.hw, GOAL.h, Dp], [GOAL.hw, GOAL.h, Dp], 0.025); rod([-GOAL.hw, 0.02, Dp], [GOAL.hw, 0.02, Dp], 0.025);
+  var netBase = ctex(32, 32, function (g, w) { g.clearRect(0, 0, w, w); g.strokeStyle = "rgba(255,255,255,.95)"; g.lineWidth = 2.2; g.strokeRect(0, 0, w, w); });
+  function netMat(rx, ry) { var t = netBase.clone(); t.needsUpdate = true; t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(rx, ry); t.anisotropy = Math.min(4, maxAniso); return new T.MeshBasicMaterial({ map: t, transparent: true, opacity: 0.85, side: T.DoubleSide, depthWrite: false, alphaTest: 0.02 }); }
+  var backGeo = new T.PlaneGeometry(2 * GOAL.hw, GOAL.h, 40, 14), backNet = new T.Mesh(backGeo, netMat(52, 17)); backNet.position.set(0, GOAL.h / 2, Dp); scene.add(backNet);
+  var backBase = Float32Array.from(backGeo.attributes.position.array);
+  var topNet = new T.Mesh(new T.PlaneGeometry(2 * GOAL.hw, GOAL.depth, 1, 1), netMat(52, 13)); topNet.rotation.x = -Math.PI / 2; topNet.position.set(0, GOAL.h, Dp / 2); scene.add(topNet);
+  [-1, 1].forEach(function (k) { var sn = new T.Mesh(new T.PlaneGeometry(GOAL.depth, GOAL.h, 1, 1), netMat(13, 17)); sn.rotation.y = Math.PI / 2; sn.position.set(k * GOAL.hw, GOAL.h / 2, Dp / 2); scene.add(sn); });
+  /* --- burchak bayroqchalari va shamol bayrog'i --- */
+  var flagMat = new T.MeshLambertMaterial({ color: 0xffc23d, side: T.DoubleSide });
+  [-34, 34].forEach(function (x) { var p = new T.Mesh(new T.CylinderGeometry(0.02, 0.02, 1.5, 5), white); p.position.set(x, 0.75, 0); scene.add(p); var f = new T.Mesh(new T.PlaneGeometry(0.4, 0.3), flagMat); f.position.set(x + 0.2 * Math.sign(-x), 1.35, 0); scene.add(f); });
+  var wPole = new T.Mesh(new T.CylinderGeometry(0.05, 0.06, 6.2, 8), white); wPole.position.set(-6.4, 3.1, -3.2); scene.add(wPole);
+  var clothTex = ctex(128, 80, function (g, w, h) { for (var i = 0; i < 5; i++) { g.fillStyle = i % 2 ? "#f3f5ff" : "#ff5e8e"; g.fillRect(i * w / 5, 0, w / 5 + 1, h); } });
+  var clothGeo = new T.PlaneGeometry(1.7, 1.0, 14, 6); clothGeo.translate(0.85, -0.5, 0);
+  var clothBase = Float32Array.from(clothGeo.attributes.position.array);
+  var cloth = new T.Mesh(clothGeo, new T.MeshLambertMaterial({ map: clothTex, side: T.DoubleSide }));
+  var clothG = new T.Group(); clothG.position.set(-6.4, 6.1, -3.2); clothG.add(cloth); scene.add(clothG);
+  /* --- to'p --- */
+  var ballGeo = new T.IcosahedronGeometry(PH.r, 8), bp = ballGeo.attributes.position, bcol = new Float32Array(bp.count * 3);
+  (function () {
+    var t = (1 + Math.sqrt(5)) / 2, V = [[-1, t, 0], [1, t, 0], [-1, -t, 0], [1, -t, 0], [0, -1, t], [0, 1, t], [0, -1, -t], [0, 1, -t], [t, 0, -1], [t, 0, 1], [-t, 0, -1], [-t, 0, 1]].map(function (v) { var l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; });
+    var dot = function (a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; };
+    var NB = V.map(function (v) { return V.filter(function (u) { var d = dot(u, v); return d > 0.3 && d < 0.99; }); });
+    for (var i = 0; i < bp.count; i += 3) {
+      var c = [0, 0, 0]; for (var j = 0; j < 3; j++) { c[0] += bp.getX(i + j); c[1] += bp.getY(i + j); c[2] += bp.getZ(i + j); }
+      var l = Math.hypot(c[0], c[1], c[2]); c = [c[0] / l, c[1] / l, c[2] / l];
+      var bk = 0, bd = -2; V.forEach(function (v, k) { var d = dot(c, v); if (d > bd) { bd = d; bk = k; } });
+      var inP = NB[bk].every(function (nb) { return bd > 1.262 * dot(c, nb); });
+      var col = inP ? (bk === 0 || bk === 3 ? [0.21, 0.94, 0.77] : bk === 5 || bk === 6 ? [0.64, 0.48, 1] : [0.08, 0.1, 0.24]) : [0.96, 0.97, 1];
+      for (j = 0; j < 3; j++) { bcol[(i + j) * 3] = col[0]; bcol[(i + j) * 3 + 1] = col[1]; bcol[(i + j) * 3 + 2] = col[2]; }
+    }
+  })();
+  ballGeo.setAttribute("color", new T.BufferAttribute(bcol, 3));
+  var ball = new T.Mesh(ballGeo, new T.MeshPhongMaterial({ vertexColors: true, shininess: 55, specular: 0x444444 })); scene.add(ball);
+  var blobTex = ctex(64, 64, function (g, w) { var gr = g.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2); gr.addColorStop(0, "rgba(0,0,0,.6)"); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, w); });
+  var blobGeo = new T.PlaneGeometry(1, 1); blobGeo.rotateX(-Math.PI / 2);
+  function blob(s) { var m = new T.Mesh(blobGeo, new T.MeshBasicMaterial({ map: blobTex, transparent: true, depthWrite: false })); m.scale.set(s, 1, s); m.position.y = 0.012; return m; }
+  var ballSh = blob(0.5); scene.add(ballSh);
+  /* --- manekenlar (stilize, brendsiz) --- */
+  var MG = { leg: new T.CylinderGeometry(0.075, 0.062, 0.86, 8), shorts: new T.CylinderGeometry(0.2, 0.185, 0.27, 12), torso: new T.CylinderGeometry(0.245, 0.19, 0.62, 12), head: new T.SphereGeometry(0.115, 14, 10), arm: new T.CylinderGeometry(0.055, 0.045, 0.6, 7), glove: new T.SphereGeometry(0.075, 8, 6) };
+  MG.arm.translate(0, -0.3, 0);
+  var SKIN = new T.MeshLambertMaterial({ color: 0xdfe3f2 }), LEG = new T.MeshLambertMaterial({ color: 0x1a2045 }), GLOVE = new T.MeshLambertMaterial({ color: 0xffffff });
+  function makeMan(jersey, shorts, keeper) {
+    var g = new T.Group(), mj = new T.MeshLambertMaterial({ color: jersey }), ms = new T.MeshLambertMaterial({ color: shorts });
+    var l1 = new T.Mesh(MG.leg, LEG); l1.position.set(-0.1, 0.43, 0); var l2 = new T.Mesh(MG.leg, LEG); l2.position.set(0.1, 0.43, 0);
+    var sh = new T.Mesh(MG.shorts, ms); sh.position.y = 0.95; sh.scale.z = 0.72;
+    var to = new T.Mesh(MG.torso, mj); to.position.y = 1.38; to.scale.z = 0.62;
+    var hd = new T.Mesh(MG.head, SKIN); hd.position.y = 1.8;
+    var aL = new T.Group(), aR = new T.Group(); aL.position.set(-0.27, 1.64, 0); aR.position.set(0.27, 1.64, 0);
+    aL.add(new T.Mesh(MG.arm, mj)); aR.add(new T.Mesh(MG.arm, mj));
+    if (keeper) { var g1 = new T.Mesh(MG.glove, GLOVE); g1.position.y = -0.64; aL.add(g1); var g2 = new T.Mesh(MG.glove, GLOVE); g2.position.y = -0.64; aR.add(g2); }
+    var body = new T.Group(); body.add(l1, l2, sh, to, hd, aL, aR); g.add(body);
+    var shd = blob(0.9); g.add(shd);
+    g.userData = { aL: aL, aR: aR, body: body, sh: shd };
+    scene.add(g); return g;
+  }
+  function wallPose(m) { m.userData.aL.rotation.set(-0.55, 0, 0.42); m.userData.aR.rotation.set(-0.55, 0, -0.42); }
+  var wallMen = [], defMen = [], i0;
+  for (i0 = 0; i0 < 5; i0++) { var wm = makeMan(0xd94060, 0x1b2244); wallPose(wm); wallMen.push(wm); }
+  for (i0 = 0; i0 < 2; i0++) { var dm = makeMan(0xd94060, 0x1b2244); dm.userData.aL.rotation.z = -0.3; dm.userData.aR.rotation.z = 0.3; defMen.push(dm); }
+  var attacker = makeMan(0x22c9a3, 0x0d1736); attacker.userData.aL.rotation.z = -0.25; attacker.userData.aR.rotation.z = 0.25;
+  var keeper = makeMan(0xffc23d, 0x14204a, true);
+  /* --- nishon zonalari --- */
+  function zoneMesh() {
+    var g = new T.Group(), fill = new T.Mesh(new T.PlaneGeometry(1, 1), new T.MeshBasicMaterial({ color: 0xffc23d, transparent: true, opacity: 0.2, depthWrite: false, side: T.DoubleSide }));
+    g.add(fill); var bars = [];
+    for (var i = 0; i < 4; i++) { var b = new T.Mesh(new T.BoxGeometry(1, 1, 1), new T.MeshBasicMaterial({ color: 0xffc23d })); g.add(b); bars.push(b); }
+    g.userData = { fill: fill, bars: bars }; g.visible = false; scene.add(g); return g;
+  }
+  function setZone(g, z, color, op) {
+    if (!z) { g.visible = false; return; }
+    var w = z.x1 - z.x0, h = z.y1 - z.y0, cx = (z.x0 + z.x1) / 2, cy = (z.y0 + z.y1) / 2, th = 0.045;
+    g.visible = true; g.position.set(cx, cy, 0.03);
+    var f = g.userData.fill; f.scale.set(w, h, 1); f.material.color.setHex(color); f.material.opacity = op;
+    var B = g.userData.bars; B.forEach(function (b) { b.material.color.setHex(color); });
+    B[0].scale.set(w, th, th); B[0].position.set(0, h / 2, 0); B[1].scale.set(w, th, th); B[1].position.set(0, -h / 2, 0);
+    B[2].scale.set(th, h, th); B[2].position.set(-w / 2, 0, 0); B[3].scale.set(th, h, th); B[3].position.set(w / 2, 0, 0);
+  }
+  var zones = [zoneMesh(), zoneMesh(), zoneMesh(), zoneMesh()];
+  /* burchak to'pi nishoni: halqa + ustun */
+  var tRing = new T.Mesh(new T.RingGeometry(0.9, 1, 56), new T.MeshBasicMaterial({ color: 0x35f0c4, transparent: true, opacity: 0.9, side: T.DoubleSide, depthWrite: false })); tRing.rotation.x = -Math.PI / 2; tRing.position.y = 0.02; scene.add(tRing);
+  var tCol = new T.Mesh(new T.CylinderGeometry(1, 1, 1, 48, 1, true), new T.MeshBasicMaterial({ color: 0x35f0c4, transparent: true, opacity: 0.13, side: T.DoubleSide, depthWrite: false })); scene.add(tCol);
+  /* burchak mashqi: masofa chiziqlari va yozuvlar */
+  function makeLabel(text, color, h) {
+    var c = document.createElement("canvas"); c.width = 256; c.height = 64; var g = c.getContext("2d");
+    g.font = "800 38px " + FONT; g.textAlign = "center"; g.textBaseline = "middle"; g.lineWidth = 8; g.strokeStyle = "rgba(5,9,24,.85)"; g.strokeText(text, 128, 34); g.fillStyle = color || "#fff"; g.fillText(text, 128, 34);
+    var sp = new T.Sprite(new T.SpriteMaterial({ map: new T.CanvasTexture(c), transparent: true, depthWrite: false })); sp.scale.set(4 * (h || 1), 1 * (h || 1), 1); scene.add(sp); return sp;
+  }
+  var markG = new T.Group(); scene.add(markG); markG.visible = false;
+  var markLabels = [];
+  for (var mk = 1; mk <= 6; mk++) {
+    var ln = new T.Mesh(new T.PlaneGeometry(14, 0.12), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5, depthWrite: false })); ln.rotation.x = -Math.PI / 2; ln.position.set(0, 0.015, 62 - mk * 10); markG.add(ln);
+    var lb = makeLabel(mk * 10 + " m", "#c9d1ef", 1.3); lb.position.set(0, 0.9, 62 - mk * 10); lb.visible = false; markLabels.push(lb);
+  }
+  var aRing = new T.Mesh(new T.RingGeometry(1.1, 1.5, 56), new T.MeshBasicMaterial({ color: 0xffc23d, side: T.DoubleSide, transparent: true, opacity: 0.95, depthWrite: false })); aRing.rotation.x = -Math.PI / 2; aRing.position.y = 0.03; scene.add(aRing); aRing.visible = false;
+  var aLabel = makeLabel("", "#ffc23d", 1.6); aLabel.visible = false;
+  /* --- strelkalar --- */
+  var SHG = new T.CylinderGeometry(1, 1, 1, 8); SHG.translate(0, 0.5, 0); var HDG = new T.ConeGeometry(1, 1, 12); HDG.translate(0, 0.5, 0);
+  var UP = new T.Vector3(0, 1, 0), tmpV = new T.Vector3();
+  function makeArrow(color, r) { var g = new T.Group(), mat = new T.MeshBasicMaterial({ color: color, depthTest: false, transparent: true }); var s = new T.Mesh(SHG, mat), h = new T.Mesh(HDG, mat); s.renderOrder = h.renderOrder = 10; g.add(s, h); g.userData = { s: s, h: h, r: r || 0.03 }; g.visible = false; scene.add(g); return g; }
+  function setArrow(a, o, v) {
+    var L = Math.hypot(v[0], v[1], v[2]); if (L < 0.03) { a.visible = false; return; }
+    a.visible = true; a.position.set(o[0], o[1], o[2]); var hl = Math.min(L * 0.4, 0.3), r = a.userData.r;
+    a.userData.s.scale.set(r, L - hl, r); a.userData.h.position.y = L - hl; a.userData.h.scale.set(r * 2.8, hl, r * 2.8);
+    a.quaternion.setFromUnitVectors(UP, tmpV.set(v[0] / L, v[1] / L, v[2] / L));
+  }
+  var aimArrow = makeArrow(0xffffff, 0.022);
+  var fArr = { g: makeArrow(0xff5e8e, 0.035), d: makeArrow(0xff9f43, 0.035), m: makeArrow(0xb48cff, 0.035), w: makeArrow(0x4fd1ff, 0.03), v: makeArrow(0x35f0c4, 0.025) };
+  var dots = new T.InstancedMesh(new T.SphereGeometry(0.055, 8, 6), new T.MeshBasicMaterial({ color: 0x35f0c4, transparent: true, opacity: 0.9 }), 32); dots.count = 0; scene.add(dots);
+  var dMat = new T.Matrix4();
+  /* --- iz (traektoriya trubkasi) --- */
+  var trail = null, ghosts = [];
+  function tube(pts, radius, colA, colB, opacity) {
+    var n = pts.length / 3, seg = 6, pos = new Float32Array(n * seg * 3), col = new Float32Array(n * seg * 3), idx = [];
+    var nx = 1, ny = 0, nz = 0, ca = new T.Color(colA), cb = new T.Color(colB || colA), cc = new T.Color();
+    for (var i = 0; i < n; i++) {
+      var i0 = Math.max(0, i - 1), i1 = Math.min(n - 1, i + 1), tx = pts[i1 * 3] - pts[i0 * 3], ty = pts[i1 * 3 + 1] - pts[i0 * 3 + 1], tz = pts[i1 * 3 + 2] - pts[i0 * 3 + 2], tl = Math.hypot(tx, ty, tz) || 1; tx /= tl; ty /= tl; tz /= tl;
+      if (i === 0) { nx = -tz; ny = 0; nz = tx; if (Math.hypot(nx, nz) < 0.1) { nx = 1; nz = 0; } }
+      var dd = nx * tx + ny * ty + nz * tz; nx -= dd * tx; ny -= dd * ty; nz -= dd * tz; var nl = Math.hypot(nx, ny, nz) || 1; nx /= nl; ny /= nl; nz /= nl;
+      var bx = ty * nz - tz * ny, by = tz * nx - tx * nz, bz = tx * ny - ty * nx;
+      cc.copy(ca).lerp(cb, i / Math.max(1, n - 1));
+      for (var k = 0; k < seg; k++) {
+        var an = k / seg * Math.PI * 2, cs = Math.cos(an) * radius, sn = Math.sin(an) * radius, o = (i * seg + k) * 3;
+        pos[o] = pts[i * 3] + nx * cs + bx * sn; pos[o + 1] = pts[i * 3 + 1] + ny * cs + by * sn; pos[o + 2] = pts[i * 3 + 2] + nz * cs + bz * sn;
+        col[o] = cc.r; col[o + 1] = cc.g; col[o + 2] = cc.b;
+        if (i < n - 1) { var a0 = i * seg + k, a1 = i * seg + (k + 1) % seg, b0 = a0 + seg, b1 = a1 + seg; idx.push(a0, b0, a1, a1, b0, b1); }
+      }
+    }
+    var g = new T.BufferGeometry(); g.setAttribute("position", new T.BufferAttribute(pos, 3)); g.setAttribute("color", new T.BufferAttribute(col, 3)); g.setIndex(idx);
+    var m = new T.Mesh(g, new T.MeshBasicMaterial({ vertexColors: true, transparent: opacity < 1, opacity: opacity, depthWrite: opacity >= 1 })); m.userData = { n: n, seg: seg }; scene.add(m); return m;
+  }
+  function drop(m) { if (!m) return; scene.remove(m); m.geometry.dispose(); if (m.material.map) m.material.map.dispose(); m.material.dispose(); }
+  function setTrailUpto(i) { if (!trail) return; var n = clamp(i, 0, trail.userData.n - 1); trail.geometry.setDrawRange(0, n * trail.userData.seg * 6); }
+  /* --- kamera --- */
+  var cam = { p: new T.Vector3(0, 2, 30), l: new T.Vector3(0, 1, 0), tp: new T.Vector3(0, 2, 30), tl: new T.Vector3(0, 1, 0) };
+  function snapCam() { cam.p.copy(cam.tp); cam.l.copy(cam.tl); }
+  function stepCam(dt, rate) { var k = 1 - Math.exp(-dt * (rate || 4)); cam.p.lerp(cam.tp, k); cam.l.lerp(cam.tl, k); camera.position.copy(cam.p); camera.lookAt(cam.l); return cam.p.distanceToSquared(cam.tp) > 1e-4 || cam.l.distanceToSquared(cam.tl) > 1e-4; }
+  function aimCam(S) {
+    var b = S.ball;
+    if (S.mode === "angle") { var L = Math.max(S.task.L || 0, S.task.Rmax || 40) * 1.08, a = camera.aspect, hf = Math.atan(Math.tan(25 * DEG) * a), Dd = (L / 2 + 8) / Math.tan(hf); Dd = clamp(Dd, 30, 120); cam.tp.set(Dd, 5 + L * 0.16, b[2] - L / 2); cam.tl.set(0, 3.5 + L * 0.08, b[2] - L / 2); return; }
+    var dx = Math.sin(S.base), dz = -Math.cos(S.base), rx = Math.cos(S.base), rz = Math.sin(S.base);
+    if (S.mode === "corner") { cam.tp.set(b[0] - dx * 4.4 + rx * 0.5, 2.1, b[2] - dz * 4.4 + rz * 0.5); cam.tl.set(b[0] + dx * 18, 0.8, b[2] + dz * 18); return; }
+    var back = camera.aspect < 0.9 ? 5.4 : 4.4;
+    cam.tp.set(b[0] - dx * back + rx * 0.35, 1.75, b[2] - dz * back + rz * 0.35);
+    cam.tl.set(b[0] * 0.25, 1.1, b[2] * 0.22);
+  }
+  function followCam(p, v, S) {
+    if (S.mode === "angle") return;
+    var vh = Math.hypot(v[0], v[2]); var ux = vh > 0.5 ? v[0] / vh : Math.sin(S.base), uz = vh > 0.5 ? v[2] / vh : -Math.cos(S.base);
+    var back = S.mode === "corner" ? 6.5 : 5.2;
+    var tx = p[0] - ux * back, tz = p[2] - uz * back, ty = (S.mode === "corner" ? 2.4 : 1.4) + p[1] * 0.55;
+    if (S.mode !== "corner") tz = Math.max(tz, 2.5);
+    cam.tp.set(tx, ty, tz); cam.tl.set(p[0], p[1] * 0.85 + 0.2, p[2]);
+  }
+  function lookAt(p) { cam.tl.set(p[0], p[1] * 0.85 + 0.2, p[2]); }
+  function replayCam(mode, shot, S, p) {
+    var f = shot.fr, a = f[0], n = Math.min(f.length - 1, Math.floor(Math.min(shot.T, (shot.R.t || shot.T) + 0.6) / PH.dt)), far = a, fd = 0, x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9;
+    for (var i = 0; i <= n; i += 4) { var q = f[i], dd = Math.hypot(q[1] - a[1], q[3] - a[3]); if (dd > fd) { fd = dd; far = q; } x0 = Math.min(x0, q[1]); x1 = Math.max(x1, q[1]); z0 = Math.min(z0, q[3]); z1 = Math.max(z1, q[3]); }
+    var mx = (x0 + x1) / 2, mz = (z0 + z1) / 2, len = Math.max(8, Math.hypot(x1 - x0, z1 - z0)), ux = fd > 1 ? (far[1] - a[1]) / fd : Math.sin(S.base), uz = fd > 1 ? (far[3] - a[3]) / fd : -Math.cos(S.base);
+    if (mode === "side") { var sd = len * 0.62 / Math.max(0.5, Math.min(1.6, camera.aspect)) + 5; cam.tp.set(mx - uz * sd, 2.5 + len * 0.1, mz + ux * sd); cam.tl.set(mx, 1.6, mz); }
+    else if (mode === "top") { cam.tp.set(mx - uz * 3, len * 1.05 / Math.max(0.6, Math.min(1.5, camera.aspect)) + 6, mz + ux * 3 + 0.01); cam.tl.set(mx, 0, mz); }
+    else if (mode === "goal") {
+      if (S.mode === "angle") { cam.tp.set(b[1] + 3, 2.5, b[3] - 6); cam.tl.set(p[0], p[1], p[2]); }
+      else if (S.mode === "corner") { cam.tp.set(-S.side * 1.5, 1.8, -5.6); cam.tl.set(p[0], p[1], p[2]); }
+      else { cam.tp.set(0, 1.7, -5.8); cam.tl.set(p[0], p[1], p[2]); }
+    } else followCam(p, [f[1][4], f[1][5], f[1][6]], S);
+  }
+  /* --- sahna holatini qo'yish --- */
+  var curS = null, ripple = null, netRest = true;
+  function placeMan(m, x, z, faceX, faceZ) { m.visible = true; m.position.set(x, 0, z); m.rotation.set(0, Math.atan2(faceX - x, faceZ - z), 0); m.userData.body.position.y = 0; m.userData.body.rotation.set(0, 0, 0); }
+  function setScene(S) {
+    curS = S; ripple = null; resetNet();
+    drop(trail); trail = null; ghosts.forEach(drop); ghosts = [];
+    ball.position.set(S.ball[0], S.ball[1], S.ball[2]); ball.quaternion.set(0, 0, 0, 1);
+    wallMen.forEach(function (m, i) { var W = S.wall; if (W && i < W.n) placeMan(m, W.cx + W.tx * W.us[i], W.cz + W.tz * W.us[i], S.ball[0], S.ball[2]); else m.visible = false; });
+    defMen.forEach(function (m, i) { var d = S.defs[i]; if (d) placeMan(m, d[0], d[1], S.ball[0], S.ball[2]); else m.visible = false; });
+    if (S.keeper) { placeMan(keeper, S.keeper.x0, ZK - 0.1, S.ball[0], S.ball[2]); keeper.rotation.y *= 0.4; keeperPose(S.keeper.x0, S.keeper.x0, 1.3, false); } else keeper.visible = false;
+    zones.forEach(function (z) { z.visible = false; });
+    if (S.zone) setZone(zones[0], S.zone, 0xffc23d, 0.22);
+    S.bonus.forEach(function (z, i) { setZone(zones[i], z, 0x35f0c4, 0.1); });
+    var tg = S.target; tRing.visible = tCol.visible = !!tg;
+    if (tg) { tRing.position.set(tg.x, 0.02, tg.z); tRing.scale.set(tg.R, tg.R, 1); tCol.position.set(tg.x, (tg.y0 + tg.y1) / 2, tg.z); tCol.scale.set(tg.R, tg.y1 - tg.y0, tg.R); placeMan(attacker, tg.x, tg.z, S.ball[0], S.ball[2]); } else attacker.visible = false;
+    var ang = S.mode === "angle"; markG.visible = ang; markLabels.forEach(function (l, i) { l.visible = ang && (i + 1) * 10 < 60; l.position.x = -8; });
+    aRing.visible = aLabel.visible = ang && S.task.kind === "land";
+    if (ang && S.task.kind === "land") { aRing.position.set(0, 0.03, S.ball[2] - S.task.L); var c = aLabel.material.map.image, g = c.getContext("2d"); g.clearRect(0, 0, 256, 64); g.font = "800 38px " + FONT; g.textAlign = "center"; g.textBaseline = "middle"; g.lineWidth = 8; g.strokeStyle = "rgba(5,9,24,.85)"; g.strokeText("L = " + S.task.L + " m", 128, 34); g.fillStyle = "#ffc23d"; g.fillText("L = " + S.task.L + " m", 128, 34); aLabel.material.map.needsUpdate = true; aLabel.position.set(0, 2.2, S.ball[2] - S.task.L); }
+    clothWind(S.wind, 0);
+    Object.keys(fArr).forEach(function (k) { fArr[k].visible = false; });
+    aimCam(S); snapCam(); camera.position.copy(cam.p); camera.lookAt(cam.l);
+    ballSh.position.set(S.ball[0], 0.012, S.ball[2]);
+  }
+  function keeperPose(bx, hx, hy, moving) {
+    var m = keeper; m.position.x = bx;
+    var dx = hx - bx, tilt = moving ? clamp(-Math.atan2(dx, Math.max(0.55, hy)) * 0.95, -1.35, 1.35) : 0;
+    m.userData.body.rotation.z = tilt; m.userData.body.position.y = moving ? Math.max(0, hy - 2.0) * 0.7 + Math.abs(tilt) * 0.25 : 0;
+    var aL = m.userData.aL, aR = m.userData.aR;
+    if (moving) { aL.rotation.set(0, 0, -2.75); aR.rotation.set(0, 0, 2.75); } else { aL.rotation.set(-0.2, 0, -1.25); aR.rotation.set(-0.2, 0, 1.25); }
+  }
+  function resetNet() { var p = backGeo.attributes.position; p.array.set(backBase); p.needsUpdate = true; netRest = true; }
+  function netUpdate(t, bulge) {
+    var p = backGeo.attributes.position, A = p.array, any = false, rp = ripple, n = A.length / 3;
+    var amp = 0, age = 0; if (rp) { age = t - rp.t0; amp = rp.amp * Math.exp(-age / 0.8); if (age < 0) amp = 0; }
+    if (!bulge && amp < 0.002) { if (!netRest) resetNet(); return false; }
+    for (var i = 0; i < n; i++) {
+      var x = backBase[i * 3], y = backBase[i * 3 + 1] + GOAL.h / 2, u = (x + GOAL.hw) / (2 * GOAL.hw), v = y / GOAL.h, ef = Math.sin(Math.PI * u) * Math.pow(Math.sin(Math.PI * clamp(v, 0, 1)), 0.6), d = 0;
+      if (bulge) { var bx = x - bulge[0], by = y - bulge[1]; d += bulge[2] * Math.exp(-(bx * bx + by * by) / 0.32); }
+      if (amp > 0.002) { var rx = x - rp.x, ry = y - rp.y, dist = Math.hypot(rx, ry); d += amp * Math.sin(6.5 * dist - 13 * age) * Math.exp(-dist / 1.7); }
+      A[i * 3 + 2] = -d * ef;
+    }
+    p.needsUpdate = true; netRest = false; return true;
+  }
+  var clothWv = [0, 0], clothT = 0;
+  function clothWind(w) { clothWv = w; var ws = Math.hypot(w[0], w[1]); clothG.rotation.set(0, ws > 0.05 ? Math.atan2(-w[1], w[0]) : 0, 0); cloth.rotation.z = -(1 - Math.min(1, ws / 7)) * 1.15; clothAnim(0); }
+  function clothAnim(dt) {
+    clothT += dt; var p = clothGeo.attributes.position, A = p.array, ws = Math.hypot(clothWv[0], clothWv[1]), n = A.length / 3;
+    for (var i = 0; i < n; i++) { var x = clothBase[i * 3], u = x / 1.7; A[i * 3 + 2] = Math.sin(u * 5 - clothT * (3 + ws * 0.7)) * 0.11 * u * (0.3 + Math.min(1, ws / 6)); A[i * 3 + 1] = clothBase[i * 3 + 1] + Math.sin(u * 3 - clothT * 2.3) * 0.03 * u; }
+    p.needsUpdate = true;
+  }
+  /* --- kadrni qo'llash --- */
+  function applyFrame(S, f, t) {
+    ball.position.set(f[1], f[2], f[3]); ball.quaternion.set(f[10], f[11], f[12], f[13]);
+    ballSh.position.set(f[1], 0.012, f[3]); var hs = 0.42 + f[2] * 0.12; ballSh.scale.set(hs, 1, hs); ballSh.material.opacity = 1 / (1 + f[2] * 0.6);
+    if (S.wall) { var jh = wallJump(S.wall, t); wallMen.forEach(function (m, i) { if (m.visible) m.userData.body.position.y = jh; }); }
+    if (S.keeper) keeperPose(f[14], f[15], f[16], S.keeper.active && t > S.keeper.react && Math.abs(f[15] - S.keeper.x0) + Math.abs(f[16] - 1.3) > 0.05);
+    return netUpdate(t, f[17] > 0 ? [f[1], f[2], f[17]] : null);
+  }
+  function showForces(S, f, on) {
+    var ks = Object.keys(fArr); if (!on) { ks.forEach(function (k) { fArr[k].visible = false; }); return; }
+    var s = [f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8], f[9]], F = forcesOf(s, S.env), o = [f[1], f[2], f[3]], k = 0.32;
+    setArrow(fArr.g, o, [F.g[0] * k, F.g[1] * k, F.g[2] * k]); setArrow(fArr.d, o, [F.d[0] * k, F.d[1] * k, F.d[2] * k]); setArrow(fArr.m, o, [F.m[0] * k, F.m[1] * k, F.m[2] * k]);
+    setArrow(fArr.w, [f[1], f[2] + 0.45, f[3]], [S.env.wx * 0.15, 0, S.env.wz * 0.15]); var sp = Math.hypot(f[4], f[5], f[6]) || 1; setArrow(fArr.v, o, [f[4] / sp * 1.4, f[5] / sp * 1.4, f[6] / sp * 1.4]);
+  }
+  function setAim(S, s0, pred) {
+    var sp = Math.hypot(s0[3], s0[4], s0[5]) || 1;
+    setArrow(aimArrow, [s0[0], s0[1], s0[2]], [s0[3] / sp * 1.8, s0[4] / sp * 1.8, s0[5] / sp * 1.8]);
+    var n = 0;
+    if (pred && pred.length) { var step = Math.max(1, Math.floor(pred.length / 4 / 28)); for (var i = step; i < pred.length / 4 && n < 32; i += step) { dMat.makeTranslation(pred[i * 4], pred[i * 4 + 1], pred[i * 4 + 2]); dots.setMatrixAt(n++, dMat); } }
+    dots.count = n; dots.instanceMatrix.needsUpdate = true;
+  }
+  function hideAim() { aimArrow.visible = false; dots.count = 0; }
+  function buildTrail(shot) {
+    drop(trail); var f = shot.fr, pts = [], st = 2;
+    for (var i = 0; i < f.length; i += st) pts.push(f[i][1], f[i][2], f[i][3]);
+    trail = tube(pts, curS && curS.mode === "angle" ? 0.09 : 0.035, 0x35f0c4, 0xa27bff, 1); trail.userData.st = st; setTrailUpto(0);
+  }
+  function trailAt(fi) { if (trail) setTrailUpto(Math.floor(fi / trail.userData.st)); }
+  function showGhosts(list) { ghosts.forEach(drop); ghosts = []; (list || []).forEach(function (g) { var pts = []; for (var i = 0; i < g.pts.length; i += 4) pts.push(g.pts[i], g.pts[i + 1], g.pts[i + 2]); if (pts.length >= 6) ghosts.push(tube(pts, 0.025, g.col, g.col, 0.55)); }); }
+  /* --- sichqoncha bilan nishon olish (nur va tekislik kesishishi) --- */
+  var ray = new T.Raycaster(), ndc = new T.Vector2(), hitP = new T.Vector3();
+  function pickAim(S, cx, cy) {
+    var r = canvas.getBoundingClientRect(); ndc.set((cx - r.left) / r.width * 2 - 1, -((cy - r.top) / r.height) * 2 + 1); ray.setFromCamera(ndc, camera);
+    var pl;
+    if (S.mode === "angle") pl = new T.Plane(new T.Vector3(1, 0, 0), 0);
+    else if (S.mode === "corner") { var dx = Math.sin(S.base), dz = -Math.cos(S.base); pl = new T.Plane(new T.Vector3(dx, 0, dz), -(dx * S.target.x + dz * S.target.z)); }
+    else pl = new T.Plane(new T.Vector3(0, 0, 1), 0);
+    if (!ray.ray.intersectPlane(pl, hitP)) return null;
+    var b = S.ball, hd = Math.hypot(hitP.x - b[0], hitP.z - b[2]); if (hd < 1) return null;
+    return { yaw: (Math.atan2(hitP.x - b[0], b[2] - hitP.z) - S.base) / DEG, ang: Math.atan2(hitP.y - b[1], hd) / DEG };
+  }
+  function resize(w, h) { renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+  function render() { renderer.render(scene, camera); }
+  return {
+    setScene: setScene, applyFrame: applyFrame, setAim: setAim, hideAim: hideAim, buildTrail: buildTrail, trailAt: trailAt, showGhosts: showGhosts, showForces: showForces,
+    aimCam: aimCam, followCam: followCam, lookAt: lookAt, replayCam: replayCam, stepCam: stepCam, snapCam: snapCam, pickAim: pickAim, resize: resize, render: render,
+    ripple: function (r) { ripple = r; }, clothAnim: clothAnim, clothWind: clothWind, renderer: renderer, camera: camera, scene: scene, ball: ball, keeper: keeper, wallMen: wallMen
+  };
+}
+
+/* ================= 9. Boshqaruv, o'yin holati, HUD ================= */
+var TEST = selfTest();
+var UI = (function () {
+  var stage = $("stage"), gl = $("gl"), panel = $("panel"), kickBtn = $("kick"), replayBtn = $("replay"), big = $("bigmsg"), legend = $("legend"), rbadge = $("rbadge"), loadEl = $("loading");
+  var rPow = $("r-pow"), rYaw = $("r-yaw"), rAng = $("r-ang"), pickCv = $("pick-cv"), pctx = pickCv.getContext("2d");
+  var G = null, bootMs = null, loading = false, failed = false, raf = 0, last = 0, visible = false, flagUntil = 0, hudT = 0, predPending = false;
+  var F = { drag: true, mag: true, wall: false, full: false, dist: 22, wind: "0" };
+  var DEF = { fk: { pow: 92, ang: 16 }, wind: { pow: 92, ang: 15 }, corner: { pow: 82, ang: 19 }, angle: { pow: 80, ang: 30 }, free: { pow: 95, ang: 15 } };
+  var st = { mode: "fk", lvl: {}, maxLvl: {}, score: {}, best: {}, streak: 0, stars: 0, S: null, A: { pow: 92, yaw: 0, ang: 16, cx: 0, cy: 0 }, phase: "aim", shot: null, play: null, camMode: "follow", an: null, res: null, retry: false };
+  Object.keys(MODES).forEach(function (m) { st.lvl[m] = clamp(parseInt(lsGet("lvl." + m), 10) || 1, 1, 99); st.maxLvl[m] = Math.max(st.lvl[m], parseInt(lsGet("max." + m), 10) || 1); st.best[m] = parseInt(lsGet("best." + m), 10) || 0; st.score[m] = 0; });
+  st.stars = parseInt(lsGet("stars"), 10) || 0;
+
+  /* --- yuklash --- */
+  function load3D() {
+    if (G || loading || failed) return; loading = true;
+    /* sahifa to'liq yuklanib, brauzer bo'shaganda boshlaymiz — birinchi ekran tez ochilsin */
+    if (document.readyState !== "complete") { window.addEventListener("load", function () { loading = false; setTimeout(load3D, 60); }, { once: true }); return; }
+    if (window.THREE) { boot(); return; }
+    var sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"; sc.async = true;
+    sc.onload = boot; sc.onerror = function () { fail("Kutubxona yuklanmadi — internetni tekshirib, sahifani yangilang."); };
+    document.head.appendChild(sc);
+  }
+  function fail(msg) { failed = true; loading = false; loadEl.classList.remove("hide"); loadEl.innerHTML = '<b>3D stadion ochilmadi</b><span>' + esc(msg) + '</span><button class="btn pri" type="button" id="re3d">↻ Qayta urinish</button>'; var b = $("re3d"); if (b) b.onclick = function () { failed = false; loadEl.innerHTML = '<div class="spin"></div><b>3D stadion tayyorlanmoqda…</b>'; load3D(); }; }
+  function boot() {
+    if (!boot.idle && window.requestIdleCallback) { boot.idle = true; requestIdleCallback(boot, { timeout: 700 }); return; }
+    var t0 = performance.now();
+    try { G = make3D(); } catch (err) { G = null; fail("Brauzeringiz WebGL (3D grafika) ni qo'llamayapti yoki u o'chirilgan."); return; }
+    var t1 = performance.now(); loading = false; loadEl.classList.add("hide"); resize(); newSetup(); G.render(); bootMs = [Math.round(t1 - t0), Math.round(performance.now() - t1)]; wake();
+  }
+  /* --- o'lcham --- */
+  function resize() { if (!G) return; var w = stage.clientWidth, h = stage.clientHeight; if (w < 10 || h < 10) return; G.resize(w, h); if (st.S && st.phase === "aim") { G.aimCam(st.S); G.snapCam(); } G.stepCam(0); G.render(); }
+  /* --- sikl --- */
+  function wake() { if (!G || raf || document.hidden || !visible) return; last = performance.now(); raf = requestAnimationFrame(tick); }
+  function tick(now) {
+    raf = 0; if (!G) return;
+    var dt = Math.min(0.1, Math.max(0, (now - last) / 1000)); last = now;
+    var act = false;
+    if (st.phase === "flight" || st.phase === "replay") act = playStep(dt) || act;
+    else if (st.play && st.play.tail) { st.play.t += dt; act = G.applyFrame(st.S, lastFrame(), st.play.t); if (!act) st.play.tail = false; }
+    act = G.stepCam(dt, st.phase === "replay" ? 3 : st.phase === "flight" ? 5 : 4) || act;
+    if (!RM && Math.hypot(st.S ? st.S.wind[0] : 0, st.S ? st.S.wind[1] : 0) > 0.05 && (st.phase === "flight" || st.phase === "replay" || now < flagUntil)) { G.clothAnim(dt); act = true; }
+    G.render();
+    if (act) wake();
+  }
+  /* --- kadrlar --- */
+  var FB = new Array(21);
+  function frameAt(shot, t) {
+    var f = shot.fr, n = f.length, x = t / PH.dt, i = Math.floor(x);
+    if (i >= n - 1) return f[n - 1]; if (i < 0) return f[0];
+    var a = f[i], b = f[i + 1], u = x - i;
+    for (var k = 0; k < 21; k++) FB[k] = a[k] + (b[k] - a[k]) * u;
+    var dq = a[10] * b[10] + a[11] * b[11] + a[12] * b[12] + a[13] * b[13], sg = dq < 0 ? -1 : 1, ql = 0;
+    for (k = 10; k < 14; k++) { FB[k] = a[k] + (sg * b[k] - a[k]) * u; ql += FB[k] * FB[k]; } ql = Math.sqrt(ql) || 1; for (k = 10; k < 14; k++) FB[k] /= ql;
+    return FB;
+  }
+  function replayEnd(shot) { var R = shot.R; return R && R.t != null && R.type !== "short" ? Math.min(shot.T, R.t + 1.3) : Math.min(shot.T, 4); }
+  function lastFrame() { var f = st.shot.fr; return f[f.length - 1]; }
+  function playStep(dt) {
+    var P = st.play, shot = st.shot, S = st.S;
+    var Tend = P.live ? shot.T : replayEnd(shot);
+    P.t = Math.min(Tend, P.t + dt * P.speed);
+    var f = frameAt(shot, P.t);
+    G.applyFrame(S, f, P.t); G.trailAt(Math.floor(P.t / PH.dt));
+    shot.ev.forEach(function (e, i) { if (!P.fired[i] && P.t >= e.t) { P.fired[i] = true; if (e.type === "net") G.ripple({ t0: e.t, x: e.x, y: e.y, amp: Math.min(0.32, e.v * 0.013) }); } });
+    if (P.live && !P.big && shot.R.t != null && P.t >= shot.R.t) { P.big = true; showBig(); }
+    if (P.speed < 1) { G.showForces(S, f, true); if (st.camMode === "follow") G.followCam([f[1], f[2], f[3]], [f[4], f[5], f[6]], S); else G.replayCam(st.camMode, shot, S, [f[1], f[2], f[3]]); }
+    else { var tFr = Math.min(shot.R.t != null && shot.R.type !== "short" ? shot.R.t : 99, shot.firstLand ? shot.firstLand.t : 99) + 0.35; if (P.t < tFr || S.mode === "angle") G.followCam([f[1], f[2], f[3]], [f[4], f[5], f[6]], S); else G.lookAt([f[1], f[2], f[3]]); }
+    var now = performance.now(); if (now - hudT > 70) { hudT = now; hudFrame(f, shot); }
+    if (P.t >= Tend) {
+      if (P.live) hudFrame(lastFrame(), shot);
+      if (P.live) finish(); else endReplay();
+      P.tail = true; return true;
+    }
+    return true;
+  }
+  /* --- HUD --- */
+  function setH(id, v, u) { var el = $(id); var h = u ? v + "<small>" + u + "</small>" : v; if (el.innerHTML !== h) el.innerHTML = h; }
+  function hudFrame(f, shot) {
+    setH("h-v", fmt(Math.hypot(f[4], f[5], f[6]) * 3.6, 0), "km/soat"); setH("h-w", fmt(Math.hypot(f[7], f[8], f[9]) * 60 / (2 * Math.PI), 0), "ayl/min");
+    setH("h-h", fmt(f[18] - PH.r, 2), "m"); setH("h-d", fmt(f[20], 1), "m"); setH("h-c", fmt(Math.abs(f[19]), 2), "m"); setH("h-t", fmt(f[0], 2), "s");
+  }
+  function hudAim(s0) {
+    setH("h-v", fmt(Math.hypot(s0[3], s0[4], s0[5]) * 3.6, 0), "km/soat"); setH("h-w", fmt(Math.hypot(s0[6], s0[7], s0[8]) * 60 / (2 * Math.PI), 0), "ayl/min");
+    ["h-h", "h-d", "h-c", "h-t"].forEach(function (id) { setH(id, "—"); });
+  }
+  /* --- shamol kompasi --- */
+  function drawWind() {
+    var S = st.S, box = $("windbox"), ws = S ? Math.hypot(S.wind[0], S.wind[1]) : 0; box.classList.toggle("show", ws > 0.05);
+    if (ws <= 0.05) return;
+    var c = $("wind-cv"), w = c.clientWidth || 72, d = DPR(), g = c.getContext("2d"); c.width = Math.round(w * d); c.height = Math.round(w * d); g.setTransform(d, 0, 0, d, 0, 0);
+    var r = w / 2, psi = S.base, dx = Math.sin(psi), dz = -Math.cos(psi), rx = Math.cos(psi), rz = Math.sin(psi);
+    var fwd = S.wind[0] * dx + S.wind[1] * dz, rt = S.wind[0] * rx + S.wind[1] * rz;
+    g.strokeStyle = "rgba(147,163,204,.35)"; g.lineWidth = 1.5; g.beginPath(); g.arc(r, r, r - 3, 0, 7); g.stroke();
+    g.fillStyle = "rgba(243,245,255,.85)"; g.beginPath(); g.moveTo(r, 8); g.lineTo(r - 5, 17); g.lineTo(r + 5, 17); g.closePath(); g.fill();
+    g.font = "700 9px " + FONT; g.textAlign = "center"; g.fillStyle = "rgba(243,245,255,.7)"; g.fillText("zarba", r, 26);
+    var L = (r - 10) * Math.min(1, 0.35 + ws / 12), ux = rt / ws, uy = -fwd / ws;
+    var x1 = r - ux * L, y1 = r - uy * L, x2 = r + ux * L, y2 = r + uy * L;
+    g.strokeStyle = COL.w; g.fillStyle = COL.w; g.lineWidth = 4; g.lineCap = "round"; g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2 - ux * 8, y2 - uy * 8); g.stroke();
+    g.beginPath(); g.moveTo(x2, y2); g.lineTo(x2 - ux * 12 - uy * 7, y2 - uy * 12 + ux * 7); g.lineTo(x2 - ux * 12 + uy * 7, y2 - uy * 12 - ux * 7); g.closePath(); g.fill();
+    $("wind-v").textContent = "🌬 " + fmt(ws, 1) + " m/s";
+    $("wind-s").innerHTML = (Math.abs(fwd) > 0.2 ? (fwd < 0 ? "qarshi " : "orqadan ") + fmt(Math.abs(fwd), 1) : "") + (Math.abs(fwd) > 0.2 && Math.abs(rt) > 0.2 ? " · " : "") + (Math.abs(rt) > 0.2 ? (rt > 0 ? "o'ngga " : "chapga ") + fmt(Math.abs(rt), 1) : "");
+  }
+  /* --- zarba nuqtasi (to'p) --- */
+  function spinLabel(cx, cy) {
+    var h = cx > 0.15 ? "o'ng" : cx < -0.15 ? "chap" : "", v = cy < -0.15 ? "past" : cy > 0.15 ? "tepa" : "";
+    if (!h && !v) return "Markaz<br>aylanishsiz";
+    var name = (h && v ? h + "-" + v : (h || v)) + " tomoni", eff = [];
+    if (h) eff.push(cx > 0 ? "← chapga buriladi" : "o'ngga buriladi →");
+    if (v) eff.push(cy < 0 ? "↑ suzadi" : "↓ sho'ng'iydi");
+    return "<b>" + name.charAt(0).toUpperCase() + name.slice(1) + "</b><br>" + eff.join(", ");
+  }
+  function drawPick() {
+    var w = pickCv.clientWidth || 78, d = DPR(), g = pctx, r = w / 2 - 3; pickCv.width = Math.round(w * d); pickCv.height = Math.round(w * d); g.setTransform(d, 0, 0, d, 0, 0);
+    var gr = g.createRadialGradient(w * 0.36, w * 0.32, 2, w / 2, w / 2, r); gr.addColorStop(0, "#ffffff"); gr.addColorStop(1, "#aab4da"); g.fillStyle = gr; g.beginPath(); g.arc(w / 2, w / 2, r, 0, 7); g.fill();
+    g.save(); g.beginPath(); g.arc(w / 2, w / 2, r, 0, 7); g.clip(); g.fillStyle = "#18204a";
+    g.beginPath(); for (var i = 0; i < 5; i++) { var a = -Math.PI / 2 + i * 2 * Math.PI / 5; g.lineTo(w / 2 + Math.cos(a) * r * 0.3, w / 2 + Math.sin(a) * r * 0.3); } g.closePath(); g.fill();
+    for (i = 0; i < 5; i++) { var b = Math.PI / 2 + i * 2 * Math.PI / 5; g.beginPath(); g.arc(w / 2 + Math.cos(b) * r * 1.02, w / 2 + Math.sin(b) * r * 1.02, r * 0.3, 0, 7); g.fill(); }
+    g.restore();
+    g.strokeStyle = "rgba(10,16,40,.55)"; g.setLineDash([3, 3]); g.lineWidth = 1; g.beginPath(); g.moveTo(w / 2 - r, w / 2); g.lineTo(w / 2 + r, w / 2); g.moveTo(w / 2, w / 2 - r); g.lineTo(w / 2, w / 2 + r); g.stroke(); g.setLineDash([]);
+    var A = st.A, px = w / 2 + A.cx * r, py = w / 2 - A.cy * r;
+    g.fillStyle = "rgba(255,194,61,.35)"; g.beginPath(); g.arc(px, py, 10, 0, 7); g.fill();
+    g.fillStyle = COL.amber; g.strokeStyle = "#3a2600"; g.lineWidth = 2; g.beginPath(); g.arc(px, py, 5.5, 0, 7); g.fill(); g.stroke();
+    $("pick-lbl").innerHTML = spinLabel(A.cx, A.cy);
+    pickCv.setAttribute("aria-valuetext", spinLabel(A.cx, A.cy).replace(/<[^>]+>/g, " "));
+    Array.prototype.forEach.call(document.querySelectorAll("#spin-seg .btn"), function (b) { b.classList.toggle("on", Math.abs(+b.dataset.cx - A.cx) < 0.02 && Math.abs(+b.dataset.cy - A.cy) < 0.02); });
+  }
+  function setContact(cx, cy) { var l = Math.hypot(cx, cy); if (l > 0.85) { cx *= 0.85 / l; cy *= 0.85 / l; } st.A.cx = Math.round(cx * 100) / 100; st.A.cy = Math.round(cy * 100) / 100; drawPick(); aimChanged(); }
+  var pickDrag = false;
+  function pickAt(e) { var r = pickCv.getBoundingClientRect(), rr = r.width / 2 - 3; setContact((e.clientX - r.left - r.width / 2) / rr, -(e.clientY - r.top - r.height / 2) / rr); }
+  pickCv.addEventListener("pointerdown", function (e) { if (!canAim()) return; pickDrag = true; try { pickCv.setPointerCapture(e.pointerId); } catch (er) {} pickAt(e); e.preventDefault(); });
+  pickCv.addEventListener("pointermove", function (e) { if (pickDrag) pickAt(e); });
+  pickCv.addEventListener("pointerup", function () { pickDrag = false; });
+  pickCv.addEventListener("pointercancel", function () { pickDrag = false; });
+  pickCv.addEventListener("keydown", function (e) { var k = e.key, s = 0.1; if (!/^Arrow/.test(k)) return; e.preventDefault(); if (!canAim()) return; setContact(st.A.cx + (k === "ArrowRight" ? s : k === "ArrowLeft" ? -s : 0), st.A.cy + (k === "ArrowUp" ? s : k === "ArrowDown" ? -s : 0)); });
+  $("spin-seg").addEventListener("click", function (e) { var b = e.target.closest(".btn"); if (!b || !canAim()) return; setContact(+b.dataset.cx, +b.dataset.cy); });
+
+  /* --- nishon olish --- */
+  function canAim() { if (!G || !st.S) return false; if (st.phase === "flight" || st.phase === "replay") return false; if (st.phase === "result") nextShot(); return true; }
+  function syncSliders() {
+    var A = st.A, S = st.S;
+    rPow.value = A.pow; rYaw.value = A.yaw; rAng.value = A.ang;
+    if (S && S.mode === "angle") { $("v-pow").textContent = fmt(S.task.v * 3.6, 0) + " km/soat (" + S.task.v + " m/s)"; rPow.value = Math.round(S.task.v * 3.6); }
+    else $("v-pow").textContent = A.pow + " km/soat (" + fmt(A.pow / 3.6, 1) + " m/s)";
+    $("v-yaw").textContent = (A.yaw > 0 ? "+" : "") + fmt(A.yaw, 1) + "°" + (A.yaw > 0.2 ? " o'ngga" : A.yaw < -0.2 ? " chapga" : "");
+    $("v-ang").textContent = fmt(A.ang, 1) + "°";
+  }
+  function aimChanged() {
+    syncSliders();
+    if (!G || !st.S || st.phase !== "aim") return;
+    if (!predPending) { predPending = true; requestAnimationFrame(function () { predPending = false; updatePred(); }); }
+  }
+  function updatePred() {
+    var S = st.S, s0 = kickState(S, st.A), pred = null;
+    if (S.pred > 0) { var f = flight(s0, S.env, { tmax: 5, stride: 1 }), tl = f.T * S.pred, pts = f.pts, out = []; for (var i = 0; i < pts.length; i += 4) { if (pts[i + 3] > tl) break; out.push(pts[i], pts[i + 1], pts[i + 2], pts[i + 3]); } pred = out; }
+    G.setAim(S, s0, pred); hudAim(s0); flagUntil = performance.now() + 2500; wake();
+  }
+  rPow.addEventListener("input", function () { if (!canAim()) return; st.A.pow = +rPow.value; aimChanged(); });
+  rYaw.addEventListener("input", function () { if (!canAim()) return; st.A.yaw = +rYaw.value; aimChanged(); });
+  rAng.addEventListener("input", function () { if (!canAim()) return; st.A.ang = +rAng.value; aimChanged(); });
+  function setYawAng(y, a) { var S = st.S; st.A.yaw = clamp(Math.round(y * 2) / 2, -S.yawMax, S.yawMax); st.A.ang = clamp(Math.round(a * 2) / 2, S.mode === "angle" ? 5 : 0, S.angMax); aimChanged(); }
+  /* sichqoncha / barmoq */
+  var drag = null, mdown = null;
+  gl.addEventListener("pointermove", function (e) {
+    if (!G || !st.S) return;
+    if (e.pointerType === "mouse") { if (st.phase !== "aim" || (e.buttons & 1 && mdown && mdown.moved === "x")) return; var r = G.pickAim(st.S, e.clientX, e.clientY); if (r) setYawAng(st.S.mode === "angle" ? 0 : r.yaw, r.ang); if (mdown && Math.hypot(e.clientX - mdown.x, e.clientY - mdown.y) > 6) mdown.moved = true; return; }
+    if (!drag || drag.id !== e.pointerId) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; drag.dist += Math.abs(dx) + Math.abs(dy);
+    if (!canAim()) return;
+    setYawAng(st.A.yaw + dx * 0.09, st.A.ang - dy * 0.07);
+  });
+  gl.addEventListener("pointerdown", function (e) {
+    if (!G) return;
+    if (e.pointerType === "mouse") { mdown = { x: e.clientX, y: e.clientY, moved: false }; return; }
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, dist: 0 }; try { gl.setPointerCapture(e.pointerId); } catch (er) {}
+  });
+  gl.addEventListener("pointerup", function (e) {
+    if (e.pointerType === "mouse") { var m = mdown; mdown = null; if (!m || m.moved === true || e.button !== 0) return; if (st.phase === "aim") doKick(); else if (st.phase === "result") nextShot(); return; }
+    drag = null;
+  });
+  gl.addEventListener("pointercancel", function () { drag = null; mdown = null; });
+  gl.addEventListener("keydown", function (e) {
+    var k = e.key; if (!G || !st.S) return;
+    if (k === " " || k === "Enter") { e.preventDefault(); doKick(); return; }
+    if (k === "r" || k === "R" || k === "к" || k === "К") { startReplay(); return; }
+    if (k === "n" || k === "N") { if (st.phase === "result") nextShot(); return; }
+    var dy = k === "ArrowLeft" ? -0.5 : k === "ArrowRight" ? 0.5 : 0, da = k === "ArrowUp" ? 0.5 : k === "ArrowDown" ? -0.5 : 0, dp = (k === "+" || k === "=") ? 2 : (k === "-" || k === "_") ? -2 : 0;
+    if (dy || da || dp) { e.preventDefault(); if (!canAim()) return; if (dp) st.A.pow = clamp(st.A.pow + dp, 40, 125); setYawAng(st.A.yaw + dy, st.A.ang + da); }
+  });
+  kickBtn.addEventListener("click", doKick);
+  replayBtn.addEventListener("click", startReplay);
+  $("cam-seg").addEventListener("click", function (e) { var b = e.target.closest(".btn"); if (!b) return; st.camMode = b.dataset.cam; Array.prototype.forEach.call(this.children, function (x) { x.classList.toggle("on", x === b); }); if (st.phase === "replay") wake(); else if (st.shot && st.phase === "result") startReplay(); });
+  /* erkin tajriba sozlamalari */
+  ["f-drag", "f-mag", "f-wall", "f-full"].forEach(function (id) { $(id).addEventListener("change", function () { F.drag = $("f-drag").checked; F.mag = $("f-mag").checked; F.wall = $("f-wall").checked; F.full = $("f-full").checked; if (st.mode === "free" && G) newSetup(true); }); });
+  ["f-dist", "f-wind"].forEach(function (id) { $(id).addEventListener("change", function () { F.dist = +$("f-dist").value; F.wind = $("f-wind").value; if (st.mode === "free" && G) newSetup(true); }); });
+
+  /* --- zarba --- */
+  function doKick() {
+    if (!G || !st.S) { load3D(); return; }
+    if (st.phase === "result") { if (st.mode === "free") { nextShot(); } else { nextShot(); return; } }
+    if (st.phase !== "aim") return;
+    var shot = simulateShot(st.S, st.A);
+    st.shot = shot; st.an = null; st.res = null;
+    G.hideAim(); G.buildTrail(shot); G.showGhosts(null);
+    st.play = { t: 0, speed: 1, fired: {}, live: true, big: false };
+    st.phase = "flight"; kickBtn.disabled = true; replayBtn.classList.remove("show"); hideBig();
+    panel.innerHTML = scoreChips() + '<p class="muted">⚽ To\'p uchmoqda… HUD da tezlik, aylanish, balandlik va burilishni kuzating.</p>';
+    wake();
+  }
+  function showBig() {
+    var R = st.shot.R, t = R.type, m = { post: R.post === "bar" ? "TO'SIN!" : "USTUN!", goal: "GOL!", target: "ZO'R!", wall: "DEVOR!", save: "USHLADI!", over: "BALAND!", wide: "AUT!", short: "QISQA", defender: "TO'SILDI", curve: "BURILMADI", high: "BALAND!", side: "CHETGA" }[t];
+    if (!m) return; var good = t === "goal" || t === "target";
+    if (t === "goal" && st.S.zone && !inRect(st.S.zone, R.x, R.y, 0.06)) { m = "GOL"; }
+    big.className = "bigmsg show " + (good ? "g" : "m"); big.innerHTML = m + (R.post && t !== "post" ? "<small>" + (R.post === "bar" ? "to'singa tegdi" : "ustunga tegdi") + "</small>" : "");
+    clearTimeout(showBig.t); showBig.t = setTimeout(hideBig, 1700);
+  }
+  function hideBig() { big.className = "bigmsg"; }
+  function inRect(z, x, y, tol) { return x >= z.x0 - tol && x <= z.x1 + tol && y >= z.y0 - tol && y <= z.y1 + tol; }
+  function finish() {
+    var S = st.S, shot = st.shot, res = evaluate(S, shot);
+    st.res = res; st.phase = "result";
+    if (S.mode === "angle" && !st.play.big) { st.play.big = true; big.className = "bigmsg show " + (res.ok ? "g" : "m"); big.innerHTML = (res.ok ? "✓ " : "✗ ") + fmt(shot.R.L, 1) + " m"; clearTimeout(showBig.t); showBig.t = setTimeout(hideBig, 1700); }
+    if (S.mode !== "free") {
+      var m = st.mode;
+      if (res.ok) {
+        st.streak++; var pts = 10 * S.d + 5 * res.stars; st.score[m] += pts; st.stars += res.stars; lsSet("stars", st.stars); res.pts = pts;
+        coins(res.stars === 3 ? 2 : 1);
+        if (st.streak >= 3) { st.lvl[m]++; st.streak = 0; res.lvlUp = st.lvl[m]; if (st.lvl[m] > st.maxLvl[m]) { st.maxLvl[m] = st.lvl[m]; lsSet("max." + m, st.maxLvl[m]); } lsSet("lvl." + m, st.lvl[m]); }
+        if (st.score[m] > st.best[m]) { st.best[m] = st.score[m]; lsSet("best." + m, st.best[m]); res.rec = true; }
+        st.retry = false;
+      } else { st.streak = 0; st.retry = true; }
+    }
+    kickBtn.disabled = false; kickBtn.classList.add("next");
+    kickBtn.innerHTML = st.mode === "free" ? "⚽<small>Yana</small>" : res.ok ? "▶<small>Keyingi</small>" : "↺<small>Qayta</small>";
+    replayBtn.classList.add("show");
+    renderPanel();
+    fillLevels();
+  }
+  function nextShot() {
+    hideBig(); kickBtn.classList.remove("next"); kickBtn.innerHTML = "⚽<small>Zarba</small>"; replayBtn.classList.remove("show");
+    legend.classList.remove("show"); rbadge.classList.remove("show");
+    if (st.mode === "free" || !st.retry) newSetup(true); else { resetScene(); }
+  }
+  function newSetup(keepAim) {
+    var m = st.mode; st.S = makeSetup(m, st.lvl[m], F); st.retry = false;
+    if (!keepAim) { var d = DEF[m]; st.A = { pow: d.pow, yaw: 0, ang: d.ang, cx: 0, cy: 0 }; }
+    st.A.yaw = clamp(st.A.yaw, -st.S.yawMax, st.S.yawMax); st.A.ang = clamp(st.A.ang, m === "angle" ? 5 : 0, st.S.angMax);
+    if (m === "angle" && !keepAim) st.A.ang = 30;
+    resetScene();
+  }
+  function resetScene() {
+    st.phase = "aim"; st.shot = null; st.play = null; st.res = null; st.an = null;
+    if (G) { G.setScene(st.S); G.showGhosts(null); }
+    kickBtn.disabled = false; kickBtn.classList.remove("next"); kickBtn.innerHTML = "⚽<small>Zarba</small>"; replayBtn.classList.remove("show");
+    legend.classList.remove("show"); rbadge.classList.remove("show");
+    configTools(); drawWind(); drawPick(); syncSliders(); renderPanel(); fillLevels(); titleBar();
+    if (G) { updatePred(); G.render(); }
+  }
+  function startReplay() {
+    if (!G || !st.shot || st.phase === "flight") return;
+    if (st.phase === "replay") { st.play.t = 0; return; }
+    st.phase = "replay"; st.play = { t: 0, speed: RM ? 1 : 0.25, fired: {}, live: false };
+    G.ripple(null); G.trailAt(0);
+    if (st.res && !st.res.ok && st.an && st.an.P) {
+      var gl2 = [], s0 = st.shot.s0, e = st.S.env;
+      if (e.magnus && Math.hypot(s0[6], s0[7], s0[8]) > 1) gl2.push({ pts: flight(s0, envWith(e, { magnus: false }), { tmax: 5 }).pts, col: 0xb48cff });
+      if (Math.hypot(e.wx, e.wz) > 0.1) gl2.push({ pts: flight(s0, envWith(e, { wx: 0, wz: 0 }), { tmax: 5 }).pts, col: 0x4fd1ff });
+      G.showGhosts(gl2);
+    }
+    var f0 = st.shot.fr[0]; if (st.camMode === "follow") G.followCam([f0[1], f0[2], f0[3]], [f0[4], f0[5], f0[6]], st.S); else G.replayCam(st.camMode, st.shot, st.S, [f0[1], f0[2], f0[3]]); G.snapCam();
+    legend.classList.add("show"); rbadge.classList.add("show"); rbadge.textContent = RM ? "🔁 TAKROR" : "🔁 SEKIN TAKROR · 0,25×"; replayBtn.innerHTML = "⏮ Boshidan";
+    kickBtn.disabled = true; hideBig(); wake();
+  }
+  function endReplay() {
+    st.phase = "result"; legend.classList.remove("show"); rbadge.classList.remove("show"); G.showForces(st.S, null, false); G.showGhosts(null);
+    replayBtn.innerHTML = "🔁 Sekin<br>takror"; kickBtn.disabled = false;
+  }
+  /* --- baholash --- */
+  function evaluate(S, shot) {
+    var R = shot.R, o = { ok: false, stars: 0, head: "", body: "", tip: "", diag: false };
+    var postTxt = R.post ? (R.post === "bar" ? " To'p avval to'singa tegdi." : " To'p avval ustunga tegdi.") : "";
+    if (S.mode === "angle") {
+      var T = S.task, L = R.L, a = shot.aim.ang;
+      if (T.kind === "land") { var dL = L - T.L; o.ok = Math.abs(dL) <= T.tol; o.stars = o.ok ? (Math.abs(dL) <= 0.5 ? 3 : Math.abs(dL) <= 1 ? 2 : 1) : 0; o.head = o.ok ? "✅ Aniq! To'p " + fmt(L, 1) + " m ga tushdi (nishon " + T.L + " m)." : "❌ To'p " + fmt(L, 1) + " m ga tushdi — " + fmt(Math.abs(dL), 1) + " m " + (dL < 0 ? "qisqa" : "uzoq") + "."; }
+      else { o.ok = L >= T.Rok - 1e-6; var da = Math.abs(a - T.aopt); o.stars = o.ok ? (da <= 0.75 ? 3 : da <= 1.5 ? 2 : 1) : 0; o.head = (o.ok ? "✅ Eng uzoqqa yaqin! " : "❌ Bundan uzoqroq bo'lishi mumkin. ") + "α = " + fmt(a, 1) + "° → " + fmt(L, 1) + " m (eng yaxshisi ≈ " + fmt(T.aopt, 1) + "° → " + fmt(T.Rmax, 1) + " m)."; }
+      return o;
+    }
+    if (S.mode === "corner") {
+      var TG = S.target;
+      if (R.type === "target") { o.ok = true; o.stars = R.d <= 0.4 * TG.R ? 3 : 2; o.head = "✅ Zo'r uzatma! To'p " + fmt(Math.abs(R.dev), 2) + " m burilib, hujumchiga yetdi — u boshi bilan darvozaga yo'naltirdi."; }
+      else if (R.type === "curve") o.head = "❌ Nishonga yetdi, lekin burilish " + fmt(Math.abs(R.dev), 2) + " m — kerak: kamida " + fmt(TG.req, 1) + " m.";
+      else if (R.type === "defender") o.head = "❌ Himoyachi to'pni boshi bilan qaytardi (balandlik " + fmt(R.y, 2) + " m).";
+      else if (R.type === "high") o.head = "❌ Juda baland: to'p nishon ustidan " + fmt(R.y, 2) + " m balandlikda o'tdi.";
+      else if (R.type === "short") o.head = "❌ Qisqa: to'p nishongacha yetmay yerga tushdi.";
+      else o.head = "❌ To'p nishondan " + fmt(Math.max(0, R.d - TG.R), 2) + " m chetdan o'tdi (balandligi " + fmt(R.y, 2) + " m).";
+      return o;
+    }
+    var t = R.type;
+    if (t === "goal") {
+      if (S.mode === "free") { o.ok = true; o.head = "⚽ Gol!" + postTxt; }
+      else if (S.zone) { var z = S.zone, inZ = inRect(z, R.x, R.y, 0.06); o.ok = inZ; if (inZ) { var nd = Math.max(Math.abs(R.x - (z.x0 + z.x1) / 2) / ((z.x1 - z.x0) / 2), Math.abs(R.y - (z.y0 + z.y1) / 2) / ((z.y1 - z.y0) / 2)); o.stars = nd < 0.45 || Math.abs(shot.dev) >= 1.5 ? 3 : 2; o.head = "⚽ GOL! " + ZNAME[z.k].charAt(0).toUpperCase() + ZNAME[z.k].slice(1) + " — nishonga tegdi." + postTxt; } else o.head = "😬 Gol bo'ldi, lekin nishon zonasiga emas (" + ZNAME[z.k] + ")."; }
+      else { o.ok = true; var inB = S.bonus.some(function (b) { return inRect(b, R.x, R.y, 0.06); }); o.stars = inB ? (Math.abs(shot.dev) >= 1.5 ? 3 : 2) : 1; o.head = "⚽ GOL!" + (inB ? " Burchakka — qo'shimcha yulduz!" : "") + postTxt; }
+    } else if (t === "wall") o.head = "🧱 To'p devorga tegdi.";
+    else if (t === "save") o.head = "🧤 Darvozabon qaytardi.";
+    else if (t === "over") o.head = "⬆ To'p darvoza ustidan o'tdi." + postTxt;
+    else if (t === "wide") o.head = "↔ To'p darvozadan yonga ketdi." + postTxt;
+    else if (t === "post") o.head = R.post === "bar" ? "🥅 To'singa tegib qaytdi — juda oz qoldi!" : "🥅 Ustunga tegib qaytdi — juda oz qoldi!";
+    else o.head = "😕 To'p darvozagacha yetib bormadi." + postTxt;
+    return o;
+  }
+  function stars(n) { return n ? '<span class="stars">' + "★★★".slice(0, n) + '<span style="opacity:.25">' + "★★★".slice(0, 3 - n) + "</span></span>" : ""; }
+  function scoreChips() {
+    var m = st.mode; if (m === "free") return '<div class="score"><span>🧪 Erkin tajriba — ochkosiz, faqat fizika</span><span>⭐ Jami <b>' + st.stars + '</b></span></div>';
+    return '<div class="score"><span>Daraja <b>' + st.lvl[m] + '</b></span><span>Ochko <b>' + st.score[m] + '</b></span><span>🔥 Ketma-ket <b>' + st.streak + '/3</b></span><span>⭐ <b>' + st.stars + '</b></span><span>🏆 Rekord <b>' + st.best[m] + '</b></span></div>';
+  }
+  function windWords(S) {
+    var ws = Math.hypot(S.wind[0], S.wind[1]); if (ws < 0.05) return "";
+    var dx = Math.sin(S.base), dz = -Math.cos(S.base), rx = Math.cos(S.base), rz = Math.sin(S.base), fw = S.wind[0] * dx + S.wind[1] * dz, rt = S.wind[0] * rx + S.wind[1] * rz, p = [];
+    if (Math.abs(fw) > 0.2) p.push((fw < 0 ? "qarshi " : "orqadan ") + fmt(Math.abs(fw), 1) + " m/s"); if (Math.abs(rt) > 0.2) p.push((rt > 0 ? "chapdan o'ngga " : "o'ngdan chapga ") + fmt(Math.abs(rt), 1) + " m/s");
+    return "🌬 Shamol <b class=\"cw\">" + fmt(ws, 1) + " m/s</b> (" + p.join(", ") + ")";
+  }
+  function taskHtml() {
+    var S = st.S, m = S.mode, d = S.d, h = "";
+    if (m === "fk") {
+      h = S.zone ? "Nishon: <b>" + ZNAME[S.zone.k] + "</b> (sariq zona)." : "Darvozaga gol uring. Burchaklardagi yashil zonalar — qo'shimcha yulduz.";
+      h += " Masofa " + fmt(S.dist, 1) + " m, devorda " + S.wall.n + " kishi" + (S.wall.J > 0 ? " (sakraydi)" : "") + (S.keeper.active ? ", darvozabon to'pga qarab tashlanadi" : ", darvozabon joyida turadi") + ".";
+      if (d === 1) h += '<br><span class="muted">Maslahat: devor ustidan oshirish uchun α ≈ 15–20°, «banan» uchun to\'pning chetiga uring. Nuqtalar — taxminiy yo\'l boshi.</span>';
+    } else if (m === "wind") {
+      h = windWords(S) + ". Nishon: <b>" + ZNAME[S.zone.k] + "</b>. Masofa " + fmt(S.dist, 1) + " m" + (S.wall ? ", devor " + S.wall.n + " kishi" : "") + ".";
+      h += '<br><span class="muted">Shamol havoni suradi: qarshilik kuchi v<sub>nis</sub> = v − w ga bog\'liq. Nishonni shamolga qarshi tomonga oling.</span>';
+    } else if (m === "corner") {
+      var TG = S.target, adv = S.side > 0 ? "chap" : "o'ng";
+      h = "To'pni burab, <b>yashil doiradagi</b> hujumchiga yetkazing (balandlik 0,4–2,7 m). Kerakli burilish: <b>≥ " + fmt(TG.req, 1) + " m</b>. Masofa ≈ " + fmt(S.dist, 0) + " m." + (S.defs.length ? " Himoyachilar: " + S.defs.length + "." : "") + (Math.hypot(S.wind[0], S.wind[1]) > 0.05 ? " " + windWords(S) + "." : "");
+      h += '<br><span class="muted">Maslahat: to\'pning <b>' + adv + '</b> tomoniga ursangiz, u darvoza tomon buriladi (Magnus kuchi).</span>';
+    } else if (m === "angle") {
+      var T = S.task, env = T.drag ? "havo qarshiligi <b>bor</b>" : "havo qarshiligi <b>yo'q</b> (vakuum)";
+      var wtxt = T.wind ? ", " + (T.wind.head ? "qarshi" : "orqadan") + " shamol <b class=\"cw\">" + fmt(T.wind.s, 1) + " m/s</b>" : "";
+      h = "v = <b>" + T.v + " m/s</b>, " + env + wtxt + ". ";
+      h += T.kind === "land" ? "To'p <b>L = " + T.L + " m</b> uzoqlikka (sariq halqaga) tushishi uchun α ni tanlang (±" + fmt(T.tol, 1) + " m)." : "To'p <b>eng uzoqqa</b> uchadigan α burchakni toping.";
+      if (!T.drag) h += '<br><span class="muted">Formula: L = v²·sin 2α / g. ' + (T.kind === "land" ? "sin 2α = gL/v² dan α ni toping." : "sin 2α qachon eng katta?") + "</span>";
+      else h += '<br><span class="muted">Havo bilan formula ishlamaydi — sinab ko\'ring va natijani R(α) grafigida tahlil qiling.</span>';
+    } else {
+      var E = S.env; h = "Erkin tajriba: havo qarshiligi " + (E.drag ? "✅" : "❌") + ", Magnus " + (E.magnus ? "✅" : "❌") + (Math.hypot(E.wx, E.wz) > 0 ? ", " + windWords(S) : ", shamolsiz") + ". Masofa " + fmt(S.dist, 0) + " m.";
+      if (!E.drag && !E.magnus && !Math.hypot(E.wx, E.wz)) h += '<br><span class="muted">Hozir to\'pga faqat og\'irlik kuchi ta\'sir qiladi — yo\'li aniq parabola. Natijada RK4 va formula solishtiriladi.</span>';
+    }
+    return '<p class="task">' + h + "</p>";
+  }
+  function shiftList(an, cu) {
+    var rows = ["g", "d", "m", "w"].map(function (k) {
+      var s = an.shifts[k], L = Math.hypot(s[0], s[1]); if (L < 0.02 && k !== "g") return "";
+      var parts = []; if (Math.abs(s[0]) >= 0.02) parts.push(fmt(Math.abs(s[0]), 2) + " m " + (s[0] > 0 ? "o'ngga" : "chapga")); if (Math.abs(s[1]) >= 0.02) parts.push(fmt(Math.abs(s[1]), 2) + " m " + (s[1] > 0 ? "yuqoriga" : "pastga"));
+      return '<li class="' + (cu.k === k ? "top" : "") + '"><span class="' + FC[k] + '">' + FN[k] + (cu.k === k ? " — asosiy sabab" : "") + '</span><b>' + (parts.join(", ") || "≈ 0") + "</b></li>";
+    }).join("");
+    return '<ul class="shift">' + rows + "</ul>";
+  }
+  function tipFor(S, shot, an, cu) {
+    var R = shot.R, mv = cu.mv, ml = mv[2] || 0, mlat = mv[0] * ml, my = mv[1] * ml, dist = Math.max(5, an.dist), sh = cu.k !== "aim" ? an.shifts[cu.k] : [0, 0], amt = Math.hypot(sh[0], sh[1]);
+    var yawFix = Math.atan2(Math.abs(mlat) + 0.2, dist) / DEG, angFix = Math.atan2(Math.abs(my) + 0.15, dist) / DEG * 1.3, lr = mlat > 0 ? "chapga" : "o'ngga", lateral = Math.abs(mv[0]) >= Math.abs(mv[1]);
+    if (R.type === "save") return "Darvozabon yetib oldi. Burchakka yaqinroq (ustundan 0,5 m ichkariga) yoki tezroq uring. «Banan» zarba darvozabonni aldaydi: u to'pni to'g'ri uchadi deb hisoblaydi.";
+    if (R.type === "short") return "Kuch yetmadi: boshlang'ich tezlikni oshiring yoki burchakni biroz kattalashtiring.";
+    if (R.type === "defender") return "Himoyachi to'g'ri chiziqda turibdi — to'pni uning ustidan oshiring (α ni oshiring) yoki chetiga urib, aylanib o'tadigan qilib burang.";
+    if (R.type === "curve") return "To'pning " + (S.side > 0 ? "chap" : "o'ng") + " tomoniga kuchliroq (chetroqqa) uring — aylanish oshadi va Magnus kuchi to'pni ko'proq buradi. Yo'nalishni esa teskari tomonga biroz oling.";
+    var k = cu.k;
+    if (k === "m") {
+      if (lateral) return "Magnus kuchi to'pni " + fmt(Math.abs(sh[0]), 2) + " m " + dirWord(sh[0], 0) + " burdi. Yo'nalishni ~" + fmt(yawFix, 1) + "° " + lr + " oling yoki to'pga markazga yaqinroq tegining.";
+      return sh[1] > 0 ? "Pastidan urganingiz uchun backspin to'pni " + fmt(Math.abs(sh[1]), 2) + " m ko'tardi. Markazidan yoki tepasidan (topspin) uring." : "Tepasidan urdingiz: topspin to'pni " + fmt(Math.abs(sh[1]), 2) + " m pastga bosdi. α ni ~" + fmt(angFix, 1) + "° oshiring.";
+    }
+    if (k === "w") return "Shamol to'pni " + fmt(amt, 2) + " m " + dirWord(sh[0], sh[1]) + " surdi. Shamolga qarshi tomonga oldindan oling: " + (lateral ? "yo'nalishni ~" + fmt(yawFix, 1) + "° " + lr : "α ni ~" + fmt(angFix, 1) + "° " + (my < 0 ? "oshiring" : "kamaytiring")) + ".";
+    if (k === "g") { var tt = an.P.vac.t; return "Og'irlik kuchi to'pni " + fmt(Math.abs(sh[1]), 2) + " m pastga tortdi (½·g·t², t = " + fmt(tt, 2) + " s). α ni ~" + fmt(angFix, 1) + "° oshiring yoki pastidan uring — backspin to'pni ko'taradi."; }
+    if (k === "d") return "Havo qarshiligi to'pni sekinlashtirdi va " + fmt(amt, 2) + " m " + dirWord(sh[0], sh[1]) + " siljitdi. Kuchni yoki burchakni biroz oshiring.";
+    if (lateral) return "Bu safar kuchlar emas, nishon: to'g'ri chiziq bo'yicha ham to'p chetga ketardi. Yo'nalishni ~" + fmt(yawFix, 1) + "° " + lr + " o'zgartiring.";
+    return my > 0 ? "Burchak juda katta: α ni ~" + fmt(angFix, 1) + "° kamaytiring yoki tepasidan uring (topspin pastga bosadi)." : "Burchak kichik: α ni ~" + fmt(angFix, 1) + "° oshiring.";
+  }
+  function angleTip(S, shot, an) {
+    var T = S.task, L = shot.R.L, a = shot.aim.ang, out = [];
+    if (T.kind === "land") {
+      if (!T.drag) out.push("Formula: sin 2α = g·L / v² = 9,81·" + T.L + " / " + T.v + "² = " + fmt(PH.g * T.L / (T.v * T.v), 3) + " → α = " + fmt(T.a1, 1) + "° yoki " + fmt(T.a2, 1) + "° (ikkalasi ham to'g'ri!).");
+      else { out.push('<span class="cd">Havo qarshiligi</span> to\'pni ' + fmt(an.Lvac - an.L, 1) + " m qisqartirdi (havosiz " + fmt(an.Lvac, 1) + " m bo'lardi)."); if (T.wind) out.push('<span class="cw">Shamol</span> natijani ' + fmt(an.L - an.LnoW, 1) + " m o'zgartirdi."); }
+      if (Math.abs(L - T.L) > T.tol) { var up = (L < T.L) === (a < T.aopt); out.push("Keyingi urinish: α ni " + (up ? "oshiring" : "kamaytiring") + " (" + fmt(T.aopt, 0) + "° ga " + (up ? "yaqinlashsa" : "uzoqlashsa") + " masofa " + (L < T.L ? "oshadi" : "kamayadi") + ")."); }
+    } else {
+      if (!T.drag) out.push("Havosiz: L = v²·sin 2α / g, sin 2α = 1 bo'lganda (2α = 90°) eng katta → α = 45°.");
+      else out.push("Havo bilan baland to'p havoda uzoqroq qoladi va tezligini ko'proq yo'qotadi, shuning uchun eng yaxshi burchak 45° dan kichik: ≈ " + fmt(T.aopt, 1) + "°." + (T.wind ? (T.wind.head ? " Qarshi shamol uni yanada pasaytiradi." : " Orqadan shamol to'pni «ko'taradi» — burchak biroz kattaroq.") : ""));
+    }
+    return out.join("<br>");
+  }
+  function renderPanel() {
+    var S = st.S; if (!S) { panel.innerHTML = '<p class="muted">3D stadion yuklanmoqda…</p>'; return; }
+    var h = scoreChips();
+    if (st.phase !== "result" || !st.res) {
+      h += taskHtml();
+      if (S.mode === "angle" && S.d === 1) h += '<canvas class="chart" id="ch-cv"></canvas>';
+      panel.innerHTML = h;
+      if (S.mode === "angle" && S.d === 1) drawChart($("ch-cv"), S.task, { show: true });
+      return;
+    }
+    var r = st.res, shot = st.shot;
+    h += '<p class="res-h">' + r.head + " " + stars(r.stars) + (r.pts ? ' <span class="muted">+' + r.pts + " ochko</span>" : "") + "</p>";
+    if (r.lvlUp) h += '<p class="ok"><b>🎉 Daraja oshdi: ' + r.lvlUp + "-daraja!</b> Endi qiyinroq.</p>";
+    if (r.rec) h += '<p class="warn"><b>🏆 Yangi rekord!</b></p>';
+    h += '<p class="muted">Tezlik ' + fmt(Math.hypot(shot.s0[3], shot.s0[4], shot.s0[5]) * 3.6, 0) + " km/soat · aylanish " + fmt(Math.hypot(shot.s0[6], shot.s0[7], shot.s0[8]) * 60 / (2 * Math.PI), 0) + " ayl/min · maks. balandlik " + fmt(shot.maxH - PH.r, 2) + " m · burilish " + fmt(Math.abs(shot.dev), 2) + " m · α = " + fmt(shot.aim.ang, 1) + "°</p>";
+    if (S.mode === "angle") {
+      var an = st.an = analyze(S, shot);
+      h += '<p class="tip">' + angleTip(S, shot, an) + "</p>";
+      h += '<div class="why"><canvas class="chart" id="ch-cv"></canvas><div><canvas id="fd-cv"></canvas></div></div>';
+      panel.innerHTML = h;
+      drawChart($("ch-cv"), S.task, { show: true, a: shot.aim.ang, R: shot.R.L, ok: r.ok });
+      drawForceDiag($("fd-cv"), an.diagState, S.env, an.diagLabel);
+      return;
+    }
+    var free = S.mode === "free";
+    if (!r.ok || free) {
+      var an2 = st.an = analyze(S, shot), cu = culprit(S, shot.R, an2);
+      if (free) {
+        var R = shot.R, E = S.env, f0 = shot.s0;
+        if (R.st && (R.type === "goal" || R.type === "over" || R.type === "wide")) {
+          h += "<p>Darvoza chizig'ida: x = " + fmt(R.x, 2) + " m, y = " + fmt(R.y, 2) + " m, vaqt t = " + fmt(R.t, 3) + " s.</p>";
+          if (!E.drag && !E.magnus && !Math.hypot(E.wx, E.wz) && !R.post && (!shot.firstLand || shot.firstLand.t > R.t)) { var ya = f0[1] + f0[4] * R.t - 0.5 * PH.g * R.t * R.t; h += '<p class="tip">📐 Formula: y = y₀ + v<sub>y</sub>t − gt²/2 = ' + fmt(ya, 4) + " m; RK4: " + fmt(R.y, 4) + " m. Farq: " + sci(Math.abs(ya - R.y) * 1000) + " mm ✅ — to'p aniq parabola bo'yicha uchdi.</p>"; }
+        }
+        h += '<div class="why"><div>' + shiftList(an2, { k: null }) + '<p class="muted" style="margin-top:8px">Har bir kuch to\'pni qancha siljitgani (u bo\'lmaganda qayerga borishi bilan solishtirilgan).</p></div><div><canvas id="fd-cv"></canvas></div></div>';
+      } else {
+        var lead = "";
+        if (shot.R.type === "wall") lead = "Devor oldida to'p <b>" + fmt(shot.R.y, 2) + " m</b> balandlikda edi, devor esa " + fmt(shot.R.top, 2) + " m" + (shot.R.jump > 0.02 ? " (sakrab)" : "") + ".";
+        else if (shot.R.type === "save") lead = "To'p darvozabon qo'llariga juda yaqin keldi (x = " + fmt(shot.R.x, 2) + " m, y = " + fmt(shot.R.y, 2) + " m).";
+        else if (an2.bounced && S.mode !== "corner") lead = "To'p darvozagacha yerga tushib, sakrab bordi — shuning uchun faqat yon tomonga siljishni tahlil qilamiz.";
+        else if (an2.P && S.mode !== "corner") lead = "To'p darvoza chizig'ini x = " + fmt(an2.P.act.lat, 2) + " m, y = " + fmt(an2.P.act.y, 2) + " m nuqtada kesib o'tdi (darvoza: |x| ≤ 3,66 m, y ≤ 2,44 m).";
+        if (lead) h += "<p>" + lead + "</p>";
+        h += '<p class="tip">💡 ' + tipFor(S, shot, an2, cu) + "</p>";
+        var listH = shiftList(an2, cu);
+        if (shot.R.type === "short") { var Lr = function (env) { var fl = flight(shot.s0, env, { tmax: 8 }); return fl.land ? hdist(fl.land.s, shot.s0) : NaN; }, la = Lr(S.env), ln = Lr(envWith(S.env, { drag: false })); listH = '<ul class="shift"><li><span>To\'p birinchi marta yerga tushdi</span><b>' + fmt(la, 1) + ' m da</b></li><li class="top"><span class="cd">Havo qarshiligi bo\'lmasa</span><b>' + fmt(ln, 1) + ' m (+' + fmt(ln - la, 1) + ' m)</b></li><li><span>Nishongacha masofa</span><b>' + fmt(S.dist, 1) + ' m</b></li></ul>'; }
+        h += '<div class="why"><div>' + listH + (shot.R.type === "short" ? "</div>" : '<p class="muted" style="margin-top:8px">Har bir kuch to\'pni qancha siljitgani (' + an2.diagLabel + ", o'sha kuch bo'lmagan holatga nisbatan). 🔁 Sekin takrorda uzuq chiziqlar: Magnussiz (binafsha) va shamolsiz (havorang) yo'l.</p></div>") + "<div><canvas id=\"fd-cv\"></canvas></div></div>";
+      }
+      panel.innerHTML = h;
+      drawForceDiag($("fd-cv"), an2.diagState, S.env, an2.diagLabel);
+      return;
+    }
+    h += '<p class="muted">🔁 «Sekin takror» tugmasi bilan zarbani 4 marta sekin, kuch strelkalari bilan ko\'ring. ▶ Keyingi — yangi vaziyat.</p>';
+    panel.innerHTML = h;
+  }
+  /* --- rejim, asboblar, daraja --- */
+  function titleBar() { var m = st.mode, M = MODES[m]; $("lab-title").innerHTML = M.icon + " <b>" + M.name + "</b>" + (m === "free" ? " · sozlamalarni o'zgartiring" : " · " + st.lvl[m] + "-daraja"); }
+  function fillLevels() {
+    var m = st.mode, sel = $("lvl-sel"), wrap = $("lvl-wrap"); wrap.style.display = m === "free" ? "none" : "";
+    var h = ""; for (var i = 1; i <= Math.max(st.maxLvl[m], st.lvl[m]); i++) h += '<option value="' + i + '"' + (i === st.lvl[m] ? " selected" : "") + ">" + i + "</option>";
+    if (sel.innerHTML !== h) sel.innerHTML = h; sel.value = st.lvl[m];
+  }
+  $("lvl-sel").addEventListener("change", function () { var m = st.mode; st.lvl[m] = +this.value; lsSet("lvl." + m, st.lvl[m]); st.streak = 0; if (G) newSetup(false); titleBar(); });
+  function configTools() {
+    var m = st.mode, ang = m === "angle";
+    $("c-yaw").classList.toggle("hide", ang); $("c-spin").classList.toggle("hide", ang); $("picker").style.display = ang ? "none" : "";
+    $("c-free").classList.toggle("hide", m !== "free");
+    rPow.disabled = ang; rAng.min = ang ? 5 : 0; rAng.max = st.S ? st.S.angMax : 45;
+    rYaw.min = -(st.S ? st.S.yawMax : 25); rYaw.max = st.S ? st.S.yawMax : 25;
+  }
+  function setMode(m) {
+    if (!MODES[m]) return; st.mode = m; st.streak = 0; lsSet("mode", m);
+    Array.prototype.forEach.call(document.querySelectorAll(".labsec .tab"), function (b) { b.setAttribute("aria-selected", b.dataset.mode === m ? "true" : "false"); });
+    titleBar(); fillLevels(); configTools();
+    if (G) { if (st.phase === "flight" || st.phase === "replay") { st.phase = "aim"; } newSetup(false); } else { st.A = { pow: DEF[m].pow, yaw: 0, ang: DEF[m].ang, cx: 0, cy: 0 }; syncSliders(); drawPick(); renderPanel(); load3D(); }
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".labsec .tab"), function (b) { b.addEventListener("click", function () { setMode(b.dataset.mode); load3D(); }); });
+  /* --- ko'rinish va o'lcham kuzatuvchilari --- */
+  function init() {
+    var sm = lsGet("mode"); try { var hs = (location.hash || "").replace("#", ""); if (MODES[hs]) sm = hs; } catch (e) {}
+    st.mode = MODES[sm] ? sm : "fk";
+    Array.prototype.forEach.call(document.querySelectorAll(".labsec .tab"), function (b) { b.setAttribute("aria-selected", b.dataset.mode === st.mode ? "true" : "false"); });
+    st.A = { pow: DEF[st.mode].pow, yaw: 0, ang: DEF[st.mode].ang, cx: 0, cy: 0 };
+    titleBar(); fillLevels(); configTools(); syncSliders(); drawPick(); renderPanel();
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { if (en[0].isIntersecting) load3D(); }, { rootMargin: "400px" }).observe($("labsec"));
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) wake(); }, { rootMargin: "40px" }).observe(stage);
+    } else { visible = true; load3D(); }
+    if ("ResizeObserver" in window) new ResizeObserver(function () { resize(); drawPick(); drawWind(); }).observe(stage); else window.addEventListener("resize", resize);
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
+  }
+  return {
+    init: init, setMode: setMode, kick: doKick, next: nextShot, replay: startReplay, load: load3D,
+    finishNow: function () { if (st.phase === "flight" || st.phase === "replay") { st.play.t = st.shot.T - 1e-9; playStep(0.001); } },
+    setAim: function (o) { for (var k in o) st.A[k] = o[k]; if (st.S) { st.A.yaw = clamp(st.A.yaw, -st.S.yawMax, st.S.yawMax); } drawPick(); aimChanged(); },
+    setLevel: function (n) { st.lvl[st.mode] = n; st.streak = 0; if (G) newSetup(true); titleBar(); fillLevels(); },
+    setupNow: function (S) { st.S = S; resetScene(); },
+    state: function () { return { ready: !!G, bootMs: bootMs, failed: failed, mode: st.mode, phase: st.phase, lvl: st.lvl[st.mode], streak: st.streak, score: st.score[st.mode], best: st.best[st.mode], stars: st.stars, A: st.A, S: st.S, res: st.res, R: st.shot ? st.shot.R : null, shot: st.shot, an: st.an }; },
+    G: function () { return G; }
+  };
+})();
+
+/* ================= 10. Ishga tushirish ================= */
+window.kaFutbol = {
+  _test: TEST, selfTest: selfTest, PH: PH, flight: flight, launch: launch, mkEnv: mkEnv, envWith: envWith, rangeOf: rangeOf, optAngle: optAngle, forcesOf: forcesOf,
+  makeSetup: makeSetup, simulateShot: simulateShot, kickState: kickState, analyze: analyze, culprit: culprit, zoneRect: zoneRect,
+  setMode: UI.setMode, kick: UI.kick, next: UI.next, replay: UI.replay, finish: UI.finishNow, setAim: UI.setAim, setLevel: UI.setLevel, setupNow: UI.setupNow, state: UI.state, G: UI.G, explain: EX
+};
+EX.init();
+UI.init();
+try { var th = $("th-opt"); if (th) th.textContent = "≈ " + fmt(optAngle(22, mkEnv({ magnus: false })).a, 1) + "°"; var tt = $("th-test"); if (tt) tt.innerHTML = "Tekshiruv: havosiz va aylanishsiz holatda RK4 natijasi parabola formulasidan atigi <b>" + sci(TEST.parabolaMaxErr_mm) + " mm</b> farq qiladi; qadamni 16 marta kichraytirsak, havo va aylanish bilan ham natija atigi " + sci(Math.max(TEST.convergence_mm, 1e-9)) + " mm o'zgaradi."; } catch (e) {}
+var yr = $("year"); if (yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
