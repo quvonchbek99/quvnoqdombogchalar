@@ -671,5 +671,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u oqimni kuzatib, sayoz va xavfsiz joyni tanlab ehtiyotkorlik bilan o'tdi", "Chunki u oqimga qarshi sakrab, eng tez yo'l bilan o'tdi", "Chunki daryo suvi sovuq emasligini oldindan bilgan edi"],
     javob: 0,
     izoh: "Xavfli vaziyatda shoshilmay, avval sharoitni kuzatish va xavfsiz yo'lni tanlash kerak. Shoshqaloqlik esa keraksiz xavfga olib boradi."
+  },
+  {
+    id: "ez-085", mavzu: "ahloq", sarlavha: "Bolalar va qurbaqalar",
+    matn: "Bir kuni bolalar ko'l bo'yida o'ynab yurib, suvdagi qurbaqalarga toshlar otishni boshladilar. Har bir tosh suvga tushganda qurbaqalar qo'rqib dumaloq toshlar ortiga yashirinardi, ba'zilari esa yaralanib qolardi. Bolalar o'yinidan zavqlanib, bir-birlarini kulishib turardilar. Shunda qurbaqalardan biri suv yuzidan boshini ko'tarib dedi: \"Sizlarga bu o'yin, bizga esa o'lim!\"",
+    savol: "Bolalar qurbaqalarga nisbatan qanday xato qildi?",
+    variantlar: ["Ular o'yinni tugatishga shoshilmadi", "Ular o'z zavqi uchun boshqalarning azobini hisobga olmadi", "Ular suvda suzishni yaxshi bilmasdi"],
+    javob: 1,
+    izoh: "Bolalar uchun o'yin bo'lgan narsa qurbaqalar uchun jiddiy xavf edi. Zavq olish uchun boshqa jonzotga zarar yetkazmaslik kerak."
   }
 ];
