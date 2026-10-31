@@ -719,5 +719,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ekinlarini juda kech ekkan edi", "Chunki uning dalasi ariqdan juda uzoqda edi", "Chunki yuqoridagi dehqon ariqqa to'g'on qurib, suvni o'ziga burgan edi"],
     javob: 2,
     izoh: "Ariq hamma uchun umumiy. Bitta odam uni o'ziga burib olsa, boshqalar suvsiz qoladi. Umumiy boylikdan adolatli foydalanish hammaga yetadi."
+  },
+  {
+    id: "ez-091", mavzu: "mehnat", sarlavha: "Bog'bon va sho'r yer",
+    matn: "Bir bog'bon yangi bog' yaratmoqchi bo'ldi, ammo yerni haydash va unga go'ng solish o'rniga urug'ni shoshilib sochib qo'ya qoldi. Ko'chatlar chiqdi, lekin ozgina quyosh tushgach, ular sarg'ayib, quruq tuproqda qurib qoldi. Qo'shni bog'bon esa avval yerni yumshatib, tuproqni boyitgan edi, uning daraxtlari yoz oxirida mevaga to'ldi.",
+    savol: "Birinchi bog'bonning ko'chatlari nega qurib qoldi?",
+    variantlar: ["Chunki u yerni tayyorlamay, urug'ni shoshilib sochgan edi", "Chunki ko'chatlar juda baland bo'lib ketgan edi", "Chunki qo'shni bog'bon ularni yashirincha olib ketgan edi"],
+    javob: 0,
+    izoh: "Ekin ekishdan oldin yerni tayyorlash hosilning asosi. Tayyorgarliksiz qilingan ish, hatto tez bajarilgan bo'lsa ham, kutilgan natijani bermaydi."
   }
 ];
