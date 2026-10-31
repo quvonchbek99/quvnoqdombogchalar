@@ -735,5 +735,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Tuzoqning yopiq tomonidan to'g'ridan-to'g'ri kirib", "Tuzoqning eshigini tishlab ochib", "Xavfli tomonni kuzatib, ochiq teshikdan kirib"],
     javob: 2,
     izoh: "Sichqon kirish joyini tanlashdan oldin vaziyatni kuzatdi. Tez harakat qilish emas, mantiqiy tahlil unga xavfsiz yo'l topishga yordam berdi."
+  },
+  {
+    id: "ez-093", mavzu: "ehtiyotkorlik", sarlavha: "Bola va muz",
+    matn: "Bir yosh bola daryo bo'yidan o'tmoqchi bo'ldi. Daryo ustidagi muz hali yupqa edi. Bobosi unga: \"Avval muzning qalinligini tekshir, keyin yur\", deb ogohlantirdi. Bola esa shoshib, tekshirmasdan yugurdi va muz sinib, suvga tushib ketdi.",
+    savol: "Bola nima uchun suvga tushib ketdi?",
+    variantlar: ["Chunki u muzning qalinligini tekshirmasdan shoshilib yugurgan edi", "Chunki bobosi unga daryo bo'yiga chiqishni taqiqlagan edi", "Chunki daryo juda chuqur edi va u suzishni bilmas edi"],
+    javob: 0,
+    izoh: "Xavfli joyga kirishdan oldin sharoitni tekshirish kerak. Tekshirmasdan shoshilish esa keraksiz xavfga olib keladi."
   }
 ];
