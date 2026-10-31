@@ -711,5 +711,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u uyni boshqalarnikidan balandroq qurgan edi", "Chunki u poydevorni yuzaki qilgan edi", "Chunki shamol faqat uning uyiga qarab esdi"],
     javob: 1,
     izoh: "Poydevor butun binoning asosi, uni mustahkam qilmaslik uyni xavf ostiga qo'yadi. Vaqtni tejash uchun sifatdan voz kechish keyinchalik ko'proq zarar keltiradi."
+  },
+  {
+    id: "ez-090", mavzu: "ahloq", sarlavha: "Ariq va to'g'on",
+    matn: "Ariq bo'yida ikki dehqonning yerlari bir-biriga yaqin edi. Ariqdagi suv hammaga birdek yetishi kerak edi. Yuqorida yashagan dehqon esa ariqqa katta to'g'on qurib, suvning ko'pini o'z dalasiga burib oldi. Pastdagi dehqon yozda ekinini sug'orolmay qoldi va hosili quruq yerda qurib ketdi.",
+    savol: "Pastdagi dehqonning ekini nega quridi?",
+    variantlar: ["Chunki u ekinlarini juda kech ekkan edi", "Chunki uning dalasi ariqdan juda uzoqda edi", "Chunki yuqoridagi dehqon ariqqa to'g'on qurib, suvni o'ziga burgan edi"],
+    javob: 2,
+    izoh: "Ariq hamma uchun umumiy. Bitta odam uni o'ziga burib olsa, boshqalar suvsiz qoladi. Umumiy boylikdan adolatli foydalanish hammaga yetadi."
   }
 ];
