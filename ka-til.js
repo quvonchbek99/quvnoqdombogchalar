@@ -11,6 +11,9 @@
 
   try { var q = /[?&]til=(uz|ru|en|kk|ky)\b/.exec(location.search); lang = (q && q[1]) || localStorage.getItem("ka.til") || "uz"; } catch (e) {}
   if (!SR[lang]) lang = "uz";
+  // Sahifa tili qat'iy belgilangan bo'lsa (masalan, SAT bo'limi — faqat inglizcha): <html data-til-force="en">
+  var FORCE = document.documentElement.getAttribute("data-til-force");
+  if (FORCE && SR[FORCE]) lang = FORCE; else FORCE = null;
 
   function norm(s) { return String(s).replace(/\s+/g, " ").trim(); }
   function tr(s) {
@@ -19,6 +22,11 @@
     if (dict[k] != null) return dict[k];
     var m = /^((?:\d+|[IVXL]+)\.\s*)(.+)$/.exec(k);
     if (m && dict[m[2]] != null) return m[1] + dict[m[2]];
+    // sonli matnlar: "Xatolar (3 ta)" → kalit "Xatolar (# ta)"
+    if (/\d/.test(k)) {
+      var nums = k.match(/\d+/g), t = dict[k.replace(/\d+/g, "#")];
+      if (t != null && (t.match(/#/g) || []).length === nums.length) { var i = 0; return t.replace(/#/g, function () { return nums[i++]; }); }
+    }
     return null;
   }
   function textNode(n) {
@@ -119,6 +127,7 @@
   }
   function set(l) {
     if (!SR[l]) return Promise.resolve();
+    if (FORCE) { try { localStorage.setItem("ka.til", l); } catch (e) {} return Promise.resolve(); } // bu sahifa tili o'zgarmaydi
     lang = l; try { localStorage.setItem("ka.til", l); } catch (e) {}
     return loadDict(l).then(function () { apply(document.body); var sel = document.getElementById("ka-til-sel"); if (sel) sel.value = l; try { window.dispatchEvent(new CustomEvent("ka-til", { detail: l })); } catch (e) {} });
   }
@@ -129,6 +138,7 @@
     sel.style.cssText = "background:#141f38;color:#eef2ff;border:1px solid #243252;border-radius:999px;padding:7px 8px;font:700 13px/1 -apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35);height:38px;max-width:140px";
     LANGS.forEach(function (x) { var o = document.createElement("option"); o.value = x[0]; o.textContent = "🌐 " + x[1]; sel.appendChild(o); });
     sel.value = lang; sel.onchange = function () { set(sel.value); };
+    if (FORCE) { sel.disabled = true; sel.title = FORCE === "en" ? "This section is in English only" : ""; sel.style.opacity = ".75"; }
     box.appendChild(sel); document.body.appendChild(box);
   }
   function init() {

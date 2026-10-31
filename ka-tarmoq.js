@@ -149,6 +149,11 @@
   var BROKERS = ["wss://broker.emqx.io:8084/mqtt", "wss://broker.hivemq.com:8884/mqtt"];
   var NS = "kuvonch-ka-v2/";
   var mqttLoading = null;
+  // Eski iPhone/Android brauzerlari uchun (iOS 15.3 va undan eski): MQTT kutubxonasi ishlatadigan funksiyalar
+  try {
+    if (!Array.prototype.at) Object.defineProperty(Array.prototype, "at", { value: function (i) { i = Math.trunc(i) || 0; if (i < 0) i += this.length; return this[i]; }, writable: true, configurable: true });
+    if (!Object.hasOwn) Object.hasOwn = function (o, k) { return Object.prototype.hasOwnProperty.call(o, k); };
+  } catch (e) {}
   function loadMqtt() {
     if (window.mqtt && window.mqtt.connect) return Promise.resolve();
     if (mqttLoading) return mqttLoading;
@@ -328,7 +333,15 @@
         var hi = Object.assign({ type: "hello" }, hello);
         var TP = R.t + "/p/" + id, TA = R.t + "/a", TI = R.t + "/i";
         function willFor(nn) { return { topic: R.t + "/h", payload: "~bye " + id + " " + nn, qos: 0, retain: false }; }
-        function kill() { dead = true; clearInterval(watch); clearTimeout(probe); clients.forEach(function (c) { try { c.end(true); } catch (e) {} }); }
+        // Telefon ekrani o'chib-yonsa yoki boshqa ilovaga o'tib qaytilsa: taymerlar to'xtab qolgan bo'ladi —
+        // "o'qituvchi javob bermayapti" deb darhol uzib qo'ymaslik uchun hisobni yangidan boshlaymiz
+        function onVis() {
+          if (dead || document.visibilityState !== "visible") return;
+          lastHost = Date.now(); downSince = 0; // MQTT o'zi 1,5 s da qayta ulanadi
+        }
+        document.addEventListener("visibilitychange", onVis);
+        window.addEventListener("pageshow", onVis);
+        function kill() { dead = true; clearInterval(watch); clearTimeout(probe); document.removeEventListener("visibilitychange", onVis); window.removeEventListener("pageshow", onVis); clients.forEach(function (c) { try { c.end(true); } catch (e) {} }); }
         function fail(msg) { if (settled) return; settled = true; clearTimeout(to); kill(); rej(new Error(msg)); }
         function bye() { if (C && C.connected) try { C.publish(R.t + "/h", "~bye " + id + " " + n, { qos: 0 }); } catch (e) {} }
         function lost() { // aloqa butunlay yo'qoldi

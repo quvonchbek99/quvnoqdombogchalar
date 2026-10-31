@@ -222,7 +222,7 @@ function bindExtra(k){
   b.onclick=async()=>{
     b.disabled=true; document.getElementById('yo-msg').textContent="⏳ Savollar yuklanmoqda…";
     try{
-      await loadScripts(["ka-savollar.js","ka-savollar-2.js","ka-savollar-3.js","ka-savollar-4.js","ka-savollar-5.js","ka-savollar-6.js","ka-savollar-7.js","ka-savollar-8.js","ka-savollar-9.js","ka-savollar-10.js","ka-test.js?v=20261017b"]);
+      await loadScripts(["ka-savollar.js?v=20261030c","ka-savollar-2.js","ka-savollar-3.js","ka-savollar-4.js","ka-savollar-5.js","ka-savollar-6.js","ka-savollar-7.js","ka-savollar-8.js","ka-savollar-9.js","ka-savollar-10.js","ka-test.js?v=20261030c"]);
       const ids=YO[k].topics.filter(t=>window.kaSavol.has(t));
       if(!window.kaSavol.has("yo-"+k)) window.kaSavol.register("yo-"+k,L=>window.kaSavol.get(ids[Math.floor(Math.random()*ids.length)],L),D[k].name+" — cheksiz test");
       document.getElementById('yo-msg').textContent="";

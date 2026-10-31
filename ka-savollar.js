@@ -220,6 +220,7 @@
   })();
   function curLang() {
     try {
+      var f = document.documentElement.getAttribute("data-til-force"); if (f) return f;
       if (window.kaTil && kaTil.get) return kaTil.get();
       var m = /[?&]til=(uz|ru|en|kk|ky)\b/.exec(location.search);
       return (m && m[1]) || localStorage.getItem("ka.til") || "uz";
@@ -227,27 +228,39 @@
   }
   function normTpl(q) { return String(q).replace(/\d+/g, "#").replace(/\s+/g, " ").trim(); }
   // Til fayli yuklanadi (ka-savol-tr-<til>.js); uz uchun hech narsa kerak emas
+  function addJs(src) { return new Promise(function (ok) { var s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = ok; document.head.appendChild(s); }); }
   function loadLang(l) {
-    return new Promise(function (ok) {
-      if (!l || l === "uz" || TRL[l]) return ok();
-      var s = document.createElement("script");
-      s.src = TRL_BASE + "ka-savol-tr-" + l + ".js";
-      s.onload = function () { TRL[l] = (window.KA_SAVOL_TR && window.KA_SAVOL_TR[l]) || {}; ok(); };
-      s.onerror = function () { TRL[l] = {}; ok(); };
-      document.head.appendChild(s);
+    if (!l || l === "uz" || TRL[l]) return Promise.resolve();
+    // inglizchada yechim qadamlari ham tarjima qilinadi (SAT bo'limi to'liq inglizcha)
+    var extra = l === "en" && !window.KA_SAVOL_EN ? addJs(TRL_BASE + "ka-savol-en-qadam.js?v=20261030c") : null;
+    return Promise.all([addJs(TRL_BASE + "ka-savol-tr-" + l + ".js"), extra]).then(function () {
+      TRL[l] = (window.KA_SAVOL_TR && window.KA_SAVOL_TR[l]) || {};
     });
   }
+  // Sahifa faqat inglizcha (SAT): tarjimasi yo'q savollar testga qo'shilmaydi
+  function forcedEn() { try { return document.documentElement.getAttribute("data-til-force") === "en"; } catch (e) { return false; } }
   // p.q (o'zbekcha, raqamlar bilan) → tanlangan til. Shablon topilmasa o'zbekcha qoladi.
-  function localize(p) {
-    var L = curLang();
-    if (!p || L === "uz" || !TRL[L] || !p.topic) return p;
-    var tpl = (TRL[L][p.topic] || {})[normTpl(p.q)];
-    if (!tpl) return p;
-    var nums = String(p.q).match(/\d+/g) || [], k = 0;
-    if ((tpl.match(/#/g) || []).length !== nums.length) return p;
+  function localize(p, Lf) {
+    var L = typeof Lf === "string" ? Lf : curLang();
+    if (!p || L === "uz" || !TRL[L] || !p.topic || p.lang === L) return p;
+    var tpl = (TRL[L][p.topic] || {})[normTpl(p.q)], nq = null;
+    if (tpl) {
+      var nums = String(p.q).match(/\d+/g) || [], k = 0;
+      if ((tpl.match(/#/g) || []).length === nums.length) nq = tpl.replace(/#/g, function () { return nums[k++]; });
+    }
+    // shablon yo'q bo'lsa — inglizcha qoidalar (SAT statistika, birliklar, kompleks sonlar)
+    if (nq == null && L === "en" && window.KA_SAVOL_EN && KA_SAVOL_EN.question) nq = KA_SAVOL_EN.question(p.q);
+    if (nq == null) return p;
     p.q_uz = p.q;
-    p.q = tpl.replace(/#/g, function () { return nums[k++]; });
+    p.q = nq;
     p.lang = L;
+    if (L === "en" && window.KA_SAVOL_EN) {
+      if (p.steps) { p.steps_uz = p.steps; p.steps = KA_SAVOL_EN.steps(Array.isArray(p.steps) ? p.steps : [p.steps]); }
+      // javob/variantlar matnli bo'lsa (o'zbekcha so'z) — inglizchaga
+      if (typeof p.a === "string" && KA_SAVOL_EN.hasUz(p.a)) { var a2 = KA_SAVOL_EN.step(p.a); if (KA_SAVOL_EN.hasUz(a2)) p.lang = "uz-a"; else p.a = a2; }
+      if (p.w) p.w = p.w.map(function (w) { return typeof w === "string" && KA_SAVOL_EN.hasUz(w) ? KA_SAVOL_EN.step(w) : w; });
+      if (p.w && p.w.some(function (w) { return KA_SAVOL_EN.hasUz(w); })) p.lang = "uz-a"; // variant o'zbekcha qolsa — inglizcha testga olinmaydi
+    }
     return p;
   }
 
@@ -277,8 +290,12 @@
     var f = REG[id]; if (!f) return [];
     var out = [], seen = {};
     function lvlFor() { return level ? level : (out.length * 3 < n ? 1 : out.length * 3 < 2 * n ? 2 : 3); }
+    // SAT testlari har qanday sahifada to'liq inglizcha (TRL.en oldindan yuklangan bo'lsa)
+    var onlyEn = !!((forcedEn() || /^sat/.test(id)) && TRL.en);
     function tryAdd(fn, src, L) {
-      var p = clean(fn(L)); if (seen[p.q]) return false;
+      var p = clean(fn(L));
+      if (onlyEn) { p.topic = p.topic || src; localize(p, "en"); if (p.lang !== "en") return false; }
+      if (seen[p.q]) return false;
       seen[p.q] = 1; p.level = L; p.topic = p.topic || src; out.push(p); return true;
     }
     var t = 0;
@@ -291,12 +308,80 @@
     }
     // hali ham yetmasa — takroriga yo'l qo'yamiz (100 talik test uzilmasligi uchun)
     var t3 = 0;
-    while (out.length < n && t3++ < n * 10) {
-      var L = lvlFor(), p = clean(f(L)); p.level = L; p.topic = p.topic || id; out.push(p);
+    while (out.length < n && t3++ < n * (onlyEn ? 40 : 10)) {
+      var L = lvlFor(), p = clean(f(L)); p.level = L; p.topic = p.topic || id;
+      if (onlyEn) { localize(p, "en"); if (p.lang !== "en") continue; }
+      out.push(p);
     }
-    if (!level) out.sort(function (a, b) { return a.level - b.level; });
-    out.forEach(localize);
+    // har doim osondan qiyinga: avval daraja, keyin shu daraja ichida murakkablik
+    out.forEach(function (p) { p.cx = cx(p); });
+    out.sort(function (a, b) { return (a.level - b.level) || (a.cx - b.cx); });
+    out.forEach(function (p) { localize(p, onlyEn ? "en" : null); });
     return out;
+  }
+
+  /* ---------- savol murakkabligi (bir daraja ichida saralash uchun) ---------- */
+  function cx(p) {
+    var q = String(p && p.q || "").replace(/<[^>]+>/g, " "), s = 0;
+    (q.match(/\d+(?:[.,]\d+)?/g) || []).forEach(function (n) { s += Math.log(1 + Math.abs(parseFloat(n.replace(",", ".")) || 0)) / Math.LN10 + 0.4; });
+    s += (q.match(/[+\-−×·*/÷^√∛∫∑πₙ²³⁴]|sin|cos|tg|ctg|log|lg|ln|lim|arc/g) || []).length * 0.7;
+    s += (q.match(/[()\[\]{}|]/g) || []).length * 0.25;
+    s += q.length / 60;
+    s += (p && p.steps ? (p.steps.length || 1) : 0) * 0.5;
+    return Math.round(s * 100) / 100;
+  }
+
+  /* ---------- "Nima uchun xato?" — tanlangan javob bo'yicha tushuntirish ---------- */
+  function num(v) {
+    var t = String(v == null ? "" : v).replace(/<[^>]+>/g, "").replace(/[−–—]/g, "-").replace(/\s+/g, "").replace(",", ".");
+    var m = /^(-?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/.exec(t); if (m && +m[2]) return +m[1] / +m[2];
+    return /^-?\d+(\.\d+)?%?$/.test(t) ? parseFloat(t) : NaN;
+  }
+  function near(a, b) { return Math.abs(a - b) < 1e-9 * Math.max(1, Math.abs(a), Math.abs(b)); }
+  var WHY = {
+    uz: { sign: "Ishora xatosi: siz tanlagan javob to'g'ri javobning qarama-qarshi ishoralisi. Minus ishorani qayerda yo'qotganingizni qadamlardan toping.",
+      ten: "Xona (vergul) xatosi: javob 10 marta {k}. Vergul yoki nollarni sanashda adashilgan.",
+      two: "2 marta farq: javob 2 marta {k}. «2 ga bo'lish» yoki «2 ga ko'paytirish» qadami tushib qolgan (masalan, 2a, ½, ikki tomon).",
+      sq: "Kvadrat va ildiz chalkashgan: siz {k}.", sqA: "to'g'ri javobning kvadratini oldingiz", sqB: "to'g'ri javobning ildizini oldingiz",
+      one: "1 ga farq: oxirgi hisoblashda yoki o'nlikdan o'tkazishda adashilgan. Har bir amalni qayta tekshiring.",
+      close: "Javob juda yaqin (farqi {d}) — yo'l to'g'ri, lekin oxirgi hisoblash qadamida xato bor.",
+      rev: "Raqamlar o'rni almashgan: {g} emas, {a}.",
+      bigger: "katta", smaller: "kichik",
+      gen: "To'g'ri javobdan {d} ga farq qiladi. Yechim qadamlarini o'z ishlashingiz bilan birma-bir solishtiring — qaysi amalda farq paydo bo'lganini toping.",
+      txt: "Bu javob shartga mos kelmaydi. Yechim qadamlarini solishtiring: qaysi bosqichda yo'l ajralganini toping.",
+      none: "Javob berilmadi — vaqt tugadi. To'g'ri javob: {a}." },
+    en: { sign: "Sign error: your answer is the opposite of the correct one. Find where the minus sign was lost in the steps.",
+      ten: "Place-value error: your answer is 10 times {k}. A decimal point or a zero was miscounted.",
+      two: "Off by a factor of 2: your answer is 2 times {k}. A “divide by 2” or “multiply by 2” step was skipped.",
+      sq: "Square and square root mixed up: you {k}.", sqA: "squared the correct answer", sqB: "took the square root of the correct answer",
+      one: "Off by 1: a slip in the last calculation or in carrying. Re-check each operation.",
+      close: "Very close (difference {d}) — the method is right, but the last calculation step is wrong.",
+      rev: "Digits reversed: not {g}, but {a}.",
+      bigger: "too large", smaller: "too small",
+      gen: "It differs from the correct answer by {d}. Compare your work with the solution steps one by one to find the step where it went wrong.",
+      txt: "This answer does not satisfy the condition. Compare the steps to see where your work went off track.",
+      none: "No answer — time ran out. The correct answer is {a}." }
+  };
+  function why(p, got, lang) {
+    var L = WHY[lang] || WHY[/^sat/.test(p && p.topic || "") ? "en" : (curLang() === "en" ? "en" : "uz")];
+    var A = String(p && p.a != null ? p.a : ""), G = got == null ? "" : String(got);
+    function f(t, o) { return t.replace(/\{(\w)\}/g, function (_, k) { return o[k]; }); }
+    if (!G || /^—/.test(G)) return f(L.none, { a: A });
+    var a = num(A), g = num(G), r;
+    if (isNaN(a) || isNaN(g)) return f(L.txt, { g: G, a: A });
+    var d = Math.round(Math.abs(a - g) * 1000) / 1000;
+    if (a !== 0 && near(g, -a)) return L.sign;
+    if (a !== 0 && g !== 0) {
+      r = g / a;
+      if (near(r, 10) || near(r, 100) || near(r, 0.1) || near(r, 0.01)) return f(L.ten, { k: r > 1 ? L.bigger : L.smaller });
+      if (near(r, 2) || near(r, 0.5) || near(r, -2) || near(r, -0.5)) return f(L.two, { k: Math.abs(r) > 1 ? L.bigger : L.smaller });
+      if (Math.abs(a) > 1 && (near(g, a * a) || near(g * g, a))) return f(L.sq, { k: near(g, a * a) ? L.sqA : L.sqB });
+    }
+    var sa = String(Math.abs(a)), sg = String(Math.abs(g));
+    if (sa.length > 1 && sa.split("").reverse().join("") === sg) return f(L.rev, { g: G, a: A });
+    if (near(d, 1) && Math.abs(a) >= 3) return L.one;
+    if (Math.abs(a) >= 20 && d / Math.abs(a) <= 0.06) return f(L.close, { d: d });
+    return f(L.gen, { g: G, a: A, d: d });
   }
 
   // mavzudan nechta <b>har xil</b> savol chiqishi mumkin (taxminiy)
@@ -324,6 +409,8 @@
     registerAll: function (obj, titles) { for (var k in obj) REG[k] = obj[k]; if (titles) for (var t in titles) TITLES[t] = titles[t]; },
     get: get,
     pack: pack,
+    cx: cx,
+    why: why,
     setLang: loadLang,
     lang: curLang,
     ready: function () { return loadLang(curLang()); },

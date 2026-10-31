@@ -48,15 +48,15 @@
   /* ---------- CSS ---------- */
   var css = `
   .kt-box{margin:18px 0 6px;border:1px solid #3a5a9a;border-radius:16px;padding:14px;background:linear-gradient(180deg,rgba(94,230,199,.08),rgba(124,155,255,.04))}
-  .kt-box h4{margin:0 0 10px;font:800 16px/1.3 inherit;color:#eef2ff}
+  .kt-box h4{margin:0 0 10px;font-weight:800;font-size:16px;line-height:1.3;font-family:inherit;color:#eef2ff}
   .kt-grp{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0}
-  .kt-grp>span{font:700 12px/1 inherit;color:#9fb0d0;min-width:78px;letter-spacing:.04em;text-transform:uppercase}
-  .kt-b{background:#111a2e;color:#eef2ff;border:1px solid #243252;border-radius:10px;padding:8px 13px;font:700 13px/1 inherit;cursor:pointer}
+  .kt-grp>span{font-weight:700;font-size:12px;line-height:1;font-family:inherit;color:#9fb0d0;min-width:78px;letter-spacing:.04em;text-transform:uppercase}
+  .kt-b{background:#111a2e;color:#eef2ff;border:1px solid #243252;border-radius:10px;padding:8px 13px;font-weight:700;font-size:13px;line-height:1;font-family:inherit;cursor:pointer}
   .kt-b.on{background:#7c9bff;color:#0b1220;border-color:transparent}
   .kt-b.go{background:#5ee6c7;color:#06231d;border-color:transparent;font-size:14px;padding:11px 20px}
   .kt-b:disabled{opacity:.5;cursor:default}
   .kt-note{font-size:12px;color:#9fb0d0;margin-top:8px}
-  .kt-last{font:700 12px/1.4 inherit;color:#5ee6c7;margin-top:6px}
+  .kt-last{font-weight:700;font-size:12px;line-height:1.4;font-family:inherit;color:#5ee6c7;margin-top:6px}
   .kt-ov{position:fixed;inset:0;z-index:99999;background:#070c17;display:flex;flex-direction:column;overflow:hidden}
   .kt-top{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid #1b2a46;background:#0b1220;flex-wrap:wrap}
   .kt-top b{color:#eef2ff;font-size:14px;margin-right:auto;max-width:48ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -64,56 +64,124 @@
   .kt-pill.t{color:#ffd479}.kt-pill.x{color:#ff8585}
   .kt-bar{height:4px;background:#121c32}.kt-bar i{display:block;height:100%;background:linear-gradient(90deg,#7c9bff,#5ee6c7);width:0;transition:width .25s}
   .kt-main{flex:1;overflow:auto;padding:18px 14px 90px;max-width:760px;margin:0 auto;width:100%;box-sizing:border-box}
-  .kt-lv{display:inline-block;font:800 11px/1 inherit;padding:5px 9px;border-radius:999px;margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase}
+  .kt-lv{display:inline-block;font-weight:800;font-size:11px;line-height:1;font-family:inherit;padding:5px 9px;border-radius:999px;margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase}
   .kt-lv.l1{background:rgba(94,230,199,.16);color:#5ee6c7}.kt-lv.l2{background:rgba(255,212,121,.16);color:#ffd479}.kt-lv.l3{background:rgba(255,133,133,.16);color:#ff8585}
-  .kt-q{color:#eef2ff;font:600 21px/1.5 inherit;margin-bottom:18px;word-wrap:break-word}
+  .kt-q{color:#eef2ff;font-weight:600;font-size:21px;line-height:1.5;font-family:inherit;margin-bottom:18px;word-wrap:break-word}
   .kt-opts{display:grid;gap:9px}
-  .kt-opt{text-align:left;background:#0e1628;color:#eef2ff;border:1.5px solid #243252;border-radius:12px;padding:14px 16px;font:600 17px/1.3 inherit;cursor:pointer;display:flex;gap:11px;align-items:center}
+  .kt-opt{text-align:left;background:#0e1628;color:#eef2ff;border:1.5px solid #243252;border-radius:12px;padding:14px 16px;font-weight:600;font-size:17px;line-height:1.3;font-family:inherit;cursor:pointer;display:flex;gap:11px;align-items:center}
   .kt-opt span{width:26px;height:26px;flex:0 0 26px;border-radius:8px;background:#1a2540;color:#9fb0d0;font:800 13px/26px ui-monospace,monospace;text-align:center}
   .kt-opt:hover{border-color:#7c9bff}
-  .kt-opt.ok{border-color:#5ee6c7;background:rgba(94,230,199,.12)}
-  .kt-opt.bad{border-color:#ff8585;background:rgba(255,133,133,.12)}
+  .kt-opt.ok{border-color:#5ee6c7;background:rgba(42,157,75,.38);color:#fff}
+  .kt-opt.ok span{background:#2a9d4b;color:#fff}
+  .kt-opt.bad{border-color:#ff5c5c;background:rgba(229,72,77,.42);color:#fff;text-decoration:line-through;text-decoration-color:rgba(255,255,255,.6)}
+  .kt-opt.bad span{background:#e5484d;color:#fff}
+  .kt-why{margin-top:12px;padding:11px 13px;border-radius:12px;background:rgba(229,72,77,.12);border:1px solid rgba(255,92,92,.55);color:#ffd6d6;font-weight:600;font-size:14.5px;line-height:1.55;font-family:inherit}
+  .kt-why b{color:#ff9c9c}
+  .kt-cd{display:inline-block;min-width:1.6em;margin-left:8px;padding:2px 6px;border-radius:999px;background:rgba(6,35,29,.22);font-variant-numeric:tabular-nums}
+  .kt-b.hold{font-size:14px;padding:11px 14px}
+  .kt-ov.d3::before{content:"";position:absolute;left:-50%;right:-50%;bottom:-12%;height:60%;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(94,230,199,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(124,155,255,.16) 1px,transparent 1px);background-size:60px 60px;transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:kt3floor 5s linear infinite;-webkit-mask-image:linear-gradient(to top,#000 15%,transparent 88%);mask-image:linear-gradient(to top,#000 15%,transparent 88%)}
+  @keyframes kt3floor{to{background-position:0 60px}}
+  .kt-ov.d3 .kt-top,.kt-ov.d3 .kt-bar,.kt-ov.d3 .kt-main,.kt-ov.d3 .kt-bot{position:relative;z-index:1}
+  .kt-ov.d3 .kt-bot{position:fixed}
+  .kt-ov.d3 .kt-main{perspective:1000px;perspective-origin:50% 20%}
+  .kt-ov.d3 .kt-q{background:#0e1628;border:1px solid #2f4174;border-radius:16px;padding:16px 18px;box-shadow:0 8px 0 #0a1120,0 22px 34px rgba(0,0,0,.5);transform:rotateX(5deg);animation:kt3in .55s cubic-bezier(.2,.9,.3,1.25) backwards}
+  @keyframes kt3in{from{transform:rotateX(80deg) translateZ(-240px);opacity:0}}
+  .kt-ov.d3 .kt-opts{transform-style:preserve-3d;pointer-events:none}.kt-ov.d3 .kt-opts .kt-opt{pointer-events:auto}
+  .kt-ov.d3 .kt-opt{box-shadow:0 6px 0 #0a1120,0 14px 22px rgba(0,0,0,.42);transition:transform .25s,box-shadow .25s;animation:kt3opt .5s cubic-bezier(.2,.9,.3,1.3) backwards}
+  .kt-ov.d3 .kt-opt:nth-child(2){animation-delay:.07s}.kt-ov.d3 .kt-opt:nth-child(3){animation-delay:.14s}.kt-ov.d3 .kt-opt:nth-child(4){animation-delay:.21s}
+  @keyframes kt3opt{from{transform:translateZ(-260px) rotateX(-60deg);opacity:0}}
+  @media (hover:hover){.kt-ov.d3 .kt-opt:not(:disabled):hover{transform:translateZ(18px)}}
+  .kt-ov.d3 .kt-opt:not(:disabled):active{transform:translateY(5px);box-shadow:0 1px 0 #0a1120,0 4px 8px rgba(0,0,0,.4)}
+  .kt-ov.d3 .kt-opt.ok{transform:translateZ(36px) scale(1.02);box-shadow:0 0 0 2px #5ee6c7,0 0 30px rgba(94,230,199,.45),0 18px 28px rgba(0,0,0,.5)}
+  .kt-ov.d3 .kt-opt.bad{animation:kt3bad .65s both}
+  @keyframes kt3bad{0%{transform:none}25%{transform:rotateY(24deg) translateZ(-16px)}55%{transform:rotateY(-14deg)}100%{transform:translateZ(-28px) rotateX(8deg)}}
+  .kt-ov.d3 .kt-why,.kt-ov.d3 .kt-fb.ok{animation:kt3in .45s backwards}
+  @media (prefers-reduced-motion:reduce){.kt-ov.d3::before,.kt-ov.d3 .kt-q,.kt-ov.d3 .kt-opt,.kt-ov.d3 .kt-opt.bad,.kt-ov.d3 .kt-why{animation:none}}
   .kt-opt:disabled{cursor:default}
   .kt-inrow{display:flex;gap:8px;flex-wrap:wrap}
   .kt-inrow input{flex:1 1 180px;min-width:0;background:#0b1220;color:#eef2ff;border:1.5px solid #243252;border-radius:12px;padding:14px 16px;font:700 18px/1 ui-monospace,monospace;outline:none}
   .kt-inrow input:focus{border-color:#7c9bff}
-  .kt-fb{margin-top:14px;font:700 15px/1.5 inherit;min-height:1.4em}
+  .kt-fb{margin-top:14px;font-weight:700;font-size:15px;line-height:1.5;font-family:inherit;min-height:1.4em}
   .kt-fb.ok{color:#5ee6c7}.kt-fb.bad{color:#ff8585}
-  .kt-steps{margin:10px 0 0;padding-left:20px;color:#c9d4ff;font:500 14.5px/1.6 inherit}
+  .kt-steps{margin:10px 0 0;padding-left:20px;color:#c9d4ff;font-weight:500;font-size:14.5px;line-height:1.6;font-family:inherit}
   .kt-bot{position:fixed;left:0;right:0;bottom:0;padding:12px 14px;background:#0b1220;border-top:1px solid #1b2a46;display:flex;gap:8px;justify-content:center}
   .kt-res{text-align:center;padding:10px 0 20px}
-  .kt-big{font:900 64px/1 inherit;color:#5ee6c7;margin:6px 0}
+  .kt-big{font-weight:900;font-size:64px;line-height:1;font-family:inherit;color:#5ee6c7;margin:6px 0}
   .kt-big.mid{color:#ffd479}.kt-big.low{color:#ff8585}
-  .kt-sub{color:#9fb0d0;font:600 15px/1.6 inherit}
+  .kt-sub{color:#9fb0d0;font-weight:600;font-size:15px;line-height:1.6;font-family:inherit}
   .kt-rev{margin-top:22px;text-align:left}
-  .kt-rev h5{color:#eef2ff;font:800 15px/1.3 inherit;margin:0 0 10px}
-  .kt-rev li{background:#0e1628;border:1px solid #33405f;border-left:3px solid #ff8585;border-radius:10px;padding:11px 13px;margin-bottom:9px;list-style:none;color:#eef2ff;font:500 14.5px/1.55 inherit}
+  .kt-rev h5{color:#eef2ff;font-weight:800;font-size:15px;line-height:1.3;font-family:inherit;margin:0 0 10px}
+  .kt-rev li{background:#0e1628;border:1px solid #33405f;border-left:3px solid #ff8585;border-radius:10px;padding:11px 13px;margin-bottom:9px;list-style:none;color:#eef2ff;font-weight:500;font-size:14.5px;line-height:1.55;font-family:inherit}
   .kt-rev li b{color:#5ee6c7}.kt-rev li i{color:#ff8585;font-style:normal}
-  .kt-in{width:74px;background:#0b1220;color:#eef2ff;border:1px solid #243252;border-radius:10px;padding:7px 9px;font:700 13px/1 inherit;outline:none}
+  .kt-in{width:74px;background:#0b1220;color:#eef2ff;border:1px solid #243252;border-radius:10px;padding:7px 9px;font-weight:700;font-size:13px;line-height:1;font-family:inherit;outline:none}
   .kt-in:focus{border-color:#7c9bff}
   .kt-pill.t.warn{color:#ff8585;animation:ktblink 1s infinite}
   @keyframes ktblink{50%{opacity:.4}}
-  .kt-auto{font:600 12px/1 inherit;color:#9fb0d0;margin-left:8px}
-  .kt-diag{margin-top:10px;padding:12px 14px;border-radius:12px;background:rgba(124,155,255,.1);border:1px solid #3a5a9a;color:#eef2ff;font:600 14px/1.5 inherit}
+  .kt-auto{font-weight:600;font-size:12px;line-height:1;font-family:inherit;color:#9fb0d0;margin-left:8px}
+  .kt-diag{margin-top:10px;padding:12px 14px;border-radius:12px;background:rgba(124,155,255,.1);border:1px solid #3a5a9a;color:#eef2ff;font-weight:600;font-size:14px;line-height:1.5;font-family:inherit}
   .kt-diag b{color:#5ee6c7}
   .kt-b.diag{background:linear-gradient(135deg,#a78bfa,#7c9bff);color:#0b1220;border-color:transparent}
-  .kt-resume{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:9000;background:#0e1628;border:1px solid #7c9bff;border-radius:14px;padding:10px 14px;color:#eef2ff;font:600 14px/1.4 inherit;display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 12px 30px rgba(0,0,0,.45);max-width:calc(100vw - 24px)}
+  .kt-resume{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:9000;background:#0e1628;border:1px solid #7c9bff;border-radius:14px;padding:10px 14px;color:#eef2ff;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 12px 30px rgba(0,0,0,.45);max-width:calc(100vw - 24px)}
   .kt-resume b{color:#5ee6c7}
   .kt-weak{margin-top:22px;text-align:left}
-  .kt-weak h5{color:#eef2ff;font:800 15px/1.3 inherit;margin:0 0 10px}
-  .kt-weak .w{background:#0e1628;border:1px solid #33405f;border-left:3px solid #ffd479;border-radius:10px;padding:11px 13px;margin-bottom:9px;color:#eef2ff;font:500 14.5px/1.55 inherit}
+  .kt-weak h5{color:#eef2ff;font-weight:800;font-size:15px;line-height:1.3;font-family:inherit;margin:0 0 10px}
+  .kt-weak .w{background:#0e1628;border:1px solid #33405f;border-left:3px solid #ffd479;border-radius:10px;padding:11px 13px;margin-bottom:9px;color:#eef2ff;font-weight:500;font-size:14.5px;line-height:1.55;font-family:inherit}
   .kt-weak .w b{color:#ffd479}
   .kt-weak .w .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-  .kt-weak .w .acts a,.kt-weak .w .acts button{font:700 12px/1 inherit;color:#eef2ff;background:#1a2540;border:1px solid #33405f;border-radius:999px;padding:7px 10px;text-decoration:none;cursor:pointer}
-  .kt-weak .ok{color:#5ee6c7;font:600 14.5px/1.5 inherit}
+  .kt-weak .w .acts a,.kt-weak .w .acts button{font-weight:700;font-size:12px;line-height:1;font-family:inherit;color:#eef2ff;background:#1a2540;border:1px solid #33405f;border-radius:999px;padding:7px 10px;text-decoration:none;cursor:pointer}
+  .kt-weak .ok{color:#5ee6c7;font-weight:600;font-size:14.5px;line-height:1.5;font-family:inherit}
   .kt-lvbar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-  .kt-lvbar span{font:700 12px/1 inherit;padding:7px 10px;border-radius:999px;background:#0e1628;border:1px solid #243252;color:#9fb0d0}
+  .kt-lvbar span{font-weight:700;font-size:12px;line-height:1;font-family:inherit;padding:7px 10px;border-radius:999px;background:#0e1628;border:1px solid #243252;color:#9fb0d0}
   .kt-lvbar span.bad{border-color:#ff8585;color:#ff8585}.kt-lvbar span.good{border-color:#5ee6c7;color:#5ee6c7}
-  .kt-snd{background:transparent;border:1px solid #243252;color:#9fb0d0;border-radius:10px;padding:7px 9px;cursor:pointer;font:700 13px/1 inherit}
+  .kt-snd{background:transparent;border:1px solid #243252;color:#9fb0d0;border-radius:10px;padding:7px 9px;cursor:pointer;font-weight:700;font-size:13px;line-height:1;font-family:inherit}
   @media(min-width:761px){.kt-ov.kd-on .kt-main,.kt-ov.kd-on .kt-bot{padding-right:min(46vw,560px)}}
   @media(max-width:520px){.kt-q{font-size:18px}.kt-opt{font-size:15.5px;padding:12px 13px}.kt-big{font-size:52px}}
   `;
   document.head.appendChild(el("style", null, css));
+
+  /* inglizcha (SAT) — faqat shu faylda qo'shilgan yangi matnlar uchun; qolganini ka-til.js tarjima qiladi */
+  var EN = { "Keyingi savol →": "Next question →", "Natijani ko'rish →": "See results →", "⏸️ To'xtat": "⏸️ Stop", "▶ Davom": "▶ Continue",
+    "❓ Nima uchun xato?": "❓ Why is it wrong?", "Siz tanladingiz": "You chose", "Yechim:": "Solution:", "3D rejim": "3D mode",
+    "✔ To'g'ri!": "✔ Correct!", "✘ Noto'g'ri. To'g'ri javob: ": "✘ Incorrect. Correct answer: ", "avtomatik…": "auto…" };
+  function enMode(id) {
+    try { if (document.documentElement.getAttribute("data-til-force") === "en") return true; if (/^sat/.test(id || "")) return true; return !!(window.kaTil && kaTil.get() === "en"); } catch (e) { return false; }
+  }
+  var curEn = false;
+  function T(s) { return curEn && EN[s] ? EN[s] : s; }
+  // SAT testi o'zbekcha sahifada ochilsa ham oyna to'liq inglizcha bo'lsin: ka-til-en.js lug'ati bilan shu oynani o'giramiz
+  var ENDICT = null, enLoading = false;
+  function needOwnEn() { return curEn && !(window.kaTil && kaTil.get && kaTil.get() === "en"); }
+  function loadEnDict(cb) {
+    if (ENDICT) return cb();
+    if (window.KA_TR && KA_TR.en && Object.keys(KA_TR.en).length > 500) { ENDICT = KA_TR.en; return cb(); }
+    if (enLoading) return; enLoading = true;
+    var sc = document.createElement("script"); sc.src = "ka-til-en.js";
+    sc.onload = function () { ENDICT = (window.KA_TR && KA_TR.en) || {}; cb(); }; sc.onerror = function () { ENDICT = {}; };
+    document.head.appendChild(sc);
+  }
+  function enTr(src) {
+    var k = String(src).replace(/\s+/g, " ").trim(); if (!k || !ENDICT) return null;
+    if (ENDICT[k] != null) return ENDICT[k];
+    if (/\d/.test(k)) { var nums = k.match(/\d+/g), t = ENDICT[k.replace(/\d+/g, "#")]; if (t != null && (t.match(/#/g) || []).length === nums.length) { var i = 0; return t.replace(/#/g, function () { return nums[i++]; }); } }
+    return null;
+  }
+  function enWalk(root) {
+    if (!root || !ENDICT) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n, list = [];
+    while ((n = w.nextNode())) list.push(n);
+    list.forEach(function (n) { var t = enTr(n.data); if (t != null) { var lead = /^\s*/.exec(n.data)[0], trail = /\s*$/.exec(n.data)[0]; if (n.data !== lead + t + trail) n.data = lead + t + trail; } });
+    Array.prototype.forEach.call(root.querySelectorAll ? root.querySelectorAll("[title],[placeholder]") : [], function (el) { ["title", "placeholder"].forEach(function (a) { var v = el.getAttribute(a), t = v && enTr(v); if (t != null && t !== v) el.setAttribute(a, t); }); });
+  }
+  function enWatch(ov) {
+    if (!needOwnEn() || !window.MutationObserver) return;
+    loadEnDict(function () {
+      enWalk(ov);
+      var tm = 0, mo = new MutationObserver(function () { if (!tm) tm = setTimeout(function () { tm = 0; mo.disconnect(); enWalk(ov); mo.observe(ov, { childList: true, subtree: true, characterData: true }); }, 30); });
+      mo.observe(ov, { childList: true, subtree: true, characterData: true });
+    });
+  }
+  function d3on() { try { return localStorage.getItem("kt.3d") !== "0"; } catch (e) { return true; } }
+  function d3set(v) { try { localStorage.setItem("kt.3d", v ? "1" : "0"); } catch (e) {} }
 
   var LV = [[1, "Oson"], [2, "O'rta"], [3, "Murakkab"], [0, "Aralash (oson→murakkab)"]];
   var CNT = [10, 20, 30, 40, 50];
@@ -167,7 +235,8 @@
     var count0 = opts.count0 || count || 20;
     var perQ = opts.perQ == null ? 4 : +opts.perQ;            // daqiqa / 1 savol (0 = vaqtsiz)
     var limit = perQ > 0 ? Math.round(perQ * 60 * count) : 0;  // umumiy soniya
-    var i = 0, ok = 0, wrong = [], t0 = Date.now(), timer, autoT = null, answered = false;
+    var i = 0, ok = 0, wrong = [], t0 = Date.now(), timer, autoT = null, cdT = 0, answered = false;
+    var WRONG_WAIT = 9; // xato javobdan keyin tushuntirishni o'qish uchun soniya
     if (rs) { i = rs.i; ok = rs.ok; wrong = rs.wrong || []; t0 = Date.now() - (rs.elapsed || 0) * 1000; perQ = rs.perQ; limit = perQ > 0 ? Math.round(perQ * 60 * count) : 0; }
     function persist() {
       if (opts.diag) return;
@@ -180,6 +249,7 @@
       '<div class="kt-top"><b></b><span class="kt-pill n">1/' + count + '</span><span class="kt-pill">✔ 0</span>' +
       '<span class="kt-pill t">' + (limit ? "⏳ " + mmss(limit) : "0:00") + '</span>' +
       '<button class="kt-snd" data-a="snd" type="button" title="Ovoz">' + (Snd.on() ? "🔊" : "🔇") + '</button>' +
+      '<button class="kt-snd" data-a="d3" type="button" title="3D" aria-pressed="false">🧊 3D</button>' +
       ((opts.desmos || (opts.desmos !== false && /^sat/.test(topicId))) ? '<button class="kt-snd" data-a="desmos" type="button" title="Desmos grafik kalkulyator (SAT\'da ruxsat etilgan)">🧮 Desmos</button>' : "") +
       '<button class="kt-b" data-a="quit" type="button">✕</button></div>' +
       '<div class="kt-bar"><i></i></div><div class="kt-main"></div><div class="kt-bot"></div>';
@@ -199,8 +269,14 @@
       } else pT.textContent = mmss(sec);
     }, 1000);
     $('[data-a="snd"]', ov).onclick = function () { Snd.set(!Snd.on()); this.textContent = Snd.on() ? "🔊" : "🔇"; if (Snd.on()) Snd.ok(); };
+    curEn = enMode(topicId);
+    var d3b = $('[data-a="d3"]', ov);
+    function paint3d() { var on = d3on(); ov.classList.toggle("d3", on); d3b.setAttribute("aria-pressed", on ? "true" : "false"); d3b.style.color = on ? "#5ee6c7" : ""; d3b.style.borderColor = on ? "#5ee6c7" : ""; d3b.title = T("3D rejim"); }
+    d3b.onclick = function () { d3set(!d3on()); paint3d(); };
+    paint3d();
+    enWatch(ov);
 
-    function quit() { clearInterval(timer); clearTimeout(autoT); if (window.kaDesmos) window.kaDesmos.destroy(); ov.remove(); document.documentElement.style.overflow = ""; }
+    function quit() { clearInterval(timer); clearTimeout(autoT); clearInterval(cdT); if (window.kaDesmos) window.kaDesmos.destroy(); ov.remove(); document.documentElement.style.overflow = ""; }
     var dBtn = $('[data-a="desmos"]', ov);
     if (dBtn) dBtn.onclick = function () {
       var go = function () { window.kaDesmos.toggle(ov).then(function () { ov.classList.toggle("kd-on", window.kaDesmos.isOpen()); }); };
@@ -221,7 +297,7 @@
     window.addEventListener("beforeunload", function onUnload() { if (i < count) persist(); });
 
     function show() {
-      clearTimeout(autoT); answered = false;
+      clearTimeout(autoT); clearInterval(cdT); answered = false;
       if (i >= count) return finish();
       persist();
       var p = qs[i];
@@ -259,15 +335,33 @@
           $("input", main).disabled = true; $('[data-a="ok"]', main).disabled = true;
         }
         fb.className = "kt-fb " + (good ? "ok" : "bad");
-        fb.innerHTML = good ? "✔ To'g'ri!" : "✘ Noto'g'ri. To'g'ri javob: <b>" + fmt(esc(String(p.a))) + "</b>";
-        if (!good && p.steps) fb.innerHTML += '<ol class="kt-steps">' + p.steps.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ol>";
-        var nextLbl = i + 1 >= count ? "Natijani ko'rish →" : "Keyingi savol →";
-        bot.innerHTML = '<button class="kt-b go" data-a="next" type="button">' + nextLbl + '</button>' + (good ? '<span class="kt-auto">avtomatik…</span>' : "");
-        var nx = function () { clearTimeout(autoT); i++; show(); };
-        $('[data-a="next"]', bot).onclick = nx;
-        $('[data-a="next"]', bot).focus();
-        // to'g'ri bo'lsa — avtomatik keyingisiga (1.3 s); xato bo'lsa yechimni o'qib, tugmani bosadi
-        if (good) autoT = setTimeout(nx, 1300);
+        fb.innerHTML = good ? T("✔ To'g'ri!") : T("✘ Noto'g'ri. To'g'ri javob: ") + "<b>" + fmt(esc(String(p.a))) + "</b>";
+        if (!good) {
+          var why = "";
+          try { why = window.kaSavol && kaSavol.why ? kaSavol.why(p, val, curEn ? "en" : "uz") : ""; } catch (e) {}
+          fb.innerHTML += '<div class="kt-why"><b>' + T("❓ Nima uchun xato?") + "</b> " + (opts || val ? T("Siz tanladingiz") + ": <b>" + fmt(esc(String(val))) + "</b>. " : "") + esc(why) +
+            (p.steps ? '<div style="margin-top:6px;color:#c9d4ff">' + T("Yechim:") + '</div><ol class="kt-steps">' + p.steps.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ol>" : "") + "</div>";
+        }
+        var nextLbl = T(i + 1 >= count ? "Natijani ko'rish →" : "Keyingi savol →");
+        bot.innerHTML = '<button class="kt-b go" data-a="next" type="button">' + nextLbl + '<span class="kt-cd"></span></button>' +
+          (good ? "" : '<button class="kt-b hold" data-a="hold" type="button">' + T("⏸️ To'xtat") + "</button>");
+        var nx = function () { clearTimeout(autoT); clearInterval(cdT); i++; show(); };
+        var nb = $('[data-a="next"]', bot), cd = $(".kt-cd", bot), hb = $('[data-a="hold"]', bot);
+        nb.onclick = nx;
+        nb.focus({ preventScroll: true });
+        // to'g'ri — 1 soniyada keyingisiga; xato — qizil + sababi, o'qish uchun WRONG_WAIT soniya, keyin o'zi o'tadi
+        var left = good ? 1 : WRONG_WAIT, end = Date.now() + left * 1000;
+        var tick = function () {
+          var l = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+          if (cd) cd.textContent = l;
+          if (Date.now() >= end) nx();
+        };
+        if (good) { cd.style.display = "none"; autoT = setTimeout(nx, 1000); }
+        else { tick(); cdT = setInterval(tick, 250); }
+        if (hb) hb.onclick = function () {
+          if (cdT) { clearInterval(cdT); cdT = 0; left = Math.max(0, end - Date.now()); cd.textContent = "⏸"; hb.textContent = T("▶ Davom"); }
+          else { end = Date.now() + Math.max(2000, left); hb.textContent = T("⏸️ To'xtat"); tick(); cdT = setInterval(tick, 250); }
+        };
       }
 
       if (opts) $$(".kt-opt", main).forEach(function (b) { b.onclick = function () { answer(b.dataset.v, b); }; });
@@ -302,7 +396,9 @@
       var html = '<div class="kt-weak"><h5>📌 Nimani mustahkamlash kerak</h5>' + lvHtml + '<div class="w" style="border-left-color:#7c9bff">' + advice.join(" ") + "</div>";
       items.forEach(function (t) {
         var o = byT[t], lvs = [1, 2, 3].filter(function (L) { return o.lv[L]; }).map(function (L) { return lvName(L) + " " + o.lv[L]; }).join(" · ");
-        html += '<div class="w"><b>' + esc(topicTitle(t)) + "</b> — " + o.w + "/" + o.n + " xato (" + lvs + ")" +
+        var tt = topicTitle(t);
+        if (curEn) { var tx = window.kaTil && kaTil.t ? kaTil.t(tt) : tt; tt = tx !== tt ? tx : title; } // SAT: o'zbekcha mavzu nomi o'rniga test nomi
+        html += '<div class="w"><b>' + esc(tt) + "</b> — " + o.w + "/" + o.n + " xato (" + lvs + ")" +
           '<div class="acts"><a href="' + topicHref(t) + '" data-a="goto">📖 Xossalarni o\'qish</a><button type="button" data-a="easy" data-t="' + t + '">🟢 Oson test (10 ta)</button>' +
           (window.KA_OYINLAR ? '<a href="mashqlar.html#' + t + '" data-a="goto">🎮 Mos o\'yinlar</a>' : "") + "</div></div>";
       });

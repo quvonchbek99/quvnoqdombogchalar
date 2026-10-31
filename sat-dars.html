@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en" data-til-force="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
@@ -53,14 +53,6 @@ h1{font-size:clamp(22px,4.5vw,32px);margin:20px 0 6px}
 </style>
 <script async src="statistika.js"></script>
 <style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Kuvonch Academy">
-<meta property="og:locale" content="uz_UZ">
-<meta property="og:title" content="SAT Math darslari — 37 mavzu | Kuvonch Academy">
-<meta property="og:description" content="Digital SAT Math bo'yicha o'zbekcha darslar: Algebra, Advanced Math, Problem-Solving & Data Analysis, Geometry & Trigonometry — formulalar, yechilgan misollar, SAT tuzoqlari, Desmos maslahatlari va har mavzuga test.">
-<meta property="og:url" content="https://kuvonch.uz/sat-dars.html">
-<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
 </head>
 <body>
 <div class="wrap">
@@ -77,10 +69,10 @@ h1{font-size:clamp(22px,4.5vw,32px);margin:20px 0 6px}
 <script src="sat-dastur.js"></script>
 <script src="sat-darslar.js"></script>
 <script src="ka-qidiruv.js"></script>
-<script src="ka-savollar.js"></script>
+<script src="ka-savollar.js?v=20261030c"></script>
 <script src="ka-savollar-2.js"></script><script src="ka-savollar-3.js"></script><script src="ka-savollar-4.js"></script><script src="ka-savollar-5.js"></script>
 <script src="ka-savollar-6.js"></script><script src="ka-savollar-7.js"></script><script src="ka-savollar-8.js"></script><script src="ka-savollar-9.js"></script><script src="ka-savollar-10.js"></script><script src="ka-savollar-11.js"></script><script src="ka-savollar-12.js"></script>
-<script src="ka-test.js?v=20261018"></script>
+<script src="ka-test.js?v=20261030c"></script>
 <script src="ka-bulut.js"></script>
 <script src="akkount.js"></script>
 <script>
@@ -91,7 +83,7 @@ h1{font-size:clamp(22px,4.5vw,32px);margin:20px 0 6px}
   function has(x) { return window.kaSavol && window.kaSavol.has(x); }
   var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
   // test havzalari
-  D.bolim.forEach(function (b) { b.sub.forEach(function (x) { var l = x.t.filter(has); if (l.length && window.kaSavol) window.kaSavol.register("sat-" + b.id + "-" + x.id, function (Lv) { return window.kaSavol.get(pick(l), Lv); }, "SAT · " + x.uz); }); });
+  D.bolim.forEach(function (b) { b.sub.forEach(function (x) { var l = x.t.filter(has); if (l.length && window.kaSavol) window.kaSavol.register("sat-" + b.id + "-" + x.id, function (Lv) { return window.kaSavol.get(pick(l), Lv); }, "SAT · " + x.en); }); });
 
   var toc = "", body = "";
   D.bolim.forEach(function (b) {
@@ -104,13 +96,13 @@ h1{font-size:clamp(22px,4.5vw,32px);margin:20px 0 6px}
       if (d) {
         body += '<h4>Nima so\'raladi</h4><p>' + esc(d.nima) + '</p>';
         body += '<h4>Asosiy g\'oyalar va formulalar</h4><ul>' + d.g.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join("") + '</ul>';
-        body += '<h4>Yechilgan misollar</h4>' + d.m.map(function (m, i) { return '<div class="ex"><b>' + (i + 1) + '-misol.</b> ' + esc(m[0]) + '<div class="s">✔ ' + esc(m[1]) + '</div></div>'; }).join("");
+        body += '<h4>Yechilgan misollar</h4>' + d.m.map(function (m, i) { return '<div class="ex"><b>Example ' + (i + 1) + '.</b> ' + esc(m[0]) + '<div class="s">✔ ' + esc(m[1]) + '</div></div>'; }).join("");
         body += '<h4>SAT tuzoqlari</h4><ul class="trap">' + d.tuzoq.map(function (t) { return '<li>⚠️ ' + esc(t) + '</li>'; }).join("") + '</ul>';
         body += '<h4>Desmos bilan</h4><div class="desmos">🧮 ' + esc(d.desmos) + '</div>';
       } else body += '<p class="note">Dars matni tayyorlanmoqda.</p>';
       var chips = x.t.map(function (t) { var n = titleOf(t); return '<a class="chip" href="mashqlar.html#' + t + '"><span class="n">' + (n.match(/^\d+/) || [""])[0] + '</span>' + esc(n.replace(/^\d+\.\s*/, "")) + '</a>'; }).join(" ");
       body += '<div class="ref">📘 PrepPros: ' + esc(x.pp) + ' &nbsp; 📗 Hyun: ' + esc(x.ah) + '</div>';
-      body += '<div class="acts">' + (x.t.filter(has).length ? '<button class="btn" data-sub="sat-' + id + '" data-t="' + esc(x.uz) + '">▶ Test (10 savol, Desmos bilan)</button>' : '') + chips + '</div></section>';
+      body += '<div class="acts">' + (x.t.filter(has).length ? '<button class="btn" data-sub="sat-' + id + '" data-t="' + esc(x.en) + '">▶ Test (10 savol, Desmos bilan)</button>' : '') + chips + '</div></section>';
     });
   });
   $("#toc").innerHTML = toc; $("#body").innerHTML = body;

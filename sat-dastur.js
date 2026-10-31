@@ -57,17 +57,17 @@ window.SAT_DASTUR = {
   ],
   // Test-yechish hiylalari (faqat kitobdan o'qiladi, testi yo'q)
   hiyla: [
-    { uz: "Backsolving — javob variantlarini tenglamaga qo'yib tekshirish", pp: "1-bob (1)" },
-    { uz: "Substitution — noma'lumlar o'rniga qulay son qo'yish", pp: "2-bob (5)" },
-    { uz: "Ekvivalent ifodalar — tez taqqoslash usuli", pp: "3-bob (9)" },
-    { uz: "Desmos kalkulyator hiylalari (tenglama, sistema, kvadrat tenglama)", pp: "4-bob (14)" },
-    { uz: "So'z masalalari uchun 4 qoida", pp: "30-bob (277)" }
+    { en: "Backsolving — plugging the answer choices into the equation", uz: "Backsolving — javob variantlarini tenglamaga qo'yib tekshirish", pp: "1-bob (1)" },
+    { en: "Substitution — plugging convenient numbers in for the unknowns", uz: "Substitution — noma'lumlar o'rniga qulay son qo'yish", pp: "2-bob (5)" },
+    { en: "Equivalent expressions — a fast way to compare", uz: "Ekvivalent ifodalar — tez taqqoslash usuli", pp: "3-bob (9)" },
+    { en: "Desmos calculator tricks (equations, systems, quadratics)", uz: "Desmos kalkulyator hiylalari (tenglama, sistema, kvadrat tenglama)", pp: "4-bob (14)" },
+    { en: "4 rules for word problems", uz: "So'z masalalari uchun 4 qoida", pp: "30-bob (277)" }
   ],
   // Kitobdagi to'liq sinov testlari
   sinov: [
-    { uz: "PSAT 10 amaliy test", ah: "341-bet (javoblar 360)" },
-    { uz: "SAT amaliy test 1", ah: "367-bet (javoblar 388)" },
-    { uz: "SAT amaliy test 2", ah: "399-bet (javoblar 421)" },
-    { uz: "Har bobning oxirida bob testi va yechimlari", ah: "har bob" }
+    { en: "PSAT 10 practice test", uz: "PSAT 10 amaliy test", ah: "341-bet (javoblar 360)", ahEn: "p. 341 (answers p. 360)" },
+    { en: "SAT practice test 1", uz: "SAT amaliy test 1", ah: "367-bet (javoblar 388)", ahEn: "p. 367 (answers p. 388)" },
+    { en: "SAT practice test 2", uz: "SAT amaliy test 2", ah: "399-bet (javoblar 421)", ahEn: "p. 399 (answers p. 421)" },
+    { en: "A chapter test with solutions at the end of every chapter", uz: "Har bobning oxirida bob testi va yechimlari", ah: "har bob", ahEn: "every chapter" }
   ]
 };
