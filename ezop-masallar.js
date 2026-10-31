@@ -727,5 +727,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yerni tayyorlamay, urug'ni shoshilib sochgan edi", "Chunki ko'chatlar juda baland bo'lib ketgan edi", "Chunki qo'shni bog'bon ularni yashirincha olib ketgan edi"],
     javob: 0,
     izoh: "Ekin ekishdan oldin yerni tayyorlash hosilning asosi. Tayyorgarliksiz qilingan ish, hatto tez bajarilgan bo'lsa ham, kutilgan natijani bermaydi."
+  },
+  {
+    id: "ez-092", mavzu: "mantiq", sarlavha: "Sichqon va tuzoqdagi don",
+    matn: "Bir sichqon tuzoq ichidagi donni ko'rib qoldi. Tuzoqning bir tomoni mahkam yopiq, ikkinchi tomonida esa kichik teshik ochiq turardi. Sichqon darhol ichkariga yugurmadi, avval tuzoq atrofida aylanib, qaysi tomon xavfli ekanini kuzatdi. So'ng ochiq teshikdan kirib, donni olib chiqib ketdi.",
+    savol: "Sichqon donni qanday qilib oldi?",
+    variantlar: ["Tuzoqning yopiq tomonidan to'g'ridan-to'g'ri kirib", "Tuzoqning eshigini tishlab ochib", "Xavfli tomonni kuzatib, ochiq teshikdan kirib"],
+    javob: 2,
+    izoh: "Sichqon kirish joyini tanlashdan oldin vaziyatni kuzatdi. Tez harakat qilish emas, mantiqiy tahlil unga xavfsiz yo'l topishga yordam berdi."
   }
 ];
