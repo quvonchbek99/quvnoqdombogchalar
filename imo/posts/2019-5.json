@@ -1,0 +1,36 @@
+{
+  "id": "2019-5",
+  "badge": "IMO 2019 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Harrining tangalari",
+      "fs": 35,
+      "body": "<p>Stolda qatorasiga <span class='m'>n</span> ta tanga turibdi, har biri <b>gerb</b> (G) yoki <b>raqam</b> (R) tomoni bilan.</p><div class='box'>Agar <span class='m'>k &gt; 0</span> ta tanga gerb bo'lsa, Harri chapdan <span class='m'>k</span>-tangani ag'daradi. Gerb qolmasa — to'xtaydi.</div><p>Masalan: <span class='m'>RGR → GGR → GRR → RRR</span> (3 qadam).</p><p><b>a)</b> Jarayon har doim tugashini isbotlang.<br><b>b)</b> Barcha <span class='m'>2<sup>n</sup></span> boshlang'ich holat bo'yicha qadamlar sonining <b>o'rtacha qiymatini</b> toping.</p><p>Javob qanday chiroyli formula? 🤔</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob va g'oya",
+      "fs": 35,
+      "body": "<div class='box'><b>Javob:</b> <span class='m'>E<sub>n</sub> = (1 + 2 + … + n)/2 = n(n + 1)/4</span></div><p>Gerbni <span class='m'>1</span>, raqamni <span class='m'>0</span> deb yozamiz: har bir holat — uzunligi <span class='m'>n</span> bo'lgan ikkilik so'z.</p><p>Har so'zdan uning <b>keyingi holatiga</b> strelka chizamiz — graf <span class='m'>G<sub>n</sub></span> hosil bo'ladi.</p><p>🔑 <b>Asosiy g'oya:</b> <span class='m'>G<sub>n</sub></span> ni <span class='m'>G<sub>n−1</sub></span> ning <b>ikki nusxasidan</b> yig'ish mumkin. Keyin induksiya qilamiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Ikki nusxa: X va Y",
+      "fs": 33,
+      "body": "<p><b>X nusxa</b> — oxirgi tanga <span class='m'>0</span>: <span class='m'>s<sub>1</sub>…s<sub>n−1</sub> ↦ s<sub>1</sub>…s<sub>n−1</sub>0</span>. Gerblar <span class='m'>≤ n − 1</span>, oxirgi tangaga hech qachon tegilmaydi — jarayon <span class='m'>G<sub>n−1</sub></span> dagi kabi.</p><p><b>Y nusxa</b> — oxirgi tanga <span class='m'>1</span>: birinchi <span class='m'>n − 1</span> bitni <b>teskarilab</b>, tartibini <b>aylantiramiz</b> va oxiriga <span class='m'>1</span> qo'yamiz:</p><div class='box'><span class='m'>s<sub>1</sub>…s<sub>n−1</sub> ↦ s̄<sub>n−1</sub>…s̄<sub>1</sub>1</span> &nbsp;(<span class='m'>s̄ = 1 − s</span>)</div><p>Agar <span class='m'>s</span> da <span class='m'>k</span> ta bir bo'lsa, yangi so'zda <span class='m'>(n − 1 − k) + 1 = n − k</span> ta bir. Demak <span class='m'>(n − k)</span>-o'rin ag'dariladi — bu aynan eski <span class='m'>k</span>-o'rin! Strelkalar saqlanadi ✅</p><p>Yagona qo'shimcha strelka: <span class='m'>11…1 → 11…10</span> (Y dan X ga).</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Rekurrent formula",
+      "fs": 34,
+      "body": "<p><b>Tugashi:</b> <span class='m'>G<sub>n−1</sub></span> da hammasi <span class='m'>00…0</span> ga yetsa, Y da hammasi uning tasviri <span class='m'>11…1</span> ga yetadi, so'ng X ga o'tadi va u yerda tugaydi. Induksiya bo'yicha jarayon doim to'xtaydi.</p><p><b>Qadamlar:</b> <span class='m'>11…1</span> (<span class='m'>n</span> ta gerb) roppa-rosa <span class='m'>n</span> qadamda tugaydi: <span class='m'>n</span>-, <span class='m'>(n−1)</span>-, …, 1-tanga ag'dariladi.</p><ul><li>X dagi so'z: <span class='m'>G<sub>n−1</sub></span> dagidek <span class='m'>t</span> qadam</li><li>Y dagi so'z: <span class='m'>t</span> qadamda <span class='m'>11…1</span> ga, keyin yana <span class='m'>n</span> qadam ⇒ <span class='m'>t + n</span></li></ul><div class='box'><span class='m'>E<sub>n</sub> = ½[E<sub>n−1</sub> + (E<sub>n−1</sub> + n)] = E<sub>n−1</sub> + n/2</span></div><p><span class='m'>E<sub>0</sub> = 0</span> dan: <span class='m'>E<sub>n</sub> = (1 + … + n)/2 = n(n + 1)/4</span>. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya",
+      "fs": 34,
+      "body": "<p>🔑 <b>O'z-o'ziga o'xshashlik:</b> katta jarayonni ikki kichik nusxaga (biri «ko'zgudagi aksi») bo'lib, o'rtachani rekurrent hisobladik.</p><div class='box'>Kompyuterda tekshirdik: <span class='m'>n = 1 … 12</span> uchun barcha <span class='m'>2<sup>n</sup></span> holatda o'rtacha aynan <span class='m'>n(n + 1)/4</span> ✅</div><p>💡 Qiziq fakt: gerblar <span class='m'>i<sub>1</sub> &lt; … &lt; i<sub>ℓ</sub></span> o'rinlarda bo'lsa, qadamlar soni <span class='m'>2(i<sub>1</sub> + … + i<sub>ℓ</sub>) − ℓ<sup>2</sup></span> ga teng.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 4</span> da eng ko'p qadam qaysi holatda va nechta? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2019 · 6-masala</b> (geometriya)</p>"
+    }
+  ]
+}
