@@ -703,5 +703,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yo'lda hech qachon to'xtamadi", "Chunki u tasodifan to'g'ri yo'lga tushib qoldi", "Chunki u xaritaga tayanib, yo'nalishni tekshirib bordi"],
     javob: 2,
     izoh: "Birinchi yo'lovchi ishonchli xaritaga tayanib, har bir qadamda yo'nalishni tekshirib bordi. Ishonchli ma'lumotdan foydalanish adashishning oldini oladi."
+  },
+  {
+    id: "ez-089", mavzu: "mantiq", sarlavha: "Ikki quruvchi",
+    matn: "Ikki quruvchi bir xil uy qurishga kirishdi. Birinchisi avval poydevorni chuqur qazib, uni toshdan mustahkam qilib qo'ydi. Ikkinchisi esa vaqtni tejash uchun poydevorni yuzaki qilib, darhol devor ko'tarishga o'tdi. Yil o'tib kuchli shamol esganda, ikkinchisining uyi qulab tushdi, birinchisining uyi esa mustahkam turib qoldi.",
+    savol: "Ikkinchi quruvchining uyi nega qulab tushdi?",
+    variantlar: ["Chunki u uyni boshqalarnikidan balandroq qurgan edi", "Chunki u poydevorni yuzaki qilgan edi", "Chunki shamol faqat uning uyiga qarab esdi"],
+    javob: 1,
+    izoh: "Poydevor butun binoning asosi, uni mustahkam qilmaslik uyni xavf ostiga qo'yadi. Vaqtni tejash uchun sifatdan voz kechish keyinchalik ko'proq zarar keltiradi."
   }
 ];
