@@ -1,0 +1,42 @@
+{
+  "id": "2018-3",
+  "badge": "IMO 2018 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Anti-Paskal uchburchagi",
+      "fs": 34,
+      "body": "<p><b>Anti-Paskal uchburchagi</b> — sonlardan tuzilgan teng tomonli uchburchak jadval: eng pastki qatordan tashqari har bir son <b>ostidagi ikki son ayirmasining moduliga</b> teng.</p><p>Masalan, 4 qatorli bu uchburchakda 1 dan 10 gacha barcha sonlar bor:</p><div style='text-align:center;margin:0 0 18px'><svg width='560' height='250' viewBox='0 0 560 250' font-family='DejaVu Serif' font-style='italic' font-size='40' fill='#ffd98a' text-anchor='middle'><text x='280' y='42'>4</text><text x='220' y='102'>2</text><text x='340' y='102'>6</text><text x='160' y='162'>5</text><text x='280' y='162'>7</text><text x='400' y='162'>1</text><text x='100' y='222'>8</text><text x='220' y='222'>3</text><text x='340' y='222'>10</text><text x='460' y='222'>9</text></svg></div><p>(Masalan, <span class='m'>7 = |3 − 10|</span>, <span class='m'>4 = |2 − 6|</span>.)</p><div class='box'><b>Savol:</b> 2018 qatorli, <span class='m'>1</span> dan <span class='m'>1 + 2 + … + 2018</span> gacha barcha butun sonlarni o'z ichiga olgan anti-Paskal uchburchagi mavjudmi?</div>"
+    },
+    {
+      "kicker": "YECHIM · JAVOB VA G'OYA",
+      "title": "Javob: yo'q! «Chaqmoq» yo'li",
+      "fs": 36,
+      "body": "<p>Belgilaymiz: <span class='m'>n = 2018</span>, <span class='m'>N = 1 + 2 + … + n</span> — eng katta son.</p><p>Har bir son <span class='m'>d = a − b</span> (<span class='m'>a &gt; b</span>) dan <b>ostidagi kattaroq</b> songa <span class='m'>d → a</span> strelka chizamiz. Unda</p><div class='box' style='text-align:center'><span class='m'>a = d + b</span> &nbsp;— har qadamda son <span class='m'>b</span> ga oshadi</div><p>Bu strelkalar tepadan pastga tushuvchi «chaqmoq» yo'llarini hosil qiladi.</p><p>Misolda: <span class='m'>4 → 6 → 7 → 10</span>, qo'shilganlar esa <span class='m'>2, 1, 3</span> — yo'l yonidagi sonlar.</p><p>E'tibor bering: <span class='m'>{4, 2, 1, 3} = {1, 2, 3, 4}</span>. Bu tasodif emas!</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Tepadan chiqqan chaqmoq",
+      "fs": 36,
+      "body": "<p>Tepadagi <span class='m'>A</span> sondan boshlangan yo'l <span class='m'>n</span> ta qatordan o'tib, pastki qatordagi <span class='m'>B</span> songa tushadi. Yo'lda <span class='m'>n − 1</span> marta son qo'shiladi:</p><div class='box' style='text-align:center'><span class='m'>B = A + b<sub>1</sub> + b<sub>2</sub> + … + b<sub>n−1</sub></span></div><p>Bu yerdagi <span class='m'>n</span> ta son har xil va musbat, shuning uchun</p><p style='text-align:center'><span class='m'>B ≥ 1 + 2 + … + n = N</span></p><p>Lekin <span class='m'>N</span> — eng katta son. Demak tenglik:</p><div class='box'><span class='m'>B = N</span> va <span class='m'>{A, b<sub>1</sub>, …, b<sub>n−1</sub>} = {1, 2, …, n}</span>.<br>Ya'ni <b>1 dan n gacha barcha sonlar shu yo'lda yoki uning yonida</b> turadi.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Kichik «bo'sh» uchburchak",
+      "fs": 32,
+      "body": "<div style='text-align:center;margin-bottom:10px'><svg width='640' height='340' viewBox='0 0 640 340' font-family='DejaVu Serif' font-style='italic' font-size='30' fill='none'><polygon points='320,25 40,305 600,305' stroke='#ffffff' stroke-width='3'/><polygon points='40,305 228,117 416,305' stroke='#f2b84b' stroke-width='3' fill='#f2b84b22'/><polyline points='320,25 340,65 330,105 365,145 355,185 395,225 385,265 450,305' stroke='#f2b84b' stroke-width='5' stroke-dasharray='0'/><polyline points='228,117 210,155 232,195 200,235 220,270 175,305' stroke='#ffffff' stroke-width='4' stroke-dasharray='8 6'/><g fill='#ffd98a' stroke='none'><circle cx='450' cy='305' r='7'/><circle cx='425' cy='305' r='5' fill='#ffffff'/><circle cx='475' cy='305' r='5' fill='#ffffff'/><circle cx='175' cy='305' r='6' fill='#ffffff'/><text x='320' y='20' text-anchor='middle'>A</text><text x='452' y='299' text-anchor='middle' dy='-14'>B</text><text x='420' y='300' text-anchor='end' dy='28' fill='#ffffff'>X</text><text x='480' y='300' dy='28' fill='#ffffff'>Y</text><text x='228' y='108' text-anchor='middle'>C</text><text x='175' y='300' text-anchor='middle' dy='28' fill='#ffffff'>D</text></g></svg></div><p><span class='m'>B</span> ning qo'shnilari <span class='m'>X, Y</span>. Faraz qilaylik, <span class='m'>B</span> pastki qatorning o'ng yarmida (aks holda ko'zgu aksini olamiz).</p><p><span class='m'>X</span> dan chapdagi pastki sonlar asosida <span class='m'>C</span> uchli kichik uchburchak quramiz. Uning asosida kamida</p><div class='box' style='text-align:center'><span class='m'>m = n/2 − 1 = 1008</span> ta son bor</div><p>Yo'ldagi va uning yonidagi har bir sonning ostidagi «soyasi» <span class='m'>B, X</span> yoki <span class='m'>Y</span> ni o'z ichiga oladi, shuning uchun bu uchburchakka <b>1, 2, …, n sonlaridan birortasi ham tushmaydi</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Ikkinchi chaqmoq — ziddiyat",
+      "fs": 36,
+      "body": "<p>Endi kichik uchburchak tepasidagi <span class='m'>C</span> dan chaqmoq yo'lini pastga, <span class='m'>D</span> gacha yuritamiz. Bu yo'l ham <span class='m'>m</span> ta har xil sonni qo'shib boradi.</p><p>Ammo bu uchburchakdagi barcha sonlar <span class='m'>n</span> dan katta! Demak:</p><div class='box' style='text-align:center'><span class='m'>D ≥ (n+1) + (n+2) + … + (n+m)</span></div><p><span class='m'>n = 2018</span>, <span class='m'>m = 1008</span> bo'lganda:</p><p style='text-align:center'><span class='m'>D ≥ 2 542 680 &gt; N = 2 037 171</span></p><p>Lekin <span class='m'>N</span> — uchburchakdagi eng katta son edi. <b>Ziddiyat!</b></p><p>Demak bunday anti-Paskal uchburchagi mavjud emas. &nbsp;∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya: eng katta qiymat yo'li",
+      "fs": 34,
+      "body": "<p>Har bir sondan kattaroq «bola»ga yurib, chaqmoq yo'lini qurdik. Yig'indini baholash birinchi yo'lni to'liq «qotirib» qo'ydi, ikkinchi yo'l esa chegaradan oshib ketdi.</p><p>Python'da kichik hollarni tekshirdik: <span class='m'>n = 1, …, 5</span> qatorli uchburchaklar mavjud. <span class='m'>n = 5</span> da yagona misol (ko'zgu aksigacha) pastki qatori:</p><div class='box' style='text-align:center'><span class='m'>6, 14, 15, 3, 13</span></div><p>🧠 <b>Sizga savol:</b> shu qatordan to'liq uchburchakni tiklang — tepada qaysi son chiqadi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2018 · 4-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
