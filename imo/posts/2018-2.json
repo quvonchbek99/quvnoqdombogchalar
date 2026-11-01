@@ -1,0 +1,42 @@
+{
+  "id": "2018-2",
+  "badge": "IMO 2018 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Doiraviy ketma-ketlik",
+      "fs": 40,
+      "body": "<p>Shunday barcha <span class='m'>n ≥ 3</span> butun sonlarni topingki, ular uchun <span class='m'>a<sub>1</sub>, a<sub>2</sub>, …, a<sub>n</sub></span> haqiqiy sonlar mavjud bo'lib,</p><div class='box' style='text-align:center'><span class='m'>a<sub>i</sub> a<sub>i+1</sub> + 1 = a<sub>i+2</sub></span></div><p>tenglik barcha <span class='m'>i = 1, 2, …, n</span> uchun bajarilsin.</p><p>Indekslar <b>doiraviy</b> olinadi: <span class='m'>a<sub>n+1</sub> = a<sub>1</sub></span>, <span class='m'>a<sub>n+2</sub> = a<sub>2</sub></span>.</p><p>Ya'ni sonlar doira bo'ylab yozilgan: har qanday ikki qo'shni son ko'paytmasiga 1 qo'shsak, keyingi son chiqadi.</p>"
+    },
+    {
+      "kicker": "YECHIM · JAVOB VA MISOL",
+      "title": "Javob: n soni 3 ga bo'linadi",
+      "fs": 39,
+      "body": "<p>Avval misol. <span class='m'>3 | n</span> bo'lsa, quyidagi ketma-ketlik mos keladi:</p><div class='box' style='text-align:center'><span class='m'>−1, −1, 2, −1, −1, 2, …</span></div><p>Tekshiramiz:</p><ul><li><span class='m'>(−1)·(−1) + 1 = 2</span> ✅</li><li><span class='m'>(−1)·2 + 1 = −1</span> ✅</li><li><span class='m'>2·(−1) + 1 = −1</span> ✅</li></ul><p>Endi eng qiziq qismi: <b>boshqa <span class='m'>n</span> lar uchun bunday sonlar mavjud emasligini</b> isbotlash kerak.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Uchta qo'shni son ko'paytmasi",
+      "fs": 39,
+      "body": "<p><span class='m'>a<sub>i</sub> a<sub>i+1</sub> a<sub>i+2</sub></span> ko'paytmani ikki xil usulda hisoblaymiz.</p><p>Birinchi ikkitasini guruhlasak, <span class='m'>a<sub>i</sub> a<sub>i+1</sub> = a<sub>i+2</sub> − 1</span>:</p><div class='box'><span class='m'>a<sub>i</sub> a<sub>i+1</sub> a<sub>i+2</sub> = a<sub>i+2</sub><sup>2</sup> − a<sub>i+2</sub></span></div><p>Oxirgi ikkitasini guruhlasak, <span class='m'>a<sub>i+1</sub> a<sub>i+2</sub> = a<sub>i+3</sub> − 1</span>:</p><div class='box'><span class='m'>a<sub>i</sub> a<sub>i+1</sub> a<sub>i+2</sub> = a<sub>i</sub> a<sub>i+3</sub> − a<sub>i</sub></span></div><p>Demak har bir <span class='m'>i</span> uchun:</p><p style='text-align:center'><span class='m'>a<sub>i+2</sub><sup>2</sup> − a<sub>i+2</sub> = a<sub>i</sub> a<sub>i+3</sub> − a<sub>i</sub></span></p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Doira bo'ylab yig'amiz",
+      "fs": 38,
+      "body": "<p>Bu tenglikni barcha <span class='m'>i = 1, …, n</span> uchun qo'shamiz. Doiraviylik tufayli <span class='m'>Σ a<sub>i+2</sub> = Σ a<sub>i</sub></span> — ular qisqaradi:</p><div class='box' style='text-align:center'><span class='m'>Σ a<sub>i</sub><sup>2</sup> = Σ a<sub>i</sub> a<sub>i+3</sub></span></div><p>Ikkala tomonni 2 ga ko'paytirib, chap tomonni <span class='m'>Σ a<sub>i</sub><sup>2</sup> + Σ a<sub>i+3</sub><sup>2</sup></span> deb yozsak:</p><div class='box' style='text-align:center'><span class='m'>Σ (a<sub>i</sub> − a<sub>i+3</sub>)<sup>2</sup> = 0</span></div><p>Kvadratlar yig'indisi nolga teng — demak har biri nol:</p><p style='text-align:center'><b><span class='m'>a<sub>i+3</sub> = a<sub>i</sub></span></b> &nbsp;— ketma-ketlik <b>3-davriy</b>!</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Nega 3 | n majburiy?",
+      "fs": 39,
+      "body": "<p>Ketma-ketlik bir vaqtda <span class='m'>n</span>-davriy (doira) va <span style='white-space:nowrap'>3-davriy</span>. Agar <span class='m'>3 ∤ n</span> bo'lsa, <span class='m'>EKUB(3, n) = 1</span>, ya'ni barcha sonlar teng:</p><div class='box' style='text-align:center'><span class='m'>a<sub>1</sub> = a<sub>2</sub> = … = a<sub>n</sub> = x</span></div><p>U holda shart <span class='m'>x<sup>2</sup> + 1 = x</span> ga aylanadi. Lekin</p><p style='text-align:center'><span class='m'>x<sup>2</sup> − x + 1 = (x − ½)<sup>2</sup> + ¾ &gt; 0</span></p><p>— haqiqiy yechim yo'q. Demak <span class='m'>n</span> soni 3 ga bo'linishi shart, misol esa 2-slaydda. &nbsp;∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Asosiy g'oya: bitta ifodani ikki xil hisoblash",
+      "fs": 36,
+      "body": "<p><span class='m'>a<sub>i</sub> a<sub>i+1</sub> a<sub>i+2</sub></span> ni ikki usulda yozib, doira bo'ylab yig'dik — natijada «kvadratlar yig'indisi = 0» chiqdi. Bu olimpiadada juda kuchli usul.</p><p>Python'da <span class='m'>n = 3, …, 9</span> uchun sonli qidiruv o'tkazdik: yechim faqat <span class='m'>n = 3, 6, 9</span> da topildi ✅</p><div class='box'>💡 Evan Chen ikkinchi yechimni ham keltiradi: ishoralarni sanash — ketma-ketlik ishoralari majburan <span class='m'>− − +</span> takrorlanadi.</div><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 3</span> da <span class='m'>(−1, −1, 2)</span> dan boshqa yechim bormi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2018 · 3-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
