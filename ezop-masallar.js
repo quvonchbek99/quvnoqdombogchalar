@@ -743,5 +743,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u muzning qalinligini tekshirmasdan shoshilib yugurgan edi", "Chunki bobosi unga daryo bo'yiga chiqishni taqiqlagan edi", "Chunki daryo juda chuqur edi va u suzishni bilmas edi"],
     javob: 0,
     izoh: "Xavfli joyga kirishdan oldin sharoitni tekshirish kerak. Tekshirmasdan shoshilish esa keraksiz xavfga olib keladi."
+  },
+  {
+    id: "ez-094", mavzu: "mantiq", sarlavha: "Kasal sher va tulki",
+    matn: "Sher og'ir kasal bo'lib, g'origa qamalib yotib oldi. Hayvonlar uni ko'rgani kelib, hurmat bilan salomatligini so'rashdi. Faqat tulki kelmadi. Ayiq sababini so'raganda, tulki shunday dedi: \"Men g'or oldiga borib, yerdagi izlarni ko'rdim. Ko'p hayvonlarning izi ichkariga kirgan, lekin birortasining izi chiqqan emas.\" Shunday deb, tulki o'z yo'lidan qaytib ketdi.",
+    savol: "Tulki nima uchun sherning oldiga kirmadi?",
+    variantlar: ["Chunki u kechikib qolgan edi va yo'lda vaqt o'tkazdi", "Chunki sher unga kirishni o'zi taqiqlagan edi", "Chunki g'origa ko'p kirgan, lekin hech kim chiqmagan izlarni ko'rdi"],
+    javob: 2,
+    izoh: "Tulki izlardan xulosa chiqardi: hamma kirib, hech kim chiqmagan joy xavfli bo'lishi mumkin. Kuzatuvga asoslangan mantiq uni ehtiyotkor qildi."
   }
 ];
