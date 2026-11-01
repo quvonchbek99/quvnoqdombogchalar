@@ -759,5 +759,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Mayda qushga, chunki u burgutning ustida turib, eng yuqorida uchdi", "Burgutga, chunki u eng katta qush edi", "Hech kimga, chunki qushlar kelisha olmadi"],
     javob: 0,
     izoh: "Hikoyada g'alaba kattalikka emas, to'g'ri rejaga bog'liq. Mayda qush burgutning kuchidan foydalanib, o'z maqsadiga yetdi."
+  },
+  {
+    id: "ez-096", mavzu: "ehtiyotkorlik", sarlavha: "Ikki qayiq",
+    matn: "Bahorda keng ariqda ikkita yog'och qayiq suzib yurardi. Birinchisi dadil edi va har kuni oqimning eng tez joyiga suzib borardi. Ikkinchisi esa qirg'oqdagi qoziqqa arqon bilan mahkam bog'langan edi va har kuni o'sha joyda turardi. Bir kuni kechqurun kuchli bo'ron ko'tarildi va ariqdagi suv to'satdan toshdi. Birinchi qayiq toshga urilib sindi, ikkinchisi esa arqoni tufayli o'z joyida qolib, omon qoldi.",
+    savol: "Ikkinchi qayiq nima uchun omon qoldi?",
+    variantlar: ["Chunki u oqimning eng tez joyiga suzib borgan edi", "Chunki u qirg'oqdagi qoziqqa mahkam bog'langan edi", "Chunki u bo'ron boshlanishidan oldin boshqa ariqqa ketgan edi"],
+    javob: 1,
+    izoh: "Ikkinchi qayiq xavfli oqimdan uzoqda, qoziqqa bog'liq holda turgani uchun omon qoldi. Ehtiyotkorlik va barqarorlik xavfli vaziyatda hayotni saqlab qolishi mumkin."
   }
 ];
