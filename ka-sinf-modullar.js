@@ -310,18 +310,20 @@
       { id: "s9m3", nom: "Trigonometriya asoslari", qisqa: "To'g'ri burchakli uchburchakda sin, cos, tg; 30°, 45°, 60° qiymatlari; asosiy ayniyat sin²α + cos²α = 1." },
       { id: "s9m4", nom: "Aylana, doira va o'xshashlik", qisqa: "C = 2πr, S = πr², yoy uzunligi, sektor yuzi; o'xshash uchburchaklar alomatlari, yuzalar nisbati k².", qosh: ["t73", "t86"] },
       { id: "s9m5", nom: "Ehtimollik elementlari", qisqa: "Klassik ta'rif P = m/n, hodisalar, tajriba, chastota va ehtimollik.", qosh: ["t92"] }] },
-    10: { bosqich: "O'rta (asosiy mavzular 1–28)", mod: [
-      { id: "s10m1", nom: "Funksiyalar va kvadrat funksiya", qisqa: "Funksiya tushunchasi, aniqlanish va qiymatlar sohasi, juft/toq, o'suvchi/kamayuvchi, grafiklarni almashtirish, kvadrat funksiya va tengsizlik.", t: ["t1", "t2", "t5", "t6", "t7", "t8", "t9"] },
-      { id: "s10m2", nom: "Progressiyalar va trigonometrik ayniyatlar", qisqa: "Arifmetik va geometrik progressiya; asosiy trigonometrik ayniyatlar, qo'shish va ikkilangan burchak formulalari.", t: ["t3", "t4"] },
-      { id: "s10m3", nom: "Ratsional tenglamalar va tengsizliklar", qisqa: "Kasrli tenglamalar (ODZ), sistemalar, intervallar usuli, tengsizliklar sistemasi.", t: ["t10", "t11", "t12", "t13", "t14"] },
-      { id: "s10m4", nom: "Irratsional tenglamalar", qisqa: "Ildizli tenglamalar — kvadratga ko'tarish va tekshirish, sistemalar, ratsional va irratsional ifodalar.", t: ["t15", "t16", "t17", "t18"] },
-      { id: "s10m5", nom: "Ko'rsatkichli va logarifmik funksiyalar", qisqa: "aˣ va logₐx funksiyalari, xossalari, tenglamalar, tengsizliklar, sistemalar, ko'rsatkichli modellashtirish.", t: ["t19", "t20", "t21", "t22", "t23", "t24", "t25", "t26", "t27", "t28"] }] },
-    11: { bosqich: "O'rta (asosiy mavzular 29–50)", mod: [
-      { id: "s11m1", nom: "Trigonometrik funksiyalar", qisqa: "sin, cos, tg, ctg funksiyalari va grafiklari, teskari trigonometrik funksiyalar, STEM topshiriq.", t: ["t29", "t30", "t31", "t32"] },
-      { id: "s11m2", nom: "Trigonometrik tenglamalar va tengsizliklar", qisqa: "sin x = a, cos x = a, tg x = a yechimlari, tenglamalarni yechish usullari, sodda tengsizliklar.", t: ["t33", "t34", "t35", "t36"] },
-      { id: "s11m3", nom: "Ehtimollik va kombinatorika", qisqa: "Tasodifiy hodisalar, teng ehtimolli hodisalar, kombinatorika formulalari bilan ehtimollikni hisoblash.", t: ["t37", "t38", "t39"] },
-      { id: "s11m4", nom: "Planimetriya", qisqa: "Planimetriyaning mantiqiy tuzilishi, geometrik masalalarni yechish usullari.", t: ["t40", "t41"] },
-      { id: "s11m5", nom: "Stereometriya", qisqa: "Fazoda to'g'ri chiziqlar va tekisliklar, ularning o'zaro joylashuvi, ayqash chiziqlar, ko'pyoqlar va parallel proyeksiyalash.", t: ["t42", "t43", "t44", "t45", "t46", "t47", "t48", "t49", "t50"] }] }
+    10: { bosqich: "O'rta (Algebra 10 va Geometriya 10 — asosiy mavzular 1–50)", mod: [
+      { id: "s10m1", nom: "Kvadrat funksiya, tengsizlik, progressiyalar, trigonometrik ayniyatlar", qisqa: "Parabola va kvadrat tengsizlik, arifmetik va geometrik progressiya, asosiy trigonometrik ayniyatlar va formulalar.", t: ["t1", "t2", "t3", "t4"] },
+      { id: "s10m2", nom: "Funksiyalar", qisqa: "Funksiya tushunchasi, aniqlanish va qiymatlar sohasi, xossalari, grafiklarni almashtirish, chiziqli va kvadratik modellashtirish.", t: ["t5", "t6", "t7", "t8", "t9"] },
+      { id: "s10m3", nom: "Ratsional va irratsional tenglamalar", qisqa: "Kasrli tenglamalar va tengsizliklar (ODZ, intervallar usuli), sistemalar; ildizli tenglamalar — kvadratga ko'tarish va tekshirish.", t: ["t10", "t11", "t12", "t13", "t14", "t15", "t16", "t17", "t18"] },
+      { id: "s10m4", nom: "Ko'rsatkichli va logarifmik funksiyalar", qisqa: "aˣ va logₐx, xossalari, tenglamalar, tengsizliklar, sistemalar, ko'rsatkichli modellashtirish.", t: ["t19", "t20", "t21", "t22", "t23", "t24", "t25", "t26", "t27", "t28"] },
+      { id: "s10m5", nom: "Trigonometrik funksiyalar va tenglamalar", qisqa: "sin, cos, tg, ctg grafiklari, teskari trigonometrik funksiyalar, sin x = a, cos x = a, tg x = a, tenglamalarni yechish usullari, sodda tengsizliklar.", t: ["t29", "t30", "t31", "t32", "t33", "t34", "t35", "t36"] },
+      { id: "s10m6", nom: "Ehtimollik", qisqa: "Tasodifiy hodisalar, teng ehtimolli hodisalar, kombinatorika formulalari bilan ehtimollikni hisoblash.", t: ["t37", "t38", "t39"] },
+      { id: "s10m7", nom: "Geometriya 10: planimetriya va stereometriya asoslari", qisqa: "Planimetriyaning mantiqiy tuzilishi, fazoda to'g'ri chiziq va tekisliklar, ularning o'zaro joylashuvi, ayqash chiziqlar, ko'pyoqlar, parallel proyeksiyalash.", t: ["t40", "t41", "t42", "t43", "t44", "t45", "t46", "t47", "t48", "t49", "t50"] }] },
+    11: { bosqich: "O'rta (Algebra va analiz asoslari 11, Geometriya 11)", mod: [
+      { id: "s11m1", nom: "Limit, hosila va uning tatbiqlari", qisqa: "Funksiyaning limiti, hosila ta'rifi va formulalari, urinma, o'sish-kamayish, ekstremumlar, eng katta va eng kichik qiymat.", t: ["t59", "t60"] },
+      { id: "s11m2", nom: "Integral va uning tatbiqlari", qisqa: "Boshlang'ich funksiya, aniqmas va aniq integral, Nyuton–Leybnits formulasi, egri chiziqli trapetsiya yuzi.", t: ["t70"] },
+      { id: "s11m3", nom: "Kombinatorika va Nyuton binomi", qisqa: "Faktorial, qo'shish va ko'paytirish qoidalari, o'rin almashtirish, o'rinlashtirish, guruhlash, Nyuton binomi.", t: ["t89", "t90", "t91", "t96"] },
+      { id: "s11m4", nom: "Statistika va ehtimollik", qisqa: "O'rta qiymat, mediana, standart og'ish, diagrammalar, bog'liqlik; ehtimollik qoidalari, to'plamlar va Eyler–Venn, binomial va normal taqsimot tushunchasi.", t: ["t57", "t99", "t100", "t101", "t92", "t93", "t94", "t95"] },
+      { id: "s11m5", nom: "Geometriya 11: perpendikulyarlik, ko'pyoqlar va aylanma jismlar", qisqa: "Fazoda perpendikulyarlik, burchak va masofalar, prizma, piramida, silindr, konus, shar — sirt yuzi va hajm, jismlar kombinatsiyasi, kesimlar, fazoda koordinatalar.", t: ["t87", "t75", "t76", "t77", "t78", "t79", "t81", "t88", "t84"] }] }
   };
 
   // Modul test manbalari: o'z generatori + qo'shimcha (qosh) yoki asosiy mavzular (t)

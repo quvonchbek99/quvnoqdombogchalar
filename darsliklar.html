@@ -127,7 +127,7 @@ footer a{color:var(--accent);text-decoration:none}
 <span class="kicker">📚 Darsliklar</span>
 <h1>Matematika darsliklari <span>1–11-sinf</span></h1>
 <p class="lead">Har bir sinf uchun rasmiy darsliklar PDF ko'rinishida: saytda ochib o'qing yoki telefon/kompyuterga yuklab oling. O'zbek tilidagi nashr asosiy, rus tilidagisi qo'shimcha.</p>
-<div style="margin:0 0 22px"><a class="btn btn-primary" href="daraja-test.html" style="font-size:15px;padding:12px 24px">🎯 Darajani aniqlash testi — 100 savol, 1–11-sinf</a><div style="font-size:12.5px;color:var(--text-dim);margin-top:6px">Qaysi sinf darajasida ekaningizni aniqlang, keyin shu sinf modullaridan boshlang</div></div>
+<div style="margin:0 0 22px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><a class="btn btn-primary" href="kitob.html?sinf=5" style="font-size:15px;padding:12px 24px">📖 Elektron kitob 1–11-sinf</a><a class="btn btn-ghost" href="daraja-test.html" style="font-size:15px;padding:12px 24px;border-color:#ffd479">🎯 Darajani aniqlash testi — 100 savol</a><div style="font-size:12.5px;color:var(--text-dim);margin-top:6px">Elektron kitob — darslik mundarijasi bo'yicha qayta yozilgan mavzular; PDF darsliklar pastda qoladi</div></div>
 <div class="sinf-nav" id="sinf-nav"></div>
 </div>
 
@@ -206,6 +206,7 @@ DATA.forEach(function(S){
  var k=S[0],sub=S[1],books=S[2];
  nav.insertAdjacentHTML('beforeend','<a href="#sinf-'+k+'" data-k="'+k+'">'+k+'-sinf<small>'+esc(sub)+'</small></a>');
  var h='<details class="sinf" id="sinf-'+k+'"><summary><span class="num">'+k+'</span><div><h2>'+k+'-sinf matematika</h2><p>'+books.map(function(b){return b.n}).join(' · ')+'</p></div><span class="arrow">▼</span></summary><div class="body">';
+ h+='<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:4px 0 12px;border-bottom:1px dashed var(--border);margin-bottom:4px"><a class="btn btn-primary sm" href="kitob.html?sinf='+k+'">📖 Elektron kitob — mavzular bo\'yicha</a><span style="font-size:12.5px;color:var(--text-dim)">Darslik mundarijasi asosida qayta yozilgan: qoida, misollar, mashqlar, test</span></div>';
  books.forEach(function(b){
   b.uz.forEach(function(p){
    var u=B+p[1];

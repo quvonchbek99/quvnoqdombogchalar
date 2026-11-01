@@ -1,0 +1,100 @@
+/* Kuvonch Academy — Elektron kitob, 2-sinf matematika (rasmiy darslik 1–4-qism asosida). */
+window.KA_KITOB = window.KA_KITOB || {};
+window.KA_KITOB[2] = {
+  sinf: 2, nom: "Matematika", bosqich: "Boshlang'ich ta'lim",
+  kirish: "2-sinfda 100 ichida qo'shish va ayirish (og'zaki va ustun usuli), 1000 gacha sonlar, ko'paytirish va bo'lish jadvali, uzunlik, massa, vaqt birliklari, shakllar va perimetr o'rganiladi.",
+  pdf: [
+    { nom: "1-qism", url: "https://static.oliygoh.uz/uploads/darsliklar/2/matematika-2-sinf-uz-1-qism.pdf" },
+    { nom: "2-qism", url: "https://static.oliygoh.uz/uploads/darsliklar/2/matematika-2-sinf-uz-2-qism.pdf" },
+    { nom: "3-qism", url: "https://static.oliygoh.uz/uploads/darsliklar/2/matematika-2-sinf-uz-3-qism.pdf" },
+    { nom: "4-qism", url: "https://static.oliygoh.uz/uploads/darsliklar/2/matematika-2-sinf-uz-4-qism.pdf" }
+  ],
+  boblar: [
+    { nom: "1-bob. 100 ichida qo'shish va ayirish", mavzular: [
+      { id: "k2-1", nom: "Takrorlash: 20 ichida sonlar, qo'shish va ayirish", test: ["s1m3", "s1m2"],
+        qoida: ["1-sinfda o'rganganlarimiz: son o'qi, o'nlik va birlik, o'nlikdan o'tib qo'shish (8 + 5 = 8 + 2 + 3 = 13) va ayirish (13 − 5 = 13 − 3 − 2 = 8).", "Qo'shishning hadlari: qo'shiluvchi, qo'shiluvchi, yig'indi. Ayirishning hadlari: kamayuvchi, ayriluvchi, ayirma."],
+        misol: [["9 + 7 va 16 − 9 ni hisoblang.", "9 + 1 = 10, 10 + 6 = 16. 16 − 6 = 10, 10 − 3 = 7."]],
+        mashq: ["7 + 8, 6 + 9, 15 − 7, 12 − 4 ni hisoblang.", "Yig'indisi 14 bo'lgan barcha juftliklarni yozing."] },
+      { id: "k2-2", nom: "Yaxlit songacha qo'shish va yaxlit sondan ayirish (31 + 9, 30 − 7)", test: ["s2m1"],
+        qoida: ["31 + 9: birliklar 1 + 9 = 10 — yaxlit o'nlik hosil bo'ldi. 30 + 10 = <b>40</b>.", "30 − 7: 30 ni 20 + 10 deb olamiz, 10 − 7 = 3, 20 + 3 = <b>23</b>."],
+        misol: [["54 + 6 = ?", "4 + 6 = 10, 50 + 10 = 60."], ["70 − 4 = ?", "70 = 60 + 10, 10 − 4 = 6, 60 + 6 = 66."]],
+        mashq: ["23 + 7, 48 + 2, 50 − 8, 90 − 5 ni hisoblang.", "Qaysi son 6 bilan qo'shilganda 40 bo'ladi?"] },
+      { id: "k2-3", nom: "Ikki xonali sonlarni qo'shish (21 + 39, 28 + 14)", test: ["s2m1"],
+        qoida: ["O'nliklarni o'nliklarga, birliklarni birliklarga qo'shamiz: 21 + 39 = (20 + 30) + (1 + 9) = 50 + 10 = <b>60</b>.", "28 + 14 = (20 + 10) + (8 + 4) = 30 + 12 = <b>42</b>. Birliklar 10 dan oshsa, bitta o'nlik qo'shiladi."],
+        misol: [["36 + 27 = ?", "30 + 20 = 50, 6 + 7 = 13, 50 + 13 = 63."]],
+        mashq: ["45 + 38, 19 + 24, 57 + 26, 33 + 48 ni hisoblang.", "Yig'indisi 71 bo'lgan ikki xonali sonlar juftligini toping."] },
+      { id: "k2-4", nom: "Ikki xonali sonlarni ayirish (50 − 22, 43 − 16)", test: ["s2m1"],
+        qoida: ["43 − 16: birliklarda 3 dan 6 ni ayirib bo'lmaydi — bitta o'nlikni «olamiz»: 43 = 30 + 13; 13 − 6 = 7; 30 − 10 = 20; javob <b>27</b>.", "Tekshirish: 27 + 16 = 43 ✓."],
+        misol: [["62 − 35 = ?", "62 = 50 + 12, 12 − 5 = 7, 50 − 30 = 20, 20 + 7 = 27."]],
+        mashq: ["50 − 22, 71 − 38, 84 − 47, 90 − 56 ni hisoblang.", "Har bir javobni qo'shish bilan tekshiring."] },
+      { id: "k2-5", nom: "Ustun ko'rinishida qo'shish va ayirish", test: ["s2m1"],
+        qoida: ["Sonlarni bir-birining ostiga yozamiz: birlik ostiga birlik, o'nlik ostiga o'nlik. Hisoblashni <b>birliklardan</b> boshlaymiz.", "Qo'shishda birliklar 10 dan oshsa, 1 ni o'nliklar ustiga «eslab qo'yamiz». Ayirishda birlik yetmasa, o'nlikdan 1 ta «olamiz»."],
+        misol: [["Ustun usulida 47 + 35 ni hisoblang.", "7 + 5 = 12: 2 ni yozamiz, 1 ni eslab qolamiz. 4 + 3 + 1 = 8. Javob: 82."], ["Ustun usulida 73 − 28 ni hisoblang.", "3 dan 8 ni ayirib bo'lmaydi: o'nlikdan 1 olamiz, 13 − 8 = 5. O'nliklar: 6 − 2 = 4. Javob: 45."]],
+        mashq: ["Ustun usulida: 58 + 27, 36 + 49, 81 − 46, 60 − 37.", "Xatoni toping: 64 − 29 = 45 to'g'rimi?"] },
+      { id: "k2-6", nom: "Qo'shishning xossalari. Og'zaki hisoblash usullari", test: ["s2m1"],
+        qoida: ["<b>O'rin almashtirish:</b> a + b = b + a. <b>Guruhlash:</b> (a + b) + c = a + (b + c) — qulay tartibda qo'shish mumkin.", "Yig'indidan sonni ayirish: (a + b) − c — c ni a dan yoki b dan ayirish mumkin. Sondan yig'indini ayirish: a − (b + c) = a − b − c."],
+        misol: [["Qulay usulda: 17 + 25 + 3", "17 + 3 = 20, 20 + 25 = 45."], ["46 − (6 + 20) = ?", "46 − 6 = 40, 40 − 20 = 20."]],
+        mashq: ["Qulay tartibda: 28 + 36 + 4, 15 + 49 + 5.", "Ikki usulda hisoblang: 57 − (7 + 30)."] }
+    ] },
+    { nom: "2-bob. 1000 gacha sonlar", mavzular: [
+      { id: "k2-7", nom: "Yuzliklar. Uch xonali sonlar", test: ["s3m2"],
+        qoida: ["10 ta o'nlik = 1 <b>yuzlik</b>. 100, 200, 300 … 900, <b>1000</b>. Uch xonali sonda xonalar: <b>yuzlik, o'nlik, birlik</b>.", "347 = 3 yuzlik 4 o'nlik 7 birlik = 300 + 40 + 7. Sonni o'qish: uch yuz qirq yetti."],
+        misol: [["508 sonida nechta yuzlik, o'nlik va birlik bor?", "5 yuzlik, 0 o'nlik, 8 birlik. 508 = 500 + 8."]],
+        mashq: ["Yozing: olti yuz o'n to'qqiz; to'qqiz yuz uch.", "Xona qo'shiluvchilariga ajrating: 274, 650, 801.", "Taqqoslang: 399 … 400, 512 … 521."] },
+      { id: "k2-8", nom: "Uch xonali sonlarni qo'shish va ayirish", test: ["s3m2"],
+        qoida: ["Yaxlit yuzliklar: 300 + 400 = 700 (3 yuz + 4 yuz). Yaxlit o'nliklar: 240 + 30 = 270.", "Ustun usulida yuzlik ostiga yuzlik, o'nlik ostiga o'nlik, birlik ostiga birlik yoziladi; birliklardan boshlanadi."],
+        misol: [["Ustun usulida 356 + 227 = ?", "6 + 7 = 13 (3 yozamiz, 1 eslaymiz), 5 + 2 + 1 = 8, 3 + 2 = 5. Javob: 583."], ["640 − 280 = ?", "640 − 200 = 440, 440 − 80 = 360."]],
+        mashq: ["500 + 300, 720 − 400, 430 + 260, 900 − 350.", "Ustun usulida: 468 + 275, 703 − 358."] }
+    ] },
+    { nom: "3-bob. Ko'paytirish va bo'lish", mavzular: [
+      { id: "k2-9", nom: "Ko'paytirish — bir xil qo'shiluvchilar yig'indisi", test: ["s2m2"],
+        qoida: ["3 + 3 + 3 + 3 = 12 — 3 ni 4 marta qo'shdik. Buni qisqa yozamiz: <b>3 · 4 = 12</b> (3 ni 4 ga ko'paytiramiz).", "Hadlar: <b>ko'paytuvchi · ko'paytuvchi = ko'paytma</b>. Ko'paytuvchilar o'rnini almashtirsak ko'paytma o'zgarmaydi: 3 · 4 = 4 · 3."],
+        misol: [["Har bir qutida 5 ta olma, 3 ta quti bor. Jami nechta olma?", "5 + 5 + 5 = 5 · 3 = 15. Javob: 15 ta."]],
+        mashq: ["Ko'paytirish bilan almashtiring: 2 + 2 + 2 + 2 + 2; 7 + 7 + 7.", "4 · 3 ni qo'shish bilan yozing va hisoblang."] },
+      { id: "k2-10", nom: "Bo'lish — ko'paytirishga teskari amal", test: ["s2m2"],
+        qoida: ["12 ta olmani 3 bolaga teng bo'lsak, har biriga 4 tadan: <b>12 : 3 = 4</b>. Hadlar: <b>bo'linuvchi : bo'luvchi = bo'linma</b>.", "Bo'lish ko'paytirishga teskari: 3 · 4 = 12 bo'lgani uchun 12 : 3 = 4 va 12 : 4 = 3."],
+        misol: [["18 ta daftarni 2 ta o'quvchiga teng bo'ling.", "18 : 2 = 9, chunki 9 · 2 = 18. Har biriga 9 tadan."]],
+        mashq: ["Ko'paytirishdan bo'lish misollarini tuzing: 5 · 6 = 30.", "20 : 4, 15 : 5, 16 : 2 ni hisoblang."] },
+      { id: "k2-11", nom: "2, 3, 4, 5 ga ko'paytirish va bo'lish jadvali", test: ["s2m2"],
+        qoida: ["<b>2 ga:</b> 2, 4, 6, 8, 10, 12, 14, 16, 18. <b>3 ga:</b> 3, 6, 9, 12, 15, 18, 21, 24, 27. <b>4 ga:</b> 4, 8, 12, 16, 20, 24, 28, 32, 36. <b>5 ga:</b> 5, 10, 15, 20, 25, 30, 35, 40, 45.", "5 ga ko'paytmalar har doim 0 yoki 5 bilan tugaydi. 2 ga ko'paytmalar — juft sonlar."],
+        misol: [["3 · 7 va 28 : 4 ni toping.", "3 · 7 = 21 (3, 6, 9, 12, 15, 18, 21). 28 : 4 = 7, chunki 4 · 7 = 28."]],
+        mashq: ["Jadvalni to'ldiring: 4 · 6, 5 · 8, 3 · 9, 2 · 7.", "36 : 4, 45 : 5, 27 : 3, 14 : 2.", "5 ga ko'paytmalarni 5 dan 50 gacha yozing."] },
+      { id: "k2-12", nom: "6, 7, 8, 9 ga ko'paytirish va bo'lish jadvali", test: ["s2m2", "s3m1"],
+        qoida: ["<b>6 ga:</b> 6, 12, 18, 24, 30, 36, 42, 48, 54. <b>7 ga:</b> 7, 14, 21, 28, 35, 42, 49, 56, 63. <b>8 ga:</b> 8, 16, 24, 32, 40, 48, 56, 64, 72. <b>9 ga:</b> 9, 18, 27, 36, 45, 54, 63, 72, 81.", "9 ga ko'paytmalarda raqamlar yig'indisi doim 9: 27 → 2 + 7 = 9, 63 → 6 + 3 = 9."],
+        misol: [["7 · 8 = ?", "7 · 8 = 56 (7, 14, 21, 28, 35, 42, 49, 56). Eslab qolish: 5-6-7-8 → 56 = 7 · 8."]],
+        mashq: ["6 · 7, 8 · 9, 9 · 4, 7 · 6 ni hisoblang.", "72 : 8, 63 : 9, 48 : 6, 56 : 7.", "9 ga ko'paytmalarning raqamlar yig'indisini tekshiring."] },
+      { id: "k2-13", nom: "0 va 1 bilan ko'paytirish va bo'lish", test: ["s2m2"],
+        qoida: ["Istalgan sonni 1 ga ko'paytirsak o'zi chiqadi: 7 · 1 = 7. 0 ga ko'paytirsak 0: 7 · 0 = 0.", "Sonni 1 ga bo'lsak o'zi: 7 : 1 = 7. 0 ni songa bo'lsak 0: 0 : 7 = 0. <b>Nolga bo'lish mumkin emas!</b>"],
+        misol: [["9 · 0 + 9 · 1 = ?", "0 + 9 = 9."]],
+        mashq: ["8 · 1, 0 · 6, 5 : 1, 0 : 3 ni hisoblang.", "Nega 4 : 0 ni hisoblab bo'lmaydi? Tushuntiring."] },
+      { id: "k2-14", nom: "Masalalar: «marta ko'p», «marta kam», narx va miqdor", test: ["s2m4"],
+        qoida: ["«<b>3 marta ko'p</b>» — ko'paytiramiz (·3). «<b>3 marta kam</b>» — bo'lamiz (:3). «3 ta ko'p» bilan adashtirmang — u qo'shish!", "<b>Narx · miqdor = qiymat.</b> Bitta daftar 3 ming so'm, 4 ta daftar: 3 · 4 = 12 ming so'm."],
+        misol: [["Alida 6 ta marka, Valida undan 3 marta ko'p. Valida nechta marka?", "6 · 3 = 18. Javob: 18 ta."], ["24 ta gulni 4 ta guldonga teng qo'yishdi. Har birida nechta gul?", "24 : 4 = 6 ta."]],
+        mashq: ["Bir ruchka 2 ming so'm. 7 ta ruchka necha ming so'm?", "Qutida 18 ta konfet, bu tovoqdagidan 2 marta ko'p. Tovoqda nechta konfet?", "Masala tuzing: «5 marta kam» so'zi bilan."] }
+    ] },
+    { nom: "4-bob. Kattaliklar", mavzular: [
+      { id: "k2-15", nom: "Uzunlik birliklari: mm, sm, dm, m", test: ["s2m3"],
+        qoida: ["<b>1 sm = 10 mm</b>, <b>1 dm = 10 sm</b>, <b>1 m = 10 dm = 100 sm</b>.", "Katta birlikni kichigiga o'tkazish — ko'paytirish: 3 m = 300 sm. Kichigini kattasiga — bo'lish: 50 sm = 5 dm."],
+        misol: [["2 m 40 sm necha santimetr?", "2 m = 200 sm, 200 + 40 = 240 sm."]],
+        mashq: ["4 dm = ? sm, 7 m = ? dm, 60 mm = ? sm.", "Taqqoslang: 1 m … 99 sm, 3 dm … 30 sm."] },
+      { id: "k2-16", nom: "Massa: kilogramm va gramm", test: ["s2m3"],
+        qoida: ["<b>1 kg = 1000 g</b>. Yengil narsalar grammda (konfet 20 g), og'irlari kilogrammda (tarvuz 5 kg).", "Massalarni qo'shish uchun birliklar bir xil bo'lishi kerak."],
+        misol: [["Bir qop 3 kg, ikkinchisi 500 g. Jami?", "3 kg = 3000 g, 3000 + 500 = 3500 g = 3 kg 500 g."]],
+        mashq: ["2 kg = ? g, 4000 g = ? kg.", "Taqqoslang: 1 kg … 900 g; 2500 g … 2 kg 500 g."] },
+      { id: "k2-17", nom: "Vaqt: soat, daqiqa, kun, hafta, oy", test: ["s2m3"],
+        qoida: ["<b>1 soat = 60 daqiqa</b>, <b>1 kun = 24 soat</b>, <b>1 hafta = 7 kun</b>, <b>1 yil = 12 oy</b>.", "Soatda uzun strelka daqiqani ko'rsatadi: har bir katta bo'linma 5 daqiqa. Uzun strelka 6 da bo'lsa — 30 daqiqa (yarim soat)."],
+        misol: [["Dars 9:00 da boshlanib 45 daqiqa davom etdi. Qachon tugadi?", "9:00 + 45 daqiqa = 9:45."], ["3 soat necha daqiqa?", "3 · 60 = 180 daqiqa."]],
+        mashq: ["2 soat = ? daqiqa, 120 daqiqa = ? soat, 3 hafta = ? kun.", "Soat 10:30. 1 soat 20 daqiqadan keyin soat necha bo'ladi?"] }
+    ] },
+    { nom: "5-bob. Geometrik shakllar", mavzular: [
+      { id: "k2-18", nom: "Ko'pburchaklar. Burchak turlari", test: ["s1m4"],
+        qoida: ["Ko'pburchakda <b>tomonlar</b>, <b>uchlar</b> va <b>burchaklar</b> soni teng: uchburchakda 3 ta, to'rtburchakda 4 ta, beshburchakda 5 ta.", "Burchaklar: <b>to'g'ri</b> (daftar burchagidek), <b>o'tkir</b> (to'g'ridan kichik), <b>o'tmas</b> (to'g'ridan katta)."],
+        misol: [["Shaklning 6 ta uchi bor. Nechta tomoni bor va nima deb ataladi?", "6 ta tomon, oltiburchak."]],
+        mashq: ["Daftar burchagi yordamida uchburchakning qaysi burchagi to'g'ri ekanini aniqlang.", "Beshburchak chizing, tomonlarini sanang."] },
+      { id: "k2-19", nom: "To'g'ri to'rtburchak va kvadrat. Perimetr", test: ["s3m4"],
+        qoida: ["<b>To'g'ri to'rtburchak</b> — to'rtta burchagi to'g'ri; qarama-qarshi tomonlari teng. <b>Kvadrat</b> — hamma tomonlari teng to'g'ri to'rtburchak.", "<b>Perimetr</b> — barcha tomonlar uzunliklari yig'indisi. Kvadrat: P = a + a + a + a = a · 4. To'g'ri to'rtburchak: P = (a + b) · 2."],
+        misol: [["Tomonlari 5 sm va 3 sm bo'lgan to'g'ri to'rtburchakning perimetri?", "P = (5 + 3) · 2 = 16 sm."], ["Tomoni 6 sm kvadratning perimetri?", "6 · 4 = 24 sm."]],
+        mashq: ["Tomonlari 7 sm va 2 sm to'g'ri to'rtburchak chizing, perimetrini toping.", "Perimetri 20 sm bo'lgan kvadratning tomoni necha sm?", "Uchburchak tomonlari 4, 5, 6 sm. Perimetri?"] }
+    ] }
+  ]
+};

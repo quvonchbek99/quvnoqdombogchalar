@@ -1,0 +1,107 @@
+/* Kuvonch Academy — Elektron kitob, 1-sinf matematika.
+   Rasmiy darslik (1–4-qism) mundarijasi asosida qayta yozilgan. */
+window.KA_KITOB = window.KA_KITOB || {};
+window.KA_KITOB[1] = {
+  sinf: 1, nom: "Matematika", bosqich: "Boshlang'ich ta'lim",
+  kirish: "1-sinfda bola sanashni, sonlarni taqqoslashni, 20 ichida qo'shish-ayirishni, 100 gacha sanashni, sodda masalalarni va uzunlik, massa, hajm kattaliklarini o'rganadi. Har bir dars 5–10 daqiqalik o'qish va 5 ta mashq uchun mo'ljallangan.",
+  pdf: [
+    { nom: "Darslik 3-qism (masalalar, kattaliklar)", url: "https://static.oliygoh.uz/uploads/darsliklar/1/matematika-1-sinf-uz-3-qism.pdf" },
+    { nom: "1-sinf darsliklari (1–4-qism, mashq daftari)", url: "https://infoedu.uz/darsliklar/1/1-sinf-matematika" }
+  ],
+  boblar: [
+    { nom: "1-bob. Sonlar va sanash", mavzular: [
+      { id: "k1-1", nom: "Narsalar to'plami. Ko'p, kam, teng", test: ["s1m1"],
+        qoida: ["Narsalarni sanab solishtirish mumkin: <b>ko'p</b>, <b>kam</b>, <b>teng</b>. Ikki guruhni juftlab taqqoslaymiz: har bir olmaga bittadan nok mos kelsa — teng.", "Sanashda har bir narsaga bitta son aytiladi: bir, ikki, uch… Oxirgi aytilgan son — narsalar soni."],
+        misol: [["Stolda 4 ta olma va 3 ta nok bor. Qaysi biri ko'p?", "Juftlaymiz: olma–nok, olma–nok, olma–nok. Bitta olma juftsiz qoldi. Demak, olmalar ko'p, noklar kam. 4 > 3."]],
+        mashq: ["Uyingizdagi stullarni sanang. Nechta?", "5 ta qalam va 5 ta daftar — qaysi biri ko'p?", "3 ta koptok chizing, ulardan 1 ta kam qilib kubik chizing."] },
+      { id: "k1-2", nom: "1 dan 10 gacha sonlar", test: ["s1m1"],
+        qoida: ["Sonlar tartib bilan keladi: <b>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</b>. Har bir son o'zidan oldingi sondan 1 ta ko'p.", "Son o'qida sonlar chapdan o'ngga o'sib boradi. O'ngda turgan son katta: 7 > 4, chapda turgan son kichik: 2 < 6.", "Oldingi son — 1 ta kam, keyingi son — 1 ta ko'p. 6 ning oldingisi 5, keyingisi 7."],
+        misol: [["8 va 5 sonlarini taqqoslang.", "Son o'qida 8 soni 5 dan o'ngda turadi, demak 8 > 5 (8 katta, 5 kichik)."], ["4 dan keyin qaysi son keladi? 4 dan oldin-chi?", "Keyingi son 4 + 1 = 5. Oldingi son 4 − 1 = 3."]],
+        mashq: ["Sonlarni tartib bilan yozing: 7, 3, 9, 1, 5.", "Taqqoslang: 6 … 9, 10 … 2, 4 … 4.", "9 ning oldingi va keyingi sonini yozing.", "3 dan 8 gacha sanang, keyin 8 dan 3 gacha teskari sanang."] },
+      { id: "k1-3", nom: "Sonning tarkibi", test: ["s1m2"],
+        qoida: ["Har bir sonni ikki qismga ajratish mumkin. <b>5</b> = 1 + 4 = 2 + 3 = 3 + 2 = 4 + 1.", "<b>10</b> ning tarkibi: 1+9, 2+8, 3+7, 4+6, 5+5. Bu juftliklarni yodda saqlash o'nlikdan o'tishda yordam beradi."],
+        misol: [["7 sonini qanday ikki songa ajratish mumkin?", "7 = 1 + 6 = 2 + 5 = 3 + 4. Ko'rib turganimizdek, tartibi almashsa ham 4 + 3 = 7."]],
+        mashq: ["6 ni ikki qismga ajrating (hamma usulini yozing).", "10 = 3 + ? , 10 = ? + 6, 10 = 8 + ?", "9 ning tarkibini chizmada ko'rsating (doirachalar bilan)."] },
+      { id: "k1-4", nom: "Juft va toq sonlar", test: ["s1m1"],
+        qoida: ["Narsalarni juft-juft qilib ajratganda ortib qolmasa — son <b>juft</b>: 2, 4, 6, 8, 10. Bittasi ortib qolsa — <b>toq</b>: 1, 3, 5, 7, 9.", "Son o'qida juft va toq sonlar navbatma-navbat keladi."],
+        misol: [["7 ta koptokni juftlab bo'ladimi?", "7 = 2 + 2 + 2 + 1. Bitta koptok juftsiz qoladi — 7 toq son."]],
+        mashq: ["Juft sonlarni ko'k, toq sonlarni qizil rangga bo'yang: 1 2 3 4 5 6 7 8 9 10.", "8 ta olma ikki bolaga teng bo'linadimi? 9 ta-chi?"] },
+      { id: "k1-5", nom: "Nuqta, to'g'ri chiziq, kesma. Shakllar", test: ["s1m4"],
+        qoida: ["<b>Nuqta</b> — qalam uchi qoldirgan iz. <b>To'g'ri chiziq</b> — chizg'ich bilan chizilgan, ikki tomonga cheksiz davom etadigan chiziq. <b>Kesma</b> — to'g'ri chiziqning ikki nuqta orasidagi bo'lagi, uning boshi va oxiri bor.", "Shakllar: <b>uchburchak</b> — 3 tomon, 3 uch; <b>to'rtburchak</b> — 4 tomon, 4 uch; <b>doira</b> — tomoni va uchi yo'q, dumaloq."],
+        misol: [["Shaklning 4 ta tomoni va 4 ta uchi bor. Bu qanday shakl?", "To'rtburchak (masalan, kvadrat yoki to'g'ri to'rtburchak)."]],
+        mashq: ["Daftaringizga nuqta, to'g'ri chiziq va kesma chizing.", "Uchburchak chizib, uchlarini sanang.", "Xonadagi dumaloq va to'rtburchak narsalarni toping."] }
+    ] },
+    { nom: "2-bob. 10 ichida qo'shish va ayirish", mavzular: [
+      { id: "k1-6", nom: "Qo'shish amali va uning hadlari", test: ["s1m2"],
+        qoida: ["Narsalarni birlashtirsak — <b>qo'shamiz</b>: 3 + 2 = 5. Yozuvda «+» — plyus belgisi, «=» — teng.", "Hadlar: <b>qo'shiluvchi + qo'shiluvchi = yig'indi</b>. 3 va 2 — qo'shiluvchilar, 5 — yig'indi.", "Qo'shiluvchilar o'rnini almashtirsak yig'indi o'zgarmaydi: 3 + 2 = 2 + 3."],
+        misol: [["Ali 4 ta qalam oldi, so'ng yana 3 ta oldi. Jami nechta?", "4 + 3 = 7. Javob: 7 ta qalam."]],
+        mashq: ["2 + 6, 5 + 4, 1 + 8, 7 + 3 ni hisoblang.", "Yig'indisi 9 bo'lgan uchta misol tuzing.", "Son o'qida 3 dan 5 qadam o'ngga yuring. Qaysi songa keldingiz?"] },
+      { id: "k1-7", nom: "Ayirish amali va uning hadlari", test: ["s1m2"],
+        qoida: ["Narsalarning bir qismini olib tashlasak — <b>ayiramiz</b>: 7 − 2 = 5. «−» — minus belgisi.", "Hadlar: <b>kamayuvchi − ayriluvchi = ayirma</b>. 7 — kamayuvchi, 2 — ayriluvchi, 5 — ayirma.", "Tekshirish: ayirmaga ayriluvchini qo'shsak kamayuvchi chiqadi: 5 + 2 = 7."],
+        misol: [["Daraxtda 9 ta qush o'tirgan edi, 4 tasi uchib ketdi. Nechta qoldi?", "9 − 4 = 5. Tekshiramiz: 5 + 4 = 9 ✓. Javob: 5 ta."]],
+        mashq: ["8 − 3, 10 − 6, 7 − 7, 9 − 1 ni hisoblang.", "Son o'qida 9 dan 4 qadam chapga yuring.", "Ayirmasi 3 bo'lgan uchta misol tuzing."] },
+      { id: "k1-8", nom: "Nol ishtirokida qo'shish va ayirish", test: ["s1m2"],
+        qoida: ["<b>0</b> — «hech narsa yo'q» degani. Songa 0 ni qo'shsak son o'zgarmaydi: 6 + 0 = 6. Sondan 0 ni ayirsak ham o'zgarmaydi: 6 − 0 = 6.", "Sondan o'zini ayirsak 0 chiqadi: 6 − 6 = 0."],
+        misol: [["Qutida 5 ta konfet bor edi, hammasini yedik. Nechta qoldi?", "5 − 5 = 0. Hech narsa qolmadi."]],
+        mashq: ["4 + 0, 0 + 9, 8 − 0, 3 − 3 ni hisoblang.", "0 ni ishlatib ikkita misol tuzing."] },
+      { id: "k1-9", nom: "Sodda masalalar: butunni va qismni topish", test: ["s1m4"],
+        qoida: ["Masalada <b>shart</b> (nima ma'lum) va <b>savol</b> (nimani topish kerak) bo'ladi.", "«Jami», «hammasi», «bo'ldi» so'zlari — <b>butunni</b> topish, qo'shamiz. «Qoldi», «ketdi», «berdi» — <b>qismni</b> topish, ayiramiz.", "Yechish tartibi: 1) o'qib tushunamiz, 2) chizma yoki sxema chizamiz, 3) amalni tanlaymiz, 4) hisoblaymiz, 5) javob yozamiz."],
+        misol: [["Zuhrada 6 ta gul bor edi. Unga 3 ta gul sovg'a qilishdi. Zuhrada nechta gul bo'ldi?", "Ma'lum: 6 ta va 3 ta. Savol: hammasi nechta? «Bo'ldi» — qo'shamiz: 6 + 3 = 9. Javob: 9 ta gul."], ["Bobur 10 ta konfetdan 4 tasini do'stiga berdi. Nechta konfet qoldi?", "«Berdi», «qoldi» — ayiramiz: 10 − 4 = 6. Javob: 6 ta."]],
+        mashq: ["Qafasda 3 ta sariq va 5 ta ko'k qush bor. Jami nechta qush?", "Sardorda 8 so'm bor edi, u 2 so'mga muzqaymoq oldi. Necha so'm qoldi?", "O'zingiz «bo'ldi» so'zli masala tuzing va yeching."] },
+      { id: "k1-10", nom: "Sonni orttirish va kamaytirishga doir masalalar", test: ["s1m4"],
+        qoida: ["«<b>… dan 3 ta ko'p</b>» — qo'shamiz (+3). «<b>… dan 3 ta kam</b>» — ayiramiz (−3).", "Masalan, Alida 5 ta daftar, Valida undan 2 ta ko'p: 5 + 2 = 7."],
+        misol: [["Birinchi savatda 7 ta olma, ikkinchisida undan 3 ta kam. Ikkinchi savatda nechta olma?", "«3 ta kam» — ayiramiz: 7 − 3 = 4. Javob: 4 ta."]],
+        mashq: ["Malika 4 ta rasm chizdi, Dilnoza undan 5 ta ko'p. Dilnoza nechta rasm chizdi?", "Daraxtda 9 ta olma, yerda undan 6 ta kam. Yerda nechta olma?"] },
+      { id: "k1-11", nom: "Taqqoslashga doir masalalar", test: ["s1m4"],
+        qoida: ["«<b>Nechta ko'p?</b>» yoki «<b>Nechta kam?</b>» deb so'ralsa — kattasidan kichigini <b>ayiramiz</b>.", "8 ta nok va 5 ta olma: 8 − 5 = 3 — noklar olmalardan 3 ta ko'p, olmalar noklardan 3 ta kam."],
+        misol: [["Sinfda 9 ta o'g'il va 7 ta qiz bor. O'g'illar qizlardan nechta ko'p?", "9 − 7 = 2. Javob: 2 ta ko'p."]],
+        mashq: ["Stolda 10 ta likopcha va 6 ta qoshiq. Qoshiqlar nechta kam?", "Ali 8 yoshda, ukasi 3 yoshda. Ali ukasidan necha yosh katta?"] }
+    ] },
+    { nom: "3-bob. 20 ichida sonlar", mavzular: [
+      { id: "k1-12", nom: "11 dan 20 gacha sonlar. O'nlik va birlik", test: ["s1m1"],
+        qoida: ["10 ta birlik = 1 ta <b>o'nlik</b>. 11 — bu 1 o'nlik va 1 birlik, 15 — 1 o'nlik va 5 birlik, 20 — 2 o'nlik.", "Ikki xonali sonda chapdagi raqam o'nliklar, o'ngdagi raqam birliklar: <b>17</b> → 1 o'nlik, 7 birlik."],
+        misol: [["14 sonida nechta o'nlik va nechta birlik bor?", "14 = 10 + 4. 1 o'nlik va 4 birlik."]],
+        mashq: ["11 dan 20 gacha sanang va yozing.", "18, 12, 20 sonlarini o'nlik va birliklarga ajrating.", "13 … 16, 19 … 11, 20 … 20 — taqqoslang."] },
+      { id: "k1-13", nom: "O'nlikdan o'tib qo'shish", test: ["s1m3"],
+        qoida: ["8 + 5 ni hisoblash uchun avval 8 ni 10 gacha to'ldiramiz: 8 + <b>2</b> = 10. 5 dan 2 ni oldik, 3 qoldi. 10 + 3 = <b>13</b>.", "Qoida: ikkinchi qo'shiluvchini ikki qismga ajratamiz — biri 10 gacha yetkazadi, ikkinchisi 10 ga qo'shiladi."],
+        misol: [["7 + 6 = ?", "7 + 3 = 10, 6 − 3 = 3 qoldi, 10 + 3 = 13. Javob: 13."], ["9 + 4 = ?", "9 + 1 = 10, 4 − 1 = 3, 10 + 3 = 13."]],
+        mashq: ["8 + 4, 6 + 7, 9 + 9, 5 + 8 ni hisoblang.", "Yig'indisi 12 bo'lgan uchta misol tuzing.", "7 + 5 ni son o'qida ko'rsating."] },
+      { id: "k1-14", nom: "O'nlikdan o'tib ayirish", test: ["s1m3"],
+        qoida: ["13 − 5 ni hisoblash uchun avval 13 ni 10 gacha kamaytiramiz: 13 − <b>3</b> = 10. 5 dan 3 ni oldik, 2 qoldi. 10 − 2 = <b>8</b>.", "Boshqa usul: 13 = 10 + 3; 10 − 5 = 5; 5 + 3 = 8."],
+        misol: [["12 − 7 = ?", "12 − 2 = 10, 7 − 2 = 5, 10 − 5 = 5. Javob: 5."], ["15 − 9 = ?", "15 − 5 = 10, 9 − 5 = 4, 10 − 4 = 6."]],
+        mashq: ["11 − 4, 14 − 6, 16 − 8, 13 − 9 ni hisoblang.", "Tekshiring: 14 − 6 = 8, chunki 8 + 6 = 14.", "Ayirmasi 7 bo'lgan uchta misol tuzing."] },
+      { id: "k1-15", nom: "Ikki amalli masalalar", test: ["s1m4"],
+        qoida: ["Ba'zi masalalarni yechish uchun <b>ikki amal</b> kerak. Avval birinchi savolga javob topamiz, keyin ikkinchisiga.", "Masalan: «5 ta olma bor edi, 4 ta qo'shildi, 3 tasi yeyildi» → 5 + 4 = 9, 9 − 3 = 6."],
+        misol: [["Avtobusda 8 kishi bor edi. Bekatda 5 kishi chiqdi va 2 kishi tushdi. Avtobusda necha kishi qoldi?", "1) 8 + 5 = 13 (chiqqanlar qo'shildi). 2) 13 − 2 = 11. Javob: 11 kishi."]],
+        mashq: ["Qutida 6 ta qizil va 4 ta ko'k qalam bor edi. 3 ta qalam sindi. Nechta butun qalam qoldi?", "Zuhra 7 ta, Malika 5 ta gul terdi. Ular 10 ta gulni guldonga qo'yishdi. Nechta gul qoldi?"] }
+    ] },
+    { nom: "4-bob. 100 gacha sonlar", mavzular: [
+      { id: "k1-16", nom: "O'nliklar bilan sanash. 100 gacha sonlar", test: ["s1m1"],
+        qoida: ["O'nliklar bilan sanaymiz: 10, 20, 30, 40, 50, 60, 70, 80, 90, <b>100</b>. 10 ta o'nlik = 100 (<b>yuz</b>).", "Ikki xonali sonlar: 21 = 2 o'nlik 1 birlik, 45 = 4 o'nlik 5 birlik, 99 = 9 o'nlik 9 birlik."],
+        misol: [["36 sonida nechta o'nlik va birlik bor? Uni xona qo'shiluvchilariga ajrating.", "3 o'nlik, 6 birlik. 36 = 30 + 6."]],
+        mashq: ["O'nliklar bilan 10 dan 100 gacha sanang.", "52, 70, 88 sonlarini o'nlik va birlikka ajrating.", "Taqqoslang: 45 … 54, 30 … 29, 61 … 61."] },
+      { id: "k1-17", nom: "Yaxlit o'nliklarni qo'shish va ayirish", test: ["s2m1"],
+        qoida: ["Yaxlit o'nliklarni birliklar kabi qo'shamiz: 30 + 20 — bu 3 o'nlik + 2 o'nlik = 5 o'nlik = <b>50</b>.", "Ayirish ham shunday: 70 − 40 = 7 o'nlik − 4 o'nlik = 3 o'nlik = <b>30</b>."],
+        misol: [["60 + 30 = ?", "6 o'nlik + 3 o'nlik = 9 o'nlik = 90."], ["80 − 50 = ?", "8 − 5 = 3 o'nlik = 30."]],
+        mashq: ["20 + 70, 40 + 40, 90 − 30, 100 − 60 ni hisoblang.", "Yig'indisi 100 bo'lgan yaxlit o'nliklar juftligini toping."] }
+    ] },
+    { nom: "5-bob. Kattaliklar: uzunlik, massa, hajm, vaqt", mavzular: [
+      { id: "k1-18", nom: "Uzunlik. Santimetr va detsimetr", test: ["s2m3"],
+        qoida: ["Uzunlik <b>chizg'ich</b> bilan o'lchanadi. O'lchov birligi — <b>santimetr (sm)</b>. Kesmani o'lchashda chizg'ichning 0 belgisini kesma boshiga qo'yamiz.", "<b>1 dm = 10 sm</b> (detsimetr). 1 dm 3 sm = 13 sm."],
+        misol: [["Kesma 1 dm 5 sm. Bu necha santimetr?", "1 dm = 10 sm, 10 + 5 = 15 sm."]],
+        mashq: ["Qalam, daftar va kitobning uzunligini o'lchang.", "Uzunligi 7 sm bo'lgan kesma chizing.", "2 dm necha sm? 18 sm — bu necha dm va necha sm?"] },
+      { id: "k1-19", nom: "Massa. Kilogramm", test: ["s2m3"],
+        qoida: ["Narsaning og'irligi — <b>massa</b>. O'lchov birligi <b>kilogramm (kg)</b>, tarozida o'lchanadi.", "Tarozi pallalari teng bo'lsa — massalar teng. Qaysi palla pastga tushsa, o'sha narsa og'ir."],
+        misol: [["Tarvuz 6 kg, qovun 4 kg. Tarvuz qovundan necha kg og'ir?", "6 − 4 = 2 kg."]],
+        mashq: ["Bir xaltada 3 kg, ikkinchisida 5 kg kartoshka. Jami necha kg?", "Uyda qaysi mahsulotlar kilogrammda sotilishini ayting."] },
+      { id: "k1-20", nom: "Hajm. Litr", test: ["s2m3"],
+        qoida: ["Suyuqlik miqdori — <b>hajm</b>. O'lchov birligi <b>litr (l)</b>.", "Idishlarni litrlarda taqqoslash mumkin: 5 l li chelak 2 l li bankadan ko'p sig'adi."],
+        misol: [["Chelakda 8 l suv bor edi, 3 l ini guldonga quydik. Chelakda necha litr suv qoldi?", "8 − 3 = 5 l."]],
+        mashq: ["2 l li ikkita va 1 l li uchta shisha. Jami necha litr?", "10 l li chelakni 2 l li banka bilan necha marta to'ldirish mumkin?"] },
+      { id: "k1-21", nom: "Vaqt. Soat va kun", test: ["s2m3"],
+        qoida: ["Vaqt <b>soat</b> bilan o'lchanadi. Soat strelkalari: qisqa (kichik) strelka — soat, uzun strelka — daqiqa.", "Uzun strelka 12 da, qisqa strelka 3 da — soat roppa-rosa <b>3</b>. Bir kunda <b>24 soat</b>, bir haftada <b>7 kun</b>."],
+        misol: [["Dars soat 8 da boshlandi va 1 soat davom etdi. Dars soat nechada tugadi?", "8 + 1 = 9. Soat 9 da."]],
+        mashq: ["Hafta kunlarini tartib bilan ayting.", "Soatda qisqa strelka 5 da, uzuni 12 da. Soat necha?", "Ertalab 7 da turdingiz, 2 soatdan keyin maktabga keldingiz. Soat nechada keldingiz?"] }
+    ] }
+  ]
+};
