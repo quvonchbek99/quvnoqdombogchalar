@@ -751,5 +751,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u kechikib qolgan edi va yo'lda vaqt o'tkazdi", "Chunki sher unga kirishni o'zi taqiqlagan edi", "Chunki g'origa ko'p kirgan, lekin hech kim chiqmagan izlarni ko'rdi"],
     javob: 2,
     izoh: "Tulki izlardan xulosa chiqardi: hamma kirib, hech kim chiqmagan joy xavfli bo'lishi mumkin. Kuzatuvga asoslangan mantiq uni ehtiyotkor qildi."
+  },
+  {
+    id: "ez-095", mavzu: "mantiq", sarlavha: "Qushlar qiroli",
+    matn: "Qushlar o'zlariga qirol saylamoqchi bo'lishdi va kim eng baland uchsa, o'sha qirol bo'ladi, deb kelishib olishdi. Burgut hammadan yuqoriga ko'tarilganini aytib, o'zini g'olib deb hisobladi. Mayda qush esa burgutning patlari orasiga yashirinib olib, uning ustidan yana ham baland ko'tarildi. Shunda hamma qushlar uning aqlli rejasini tan oldi.",
+    savol: "Qushlar qirolligi kimga tegdi va nima uchun?",
+    variantlar: ["Mayda qushga, chunki u burgutning ustida turib, eng yuqorida uchdi", "Burgutga, chunki u eng katta qush edi", "Hech kimga, chunki qushlar kelisha olmadi"],
+    javob: 0,
+    izoh: "Hikoyada g'alaba kattalikka emas, to'g'ri rejaga bog'liq. Mayda qush burgutning kuchidan foydalanib, o'z maqsadiga yetdi."
   }
 ];
