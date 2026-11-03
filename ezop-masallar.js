@@ -767,5 +767,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u oqimning eng tez joyiga suzib borgan edi", "Chunki u qirg'oqdagi qoziqqa mahkam bog'langan edi", "Chunki u bo'ron boshlanishidan oldin boshqa ariqqa ketgan edi"],
     javob: 1,
     izoh: "Ikkinchi qayiq xavfli oqimdan uzoqda, qoziqqa bog'liq holda turgani uchun omon qoldi. Ehtiyotkorlik va barqarorlik xavfli vaziyatda hayotni saqlab qolishi mumkin."
+  },
+  {
+    id: "ez-097", mavzu: "mas'uliyat", sarlavha: "Sichqonlar kengashi",
+    matn: "Sichqonlar mushukdan doim qo'rqib yashardi va undan qutulish uchun kengash o'tkazishdi. Bir sichqon taklif qildi: mushukning bo'yniga qo'ng'iroq osib qo'yilsa, uning yurishi eshitilib, hamma ogoh bo'ladi. Hammasi bu fikrni ma'qulladi va zo'r reja deb maqtashdi. Lekin kengash oxirida kim mushukning bo'yniga qo'ng'iroqni osadi, deb so'ralganda, hech kim jim qoldi.",
+    savol: "Sichqonlar kengashi nega foydasiz tugadi?",
+    variantlar: ["Chunki reja juda yaxshi emas edi", "Chunki hech kim rejani bajarishga tayyor emas edi", "Chunki mushuk allaqachon ketib qolgan edi"],
+    javob: 1,
+    izoh: "Reja tuzish o'zi yetarli emas. Uni amalga oshirish uchun kimdir mas'uliyatni o'z zimmasiga olishi kerak."
   }
 ];
