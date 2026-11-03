@@ -1,0 +1,42 @@
+{
+  "id": "2018-5",
+  "badge": "IMO 2018 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Doim butun bo'ladigan yig'indi",
+      "fs": 36,
+      "body": "<p><span class='m'>a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, …</span> — natural sonlardan iborat cheksiz ketma-ketlik, <span class='m'>N</span> — natural son.</p><p>Ma'lumki, barcha <span class='m'>n ≥ N</span> uchun quyidagi «aylana» yig'indi <b>butun son</b>:</p><div class='box' style='text-align:center'><span class='m'>a<sub>1</sub>/a<sub>2</sub> + a<sub>2</sub>/a<sub>3</sub> + … + a<sub>n−1</sub>/a<sub>n</sub> + a<sub>n</sub>/a<sub>1</sub></span></div><p><b>Isbotlang:</b> <span class='m'>(a<sub>n</sub>)</span> ketma-ketlik biror joydan boshlab <b>o'zgarmas</b> bo'lib qoladi.</p><p>Ya'ni shunday <span class='m'>M</span> bor-ki, <span class='m'>a<sub>M</sub> = a<sub>M+1</sub> = a<sub>M+2</sub> = …</span></p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Ikki qo'shni yig'indini ayiramiz",
+      "fs": 35,
+      "body": "<p><span class='m'>n</span> va <span class='m'>n + 1</span> uchun yig'indilar butun, demak ularning ayirmasi ham butun. Ayirganda deyarli hamma had qisqaradi:</p><ul><li>yangi had <span class='m'>a<sub>n</sub>/a<sub>n+1</sub></span> qo'shiladi;</li><li>oxirgi had <span class='m'>a<sub>n</sub>/a<sub>1</sub></span> o'rniga <span class='m'>a<sub>n+1</sub>/a<sub>1</sub></span> keladi.</li></ul><p>Natijada barcha <span class='m'>n ≥ N</span> uchun</p><div class='box' style='text-align:center'><span class='m'>a<sub>n</sub>/a<sub>n+1</sub> + (a<sub>n+1</sub> − a<sub>n</sub>)/a<sub>1</sub></span> — butun son</div><p>Endi faqat shu ixcham shart bilan ishlaymiz. Har bir tub son <span class='m'>p</span> ni alohida tekshiramiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Tub son darajalari",
+      "fs": 33,
+      "body": "<p><span class='m'>v(m)</span> — <span class='m'>m</span> ning tub ko'paytuvchilarga yoyilmasida <span class='m'>p</span> ning darajasi. Belgilaymiz:</p><div class='box' style='text-align:center'><span class='m'>x = v(a<sub>n</sub>)</span>, &nbsp;<span class='m'>y = v(a<sub>n+1</sub>)</span>, &nbsp;<span class='m'>z = v(a<sub>1</sub>)</span></div><p><b>① Agar <span class='m'>x &lt; y</span>:</b> birinchi kasr maxrajida <span class='m'>p</span> ning darajasi <span class='m'>y − x</span>, ikkinchisida <span class='m'>z − x</span>. Yig'indi butun bo'lishi uchun ular bir-birini «yeyishi» kerak:</p><div class='box' style='text-align:center'><span class='m'>x &lt; y</span> &nbsp;⇒&nbsp; <span class='m'>y = z</span></div><p><b>② Agar <span class='m'>x &gt; y</span>:</b> birinchi kasr <span class='m'>p</span> bo'yicha «butun», demak ikkinchisi ham shunday bo'lishi shart:</p><div class='box' style='text-align:center'><span class='m'>x &gt; y</span> &nbsp;⇒&nbsp; <span class='m'>y ≥ z</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Faqat bitta «sakrash» mumkin",
+      "fs": 33,
+      "body": "<p>Endi <span class='m'>v(a<sub>N</sub>), v(a<sub>N+1</sub>), …</span> ketma-ketligini kuzatamiz:</p><div style='text-align:center;margin:4px 0 12px'><svg width='760' height='230' viewBox='0 0 760 230' font-family='DejaVu Serif' font-size='30'><line x1='40' y1='200' x2='740' y2='200' stroke='#ffffff77' stroke-width='3'/><line x1='40' y1='200' x2='40' y2='10' stroke='#ffffff77' stroke-width='3'/><line x1='40' y1='70' x2='740' y2='70' stroke='#ffd98a' stroke-width='2' stroke-dasharray='10 8'/><text x='680' y='58' fill='#ffd98a' font-style='italic'>z</text><polyline points='60,40 160,40 160,110 260,110 260,150 360,150 360,170 410,170' fill='none' stroke='#ffffff' stroke-width='5'/><line x1='410' y1='170' x2='410' y2='70' stroke='#f2b84b' stroke-width='5'/><polyline points='410,70 720,70' fill='none' stroke='#f2b84b' stroke-width='7'/><text x='425' y='140' fill='#f2b84b' font-size='26'>sakrash</text><text x='50' y='225' fill='#8fa3bf' font-size='22'>n →</text></svg></div><ul><li>Agar ketma-ketlik biror joyda <b>o'ssa</b>, ① bo'yicha u aynan <span class='m'>z</span> ga sakraydi.</li><li>Shundan keyin <span class='m'>z</span> dan ham o'sa olmaydi (① ga zid), kamaya ham olmaydi (② ga zid). Demak abadiy <span class='m'>z</span> da qoladi.</li></ul><div class='box'>Xulosa: har bir <span class='m'>p</span> uchun daraja yo <b>kamayib boradi</b>, yo bir marta <span class='m'>z</span> ga sakrab, <b>o'zgarmay qoladi</b>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Bo'linuvchanlik zanjiri",
+      "fs": 35,
+      "body": "<p><b><span class='m'>p ∤ a<sub>1</sub></span> bo'lsa:</b> <span class='m'>z = 0</span>, sakrash mumkin emas (daraja 0 ga «o'sa» olmaydi). Demak daraja doim kamayib boradi.</p><p><b><span class='m'>p | a<sub>1</sub></span> bo'lsa:</b> bunday tub sonlar <b>chekli</b>. Har birida daraja kamayadi yoki sakrab to'xtaydi — manfiy bo'lmagan butun son cheksiz kamaya olmaydi, demak bir paytdan so'ng hammasi o'zgarmaydi.</p><p>Shu paytdan keyin <b>barcha</b> tub sonlar uchun <span class='m'>v(a<sub>n+1</sub>) ≤ v(a<sub>n</sub>)</span>, ya'ni</p><div class='box' style='text-align:center'><span class='m'>a<sub>n+1</sub> | a<sub>n</sub></span> &nbsp;⇒&nbsp; <span class='m'>a<sub>n+1</sub> ≤ a<sub>n</sub></span></div><p>Natural sonlarning o'smaydigan ketma-ketligi albatta bir joyda to'xtaydi. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Boshida o'zgarishi mumkin",
+      "fs": 35,
+      "body": "<p>Ketma-ketlik darhol o'zgarmas bo'lishi shart emas. Masalan:</p><div class='box' style='text-align:center'><span class='m'>1, 2, 4, 4, 4, …</span></div><p><span class='m'>n = 3</span>: &nbsp;<span class='m'>1/2 + 2/4 + 4/1 = 5</span> ✅<br><span class='m'>n = 4</span>: &nbsp;<span class='m'>1/2 + 2/4 + 1 + 4 = 6</span> ✅</p><p>Python bilan <span class='m'>n ≤ 12</span> gacha tekshirdik — hammasi butun. Asosiy g'oya: <b>har bir tub sonni alohida</b> kuzatish (p-adik baho).</p><p>🧠 <b>Sizga savol:</b> <span class='m'>a<sub>1</sub> = 2</span> bilan boshlanadigan, boshida o'zgarmas bo'lmagan shunday misol tuza olasizmi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2018 · 6-masala</b> (geometriya)</p>"
+    }
+  ]
+}
