@@ -1,0 +1,36 @@
+{
+  "id": "2017-3",
+  "badge": "IMO 2017 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Ovchi va ko'rinmas quyon",
+      "fs": 33,
+      "body": "<p>Tekislikda ovchi va <b>ko'rinmas</b> quyon o'ynaydi. Ikkalasi bir nuqtadan boshlaydi: <span class='m'>A<sub>0</sub> = B<sub>0</sub></span>. Har <span class='m'>n</span>-raundda ketma-ket:</p><ul><li>quyon yashirincha <span class='m'>A<sub>n−1</sub></span> dan <span class='m'>A<sub>n</sub></span> ga sakraydi, <span class='m'>A<sub>n−1</sub>A<sub>n</sub> = 1</span>;</li><li>ovchining qurilmasi (masalan, iti) taxminiy nuqta <span class='m'>P<sub>n</sub></span> ni aytadi, faqat <span class='m'>P<sub>n</sub>A<sub>n</sub> ≤ 1</span> kafolatlangan;</li><li>ovchi ko'rinib turib <span class='m'>B<sub>n</sub></span> ga yuradi, <span class='m'>B<sub>n−1</sub>B<sub>n</sub> = 1</span>.</li></ul><div class='box'><span class='m'>N = 10<sup>9</sup></span> raunddan keyin ovchi har doim <span class='m'>A<sub>N</sub>B<sub>N</sub> &lt; 100</span> bo'lishini kafolatlay oladimi?</div>"
+    },
+    {
+      "kicker": "YECHIM · JAVOB VA REJA",
+      "title": "Yo'q — quyon qochib ketadi",
+      "fs": 34,
+      "body": "<div class='box'><b>Javob:</b> yo'q, ovchi buni kafolatlay olmaydi.</div><p>Quyon masofani <b>asta-sekin, bosqichma-bosqich</b> oshiradi. Asosiy tasdiq:</p><div class='box'><b>Tasdiq.</b> Agar ayni paytda masofa <span class='m'>d</span> bo'lsa, quyon <span class='m'>n ≥ 4d</span> ta sakrashda masofani kamida <span class='m'>√(d<sup>2</sup> + ½)</span> ga yetkaza oladi — ovchi nimani bilishidan qat'i nazar.</div><p>Muhim hiyla: har bosqich boshida quyon o'z joyini <b>ovchiga ochiq aytib qo'yadi</b> deb hisoblaymiz. Bu faqat ovchiga yordam beradi, lekin oldingi barcha signallarni keraksiz qiladi — hisoblash ancha soddalashadi.</p>"
+    },
+    {
+      "kicker": "YECHIM · IKKI NUQTA HIYLASI",
+      "title": "X yoki Y — ovchi bilmaydi",
+      "fs": 31,
+      "body": "<svg width='920' height='250' viewBox='0 0 920 250' style='display:block;margin:0 auto 18px'><line x1='20' y1='125' x2='900' y2='125' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><line x1='300' y1='125' x2='840' y2='45' stroke='#f2b84b' stroke-width='3'/><line x1='300' y1='125' x2='840' y2='205' stroke='#f2b84b' stroke-width='3'/><line x1='840' y1='45' x2='840' y2='205' stroke='#ffffff' stroke-width='2'/><line x1='620' y1='125' x2='840' y2='45' stroke='#ffffff' stroke-width='2'/><line x1='620' y1='125' x2='840' y2='205' stroke='#ffffff' stroke-width='2'/><g fill='#ffffff'><circle cx='120' cy='125' r='8'/><circle cx='300' cy='125' r='8' fill='#f2b84b'/><circle cx='620' cy='125' r='8'/><circle cx='840' cy='125' r='6'/><circle cx='840' cy='45' r='8' fill='#f2b84b'/><circle cx='840' cy='205' r='8' fill='#f2b84b'/></g><g fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'><text x='105' y='170'>B</text><text x='288' y='170'>A</text><text x='606' y='170'>H</text><text x='856' y='135'>M</text><text x='856' y='45'>X</text><text x='856' y='220'>Y</text><text x='30' y='112'>ℓ</text><text x='540' y='70' fill='#f2b84b'>n</text><text x='540' y='200' fill='#f2b84b'>n</text></g></svg><p><span class='m'>B</span> — ovchi, <span class='m'>A</span> — quyon, <span class='m'>ℓ = AB</span> to'g'ri chiziq. Quyon <span class='m'>ℓ</span> ga simmetrik <span class='m'>X, Y</span> ni tanlaydi: <span class='m'>AX = AY = n</span>, <span class='m'>XY = 2</span>.</p><p>Har ikki yo'l ham <span class='m'>ℓ</span> dan 1 dan uzoqlashmaydi, shuning uchun signal doim <span class='m'>ℓ</span> dagi proyeksiya bo'lishi mumkin — ikki holda signallar <b>bir xil</b>!</p><div class='box'>Ovchi <span class='m'>max(HX, HY)</span> ni kamaytirishi kerak — simmetriya bo'yicha eng yaxshisi <span class='m'>ℓ</span> bo'ylab <span class='m'>BH = n</span> yurish.</div>"
+    },
+    {
+      "kicker": "YECHIM · HISOBLASH",
+      "title": "Masofa qancha o'sadi?",
+      "fs": 34,
+      "body": "<p>Pifagor bo'yicha <span class='m'>AM = √(n<sup>2</sup> − 1)</span>, <span class='m'>AH = n − d</span>, demak</p><div class='box' style='text-align:center'><span class='m'>HX<sup>2</sup> = 1 + HM<sup>2</sup> = 1 + (√(n<sup>2</sup> − 1) − (n − d))<sup>2</sup></span></div><p><span class='m'>√(n<sup>2</sup> − 1) ≥ n − 1/n</span> bo'lgani uchun</p><div class='box' style='text-align:center'><span class='m'>HX<sup>2</sup> ≥ 1 + (d − 1/n)<sup>2</sup></span></div><p>Qavsni ochsak: <span class='m'>1 + d<sup>2</sup> − 2d/n + 1/n<sup>2</sup></span>. Agar <span class='m'>n ≥ 4d</span> bo'lsa, <span class='m'>2d/n ≤ ½</span>, shuning uchun</p><div class='box' style='text-align:center'><span class='m'>HX<sup>2</sup> ≥ d<sup>2</sup> + ½</span> ∎</div><p>Ya'ni har bosqichda masofaning <b>kvadrati</b> kamida <span class='m'>½</span> ga oshadi.</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "10⁹ qadam yetarlimi?",
+      "fs": 32,
+      "body": "<p>Masofa 100 dan kichik bo'lguncha <span class='m'>n = 400 ≥ 4d</span> olish mumkin. <span class='m'>d<sup>2</sup></span> ni 0 dan <span class='m'>100<sup>2</sup></span> gacha yetkazish uchun <span class='m'>2 · 100<sup>2</sup></span> bosqich kifoya:</p><div class='box' style='text-align:center'><span class='m'>400 · 2 · 100<sup>2</sup> = 8 · 10<sup>6</sup> &lt; 10<sup>9</sup></span></div><p>Oxirgi bosqichni qolgan barcha raundlarga cho'zamiz (<span class='m'>n</span> istalgancha katta bo'lishi mumkin) — o'yin oxirida <span class='m'>A<sub>N</sub>B<sub>N</sub> ≥ 100</span>.</p><p>✅ Python bilan <span class='m'>HX<sup>2</sup> ≥ d<sup>2</sup> + ½</span> tengsizligini turli <span class='m'>d</span> va <span class='m'>n ≥ 4d</span> uchun tekshirdik — bironta istisno yo'q.</p><p>🧠 <b>Sizga savol:</b> nega «oxirgi signalga qarab yurish» strategiyasi ovchiga yordam bermaydi? Fikringizni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2017 · 4-masala</b> (geometriya, urinma)</p>"
+    }
+  ]
+}
