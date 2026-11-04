@@ -1335,9 +1335,15 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function certTopic() {
     var t = cfg.topics.map(function (id) { return TITLE[id]; }).filter(Boolean);
     if (t.length <= 2) return t.join(", ");
-    var fans = {}; t.forEach(function (x) { fans[x.split(" · ")[0]] = 1; });
-    var f = Object.keys(fans);
-    return f.length <= 3 && f.every(function (x) { return x.length < 26; }) ? f.join(", ") + " (" + t.length + " ta mavzu)" : t.slice(0, 2).join(", ") + " va yana " + (t.length - 2) + " ta mavzu";
+    var subj = [];
+    cfg.topics.forEach(function (id) {
+      var g = (TOPICS.filter(function (x) { return x[0] === id; })[0] || [])[2];
+      var f = FANS.filter(function (x) { return x[2] && x[2].indexOf(g) > -1; })[0];
+      var nm = f ? f[1].replace(/^\S+\s/, "") : "";
+      if (nm && subj.indexOf(nm) < 0) subj.push(nm);
+    });
+    if (subj.length && subj.length <= 3) return subj.join(", ") + " (" + t.length + " ta mavzu)";
+    return "Aralash viktorina: " + subj.length + " ta fan, " + t.length + " ta mavzu";
   }
   function certData(p, rank, of) {
     return { name: p.name, full: p.full ? String(p.full) : "", group: H.roster ? H.roster.name : "", topic: certTopic(), rank: rank, of: of, correct: p.correct, total: H.qs.length, score: p.score, date: dstr() };

@@ -122,7 +122,7 @@
     [1, "Ta'mni qaysi sezgi organi orqali bilamiz?", "Til", ["Burun", "Quloq", "Teri"], "Tilda ta'm bilish so'rg'ichlari bor."],
     [1, "Sog'lom odam tanasining me'yoriy harorati taxminan qancha?", "36,6 °C", ["34,5 °C", "38,5 °C", "40 °C"], "37 °C dan yuqori harorat ko'pincha kasallik belgisi."],
     [1, "Katta yoshli odamda nechta doimiy tish bo'ladi?", "32", ["20", "28", "36"], "Bolalarda 20 ta sut tishi bo'ladi."],
-    [1, "Tez tibbiy yordamni chaqirish uchun O'zbekistonda qaysi raqam teriladi?", "103", ["101", "102", "104"], "101 — yong'in, 102 — militsiya, 103 — tez yordam, 104 — gaz xizmati."],
+    [1, "Tez tibbiy yordamni chaqirish uchun O'zbekistonda qaysi raqam teriladi?", "103", ["101", "102", "104"], "101 — yong'in xizmati, 103 — tez tibbiy yordam."],
     [1, "Odamda nechta qon guruhi ajratiladi (AB0 tizimi)?", "4", ["2", "3", "6"], "I (0), II (A), III (B), IV (AB) guruhlar."],
     [2, "Ovqat hazm qilish qaysi bo'limda boshlanadi?", "Og'iz bo'shlig'ida", ["Oshqozonda", "Ingichka ichakda", "Yo'g'on ichakda"], "Og'izda ovqat chaynaladi va so'lak bilan namlanadi."],
     [2, "Oziq moddalar qonga asosan qayerda so'riladi?", "Ingichka ichakda", ["Oshqozonda", "Qizilo'ngachda", "Og'iz bo'shlig'ida"], "Ingichka ichak devoridagi so'rg'ichlar moddalarni so'radi."],
@@ -216,7 +216,7 @@
     [2, "Ikki pallali o'simlik qaysi?", "Loviya", ["Bug'doy", "Makkajo'xori", "Sholi"], "Loviya urug'ida ikkita urug' pallasi bor."],
     [2, "Kartoshkaning yeyiladigan tuganagi o'simlikning qaysi organi?", "Shakli o'zgargan poya", ["Ildiz", "Meva", "Barg"], "Tuganak — yer ostidagi shakli o'zgargan poya."],
     [2, "Sabzining yeyiladigan qismi qaysi organ?", "Ildizmeva", ["Poya", "Meva", "Tuganak"], "Sabzi, lavlagi, sholg'om — ildizmevali o'simliklar."],
-    [2, "Qaysi o'simlikda gul va urug' bo'lmaydi, u spora bilan ko'payadi?", "Qirqquloq", ["Olma", "Bug'doy", "Qarag'ay"], "Qirqquloq, mox va qirqbo'g'imlar spora bilan ko'payadi."],
+    [2, "Qaysi o'simlikda gul va urug' bo'lmaydi, u spora bilan ko'payadi?", "Qirqquloq", ["Olma", "Bug'doy", "Qarag'ay"], "Qirqquloqlar, yo'sinlar va qirqbo'g'imlar spora bilan ko'payadi."],
     [2, "Qarag'ay va archa o'simliklarning qaysi bo'limiga kiradi?", "Ochiq urug'lilar", ["Yopiq urug'lilar", "Yo'sinlar", "Suvo'tlari"], "Ochiq urug'lilarning urug'i qubba qipiqlarida ochiq joylashadi."],
     [2, "Suvda hamda quruqlikda yashovchilarning boshqa nomi nima?", "Amfibiyalar", ["Reptiliyalar", "Sutemizuvchilar", "Bo'g'imoyoqlilar"], "Amfibiyalar: qurbaqa, baqa, salamandra."],
     [2, "Sudralib yuruvchilarning ilmiy nomi qaysi?", "Reptiliyalar", ["Amfibiyalar", "Sutemizuvchilar", "Bo'g'imoyoqlilar"], "Reptiliyalar: ilon, kaltakesak, toshbaqa, timsoh."],
@@ -317,7 +317,8 @@
     if (Math.random() < 0.6 || L === 1) {
       var w = others(cs, v[1], 4);
       if (v[0] === "Toshkent viloyati") w[0] = "Toshkent";
-      return Q("<b>" + v[0] + "</b>ning markazi qaysi shahar?", v[1], w, [v[0] + " markazi — " + v[1] + "."]);
+      var rs = /Respublikasi$/.test(v[0]) ? "poytaxti" : "markazi";
+      return Q("<b>" + v[0] + "</b>ning " + rs + " qaysi shahar?", v[1], w, [v[0] + " " + rs + " — " + v[1] + "."]);
     }
     return Q("<b>" + v[1] + "</b> shahri qaysi hududning markazi?", v[0], others(VIL.map(function (x) { return x[0]; }), v[0], 4), [v[1] + " — " + v[0] + " markazi."]);
   }
@@ -333,7 +334,7 @@
     [1, "Andijon, Namangan va Farg'ona viloyatlari qaysi vodiyda joylashgan?", "Farg'ona vodiysi", ["Zarafshon vodiysi", "Chirchiq vodiysi", "Surxon vodiysi"], "Farg'ona vodiysi tog'lar bilan o'ralgan."],
     [1, "O'zbekistonning eng janubiy viloyati qaysi?", "Surxondaryo", ["Qashqadaryo", "Xorazm", "Navoiy"], "Surxondaryo viloyati Afg'oniston bilan chegaradosh."],
     [1, "Afg'oniston bilan chegaradosh O'zbekiston viloyati qaysi?", "Surxondaryo", ["Qashqadaryo", "Samarqand", "Jizzax"], "Termiz shahri Amudaryo bo'yida joylashgan."],
-    [2, "O'zbekistonning eng baland nuqtasi qaysi?", "Hazrat Sulton cho'qqisi", ["Chimyon", "Katta Chimyon", "Bobotog'"], "Hazrat Sulton cho'qqisi Hisor tizmasida joylashgan."],
+    [2, "O'zbekistonning eng baland nuqtasi qaysi?", "Hazrat Sulton cho'qqisi", ["Katta Chimyon", "Adelung cho'qqisi", "Bobotog'"], "Hazrat Sulton cho'qqisi Hisor tizmasida joylashgan."],
     [2, "Hazrat Sulton cho'qqisining balandligi qancha?", "4643 m", ["3643 m", "5643 m", "4134 m", "4846 m"], "Hazrat Sulton — O'zbekistonning eng baland nuqtasi."],
     [2, "O'zbekiston maydoni taxminan qancha?", "448,9 ming km²", ["248,9 ming km²", "648,9 ming km²", "1 mln km²"], "O'zbekiston maydoni taxminan 448,9 ming km²."],
     [2, "O'zbekiston qaysi vaqt mintaqasida joylashgan?", "UTC+5", ["UTC+3", "UTC+4", "UTC+6"], "Toshkent vaqti Grinvich vaqtidan 5 soat oldinda."],
@@ -345,7 +346,7 @@
     [2, "Sirdaryo va Jizzax viloyatlarida o'zlashtirilgan cho'l qanday ataladi?", "Mirzacho'l", ["Qizilqum", "Orolqum", "Ustyurt"], "Mirzacho'l (Mirzacho'l dashti) sug'orilib, paxtazorga aylantirilgan."],
     [2, "Qoraqalpog'iston g'arbida joylashgan keng plato qaysi?", "Ustyurt", ["Pomir", "Tyanshan", "Hisor"], "Ustyurt platosi Qozog'iston va Turkmaniston bilan tutashadi."],
     [3, "O'zbekiston kabi \"ikki karra dengizga chiqa olmaydigan\" davlat yana qaysi?", "Lixtenshteyn", ["Shveytsariya", "Avstriya", "Mo'g'uliston"], "Dunyoda faqat ikkita shunday davlat bor: O'zbekiston va Lixtenshteyn."],
-    [3, "Okeanga chiqish uchun O'zbekistondan kamida nechta davlat hududini kesib o'tish kerak?", "2", ["1", "3", "4"], "O'zbekiston ham, uning barcha qo'shnilari ham okeanga chiqa olmaydi."],
+    [3, "Okeanga chiqish uchun O'zbekistondan kamida nechta davlat chegarasini kesib o'tish kerak?", "2", ["1", "3", "4"], "O'zbekiston ham, uning barcha qo'shnilari ham okeanga chiqa olmaydi."],
     [3, "Chorvoq suv ombori qaysi viloyatda joylashgan?", "Toshkent viloyati", ["Namangan viloyati", "Jizzax viloyati", "Samarqand viloyati"], "Chorvoq suv ombori Chirchiq daryosida qurilgan."],
     [3, "Chimyon va Beldersoy dam olish maskanlari qaysi tog'larda joylashgan?", "G'arbiy Tyanshan", ["Pomir", "Hisor", "Zarafshon tizmasi"], "Chotqol va Ugom tizmalari G'arbiy Tyanshan tarkibiga kiradi."],
     [3, "Hazrat Sulton cho'qqisi qaysi tog' tizmasida joylashgan?", "Hisor tizmasi", ["Chotqol tizmasi", "Turkiston tizmasi", "Nurota tog'lari"], "Hisor tizmasi O'zbekiston va Tojikiston chegarasida."],
@@ -367,7 +368,7 @@
     var kmPerSm = M / 100000, km = Math.round(sm * kmPerSm * 100) / 100, fmt = String(M).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     var ks = String(kmPerSm).replace(".", ",");
     if (L === 1 || sm === 1) return Q("Xarita masshtabi 1 : " + fmt + ". Xaritadagi 1 sm joyda necha km ga teng?", ks + " km", kmW(kmPerSm), ["1 sm = " + fmt + " sm = " + ks + " km."]);
-    return Q("Masshtabi 1 : " + fmt + " bo'lgan xaritada ikki shahar orasi " + sm + " sm. Joydagi masofa necha km?", String(km).replace(".", ",") + " km", kmW(km),
+    return Q("Masshtabi 1 : " + fmt + " bo'lgan xaritada ikki nuqta orasi " + sm + " sm. Joydagi masofa necha km?", String(km).replace(".", ",") + " km", kmW(km),
       ["1 sm = " + ks + " km.", sm + " × " + ks + " = " + String(km).replace(".", ",") + " km."]);
   }
   // [shahar, UTC farqi] — doimiy (yozgi vaqtga o'tmaydigan) shaharlar
@@ -416,16 +417,16 @@
     [2, "Shimol va sharq oralig'idagi tomon qanday ataladi?", "Shimoli-sharq", ["Janubi-sharq", "Shimoli-g'arb", "Janubi-g'arb"], "Oraliq tomonlar: shimoli-sharq, janubi-sharq, janubi-g'arb, shimoli-g'arb."],
     [2, "Janub va g'arb oralig'idagi tomon qanday ataladi?", "Janubi-g'arb", ["Shimoli-g'arb", "Janubi-sharq", "Shimoli-sharq"], "Oraliq tomonlar: shimoli-sharq, janubi-sharq, janubi-g'arb, shimoli-g'arb."],
     [3, "Dunyo okeanidagi eng chuqur joy qaysi?", "Mariana botig'i", ["Puerto-Riko botig'i", "Yava botig'i", "Baykal ko'li"], "Mariana botig'i Tinch okeanida, chuqurligi 11 km ga yaqin."],
-    [3, "Yer sharida nechta asosiy iqlim mintaqasi ajratiladi?", "7", ["4", "5", "13"], "Ekvatorial, 2 tropik, 2 mo''tadil, arktik va antarktik — 7 ta asosiy, yana 6 ta oraliq mintaqa bor."],
+    [3, "Yer sharida nechta asosiy iqlim mintaqasi ajratiladi?", "7", ["4", "5", "9"], "Asosiy iqlim mintaqalari 7 ta, ular orasida yana 6 ta oraliq mintaqa bor."],
     [3, "Quruqlikdagi eng uzun tog' tizimi qaysi?", "And", ["Himolay", "Alp", "Ural"], "And tog'lari Janubiy Amerikaning g'arbiy qirg'og'i bo'ylab cho'zilgan."],
     [3, "Yevropa va Osiyo orasidagi an'anaviy chegara qaysi tog'lardan o'tadi?", "Ural tog'lari", ["Alp tog'lari", "Karpat tog'lari", "Pomir"], "Chegara Ural tog'lari va Ural daryosi bo'ylab o'tkaziladi."],
-    [3, "Afrikadagi eng baland cho'qqi qaysi?", "Kilimanjaro", ["Everest", "Elbrus", "Akonkagua"], "Kilimanjaro — so'ngan vulqon."],
+    [3, "Afrikadagi eng baland cho'qqi qaysi?", "Kilimanjaro", ["Everest", "Elbrus", "Akonkagua"], "Kilimanjaro Tanzaniyada joylashgan."],
     [3, "Janubiy Amerikadagi eng baland cho'qqi qaysi?", "Akonkagua", ["Kilimanjaro", "Everest", "Monblan"], "Akonkagua And tog'larida, Argentinada joylashgan."],
     [3, "Kenglik va uzunlik birgalikda nima deb ataladi?", "Geografik koordinatalar", ["Masshtab", "Azimut", "Izogipsa"], "Koordinatalar orqali Yer yuzasidagi istalgan nuqtaning o'rni aniqlanadi."],
     [3, "Amazonka va Kongo havzalarida qanday o'rmonlar keng tarqalgan?", "Nam ekvatorial o'rmonlar", ["Tayga", "Tundra", "Dasht"], "Bu o'rmonlarda yil bo'yi issiq va ko'p yog'in yog'adi."],
-    [3, "Ignabargli o'rmonlar zonasi qanday ataladi?", "Tayga", ["Tundra", "Savanna", "Dasht"], "Tayga Yevrosiyo va Shimoliy Amerikaning mo''tadil mintaqasida."],
+    [3, "Ignabargli o'rmonlar zonasi qanday ataladi?", "Tayga", ["Tundra", "Savanna", "Dasht"], "Tayga Rossiya va Kanadada keng tarqalgan."],
     [3, "Afrikaning baland o'tlar va siyrak daraxtlar o'sadigan tabiat zonasi qanday ataladi?", "Savanna", ["Tayga", "Tundra", "Cho'l"], "Savannada sher, zebra, jirafa kabi hayvonlar yashaydi."],
-    [3, "Yer qobig'ining yuqori qattiq qatlami nima deb ataladi?", "Litosfera", ["Gidrosfera", "Atmosfera", "Biosfera"], "Gidrosfera — suv qobig'i, atmosfera — havo qobig'i."],
+    [3, "Yerning qattiq tosh qobig'i qanday ataladi?", "Litosfera", ["Gidrosfera", "Atmosfera", "Biosfera"], "Gidrosfera — suv qobig'i, atmosfera — havo qobig'i."],
     [3, "Yerning suv qobig'i qanday ataladi?", "Gidrosfera", ["Litosfera", "Atmosfera", "Biosfera"], "Gidrosferaga okean, dengiz, daryo, ko'l va muzliklar kiradi."]
   ];
   topic("g3", "Geografiya · Materiklar, okeanlar va tabiat", G3, [{ p: 0.15, fn: function (L) { return L === 1 ? null : genMasshtab(L); } }, { p: 0.12, fn: function (L) { return L === 1 ? null : genVaqt(L); } }, { p: 0.06, fn: function (L) { return L === 1 ? genMasshtab(1) : null; } }]);
@@ -452,7 +453,7 @@
     [1, "Buyuk Ipak yo'li qaysi mintaqalarni bog'lagan?", "Xitoy va Yevropani", ["Hindiston va Afrikani", "Rossiya va Eronni", "Amerika va Yevropani"], "Ipak yo'li O'rta Osiyo orqali Sharq va G'arbni bog'lagan."],
     [1, "Somoniylar davlatining poytaxti qaysi shahar bo'lgan?", "Buxoro", ["Samarqand", "Xiva", "Termiz"], "Somoniylar davrida Buxoro yirik ilm-fan markaziga aylangan."],
     [2, "O'zbekiston mustaqilligi qachon e'lon qilingan?", "1991-yil 31-avgust", ["1991-yil 1-sentabr", "1990-yil 31-avgust", "1992-yil 31-avgust", "1991-yil 18-noyabr"], "Oliy Kengash sessiyasida mustaqillik e'lon qilingan; 1-sentabr — Mustaqillik kuni."],
-    [2, "O'zbekiston Konstitutsiyasi qachon qabul qilingan?", "1992-yil 8-dekabr", ["1991-yil 8-dekabr", "1992-yil 10-dekabr", "1993-yil 8-dekabr", "1992-yil 2-iyul"], "8-dekabr — Konstitutsiya kuni."],
+    [2, "Mustaqil O'zbekistonning ilk Konstitutsiyasi qachon qabul qilingan?", "1992-yil 8-dekabr", ["1991-yil 8-dekabr", "1992-yil 10-dekabr", "1993-yil 8-dekabr", "1992-yil 2-iyul"], "8-dekabr — Konstitutsiya kuni."],
     [2, "O'zbekiston BMTga qachon a'zo bo'lgan?", "1992-yil 2-mart", ["1991-yil 2-mart", "1992-yil 1-sentabr", "1993-yil 2-mart", "1992-yil 8-dekabr"], "O'zbekiston 1992-yil 2-martda BMTga a'zo bo'lgan."],
     [2, "O'zbekiston Davlat bayrog'i qachon qabul qilingan?", "1991-yil 18-noyabr", ["1992-yil 18-noyabr", "1991-yil 31-avgust", "1992-yil 2-iyul", "1991-yil 8-dekabr"], "Davlat bayrog'i 1991-yil 18-noyabrda qabul qilingan."],
     [2, "O'zbekiston Davlat gerbi qachon qabul qilingan?", "1992-yil 2-iyul", ["1991-yil 2-iyul", "1992-yil 10-dekabr", "1991-yil 18-noyabr", "1993-yil 2-iyul"], "Davlat gerbi 1992-yil 2-iyulda qabul qilingan."],
@@ -541,13 +542,12 @@
     [2, "Furqat qaysi shaharda tug'ilgan?", "Qo'qon", ["Xiva", "Samarqand", "Buxoro"], "Zokirjon Furqat — Qo'qonda tug'ilgan shoir."],
     [2, "Bobur ota tomonidan kimning avlodi bo'lgan?", "Amir Temur", ["Chingizxon", "Shayboniyxon", "Ismoil Somoniy"], "Bobur ota tomonidan temuriylar sulolasiga mansub."],
     [2, "Kamoliddin Behzod qaysi san'at turi bilan mashhur?", "Miniatyura (rassomlik)", ["Musiqa", "Me'morchilik", "Xattotlik"], "Behzod Hirotda ijod qilgan."],
-    [3, "Abu Nasr Forobiy qanday faxriy nom bilan ulug'langan?", "Ikkinchi muallim", ["Shayx ur-rais", "Mulk ul-kalom", "Birinchi muallim"], "\"Birinchi muallim\" deb Arastu (Aristotel) atalgan."],
-    [3, "Ibn Sino qanday faxriy nom bilan ulug'langan?", "Shayx ur-rais", ["Ikkinchi muallim", "Mulk ul-kalom", "Sulton ul-ulamo"], "\"Shayx ur-rais\" — \"olimlar boshlig'i\" degani."],
-    [3, "Navoiy qanday faxriy nom bilan ulug'langan?", "Mulk ul-kalom", ["Shayx ur-rais", "Ikkinchi muallim", "Sohibqiron"], "\"Mulk ul-kalom\" — \"so'z mulkining sultoni\"."],
-    [3, "Amir Temur qanday faxriy unvon bilan atalgan?", "Sohibqiron", ["Mulk ul-kalom", "Shayx ur-rais", "Ikkinchi muallim"], "\"Sohibqiron\" — baxtli yulduzlar ostida tug'ilgan degani."],
+    [3, "Abu Nasr Forobiy qanday faxriy nom bilan ulug'langan?", "Ikkinchi muallim", ["Shayx ur-rais", "Sohibqiron", "Birinchi muallim"], "\"Birinchi muallim\" deb Arastu (Aristotel) atalgan."],
+    [3, "Ibn Sino qanday faxriy nom bilan ulug'langan?", "Shayx ur-rais", ["Ikkinchi muallim", "Sohibqiron", "Birinchi muallim"], "\"Shayx ur-rais\" — \"olimlar boshlig'i\" degani."],
+    [3, "Amir Temur qanday faxriy unvon bilan atalgan?", "Sohibqiron", ["Birinchi muallim", "Shayx ur-rais", "Ikkinchi muallim"], "\"Sohibqiron\" — baxtli yulduzlar ostida tug'ilgan degani."],
     [3, "Ibn Sino qaysi qishloqda tug'ilgan?", "Afshona", ["Kat", "Xartang", "Vobkent"], "Afshona Buxoro yaqinida joylashgan."],
     [3, "Beruniy qayerda tug'ilgan?", "Kat (Xorazm)", ["Afshona (Buxoro)", "Hirot", "Termiz"], "Beruniy 973-yilda Xorazmning Kat shahrida tug'ilgan."],
-    [3, "Al-Xorazmiy qaysi ilmiy markazda faoliyat yuritgan?", "Bag'doddagi \"Bayt ul-hikma\"", ["Samarqand rasadxonasi", "Ma'mun akademiyasi (Xorazm)", "Qohira universiteti"], "\"Bayt ul-hikma\" — \"Donishmandlik uyi\"."],
+    [3, "Al-Xorazmiy qaysi ilmiy markazda faoliyat yuritgan?", "Bag'doddagi \"Bayt ul-hikma\"", ["Samarqand rasadxonasi", "Ulug'bek madrasasi", "Qohira universiteti"], "\"Bayt ul-hikma\" — \"Donishmandlik uyi\"."],
     [3, "Ali Qushchi kimning shogirdi va safdoshi bo'lgan?", "Mirzo Ulug'bek", ["Alisher Navoiy", "Ibn Sino", "Bobur"], "Ali Qushchi Ulug'bek rasadxonasida ishlagan astronom."],
     [3, "Cho'lponning asl ismi nima?", "Abdulhamid", ["Abdulla", "Muso", "Zokirjon"], "Abdulhamid Sulaymon o'g'li Cho'lpon."],
     [3, "Oybekning asl ismi nima?", "Muso Toshmuhammad o'g'li", ["Abdulhamid Sulaymon o'g'li", "Zokirjon Xolmuhammad o'g'li", "Abdulla Qodiriy"], "Oybek — \"Navoiy\" va \"Qutlug' qon\" romanlari muallifi."],
@@ -589,7 +589,7 @@
     [1, "Cho'g'lanma lampani takomillashtirib, keng tarqatgan ixtirochi kim?", "Tomas Edison", ["Aleksandr Bell", "Isaak Nyuton", "Aka-uka Raytlar"], "Edison 1879-yilda uzoq yonadigan lampa yaratgan."],
     [1, "Butunjahon tortishish qonunini kim kashf etgan?", "Isaak Nyuton", ["Galileo Galiley", "Albert Eynshteyn", "Tomas Edison"], "Nyuton qonuni XVII asrda e'lon qilingan."],
     [1, "BMT (Birlashgan Millatlar Tashkiloti) qaysi yili tashkil topgan?", "1945", ["1939", "1948", "1919", "1991"], "BMT Ikkinchi jahon urushidan keyin tashkil topgan."],
-    [1, "Rim imperiyasining poytaxti qaysi shahar bo'lgan?", "Rim", ["Afina", "Qohira", "Parij"], "Imperiya nomi poytaxt nomidan olingan."],
+    [1, "Qadimgi Misr hukmdorlari qanday atalgan?", "Fir'avn", ["Imperator", "Xon", "Sulton"], "Fir'avnlar uchun piramidalar qurilgan."],
     [2, "Aka-uka Raytlar birinchi samolyotni qaysi yili uchirgan?", "1903", ["1899", "1910", "1908", "1913"], "Parvoz 1903-yil dekabrda AQShda bo'lgan."],
     [2, "Fransuz inqilobi qaysi yili boshlangan?", "1789", ["1776", "1812", "1848", "1799"], "1789-yil 14-iyulda Bastiliya qamoqxonasi egallangan."],
     [2, "Sovet Ittifoqi qaysi yili parchalangan?", "1991", ["1989", "1990", "1992", "1993"], "1991-yil oxirida SSSR rasman tarqatib yuborilgan."],
@@ -608,8 +608,8 @@
     [2, "Zamonaviy Olimpiya o'yinlari qaysi yili qayta tiklangan?", "1896", ["1900", "1886", "1912", "1924"], "Birinchi zamonaviy Olimpiada Afinada o'tkazilgan."],
     [3, "G'arbiy Rim imperiyasi qaysi yili qulagan?", "476", ["395", "1453", "410", "527"], "476-yil an'anaviy ravishda Antik davrning oxiri hisoblanadi."],
     [3, "Rim imperiyasi qaysi yili G'arbiy va Sharqiy qismlarga bo'lingan?", "395", ["476", "330", "1054", "1453"], "Sharqiy Rim imperiyasi Vizantiya nomi bilan 1453-yilgacha yashagan."],
-    [3, "Gizadagi Xeops (Xufu) piramidasi qaysi qadimgi davlatda qurilgan?", "Qadimgi Misr", ["Qadimgi Bobil", "Qadimgi Yunoniston", "Qadimgi Rim"], "Xeops piramidasi — antik dunyoning yetti mo''jizasidan saqlanib qolgan yagonasi."],
-    [3, "Antik dunyoning yetti mo''jizasidan bugungacha saqlanib qolgani qaysi?", "Xeops piramidasi", ["Rodos Kolossi", "Bobil osma bog'lari", "Iskandariya mayog'i"], "Qolgan mo''jizalar vayron bo'lgan."],
+    [3, "Gizadagi Xeops (Xufu) piramidasi qaysi qadimgi davlatda qurilgan?", "Qadimgi Misr", ["Qadimgi Bobil", "Qadimgi Yunoniston", "Qadimgi Rim"], "Gizadagi piramidalar miloddan avvalgi III ming yillikda qurilgan."],
+    [3, "\"Dunyoning yetti ajoyiboti\"dan bugungacha saqlanib qolgani qaysi?", "Xeops piramidasi", ["Rodos Kolossi", "Bobil osma bog'lari", "Iskandariya mayog'i"], "Qolgan ajoyibotlar vayron bo'lgan."],
     [3, "Amerika Qo'shma Shtatlari mustaqilligi qaysi yili e'lon qilingan?", "1776", ["1789", "1812", "1607", "1865"], "Mustaqillik Deklaratsiyasi 1776-yil 4-iyulda qabul qilingan."],
     [3, "Bug' mashinasini takomillashtirib, sanoat inqilobiga hissa qo'shgan ixtirochi kim?", "Jeyms Uatt", ["Tomas Edison", "Aleksandr Bell", "Nikola Tesla"], "Quvvat birligi \"vatt\" uning nomi bilan atalgan."],
     [3, "Sanoat inqilobi birinchi bo'lib qaysi mamlakatda boshlangan?", "Angliya", ["Fransiya", "Germaniya", "AQSH"], "Sanoat inqilobi XVIII asrning ikkinchi yarmida Angliyada boshlangan."],
@@ -623,5 +623,251 @@
   ];
   topic("h3", "Tarix · Jahon tarixi", H3, [{ p: 0.25, fn: function (L) { return L === 3 && Math.random() < 0.5 ? null : genAsr(L); } }]);
 
-  /*@@ DAVOMI @@*/
+  /* ================= o1 Ona tili · Kelishiklar va qo'shimchalar ================= */
+  var KEL = ["Bosh kelishik", "Qaratqich kelishigi", "Tushum kelishigi", "Jo'nalish kelishigi", "O'rin-payt kelishigi", "Chiqish kelishigi"];
+  var KEL_SUF = ["qo'shimchasiz", "-ning", "-ni", "-ga", "-da", "-dan"];
+  var KEL_SOR = ["kim? nima?", "kimning? nimaning?", "kimni? nimani?", "kimga? nimaga?", "kimda? nimada?", "kimdan? nimadan?"];
+  var KEL_QAY = ["qayer?", "qayerning?", "qayerni?", "qayerga?", "qayerda?", "qayerdan?"];
+  // undosh bilan tugaydigan (k, q, g, g' dan boshqa) so'zlar; egalik uchun ham xavfsizlari belgilangan
+  var W_CONS = ["maktab", "kitob", "daftar", "stol", "gul", "qalam", "bozor", "non", "maydon", "dars", "devor", "do'st", "uy", "osmon", "bahor", "zavod", "avtobus", "shahar", "bekat"];
+  var W_EG = ["maktab", "kitob", "daftar", "stol", "gul", "qalam", "non", "dars", "do'st", "uy", "devor", "bekat"];
+  var W_VOW = ["olma", "ota", "ona", "bola", "xona", "ko'cha", "dala", "oila", "uka", "opa", "bobo", "buvi"];
+  var W_K = ["eshik", "terak", "tilak", "yurak", "ko'ylak", "kurak", "o'rdak", "ertak", "kapalak", "bilak"];
+  var W_Q = ["qishloq", "o'rtoq", "quloq", "tayoq", "qayiq", "buloq", "bayroq", "tuproq", "pichoq", "qoshiq", "chiroq"];
+  function lastCh(w) { return w.charAt(w.length - 1); }
+  function joForm(w) { var c = lastCh(w); return w + (c === "k" ? "ka" : c === "q" ? "qa" : "ga"); }
+  function kelForm(w, i) { return i === 0 ? w : i === 1 ? w + "ning" : i === 2 ? w + "ni" : i === 3 ? joForm(w) : i === 4 ? w + "da" : w + "dan"; }
+  function kelWord(L) {
+    if (L === 1) return pick(Math.random() < 0.7 ? W_CONS : W_VOW);
+    if (L === 2) return pick(Math.random() < 0.5 ? W_K.concat(W_Q) : W_CONS.concat(W_VOW));
+    return pick(W_K.concat(W_Q, W_CONS));
+  }
+  function genKelForm(L) {
+    var w = kelWord(L), c = lastCh(w), i = (c === "k" || c === "q") && Math.random() < 0.75 ? 3 : R(1, 5), a = kelForm(w, i);
+    var wr = [1, 2, 3, 4, 5].filter(function (k) { return k !== i; }).map(function (k) { return kelForm(w, k); });
+    if (i === 3) {
+      if (c === "k") wr = [w + "ga", w + "qa"].concat(shuffle(wr).slice(0, 2));
+      else if (c === "q") wr = [w + "ga", w + "ka"].concat(shuffle(wr).slice(0, 2));
+      else wr = [w + "ka"].concat(shuffle(wr).slice(0, 3));
+    }
+    var note = i === 3 && c === "k" ? "k bilan tugagan so'zga -ka qo'shiladi." : i === 3 && c === "q" ? "q bilan tugagan so'zga -qa qo'shiladi." : KEL[i] + " qo'shimchasi: " + KEL_SUF[i] + ".";
+    return Q("<b>" + w + "</b> so'zining <b>" + KEL[i].toLowerCase() + "</b>dagi shakli qaysi?", a, shuffle(wr).slice(0, 4), [w + " + " + a.slice(w.length) + " → " + a + ". " + note]);
+  }
+  function genKelName(L) {
+    var w = pick(W_CONS.concat(W_VOW, L > 1 ? W_K.concat(W_Q) : [])), i = R(L === 3 ? 0 : 1, 5), f = kelForm(w, i);
+    return Q("<b>" + f + "</b> so'zi qaysi kelishikda turibdi?", KEL[i], others(KEL, KEL[i], 4), [f + " — " + KEL_SOR[i] + " so'rog'iga javob beradi → " + KEL[i].toLowerCase() + "."]);
+  }
+  function genSoroq(L) {
+    var i = R(L === 1 ? 1 : 0, 5), t = R(0, 2);
+    if (t === 0) return Q("Qaysi kelishik <b>" + KEL_SOR[i] + "</b> so'rog'iga javob beradi?", KEL[i], others(KEL, KEL[i], 4), [KEL[i] + ": " + KEL_SOR[i] + " " + KEL_QAY[i]]);
+    if (t === 1) return Q("Qaysi kelishik <b>" + KEL_QAY[i] + "</b> so'rog'iga javob beradi?", KEL[i], others(KEL, KEL[i], 4), [KEL[i] + ": " + KEL_SOR[i] + " " + KEL_QAY[i]]);
+    if (i === 0) i = R(1, 5);
+    if (Math.random() < 0.5) return Q("<b>" + KEL[i] + "</b>ning qo'shimchasi qaysi?", KEL_SUF[i], others(KEL_SUF.slice(1), KEL_SUF[i], 4), [KEL[i] + " " + KEL_SOR[i] + " so'rog'iga javob beradi."]);
+    return Q("<b>" + KEL[i] + "</b> qaysi so'roqlarga javob beradi?", KEL_SOR[i], others(KEL_SOR, KEL_SOR[i], 4), [KEL[i] + " qo'shimchasi: " + KEL_SUF[i] + "."]);
+  }
+  var SHAXS = ["I shaxs birlik", "II shaxs birlik", "III shaxs birlik", "I shaxs ko'plik", "II shaxs ko'plik"];
+  function egForm(w, s) {
+    var v = /[aeiou]$/.test(w) && !/o'$/.test(w);
+    return w + (v ? ["m", "ng", "si", "miz", "ngiz"][s] : ["im", "ing", "i", "imiz", "ingiz"][s]);
+  }
+  function genEgalik(L) {
+    var w = pick(Math.random() < 0.5 ? W_EG : W_VOW), s = R(0, L === 1 ? 2 : 4), a = egForm(w, s);
+    var v = /[aeiou]$/.test(w);
+    var wr = [0, 1, 2, 3, 4].filter(function (k) { return k !== s; }).map(function (k) { return egForm(w, k); });
+    var bad = v ? [w + ["im", "ing", "i", "imiz", "ingiz"][s]] : [w + ["m", "ng", "si", "miz", "ngiz"][s]];
+    return Q("<b>" + w + "</b> so'ziga <b>" + SHAXS[s] + "</b> egalik qo'shimchasini qo'shing.", a, bad.concat(shuffle(wr).slice(0, 3)),
+      [(v ? "Unli bilan tugagan so'zga: -m, -ng, -si, -miz, -ngiz." : "Undosh bilan tugagan so'zga: -im, -ing, -i, -imiz, -ingiz."), w + " → " + a + "."]);
+  }
+  var YAS = [
+    ["-chi", ["ishchi", "sportchi", "ovchi", "baliqchi", "temirchi", "gulchi", "paxtachi"], "kasb yoki shug'ullanuvchi shaxsni bildiradi"],
+    ["-dosh", ["sinfdosh", "vatandosh", "yo'ldosh", "sirdosh", "fikrdosh", "tengdosh"], "birgalikni, umumiylikni bildiradi"],
+    ["-zor", ["olmazor", "gulzor", "paxtazor", "uzumzor", "bug'doyzor", "qamishzor"], "o'simlik ko'p o'sadigan joyni bildiradi"],
+    ["-li", ["kuchli", "aqlli", "tuzli", "suvli", "odobli", "bilimli", "mazali"], "belgining borligini bildiradi"],
+    ["-siz", ["kuchsiz", "aqlsiz", "tuzsiz", "suvsiz", "odobsiz", "bilimsiz", "mazasiz"], "belgining yo'qligini bildiradi"],
+    ["-xona", ["kitobxona", "oshxona", "choyxona", "ishxona", "darsxona"], "joy, xona ma'nosini bildiradi"]
+  ];
+  function genYasash(L) {
+    var gi = R(0, YAS.length - 1), g = YAS[gi], w = pick(g[1]);
+    var oth = []; YAS.forEach(function (x, k) { if (k !== gi) oth.push(pick(x[1])); });
+    if (Math.random() < 0.5) {
+      return Q("<b>" + w + "</b> so'zidagi so'z yasovchi qo'shimchani toping.", g[0], others(YAS.map(function (x) { return x[0]; }), g[0], 4).concat(["-lar"]).slice(0, 4),
+        [w + " = " + w.slice(0, w.length - g[0].length + 1) + " + " + g[0].slice(1) + " (" + g[2] + ")."]);
+    }
+    return Q("Qaysi so'z <b>" + g[0] + "</b> qo'shimchasi yordamida yasalgan?", w, shuffle(oth).slice(0, 4), [g[0] + " qo'shimchasi " + g[2] + ": " + g[1].slice(0, 3).join(", ") + "."]);
+  }
+  var O1 = [
+    [1, "O'zbek tilida nechta kelishik bor?", "6", ["4", "5", "7", "8"], "Bosh, qaratqich, tushum, jo'nalish, o'rin-payt, chiqish."],
+    [1, "Otlarning ko'plik qo'shimchasi qaysi?", "-lar", ["-ning", "-li", "-chi", "-dan"], "kitob + lar = kitoblar."],
+    [1, "Qaysi kelishik maxsus qo'shimchaga ega emas?", "Bosh kelishik", ["Qaratqich kelishigi", "Tushum kelishigi", "Chiqish kelishigi"], "Bosh kelishikdagi so'z qo'shimchasiz bo'ladi: kitob, maktab."],
+    [2, "Qaysi gapda so'z jo'nalish kelishigida kelgan?", "Biz maktabga bordik.", ["Biz maktabda o'qiymiz.", "Biz maktabdan qaytdik.", "Biz maktabni sevamiz."], "maktabga — qayerga? so'rog'iga javob beradi."],
+    [2, "Qaysi gapda so'z chiqish kelishigida kelgan?", "Otam daladan qaytdi.", ["Otam dalada ishladi.", "Otam dalaga bordi.", "Otam dalani sug'ordi."], "daladan — qayerdan? so'rog'iga javob beradi."],
+    [2, "Qaysi gapda so'z qaratqich kelishigida kelgan?", "Ukamning kitobi yangi.", ["Ukamga kitob berdim.", "Ukamdan kitob oldim.", "Ukamni maqtadim."], "ukamning — kimning? so'rog'iga javob beradi."],
+    [3, "Qaysi so'z to'g'ri yozilgan?", "qishloqqa", ["qishloqga", "qishloqka", "qishlogga"], "q bilan tugagan so'zga jo'nalish kelishigida -qa qo'shiladi."],
+    [3, "Qaysi so'z to'g'ri yozilgan?", "eshikka", ["eshikga", "eshikqa", "eshigga"], "k bilan tugagan so'zga jo'nalish kelishigida -ka qo'shiladi."],
+    [3, "\"Kitobim\" so'zidagi -im qanday qo'shimcha?", "Egalik qo'shimchasi", ["Kelishik qo'shimchasi", "Ko'plik qo'shimchasi", "So'z yasovchi qo'shimcha"], "-im — I shaxs birlik egalik qo'shimchasi."]
+  ];
+  topic("o1", "Ona tili · Kelishiklar va qo'shimchalar", O1, [
+    { p: 0.3, fn: genKelForm }, { p: 0.15, fn: genKelName }, { p: 0.15, fn: genSoroq },
+    { p: 0.13, fn: function (L) { return L === 1 ? null : genEgalik(L); } }, { p: 0.12, fn: function (L) { return L === 1 ? null : genYasash(L); } }
+  ]);
+
+  /* ================= o2 Ona tili · So'z turkumlari ================= */
+  var TURK = ["Ot", "Sifat", "Son", "Olmosh", "Fe'l", "Ravish", "Ko'makchi", "Bog'lovchi", "Yuklama", "Undov"];
+  var TURK_SOR = ["kim? nima?", "qanday? qanaqa?", "nechta? qancha? nechanchi?", "", "nima qildi? nima qilyapti?", "qanday? qachon? qayerda?", "", "", "", ""];
+  // [so'z, turkum indeksi, daraja] — faqat bir ma'noli, aniq misollar
+  var SOZ = [
+    ["daraxt", 0, 1], ["kitob", 0, 1], ["maktab", 0, 1], ["Toshkent", 0, 1], ["daftar", 0, 1], ["shamol", 0, 1], ["bilim", 0, 2], ["vatan", 0, 2], ["o'quvchi", 0, 2], ["do'stlik", 0, 3], ["paxtazor", 0, 3],
+    ["chiroyli", 1, 1], ["qizil", 1, 1], ["shirin", 1, 1], ["baland", 1, 1], ["aqlli", 1, 2], ["mehnatkash", 1, 2], ["sho'x", 1, 2], ["qizg'ish", 1, 3], ["kuchsiz", 1, 3], ["ko'm-ko'k", 1, 3],
+    ["besh", 2, 1], ["o'n", 2, 1], ["yuz", 2, 2], ["beshinchi", 2, 1], ["uchta", 2, 1], ["ikkinchi", 2, 2], ["o'ntacha", 2, 3], ["beshala", 2, 3], ["ming", 2, 2],
+    ["men", 3, 1], ["biz", 3, 1], ["ular", 3, 1], ["sen", 3, 1], ["kim", 3, 2], ["hamma", 3, 2], ["bu", 3, 2], ["o'zim", 3, 3], ["hech kim", 3, 3], ["allakim", 3, 3],
+    ["yugurmoq", 4, 1], ["o'qidi", 4, 1], ["yozmoq", 4, 1], ["kel", 4, 1], ["o'ynayapti", 4, 2], ["bormoqda", 4, 2], ["kuldi", 4, 2], ["o'qiyotgan", 4, 3], ["yozib", 4, 3],
+    ["tez-tez", 5, 1], ["kecha", 5, 2], ["asta-sekin", 5, 2], ["ertalab", 5, 2], ["piyoda", 5, 3], ["hozir", 5, 2], ["ataylab", 5, 3], ["birdan", 5, 3], ["yaqinda", 5, 3],
+    ["bilan", 6, 1], ["uchun", 6, 1], ["kabi", 6, 2], ["sari", 6, 2], ["orqali", 6, 2], ["qadar", 6, 3], ["haqida", 6, 2], ["tomon", 6, 3],
+    ["va", 7, 1], ["lekin", 7, 1], ["ammo", 7, 2], ["yoki", 7, 1], ["chunki", 7, 2], ["biroq", 7, 2], ["goh", 7, 3], ["agar", 7, 3],
+    ["faqat", 8, 1], ["ham", 8, 2], ["-mi", 8, 2], ["axir", 8, 2], ["hatto", 8, 2], ["-chi", 8, 3], ["xuddi", 8, 3], ["naqadar", 8, 3],
+    ["voy", 9, 1], ["obbo", 9, 2], ["ura", 9, 1], ["eh", 9, 2], ["oh", 9, 1], ["barakalla", 9, 3], ["rahmat", 9, 3], ["salom", 9, 3]
+  ];
+  // ikki ma'noli yoki munozarali so'zlar chiqarib tashlanadi
+  SOZ = SOZ.filter(function (s) { return ["kecha", "-chi", "-mi", "ham", "rahmat", "salom", "sari", "xuddi", "goh", "naqadar", "barakalla", "yuz", "o'qiyotgan", "yozib", "piyoda", "yaqinda", "tomon"].indexOf(s[0]) < 0; });
+  // shu so'zlar uchun chalg'ituvchi variantga qo'yilmaydigan turkumlar (munozara bo'lmasligi uchun)
+  var BAN = { bilan: [7], faqat: [7], uchun: [7] };
+  var MUST = [0, 1, 2, 3, 4, 5];
+  function genTurkum(L) {
+    var pool = SOZ.filter(function (s) { return s[2] === L; });
+    var s = pick(pool.length ? pool : SOZ), i = s[1], a = TURK[i];
+    var ban = (BAN[s[0]] || []).concat(i === 1 ? [5] : []), T = TURK.filter(function (t, k) { return ban.indexOf(k) < 0; });
+    var w = MUST.indexOf(i) > -1 ? others(T.slice(0, 6 - (i === 1 ? 1 : 0)), a, 3).concat(others(TURK.slice(6), a, 1)) : others(T.filter(function (t) { return TURK.indexOf(t) >= 6; }), a, 2).concat(others(TURK.slice(0, 6), a, 2));
+    return Q("<b>" + s[0] + "</b> so'zi qaysi so'z turkumiga kiradi?", a, w, [s[0] + " — " + a.toLowerCase() + (TURK_SOR[i] ? " (" + TURK_SOR[i] + ")" : "") + "."]);
+  }
+  function genQaysiSoz(L) {
+    var i = R(0, 9), own = SOZ.filter(function (s) { return s[1] === i && s[2] <= Math.max(L, 2); });
+    if (!own.length) return null;
+    var s = pick(own), oth = shuffle(SOZ.filter(function (x) { return x[1] !== i && x[2] <= Math.max(L, 2); }));
+    var w = [], used = {};
+    oth.forEach(function (x) {
+      if (i === 5 && x[1] === 1) return;                                   // sifat ravish vazifasida ham kelishi mumkin
+      if (i === 7 && (x[0] === "bilan" || x[0] === "faqat" || x[0] === "uchun")) return;       // bog'lovchi vazifasida ham keladi
+      if (w.length < 4 && !used[x[1]]) { used[x[1]] = 1; w.push(x[0]); }
+    });
+    return Q("Qaysi so'z <b>" + TURK[i].toLowerCase() + "</b> turkumiga kiradi?", s[0], w, [s[0] + " — " + TURK[i].toLowerCase() + "."]);
+  }
+  // gap bo'laklari: [gap (bo'lak <b>), javob]
+  var BOLAK = ["Ega", "Kesim", "To'ldiruvchi", "Aniqlovchi", "Hol"];
+  var GAP = [
+    ["<b>Anvar</b> kitob o'qidi.", 0], ["Bolalar <b>o'ynashdi</b>.", 1], ["Men <b>kitobni</b> o'qidim.", 2], ["<b>Qizil</b> olma pishdi.", 3], ["Biz <b>ertalab</b> yugurdik.", 4],
+    ["<b>Qushlar</b> uchib ketdi.", 0], ["Onam ovqat <b>pishirdi</b>.", 1], ["Ukam <b>do'stiga</b> xat yozdi.", 2], ["<b>Baland</b> tog'lar ko'rindi.", 3], ["Ular <b>maktabda</b> o'qiydi.", 4],
+    ["<b>Quyosh</b> chiqdi.", 0], ["Talabalar imtihon <b>topshirdi</b>.", 1], ["Dilnoza <b>gullarni</b> sug'ordi.", 2], ["<b>Aqlli</b> bola savolga javob berdi.", 3], ["Poyezd <b>tez</b> yurdi.", 4],
+    ["<b>Shamol</b> esdi.", 0], ["Bu kitob juda <b>qiziqarli</b>.", 1], ["Akam <b>mashinani</b> yuvdi.", 2], ["<b>Mening</b> ukam maktabga bordi.", 3], ["Biz <b>bog'da</b> dam oldik.", 4]
+  ];
+  function genBolak(L) {
+    var g = pick(GAP), a = BOLAK[g[1]];
+    return Q("Gapdagi ajratilgan so'z qaysi gap bo'lagi?<br>" + g[0], a, others(BOLAK, a, 4), [a + " — " + ["kim? nima? so'rog'iga javob beradi.", "ega haqida nima deyilganini bildiradi.", "kimni? nimani? kimga? kabi so'roqlarga javob beradi.", "qanday? qaysi? kimning? so'rog'iga javob beradi.", "qayerda? qachon? qanday? so'rog'iga javob beradi."][g[1]]]);
+  }
+  var O2 = [
+    [1, "Narsa yoki shaxs nomini bildirib, kim? nima? so'rog'iga javob beradigan turkum qaysi?", "Ot", ["Sifat", "Fe'l", "Ravish"], "Ot: kitob, ona, Toshkent."],
+    [1, "Belgini bildirib, qanday? qanaqa? so'rog'iga javob beradigan turkum qaysi?", "Sifat", ["Ot", "Son", "Fe'l"], "Sifat: chiroyli, qizil, aqlli."],
+    [1, "Harakatni bildirib, nima qildi? so'rog'iga javob beradigan turkum qaysi?", "Fe'l", ["Ot", "Sifat", "Ravish"], "Fe'l: o'qidi, yozdi, keldi."],
+    [1, "Miqdor yoki tartibni bildiradigan turkum qaysi?", "Son", ["Sifat", "Ot", "Olmosh"], "Son: besh, uchta, beshinchi."],
+    [1, "Ot, sifat, son o'rnida qo'llanadigan turkum qaysi?", "Olmosh", ["Ravish", "Ko'makchi", "Yuklama"], "Olmosh: men, sen, u, bu, kim."],
+    [1, "His-hayajonni bildiradigan so'zlar qaysi turkumga kiradi?", "Undov", ["Yuklama", "Bog'lovchi", "Ravish"], "Undov: voy, oh, ura, obbo."],
+    [2, "Qaysi turkum yordamchi so'z turkumiga kiradi?", "Bog'lovchi", ["Ot", "Fe'l", "Sifat"], "Yordamchi so'zlar: ko'makchi, bog'lovchi, yuklama."],
+    [2, "Qaysi turkum mustaqil so'z turkumiga kiradi?", "Ravish", ["Ko'makchi", "Bog'lovchi", "Yuklama"], "Mustaqil turkumlar: ot, sifat, son, olmosh, fe'l, ravish."],
+    [2, "Harakatning belgisini bildiruvchi turkum qaysi?", "Ravish", ["Sifat", "Fe'l", "Son"], "Ravish: tez yurdi, sekin gapirdi."],
+    [2, "Lug'atlarda fe'llar qaysi qo'shimcha bilan beriladi?", "-moq", ["-lar", "-li", "-chi"], "o'qimoq, yozmoq, yugurmoq."],
+    [2, "\"Beshinchi\" sonidagi -inchi qanday son hosil qiladi?", "Tartib son", ["Dona son", "Jamlovchi son", "Taqsim son"], "Tartib son nechanchi? so'rog'iga javob beradi."],
+    [2, "\"Uchta\" sonidagi -ta qanday son hosil qiladi?", "Dona son", ["Tartib son", "Chama son", "Taqsim son"], "Dona son nechta? so'rog'iga javob beradi."],
+    [3, "Gapning bosh bo'laklari qaysilar?", "Ega va kesim", ["To'ldiruvchi va hol", "Aniqlovchi va hol", "Ega va to'ldiruvchi"], "Ikkinchi darajali bo'laklar: to'ldiruvchi, aniqlovchi, hol."],
+    [3, "Qaysi gap bo'lagi ikkinchi darajali bo'lak emas?", "Ega", ["To'ldiruvchi", "Aniqlovchi", "Hol"], "Ega va kesim — bosh bo'laklar."],
+    [3, "Qaysi qatorda faqat yordamchi so'zlar berilgan?", "bilan, va, hatto", ["kitob, va, hatto", "biz, uchun, lekin", "tez, lekin, kabi"], "Yordamchi so'zlar: ko'makchi (bilan), bog'lovchi (va), yuklama (hatto)."]
+  ];
+  topic("o2", "Ona tili · So'z turkumlari", O2, [
+    { p: 0.45, fn: genTurkum }, { p: 0.2, fn: genQaysiSoz }, { p: 0.2, fn: function (L) { return L === 3 ? genBolak(L) : null; } }
+  ]);
+
+  /* ================= o3 Ona tili · Fonetika va imlo ================= */
+  // unli harflar: a, e, i, o, u, o' — o' bitta unli; g', sh, ch, ng bitta undosh tovush
+  var FON_W = ["kitob", "maktab", "daftar", "olma", "bola", "ona", "qalam", "o'quvchi", "o'qituvchi", "shahar", "bayroq", "chiroq", "tog'", "bog'bon",
+    "Vatan", "mustaqillik", "kutubxona", "universitet", "matematika", "geografiya", "do'stlik", "sinfdosh", "yulduz", "quyosh", "osmon", "kompyuter", "telefon", "televizor", "ko'cha", "o'rdak"];
+  FON_W = FON_W.map(function (w) { return w.toLowerCase(); });
+  function letters(w) {
+    var out = [], i = 0;
+    while (i < w.length) {
+      var two = w.substr(i, 2);
+      if (two === "o'" || two === "g'") { out.push(two); i += 2; continue; }
+      if (two === "sh" || two === "ch") { out.push(two); i += 2; continue; }
+      out.push(w.charAt(i)); i++;
+    }
+    return out;
+  }
+  function unliN(w) { return letters(w).filter(function (c) { return /^(a|e|i|o|u|o')$/.test(c); }).length; }
+  function genUnli(L) {
+    var pool = FON_W.filter(function (w) { var n = unliN(w); return L === 1 ? n <= 3 : L === 2 ? n >= 2 && n <= 4 : n >= 3; });
+    var w = pick(pool), n = unliN(w), t = L >= 2 && Math.random() < 0.5;
+    var vs = letters(w).filter(function (c) { return /^(a|e|i|o|u|o')$/.test(c); });
+    if (t) return Q("<b>" + w + "</b> so'zi nechta bo'g'indan iborat?", n, [n - 1, n + 1, n + 2, n - 2, n + 3].filter(function (x) { return x > 0; }).slice(0, 4),
+      ["O'zbek tilida bo'g'inlar soni unlilar soniga teng: " + vs.join(", ") + " → " + n + " ta bo'g'in."]);
+    return Q("<b>" + w + "</b> so'zida nechta unli tovush bor?", n, [n - 1, n + 1, n + 2, n - 2, n + 3].filter(function (x) { return x > 0; }).slice(0, 4),
+      ["Unlilar: " + vs.join(", ") + " → " + n + " ta."]);
+  }
+  // imlo: [to'g'ri, [xato variantlar], daraja]
+  var IMLO = [
+    ["shahar", ["shaxar", "shahr", "shaar"], 1], ["kitob", ["kitop", "kitab", "ketob"], 1], ["maktab", ["mahtab", "maktap", "mahktab"], 1],
+    ["ma'lumot", ["malumot", "ma'lumod", "maluomot"], 1], ["tug'ilgan", ["tugilgan", "tug'ulgan", "tukilgan"], 1], ["daftar", ["taftar", "daptar", "daftr"], 1],
+    ["o'qituvchi", ["o'qtuvchi", "uqituvchi", "o'qituvchy"], 1], ["Vatan", ["Vaten", "Votan", "Vatin"], 1], ["mehmon", ["mexmon", "memon", "mehmun"], 2],
+    ["san'at", ["sanat", "sana't", "san'ot"], 2], ["jamiyat", ["jamiyyat", "jamyat", "jamiat"], 2],
+    ["iqtisodiyot", ["iqtisodiyat", "iqtisodyot", "iqtisodiyod"], 2], ["mas'uliyat", ["masuliyat", "mas'uliyot", "mas'ulyat"], 2],
+    ["qal'a", ["qala", "qal'o", "qa'la"], 2], ["she'r", ["sheer", "she'ir", "sh'er"], 2], ["ta'lim", ["talim", "ta'lym", "taa'lim"], 2],
+    ["e'tibor", ["etibor", "e'tiboor", "e'tibar"], 2], ["xabar", ["habar", "xabbar", "xaber"], 3],
+    ["hamma", ["xamma", "hama", "hammo"], 2], ["hayot", ["xayot", "hayat", "hayyot"], 2], ["xalq", ["xallq", "xaliq", "xalk"], 2],
+    ["tarix", ["tarih", "tarixx", "torix"], 2], ["paxta", ["pahta", "paxto", "pagta"], 2], ["muhim", ["muxim", "muhum", "mihim"], 2],
+    ["bog'cha", ["bogcha", "boqcha", "bog'icha"], 1], ["g'alaba", ["galaba", "g'alabo", "qalaba"], 1], ["ishxona", ["ishhona", "ishxono", "isxona"], 3],
+    ["kitobxon", ["kitobhon", "kitopxon", "kitobxo'n"], 3], ["xursand", ["hursand", "xursant", "xurisand"], 3], ["inson", ["insun", "inso'n", "insoun"], 1]
+  ];
+  function genImlo(L) {
+    var pool = IMLO.filter(function (x) { return x[2] === L; }); if (!pool.length) pool = IMLO;
+    var x = pick(pool);
+    return Q("Qaysi so'z to'g'ri yozilgan?", x[0], x[1], ["To'g'ri yozilishi: " + x[0] + "."]);
+  }
+  var ANT = [["katta", "kichik"], ["issiq", "sovuq"], ["oq", "qora"], ["baland", "past"], ["uzun", "qisqa"], ["keng", "tor"], ["yaxshi", "yomon"], ["tez", "sekin"],
+    ["kun", "tun"], ["og'ir", "yengil"], ["do'st", "dushman"], ["boy", "kambag'al"], ["shirin", "achchiq"], ["eski", "yangi"], ["kirmoq", "chiqmoq"]];
+  var SIN = [["chiroyli", "go'zal"], ["botir", "jasur"], ["do'st", "o'rtoq"], ["aqlli", "dono"], ["xursand", "shod"], ["katta", "ulkan"], ["yurt", "vatan"],
+    ["baxt", "saodat"], ["ozod", "erkin"], ["sovg'a", "tuhfa"], ["chehra", "yuz"], ["ozoda", "toza"], ["mehnatkash", "tirishqoq"]];
+  function genSinAnt(L) {
+    var isA = Math.random() < 0.55, P = isA ? ANT : SIN, p = pick(P), dir = R(0, 1), w = p[dir], a = p[1 - dir];
+    // o'lcham va tezlik so'zlari bir-biriga chalg'ituvchi bo'lmaydi (munozara chiqmasligi uchun)
+    var CL = { katta: 1, kichik: 1, baland: 1, past: 1, uzun: 1, qisqa: 1, keng: 1, tor: 1, ulkan: 1, tez: 2, sekin: 2 };
+    var bad = {}; bad[w] = 1; bad[a] = 1;
+    SIN.forEach(function (x) { if (x[0] === w || x[1] === w || x[0] === a || x[1] === a) { bad[x[0]] = 1; bad[x[1]] = 1; } });
+    var pool = [];
+    ANT.concat(SIN).forEach(function (x) {
+      x.forEach(function (o) { if (!bad[o] && pool.indexOf(o) < 0 && !(CL[o] && (CL[o] === CL[w] || CL[o] === CL[a]))) pool.push(o); });
+    });
+    var wr = shuffle(pool).slice(0, 4);
+    if (!isA) ANT.forEach(function (x) { if (x[0] === w || x[1] === w) wr[0] = x[0] === w ? x[1] : x[0]; });   // antonim — yaxshi chalg'ituvchi
+    return Q("<b>" + w + "</b> so'zining " + (isA ? "antonimi (zid ma'nolisi)" : "sinonimi (ma'nodoshi)") + " qaysi?", a, wr,
+      [w + " — " + a + (isA ? ": ma'nosi qarama-qarshi so'zlar." : ": ma'nosi yaqin so'zlar.")]);
+  }
+  var O3 = [
+    [1, "O'zbek tilida nechta unli tovush bor?", "6", ["5", "7", "8", "10"], "Unlilar: a, e, i, o, u, o'."],
+    [1, "Qaysi harf unli tovushni bildiradi?", "o'", ["g'", "sh", "ng"], "Unlilar: a, e, i, o, u, o'."],
+    [1, "Qaysi harf undosh tovushni bildiradi?", "g'", ["o'", "u", "e"], "g', sh, ch, ng — undosh tovushlar."],
+    [1, "So'zda bo'g'inlar soni nimaga teng?", "Unlilar soniga", ["Undoshlar soniga", "Harflar soniga", "Doim ikkiga"], "Har bir bo'g'inda bitta unli bo'ladi."],
+    [1, "Antonimlar qanday so'zlar?", "Ma'nosi qarama-qarshi so'zlar", ["Ma'nosi yaqin so'zlar", "Talaffuzi bir xil so'zlar", "Eskirgan so'zlar"], "Masalan: katta — kichik."],
+    [1, "Sinonimlar qanday so'zlar?", "Ma'nosi yaqin so'zlar", ["Ma'nosi qarama-qarshi so'zlar", "Shakli bir xil so'zlar", "Yangi so'zlar"], "Masalan: chiroyli — go'zal."],
+    [2, "Shakli bir xil, ma'nosi har xil so'zlar nima deyiladi?", "Omonimlar", ["Sinonimlar", "Antonimlar", "Paronimlar"], "Masalan: \"yoz\" (fasl) — \"yoz\" (yozmoq fe'li)."],
+    [2, "Tutuq belgisi (') qaysi so'zda to'g'ri ishlatilgan?", "ma'no", ["ma'ktab", "ki'tob", "da'ftar"], "Tutuq belgisi: ma'no, she'r, ta'lim, san'at."],
+    [2, "\"Sh\" va \"ch\" harf birikmalari nechta tovushni bildiradi?", "Har biri bitta tovushni", ["Har biri ikkita tovushni", "Uchta tovushni", "Hech qanday tovushni"], "sh, ch, ng — bitta undosh tovushni ifodalaydi."],
+    [2, "Qaysi so'z ikki bo'g'inli?", "kitob", ["kutubxona", "o'qituvchi", "matematika"], "ki-tob — 2 ta bo'g'in."],
+    [3, "Qaysi undosh jarangsiz?", "p", ["b", "d", "z", "g"], "Jarangsiz undoshlar: p, t, k, s, f, sh, ch, x, h, q."],
+    [3, "Qaysi undosh jarangli?", "b", ["p", "t", "s", "k"], "Jarangli undoshlar: b, d, g, z, v, j, g' va boshqalar."],
+    [3, "Jarangli <b>d</b> undoshining jarangsiz jufti qaysi?", "t", ["p", "k", "s"], "Juftlar: b — p, d — t, g — k, z — s, v — f."],
+    [3, "Jarangli <b>z</b> undoshining jarangsiz jufti qaysi?", "s", ["t", "p", "k"], "Juftlar: b — p, d — t, g — k, z — s, v — f."],
+    [3, "Tovushlarni o'rganuvchi tilshunoslik bo'limi qaysi?", "Fonetika", ["Leksikologiya", "Morfologiya", "Sintaksis"], "Leksikologiya — so'z, morfologiya — so'z turkumlari, sintaksis — gap."],
+    [3, "So'zning lug'aviy ma'nosini o'rganuvchi bo'lim qaysi?", "Leksikologiya", ["Fonetika", "Sintaksis", "Orfografiya"], "Leksikologiya — so'z va uning ma'nolari haqidagi bo'lim."],
+    [3, "To'g'ri yozish qoidalarini o'rganuvchi bo'lim qaysi?", "Orfografiya", ["Orfoepiya", "Fonetika", "Sintaksis"], "Orfoepiya — to'g'ri talaffuz qoidalari."],
+    [3, "Gap va so'z birikmalarini o'rganuvchi bo'lim qaysi?", "Sintaksis", ["Morfologiya", "Fonetika", "Leksikologiya"], "Morfologiya so'z turkumlarini o'rganadi."]
+  ];
+  topic("o3", "Ona tili · Fonetika va imlo", O3, [
+    { p: 0.3, fn: genUnli }, { p: 0.25, fn: genImlo }, { p: 0.25, fn: genSinAnt }
+  ]);
 })();
