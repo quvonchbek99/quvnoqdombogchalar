@@ -1,0 +1,36 @@
+{
+  "id": "2017-1",
+  "badge": "IMO 2017 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Ildiz yoki +3",
+      "fs": 36,
+      "body": "<p>Har bir butun <span class='m'>a<sub>0</sub> &gt; 1</span> uchun <span class='m'>a<sub>0</sub>, a<sub>1</sub>, a<sub>2</sub>, …</span> ketma-ketlik quyidagicha aniqlanadi:</p><div class='box'><span class='m'>a<sub>n+1</sub> = √a<sub>n</sub></span>, &nbsp;agar <span class='m'>√a<sub>n</sub></span> butun son bo'lsa;<br><span class='m'>a<sub>n+1</sub> = a<sub>n</sub> + 3</span>, &nbsp;aks holda.</div><p><span class='m'>a<sub>0</sub></span> ning qaysi qiymatlarida shunday <span class='m'>A</span> son mavjudki, <span class='m'>a<sub>n</sub> = A</span> tenglik <b>cheksiz ko'p</b> <span class='m'>n</span> uchun bajariladi?</p><p>Masalan: <span class='m'>12 → 15 → 18 → … → 36 → 6 → 9 → 3 → 6 → …</span></p>"
+    },
+    {
+      "kicker": "YECHIM · JAVOB VA LEMMA",
+      "title": "Eng kichik had nima bo'la oladi?",
+      "fs": 34,
+      "body": "<div class='box'><b>Javob:</b> faqat <span class='m'>a<sub>0</sub></span> 3 ga bo'linganda.</div><p><b>Lemma.</b> <span class='m'>c</span> — ketma-ketlikning eng kichik hadi. U holda <span class='m'>c ≡ 2 (mod 3)</span> yoki <span class='m'>c = 3</span>.</p><p><span class='m'>c</span> to'liq kvadrat emas (aks holda <span class='m'>√c &lt; c</span> keyingi had bo'lardi). Faraz qilaylik, <span class='m'>c ≢ 2 (mod 3)</span>. Ketma-ketlik <span class='m'>c, c+3, c+6, …</span> bo'lib o'sadi va <span class='m'>c</span> bilan bir xil qoldiqli kvadratga yetadi — u <span class='m'>(k+1)<sup>2</sup>, (k+2)<sup>2</sup>, (k+3)<sup>2</sup></span> dan biri, bunda <span class='m'>k = ⌊√c⌋</span>.</p><p>Undan keyingi had ko'pi bilan <span class='m'>√c + 3</span>. Minimallik bo'yicha:</p><div class='box'><span class='m'>c ≤ √c + 3 &nbsp;⟹&nbsp; c ≤ 5</span>. &nbsp;<span class='m'>1, 2, 4, 5</span> to'g'ri kelmaydi ⟹ <span class='m'>c = 3</span>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-HOL",
+      "title": "3 ga bo'linsa — sikl bor",
+      "fs": 36,
+      "body": "<p>Agar <span class='m'>3 | a<sub>n</sub></span> bo'lsa, <span class='m'>a<sub>n</sub> + 3</span> ham 3 ga bo'linadi; <span class='m'>a<sub>n</sub></span> kvadrat bo'lsa, <span class='m'>√a<sub>n</sub></span> ham 3 ga bo'linadi.</p><p>Demak <b>barcha hadlar</b> 3 ga karrali. Ular orasida <span class='m'>≡ 2 (mod 3)</span> had yo'q, shuning uchun lemma bo'yicha eng kichik had <span class='m'>c = 3</span>.</p><p>3 ga yetgach, ketma-ketlik abadiy aylanadi:</p><div class='box' style='text-align:center'><span class='m'>3 → 6 → 9 → 3 → 6 → 9 → …</span></div><p>Demak <span class='m'>A = 3</span> cheksiz ko'p marta uchraydi. ✅</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-HOL",
+      "title": "3 ga bo'linmasa — cheksiz o'sish",
+      "fs": 35,
+      "body": "<p>Agar <span class='m'>3 ∤ a<sub>0</sub></span> bo'lsa, hech bir had 3 ga bo'linmaydi: <span class='m'>+3</span> qoldiqni o'zgartirmaydi, <span class='m'>3 | √a</span> esa <span class='m'>3 | a</span> ni bildiradi.</p><p>Demak 3 ketma-ketlikda uchramaydi va lemma bo'yicha eng kichik had <span class='m'>c ≡ 2 (mod 3)</span>.</p><div class='box'>Kvadratlar 3 ga bo'lganda faqat <span class='m'>0</span> yoki <span class='m'>1</span> qoldiq beradi — <span class='m'>2</span> qoldiqli kvadrat <b>yo'q</b>.</div><p>Shuning uchun <span class='m'>c</span> dan keyin ildiz hech qachon olinmaydi: <span class='m'>c, c+3, c+6, …</span> — ketma-ketlik cheksiz o'sadi va hech bir son takrorlanmaydi. ❌</p><p>Demak javob: <span class='m'>a<sub>0</sub> ≡ 0 (mod 3)</span>. ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Tekshirib ko'ramiz",
+      "fs": 35,
+      "body": "<p><span class='m'>a<sub>0</sub> = 7</span>: &nbsp;<span class='m'>7 → 10 → 13 → 16 → 4 → 2 → 5 → 8 → 11 → …</span></p><p>2 ga tushgach (<span class='m'>2 ≡ 2 mod 3</span>) ketma-ketlik faqat o'sadi.</p><div class='box'>Python bilan <span class='m'>2 ≤ a<sub>0</sub> &lt; 3000</span> barcha qiymatlarni tekshirdik: takrorlanish <b>aynan</b> <span class='m'>a<sub>0</sub></span> 3 ga bo'linganda bor ✅</div><p>🧠 <b>Sizga savol:</b> <span class='m'>a<sub>0</sub> = 27</span> dan boshlasak, ketma-ketlik nechanchi qadamda birinchi marta 3 ga tushadi? Javobni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2017 · 2-masala</b> (algebra, funksional tenglama)</p>"
+    }
+  ]
+}
