@@ -775,5 +775,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki reja juda yaxshi emas edi", "Chunki hech kim rejani bajarishga tayyor emas edi", "Chunki mushuk allaqachon ketib qolgan edi"],
     javob: 1,
     izoh: "Reja tuzish o'zi yetarli emas. Uni amalga oshirish uchun kimdir mas'uliyatni o'z zimmasiga olishi kerak."
+  },
+  {
+    id: "ez-098", mavzu: "o'zlik", sarlavha: "Qarg'a va tovus patlari",
+    matn: "Bir qarg'a tovuslar yashaydigan bog'da yerga to'kilib yotgan chiroyli, rang-barang patlarni ko'rib qoldi. U patlarni yig'ib, o'zining qora patlari ustiga taqib oldi va o'zini tovusdek go'zal his qilib, ularning oldiga bordi. Tovuslar aldovni darhol payqab, patlarini yulib olishdi va uni haydab yuborishdi. Qarg'a qaytib o'z qarg'alari oldiga borganida, ular ham uni tanimadi va qabul qilmadi.",
+    savol: "Qarg'a nega na tovuslar, na o'z qarg'alari orasida o'rin topa olmadi?",
+    variantlar: ["Chunki u boshqalarning patlarini taqib, o'z o'rnini va ishonchini yo'qotdi", "Chunki tovuslar unga patlarni sovg'a qilishni rad etdi", "Chunki u bog'dagi eng katta qarg'a bo'lishni xohlardi"],
+    javob: 0,
+    izoh: "Soxta ko'rinish bilan boshqalar qatoriga kirmoqchi bo'lgan qarg'a ikkala tomonda ham ishonchini yo'qotdi. O'zligidan voz kechish ko'pincha ikki tomonlama zarar keltiradi."
   }
 ];
