@@ -783,5 +783,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u boshqalarning patlarini taqib, o'z o'rnini va ishonchini yo'qotdi", "Chunki tovuslar unga patlarni sovg'a qilishni rad etdi", "Chunki u bog'dagi eng katta qarg'a bo'lishni xohlardi"],
     javob: 0,
     izoh: "Soxta ko'rinish bilan boshqalar qatoriga kirmoqchi bo'lgan qarg'a ikkala tomonda ham ishonchini yo'qotdi. O'zligidan voz kechish ko'pincha ikki tomonlama zarar keltiradi."
+  },
+  {
+    id: "ez-099", mavzu: "ehtiyotkorlik", sarlavha: "Kaklik va ovchi",
+    matn: "Ovchi dala chetiga tuzoq qo'yib, uning ustiga ko'p don sochdi. Ochko'z kaklik uyasidan chiqib, donga yaqinlashdi. Shu payt bir qushcha uchib kelib, \"Bu yerda xavf bor, ehtiyot bo'l!\" deb qichqirdi. Kaklik esa qulog'iga kirmadi va \"Don shunchalik ko'p, bir dona yeb ko'raman\", deb tuzoqqa sakrab tushdi.",
+    savol: "Kaklik nega tuzoqqa tushib qoldi?",
+    variantlar: ["Chunki u ogohlantirishga quloq solmay, faqat o'z istagiga ergashdi", "Chunki ovchi uni ataylab chaqirgan edi", "Chunki qushcha tuzoqning joyini yashirgan edi"],
+    javob: 0,
+    izoh: "Kaklik xavf haqidagi ogohlantirishni e'tiborsiz qoldirib, faqat donga bo'lgan istagiga ergashdi. Ogohlantirishlarni jiddiy qabul qilish ko'p xatolarning oldini oladi."
   }
 ];
