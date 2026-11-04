@@ -1,0 +1,36 @@
+{
+  "id": "2017-6",
+  "badge": "IMO 2017 · 6-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Qisqarmas nuqtalar va ko'phad",
+      "fs": 35,
+      "body": "<p>Butun koordinatali <span class='m'>(x, y)</span> nuqta <b>qisqarmas</b> deyiladi, agar <span class='m'>EKUB(x, y) = 1</span> bo'lsa.</p><p><span class='m'>S</span> — qisqarmas nuqtalarning <b>chekli</b> to'plami. Isbotlang: shunday o'zgarmas bo'lmagan, butun koeffitsiyentli <b>bir jinsli</b> <span class='m'>f(x, y)</span> ko'phad mavjudki,</p><div class='box'><span class='m'>S</span> dagi har bir <span class='m'>(x, y)</span> uchun &nbsp;<span class='m'>f(x, y) = 1</span>.</div><p><b>Bir jinsli</b> — barcha hadlar bir xil darajada. Masalan: <span class='m'>x² − xy + y²</span> (hammasi 2-darajali).</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Induksiya va qulay koordinata",
+      "fs": 33,
+      "body": "<p><b>Induksiya</b> <span class='m'>|S|</span> bo'yicha. <b>Baza</b> — bitta nuqta <span class='m'>(a, b)</span>: Bezu lemmasi bo'yicha <span class='m'>ua + vb = 1</span>, demak <span class='m'>f = ux + vy</span> ishlaydi.</p><p><b>Qadam:</b> <span class='m'>m</span> ta nuqta <span class='m'>(a<sub>i</sub>, b<sub>i</sub>)</span> uchun <span class='m'>d</span>-darajali <span class='m'>g</span> bor. Yangi nuqta qo'shamiz.</p><div class='box'>Determinanti 1 ga teng butun matritsa bilan tekislikni \"buramiz\": yangi nuqta <span class='m'>(1, 0)</span> ga o'tadi. Qisqarmaslik ham, bir jinslilik ham saqlanadi.</div><p>Demak yangi nuqtani <span class='m'>(1, 0)</span> deb olsak bo'ladi. Endi <span class='m'>g</span> ni shu nuqtaga ham moslashtirish kerak.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Eskilarni buzmaydigan tuzatish",
+      "fs": 33,
+      "body": "<p>Yangi ko'phadni shunday qidiramiz (<span class='m'>M, C</span> — butun sonlar):</p><div class='box'><span class='m'>f = g<sup>M</sup> − C · x<sup>dM − m</sup> · ∏ (b<sub>i</sub>x − a<sub>i</sub>y)</span></div><ul><li>Har bir hadning darajasi <span class='m'>dM</span> — demak <span class='m'>f</span> bir jinsli (<span class='m'>M</span> yetarlicha katta).</li><li>Eski nuqtada <span class='m'>b<sub>i</sub>a<sub>i</sub> − a<sub>i</sub>b<sub>i</sub> = 0</span>, ko'paytma nolga aylanadi: <span class='m'>f = 1<sup>M</sup> = 1</span> ✅</li></ul><p>Yangi nuqtada esa shart bitta tenglamaga keladi:</p><div class='box'><span class='m'>f(1, 0) = g(1, 0)<sup>M</sup> − C · b<sub>1</sub>b<sub>2</sub>…b<sub>m</sub> = 1</span></div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Eyler teoremasi hal qiladi",
+      "fs": 33,
+      "body": "<p><span class='m'>B = b<sub>1</sub>b<sub>2</sub>…b<sub>m</sub></span> bo'lsin. Bizga <span class='m'>g(1, 0)<sup>M</sup> ≡ 1 (mod B)</span> kerak — shunda <span class='m'>C</span> butun chiqadi.</p><p><b>Asosiy kuzatish:</b> <span class='m'>g</span> bir jinsli bo'lgani uchun</p><div class='box'><span class='m'>1 = g(a<sub>i</sub>, b<sub>i</sub>) ≡ g(a<sub>i</sub>, 0) = a<sub>i</sub><sup>d</sup> · g(1, 0) &nbsp;(mod b<sub>i</sub>)</span></div><p>Demak <span class='m'>g(1, 0)</span> har bir <span class='m'>b<sub>i</sub></span> bilan, ya'ni <span class='m'>B</span> bilan o'zaro tub. <b>Eyler teoremasi</b>: <span class='m'>M</span> ni <span class='m'>φ(|B|)</span> ning katta karralisi qilib olsak, <span class='m'>g(1, 0)<sup>M</sup> ≡ 1 (mod B)</span>.</p><p>(Agar biror <span class='m'>b<sub>i</sub> = 0</span> bo'lsa, <span class='m'>a<sub>i</sub> = ±1</span>, <span class='m'>g(1, 0) = ±1</span>; juft <span class='m'>M</span> va <span class='m'>C = 0</span> yetadi.) ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "Kichik misol",
+      "fs": 35,
+      "body": "<p><span class='m'>S = {(1, 0), (0, 1), (1, 1)}</span>. Chiziqli <span class='m'>ax + by</span> ishlamaydi: <span class='m'>a = b = 1</span> bo'lsa, <span class='m'>a + b = 2</span>.</p><p>Kvadratik <span class='m'>ax² + bxy + cy²</span>: &nbsp;<span class='m'>a = 1</span>, <span class='m'>c = 1</span>, <span class='m'>1 + b + 1 = 1</span>.</p><div class='box'><span class='m'>f = x² − xy + y²</span> ✅ &nbsp;(qurilish Python bilan tasodifiy to'plamlarda tekshirildi)</div><p>🧠 <b>Sizga savol:</b> <span class='m'>S</span> ga <span class='m'>(1, −1)</span> ni ham qo'shsak, qanday <span class='m'>f</span> mos keladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2016 · 1-masala</b> (geometriya)</p>"
+    }
+  ]
+}
