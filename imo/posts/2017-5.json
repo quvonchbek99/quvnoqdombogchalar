@@ -1,0 +1,36 @@
+{
+  "id": "2017-5",
+  "badge": "IMO 2017 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Futbolchilar qatori",
+      "fs": 34,
+      "body": "<p><span class='m'>N ≥ 1</span> butun son. Bo'ylari har xil bo'lgan <span class='m'>N(N + 1)</span> ta futbolchi bir qatorda turibdi.</p><p>Ser Aleks qatordan <span class='m'>N(N − 1)</span> ta futbolchini chiqarib, qolgan <span class='m'>2N</span> ta futbolchidan yangi qator hosil qilmoqchi. Yangi qatorda quyidagi <span class='m'>N</span> ta shart bajarilishi kerak:</p><ul><li>eng baland <b>ikki</b> futbolchi orasida hech kim turmaydi;</li><li>3- va 4-baland futbolchilar orasida hech kim turmaydi;</li><li>… va hokazo, eng past ikki futbolchi orasida ham hech kim turmaydi.</li></ul><div class='box'>Isbotlang: bunday qilish <b>har doim mumkin</b>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Bo'yiga qarab guruhlaymiz",
+      "fs": 34,
+      "body": "<p>Futbolchilarni bo'yi bo'yicha tartiblab, ketma-ket <span class='m'>N + 1</span> tadan <span class='m'>N</span> ta guruhga ajratamiz:</p><div class='box'><span class='m'>G<sub>1</sub></span> — eng past <span class='m'>N + 1</span> kishi, <span class='m'>G<sub>2</sub></span> — keyingi <span class='m'>N + 1</span> kishi, …, <span class='m'>G<sub>N</sub></span> — eng baland <span class='m'>N + 1</span> kishi.</div><p>Reja: <b>har bir guruhdan aynan ikki kishi</b> qoldiramiz.</p><p>Nega bu qulay? Guruhlar bo'y bo'yicha ketma-ket bo'lgani uchun <span class='m'>G<sub>k</sub></span> dan qolgan ikki kishi yangi qatorda aynan <span class='m'>(2k − 1)</span>- va <span class='m'>2k</span>-o'rindagi bo'ylarga ega bo'ladi. Demak ularni <b>yonma-yon</b> qilsak kifoya.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Chapdan yuramiz",
+      "fs": 34,
+      "body": "<p>Qatorni <b>chapdan o'ngga</b> ko'rib chiqamiz va birinchi marta <b>bir guruhdan ikkinchi odam</b> uchragan joyda to'xtaymiz.</p><div class='box'>Guruhlar soni <span class='m'>N</span> ta. <b>Dirixle prinsipi</b> bo'yicha birinchi <span class='m'>N + 1</span> kishi ichida albatta ikkitasi bir guruhda bo'ladi — demak to'xtash albatta ro'y beradi.</div><p>Aytaylik, bu ikki kishi <span class='m'>G<sub>k</sub></span> guruhidan. Ularni <b>juftlik</b> sifatida tanlaymiz.</p><p>To'xtashdan oldin boshqa har bir guruhdan <b>ko'pi bilan bitta</b> odam uchragan — aks holda avvalroq to'xtagan bo'lardik.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "O'chiramiz va induksiya",
+      "fs": 33,
+      "body": "<p>Endi quyidagilarni qatordan chiqaramiz:</p><ul><li>biz ko'rib o'tgan <b>barcha</b> odamlarni (tanlangan juftlikdan tashqari);</li><li><span class='m'>G<sub>k</sub></span> guruhining qolgan a'zolarini.</li></ul><div class='box'>Qolgan <span class='m'>N − 1</span> ta guruhning har biri ko'pi bilan <b>bitta</b> odam yo'qotdi, ya'ni har birida kamida <span class='m'>N = (N − 1) + 1</span> kishi bor.</div><p>Bu — xuddi shu masala, faqat <span class='m'>N − 1</span> uchun! <b>Induksiya</b> bo'yicha ulardan ham kerakli juftliklarni tanlaymiz.</p><p>Tanlangan juftlik orasidagilarning hammasi o'chirildi, qolgan hamma esa ulardan <b>o'ngda</b>. Demak juftlik yonma-yon turadi ∎</p>"
+    },
+    {
+      "kicker": "MISOL VA SAVOL",
+      "title": "N = 2 da sinab ko'ramiz",
+      "fs": 31,
+      "body": "<svg width='780' height='260' viewBox='0 0 900 300' style='display:block;margin:0 auto 10px'><line x1='20' y1='250' x2='880' y2='250' stroke='#8fa3bf' stroke-width='2'/><rect x='60' y='142' width='80' height='108' rx='8' fill='#f2b84b'/><text x='100' y='288' text-anchor='middle' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>3</text><rect x='195' y='34' width='80' height='216' rx='8' fill='none' stroke='#8fa3bf' stroke-width='3' stroke-dasharray='8 6'/><line x1='205' y1='44' x2='265' y2='240' stroke='#e06c75' stroke-width='4'/><text x='235' y='288' text-anchor='middle' fill='#8fa3bf' font-size='30' font-family='DejaVu Serif' font-style='italic'>6</text><rect x='330' y='214' width='80' height='36' rx='8' fill='#f2b84b'/><text x='370' y='288' text-anchor='middle' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>1</text><rect x='465' y='70' width='80' height='180' rx='8' fill='#f2b84b'/><text x='505' y='288' text-anchor='middle' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>5</text><rect x='600' y='178' width='80' height='72' rx='8' fill='none' stroke='#8fa3bf' stroke-width='3' stroke-dasharray='8 6'/><line x1='610' y1='188' x2='670' y2='240' stroke='#e06c75' stroke-width='4'/><text x='640' y='288' text-anchor='middle' fill='#8fa3bf' font-size='30' font-family='DejaVu Serif' font-style='italic'>2</text><rect x='735' y='106' width='80' height='144' rx='8' fill='#f2b84b'/><text x='775' y='288' text-anchor='middle' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>4</text></svg><p>Qator: <span class='m'>3, 6, 1, 5, 2, 4</span>. Guruhlar: <span class='m'>G<sub>1</sub> = {1, 2, 3}</span>, <span class='m'>G<sub>2</sub> = {4, 5, 6}</span>.</p><p>Chapdan: <span class='m'>3</span> (<span class='m'>G<sub>1</sub></span>), <span class='m'>6</span> (<span class='m'>G<sub>2</sub></span>), <span class='m'>1</span> (<span class='m'>G<sub>1</sub></span>) — to'xtaymiz! Juftlik <span class='m'>(3, 1)</span>; <span class='m'>6</span> va <span class='m'>2</span> chiqadi. Qolgan <span class='m'>5, 4</span> — ikkinchi juftlik.</p><div class='box'>Natija: <span class='m'>3, 1, 5, 4</span> ✅ &nbsp;(Python bilan <span class='m'>N ≤ 7</span> da 21 000 ta tasodifiy qatorda tekshirildi)</div><p>🧠 <b>Savol:</b> nega guruhlarni skanerlash davomida <b>o'zgartirmaslik</b> muhim? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2017 · 6-masala</b> (sonlar nazariyasi, ko'phadlar)</p>"
+    }
+  ]
+}
