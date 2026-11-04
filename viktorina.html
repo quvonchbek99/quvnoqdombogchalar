@@ -311,6 +311,34 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 .conf{position:fixed;top:-40px;font-size:30px;animation:fall 2.6s linear forwards;z-index:9100;pointer-events:none}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
 @media (prefers-reduced-motion:reduce){.conf,.pl,.brd li,.pod .bar{animation:none}}
+/* fanlar bo'yicha filtr */
+.fans{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0 8px;margin:0 0 4px}
+.fans::-webkit-scrollbar{display:none}
+.fans button{flex:0 0 auto;border:1px solid var(--border);background:var(--bg-soft);color:var(--text-dim);padding:8px 12px;border-radius:999px;font-weight:700;font-size:13px;line-height:1;cursor:pointer;white-space:nowrap;min-height:36px}
+@media (min-width:720px){.fans{flex-wrap:wrap;overflow:visible}}
+.fans button[aria-pressed=true]{background:linear-gradient(135deg,#6a5af9,#8b5cf6);color:#fff;border-color:transparent}
+/* QR: bosilganda kattalashadi */
+.lob-join .lj-qr{cursor:zoom-in;position:relative}
+.lob-join .lj-qrw{justify-self:center;display:flex;flex-direction:column;align-items:center;max-width:100%}
+@media (max-width:900px){.lob-join .lj-qrw{order:-1}}
+.lob-join .lj-zoom{display:block;margin:6px auto 0;font-size:clamp(12px,1.4vw,15px);font-weight:800;color:#1d3fbf;background:none;border:0;cursor:zoom-in;padding:4px 8px}
+.ov-top .pill#hPin{cursor:zoom-in}
+.qrbig{position:fixed;inset:0;z-index:9800;background:#fff;color:#0b1220;display:flex;align-items:center;justify-content:center;gap:4vmin;padding:3vmin;cursor:zoom-out;flex-wrap:wrap}
+.qrbig[hidden]{display:none}
+.qrbig .qb-qr{width:min(90vmin,88vh);aspect-ratio:1;max-width:100%}
+.qrbig .qb-qr svg{width:100%;height:100%;display:block}
+.qrbig .qb-side{text-align:center;font-weight:800;color:#4a5677;font-size:clamp(16px,2.4vmin,26px)}
+.qrbig .qb-side b{display:block;font:900 clamp(56px,13vmin,150px)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:#0b1220;margin:6px 0 14px}
+.qrbig .qb-url{color:#1d3fbf;word-break:break-all;margin-bottom:14px}
+.qrbig .qb-x{font-size:clamp(13px,1.8vmin,18px);color:#8a93a8}
+@media (orientation:portrait){.qrbig .qb-qr{width:min(94vw,68vh)}}
+/* sertifikat */
+.cert{display:flex;flex-direction:column;gap:8px;align-items:center;width:min(440px,100%)}
+.cert img{width:100%;border-radius:8px;background:#fff;box-shadow:0 6px 22px rgba(0,0,0,.35)}
+.cert .row2{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%}
+.cert .row2 .btn{flex:1 1 150px;min-height:46px}
+.cert .note{font-size:13px;color:var(--text-dim);margin:0}
+.pv.endv{justify-content:flex-start;overflow:auto;padding:8px 2px 14px}
 </style>
 <script async src="statistika.js"></script>
 <style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
@@ -333,7 +361,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="hero">
 <span class="kicker">⚡ Jonli viktorina</span>
 <h1>Viktorina <span>butun sinf bilan</span></h1>
-<p class="lead">Kahoot uslubida, o'zbek tilida: savol katta ekranda, o'quvchilar telefondan kod bilan kirib javob beradi. Tez va to'g'ri javob — ko'p ochko, xato bo'lsa — yechimi ko'rsatiladi.</p>
+<p class="lead">Kahoot uslubida, o'zbek tilida: savol katta ekranda, o'quvchilar telefondan kod yoki QR bilan kirib javob beradi. Matematika, mantiq, ingliz va rus tili, fizika, kimyo, biologiya, geografiya, tarix, informatika va ona tili — hammasi bir joyda. Oxirida har bir o'quvchi PDF sertifikat oladi.</p>
 </div>
 
 <section class="card" id="cJoin">
@@ -351,9 +379,10 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <h2 style="margin:26px 0 0;font-size:22px">👩‍🏫 O'qituvchi: viktorina ochish</h2>
 <section class="card" id="cTopic">
 <h2><span class="num">1</span>Mavzu</h2>
-<p class="sub">Bitta yoki bir nechta mavzu tanlang — savollar shu mavzular generatoridan, har safar yangi chiqadi.</p>
+<p class="sub">Avval fanni, keyin bitta yoki bir nechta mavzuni tanlang — savollar shu mavzular generatoridan, har safar yangi chiqadi.</p>
+<div class="fans" id="tFans" role="toolbar" aria-label="Fanlar"></div>
 <div class="selbar"><div id="selChips" class="chips"></div><button type="button" id="selDaraja" class="btn small" title="1–11-sinf, 100 ta savol, osondan qiyinga">🎯 Daraja testi</button><button type="button" id="selClear" class="btn small">Tozalash</button></div>
-<input id="tSearch" class="field" type="search" placeholder="🔎 Mavzu qidirish: logarifm, 63, kasr, foiz…" aria-label="Mavzu qidirish" autocomplete="off">
+<input id="tSearch" class="field" type="search" placeholder="🔎 Mavzu qidirish: logarifm, kasr, lug'at, Om qonuni, poytaxt…" aria-label="Mavzu qidirish" autocomplete="off">
 <div id="tList" class="tlist"></div>
 </section>
 
@@ -419,13 +448,16 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <section class="card how">
 <h2>📖 Qanday o'ynaladi</h2>
 <ul>
-<li><b>O'qituvchi</b> mavzuni tanlab xona ochadi — ekranda 5 belgili <b>kod</b> va QR kod chiqadi. Kompyuterni proyektorga yoki aqlli doskaga ulang.</li>
+<li><b>O'qituvchi</b> fan va mavzuni tanlab xona ochadi — ekranda 5 belgili <b>kod</b> va QR kod chiqadi. Kompyuterni proyektorga yoki aqlli doskaga ulang.</li>
+<li><b>QR kodni bosing</b> — u butun ekranga kattalashadi, orqa partadagilar ham skanerlay oladi. O'yin davomida yuqoridagi <b>«Kod 🔍»</b> tugmasi ham katta QR ni ochadi — kech qolganlar kiraveradi.</li>
 <li><b>O'quvchilar</b> telefonda shu sahifani ochib (yoki QR kodni skanerlab) kodni yozadi va ismini kiritadi — <b>guruh ro'yxati</b> ulangan bo'lsa, ismini ro'yxatdan tanlab, xohlasa nik yozadi. Ismlar ekranda paydo bo'ladi.</li>
 <li><b>Guruh ro'yxati</b>: «Davomat saytidan yuklash» (davomat saytidagi login va parol bilan) yoki «Ro'yxatni o'zim qo'yaman» — matn, Excel, CSV yoki TXT fayl. Ro'yxat shu qurilmada saqlanib qoladi.</li>
 <li>Savol katta ekranda chiqadi, o'quvchilar telefondagi <b>rangli tugmani</b> (▲ ◆ ● ■) bosadi.</li>
 <li><b>To'g'ri va tez</b> javob — 500 dan 1000 gacha ochko, ketma-ket to'g'ri javoblar uchun qo'shimcha bonus.</li>
 <li>Har savoldan keyin to'g'ri javob, <b>yechim qadamlari</b> va qaysi variantni nechta o'quvchi tanlagani ko'rsatiladi; o'quvchi telefonida o'z natijasi va xato bo'lsa — yechimi chiqadi.</li>
 <li>Oxirida shohsupa, to'liq reyting, savollar tahlili va <b>natijalarni yuklab olish</b> (Excel uchun CSV).</li>
+<li><b>📜 Sertifikat</b>: har bir o'quvchi telefonida o'z sertifikatini ko'radi va PDF qilib yuklab oladi (o'rni, to'g'ri javoblari, aniqligi bilan). O'qituvchi «Hammaga sertifikat (PDF)» tugmasi bilan butun sinfnikini bitta faylda oladi — oq-qora, oddiy printerda chop etsa bo'ladi.</li>
+<li><b>Kira olmayotgan o'quvchi</b> bo'lsa: telefon internetini (Wi-Fi yoki mobil) almashtirib ko'rsin — sahifa endi uchta server orqali ulanadi va eski telefonlar uchun alohida moslashgan; ulanmasa o'zi yana bir marta urinadi.</li>
 <li><b>Savollar har doim osondan qiyinga</b> tartiblanadi: avval daraja, keyin shu daraja ichida sonlar va amallar soni bo'yicha.</li>
 <li><b>🧊 3D rejim</b>: savol kartasi va rangli tugmalar 3D ko'rinishda chiqadi, to'g'ri javob oldinga chiqadi, reyting va shohsupa ham 3D. Yuqoridagi 🧊 tugmasi bilan yoqib-o'chiriladi.</li>
 <li><b>Avtomatik rejim</b>: vaqt tugashi (yoki hamma javob berishi) bilan to'g'ri javob chiqadi, bir necha soniyadan keyin reyting, so'ng keyingi savol o'zi boshlanadi. <b>⏸️ Pauza</b> tugmasi bilan to'xtatib, <b>▶ Davom</b> bilan davom ettirasiz.</li>
@@ -445,7 +477,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="ov-top">
 <button type="button" data-a="exit" title="Yopish" aria-label="Yopish">✕</button>
 <div class="ttl" id="hTitle"></div>
-<span class="pill" id="hPin">Kod: <b>—</b></span>
+<span class="pill" id="hPin" role="button" tabindex="0" title="Bosing — QR kod katta ko'rinadi (kech qolganlar uchun)">Kod: <b>—</b></span>
 <span class="pill" id="hCnt">👥 0</span>
 <button type="button" data-a="sound" title="Ovoz" aria-label="Ovoz">🔊</button>
 <button type="button" data-a="d3" title="3D rejim" aria-label="3D rejim" aria-pressed="false">🧊</button>
@@ -467,7 +499,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="ka-tarmoq.js?v=20261030b"></script>
+<script src="ka-tarmoq.js?v=20261104a"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
 (function () {
@@ -475,7 +507,23 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   // Shifrlash (crypto.subtle) faqat https da ishlaydi — http orqali ochilsa https ga o'tkazamiz
   if (location.protocol === "http:" && !/^(localhost|127\.|\[::1\]|192\.168\.|10\.)/.test(location.hostname)) { location.replace("https:" + location.href.slice(5)); return; }
   var TOPICS=[["a1","A1. Qo'shish amali",0],["a2","A2. Ayirish amali",0],["a3","A3. Ko'paytirish amali",0],["a4","A4. Bo'lish amali",0],["a5","A5. Foizlar bilan amallar",0],["a6","A6. Darajaga ko'tarish amali",0],["a7","A7. Ko'paytirish (karra) jadvali",0],["a8","A8. Sonlar",0],["t1","1. Kvadrat funksiya va uning grafigi",1],["t2","2. Kvadrat tengsizlik va uning yechimi",1],["t3","3. Trigonometrik ayniyatlar",1],["t4","4. Arifmetik va geometrik progressiya",1],["t5","5. Funksiya tushunchasi",1],["t6","6. Funksiya xossalari",1],["t7","7. Funksiya grafiklarini sodda almashtirishlar",1],["t8","8. Chiziqli va kvadratik modellashtirish",1],["t9","9. Loyiha ishi. Munosabatlar va funksiyalar",1],["t10","10. Sodda ratsional tenglamalar",1],["t11","11. Sodda ratsional tenglamalar sistemasi",1],["t12","12. Sodda ratsional tengsizliklar",1],["t13","13. Sodda ratsional tengsizliklar sistemasi",1],["t14","14. Ratsional tenglamalarga doir misollar yechish",1],["t15","15. Sodda irratsional tenglamalar",1],["t16","16. Irratsional tenglamalarga doir misollar yechish",1],["t17","17. Sodda irratsional tenglamalar sistemalari",1],["t18","18. Ratsional va irratsional ifodalarga doir misollar",1],["t19","19. Ko'rsatkichli funksiya",1],["t20","20. Logarifmik funksiya",1],["t21","21. Ko'rsatkichli va logarifmik ifodalarni soddalashtirish",1],["t22","22. Sodda ko'rsatkichli tenglamalar",1],["t23","23. Sodda logarifmik tenglamalar",1],["t24","24. Ko'rsatkichli va logarifmik tenglamalar sistemasi",1],["t25","25. Sodda ko'rsatkichli tengsizliklar",1],["t26","26. Sodda logarifmik tengsizliklar",1],["t27","27. Ko'rsatkichli modellashtirish",1],["t28","28. Ko'rsatkichli va logarifmik ifodalarga doir misollar",1],["t29","29. Trigonometrik funksiyalar",1],["t30","30. Teskari trigonometrik funksiyalar",1],["t31","31. Trigonometrik funksiyalarga doir misollar",1],["t32","32. STEM topshiriq",1],["t33","33. sinx=a, cosx=a trigonometrik tenglamalar",1],["t34","34. tgx=a, ctgx=a trigonometrik tenglamalar",1],["t35","35. Trigonometrik tenglamalarni yechish",1],["t36","36. Eng sodda trigonometrik tengsizliklar",1],["t37","37. Tasodifiy hodisalar",1],["t38","38. Ehtimollikni hisoblashda kombinatorika formulalaridan foydalanish",1],["t39","39. Teng ehtimolli hodisalar",1],["t40","40. Planimetriyaning mantiqiy tuzilishi",1],["t41","41. Geometrik masalalar va ularni yechish usullari",1],["t42","42. Stereometriyaning asosiy tushunchalari",1],["t43","43. Fazoda to'g'ri chiziqlar va tekisliklar",1],["t44","44. Fazoviy geometrik shakllar. Ko'pyoqlar",1],["t45","45. Ko'pyoqlarni tasvirlash va modelini yasash",1],["t46","46. Fazoda to'g'ri chiziqlarning o'zaro joylashuvi",1],["t47","47. Ayqash to'g'ri chiziqlar",1],["t48","48. Fazoda to'g'ri chiziqlar va tekisliklarning o'zaro joylashuvi",1],["t49","49. Fazoda tekisliklarning o'zaro joylashuvi",1],["t50","50. Fazoda parallel proyeksiyalash",1],["t51","51. Qisqa ko'paytirish formulalari",2],["t52","52. Ko'phadni ko'paytuvchilarga ajratish",2],["t53","53. Modulli tenglamalar va tengsizliklar",2],["t54","54. Arifmetik progressiya",2],["t55","55. Geometrik progressiya",2],["t56","56. Nisbat, proporsiya va foizli masalalar",2],["t57","57. O'rta qiymatlar (arifmetik, geometrik, garmonik)",2],["t58","58. Determinantlar va Kramer usuli",2],["t59","59. Funksiyaning limiti asoslari",2],["t60","60. Hosila va uning tatbiqlari (asosiy formulalar)",2],["t61","61. Bo'linish belgilari, EKUB va EKUK",2],["t62","62. Kvadrat ildiz va ratsional ko'rsatkichli daraja",2],["t63","63. Vyet teoremasi",2],["t64","64. Irratsional tenglamalar",2],["t65","65. Funksiyaning aniqlanish sohasi (ODZ)",2],["t66","66. Gorner sxemasi va Bezu teoremasi",2],["t67","67. Logarifm xossalari va sodda logarifmik tenglamalar",2],["t68","68. Asosiy trigonometrik ayniyatlar va keltirish formulalari",2],["t69","69. Sodda trigonometrik tenglamalar (sinx=a, cosx=a)",2],["t70","70. Aniqmas integral asoslari",2],["t71","71. Uchburchak va uning xossalari",3],["t72","72. To'rtburchaklar va ularning xossalari",3],["t73","73. Aylana va doira",3],["t74","74. Muntazam ko'pburchaklar",3],["t75","75. Prizma va parallelepiped",3],["t76","76. Piramida",3],["t77","77. Silindr",3],["t78","78. Konus",3],["t79","79. Shar va sfera",3],["t80","80. Ichki va tashqi chizilgan shakllar",3],["t81","81. Jismlar kombinatsiyasi (shar, silindr, konus, prizma)",3],["t82","82. Dekart koordinatalari (tekislikda)",3],["t83","83. Vektorlar (tekislikda)",3],["t84","84. Fazoda koordinatalar va vektorlar",3],["t85","85. Sinuslar va kosinuslar teoremalari",3],["t86","86. Shakllar o'xshashligi",3],["t87","87. Fazoda burchak va masofalar",3],["t88","88. Jismlarning kesimlari",3],["t89","89. Faktorial",4],["t90","90. Kombinatorikaning asosiy qoidalari",4],["t91","91. O'rin almashtirish, o'rinlashtirish va guruhlash",4],["t92","92. Ehtimollik: klassik ta'rif",4],["t93","93. Ehtimollik qoidalari",4],["t94","94. To'plamlar nazariyasi asoslari",4],["t95","95. Eyler–Venn doiralari va inkluziya-eksklyuziya",4],["t96","96. Nyuton binomi",4],["t97","97. Fizika uchun matematika: formulalar bilan ishlash",5],["t98","98. O'lchov birliklari va shkala",5],["t99","99. Standart og'ish, tanlanma va xatolik chegarasi",6],["t100","100. Diagrammalar: nuqtali, quti, gistogramma",6],["t101","101. Sochilma diagramma va eng yaxshi moslik chizig'i",6],["t102","102. Kompleks sonlar",6],["s1","1-sinf savollari (daraja testi)",7],["s2","2-sinf savollari (daraja testi)",7],["s3","3-sinf savollari (daraja testi)",7],["s4","4-sinf savollari (daraja testi)",7],["s5","5-sinf savollari (daraja testi)",7],["s6","6-sinf savollari (daraja testi)",7],["s7","7-sinf savollari (daraja testi)",7],["s8","8-sinf savollari (daraja testi)",7],["s9","9-sinf savollari (daraja testi)",7],["s10","10-sinf savollari (daraja testi)",7],["s11","11-sinf savollari (daraja testi)",7]];
-  var GROUPS = ["🧮 Asosiy amallar", "📘 Mavzular (1–50)", "🎓 Algebra · Milliy sertifikat (51–70)", "📐 Geometriya (71–88)", "🎲 Kombinatorika va ehtimollik (89–96)", "⚛️ Fizika uchun matematika (97–98)", "📊 SAT statistika (99–102)", "🎯 Sinflar bo'yicha — daraja testi (1–11-sinf)"];
+  // 1–9-sinf modullari va boshqa fanlar (generatorlari: ka-sinf-modullar.js, ka-savollar-fanlar.js, ka-fan-tabiiy.js, ka-fan-ijtimoiy.js)
+  TOPICS = TOPICS.concat([["s1m1","1-sinf · 1 dan 20 gacha sonlar",8],["s1m2","1-sinf · 10 ichida qo'shish va ayirish",8],["s1m3","1-sinf · 20 ichida o'nlikdan o'tib qo'shish va ayirish",8],["s1m4","1-sinf · Shakllar va sodda masalalar",8],["s2m1","2-sinf · 100 ichida qo'shish va ayirish",8],["s2m2","2-sinf · Ko'paytirish va bo'lish jadvali (2–5)",8],["s2m3","2-sinf · Uzunlik, vaqt, massa birliklari",8],["s2m4","2-sinf · Matnli masalalar: narx, «marta ko'p»",8],["s3m1","3-sinf · Ko'paytirish va bo'lish jadvali (to'liq)",8],["s3m2","3-sinf · 1000 ichida qo'shish va ayirish",8],["s3m3","3-sinf · Jadvaldan tashqari ko'paytirish va bo'lish",8],["s3m4","3-sinf · Perimetr va ikki amalli masalalar",8],["s4m1","4-sinf · Ko'p xonali sonlar",8],["s4m2","4-sinf · Ustun ko'paytirish va burchakli bo'lish",8],["s4m3","4-sinf · Tezlik, vaqt, masofa",8],["s4m4","4-sinf · Yuza va ulushlar (kasr tushunchasi)",8],["s5m1","5-sinf · Natural sonlar va bo'linish",8],["s5m2","5-sinf · Oddiy kasrlar",8],["s5m3","5-sinf · O'nli kasrlar",8],["s5m4","5-sinf · Foizlar",8],["s5m5","5-sinf · Burchaklar va uchburchak",8],["s6m1","6-sinf · Nisbat va proporsiya",8],["s6m2","6-sinf · Butun sonlar",8],["s6m3","6-sinf · Ratsional sonlar ustida amallar",8],["s6m4","6-sinf · Chiziqli tenglamalar",8],["s6m5","6-sinf · Koordinata tekisligi",8],["s7m1","7-sinf · Natural ko'rsatkichli daraja",8],["s7m2","7-sinf · Ko'phadlar va qisqa ko'paytirish formulalari",8],["s7m3","7-sinf · Chiziqli tenglamalar sistemasi",8],["s7m4","7-sinf · Uchburchaklar va parallel to'g'ri chiziqlar",8],["s8m1","8-sinf · Kvadrat ildizlar",8],["s8m2","8-sinf · Kvadrat tenglamalar",8],["s8m3","8-sinf · To'rtburchaklar va Pifagor teoremasi",8],["s8m4","8-sinf · Algebraik kasrlar",8],["s9m1","9-sinf · Kvadrat funksiya va kvadrat tengsizliklar",8],["s9m2","9-sinf · Arifmetik va geometrik progressiya",8],["s9m3","9-sinf · Trigonometriya asoslari",8],["s9m4","9-sinf · Aylana, doira va o'xshashlik",8],["s9m5","9-sinf · Ehtimollik elementlari",8],
+    ["m1","Mantiq · Sonli ketma-ketliklar",9],["m2","Mantiq · Ortiqchasini toping",9],["m3","Mantiq · Harflar, kunlar, oylar va soat",9],["m4","Mantiq · Mantiqiy xulosa (sillogizmlar)",9],["m5","Mantiq · Tartiblash va taqqoslash",9],["m6","Mantiq · Mantiqiy masalalar",9],
+    ["e1","Ingliz tili · Lug'at A1 (4000 Essential Words 1)",10],["e2","Ingliz tili · Lug'at A2 (4000 Essential Words 2)",10],["e3","Ingliz tili · Lug'at B1 (4000 Essential Words 3)",10],["e4","Ingliz tili · Lug'at B1+ (4000 Essential Words 4)",10],["e5","Ingliz tili · Lug'at B2 (4000 Essential Words 5)",10],["e6","Ingliz tili · Lug'at C1 (4000 Essential Words 6)",10],["e7","Ingliz tili · To be va Present Simple",10],["e8","Ingliz tili · Noto'g'ri fe'llar (V2, V3)",10],["e9","Ingliz tili · Artikllar, ko'plik, predloglar",10],["e10","Ingliz tili · Sifat darajalari va zamonlar",10],
+    ["r1","Rus tili · Lug'at: ruscha → o'zbekcha",11],["r2","Rus tili · Lug'at: o'zbekcha → ruscha",11],["r3","Rus tili · Olmoshlar kelishiklarda",11],["r4","Rus tili · Otlarning jinsi (м, ж, ср)",11],["r5","Rus tili · Sonlar, hafta kunlari va oylar",11],["r6","Rus tili · Kundalik iboralar",11],
+    ["f1","Fizika · Mexanika: tezlik, kuch, bosim",12],["f2","Fizika · Ish, quvvat va energiya",12],["f3","Fizika · Elektr: Om qonuni, quvvat",12],["f4","Fizika · Issiqlik, zichlik, Arximed kuchi",12],["f5","Fizika · Kattaliklar, birliklar va olimlar",12],
+    ["k1","Kimyo · Kimyoviy elementlar va belgilar",13],["k2","Kimyo · Molyar massa va modda miqdori",13],["k3","Kimyo · Asosiy tushunchalar va reaksiyalar",13],
+    ["b1","Biologiya · Hujayra va tirik organizmlar",14],["b2","Biologiya · Odam anatomiyasi va salomatlik",14],["b3","Biologiya · O'simliklar va hayvonlar dunyosi",14],
+    ["g1","Geografiya · Davlatlar va poytaxtlar",15],["g2","Geografiya · O'zbekiston geografiyasi",15],["g3","Geografiya · Materiklar, okeanlar va tabiat",15],
+    ["h1","Tarix · O'zbekiston tarixi: muhim sanalar",16],["h2","Tarix · Buyuk allomalar va ularning asarlari",16],["h3","Tarix · Jahon tarixi",16],
+    ["i1","Informatika · Sanoq sistemalari",17],["i2","Informatika · Axborot birliklari",17],["i3","Informatika · Kompyuter, internet va dasturlash",17],["i4","Informatika · Mantiqiy amallar va algoritmlar",17],["i5","Informatika · Robototexnika asoslari",17],
+    ["o1","Ona tili · Kelishiklar va qo'shimchalar",18],["o2","Ona tili · So'z turkumlari",18],["o3","Ona tili · Fonetika va imlo",18]]);
+  var GROUPS = ["🧮 Asosiy amallar", "📘 Mavzular (1–50)", "🎓 Algebra · Milliy sertifikat (51–70)", "📐 Geometriya (71–88)", "🎲 Kombinatorika va ehtimollik (89–96)", "⚛️ Fizika uchun matematika (97–98)", "📊 SAT statistika (99–102)", "🎯 Sinflar bo'yicha — daraja testi (1–11-sinf)", "🏫 1–9-sinf modullari", "🧠 Mantiq", "🇬🇧 Ingliz tili", "🇷🇺 Rus tili", "⚛️ Fizika", "🧪 Kimyo", "🧬 Biologiya", "🌍 Geografiya", "📜 Tarix", "💻 Informatika va robototexnika", "📝 Ona tili"];
+  // fanlar: qaysi guruhlar qaysi fanga tegishli (filtr tugmalari)
+  var FANS = [["all", "🌐 Hammasi", null], ["mat", "📐 Matematika", [0, 1, 2, 3, 4, 5, 6, 7, 8]], ["mantiq", "🧠 Mantiq", [9]], ["ingliz", "🇬🇧 Ingliz tili", [10]], ["rus", "🇷🇺 Rus tili", [11]], ["fizika", "⚛️ Fizika", [12, 5]], ["kimyo", "🧪 Kimyo", [13]], ["biologiya", "🧬 Biologiya", [14]], ["geografiya", "🌍 Geografiya", [15]], ["tarix", "📜 Tarix", [16]], ["informatika", "💻 Informatika", [17]], ["ona", "📝 Ona tili", [18]]];
+  var fanParam = (/[?&]fan=([a-z]+)/i.exec(location.search) || [])[1];
+  var curFan = fanParam && FANS.some(function (f) { return f[0] === fanParam; }) ? fanParam : "all";
   var TITLE = {}; TOPICS.forEach(function (t) { TITLE[t[0]] = t[1]; });
   var COL = ["var(--c0)", "var(--c1)", "var(--c2)", "var(--c3)"];
   var SHAPES = [
@@ -484,8 +532,9 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="#fff"/></svg>',
     '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="30" height="30" rx="3" fill="#fff"/></svg>'];
   var SHAPE_NAME = ["▲ qizil", "◆ ko'k", "● sariq", "■ yashil"];
-  var GEN_FILES = ["ka-savollar.js", "ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js", "ka-savollar-6.js", "ka-savollar-7.js", "ka-savollar-8.js", "ka-savollar-9.js", "ka-savollar-10.js", "ka-savollar-11.js", "ka-savollar-12.js", "ka-sinf-modullar.js"];
-  var QR_SRC = "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
+  var GEN_FILES = ["ka-savollar.js", "ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js", "ka-savollar-6.js", "ka-savollar-7.js", "ka-savollar-8.js", "ka-savollar-9.js", "ka-savollar-10.js", "ka-savollar-11.js", "ka-savollar-12.js", "ka-sinf-modullar.js", "ka-savollar-fanlar.js", "ka-fan-tabiiy.js", "ka-fan-ijtimoiy.js"];
+  // QR kutubxonasi saytning o'zida (CDN ochilmasa ham ishlaydi), zaxira — cdnjs
+  var QR_SRCS = ["vendor/qrcode-1.4.4.min.js", "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"];
   var LS = "ka.viktorina.v1", LS_P = "ka.viktorina.join.v1", MAX_PLAYERS = 80;
   var LS_R = "ka.viktorina.rosters.v1", LS_NICK = "ka.viktorina.nicks.v1", LS_DVT = "ka.viktorina.dvtoken.v1", LS_ME = "ka.viktorina.me.v1";
   var DV_API = "https://script.google.com/macros/s/AKfycbxEa3ESFb2i-PDxujZPGA_wvAoi2TPZ_XWVVrX50rZMfKZmGk2xBrdbQWnSA0o57nL4/exec"; // Davomat sayti (quvonchbek99.github.io/davomat)
@@ -509,11 +558,16 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function vib(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
 
   /* ---------------- sozlamalar ---------------- */
-  var cfg = { topics: [], count: 10, lvl: "prog", time: 20, auto: 8, showQ: true, sound: true, full: true, d3: true, rmode: "free", rkey: "" };
+  var cfg = { topics: [], count: 10, lvl: "prog", time: 20, auto: 8, showQ: true, sound: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all" };
   try { var sv = JSON.parse(localStorage.getItem(LS) || "null"); if (sv) for (var k in sv) if (k in cfg) cfg[k] = sv[k]; } catch (e) {}
   var qp = /[?&]mavzu=([a-z0-9,]+)/i.exec(location.search);
   if (qp) cfg.topics = qp[1].split(",");
   cfg.topics = cfg.topics.filter(function (id) { return TITLE[id]; });
+  if (!fanParam && cfg.fan && FANS.some(function (f) { return f[0] === cfg.fan; })) curFan = cfg.fan;
+  if (qp && !fanParam && cfg.topics.length) { // ?mavzu= bilan kelganda — o'sha mavzular fanini ko'rsatamiz
+    var g0 = (TOPICS.filter(function (t) { return t[0] === cfg.topics[0]; })[0] || [])[2];
+    curFan = "all"; FANS.forEach(function (f) { if (f[2] && f[2].indexOf(g0) > -1 && curFan === "all") curFan = f[0]; });
+  }
   function saveCfg() { try { localStorage.setItem(LS, JSON.stringify(cfg)); } catch (e) {} }
   var kodParam = (/[?&]kod=([A-Za-z0-9]{5})/.exec(location.search) || [])[1];
 
@@ -617,12 +671,38 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   }
 
   /* ================= SOZLASH SAHIFASI ================= */
+  /* fan filtri + qidiruv: ikkala ro'yxat (sozlamalar va yakun ekrani) uchun umumiy */
+  function rowTitle(t) { return t[2] >= 9 && t[1].indexOf(" · ") > 0 ? t[1].split(" · ").slice(1).join(" · ") : t[1]; } // fan guruhida "Fizika · " takrorlanmasin
+  function fanHtml() { return FANS.map(function (f) { return '<button type="button" data-fan="' + f[0] + '" aria-pressed="' + (f[0] === curFan) + '">' + f[1] + "</button>"; }).join(""); }
+  function filterList(box, q) {
+    if (!box) return;
+    var fan = FANS.filter(function (f) { return f[0] === curFan; })[0], gs = fan && fan[2];
+    q = String(q || "").trim().toLowerCase().replace(/[ʻʼ‘’`]/g, "'");
+    $$(".tg", box).forEach(function (tg) {
+      var inFan = !gs || gs.indexOf(+tg.dataset.g) > -1, any = false;
+      $$(".trow", tg).forEach(function (r) { var ok = inFan && (!q || r.dataset.s.replace(/[ʻʼ‘’`]/g, "'").indexOf(q) > -1); r.style.display = ok ? "" : "none"; if (ok) any = true; });
+      tg.style.display = any ? "" : "none";
+      if (any && (q || (gs && gs.length === 1))) tg.open = true; // qidiruvda yoki bitta guruhli fanda — darhol ochiq
+    });
+  }
+  function bindFans(fansEl, box, searchEl) {
+    fansEl.innerHTML = fanHtml();
+    var on0 = $('[aria-pressed="true"]', fansEl); if (on0 && on0.offsetLeft > fansEl.clientWidth - 60) fansEl.scrollLeft = on0.offsetLeft - 12; // tanlangan fan ko'rinsin (telefonda)
+    fansEl.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-fan]"); if (!b) return;
+      curFan = b.dataset.fan; cfg.fan = curFan; saveCfg();
+      $$("button[data-fan]").forEach(function (x) { x.setAttribute("aria-pressed", x.dataset.fan === curFan ? "true" : "false"); });
+      filterList($("#tList"), $("#tSearch") ? $("#tSearch").value : ""); filterList($("#eList"), $("#eSearch") ? $("#eSearch").value : "");
+    });
+    searchEl.addEventListener("input", function () { filterList(box, this.value); });
+    filterList(box, "");
+  }
   function renderTopics() {
     var box = $("#tList"), html = "";
     GROUPS.forEach(function (gn, gi) {
       var rows = TOPICS.filter(function (t) { return t[2] === gi; });
-      html += '<details class="tg"' + (rows.some(function (t) { return cfg.topics.indexOf(t[0]) > -1; }) ? " open" : "") + '><summary><span>' + esc(gn) + '</span><span class="cnt"></span><button type="button" class="all">Hammasi</button></summary><div>' +
-        rows.map(function (t) { return '<label class="trow" data-id="' + t[0] + '" data-s="' + esc(t[1].toLowerCase()) + '"><input type="checkbox" value="' + t[0] + '"><span>' + esc(t[1]) + "</span></label>"; }).join("") + "</div></details>";
+      html += '<details class="tg" data-g="' + gi + '"' + (rows.some(function (t) { return cfg.topics.indexOf(t[0]) > -1; }) ? " open" : "") + '><summary><span>' + esc(gn) + '</span><span class="cnt"></span><button type="button" class="all">Hammasi</button></summary><div>' +
+        rows.map(function (t) { return '<label class="trow" data-id="' + t[0] + '" data-s="' + esc(t[1].toLowerCase()) + '"><input type="checkbox" value="' + t[0] + '"><span>' + esc(rowTitle(t)) + "</span></label>"; }).join("") + "</div></details>";
     });
     box.innerHTML = html;
     box.addEventListener("change", function (e) {
@@ -640,14 +720,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
         tg.open = true; syncTopics();
       });
     });
-    $("#tSearch").addEventListener("input", function () {
-      var q = this.value.trim().toLowerCase().replace(/[ʻʼ‘’`]/g, "'");
-      $$(".tg", box).forEach(function (tg) {
-        var any = false;
-        $$(".trow", tg).forEach(function (r) { var ok = !q || r.dataset.s.replace(/[ʻʼ‘’`]/g, "'").indexOf(q) > -1; r.style.display = ok ? "" : "none"; if (ok) any = true; });
-        tg.style.display = any ? "" : "none"; if (q && any) tg.open = true;
-      });
-    });
+    bindFans($("#tFans"), box, $("#tSearch"));
     $("#selClear").onclick = function () { cfg.topics = []; syncTopics(); };
     $("#selDaraja").onclick = function () { cfg.topics = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11"]; cfg.count = 100; cfg.lvl = "prog"; syncTopics(); $$("#cntOpts .opt").forEach(function (b) { b.classList.toggle("on", +b.dataset.v === 100); }); $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === "prog"); }); if (typeof summary === "function") summary(); toast("Daraja testi: 11 sinf, 100 savol, osondan qiyinga"); };
     $("#selChips").addEventListener("click", function (e) {
@@ -841,13 +914,19 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   /* ---------------- savollar generatori (faqat o'qituvchida yuklanadi) ---------------- */
   var genReady = null;
   function loadGens() {
-    if (window.kaSavol && window.kaSavol.has("t102") && window.kaSavol.has("s11")) return Promise.resolve();
+    if (window.kaSavol && ["t102", "s11", "m1", "f1", "b1"].every(function (id) { return window.kaSavol.has(id); })) return Promise.resolve();
     if (genReady) return genReady;
+    var mark = { "ka-savollar-fanlar.js": "m1", "ka-fan-tabiiy.js": "f1", "ka-fan-ijtimoiy.js": "b1" };
     genReady = GEN_FILES.reduce(function (p, f) {
-      return p.then(function () { return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261030c"; s.onload = res; s.onerror = res; document.head.appendChild(s); }); });
+      return p.then(function () {
+        if (mark[f] && window.kaSavol && window.kaSavol.has(mark[f])) return;
+        return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261104a"; s.onload = res; s.onerror = res; document.head.appendChild(s); });
+      });
     }, Promise.resolve());
     return genReady;
   }
+  // generatorlar + tanlangan fanlarning lug'at fayllari (ingliz/rus tili) — faqat kerak bo'lganda
+  function prepTopics() { return loadGens().then(function () { return window.kaFan && window.kaFan.prep ? window.kaFan.prep(cfg.topics) : null; }); }
   function buildQs() {
     var out = [], seen = {}, n = cfg.count, guard = 0, tps = cfg.topics.filter(function (id) { return kaSavol.has(id); });
     function lv(i) { return cfg.lvl === "prog" ? 1 + Math.min(2, Math.floor(3 * i / n)) : cfg.lvl === "mix" ? rnd(1, 3) : +cfg.lvl || 2; }
@@ -892,7 +971,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     }
     saveCfg();
     var go = $("#go"); go.disabled = true; go.textContent = "⏳ Tayyorlanmoqda…";
-    loadGens().then(function () {
+    prepTopics().then(function () {
       go.disabled = false; go.textContent = "🚪 Xona ochish";
       if (!window.kaSavol) { toast("Savollar yuklanmadi — internetni tekshiring"); return; }
       var ro = cfg.rmode === "list" ? curRoster() : null;
@@ -951,7 +1030,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     }).then(function (api) {
       if (!H) { api.close(); return; }
       H.api = api; H.code = api.code;
-      $("#hPin").innerHTML = "Kod: <b>" + api.code + "</b>";
+      $("#hPin").innerHTML = "Kod: <b>" + api.code + "</b> 🔍";
       renderLobby();
     }).catch(function (e) { lobbyError(e); });
   }
@@ -994,11 +1073,13 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     var body = hEl(), ps = allPlayers();
     if (!$(".lob", body)) {
       body.innerHTML = '<div class="lob"><div class="lob-join"><div class="lj-txt">Telefonda oching:<b id="lUrl"></b>yoki QR kodni skanerlang</div>' +
-        '<div class="lj-qr" id="lQr" aria-label="QR kod"></div><div class="lj-pin">Kod<b id="lPin">· · · · ·</b></div></div>' +
+        '<div class="lj-qrw"><div class="lj-qr" id="lQr" role="button" tabindex="0" aria-label="QR kod — kattalashtirish uchun bosing" title="Kattalashtirish uchun bosing"></div><button type="button" class="lj-zoom" id="lZoom">🔍 Bosing — QR kattalashadi</button></div><div class="lj-pin">Kod<b id="lPin">· · · · ·</b></div></div>' +
         '<div class="lob-pl"><div class="lob-cnt" id="lCnt"></div><div class="pls" id="lPls"></div></div>' +
         '<div class="lob-go"><div class="info">' + H.qs.length + " ta savol · " + cfg.time + " soniyadan · " + esc(lvlName(cfg.lvl)) + '<div class="lob-err" id="lobErr"></div></div>' +
         '<button type="button" class="nextb" id="lStart" disabled>▶ Boshlash</button></div></div>';
       $("#lStart").onclick = startGame;
+      $("#lQr").onclick = showBigQr; $("#lZoom").onclick = showBigQr;
+      $("#lQr").onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showBigQr(); } };
       $("#lPls").addEventListener("click", function (e) {
         var c = e.target.closest(".pl[data-k]"); if (!c) return;
         var p = H.players[c.dataset.k]; if (!p) return;
@@ -1009,7 +1090,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       });
     }
     $("#lUrl").textContent = shortUrl();
-    if (H.code) { $("#lPin").textContent = H.code; drawQr(); }
+    if (H.code) { $("#lPin").textContent = H.code; drawQr(); $("#hPin").innerHTML = "Kod: <b>" + H.code + "</b> 🔍"; }
     $("#lCnt").innerHTML = "👥 <b>" + ps.length + "</b> o'quvchi" + (ps.length ? "" : " — kutilmoqda…");
     var box = $("#lPls"), have = {};
     $$(".pl", box).forEach(function (c) { have[c.dataset.k] = c; });
@@ -1031,14 +1112,43 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     refitFn = null;
   }
   var qrLoad = null;
+  function loadQr() {
+    if (window.qrcode) return Promise.resolve();
+    if (qrLoad) return qrLoad;
+    qrLoad = QR_SRCS.reduce(function (p, src) {
+      return p.catch(function () { return new Promise(function (res, rej) { var s = document.createElement("script"); s.src = src; s.onload = function () { if (window.qrcode) res(); else rej(); }; s.onerror = rej; document.head.appendChild(s); }); });
+    }, Promise.reject()).catch(function (e) { qrLoad = null; throw e; });
+    return qrLoad;
+  }
+  function qrSvg(text) { var q = window.qrcode(0, "M"); q.addData(text); q.make(); return q.createSvgTag({ cellSize: 6, margin: 2, scalable: true }); }
   function drawQr() {
     var box = $("#lQr"); if (!box || box.dataset.code === H.code) return;
     box.dataset.code = H.code;
-    if (!qrLoad) qrLoad = new Promise(function (res, rej) { var s = document.createElement("script"); s.src = QR_SRC; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
-    qrLoad.then(function () {
-      try { var q = window.qrcode(0, "M"); q.addData(joinUrl()); q.make(); box.innerHTML = q.createSvgTag({ cellSize: 6, margin: 2, scalable: true }); } catch (e) { box.textContent = ""; }
-    }).catch(function () { box.textContent = ""; });
+    loadQr().then(function () {
+      if (!H || box.dataset.code !== H.code) return;
+      try { box.innerHTML = qrSvg(joinUrl()); } catch (e) { box.textContent = ""; }
+    }).catch(function () {
+      box.dataset.code = ""; // keyingi chizishda yana urinadi
+      box.innerHTML = '<span style="font:700 14px/1.35 sans-serif;color:#4a5677;padding:12px;text-align:center">QR yuklanmadi.<br>Havola va kod orqali kiring</span>';
+    });
   }
+  /* QR kodni butun ekranga kattalashtirish — orqa partadagilar ham skanerlay oladi */
+  function showBigQr() {
+    if (!H || !H.code) { toast("Xona kodi hali tayyor emas"); return; }
+    var ov = $("#qrBig");
+    if (!ov) {
+      ov = document.createElement("div"); ov.className = "qrbig"; ov.id = "qrBig"; ov.hidden = true;
+      ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", "QR kod — katta ko'rinish");
+      ov.innerHTML = '<div class="qb-qr" id="qbQr"></div><div class="qb-side">Telefon kamerasi bilan skanerlang<br>yoki kodni yozing<b id="qbPin"></b><div class="qb-url" id="qbUrl"></div><div class="qb-x">Yopish uchun istalgan joyni bosing</div></div>';
+      document.body.appendChild(ov);
+      ov.addEventListener("click", function () { ov.hidden = true; });
+    }
+    $("#qbPin", ov).textContent = H.code; $("#qbUrl", ov).textContent = shortUrl();
+    var q = $("#qbQr", ov); q.innerHTML = "";
+    loadQr().then(function () { if (H) q.innerHTML = qrSvg(joinUrl()); }).catch(function () { q.innerHTML = ""; });
+    ov.hidden = false;
+  }
+  document.addEventListener("keydown", function (e) { var ov = $("#qrBig"); if (e.key === "Escape" && ov && !ov.hidden) { ov.hidden = true; e.stopPropagation(); } }, true);
 
   function qMsg(left) {
     var q = H.qs[H.i];
@@ -1221,9 +1331,38 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       if (bar) bar.style.transform = "scaleX(" + (1 - a.left / a.total).toFixed(3) + ")";
     });
   }
+  function dstr() { var d = new Date(); return ("0" + d.getDate()).slice(-2) + "." + ("0" + (d.getMonth() + 1)).slice(-2) + "." + d.getFullYear(); }
+  function certTopic() {
+    var t = cfg.topics.map(function (id) { return TITLE[id]; }).filter(Boolean);
+    if (t.length <= 2) return t.join(", ");
+    var fans = {}; t.forEach(function (x) { fans[x.split(" · ")[0]] = 1; });
+    var f = Object.keys(fans);
+    return f.length <= 3 && f.every(function (x) { return x.length < 26; }) ? f.join(", ") + " (" + t.length + " ta mavzu)" : t.slice(0, 2).join(", ") + " va yana " + (t.length - 2) + " ta mavzu";
+  }
+  function certData(p, rank, of) {
+    return { name: p.name, full: p.full ? String(p.full) : "", group: H.roster ? H.roster.name : "", topic: certTopic(), rank: rank, of: of, correct: p.correct, total: H.qs.length, score: p.score, date: dstr() };
+  }
   function endMsg(p) {
-    var order = ranked();
-    return { type: "end", rank: order.indexOf(p) + 1, of: order.length, score: p.score, correct: p.correct, total: H.qs.length, topic: cfg.topics.length === 1 ? TITLE[cfg.topics[0]] : cfg.topics.length + " ta mavzu" };
+    var order = ranked(), r = order.indexOf(p) + 1;
+    return { type: "end", rank: r, of: order.length, score: p.score, correct: p.correct, total: H.qs.length, topic: cfg.topics.length === 1 ? TITLE[cfg.topics[0]] : cfg.topics.length + " ta mavzu", cert: certData(p, r, order.length) };
+  }
+  var certLoad = null;
+  function loadCert() {
+    if (window.kaSertifikat) return Promise.resolve();
+    if (certLoad) return certLoad;
+    certLoad = new Promise(function (res, rej) { var s = document.createElement("script"); s.src = "ka-sertifikat.js?v=20261104a"; s.onload = function () { window.kaSertifikat ? res() : rej(); }; s.onerror = function () { certLoad = null; rej(); }; document.head.appendChild(s); });
+    return certLoad;
+  }
+  function allCerts(btn) {
+    if (!H) return;
+    var lbl = btn.textContent; btn.disabled = true; btn.textContent = "⏳ Tayyorlanmoqda…";
+    loadCert().then(function () {
+      var order = ranked().filter(function (p) { return p.correct + p.wrong + p.none > 0 || p.online; });
+      if (!order.length) throw new Error("none");
+      return kaSertifikat.pdf(order.map(function (p, i) { return certData(p, i + 1, order.length); }), function (i, n) { btn.textContent = "⏳ " + i + " / " + n; });
+    }).then(function (blob) { kaSertifikat.save(blob, "Sertifikatlar " + dstr()); toast("📜 Sertifikatlar PDF yuklab olindi"); })
+      .catch(function () { toast("Sertifikatlarni tayyorlab bo'lmadi"); })
+      .then(function () { btn.disabled = false; btn.textContent = lbl; });
   }
   function endGame() {
     if (!H) return;
@@ -1248,16 +1387,18 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
         return '<div class="it"><div><span class="pc" style="background:' + bg + '">' + o.pc + "%</span>" + (o.i + 1) + "-savol · <small style=\"color:#9fb0d0\">" + esc(TITLE[o.q.tid] || "") + '</small></div><div class="q">' + safe(o.q.q) + '</div><div class="a">✅ ' + safe(o.q.a) + "</div>" +
           (o.q.steps.length ? "<ol>" + o.q.steps.map(function (s) { return "<li>" + safe(s) + "</li>"; }).join("") + "</ol>" : "") + "</div>";
       }).join("") + "</details>" +
-      '<div class="endrow"><button type="button" class="nextb" id="eAgain">🔄 Shu mavzuda yana (yangi savollar)</button><button type="button" class="btn" id="eCsv">📥 Natijalarni yuklab olish (CSV)</button><button type="button" class="btn" id="eNew">⚙️ Sozlamalarga qaytish</button></div>' +
+      '<div class="endrow"><button type="button" class="nextb" id="eAgain">🔄 Shu mavzuda yana (yangi savollar)</button><button type="button" class="btn" id="eCert">📜 Hammaga sertifikat (PDF)</button><button type="button" class="btn" id="eCsv">📥 Natijalarni yuklab olish (CSV)</button><button type="button" class="btn" id="eNew">⚙️ Sozlamalarga qaytish</button></div>' +
       '<section class="etp" id="eTopic"><h3>🎲 Yangi mavzu tanlang — savollar generatori</h3><p class="sub">O\'quvchilar telefonda qolaveradi. Mavzu tanlang — shu o\'quvchilar bilan yangi mavzuda, yangi savollar bilan darhol boshlanadi.</p>' +
       '<div class="selbar"><div id="eChips" class="chips"></div><button type="button" id="eClear" class="btn small">Tozalash</button></div>' +
-      '<input id="eSearch" class="field" type="search" placeholder="🔎 Mavzu qidirish: logarifm, 63, kasr, foiz…" aria-label="Mavzu qidirish" autocomplete="off">' +
+      '<div class="fans" id="eFans" role="toolbar" aria-label="Fanlar"></div>' +
+      '<input id="eSearch" class="field" type="search" placeholder="🔎 Mavzu qidirish: logarifm, kasr, lug\'at, Om qonuni…" aria-label="Mavzu qidirish" autocomplete="off">' +
       '<div id="eList" class="tlist"></div>' +
       '<div class="egrow"><label class="sl">Savollar <select id="eCount"><option value="5">5 ta</option><option value="10">10 ta</option><option value="15">15 ta</option><option value="20">20 ta</option><option value="30">30 ta</option></select></label>' +
       '<label class="sl">Daraja <select id="eLvl"><option value="prog">📈 osondan qiyinga</option><option value="1">★ oson</option><option value="2">★★ o\'rta</option><option value="3">★★★ murakkab</option><option value="mix">🔀 aralash</option></select></label>' +
       '<button type="button" class="nextb" id="eGo">▶ Yangi mavzuda boshlash</button></div></section></div>';
     $("#eAgain").onclick = playAgain;
     $("#eCsv").onclick = downloadCsv;
+    $("#eCert").onclick = function () { allCerts(this); };
     $("#eNew").onclick = function () { closeHost(); };
     renderEndTopics();
     refitFn = null;
@@ -1269,8 +1410,8 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     if (!box) return;
     GROUPS.forEach(function (gn, gi) {
       var rows = TOPICS.filter(function (t) { return t[2] === gi; });
-      html += '<details class="tg"' + (rows.some(function (t) { return cfg.topics.indexOf(t[0]) > -1; }) ? " open" : "") + '><summary><span>' + esc(gn) + '</span><span class="cnt"></span><button type="button" class="all">Hammasi</button></summary><div>' +
-        rows.map(function (t) { return '<label class="trow" data-id="' + t[0] + '" data-s="' + esc(t[1].toLowerCase()) + '"><input type="checkbox" value="' + t[0] + '"><span>' + esc(t[1]) + "</span></label>"; }).join("") + "</div></details>";
+      html += '<details class="tg" data-g="' + gi + '"' + (rows.some(function (t) { return cfg.topics.indexOf(t[0]) > -1; }) ? " open" : "") + '><summary><span>' + esc(gn) + '</span><span class="cnt"></span><button type="button" class="all">Hammasi</button></summary><div>' +
+        rows.map(function (t) { return '<label class="trow" data-id="' + t[0] + '" data-s="' + esc(t[1].toLowerCase()) + '"><input type="checkbox" value="' + t[0] + '"><span>' + esc(rowTitle(t)) + "</span></label>"; }).join("") + "</div></details>";
     });
     box.innerHTML = html;
     function sync() {
@@ -1301,14 +1442,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
         tg.open = true; sync();
       });
     });
-    $("#eSearch").addEventListener("input", function () {
-      var q = this.value.trim().toLowerCase().replace(/[ʻʼ‘’`]/g, "'");
-      $$(".tg", box).forEach(function (tg) {
-        var any = false;
-        $$(".trow", tg).forEach(function (r) { var ok = !q || r.dataset.s.replace(/[ʻʼ‘’`]/g, "'").indexOf(q) > -1; r.style.display = ok ? "" : "none"; if (ok) any = true; });
-        tg.style.display = any ? "" : "none"; if (q && any) tg.open = true;
-      });
-    });
+    bindFans($("#eFans"), box, $("#eSearch"));
     $("#eClear").onclick = function () { cfg.topics = []; sync(); };
     ch.addEventListener("click", function (e) {
       var b = e.target.closest("button[data-id]"); if (!b) return;
@@ -1328,7 +1462,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   }
   function playAgain() {
     if (!H) return;
-    loadGens().then(function () {
+    prepTopics().then(function () {
       if (!H) return;
       var qs = buildQs();
       if (!qs.length) { toast("Bu mavzudan savol yaratib bo'lmadi — boshqa mavzu tanlang"); var bt = $("#eGo"); if (bt) { bt.disabled = false; bt.textContent = "▶ Yangi mavzuda boshlash"; } return; }
@@ -1370,6 +1504,8 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     $("#hs").classList.remove("on"); document.documentElement.style.overflow = ""; document.body.style.overflow = ""; $("#hBody").innerHTML = "";
     goFull(false);
   }
+  $("#hPin").addEventListener("click", function () { if (H) showBigQr(); });
+  $("#hPin").addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && H) { e.preventDefault(); showBigQr(); } });
   $("#hs").addEventListener("click", function (e) {
     var b = e.target.closest("[data-a]"); if (!b || !H) return;
     var a = b.dataset.a;
@@ -1386,7 +1522,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function pView(html, cls) { var b = pBody(); b.innerHTML = '<div class="pv ' + (cls || "") + '">' + html + "</div>"; refitFn = null; }
   function pScore(s) { $("#pScore").textContent = "⭐ " + (s || 0); }
   // re: qayta ulanishda oldingi holat {tries, claim, score}
-  function joinRoom(code, name, re) {
+  function joinRoom(code, name, re, retry) {
     if (!N) { $("#jErr").textContent = "Tarmoq moduli yuklanmadi — sahifani yangilang"; return; }
     code = N.normCode(code); name = cleanName(name);
     var err = $("#jErr");
@@ -1406,6 +1542,13 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     }).catch(function (e) {
       if (P !== me) return;
       if (re) { pLost(e && e.message); return; } // avtomatik qayta ulanishda xato — yana urinamiz
+      var em = (e && e.message) || "";
+      // internet/broker xatosi bo'lsa — o'zi yana bir marta urinadi (ism band, xona to'lgan kabi javoblarda emas)
+      if (!retry && !/ism|band|to'lgan|yopil|yopgan|qabul/i.test(em)) {
+        pView('<div class="spin"></div><h2>Qayta urinilmoqda…</h2><p>Xona: <b>' + esc(code) + "</b></p>");
+        setTimeout(function () { if (P === me) joinRoom(code, name, null, true); }, 1200);
+        return;
+      }
       closePlayer(true);
       $("#jErr").textContent = (e && e.message) || "Ulanib bo'lmadi";
       if (/ism/i.test((e && e.message) || "")) $("#jName").focus();
@@ -1547,7 +1690,24 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     if (m.rank <= 3) { snd("win"); confetti(); }
     pView('<div class="big">' + medal + "</div><h2>" + m.rank + "-o'rin!</h2><p>" + m.of + " o'quvchi ichida</p>" +
       '<div class="meta"><span>⭐ ' + m.score + " ochko</span><span>✅ " + m.correct + "/" + m.total + "</span>" + (got ? "<span>🪙 +" + coins + "</span>" : "") + "</div>" +
-      "<p>O'qituvchi yana boshlasa — shu yerda qoling.</p>");
+      '<div class="cert" id="pCert"><div class="spin"></div><p class="note">📜 Sertifikatingiz tayyorlanmoqda…</p></div>' +
+      "<p>O'qituvchi yana boshlasa — shu yerda qoling.</p>", "endv");
+    pCert(m);
+  }
+  /* o'quvchiga sertifikat: rasm ko'rinishi + PDF yuklab olish / ulashish */
+  function pCert(m) {
+    var me = P, d = m.cert || { name: P.name, full: P.full || "", group: "", topic: m.topic || "Jonli viktorina", rank: m.rank, of: m.of, correct: m.correct, total: m.total, score: m.score, date: dstr() };
+    var fname = "Sertifikat " + (d.full || d.name || "");
+    loadCert().then(function () {
+      var box = $("#pCert"); if (!box || P !== me) return;
+      var img = new Image(); img.alt = "Sertifikat"; img.src = kaSertifikat.canvas(d, 1100).toDataURL("image/jpeg", 0.85);
+      box.innerHTML = ""; box.appendChild(img);
+      box.insertAdjacentHTML("beforeend", '<div class="row2"><button type="button" class="btn primary" id="pcPdf">📥 Sertifikat (PDF)</button>' + (kaSertifikat.canShare() ? '<button type="button" class="btn" id="pcShare">📤 Ulashish</button>' : "") + '</div><p class="note">PDF oq-qora — oddiy printerda chop etsa bo\'ladi.</p>');
+      var blobP = null;
+      function getPdf() { if (!blobP) blobP = kaSertifikat.pdf([d]); return blobP; }
+      $("#pcPdf").onclick = function () { var b = this; b.disabled = true; getPdf().then(function (bl) { kaSertifikat.save(bl, fname); b.disabled = false; toast("📜 Sertifikat yuklab olindi"); }); };
+      var sh = $("#pcShare"); if (sh) sh.onclick = function () { getPdf().then(function (bl) { return kaSertifikat.share(bl, fname); }).then(function (ok) { if (!ok) toast("Ulashib bo'lmadi — PDF tugmasini bosing"); }); };
+    }).catch(function () { var box = $("#pCert"); if (box) box.innerHTML = '<p class="note">Sertifikatni yuklab bo\'lmadi — internetni tekshiring.</p>'; });
   }
   // Aloqa uzildi — o'zi bir necha marta qayta ulanadi (ochkolar o'qituvchida saqlanadi)
   function pLost(why) {

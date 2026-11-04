@@ -146,7 +146,11 @@
    * Mavzu nomi xona kodidan SHA-256 bilan olinadi, xabarlar AES-GCM bilan shifrlanadi.
    * Tashqi API o'zgarmagan: host(opts) -> {code, send, broadcast, kick, close}, join(code, hello, opts) -> {id, send, close}. */
   var MQTT_SRC = SCRIPT_BASE + "mqtt.min.js?v=5.16.1";
-  var BROKERS = ["wss://broker.emqx.io:8084/mqtt", "wss://broker.hivemq.com:8884/mqtt"];
+  // Eski telefonlar (iOS 12–14, eski Android brauzerlari) MQTT 5-versiyasining yangi JS sintaksisini tushunmaydi —
+  // ularga eski, mos keluvchi 4-versiya beriladi (API bir xil)
+  var MQTT_OLD = SCRIPT_BASE + "vendor/mqtt-4.3.7.min.js";
+  // 3-broker 443-portda: maktab Wi-Fi yoki mobil operator 8084/8884 portlarni yopib qo'ygan bo'lsa ham ulanadi
+  var BROKERS = ["wss://broker.emqx.io:8084/mqtt", "wss://broker.hivemq.com:8884/mqtt", "wss://mqtt.eclipseprojects.io:443/mqtt"];
   var NS = "kuvonch-ka-v2/";
   var mqttLoading = null;
   // Eski iPhone/Android brauzerlari uchun (iOS 15.3 va undan eski): MQTT kutubxonasi ishlatadigan funksiyalar
@@ -154,15 +158,23 @@
     if (!Array.prototype.at) Object.defineProperty(Array.prototype, "at", { value: function (i) { i = Math.trunc(i) || 0; if (i < 0) i += this.length; return this[i]; }, writable: true, configurable: true });
     if (!Object.hasOwn) Object.hasOwn = function (o, k) { return Object.prototype.hasOwnProperty.call(o, k); };
   } catch (e) {}
+  function modernJs() { try { new Function("var o={};o?.a;o.b??1;class A{static x=1}"); return true; } catch (e) { return false; } }
+  function addScript(src) {
+    return new Promise(function (res, rej) {
+      var s = document.createElement("script"); s.src = src;
+      s.onload = function () { if (window.mqtt && window.mqtt.connect) res(); else rej(new Error("Tarmoq kutubxonasi yuklanmadi")); };
+      s.onerror = function () { rej(new Error("Internet yo'q yoki kutubxona yuklanmadi")); };
+      document.head.appendChild(s);
+    });
+  }
   function loadMqtt() {
     if (window.mqtt && window.mqtt.connect) return Promise.resolve();
     if (mqttLoading) return mqttLoading;
-    mqttLoading = new Promise(function (res, rej) {
-      var s = document.createElement("script"); s.src = MQTT_SRC;
-      s.onload = function () { if (window.mqtt && window.mqtt.connect) res(); else { mqttLoading = null; rej(new Error("Tarmoq kutubxonasi yuklanmadi")); } };
-      s.onerror = function () { mqttLoading = null; rej(new Error("Internet yo'q yoki kutubxona yuklanmadi")); };
-      document.head.appendChild(s);
-    });
+    var first = modernJs() ? MQTT_SRC : MQTT_OLD;
+    mqttLoading = addScript(first).catch(function () {
+      // birinchisi ishlamasa — ikkinchi variant (eski yoki yangi)
+      return addScript(first === MQTT_SRC ? MQTT_OLD : MQTT_SRC);
+    }).catch(function (e) { mqttLoading = null; throw e; });
     return mqttLoading;
   }
   function genCode() { var s = ""; for (var i = 0; i < 5; i++) s += ALPH[Math.floor(Math.random() * ALPH.length)]; return s; }
@@ -394,7 +406,7 @@
         }
         var to = setTimeout(function () {
           fail(found ? "Xona javob bermadi. O'qituvchi ekrani ochiqligini va kodni tekshiring." : "Internetga ulanib bo'lmadi. Internetni tekshirib, qayta urinib ko'ring.");
-        }, 20000);
+        }, 25000);
         BROKERS.forEach(function (url) {
           var c;
           try { c = mconnect(url, willFor(n)); } catch (e) { return; }
@@ -404,7 +416,9 @@
             if (!first || dead) return; first = false;
             if (found) { if (c !== C) try { c.end(true); } catch (e) {} return; }
             c.subscribe(TI, { qos: 0 });
-            if (!probe) probe = setTimeout(function () { if (!found) fail("Bunday kodli xona yo'q. Kodni tekshiring."); }, 7000);
+            // har bir yangi ulangan broker uchun 8 soniya kutamiz (o'qituvchi boshqa brokerda bo'lishi mumkin)
+            clearTimeout(probe);
+            probe = setTimeout(function () { if (!found) fail("Bunday kodli xona topilmadi. Kodni tekshiring yoki o'qituvchi ekrani ochiqligiga ishonch hosil qiling."); }, 8000);
           });
           c.on("message", function (topic, payload) {
             if (dead) return;
