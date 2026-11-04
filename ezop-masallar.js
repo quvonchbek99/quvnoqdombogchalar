@@ -791,5 +791,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ogohlantirishga quloq solmay, faqat o'z istagiga ergashdi", "Chunki ovchi uni ataylab chaqirgan edi", "Chunki qushcha tuzoqning joyini yashirgan edi"],
     javob: 0,
     izoh: "Kaklik xavf haqidagi ogohlantirishni e'tiborsiz qoldirib, faqat donga bo'lgan istagiga ergashdi. Ogohlantirishlarni jiddiy qabul qilish ko'p xatolarning oldini oladi."
+  },
+  {
+    id: "ez-100", mavzu: "mantiq", sarlavha: "Pichoq va tosh",
+    matn: "Bir kuni pichoq o'zining o'tkirligini ko'rsatmoqchi bo'lib, katta tosh oldiga keldi. \"Men seni hozir kesib tashlayman!\" deb maqtandi. Tosh jim turardi. Pichoq toshga qarshi o'zini ishqalab, qattiq urina boshladi. Oxiri uning uchi xiralashdi, tosh esa o'z joyida xuddi oldingidek qattiq va silliq qoldi.",
+    savol: "Pichoq nega xiralashdi?",
+    variantlar: ["Chunki u qattiq toshga ishqalanib, o'z o'tkirligini yo'qotdi", "Chunki tosh uni ataylab sindirib tashladi", "Chunki u yomg'irda zanglab qoldi"],
+    javob: 0,
+    izoh: "Pichoq toshni kesa olmadi, aksincha, qattiq narsaga ishqalanib o'zi xiralashdi. Kuchliroq raqibni kamsitish ko'pincha o'zimizga zarar keltiradi."
   }
 ];
