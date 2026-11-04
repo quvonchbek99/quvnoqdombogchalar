@@ -807,5 +807,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Arava yurishini o'zi ta'minlayotganini", "Yo'l juda uzoq ekanini", "Changning yomg'irdan kelib chiqqanini"],
     javob: 0,
     izoh: "Chivin o'zining kichik hissasini hal qiluvchi deb o'ylagan, aslida arava uning ishtirokisiz ham yurar edi. Haqiqiy kuchni kamtarlik bilan tan olish to'g'ri xulosaga olib keladi."
+  },
+  {
+    id: "ez-102", mavzu: "hamkorlik", sarlavha: "Ikki it va suyak",
+    matn: "Ikki it yo'lda katta suyakni topdi. Ikkalasi ham suyakni o'zinikiga deb hisoblab, bir-biriga tashlanib, uzoq janjallashdi. Ular bir-birini tishlashdan ko'ra hurishda charchab, o'zaro kuchlarini sarflashdi. Shu payt yonidan o'tayotgan mushuk sokin yaqinlashib, suyakni olib ketdi.",
+    savol: "Suyakni kim oldi va nega?",
+    variantlar: ["Ikki it, chunki ular birgalikda harakat qildi", "Mushuk, chunki itlar janjal bilan ovora bo'lib, e'tibor bermadi", "Hech kim, chunki suyak yerda qolib ketdi"],
+    javob: 1,
+    izoh: "Itlar o'zaro janjal bilan ovora bo'lib, suyakni qo'ldan chiqarib qo'yishdi. Ichki nizo uchinchi tomonga foyda keltiradi, shuning uchun birdamlik muhim."
   }
 ];
