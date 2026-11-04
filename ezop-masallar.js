@@ -799,5 +799,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u qattiq toshga ishqalanib, o'z o'tkirligini yo'qotdi", "Chunki tosh uni ataylab sindirib tashladi", "Chunki u yomg'irda zanglab qoldi"],
     javob: 0,
     izoh: "Pichoq toshni kesa olmadi, aksincha, qattiq narsaga ishqalanib o'zi xiralashdi. Kuchliroq raqibni kamsitish ko'pincha o'zimizga zarar keltiradi."
+  },
+  {
+    id: "ez-101", mavzu: "kamtarlik", sarlavha: "Chivin va arava",
+    matn: "Ot qo'shilgan arava chang yo'lda ketayotgan edi. G'ildirakka bir chivin qo'nib olib, ko'tarilgan changni ko'rib baland ovozda dedi: \"Qarang, qanchalik chang ko'tarayapman! Arava mening kuchim bilan yuribdi.\" Shu payt yo'lda chuqur o'pirtma chiqdi va g'ildirak sakrab o'tdi. Chivin cho'chib uchib ketdi, lekin arava hech narsa bo'lmagandek oldinga bemalol yurib ketaverdi.",
+    savol: "Chivin nimani noto'g'ri tushundi?",
+    variantlar: ["Arava yurishini o'zi ta'minlayotganini", "Yo'l juda uzoq ekanini", "Changning yomg'irdan kelib chiqqanini"],
+    javob: 0,
+    izoh: "Chivin o'zining kichik hissasini hal qiluvchi deb o'ylagan, aslida arava uning ishtirokisiz ham yurar edi. Haqiqiy kuchni kamtarlik bilan tan olish to'g'ri xulosaga olib keladi."
   }
 ];
