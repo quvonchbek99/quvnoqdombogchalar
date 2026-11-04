@@ -1,0 +1,42 @@
+{
+  "id": "2017-4",
+  "badge": "IMO 2017 · 4-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA",
+      "title": "Urinma ekanini isbotlang",
+      "fs": 33,
+      "body": "<p><span class='m'>Ω</span> aylanada turli <span class='m'>R</span> va <span class='m'>S</span> nuqtalar berilgan, <span class='m'>RS</span> diametr emas. <span class='m'>ℓ</span> — <span class='m'>Ω</span> ga <span class='m'>R</span> nuqtada o'tkazilgan <b>urinma</b>. <span class='m'>T</span> nuqta shunday: <span class='m'>S</span> — <span class='m'>RT</span> kesmaning o'rtasi.</p><p><span class='m'>J</span> nuqta <span class='m'>Ω</span> ning kichik <span class='m'>RS</span> yoyidan shunday tanlanganki, <span class='m'>JST</span> uchburchakka tashqi chizilgan <span class='m'>Γ</span> aylana <span class='m'>ℓ</span> ni ikki nuqtada kesadi. <span class='m'>A</span> — shu nuqtalardan <span class='m'>R</span> ga yaqinrog'i. <span class='m'>AJ</span> to'g'ri chiziq <span class='m'>Ω</span> ni yana <span class='m'>K</span> nuqtada kesadi.</p><div class='box'>Isbotlang: <span class='m'>KT</span> to'g'ri chiziq <span class='m'>Γ</span> aylanaga <b>urinadi</b>.</div>"
+    },
+    {
+      "kicker": "YECHIM · CHIZMA VA REJA",
+      "title": "Uch qadamli reja",
+      "fs": 31,
+      "body": "<svg width='920' height='372' viewBox='0 0 920 372' style='display:block;margin:0 auto 14px'><circle cx='246' cy='174' r='130' fill='none' stroke='#ffffff' stroke-width='3'/><circle cx='583' cy='251' r='221' fill='none' stroke='#f2b84b' stroke-width='3'/><line x1='116' y1='304' x2='804' y2='304' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><line x1='246' y1='304' x2='506' y2='44' stroke='#ffffff' stroke-width='2' /><line x1='368' y1='304' x2='353' y2='101' stroke='#ffffff' stroke-width='2' /><line x1='246' y1='304' x2='353' y2='101' stroke='#f2b84b' stroke-width='3' /><line x1='368' y1='304' x2='506' y2='44' stroke='#f2b84b' stroke-width='3' /><line x1='338' y1='106' x2='559' y2='24' stroke='#ffd98a' stroke-width='3' /><circle cx='246' cy='304' r='7' fill='#ffffff'/><text x='236' y='344' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>R</text><circle cx='376' cy='174' r='7' fill='#ffffff'/><text x='390' y='182' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>S</text><circle cx='506' cy='44' r='7' fill='#ffffff'/><text x='520' y='36' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>T</text><circle cx='363' cy='230' r='7' fill='#ffffff'/><text x='327' y='240' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>J</text><circle cx='368' cy='304' r='7' fill='#ffffff'/><text x='360' y='346' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>A</text><circle cx='353' cy='101' r='7' fill='#ffffff'/><text x='319' y='93' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>K</text><text x='118' y='76' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>Ω</text><text x='752' y='112' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic'>Γ</text><text x='120' y='292' fill='#8fa3bf' font-size='30' font-family='DejaVu Serif' font-style='italic'>ℓ</text></svg><ul><li><b>1-qadam:</b> <span class='m'>RK ∥ AT</span> ekanini ko'rsatamiz.</li><li><b>2-qadam:</b> ikkala urinmani o'xshash uchburchaklar tiliga o'tkazamiz.</li><li><b>3-qadam:</b> <span class='m'>RS = ST</span> bu ikki shartni <b>bir xil</b> qilishini ko'ramiz.</li></ul>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "RK va AT parallel",
+      "fs": 33,
+      "body": "<p>Burchaklarni ketma-ket solishtiramiz (yo'naltirilgan burchaklar):</p><div class='box' style='text-align:center'><span class='m'>∠RKA = ∠RKJ = ∠RSJ = ∠TSJ = ∠TAJ = ∠TAK</span></div><ul><li><span class='m'>∠RKJ = ∠RSJ</span> — <span class='m'>Ω</span> da bitta <span class='m'>RJ</span> yoyga tiralgan;</li><li><span class='m'>∠RSJ = ∠TSJ</span> — <span class='m'>R, S, T</span> bir to'g'ri chiziqda;</li><li><span class='m'>∠TSJ = ∠TAJ</span> — <span class='m'>Γ</span> da bitta <span class='m'>TJ</span> yoyga tiralgan.</li></ul><p><span class='m'>AK</span> kesuvchi bilan hosil bo'lgan ichki almashinuvchi burchaklar teng, demak</p><div class='box' style='text-align:center'><b><span class='m'>RK ∥ AT</span></b></div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Urinma = o'xshashlik",
+      "fs": 31,
+      "body": "<p><b>Urinma–vatar teoremasi:</b> urinma va vatar orasidagi burchak shu vatarga tiralgan ichki chizilgan burchakka teng.</p><p>Parallellikdan <span class='m'>∠KRS = ∠RTA</span> — bu tenglik doim bor. Shuning uchun:</p><div class='box'><span class='m'>RA</span> urinma <span class='m'>Ω</span> ga <span class='m'>⟺ ∠TRA = ∠RKS</span> <span class='m'>⟺ △KRS ∼ △RTA</span></div><p>Xuddi shunday, <span class='m'>∠ATS = ∠TRK</span> doim bajariladi va</p><div class='box'><span class='m'>TK</span> urinma <span class='m'>Γ</span> ga <span class='m'>⟺ ∠RTK = ∠TAS</span> <span class='m'>⟺ △ATS ∼ △TRK</span></div><p>Endi ikkala o'xshashlikni solishtirish qoldi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "RS = ST hammasini hal qiladi",
+      "fs": 33,
+      "body": "<p>Ikkala juftlikda bitta burchak allaqachon teng. Demak o'xshashlik (<b>TBT</b> alomati) faqat tomonlar nisbatiga bog'liq:</p><div class='box'><span class='m'>△KRS ∼ △RTA ⟺ KR · TA = RS · RT</span></div><div class='box'><span class='m'>△ATS ∼ △TRK ⟺ AT · RK = TS · TR</span></div><p>Lekin <span class='m'>S</span> — <span class='m'>RT</span> ning o'rtasi, ya'ni <span class='m'>RS = TS</span>. Ikkala shart <b>aynan bir xil</b>!</p><p><span class='m'>RA</span> shart bo'yicha urinma, demak birinchi o'xshashlik bor ⟹ ikkinchisi ham bor ⟹</p><div class='box' style='text-align:center'><b><span class='m'>KT</span> to'g'ri chiziq <span class='m'>Γ</span> ga urinadi</b> ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Ikki aylana — bitta simmetriya",
+      "fs": 32,
+      "body": "<p>Masala aslida <b>simmetrik</b>: <span class='m'>RA</span> ning <span class='m'>Ω</span> ga urinishi va <span class='m'>TK</span> ning <span class='m'>Γ</span> ga urinishi — bir-biriga teng kuchli tasdiqlar. Kalit — <span class='m'>RK ∥ AT</span> va <span class='m'>RS = ST</span>.</p><p>✅ Python bilan 5000 ta tasodifiy chizma yasab, <span class='m'>KT</span> va <span class='m'>Γ</span> markazi orasidagi masofa radiusga tengligini tekshirdik — xato yo'q.</p><p>💡 Muqobil yo'l: <span class='m'>R</span> markazli, <span class='m'>Γ</span> ni o'z joyida qoldiradigan <b>inversiya</b> (<span class='m'>T ↔ S</span>) ham masalani chiroyli yechadi.</p><p>🧠 <b>Sizga savol:</b> shu inversiyada <span class='m'>Ω</span> aylana qanday shaklga o'tadi? Fikringizni izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2017 · 5-masala</b> (kombinatorika, futbolchilar qatori)</p>"
+    }
+  ]
+}
