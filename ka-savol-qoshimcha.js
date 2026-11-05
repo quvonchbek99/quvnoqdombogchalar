@@ -551,7 +551,7 @@
   }
   // fns: ishlatiladigan funksiyalar; L: daraja
   function eqx(fns, L) {
-    var k = pick(L === 1 ? [0, 0, 1, 1, 7] : L === 2 ? [1, 2, 2, 3, 3, 4] : [2, 3, 4, 5, 5, 6, 6]);
+    var k = pick(L === 1 ? [0, 0, 1, 1, 3, 4, 7] : L === 2 ? [1, 2, 2, 3, 3, 4] : [2, 3, 4, 5, 5, 6, 6]);
     var fn = pick(fns), pool = vPool(fn), v = pick(pool), lin = Math.random() < (L === 1 ? .5 : .4), r = Math.random() < .55;
     if (k === 0) { // [0°; 90°] oraliqda
       var vp = pick(pool.filter(function (x) { return x.charAt(0) !== "−"; })), rt = roots(fn, vp, 1, 0, fn === "tg" || fn === "ctg" ? 89 : 90).filter(function (x) { return x > 0 || fn !== "ctg"; });
@@ -1575,7 +1575,7 @@
   }
   function s2m3x(L) {
     var T = [["m", "sm", 100], ["dm", "sm", 10], ["m", "dm", 10], ["sm", "mm", 10], ["soat", "daqiqa", 60], ["daqiqa", "soniya", 60], ["kg", "g", 1000], ["sutka", "soat", 24], ["hafta", "kun", 7], ["yil", "oy", 12], ["km", "m", 1000], ["t", "kg", 1000]];
-    var t = pick(L === 1 ? T.slice(0, 7) : T), n = R(1, L === 1 ? 5 : 9), k = pick(L === 1 ? [0, 0, 1] : [0, 1, 2, 2]);
+    var t = pick(L === 1 ? T.slice(0, 9) : T), n = R(1, L === 1 ? 7 : 9), k = pick(L === 1 ? [0, 0, 1] : [0, 1, 2, 2]);
     if (k === 0) return Q(n + " " + t[0] + " necha " + t[1] + "?", n * t[2], W(n * t[2], [n * t[2] / 10 === Math.round(n * t[2] / 10) && t[2] !== 10 ? n * t[2] / 10 : n * t[2] + t[2], n * t[2] * 10, n + t[2], n * t[2] + t[2], n * (t[2] === 60 ? 100 : 60)]), ["1 " + t[0] + " = " + t[2] + " " + t[1], n + " · " + t[2] + " = " + n * t[2]]);
     if (k === 1) return Q(n * t[2] + " " + t[1] + " necha " + t[0] + "?", n, W(n, [n * 10, n + 1, n * t[2] / 2 === Math.round(n * t[2] / 2) && n * t[2] / 2 !== n ? n * t[2] / 2 : n + 2, n - 1 || n + 3]), ["1 " + t[0] + " = " + t[2] + " " + t[1], n * t[2] + " : " + t[2] + " = " + n]);
     var m = R(1, t[2] - 1);
