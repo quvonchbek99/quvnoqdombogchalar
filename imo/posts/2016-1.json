@@ -1,0 +1,42 @@
+{
+  "id": "2016-1",
+  "badge": "IMO 2016 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA",
+      "title": "Uch to'g'ri chiziq bir nuqtada",
+      "fs": 33,
+      "body": "<p>Qavariq <b>ABCDE</b> beshburchakda <span class='m'>∠B &gt; 90°</span>. <span class='m'>AC</span> da shunday <span class='m'>F</span> nuqta olinganki, <span class='m'>∠FBC = 90°</span>. Berilgan:</p><div class='box'><span class='m'>FA = FB</span>, &nbsp;<span class='m'>DA = DC</span>, &nbsp;<span class='m'>EA = ED</span>,<br><span class='m'>AC</span> va <span class='m'>AD</span> nurlar <span class='m'>∠BAE</span> ni <b>teng uchga</b> bo'ladi.</div><p><span class='m'>M</span> — <span class='m'>CF</span> kesmaning o'rtasi. <span class='m'>X</span> nuqta shundayki, <span class='m'>AMXE</span> — <b>parallelogramm</b>.</p><div class='box'>Isbotlang: <span class='m'>FX</span>, <span class='m'>EM</span> va <span class='m'>BD</span> to'g'ri chiziqlar <b>bir nuqtada</b> kesishadi.</div>"
+    },
+    {
+      "kicker": "YECHIM · CHIZMA",
+      "title": "Hamma burchak — θ",
+      "fs": 32,
+      "body": "<svg width='920' height='440' viewBox='0 0 920 440' style='display:block;margin:0 auto 10px'><circle cx='589' cy='223' r='196' fill='none' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><line x1='170' y1='410' x2='650' y2='410' stroke='#ffffff' stroke-width='3'/><line x1='650' y1='410' x2='769' y2='143' stroke='#ffffff' stroke-width='3'/><line x1='769' y1='143' x2='410' y2='143' stroke='#ffffff' stroke-width='3'/><line x1='410' y1='143' x2='231' y2='223' stroke='#ffffff' stroke-width='3'/><line x1='231' y1='223' x2='170' y2='410' stroke='#ffffff' stroke-width='3'/><line x1='170' y1='410' x2='769' y2='143' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='6 6'/><line x1='170' y1='410' x2='410' y2='143' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='6 6'/><line x1='410' y1='303' x2='650' y2='410' stroke='#8fa3bf' stroke-width='2'/><line x1='589' y1='223' x2='650' y2='37' stroke='#8fa3bf' stroke-width='2'/><line x1='231' y1='223' x2='650' y2='37' stroke='#8fa3bf' stroke-width='2'/><line x1='410' y1='303' x2='650' y2='37' stroke='#f2b84b' stroke-width='3'/><line x1='231' y1='223' x2='589' y2='223' stroke='#f2b84b' stroke-width='3'/><line x1='650' y1='410' x2='410' y2='143' stroke='#f2b84b' stroke-width='3'/><circle cx='170' cy='410' r='7' fill='#ffffff'/><circle cx='650' cy='410' r='7' fill='#ffffff'/><circle cx='769' cy='143' r='7' fill='#ffffff'/><circle cx='410' cy='143' r='7' fill='#ffffff'/><circle cx='231' cy='223' r='7' fill='#ffffff'/><circle cx='410' cy='303' r='7' fill='#ffffff'/><circle cx='589' cy='223' r='7' fill='#ffffff'/><circle cx='650' cy='37' r='7' fill='#ffffff'/><circle cx='482' cy='223' r='9' fill='#f2b84b'/><text x='136' y='420' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>A</text><text x='664' y='436' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>B</text><text x='783' y='153' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>C</text><text x='404' y='127' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>D</text><text x='195' y='217' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>E</text><text x='404' y='343' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>F</text><text x='601' y='255' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>M</text><text x='664' y='31' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>X</text><text x='466' y='207' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic'>P</text></svg><p>Shartdagi barcha teng yonli uchburchaklarning asosidagi burchaklari bir xil:</p><div class='box' style='text-align:center'><span class='m'>θ = ∠FAB = ∠FBA = ∠DAC</span><br><span class='m'>= ∠DCA = ∠EAD = ∠EDA</span></div><p>Oltin chiziqlar — isbotlanadigan uchlik: <span class='m'>FX</span>, <span class='m'>EM</span>, <span class='m'>BD</span>. Ular <span class='m'>P</span> nuqtada uchrashadi. Kulrang aylana — <span class='m'>M</span> markazli <span class='m'>(BFDC)</span> aylana.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Tanish konfiguratsiya",
+      "fs": 33,
+      "body": "<p><b>Markaziy lemma.</b> <span class='m'>F</span> — <span class='m'>△DAB</span> ning <b>ichki</b> chizilgan aylana markazi, <span class='m'>C</span> — <span class='m'>A</span> ga qarama-qarshi <b>tashqi</b> aylana markazi. Bundan tashqari <span class='m'>DA = DB</span>.</p><p>Uchta kuzatish yetarli:</p><ul><li><span class='m'>AFC</span> — <span class='m'>∠BAD</span> ning bissektrisasi;</li><li><span class='m'>∠FBC = 90°</span> — ichki va tashqi bissektrisalar perpendikulyar;</li><li><span class='m'>△AFB ∼ △ADC</span> (o'xshash teng yonli uchburchaklar) ⟹ <span class='m'>AF · AC = AB · AD</span>.</li></ul><div class='box'><b>Natija:</b> <span class='m'>M</span> — <span class='m'>(DAB)</span> aylanadagi <span class='m'>BD</span> yoyning o'rtasi va <span class='m'>F, D, C, B</span> yotgan aylananing <b>markazi</b>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "E va X qayerda yotadi?",
+      "fs": 33,
+      "body": "<p><b>E haqida.</b> <span class='m'>∠EDA = θ = ∠EBA</span>, demak <span class='m'>E</span> — <span class='m'>(ABMD)</span> aylanadagi <span class='m'>AD</span> yoyning o'rtasi va <span class='m'>BF</span> nurida yotadi.</p><p><b>X haqida.</b> <span class='m'>∠AED = 180° − 2θ</span>, <span class='m'>∠CAE = 2θ</span> ⟹ <span class='m'>ED ∥ AC</span>. Demak <span class='m'>X</span> — <span class='m'>ED</span> nurida.</p><div class='box'><span class='m'>DA = DB</span> bo'lgani uchun yoylar teng: <span class='m'>MB = MD = ED = EA</span>.<br>Parallelogrammdan <span class='m'>MX = AE = MB</span> ⟹ <span class='m'>X</span> ham <span class='m'>M</span> markazli <span class='m'>(BFDC)</span> aylanada.</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Uchta aylana — bitta nuqta",
+      "fs": 33,
+      "body": "<p><b>EXMF — teng yonli trapetsiya.</b> <span class='m'>EX ∥ FM</span>. Bundan tashqari <span class='m'>∠EFA = 180° − ∠AFB = 2θ = ∠FAE</span>, demak <span class='m'>EF = EA = MX</span>. Teng yonli trapetsiya — aylanaga ichki chiziladi.</p><p>Endi uchta aylana bor:</p><ul><li><span class='m'>ω₁ = (AEDMB)</span>, &nbsp;<span class='m'>ω₂ = (BFDXC)</span>, &nbsp;<span class='m'>ω₃ = (EXMF)</span>.</li></ul><div class='box'>Juft-juft umumiy vatarlar: <span class='m'>ω₁ ∩ ω₂ → BD</span>, &nbsp;<span class='m'>ω₂ ∩ ω₃ → FX</span>, &nbsp;<span class='m'>ω₁ ∩ ω₃ → EM</span>.</div><p><b>Radikal o'qlar teoremasi:</b> uch aylananing juft-juft radikal o'qlari bir nuqtada kesishadi ⟹ <span class='m'>FX</span>, <span class='m'>EM</span>, <span class='m'>BD</span> bir nuqtadan o'tadi. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Kalit — ichki markaz lemmasi",
+      "fs": 33,
+      "body": "<p>Murakkab ko'ringan beshburchak aslida <span class='m'>△DAB</span> ning ichki va tashqi markazlari haqidagi mashhur lemmaga keladi. Qolgani — teng yoylar va radikal o'qlar.</p><div class='box'>✅ Python bilan <span class='m'>θ</span> ning <span class='m'>10°</span> dan <span class='m'>44°</span> gacha yuzlab qiymatlarida chizma yasab tekshirdik: uch to'g'ri chiziq doim bitta nuqtada kesishadi.</div><p>🧠 <b>Sizga savol:</b> nima uchun <span class='m'>∠B &gt; 90°</span> sharti kerak? <span class='m'>θ</span> orqali <span class='m'>∠ABC</span> ni topib ko'ring. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2016 · 2-masala</b> (kombinatorika, I–M–O jadvali)</p>"
+    }
+  ]
+}
