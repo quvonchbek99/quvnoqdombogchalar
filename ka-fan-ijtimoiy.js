@@ -54,6 +54,17 @@
     }, title);
   }
   function lv(L, a, b, c) { return L === 1 ? a : L === 2 ? b : c; }
+  // ro'yxatdan n ta tasodifiy element (ex dagilardan va o'zaro farqli)
+  function otherN(list, ex, n) {
+    var out = [];
+    shuffle(list).forEach(function (x) { if (out.length < n && ex.indexOf(x) < 0 && out.indexOf(x) < 0) out.push(x); });
+    return out;
+  }
+  // daraja bo'yicha hovuz: L1 — faqat 1-daraja, L2 — 1–2, L3 — 2–3 (idx — daraja ustuni)
+  function lvList(list, L, idx) {
+    var p = list.filter(function (x) { var d = x[idx]; return L === 1 ? d === 1 : L === 2 ? d <= 2 : d >= 2; });
+    return p.length ? p : list;
+  }
 
   /* ================= b1 Biologiya · Hujayra va tirik organizmlar ================= */
   var B1 = [
@@ -101,9 +112,120 @@
     [3, "Hujayraning tuzilishi va faoliyatini o'rganuvchi fan qaysi?", "Sitologiya", ["Genetika", "Ekologiya", "Anatomiya"], "Sitologiya — hujayra haqidagi fan."],
     [3, "Irsiyat va o'zgaruvchanlikni o'rganuvchi fan qaysi?", "Genetika", ["Sitologiya", "Botanika", "Ekologiya"], "Genetika asoslarini Gregor Mendel yaratgan."],
     [3, "Glyukozaning kislorodsiz parchalanish bosqichi nima deb ataladi?", "Glikoliz", ["Fotoliz", "Fotosintez", "Transkripsiya"], "Glikoliz sitoplazmada kislorodsiz boradi."],
-    [3, "DNKdagi axborotning RNKga ko'chirilishi nima deb ataladi?", "Transkripsiya", ["Translyatsiya", "Replikatsiya", "Mutatsiya"], "Transkripsiya — DNK asosida RNK sintezi."]
+    [3, "DNKdagi axborotning RNKga ko'chirilishi nima deb ataladi?", "Transkripsiya", ["Translyatsiya", "Replikatsiya", "Mutatsiya"], "Transkripsiya — DNK asosida RNK sintezi."],
+    [1, "Hujayra ichini to'ldirib turuvchi yarim suyuq modda nima deb ataladi?", "Sitoplazma", ["Vakuola", "Membrana", "Yadro"], "Organoidlar sitoplazmada joylashgan."],
+    [1, "Hayvon hujayrasida qaysi organoid bo'lmaydi?", "Xloroplast", ["Mitoxondriya", "Ribosoma", "Yadro"], "Xloroplast faqat o'simlik hujayrasida bo'ladi."],
+    [1, "Mikroskopning ko'z bilan qaraladigan qismi qanday ataladi?", "Okulyar", ["Obyektiv", "Tubus", "Buyum stolchasi"], "Obyektiv — preparatga qaragan linza."],
+    [1, "Mikroskopda preparat qayerga qo'yiladi?", "Buyum stolchasiga", ["Okulyarga", "Tubusga", "Shtativ asosiga"], "Preparat buyum stolchasiga qo'yilib, qisqichlar bilan mahkamlanadi."],
+    [1, "Quyidagilardan qaysi biri tirik organizmlarga xos xususiyat?", "Ko'payish", ["Erish", "Kristallanish", "Bug'lanish"], "Oziqlanish, nafas olish, o'sish, ko'payish — tiriklik belgilari."],
+    [1, "Xamirni ko'pchitish uchun qaysi zamburug'dan foydalaniladi?", "Achitqi zamburug'i", ["Mog'or zamburug'i", "Oq qo'ziqorin", "Qorakuya"], "Achitqi zamburug'i karbonat angidrid ajratib, xamirni ko'pchitadi."],
+    [1, "Qatiq va pishloq tayyorlashda qaysi mikroorganizmlardan foydalaniladi?", "Sut achituvchi bakteriyalar", ["Sil tayoqchasi", "Mog'or zamburug'i", "Viruslar"], "Sut achituvchi bakteriyalar sutni achitadi."],
+    [1, "Kraxmalga yod eritmasi tomizilsa, qanday rang paydo bo'ladi?", "Ko'k", ["Qizil", "Sariq", "Yashil"], "Yod kraxmal bilan ko'k rang hosil qiladi."],
+    [1, "Tirik organizmlarni o'rganuvchi fan qaysi?", "Biologiya", ["Geografiya", "Fizika", "Astronomiya"], "\"Bios\" — hayot, \"logos\" — ta'limot."],
+    [1, "Tuzilishi va vazifasi bir xil bo'lgan hujayralar guruhi nima deyiladi?", "To'qima", ["Organ", "Organizm", "Organoid"], "Masalan, muskul to'qimasi, nerv to'qimasi."],
+    [2, "Tayyor organik moddalar bilan oziqlanuvchi organizmlar qanday ataladi?", "Geterotroflar", ["Avtotroflar", "Prokariotlar", "Produtsentlar"], "Hayvonlar va zamburug'lar — geterotroflar."],
+    [2, "Anorganik moddalardan organik modda hosil qiluvchi organizmlar qanday ataladi?", "Avtotroflar", ["Geterotroflar", "Saprofitlar", "Parazitlar"], "Yashil o'simliklar — avtotroflar."],
+    [2, "Bakteriyalar asosan qanday ko'payadi?", "Ikkiga bo'linib", ["Kurtaklanib", "Urug' bilan", "Tuxum qo'yib"], "Qulay sharoitda bakteriya har 20–30 daqiqada bo'linishi mumkin."],
+    [2, "Penitsillin qaysi organizmdan olinadi?", "Mog'or zamburug'idan", ["Achitqi zamburug'idan", "Sut achituvchi bakteriyadan", "Qo'ziqorindan"], "Fleming penitsill mog'or zamburug'idan antibiotik ajratgan."],
+    [2, "Qaysi kasallikni virus qo'zg'atadi?", "Gripp", ["Sil", "Vabo", "Raxit"], "Sil va vabo — bakterial kasallik, raxit — D vitamini yetishmasligi."],
+    [2, "Qaysi kasallikni bakteriya qo'zg'atadi?", "Sil", ["Gripp", "Qizamiq", "Suvchechak"], "Gripp, qizamiq, suvchechak — virusli kasalliklar."],
+    [2, "Kraxmal qaysi organik moddalar guruhiga kiradi?", "Uglevodlar", ["Oqsillar", "Yog'lar", "Nuklein kislotalar"], "Kraxmal — glyukozadan tuzilgan polisaxarid."],
+    [2, "Tirik hujayra tarkibida eng ko'p bo'ladigan modda qaysi?", "Suv", ["Oqsil", "Yog'", "Mineral tuzlar"], "Hujayra massasining katta qismini suv tashkil etadi."],
+    [2, "Bir nechta to'qimadan tuzilgan, muayyan vazifani bajaruvchi tana qismi nima deyiladi?", "Organ", ["To'qima", "Organoid", "Hujayra"], "Masalan, yurak, barg, ildiz — organlar."],
+    [2, "Hujayrada energiyani to'plovchi va tashuvchi universal modda qaysi?", "ATF", ["DNK", "RNK", "Xlorofill"], "ATF asosan mitoxondriyalarda hosil bo'ladi."],
+    [3, "Achitqi zamburug'i qanday usulda ko'payadi?", "Kurtaklanish", ["Urug' bilan", "Ildizpoya bilan", "Changlanish orqali"], "Ona hujayrada kurtak paydo bo'lib, yangi hujayraga aylanadi."],
+    [3, "Viruslar qanday tarkibiy qismlardan iborat?", "Nuklein kislota va oqsil qobiq", ["Yadro va sitoplazma", "Hujayra devori va vakuola", "Mitoxondriya va ribosoma"], "Viruslarda hujayraviy tuzilish yo'q."],
+    [3, "Bakteriyalarni zararlovchi viruslar qanday ataladi?", "Bakteriofaglar", ["Fagotsitlar", "Antibiotiklar", "Prokariotlar"], "Bakteriofag — \"bakteriya yeyuvchi\" degani."],
+    [3, "Mitoxondriya ichki membranasining burmalari nima deb ataladi?", "Kristalar", ["Granalar", "Tilakoidlar", "Sisternalar"], "Kristalarda ATF sintezlanadi."],
+    [3, "Fotosintezning yorug'lik bosqichi xloroplastning qaysi tuzilmalarida boradi?", "Tilakoidlarda", ["Kristalarda", "Ribosomalarda", "Lizosomalarda"], "Tilakoidlar to'planib granalarni hosil qiladi."],
+    [3, "RNK tarkibidagi uglevod qaysi?", "Riboza", ["Dezoksiriboza", "Glyukoza", "Saxaroza"], "DNKda esa dezoksiriboza bo'ladi."],
+    [3, "DNK tarkibidagi uglevod qaysi?", "Dezoksiriboza", ["Riboza", "Glyukoza", "Fruktoza"], "Dezoksiribonuklein kislota nomi shundan."],
+    [3, "Ribosomada iRNK asosida oqsil sintezlanishi nima deb ataladi?", "Translyatsiya", ["Transkripsiya", "Replikatsiya", "Glikoliz"], "Transkripsiya — DNK asosida RNK sintezi."],
+    [3, "DNK molekulasining o'z nusxasini hosil qilishi nima deyiladi?", "Replikatsiya", ["Transkripsiya", "Translyatsiya", "Mutatsiya"], "Hujayra bo'linishidan oldin DNK ikki hissa ortadi."],
+    [3, "Genlar yoki xromosomalarning to'satdan, irsiy o'zgarishi nima deyiladi?", "Mutatsiya", ["Modifikatsiya", "Replikatsiya", "Duragaylash"], "Mutatsiyalar avlodga beriladi."],
+    [3, "Aa genotipli organizm qanday ataladi?", "Geterozigota", ["Gomozigota", "Gaploid", "Mutant"], "Allellari har xil — geterozigota, bir xil (AA, aa) — gomozigota."],
+    [3, "aa genotipli organizm qanday ataladi?", "Retsessiv gomozigota", ["Dominant gomozigota", "Geterozigota", "Duragay"], "Ikkala allel ham retsessiv."],
+    [3, "To'liq dominantlikda Aa × Aa chatishtirilsa, avlodda fenotip bo'yicha nisbat qanday?", "3 : 1", ["1 : 1", "1 : 2 : 1", "9 : 3 : 3 : 1"], "Mendelning ikkinchi (ajralish) qonuni."],
+    [3, "Aa × Aa chatishtirilsa, avlodda genotip bo'yicha nisbat qanday?", "1 : 2 : 1", ["3 : 1", "1 : 1", "2 : 1"], "AA : 2Aa : aa."],
+    [3, "To'liq dominantlikda Aa × aa chatishtirilsa, avlodda fenotip bo'yicha nisbat qanday?", "1 : 1", ["3 : 1", "1 : 2 : 1", "Hammasi bir xil"], "Aa va aa avlodlar teng miqdorda hosil bo'ladi."],
+    [3, "Fermentlar kimyoviy tabiatiga ko'ra asosan qanday moddalar?", "Oqsillar", ["Uglevodlar", "Yog'lar", "Mineral tuzlar"], "Fermentlar — biologik katalizatorlar."],
+    [3, "Hujayradagi xromosomalar to'plamining soni, shakli va o'lchami majmui nima deyiladi?", "Kariotip", ["Fenotip", "Genotip", "Genofond"], "Odam kariotipi 46 ta xromosomadan iborat."]
   ];
-  topic("b1", "Biologiya · Hujayra va tirik organizmlar", B1);
+  // [qism, asosiy vazifasi (javob), "Hujayraning qaysi qismi ...?" uchun, daraja]
+  var ORGANOID = [
+    ["Mitoxondriya", "Energiya (ATF) hosil qilish", "oziq moddalarni parchalab, energiya (ATF) hosil qiladi", 1],
+    ["Xloroplast", "Fotosintez", "yorug'likda organik modda hosil qiladi (fotosintez)", 1],
+    ["Yadro", "Irsiy axborotni saqlash", "irsiy axborotni saqlaydi va hujayra faoliyatini boshqaradi", 1],
+    ["Hujayra membranasi", "Moddalar o'tishini boshqarish", "hujayraga moddalar kirib-chiqishini boshqaradi", 1],
+    ["Vakuola", "Hujayra shirasini to'plash", "hujayra shirasini to'playdi", 1],
+    ["Sitoplazma", "Organoidlarni birlashtirish", "organoidlarni o'zaro birlashtiruvchi ichki muhit hisoblanadi", 1],
+    ["Ribosoma", "Oqsil sintezi", "aminokislotalardan oqsil sintezlaydi", 2],
+    ["Lizosoma", "Moddalarni parchalash", "fermentlar yordamida moddalarni parchalaydi (hujayra ichi hazmi)", 2],
+    ["Golji apparati", "Moddalarni to'plash va chiqarish", "sintezlangan moddalarni to'playdi va hujayradan chiqaradi", 2],
+    ["Endoplazmatik to'r", "Moddalarni hujayra ichida tashish", "moddalarni hujayra ichida tashiydi", 2],
+    ["Hujayra devori", "Hujayraga mustahkamlik berish", "o'simlik hujayrasiga shakl va mustahkamlik beradi", 2],
+    ["Hujayra markazi", "Bo'linishda ishtirok etish", "hayvon hujayrasining bo'linishida ishtirok etadi", 3],
+    ["Xromoplast", "Gul va mevalarga rang berish", "gul va mevalarga sariq, qizil rang beradi", 3],
+    ["Leykoplast", "Kraxmal to'plash", "zaxira oziq modda — kraxmalni to'playdi", 3],
+    ["Yadrocha", "Ribosomalar hosil qilish", "yadro ichida ribosomalarni hosil qiladi", 3]
+  ];
+  // vazifasi qisman o'xshash qismlar bir-biriga chalg'ituvchi bo'lmaydi
+  var ORG_X = {
+    "Yadro": ["Mitoxondriya", "Xloroplast", "Yadrocha"], "Yadrocha": ["Yadro", "Ribosoma"], "Ribosoma": ["Yadrocha", "Endoplazmatik to'r"],
+    "Endoplazmatik to'r": ["Golji apparati", "Ribosoma"], "Golji apparati": ["Endoplazmatik to'r", "Lizosoma"], "Lizosoma": ["Vakuola", "Golji apparati"],
+    "Vakuola": ["Lizosoma", "Leykoplast", "Xromoplast"], "Leykoplast": ["Xloroplast", "Vakuola"], "Xromoplast": ["Vakuola", "Xloroplast"],
+    "Hujayra devori": ["Hujayra membranasi"], "Hujayra membranasi": ["Hujayra devori"], "Sitoplazma": ["Hujayra membranasi"]
+  };
+  function genOrg(L) {
+    var o = pick(lvList(ORGANOID, L, 3)), ex = [o[0]].concat(ORG_X[o[0]] || []);
+    var rest = ORGANOID.filter(function (x) { return ex.indexOf(x[0]) < 0 && (L > 1 || x[3] <= 2); });
+    var st = [o[0] + ": " + o[2] + "."];
+    if (Math.random() < 0.5) return Q("Hujayraning qaysi qismi <b>" + o[2] + "</b>?", o[0], otherN(rest.map(function (x) { return x[0]; }), [], 4), st);
+    return Q("<b>" + o[0] + "</b>ning asosiy vazifasi qaysi?", o[1], otherN(rest.map(function (x) { return x[1]; }), [], 4), st);
+  }
+  // [olim, hissasi (javob), "kim?" savoli, daraja]
+  var OLIM_B = [
+    ["Robert Guk", "Hujayrani kashf etgan", "Po'kak kesmasini mikroskopda kuzatib, \"hujayra\" atamasini fanga kiritgan olim kim?", 1],
+    ["Charlz Darvin", "Evolyutsiya nazariyasini yaratgan", "Tabiiy tanlanish orqali evolyutsiya nazariyasini yaratgan olim kim?", 1],
+    ["Gregor Mendel", "Irsiyat qonunlarini kashf etgan", "Genetika fanining asoschisi deb qaysi olim tan olingan?", 1],
+    ["Lui Paster", "Quturishga qarshi vaksina yaratgan", "Oziq-ovqatni qizdirib zararsizlantirish (pasterizatsiya) usuli qaysi olim nomi bilan ataladi?", 1],
+    ["Aleksandr Fleming", "Penitsillinni kashf etgan", "Birinchi antibiotik — penitsillinni 1928-yilda kashf etgan olim kim?", 1],
+    ["Antoni van Levenguk", "Mikroblarni birinchi kuzatgan", "O'zi yasagan mikroskopda bakteriyalarni birinchi bo'lib kuzatgan olim kim?", 2],
+    ["Shleyden va Shvann", "Hujayra nazariyasini yaratgan", "\"Barcha organizmlar hujayralardan tuzilgan\" degan hujayra nazariyasini kimlar yaratgan?", 2],
+    ["Robert Kox", "Sil qo'zg'atuvchisini kashf etgan", "Sil kasalligi qo'zg'atuvchisi — sil tayoqchasini kim kashf etgan?", 2],
+    ["Karl Linney", "Qo'sh nomlashni joriy etgan", "Har bir turni ikki so'zli lotincha nom bilan atashni joriy etgan olim kim?", 2],
+    ["Uotson va Krik", "DNK qo'sh spiralini aniqlagan", "1953-yilda DNKning qo'sh spiral tuzilishini aniqlagan olimlar kimlar?", 3],
+    ["Robert Broun", "Hujayra yadrosini kashf etgan", "1831-yilda o'simlik hujayrasida yadroni kashf etgan olim kim?", 3],
+    ["Dmitriy Ivanovskiy", "Viruslarni kashf etgan", "1892-yilda tamaki mozaikasi kasalligini o'rganib, viruslarni kashf etgan olim kim?", 3],
+    ["Ilya Mechnikov", "Fagotsitozni kashf etgan", "Leykotsitlarning mikroblarni yutishi — fagotsitozni kashf etgan olim kim?", 3],
+    ["Tomas Morgan", "Xromosoma nazariyasini yaratgan", "Irsiyatning xromosoma nazariyasini yaratgan olim kim?", 3]
+  ];
+  function genOlimB(L) {
+    var o = pick(lvList(OLIM_B, L, 3)), st = [o[0] + " — " + o[1] + "."];
+    if (Math.random() < 0.5) return Q(o[2], o[0], otherN(OLIM_B.map(function (x) { return x[0]; }), [o[0]], 4), st);
+    return Q("<b>" + o[0] + "</b> biologiyaga qanday hissa qo'shgan?", o[1], otherN(OLIM_B.map(function (x) { return x[1]; }), [o[1]], 4), st);
+  }
+  var DUNYO = ["Bakteriyalar", "Zamburug'lar", "O'simliklar", "Hayvonlar"];
+  // [organizm, dunyo indeksi, daraja]
+  var ORGANIZM = [["Ichak tayoqchasi", 0, 2], ["Sil tayoqchasi", 0, 2], ["Sut achituvchi bakteriya", 0, 1], ["Tugunak bakteriyasi", 0, 3],
+    ["Achitqi", 1, 1], ["Mog'or zamburug'i", 1, 1], ["Shampinyon", 1, 2], ["Oq qo'ziqorin", 1, 1], ["Qorakuya", 1, 3],
+    ["Qayin", 2, 1], ["Bug'doy", 2, 1], ["Yo'sin", 2, 2], ["Qirqquloq", 2, 2], ["Archa", 2, 1],
+    ["Chumoli", 3, 1], ["Qurbaqa", 3, 1], ["Yomg'ir chuvalchangi", 3, 2], ["Marjon polipi", 3, 3], ["Gubka", 3, 3]];
+  function genDunyo(L) {
+    var pool = lvList(ORGANIZM, L, 2), o = pick(pool), a = DUNYO[o[1]];
+    if (Math.random() < 0.6) return Q("<b>" + o[0] + "</b> tirik organizmlarning qaysi dunyosiga kiradi?", a, others(DUNYO, a, 3).concat(["Viruslar"]), [o[0] + " — " + a.toLowerCase() + " dunyosiga kiradi."]);
+    var w = [];
+    [0, 1, 2, 3].forEach(function (k) { if (k !== o[1]) { var c = pool.filter(function (x) { return x[1] === k; }); if (!c.length) c = ORGANIZM.filter(function (x) { return x[1] === k; }); w.push(pick(c)[0]); } });
+    return Q("Qaysi organizm <b>" + a.toLowerCase() + "</b> dunyosiga kiradi?", o[0], w, [o[0] + " — " + a.toLowerCase() + " dunyosiga kiradi."]);
+  }
+  function genMikro(L) {
+    var ok = pick([5, 7, 10, 15, 20]), ob = pick([4, 8, 10, 20, 40, 90]), k = ok * ob;
+    if (L >= 2 && Math.random() < 0.4) return Q("Mikroskop jami " + k + " marta kattalashtiradi, okulyari esa " + ok + " marta. Obyektivi necha marta kattalashtiradi?", ob + " marta",
+      [ob * 2, k - ok, ob + 10, ob / 2, ok].map(function (x) { return x + " marta"; }), ["Kattalashtirish = okulyar × obyektiv.", k + " : " + ok + " = " + ob]);
+    return Q("Mikroskop okulyari " + ok + " marta, obyektivi " + ob + " marta kattalashtiradi. Mikroskop jami necha marta kattalashtiradi?", k + " marta",
+      [ok + ob, k * 2, k * 10, k / 2, k + ok].map(function (x) { return x + " marta"; }), ["Kattalashtirish = okulyar × obyektiv.", ok + " × " + ob + " = " + k]);
+  }
+  topic("b1", "Biologiya · Hujayra va tirik organizmlar", B1, [{ p: 0.2, fn: genOrg }, { p: 0.14, fn: genOlimB }, { p: 0.1, fn: genDunyo }, { p: 0.07, fn: genMikro }]);
 
   /* ================= b2 Biologiya · Odam anatomiyasi va salomatlik ================= */
   var B2 = [
@@ -159,9 +281,108 @@
     [3, "A vitamini yetishmasa qaysi holat kuzatiladi?", "Shabko'rlik", ["Raxit", "Singa (tsinga)", "Buqoq"], "Shabko'rlikda odam qorong'ida yomon ko'radi."],
     [3, "B₁ vitamini yetishmasligidan qaysi kasallik kelib chiqadi?", "Beri-beri", ["Raxit", "Singa (tsinga)", "Shabko'rlik"], "Beri-berida nerv sistemasi zararlanadi."],
     [3, "Qaysi qon guruhi \"universal donor\" hisoblanadi?", "I (0) guruh", ["II (A) guruh", "III (B) guruh", "IV (AB) guruh"], "IV (AB) guruh egasi esa universal retsipiyent hisoblanadi."],
-    [3, "Ichki sekretsiya bezlari ishlab chiqaradigan biologik faol moddalar nima deyiladi?", "Gormonlar", ["Fermentlar", "Vitaminlar", "Antitanalar"], "Gormonlar to'g'ridan-to'g'ri qonga chiqariladi."]
+    [3, "Ichki sekretsiya bezlari ishlab chiqaradigan biologik faol moddalar nima deyiladi?", "Gormonlar", ["Fermentlar", "Vitaminlar", "Antitanalar"], "Gormonlar to'g'ridan-to'g'ri qonga chiqariladi."],
+    [1, "Bolalarda nechta sut tishi bo'ladi?", "20", ["32", "24", "16"], "Sut tishlari keyinchalik doimiy tishlar bilan almashinadi."],
+    [1, "Tana haroratini o'lchaydigan asbob qaysi?", "Termometr", ["Tonometr", "Barometr", "Dinamometr"], "Sog'lom odam harorati taxminan 36,6 °C."],
+    [1, "Teri orqali tanadan qanday suyuqlik ajraladi?", "Ter", ["So'lak", "O't suyuqligi", "Oshqozon shirasi"], "Ter bezlari tana haroratini boshqarishga yordam beradi."],
+    [1, "Quyosh nuri ta'sirida terida qaysi vitamin hosil bo'ladi?", "D vitamini", ["C vitamini", "A vitamini", "K vitamini"], "D vitamini suyaklar uchun zarur."],
+    [1, "Limon, na'matak va qora smorodinada qaysi vitamin ko'p bo'ladi?", "C vitamini", ["D vitamini", "K vitamini", "B₁ vitamini"], "C vitamini organizmni kasalliklarga chidamli qiladi."],
+    [1, "Tishlarni kuniga kamida necha marta tozalash tavsiya etiladi?", "2 marta", ["1 hafta 1 marta", "Har oyda 1 marta", "Umuman shart emas"], "Ertalab va kechqurun tish yuvish tavsiya etiladi."],
+    [1, "Odamda nechta asosiy sezgi organi bor?", "5", ["3", "4", "7"], "Ko'z, quloq, burun, til va teri."],
+    [2, "Katta yoshli odam tanasida taxminan necha litr qon bo'ladi?", "5 litr", ["1 litr", "10 litr", "15 litr"], "Qon tana massasining taxminan 7–8% ini tashkil etadi."],
+    [2, "Sog'lom katta yoshli odam yuragi tinch holatda daqiqasiga taxminan necha marta uradi?", "60–80 marta", ["20–30 marta", "120–140 marta", "150–200 marta"], "Jismoniy mashqda yurak urishi tezlashadi."],
+    [2, "Sog'lom odam tinch holatda bir daqiqada taxminan necha marta nafas oladi?", "16–18 marta", ["4–6 marta", "40–50 marta", "60–80 marta"], "Nafas olish markazi uzunchoq miyada joylashgan."],
+    [2, "Ko'zning rangini belgilovchi parda qaysi?", "Rangdor parda", ["Shox parda", "To'r parda", "Oqsil parda"], "Rangdor parda o'rtasida qorachiq joylashgan."],
+    [2, "Qorong'ida ko'z qorachig'i qanday o'zgaradi?", "Kengayadi", ["Torayadi", "O'zgarmaydi", "Yopilib qoladi"], "Ko'proq yorug'lik tushishi uchun qorachiq kengayadi."],
+    [2, "Organizm uchun asosiy qurilish materiali bo'lgan oziq moddalar qaysi?", "Oqsillar", ["Uglevodlar", "Vitaminlar", "Mineral tuzlar"], "Oqsillar go'sht, sut, tuxum, dukkaklilarda ko'p."],
+    [2, "Organizm uchun asosiy energiya manbai bo'lgan oziq moddalar qaysi?", "Uglevodlar", ["Vitaminlar", "Mineral tuzlar", "Suv"], "Non, guruch, kartoshka uglevodlarga boy."],
+    [2, "Odam tanasidagi eng qattiq to'qima qaysi?", "Tish emali", ["Son suyagi", "Tirnoq", "Tog'ay"], "Emal tishni yemirilishdan himoya qiladi."],
+    [2, "Hazm qilish tizimidagi eng katta bez qaysi?", "Jigar", ["Oshqozon osti bezi", "So'lak bezi", "Qalqonsimon bez"], "Jigar o't suyuqligi ishlab chiqaradi."],
+    [2, "Qonning suyuq qismi nima deb ataladi?", "Plazma", ["Limfa", "Gemoglobin", "Zardob"], "Plazmada qon hujayralari suzib yuradi."],
+    [2, "Qondagi gemoglobin kamayib ketishi qanday holat deyiladi?", "Kamqonlik (anemiya)", ["Qandli diabet", "Raxit", "Buqoq"], "Kamqonlikda organizmga kislorod kam yetib boradi."],
+    [2, "Qonni organlardan yurakka olib keluvchi tomirlar qanday ataladi?", "Venalar", ["Arteriyalar", "Kapillyarlar", "Aorta"], "Arteriyalar esa qonni yurakdan olib ketadi."],
+    [2, "Eng ingichka qon tomirlari qanday ataladi?", "Kapillyarlar", ["Arteriyalar", "Venalar", "Aorta"], "Kapillyarlar devori orqali gaz va moddalar almashinadi."],
+    [2, "Qon bosimini o'lchaydigan asbob qaysi?", "Tonometr", ["Termometr", "Barometr", "Manometr"], "Tonometr qon bosimini mm simob ustunida ko'rsatadi."],
+    [2, "Qo'lni issiq narsadan beixtiyor tortib olish qanday reaksiya?", "Shartsiz refleks", ["Shartli refleks", "Instinkt emas, odat", "Ixtiyoriy harakat"], "Shartsiz reflekslar tug'ma bo'ladi."],
+    [2, "Pavlov tajribasida qo'ng'iroq chalinganda itda so'lak ajralishi qanday refleks?", "Shartli refleks", ["Shartsiz refleks", "Tug'ma refleks", "Ixtiyorsiz harakat"], "Shartli refleks hayot davomida hosil bo'ladi."],
+    [2, "Sabzidagi karotin organizmda qaysi vitaminga aylanadi?", "A vitamini", ["C vitamini", "D vitamini", "K vitamini"], "A vitamini ko'rish uchun muhim."],
+    [3, "Odam bosh skeletidagi yagona harakatchan suyak qaysi?", "Pastki jag'", ["Yuqori jag'", "Peshona suyagi", "Ensa suyagi"], "Pastki jag' chaynash va gapirishda harakatlanadi."],
+    [3, "Bo'g'imda suyaklarni bir-biriga biriktiruvchi tuzilmalar nima deyiladi?", "Boylamlar", ["Paylar", "Tog'aylar", "Muskullar"], "Paylar esa muskulni suyakka biriktiradi."],
+    [3, "Muskullarni suyakka biriktiruvchi tuzilma nima deyiladi?", "Pay", ["Boylam", "Tog'ay", "Bo'g'im"], "Pay (tendon) zich biriktiruvchi to'qimadan tuzilgan."],
+    [3, "Qo'lni tirsakdan bukuvchi muskul qaysi?", "Ikki boshli muskul", ["Uch boshli muskul", "Deltasimon muskul", "Diafragma"], "Uch boshli muskul esa qo'lni tirsakdan yozadi."],
+    [3, "Qo'lni tirsakdan yozuvchi muskul qaysi?", "Uch boshli muskul", ["Ikki boshli muskul", "Deltasimon muskul", "Diafragma"], "Bu ikki muskul bir-biriga qarama-qarshi ishlaydi."],
+    [3, "Ichki quloqning eshitish retseptorlari joylashgan qismi qanday ataladi?", "Chig'anoq", ["Nog'ora parda", "Eshitish nayi", "Quloq suprasi"], "Chig'anoqdagi suyuqlik tebranishi retseptorlarni qo'zg'atadi."],
+    [3, "Nerv impulsini neyron tanasidan uzoqqa o'tkazuvchi uzun o'simta nima deyiladi?", "Akson", ["Dendrit", "Sinaps", "Retseptor"], "Dendritlar — qisqa, shoxlangan o'simtalar."],
+    [3, "Ichki sekretsiya bezlari gormonlarni qayerga chiqaradi?", "To'g'ridan-to'g'ri qonga", ["Ichakka", "Teri yuzasiga", "Og'iz bo'shlig'iga"], "Tashqi sekretsiya bezlari (so'lak, ter) esa yo'llar orqali chiqaradi."],
+    [3, "Bosh miya yarimsharlarining po'stlog'i qanday moddadan iborat?", "Kulrang moddadan", ["Oq moddadan", "Tog'aydan", "Suyak to'qimasidan"], "Po'stloqda neyronlar tanalari joylashgan."],
+    [3, "Uzoqni yaxshi, yaqinni yomon ko'radigan odamga qanday ko'zoynak kerak?", "Qavariq (yig'uvchi) linzali", ["Botiq (sochuvchi) linzali", "Yassi oynali", "Qora oynali"], "Yig'uvchi linza tasvirni to'r pardaga keltiradi."],
+    [3, "Yaqinni yaxshi, uzoqni yomon ko'radigan odamga qanday ko'zoynak kerak?", "Botiq (sochuvchi) linzali", ["Qavariq (yig'uvchi) linzali", "Yassi oynali", "Qora oynali"], "Sochuvchi linza tasvirni to'r pardaga keltiradi."]
   ];
-  topic("b2", "Biologiya · Odam anatomiyasi va salomatlik", B2);
+  // [organ, vazifasi (javob), "Qaysi organ ...?" uchun, daraja]
+  var ORGAN = [
+    ["Yurak", "Qonni tomirlarga haydash", "qonni tomirlar bo'ylab haydaydi", 1],
+    ["O'pka", "Gaz almashinuvi", "qonni kislorod bilan to'yintiradi", 1],
+    ["Buyrak", "Siydik hosil qilish", "qonni tozalab, siydik hosil qiladi", 1],
+    ["Oshqozon", "Ovqatni hazm qilish", "ovqatni kislotali shira bilan hazm qiladi", 1],
+    ["Bosh miya", "Organizm faoliyatini boshqarish", "butun organizm faoliyatini boshqaradi", 1],
+    ["Ko'z", "Ko'rish", "yorug'likni sezib, ko'rishni ta'minlaydi", 1],
+    ["Quloq", "Eshitish", "tovushlarni sezib, eshitishni ta'minlaydi", 1],
+    ["Burun", "Hid bilish", "hidlarni sezadi", 1],
+    ["Teri", "Tanani himoya qilish", "tanani tashqi ta'sirlardan himoya qiladi", 1],
+    ["Jigar", "O't suyuqligi ishlab chiqarish", "o't suyuqligi (safro) ishlab chiqaradi", 2],
+    ["Ingichka ichak", "Oziq moddalarni qonga so'rish", "oziq moddalarni qonga so'radi", 2],
+    ["Qizilo'ngach", "Ovqatni oshqozonga o'tkazish", "chaynalgan ovqatni oshqozonga o'tkazadi", 2],
+    ["Siydik pufagi", "Siydikni to'plash", "siydikni vaqtincha to'playdi", 2],
+    ["Traxeya", "Havoni bronxlarga o'tkazish", "havoni hiqildoqdan bronxlarga o'tkazadi", 2],
+    ["Miyacha", "Harakat muvozanatini boshqarish", "harakatlar muvozanati va uyg'unligini boshqaradi", 3],
+    ["Yo'g'on ichak", "Suvni so'rish", "hazm bo'lmagan qoldiqlardan suvni so'radi", 3],
+    ["Qizil suyak ko'migi", "Qon hujayralarini hosil qilish", "qon hujayralarini hosil qiladi", 3],
+    ["Orqa miya", "Oddiy reflekslarni amalga oshirish", "oddiy reflekslarni amalga oshiradi va impulslarni bosh miyaga o'tkazadi", 3]
+  ];
+  var ORGAN_X = { "Bosh miya": ["Orqa miya", "Miyacha"], "Miyacha": ["Bosh miya"], "Orqa miya": ["Bosh miya", "Miyacha"], "Oshqozon": ["Ingichka ichak"],
+    "Ingichka ichak": ["Oshqozon", "Yo'g'on ichak"], "Yo'g'on ichak": ["Ingichka ichak"], "Buyrak": ["Jigar", "Siydik pufagi"], "Siydik pufagi": ["Buyrak"],
+    "O'pka": ["Traxeya"], "Traxeya": ["O'pka"], "Teri": [] };
+  function genOrgan(L) {
+    var o = pick(lvList(ORGAN, L, 3)), ex = [o[0]].concat(ORGAN_X[o[0]] || []);
+    var rest = ORGAN.filter(function (x) { return ex.indexOf(x[0]) < 0; }), st = [o[0] + " " + o[2] + "."];
+    if (Math.random() < 0.5) return Q("Qaysi organ <b>" + o[2] + "</b>?", o[0], otherN(rest.map(function (x) { return x[0]; }), [], 4), st);
+    return Q("<b>" + o[0] + "</b>ning asosiy vazifasi qaysi?", o[1], otherN(rest.map(function (x) { return x[1]; }), [], 4), st);
+  }
+  // [vitamin, yetishmasa kelib chiqadigan holat, daraja]
+  var VIT = [["C vitamini", "Singa (tsinga)", 1], ["D vitamini", "Raxit", 1], ["A vitamini", "Shabko'rlik", 2], ["B₁ vitamini", "Beri-beri", 2], ["K vitamini", "Qon yomon ivishi", 3], ["PP vitamini", "Pellagra", 3]];
+  function genVit(L) {
+    var v = pick(lvList(VIT, L, 2)), st = [v[0] + " yetishmasa — " + v[1].toLowerCase() + "."];
+    if (Math.random() < 0.5) return Q("<b>" + v[0] + "</b> yetishmasa qanday holat kuzatiladi?", v[1], otherN(VIT.map(function (x) { return x[1]; }), [v[1]], 4), st);
+    return Q("<b>" + v[1] + "</b> qaysi vitamin yetishmasligidan kelib chiqadi?", v[0], otherN(VIT.map(function (x) { return x[0]; }), [v[0]], 4), st);
+  }
+  var SIST = ["Qon aylanish sistemasi", "Nafas olish sistemasi", "Hazm qilish sistemasi", "Ayirish sistemasi", "Nerv sistemasi", "Tayanch-harakat sistemasi"];
+  // [organ yoki tuzilma, sistema indeksi, daraja]
+  var ORG_S = [["Yurak", 0, 1], ["Aorta", 0, 2], ["Kapillyarlar", 0, 2], ["Venalar", 0, 2],
+    ["O'pka", 1, 1], ["Traxeya", 1, 2], ["Bronxlar", 1, 2], ["Hiqildoq", 1, 3], ["Alveolalar", 1, 3],
+    ["Oshqozon", 2, 1], ["Qizilo'ngach", 2, 1], ["Ingichka ichak", 2, 1], ["Jigar", 2, 2], ["So'lak bezlari", 2, 2], ["O'n ikki barmoq ichak", 2, 3],
+    ["Buyrak", 3, 1], ["Siydik pufagi", 3, 1], ["Siydik yo'li", 3, 2], ["Nefron", 3, 3],
+    ["Bosh miya", 4, 1], ["Orqa miya", 4, 1], ["Neyron", 4, 2], ["Miyacha", 4, 2], ["Uzunchoq miya", 4, 3],
+    ["Son suyagi", 5, 1], ["Umurtqa pog'onasi", 5, 1], ["Ikki boshli muskul", 5, 2], ["Bo'g'imlar", 5, 2], ["Pay", 5, 3]];
+  function genSist(L) {
+    var pool = lvList(ORG_S, L, 2), o = pick(pool), a = SIST[o[1]], st = [o[0] + " — " + a.toLowerCase() + "ga kiradi."];
+    if (Math.random() < 0.55) return Q("<b>" + o[0] + "</b> qaysi organlar sistemasiga kiradi?", a, others(SIST, a, 4), st);
+    var w = [];
+    shuffle([0, 1, 2, 3, 4, 5]).forEach(function (k) { if (k !== o[1] && w.length < 4) { var c = pool.filter(function (x) { return x[1] === k; }); if (!c.length) c = ORG_S.filter(function (x) { return x[1] === k; }); w.push(pick(c)[0]); } });
+    return Q("Quyidagilardan qaysi biri <b>" + a.toLowerCase() + "</b>ga kiradi?", o[0], w, st);
+  }
+  // [qism, vazifa] juftlari — har ikki yo'nalishda so'raladi
+  var B2_PAIR = [
+    ["Eritrotsitlar", "Kislorod tashish", "qon hujayralari", 1], ["Leykotsitlar", "Mikroblardan himoya qilish", "qon hujayralari", 1], ["Trombotsitlar", "Qon ivishida qatnashish", "qon hujayralari", 1],
+    ["Kalla suyagi", "Bosh miyani himoya qilish", "skelet qismi", 1], ["Ko'krak qafasi", "Yurak va o'pkani himoya qilish", "skelet qismi", 1], ["Umurtqa pog'onasi", "Orqa miyani himoya qilish", "skelet qismi", 1],
+    ["Oshqozon osti bezi", "Insulin ishlab chiqarish", "bez", 2], ["Qalqonsimon bez", "Tiroksin ishlab chiqarish", "bez", 2], ["Buyrak usti bezi", "Adrenalin ishlab chiqarish", "bez", 2], ["Gipofiz", "O'sish gormoni ishlab chiqarish", "bez", 3]
+  ];
+  function genB2Pair(L) {
+    var o = pick(lvList(B2_PAIR, L, 3)), same = B2_PAIR.filter(function (x) { return x[2] === o[2] && x[0] !== o[0]; }), oth = B2_PAIR.filter(function (x) { return x[2] !== o[2]; });
+    var st = [o[0] + " — " + o[1].toLowerCase() + "."];
+    if (Math.random() < 0.5) return Q("<b>" + o[0] + "</b>ning asosiy vazifasi qaysi?", o[1], same.map(function (x) { return x[1]; }).concat(otherN(oth.map(function (x) { return x[1]; }), [], 2)).slice(0, 4), st);
+    return Q("Qaysi " + o[2] + " <b>" + o[1].toLowerCase() + "</b> vazifasini bajaradi?", o[0], same.map(function (x) { return x[0]; }).concat(otherN(oth.map(function (x) { return x[0]; }), [], 2)).slice(0, 4), st);
+  }
+  topic("b2", "Biologiya · Odam anatomiyasi va salomatlik", B2, [{ p: 0.18, fn: genOrgan }, { p: 0.1, fn: genVit }, { p: 0.15, fn: genSist }, { p: 0.1, fn: genB2Pair }]);
 
   /* ================= b3 Biologiya · O'simliklar va hayvonlar dunyosi ================= */
   var SINF = ["Sutemizuvchilar", "Qushlar", "Sudralib yuruvchilar", "Suvda hamda quruqlikda yashovchilar", "Baliqlar", "Hasharotlar", "O'rgimchaksimonlar"];
@@ -175,7 +396,14 @@
     ["Qurbaqa", 3, 1], ["Baqa", 3, 1], ["Salamandra", 3, 3],
     ["Laqqa baliq", 4, 1], ["Zog'ora baliq", 4, 1], ["Akula", 4, 2], ["Dengiz oti", 4, 3], ["Osyotr", 4, 3],
     ["Chumoli", 5, 1], ["Asalari", 5, 1], ["Kapalak", 5, 1], ["Ninachi", 5, 1], ["Chigirtka", 5, 2], ["Pashsha", 5, 1], ["Xonqizi", 5, 2],
-    ["O'rgimchak", 6, 1], ["Chayon", 6, 2], ["Kana", 6, 3]
+    ["O'rgimchak", 6, 1], ["Chayon", 6, 2], ["Kana", 6, 3],
+    ["Ayiq", 0, 1], ["Tulki", 0, 1], ["Yo'lbars", 0, 1], ["Tipratikan", 0, 1], ["Zebra", 0, 1], ["Jirafa", 0, 1], ["Koala", 0, 2], ["Kashalot", 0, 2], ["Morj", 0, 3], ["Exidna", 0, 3],
+    ["Boyqush", 1, 1], ["Qaldirg'och", 1, 1], ["O'rdak", 1, 1], ["Kolibri", 1, 2], ["Pelikan", 1, 2], ["Flamingo", 1, 2],
+    ["Gekkon", 2, 2], ["Kobra", 2, 2], ["Alligator", 2, 2], ["Gyurza", 2, 2], ["Suv iloni", 2, 3],
+    ["Triton", 3, 2],
+    ["Oq amur", 4, 2], ["Cho'rtan baliq", 4, 2], ["Kambala", 4, 2], ["Kit akula", 4, 3], ["Ilonbaliq", 4, 3], ["Skat", 4, 3], ["Piranya", 4, 3],
+    ["Suvarak", 5, 1], ["Chivin", 5, 1], ["Termit", 5, 2],
+    ["Qoraqurt", 6, 2], ["Tarantul", 6, 2], ["Falanga", 6, 3]
   ];
   function genSinf(L) {
     var pool = HAYVON.filter(function (h) { return h[2] === L; });
@@ -235,9 +463,62 @@
     [3, "Orolning qurishi bilan bog'liq muammo qaysi turdagi muammo hisoblanadi?", "Ekologik muammo", ["Genetik muammo", "Sitologik muammo", "Anatomik muammo"], "Orol fojiasi — mintaqaning eng yirik ekologik muammosi."],
     [3, "Ornitorinx qaysi xususiyati bilan boshqa sutemizuvchilardan ajralib turadi?", "Tuxum qo'yadi", ["Jabra bilan nafas oladi", "Bolasini sut bilan boqmaydi", "Tanasi tangacha bilan qoplangan"], "Ornitorinx — tuxum qo'yuvchi sutemizuvchi, Avstraliyada yashaydi."],
     [3, "Hasharotlar tanasi qaysi uch bo'limdan iborat?", "Bosh, ko'krak, qorin", ["Bosh, bo'yin, dum", "Boshko'krak va qorin", "Bosh, tana, dum"], "O'rgimchaksimonlarda esa boshko'krak va qorin bo'ladi."],
-    [3, "O'rgimchaksimonlarning tanasi qaysi bo'limlardan iborat?", "Boshko'krak va qorin", ["Bosh, ko'krak, qorin", "Bosh va dum", "Bosh, bo'yin, tana"], "O'rgimchaksimonlarda mo'ylov bo'lmaydi."]
+    [3, "O'rgimchaksimonlarning tanasi qaysi bo'limlardan iborat?", "Boshko'krak va qorin", ["Bosh, ko'krak, qorin", "Bosh va dum", "Bosh, bo'yin, tana"], "O'rgimchaksimonlarda mo'ylov bo'lmaydi."],
+    [1, "Tuyaning o'rkachida nima to'planadi?", "Yog'", ["Suv", "Havo", "Qon"], "Yog' parchalanganda energiya va suv hosil bo'ladi."],
+    [1, "Qushlarning tanasi nima bilan qoplangan?", "Patlar", ["Tangachalar", "Jun", "Shox plastinkalar"], "Patlar qushni sovuqdan saqlaydi va uchishga yordam beradi."],
+    [1, "Baliqlarning tanasi nima bilan qoplangan?", "Tangachalar", ["Patlar", "Jun", "Yalang'och teri"], "Tangachalar baliq tanasini himoya qiladi."],
+    [1, "Sutemizuvchilarning tanasi odatda nima bilan qoplangan?", "Jun", ["Patlar", "Tangachalar", "Shilimshiq teri"], "Jun tanani sovuqdan saqlaydi."],
+    [1, "Kenguru bolasini qayerda olib yuradi?", "Qorin xaltasida", ["Orqasida", "Og'zida", "Uyada qoldiradi"], "Kenguru — xaltali sutemizuvchi."],
+    [1, "Lichinkasi tut bargi bilan oziqlanib, pilla o'raydigan hasharot qaysi?", "Tut ipak qurti", ["Asalari", "Chumoli", "Ninachi"], "Pilladan tabiiy ipak olinadi."],
+    [1, "Qaysi hayvon umurtqasiz?", "Chumoli", ["Qurbaqa", "Kaptar", "Ilon"], "Hasharotlar umurtqasiz hayvonlar."],
+    [1, "Qaysi hayvon umurtqali?", "Qurbaqa", ["Chumoli", "O'rgimchak", "Yomg'ir chuvalchangi"], "Baliqlar, amfibiyalar, reptiliyalar, qushlar va sutemizuvchilar — umurtqalilar."],
+    [1, "Qaysi o'simlik urug'ini shamol uzoqqa tarqatadi?", "Qoqio't", ["Olcha", "Tarvuz", "Yong'oq"], "Qoqio't urug'larida mayin tukli \"parashyut\" bor."],
+    [1, "Qaysi hayvon qishda qishki uyquga ketadi?", "Ayiq", ["Bo'ri", "Tulki", "Quyon"], "Qishki uyqu paytida ayiq to'plagan yog'i hisobiga yashaydi."],
+    [2, "Qaysi hayvonlar issiqqonli?", "Qushlar va sutemizuvchilar", ["Baliqlar va qushlar", "Reptiliyalar va qushlar", "Amfibiyalar va sutemizuvchilar"], "Ularning tana harorati doimiy saqlanadi."],
+    [2, "Quyidagilardan qaysi biri sovuqqonli hayvon?", "Kaltakesak", ["Kaptar", "It", "Delfin"], "Sovuqqonlilarning tana harorati muhitga bog'liq."],
+    [2, "Kitlar qanday organ yordamida nafas oladi?", "O'pka", ["Jabra", "Teri", "Traxeya"], "Kit havodan nafas olish uchun suv yuzasiga chiqadi."],
+    [2, "Sudralib yuruvchilarning tanasi nima bilan qoplangan?", "Shox tangachalar", ["Patlar", "Jun", "Shilimshiq teri"], "Shox tangachalar tanani qurib qolishdan saqlaydi."],
+    [2, "Qurbaqaning terisi qanday?", "Yalang'och va shilimshiq", ["Tangachali", "Junli", "Patli"], "Qurbaqa teri orqali ham nafas oladi."],
+    [2, "Daraxtning yoshini qanday aniqlash mumkin?", "Yillik halqalar soni bo'yicha", ["Barglar soni bo'yicha", "Balandligi bo'yicha", "Ildiz uzunligi bo'yicha"], "Har yili poyada bitta yillik halqa hosil bo'ladi."],
+    [2, "Urug' unib chiqishi uchun nimalar zarur?", "Suv, havo va issiqlik", ["Faqat yorug'lik", "Faqat tuproq", "Faqat o'g'it"], "Urug' quruq va sovuq joyda unmaydi."],
+    [2, "Qaysi o'simlik shamol yordamida changlanadi?", "Makkajo'xori", ["Olma", "Atirgul", "O'rik"], "Shamolda changlanadigan gullar mayda va xushbo'y emas."],
+    [2, "Hasharotlar yordamida changlanadigan gullar odatda qanday bo'ladi?", "Yorqin, xushbo'y, nektarli", ["Mayda, rangsiz, hidsiz", "Gulsiz", "Faqat yashil"], "Hasharotlar gul rangi va hididan jalb qilinadi."],
+    [2, "Kaktusning barglari nimaga aylangan?", "Tikanlarga", ["Gajaklarga", "Tuganaklarga", "Ildizlarga"], "Tikanlar suv bug'lanishini kamaytiradi."],
+    [3, "Hasharotlar qanday organ orqali nafas oladi?", "Traxeyalar", ["Jabralar", "O'pkalar", "Faqat teri"], "Traxeyalar tana bo'ylab havoni tarqatadi."],
+    [3, "Yomg'ir chuvalchangi qanday nafas oladi?", "Teri orqali", ["O'pka orqali", "Jabra orqali", "Traxeya orqali"], "Chuvalchang terisi doim nam bo'ladi."],
+    [3, "Yomg'ir chuvalchangi qaysi tipga kiradi?", "Halqali chuvalchanglar", ["Yassi chuvalchanglar", "Bo'g'imoyoqlilar", "Molluskalar"], "Tanasi halqasimon bo'g'imlardan iborat."],
+    [3, "Qaysi hayvon bo'g'imoyoqlilar tipiga kirmaydi?", "Yomg'ir chuvalchangi", ["O'rgimchak", "Kapalak", "Qisqichbaqa"], "Bo'g'imoyoqlilar: hasharotlar, o'rgimchaksimonlar, qisqichbaqasimonlar."],
+    [3, "Baliqlarning yuragi necha kamerali?", "2", ["3", "4", "1"], "Bitta bo'lmacha va bitta qorincha."],
+    [3, "Amfibiyalarning yuragi necha kamerali?", "3", ["2", "4", "1"], "Ikkita bo'lmacha va bitta qorincha."],
+    [3, "Qushlarning yuragi necha kamerali?", "4", ["2", "3", "1"], "Qushlar va sutemizuvchilarda arterial va venoz qon aralashmaydi."],
+    [3, "O'simlik poyasida suv va mineral tuzlar ildizdan bargga qaysi qism orqali ko'tariladi?", "Yog'ochlik (naylar)", ["Lub (elaksimon naylar)", "Po'stloq", "O'zak"], "Organik moddalar esa lub orqali harakatlanadi."],
+    [3, "Bargda hosil bo'lgan organik moddalar poyaning qaysi qismi orqali tarqaladi?", "Lub (elaksimon naylar)", ["Yog'ochlik (naylar)", "O'zak", "Kambiy"], "Suv va mineral tuzlar esa yog'ochlik orqali ko'tariladi."],
+    [3, "Ildizida tuganak hosil qilib, tuproqni azot bilan boyituvchi o'simliklar qaysi?", "Dukkakli o'simliklar", ["Bug'doydoshlar", "Ignabarglilar", "Yo'sinlar"], "Tuganak bakteriyalari havodagi azotni o'zlashtiradi."],
+    [3, "Poyaning yo'g'onlashishini ta'minlovchi hosil qiluvchi to'qima qaysi?", "Kambiy", ["Lub", "O'zak", "Po'kak"], "Kambiy hujayralari bo'linib, yillik halqalarni hosil qiladi."]
   ];
-  topic("b3", "Biologiya · O'simliklar va hayvonlar dunyosi", B3, [{ p: 0.3, fn: genSinf }, { p: 0.15, fn: genSinfTop }]);
+  var OGUR = ["Bir pallalilar", "Ikki pallalilar", "Ochiq urug'lilar", "Qirqquloqsimonlar", "Yo'sinlar"];
+  // [o'simlik, guruh indeksi, daraja]
+  var OSIM = [["Bug'doy", 0, 1], ["Makkajo'xori", 0, 1], ["Sholi", 0, 2], ["Piyoz", 0, 2], ["Arpa", 0, 2], ["Lola", 0, 2], ["Palma", 0, 3],
+    ["Loviya", 1, 1], ["No'xat", 1, 1], ["O'rik", 1, 1], ["Olma", 1, 1], ["Kungaboqar", 1, 2], ["G'o'za", 1, 2], ["Kartoshka", 1, 2], ["Pomidor", 1, 2], ["Qovun", 1, 2], ["Atirgul", 1, 3],
+    ["Qarag'ay", 2, 1], ["Archa", 2, 2], ["Sarv", 2, 3], ["Qoraqarag'ay", 2, 3], ["Qirqquloq", 3, 2], ["Funariya", 4, 3], ["Sfagnum", 4, 3]];
+  function genOgur(L) {
+    var o = pick(lvList(OSIM, L, 2)), a = OGUR[o[1]];
+    return Q("<b>" + o[0] + "</b> o'simliklarning qaysi guruhiga kiradi?", a, others(OGUR, a, 4), [o[0] + " — " + a.toLowerCase() + " guruhiga kiradi."]);
+  }
+  var OILA = ["Ra'noguldoshlar", "Ituzumdoshlar", "Dukkakdoshlar", "Bug'doydoshlar", "Karamdoshlar"];
+  var OILA_O = [["Olma", 0], ["Nok", 0], ["O'rik", 0], ["Olcha", 0], ["Atirgul", 0], ["Shaftoli", 0],
+    ["Kartoshka", 1], ["Pomidor", 1], ["Baqlajon", 1], ["Bulg'or qalampiri", 1],
+    ["Loviya", 2], ["No'xat", 2], ["Beda", 2], ["Soya", 2], ["Mosh", 2],
+    ["Bug'doy", 3], ["Arpa", 3], ["Sholi", 3], ["Makkajo'xori", 3], ["Javdar", 3],
+    ["Karam", 4], ["Turp", 4], ["Sholg'om", 4], ["Rediska", 4]];
+  function genOila(L) {
+    var o = pick(OILA_O), a = OILA[o[1]];
+    if (Math.random() < 0.6) return Q("<b>" + o[0] + "</b> qaysi oilaga mansub?", a, others(OILA, a, 4), [o[0] + " — " + a.toLowerCase() + " oilasiga mansub."]);
+    var w = []; [0, 1, 2, 3, 4].forEach(function (k) { if (k !== o[1]) w.push(pick(OILA_O.filter(function (x) { return x[1] === k; }))[0]); });
+    return Q("Qaysi o'simlik <b>" + a.toLowerCase() + "</b> oilasiga mansub?", o[0], w, [o[0] + " — " + a.toLowerCase() + " oilasiga mansub."]);
+  }
+  topic("b3", "Biologiya · O'simliklar va hayvonlar dunyosi", B3, [{ p: 0.25, fn: genSinf }, { p: 0.14, fn: genSinfTop }, { p: 0.12, fn: genOgur },
+    { p: 0.1, fn: function (L) { return L === 3 ? genOila(L) : null; } }]);
 
   /* ================= g1 Geografiya · Davlatlar va poytaxtlar ================= */
   // [davlat, poytaxt, mintaqa, daraja, dunyo qismi (aniq bo'lsa)]
@@ -353,9 +634,65 @@
     [3, "O'zbekistonning maydoni bo'yicha eng katta hududiy birligi qaysi?", "Qoraqalpog'iston", ["Navoiy viloyati", "Buxoro viloyati", "Qashqadaryo viloyati"], "Qoraqalpog'iston Respublikasi mamlakat hududining uchdan biridan ko'prog'ini egallaydi."],
     [3, "Muruntov oltin koni qaysi viloyatda joylashgan?", "Navoiy viloyati", ["Samarqand viloyati", "Buxoro viloyati", "Jizzax viloyati"], "Muruntov — Qizilqumdagi yirik oltin koni."],
     [3, "Sirdaryo qaysi davlat hududida Orol dengiziga quyiladi?", "Qozog'iston", ["O'zbekiston", "Turkmaniston", "Tojikiston"], "Sirdaryo O'zbekiston va Tojikistondan o'tib, Qozog'istonda Orolga quyiladi."],
-    [3, "O'zbekistonda iqlim qanday?", "Keskin kontinental", ["Mussonli", "Ekvatorial", "Dengiz iqlimi"], "Yozi issiq va quruq, qishi nisbatan sovuq."]
+    [3, "O'zbekistonda iqlim qanday?", "Keskin kontinental", ["Mussonli", "Ekvatorial", "Dengiz iqlimi"], "Yozi issiq va quruq, qishi nisbatan sovuq."],
+    [1, "O'zbekiston qaysi materikda joylashgan?", "Yevrosiyo", ["Afrika", "Shimoliy Amerika", "Avstraliya"], "O'zbekiston Yevrosiyo materigining markazida joylashgan."],
+    [1, "O'zbekiston dunyoning qaysi qismida joylashgan?", "Osiyo", ["Yevropa", "Afrika", "Amerika"], "O'zbekiston Markaziy Osiyoda joylashgan."],
+    [1, "O'zbekistonning eng g'arbiy hududi qaysi?", "Qoraqalpog'iston", ["Xorazm", "Buxoro", "Navoiy"], "Qoraqalpog'iston Qozog'iston va Turkmaniston bilan chegaradosh."],
+    [1, "Toshkent shahri qaysi viloyat bilan o'ralgan?", "Toshkent viloyati", ["Sirdaryo viloyati", "Jizzax viloyati", "Namangan viloyati"], "Toshkent viloyatining markazi — Nurafshon."],
+    [1, "O'zbekistonning eng issiq viloyati qaysi?", "Surxondaryo", ["Toshkent", "Namangan", "Jizzax"], "Termizda yozda harorat +45 °C dan oshishi mumkin."],
+    [1, "Qizilqum cho'li qaysi ikki daryo oralig'ida joylashgan?", "Amudaryo va Sirdaryo", ["Zarafshon va Chirchiq", "Norin va Qoradaryo", "Vaxsh va Panj"], "Qizilqum — O'rta Osiyodagi eng yirik cho'llardan biri."],
+    [2, "O'zbekistonning eng sharqiy viloyati qaysi?", "Andijon", ["Namangan", "Farg'ona", "Toshkent"], "Andijon viloyati Qirg'iziston bilan chegaradosh."],
+    [2, "Farg'ona vodiysini qaysi daryo kesib o'tadi?", "Sirdaryo", ["Amudaryo", "Zarafshon", "Chirchiq"], "Sirdaryo Farg'ona vodiysida Norin va Qoradaryoning qo'shilishidan hosil bo'ladi."],
+    [2, "Orol dengizi qaysi ikki davlat hududida joylashgan?", "O'zbekiston va Qozog'iston", ["O'zbekiston va Turkmaniston", "Qozog'iston va Rossiya", "Turkmaniston va Eron"], "Orolning janubiy qismi Qoraqalpog'istonda."],
+    [2, "Amudaryo qaysi davlat bilan O'zbekiston chegarasi bo'ylab oqadi?", "Afg'oniston", ["Qirg'iziston", "Qozog'iston", "Eron"], "Termiz shahri yaqinida Amudaryo chegara bo'ylab oqadi."],
+    [2, "Zarafshon daryosi qaysi davlat hududidan boshlanadi?", "Tojikiston", ["Qirg'iziston", "Afg'oniston", "Qozog'iston"], "Zarafshon Tojikistondagi Zarafshon muzligidan boshlanadi."],
+    [3, "O'zbekistonning eng past nuqtasi qaysi?", "Mingbuloq botig'i", ["Orolqum", "Mirzacho'l", "Sariqamish ko'li"], "Mingbuloq botig'i dengiz sathidan taxminan 12 m past."],
+    [3, "Maydoni bo'yicha O'zbekistonning eng kichik viloyati qaysi?", "Andijon", ["Sirdaryo", "Namangan", "Xorazm"], "Andijon viloyati maydoni taxminan 4,3 ming km²."],
+    [3, "Maydoni bo'yicha O'zbekistonning eng katta viloyati qaysi?", "Navoiy", ["Buxoro", "Qashqadaryo", "Samarqand"], "Qoraqalpog'iston Respublikasi bundan ham katta, lekin u viloyat emas."],
+    [3, "O'zbekiston bilan eng uzun chegaraga ega davlat qaysi?", "Qozog'iston", ["Tojikiston", "Turkmaniston", "Qirg'iziston"], "O'zbekiston–Qozog'iston chegarasi 2 ming km dan uzun."],
+    [3, "O'zbekiston bilan eng qisqa chegaraga ega davlat qaysi?", "Afg'oniston", ["Qirg'iziston", "Tojikiston", "Turkmaniston"], "Afg'oniston bilan chegara Amudaryo bo'ylab o'tadi."],
+    [3, "Chirchiq daryosi qaysi ikki daryoning qo'shilishidan hosil bo'ladi?", "Chotqol va Piskom", ["Norin va Qoradaryo", "Vaxsh va Panj", "Ohangaron va Angren"], "Ular Chorvoq suv omborida qo'shiladi."]
   ];
-  topic("g2", "Geografiya · O'zbekiston geografiyasi", G2, [{ p: 0.4, fn: genVil }]);
+  // [shahar, VIL indeksi, daraja] — viloyat markazlaridan tashqari shaharlar
+  var SHAHAR = [["Xiva", 4, 1], ["Shahrisabz", 7, 1], ["Qo'qon", 2, 1], ["Marg'ilon", 2, 1], ["Chirchiq", 11, 1], ["Olmaliq", 11, 2], ["Angren", 11, 2], ["Bekobod", 11, 2],
+    ["Ohangaron", 11, 3], ["Yangiyo'l", 11, 2], ["Zarafshon", 6, 2], ["Uchquduq", 6, 3], ["Nurota", 6, 3], ["G'ijduvon", 1, 2], ["Kogon", 1, 2], ["Qorako'l", 1, 3],
+    ["Denov", 10, 2], ["Boysun", 10, 3], ["Sherobod", 10, 3], ["Asaka", 0, 2], ["Shahrixon", 0, 3], ["Xonobod", 0, 3], ["Chust", 5, 2], ["Kosonsoy", 5, 3], ["Pop", 5, 3],
+    ["Kattaqo'rg'on", 8, 1], ["Urgut", 8, 2], ["Kitob", 7, 3], ["Muborak", 7, 3], ["Yangiyer", 9, 2], ["Shirin", 9, 3], ["G'allaorol", 3, 3],
+    ["Mo'ynoq", 12, 2], ["Xo'jayli", 12, 3], ["To'rtko'l", 12, 3], ["Beruniy", 12, 3], ["Taxiatosh", 12, 3], ["Xonqa", 4, 3], ["Hazorasp", 4, 3], ["Quvasoy", 2, 3]];
+  var VIL_NEAR = [[0, 2, 5], [1, 6, 8], [2, 0, 5], [3, 9, 8], [4, 12, 1], [5, 0, 2], [6, 1, 8], [7, 10, 8], [8, 6, 3], [9, 3, 11], [10, 7, 1], [11, 9, 5], [12, 4, 6]];
+  function vilW(i, n) { // avval qo'shni, keyin boshqa viloyatlar
+    var near = shuffle(VIL_NEAR[i].slice(1)), far = shuffle(VIL.map(function (v, k) { return k; }).filter(function (k) { return k !== i && near.indexOf(k) < 0; }));
+    return near.slice(0, 2).concat(far).slice(0, n).map(function (k) { return VIL[k][0]; });
+  }
+  function genShahar(L) {
+    var s = pick(lvList(SHAHAR, L, 2)), v = VIL[s[1]], st = [s[0] + " shahri — " + v[0] + "da."];
+    if (Math.random() < 0.6) return Q("<b>" + s[0] + " shahri</b> qaysi hududda joylashgan?", v[0], vilW(s[1], 4), st);
+    var w = [];
+    shuffle(SHAHAR.filter(function (x) { return x[1] !== s[1]; }).map(function (x) { return x[0]; }).concat(VIL.filter(function (x, k) { return k !== s[1]; }).map(function (x) { return x[1]; })))
+      .forEach(function (c) { if (w.length < 4 && w.indexOf(c) < 0 && c !== "Toshkent") w.push(c); });
+    return Q("Qaysi shahar <b>" + v[0] + "</b>da joylashgan?", s[0], w, st);
+  }
+  // [daryo, oqib o'tadigan viloyatlar (javob), chalg'ituvchi bo'lmaydiganlar, daraja]
+  var DARYO_V = [["Zarafshon", [8, 6, 1], [8, 6, 1], 1], ["Chirchiq", [11], [11], 1], ["Amudaryo", [10, 4, 12], [10, 4, 12, 1, 7], 1], ["Sirdaryo", [11, 5], [11, 5, 9, 2, 0], 2],
+    ["Ohangaron", [11], [11], 2], ["Qoradaryo", [0], [0, 5], 2], ["Norin", [5], [5, 0], 3], ["Sangzor", [3], [3, 8], 3], ["Sherobod", [10], [10], 3],
+    ["Qashqadaryo", [7], [7], 1], ["Surxondaryo", [10], [10], 1]];
+  function genDaryoV(L) {
+    var d = pick(lvList(DARYO_V, L, 3)), vi = pick(d[1]), v = VIL[vi][0];
+    var no = VIL.map(function (x, k) { return k; }).filter(function (k) { return d[2].indexOf(k) < 0; });
+    if (Math.random() < 0.5 && d[0] !== "Qashqadaryo" && d[0] !== "Surxondaryo")
+      return Q("<b>" + d[0] + "</b> daryosi qaysi viloyat hududidan oqib o'tadi?", v, otherN(no.map(function (k) { return VIL[k][0]; }), [], 4), [d[0] + " " + d[1].map(function (k) { return VIL[k][0]; }).join(", ") + " hududidan oqadi."]);
+    var w = DARYO_V.filter(function (x) { return x[2].indexOf(vi) < 0; }).map(function (x) { return x[0]; });
+    return Q("Qaysi daryo <b>" + v + "</b> hududidan oqib o'tadi?", d[0], otherN(w, [], 4), [d[0] + " daryosi " + v + " hududidan oqadi."]);
+  }
+  // [obyekt, VIL indeksi, daraja]
+  var OBYEKT = [["Zomin qo'riqxonasi", 3, 3], ["Hisor qo'riqxonasi", 7, 3], ["Surxon qo'riqxonasi", 10, 3], ["Chotqol qo'riqxonasi", 11, 3], ["Zarafshon qo'riqxonasi", 8, 3],
+    ["Baday-to'qay qo'riqxonasi", 12, 3], ["Kitob geologik qo'riqxonasi", 7, 3], ["Sho'rtan gaz koni", 7, 2], ["Gazli gaz koni", 1, 2], ["Angren ko'mir koni", 11, 2],
+    ["Olmaliq kon-metallurgiya kombinati", 11, 2], ["Asaka avtomobil zavodi", 0, 2], ["Tolimarjon suv ombori", 7, 3], ["Kattaqo'rg'on suv ombori", 8, 2], ["Chorvoq suv ombori", 11, 2]];
+  function genObyekt(L) {
+    var o = pick(lvList(OBYEKT, L, 2));
+    return Q("<b>" + o[0] + "</b> qaysi hududda joylashgan?", VIL[o[1]][0], vilW(o[1], 4), [o[0] + " — " + VIL[o[1]][0] + "da."]);
+  }
+  topic("g2", "Geografiya · O'zbekiston geografiyasi", G2, [{ p: 0.25, fn: genVil }, { p: 0.22, fn: genShahar }, { p: 0.12, fn: genDaryoV }, { p: 0.1, fn: function (L) { return L === 1 ? null : genObyekt(L); } }]);
 
   /* ================= g3 Geografiya · Materiklar, okeanlar va tabiat ================= */
   function kmW(a) {
