@@ -157,6 +157,7 @@
 <script src="ka-savollar-8.js"></script>
 <script src="ka-savollar-9.js"></script>
 <script src="ka-savollar-10.js"></script>
+<script src="ka-savollar-fanlar.js?v=20261105a"></script>
 <script>
 (function(){
 "use strict";
@@ -236,21 +237,37 @@ var BANK=[
 G.bank=function(){var b=pick(BANK);return mk(b.q,b.a,b.w,b.ex);};
 
 var SETS={1:["arith","geom","odd","order3","bank","letters"],2:["alt","fib","sq","day","letters","odd","bank","order3","geom"],3:["diff2","muladd","age","order4","alt","fib","bank","day"]};
-var lastType="",seenQ={};
-function strip(h){var d=document.createElement("div");d.innerHTML=h;return (d.textContent||"").replace(/\s+/g," ").trim();}
-function topicQ(){
+var lastType="",seenQ={},lastMix="";
+// Aralash rejim: kaSavol dagi mantiq mavzulari (m1–m10, ka-savollar-fanlar.js). Ular bo'lmasa — yuqoridagi G.* zaxira.
+var MIX=["m1","m2","m3","m4","m5","m6","m7","m8","m9","m10"];
+function strip(h){var d=document.createElement("div");d.innerHTML=String(h).replace(/<br\s*\/?>/gi,"\n");return (d.textContent||"").replace(/[ \t]+/g," ").replace(/ *\n */g,"\n").trim();}
+function fx(x){return String(x).replace(/-(?![A-Za-z'ʻ’]{2})/g,"−");} // minus belgisi; "5-o'rin", "12-aprel" dagi chiziqcha qoladi
+function getP(id){
   var S=window.kaSavol,p=null,g=0;
-  do{p=S.get(st.topic,st.level);g++;}while(p&&seenQ[p.q]&&g<25);
-  if(!p)return G.bank();
-  seenQ[p.q]=1;
-  var fx=function(x){return String(x).replace(/-/g,"−");};
+  if(!S||!S.has(id))return null;
+  do{try{p=S.get(id,st.level);}catch(e){p=null;}g++;}while(p&&seenQ[p.q]&&g<25);
+  if(!p||!p.w||p.w.length<3)return null;
+  seenQ[p.q]=1;return p;
+}
+function conv(p){
   var correct=fx(p.a),wr=(p.w||[]).map(fx).filter(function(x){return x!==correct;});
   var uniq={},w=[];wr.forEach(function(x){if(!uniq[x]){uniq[x]=1;w.push(x);}});
   var o=shuffle([correct].concat(shuffle(w).slice(0,3)));
-  return {q:strip(p.q),o:o,a:o.indexOf(correct),ex:"To'g'ri javob: "+correct+"."};
+  var why=p.steps&&p.steps.length?strip(p.steps[0]).replace(/\n/g," "):"";
+  return {q:strip(p.q),o:o,a:o.indexOf(correct),ex:"To'g'ri javob: "+correct+"."+(why&&why.length<=170?" "+why:"")};
+}
+function topicQ(){var p=getP(st.topic);return p?conv(p):G.bank();}
+function mixQ(){
+  var S=window.kaSavol,ids=S?MIX.filter(function(id){return S.has(id);}):[];
+  for(var g=0;g<8&&ids.length;g++){
+    var id=pick(ids);if(id===lastMix&&ids.length>1)continue;
+    var p=getP(id);if(p){lastMix=id;return conv(p);}
+  }
+  return null;
 }
 function makeQ(){
   if(st.topic)return topicQ();
+  var mq=mixQ();if(mq)return mq;
   var list=SETS[st.level],t;
   do{t=pick(list);}while(t===lastType&&list.length>1);
   lastType=t;return G[t]();
@@ -552,9 +569,13 @@ $("levels").addEventListener("click",function(e){var b=e.target.closest(".pick")
 (function(){
   var S=window.kaSavol,sel=$("topic");
   if(S){
-    S.ids().sort(function(a,b){var x=S.title(a),y=S.title(b);return x<y?-1:x>y?1:0;}).forEach(function(id){
-      var o=document.createElement("option");o.value=id;o.textContent=S.title(id);sel.appendChild(o);
-    });
+    var add=function(par,id){var o=document.createElement("option");o.value=id;o.textContent=S.title(id);par.appendChild(o);};
+    var gm=document.createElement("optgroup");gm.label="🧠 Mantiq";
+    MIX.forEach(function(id){if(S.has(id))add(gm,id);});
+    if(gm.children.length)sel.appendChild(gm);
+    var go=document.createElement("optgroup");go.label="Boshqa mavzular";
+    S.ids().filter(function(id){return MIX.indexOf(id)<0;}).sort(function(a,b){var x=S.title(a),y=S.title(b);return x<y?-1:x>y?1:0;}).forEach(function(id){add(go,id);});
+    if(go.children.length)sel.appendChild(go);
   }
   sel.onchange=function(){st.topic=sel.value;};
   var qp=new URLSearchParams(location.search),m=qp.get("mavzu"),d=+qp.get("daraja");
@@ -564,20 +585,27 @@ $("levels").addEventListener("click",function(e){var b=e.target.closest(".pick")
 
 if(!(window.SpeechRecognition||window.webkitSpeechRecognition))$("supportNote").textContent="Eslatma: bu brauzerda ovozni tanish ishlamaydi (Chrome/Edge tavsiya etiladi).";
 
+// m10 (Ezop masallari), e*/r* kabi mavzular ma'lumot faylini talab qiladi — kaFan.prep yuklaydi (xatoda ham davom etadi)
+function prepData(){
+  var need=st.topic?[st.topic]:MIX;
+  if(!window.kaFan||!window.kaFan.prep)return Promise.resolve();
+  return Promise.race([window.kaFan.prep(need).catch(function(){}),new Promise(function(ok){setTimeout(ok,5000);})]);
+}
 function startGame(){
-  st.round=0;st.score=0;lastType="";seenQ={};st.locked=true;
+  st.round=0;st.score=0;lastType="";lastMix="";seenQ={};st.locked=true;
   $("setup").hidden=true;$("end").hidden=true;$("game").hidden=false;
   $("hMode").textContent=MODE_NAMES[st.mode];
   $("qtext").textContent="Tayyorlanmoqda…";$("opts").innerHTML="";
   var m=modules[st.mode]();
   var wire=function(mm){input={reset:mm.reset,pause:mm.pause,stop:mm.stop};};
   wire(m);
-  m.init().then(function(){nextQ();}).catch(function(err){
+  var dataP=prepData();
+  Promise.all([m.init(),dataP]).then(function(){nextQ();}).catch(function(err){
     try{m.stop();}catch(e){}
     var msg=(err&&err.name==="NotAllowedError")?"Ruxsat berilmadi":"Ishga tushmadi ("+(err&&err.message||err)+")";
     st.mode="tap";$("hMode").textContent=MODE_NAMES.tap+" (zaxira)";
     var t=modules.tap();wire(t);
-    nextQ();setHint("⚠️ "+msg+". Teginish rejimiga o'tildi: javobni bosing yoki A–D / 1–4 tugmasini bosing.");
+    dataP.then(function(){nextQ();setHint("⚠️ "+msg+". Teginish rejimiga o'tildi: javobni bosing yoki A–D / 1–4 tugmasini bosing.");});
   });
 }
 function finish(){

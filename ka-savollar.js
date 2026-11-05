@@ -403,6 +403,7 @@
   window.kaSavol = {
     H: H,
     has: function (id) { return !!REG[id]; },
+    fn: function (id) { return REG[id] || null; }, // asl generator (boshqa fayllar uni kengaytirishi uchun)
     title: function (id) { return TITLES[id] || id; },
     ids: function () { return Object.keys(REG); },
     register: function (id, fn, title) { REG[id] = fn; if (title) TITLES[id] = title; },
