@@ -38,7 +38,7 @@ window.SAT_DASTUR = {
       { id: "percent", uz: "Foizlar: o'zgarish, oshish va kamayish", en: "Percentages", lvl: 1, t: ["a5", "t56"], pp: "9-bob (53)", ah: "7-bob (109–113)" },
       { id: "units", uz: "O'lchov birliklari va o'lchamlar tahlili", en: "Unit conversion", lvl: 1, t: ["t98"], pp: "25-bob (241)", ah: "6-1 (95)" },
       { id: "center", uz: "O'rta qiymat, mediana, moda, kenglik", en: "Mean, median, mode & range", lvl: 1, t: ["t57"], pp: "24-bob (230)", ah: "8-1 (121)" },
-      { id: "spread", uz: "Standart og'ish, tanlanma, xatolik chegarasi, noxolislik", en: "Standard deviation, sampling & margin of error", lvl: 1, t: ["t99"], pp: "22-bob (208)", ah: "8-2, 8-5 (123, 129)" },
+      { id: "spread", uz: "O'rtacha kvadratik chetlanish, tanlanma, xatolik chegarasi, noxolislik", en: "Standard deviation, sampling & margin of error", lvl: 1, t: ["t99"], pp: "22-bob (208)", ah: "8-2, 8-5 (123, 129)" },
       { id: "plots", uz: "Diagrammalar: nuqtali, quti (box), gistogramma", en: "Dot plots, box plots & histograms", lvl: 1, t: ["t100"], pp: "22-bob (211–215)", ah: "8-3 (125)" },
       { id: "scatter", uz: "Sochilma diagramma va eng yaxshi moslik chizig'i", en: "Scatter plots & line of best fit", lvl: 1, t: ["t101"], pp: "26-bob (248)", ah: "8-4 (127)" },
       { id: "prob", uz: "Ehtimollik va jadvallar, shartli ehtimollik", en: "Probability & two-way tables", lvl: 1, t: ["t92", "t93", "t37", "t39"], pp: "21-bob (197)", ah: "9-2, 9-3 (141–143)" },

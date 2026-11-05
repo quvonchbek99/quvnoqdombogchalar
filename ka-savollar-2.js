@@ -367,10 +367,10 @@
 
   S.registerAll(G, {
     t2: "Kvadrat tengsizlik va uning yechimi", t3: "Trigonometrik ayniyatlar", t4: "Arifmetik va geometrik progressiya",
-    t5: "Funksiya tushunchasi", t6: "Funksiya xossalari", t7: "Funksiya grafiklarini sodda almashtirishlar",
+    t5: "Funksiya tushunchasi", t6: "Funksiya xossalari", t7: "Funksiya grafiklarini sodda almashtirish",
     t8: "Chiziqli va kvadratik modellashtirish", t9: "Munosabatlar va funksiyalar", t10: "Sodda ratsional tenglamalar",
     t11: "Sodda ratsional tenglamalar sistemasi", t12: "Sodda ratsional tengsizliklar", t13: "Sodda ratsional tengsizliklar sistemasi",
     t14: "Ratsional tenglamalarga doir misollar", t15: "Sodda irratsional tenglamalar", t16: "Irratsional tenglamalarga doir misollar",
-    t17: "Sodda irratsional tenglamalar sistemalari", t18: "Ratsional va irratsional ifodalar"
+    t17: "Sodda irratsional tenglamalar sistemasi", t18: "Ratsional va irratsional ifodalar"
   });
 })();

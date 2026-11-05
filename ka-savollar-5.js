@@ -528,7 +528,7 @@
     t54: "Arifmetik progressiya", t55: "Geometrik progressiya", t56: "Nisbat, proporsiya va foizli masalalar",
     t57: "O'rta qiymatlar", t58: "Determinantlar va Kramer usuli", t59: "Funksiyaning limiti asoslari",
     t60: "Hosila va uning tatbiqlari", t61: "Bo'linish belgilari, EKUB va EKUK", t62: "Kvadrat ildiz va ratsional ko'rsatkichli daraja",
-    t63: "Vyet teoremasi", t64: "Irratsional tenglamalar", t65: "Funksiyaning aniqlanish sohasi (ODZ)",
+    t63: "Vyet teoremasi", t64: "Irratsional tenglamalar", t65: "Funksiyaning aniqlanish sohasi",
     t66: "Gorner sxemasi va Bezu teoremasi", t67: "Logarifm xossalari", t68: "Asosiy trigonometrik ayniyatlar va keltirish formulalari",
     t69: "Sodda trigonometrik tenglamalar", t70: "Aniqmas integral asoslari"
   });

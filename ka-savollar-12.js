@@ -1,5 +1,5 @@
 /*! Kuvonch Academy — 99–102: SAT statistika va kompleks sonlar
- *  99 Standart og'ish, tanlanma va xatolik chegarasi · 100 Diagrammalar (nuqtali, quti, gistogramma)
+ *  99 O'rtacha kvadratik chetlanish, tanlanma va xatolik chegarasi · 100 Diagrammalar (nuqtali, quti, gistogramma)
  *  101 Sochilma diagramma va eng yaxshi moslik chizig'i · 102 Kompleks sonlar
  *  Savollar SAT "Problem-Solving & Data Analysis" uslubida, har safar yangi sonlar bilan. */
 (function () {
@@ -18,7 +18,7 @@
   var NOMLAR = ["o'quvchilar", "talabalar", "ishchilar", "mijozlar", "haydovchilar", "o'qituvchilar", "sportchilar", "sayyohlar"];
   var OBJ = ["kitob", "telefon", "daraxt", "mashina", "uy", "o'quvchi", "stol"];
 
-  /* ---------- 99 Standart og'ish, tanlanma, xatolik chegarasi ---------- */
+  /* ---------- 99 O'rtacha kvadratik chetlanish, tanlanma, xatolik chegarasi ---------- */
   G.t99 = function (L) {
     var k = pick(lv(L, [0, 1, 2], [1, 3, 4, 5], [4, 6, 7]));
     if (k === 0) {
@@ -77,7 +77,7 @@
       ["Foiz oralig'i " + (pr - m) + "%–" + (pr + m) + "%. " + tot + " ning " + (pr - m) + "% = " + lo2 + ", " + (pr + m) + "% = " + hi2], "oraliq");
   };
 
-  /* ---------- 100 Diagrammalar: nuqtali, quti, gistogramma (matn bilan tasvirlangan) ---------- */
+  /* ---------- 100 Diagrammalar: nuqtali, quti diagrammasi, gistogramma (matn bilan tasvirlangan) ---------- */
   function dotPlot() { var vals = [], desc = [], start = R(1, 5); for (var v = start; v < start + 5; v++) { var c = R(0, 5); if (c) { desc.push(v + " → " + c + " ta"); for (var j = 0; j < c; j++) vals.push(v); } } if (vals.length < 3) return dotPlot(); return { vals: vals, desc: desc.join(", ") }; }
   G.t100 = function (L) {
     var k = pick(lv(L, [0, 1, 2], [2, 3, 4, 5], [5, 6, 7]));
@@ -133,8 +133,8 @@
   };
 
   S.registerAll(G, {
-    t99: "Standart og'ish, tanlanma va xatolik chegarasi",
-    t100: "Diagrammalar: nuqtali, quti, gistogramma",
+    t99: "O'rtacha kvadratik chetlanish, tanlanma va xatolik chegarasi",
+    t100: "Diagrammalar: nuqtali, quti diagrammasi, gistogramma",
     t101: "Sochilma diagramma va eng yaxshi moslik chizig'i",
     t102: "Kompleks sonlar"
   });

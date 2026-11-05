@@ -186,5 +186,5 @@
     return bank(T96);
   };
 
-  S.registerAll(G,{t89:"Faktorial",t90:"Kombinatorikaning asosiy qoidalari",t91:"O'rin almashtirish, o'rinlashtirish va guruhlash",t92:"Ehtimollik: klassik ta'rif",t93:"Ehtimollik qoidalari",t94:"To'plamlar nazariyasi asoslari",t95:"Eyler–Venn doiralari va inkluziya-eksklyuziya",t96:"Nyuton binomi"});
+  S.registerAll(G,{t89:"Faktorial",t90:"Kombinatorikaning asosiy qoidalari",t91:"O'rin almashtirish, o'rinlashtirish va guruhlash",t92:"Ehtimollik: klassik ta'rif",t93:"Ehtimollik qoidalari",t94:"To'plamlar nazariyasi asoslari",t95:"Eyler–Venn doiralari va kiritish-chiqarish formulasi",t96:"Nyuton binomi"});
 })();

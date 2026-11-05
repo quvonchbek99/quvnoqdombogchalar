@@ -322,7 +322,7 @@
     t22: "Sodda ko'rsatkichli tenglamalar", t23: "Sodda logarifmik tenglamalar", t24: "Ko'rsatkichli va logarifmik tenglamalar sistemasi",
     t25: "Sodda ko'rsatkichli tengsizliklar", t26: "Sodda logarifmik tengsizliklar", t27: "Ko'rsatkichli modellashtirish",
     t28: "Ko'rsatkichli va logarifmik ifodalarga doir misollar", t29: "Trigonometrik funksiyalar", t30: "Teskari trigonometrik funksiyalar",
-    t31: "Trigonometrik funksiyalarga doir misollar", t32: "STEM topshiriq", t33: "sinx=a, cosx=a trigonometrik tenglamalar",
-    t34: "tgx=a, ctgx=a trigonometrik tenglamalar", t35: "Trigonometrik tenglamalarni yechish", t36: "Eng sodda trigonometrik tengsizliklar"
+    t31: "Trigonometrik funksiyalarga doir misollar", t32: "STEM topshiriq", t33: "sin x = a, cos x = a trigonometrik tenglamalar",
+    t34: "tg x = a, ctg x = a trigonometrik tenglamalar", t35: "Trigonometrik tenglamalarni yechish", t36: "Eng sodda trigonometrik tengsizliklar"
   });
 })();
