@@ -815,5 +815,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ikki it, chunki ular birgalikda harakat qildi", "Mushuk, chunki itlar janjal bilan ovora bo'lib, e'tibor bermadi", "Hech kim, chunki suyak yerda qolib ketdi"],
     javob: 1,
     izoh: "Itlar o'zaro janjal bilan ovora bo'lib, suyakni qo'ldan chiqarib qo'yishdi. Ichki nizo uchinchi tomonga foyda keltiradi, shuning uchun birdamlik muhim."
+  },
+  {
+    id: "ez-103", mavzu: "halollik", sarlavha: "Yog'ochsoz va uchta bolta",
+    matn: "Yog'ochsoz daryo bo'yida daraxt kesayotganda boltasi suvga tushib ketdi. U qayg'uga botib, qirg'oqda o'tirib qoldi. Shu payt oldida oq soqolli bir kishi paydo bo'lib, oltin boltani ko'rsatdi: \"Sening boltangmi?\" Yog'ochsoz \"Yo'q\" deb rad etdi, kumush boltaga ham shunday javob berdi. Oxirida temir boltani ko'rsatganda u darhol: \"Ha, mana shu meniki\", dedi. Kishi uning rostgo'yligidan mamnun bo'lib, uchala boltani ham unga in'om qildi.",
+    savol: "Yog'ochsoz oltin va kumush boltalarni nega rad etdi?",
+    variantlar: ["Chunki oltin va kumush boltalar juda og'ir edi", "Chunki u boshqa birovning narsasini o'ziniki deb olishni istamadi", "Chunki u boltasini daryodan topishga umid qilib kutardi"],
+    javob: 1,
+    izoh: "Yog'ochsoz o'zinikini aniq tan oldi va boshqa birovning qimmatbaho narsasini olishdan bosh tortdi. Halollik uni kutilmagan mukofotga sazovor qildi."
   }
 ];
