@@ -823,5 +823,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki oltin va kumush boltalar juda og'ir edi", "Chunki u boshqa birovning narsasini o'ziniki deb olishni istamadi", "Chunki u boltasini daryodan topishga umid qilib kutardi"],
     javob: 1,
     izoh: "Yog'ochsoz o'zinikini aniq tan oldi va boshqa birovning qimmatbaho narsasini olishdan bosh tortdi. Halollik uni kutilmagan mukofotga sazovor qildi."
+  },
+  {
+    id: "ez-104", mavzu: "mantiq", sarlavha: "Qayiqchi va to'fon",
+    matn: "Ikki savdogar yuklarini ortib, kemada dengiz bo'ylab suzib ketayotgan edi. Birdan osmon qorayib, kuchli bo'ron ko'tarildi va to'lqinlar kemani chayqatib, cho'kish xavfi tug'ildi. Birinchi savdogar ortiqcha sandiqlarni tezda dengizga tashladi. Ikkinchisi esa oltin tangalari solingan sandiqni quchoqlab, uni tashlashni istamadi. Bo'ron tinchigach, yengillashgan kema xavfsiz qirg'oqqa yetib keldi.",
+    savol: "Qaysi savdogar kemada omon qoldi va nega?",
+    variantlar: ["Birinchisi, chunki ortiqcha yukni tashlab kemani yengillashtirdi", "Ikkinchisi, chunki oltinni mahkam ushlab turdi", "Ikkalasi ham, chunki bo'ron tez tugadi"],
+    javob: 0,
+    izoh: "Og'ir yuk kemani xavf ostiga qo'ydi. Birinchi savdogar ortiqcha yukni tashlab, kemani va o'zini saqlab qoldi, ikkinchisi esa oltinga yopishib, xavfni oshirdi."
   }
 ];
