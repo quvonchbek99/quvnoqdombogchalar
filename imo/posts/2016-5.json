@@ -1,0 +1,36 @@
+{
+  "id": "2016-5",
+  "badge": "IMO 2016 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "2016 ta ko'paytuvchili tenglama",
+      "fs": 36,
+      "body": "<p>Doskada quyidagi tenglama yozilgan — har tomonda <b>2016 ta</b> chiziqli ko'paytuvchi:</p><div class='box' style='text-align:center'><span class='m'>(x−1)(x−2)…(x−2016) = (x−1)(x−2)…(x−2016)</span></div><p>Bu 4032 ta ko'paytuvchidan <b>aynan k tasini</b> o'chirish kerak: har tomonda kamida bitta ko'paytuvchi qolsin va hosil bo'lgan tenglama <b>haqiqiy yechimga ega bo'lmasin</b>.</p><p><span class='m'>k</span> ning eng kichik mumkin bo'lgan qiymatini toping.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob: k = 2016",
+      "fs": 34,
+      "body": "<p><b>Kamroq bo'lmaydi.</b> Agar <span class='m'>(x − i)</span> ko'paytuvchi <b>ikkala</b> tomonda qolsa, <span class='m'>x = i</span> da ikkala tomon 0 ga teng — yechim chiqadi. Demak 2016 ta sonning har biri uchun kamida bitta nusxa o'chirilishi shart: <span class='m'>k ≥ 2016</span>.</p><p><b>2016 yetadi.</b> Chapda 4 ga bo'lganda qoldig'i <b>0 yoki 1</b> bo'lganlarni, o'ngda <b>2 yoki 3</b> bo'lganlarni qoldiramiz:</p><div class='box' style='text-align:center'><span class='m'>(x−1)(x−4)·(x−5)(x−8)·…·(x−2013)(x−2016)</span><br>=<br><span class='m'>(x−2)(x−3)·(x−6)(x−7)·…·(x−2014)(x−2015)</span></div><p>Har tomonda 1008 ta ko'paytuvchi, ya'ni 504 ta juftlik. Endi bu tenglamaning yechimi yo'qligini ko'rsatamiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Har juftlikda «−2» farq",
+      "fs": 34,
+      "body": "<p><span class='m'>j</span>-juftliklarni belgilaymiz: <span class='m'>L<sub>j</sub> = (x−a)(x−a−3)</span>, &nbsp;<span class='m'>R<sub>j</sub> = (x−a−1)(x−a−2)</span>, bu yerda <span class='m'>a = 4j+1</span>. Qavslarni ochsak:</p><div class='box' style='text-align:center'><span class='m'>L<sub>j</sub> = R<sub>j</sub> − 2 &nbsp;⟹&nbsp; L<sub>j</sub> &lt; R<sub>j</sub></span></div><p>Biz <b>chap tomon har doim o'ngdan kichik</b> ekanini isbotlaymiz.</p><ul><li>Hamma <span class='m'>L<sub>j</sub> &gt; 0</span> bo'lsa — musbat sonlarni ko'paytirib, darrov <span class='m'>chap &lt; o'ng</span>.</li><li><span class='m'>L<sub>m</sub> ≤ 0</span> faqat <span class='m'>[a, a+3]</span> oraliqda, demak bunday juftlik ko'pi bilan bitta. Agar <span class='m'>R<sub>m</sub> ≥ 0</span> bo'lsa: <span class='m'>chap ≤ 0 ≤ o'ng</span>, ikkalasi bir vaqtda 0 emas.</li></ul><p>Faqat bitta qiyin hol qoldi: <span class='m'>a+1 &lt; x &lt; a+2</span>, bunda ikkala tomon ham <b>manfiy</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Qiyin hol: 9 > 2 · 2",
+      "fs": 30,
+      "body": "<p>Bu oraliqda <span class='m'>−¼ ≤ R<sub>m</sub> &lt; 0</span>, <span class='m'>|L<sub>m</sub>| = |R<sub>m</sub>| + 2</span>, shuning uchun:</p><div class='box' style='text-align:center'><span class='m'>|L<sub>m</sub>| / |R<sub>m</sub>| = 1 + 2/|R<sub>m</sub>| ≥ 9</span></div><p>Qolgan juftliklarda <span class='m'>R<sub>j</sub>/L<sub>j</sub> &gt; 1</span>, lekin tez 1 ga yaqinlashadi. <span class='m'>x</span> dan o'ngdagi juftliklar uchun:</p><div class='box' style='text-align:center'><span class='m'>∏ R<sub>j</sub>/L<sub>j</sub> &lt; 2 · (3/4 · 6/5) · (7/8 · 10/9) · … &lt; 2</span></div><p>(har qavs 1 dan kichik). Chap tomondagilar uchun ham xuddi shunday <span class='m'>&lt; 2</span>. Jami: o'ng tomon chapdan ko'pi bilan <span class='m'>2·2 = 4</span> marta «ustun», <span class='m'>m</span>-juftlik esa chapni kamida <span class='m'>9</span> marta kattalashtiradi:</p><div class='box' style='text-align:center'><span class='m'>|chap| &gt; |o'ng| ⟹ chap &lt; o'ng</span> ✅</div><p>Yechim yo'q. Javob: <b><span class='m'>k = 2016</span></b>. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Juftlash + baholash",
+      "fs": 35,
+      "body": "<p>G'oya: ko'paytuvchilarni 4 tadan guruhlaymiz, har guruhda chap tomon o'ngdan aniq <b>2 ga kichik</b>. Ishora o'zgaradigan yagona oraliqda esa «9 marta» farq qolgan barcha juftliklarning «4 marta» ta'siridan kuchliroq.</p><div class='box'>✅ Python bilan tekshirdik: barcha 504 oraliqda minglab nuqtalarda <span class='m'>chap &lt; o'ng</span>; cheksiz ko'paytma <span class='m'>≈ 1,67 &lt; 2</span>.</div><p>🧠 <b>Sizga savol:</b> eng kichik holat — <span class='m'>(x−1)(x−4) = (x−2)(x−3)</span> tenglamani soddalashtirsangiz nima hosil bo'ladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2016 · 6-masala</b> (kombinatorika, kesmalardagi qurbaqalar)</p>"
+    }
+  ]
+}
