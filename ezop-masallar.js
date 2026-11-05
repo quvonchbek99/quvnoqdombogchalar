@@ -831,5 +831,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Birinchisi, chunki ortiqcha yukni tashlab kemani yengillashtirdi", "Ikkinchisi, chunki oltinni mahkam ushlab turdi", "Ikkalasi ham, chunki bo'ron tez tugadi"],
     javob: 0,
     izoh: "Og'ir yuk kemani xavf ostiga qo'ydi. Birinchi savdogar ortiqcha yukni tashlab, kemani va o'zini saqlab qoldi, ikkinchisi esa oltinga yopishib, xavfni oshirdi."
+  },
+  {
+    id: "ez-105", mavzu: "mantiq", sarlavha: "O'rgimchak va chivin",
+    matn: "Ikki o'rgimchak uy burchagida to'r to'qishga kirishdi. Birinchisi to'rni ingichka va tez tugadigan ipdan to'qidi, chunki u faqat ko'z quvontirishni o'ylardi. Ikkinchisi esa har bir ipni qalin va pishiq qilib, to'rni mustahkam qilib bog'ladi. Kechasi kuchli shamol turib, bir necha soat yomg'ir yog'di. Tong otganda birinchi to'r yirtilib ketgan, ikkinchisi esa butunligicha qolgan edi.",
+    savol: "Qaysi o'rgimchakning to'ri bo'ron sinovidan o'tdi va nega?",
+    variantlar: ["Birinchisi, chunki chiroyli ko'rinardi", "Ikkinchisi, chunki ipi pishiq va qalin edi", "Ikkalasi ham, chunki bo'ron qisqa bo'lgan edi"],
+    javob: 1,
+    izoh: "Ko'rinish emas, mustahkamlik muhim. Ingichka ip shamol va yomg'irga chidolmadi, qalin va pishiq ip esa uzilmay qoldi."
   }
 ];
