@@ -1,0 +1,42 @@
+{
+  "id": "2016-6",
+  "badge": "IMO 2016 · 6-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Kesmalardagi qurbaqalar",
+      "fs": 34,
+      "body": "<p>Tekislikda <span class='m'>n ≥ 2</span> ta kesma bor: <b>har ikkisi kesishadi</b>, hech uchtasi bir nuqtadan o'tmaydi.</p><p>Geoff har bir kesmaning bitta uchini tanlab, unga qurbaqa qo'yadi — qurbaqa ikkinchi uchga qarab turadi. So'ng u <span class='m'>n − 1</span> marta qarsak chaladi: har qarsakda har bir qurbaqa o'z kesmasidagi <b>navbatdagi kesishish nuqtasiga</b> sakraydi (yo'nalishini o'zgartirmaydi).</p><p>Geoff hech qachon <b>ikki qurbaqa bir vaqtda bir nuqtada</b> bo'lmasligini istaydi.</p><div class='box'><b>(a)</b> <span class='m'>n</span> toq bo'lsa, buni doim qilish mumkinligini;<br><b>(b)</b> <span class='m'>n</span> juft bo'lsa, hech qachon mumkin emasligini isbotlang.</div>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Hammasini aylanaga ko'chiramiz",
+      "fs": 32,
+      "body": "<p>Barcha kesishish nuqtalarini o'z ichiga olgan katta aylana chizamiz va kesmalarni <b>aylanagacha cho'zamiz</b> — yangi kesishish paydo bo'lmaydi, sakrashlar o'zgarmaydi.</p><svg width='920' height='400' viewBox='0 0 920 400' style='display:block;margin:0 auto 6px'><circle cx='460' cy='200' r='150' fill='none' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><line x1='447' y1='51' x2='511' y2='341' stroke='#ffffff' stroke-width='3'/><line x1='590' y1='125' x2='324' y2='263' stroke='#ffffff' stroke-width='3'/><line x1='601' y1='251' x2='319' y2='149' stroke='#ffffff' stroke-width='3'/><circle cx='447' cy='51' r='11' fill='#f2b84b'/><text x='444' y='27' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='middle'>P₁</text><circle cx='590' cy='125' r='7' fill='#ffffff'/><text x='619' y='118' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='middle'>P₂</text><circle cx='601' cy='251' r='11' fill='#f2b84b'/><text x='633' y='273' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='middle'>P₃</text><circle cx='511' cy='341' r='7' fill='#ffffff'/><text x='523' y='383' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='middle'>P₄</text><circle cx='324' cy='263' r='11' fill='#f2b84b'/><text x='293' y='288' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='middle'>P₅</text><circle cx='319' cy='149' r='7' fill='#ffffff'/><text x='287' y='147' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='middle'>P₆</text></svg><p>Uchlarni aylana bo'ylab <span class='m'>P<sub>1</sub>, P<sub>2</sub>, …, P<sub>2n</sub></span> deb belgilaymiz. Har bir kesmani qolgan <span class='m'>n − 1</span> tasi kesib o'tadi, demak uning ikki tomonida <b>tengdan</b> uch bor:</p><div class='box' style='text-align:center'>Har bir kesma — <span class='m'>P<sub>i</sub>P<sub>i+n</sub></span> (qarama-qarshi nuqtalar)</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Qo'shni nuqtalar — to'qnashuv",
+      "fs": 32,
+      "body": "<p>Faraz qilaylik, qurbaqalar <b>qo'shni</b> <span class='m'>P<sub>i</sub></span> va <span class='m'>P<sub>i+1</sub></span> da. Ularning kesmalari <span class='m'>X</span> nuqtada kesishadi.</p><svg width='920' height='380' viewBox='0 0 920 380' style='display:block;margin:0 auto 6px'><path d='M 40 191 A 616 616 0 0 0 880 191' fill='none' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><polygon points='320,340 460,140 600,340' fill='#f2b84b' fill-opacity='0.13'/><line x1='320' y1='340' x2='546' y2='17' stroke='#ffffff' stroke-width='3'/><line x1='600' y1='340' x2='374' y2='17' stroke='#ffffff' stroke-width='3'/><line x1='130' y1='260' x2='860' y2='208' stroke='#8fa3bf' stroke-width='2.5'/><line x1='60' y1='208' x2='800' y2='254' stroke='#8fa3bf' stroke-width='2.5'/><circle cx='460' cy='140' r='9' fill='#ff6b6b'/><text x='460' y='118' fill='#ff6b6b' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='middle'>X</text><circle cx='320' cy='340' r='11' fill='#f2b84b'/><text x='290' y='352' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='end'>Pᵢ</text><circle cx='600' cy='340' r='11' fill='#f2b84b'/><text x='630' y='352' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic' text-anchor='start'>Pᵢ₊₁</text></svg><p>Boshqa har bir kesma <span class='m'>P<sub>i</sub>XP<sub>i+1</sub></span> sohasiga kirsa, undan chiqishi kerak. Yoy orqali chiqolmaydi — u yerda boshqa uch yo'q. Demak u <span class='m'>P<sub>i</sub>X</span> ni kesadi ⟺ <span class='m'>XP<sub>i+1</sub></span> ni kesadi.</p><div class='box'>Ikkala yo'lda sakrashlar soni teng ⟹ qurbaqalar <span class='m'>X</span> ga <b>bir vaqtda</b> keladi 💥<br>Qo'shni ikki nuqtaga qurbaqa qo'yib bo'lmaydi.</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Juft masofa — xavfsiz",
+      "fs": 33,
+      "body": "<p>Endi qurbaqalar <span class='m'>P<sub>i</sub></span> va <span class='m'>P<sub>j</sub></span> da, <span class='m'>j − i</span> esa <b>juft</b> bo'lsin. Kesmalari <span class='m'>X</span> da kesishadi.</p><p><span class='m'>P<sub>i</sub></span> va <span class='m'>P<sub>j</sub></span> orasidagi yoyda <span class='m'>j − i − 1</span> ta uch bor — <b>toq son</b>, va ularning har biri turli kesmaga tegishli. Boshqa kesmalar:</p><ul><li>uchi shu yoyda bo'lsa — <span class='m'>P<sub>i</sub>X</span> va <span class='m'>P<sub>j</sub>X</span> dan <b>aynan bittasini</b> kesadi;</li><li>uchi yoyda bo'lmasa — <b>ikkalasini</b> yoki hech birini.</li></ul><p><span class='m'>P<sub>i</sub>X</span> dagi kesishishlar soni <span class='m'>a</span>, <span class='m'>P<sub>j</sub>X</span> dagisi <span class='m'>b</span> bo'lsa (<span class='m'>c</span> — ikkalasini kesadiganlar soni):</p><div class='box' style='text-align:center'><span class='m'>a + b = 2c + (j − i − 1)</span> — toq ⟹ <span class='m'>a ≠ b</span></div><p>Qurbaqalar <span class='m'>X</span> ga <span class='m'>(a+1)</span>- va <span class='m'>(b+1)</span>-qarsakda, ya'ni <b>turli vaqtda</b> keladi ✅</p>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Toq va juft n",
+      "fs": 34,
+      "body": "<p><b>(a) <span class='m'>n</span> toq.</b> Qurbaqalarni <span class='m'>P<sub>1</sub>, P<sub>3</sub>, …, P<sub>2n−1</sub></span> ga qo'yamiz. <span class='m'>n</span> toq bo'lgani uchun <span class='m'>i</span> va <span class='m'>i + n</span> ning juft-toqligi har xil — har kesmaga <b>aynan bitta</b> qurbaqa tushadi. Har ikki qurbaqa orasidagi masofa juft, 3-qadamga ko'ra to'qnashuv yo'q ✅</p><p><b>(b) <span class='m'>n</span> juft.</b> 2-qadamga ko'ra <span class='m'>2n</span> ta nuqtadan <span class='m'>n</span> tasini qo'shnisiz tanlash kerak — bu faqat <b>bittalab oralab</b>: <span class='m'>P<sub>1</sub>, P<sub>3</sub>, …</span> yoki <span class='m'>P<sub>2</sub>, P<sub>4</sub>, …</span></p><div class='box'>Lekin <span class='m'>n</span> juft bo'lsa, <span class='m'>P<sub>i</sub></span> va <span class='m'>P<sub>i+n</sub></span> bir xil juft-toqlikda: bir kesmaning <b>ikkala uchi ham</b> tanlanib qoladi ❌</div><p>Demak juft <span class='m'>n</span> da Geoff maqsadiga erisha olmaydi. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Aylana + juft-toqlik",
+      "fs": 35,
+      "body": "<p>G'oya: kesmalarni aylanaga cho'zsak, ular <span class='m'>P<sub>i</sub>P<sub>i+n</sub></span> «diametrlar»ga aylanadi. Qo'shni uchlar doim to'qnashadi, juft masofadagilar hech qachon — qolgani juft-toqlik hisobi.</p><div class='box'>✅ Python bilan tekshirdik: tasodifiy kesmalar uchun <span class='m'>n = 2…7</span> da barcha <span class='m'>2<sup>n</sup></span> joylashuvni sinadik — toq <span class='m'>n</span> da usul bor (bittalab oralab), juft <span class='m'>n</span> da birorta ham yo'q.</div><p>🧠 <b>Sizga savol:</b> <span class='m'>n = 3</span> bo'lsa, Geoff 8 ta mumkin joylashuvdan nechtasida maqsadiga erishadi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2015 · 1-masala</b> (geometriya, balansli va markazsiz to'plamlar)</p>"
+    }
+  ]
+}
