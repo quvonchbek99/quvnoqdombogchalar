@@ -94,7 +94,7 @@
     else if (k === "dec" || k === "neg") { d = k === "dec" ? R(2, 9) : R(3, 8); s = k === "dec" ? R(5 * d + 1, 5 * d + 60) : R(1, 3 * d); for (i = 0; i < 6; i++) f.push(s - d * i); e = "Har safar " + d + " ayriladi"; neg = k === "neg"; ex = [f[5] - d, f[5] + 1, f[5] - 1, -f[5]]; }
     else if (k === "geo") { x = L === 1 ? pick([2, 3]) : pick([2, 3, 4, 5]); s = R(1, L === 1 ? 5 : 7); for (i = 0; i < 5; i++) f.push(s * Math.pow(x, i)); e = "Har safar " + x + " ga ko'paytiriladi"; c = f[3] + " · " + x + " = " + f[4]; ex = [f[4] + x, f[3] + x, f[3] * (x + 1), f[4] - f[3]]; }
     else if (k === "halve") { x = L === 1 ? 2 : pick([2, 3]); s = R(1, 12); for (i = 4; i >= 0; i--) f.push(s * Math.pow(x, i)); e = "Har safar " + x + " ga bo'linadi"; c = f[3] + " : " + x + " = " + f[4]; ex = [f[4] + x, f[3] - x, f[4] + 1, f[4] * 2 === f[3] ? f[4] * 3 : f[4] * 2]; }
-    else if (k === "sq" || k === "sqk") { y = k === "sqk" ? pick([-3, -2, -1, 1, 2, 3, 4, 5]) : 0; s = R(y < 0 ? 2 : 1, L === 1 ? 9 : 13); for (i = 0; i < 5; i++) f.push((s + i) * (s + i) + y); e = "Sonlar n²" + sgn(y) + " ko'rinishida: " + s + "²" + sgn(y) + ", " + (s + 1) + "²" + sgn(y) + ", …"; c = (s + 4) + "²" + sgn(y) + " = " + f[4]; ex = [f[3] + (f[3] - f[2]), f[4] + 1, f[4] - 1, (s + 4) * 2 + y]; }
+    else if (k === "sq" || k === "sqk") { y = k === "sqk" ? pick([-3, -2, -1, 1, 2, 3, 4, 5]) : 0; s = R(y < 0 ? 2 : 1, L === 1 ? 12 : 15); for (i = 0; i < 5; i++) f.push((s + i) * (s + i) + y); e = "Sonlar n²" + sgn(y) + " ko'rinishida: " + s + "²" + sgn(y) + ", " + (s + 1) + "²" + sgn(y) + ", …"; c = (s + 4) + "²" + sgn(y) + " = " + f[4]; ex = [f[3] + (f[3] - f[2]), f[4] + 1, f[4] - 1, (s + 4) * 2 + y]; }
     else if (k === "cube" || k === "cubek") { y = k === "cubek" ? pick([-2, -1, 1, 2, 3]) : 0; s = R(y < 0 ? 2 : 1, k === "cube" ? 5 : 6); for (i = 0; i < 5; i++) f.push(Math.pow(s + i, 3) + y); e = "Sonlar n³" + sgn(y) + " ko'rinishida: " + s + "³" + sgn(y) + ", " + (s + 1) + "³" + sgn(y) + ", …"; c = (s + 4) + "³" + sgn(y) + " = " + f[4]; ex = [Math.pow(s + 4, 2) + y, f[3] + (f[3] - f[2]), Math.pow(s + 5, 3) + y, f[4] + 1]; }
     else if (k === "tri") { s = R(1, 10); for (i = 0; i < 6; i++) f.push((s + i) * (s + i + 1) / 2); e = "Ayirmalar har safar 1 ga ortadi: " + (s + 1) + ", " + (s + 2) + ", " + (s + 3) + ", " + (s + 4) + ", keyingisi " + (s + 5); ex = [f[4] + (s + 4), f[5] + 1, f[5] + s + 6]; }
     else if (k === "diffE" || k === "diffK") { x = k === "diffE" ? 2 : R(2, 4); d = R(1, 6); s = R(1, 20); f = [s]; for (i = 1; i < 6; i++) f.push(f[i - 1] + d + x * (i - 1)); e = "Ayirmalar har safar " + x + " ga ortadi: " + d + ", " + (d + x) + ", " + (d + 2 * x) + ", " + (d + 3 * x) + ", keyingisi " + (d + 4 * x); ex = [f[4] + d + 3 * x, f[5] + x, f[5] + 1]; }
@@ -689,10 +689,10 @@
       else if (mode === "each") { qs = "Ular kim?"; var ea = function (T) { return N[0] + " — " + kind(T[0]) + ", " + N[1] + " — " + kind(T[1]); }; a = ea(sol); w = near.map(function (o) { return ea(o.T); }); }
       else { qs = mode === "who" ? "Kim rostgo'y?" : "Kim yolg'onchi?"; a = kkWho(N, sol, mode === "who"); w = near.map(function (o) { return kkWho(N, o.T, mode === "who"); }); }
       var body = sts.map(function (o) { return "<b>" + N[o.s] + ":</b> «" + o.tp.t(N, o.s, o.x, o.y) + "»."; }).join("<br>") + "<br><b>" + qs + "</b>";
-      var hd = "Rostgo'y doim rost, yolg'onchi doim yolg'on gapiradi. " + joinUz(N) + " — har biri shulardan biri.<br>";
-      if ((hd + body).replace(/<[^>]+>/g, "").length > 170) hd = joinUz(N) + " — har biri rostgo'y (doim rost gapiradi) yoki yolg'onchi (doim yolg'on).<br>";
-      if ((hd + body).replace(/<[^>]+>/g, "").length > 170) hd = joinUz(N) + " — har biri rostgo'y yoki yolg'onchi.<br>";
-      if ((hd + body).replace(/<[^>]+>/g, "").length > 170) continue;
+      var RL = "Rostgo'y doim rost, yolg'onchi doim yolg'on gapiradi.", HD = sts.length === n ? [RL, joinUz(N) + " — har biri rostgo'y yoki yolg'onchi."] // jim turgan odam bo'lsa, ismlar albatta aytiladi
+        : [RL + " " + joinUz(N) + " — har biri shulardan biri.", joinUz(N) + " — har biri rostgo'y (doim rost gapiradi) yoki yolg'onchi (doim yolg'on).", joinUz(N) + " — har biri rostgo'y yoki yolg'onchi."], hd = null;
+      for (i = 0; i < HD.length && !hd; i++) if ((HD[i] + body).replace(/<[^>]+>/g, "").length <= 170) hd = HD[i] + "<br>";
+      if (!hd) continue;
       var hint = null; sts.forEach(function (o) { if (!hint && o.tp.h) hint = o.tp.h(N, o.s, o.x, o.y); });
       return Q(hd + body, a, w, ["Yagona mos holat: " + N.map(function (x, j) { return x + " — " + kind(sol[j]); }).join(", ") + ".", hint || "Tekshiring: rostgo'yning gapi rost, yolg'onchiniki yolg'on; boshqa holatlarda qarama-qarshilik chiqadi."]);
     }
