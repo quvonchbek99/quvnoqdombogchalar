@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Avtotest — prava imtihoniga tayyorlov | Kuvonch Academy</title>
+<meta name="description" content="Haydovchilik guvohnomasi nazariy imtihoniga bepul tayyorlov: biletlar, 20 savol · 25 daqiqa imtihon rejimi, mavzular, xatolar ustida ishlash va yo'l belgilari. Yo'l harakati qoidalari asosida.">
+<link rel="canonical" href="https://kuvonch.uz/avtotest/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Avtotest — prava imtihoniga tayyorlov">
+<meta property="og:description" content="Biletlar, imtihon rejimi (20 savol, 25 daqiqa, 2 xatogacha), mavzular, xatolar va yo'l belgilari. Bepul, ro'yxatdan o'tmasdan.">
+<meta property="og:url" content="https://kuvonch.uz/avtotest/">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../icon-192.png">
+<meta name="theme-color" content="#0b1220">
+<script async src="../statistika.js"></script>
+<style>
+:root{
+  --bg:#0b1220;--bg-soft:#111a2e;--card:#141f38;--card-2:#18264a;--border:#243252;--text:#eef2ff;--text-dim:#9fb0d0;
+  --accent:#5ee6c7;--accent-2:#7c9bff;--bad:#ff7a7a;--good:#4fd69c;--gold:#ffd479;--road:#3a4150;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(circle at 20% 0%,#16213f 0%,#0b1220 55%) fixed,#0b1220;
+  font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--accent-2)}
+.back{position:absolute;top:8px;right:10px;z-index:50;display:inline-flex;align-items:center;height:38px;padding:0 13px;border-radius:999px;
+  background:var(--card);border:1px solid var(--border);color:var(--text);text-decoration:none;font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.wrap{max-width:980px;margin:0 auto;padding:58px 16px calc(32px + env(safe-area-inset-bottom,0px))}
+h1{margin:0 0 6px;font-size:clamp(26px,5vw,36px);line-height:1.1;letter-spacing:-.02em;font-weight:800}
+h1 span{background:linear-gradient(135deg,var(--gold),#ff9f5c);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
+.lead{color:var(--text-dim);margin:0 0 16px;max-width:720px}
+.hidden{display:none!important}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 16px;border-radius:12px;border:1px solid var(--border);
+  background:var(--card);font-weight:700;text-decoration:none;color:var(--text)}
+.btn:hover{border-color:var(--accent-2)}
+.btn.solid{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#08111f;border:0}
+.btn.warn{background:linear-gradient(135deg,var(--gold),#ff9f5c);color:#1b1206;border:0}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* Bosh sahifa */
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 4px}
+.sum{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px}
+.sum b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.sum small{color:var(--text-dim);font-size:12.5px}
+.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mode{position:relative;display:flex;flex-direction:column;gap:4px;text-align:left;padding:16px;border-radius:16px;border:1px solid var(--border);
+  background:linear-gradient(160deg,var(--card-2),var(--card));min-height:118px}
+.mode:hover{border-color:var(--accent-2);transform:translateY(-1px)}
+.mode .ic{font-size:26px;line-height:1}
+.mode b{font-size:16px}
+.mode small{color:var(--text-dim);font-size:13px}
+.mode .cnt{position:absolute;top:12px;right:12px;font-size:12px;font-weight:800;padding:3px 8px;border-radius:999px;background:#2a1820;color:var(--bad)}
+.mode.main{grid-column:span 3;flex-direction:row;align-items:center;gap:16px;background:linear-gradient(135deg,#2a2412,#1c2a3f);border-color:#5a4a1f}
+.mode.main .ic{font-size:40px}
+.mode.main .t{flex:1}
+.grid-bilet{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px}
+.bil{height:56px;border-radius:12px;border:1px solid var(--border);background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800}
+.bil small{font-size:11px;font-weight:700;color:var(--text-dim)}
+.bil.ok{border-color:#2f7d5c;background:#12302a}
+.bil.ok small{color:var(--good)}
+.bil.no{border-color:#7d2f3a;background:#2c1620}
+.bil.no small{color:var(--bad)}
+.topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.topic{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--card)}
+.topic:hover{border-color:var(--accent-2)}
+.topic .ic{font-size:22px;width:30px;text-align:center}
+.topic .t{flex:1;min-width:0}
+.topic small{display:block;color:var(--text-dim);font-size:12.5px}
+.bar{height:5px;border-radius:9px;background:#22304f;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.note{margin-top:22px;padding:12px 14px;border-radius:12px;border:1px dashed var(--border);color:var(--text-dim);font-size:13px}
+
+/* Test oynasi */
+.qhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.qhead .title{font-weight:800;font-size:17px;flex:1;min-width:150px}
+.pill{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--border);font-weight:800;font-variant-numeric:tabular-nums}
+.pill.time.low{border-color:var(--bad);color:var(--bad)}
+.pill.err b{color:var(--bad)}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.dot{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card);font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
+.dot.cur{outline:2px solid var(--gold);outline-offset:1px}
+.dot.ok{background:#174233;border-color:#2f7d5c}
+.dot.no{background:#4a1d26;border-color:#7d2f3a}
+.dot.done{background:#22315a}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+.qimg{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:16px;background:#e9edf3;min-height:120px}
+.qimg.scene{background:#cfd6c4;padding:0}
+.qimg svg.belgi{width:118px;height:118px}
+.qimg svg.plate{width:150px;height:auto}
+.qimg svg.sahna{width:100%;max-width:560px;height:auto;display:block}
+.qbody{padding:16px 18px 18px}
+.qnum{color:var(--text-dim);font-size:13px;font-weight:700;margin-bottom:4px}
+.qtext{font-size:17px;font-weight:700;margin:0 0 14px;line-height:1.45}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:flex-start;gap:12px;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--bg-soft);font-size:15.5px;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--accent-2)}
+.opt .k{flex:none;min-width:34px;height:26px;border-radius:7px;background:#22304f;color:var(--text-dim);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.opt.ok{border-color:var(--good);background:#123527}
+.opt.ok .k{background:var(--good);color:#06150f}
+.opt.no{border-color:var(--bad);background:#3a1820}
+.opt.no .k{background:var(--bad);color:#1d0609}
+.opt.pick{border-color:var(--accent-2);background:#1b2a52}
+.opt:disabled{cursor:default}
+.izoh{margin-top:14px;padding:12px 14px;border-radius:12px;background:#10233a;border:1px solid #23466e;font-size:14.5px}
+.izoh b{color:var(--accent)}
+.qnav{display:flex;gap:10px;justify-content:space-between;margin-top:14px;flex-wrap:wrap}
+.res{text-align:center;padding:22px 16px;border-radius:18px;border:1px solid var(--border);background:var(--card)}
+.res .big{font-size:46px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.1}
+.res .verdict{font-size:20px;font-weight:800;margin:6px 0}
+.res.pass{border-color:#2f7d5c;background:linear-gradient(160deg,#12302a,#141f38)}
+.res.fail{border-color:#7d2f3a;background:linear-gradient(160deg,#2c1620,#141f38)}
+.review{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.rv{padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-size:14.5px}
+.rv .q{font-weight:700;margin-bottom:4px}
+.rv .a{color:var(--good)}
+.rv .w{color:var(--bad)}
+.signs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sg{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 10px;border-radius:14px;border:1px solid var(--border);background:var(--card);text-align:center}
+.sg .pic{width:100%;display:flex;justify-content:center;background:#e9edf3;border-radius:10px;padding:8px}
+.sg svg{width:72px;height:72px}
+.sg svg.plate{width:96px;height:auto}
+.sg b{font-size:12px;color:var(--gold)}
+.sg span{font-size:13px;line-height:1.3}
+.sg p{margin:0;font-size:12px;color:var(--text-dim)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.tab{padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg-soft);font-weight:700;font-size:13px}
+.tab.on{background:var(--accent-2);color:#08111f;border-color:var(--accent-2)}
+@media (max-width:760px){
+  .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mode.main{grid-column:span 2}
+  .summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .topics{grid-template-columns:1fr}
+}
+@media (max-width:420px){
+  .modes{grid-template-columns:1fr}
+  .mode.main{grid-column:auto;flex-direction:column;align-items:flex-start}
+  .qbody{padding:14px}
+  .qtext{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.mode:hover{transform:none}}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">← Bosh sahifa</a>
+<div class="wrap">
+
+<!-- BOSH SAHIFA -->
+<section id="home">
+  <h1>🚗 <span>Avtotest</span></h1>
+  <p class="lead">Haydovchilik guvohnomasi (prava) nazariy imtihoniga tayyorlov: biletlar, haqiqiy imtihon sharoiti (20 savol · 25 daqiqa · ko'pi bilan 2 ta xato), mavzular, xatolar ustida ishlash va yo'l belgilari. Bepul, ro'yxatdan o'tmasdan.</p>
+  <div class="summary" id="summary"></div>
+
+  <h2>Rejimni tanlang</h2>
+  <div class="modes">
+    <button class="mode main" data-go="imtihon"><span class="ic">⏱️</span><span class="t"><b>Imtihon rejimi</b><br><small>Haqiqiy imtihondek: barcha mavzulardan 20 ta tasodifiy savol, 25 daqiqa. 3-xatoda imtihon tugaydi.</small></span><span class="btn warn">Boshlash</span></button>
+    <button class="mode" data-go="biletlar"><span class="ic">🎫</span><b>Biletlar</b><small id="mBil">Har biletda 20 ta savol</small></button>
+    <button class="mode" data-go="mavzular"><span class="ic">📚</span><b>Mavzular bo'yicha</b><small>Belgilar, chorrahalar, manevr, tibbiy yordam…</small></button>
+    <button class="mode" data-go="xatolar"><span class="ic">🔁</span><b>Xatolarim</b><small>Xato qilgan savollaringizni qayta yeching</small><span class="cnt hidden" id="xCnt"></span></button>
+    <button class="mode" data-go="marafon"><span class="ic">🏃</span><b>Marafon</b><small id="mMar">Barcha savollar ketma-ket</small></button>
+    <button class="mode" data-go="belgilar"><span class="ic">🛑</span><b>Yo'l belgilari</b><small>Barcha belgilar, nomlari va ma'nosi</small></button>
+    <button class="mode" data-go="tasodifiy"><span class="ic">🎲</span><b>Tez mashq</b><small>10 ta tasodifiy savol, izohlari bilan</small></button>
+  </div>
+
+  <h2 id="hBil">Biletlar</h2>
+  <div class="grid-bilet" id="biletGrid"></div>
+
+  <h2 id="hMav">Mavzular</h2>
+  <div class="topics" id="topicList"></div>
+
+  <p class="note">Savollar O'zbekiston Respublikasi «Yo'l harakati qoidalari» (Vazirlar Mahkamasining 2015-yil 12-iyundagi 172-son qarori) asosida Kuvonch Academy tomonidan tuzilgan o'quv savollaridir. Ular rasmiy imtihon bazasining nusxasi emas. Har bir izohda qoidaning tegishli bandi ko'rsatilgan. Rasmiy matn: <a href="https://lex.uz/acts/-2850459" target="_blank" rel="noopener noreferrer">lex.uz</a>.</p>
+</section>
+
+<!-- TEST OYNASI -->
+<section id="quiz" class="hidden">
+  <div class="qhead">
+    <button class="btn" id="qExit">← Chiqish</button>
+    <div class="title" id="qTitle"></div>
+    <span class="pill err hidden" id="qErr">Xato: <b>0</b>/2</span>
+    <span class="pill time hidden" id="qTime">25:00</span>
+  </div>
+  <div class="dots" id="qDots"></div>
+  <div class="qcard">
+    <div class="qimg hidden" id="qImg"></div>
+    <div class="qbody">
+      <div class="qnum" id="qNum"></div>
+      <p class="qtext" id="qText"></p>
+      <div class="opts" id="qOpts"></div>
+      <div class="izoh hidden" id="qIzoh"></div>
+      <div class="qnav">
+        <button class="btn" id="qPrev">← Oldingi</button>
+        <button class="btn hidden" id="qFinish">Yakunlash</button>
+        <button class="btn solid" id="qNext">Keyingi →</button>
+      </div>
+    </div>
+  </div>
+  <p class="note" id="qKeys">Klaviatura: F1–F5 yoki 1–5 — javob, → / Enter — keyingi savol.</p>
+</section>
+
+<!-- NATIJA -->
+<section id="result" class="hidden">
+  <div class="res" id="resBox"></div>
+  <div class="qnav" style="justify-content:center">
+    <button class="btn solid" id="rAgain">Qayta ishlash</button>
+    <button class="btn" id="rHome">Bosh menyu</button>
+  </div>
+  <div class="review" id="review"></div>
+</section>
+
+<!-- YO'L BELGILARI -->
+<section id="signs" class="hidden">
+  <div class="qhead"><button class="btn" id="sExit">← Orqaga</button><div class="title">Yo'l belgilari</div></div>
+  <div class="tabs" id="sTabs"></div>
+  <div class="signs" id="sGrid"></div>
+</section>
+
+</div>
+
+<script src="belgilar.js"></script>
+<script src="sahna.js"></script>
+<script src="savollar.js"></script>
+<script>
+(function () {
+  "use strict";
+  var AT = window.AT || { savollar: [], mavzular: [], biletlar: [] };
+  var Q = {}; AT.savollar.forEach(function (q) { Q[q.id] = q; });
+  var MAV = {}; AT.mavzular.forEach(function (m) { MAV[m.k] = m; });
+  var LS = "ka.avtotest.v1";
+  function load() { try { var d = JSON.parse(localStorage.getItem(LS) || "{}"); return d && typeof d === "object" ? d : {}; } catch (e) { return {}; } }
+  function save() { try { localStorage.setItem(LS, JSON.stringify(D)); } catch (e) {} }
+  var D = load(); D.bil = D.bil || {}; D.xato = D.xato || []; D.seen = D.seen || {}; D.ex = D.ex || [];
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function show(id) { ["home", "quiz", "result", "signs"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); }); window.scrollTo(0, 0); }
+
+  // ---------- Bosh sahifa ----------
+  function home() {
+    var seen = Object.keys(D.seen).length, ok = 0; for (var k in D.seen) if (D.seen[k] === 1) ok++;
+    var passed = D.ex.filter(function (e) { return e.p; }).length;
+    var bOk = 0; for (var b in D.bil) if (D.bil[b].best >= 18) bOk++;
+    $("summary").innerHTML =
+      '<div class="sum"><b>' + seen + ' / ' + AT.savollar.length + '</b><small>ishlangan savollar</small></div>' +
+      '<div class="sum"><b>' + (seen ? Math.round(ok * 100 / seen) : 0) + '%</b><small>to\'g\'ri javoblar</small></div>' +
+      '<div class="sum"><b>' + bOk + ' / ' + AT.biletlar.length + '</b><small>topshirilgan biletlar</small></div>' +
+      '<div class="sum"><b>' + passed + ' / ' + D.ex.length + '</b><small>o\'tilgan imtihonlar</small></div>';
+    $("mBil").textContent = AT.biletlar.length + " ta bilet, har birida 20 ta savol";
+    $("mMar").textContent = "Barcha " + AT.savollar.length + " ta savol ketma-ket";
+    var xc = D.xato.filter(function (id) { return Q[id]; }).length;
+    $("xCnt").textContent = xc; $("xCnt").classList.toggle("hidden", !xc);
+    $("biletGrid").innerHTML = AT.biletlar.map(function (_, i) {
+      var r = D.bil[i + 1], cls = r ? (r.best >= 18 ? "ok" : "no") : "";
+      return '<button class="bil ' + cls + '" data-bil="' + (i + 1) + '">' + (i + 1) + '<small>' + (r ? r.best + "/20" : "bilet") + '</small></button>';
+    }).join("");
+    $("topicList").innerHTML = AT.mavzular.map(function (m) {
+      var ids = AT.savollar.filter(function (q) { return q.m === m.k; }).map(function (q) { return q.id; });
+      var done = ids.filter(function (id) { return D.seen[id] === 1; }).length;
+      return '<button class="topic" data-mav="' + m.k + '"><span class="ic">' + m.ic + '</span><span class="t"><b>' + esc(m.n) + '</b><small>' + ids.length + ' ta savol · ' + done + ' tasi to\'g\'ri</small><div class="bar"><i style="width:' + (ids.length ? done * 100 / ids.length : 0) + '%"></i></div></span></button>';
+    }).join("");
+    show("home");
+  }
+
+  // ---------- Test ----------
+  var S = null, timer = 0;
+  function start(cfg) {
+    // cfg: {title, ids, mode: 'imtihon'|'bilet'|'mashq', bil}
+    var ids = cfg.ids.filter(function (id) { return Q[id]; });
+    if (!ids.length) { alert("Bu bo'limda hozircha savol yo'q."); return; }
+    S = { cfg: cfg, ids: ids, i: 0, ans: {}, order: {}, err: 0, end: 0, t0: Date.now() };
+    ids.forEach(function (id) { var n = Q[id].v.length, o = []; for (var k = 0; k < n; k++) o.push(k); S.order[id] = cfg.mode === "imtihon" ? shuffle(o) : o; });
+    $("qTitle").textContent = cfg.title;
+    $("qErr").classList.toggle("hidden", cfg.mode !== "imtihon");
+    $("qTime").classList.toggle("hidden", cfg.mode !== "imtihon");
+    $("qFinish").classList.toggle("hidden", cfg.mode === "mashq" && ids.length > 40);
+    clearInterval(timer);
+    if (cfg.mode === "imtihon") { S.end = Date.now() + 25 * 60000; tick(); timer = setInterval(tick, 500); }
+    show("quiz"); render();
+  }
+  function tick() {
+    var left = Math.max(0, S.end - Date.now()), m = Math.floor(left / 60000), s = Math.floor(left % 60000 / 1000);
+    $("qTime").textContent = "⏱ " + m + ":" + (s < 10 ? "0" : "") + s;
+    $("qTime").classList.toggle("low", left < 3 * 60000);
+    if (!left) { clearInterval(timer); finish("vaqt"); }
+  }
+  function img(q) {
+    var r = q.r; if (!r) return "";
+    var h = "";
+    if (r.b) (Array.isArray(r.b) ? r.b : [r.b]).forEach(function (c) { h += window.ATBelgi ? window.ATBelgi.svg(c) : ""; });
+    if (r.sahna && window.ATSahna) h += window.ATSahna.svg(r.sahna);
+    return h;
+  }
+  function render() {
+    var id = S.ids[S.i], q = Q[id], a = S.ans[id], prac = S.cfg.mode !== "imtihon";
+    var many = S.ids.length <= 40;
+    $("qDots").classList.toggle("hidden", !many);
+    if (many) $("qDots").innerHTML = S.ids.map(function (x, k) {
+      var c = S.ans[x] == null ? "" : (prac || S.done ? (S.ans[x] === Q[x].j ? "ok" : "no") : "done");
+      return '<button class="dot ' + c + (k === S.i ? " cur" : "") + '" data-dot="' + k + '">' + (k + 1) + '</button>';
+    }).join("");
+    var im = img(q); $("qImg").innerHTML = im; $("qImg").classList.toggle("hidden", !im); $("qImg").classList.toggle("scene", !!(q.r && q.r.sahna));
+    $("qNum").textContent = (S.i + 1) + " / " + S.ids.length + " · " + (MAV[q.m] ? MAV[q.m].n : "");
+    $("qText").textContent = q.s;
+    var shown = a != null && (prac || S.done);
+    $("qOpts").innerHTML = S.order[id].map(function (k, n) {
+      var c = "";
+      if (shown) { if (k === q.j) c = "ok"; else if (k === a) c = "no"; }
+      else if (a === k) c = "pick";
+      return '<button class="opt ' + c + '" data-k="' + k + '"' + (a != null ? " disabled" : "") + '><span class="k">F' + (n + 1) + '</span><span>' + esc(q.v[k]) + '</span></button>';
+    }).join("");
+    $("qIzoh").classList.toggle("hidden", !shown);
+    if (shown) $("qIzoh").innerHTML = (a === q.j ? "<b>To'g'ri!</b> " : "<b style=\"color:var(--bad)\">Noto'g'ri.</b> To'g'ri javob: " + esc(q.v[q.j]) + ". ") + esc(q.i || "");
+    $("qPrev").disabled = S.i === 0;
+    $("qNext").textContent = S.i === S.ids.length - 1 ? (S.done ? "Natija" : "Yakunlash") : "Keyingi →";
+    $("qErr").innerHTML = "Xato: <b>" + S.err + "</b>/2";
+  }
+  function answer(k) {
+    var id = S.ids[S.i], q = Q[id];
+    if (S.ans[id] != null || S.done) return;
+    S.ans[id] = k;
+    var ok = k === q.j;
+    D.seen[id] = ok ? 1 : 0;
+    var xi = D.xato.indexOf(id);
+    if (!ok && xi < 0) D.xato.push(id);
+    if (ok && xi >= 0 && S.cfg.xatolar) D.xato.splice(xi, 1);
+    save();
+    if (!ok) S.err++;
+    if (S.cfg.mode === "imtihon") {
+      if (S.err > 2) { render(); setTimeout(function () { finish("xato"); }, 350); return; }
+      var allDone = S.ids.every(function (x) { return S.ans[x] != null; });
+      render();
+      if (allDone) { setTimeout(function () { finish(); }, 300); return; }
+      setTimeout(function () { next(true); }, 280);
+      return;
+    }
+    render();
+  }
+  function next(skipAnswered) {
+    if (S.i < S.ids.length - 1) {
+      var j = S.i + 1;
+      if (skipAnswered && S.cfg.mode === "imtihon") {
+        for (var t = 0; t < S.ids.length; t++) { var c = (S.i + 1 + t) % S.ids.length; if (S.ans[S.ids[c]] == null) { j = c; break; } }
+      }
+      S.i = j; render(); window.scrollTo(0, 0);
+    } else if (S.done) showResult();
+    else finish();
+  }
+  function finish(why) {
+    if (!S || S.done) return;
+    S.done = true; S.why = why || ""; clearInterval(timer);
+    var ok = S.ids.filter(function (x) { return S.ans[x] === Q[x].j; }).length;
+    S.ok = ok;
+    if (S.cfg.mode === "imtihon") { S.pass = S.err <= 2 && S.ids.every(function (x) { return S.ans[x] != null; }); D.ex.push({ d: Date.now(), ok: ok, p: S.pass }); if (D.ex.length > 100) D.ex.shift(); }
+    if (S.cfg.bil) { var r = D.bil[S.cfg.bil] || { best: 0 }; r.best = Math.max(r.best, ok); r.last = ok; D.bil[S.cfg.bil] = r; }
+    save(); showResult();
+  }
+  function showResult() {
+    var n = S.ids.length, ok = S.ok, ex = S.cfg.mode === "imtihon";
+    var pass = ex ? S.pass : (n === 20 ? n - ok <= 2 : ok / n >= 0.9);
+    var verdict = ex ? (pass ? "Imtihondan o'tdingiz! 🎉" : (S.why === "vaqt" ? "Vaqt tugadi — imtihondan o'tmadingiz" : S.why === "xato" ? "3 ta xato — imtihondan o'tmadingiz" : "Imtihondan o'tmadingiz"))
+      : (pass ? "Ajoyib natija! 🎉" : "Yana mashq qiling 💪");
+    var used = Math.round((Date.now() - S.t0) / 1000);
+    $("resBox").className = "res " + (pass ? "pass" : "fail");
+    $("resBox").innerHTML = '<div class="big">' + ok + ' / ' + n + '</div><div class="verdict">' + verdict + '</div><div style="color:var(--text-dim)">' + esc(S.cfg.title) + (ex ? " · " + Math.floor(used / 60) + " daq " + (used % 60) + " son" : "") + '</div>';
+    var wrong = S.ids.filter(function (x) { return S.ans[x] !== Q[x].j; });
+    $("review").innerHTML = (wrong.length ? "<h2>Xatolar va javobi berilmagan savollar (" + wrong.length + ")</h2>" : "") + wrong.map(function (x) {
+      var q = Q[x], a = S.ans[x];
+      return '<div class="rv"><div class="q">' + esc(q.s) + '</div>' + (a != null ? '<div class="w">✗ Sizning javobingiz: ' + esc(q.v[a]) + '</div>' : '<div class="w">✗ Javob berilmagan</div>') + '<div class="a">✓ To\'g\'ri javob: ' + esc(q.v[q.j]) + '</div><div style="color:var(--text-dim);margin-top:4px">' + esc(q.i || "") + '</div></div>';
+    }).join("");
+    show("result");
+  }
+
+  // ---------- Rejimlar ----------
+  function examIds() {
+    // har mavzudan ulushiga qarab, jami 20 ta
+    var by = {}; AT.savollar.forEach(function (q) { (by[q.m] = by[q.m] || []).push(q.id); });
+    var keys = Object.keys(by), total = AT.savollar.length, out = [];
+    keys.forEach(function (k) { var n = Math.max(1, Math.round(by[k].length * 20 / total)); out = out.concat(shuffle(by[k]).slice(0, n)); });
+    out = shuffle(out);
+    if (out.length > 20) out = out.slice(0, 20);
+    var rest = shuffle(AT.savollar.map(function (q) { return q.id; }).filter(function (id) { return out.indexOf(id) < 0; }));
+    while (out.length < 20 && rest.length) out.push(rest.pop());
+    return out;
+  }
+  function go(m, arg) {
+    if (m === "imtihon") start({ title: "Imtihon · 20 savol", ids: examIds(), mode: "imtihon" });
+    else if (m === "biletlar") $("hBil").scrollIntoView({ behavior: "smooth" });
+    else if (m === "mavzular") $("hMav").scrollIntoView({ behavior: "smooth" });
+    else if (m === "bilet") start({ title: arg + "-bilet", ids: AT.biletlar[arg - 1] || [], mode: "bilet", bil: arg });
+    else if (m === "mavzu") start({ title: MAV[arg].n, ids: AT.savollar.filter(function (q) { return q.m === arg; }).map(function (q) { return q.id; }), mode: "mashq" });
+    else if (m === "xatolar") { var ids = D.xato.filter(function (id) { return Q[id]; }); if (!ids.length) { alert("Hozircha xatolar yo'q. Avval biletlarni ishlang."); return; } start({ title: "Xatolarim", ids: ids, mode: "mashq", xatolar: true }); }
+    else if (m === "marafon") start({ title: "Marafon", ids: AT.savollar.map(function (q) { return q.id; }), mode: "mashq" });
+    else if (m === "tasodifiy") start({ title: "Tez mashq · 10 savol", ids: shuffle(AT.savollar.map(function (q) { return q.id; })).slice(0, 10), mode: "mashq" });
+    else if (m === "belgilar") signs();
+  }
+  // ---------- Belgilar katalogi ----------
+  var sTab = null;
+  function signs() {
+    var B = window.ATBelgi; if (!B) return;
+    var groups = B.guruhlar();
+    if (!sTab) sTab = groups[0].k;
+    $("sTabs").innerHTML = groups.map(function (g) { return '<button class="tab' + (g.k === sTab ? " on" : "") + '" data-tab="' + g.k + '">' + esc(g.n) + '</button>'; }).join("");
+    $("sGrid").innerHTML = B.royxat(sTab).map(function (b) {
+      return '<div class="sg"><div class="pic">' + B.svg(b.kod) + '</div><b>' + esc(b.kod) + '</b><span>' + esc(b.nom) + '</span>' + (b.izoh ? '<p>' + esc(b.izoh) + '</p>' : '') + '</div>';
+    }).join("");
+    show("signs");
+  }
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-go],[data-bil],[data-mav],[data-k],[data-dot],[data-tab]"); if (!t) return;
+    if (t.dataset.go) go(t.dataset.go);
+    else if (t.dataset.bil) go("bilet", +t.dataset.bil);
+    else if (t.dataset.mav) go("mavzu", t.dataset.mav);
+    else if (t.dataset.k != null && !t.disabled) answer(+t.dataset.k);
+    else if (t.dataset.dot != null) { S.i = +t.dataset.dot; render(); }
+    else if (t.dataset.tab) { sTab = t.dataset.tab; signs(); }
+  });
+  $("qNext").onclick = function () { next(false); };
+  $("qPrev").onclick = function () { if (S.i > 0) { S.i--; render(); } };
+  $("qFinish").onclick = function () { if (S.done) showResult(); else if (confirm("Testni yakunlaysizmi? Javob berilmagan savollar xato hisoblanadi.")) finish(); };
+  $("qExit").onclick = function () { if (S && !S.done && S.cfg.mode === "imtihon" && !confirm("Imtihondan chiqasizmi? Natija saqlanmaydi.")) return; clearInterval(timer); S = null; home(); };
+  $("rAgain").onclick = function () { var c = S.cfg; if (c.mode === "imtihon") go("imtihon"); else if (c.xatolar) go("xatolar"); else start(c); };
+  $("rHome").onclick = home;
+  $("sExit").onclick = home;
+  document.addEventListener("keydown", function (e) {
+    if ($("quiz").classList.contains("hidden") || !S) return;
+    var k = -1, m = /^F([1-5])$/.exec(e.key);
+    if (m) k = +m[1] - 1; else if (/^[1-5]$/.test(e.key)) k = +e.key - 1;
+    if (k >= 0) { var o = S.order[S.ids[S.i]]; if (k < o.length) { e.preventDefault(); answer(o[k]); } return; }
+    if (e.key === "ArrowRight" || e.key === "Enter") { if (S.ans[S.ids[S.i]] != null || S.done) next(false); }
+    else if (e.key === "ArrowLeft" && S.i > 0) { S.i--; render(); }
+  });
+  var h = /^#(bilet|mavzu)-(\w+)$/.exec(location.hash);
+  home();
+  if (h) go(h[1], h[1] === "bilet" ? +h[2] : h[2]);
+})();
+</script>
+<script src="../akkount.js"></script>
+<script src="../ka-til.js"></script>
+</body>
+</html>
