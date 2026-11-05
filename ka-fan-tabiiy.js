@@ -30,15 +30,18 @@
   function TQ(q, a, w, steps) { return Q(q, a, shuffle(w), steps); }
   // bank: [daraja, savol, javob, [noto'g'ri...], izoh]
   function bank(items) {
-    var by = { 1: [], 2: [], 3: [] };
+    var by = { 1: [], 2: [], 3: [] }, rec = [];   // rec — yaqinda berilgan savollar (takrorlanmasin)
     for (var i = 0; i < items.length; i++) by[items[i][0]].push(items[i]);
     return function (L) {
-      var arr = by[L] && by[L].length ? by[L] : items, it = pick(arr);
+      var arr = by[L] && by[L].length ? by[L] : items, fr = arr.filter(function (x) { return rec.indexOf(x[1]) < 0; }), it = pick(fr.length ? fr : arr);
+      rec.push(it[1]); if (rec.length > 12) rec.shift();
       return Q(it[1], it[2], shuffle(it[3]), it[4] ? [it[4]] : []);
     };
   }
   function mix(bk, pr, p) { return function (L) { return Math.random() < p ? bk(L) : pr(L); }; }
   function others(arr, x, n) { return shuffle(arr.filter(function (y) { return y !== x; })).slice(0, n || 3); }
+  // ro'yxatdan n ta (ex dagilardan va o'zaro farqli) element
+  function otherN(list, ex, n) { var out = []; shuffle(list).forEach(function (x) { if (out.length < n && ex.indexOf(x) < 0 && out.indexOf(x) < 0) out.push(x); }); return out; }
 
   /* ================= f1 Mexanika: tezlik, kuch, bosim ================= */
   var B1 = bank([
@@ -559,25 +562,99 @@
 
 
   /* ================= k3 Asosiy tushunchalar va reaksiyalar ================= */
-  // [formula, sinf]
-  var CLS = [["CO₂", "Oksid"], ["CaO", "Oksid"], ["Na₂O", "Oksid"], ["SO₃", "Oksid"], ["Fe₂O₃", "Oksid"], ["P₂O₅", "Oksid"], ["CuO", "Oksid"], ["Al₂O₃", "Oksid"],
-    ["HCl", "Kislota"], ["H₂SO₄", "Kislota"], ["HNO₃", "Kislota"], ["H₃PO₄", "Kislota"], ["H₂CO₃", "Kislota"], ["H₂S", "Kislota"],
-    ["NaOH", "Asos"], ["KOH", "Asos"], ["Ca(OH)₂", "Asos"], ["Cu(OH)₂", "Asos"], ["Fe(OH)₃", "Asos"], ["Ba(OH)₂", "Asos"],
-    ["NaCl", "Tuz"], ["CaCO₃", "Tuz"], ["CuSO₄", "Tuz"], ["KNO₃", "Tuz"], ["Na₂SO₄", "Tuz"], ["AgCl", "Tuz"], ["K₃PO₄", "Tuz"], ["MgCl₂", "Tuz"]];
+  // [formula, sinf, nomi]
+  var CLS = [["CO₂", "Oksid", "Uglerod(IV) oksid"], ["CaO", "Oksid", "Kalsiy oksid"], ["Na₂O", "Oksid", "Natriy oksid"], ["SO₃", "Oksid", "Oltingugurt(VI) oksid"],
+    ["Fe₂O₃", "Oksid", "Temir(III) oksid"], ["P₂O₅", "Oksid", "Fosfor(V) oksid"], ["CuO", "Oksid", "Mis(II) oksid"], ["Al₂O₃", "Oksid", "Alyuminiy oksid"],
+    ["MgO", "Oksid", "Magniy oksid"], ["ZnO", "Oksid", "Rux oksid"], ["K₂O", "Oksid", "Kaliy oksid"], ["SiO₂", "Oksid", "Kremniy(IV) oksid"], ["SO₂", "Oksid", "Oltingugurt(IV) oksid"],
+    ["Li₂O", "Oksid", "Litiy oksid"], ["BaO", "Oksid", "Bariy oksid"], ["FeO", "Oksid", "Temir(II) oksid"], ["CO", "Oksid", "Uglerod(II) oksid"], ["N₂O₅", "Oksid", "Azot(V) oksid"],
+    ["HCl", "Kislota", "Xlorid kislota"], ["H₂SO₄", "Kislota", "Sulfat kislota"], ["HNO₃", "Kislota", "Nitrat kislota"], ["H₃PO₄", "Kislota", "Fosfat kislota"],
+    ["H₂CO₃", "Kislota", "Karbonat kislota"], ["H₂S", "Kislota", "Sulfid kislota"], ["HBr", "Kislota", "Bromid kislota"], ["HI", "Kislota", "Yodid kislota"],
+    ["HF", "Kislota", "Ftorid kislota"], ["H₂SO₃", "Kislota", "Sulfit kislota"], ["HNO₂", "Kislota", "Nitrit kislota"], ["H₂SiO₃", "Kislota", "Silikat kislota"],
+    ["NaOH", "Asos", "Natriy gidroksid"], ["KOH", "Asos", "Kaliy gidroksid"], ["Ca(OH)₂", "Asos", "Kalsiy gidroksid"], ["Cu(OH)₂", "Asos", "Mis(II) gidroksid"],
+    ["Fe(OH)₃", "Asos", "Temir(III) gidroksid"], ["Ba(OH)₂", "Asos", "Bariy gidroksid"], ["LiOH", "Asos", "Litiy gidroksid"], ["Mg(OH)₂", "Asos", "Magniy gidroksid"], ["Fe(OH)₂", "Asos", "Temir(II) gidroksid"],
+    ["NaCl", "Tuz", "Natriy xlorid"], ["CaCO₃", "Tuz", "Kalsiy karbonat"], ["CuSO₄", "Tuz", "Mis(II) sulfat"], ["KNO₃", "Tuz", "Kaliy nitrat"], ["Na₂SO₄", "Tuz", "Natriy sulfat"],
+    ["AgCl", "Tuz", "Kumush xlorid"], ["K₃PO₄", "Tuz", "Kaliy fosfat"], ["MgCl₂", "Tuz", "Magniy xlorid"], ["KCl", "Tuz", "Kaliy xlorid"], ["CaCl₂", "Tuz", "Kalsiy xlorid"],
+    ["Na₂CO₃", "Tuz", "Natriy karbonat"], ["AgNO₃", "Tuz", "Kumush nitrat"], ["BaSO₄", "Tuz", "Bariy sulfat"], ["ZnSO₄", "Tuz", "Rux sulfat"], ["FeCl₃", "Tuz", "Temir(III) xlorid"],
+    ["Ca(NO₃)₂", "Tuz", "Kalsiy nitrat"], ["K₂CO₃", "Tuz", "Kaliy karbonat"], ["Na₂S", "Tuz", "Natriy sulfid"], ["Ca₃(PO₄)₂", "Tuz", "Kalsiy fosfat"]];
+  // [formula, an'anaviy (tarixiy) nomi]
+  var TRIV = [["NaCl", "Osh tuzi"], ["H₂O", "Suv"], ["CO₂", "Karbonat angidrid"], ["CaCO₃", "Bo'r (ohaktosh)"], ["CaO", "So'ndirilmagan ohak"], ["Ca(OH)₂", "So'ndirilgan ohak"],
+    ["NaHCO₃", "Ichimlik sodasi"], ["Na₂CO₃", "Kalsinatsiyalangan soda"], ["NaOH", "O'yuvchi natriy"], ["NH₃", "Ammiak"], ["CH₄", "Metan"], ["O₃", "Ozon"],
+    ["H₂O₂", "Vodorod peroksid"], ["SiO₂", "Kvars (qum)"], ["CO", "Is gazi"], ["CuSO₄·5H₂O", "Mis kuporosi"]];
   // [tenglama, turi]
   var RXN = [["2H₂ + O₂ → 2H₂O", "Birikish"], ["CaO + H₂O → Ca(OH)₂", "Birikish"], ["S + O₂ → SO₂", "Birikish"], ["4Al + 3O₂ → 2Al₂O₃", "Birikish"], ["N₂ + 3H₂ → 2NH₃", "Birikish"],
+    ["2Mg + O₂ → 2MgO", "Birikish"], ["C + O₂ → CO₂", "Birikish"], ["SO₃ + H₂O → H₂SO₄", "Birikish"], ["2Na + Cl₂ → 2NaCl", "Birikish"],
     ["CaCO₃ → CaO + CO₂", "Parchalanish"], ["2H₂O → 2H₂ + O₂", "Parchalanish"], ["2KMnO₄ → K₂MnO₄ + MnO₂ + O₂", "Parchalanish"], ["Cu(OH)₂ → CuO + H₂O", "Parchalanish"], ["2HgO → 2Hg + O₂", "Parchalanish"],
+    ["2KClO₃ → 2KCl + 3O₂", "Parchalanish"], ["2H₂O₂ → 2H₂O + O₂", "Parchalanish"], ["2Fe(OH)₃ → Fe₂O₃ + 3H₂O", "Parchalanish"],
     ["Zn + 2HCl → ZnCl₂ + H₂", "O'rin olish"], ["Fe + CuSO₄ → FeSO₄ + Cu", "O'rin olish"], ["2Na + 2H₂O → 2NaOH + H₂", "O'rin olish"], ["Mg + H₂SO₄ → MgSO₄ + H₂", "O'rin olish"],
-    ["NaOH + HCl → NaCl + H₂O", "Almashinish"], ["AgNO₃ + KCl → AgCl + KNO₃", "Almashinish"], ["BaCl₂ + H₂SO₄ → BaSO₄ + 2HCl", "Almashinish"], ["CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄", "Almashinish"]];
+    ["CuO + H₂ → Cu + H₂O", "O'rin olish"], ["Fe + 2HCl → FeCl₂ + H₂", "O'rin olish"], ["Zn + CuSO₄ → ZnSO₄ + Cu", "O'rin olish"], ["Cl₂ + 2KBr → 2KCl + Br₂", "O'rin olish"],
+    ["NaOH + HCl → NaCl + H₂O", "Almashinish"], ["AgNO₃ + KCl → AgCl + KNO₃", "Almashinish"], ["BaCl₂ + H₂SO₄ → BaSO₄ + 2HCl", "Almashinish"], ["CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄", "Almashinish"],
+    ["KOH + HNO₃ → KNO₃ + H₂O", "Almashinish"], ["BaCl₂ + Na₂SO₄ → BaSO₄ + 2NaCl", "Almashinish"], ["CaO + 2HCl → CaCl₂ + H₂O", "Almashinish"], ["FeCl₃ + 3NaOH → Fe(OH)₃ + 3NaCl", "Almashinish"]];
   // [tenglama (? — so'ralayotgan koeffitsient), javob]
   var BAL = [["2H₂ + O₂ → <b>?</b>H₂O", 2], ["<b>?</b>H₂ + O₂ → 2H₂O", 2], ["N₂ + <b>?</b>H₂ → 2NH₃", 3], ["N₂ + 3H₂ → <b>?</b>NH₃", 2], ["4Al + <b>?</b>O₂ → 2Al₂O₃", 3],
     ["<b>?</b>Al + 3O₂ → 2Al₂O₃", 4], ["Zn + <b>?</b>HCl → ZnCl₂ + H₂", 2], ["2Na + Cl₂ → <b>?</b>NaCl", 2], ["CH₄ + <b>?</b>O₂ → CO₂ + 2H₂O", 2], ["CH₄ + 2O₂ → CO₂ + <b>?</b>H₂O", 2],
     ["<b>?</b>Mg + O₂ → 2MgO", 2], ["4P + <b>?</b>O₂ → 2P₂O₅", 5], ["2KClO₃ → 2KCl + <b>?</b>O₂", 3], ["Fe₂O₃ + <b>?</b>H₂ → 2Fe + 3H₂O", 3], ["2C₂H₆ + <b>?</b>O₂ → 4CO₂ + 6H₂O", 7],
-    ["CuSO₄ + <b>?</b>NaOH → Cu(OH)₂ + Na₂SO₄", 2], ["<b>?</b>Fe + 3Cl₂ → 2FeCl₃", 2], ["2Fe + <b>?</b>Cl₂ → 2FeCl₃", 3]];
+    ["CuSO₄ + <b>?</b>NaOH → Cu(OH)₂ + Na₂SO₄", 2], ["<b>?</b>Fe + 3Cl₂ → 2FeCl₃", 2], ["2Fe + <b>?</b>Cl₂ → 2FeCl₃", 3],
+    ["<b>?</b>Ca + O₂ → 2CaO", 2], ["2KClO₃ → <b>?</b>KCl + 3O₂", 2], ["Fe + <b>?</b>HCl → FeCl₂ + H₂", 2], ["2Al + <b>?</b>HCl → 2AlCl₃ + 3H₂", 6], ["2Al + 6HCl → 2AlCl₃ + <b>?</b>H₂", 3],
+    ["FeCl₃ + <b>?</b>NaOH → Fe(OH)₃ + 3NaCl", 3], ["<b>?</b>Fe(OH)₃ → Fe₂O₃ + 3H₂O", 2], ["C₂H₄ + <b>?</b>O₂ → 2CO₂ + 2H₂O", 3], ["2C₂H₂ + <b>?</b>O₂ → 4CO₂ + 2H₂O", 5],
+    ["C₃H₈ + <b>?</b>O₂ → 3CO₂ + 4H₂O", 5], ["C₃H₈ + 5O₂ → <b>?</b>CO₂ + 4H₂O", 3], ["4Na + O₂ → <b>?</b>Na₂O", 2]];
   // [modda, valentlik so'raladigan element, javob]
   var VAL = [["H₂O", "kislorod", "II"], ["NH₃", "azot", "III"], ["CH₄", "uglerod", "IV"], ["HCl", "xlor", "I"], ["CO₂", "uglerod", "IV"],
     ["Fe₂O₃", "temir", "III"], ["FeO", "temir", "II"], ["SO₂", "oltingugurt", "IV"], ["SO₃", "oltingugurt", "VI"], ["Al₂O₃", "alyuminiy", "III"], ["P₂O₅", "fosfor", "V"],
-    ["Na₂O", "natriy", "I"], ["CaO", "kalsiy", "II"], ["CuO", "mis", "II"], ["Cu₂O", "mis", "I"], ["Cl₂O₇", "xlor", "VII"], ["MgCl₂", "magniy", "II"], ["H₂S", "oltingugurt", "II"]];
+    ["Na₂O", "natriy", "I"], ["CaO", "kalsiy", "II"], ["CuO", "mis", "II"], ["Cu₂O", "mis", "I"], ["Cl₂O₇", "xlor", "VII"], ["MgCl₂", "magniy", "II"], ["H₂S", "oltingugurt", "II"],
+    ["NO₂", "azot", "IV"], ["N₂O₅", "azot", "V"], ["N₂O₃", "azot", "III"], ["PH₃", "fosfor", "III"], ["SiO₂", "kremniy", "IV"], ["K₂O", "kaliy", "I"], ["MgO", "magniy", "II"],
+    ["Mn₂O₇", "marganes", "VII"], ["MnO₂", "marganes", "IV"], ["CrO₃", "xrom", "VI"], ["Cr₂O₃", "xrom", "III"], ["AlCl₃", "alyuminiy", "III"], ["FeCl₂", "temir", "II"], ["FeCl₃", "temir", "III"], ["PbO₂", "qo'rg'oshin", "IV"]];
+  // [modda, element, oksidlanish darajasi]
+  var OXD = [["H₂SO₄", "oltingugurt", "+6"], ["HNO₃", "azot", "+5"], ["H₃PO₄", "fosfor", "+5"], ["KMnO₄", "marganes", "+7"], ["K₂Cr₂O₇", "xrom", "+6"], ["Na₂SO₃", "oltingugurt", "+4"],
+    ["H₂S", "oltingugurt", "−2"], ["NH₃", "azot", "−3"], ["HClO₄", "xlor", "+7"], ["KClO₃", "xlor", "+5"], ["CO", "uglerod", "+2"], ["CH₄", "uglerod", "−4"], ["Fe₂O₃", "temir", "+3"],
+    ["H₂O₂", "kislorod", "−1"], ["CO₂", "uglerod", "+4"], ["NO₂", "azot", "+4"], ["N₂O₅", "azot", "+5"], ["Cl₂", "xlor", "0"], ["NaH", "vodorod", "−1"], ["HCl", "xlor", "−1"],
+    ["SO₂", "oltingugurt", "+4"], ["P₂O₅", "fosfor", "+5"], ["MnO₂", "marganes", "+4"], ["KNO₂", "azot", "+3"]];
+  var OXD_S = ["−4", "−3", "−2", "−1", "0", "+1", "+2", "+3", "+4", "+5", "+6", "+7"];
+  // indikatorlar: [nomi, kislotali, ishqoriy, neytral]
+  var IND = [["Lakmus", "Qizil", "Ko'k", "Binafsha"], ["Fenolftalein", "Rangsiz", "Malina", "Rangsiz"], ["Metiloranj", "Qizil", "Sariq", ""]];
+  var MUH = ["kislotali", "ishqoriy", "neytral"], RANG = ["Qizil", "Ko'k", "Binafsha", "Rangsiz", "Malina", "Sariq", "Yashil"];
+  function sub2n(s) { return parseInt(s.replace(/[₀-₉]/g, function (c) { return String(c.charCodeAt(0) - 8320); }), 10); }
+  function atomN(fm) {   // formuladagi jami atomlar soni (qavslar hisobga olinadi)
+    var tot = 0, re = /\(([^)]*)\)([₀-₉]*)|([A-Z][a-z]?)([₀-₉]*)/g, m;
+    while ((m = re.exec(fm))) tot += m[1] ? atomN(m[1]) * (m[2] ? sub2n(m[2]) : 1) : (m[4] ? sub2n(m[4]) : 1);
+    return tot;
+  }
+  function elemN(fm) { var u = []; (fm.match(/[A-Z][a-z]?/g) || []).forEach(function (e) { if (u.indexOf(e) < 0) u.push(e); }); return u.length; }
+  function lead(fm) { return fm.match(/^[A-Z][a-z]?/)[0]; }
+  // o'xshash formulalar (bir xil birinchi element) — yaxshi chalg'ituvchi
+  function nearCls(it, idx, n) {
+    var sim = shuffle(CLS.filter(function (x) { return x !== it && lead(x[0]) === lead(it[0]); })), rest = shuffle(CLS.filter(function (x) { return x !== it && lead(x[0]) !== lead(it[0]); }));
+    var out = []; sim.slice(0, 2).concat(rest).forEach(function (x) { if (out.length < n && out.indexOf(x[idx]) < 0 && x[idx] !== it[idx]) out.push(x[idx]); });
+    return out;
+  }
+  function K3x(k, L) {
+    var it, i, a, st;
+    if (k === 10) { it = pick(TRIV);
+      if (Math.random() < 0.5) return TQ("<b>" + it[1] + "</b> — kimyoviy formulasi qaysi?", it[0], others(TRIV.map(function (x) { return x[0]; }), it[0], 4), [it[1] + " — " + it[0] + "."]);
+      return TQ("<b>" + it[0] + "</b> qanday nom bilan ataladi?", it[1], others(TRIV.map(function (x) { return x[1]; }), it[1], 4), [it[0] + " — " + it[1].toLowerCase() + "."]); }
+    if (k === 11) { it = pick(CLS);
+      if (Math.random() < 0.5) return TQ("<b>" + it[0] + "</b> moddasining nomi qaysi?", it[2], nearCls(it, 2, 4), [it[0] + " — " + it[2] + "."]);
+      return TQ("<b>" + it[2] + "</b>ning formulasi qaysi?", it[0], nearCls(it, 0, 4), [it[2] + " — " + it[0] + "."]); }
+    if (k === 12) { var d = pick(IND.slice(0, L === 1 ? 2 : 3)), t = R(0, 2), w;
+      if (t === 2 && !d[3]) t = 0;
+      a = d[1 + t];
+      var red = { Qizil: "Malina", Malina: "Qizil" };
+      w = RANG.filter(function (x) { return x !== a && x !== red[a]; });
+      if (d[0] !== "Metiloranj" && Math.random() < 0.5) { var ph = t === 0 ? pick([1, 2, 3, 4]) : t === 1 ? pick([10, 11, 12]) : 7;
+        return TQ("pH = " + ph + " bo'lgan eritmaga " + d[0].toLowerCase() + " tomizildi. Eritma qanday rangga kiradi?", a, shuffle(w).slice(0, 4),
+          ["pH " + (ph < 7 ? "< 7 — kislotali" : ph > 7 ? "> 7 — ishqoriy" : "= 7 — neytral") + " muhit.", d[0] + " " + MUH[t] + " muhitda — " + a.toLowerCase() + "."]); }
+      if (t !== 2 && !(d[0] === "Fenolftalein" && t === 0) && !(d[0] === "Metiloranj" && t === 1) && Math.random() < 0.4)
+        return TQ("Qaysi muhitda " + d[0].toLowerCase() + " <b>" + a.toLowerCase() + "</b> rangga kiradi?", cap(MUH[t]), MUH.filter(function (x, j) { return j !== t; }).map(cap).concat(["Har qanday muhitda"]),
+          [d[0] + ": kislotada — " + d[1].toLowerCase() + ", ishqorda — " + d[2].toLowerCase() + (d[3] ? ", neytralda — " + d[3].toLowerCase() : "") + "."]);
+      return TQ("<b>" + d[0] + "</b> " + MUH[t] + " muhitda qanday rangda bo'ladi?", a, shuffle(w).slice(0, 4),
+        [d[0] + ": kislotada — " + d[1].toLowerCase() + ", ishqorda — " + d[2].toLowerCase() + (d[3] ? ", neytralda — " + d[3].toLowerCase() : "") + "."]); }
+    if (k === 13) { it = pick(L === 1 ? CLS.slice(0, 40).concat(TRIV.slice(0, 15)) : CLS.concat(TRIV.slice(0, 15))); var fm = it[0], n = atomN(fm), e = elemN(fm);
+      if (Math.random() < 0.6 || e === n) return NQ("<b>" + fm + "</b> formulasida jami nechta atom bor?", n, "", [n + 1, n - 1, e, n + 2, n * 2, n + 3].filter(function (z) { return z > 0 && z !== n; }), ["Indekslarni qo'shamiz (qavs tashqarisidagi indeks ichidagilarni ko'paytiradi).", fm + " — " + n + " ta atom."]);
+      return NQ("<b>" + fm + "</b> moddasi nechta kimyoviy elementdan tuzilgan?", e, "", [e + 1, e - 1, n, e + 2, e + 3].filter(function (z) { return z > 0 && z !== e; }), [fm + " tarkibida " + e + " xil element bor."]); }
+    it = pick(OXD); i = OXD_S.indexOf(it[2]);
+    return TQ("<b>" + it[0] + "</b> da " + it[1] + "ning oksidlanish darajasi nechaga teng?", it[2], OXD_S.filter(function (x, j) { return j !== i && Math.abs(j - i) <= 4; }).sort(function () { return Math.random() - 0.5; }).slice(0, 4),
+      ["Molekulada oksidlanish darajalari yig'indisi 0 ga teng (odatda H — +1, O — −2)."]);
+  }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   var BK3 = bank([
     [1, "Quyidagilardan qaysi biri kimyoviy hodisa?", "Temirning zanglashi", ["Muzning erishi", "Suvning qaynashi", "Shishaning sinishi"], "Zanglashda yangi modda hosil bo'ladi."],
     [1, "Quyidagilardan qaysi biri fizik hodisa?", "Suvning bug'lanishi", ["Yog'ochning yonishi", "Sutning achishi", "Temirning zanglashi"], "Bug'lanishda modda tarkibi o'zgarmaydi."],
@@ -606,10 +683,19 @@
     [3, "H₂ va O₂ molekulalarida qanday bog' mavjud?", "Kovalent qutbsiz", ["Ion bog'", "Kovalent qutbli", "Metall bog'"], "Bir xil atomlar orasida — kovalent qutbsiz bog'."],
     [3, "HCl molekulasida qanday bog' mavjud?", "Kovalent qutbli", ["Kovalent qutbsiz", "Ion bog'", "Metall bog'"], "Turli metallmaslar orasida — kovalent qutbli bog'."],
     [3, "Kislorod birikmalarda (peroksidlardan tashqari) odatda qanday oksidlanish darajasini namoyon qiladi?", "−2", ["+2", "−1", "0"], "OF₂ va peroksidlar bundan mustasno."],
-    [3, "Oddiy moddalardagi elementlarning oksidlanish darajasi nechaga teng?", "0", ["+1", "−1", "Valentligiga teng"], "Masalan, O₂, Fe, Cl₂ da — 0."]
+    [3, "Oddiy moddalardagi elementlarning oksidlanish darajasi nechaga teng?", "0", ["+1", "−1", "Valentligiga teng"], "Masalan, O₂, Fe, Cl₂ da — 0."],
+    [1, "Qaysi modda oddiy modda?", "Kislorod (O₂)", ["Suv (H₂O)", "Osh tuzi (NaCl)", "Karbonat angidrid (CO₂)"], "Oddiy modda bir xil element atomlaridan tuzilgan."],
+    [1, "Qaysi modda murakkab modda?", "Suv (H₂O)", ["Kislorod (O₂)", "Temir (Fe)", "Azot (N₂)"], "Murakkab modda turli element atomlaridan tuzilgan."],
+    [1, "Suv molekulasi qaysi elementlardan tuzilgan?", "Vodorod va kisloroddan", ["Uglerod va kisloroddan", "Azot va vodoroddan", "Natriy va xlordan"], "H₂O: 2 ta vodorod va 1 ta kislorod atomi."],
+    [1, "Moddaning kimyoviy belgilar va indekslar yordamida yozilishi nima deyiladi?", "Kimyoviy formula", ["Kimyoviy tenglama", "Valentlik", "Koeffitsient"], "Masalan, H₂O, CO₂."],
+    [1, "Formulada element belgisidan keyin pastda yoziladigan kichik raqam nima deyiladi?", "Indeks", ["Koeffitsient", "Valentlik", "Tartib raqam"], "Indeks molekuladagi shu element atomlari sonini ko'rsatadi."],
+    [1, "3H₂O yozuvidagi 3 raqami nima deyiladi?", "Koeffitsient", ["Indeks", "Valentlik", "Massa soni"], "Koeffitsient molekulalar sonini ko'rsatadi."],
+    [1, "Spirt lampasini qanday o'chirish kerak?", "Qalpoqcha bilan yopib", ["Puflab", "Suv sepib", "Qog'oz bilan bosib"], "Spirt lampasini puflab o'chirish xavfli."],
+    [1, "Kimyo laboratoriyasida moddalarni tatib ko'rish mumkinmi?", "Yo'q, mutlaqo mumkin emas", ["Ha, oz miqdorda", "Faqat tuzlarni", "Faqat suyuqliklarni"], "Moddalar tatib ko'rilmaydi va qo'l bilan ushlanmaydi."]
   ]);
   function K3(L) {
-    var k = pick(lv(L, [0, 0, 9, 9], [0, 1, 2, 9, 9], [1, 2, 3, 9, 9])), it;
+    var k = pick(lv(L, [0, 0, 10, 10, 13, 12, 1, 9, 9], [0, 1, 2, 3, 10, 11, 12, 13, 9, 9], [1, 2, 3, 11, 12, 14, 9, 9])), it;
+    if (k >= 10) return K3x(k, L);
     if (k === 0) { it = pick(CLS);
       return TQ("<b>" + it[0] + "</b> qaysi sinf birikmalariga kiradi?", it[1], ["Oksid", "Kislota", "Asos", "Tuz"].filter(function (x) { return x !== it[1]; }),
         [{ Oksid: "Ikki elementdan iborat, biri kislorod — oksid.", Kislota: "Vodorod + kislota qoldig'i — kislota.", Asos: "Metall + OH guruh — asos.", Tuz: "Metall + kislota qoldig'i — tuz." }[it[1]]]); }
@@ -706,7 +792,8 @@
 
   /* ================= i3 Kompyuter, internet va dasturlash ================= */
   var EXT = [[".docx", "Matn hujjati (Word)"], [".xlsx", "Elektron jadval (Excel)"], [".pptx", "Taqdimot (PowerPoint)"], [".jpg", "Rasm (tasvir)"], [".mp3", "Audio (musiqa)"],
-    [".mp4", "Video"], [".exe", "Dastur (Windows ilovasi)"], [".pdf", "PDF hujjat"], [".zip", "Arxiv"], [".html", "Veb-sahifa"], [".py", "Python dasturi"], [".txt", "Oddiy matn fayli"]];
+    [".mp4", "Video"], [".exe", "Dastur (Windows ilovasi)"], [".pdf", "PDF hujjat"], [".zip", "Arxiv"], [".html", "Veb-sahifa"], [".py", "Python dasturi"], [".txt", "Oddiy matn fayli"],
+    [".png", "Rasm (PNG tasvir)"], [".wav", "Audio (tovush yozuvi)"], [".rar", "Arxiv (RAR)"], [".csv", "Jadval ma'lumotlari (vergul bilan)"]];
   var BK_I3 = bank([
     [1, "Kompyuterning \"miyasi\" — hisoblash ishlarini bajaruvchi qurilma qaysi?", "Protsessor", ["Monitor", "Klaviatura", "Printer"], "Markaziy protsessor (CPU) buyruqlarni bajaradi."],
     [1, "Quyidagilardan qaysi biri kiritish qurilmasi?", "Klaviatura", ["Monitor", "Printer", "Karnay"], "Klaviatura, sichqoncha, mikrofon — kiritish qurilmalari."],
@@ -718,6 +805,16 @@
     [1, "Qaysi parol eng ishonchli?", "K7#mQ2!vRp", ["123456", "parol", "qwerty"], "Uzun, harf, raqam va belgilar aralash parol ishonchli."],
     [1, "Matnni nusxalash uchun qaysi tugmalar birikmasi ishlatiladi?", "Ctrl + C", ["Ctrl + V", "Ctrl + Z", "Ctrl + S"], "Ctrl+C — nusxa, Ctrl+V — qo'yish."],
     [1, "Oxirgi amalni bekor qilish uchun qaysi tugmalar birikmasi ishlatiladi?", "Ctrl + Z", ["Ctrl + C", "Ctrl + P", "Ctrl + A"], "Ctrl+Z — bekor qilish."],
+    [1, "Nusxalangan matnni qo'yish uchun qaysi tugmalar birikmasi ishlatiladi?", "Ctrl + V", ["Ctrl + C", "Ctrl + Z", "Ctrl + X"], "Ctrl+C — nusxa olish, Ctrl+V — qo'yish."],
+    [1, "Hujjatni saqlash uchun qaysi tugmalar birikmasi ishlatiladi?", "Ctrl + S", ["Ctrl + P", "Ctrl + A", "Ctrl + Z"], "S — Save (saqlash)."],
+    [1, "Butun matnni belgilash uchun qaysi tugmalar birikmasi ishlatiladi?", "Ctrl + A", ["Ctrl + S", "Ctrl + C", "Ctrl + P"], "A — All (hammasi)."],
+    [1, "Hujjatni chop etish (printerga yuborish) uchun qaysi tugmalar birikmasi ishlatiladi?", "Ctrl + P", ["Ctrl + S", "Ctrl + V", "Ctrl + A"], "P — Print (chop etish)."],
+    [1, "Matnni kesib olish uchun qaysi tugmalar birikmasi ishlatiladi?", "Ctrl + X", ["Ctrl + C", "Ctrl + V", "Ctrl + Z"], "Kesilgan matn Ctrl+V bilan qo'yiladi."],
+    [1, "Qaysi qurilma ham kiritish, ham chiqarish qurilmasi bo'la oladi?", "Sensorli ekran", ["Klaviatura", "Printer", "Karnay"], "Sensorli ekran tasvirni ko'rsatadi va bosishni sezadi."],
+    [1, "Matn terish uchun mo'ljallangan dastur qaysi?", "Microsoft Word", ["Microsoft Excel", "Paint", "Kalkulyator"], "Excel — elektron jadval, Paint — rasm chizish dasturi."],
+    [1, "Elektron jadvallar bilan ishlash dasturi qaysi?", "Microsoft Excel", ["Microsoft Word", "PowerPoint", "Paint"], "Excel'da hisob-kitoblar formulalar bilan bajariladi."],
+    [1, "Taqdimot (slaydlar) tayyorlash dasturi qaysi?", "PowerPoint", ["Excel", "Word", "Notepad"], "PowerPoint'da slaydlar yaratiladi."],
+    [1, "Kompyuter sichqonchasi qanday qurilma?", "Kiritish qurilmasi", ["Chiqarish qurilmasi", "Xotira qurilmasi", "Tarmoq qurilmasi"], "Sichqoncha bilan kompyuterga buyruq beriladi."],
     [2, "HTTPS dagi \"S\" harfi nimani bildiradi?", "Xavfsiz (shifrlangan) ulanish", ["Tezkor ulanish", "Server nomi", "Sayt hajmi"], "S — Secure."],
     [2, "Internetdagi har bir kompyuterning raqamli manzili nima deyiladi?", "IP-manzil", ["URL", "E-mail", "Login"], "Masalan, 192.168.1.1."],
     [2, "Veb-sahifaning to'liq manzili (masalan, https://kuvonch.uz) nima deyiladi?", "URL", ["IP-manzil", "Brauzer", "Protokol"], "URL — resursning internetdagi manzili."],
@@ -794,18 +891,81 @@
     [3, "Funksiyaning o'zini o'zi chaqirishi nima deyiladi?", "Rekursiya", ["Iteratsiya", "Saralash", "Kompilyatsiya"], "Masalan, n! = n·(n−1)!"],
     [3, "Qo'shni elementlarni taqqoslab, joyini almashtirib saralash usuli qaysi?", "Pufakchali saralash", ["Ikkilik qidiruv", "Tez saralash", "Chiziqli qidiruv"], "Bubble sort."],
     [3, "while sikli qachon to'xtaydi?", "Shart yolg'on bo'lganda", ["Shart rost bo'lganda", "Faqat 10 marta bajarilgach", "Hech qachon"], "while shart rost ekan takrorlanadi."],
-    [3, "Algoritmni kompyuter tushunadigan tilda yozish nima deyiladi?", "Dasturlash", ["Tahrirlash", "Formatlash", "Arxivlash"], "Dastur — algoritmning kompyuter tilidagi yozuvi."]
+    [3, "Algoritmni kompyuter tushunadigan tilda yozish nima deyiladi?", "Dasturlash", ["Tahrirlash", "Formatlash", "Arxivlash"], "Dastur — algoritmning kompyuter tilidagi yozuvi."],
+    [1, "Algoritmni bajaruvchi (odam, robot yoki kompyuter) nima deb ataladi?", "Ijrochi", ["Muallif", "Kompilyator", "Fayl"], "Ijrochi buyruqlar tizimidagi buyruqlarni bajaradi."],
+    [1, "Mantiqiy amallarda qanday qiymatlar ishlatiladi?", "Rost (1) va yolg'on (0)", ["1 va 2", "Ha va balki", "0 va 10"], "Mulohaza yoki rost, yoki yolg'on bo'ladi."],
+    [1, "Algoritmni ifodalashning grafik usuli qanday ataladi?", "Blok-sxema", ["Jadval", "Formula", "Matn"], "Blok-sxemada buyruqlar shakllar va strelkalar bilan beriladi."],
+    [2, "\"Bugun havo qanday?\" gapi mulohaza bo'ladimi?", "Yo'q, u so'roq gap", ["Ha, rost mulohaza", "Ha, yolg'on mulohaza", "Ha, murakkab mulohaza"], "Mulohaza — rost yoki yolg'onligini aytish mumkin bo'lgan darak gap."],
+    [2, "Algoritmning alohida qadamlardan iborat bo'lishi qaysi xossa?", "Diskretlik", ["Ommaviylik", "Natijaviylik", "Aniqlik"], "Har bir qadam tugagach, keyingisi boshlanadi."],
+    [2, "Siklda takrorlanadigan buyruqlar guruhi nima deyiladi?", "Sikl tanasi", ["Sikl sharti", "Blok-sxema", "O'zgaruvchi"], "Sikl tanasi shart bajarilguncha takrorlanadi."],
+    [3, "Implikatsiya (A → B) qachon yolg'on (0) bo'ladi?", "A = 1, B = 0 bo'lganda", ["A = 0, B = 1 bo'lganda", "A = 0, B = 0 bo'lganda", "A = 1, B = 1 bo'lganda"], "Qolgan barcha hollarda A → B = 1."],
+    [3, "Cheksiz sikl qachon yuzaga keladi?", "Sikl sharti doim rost bo'lsa", ["Sikl sharti darhol yolg'on bo'lsa", "Sikl tanasi bo'sh bo'lsa", "O'zgaruvchi e'lon qilinsa"], "Shart hech qachon yolg'on bo'lmasa, sikl to'xtamaydi."],
+    [3, "Rekursiv funksiyada nima bo'lishi shart?", "To'xtash (bazaviy) sharti", ["Cheksiz sikl", "Global o'zgaruvchi", "Kamida ikkita parametr"], "Aks holda funksiya o'zini cheksiz chaqiradi."]
   ]);
   var LOG = {
-    VA: function (a, b) { return a & b; }, YOKI: function (a, b) { return a | b; }, XOR: function (a, b) { return a ^ b; }
+    VA: function (a, b) { return a & b; }, YOKI: function (a, b) { return a | b; }, XOR: function (a, b) { return a ^ b; },
+    "→": function (a, b) { return a && !b ? 0 : 1; }, "↔": function (a, b) { return a === b ? 1 : 0; }
   };
+  function sg(x) { return x < 0 ? "−" + (-x) : String(x); }
+  // i4 uchun qo'shimcha protsedura savollari
+  function I4x(k, L) {
+    var i, x, y, a, b, n, s, v, w;
+    if (k === 10) { var x0 = R(2, lv(L, 12, 20, 30)), val = x0, rv, txt = [], ops = [], nops = lv(L, 2, 3, 3);
+      for (i = 0; i < nops; i++) { var o = R(0, 2), d = R(2, 5); if (o === 2 && val > 40) o = 0; if (o === 1 && val - d < 1) o = 0;
+        txt.push(o === 0 ? d + " qo'shiladi" : o === 1 ? d + " ayiriladi" : d + " ga ko'paytiriladi"); ops.push([o, d]); val = o === 0 ? val + d : o === 1 ? val - d : val * d; }
+      rv = x0; for (i = ops.length - 1; i >= 0; i--) rv = ops[i][0] === 0 ? rv + ops[i][1] : ops[i][0] === 1 ? rv - ops[i][1] : rv * ops[i][1];
+      var skip = x0; for (i = 0; i < ops.length - 1; i++) skip = ops[i][0] === 0 ? skip + ops[i][1] : ops[i][0] === 1 ? skip - ops[i][1] : skip * ops[i][1];
+      return NQ("Algoritm: kiritilgan songa ketma-ket " + txt.join(", ") + ". <b>" + x0 + "</b> kiritilsa, natija nechaga teng?", val, "", [rv, skip, val + 1, val - 1, val + 2], [x0 + " dan boshlab amallarni tartib bilan bajaramiz.", "Natija: " + val], true); }
+    if (k === 11) { var th = R(5, 20), d1 = R(2, 9), d2 = R(2, 9), cond = pick([">", "≥", "<", "≤"]);
+      x = Math.random() < 0.3 ? th : R(Math.max(1, th - 6), th + 6);
+      var ok = cond === ">" ? x > th : cond === "≥" ? x >= th : cond === "<" ? x < th : x <= th;
+      y = ok ? x - d1 : x + d2;
+      return NQ("Agar <b>x " + cond + " " + th + "</b> bo'lsa, y = x − " + d1 + ", aks holda y = x + " + d2 + ". x = " + x + " bo'lsa, y nechaga teng?", y, "", [ok ? x + d2 : x - d1, x, y + 1, y - 1, y + 2, y - 2, th], [x + " " + cond + " " + th + " — " + (ok ? "rost" : "yolg'on") + " ⇒ " + (ok ? "y = " + x + " − " + d1 : "y = " + x + " + " + d2) + " = " + sg(y)], true); }
+    if (k === 12) { var px = R(0, 5), py = R(0, 5), dirs = [["o'ngga", 1, 0], ["chapga", -1, 0], ["yuqoriga", 0, 1], ["pastga", 0, -1]], cm = [], dx = 0, dy = 0;
+      var nc = lv(L, 2, 3, 3);
+      for (i = 0; i < nc; i++) { var di = i === 0 ? R(0, 1) : i === 1 ? R(2, 3) : R(0, 3), st = R(1, 5); cm.push(st + " qadam " + dirs[di][0]); dx += dirs[di][1] * st; dy += dirs[di][2] * st; }
+      var P = function (p, q) { return "(" + sg(p) + "; " + sg(q) + ")"; };
+      return TQ("Ijrochi " + P(px, py) + " nuqtada turibdi. Buyruqlar: " + cm.join(", ") + ". Ijrochi qaysi nuqtaga keladi?", P(px + dx, py + dy),
+        otherN([P(py + dy, px + dx), P(px - dx, py + dy), P(px + dx, py - dy), P(px + dx + 1, py + dy), P(dx, dy)], [P(px + dx, py + dy)], 4), ["x: " + px + (dx < 0 ? " − " + (-dx) : " + " + dx) + " = " + sg(px + dx) + ", y: " + py + (dy < 0 ? " − " + (-dy) : " + " + dy) + " = " + sg(py + dy)]); }
+    if (k === 13) { var CMP = [">", "<", "=", "≥", "≤", "≠"], f = function (p, c, q) { return c === ">" ? p > q : c === "<" ? p < q : c === "=" ? p === q : c === "≥" ? p >= q : c === "≤" ? p <= q : p !== q; };
+      var RV = ["Rost (1)", "Yolg'on (0)"];
+      if (L === 1) { a = R(1, 30); b = Math.random() < 0.25 ? a : R(1, 30); var c1 = pick(CMP); v = f(a, c1, b);
+        return TQ("<b>" + a + " " + c1 + " " + b + "</b> mulohazasining qiymati qanday?", RV[v ? 0 : 1], [RV[v ? 1 : 0], "Aniqlab bo'lmaydi", "Bu mulohaza emas"], [a + " " + c1 + " " + b + " — " + (v ? "rost." : "yolg'on.")]); }
+      x = R(1, 20); a = R(1, 15); b = a + R(2, 10); var lo = x > a, hi = x < b, opv = pick(["VA", "YOKI"]); v = opv === "VA" ? lo && hi : lo || hi;
+      return TQ("x = " + x + " bo'lsa, <b>(x > " + a + ") " + opv + " (x < " + b + ")</b> mulohazasining qiymati qanday?", RV[v ? 0 : 1], [RV[v ? 1 : 0], "Aniqlab bo'lmaydi", "Bu mulohaza emas"],
+        [x + " > " + a + " — " + (lo ? "1" : "0") + ", " + x + " < " + b + " — " + (hi ? "1" : "0"), (lo ? 1 : 0) + " " + opv + " " + (hi ? 1 : 0) + " = " + (v ? 1 : 0)]); }
+    if (k === 14) { if (Math.random() < 0.5) { n = R(1, lv(L, 3, 5, 6)); v = Math.pow(2, n);
+        return NQ("<b>" + n + "</b> ta mantiqiy o'zgaruvchili ifodaning rostlik jadvalida nechta satr (qiymatlar to'plami) bo'ladi?", v, "", [n * 2, v * 2, n, n * n + 1], ["Satrlar soni = 2<sup>" + n + "</sup> = " + v]); }
+      var T = [["A VA B", 1, 4], ["A YOKI B", 3, 4], ["A XOR B", 2, 4], ["EMAS A", 1, 2], ["A VA B VA C", 1, 8], ["A YOKI B YOKI C", 7, 8], ["(A VA B) YOKI C", 5, 8]];
+      var t = pick(T);
+      return NQ("<b>" + t[0] + "</b> ifodasining rostlik jadvalida natija necha marta <b>1</b> ga teng bo'ladi?", t[1], "", [t[2] - t[1], t[1] + 1, t[2], t[1] + 2], ["Jadvalda " + t[2] + " ta satr bor; natija " + t[1] + " ta satrda 1 ga teng."]); }
+    if (k === 15) { a = R(0, 10); s = L === 3 && Math.random() < 0.6 ? R(2, 4) : 1; b = a + s * R(3, 12) + (s > 1 ? R(0, s - 1) : 0); n = Math.floor((b - a) / s) + 1;
+      return NQ("Sikl: i = " + a + " dan " + b + " gacha" + (s > 1 ? ", qadam " + s : "") + " (" + b + " ham kiradi). Sikl tanasi necha marta bajariladi?", n, "", [n - 1, n + 1, b - a, Math.floor(b / s), n + 2, b - a + 2], [s > 1 ? "(" + b + " − " + a + ") : " + s + " ning butun qismi + 1 = " + n : b + " − " + a + " + 1 = " + n]); }
+    if (k === 16) { var arr = []; n = R(5, 7); for (i = 0; i < n; i++) arr.push(R(1, 20)); var t2 = R(0, 3), ans;
+      var mx = Math.max.apply(null, arr), mn = Math.min.apply(null, arr), ev = arr.filter(function (z) { return z % 2 === 0; }).length, sm = 0; arr.forEach(function (z) { sm += z; });
+      var lst = arr.join(", ");
+      if (t2 === 0) return NQ("Ro'yxat: " + lst + ". Algoritm: m = birinchi element; har bir a uchun: agar a > m bo'lsa, m = a. Oxirida m nechaga teng?", mx, "", [mn, arr[0], arr[n - 1], mx - 1], ["Algoritm eng katta elementni topadi: " + mx]);
+      if (t2 === 1) return NQ("Ro'yxat: " + lst + ". Algoritm: m = birinchi element; har bir a uchun: agar a < m bo'lsa, m = a. Oxirida m nechaga teng?", mn, "", [mx, arr[0], arr[n - 1], mn + 1], ["Algoritm eng kichik elementni topadi: " + mn]);
+      if (t2 === 2) return NQ("Ro'yxat: " + lst + ". Algoritm: k = 0; har bir a uchun: agar a juft bo'lsa, k = k + 1. Oxirida k nechaga teng?", ev, "", [n - ev === ev ? ev + 1 : n - ev, n, ev + 1, ev === 0 ? 2 : ev - 1], ["Juft elementlar soni: " + ev]);
+      return NQ("Ro'yxat: " + lst + ". Algoritm: s = 0; har bir a uchun: s = s + a. Oxirida s nechaga teng?", sm, "", [sm - arr[0], sm + arr[n - 1], mx * n, sm + 1], [arr.join(" + ") + " = " + sm]); }
+    // pufakchali saralashning birinchi o'tishi
+    var A = []; while (A.length < 5) { x = R(1, 20); if (A.indexOf(x) < 0) A.push(x); }
+    var B = A.slice(); for (i = 0; i < B.length - 1; i++) if (B[i] > B[i + 1]) { y = B[i]; B[i] = B[i + 1]; B[i + 1] = y; }
+    var srt = A.slice().sort(function (p, q) { return p - q; }), J = function (z) { return z.join(", "); };
+    if (J(B) === J(A) || J(B) === J(srt)) { A = [9, 4, 12, 2, 7]; B = [4, 9, 2, 7, 12]; srt = [2, 4, 7, 9, 12]; }
+    w = [J(srt), J(A), J(A.slice().reverse()), J([B[0]].concat(B.slice(1).reverse()))];
+    return TQ("Ro'yxat: " + J(A) + ". Pufakchali saralash (o'sish tartibida) <b>birinchi o'tishdan</b> keyin ro'yxat qanday bo'ladi?", J(B), otherN(w, [J(B)], 4),
+      ["Qo'shni elementlar taqqoslanadi, kattasi o'ngga suriladi.", "1-o'tishdan keyin eng katta element oxirga chiqadi: " + J(B)]);
+  }
+
   function I4(L) {
-    var k = pick(lv(L, [0, 0, 1, 2, 9], [0, 1, 2, 3, 4, 9], [3, 4, 5, 6, 7, 9])), a, b, c, op, v, s, n, i;
-    if (k === 0) { a = R(0, 1); b = R(0, 1); op = pick(L === 1 ? ["VA", "YOKI"] : ["VA", "YOKI", "XOR"]); v = LOG[op](a, b);
-      return TQ("<b>" + a + " " + op + " " + b + "</b> = ?", String(v), [String(1 - v), "2", "Aniqlab bo'lmaydi"], [{ VA: "VA: faqat ikkalasi 1 bo'lsa 1.", YOKI: "YOKI: kamida bittasi 1 bo'lsa 1.", XOR: "XOR: qiymatlar turlicha bo'lsa 1." }[op]]); }
+    var k = pick(lv(L, [0, 1, 2, 7, 10, 11, 12, 13, 9, 9], [0, 1, 2, 3, 4, 10, 11, 12, 13, 14, 15, 16, 9, 9], [0, 3, 4, 5, 6, 7, 13, 14, 15, 16, 17, 9, 9])), a, b, c, op, v, s, n, i;
+    if (k >= 10) return I4x(k, L);
+    if (k === 0) { a = R(0, 1); b = R(0, 1); op = pick(L === 1 ? ["VA", "YOKI"] : L === 2 ? ["VA", "YOKI", "XOR"] : ["VA", "YOKI", "XOR", "→", "↔"]); v = LOG[op](a, b);
+      return TQ("<b>" + a + " " + op + " " + b + "</b> = ?", String(v), [String(1 - v), "2", "Aniqlab bo'lmaydi"], [{ VA: "VA: faqat ikkalasi 1 bo'lsa 1.", YOKI: "YOKI: kamida bittasi 1 bo'lsa 1.", XOR: "XOR: qiymatlar turlicha bo'lsa 1.", "→": "Implikatsiya: faqat 1 → 0 holida 0.", "↔": "Ekvivalentlik: qiymatlar teng bo'lsa 1." }[op]]); }
     if (k === 1) { a = R(0, 1); b = R(0, 1); op = pick(["VA", "YOKI"]); v = 1 - LOG[op](a, b);
       return TQ("<b>EMAS (" + a + " " + op + " " + b + ")</b> = ?", String(v), [String(1 - v), "2", "Aniqlab bo'lmaydi"], [a + " " + op + " " + b + " = " + (1 - v) + ", EMAS " + (1 - v) + " = " + v]); }
-    if (k === 2) { n = R(3, lv(L, 6, 10, 10)); s = n * (n + 1) / 2;
+    if (k === 2) { n = R(3, lv(L, 8, 10, 12)); s = n * (n + 1) / 2;
       return NQ("Algoritm: s = 0; i = 1 dan " + n + " gacha: s = s + i. Oxirida s nechaga teng?", s, "", [s - n, s + n + 1, n * n, n], ["s = 1 + 2 + ... + " + n + " = " + s]); }
     if (k === 3) { a = R(0, 1); b = R(0, 1); c = R(0, 1); var o1 = pick(["VA", "YOKI"]), o2 = pick(["VA", "YOKI"]);
       v = LOG[o2](LOG[o1](a, b), c);
@@ -855,12 +1015,69 @@
     [3, "analogWrite(9, 127) taxminan necha foiz to'ldirish koeffitsientini beradi?", "≈ 50%", ["≈ 12.7%", "≈ 100%", "≈ 25%"], "127 / 255 ≈ 0.5."],
     [3, "Ultratovush sensori masofani qanday aniqlaydi?", "Tovush qaytish vaqti bo'yicha", ["Yorug'lik rangi bo'yicha", "Harorat bo'yicha", "Magnit maydon bo'yicha"], "s = v·t/2 (tovush borib-qaytadi)."],
     [3, "Arduino'da tugma holatini o'qish uchun qaysi funksiya ishlatiladi?", "digitalRead()", ["analogWrite()", "digitalWrite()", "Serial.print()"], "HIGH yoki LOW qaytaradi."],
-    [3, "Arduino'dan kompyuterga ma'lumot yuborish uchun nima ishlatiladi?", "Serial.print()", ["digitalWrite()", "pinMode()", "delay()"], "Serial port monitorida ko'rinadi."]
+    [3, "Arduino'dan kompyuterga ma'lumot yuborish uchun nima ishlatiladi?", "Serial.print()", ["digitalWrite()", "pinMode()", "delay()"], "Serial port monitorida ko'rinadi."],
+    [1, "Robotning atrof-muhit haqida ma'lumot oluvchi qismi nima deyiladi?", "Sensor (datchik)", ["Motor", "Batareya", "G'ildirak"], "Sensorlar yorug'lik, masofa, harorat va boshqalarni sezadi."],
+    [1, "Elektr tokini yaxshi o'tkazadigan material qaysi?", "Mis", ["Rezina", "Plastmassa", "Shisha"], "Simlar ichi misdan, usti esa izolyatsiyadan iborat."],
+    [1, "Elektr tokini o'tkazmaydigan material (izolyator) qaysi?", "Rezina", ["Mis", "Alyuminiy", "Temir"], "Rezina va plastmassa simlarni izolyatsiyalash uchun ishlatiladi."],
+    [1, "Elektr sxemalarida odatda qaysi rangli sim musbat (+) qutb uchun ishlatiladi?", "Qizil", ["Qora", "Ko'k", "Yashil"], "Qora sim odatda manfiy (−, GND) uchun ishlatiladi."],
+    [1, "Robot changyutgich to'siqqa urilganini qaysi sensor orqali biladi?", "Tegish (bamper) sensori", ["Harorat sensori", "Mikrofon", "Yorug'lik sensori"], "Bamper bosilganda kontakt ulanadi."],
+    [1, "Mikrofon qanday sensor hisoblanadi?", "Tovush sensori", ["Yorug'lik sensori", "Harorat sensori", "Masofa sensori"], "Mikrofon tovush to'lqinlarini elektr signaliga aylantiradi."],
+    [1, "Telefon ekrani yorqinligini avtomatik o'zgartirishda qaysi sensor ishlaydi?", "Yorug'lik sensori", ["Harorat sensori", "Tovush sensori", "Namlik sensori"], "Atrof yorug' bo'lsa, ekran yorqinroq bo'ladi."],
+    [1, "Rezistorning qarshiligi qanday birlikda o'lchanadi?", "Om", ["Volt", "Amper", "Vatt"], "Qarshilik birligi Georg Om sharafiga nomlangan."],
+    [1, "\"Robot\" so'zi qaysi tildan kelib chiqqan?", "Chex tilidan", ["Ingliz tilidan", "Nemis tilidan", "Yapon tilidan"], "Bu so'zni 1920-yilda yozuvchi Karel Chapek qo'llagan."],
+    [2, "Svetodiodning (LED) uzun oyog'i qaysi qutb hisoblanadi?", "Musbat (anod)", ["Manfiy (katod)", "Yerga ulanadi (GND)", "Farqi yo'q"], "Qisqa oyog'i — manfiy (katod)."],
+    [2, "Arduino Uno platasidagi o'rnatilgan LED odatda qaysi pinga ulangan?", "13-pin", ["0-pin", "5-pin", "A0 pin"], "Shuning uchun Blink misolida 13-pin ishlatiladi."],
+    [2, "Arduino Uno qanday kuchlanishda ishlaydi?", "5 V", ["12 V", "220 V", "1.5 V"], "Platada 3.3 V chiqishi ham bor."],
+    [2, "Arduino dasturlari (sketchlar) qaysi dasturlash tiliga asoslangan?", "C/C++", ["Python", "HTML", "Scratch"], "Arduino IDE'da C/C++ asosidagi til ishlatiladi."],
+    [2, "Arduino kodida har bir buyruq oxiriga qaysi belgi qo'yiladi?", ";", [":", ".", ","], "Masalan: delay(1000);"],
+    [2, "Arduino kodida bir qatorli izoh qanday boshlanadi?", "//", ["#", "--", "**"], "// dan keyingi matn bajarilmaydi."],
+    [2, "Ketma-ket ulangan rezistorlarning umumiy qarshiligi nimaga teng?", "Qarshiliklar yig'indisiga", ["Eng kichik qarshilikka", "Qarshiliklar ko'paytmasiga", "Nolga"], "R = R₁ + R₂ + ..."],
+    [2, "Om qonuni formulasi qaysi?", "I = U / R", ["I = U · R", "U = I / R", "R = U · I"], "Tok kuchi kuchlanishga to'g'ri, qarshilikka teskari proporsional."],
+    [2, "Maket plata (breadboard) nima uchun ishlatiladi?", "Kavsharlamasdan sxema yig'ish uchun", ["Dastur yozish uchun", "Batareyani zaryadlash uchun", "Kuchlanishni oshirish uchun"], "Qismlar teshiklarga tiqib ulanadi."],
+    [2, "GND belgisi nimani bildiradi?", "Umumiy sim (yer, manfiy)", ["Musbat qutb", "Analog kirish", "Raqamli chiqish"], "Barcha qismlarning GND simlari birlashtiriladi."],
+    [3, "Arduino Uno qaysi mikrokontrollerga asoslangan?", "ATmega328P", ["ESP32", "Intel Core i5", "ARM Cortex-A72"], "ATmega328P — 8 bitli AVR mikrokontroller."],
+    [3, "Arduino Uno'da nechta raqamli kirish/chiqish pini bor?", "14 ta", ["6 ta", "20 ta", "8 ta"], "D0–D13 pinlari; ulardan 6 tasi PWM."],
+    [3, "Arduino Uno'da nechta analog kirish pini bor?", "6 ta", ["14 ta", "4 ta", "8 ta"], "A0–A5 pinlari."],
+    [3, "Arduino sketch faylining kengaytmasi qaysi?", ".ino", [".exe", ".py", ".txt"], "Masalan, blink.ino."],
+    [3, "Serial.begin(9600) dagi 9600 nimani bildiradi?", "Ma'lumot uzatish tezligini", ["Pin raqamini", "Kutish vaqtini", "Kuchlanishni"], "Tezlik bod (bit/s) da beriladi."],
+    [3, "HC-SR04 ultratovush sensorining qaysi pini tovush signalini yuboradi?", "Trig", ["Echo", "VCC", "GND"], "Echo pini qaytgan signalni qabul qiladi."],
+    [3, "Servo motorni boshqarish uchun Arduino'da qaysi kutubxona ulanadi?", "Servo.h", ["Wire.h", "SPI.h", "Motor.h"], "#include <Servo.h>"],
+    [3, "PIR sensori nimani aniqlaydi?", "Harakatni", ["Masofani", "Namlikni", "Bosimni"], "Odam yoki hayvon tanasining issiqlik nurlanishini sezadi."],
+    [3, "Bir xil rezistorlar parallel ulansa, umumiy qarshilik qanday bo'ladi?", "Bitta rezistornikidan kichik", ["Bitta rezistornikidan katta", "Yig'indisiga teng", "Nolga teng"], "Masalan, ikkita 100 Om parallel — 50 Om."]
   ]);
+  var RCOL = ["Qora", "Jigarrang", "Qizil", "To'q sariq", "Sariq", "Yashil", "Ko'k", "Binafsha", "Kulrang", "Oq"];
+  function I5x(k, L) {
+    var a, b, n, t, v, d, x;
+    if (k === 5) { var sec = pick([0.5, 1, 1.5, 2, 3, 4, 5, 10]);
+      return NQ("Arduino: <b>" + f(sec) + " sekund</b> kutish uchun delay() ga qanday qiymat beriladi?", sec * 1000, "", [sec, sec * 100, sec * 60, sec * 10, sec * 10000], ["delay() millisekundda: 1 s = 1000 ms.", f(sec) + " · 1000 = " + f(sec * 1000)]); }
+    if (k === 6) { v = pick([5, 10, 15, 20, 25, 30]); t = R(2, 10);
+      if (L > 1 && Math.random() < 0.5) return NQ("Robot sekundiga " + v + " sm yuradi. " + v * t + " sm masofani necha sekundda bosib o'tadi?", t, "s", [v * t * v, v, t + 1, t * 2], ["t = s : v = " + v * t + " : " + v + " = " + t + " s"]);
+      return NQ("Robot sekundiga " + v + " sm yuradi. " + t + " sekundda necha sm yo'l bosadi?", v * t, "sm", [v + t, v * t * 2, v * (t - 1), v * t + v], ["s = v · t = " + v + " · " + t + " = " + v * t + " sm"]); }
+    if (k === 7) { var C = pick([15, 18, 20, 22, 25, 30]); n = R(2, 10);
+      return NQ("Robot g'ildiragining aylanasi (bir marta aylanganda bosiladigan yo'l) " + C + " sm. G'ildirak " + n + " marta aylansa, robot necha sm yuradi?", C * n, "sm", [C + n, C * (n + 1), C * n * 2, C * (n - 1)], [C + " · " + n + " = " + C * n + " sm"]); }
+    if (k === 8) { a = pick([30, 45, 60, 90, 120, 180]); var full = a > 90 || Math.random() < 0.6, tg = full ? 360 : 180;
+      return NQ("Robot har bir buyruqda " + a + "° ga buriladi. " + (full ? "To'liq bir marta aylanishi (360°)" : "Teskari tomonga qarashi (180°)") + " uchun necha marta burilishi kerak?", tg / a, "", [tg / a + 1, tg / a - 1, tg / a * 2, a / 10], [tg + "° : " + a + "° = " + tg / a]); }
+    if (k === 10) { d = pick([10, 15, 20, 25, 30]); x = Math.random() < 0.2 ? d : R(3, 60); var stop = x < d;
+      return TQ("Robot dasturi: agar masofa <b>< " + d + " sm</b> bo'lsa — to'xtaydi, aks holda — oldinga yuradi. Sensor <b>" + x + " sm</b> ko'rsatdi. Robot nima qiladi?", stop ? "To'xtaydi" : "Oldinga yuradi",
+        [stop ? "Oldinga yuradi" : "To'xtaydi", "Orqaga yuradi", "O'ngga buriladi"], [x + " < " + d + " — " + (stop ? "rost ⇒ to'xtaydi." : "yolg'on ⇒ oldinga yuradi.")]); }
+    if (k === 11) { n = R(2, 6);
+      return NQ("Har biri 1.5 V bo'lgan " + n + " ta batareya ketma-ket ulandi. Umumiy kuchlanish necha volt?", 1.5 * n, "V", [1.5, n, 1.5 * (n + 1), 3 * n], ["Ketma-ket ulanganda kuchlanishlar qo'shiladi: " + n + " · 1.5 = " + f(1.5 * n) + " V"]); }
+    if (k === 12) { var RS = [100, 150, 220, 330, 470, 1000];
+      if (L === 3 && Math.random() < 0.4) { a = pick([100, 220, 330, 470, 1000]); n = pick([2, 2, 4, 5]); if (a / n !== Math.round(a / n)) n = 2;
+        return NQ(n + " ta bir xil " + a + " Om li rezistor parallel ulandi. Umumiy qarshilik necha Om?", a / n, "Om", [a * n, a, a / n + a, a / (n * 2)], ["Bir xil rezistorlar parallel ulansa: R = " + a + " : " + n + " = " + f(a / n) + " Om"]); }
+      a = pick(RS); b = pick(RS);
+      return NQ(a + " Om va " + b + " Om li rezistorlar ketma-ket ulandi. Umumiy qarshilik necha Om?", a + b, "Om", [Math.abs(a - b) || a / 2, a * b / (a + b) === Math.round(a * b / (a + b)) ? a * b / (a + b) : a + b + 100, a + b + 10, Math.max(a, b)], ["Ketma-ket ulanganda qarshiliklar qo'shiladi: " + a + " + " + b + " = " + (a + b) + " Om"]); }
+    if (k === 13) { n = R(0, 9);
+      if (Math.random() < 0.5) return TQ("Rezistor rang kodida <b>" + RCOL[n].toLowerCase() + "</b> rang qaysi raqamni bildiradi?", String(n), otherN(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], [String(n)], 3), ["0 qora, 1 jigarrang, 2 qizil, 3 to'q sariq, 4 sariq, 5 yashil, 6 ko'k, 7 binafsha, 8 kulrang, 9 oq."]);
+      return TQ("Rezistor rang kodida <b>" + n + "</b> raqami qaysi rang bilan belgilanadi?", RCOL[n], otherN(RCOL, [RCOL[n]], 3), ["0 qora, 1 jigarrang, 2 qizil, 3 to'q sariq, 4 sariq, 5 yashil, 6 ko'k, 7 binafsha, 8 kulrang, 9 oq."]); }
+    a = pick([250, 500, 1000]); b = pick([250, 500, 1000]); var p = a + b;
+    return NQ("Arduino: LED loop() ichida " + a + " ms yonib, " + b + " ms o'chadi. 1 minut davomida LED necha marta yonadi?", 60000 / p, "", [60000 / a, 60 / (p / 1000) * 2, 60000 / p + 1, p / 10], ["Bir davr: " + a + " + " + b + " = " + p + " ms.", "60 000 : " + p + " = " + 60000 / p]);
+  }
   function I5(L) {
-    var k = pick(lv(L, [9, 9, 9, 0], [0, 1, 2, 3, 9, 9, 9], [1, 2, 3, 4, 9, 9, 9])), U, Ul, I, Rr, v, d, t;
-    if (k === 0) { var ms2 = pick([100, 200, 250, 500, 1000, 1500, 2000, 3000]);
-      return NQ("Arduino: <b>delay(" + ms2 + ")</b> necha sekund kutadi?", ms2 / 1000, "s", [ms2, ms2 / 100, ms2 / 10, ms2 / 60], ["delay millisekundda: " + ms2 + " ms = " + f(ms2 / 1000) + " s"]); }
+    var k = pick(lv(L, [0, 5, 6, 7, 8, 10, 11, 9, 9, 9], [0, 1, 2, 3, 4, 5, 6, 11, 12, 14, 9, 9, 9], [1, 2, 3, 4, 12, 13, 14, 9, 9, 9])), U, Ul, I, Rr, v, d, t;
+    if (k >= 5 && k !== 9) return I5x(k, L);
+    if (k === 0) { var ms2 = pick([50, 100, 200, 250, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 10000]);
+      return NQ("Arduino: <b>delay(" + ms2 + ")</b> necha sekund kutadi?", ms2 / 1000, "s", [ms2, ms2 / 100, ms2 / 10, ms2 * 60 / 1000], ["delay millisekundda: " + ms2 + " ms = " + f(ms2 / 1000) + " s"]); }
     if (k === 1) { var cand = [[5, 2, 0.02], [5, 2, 0.01], [5, 3, 0.02], [5, 1.8, 0.02], [5, 2, 0.015], [3.3, 2, 0.01], [9, 2, 0.02], [12, 2, 0.02], [5, 3, 0.01]]; var c = pick(cand); U = c[0]; Ul = c[1]; I = c[2]; Rr = Math.round((U - Ul) / I);
       return NQ("LED ni " + U + " V manbaga ulash kerak. LED kuchlanishi " + Ul + " V, toki " + f(I * 1000) + " mA. Ketma-ket rezistor necha Om bo'lishi kerak?", Rr, "Om", [Math.round(U / I), Math.round(Ul / I), Math.round((U - Ul) / (I * 1000) * 100) / 100, Rr * 10], ["Rezistordagi kuchlanish: " + U + " − " + Ul + " = " + f(U - Ul) + " V, I = " + f(I * 1000) + " mA = " + I + " A", "R = " + f(U - Ul) + " : " + I + " = " + Rr + " Om"]); }
     if (k === 2) { var av = pick([[0, 0], [256, 1.25], [512, 2.5], [768, 3.75], [1023, 5]]); v = av[0]; var volt = av[1];

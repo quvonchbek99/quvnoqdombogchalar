@@ -703,7 +703,7 @@
     var fn = pick(["sin", "cos"]), op = pick(OPS), v = pick(["−√3/2", "−√2/2", "−1/2", "0", "1/2", "√2/2", "√3/2"]);
     if (k === 0) { // berilgan burchaklardan qaysi biri yechim
       var good = [], bad = [];
-      ANG.concat([20, 70, 100, 160, 200, 250, 290, 340]).forEach(function (d) { (cmp(fnum(fn, d * Math.PI / 180), op, vNum(v)) && !(fV(fn, d) === v) ? good : fV(fn, d) === v ? [] : bad).push(d); });
+      ANG.concat([20, 70, 100, 160, 200, 250, 290, 340]).forEach(function (d) { var root = isTab(d) && fV(fn, d) === v; (root ? [] : cmp(fnum(fn, d * Math.PI / 180), op, vNum(v)) ? good : bad).push(d); });
       if (!good.length || bad.length < 3) return null;
       var g = pick(good), a0 = deg(g);
       return Q("Qaysi burchak " + fn + " x " + op + " " + v + " tengsizlikni qanoatlantiradi?", a0, W(a0, shuffle(bad).map(deg)),
@@ -850,7 +850,7 @@
       sel.sort(function (p, q) { return pw(p[0], p[1]) - pw(q[0], q[1]); });
       var lab = sel.map(function (c) { return c[0] + sup(c[1] * m7); }), A7 = big ? lab[3] : lab[0];
       return Q("Qaysi son eng " + (big ? "katta" : "kichik") + ": " + shuffle(lab).join(", ") + "?", A7, W(A7, lab),
-        ["Barchasini bir xil " + m7 + "-darajaga keltiramiz: " + sel.map(function (c) { return pw(c[0], c[1]) + sup(m7); }).join(", "), "Asosi eng " + (big ? "katta" : "kichik") + "i: " + A7]);
+        ["Barchasini bir xil " + m7 + "-darajaga keltiramiz: " + sel.map(function (c) { return pw(c[0], c[1]) + sup(m7); }).join(", "), "Asosi eng " + (big ? "katta" : "kichik") + " bo'lgani: " + A7]);
     }
     // f(x) = aˣ xossasi: f(m)·f(n), f(x+1)/f(x)
     var a8 = R(2, 5), m8 = R(1, 4), n8 = R(1, 3);
@@ -868,7 +868,7 @@
       if (Math.random() < .2) { arg = "√" + a; n = "1/2"; }
       var inv = Math.random() < .25 && typeof n === "number" && n !== 0;
       if (inv) { var res = -n;
-        return Q("log" + sub("1/" + a).replace("/", "/") + " " + arg + " ni hisoblang.".replace("log" + sub("1/" + a), "log_(1/" + a + ")"), res, W(res, [n, res + 1, res - 1, pw(a, Math.abs(n)), 1 / 1 === 1 ? -res * 2 : 0]),
+        return Q("log_(1/" + a + ") " + arg + " ni hisoblang.", res, W(res, [n, res + 1, res - 1, pw(a, Math.abs(n)), -res * 2]),
           ["(1/" + a + ")" + sup(res) + " = " + arg, "Javob: " + ms(res)]); }
       return Q(lg(a) + " " + arg + " ni hisoblang.", n, W(n, typeof n === "string" ? ["2", "−1/2", "1", "1/" + a] : [-n, n + 1, n - 1, n === 0 ? 1 : 1 / n === Math.round(1 / n) ? 1 / n + 1 : n * 2, a]),
         [typeof n === "string" ? "√" + a + " = " + a + "^(1/2)" : a + sup(n) + " = " + arg, "Javob: " + ms(typeof n === "string" ? 0 : n).replace("0", typeof n === "string" ? n : "0").replace(/^(−?)(\d+)$/, "$1$2")]);
@@ -951,9 +951,15 @@
   }
 
   function t23x(L) {
-    var k = pick(L === 1 ? [0, 0, 1, 2] : L === 2 ? [0, 2, 3, 3] : [3, 4, 4, 5]);
+    var k = pick(L === 1 ? [0, 0, 1, 2, 6] : L === 2 ? [0, 2, 3, 3] : [3, 4, 4, 5]);
     var b = pick(PB.slice(0, 5)), a = b[0];
+    if (k === 6) { // logₐ(x + c) = 0 yoki 1
+      var c6 = RNZ(-9, 9), a6 = R(2, 9), n6 = R(0, 1), x6 = pw(a6, n6) - c6;
+      return Q(lg(a6) + "(x " + (c6 > 0 ? "+ " + c6 : "− " + (-c6)) + ") = " + n6 + " tenglamani yeching.", x6, W(x6, [-c6, x6 + 1, n6 - c6 === x6 ? x6 - 1 : n6 - c6, a6 + c6, x6 + a6]),
+        ["x " + (c6 > 0 ? "+ " + c6 : "− " + (-c6)) + " = " + a6 + sup(n6) + " = " + pw(a6, n6), "x = " + ms(x6)]);
+    }
     if (k === 0) { // logₐ x = n (n manfiy yoki 0 ham)
+      if (Math.random() < .5) { a = R(2, 9); b = [a, [a, a * a, a * a * a]]; }
       var n = R(-2, Math.min(4, b[1].length)), ans = n >= 0 ? String(pw(a, n)) : "1/" + pw(a, -n);
       return Q(lg(a) + " x = " + ms(n) + " tenglamani yeching.", ans, W(ans, [n >= 0 ? a * n : "−" + pw(a, -n), n >= 0 ? pw(n, a) : "−1/" + pw(a, -n), n >= 0 ? pw(a, n + 1) : String(pw(a, -n)), n === 0 ? "0" : n > 0 ? pw(a, n - 1) : "1/" + (a * -n), String(n + a)]),
         ["x = " + a + sup(n), "x = " + ans]);
@@ -1026,6 +1032,644 @@
   aug("t22", t22x, sh(.82, .4, .45));
   aug("t23", t23x, sh(.85, .35, .3));
   aug("t26", t26x, sh(.85, .85, .85));
+
+  /* ================= Arifmetika: daraja va karra jadvali ================= */
+  function a6x(L) {
+    var k = pick([0, 0, 1, 2, 3, 4, 5]), n, a;
+    if (k === 0) { n = R(2, 20); a = n * n; return Q(n + "² ni hisoblang.", a, W(a, [2 * n, a + n, (n + 1) * (n + 1), a - n, (n - 1) * (n - 1)]), [n + "² = " + n + "·" + n + " = " + a]); }
+    if (k === 1) { n = R(2, 10); a = n * n * n; return Q(n + "³ ni hisoblang.", a, W(a, [3 * n, n * n, a + n * n, (n + 1) * (n + 1) * (n + 1), a - n]), [n + "³ = " + n + "·" + n + "·" + n + " = " + a]); }
+    if (k === 2) { n = R(2, 12); var t = R(0, 2);
+      if (t === 0) return Q("(−" + n + ")² ni hisoblang.", n * n, W(n * n, [-n * n, -2 * n, 2 * n, n * n + 1]), ["Manfiy sonning juft darajasi musbat", "(−" + n + ")² = " + n * n]);
+      if (t === 1) return Q("−" + n + "² ni hisoblang.", -n * n, W(-n * n, [n * n, -2 * n, 2 * n, -n * n - 1]), ["Avval daraja, keyin minus: −(" + n + "²)", "= −" + n * n]);
+      var m = Math.min(n, 6); return Q("(−" + m + ")³ ni hisoblang.", -m * m * m, W(-m * m * m, [m * m * m, -3 * m, -m * m, -m * m * m - m]), ["Manfiy sonning toq darajasi manfiy", "(−" + m + ")³ = −" + m * m * m]); }
+    if (k === 3) { var bs = pick([2, 2, 3, 10]), e = bs === 2 ? R(4, 10) : bs === 3 ? R(3, 5) : R(2, 6); a = pw(bs, e);
+      return Q(bs + sup(e) + " ni hisoblang.", a, W(a, [bs * e, pw(bs, e - 1), pw(bs, e + 1), a + bs]), [bs + " ni " + e + " marta ko'paytiramiz", "= " + a]); }
+    if (k === 4) { var t4 = R(0, 2), e4 = R(2, 60), b4 = R(2, 30);
+      if (t4 === 0) return Q("1" + sup(e4) + " ni hisoblang.", 1, W(1, [e4, 0, e4 + 1, 2]), ["1 ning har qanday darajasi 1 ga teng"]);
+      if (t4 === 1) return Q("0" + sup(Math.min(e4, 12)) + " ni hisoblang.", 0, W(0, [1, Math.min(e4, 12), -1, 10]), ["0 ning musbat darajasi 0 ga teng"]);
+      return Q(b4 + "¹ ni hisoblang.", b4, W(b4, [1, 0, b4 * b4, b4 + 1]), ["Sonning birinchi darajasi o'ziga teng"]); }
+    n = R(2, 15); a = n * n;
+    return Q("x² = " + a + " bo'lsa, natural x ni toping.", n, W(n, [a / 2 === Math.round(a / 2) ? a / 2 : n + 2, n + 1, n - 1, 2 * n]), [n + "·" + n + " = " + a, "x = " + n]);
+  }
+  function a7x(L) {
+    var a = R(1, 10), b = R(1, 10), c = a * b, k = pick([0, 0, 1, 2]);
+    if (k === 0) return Q(a + " × " + b + " = ?", c, W(c, [c + a, c - b, a + b, c + 1, c - 1, (a + 1) * b].filter(function (x) { return x > 0; })), [a + " × " + b + " = " + c]);
+    if (k === 1) return Q(a + " × ? = " + c, b, W(b, [b + 1, b - 1 || b + 2, c - a > 0 ? c - a : b + 3, a]), [a + " × " + b + " = " + c, "Javob: " + b]);
+    return Q(c + " : " + a + " = ?", b, W(b, [b + 1, b - 1 || b + 2, a === b ? b + 3 : a, c - a > 0 ? c - a : b + 4]), [a + " × " + b + " = " + c + " → " + c + " : " + a + " = " + b]);
+  }
+
+  /* ---------- t53: modulli tenglama va tengsizliklar ---------- */
+  function xm(a) { return a === 0 ? "x" : "x " + (a > 0 ? "− " + a : "+ " + (-a)); }
+  function t53x(L) {
+    var k = pick([0, 0, 1, 2, 3, 4, 5]), a = RNZ(-8, 8), c = R(1, 9);
+    if (k === 0) { var op = pick(["<", "≤", ">", "≥"]), st = op === "<" || op === ">", lo = a - c, hi = a + c, ans;
+      if (op === "<" || op === "≤") ans = (st ? "(" : "[") + ms(lo) + "; " + ms(hi) + (st ? ")" : "]");
+      else ans = "(−∞; " + ms(lo) + (st ? ")" : "]") + "∪" + (st ? "(" : "[") + ms(hi) + "; +∞)";
+      var inner = (st ? "(" : "[") + ms(lo) + "; " + ms(hi) + (st ? ")" : "]"), outer = "(−∞; " + ms(lo) + (st ? ")" : "]") + "∪" + (st ? "(" : "[") + ms(hi) + "; +∞)";
+      return Q("|" + xm(a) + "| " + op + " " + c + " tengsizlikni yeching.", ans, W(ans, [ans === inner ? outer : inner, "(" + ms(-a - c) + "; " + ms(-a + c) + ")", "(" + ms(-c) + "; " + c + ")", (st ? "[" : "(") + ms(lo) + "; " + ms(hi) + (st ? "]" : ")"), "(−∞; " + ms(hi) + ")"]),
+        [op === "<" || op === "≤" ? "−" + c + " " + op + " " + xm(a) + " " + op + " " + c : xm(a) + " " + op + " " + c + " yoki " + xm(a) + " " + (op === ">" ? "<" : "≤") + " −" + c, "Javob: " + ans]);
+    }
+    if (k === 1) { var kk = R(2, 5), b = RNZ(-9, 9), lo1 = F(b - c, kk), hi1 = F(b + c, kk), ans1 = "[" + lo1 + "; " + hi1 + "]";
+      return Q("|" + poly([kk, -b]) + "| ≤ " + c + " tengsizlikni yeching.", ans1, W(ans1, ["[" + ms(b - c) + "; " + ms(b + c) + "]", "(" + lo1 + "; " + hi1 + ")", "[" + F(-b - c, kk) + "; " + F(-b + c, kk) + "]", "(−∞; " + lo1 + "]∪[" + hi1 + "; +∞)", "[" + F(-c, kk) + "; " + F(c, kk) + "]"]),
+        ["−" + c + " ≤ " + poly([kk, -b]) + " ≤ " + c, ms(b - c) + " ≤ " + kk + "x ≤ " + ms(b + c), "Javob: " + ans1]);
+    }
+    if (k === 2) { var strict = Math.random() < .5, n2 = strict ? 2 * c - 1 : 2 * c + 1;
+      return Q("|" + xm(a) + "| " + (strict ? "<" : "≤") + " " + c + " tengsizlikning butun yechimlari nechta?", n2, W(n2, [strict ? 2 * c + 1 : 2 * c - 1, 2 * c, c, n2 + 2, c + 1]),
+        ["Yechim: " + (strict ? "(" : "[") + ms(a - c) + "; " + ms(a + c) + (strict ? ")" : "]"), "Butun sonlar: " + ms(strict ? a - c + 1 : a - c) + " … " + ms(strict ? a + c - 1 : a + c), "Soni: " + n2]);
+    }
+    if (k === 3) { var p = R(-9, 9), q = R(-9, 9); if (p === q) q = p + R(1, 6);
+      var x3 = F(p + q, 2);
+      return Q("|" + xm(p) + "| = |" + xm(q) + "| tenglamani yeching.", x3, W(x3, [F(p - q, 2), F(q - p, 2), F(-p - q, 2), F(p + q, 1), "0"]),
+        [xm(p) + " = −(" + xm(q) + ") (chunki " + xm(p) + " = " + xm(q) + " yechimga ega emas)", "2x = " + ms(p + q) + " → x = " + x3]);
+    }
+    if (k === 4) { var k4 = pick([2, 2, 3, 4]), b4 = RNZ(-9, 9), c4 = R(1, 9), r1 = F(b4 - c4, k4), r2 = F(b4 + c4, k4), ans4 = r1 + "; " + r2;
+      return Q("|" + poly([k4, -b4]) + "| = " + c4 + " tenglamani yeching.", ans4, W(ans4, [F(b4 + c4, k4), F(-b4 - c4, k4) + "; " + F(-b4 + c4, k4), ms(b4 - c4) + "; " + ms(b4 + c4), F(c4, k4) + "; " + F(-c4, k4), r1]),
+        [poly([k4, -b4]) + " = " + c4 + " yoki " + poly([k4, -b4]) + " = −" + c4, "x = " + r2 + " yoki x = " + r1]);
+    }
+    var p5 = R(-9, 9), q5 = R(-9, 9); if (p5 === q5) q5 = p5 + R(1, 7);
+    var m5 = Math.abs(p5 - q5);
+    return Q("f(x) = |" + xm(p5) + "| + |" + xm(q5) + "| funksiyaning eng kichik qiymatini toping.", m5, W(m5, [0, Math.abs(p5 + q5), m5 + 1, Math.min(Math.abs(p5), Math.abs(q5)), 2 * m5]),
+      ["Sonlar o'qida: x dan " + ms(p5) + " va " + ms(q5) + " gacha masofalar yig'indisi", "Eng kichigi x ∈ [" + ms(Math.min(p5, q5)) + "; " + ms(Math.max(p5, q5)) + "] da: " + m5]);
+  }
+
+  /* ---------- t57: o'rta qiymatlar ---------- */
+  var HM = [], QM = [];
+  (function () { for (var p = 2; p <= 60; p++) for (var q = p + 1; q <= 90; q++) { if ((2 * p * q) % (p + q) === 0) HM.push([p, q]); var s = (p * p + q * q) / 2, r = Math.round(Math.sqrt(s)); if (r * r === s && q <= 50) QM.push([p, q, r]); } })();
+  function t57x(L) {
+    var k = pick([0, 1, 2, 3, 4, 5]);
+    if (k === 0) { var n = R(4, 7), M = R(5, 40), xs = [], s = 0; for (var i = 0; i < n - 1; i++) { var v = M + R(-9, 9); xs.push(v); s += v; }
+      var miss = n * M - s; if (miss <= 0) return null;
+      return Q(n + " ta sonning arifmetik o'rtasi " + M + ". Ulardan " + (n - 1) + " tasi: " + xs.join("; ") + ". Qolgan sonni toping.", miss, W(miss, [M, n * M - s + M - miss === 0 ? miss + 1 : miss + 1, Math.round(s / (n - 1)), miss - 1, n * M]),
+        ["Yig'indi: " + n + "·" + M + " = " + n * M, "Ma'lum sonlar yig'indisi: " + s, "Javob: " + (n * M) + " − " + s + " = " + miss]);
+    }
+    if (k === 1) { var p = pick([1, 2, 3, 5, 6]), s1 = R(1, 6), t1 = R(1, 7); if (s1 === t1) t1 = s1 + 1;
+      var A = p * s1 * s1, B = p * t1 * t1, gm = p * s1 * t1;
+      return Q(A + " va " + B + " sonlarining geometrik o'rtasini toping.", gm, W(gm, [(A + B) / 2 === Math.round((A + B) / 2) ? (A + B) / 2 : gm + 2, gm + 1, gm - 1, A * B, Math.round(Math.sqrt(A + B))]),
+        ["G = √(a·b) = √(" + A + "·" + B + ") = √" + A * B, "G = " + gm]);
+    }
+    if (k === 2) { var h = pick(HM), hm = 2 * h[0] * h[1] / (h[0] + h[1]);
+      return Q(h[0] + " va " + h[1] + " sonlarining garmonik o'rtasini toping.", hm, W(hm, [(h[0] + h[1]) / 2 === Math.round((h[0] + h[1]) / 2) ? (h[0] + h[1]) / 2 : hm + 1, hm + 1, hm - 1, h[0] * h[1] / (h[0] + h[1]) === Math.round(h[0] * h[1] / (h[0] + h[1])) ? h[0] * h[1] / (h[0] + h[1]) : hm + 2]),
+        ["H = 2ab/(a + b) = 2·" + h[0] + "·" + h[1] + "/(" + h[0] + " + " + h[1] + ")", "= " + 2 * h[0] * h[1] + "/" + (h[0] + h[1]) + " = " + hm]);
+    }
+    if (k === 3) { // vaznli o'rtacha
+      var m = R(55, 80), g = R(3, 8), u = R(1, 4), v = R(1, 4); if (u === v) v = u === 4 ? 3 : u + 1;
+      var a = g * u, b = g * v, t = R(1, 3), d = t * v, x = m + d, y = m - t * u;
+      var naive = (x + y) / 2;
+      return Q("Sinfda " + a + " ta o'quvchining o'rtacha bali " + x + ", " + b + " ta o'quvchiniki " + y + ". Hammasining o'rtacha balini toping.", m, W(m, [naive === Math.round(naive) && naive !== m ? naive : m + 2, m + 1, m - 1, Math.round((x * b + y * a) / (a + b)) === m ? m - 2 : Math.round((x * b + y * a) / (a + b))]),
+        ["Umumiy ball: " + a + "·" + x + " + " + b + "·" + y + " = " + (a * x + b * y), "O'quvchilar: " + (a + b), "O'rtacha: " + (a * x + b * y) + " : " + (a + b) + " = " + m]);
+    }
+    if (k === 4) { var qm = pick(QM);
+      return Q(qm[0] + " va " + qm[1] + " sonlarining o'rta kvadratik qiymatini toping.", qm[2], W(qm[2], [(qm[0] + qm[1]) / 2 === Math.round((qm[0] + qm[1]) / 2) ? (qm[0] + qm[1]) / 2 : qm[2] + 1, qm[2] + 1, qm[2] - 1, (qm[0] * qm[0] + qm[1] * qm[1]) / 2]),
+        ["Q = √((a² + b²)/2) = √((" + qm[0] * qm[0] + " + " + qm[1] * qm[1] + ")/2)", "= √" + (qm[0] * qm[0] + qm[1] * qm[1]) / 2 + " = " + qm[2]]);
+    }
+    var n5 = R(4, 9), M5 = R(10, 40), N5 = M5 + RNZ(-4, 4), x5 = (n5 + 1) * N5 - n5 * M5; if (x5 <= 0) return null;
+    return Q(n5 + " ta sonning arifmetik o'rtasi " + M5 + ". Ularga yana bitta son qo'shilsa, o'rtacha " + N5 + " bo'ldi. Qo'shilgan sonni toping.", x5,
+      W(x5, [N5, (N5 - M5) * n5, x5 + N5 - M5, n5 * N5 - n5 * M5 + M5 === x5 ? x5 + 1 : n5 * N5 - n5 * M5 + M5, x5 - 1]),
+      ["Avvalgi yig'indi: " + n5 + "·" + M5 + " = " + n5 * M5, "Yangi yig'indi: " + (n5 + 1) + "·" + N5 + " = " + (n5 + 1) * N5, "Qo'shilgan son: " + x5]);
+  }
+
+  /* ---------- t60: hosila ---------- */
+  function polyS(cs) { // superscript darajali ko'phad: 3x⁴ − 2x² + 5
+    var deg = cs.length - 1, out = "";
+    cs.forEach(function (c, i) {
+      var p = deg - i; if (c === 0) return;
+      var ac = Math.abs(c), co = ac === 1 && p > 0 ? "" : String(ac);
+      out += (c < 0 ? (out ? " − " : "−") : (out ? " + " : "")) + (p === 0 ? String(ac) : co + "x" + (p === 1 ? "" : sup(p)));
+    });
+    return out || "0";
+  }
+  function der(cs) { var d = cs.length - 1, o = []; for (var i = 0; i < d; i++) o.push(cs[i] * (d - i)); return o.length ? o : [0]; }
+  function pval(cs, x) { var v = 0; cs.forEach(function (c) { v = v * x + c; }); return v; }
+  function t60x(L) {
+    var k = pick(L === 1 ? [0, 0, 1, 2, 3] : L === 2 ? [4, 4, 5, 6, 1] : [5, 6, 7, 7]);
+    if (k === 0) { var c = RNZ(-9, 9), n = R(2, 7), cs = [c].concat(new Array(n).join("0").split("").map(Number)), d = der(cs), a = polyS(d);
+      return Q("y = " + polyS(cs) + " funksiyaning hosilasini toping.", a, W(a, [polyS([c * (n + 1)].concat(new Array(n + 1).join("0").split("").map(Number)).slice(0, n + 1)), polyS([c].concat(new Array(n).join("0").split("").map(Number)).slice(0, n)), polyS([c * n].concat(new Array(n + 1).join("0").split("").map(Number)).slice(0, n + 1)), polyS([c * (n - 1)].concat(new Array(n - 1).join("0").split("").map(Number)))]),
+        ["(c·xⁿ)' = c·n·xⁿ⁻¹", "y' = " + ms(c) + "·" + n + "·x" + (n - 1 === 1 ? "" : sup(n - 1)) + " = " + a]);
+    }
+    if (k === 1) { var n1 = R(2, 5), c1 = RNZ(-9, 9), b1 = R(-9, 9), cs1 = [1].concat(new Array(n1 - 1).join("0").split("").map(Number)).concat([c1, b1]), d1 = polyS(der(cs1));
+      return Q("y = " + polyS(cs1) + " funksiyaning hosilasini toping.", d1, W(d1, [polyS(der(cs1).slice(0, -1).concat([c1 + b1])), polyS(der(cs1).concat([b1])), polyS([n1 + 1].concat(new Array(n1).join("0").split("").map(Number)).concat([c1])), polyS(der(cs1).slice(0, -1).concat([-c1]))]),
+        ["(xⁿ)' = n·xⁿ⁻¹, (kx)' = k, (o'zgarmas)' = 0", "y' = " + d1]);
+    }
+    if (k === 2) { var c2 = RNZ(-6, 6), n2 = R(2, 4), x2 = RNZ(-3, 3), cs2 = [c2].concat(new Array(n2).join("0").split("").map(Number)), v2 = pval(der(cs2), x2);
+      return Q("y = " + polyS(cs2) + " bo'lsa, y'(" + ms(x2) + ") ni toping.", v2, W(v2, [pval(cs2, x2), -v2, c2 * n2 * x2, v2 + c2, c2 * pw(x2, n2 - 1)]),
+        ["y' = " + polyS(der(cs2)), "y'(" + ms(x2) + ") = " + v2]);
+    }
+    if (k === 3) { var T = pick([["1/x", "−1/x²", ["1/x²", "−1/x", "ln x"]], ["√x", "1/(2√x)", ["2√x", "1/√x", "√x/2"]], ["2√x", "1/√x", ["1/(2√x)", "√x", "4√x"]], ["3/x", "−3/x²", ["3/x²", "−3/x", "3"]], ["x⁻²", "−2x⁻³", ["−2x⁻¹", "2x⁻³", "−x⁻³"]], ["−1/x", "1/x²", ["−1/x²", "1/x", "−ln x"]], ["5/x", "−5/x²", ["5/x²", "−5/x", "5"]], ["eˣ + x", "eˣ + 1", ["eˣ", "xeˣ⁻¹ + 1", "eˣ + x"]], ["sin x + cos x", "cos x − sin x", ["cos x + sin x", "−cos x + sin x", "sin x − cos x"]], ["2sin x", "2cos x", ["−2cos x", "2sin x", "cos 2x"]], ["3cos x", "−3sin x", ["3sin x", "−3cos x", "−sin 3x"]], ["ln x + x²", "1/x + 2x", ["1/x + x", "ln x + 2x", "x + 2x"]]]);
+      var t3 = T; return Q("y = " + t3[0] + " funksiyaning hosilasini toping.", t3[1], t3[2], ["Hosilalar jadvali", "y' = " + t3[1]]);
+    }
+    if (k === 4) { var cs4 = [RNZ(-5, 5), R(-9, 9), R(-9, 9), R(-9, 9)], d4 = polyS(der(cs4));
+      return Q("y = " + polyS(cs4) + " funksiyaning hosilasini toping.", d4, W(d4, [polyS(der(cs4).slice(0, 2).concat([der(cs4)[2] + cs4[3]])), polyS([cs4[0] * 3, cs4[1], cs4[2]]), polyS(der(cs4).map(function (v, i) { return i === 1 ? -v : v; })), polyS([cs4[0] * 3, cs4[1] * 2, cs4[2], cs4[3]]), polyS([cs4[0], cs4[1], cs4[2]])]),
+        ["Har bir hadning hosilasini topamiz", "y' = " + d4]);
+    }
+    if (k === 5) { var cs5 = [RNZ(-3, 3), R(-6, 6), R(-9, 9), R(-9, 9)], x5 = RNZ(-3, 3), v5 = pval(der(cs5), x5);
+      return Q("y = " + polyS(cs5) + " bo'lsa, y'(" + ms(x5) + ") ni toping.", v5, W(v5, [pval(cs5, x5), v5 + cs5[2], -v5, v5 + 2 * cs5[1] * x5 === v5 ? v5 + 1 : v5 - cs5[1] * x5, v5 - 1]),
+        ["y' = " + polyS(der(cs5)), "y'(" + ms(x5) + ") = " + v5]);
+    }
+    if (k === 6) { var cs6 = [R(1, 3) * pick([1, -1]), R(-8, 8), R(-9, 9)], x6 = R(-4, 4), sl = pval(der(cs6), x6);
+      return Q("y = " + polyS(cs6) + " funksiya grafigiga x₀ = " + ms(x6) + " nuqtada o'tkazilgan urinmaning burchak koeffitsiyentini toping.", sl, W(sl, [pval(cs6, x6), -sl, sl + cs6[1], 2 * cs6[0] * x6, sl + 1]),
+        ["Urinma burchak koeffitsiyenti k = y'(x₀)", "y' = " + polyS(der(cs6)), "k = " + sl]);
+    }
+    // kritik nuqtalar: y = x³ − 3p²x + c → x = ±p ; y = ax² + bx + c ning kritik nuqtasi
+    if (Math.random() < .5) { var p7 = R(1, 5), c7 = R(-9, 9), cs7 = [1, 0, -3 * p7 * p7, c7], a7 = ms(-p7) + "; " + p7;
+      return Q("y = " + polyS(cs7) + " funksiyaning kritik nuqtalarini toping.", a7, W(a7, [String(p7), ms(-p7) + "; 0; " + p7, ms(-3 * p7) + "; " + 3 * p7, ms(-p7 * p7) + "; " + p7 * p7, "0; " + p7]),
+        ["y' = " + polyS(der(cs7)) + " = 0", "x² = " + p7 * p7 + " → x = ±" + p7]); }
+    var a8 = RNZ(-4, 4), x8 = RNZ(-5, 5), b8 = -2 * a8 * x8, c8 = R(-9, 9), cs8 = [a8, b8, c8], y8 = pval(cs8, x8), mx = a8 < 0;
+    return Q("y = " + polyS(cs8) + " funksiyaning ekstremum nuqtasini toping.", "x = " + ms(x8), W("x = " + ms(x8), ["x = " + ms(-x8), "x = " + ms(y8), "x = " + ms(b8), "x = " + ms(x8 + 1), "x = " + ms(2 * x8)]),
+      ["y' = " + polyS(der(cs8)) + " = 0", "x = " + ms(x8) + " (" + (mx ? "maksimum" : "minimum") + ")"]);
+  }
+
+  /* ---------- t65: aniqlanish sohasi ---------- */
+  function t65x(L) {
+    var k = pick(L === 1 ? [0, 1, 2, 7] : L === 2 ? [0, 1, 3, 4, 7] : [3, 4, 5, 6, 6]);
+    var c = R(1, 9), p = R(-9, 9), q = p + R(1, 9);
+    if (k === 0) { var a = "x ≠ ±" + c;
+      return Q("y = 1/(x² − " + c * c + ") funksiyaning aniqlanish sohasini toping.", a, ["x ≠ " + c, "x ≠ " + c * c, "x > " + c, "x ≠ 0"], ["x² − " + c * c + " ≠ 0", "x ≠ ±" + c]); }
+    if (k === 1) { var kk = R(2, 5), b = RNZ(-9, 9), ans = "[" + F(b, kk) + "; +∞)";
+      return Q("y = √(" + poly([kk, -b]) + ") funksiyaning aniqlanish sohasini toping.", ans, W(ans, ["(" + F(b, kk) + "; +∞)", "(−∞; " + F(b, kk) + "]", "[" + F(-b, kk) + "; +∞)", "[" + ms(b) + "; +∞)", "[" + F(kk, b) + "; +∞)"]),
+        [poly([kk, -b]) + " ≥ 0", "x ≥ " + F(b, kk), "D(y) = " + ans]); }
+    if (k === 2) { var a2 = "[−" + c + "; " + c + "]";
+      return Q("y = √(" + c * c + " − x²) funksiyaning aniqlanish sohasini toping.", a2, W(a2, ["(−" + c + "; " + c + ")", "(−∞; −" + c + "]∪[" + c + "; +∞)", "[0; " + c + "]", "[−" + c * c + "; " + c * c + "]"]),
+        [c * c + " − x² ≥ 0 → x² ≤ " + c * c, "−" + c + " ≤ x ≤ " + c]); }
+    if (k === 3) { var a3 = "x ≠ " + ms(p) + ", x ≠ " + ms(q);
+      return Q("y = 5/((" + xm(p) + ")(" + xm(q) + ")) funksiyaning aniqlanish sohasini toping.", a3, W(a3, ["x ≠ " + ms(-p) + ", x ≠ " + ms(-q), "x ≠ " + ms(p), "x > " + ms(q), "x ≠ " + ms(p) + ", x ≠ " + ms(-q)]),
+        ["Maxraj ≠ 0: (" + xm(p) + ")(" + xm(q) + ") ≠ 0", a3]); }
+    if (k === 4) { var a4 = "[" + ms(p) + "; " + ms(q) + "]";
+      return Q("y = √(" + xm(p) + ") + √(" + q + " − x) funksiyaning aniqlanish sohasini toping.".replace("√(0 − x)", "√(−x)"), a4, W(a4, ["(" + ms(p) + "; " + ms(q) + ")", "[" + ms(-p) + "; " + ms(-q) + "]", "[" + ms(p) + "; +∞)", "(−∞; " + ms(q) + "]", "[" + ms(-q) + "; " + ms(-p) + "]"].map(function (x) { return x; }).filter(function (x) { return !/\[(−?\d+); \1\]/.test(x) || true; })),
+        [xm(p) + " ≥ 0 va " + q + " − x ≥ 0", ms(p) + " ≤ x ≤ " + ms(q)]); }
+    if (k === 5) { var p5 = R(1, 9), a5 = "[0; " + p5 + ")∪(" + p5 + "; +∞)";
+      return Q("y = √x + 1/(x − " + p5 + ") funksiyaning aniqlanish sohasini toping.", a5, W(a5, ["[0; +∞)", "(0; " + p5 + ")∪(" + p5 + "; +∞)", "(−∞; " + p5 + ")∪(" + p5 + "; +∞)", "[" + p5 + "; +∞)", "(" + p5 + "; +∞)"]),
+        ["x ≥ 0 va x ≠ " + p5, "D(y) = " + a5]); }
+    if (k === 6) { var a6 = "(" + ms(p) + "; " + ms(q) + "]";
+      return Q("y = lg(" + xm(p) + ") + √(" + q + " − x) funksiyaning aniqlanish sohasini toping.".replace("√(0 − x)", "√(−x)"), a6, W(a6, ["[" + ms(p) + "; " + ms(q) + "]", "(" + ms(p) + "; " + ms(q) + ")", "[" + ms(p) + "; " + ms(q) + ")", "(" + ms(p) + "; +∞)", "(−∞; " + ms(q) + "]"]),
+        [xm(p) + " > 0 va " + q + " − x ≥ 0", ms(p) + " < x ≤ " + ms(q)]); }
+    var p7 = R(1, 12), a7 = "(−∞; " + p7 + ")";
+    return Q("y = 1/√(" + p7 + " − x) funksiyaning aniqlanish sohasini toping.", a7, W(a7, ["(−∞; " + p7 + "]", "(" + p7 + "; +∞)", "[" + p7 + "; +∞)", "x ≠ " + p7]),
+      [p7 + " − x > 0 (ildiz maxrajda)", "x < " + p7]);
+  }
+
+  /* ---------- t70: aniqmas integral ---------- */
+  function mono(n, d, p, first) { // (n/d)·xᵖ ko'rinishi: 3x⁴/4, −x²/2, 5x
+    var g = gcd(n, d); n /= g; d /= g; if (d < 0) { n = -n; d = -d; }
+    var an = Math.abs(n), body = (an === 1 && p > 0 ? "" : String(an)) + (p > 0 ? "x" + (p === 1 ? "" : sup(p)) : "") + (d === 1 ? "" : "/" + d);
+    return first ? (n < 0 ? "−" : "") + body : (n < 0 ? " − " : " + ") + body;
+  }
+  function antider(cs) { // ko'phad koeffitsiyentlari → boshlang'ich funksiya satri
+    var deg = cs.length - 1, out = "";
+    cs.forEach(function (c, i) { var p = deg - i + 1; if (!c) return; out += mono(c, p, p, !out); });
+    return (out || "0") + " + C";
+  }
+  function t70x(L) {
+    var k = pick(L === 1 ? [0, 0, 1, 2] : L === 2 ? [0, 1, 2, 3, 3, 4] : [3, 4, 5, 5, 6]);
+    if (k === 0) { var c = RNZ(-9, 9), n = R(0, 6), cs = [c].concat(new Array(n + 1).join("0").split("").map(Number)), a = antider(cs);
+      return Q("∫" + (c === 1 ? "" : c === -1 ? "−" : ms(c)) + (n === 0 ? (Math.abs(c) === 1 ? "1" : "") : "x" + (n === 1 ? "" : sup(n))) + " dx ni toping.", a,
+        W(a, [mono(c * n, 1, n - 1 < 0 ? 0 : n - 1, true) + " + C", mono(c, 1, n + 1, true) + " + C", mono(c, n || 1, n + 1, true) + " + C", mono(c, n + 2, n + 1, true) + " + C", mono(c, n + 1, n, true) + " + C"]),
+        ["∫xⁿ dx = xⁿ⁺¹/(n + 1) + C", "= " + a]);
+    }
+    if (k === 1) { var a1 = RNZ(-6, 6), b1 = RNZ(-9, 9), r1 = antider([a1, b1]);
+      return Q("∫(" + polyS([a1, b1]) + ") dx ni toping.", r1, W(r1, [antider([a1 * 2, b1]).replace(/\/2/, ""), polyS([a1, b1, 0]) + " + C", mono(a1, 2, 2, true) + " + " + b1 + " + C", String(a1) + " + C", antider([a1, 0]).replace(" + C", "") + mono(b1, 1, 0, false) + " + C"]),
+        ["∫ax dx = ax²/2, ∫b dx = bx", "= " + r1]);
+    }
+    if (k === 2) { var kk = R(2, 5), T = pick([["cos " + kk + "x", "(1/" + kk + ")·sin " + kk + "x + C", ["sin " + kk + "x + C", kk + "·sin " + kk + "x + C", "−(1/" + kk + ")·sin " + kk + "x + C"]],
+        ["sin " + kk + "x", "−(1/" + kk + ")·cos " + kk + "x + C", ["(1/" + kk + ")·cos " + kk + "x + C", "−cos " + kk + "x + C", kk + "·cos " + kk + "x + C"]],
+        ["e" + sup(kk + "x"), "(1/" + kk + ")·e" + sup(kk + "x") + " + C", ["e" + sup(kk + "x") + " + C", kk + "·e" + sup(kk + "x") + " + C", "e" + sup(kk + "x") + "/(" + kk + "x) + C"]],
+        [kk + "/x", kk + "·ln|x| + C", ["ln|" + kk + "x| + C", "−" + kk + "/x² + C", kk + "x + C"]],
+        ["1/x²", "−1/x + C", ["1/x + C", "−2/x³ + C", "ln x² + C"]],
+        [kk + "eˣ", kk + "eˣ + C", ["eˣ + C", kk + "xeˣ + C", "(1/" + kk + ")eˣ + C"]],
+        [kk + "cos x", kk + "·sin x + C", ["−" + kk + "·sin x + C", "sin " + kk + "x + C", kk + "·cos x + C"]]]);
+      return Q("∫" + T[0] + " dx ni toping.", T[1], T[2], ["Jadval integrali", "= " + T[1]]);
+    }
+    if (k === 3) { var cs3 = [RNZ(-6, 6), RNZ(-8, 8), R(-9, 9)], r3 = antider(cs3);
+      return Q("∫(" + polyS(cs3) + ") dx ni toping.", r3, W(r3, [polyS(der(cs3)) + " + C", antider([cs3[0], cs3[1], 0]).replace(" + C", "") + " + C", polyS(cs3.concat([0])) + " + C", antider([cs3[0], -cs3[1], cs3[2]]), antider([cs3[0] * 3, cs3[1] * 2, cs3[2]])]),
+        ["Har bir hadni alohida integrallaymiz", "= " + r3]);
+    }
+    if (k === 4) { // boshlang'ich funksiya shart bilan
+      var a4 = RNZ(-4, 4), b4 = R(-6, 6), x4 = R(-2, 3), y4 = R(-9, 9);
+      var cs4 = [2 * a4, b4], Fv = a4 * x4 * x4 + b4 * x4, C4 = y4 - Fv, ans4 = polyS([a4, b4, C4]);
+      return Q("f(x) = " + polyS(cs4) + " funksiyaning F(" + ms(x4) + ") = " + ms(y4) + " shartni qanoatlantiruvchi boshlang'ichini toping.", "F(x) = " + ans4,
+        W("F(x) = " + ans4, ["F(x) = " + polyS([a4, b4, y4]), "F(x) = " + polyS([2 * a4, b4, C4]), "F(x) = " + polyS([a4, b4, -C4]), "F(x) = " + polyS([a4, b4, C4 + 1])]),
+        ["F(x) = " + polyS([a4, b4]) .replace(/^/, "") + "… → F(x) = " + polyS([a4, b4, 0]) + " + C", "F(" + ms(x4) + ") = " + Fv + " + C = " + ms(y4) + " → C = " + C4, "F(x) = " + ans4]);
+    }
+    if (k === 5) { // qaysi biri boshlang'ich
+      var a5 = R(1, 5), n5 = R(1, 4), c5 = R(1, 9), fx = polyS([a5 * (n5 + 1)].concat(new Array(n5 + 1).join("0").split("").map(Number))), good = polyS([a5].concat(new Array(n5 + 1).join("0").split("").map(Number)).concat([c5]));
+      var bad = [polyS([a5 * (n5 + 1)].concat(new Array(n5 + 2).join("0").split("").map(Number))), polyS([a5 * (n5 + 1) * n5].concat(new Array(n5).join("0").split("").map(Number))), polyS([a5].concat(new Array(n5).join("0").split("").map(Number)).concat([c5])), polyS([a5 * (n5 + 2)].concat(new Array(n5 + 2).join("0").split("").map(Number)))];
+      return Q("Qaysi funksiya f(x) = " + fx + " ning boshlang'ich funksiyasi?", good, W(good, bad), ["F'(x) = f(x) bo'lishi kerak", "(" + good + ")' = " + fx]);
+    }
+    var a6 = RNZ(-6, 6), b6 = R(2, 6), r6 = (a6 === 1 ? "" : a6 === -1 ? "−" : ms(a6)) + "ln|x|" + mono(b6, 2, 2, false) + " + C";
+    return Q("∫(" + a6 + "/x + " + b6 + "x) dx ni toping.".replace("(1/x", "(1/x").replace("(−1/x", "(−1/x"), r6,
+      W(r6, [(a6 === 1 ? "" : a6 === -1 ? "−" : ms(a6)) + "ln|x|" + mono(b6, 1, 2, false) + " + C", mono(-a6, 1, 0, true) + "/x²" + mono(b6, 2, 2, false) + " + C", (a6 === 1 ? "" : a6 === -1 ? "−" : ms(a6)) + "x" + mono(b6, 2, 2, false) + " + C", (a6 === 1 ? "" : a6 === -1 ? "−" : ms(a6)) + "ln|x| + " + b6 + " + C"]),
+      ["∫(1/x) dx = ln|x|, ∫x dx = x²/2", "= " + r6]);
+  }
+
+  /* ---------- t7: grafik almashtirishlar ---------- */
+  var FX = [["x²", function (u) { return "(" + u + ")²"; }], ["|x|", function (u) { return "|" + u + "|"; }], ["√x", function (u) { return "√(" + u + ")"; }], ["x³", function (u) { return "(" + u + ")³"; }], ["1/x", function (u) { return "1/(" + u + ")"; }], ["2ˣ", function (u) { return "2^(" + u + ")"; }]];
+  function shiftF(f, a, b) { var s = f[1](xm(a)); return "y = " + s + (b > 0 ? " + " + b : b < 0 ? " − " + (-b) : ""); }
+  function dirS(a, b) { return (a > 0 ? "o'ngga " + a : "chapga " + (-a)) + " va " + (b > 0 ? "yuqoriga " + b : "pastga " + (-b)); }
+  function t7x(L) {
+    var k = pick(L === 1 ? [0, 1, 4] : L === 2 ? [0, 1, 2, 4] : [1, 2, 3, 5]), f = pick(FX), a = RNZ(-6, 6), b = RNZ(-6, 6);
+    if (k === 0) { var ans = shiftF(f, a, b);
+      return Q("y = " + f[0] + " grafigi " + dirS(a, b) + " birlik siljitildi. Hosil bo'lgan funksiyani toping.", ans, W(ans, [shiftF(f, -a, b), shiftF(f, a, -b), shiftF(f, -a, -b), shiftF(f, b, a)]),
+        ["O'ngga a: x → x − a; yuqoriga b: + b", "Javob: " + ans]);
+    }
+    if (k === 1) { var ans1 = dirS(a, b);
+      return Q(shiftF(f, a, b) + " grafigi y = " + f[0] + " grafigidan qanday hosil qilinadi?", ans1, W(ans1, [dirS(-a, b), dirS(a, -b), dirS(-a, -b), dirS(b, a)]),
+        ["y = f(x − a) + b: a > 0 — o'ngga, b > 0 — yuqoriga", "Javob: " + ans1]);
+    }
+    if (k === 2) { var g = pick(FX.slice(1, 3)), ans2 = "(" + ms(a) + "; " + ms(b) + ")";
+      return Q(shiftF(g, a, b) + " grafigining " + (g[0] === "|x|" ? "uchi" : "boshlang'ich nuqtasi") + " koordinatalarini toping.", ans2, W(ans2, H.pairW(a, b, 5)),
+        ["y = " + g[0] + " uchun bu nuqta (0; 0)", "Siljitishdan keyin: " + ans2]);
+    }
+    if (k === 3) { var T = pick([["y = √(−x)", "y = √x", "Oy o'qiga nisbatan simmetrik akslantirish"], ["y = −√x", "y = √x", "Ox o'qiga nisbatan simmetrik akslantirish"], ["y = −x³", "y = x³", "Ox o'qiga nisbatan simmetrik akslantirish"], ["y = 2⁻ˣ", "y = 2ˣ", "Oy o'qiga nisbatan simmetrik akslantirish"], ["y = −2ˣ", "y = 2ˣ", "Ox o'qiga nisbatan simmetrik akslantirish"], ["y = |x| ning 3 marta cho'zilgani y = 3|x|", "y = |x|", "Oy o'qi bo'ylab 3 marta cho'zish"], ["y = −|x|", "y = |x|", "Ox o'qiga nisbatan simmetrik akslantirish"], ["y = |x − 2|", "y = |x|", "o'ngga 2 birlik siljitish"], ["y = (1/2)·x²", "y = x²", "Oy o'qi bo'ylab 2 marta siqish"], ["y = √(2x)", "y = √x", "Ox o'qi bo'ylab 2 marta siqish"]]);
+      var lab = T[0].indexOf(" ning ") > -1 ? "y = 3|x|" : T[0];
+      return Q(lab + " grafigi " + T[1] + " grafigidan qanday almashtirish bilan hosil bo'ladi?", T[2], W(T[2], ["Oy o'qiga nisbatan simmetrik akslantirish", "Ox o'qiga nisbatan simmetrik akslantirish", "Oy o'qi bo'ylab 3 marta cho'zish", "o'ngga 2 birlik siljitish", "Oy o'qi bo'ylab 2 marta siqish", "Ox o'qi bo'ylab 2 marta siqish", "koordinata boshiga nisbatan simmetriya"]),
+        ["f(−x) — Oy ga, −f(x) — Ox ga nisbatan simmetriya; k·f(x) — Oy bo'ylab cho'zish", "Javob: " + T[2]]);
+    }
+    if (k === 4) { var a4 = RNZ(-4, 4), b4 = R(-5, 5), x4 = a4 + RNZ(-4, 4), v4 = (x4 - a4) * (x4 - a4) + b4;
+      return Q("y = x² grafigi " + dirS(a4, b4 || 1).replace(/ va (yuqoriga|pastga) 0/, "") + " birlik siljitildi. Yangi funksiyaning x = " + ms(x4) + " dagi qiymatini toping.", (x4 - a4) * (x4 - a4) + (b4 || 1),
+        W((x4 - a4) * (x4 - a4) + (b4 || 1), [(x4 + a4) * (x4 + a4) + (b4 || 1), (x4 - a4) * (x4 - a4) - (b4 || 1), x4 * x4 + (b4 || 1), (x4 - a4) * (x4 - a4) + (b4 || 1) + 1]),
+        ["Yangi funksiya: " + shiftF(FX[0], a4, b4 || 1), "y(" + ms(x4) + ") = " + ((x4 - a4) * (x4 - a4) + (b4 || 1))]);
+    }
+    var ans5 = "x = " + ms(a) + ", y = " + ms(b);
+    return Q("y = 1/(" + xm(a) + ")" + (b > 0 ? " + " + b : " − " + (-b)) + " giperbolaning asimptotalarini toping.", ans5, W(ans5, ["x = " + ms(-a) + ", y = " + ms(b), "x = " + ms(a) + ", y = " + ms(-b), "x = " + ms(b) + ", y = " + ms(a), "x = 0, y = 0"]),
+      ["y = 1/x ning asimptotalari x = 0, y = 0", "Siljitishdan keyin: " + ans5]);
+  }
+
+  aug("a6", a6x, sh(.88, 0, 0));
+  aug("a7", a7x, sh(.85, .2, 0));
+  aug("t53", t53x, sh(0, .15, .88));
+  aug("t57", t57x, sh(0, .4, .88));
+  aug("t60", t60x, sh(.85, .55, .3));
+  aug("t65", t65x, sh(.82, .82, .82));
+  aug("t70", t70x, sh(.88, .88, .65));
+  aug("t7", t7x, sh(.75, .45, .45));
+
+  /* ================= Ehtimollik va kombinatorika ================= */
+  function fact(n) { var r = 1; for (var i = 2; i <= n; i++) r *= i; return r; }
+  function Cn(n, k) { return k < 0 || k > n ? 0 : Math.round(fact(n) / (fact(k) * fact(n - k))); }
+  function An(n, k) { return Math.round(fact(n) / fact(n - k)); }
+  function pW(n, d) { // ehtimollik (kasr) uchun noto'g'ri variantlar
+    var out = [F(d - n, d), F(n + 1, d), F(n, d + 1), F(n, d - n || 1), F(Math.max(1, n - 1), d), F(d, n + d)];
+    return W(F(n, d), out);
+  }
+  function t37x(L) {
+    var k = pick([0, 1, 2, 3, 4, 5]);
+    if (k === 0) { // ikki kubik
+      var t = R(0, 3), c = 0, txt, s = R(3, 11), i, j;
+      for (i = 1; i <= 6; i++) for (j = 1; j <= 6; j++) {
+        if (t === 0 ? i + j > s : t === 1 ? (i * j) % 2 === 0 : t === 2 ? i === j : Math.abs(i - j) === 1) c++;
+      }
+      txt = t === 0 ? "yig'indisi " + s + " dan katta" : t === 1 ? "ko'paytmasi juft son" : t === 2 ? "ikkalasida bir xil raqam" : "raqamlar ayirmasi 1 ga teng";
+      return Q("Ikki kubik tashlanadi. " + txt.charAt(0).toUpperCase() + txt.slice(1) + " bo'lish ehtimolini toping.".replace("ikkalasida bir xil raqam bo'lish", "ikkalasida bir xil raqam chiqish"), F(c, 36), pW(c, 36),
+        ["Barcha hollar: 6·6 = 36", "Qulay hollar: " + c + " ta", "P = " + c + "/36 = " + F(c, 36)]);
+    }
+    if (k === 1) { // 1..N kartochkalar
+      var N = pick([10, 12, 15, 20, 25, 30, 40, 50]), prop = R(0, 4), cnt = 0, nm;
+      for (var x = 1; x <= N; x++) {
+        var isP = x > 1; for (var d = 2; d * d <= x; d++) if (x % d === 0) isP = false;
+        if (prop === 0 ? isP : prop === 1 ? x % 3 === 0 : prop === 2 ? Math.round(Math.sqrt(x)) * Math.round(Math.sqrt(x)) === x : prop === 3 ? x % 5 === 0 : String(x).indexOf("1") > -1) cnt++;
+      }
+      nm = ["tub son", "3 ga karrali son", "to'liq kvadrat", "5 ga karrali son", "yozuvida 1 raqami qatnashgan son"][prop];
+      return Q("1 dan " + N + " gacha raqamlangan kartochkalardan biri olinadi. Unda " + nm + " bo'lish ehtimolini toping.", F(cnt, N), pW(cnt, N),
+        ["Barcha hollar: " + N, "Qulay hollar: " + cnt + " ta", "P = " + F(cnt, N)]);
+    }
+    if (k === 2) { // n tanga, aynan m gerb
+      var n2 = R(2, 4), m2 = R(0, n2), c2 = Cn(n2, m2), tot = pw(2, n2);
+      return Q(n2 + " ta tanga tashlanadi. Aynan " + m2 + " ta gerb tushish ehtimolini toping.", F(c2, tot), W(F(c2, tot), [F(1, tot), F(m2, n2), F(c2, tot * 2), F(c2 + 1, tot), F(tot - c2, tot)]),
+        ["Barcha hollar: 2" + sup(n2) + " = " + tot, "Qulay: C(" + n2 + "; " + m2 + ") = " + c2, "P = " + F(c2, tot)]);
+    }
+    if (k === 3) { // uch rangli sharlar
+      var r = R(2, 9), g = R(2, 9), b = R(2, 9), T = r + g + b, ask = R(0, 2);
+      var fav = ask === 0 ? g + b : ask === 1 ? r + g : r + b, nm3 = ["qizil emas", "ko'k emas", "yashil emas"][ask];
+      return Q("Qutida " + r + " ta qizil, " + g + " ta yashil va " + b + " ta ko'k shar bor. Olingan shar " + nm3 + " bo'lish ehtimolini toping.", F(fav, T), pW(fav, T),
+        ["Jami: " + T, "Qulay: " + fav, "P = " + F(fav, T)]);
+    }
+    if (k === 4) { // qarama-qarshi hodisa
+      var d4 = pick([5, 6, 8, 9, 10, 12, 15, 20]), n4 = R(1, d4 - 1);
+      return Q("P(A) = " + F(n4, d4) + " bo'lsa, A hodisaga qarama-qarshi hodisa ehtimolini toping.", F(d4 - n4, d4), W(F(d4 - n4, d4), [F(n4, d4), F(d4, n4), "1", F(d4 - n4, d4 + n4), F(d4 - n4 + 1, d4)]),
+        ["P(Ā) = 1 − P(A)", "= 1 − " + F(n4, d4) + " = " + F(d4 - n4, d4)]);
+    }
+    var Nn = R(20, 40), oq = R(3, Nn - 5);
+    return Q("Lotereyada " + Nn + " ta biletdan " + oq + " tasi yutuqli. Bitta bilet olinganda yutuqsiz bo'lish ehtimolini toping.", F(Nn - oq, Nn), pW(Nn - oq, Nn),
+      ["Yutuqsiz biletlar: " + (Nn - oq), "P = " + F(Nn - oq, Nn)]);
+  }
+
+  var WORDS = ["KITOB", "OLMA", "QALAM", "MAKTAB", "DARAXT", "BAHOR", "ANOR", "SAMARQAND", "TOSHKENT", "DAFTAR", "ALLA", "SINF", "QUYOSH", "MATEMATIKA"];
+  function anag(w) { var c = {}, r = fact(w.length); w.split("").forEach(function (ch) { c[ch] = (c[ch] || 0) + 1; }); for (var k in c) r /= fact(c[k]); return [Math.round(r), c]; }
+  function t38x(L) {
+    var k = pick(L === 1 ? [0, 1, 2, 3, 4] : L === 2 ? [1, 2, 4, 5, 6, 7] : [5, 6, 7, 8, 8]);
+    if (k === 0) { var n = R(3, 8); return Q(n + " kishi navbatga necha xil usulda turishi mumkin?", fact(n), W(fact(n), [n * n, fact(n - 1), fact(n) / 2, n * (n - 1)]), ["Pₙ = n! = " + fact(n)]); }
+    if (k === 1) { var n1 = R(5, 12), m = R(2, 3), c = Cn(n1, m);
+      var ctx = pick([n1 + " kishidan " + m + " kishilik guruhni necha usulda tanlash mumkin?", n1 + " ta turli kitobdan " + m + " tasini necha usulda tanlash mumkin?", n1 + " ta o'quvchidan " + m + " nafar navbatchini necha usulda tanlash mumkin?"]);
+      return Q(ctx, c, W(c, [An(n1, m), n1 * m, c + n1, Cn(n1, m + 1), pw(n1, m)]), ["Tartib muhim emas → C(" + n1 + "; " + m + ")", "= " + c]); }
+    if (k === 2) { var n2 = R(4, 12), m2 = R(2, 3), a = An(n2, m2), lab = m2 === 2 ? "sardor va uning o'rinbosarini" : "1-, 2- va 3-o'rin sovrindorlarini";
+      return Q(n2 + " kishidan " + lab + " necha usulda tanlash mumkin?", a, W(a, [Cn(n2, m2), pw(n2, m2), a / 2, n2 * m2, a + n2]), ["Tartib muhim → A(" + n2 + "; " + m2 + ")", "= " + a]); }
+    if (k === 3) { var n3 = R(4, 14), c3 = Cn(n3, 2), t3 = pick(["Turnirda " + n3 + " ta jamoa bor, har biri boshqasi bilan bir marta o'ynaydi. Jami nechta o'yin bo'ladi?", n3 + " kishi bir-biri bilan bir martadan qo'l berib ko'rishdi. Jami nechta qo'l berish bo'ldi?", "Tekislikda " + n3 + " ta nuqta bor (uchtasi bir to'g'ri chiziqda yotmaydi). Ular orqali nechta to'g'ri chiziq o'tkazish mumkin?"]);
+      return Q(t3, c3, W(c3, [n3 * (n3 - 1), n3 * n3, c3 + n3, n3 * 2]), ["Juftliklar soni: C(" + n3 + "; 2) = " + n3 + "·" + (n3 - 1) + "/2", "= " + c3]); }
+    if (k === 4) { var n4 = R(3, 6), m4 = R(2, 4);
+      return Q(m4 + " ta raqamdan iborat kodning har bir o'rniga " + n4 + " ta raqamdan biri qo'yiladi (takrorlanishi mumkin). Nechta kod bor?", pw(n4, m4), W(pw(n4, m4), [An(n4, Math.min(m4, n4)), pw(m4, n4), n4 * m4, Cn(n4 + m4 - 1, m4)]), ["Har bir o'ringa " + n4 + " ta tanlov", n4 + sup(m4) + " = " + pw(n4, m4)]); }
+    if (k === 5) { var w = pick(WORDS), an = anag(w), rep = []; for (var ch in an[1]) if (an[1][ch] > 1) rep.push(ch + " — " + an[1][ch] + " marta");
+      return Q(w + " so'zidagi harflarning o'rnini almashtirib nechta turli \"so'z\" (harflar ketma-ketligi) hosil qilish mumkin?", an[0], W(an[0], [fact(w.length), an[0] * 2, fact(w.length - 1), an[0] / 2 === Math.round(an[0] / 2) ? an[0] / 2 : an[0] + 1]),
+        [w.length + " ta harf" + (rep.length ? ", takrorlanadi: " + rep.join(", ") : ", hammasi har xil"), "Javob: " + an[0]]); }
+    if (k === 6) { var b = R(3, 7), g = R(3, 7), x = R(1, 2), y = R(1, 3), res = Cn(b, x) * Cn(g, y);
+      return Q("Sinfda " + b + " o'g'il va " + g + " qiz bor. " + x + " o'g'il va " + y + " qizdan iborat guruhni necha usulda tuzish mumkin?", res, W(res, [Cn(b + g, x + y), Cn(b, x) + Cn(g, y), An(b, x) * An(g, y), res * 2]),
+        ["C(" + b + "; " + x + ")·C(" + g + "; " + y + ") = " + Cn(b, x) + "·" + Cn(g, y), "= " + res]); }
+    if (k === 7) { var d7 = R(3, 4), withZ = Math.random() < .5, digs = withZ ? R(4, 6) : R(4, 7), res7 = withZ ? (digs - 1) * An(digs - 1, d7 - 1) : An(digs, d7);
+      var dl = []; for (var q = withZ ? 0 : 1; dl.length < digs; q++) dl.push(q);
+      return Q(dl.join(", ") + " raqamlaridan raqamlari takrorlanmaydigan nechta " + d7 + " xonali son tuzish mumkin?", res7, W(res7, [An(digs, d7), Cn(digs, d7), pw(digs, d7), withZ ? An(digs - 1, d7) : res7 * 2]),
+        [withZ ? "Birinchi raqam 0 bo'la olmaydi: " + (digs - 1) + " ta tanlov" : "A(" + digs + "; " + d7 + ")", withZ ? (digs - 1) + "·" + An(digs - 1, d7 - 1) + " = " + res7 : "= " + res7]); }
+    var n8 = R(5, 9), m8 = R(2, 3), bc = Cn(n8, m8);
+    return Q("C(" + n8 + "; " + m8 + ") + C(" + n8 + "; " + (m8 + 1) + ") ni hisoblang.", Cn(n8 + 1, m8 + 1), W(Cn(n8 + 1, m8 + 1), [Cn(n8, m8 + 1) * 2, Cn(n8 + 1, m8), bc * 2, Cn(n8 + 2, m8 + 1)]),
+      ["C(n; k) + C(n; k + 1) = C(n + 1; k + 1)", "C(" + (n8 + 1) + "; " + (m8 + 1) + ") = " + Cn(n8 + 1, m8 + 1)]);
+  }
+
+  function t89x(L) {
+    var k = pick(L === 1 ? [0, 0, 1, 2] : L === 2 ? [1, 2, 3, 4, 5] : [3, 4, 5, 6, 7]);
+    if (k === 0) { var n = R(0, 10); return Q(n + "! ni hisoblang.", fact(n), W(fact(n), [n === 0 ? 0 : fact(n - 1), fact(n + 1), n * n, fact(n) + n, n]), [n === 0 ? "Kelishuv: 0! = 1" : "1·2·…·" + n + " = " + fact(n)]); }
+    if (k === 1) { var n1 = R(2, 15); return Q("(" + (n1 + 2) + ")!/" + n1 + "! ni hisoblang.", (n1 + 1) * (n1 + 2), W((n1 + 1) * (n1 + 2), [n1 + 2, 2, (n1 + 2) * (n1 + 2), n1 * (n1 + 1), (n1 + 2) * (n1 + 3)]), ["(n + 2)!/n! = (n + 1)(n + 2)", "= " + (n1 + 1) + "·" + (n1 + 2) + " = " + (n1 + 1) * (n1 + 2)]); }
+    if (k === 2) { var n2 = R(3, 9), m2 = R(1, n2 - 1); return Q(n2 + "!/(" + m2 + "!·" + (n2 - m2) + "!) ni hisoblang.", Cn(n2, m2), W(Cn(n2, m2), [An(n2, m2), fact(n2) / fact(m2), n2 * m2, Cn(n2, m2) + 1]), ["Bu C(" + n2 + "; " + m2 + ")", "= " + Cn(n2, m2)]); }
+    if (k === 3) { var n3 = R(3, 12), v3 = n3 * (n3 + 1); return Q("(n + 1)!/(n − 1)! = " + v3 + " bo'lsa, n ni toping.", n3, W(n3, [n3 + 1, n3 - 1, v3 / 2 === Math.round(v3 / 2) ? v3 / 2 : n3 + 2, Math.round(Math.sqrt(v3)) === n3 ? n3 + 3 : Math.round(Math.sqrt(v3))]), ["(n + 1)!/(n − 1)! = n(n + 1)", "n(n + 1) = " + v3 + " → n = " + n3]); }
+    if (k === 4) { var n4 = R(4, 10), v4 = n4 * (n4 - 1) * (n4 - 2); return Q("n!/(n − 3)! = " + v4 + " bo'lsa, n ni toping.", n4, W(n4, [n4 + 1, n4 - 1, n4 + 2, 3]), ["n!/(n − 3)! = n(n − 1)(n − 2)", "= " + n4 + "·" + (n4 - 1) + "·" + (n4 - 2) + " = " + v4 + " → n = " + n4]); }
+    if (k === 5) { var n5 = R(3, 8); return Q("(" + (n5 + 1) + "! − " + n5 + "!)/" + n5 + "! ni hisoblang.", n5, W(n5, [n5 + 1, 1, n5 - 1, fact(n5)]), ["(n + 1)! − n! = n!·(n + 1 − 1) = n·n!", "Javob: " + n5]); }
+    if (k === 6) { var n6 = R(10, 120), z = 0, t = n6; while (t >= 5) { t = Math.floor(t / 5); z += t; }
+      return Q(n6 + "! soni nechta nol bilan tugaydi?", z, W(z, [Math.floor(n6 / 5), Math.floor(n6 / 10), z + 1, z - 1 >= 0 ? z - 1 : z + 2]), ["5 ga bo'linuvchilar: [" + n6 + "/5] = " + Math.floor(n6 / 5) + (n6 >= 25 ? ", 25 ga: " + Math.floor(n6 / 25) : "") + (n6 >= 125 ? ", 125 ga: " + Math.floor(n6 / 125) : ""), "Nollar soni: " + z]); }
+    var n7 = R(2, 6); return Q(n7 + "!·" + (n7 + 1) + " ni bitta faktorial ko'rinishida yozing.", "(" + (n7 + 1) + ")!", W("(" + (n7 + 1) + ")!", [(n7 + 2) + "!", n7 + "!", (2 * n7 + 1) + "!", "(" + n7 + "·" + (n7 + 1) + ")!"]), ["n!·(n + 1) = (n + 1)!", "= " + (n7 + 1) + "!"]);
+  }
+
+  function t93x(L) {
+    var k = pick([0, 0, 1, 2, 3, 4, 5]);
+    if (k === 0) { var a = R(1, 9), b = R(1, 9), t = R(0, 2), pa = a / 10, res, nm;
+      var n = t === 0 ? 100 - (10 - a) * (10 - b) : t === 1 ? a * (10 - b) + (10 - a) * b : (10 - a) * (10 - b);
+      nm = ["kamida bittasi", "faqat bittasi", "hech biri"][t];
+      return Q("Ikki mergan nishonga o'q uzadi. Tegish ehtimollari " + F(a, 10) + " va " + F(b, 10) + ". Nishonga " + nm + " tegish ehtimolini toping.", F(n, 100), W(F(n, 100), [F(a * b, 100), F(a + b, 10), F(100 - n, 100), F(a * (10 - b), 100), F((10 - a) * (10 - b), 100), F(a * b + 1, 100)]),
+        [t === 0 ? "1 − P(hech biri) = 1 − " + F(10 - a, 10) + "·" + F(10 - b, 10) : t === 1 ? "p₁(1 − p₂) + (1 − p₁)p₂" : "(1 − p₁)(1 − p₂) = " + F(10 - a, 10) + "·" + F(10 - b, 10), "= " + F(n, 100)]);
+    }
+    if (k === 1) { var w = R(2, 8), bl = R(2, 8), T = w + bl, col = Math.random() < .5;
+      var fav = col ? w * (w - 1) : bl * (bl - 1);
+      return Q("Qutida " + w + " ta oq va " + bl + " ta qora shar bor. Qaytarmasdan ketma-ket 2 ta shar olinadi. Ikkalasi ham " + (col ? "oq" : "qora") + " bo'lish ehtimolini toping.", F(fav, T * (T - 1)),
+        W(F(fav, T * (T - 1)), [F((col ? w : bl) * (col ? w : bl), T * T), F(col ? w : bl, T), F(fav, T * T), F(2 * (col ? w : bl), T * (T - 1)), F((col ? bl : w) * ((col ? bl : w) - 1), T * (T - 1))]),
+        [F(col ? w : bl, T) + " · " + F((col ? w : bl) - 1, T - 1), "= " + F(fav, T * (T - 1))]);
+    }
+    if (k === 2) { var D = pick([6, 8, 10, 12, 20]), x = R(1, D - 2), y = R(1, D - 2), z = R(0, Math.min(x, y) - 1 >= 0 ? Math.min(x, y) - 1 : 0); if (x + y - z > D) return null;
+      return Q("P(A) = " + F(x, D) + ", P(B) = " + F(y, D) + ", P(A ∩ B) = " + F(z, D) + ". P(A ∪ B) ni toping.", F(x + y - z, D), W(F(x + y - z, D), [F(x + y, D), F(x * y, D * D), F(x + y + z, D), F(x + y - 2 * z, D), F(D - x - y + z, D)]),
+        ["P(A ∪ B) = P(A) + P(B) − P(A ∩ B)", "= " + F(x + y - z, D)]);
+    }
+    if (k === 3) { var pB = R(2, 9), pAB = R(1, pB - 1), D3 = 10;
+      return Q("P(B) = " + F(pB, D3) + ", P(A ∩ B) = " + F(pAB, D3) + " bo'lsa, shartli ehtimol P(A|B) ni toping.", F(pAB, pB), W(F(pAB, pB), [F(pAB * pB, 100), F(pB, pAB), F(pAB, D3), F(pB - pAB, pB), F(pAB, D3 - pB || 1)]),
+        ["P(A|B) = P(A ∩ B)/P(B)", "= " + F(pAB, D3) + " : " + F(pB, D3) + " = " + F(pAB, pB)]);
+    }
+    if (k === 4) { var p = R(1, 4), q = p + R(1, 3), n = R(2, 4);
+      return Q("Basketbolchi to'pni savatga " + F(p, q) + " ehtimol bilan tushiradi. " + n + " ta otishning hammasi tushish ehtimolini toping.", F(pw(p, n), pw(q, n)), W(F(pw(p, n), pw(q, n)), [F(n * p, q), F(p, n * q), F(pw(q - p, n), pw(q, n)), F(pw(q, n) - pw(p, n), pw(q, n)), F(pw(p, n - 1), pw(q, n - 1))]),
+        ["Erkli hodisalar: (" + F(p, q) + ")" + sup(n), "= " + F(pw(p, n), pw(q, n))]);
+    }
+    var n5 = R(2, 4), p5 = pick([[1, 6], [1, 2], [1, 3], [1, 4], [2, 5]]), qn = pw(p5[1] - p5[0], n5), tot = pw(p5[1], n5);
+    return Q("Hodisaning bitta sinovda ro'y berish ehtimoli " + F(p5[0], p5[1]) + ". " + n5 + " ta erkli sinovda kamida bir marta ro'y berish ehtimolini toping.", F(tot - qn, tot), W(F(tot - qn, tot), [F(qn, tot), F(n5 * p5[0], p5[1]), F(pw(p5[0], n5), tot), F(tot - pw(p5[0], n5), tot)]),
+      ["1 − (1 − p)" + sup(n5) + " = 1 − (" + F(p5[1] - p5[0], p5[1]) + ")" + sup(n5), "= 1 − " + F(qn, tot) + " = " + F(tot - qn, tot)]);
+  }
+
+  function t96x(L) {
+    var k = pick(L === 1 ? [0, 0, 1, 2] : L === 2 ? [1, 2, 3, 4] : [3, 4, 5, 5, 6, 7]);
+    if (k === 0) { var n = R(3, 15), f = pick(["(x + y)", "(a − b)", "(2x + 3)", "(x² + 1)", "(1 + x)"]);
+      return Q(f + "^" + n + " yoyilmasida nechta had bor?", n + 1, W(n + 1, [n, n + 2, 2 * n, n - 1]), ["(a + b)ⁿ yoyilmasida n + 1 ta had", "= " + (n + 1)]); }
+    if (k === 1) { var n1 = R(4, 10), m = R(1, n1 - 1), lab = pick(["a^" + (n1 - m) + "·b^" + m + " hadning", (m + 1) + "-hadning"]);
+      return Q("(a + b)^" + n1 + " yoyilmasida " + lab + " binomial koeffitsiyentini toping.", Cn(n1, m), W(Cn(n1, m), [An(n1, m), Cn(n1, m + 1), Cn(n1, m - 1) || n1 + 1, n1 * m]), ["T(k+1) = C(n; k)·aⁿ⁻ᵏ·bᵏ, k = " + m, "C(" + n1 + "; " + m + ") = " + Cn(n1, m)]); }
+    if (k === 2) { var n2 = R(3, 10), sgn = Math.random() < .5;
+      var val = sgn ? 0 : pw(2, n2), fx = sgn ? "(x − 1)" : "(x + 1)";
+      var a2 = pick([1, 2, 3]), b2 = pick([1, -1, 2]);
+      if (Math.random() < .5) { fx = "(" + (a2 === 1 ? "" : a2) + "x " + (b2 < 0 ? "− " + (-b2) : "+ " + b2) + ")"; val = pw(a2 + b2, n2); }
+      return Q(fx + "^" + n2 + " yoyilmasidagi barcha koeffitsiyentlar yig'indisini toping.", val, W(val, [pw(2, n2), n2 + 1, val + 1, pw(a2 + Math.abs(b2), n2) === val ? 1 : pw(a2 + Math.abs(b2), n2), 0, pw(2, n2) - 1]),
+        ["x = 1 qo'yamiz", "Yig'indi = " + fx.replace(/x/, "·1").replace("(·1", "(1").replace(/(\d)·1/, "$1·1") + "^" + n2 + " = " + val]); }
+    if (k === 3) { // (ax + b)^n da xᵏ koeffitsiyenti
+      var a3 = pick([1, 2, 3, -1, -2]), b3 = pick([1, 2, 3, -1, -2]), n3 = R(3, 6), k3 = R(1, n3 - 1), cf = Cn(n3, k3) * pw(a3, k3) * pw(b3, n3 - k3);
+      var e3 = "(" + (a3 === 1 ? "" : a3 === -1 ? "−" : ms(a3)) + "x " + (b3 < 0 ? "− " + (-b3) : "+ " + b3) + ")";
+      return Q(e3 + "^" + n3 + " yoyilmasida x" + (k3 === 1 ? "" : sup(k3)) + " oldidagi koeffitsiyentni toping.", cf,
+        W(cf, [Cn(n3, k3), -cf, Cn(n3, k3) * pw(Math.abs(a3), k3) * pw(Math.abs(b3), n3 - k3), Cn(n3, k3) * pw(a3, n3 - k3) * pw(b3, k3), Cn(n3, k3) * a3 * b3]),
+        ["Tₖ₊₁ = C(" + n3 + "; " + k3 + ")·(" + ms(a3) + "x)" + sup(k3) + "·(" + ms(b3) + ")" + sup(n3 - k3), "= " + Cn(n3, k3) + "·" + par(pw(a3, k3)) + "·" + par(pw(b3, n3 - k3)) + " = " + ms(cf)]); }
+    if (k === 4) { // (x + 1/x)^(2m) ozod hadi
+      var m4 = R(2, 6), n4 = 2 * m4, ft = Cn(n4, m4);
+      return Q("(x + 1/x)^" + n4 + " yoyilmasidagi ozod hadni (x qatnashmagan hadni) toping.", ft, W(ft, [Cn(n4, m4 - 1), An(n4, m4), pw(2, n4), Cn(n4, 2)]), ["Tₖ₊₁ = C(" + n4 + "; k)·x" + sup(n4) + "⁻²ᵏ", n4 + " − 2k = 0 → k = " + m4, "C(" + n4 + "; " + m4 + ") = " + ft]); }
+    if (k === 5) { // (x² + 1/x)^(3m) ozod hadi: 2(n−k) − k = 0 → k = 2n/3
+      var m5 = R(1, 3), n5 = 3 * m5, k5 = 2 * m5, f5 = Cn(n5, k5);
+      return Q("(x² + 1/x)^" + n5 + " yoyilmasidagi ozod hadni toping.", f5, W(f5, [Cn(n5, m5 + 1) === f5 ? Cn(n5, 1) + 1 : Cn(n5, m5 + 1), An(n5, k5) / 2, pw(2, n5), f5 + n5].filter(function (x) { return x !== f5; })),
+        ["Tₖ₊₁ = C(" + n5 + "; k)·x^(2(" + n5 + " − k))·x⁻ᵏ", "2(" + n5 + " − k) − k = 0 → k = " + k5, "C(" + n5 + "; " + k5 + ") = " + f5]); }
+    if (k === 6) { var n6 = 2 * R(2, 5), mid = Cn(n6, n6 / 2);
+      return Q("(a + b)^" + n6 + " yoyilmasining o'rta hadi koeffitsiyentini toping.", mid, W(mid, [Cn(n6, n6 / 2 - 1), pw(2, n6) / 2, An(n6, n6 / 2), n6 + 1]), ["Hadlar soni " + (n6 + 1) + ", o'rta had: T" + sub(n6 / 2 + 1), "C(" + n6 + "; " + n6 / 2 + ") = " + mid]); }
+    var n7 = R(3, 8), s7 = pw(2, n7 - 1);
+    return Q("C(" + n7 + "; 0) + C(" + n7 + "; 2) + C(" + n7 + "; 4) + … (juft indeksli koeffitsiyentlar) yig'indisini toping.", s7, W(s7, [pw(2, n7), s7 - 1, n7 + 1, pw(2, n7) - 1]), ["Juft va toq indeksli koeffitsiyentlar yig'indilari teng", "= 2" + sup(n7) + "/2 = " + s7]);
+  }
+
+  aug("t37", t37x, sh(.3, .3, .88));
+  aug("t38", t38x, sh(.82, .7, .6));
+  aug("t89", t89x, sh(.7, .65, .82));
+  aug("t93", t93x, sh(.3, .3, .85));
+  aug("t96", t96x, sh(.6, .6, .85));
+
+  /* ================= Stereometriya: jismlar, masofalar, kesimlar ================= */
+  function rt(k, n) { return (k === 1 ? "" : k) + "√" + n; }
+  function rtW(k, n) { return W(rt(k, n), [rt(k + 1, n), k > 1 ? rt(k - 1, n) : rt(k + 2, n), rt(2 * k, n), rt(k, n === 2 ? 3 : 2), String(k * n), String(k)]); }
+  function piS(n, d) { d = d || 1; var g = gcd(n, d); n /= g; d /= g; return (n === 1 ? "" : n) + "π" + (d === 1 ? "" : "/" + d); }
+  function piW(n, d) { d = d || 1; return W(piS(n, d), [piS(2 * n, d), piS(n, 2 * d), piS(n + d, d), piS(Math.max(1, n - d), d), String(Math.round(n / d)), piS(n * 3, d * 4)]); }
+  var CYL = [[3, 8, 10], [4, 6, 10], [6, 5, 13], [5, 24, 26], [4, 15, 17], [6, 8, 10], [8, 6, 10], [12, 5, 13], [9, 24, 30], [8, 30, 34]]; // [r, h, ...] uchun 2r, h, d
+  function t81x(L) {
+    var k = pick(L === 1 ? [0, 1, 2, 3] : L === 2 ? [0, 1, 2, 3, 4, 5] : [3, 4, 5, 6, 7]);
+    if (k === 0) { var m = R(1, 6), a = 2 * m; // kubga ichki shar hajmi: (4/3)πm³
+      return Q("Qirrasi " + a + " bo'lgan kubga ichki chizilgan sharning hajmini toping.", piS(4 * m * m * m, 3), piW(4 * m * m * m, 3), ["r = a/2 = " + m, "V = (4/3)πr³ = " + piS(4 * m * m * m, 3)]); }
+    if (k === 1) { var a1 = 2 * R(1, 6), r1 = a1 / 2; // kubga ichki silindr hajmi: πr²·a
+      return Q("Qirrasi " + a1 + " bo'lgan kubga ichki chizilgan silindrning hajmini toping.", piS(r1 * r1 * a1), piW(r1 * r1 * a1), ["Silindr: r = a/2 = " + r1 + ", H = a = " + a1, "V = πr²H = " + piS(r1 * r1 * a1)]); }
+    if (k === 2) { var r2 = R(1, 9);
+      if (Math.random() < .5) return Q("Radiusi " + r2 + " bo'lgan sharga tashqi chizilgan silindrning to'la sirtini toping.", piS(6 * r2 * r2), piW(6 * r2 * r2), ["Silindr: r = " + r2 + ", H = 2r = " + 2 * r2, "S = 2πr² + 2πrH = 6πr² = " + piS(6 * r2 * r2)]);
+      return Q("Radiusi " + r2 + " bo'lgan sharga tashqi chizilgan kubning hajmini toping.", 8 * r2 * r2 * r2, W(8 * r2 * r2 * r2, [r2 * r2 * r2, 4 * r2 * r2 * r2, 6 * r2 * r2, 2 * r2 * r2 * r2, 8 * r2 * r2]), ["Kub qirrasi a = 2r = " + 2 * r2, "V = a³ = " + 8 * r2 * r2 * r2]); }
+    if (k === 3) { var c = pick(CYL), s = pick([1, 1, 2]), R3 = c[2] * s / 2, rr = c[0] * s / 2 * 2 / 2;
+      // silindr sharga ichki: asos diametri 2r = c[0]·s, balandligi c[1]·s, shar diametri c[2]·s
+      var D = c[2] * s, d2 = c[0] * s, h3 = c[1] * s;
+      if (D % 2 || d2 % 2) return null;
+      return Q("Radiusi " + D / 2 + " bo'lgan sharga asos radiusi " + d2 / 2 + " bo'lgan silindr ichki chizilgan. Silindr balandligini toping.", h3, W(h3, [h3 / 2, D - d2, D / 2 + d2 / 2, h3 + 2, Math.round(Math.sqrt(D * D / 4 - d2 * d2 / 4))]),
+        ["(H/2)² + r² = R²", "(H/2)² = " + D * D / 4 + " − " + d2 * d2 / 4 + " = " + h3 * h3 / 4, "H = 2·" + h3 / 2 + " = " + h3]); }
+    if (k === 4) { var k4 = R(1, 8);
+      if (Math.random() < .5) return Q("Radiusi " + rt(k4, 3) + " bo'lgan sharga ichki chizilgan kubning qirrasini toping.", 2 * k4, W(2 * k4, [k4, 3 * k4, rt(2 * k4, 3), rt(k4, 2), 2 * k4 + 2]), ["Kub diagonali = shar diametri: a√3 = 2·" + rt(k4, 3), "a = " + 2 * k4]);
+      return Q("Qirrasi " + k4 + " bo'lgan kubga tashqi chizilgan sharning diametrini toping.", rt(k4, 3), rtW(k4, 3), ["Shar diametri = kub diagonali", "d = a√3 = " + rt(k4, 3)]); }
+    if (k === 5) { var t5 = pick([[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 15, 17], [9, 12, 15]]);
+      return Q("Konus silindrga ichki chizilgan (asoslari va balandligi umumiy). Silindr hajmi " + 3 * t5[0] * t5[0] * t5[1] + "π bo'lsa, konus hajmini toping.", piS(t5[0] * t5[0] * t5[1]), piW(t5[0] * t5[0] * t5[1]), ["V(konus) = (1/3)·V(silindr)", "= " + piS(t5[0] * t5[0] * t5[1])]); }
+    if (k === 6) { var a6 = R(1, 9);
+      return Q("Muntazam to'rtburchakli prizma silindrga ichki chizilgan. Prizma asosining tomoni " + a6 + ". Silindr asosining radiusini toping.", a6 === 2 ? "√2" : F(a6, 2) === String(a6 / 2) && a6 % 2 === 0 ? rt(a6 / 2, 2) : a6 + "√2/2", W(a6 % 2 === 0 ? rt(a6 / 2, 2) : a6 + "√2/2", [rt(a6, 2), F(a6, 2), String(a6), rt(a6, 3), a6 + "√3/2"]),
+        ["Silindr radiusi = asos kvadrati diagonalining yarmi", "R = a√2/2 = " + (a6 % 2 === 0 ? rt(a6 / 2, 2) : a6 + "√2/2")]); }
+    var m7 = R(1, 5), r7 = 3 * m7; // shar va silindr hajmlari: V(shar) = (2/3)V(silindr)
+    return Q("Sharga tashqi chizilgan silindr hajmi " + piS(2 * r7 * r7 * r7) + ". Shar hajmini toping.", piS(4 * r7 * r7 * r7, 3), piW(4 * r7 * r7 * r7, 3), ["V(shar) : V(silindr) = 2 : 3 (Arximed)", "V(shar) = (2/3)·" + piS(2 * r7 * r7 * r7) + " = " + piS(4 * r7 * r7 * r7, 3)]);
+  }
+  var QD = [[1, 2, 2, 3], [2, 3, 6, 7], [1, 4, 8, 9], [2, 6, 9, 11], [3, 4, 12, 13], [2, 10, 11, 15], [4, 4, 7, 9], [6, 6, 7, 11], [4, 8, 8, 12], [2, 5, 14, 15], [6, 10, 15, 19], [1, 12, 12, 17]];
+  function t87x(L) {
+    var k = pick(L === 1 ? [0, 0, 1, 2] : L === 2 ? [0, 1, 2, 3, 4] : [1, 3, 4, 5, 5, 6]);
+    if (k === 0) { var q = pick(QD), s = pick([1, 1, 2]), d = shuffle([q[0], q[1], q[2]]).map(function (x) { return x * s; });
+      return Q("To'g'ri burchakli parallelepipedning o'lchamlari " + d.join(", ") + ". Uning diagonalini toping.", q[3] * s, W(q[3] * s, [d[0] + d[1] + d[2], q[3] * s + 1, Math.round(Math.sqrt(d[0] * d[0] + d[1] * d[1])), q[3] * s - 1, q[3] * s * q[3] * s]),
+        ["d² = a² + b² + c² = " + d.map(function (x) { return x * x; }).join(" + ") + " = " + q[3] * q[3] * s * s, "d = " + q[3] * s]); }
+    if (k === 1) { var q1 = pick(QD), A = [R(-5, 5), R(-5, 5), R(-5, 5)], sg = [pick([1, -1]), pick([1, -1]), pick([1, -1])], dl = shuffle([q1[0], q1[1], q1[2]]);
+      var Bp = [A[0] + sg[0] * dl[0], A[1] + sg[1] * dl[1], A[2] + sg[2] * dl[2]];
+      return Q("A(" + A.map(ms).join("; ") + ") va B(" + Bp.map(ms).join("; ") + ") nuqtalar orasidagi masofani toping.", q1[3], W(q1[3], [dl[0] + dl[1] + dl[2], q1[3] + 1, q1[3] * q1[3], q1[3] - 1, Math.abs(Bp[0] + Bp[1] + Bp[2] - A[0] - A[1] - A[2]) || q1[3] + 2]),
+        ["d = √((x₂ − x₁)² + (y₂ − y₁)² + (z₂ − z₁)²)", "= √(" + dl.map(function (x) { return x * x; }).join(" + ") + ") = " + q1[3]]); }
+    if (k === 2) { var h = R(2, 12), an = pick([30, 45, 60]);
+      var lab = an === 30 ? 2 * h : an === 45 ? rt(h, 2) : null;
+      if (an === 60) { var m60 = R(1, 8); return Q("Og'ma tekislik bilan 60° burchak hosil qiladi, og'ma uzunligi " + 2 * m60 + ". Nuqtadan tekislikkacha masofani toping.", rt(m60, 3), rtW(m60, 3), ["h = l·sin 60° = " + 2 * m60 + "·√3/2", "h = " + rt(m60, 3)]); }
+      return Q("Nuqtadan tekislikkacha masofa " + h + ". Og'ma tekislik bilan " + an + "° burchak hosil qiladi. Og'ma uzunligini toping.", lab, an === 30 ? W(lab, [h, rt(h, 2), rt(h, 3), h / 2 === Math.round(h / 2) ? h / 2 : 3 * h]) : rtW(h, 2),
+        ["l = h / sin " + an + "°", "l = " + lab]); }
+    if (k === 3) { var h3 = R(2, 9), an3 = pick([30, 45, 60]), lv3 = an3 === 30 ? String(2 * h3) : an3 === 45 ? rt(h3, 2) : null;
+      if (an3 === 60) { lv3 = String(2 * h3); return Q("Og'ma uzunligi " + lv3 + ", uning proyeksiyasi " + h3 + ". Og'ma bilan tekislik orasidagi burchakni toping.", "60°", ["30°", "45°", "90°", "120°"], ["cos φ = proyeksiya/og'ma = " + h3 + "/" + lv3 + " = 1/2", "φ = 60°"]); }
+      return Q("Nuqtadan tekislikkacha masofa " + h3 + ", og'ma uzunligi " + lv3 + ". Og'ma bilan tekislik orasidagi burchakni toping.", deg(an3), W(deg(an3), ["30°", "45°", "60°", "90°"]), ["sin φ = h/l = " + h3 + "/" + lv3 + " = " + (an3 === 30 ? "1/2" : "√2/2"), "φ = " + an3 + "°"]); }
+    if (k === 4) { var T = pick([["Kubda bir uchidan chiqqan ikki yoq diagonali orasidagi burchakni toping.", "60°", ["45°", "90°", "30°"], ["Uchta yoq diagonali teng tomonli uchburchak hosil qiladi", "Burchak 60°"]],
+        ["Kubda yoq diagonali va shu yoqdagi qirra orasidagi burchakni toping.", "45°", ["30°", "60°", "90°"], ["Yoq — kvadrat, diagonal burchakni teng ikkiga bo'ladi", "45°"]],
+        ["Kubda ayqash qirralar orasidagi burchakni toping.", "90°", ["45°", "60°", "0°"], ["Ayqash qirralardan biri boshqasiga parallel ko'chiriladi", "90°"]],
+        ["Kubning qo'shni ikki yog'i orasidagi ikki yoqli burchakni toping.", "90°", ["45°", "60°", "120°"], ["Qo'shni yoqlar perpendikulyar", "90°"]],
+        ["Kubda AC (yoq diagonali) va B₁D₁ (qarama-qarshi yoq diagonali) orasidagi burchakni toping.", "90°", ["45°", "60°", "0°"], ["B₁D₁ ∥ BD, AC ⊥ BD", "90°"]],
+        ["Kubda AB₁ va BC₁ yoq diagonallari orasidagi burchakni toping.", "60°", ["45°", "90°", "30°"], ["BC₁ ∥ AD₁, AB₁D₁ — teng tomonli uchburchak", "60°"]]]);
+      if (Math.random() < .5) return Q(T[0], T[1], T[2], T[3]);
+      var a4 = R(2, 12); return Q("Qirrasi " + a4 + " bo'lgan kubda ayqash qirralar orasidagi masofani toping.", a4, W(a4, [rt(a4, 2), rt(a4, 3), a4 / 2 === Math.round(a4 / 2) ? a4 / 2 : 2 * a4, 2 * a4]), ["Ayqash qirralarning umumiy perpendikulyari — kub qirrasi", "d = " + a4]); }
+    if (k === 5) { var t5 = pick([[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [7, 24, 25], [9, 12, 15]]), hh = t5[0], p1 = t5[1], l1 = t5[2];
+      return Q("Nuqtadan tekislikkacha masofa " + hh + ", shu nuqtadan tushirilgan og'ma uzunligi " + l1 + ". Og'maning tekislikdagi proyeksiyasini toping.", p1, W(p1, [l1 - hh, l1 + hh, hh, p1 + 1, Math.round((l1 + hh) / 2)]), ["p² = l² − h² = " + l1 * l1 + " − " + hh * hh + " = " + p1 * p1, "p = " + p1]); }
+    var a7 = R(1, 9);
+    return Q("Qirrasi " + a7 + " bo'lgan kubda uchidan qarama-qarshi uchgacha bo'lgan masofani (fazoviy diagonalni) toping.", rt(a7, 3), rtW(a7, 3), ["d = a√3", "d = " + rt(a7, 3)]);
+  }
+  function t88x(L) {
+    var k = pick(L === 1 ? [0, 1, 2] : L === 2 ? [0, 1, 2, 3, 4] : [3, 4, 5, 6, 6, 7]);
+    if (k === 0) { var c = pick(CYL); if (c[0] % 2) return null;
+      return Q("Silindr asosining radiusi " + c[0] / 2 + ", balandligi " + c[1] + ". O'q kesimining diagonalini toping.", c[2], W(c[2], [c[0] / 2 + c[1], c[2] + 1, Math.round(Math.sqrt(c[0] * c[0] / 4 + c[1] * c[1])), c[0] + c[1], c[2] - 1]),
+        ["O'q kesimi — to'g'ri to'rtburchak: " + c[0] + " × " + c[1], "d² = " + c[0] + "² + " + c[1] + "² = " + c[2] * c[2], "d = " + c[2]]); }
+    if (k === 1) { var t = pick([[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 15, 17], [9, 12, 15], [12, 16, 20]]), ask = R(0, 1);
+      if (ask === 0) return Q("Konus asosining radiusi " + t[0] + ", yasovchisi " + t[2] + ". O'q kesimining perimetrini toping.", 2 * t[0] + 2 * t[2], W(2 * t[0] + 2 * t[2], [t[0] + 2 * t[2], 2 * t[0] + t[2], 2 * (t[0] + t[1]), 2 * t[0] + 2 * t[2] + 2]), ["O'q kesimi: asosi 2r = " + 2 * t[0] + ", yon tomonlari l = " + t[2], "P = " + 2 * t[0] + " + 2·" + t[2] + " = " + (2 * t[0] + 2 * t[2])]);
+      return Q("Konus asosining radiusi " + t[0] + ", yasovchisi " + t[2] + ". O'q kesimining yuzini toping.", t[0] * t[1], W(t[0] * t[1], [2 * t[0] * t[1], t[0] * t[2], t[0] * t[1] / 2 === Math.round(t[0] * t[1] / 2) ? t[0] * t[1] / 2 : t[0] * t[1] + 1, t[1] * t[2]]), ["H = √(l² − r²) = " + t[1], "S = ½·2r·H = " + t[0] + "·" + t[1] + " = " + t[0] * t[1]]); }
+    if (k === 2) { var t2 = pick([[5, 3, 4], [13, 5, 12], [10, 6, 8], [17, 8, 15], [25, 7, 24], [15, 9, 12], [13, 12, 5], [5, 4, 3], [10, 8, 6], [17, 15, 8]]);
+      return Q("Shar radiusi " + t2[0] + ", kesim doirasining radiusi " + t2[2] + ". Shar markazidan kesimgacha masofani toping.", t2[1], W(t2[1], [t2[0] - t2[2], t2[1] + 1, t2[0] + t2[2], Math.abs(t2[1] - 1) || t2[1] + 2]), ["d² = R² − r² = " + t2[0] * t2[0] + " − " + t2[2] * t2[2] + " = " + t2[1] * t2[1], "d = " + t2[1]]); }
+    if (k === 3) { var t3 = pick([[5, 3, 4], [13, 5, 12], [10, 6, 8], [17, 8, 15], [25, 7, 24], [15, 9, 12]]), sw = Math.random() < .5, d3 = sw ? t3[2] : t3[1], r3 = sw ? t3[1] : t3[2];
+      return Q("Shar radiusi " + t3[0] + ". Markazdan " + d3 + " masofada o'tgan tekislik kesimining yuzini toping.", piS(r3 * r3), piW(r3 * r3), ["r² = R² − d² = " + t3[0] * t3[0] + " − " + d3 * d3 + " = " + r3 * r3, "S = πr² = " + piS(r3 * r3)]); }
+    if (k === 4) { var ratio = pick([[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [2, 5]]), S0 = ratio[1] * ratio[1] * R(1, 6);
+      var S1 = S0 * ratio[0] * ratio[0] / (ratio[1] * ratio[1]);
+      return Q("Piramida asosining yuzi " + S0 + ". Uchidan hisoblaganda balandlikning " + ratio[0] + "/" + ratio[1] + " qismidan asosga parallel kesim o'tkazildi. Kesim yuzini toping.", S1, W(S1, [S0 * ratio[0] / ratio[1], S0 - S1, S1 * 2, S0 / ratio[1]]), ["O'xshashlik koeffitsiyenti k = " + ratio[0] + "/" + ratio[1], "Yuzlar nisbati k² = " + F(ratio[0] * ratio[0], ratio[1] * ratio[1]), "S = " + S0 + "·" + F(ratio[0] * ratio[0], ratio[1] * ratio[1]) + " = " + S1]); }
+    if (k === 5) { var m5 = R(1, 6), a5 = 2 * m5; // kubni uch uchidan o'tgan kesim: teng tomonli uchburchak, tomoni a√2
+      return Q("Qirrasi " + a5 + " bo'lgan kubni bir uchidan chiqqan uchta qirraning uchlaridan o'tgan tekislik kesdi. Kesim yuzini toping.", rt(2 * m5 * m5, 3), rtW(2 * m5 * m5, 3), ["Kesim — teng tomonli uchburchak, tomoni a√2 = " + rt(a5, 2), "S = (a√2)²·√3/4 = " + 2 * a5 * a5 / 4 + "√3/2 = " + rt(2 * m5 * m5, 3)]); }
+    if (k === 6) { var t6 = pick([[5, 3, 4], [13, 5, 12], [10, 6, 8], [17, 8, 15], [25, 7, 24], [5, 4, 3], [13, 12, 5]]), h6 = R(2, 9), ch = 2 * t6[2];
+      return Q("Silindr radiusi " + t6[0] + ", balandligi " + h6 + ". O'qdan " + t6[1] + " masofada o'qqa parallel kesim o'tkazildi. Kesim yuzini toping.", ch * h6, W(ch * h6, [t6[2] * h6, 2 * t6[0] * h6, ch * h6 + h6, (2 * t6[0] - t6[1]) * h6]), ["Kesim — to'g'ri to'rtburchak, asosdagi vatar: 2√(" + t6[0] + "² − " + t6[1] + "²) = " + ch, "S = " + ch + "·" + h6 + " = " + ch * h6]); }
+    var r7 = R(2, 12) * 2, p7 = pick([[1, 2], [1, 4], [3, 4], [1, 3], [2, 3]]), R7 = r7 * p7[1];
+    return Q("Konus asosining radiusi " + R7 + ". Uchidan hisoblaganda balandlikning " + p7[0] + "/" + p7[1] + " qismidan asosga parallel kesim o'tkazildi. Kesim radiusini toping.", R7 * p7[0] / p7[1], W(R7 * p7[0] / p7[1], [R7 - R7 * p7[0] / p7[1], R7 * p7[0] * p7[0] / (p7[1] * p7[1]) === Math.round(R7 * p7[0] * p7[0] / (p7[1] * p7[1])) ? R7 * p7[0] * p7[0] / (p7[1] * p7[1]) : R7 / 2, R7 / p7[1] + 1, R7 / 2 === R7 * p7[0] / p7[1] ? R7 / 4 : R7 / 2]),
+      ["k = " + p7[0] + "/" + p7[1], "r = " + R7 + "·" + p7[0] + "/" + p7[1] + " = " + R7 * p7[0] / p7[1]]);
+  }
+
+  /* ================= Boshlang'ich sinflar ================= */
+  function s1m2x(L) {
+    var k = pick([0, 1, 2, 3]), s = R(L === 1 ? 2 : 4, 10), a = R(1, s - 1), b = s - a;
+    if (k === 0) return Q(a + " + " + b + " = ?", s, W(s, [s + 1, s - 1, a, s + 2].filter(function (x) { return x >= 0; })), [a + " + " + b + " = " + s]);
+    if (k === 1) return Q(s + " − " + a + " = ?", b, W(b, [b + 1, b - 1, s, a === b ? b + 2 : a].filter(function (x) { return x >= 0; })), [s + " − " + a + " = " + b]);
+    if (k === 2) return Q(a + " + ? = " + s, b, W(b, [b + 1, b - 1, s, a === b ? b + 2 : a].filter(function (x) { return x >= 0; })), [s + " − " + a + " = " + b]);
+    return Q("? − " + a + " = " + b, s, W(s, [s + 1, s - 1, Math.abs(b - a) === s ? s + 2 : Math.abs(b - a), b].filter(function (x) { return x >= 0; })), [b + " + " + a + " = " + s]);
+  }
+  function s1m3x(L) {
+    var a = R(L === 1 ? 6 : 2, 9), b = R(11 - a, 9), s = a + b, k = pick(L === 3 ? [2, 3, 4, 4] : [0, 1, 2, 3]);
+    if (k === 0) return Q(a + " + " + b + " = ?", s, W(s, [s - 10, s + 1, s - 1, 10]), [a + " + " + (10 - a) + " = 10", "10 + " + (b - 10 + a) + " = " + s]);
+    if (k === 1) return Q(s + " − " + b + " = ?", a, W(a, [a + 1, a - 1, s - 10, b]), [s + " − " + (s - 10) + " = 10", "10 − " + (b - s + 10) + " = " + a]);
+    if (k === 2) return Q(a + " + ? = " + s, b, W(b, [b + 1, b - 1, s - 10, a === b ? b + 2 : a]), [s + " − " + a + " = " + b]);
+    if (k === 3) return Q("? − " + b + " = " + a, s, W(s, [s + 1, s - 1, a + b - 10 > 0 ? a + b - 10 : s + 2, 10 + a]), [a + " + " + b + " = " + s]);
+    var c = R(1, 9), e = R(0, 1);
+    if (e === 0 && s - c >= 0) return Q(a + " + " + b + " − " + c + " = ?", s - c, W(s - c, [s + c, s - c + 1, s - c - 1, s]), [a + " + " + b + " = " + s, s + " − " + c + " = " + (s - c)]);
+    var d = R(1, 20 - (s - b)); return Q(s + " − " + b + " + " + d + " = ?", a + d, W(a + d, [s - b - d, a + d + 1, a + d - 1, s + d]), [s + " − " + b + " = " + a, a + " + " + d + " = " + (a + d)]);
+  }
+  function s2m2x(L) {
+    var a = R(2, 5), b = R(1, 10), c = a * b, k = pick([0, 0, 1, 2]);
+    if (k === 0) return Q(a + " · " + b + " = ?", c, W(c, [c + a, c - a, a + b, c + 1].filter(function (x) { return x > 0; })), [a + " ni " + b + " marta qo'shamiz: " + c]);
+    if (k === 1) return Q(c + " : " + a + " = ?", b, W(b, [b + 1, b - 1 || b + 2, a === b ? b + 3 : a, c - a > 0 ? c - a : b + 4]), [a + " · " + b + " = " + c + ", demak " + c + " : " + a + " = " + b]);
+    return Q(a + " · ? = " + c, b, W(b, [b + 1, b - 1 || b + 2, a === b ? b + 3 : a, c - a > 0 ? c - a : b + 4]), [c + " : " + a + " = " + b]);
+  }
+  function s2m3x(L) {
+    var T = [["m", "sm", 100], ["dm", "sm", 10], ["m", "dm", 10], ["sm", "mm", 10], ["soat", "daqiqa", 60], ["daqiqa", "soniya", 60], ["kg", "g", 1000], ["sutka", "soat", 24], ["hafta", "kun", 7], ["yil", "oy", 12], ["km", "m", 1000], ["t", "kg", 1000]];
+    var t = pick(L === 1 ? T.slice(0, 7) : T), n = R(1, L === 1 ? 5 : 9), k = pick(L === 1 ? [0, 0, 1] : [0, 1, 2, 2]);
+    if (k === 0) return Q(n + " " + t[0] + " necha " + t[1] + "?", n * t[2], W(n * t[2], [n * t[2] / 10 === Math.round(n * t[2] / 10) && t[2] !== 10 ? n * t[2] / 10 : n * t[2] + t[2], n * t[2] * 10, n + t[2], n * t[2] + t[2], n * (t[2] === 60 ? 100 : 60)]), ["1 " + t[0] + " = " + t[2] + " " + t[1], n + " · " + t[2] + " = " + n * t[2]]);
+    if (k === 1) return Q(n * t[2] + " " + t[1] + " necha " + t[0] + "?", n, W(n, [n * 10, n + 1, n * t[2] / 2 === Math.round(n * t[2] / 2) && n * t[2] / 2 !== n ? n * t[2] / 2 : n + 2, n - 1 || n + 3]), ["1 " + t[0] + " = " + t[2] + " " + t[1], n * t[2] + " : " + t[2] + " = " + n]);
+    var m = R(1, t[2] - 1);
+    return Q(n + " " + t[0] + " " + m + " " + t[1] + " necha " + t[1] + "?", n * t[2] + m, W(n * t[2] + m, [n + m, n * t[2], n * 10 + m, n * t[2] + m + t[2], n * (t[2] === 60 ? 100 : 60) + m]), [n + " " + t[0] + " = " + n * t[2] + " " + t[1], n * t[2] + " + " + m + " = " + (n * t[2] + m)]);
+  }
+  function s4m3x(L) {
+    var k = pick(L === 1 ? [0, 1, 2] : L === 2 ? [0, 1, 2, 3, 4] : [3, 4, 5, 5]);
+    var who = pick([["Piyoda", 3, 6], ["Velosipedchi", 10, 20], ["Avtobus", 40, 70], ["Avtomobil", 50, 100], ["Poyezd", 60, 120], ["Mototsiklchi", 30, 80]]), v = R(who[1], who[2]), t = R(2, L === 1 ? 5 : 9);
+    if (k === 0) return Q(who[0] + " " + v + " km/soat tezlik bilan " + t + " soat yurdi. U necha km yo'l bosdi?", v * t, W(v * t, [v + t, v * t + v, v * (t - 1), v * t + 10]), ["S = v · t = " + v + " · " + t + " = " + v * t]);
+    if (k === 1) return Q(who[0] + " " + v * t + " km yo'lni " + t + " soatda bosib o'tdi. Uning tezligi necha km/soat?", v, W(v, [v * t - t, v + t, v + 1, v - 1]), ["v = S : t = " + v * t + " : " + t + " = " + v]);
+    if (k === 2) return Q(who[0] + " " + v + " km/soat tezlik bilan " + v * t + " km yo'l bosdi. U necha soat yurdi?", t, W(t, [t + 1, t - 1, t + 2, v]), ["t = S : v = " + v * t + " : " + v + " = " + t]);
+    var v1 = R(40, 80), v2 = R(40, 80), t3 = R(2, 5);
+    if (k === 3) return Q("Ikki shahardan bir vaqtda bir-biriga qarab ikki avtomobil yo'lga chiqdi. Tezliklari " + v1 + " va " + v2 + " km/soat. " + t3 + " soatdan keyin ular uchrashdi. Shaharlar orasidagi masofani toping (km).", (v1 + v2) * t3, W((v1 + v2) * t3, [Math.abs(v1 - v2) * t3, v1 * t3, (v1 + v2) * t3 + 10, (v1 + v2) * (t3 + 1)]), ["Yaqinlashish tezligi: " + v1 + " + " + v2 + " = " + (v1 + v2), "S = " + (v1 + v2) + " · " + t3 + " = " + (v1 + v2) * t3]);
+    if (k === 4) { if (v1 === v2) v2 = v1 + 10; var f = Math.max(v1, v2), sl = Math.min(v1, v2), d4 = (f - sl) * t3;
+      return Q("Orasidagi masofa " + d4 + " km bo'lgan ikki avtomobil bir yo'nalishda harakatlanmoqda: oldindagisi " + sl + " km/soat, orqadagisi " + f + " km/soat. Necha soatdan keyin orqadagisi yetib oladi?", t3, W(t3, [t3 + 1, t3 - 1 || t3 + 2, d4 / (f + sl) === Math.round(d4 / (f + sl)) && d4 / (f + sl) !== t3 ? d4 / (f + sl) : t3 + 3, f - sl]), ["Yaqinlashish tezligi: " + f + " − " + sl + " = " + (f - sl), "t = " + d4 + " : " + (f - sl) + " = " + t3]); }
+    var vb = R(12, 30), u = R(2, 5), t5 = R(2, 6), down = Math.random() < .5;
+    return Q("Qayiqning turg'un suvdagi tezligi " + vb + " km/soat, daryo oqimi " + u + " km/soat. Qayiq oqim " + (down ? "bo'ylab" : "ga qarshi") + " " + t5 + " soatda necha km suzadi?", (down ? vb + u : vb - u) * t5, W((down ? vb + u : vb - u) * t5, [(down ? vb - u : vb + u) * t5, vb * t5, (vb + u) * t5 + u, u * t5]), ["Tezlik: " + vb + (down ? " + " : " − ") + u + " = " + (down ? vb + u : vb - u) + " km/soat", "S = " + (down ? vb + u : vb - u) + " · " + t5 + " = " + (down ? vb + u : vb - u) * t5]);
+  }
+  function sq(a, b, minus) { return "x² " + (minus ? "− " : "+ ") + (2 * a * b === 1 ? "" : 2 * a * b) + "x + " + b * b; }
+  function s7m2x(L) {
+    var k = pick(L === 1 ? [0, 1, 2, 3] : L === 2 ? [0, 2, 3, 4, 5] : [4, 5, 6, 7]), b = R(1, L === 1 ? 9 : 12), c = R(1, 9);
+    if (k === 0) { var a0 = "x² − " + 2 * b + "x + " + b * b; return Q("Qavsni oching: (x − " + b + ")²", a0, W(a0, ["x² − " + b * b, "x² + " + 2 * b + "x + " + b * b, "x² − " + b + "x + " + b * b, "x² − " + 2 * b + "x − " + b * b]), ["(a − b)² = a² − 2ab + b²", "= " + a0]); }
+    if (k === 1) { var a1 = "x² − " + b * b; return Q("Ko'paytiring: (x − " + b + ")(x + " + b + ")", a1, W(a1, ["x² + " + b * b, "x² − " + 2 * b + "x − " + b * b, "x² − " + b, "x² − " + 2 * b]), ["(a − b)(a + b) = a² − b²", "= " + a1]); }
+    if (k === 2) { var s2 = b + c, p2 = b * c, a2 = "x² + " + s2 + "x + " + p2; return Q("Ko'paytiring: (x + " + b + ")(x + " + c + ")", a2.replace("+ 1x", "+ x"), W(a2.replace("+ 1x", "+ x"), ["x² + " + p2 + "x + " + s2, "x² + " + p2, "x² + " + s2 + "x + " + s2, "x² + " + (s2 + 1) + "x + " + p2]), ["(x + a)(x + b) = x² + (a + b)x + ab", "= " + a2]); }
+    if (k === 3) { var a3 = "(x + " + b + ")²"; return Q("Ko'paytuvchilarga ajrating: x² + " + 2 * b + "x + " + b * b, a3, W(a3, ["(x − " + b + ")²", "(x + " + 2 * b + ")²", "(x + " + b + ")(x − " + b + ")", "(x + " + b * b + ")²"]), ["a² + 2ab + b² = (a + b)²", "= " + a3]); }
+    if (k === 4) { var m4 = R(21, 99), n4 = m4 - R(1, 9); return Q("Qulay usulda hisoblang: " + m4 + "² − " + n4 + "²", m4 * m4 - n4 * n4, W(m4 * m4 - n4 * n4, [(m4 - n4) * (m4 - n4), m4 + n4, (m4 - n4) * (m4 + n4) + 10, (m4 - n4) * 100]), ["a² − b² = (a − b)(a + b)", "= " + (m4 - n4) + " · " + (m4 + n4) + " = " + (m4 * m4 - n4 * n4)]); }
+    if (k === 5) { var a5 = R(2, 5), b5 = R(1, 7), ans5 = a5 * a5 + "x² + " + 2 * a5 * b5 + "x + " + b5 * b5;
+      return Q("Qavsni oching: (" + a5 + "x + " + b5 + ")²", ans5, W(ans5, [a5 * a5 + "x² + " + b5 * b5, a5 + "x² + " + 2 * a5 * b5 + "x + " + b5 * b5, a5 * a5 + "x² + " + a5 * b5 + "x + " + b5 * b5, 2 * a5 + "x² + " + 2 * a5 * b5 + "x + " + 2 * b5]), ["(a + b)² = a² + 2ab + b²", "= " + ans5]); }
+    if (k === 6) { var b6 = R(1, 5), a6 = "x³ + " + 3 * b6 + "x² + " + 3 * b6 * b6 + "x + " + b6 * b6 * b6;
+      return Q("Qavsni oching: (x + " + b6 + ")³", a6.replace("+ 3x²", "+ 3x²"), W(a6, ["x³ + " + b6 * b6 * b6, "x³ + " + b6 + "x² + " + b6 * b6 + "x + " + b6 * b6 * b6, "x³ + " + 3 * b6 + "x² + " + 3 * b6 + "x + " + b6 * b6 * b6, "x³ + " + 3 * b6 * b6 + "x² + " + 3 * b6 + "x + " + b6 * b6 * b6]), ["(a + b)³ = a³ + 3a²b + 3ab² + b³", "= " + a6]); }
+    var b7 = R(1, 6), minus = Math.random() < .5, a7 = minus ? "(x − " + b7 + ")(x² + " + (b7 === 1 ? "" : b7) + "x + " + b7 * b7 + ")" : "(x + " + b7 + ")(x² − " + (b7 === 1 ? "" : b7) + "x + " + b7 * b7 + ")";
+    return Q("Ko'paytuvchilarga ajrating: x³ " + (minus ? "− " : "+ ") + b7 * b7 * b7, a7, W(a7, [minus ? "(x − " + b7 + ")(x² − " + (b7 === 1 ? "" : b7) + "x + " + b7 * b7 + ")" : "(x + " + b7 + ")(x² + " + (b7 === 1 ? "" : b7) + "x + " + b7 * b7 + ")", minus ? "(x − " + b7 + ")³" : "(x + " + b7 + ")³", minus ? "(x + " + b7 + ")(x² − " + (b7 === 1 ? "" : b7) + "x + " + b7 * b7 + ")" : "(x − " + b7 + ")(x² + " + (b7 === 1 ? "" : b7) + "x + " + b7 * b7 + ")", minus ? "(x − " + b7 + ")(x² + " + b7 * b7 + ")" : "(x + " + b7 + ")(x² + " + b7 * b7 + ")"]),
+      [minus ? "a³ − b³ = (a − b)(a² + ab + b²)" : "a³ + b³ = (a + b)(a² − ab + b²)", "= " + a7]);
+  }
+  function s8m4x(L) {
+    var k = pick(L === 1 ? [0, 1, 2, 3] : L === 2 ? [0, 2, 3, 4, 5] : [3, 4, 5, 6]), b = R(1, 9), a = R(2, 9);
+    if (k === 0) return Q("Kasrni qisqartiring: (x² + " + 2 * b + "x + " + b * b + ") / (x + " + b + ")", "x + " + b, W("x + " + b, ["x − " + b, "x + " + b * b, "(x + " + b + ")²", "x + " + 2 * b, "x² + " + b]), ["Surat: (x + " + b + ")², qisqargach x + " + b]);
+    if (k === 1) return Q("Kasrni qisqartiring: (" + a + "x + " + a * b + ") / " + a, "x + " + b, W("x + " + b, ["x + " + a * b, a + "x + " + b, "x + " + (a * b - a), "x + " + (b + 1)]), [a + "x + " + a * b + " = " + a + "(x + " + b + ")", "Javob: x + " + b]);
+    if (k === 2) { var c = R(1, 9); if (a === c) c = a + 1; return Q("Amalni bajaring: " + a + "/x + " + c + "/x", (a + c) + "/x", [(a + c) + "/(2x)", (a * c) + "/x", (a + c) + "/x²"], ["Maxrajlar bir xil — suratlar qo'shiladi", "= " + (a + c) + "/x"]); }
+    if (k === 3) { var x3 = R(-6, 9); while (x3 === b || x3 === -b) x3++; var num = x3 * x3 - b * b, den = x3 - b, val = F(num, den);
+      return Q("(x² − " + b * b + ")/(x − " + b + ") kasrning x = " + ms(x3) + " dagi qiymatini toping.", val, W(val, [F(x3 - b, 1), F(num, 1), F(x3 * x3 + b * b, den), F(-num, den), F(x3 + b + 1, 1)]), ["Qisqartiramiz: x + " + b, ms(x3) + " + " + b + " = " + val]); }
+    if (k === 4) { var a4 = "x ≠ ±" + b; return Q("Kasrning aniqlanish sohasini toping: " + a + "/(x² − " + b * b + ")", a4, W(a4, ["x ≠ " + b, "x ≠ " + b * b, "x ≠ 0", "x ≠ " + a, "x ≠ −" + b]), ["x² − " + b * b + " ≠ 0", "x ≠ ±" + b]); }
+    if (k === 5) { var c5 = R(2, 9), d5 = R(2, 9); return Q("Amalni bajaring: (" + a + "/x) · (x²/" + c5 + ")", F(a, c5) === String(a / c5) ? (a / c5 === 1 ? "x" : (a / c5) + "x") : a + "x/" + c5, W(F(a, c5) === String(a / c5) ? (a / c5 === 1 ? "x" : (a / c5) + "x") : a + "x/" + c5, [a + "x²/" + c5, a + "/(" + c5 + "x)", (a * c5) + "x", a + "x/" + (c5 + 1)]), ["x² : x = x", "= " + a + "x/" + c5]); }
+    var p6 = R(1, 9), q6 = R(1, 9); if (p6 === q6) q6++;
+    var ansN = "(x + " + p6 + ")/(x − " + q6 + ")";
+    return Q("Kasrni qisqartiring: (x² + " + (p6 + q6) + "x + " + p6 * q6 + ") / (x² − " + q6 * q6 + ")", ansN, W(ansN, ["(x + " + q6 + ")/(x − " + p6 + ")", "(x + " + p6 + ")/(x + " + q6 + ")", "(x − " + p6 + ")/(x − " + q6 + ")", "x + " + p6]),
+      ["Surat: (x + " + p6 + ")(x + " + q6 + ")", "Maxraj: (x − " + q6 + ")(x + " + q6 + ")", "= " + ansN]);
+  }
+  function s9m4x(L) {
+    var k = pick(L === 1 ? [0, 1, 2, 3] : L === 2 ? [0, 1, 2, 3, 4, 5, 6] : [4, 5, 6, 7, 8]);
+    if (k === 0) { var r = R(2, 15); return Q("Aylana uzunligi " + piS(2 * r) + ". Uning radiusini toping.", r, W(r, [2 * r, r + 1, r * r, r - 1]), ["C = 2πr → r = C/(2π)", "r = " + r]); }
+    if (k === 1) { var r1 = R(2, 15); return Q("Doira yuzi " + piS(r1 * r1) + ". Uning radiusini toping.", r1, W(r1, [r1 * r1 / 2 === Math.round(r1 * r1 / 2) ? r1 * r1 / 2 : r1 + 2, r1 + 1, r1 * r1, 2 * r1]), ["S = πr² → r² = " + r1 * r1, "r = " + r1]); }
+    if (k === 2) { var d2 = 2 * R(2, 12); return Q("Diametri " + d2 + " bo'lgan doiraning yuzini toping.", piS(d2 * d2 / 4), piW(d2 * d2 / 4), ["r = d/2 = " + d2 / 2, "S = πr² = " + piS(d2 * d2 / 4)]); }
+    if (k === 3) { var ins = R(10, 85); return Q("Aylanaga ichki chizilgan burchak " + ins + "°. Shu yoyga tiralgan markaziy burchakni toping.", deg(2 * ins), W(deg(2 * ins), [deg(ins), deg(180 - ins), deg(360 - 2 * ins), deg(2 * ins + 10)]), ["Markaziy burchak = 2 · ichki chizilgan burchak", "= 2·" + ins + "° = " + 2 * ins + "°"]); }
+    if (k === 4) { var r4 = pick([3, 6, 9, 12, 18, 2, 4, 8]), al = pick([30, 45, 60, 90, 120, 135, 150, 180, 240, 270]);
+      return Q("Radiusi " + r4 + " bo'lgan aylananing " + al + "° li yoyi uzunligini toping.", piS(r4 * al, 180), piW(r4 * al, 180), ["l = πrα/180°", "= π·" + r4 + "·" + al + "/180 = " + piS(r4 * al, 180)]); }
+    if (k === 5) { var r5 = pick([2, 3, 4, 6, 8, 12]), a5 = pick([30, 45, 60, 90, 120, 180]);
+      return Q("Radiusi " + r5 + " bo'lgan doiraning " + a5 + "° li sektori yuzini toping.", piS(r5 * r5 * a5, 360), piW(r5 * r5 * a5, 360), ["S = πr²α/360°", "= π·" + r5 * r5 + "·" + a5 + "/360 = " + piS(r5 * r5 * a5, 360)]); }
+    if (k === 6) { var t = pick([[3, 4, 5], [5, 12, 13], [8, 15, 17], [6, 8, 10], [7, 24, 25], [9, 12, 15]]), sw = Math.random() < .5, rr = sw ? t[1] : t[0], tl = sw ? t[0] : t[1];
+      return Q("Aylana radiusi " + rr + ". Markazdan " + t[2] + " masofadagi nuqtadan aylanaga urinma o'tkazildi. Urinma kesmasining uzunligini toping.", tl, W(tl, [t[2] - rr, t[2] + rr, rr, tl + 1]), ["Urinma radiusga perpendikulyar", "t² = " + t[2] + "² − " + rr + "² = " + tl * tl, "t = " + tl]); }
+    if (k === 7) { var t7 = pick([[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15]]), d7 = t7[0], hc = t7[1];
+      return Q("Aylana radiusi " + t7[2] + ". Markazdan " + d7 + " masofadagi vatar uzunligini toping.", 2 * hc, W(2 * hc, [hc, t7[2] - d7, 2 * (t7[2] - d7), 2 * hc + 2]), ["Vatar yarmi: √(" + t7[2] + "² − " + d7 + "²) = " + hc, "Vatar = 2·" + hc + " = " + 2 * hc]); }
+    var tr = pick([[3, 4, 5], [5, 12, 13], [6, 8, 10], [7, 8, 9], [4, 5, 6], [5, 6, 7]]), kk = R(2, 5), P = (tr[0] + tr[1] + tr[2]) * kk, ask = R(0, 2);
+    return Q("Uchburchak tomonlari " + tr.join(", ") + ". Unga o'xshash uchburchakning perimetri " + P + ". Uning eng " + (ask === 0 ? "kichik" : ask === 1 ? "katta" : "o'rtadagi") + " tomonini toping.", (ask === 0 ? tr[0] : ask === 1 ? tr[2] : tr[1]) * kk,
+      W((ask === 0 ? tr[0] : ask === 1 ? tr[2] : tr[1]) * kk, [tr[0] * kk, tr[1] * kk, tr[2] * kk, (ask === 0 ? tr[0] : ask === 1 ? tr[2] : tr[1]) * (kk + 1), P / 3 === Math.round(P / 3) ? P / 3 : P - 1]),
+      ["k = " + P + " : " + (tr[0] + tr[1] + tr[2]) + " = " + kk, "Tomon: " + (ask === 0 ? tr[0] : ask === 1 ? tr[2] : tr[1]) + "·" + kk + " = " + (ask === 0 ? tr[0] : ask === 1 ? tr[2] : tr[1]) * kk]);
+  }
+  function s9m5x(L) {
+    var k = pick(L === 1 ? [0, 1, 2, 3] : [1, 2, 3, 4]);
+    if (k === 0) { var n = R(5, 30), m = R(1, n - 1), it = pick([["sinfda", "o'quvchi", "qiz", "o'g'il bola"], ["savatda", "meva", "olma", "nok"], ["qutida", "qalam", "qizil qalam", "ko'k qalam"]]);
+      return Q(it[0].charAt(0).toUpperCase() + it[0].slice(1) + " " + n + " ta " + it[1] + " bor, ulardan " + m + " tasi " + it[2] + ", qolgani " + it[3] + ". Tavakkaliga tanlangani " + it[3] + " bo'lish ehtimolini toping.", F(n - m, n), W(F(n - m, n), [F(m, n), F(n - m, m), F(1, n), F(n - m + 1, n)]), ["Qulay: " + n + " − " + m + " = " + (n - m), "P = " + F(n - m, n)]); }
+    if (k === 1) { var w = pick(["MATEMATIKA", "KITOBXON", "SAMARQAND", "OLIMPIADA", "ALGEBRA", "GEOMETRIYA", "TOSHKENT", "UNLI"]), letters = w.split(""), ch = pick(letters), c = letters.filter(function (x) { return x === ch; }).length;
+      return Q(w + " so'zi harflari kartochkalarga yozilgan. Tavakkaliga olingan kartochkada \"" + ch + "\" harfi bo'lish ehtimolini toping.", F(c, letters.length), W(F(c, letters.length), [F(1, letters.length), F(c + 1, letters.length), F(c, letters.length - c), F(letters.length - c, letters.length)]), ["Jami harflar: " + letters.length, "\"" + ch + "\" — " + c + " ta", "P = " + F(c, letters.length)]); }
+    if (k === 2) { var days = R(0, 2), lab = ["dam olish kuni (shanba yoki yakshanba)", "seshanba", "ish kuni (dushanba–juma)"][days], c2 = [2, 1, 5][days];
+      return Q("Haftaning tasodifiy bir kuni tanlandi. U " + lab + " bo'lish ehtimolini toping.", F(c2, 7), W(F(c2, 7), [F(7 - c2, 7), F(1, 7), F(c2, 5), F(c2 + 1, 7)]), ["Hafta — 7 kun", "Qulay: " + c2, "P = " + F(c2, 7)]); }
+    if (k === 3) { var N = pick([10, 20, 30, 50, 100]), d3 = pick([2, 3, 4, 5, 10]), c3 = Math.floor(N / d3);
+      return Q("1 dan " + N + " gacha sonlardan biri tanlandi. U " + d3 + " ga bo'linish ehtimolini toping.", F(c3, N), W(F(c3, N), [F(1, d3 + 1), F(c3 + 1, N), F(N - c3, N), F(d3, N)]), [d3 + " ga bo'linuvchilar: " + c3 + " ta", "P = " + F(c3, N)]); }
+    var a = R(1, 9), b = R(1, 9), tot = 10, ev = a + b;
+    if (ev > 10) return null;
+    return Q("A va B birgalikda bo'lmagan hodisalar: P(A) = " + F(a, tot) + ", P(B) = " + F(b, tot) + ". A yoki B ro'y berish ehtimolini toping.", F(ev, tot), W(F(ev, tot), [F(a * b, 100), F(Math.abs(a - b), tot) === "0" ? F(ev + 1, tot) : F(Math.abs(a - b), tot), F(tot - ev, tot), F(ev, 2 * tot)]), ["P(A ∪ B) = P(A) + P(B)", "= " + F(ev, tot)]);
+  }
+
+  aug("t81", t81x, sh(.72, .72, .72));
+  aug("t87", t87x, sh(.75, .75, .75));
+  aug("t88", t88x, sh(.5, .5, .85));
+  aug("s1m2", s1m2x, sh(.82, .4, .4));
+  aug("s1m3", s1m3x, sh(.4, .65, .88));
+  aug("s2m2", s2m2x, sh(.85, .5, .2));
+  aug("s2m3", s2m3x, sh(.88, .88, .88));
+  aug("s4m3", s4m3x, sh(.8, .6, .5));
+  aug("s7m2", s7m2x, sh(.8, .6, .4));
+  aug("s8m4", s8m4x, sh(.8, .6, .4));
+  aug("s9m4", s9m4x, sh(.8, .8, .8));
+  aug("s9m5", s9m5x, sh(.75, .3, .2));
 
   /* @@REST@@ */
 })();
