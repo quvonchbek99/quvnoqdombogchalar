@@ -839,5 +839,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Birinchisi, chunki chiroyli ko'rinardi", "Ikkinchisi, chunki ipi pishiq va qalin edi", "Ikkalasi ham, chunki bo'ron qisqa bo'lgan edi"],
     javob: 1,
     izoh: "Ko'rinish emas, mustahkamlik muhim. Ingichka ip shamol va yomg'irga chidolmadi, qalin va pishiq ip esa uzilmay qoldi."
+  },
+  {
+    id: "ez-106", mavzu: "sezgirlik", sarlavha: "Tulki va chumchuq",
+    matn: "Qish sovuq kunlarida tulki ochlikdan ozib ketgan edi. U daraxt tagiga cho'zilib, o'zini o'lik qilib yotib oldi va yo'lda uchib o'tayotgan chumchuqqa xushmuomalalik bilan dedi: Qarang, men allaqachon o'lib qolganman, endi menga hech kim xavf solmaydi. Chumchuq esa shoxda o'tirib, tulkining ko'zlari ochiqligini va dumi sekin qimirlayotganini ko'rdi. U yaqinlashmadi va qanotini qoqib uzoqqa uchib ketdi.",
+    savol: "Chumchuq nima uchun tulkining aldoviga ishonmadi?",
+    variantlar: ["Chunki tulkining ko'zlari ochiq edi va dumi qimirlardi, demak u hali tirik edi", "Chunki tulki chumchuqdan juda katta edi", "Chunki chumchuq qishda uchishni yaxshi ko'rmasdi"],
+    javob: 0,
+    izoh: "O'lik jonzot ko'zini ochib, dumini qimirlatmaydi. Chumchuq aniq belgilarga qarab xavfni sezdi va o'zini saqlab qoldi."
   }
 ];
