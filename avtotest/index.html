@@ -139,6 +139,39 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
 .tab{padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg-soft);font-weight:700;font-size:13px}
 .tab.on{background:var(--accent-2);color:#08111f;border-color:var(--accent-2)}
+.prog{height:8px;border-radius:9px;background:#22304f;overflow:hidden;margin:0 0 12px}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s}
+.mt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.mt th,.mt td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left}
+.mt th{color:var(--text-dim);font-weight:700;font-size:12.5px}
+.mt td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mbar{display:inline-block;height:8px;border-radius:9px;background:linear-gradient(90deg,var(--gold),#ff9f5c);vertical-align:middle}
+.acc-hi{color:var(--good)} .acc-md{color:var(--gold)} .acc-lo{color:var(--bad)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px}
+.panel h3{margin:0 0 6px;font-size:16px}
+.panel p{margin:0 0 8px;color:var(--text-dim);font-size:14px}
+.boxes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:10px 0}
+.box{text-align:center;padding:10px 4px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--border)}
+.box b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.box small{color:var(--text-dim);font-size:11.5px}
+.rule{margin-top:14px;padding:12px 14px;border-radius:12px;background:#2a2412;border:1px solid #5a4a1f}
+.rule .r{font-weight:800;font-size:15.5px}
+.rule .e{margin-top:6px;color:var(--gold);font-size:14.5px}
+.rule .lbl{font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:2px}
+.golden{display:flex;flex-direction:column;gap:8px}
+.golden .g{padding:10px 12px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--border)}
+.golden .g b{display:block;font-size:14.5px}
+.golden .g span{color:var(--gold);font-size:13.5px}
+.rec{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--border);margin-top:8px}
+.rec .t{flex:1;min-width:180px}
+.rec small{display:block;color:var(--text-dim)}
+@media print{
+  body{background:#fff!important;color:#000!important}
+  .back,.qhead .btn,#ka-til-box,.noprint,.tabs{display:none!important}
+  .panel,.golden .g,.rule{background:#fff!important;border:1px solid #000!important;color:#000!important;break-inside:avoid}
+  .golden .g span,.rule .e,.panel p{color:#000!important}
+  section.hidden{display:none!important}
+}
 @media (max-width:760px){
   .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .mode.main{grid-column:span 2}
@@ -168,6 +201,9 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
   <h2>Rejimni tanlang</h2>
   <div class="modes">
     <button class="mode main" data-go="imtihon"><span class="ic">⏱️</span><span class="t"><b>Imtihon rejimi</b><br><small>Haqiqiy imtihondek: barcha mavzulardan 20 ta tasodifiy savol, 25 daqiqa. 3-xatoda imtihon tugaydi.</small></span><span class="btn warn">Boshlash</span></button>
+    <button class="mode main" data-go="toliq" style="background:linear-gradient(135deg,#12302a,#1c2a3f);border-color:#2f7d5c"><span class="ic">📋</span><span class="t"><b>To'liq test — barcha savollar</b><br><small id="mTol">Hamma savollarni bir yo'la yeching: natija har bir mavzu bo'yicha, xatolar avtomatik «Yodlash»ga tushadi.</small></span><span class="btn solid">Boshlash</span></button>
+    <button class="mode" data-go="yodlash"><span class="ic">🧠</span><b>Yodlash</b><small id="mYod">Xatolaringiz qoida va eslatma bilan, takrorlash jadvali asosida</small><span class="cnt hidden" id="yCnt"></span></button>
+    <button class="mode" data-go="tahlil"><span class="ic">📊</span><b>Tahlil</b><small>Imtihonda qaysi mavzudan ko'p tushadi va siz qayerda ball yo'qotyapsiz</small></button>
     <button class="mode" data-go="biletlar"><span class="ic">🎫</span><b>Biletlar</b><small id="mBil">Har biletda 20 ta savol</small></button>
     <button class="mode" data-go="mavzular"><span class="ic">📚</span><b>Mavzular bo'yicha</b><small>Belgilar, chorrahalar, manevr, tibbiy yordam…</small></button>
     <button class="mode" data-go="xatolar"><span class="ic">🔁</span><b>Xatolarim</b><small>Xato qilgan savollaringizni qayta yeching</small><span class="cnt hidden" id="xCnt"></span></button>
@@ -194,6 +230,7 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     <span class="pill time hidden" id="qTime">25:00</span>
   </div>
   <div class="dots" id="qDots"></div>
+  <div class="prog hidden" id="qProg"><i></i></div>
   <div class="qcard">
     <div class="qimg hidden" id="qImg"></div>
     <div class="qbody">
@@ -201,6 +238,7 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
       <p class="qtext" id="qText"></p>
       <div class="opts" id="qOpts"></div>
       <div class="izoh hidden" id="qIzoh"></div>
+      <div class="rule hidden" id="qRule"></div>
       <div class="qnav">
         <button class="btn" id="qPrev">← Oldingi</button>
         <button class="btn hidden" id="qFinish">Yakunlash</button>
@@ -216,9 +254,52 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
   <div class="res" id="resBox"></div>
   <div class="qnav" style="justify-content:center">
     <button class="btn solid" id="rAgain">Qayta ishlash</button>
+    <button class="btn warn hidden" id="rYod">🧠 Xatolarni yodlash</button>
     <button class="btn" id="rHome">Bosh menyu</button>
   </div>
+  <div id="rTopics"></div>
   <div class="review" id="review"></div>
+</section>
+
+<!-- YODLASH -->
+<section id="memo" class="hidden">
+  <div class="qhead"><button class="btn" id="mExit">← Orqaga</button><div class="title">🧠 Yodlash</div><button class="btn noprint" id="mPrint">🖨 Chop etish</button></div>
+  <div class="panel">
+    <h3>Takrorlash jadvali</h3>
+    <p>Xato qilgan har bir savolingiz 1-qutiga tushadi. To'g'ri javob bersangiz keyingi qutiga o'tadi va keyinroq qaytadi: 1-quti — darhol, 2 — 1 kundan, 3 — 3 kundan, 4 — 7 kundan, 5 — 14 kundan keyin. 5-qutida ham to'g'ri topsangiz — yodlandi. Xato qilsangiz, 1-qutiga qaytadi.</p>
+    <div class="boxes" id="mBoxes"></div>
+    <div class="qnav noprint" style="justify-content:flex-start">
+      <button class="btn solid" id="mStart">Bugungi kartalarni takrorlash</button>
+      <button class="btn" id="mAll">Hammasini hozir takrorlash</button>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>Mening qoidalar daftarim</h3>
+    <p>Xato qilgan savollaringiz ortidagi qoidalar va ularni eslab qolish usullari.</p>
+    <div class="golden" id="mBook"></div>
+  </div>
+  <div class="panel">
+    <h3>Oltin qoidalar</h3>
+    <p>Har bir mavzuning imtihonda eng ko'p kerak bo'ladigan qoidalari.</p>
+    <div class="tabs noprint" id="gTabs"></div>
+    <div class="golden" id="gList"></div>
+  </div>
+</section>
+
+<!-- TAHLIL -->
+<section id="tahlil" class="hidden">
+  <div class="qhead"><button class="btn" id="tExit">← Orqaga</button><div class="title">📊 Tahlil</div></div>
+  <div class="panel">
+    <h3>Sizga eng ko'p ball yo'qotayotgan mavzular</h3>
+    <p id="tRecNote"></p>
+    <div id="tRec"></div>
+  </div>
+  <div class="panel">
+    <h3>Imtihonda qaysi mavzudan ko'p tushadi</h3>
+    <p>Rasmiy savollar bazasi mavzular bo'yicha shunday taqsimlangan (1151 ta savol, 42 mavzu). «20 tadan» ustuni — 20 savollik imtihonda o'rtacha nechta savol shu mavzudan tushishi. Imtihon rejimi ham savollarni shu ulushlarda tanlaydi.</p>
+    <table class="mt" id="tTable"></table>
+    <p style="margin-top:10px;font-size:12.5px">Manba: rasmiy bazaning mavzular bo'yicha savollar soni — <a href="https://osonprava.uz/uz/savollar" target="_blank" rel="noopener noreferrer">osonprava.uz/uz/savollar</a>. Ularning 42 ta mavzusi bu yerdagi 13 ta mavzuga taxminan birlashtirilgan («Harakat xavfsizligi asoslari» — «Umumiy qoidalar»ga).</p>
+  </div>
 </section>
 
 <!-- YO'L BELGILARI -->
@@ -243,11 +324,22 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
   var LS = "ka.avtotest.v1";
   function load() { try { var d = JSON.parse(localStorage.getItem(LS) || "{}"); return d && typeof d === "object" ? d : {}; } catch (e) { return {}; } }
   function save() { try { localStorage.setItem(LS, JSON.stringify(D)); } catch (e) {} }
-  var D = load(); D.bil = D.bil || {}; D.xato = D.xato || []; D.seen = D.seen || {}; D.ex = D.ex || [];
+  var D = load(); D.bil = D.bil || {}; D.xato = D.xato || []; D.seen = D.seen || {}; D.ex = D.ex || []; D.box = D.box || {}; D.yod = D.yod || 0;
+  // Rasmiy bazadagi savollar soni (osonprava.uz/uz/savollar, 42 mavzu → 13 mavzu)
+  var ULUSH = { belgilar: 241, umumiy: 128, chorraha: 123, manevr: 92, maxsus: 88, tashish: 82, ishora: 79, chiziq: 78, toxtash: 69, tezlik: 66, texnik: 53, tibbiy: 34, yoritish: 18 };
+  var ULJ = 0; for (var uk in ULUSH) ULJ += ULUSH[uk];
+  var DAY = 86400000, INT = [0, 0, DAY, 3 * DAY, 7 * DAY, 14 * DAY];
+  function boxAdd(id) { D.box[id] = { b: 1, due: Date.now() }; }
+  function dueIds(all) { var now = Date.now(); return Object.keys(D.box).map(Number).filter(function (id) { return Q[id] && (all || D.box[id].due <= now); }).sort(function (a, b) { return D.box[a].b - D.box[b].b || D.box[a].due - D.box[b].due; }); }
+  function topicStats() {
+    var st = {}; AT.mavzular.forEach(function (m) { st[m.k] = { n: 0, ok: 0 }; });
+    for (var id in D.seen) { var q = Q[id]; if (!q || !st[q.m]) continue; st[q.m].n++; if (D.seen[id] === 1) st[q.m].ok++; }
+    return st;
+  }
   var $ = function (id) { return document.getElementById(id); };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
-  function show(id) { ["home", "quiz", "result", "signs"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); }); window.scrollTo(0, 0); }
+  function show(id) { ["home", "quiz", "result", "signs", "memo", "tahlil"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); }); window.scrollTo(0, 0); }
 
   // ---------- Bosh sahifa ----------
   function home() {
@@ -263,6 +355,10 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     $("mMar").textContent = "Barcha " + AT.savollar.length + " ta savol ketma-ket";
     var xc = D.xato.filter(function (id) { return Q[id]; }).length;
     $("xCnt").textContent = xc; $("xCnt").classList.toggle("hidden", !xc);
+    var dn = dueIds(false).length, tb = Object.keys(D.box).filter(function (id) { return Q[id]; }).length;
+    $("yCnt").textContent = dn; $("yCnt").classList.toggle("hidden", !dn);
+    $("mYod").textContent = tb ? ("Yodlanayotgan: " + tb + " ta · bugun takrorlash: " + dn + " ta · yodlangan: " + D.yod) : "Xatolaringiz qoida va eslatma bilan, takrorlash jadvali asosida";
+    $("mTol").textContent = "Barcha " + AT.savollar.length + " ta savolni bir yo'la yeching: natija har bir mavzu bo'yicha, xatolar avtomatik «Yodlash»ga tushadi." + (D.tol ? " Oxirgi natija: " + D.tol.ok + "/" + D.tol.n + "." : "");
     $("biletGrid").innerHTML = AT.biletlar.map(function (_, i) {
       var r = D.bil[i + 1], cls = r ? (r.best >= 18 ? "ok" : "no") : "";
       return '<button class="bil ' + cls + '" data-bil="' + (i + 1) + '">' + (i + 1) + '<small>' + (r ? r.best + "/20" : "bilet") + '</small></button>';
@@ -281,12 +377,12 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     // cfg: {title, ids, mode: 'imtihon'|'bilet'|'mashq', bil}
     var ids = cfg.ids.filter(function (id) { return Q[id]; });
     if (!ids.length) { alert("Bu bo'limda hozircha savol yo'q."); return; }
-    S = { cfg: cfg, ids: ids, i: 0, ans: {}, order: {}, err: 0, end: 0, t0: Date.now() };
+    S = { cfg: cfg, ids: ids, i: 0, ans: {}, order: {}, err: 0, end: 0, t0: Date.now(), retry: {} };
     ids.forEach(function (id) { var n = Q[id].v.length, o = []; for (var k = 0; k < n; k++) o.push(k); S.order[id] = cfg.mode === "imtihon" ? shuffle(o) : o; });
     $("qTitle").textContent = cfg.title;
     $("qErr").classList.toggle("hidden", cfg.mode !== "imtihon");
     $("qTime").classList.toggle("hidden", cfg.mode !== "imtihon");
-    $("qFinish").classList.toggle("hidden", cfg.mode === "mashq" && ids.length > 40);
+    $("qFinish").classList.toggle("hidden", cfg.mode === "mashq" && ids.length > 40 || cfg.mode === "yodlash");
     clearInterval(timer);
     if (cfg.mode === "imtihon") { S.end = Date.now() + 25 * 60000; tick(); timer = setInterval(tick, 500); }
     show("quiz"); render();
@@ -305,15 +401,18 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     return h;
   }
   function render() {
-    var id = S.ids[S.i], q = Q[id], a = S.ans[id], prac = S.cfg.mode !== "imtihon";
+    var id = S.ids[S.i], q = Q[id], a = S.ans[id], prac = S.cfg.mode !== "imtihon" && S.cfg.mode !== "toliq";
     var many = S.ids.length <= 40;
+    var answered = S.ids.filter(function (x) { return S.ans[x] != null; }).length;
+    $("qProg").classList.toggle("hidden", many);
+    if (!many) $("qProg").firstChild.style.width = (answered * 100 / S.ids.length) + "%";
     $("qDots").classList.toggle("hidden", !many);
     if (many) $("qDots").innerHTML = S.ids.map(function (x, k) {
       var c = S.ans[x] == null ? "" : (prac || S.done ? (S.ans[x] === Q[x].j ? "ok" : "no") : "done");
       return '<button class="dot ' + c + (k === S.i ? " cur" : "") + '" data-dot="' + k + '">' + (k + 1) + '</button>';
     }).join("");
     var im = img(q); $("qImg").innerHTML = im; $("qImg").classList.toggle("hidden", !im); $("qImg").classList.toggle("scene", !!(q.r && q.r.sahna));
-    $("qNum").textContent = (S.i + 1) + " / " + S.ids.length + " · " + (MAV[q.m] ? MAV[q.m].n : "");
+    $("qNum").textContent = (S.i + 1) + " / " + S.ids.length + (many ? "" : " · javob berildi: " + answered) + " · " + (MAV[q.m] ? MAV[q.m].n : "") + (S.cfg.mode === "yodlash" && D.box[id] ? " · " + D.box[id].b + "-quti" : "");
     $("qText").textContent = q.s;
     var shown = a != null && (prac || S.done);
     $("qOpts").innerHTML = S.order[id].map(function (k, n) {
@@ -323,6 +422,9 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
       return '<button class="opt ' + c + '" data-k="' + k + '"' + (a != null ? " disabled" : "") + '><span class="k">F' + (n + 1) + '</span><span>' + esc(q.v[k]) + '</span></button>';
     }).join("");
     $("qIzoh").classList.toggle("hidden", !shown);
+    var showRule = shown && (q.q || q.e) && (S.cfg.mode === "yodlash" || a !== q.j);
+    $("qRule").classList.toggle("hidden", !showRule);
+    if (showRule) $("qRule").innerHTML = (q.q ? '<span class="lbl">Qoida</span><div class="r">' + esc(q.q) + '</div>' : "") + (q.e ? '<div class="e">💡 ' + esc(q.e) + '</div>' : "");
     if (shown) $("qIzoh").innerHTML = (a === q.j ? "<b>To'g'ri!</b> " : "<b style=\"color:var(--bad)\">Noto'g'ri.</b> To'g'ri javob: " + esc(q.v[q.j]) + ". ") + esc(q.i || "");
     $("qPrev").disabled = S.i === 0;
     $("qNext").textContent = S.i === S.ids.length - 1 ? (S.done ? "Natija" : "Yakunlash") : "Keyingi →";
@@ -337,8 +439,19 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     var xi = D.xato.indexOf(id);
     if (!ok && xi < 0) D.xato.push(id);
     if (ok && xi >= 0 && S.cfg.xatolar) D.xato.splice(xi, 1);
+    if (S.cfg.mode === "yodlash") {
+      var bx = D.box[id] || { b: 1 };
+      if (ok) { bx.b++; if (bx.b > 5) { delete D.box[id]; D.yod++; var xj = D.xato.indexOf(id); if (xj >= 0) D.xato.splice(xj, 1); } else { bx.due = Date.now() + INT[bx.b]; D.box[id] = bx; } }
+      else { D.box[id] = { b: 1, due: Date.now() }; if (!S.retry[id]) { S.retry[id] = 1; S.ids.push(id); S.order[id] = S.order[id]; } }
+    } else if (!ok) boxAdd(id);
     save();
     if (!ok) S.err++;
+    if (S.cfg.mode === "toliq") {
+      render();
+      if (S.ids.every(function (x) { return S.ans[x] != null; })) { setTimeout(function () { finish(); }, 300); return; }
+      setTimeout(function () { next(true); }, 220);
+      return;
+    }
     if (S.cfg.mode === "imtihon") {
       if (S.err > 2) { render(); setTimeout(function () { finish("xato"); }, 350); return; }
       var allDone = S.ids.every(function (x) { return S.ans[x] != null; });
@@ -352,7 +465,7 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
   function next(skipAnswered) {
     if (S.i < S.ids.length - 1) {
       var j = S.i + 1;
-      if (skipAnswered && S.cfg.mode === "imtihon") {
+      if (skipAnswered && (S.cfg.mode === "imtihon" || S.cfg.mode === "toliq")) {
         for (var t = 0; t < S.ids.length; t++) { var c = (S.i + 1 + t) % S.ids.length; if (S.ans[S.ids[c]] == null) { j = c; break; } }
       }
       S.i = j; render(); window.scrollTo(0, 0);
@@ -365,6 +478,7 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     var ok = S.ids.filter(function (x) { return S.ans[x] === Q[x].j; }).length;
     S.ok = ok;
     if (S.cfg.mode === "imtihon") { S.pass = S.err <= 2 && S.ids.every(function (x) { return S.ans[x] != null; }); D.ex.push({ d: Date.now(), ok: ok, p: S.pass }); if (D.ex.length > 100) D.ex.shift(); }
+    if (S.cfg.mode === "toliq") D.tol = { d: Date.now(), ok: ok, n: S.ids.length };
     if (S.cfg.bil) { var r = D.bil[S.cfg.bil] || { best: 0 }; r.best = Math.max(r.best, ok); r.last = ok; D.bil[S.cfg.bil] = r; }
     save(); showResult();
   }
@@ -377,9 +491,14 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     $("resBox").className = "res " + (pass ? "pass" : "fail");
     $("resBox").innerHTML = '<div class="big">' + ok + ' / ' + n + '</div><div class="verdict">' + verdict + '</div><div style="color:var(--text-dim)">' + esc(S.cfg.title) + (ex ? " · " + Math.floor(used / 60) + " daq " + (used % 60) + " son" : "") + '</div>';
     var wrong = S.ids.filter(function (x) { return S.ans[x] !== Q[x].j; });
+    $("rYod").classList.toggle("hidden", !wrong.length || S.cfg.mode === "yodlash");
+    var pt = {}; S.ids.forEach(function (x) { var m = Q[x].m; pt[m] = pt[m] || { n: 0, ok: 0 }; pt[m].n++; if (S.ans[x] === Q[x].j) pt[m].ok++; });
+    var keys = Object.keys(pt);
+    $("rTopics").innerHTML = (n >= 20 && keys.length > 1) ? '<div class="panel" style="margin-top:16px"><h3>Mavzular bo\'yicha natija</h3><table class="mt"><tr><th>Mavzu</th><th class="n">To\'g\'ri</th><th class="n">%</th></tr>' +
+      keys.sort(function (a, b) { return pt[a].ok / pt[a].n - pt[b].ok / pt[b].n; }).map(function (m) { var r = Math.round(pt[m].ok * 100 / pt[m].n), c = r >= 90 ? "acc-hi" : r >= 70 ? "acc-md" : "acc-lo"; return '<tr><td>' + (MAV[m] ? MAV[m].ic + " " + esc(MAV[m].n) : m) + '</td><td class="n">' + pt[m].ok + ' / ' + pt[m].n + '</td><td class="n ' + c + '">' + r + '%</td></tr>'; }).join("") + '</table></div>' : "";
     $("review").innerHTML = (wrong.length ? "<h2>Xatolar va javobi berilmagan savollar (" + wrong.length + ")</h2>" : "") + wrong.map(function (x) {
       var q = Q[x], a = S.ans[x];
-      return '<div class="rv"><div class="q">' + esc(q.s) + '</div>' + (a != null ? '<div class="w">✗ Sizning javobingiz: ' + esc(q.v[a]) + '</div>' : '<div class="w">✗ Javob berilmagan</div>') + '<div class="a">✓ To\'g\'ri javob: ' + esc(q.v[q.j]) + '</div><div style="color:var(--text-dim);margin-top:4px">' + esc(q.i || "") + '</div></div>';
+      return '<div class="rv"><div class="q">' + esc(q.s) + '</div>' + (a != null ? '<div class="w">✗ Sizning javobingiz: ' + esc(q.v[a]) + '</div>' : '<div class="w">✗ Javob berilmagan</div>') + '<div class="a">✓ To\'g\'ri javob: ' + esc(q.v[q.j]) + '</div><div style="color:var(--text-dim);margin-top:4px">' + esc(q.i || "") + '</div>' + (q.q ? '<div class="rule"><span class="lbl">Qoida</span><div class="r">' + esc(q.q) + '</div>' + (q.e ? '<div class="e">💡 ' + esc(q.e) + '</div>' : "") + '</div>' : "") + '</div>';
     }).join("");
     show("result");
   }
@@ -388,8 +507,13 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
   function examIds() {
     // har mavzudan ulushiga qarab, jami 20 ta
     var by = {}; AT.savollar.forEach(function (q) { (by[q.m] = by[q.m] || []).push(q.id); });
-    var keys = Object.keys(by), total = AT.savollar.length, out = [];
-    keys.forEach(function (k) { var n = Math.max(1, Math.round(by[k].length * 20 / total)); out = out.concat(shuffle(by[k]).slice(0, n)); });
+    // har mavzudan rasmiy bazadagi ulushiga qarab (eng katta qoldiq usuli)
+    var keys = Object.keys(by).filter(function (k) { return ULUSH[k]; }), out = [], tot = 0;
+    keys.forEach(function (k) { tot += ULUSH[k]; });
+    var want = keys.map(function (k) { var x = ULUSH[k] * 20 / tot; return { k: k, n: Math.floor(x), r: x - Math.floor(x) }; });
+    var left = 20 - want.reduce(function (s, w) { return s + w.n; }, 0);
+    want.slice().sort(function (a, b) { return b.r - a.r; }).slice(0, left).forEach(function (w) { w.n++; });
+    want.forEach(function (w) { out = out.concat(shuffle(by[w.k]).slice(0, w.n)); });
     out = shuffle(out);
     if (out.length > 20) out = out.slice(0, 20);
     var rest = shuffle(AT.savollar.map(function (q) { return q.id; }).filter(function (id) { return out.indexOf(id) < 0; }));
@@ -406,7 +530,51 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
     else if (m === "marafon") start({ title: "Marafon", ids: AT.savollar.map(function (q) { return q.id; }), mode: "mashq" });
     else if (m === "tasodifiy") start({ title: "Tez mashq · 10 savol", ids: shuffle(AT.savollar.map(function (q) { return q.id; })).slice(0, 10), mode: "mashq" });
     else if (m === "belgilar") signs();
+    else if (m === "toliq") start({ title: "To'liq test · " + AT.savollar.length + " savol", ids: shuffle(AT.savollar.map(function (q) { return q.id; })), mode: "toliq" });
+    else if (m === "yodlash") memo();
+    else if (m === "tahlil") tahlil();
   }
+  // ---------- Yodlash ----------
+  var gTab = null;
+  function memo() {
+    var ids = Object.keys(D.box).map(Number).filter(function (id) { return Q[id]; }), cnt = [0, 0, 0, 0, 0, 0];
+    ids.forEach(function (id) { cnt[D.box[id].b]++; });
+    var due = dueIds(false).length;
+    $("mBoxes").innerHTML = [1, 2, 3, 4, 5].map(function (b) { return '<div class="box"><b>' + cnt[b] + '</b><small>' + b + '-quti</small></div>'; }).join("");
+    $("mStart").textContent = due ? "Bugungi kartalarni takrorlash (" + due + ")" : "Bugun takrorlanadigan karta yo'q";
+    $("mStart").disabled = !due; $("mAll").disabled = !ids.length;
+    var by = {}; ids.forEach(function (id) { (by[Q[id].m] = by[Q[id].m] || []).push(Q[id]); });
+    $("mBook").innerHTML = ids.length ? AT.mavzular.filter(function (m) { return by[m.k]; }).map(function (m) {
+      var seen = {}, rows = by[m.k].filter(function (q) { var k = q.q || q.s; if (seen[k]) return false; seen[k] = 1; return true; });
+      return '<div style="margin-top:6px;font-weight:800">' + m.ic + ' ' + esc(m.n) + '</div>' + rows.map(function (q) { return '<div class="g"><b>' + esc(q.q || q.v[q.j]) + '</b>' + (q.e ? '<span>💡 ' + esc(q.e) + '</span>' : "") + '</div>'; }).join("");
+    }).join("") + '<p style="margin-top:8px">Yodlangan (daftardan chiqqan) qoidalar: ' + D.yod + ' ta.</p>' : "<p>Hozircha bo'sh. Biletlar yoki «To'liq test»ni ishlang — xato qilgan savollaringiz shu yerga qoida va eslatmasi bilan tushadi.</p>";
+    var G = AT.oltin || {}, gk = AT.mavzular.filter(function (m) { return G[m.k] && G[m.k].length; });
+    if (!gTab && gk.length) gTab = gk[0].k;
+    $("gTabs").innerHTML = gk.map(function (m) { return '<button class="tab' + (m.k === gTab ? " on" : "") + '" data-gtab="' + m.k + '">' + m.ic + ' ' + esc(m.n) + '</button>'; }).join("");
+    $("gList").innerHTML = (G[gTab] || []).map(function (r) { return '<div class="g"><b>' + esc(r.q) + '</b>' + (r.e ? '<span>💡 ' + esc(r.e) + '</span>' : "") + '</div>'; }).join("");
+    show("memo");
+  }
+  // ---------- Tahlil ----------
+  function tahlil() {
+    var st = topicStats(), rows = AT.mavzular.filter(function (m) { return ULUSH[m.k]; }).map(function (m) {
+      var e = ULUSH[m.k] * 20 / ULJ, s = st[m.k] || { n: 0, ok: 0 }, acc = s.n ? s.ok / s.n : null;
+      return { m: m, share: ULUSH[m.k] / ULJ, exp: e, n: s.n, acc: acc, lost: acc == null ? null : e * (1 - acc) };
+    });
+    var maxS = Math.max.apply(null, rows.map(function (r) { return r.share; }));
+    $("tTable").innerHTML = '<tr><th>Mavzu</th><th class="n">Ulush</th><th class="n">20 tadan</th><th class="n">Sizning natijangiz</th></tr>' + rows.slice().sort(function (a, b) { return b.share - a.share; }).map(function (r) {
+      var c = r.acc == null ? "" : r.acc >= 0.9 ? "acc-hi" : r.acc >= 0.7 ? "acc-md" : "acc-lo";
+      return '<tr><td>' + r.m.ic + ' ' + esc(r.m.n) + '<br><span class="mbar" style="width:' + Math.round(r.share / maxS * 120) + 'px"></span></td><td class="n">' + (r.share * 100).toFixed(1) + '%</td><td class="n">≈ ' + r.exp.toFixed(1) + '</td><td class="n ' + c + '">' + (r.acc == null ? "—" : Math.round(r.acc * 100) + "% (" + r.n + ")") + '</td></tr>';
+    }).join("");
+    var ranked = rows.filter(function (r) { return r.n >= 3; }).sort(function (a, b) { return b.lost - a.lost; });
+    var totLost = ranked.reduce(function (s, r) { return s + r.lost; }, 0);
+    $("tRecNote").textContent = ranked.length ? "Hozirgi natijangiz bo'yicha 20 savollik imtihonda o'rtacha ≈ " + totLost.toFixed(1) + " ta xato kutiladi (o'tish uchun ko'pi bilan 2 ta). Eng katta yo'qotish quyidagi mavzularda — avval shularni mustahkamlang:" : "Tahlil uchun avval savollar ishlang (har mavzudan kamida 3 ta). Eng tez yo'l — «To'liq test».";
+    $("tRec").innerHTML = ranked.slice(0, 4).filter(function (r) { return r.lost > 0.05; }).map(function (r) {
+      var w = AT.savollar.filter(function (q) { return q.m === r.m.k && D.box[q.id]; }).length;
+      return '<div class="rec"><span style="font-size:22px">' + r.m.ic + '</span><span class="t"><b>' + esc(r.m.n) + '</b><small>Natija ' + Math.round(r.acc * 100) + '% · imtihonda ≈ ' + r.exp.toFixed(1) + ' savol · yo\'qotish ≈ ' + r.lost.toFixed(2) + ' ball' + (w ? ' · yodlashda ' + w + ' ta karta' : '') + '</small></span><button class="btn" data-mav="' + r.m.k + '">Mashq</button>' + (w ? '<button class="btn warn" data-go="yodlash">Yodlash</button>' : '') + '</div>';
+    }).join("") || (ranked.length ? '<div class="rec"><span class="t"><b>Ajoyib — sezilarli yo\'qotish yo\'q.</b><small>Imtihon rejimida o\'zingizni sinab ko\'ring.</small></span><button class="btn solid" data-go="imtihon">Imtihon</button></div>' : '<div class="rec"><span class="t"><b>To\'liq test</b><small>Barcha savollar — tahlil uchun eng to\'liq ma\'lumot.</small></span><button class="btn solid" data-go="toliq">Boshlash</button></div>');
+    show("tahlil");
+  }
+
   // ---------- Belgilar katalogi ----------
   var sTab = null;
   function signs() {
@@ -421,7 +589,8 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
   }
 
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-go],[data-bil],[data-mav],[data-k],[data-dot],[data-tab]"); if (!t) return;
+    var t = e.target.closest("[data-go],[data-bil],[data-mav],[data-k],[data-dot],[data-tab],[data-gtab]"); if (!t) return;
+    if (t.dataset.gtab) { gTab = t.dataset.gtab; memo(); return; }
     if (t.dataset.go) go(t.dataset.go);
     else if (t.dataset.bil) go("bilet", +t.dataset.bil);
     else if (t.dataset.mav) go("mavzu", t.dataset.mav);
@@ -432,9 +601,14 @@ h2{margin:26px 0 10px;font-size:19px;letter-spacing:-.01em}
   $("qNext").onclick = function () { next(false); };
   $("qPrev").onclick = function () { if (S.i > 0) { S.i--; render(); } };
   $("qFinish").onclick = function () { if (S.done) showResult(); else if (confirm("Testni yakunlaysizmi? Javob berilmagan savollar xato hisoblanadi.")) finish(); };
-  $("qExit").onclick = function () { if (S && !S.done && S.cfg.mode === "imtihon" && !confirm("Imtihondan chiqasizmi? Natija saqlanmaydi.")) return; clearInterval(timer); S = null; home(); };
-  $("rAgain").onclick = function () { var c = S.cfg; if (c.mode === "imtihon") go("imtihon"); else if (c.xatolar) go("xatolar"); else start(c); };
+  $("qExit").onclick = function () { if (S && !S.done && (S.cfg.mode === "imtihon" || S.cfg.mode === "toliq" && Object.keys(S.ans).length) && !confirm("Testdan chiqasizmi? Yakunlanmagan natija saqlanmaydi (xatolar «Yodlash»da qoladi).")) return; clearInterval(timer); S = null; home(); };
+  $("rAgain").onclick = function () { var c = S.cfg; if (c.mode === "imtihon") go("imtihon"); else if (c.mode === "toliq") go("toliq"); else if (c.mode === "yodlash") memo(); else if (c.xatolar) go("xatolar"); else start(c); };
   $("rHome").onclick = home;
+  $("rYod").onclick = memo;
+  $("mExit").onclick = home; $("tExit").onclick = home;
+  $("mPrint").onclick = function () { window.print(); };
+  $("mStart").onclick = function () { var ids = dueIds(false); if (ids.length) start({ title: "Yodlash · bugungi kartalar", ids: ids, mode: "yodlash" }); };
+  $("mAll").onclick = function () { var ids = dueIds(true); if (ids.length) start({ title: "Yodlash · barcha kartalar", ids: ids, mode: "yodlash" }); };
   $("sExit").onclick = home;
   document.addEventListener("keydown", function (e) {
     if ($("quiz").classList.contains("hidden") || !S) return;
