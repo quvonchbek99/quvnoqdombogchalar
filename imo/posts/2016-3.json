@@ -1,0 +1,42 @@
+{
+  "id": "2016-3",
+  "badge": "IMO 2016 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Aylanadagi butun nuqtali ko'pburchak",
+      "fs": 35,
+      "body": "<p><span class='m'>P = A<sub>1</sub>A<sub>2</sub>…A<sub>k</sub></span> — tekislikdagi <b>qavariq</b> ko'pburchak. Uning barcha uchlari:</p><ul><li><b>butun koordinatali</b> nuqtalar;</li><li>bitta <b>aylanada</b> yotadi.</li></ul><p><span class='m'>S</span> — <span class='m'>P</span> ning yuzi. <b>Toq</b> natural son <span class='m'>n</span> berilgan bo'lib, <span class='m'>P</span> ning barcha tomonlari uzunliklarining <b>kvadratlari</b> <span class='m'>n</span> ga bo'linadigan butun sonlar.</p><div class='box'>Isbotlang: <span class='m'>2S</span> — butun son va u <span class='m'>n</span> ga bo'linadi.</div>"
+    },
+    {
+      "kicker": "YECHIM · REJA",
+      "title": "Kesib, kichraytiramiz",
+      "fs": 32,
+      "body": "<p><b>1.</b> Uchlar butun koordinatali, shuning uchun «shnurlar» (Gauss) formulasiga ko'ra <span class='m'>2S</span> — butun son.</p><p><b>2.</b> <span class='m'>n</span> toq, demak uni tub sonlar darajalariga ajratib, har biri uchun alohida isbotlash yetarli: <span class='m'>n = p<sup>e</sup></span>, <span class='m'>p</span> — toq tub son.</p><svg width='560' height='300' viewBox='0 0 560 300' style='display:block;margin:4px auto 8px'><circle cx='280' cy='150' r='135' fill='none' stroke='#3a4a63' stroke-width='2'/><polygon points='170,72 330,24 412,120 385,235 230,277 147,190' fill='none' stroke='#ffffff' stroke-width='3'/><line x1='170' y1='72' x2='385' y2='235' stroke='#f2b84b' stroke-width='4' stroke-dasharray='12 8'/><g fill='#f2b84b' font-family='DejaVu Sans' font-size='24' font-weight='bold'><text x='138' y='66'>A<tspan font-size='16'>1</tspan></text><text x='325' y='16'>A<tspan font-size='16'>2</tspan></text><text x='422' y='122'>A<tspan font-size='16'>3</tspan></text><text x='395' y='262'>A<tspan font-size='16'>4</tspan></text><text x='215' y='300'>A<tspan font-size='16'>5</tspan></text><text x='108' y='200'>A<tspan font-size='16'>6</tspan></text></g></svg><div class='box'><b>3.</b> Agar biror <b>diagonal</b>ning kvadrati ham <span class='m'>p<sup>e</sup></span> ga bo'linsa, ko'pburchakni shu diagonal bo'yicha <b>ikkiga kesamiz</b>. Ikkala bo'lak ham shartni qanoatlantiradi, yuzlar esa qo'shiladi — induksiya!</div><p>Demak ikki narsa kerak: <b>uchburchak</b> holi va «yaxshi» diagonal <b>doim topilishi</b>.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Uchburchak: Geron formulasi",
+      "fs": 34,
+      "body": "<p>Uchburchak tomonlari <span class='m'>a, b, c</span> bo'lsin. Geron formulasini kvadratlar orqali yozamiz:</p><div class='box' style='text-align:center'><span class='m'>16S<sup>2</sup> = 2(a<sup>2</sup>b<sup>2</sup> + b<sup>2</sup>c<sup>2</sup> + c<sup>2</sup>a<sup>2</sup>) − a<sup>4</sup> − b<sup>4</sup> − c<sup>4</sup></span></div><p>Shartga ko'ra <span class='m'>a<sup>2</sup>, b<sup>2</sup>, c<sup>2</sup></span> ning har biri <span class='m'>p<sup>e</sup></span> ga bo'linadi. Unda o'ng tomondagi har bir had ikkita shunday sonning ko'paytmasi, ya'ni <span class='m'>p<sup>2e</sup></span> ga bo'linadi.</p><p>Demak <span class='m'>(2S)<sup>2</sup> = 16S<sup>2</sup> / 4</span> ham <span class='m'>p<sup>2e</sup></span> ga bo'linadi (<span class='m'>p</span> toq).</p><div class='box'><span class='m'>2S</span> butun bo'lgani uchun <span class='m'>p<sup>2e</sup> | (2S)<sup>2</sup></span> ⟹ <span class='m'>p<sup>e</sup> | 2S</span>. ✅</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Umumlashgan Ptolemey",
+      "fs": 32,
+      "body": "<p>Endi ko'pburchak <span class='m'>A<sub>1</sub>A<sub>2</sub>…A<sub>k</sub>O</span> (kamida 4 ta uch) bo'lsin. <b>Teskarisini faraz qilamiz:</b> tomonlar kvadratlari <span class='m'>p<sup>e</sup></span> ga bo'linadi, lekin <b>birorta ham</b> diagonal kvadrati <span class='m'>p<sup>e</sup></span> ga bo'linmaydi.</p><p><span class='m'>O</span> markazli inversiya aylanani to'g'ri chiziqqa, uchlarni shu chiziqda ketma-ket yotgan nuqtalarga o'tkazadi. Kesmalar uzunliklarini qo'shsak:</p><div class='box' style='text-align:center'><span class='m'>Σ<sub>i=1…k−1</sub> A<sub>i</sub>A<sub>i+1</sub> / (OA<sub>i</sub>·OA<sub>i+1</sub>)</span><br><span class='m'>= A<sub>1</sub>A<sub>k</sub> / (OA<sub>1</sub>·OA<sub>k</sub>)</span></div><p>Har bir hadni ildiz ko'rinishida yozamiz:</p><div class='box' style='text-align:center'><span class='m'>√q<sub>1</sub> + √q<sub>2</sub> + … + √q<sub>k−1</sub> = √q</span></div><p>Bu yerda <span class='m'>q<sub>i</sub> = A<sub>i</sub>A<sub>i+1</sub><sup>2</sup>/(OA<sub>i</sub><sup>2</sup>·OA<sub>i+1</sub><sup>2</sup>)</span>, <span class='m'>q</span> ham shunday — barchasi <b>musbat ratsional</b> sonlar (masofalar kvadrati butun!).</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "p ning darajasi ziddiyat beradi",
+      "fs": 32,
+      "body": "<p><span class='m'>ν(x)</span> — ratsional son <span class='m'>x</span> dagi <span class='m'>p</span> ning darajasi. Tomonlar (<span class='m'>OA<sub>1</sub>, OA<sub>k</sub></span> ham tomon!) uchun <span class='m'>ν ≥ e</span>, diagonallar uchun <span class='m'>ν &lt; e</span>. Masalan:</p><div class='box' style='text-align:center'><span class='m'>q<sub>1</sub>/q = A<sub>1</sub>A<sub>2</sub><sup>2</sup>·OA<sub>k</sub><sup>2</sup> / (OA<sub>2</sub><sup>2</sup>·A<sub>1</sub>A<sub>k</sub><sup>2</sup>)</span></div><p>Suratda ikkita tomon, maxrajda ikkita diagonal ⟹ <span class='m'>ν(q<sub>1</sub>) &gt; ν(q)</span>. Xuddi shunday <b>barcha</b> <span class='m'>i</span> uchun <span class='m'>ν(q<sub>i</sub>) &gt; ν(q)</span>.</p><p>Ildizlar haqidagi ma'lum fakt: bunday tenglik bo'lsa, shunday ratsional <span class='m'>b</span> topiladiki, <span class='m'>r<sub>i</sub> = √(q<sub>i</sub>/b)</span> va <span class='m'>r = √(q/b)</span> — ratsional sonlar va</p><div class='box' style='text-align:center'><span class='m'>r<sub>1</sub> + … + r<sub>k−1</sub> = r</span>, &nbsp; <span class='m'>ν(r<sub>i</sub>) &gt; ν(r)</span></div><p>Lekin har bir qo'shiluvchi <span class='m'>r</span> dan ko'ra ko'proq <span class='m'>p</span> ga bo'linsa, yig'indi ham shunday — <b>ziddiyat!</b> Demak «yaxshi» diagonal bor. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Geometriya + p-darajalar",
+      "fs": 34,
+      "body": "<p>Yechimning yo'li: uchburchak — Geron bilan; katta ko'pburchak — Ptolemey turidagi tenglik va <span class='m'>p</span> ning darajasi yordamida bo'linadigan diagonal topib, <b>kesish</b>.</p><div class='box'>✅ Python bilan tekshirdik: <span class='m'>x<sup>2</sup> + y<sup>2</sup> = 25, 65, 325, 1105, …</span> aylanalardagi butun nuqtalardan 5 700 dan ortiq tasodifiy ko'pburchak olindi — hamma holda tomonlar kvadratlarining toq EKUBi <span class='m'>2S</span> ni bo'ladi, istisno yo'q.</div><p>🧠 <b>Sizga savol:</b> uchlari <span class='m'>(0;0), (3;0), (3;3), (0;3)</span> bo'lgan kvadrat uchun <span class='m'>n = 9</span> ni tekshiring: <span class='m'>2S</span> nechaga teng? Yana qanday misol tuza olasiz? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2016 · 4-masala</b> (sonlar nazariyasi, «xushbo'y» to'plamlar)</p>"
+    }
+  ]
+}
