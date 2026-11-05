@@ -241,7 +241,7 @@ var lastType="",seenQ={},lastMix="";
 // Aralash rejim: kaSavol dagi mantiq mavzulari (m1–m10, ka-savollar-fanlar.js). Ular bo'lmasa — yuqoridagi G.* zaxira.
 var MIX=["m1","m2","m3","m4","m5","m6","m7","m8","m9","m10"];
 function strip(h){var d=document.createElement("div");d.innerHTML=String(h).replace(/<br\s*\/?>/gi,"\n");return (d.textContent||"").replace(/[ \t]+/g," ").replace(/ *\n */g,"\n").trim();}
-function fx(x){return String(x).replace(/(^|[\s(])-(?=\d)/g,"$1−");} // faqat manfiy ishora ("5-o'rin" dagi chiziqcha emas)
+function fx(x){return String(x).replace(/-(?![A-Za-z'ʻ’]{2})/g,"−");} // minus belgisi; "5-o'rin", "12-aprel" dagi chiziqcha qoladi
 function getP(id){
   var S=window.kaSavol,p=null,g=0;
   if(!S||!S.has(id))return null;
