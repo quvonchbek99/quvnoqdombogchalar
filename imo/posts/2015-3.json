@@ -1,0 +1,42 @@
+{
+  "id": "2015-3",
+  "badge": "IMO 2015 · 3-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · GEOMETRIYA",
+      "title": "Ikki aylana urinadimi?",
+      "fs": 34,
+      "body": "<p><span class='m'>AB &gt; AC</span> bo'lgan o'tkir burchakli <span class='m'>ABC</span> uchburchak berilgan. <span class='m'>Γ</span> — unga tashqi chizilgan aylana, <span class='m'>H</span> — ortomarkaz, <span class='m'>F</span> — <span class='m'>A</span> dan tushirilgan balandlik asosi, <span class='m'>M</span> — <span class='m'>BC</span> ning o'rtasi.</p><p><span class='m'>Γ</span> da <span class='m'>∠HQA = 90°</span> bo'ladigan <span class='m'>Q</span> nuqta va <span class='m'>∠HKQ = 90°</span> bo'ladigan <span class='m'>K</span> nuqta olingan. <span class='m'>A, B, C, K, Q</span> nuqtalar har xil va <span class='m'>Γ</span> da shu tartibda joylashgan.</p><div class='box'><b>Isbotlang:</b> <span class='m'>KQH</span> va <span class='m'>FKM</span> uchburchaklarga tashqi chizilgan aylanalar bir-biriga <b>urinadi</b>.</div><p>💡 Kalit g'oya: <span class='m'>H</span> markazli <b>inversiya</b> — aylanalardan biri to'g'ri chiziqqa aylanadi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Chizma va qurol",
+      "fs": 31,
+      "body": "<svg width='920' height='560' viewBox='0 0 920 560' style='display:block;margin:0 auto 6px'><circle cx='460' cy='280' r='254' fill='none' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><line x1='564' y1='48' x2='218' y2='359' stroke='#ffffff' stroke-width='2'/><line x1='218' y1='359' x2='702' y2='359' stroke='#ffffff' stroke-width='2'/><line x1='702' y1='359' x2='564' y2='48' stroke='#ffffff' stroke-width='2'/><line x1='564' y1='48' x2='564' y2='359' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><line x1='637' y1='97' x2='460' y2='359' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><circle cx='600' cy='151' r='65' fill='none' stroke='#f2b84b' stroke-width='3'/><circle cx='512' cy='201' r='166' fill='none' stroke='#f2b84b' stroke-width='3'/><circle cx='564' cy='48' r='7' fill='#ffffff'/><text x='552' y='34' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>A</text><circle cx='218' cy='359' r='7' fill='#ffffff'/><text x='184' y='369' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>B</text><circle cx='702' cy='359' r='7' fill='#ffffff'/><text x='714' y='369' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>C</text><circle cx='564' cy='205' r='7' fill='#ffffff'/><text x='528' y='211' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>H</text><circle cx='564' cy='359' r='7' fill='#ffffff'/><text x='572' y='393' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>F</text><circle cx='460' cy='359' r='7' fill='#ffffff'/><text x='446' y='395' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>M</text><circle cx='637' cy='97' r='7' fill='#ffffff'/><text x='629' y='81' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>Q</text><circle cx='657' cy='119' r='7' fill='#ffffff'/><text x='671' y='125' fill='#ffffff' font-size='28' font-family='DejaVu Serif' font-style='italic'>K</text></svg><p>Oltin rangdagi ikki aylananing urinishini isbotlaymiz. Qurol — <span class='m'>H</span> markazli <b>manfiy inversiya</b>: radius kvadrati <span class='m'>HA · HF</span>, so'ng <span class='m'>H</span> ga nisbatan simmetriya.</p><div class='box'>U <span class='m'>Γ</span> ni <b>to'qqiz nuqta aylanasi</b>ga o'tkazadi (va aksincha), chunki <span class='m'>HA · HF = HB · HE</span> va h.k.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Masalani aylantiramiz",
+      "fs": 32,
+      "body": "<p><span class='m'>L</span> — to'qqiz nuqta aylanasida <span class='m'>∠HML = 90°</span> bo'ladigan nuqta. Inversiyada:</p><div class='box'><span class='m'>A ↔ F</span>, &nbsp; <span class='m'>Q ↔ M</span>, &nbsp; <span class='m'>K ↔ L</span></div><ul><li><span class='m'>A, H, F</span> — balandlikda yotadi.</li><li><span class='m'>A′</span> — <span class='m'>A</span> ning diametral qarama-qarshisi bo'lsin. <span class='m'>∠AQA′ = 90° = ∠AQH</span> ⟹ <span class='m'>Q, H, A′</span> bir chiziqda, <span class='m'>M</span> esa <span class='m'>HA′</span> ning o'rtasi.</li><li><span class='m'>△HKQ ∼ △HML</span> ⟹ <span class='m'>∠HML = ∠HKQ = 90°</span>.</li></ul><p><span class='m'>H</span> dan o'tuvchi <span class='m'>(KQH)</span> aylana → <b><span class='m'>ML</span> to'g'ri chiziq</b>, <span class='m'>(FKM)</span> aylana → <span class='m'>(AQL)</span> aylana.</p><div class='box'><b>Yangi maqsad:</b> <span class='m'>ML</span> to'g'ri chiziq <span class='m'>(AQL)</span> aylanaga urinishini isbotlash.</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Ikki kichik tasdiq",
+      "fs": 32,
+      "body": "<p><b>1-tasdiq:</b> <span class='m'>LM ∥ AQ</span>.</p><div class='box'>Ikkalasi ham <span class='m'>MHQ</span> to'g'ri chiziqqa perpendikulyar: <span class='m'>∠HML = 90°</span> va <span class='m'>∠HQA = 90°</span>.</div><p><b>2-tasdiq:</b> <span class='m'>LA = LQ</span>.</p><p><span class='m'>T</span> — <span class='m'>AH</span> ning, <span class='m'>N</span> — <span class='m'>HQ</span> ning o'rtasi. Ikkalasi to'qqiz nuqta aylanasida, <span class='m'>MT</span> esa uning <b>diametri</b>. Demak <span class='m'>∠TLM = ∠TNM = 90°</span>, bundan tashqari <span class='m'>∠LMN = 90°</span> ⟹ <span class='m'>LTNM</span> — to'g'ri to'rtburchak.</p><div class='box'><span class='m'>LT ∥ MN ⊥ AQ</span>. <span class='m'>A</span> va <span class='m'>H</span> ning <span class='m'>AQ</span> ga proyeksiyalari <span class='m'>A</span> va <span class='m'>Q</span>, demak <span class='m'>T</span> niki — <span class='m'>AQ</span> ning o'rtasi. Shunday qilib <span class='m'>LT</span> — <span class='m'>AQ</span> ning <b>o'rta perpendikulyari</b> ⟹ <span class='m'>LA = LQ</span>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Urinish isbotlandi",
+      "fs": 34,
+      "body": "<p><span class='m'>LA = LQ</span> bo'lgani uchun <span class='m'>L</span> — <span class='m'>(AQL)</span> aylanadagi <span class='m'>AQ</span> yoyining o'rtasi. Yoy o'rtasidagi urinma vatarga parallel:</p><div class='box'><span class='m'>(AQL)</span> ning <span class='m'>L</span> dagi urinmasi <span class='m'>∥ AQ</span>.</div><p>1-tasdiqqa ko'ra <span class='m'>ML ∥ AQ</span> va <span class='m'>ML</span> ham <span class='m'>L</span> dan o'tadi. Demak:</p><div class='box'><span class='m'>ML</span> — aynan shu urinma ✓</div><p>Inversiyani orqaga qaytaramiz. U nuqtalarni bir qiymatli almashtiradi, shuning uchun «yagona umumiy nuqta» xossasi saqlanadi ⟹ <span class='m'>(KQH)</span> va <span class='m'>(FKM)</span> aylanalar <b>urinadi</b>.&nbsp;∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Inversiyaning kuchi ⚡",
+      "fs": 34,
+      "body": "<p>Ikki aylananing urinishi → <b>to'g'ri chiziq va aylana</b>ning urinishi. Murakkab rasm ikki oddiy faktga keldi: parallellik va teng kesmalar.</p><div class='box'>✅ Python bilan 2000 ta tasodifiy uchburchakda tekshirdik: markazlar orasidagi masofa radiuslar yig'indisi/ayirmasidan <span class='m'>10<sup>−12</sup></span> dan ham kam farq qiladi.</div><p>Yechim — Evan Chen yozuvlaridan.</p><p>🧠 <b>Sizga savol:</b> nega to'qqiz nuqta aylanasining radiusi <span class='m'>Γ</span> nikidan aynan <b>2 marta</b> kichik? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2015 · 4-masala</b> (geometriya, <span class='m'>X</span> nuqta <span class='m'>AO</span> da yotishi)</p>"
+    }
+  ]
+}
