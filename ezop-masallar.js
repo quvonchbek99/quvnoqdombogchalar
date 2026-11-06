@@ -847,5 +847,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki tulkining ko'zlari ochiq edi va dumi qimirlardi, demak u hali tirik edi", "Chunki tulki chumchuqdan juda katta edi", "Chunki chumchuq qishda uchishni yaxshi ko'rmasdi"],
     javob: 0,
     izoh: "O'lik jonzot ko'zini ochib, dumini qimirlatmaydi. Chumchuq aniq belgilarga qarab xavfni sezdi va o'zini saqlab qoldi."
+  },
+  {
+    id: "ez-107", mavzu: "o'zlik", sarlavha: "Eshak va it",
+    matn: "Bir eshak xo'jayinining mehrini qozonmoqchi bo'ldi. U xonada yurgan kichkina itning dumini likillatib, oyoqlariga sakrab, xo'jayinini erkalashini ko'rdi. Eshak uni taqlid qilib, katta gavdasi bilan xo'jayiniga yopirildi va oyoqlariga chiqib sakradi. Xo'jayin hayratda qolib, uni tayoq bilan qattiq urdi.",
+    savol: "Eshak nima uchun xo'jayinining mehrini topa olmadi va urildi?",
+    variantlar: ["Chunki u xo'jayinidan qo'rqib, uzoq yurmasdi", "Chunki u itdan kichik edi va sakrashni bilmasdi", "Chunki u o'z tabiatiga mos kelmaydigan xatti-harakatni boshqadan nusxa ko'chirdi"],
+    javob: 2,
+    izoh: "Har bir jonzotning o'z xislati va vazifasi bor. Boshqaning xatti-harakatini o'zi uchun mos bo'lmasa ham taqlid qilish ko'pincha zarar keltiradi."
   }
 ];
