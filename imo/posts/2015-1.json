@@ -1,0 +1,36 @@
+{
+  "id": "2015-1",
+  "badge": "IMO 2015 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Muvozanatli to'plamlar",
+      "fs": 34,
+      "body": "<p>Tekislikdagi chekli <span class='m'>S</span> nuqtalar to'plami <b>muvozanatli</b> deyiladi, agar <span class='m'>S</span> dagi istalgan ikki xil <span class='m'>A</span>, <span class='m'>B</span> nuqta uchun <span class='m'>S</span> da shunday <span class='m'>C</span> topilsaki, <span class='m'>AC = BC</span>.</p><p><span class='m'>S</span> <b>markazsiz</b> deyiladi, agar <span class='m'>S</span> dagi hech qanday uchta <span class='m'>A, B, C</span> uchun <span class='m'>S</span> da <span class='m'>PA = PB = PC</span> bo'ladigan <span class='m'>P</span> nuqta bo'lmasa.</p><div class='box'><b>a)</b> Har bir <span class='m'>n ≥ 3</span> uchun <span class='m'>n</span> ta nuqtali muvozanatli to'plam borligini isbotlang.<br><b>b)</b> <span class='m'>n</span> ta nuqtali muvozanatli <b>va</b> markazsiz to'plam mavjud bo'ladigan barcha <span class='m'>n ≥ 3</span> ni toping.</div>"
+    },
+    {
+      "kicker": "YECHIM · A) QISM",
+      "title": "Markaz va 60° juftliklar",
+      "fs": 32,
+      "body": "<svg width='920' height='420' viewBox='0 0 920 420' style='display:block;margin:0 auto 6px'><circle cx='460' cy='215' r='175' fill='none' stroke='#8fa3bf' stroke-width='2' stroke-dasharray='8 8'/><line x1='460' y1='215' x2='612' y2='128' stroke='#8fa3bf' stroke-width='2'/><line x1='460' y1='215' x2='460' y2='40' stroke='#8fa3bf' stroke-width='2'/><line x1='460' y1='215' x2='308' y2='128' stroke='#8fa3bf' stroke-width='2'/><line x1='460' y1='215' x2='348' y2='349' stroke='#8fa3bf' stroke-width='2'/><line x1='460' y1='215' x2='520' y2='379' stroke='#8fa3bf' stroke-width='2'/><line x1='612' y1='128' x2='460' y2='40' stroke='#f2b84b' stroke-width='3'/><line x1='460' y1='40' x2='308' y2='128' stroke='#f2b84b' stroke-width='3'/><line x1='348' y1='349' x2='520' y2='379' stroke='#f2b84b' stroke-width='3'/><circle cx='460' cy='215' r='8' fill='#f2b84b'/><text x='472' y='249' fill='#f2b84b' font-size='30' font-family='DejaVu Serif' font-style='italic'>O</text><circle cx='612' cy='128' r='8' fill='#ffffff'/><text x='628' y='123' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>A</text><circle cx='460' cy='40' r='8' fill='#ffffff'/><text x='450' y='20' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>B</text><circle cx='308' cy='128' r='8' fill='#ffffff'/><text x='272' y='123' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>C</text><circle cx='348' cy='349' r='8' fill='#ffffff'/><text x='318' y='382' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>D</text><circle cx='520' cy='379' r='8' fill='#ffffff'/><text x='520' y='418' fill='#ffffff' font-size='30' font-family='DejaVu Serif' font-style='italic'>E</text></svg><p><span class='m'>O</span> markazli aylana olamiz: <span class='m'>O</span> ning o'zi va aylanada <span class='m'>n − 1</span> ta nuqta.</p><ul><li>Aylanadagi ikki nuqta uchun <span class='m'>C = O</span> ishlaydi.</li><li><span class='m'>O</span> va aylanadagi <span class='m'>A</span> uchun <span class='m'>A</span> dan <b>60°</b> narida nuqta kerak: <span class='m'>△OAB</span> — teng tomonli, <span class='m'>BO = BA</span>.</li></ul><div class='box'>Shuning uchun aylanadagi nuqtalarni <b>60° li juftliklar</b> (toq qolsa, bitta <b>uchlik</b> 0°, 60°, 120°) qilib qo'yamiz. Rasmda <span class='m'>n = 6</span>: uchlik <span class='m'>A, B, C</span> va juftlik <span class='m'>D, E</span>.</div>"
+    },
+    {
+      "kicker": "YECHIM · B) QISM, TOQ n",
+      "title": "Muntazam ko'pburchak",
+      "fs": 34,
+      "body": "<p><b>Javob:</b> barcha <b>toq</b> <span class='m'>n ≥ 3</span>.</p><p>Toq <span class='m'>n</span> uchun <b>muntazam <span class='m'>n</span>-burchak</b> uchlarini olamiz.</p><ul><li><b>Muvozanatli:</b> <span class='m'>A</span>, <span class='m'>B</span> uchlar uchun <span class='m'>AB</span> ning o'rta perpendikulyari — simmetriya o'qi. <span class='m'>n</span> toq bo'lgani uchun har bir simmetriya o'qi biror <b>uchdan</b> o'tadi; shu uch <span class='m'>C</span> bo'ladi.</li><li><b>Markazsiz:</b> uchta uchdan bir xil masofadagi yagona nuqta — tashqi aylana markazi, u esa uchlardan biri emas.</li></ul><div class='box'>Demak toq <span class='m'>n</span> uchun kerakli to'plam bor. Endi juft <span class='m'>n</span> da bunday to'plam yo'qligini ko'rsatamiz.</div>"
+    },
+    {
+      "kicker": "YECHIM · B) QISM, JUFT n",
+      "title": "Ikki marta sanash",
+      "fs": 34,
+      "body": "<p>Juft <span class='m'>n</span> uchun muvozanatli va markazsiz <span class='m'>S</span> bor deylik. <span class='m'>(P, {A, B})</span> juftlarni sanaymiz, bunda <span class='m'>PA = PB</span>.</p><div class='box'>Muvozanatlilik: har bir <span class='m'>{A, B}</span> juft kamida bitta <span class='m'>P</span> beradi ⟹ hammasi bo'lib kamida <span class='m'>n(n − 1)/2</span> ta.</div><p>Demak qaysidir <span class='m'>P</span> kamida <span class='m'>(n − 1)/2</span> ta juftning o'rta perpendikulyarida yotadi; <span class='m'>n</span> juft bo'lgani uchun bu son butun bo'lib, kamida <span class='m'>n/2</span> ga teng.</p><p>Ammo markazsizlik bo'yicha <span class='m'>P</span> dan har bir masofada <b>ko'pi bilan 2 ta</b> nuqta bor. Qolgan <span class='m'>n − 1</span> nuqtadan bunday juftlar ko'pi bilan <span class='m'>(n − 2)/2</span> ta chiqadi.</p><div class='box'><span class='m'>n/2 ≤ (n − 2)/2</span> — <b>ziddiyat</b>. ∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Ikki xil odamlar 😄",
+      "fs": 34,
+      "body": "<p>Evan Chen yozishicha, bu masala bo'yicha dunyoda ikki xil odam bor:</p><ul><li>b) ni tez yechib, a) ga ko'p vaqt sarflaydiganlar;</li><li>a) ni tez yechib, b) ni umuman yecholmaydiganlar.</li></ul><div class='box'>✅ Python bilan <span class='m'>n = 3, …, 11</span> da tekshirdik: muntazam <span class='m'>n</span>-burchak toq <span class='m'>n</span> da muvozanatli va markazsiz, juft <span class='m'>n</span> da esa muvozanatli emas; a) qismdagi yasash esa har bir <span class='m'>n</span> da ishlaydi.</div><p>🧠 <b>Sizga savol:</b> siz qaysi turdasiz? <span class='m'>n = 4</span> uchun muvozanatli to'plamni qo'lda chizib ko'ring. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2015 · 2-masala</b> (sonlar nazariyasi, <span class='m'>ab − c</span> — 2 ning darajasi)</p>"
+    }
+  ]
+}
