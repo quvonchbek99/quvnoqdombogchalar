@@ -1,6 +1,7 @@
 /*!
  * Kuvonch Academy — jamoaviy o'yin va chempionat uchun umumiy dvigatel
- *  - Xona kodi orqali ulanish (MQTT relay: ochiq brokerlar, shifrlangan xabarlar)
+ *  - Xona kodi orqali ulanish (MQTT relay: ochiq brokerlar, shifrlangan xabarlar, jonli rejim)
+ *  - Taqiqlangan ismlar filtri (KANet.badName)
  *  - Har bir o'yin mavzusida savollar generatori (har safar yangi sonlar)
  *  - Natijani o'qituvchining Google jadvaliga yuborish
  * Ulash: <script src="ka-tarmoq.js"></script>
@@ -139,18 +140,32 @@
     return out;
   }
 
-  /* ---------------- tarmoq (MQTT relay) ----------------
+  /* ---------------- tarmoq (MQTT relay) — JONLI REJIM ----------------
    * Avval PeerJS (WebRTC) ishlatilgan edi: uning bepul serveri ishlamay qolsa yoki mobil internet
-   * to'g'ridan-to'g'ri ulanishga yo'l bermasa, o'quvchilar ulana olmasdi.
-   * Endi xabarlar ochiq MQTT brokerlari orqali o'tadi (2 ta broker — biri ishlamasa, ikkinchisi).
+   * to'g'ridan-to'g'ri ulanishga yo'l bermasa, o'quvchilar ulana olmasdi. Endi xabarlar ochiq MQTT brokerlari orqali o'tadi.
    * Mavzu nomi xona kodidan SHA-256 bilan olinadi, xabarlar AES-GCM bilan shifrlanadi.
-   * Tashqi API o'zgarmagan: host(opts) -> {code, send, broadcast, kick, close}, join(code, hello, opts) -> {id, send, close}. */
+   *
+   * Jonli rejim (2026-11): o'qituvchi ham, o'quvchi ham BIR VAQTDA barcha ishlayotgan brokerlarga ulanadi va har bir xabar
+   * hammasi orqali yuboriladi (ikkinchi nusxalari tashlab yuboriladi). Bitta broker yoki port yopilsa ham aloqa uzilmaydi:
+   *  - o'quvchi har 15 soniyada «tirikman» signalini yuboradi, o'qituvchi darhol javob qaytaradi (o'qituvchi varag'i fonda bo'lsa ham);
+   *  - aloqa butunlay uzilib qaytsa, o'quvchi o'zi qayta salom beradi; o'qituvchi uni tanimasa «~who» deb so'raydi va o'quvchi qayta kiradi;
+   *  - o'qituvchi aloqasi uzilgan paytda yuborilgan xabarlar navbatda turadi va qayta ulanganda yetkaziladi;
+   *  - o'qituvchi to'satdan uzilsa, broker xona ma'lumotini o'zi o'chiradi (eski xonaga ulanib qolinmaydi).
+   * Tashqi API: host(opts) -> {code, send, broadcast, kick, close, status}, join(code, hello, opts) -> {id, send, close, status}.
+   *  host opts.onRejoin(id, hello) — o'quvchi aloqasi tiklangach holatini qayta yuborish uchun (ixtiyoriy);
+   *  join opts.onStatus(up, all) — nechta broker orqali ulangani (ixtiyoriy); opts.onClose(why) — why: "gone" = o'qituvchi xonani yopdi. */
   var MQTT_SRC = SCRIPT_BASE + "mqtt.min.js?v=5.16.1";
   // Eski telefonlar (iOS 12–14, eski Android brauzerlari) MQTT 5-versiyasining yangi JS sintaksisini tushunmaydi —
   // ularga eski, mos keluvchi 4-versiya beriladi (API bir xil)
   var MQTT_OLD = SCRIPT_BASE + "vendor/mqtt-4.3.7.min.js";
-  // 3-broker 443-portda: maktab Wi-Fi yoki mobil operator 8084/8884 portlarni yopib qo'ygan bo'lsa ham ulanadi
-  var BROKERS = ["wss://broker.emqx.io:8084/mqtt", "wss://broker.hivemq.com:8884/mqtt", "wss://mqtt.eclipseprojects.io:443/mqtt"];
+  // 2 tasi maxsus portda (8084/8884), 2 tasi 443-portda — maktab Wi-Fi yoki mobil operator boshqa portlarni yopsa ham ulanadi.
+  // max — broker qabul qiladigan eng katta xabar (undan kattasi shu brokerga yuborilmaydi)
+  var BROKERS = (window.KA_BROKERS && window.KA_BROKERS.length ? window.KA_BROKERS : [
+    "wss://broker.emqx.io:8084/mqtt",
+    "wss://broker.hivemq.com:8884/mqtt",
+    "wss://mqtt.eclipseprojects.io:443/mqtt",
+    { url: "wss://public.cloud.shiftr.io", u: "public", p: "public", max: 60000 }
+  ]).map(function (b) { return typeof b === "string" ? { url: b } : b; });
   var NS = "kuvonch-ka-v2/";
   var mqttLoading = null;
   // Eski iPhone/Android brauzerlari uchun (iOS 15.3 va undan eski): MQTT kutubxonasi ishlatadigan funksiyalar
@@ -213,25 +228,45 @@
   }
   // Xabarlar tartibi buzilmasin: shifrlash/ochish navbat bilan
   function queue() { var q = Promise.resolve(); return function (fn) { q = q.then(fn).catch(function () {}); }; }
-  function mconnect(url, will) {
-    var o = { clientId: "ka" + rid(14), clean: true, keepalive: 20, reconnectPeriod: 1500, connectTimeout: 12000, resubscribe: true, protocolVersion: 4 };
+  // Yaqinda kelgan xabarlar ro'yxati (boshqa broker orqali kelgan nusxani tanib olish uchun). Kalit — shifrning boshi (tasodifiy IV)
+  function lru(max) {
+    var m = new Map();
+    return { get: function (k) { return m.get(k); }, set: function (k, v) { m.delete(k); m.set(k, v); if (m.size > max) m.delete(m.keys().next().value); } };
+  }
+  function mconnect(b, will) {
+    var o = { clientId: "ka" + rid(14), clean: true, keepalive: 20, reconnectPeriod: 2000, connectTimeout: 10000, resubscribe: true, protocolVersion: 4 };
+    if (b.u) { o.username = b.u; o.password = b.p || ""; }
     if (will) o.will = will;
-    return window.mqtt.connect(url, o);
+    return window.mqtt.connect(b.url, o);
+  }
+  function pub(c, b, t, s, retain) {
+    if (!c || !c.connected || (b.max && s.length > b.max)) return false;
+    try { c.publish(t, s, { qos: 0, retain: !!retain }); return true; } catch (e) { return false; }
   }
 
-  // Xona ochish. opts: {onConn(id, hello) -> true/xato matni, onJoin(id, hello), onMsg(id,msg), onLeave(id), onError(e)}
+  // Xona ochish. opts: {onConn(id, hello) -> true/xato matni, onJoin(id, hello), onRejoin(id, hello), onMsg(id,msg), onLeave(id), onError(e)}
   function host(opts) {
     var code = genCode();
     return loadMqtt().then(function () { return room(code); }).then(function (R) {
       return new Promise(function (res, rej) {
-        var clients = [], conns = {}, peers = {}, settled = false, closed = false, hbTimer = 0, infoTimer = 0;
-        var outQ = queue(), inQ = queue();
+        var clients = [], conns = {}, peers = {}, seqs = {}, whoT = {}, settled = false, closed = false, timers = [];
+        var outQ = queue(), inQ = queue(), seen = lru(4000), backlog = [];
+        var TH = R.t + "/h", TA = R.t + "/a", TI = R.t + "/i";
+        function pubAll(t, s, retain) { var ok = false; clients.forEach(function (c, bi) { if (pub(c, BROKERS[bi], t, s, retain)) ok = true; }); return ok; }
+        function upCount() { return clients.filter(function (c) { return c && c.connected; }).length; }
         var api = {
           code: code, conns: conns,
           send: function (id, msg) {
-            var p = peers[id]; if (!p || closed) return;
-            var c = clients[p.b];
-            outQ(function () { return seal(R, msg).then(function (s) { if (c && c.connected) c.publish(R.t + "/p/" + id, s, { qos: 0 }); }); });
+            if (!peers[id] || closed) return;
+            // _s — tartib raqami: o'quvchi kechikib kelgan eski xabarni tashlab yuboradi (eski versiyalar bu maydonga qaramaydi)
+            var m = Object.assign({}, msg); m._s = seqs[id] = (seqs[id] || 0) + 1;
+            outQ(function () {
+              return seal(R, m).then(function (s) {
+                if (closed) return;
+                var t = R.t + "/p/" + id;
+                if (!pubAll(t, s)) { backlog.push([t, s, Date.now()]); if (backlog.length > 800) backlog.shift(); }
+              });
+            });
           },
           broadcast: function (msg, except) { for (var id in conns) if (id !== except) api.send(id, msg); },
           kick: function (id, why) {
@@ -240,13 +275,14 @@
             delete conns[id];
             setTimeout(function () { if (!conns[id]) delete peers[id]; }, 1500);
           },
+          status: function () { return { up: upCount(), all: BROKERS.length }; },
           close: function () {
             if (closed) return;
             outQ(function () {
-              closed = true; clearInterval(hbTimer); clearInterval(infoTimer);
-              clients.forEach(function (c) {
+              closed = true; timers.forEach(clearInterval);
+              clients.forEach(function (c, bi) {
                 if (!c) return;
-                try { if (c.connected) { c.publish(R.t + "/a", "~gone", { qos: 0 }); c.publish(R.t + "/i", "", { qos: 0, retain: true }); } } catch (e) {}
+                pub(c, BROKERS[bi], TA, "~gone"); pub(c, BROKERS[bi], TI, "", true);
                 setTimeout(function () { try { c.end(true); } catch (e) {} }, 600);
               });
             });
@@ -257,35 +293,54 @@
           delete peers[id];
           if (conns[id]) { delete conns[id]; if (opts.onLeave) opts.onLeave(id); }
         }
-        function info(c) { try { c.publish(R.t + "/i", "~on " + Date.now(), { qos: 0, retain: true }); } catch (e) {} }
+        function info(c, bi) { pub(c, BROKERS[bi], TI, "~on " + Date.now(), true); }
+        function flush() { // aloqa uzilgan paytda yuborilmay qolgan xabarlar (1 daqiqadan eskilari emas)
+          if (!backlog.length || !upCount()) return;
+          var t = Date.now(), b = backlog; backlog = [];
+          b.forEach(function (x) { if (t - x[2] < 60000) pubAll(x[0], x[1]); });
+        }
+        function who(id, bi) { // tanimagan o'quvchidan xabar keldi — qayta salom berishini so'raymiz
+          var t = Date.now(); if (t - (whoT[id] || 0) < 4000) return; whoT[id] = t;
+          pub(clients[bi], BROKERS[bi], R.t + "/p/" + id, "~who");
+        }
         function handle(bi, str) {
           if (closed) return;
-          if (str.slice(0, 5) === "~bye ") { // o'quvchi uzildi (broker yoki o'quvchining o'zi yuboradi)
+          if (str.slice(0, 5) === "~bye ") { // "~bye id n [broker]": o'quvchi chiqdi yoki bitta broker bilan aloqasi uzildi
             var a = str.split(" ");
-            inQ(function () { var p0 = peers[a[1]]; if (p0 && p0.n === a[2]) leave(a[1]); });
+            inQ(function () {
+              var p0 = peers[a[1]]; if (!p0 || p0.n !== a[2]) return;
+              if (a.length < 4) return leave(a[1]);
+              delete p0.lb[a[3]];
+              if (!Object.keys(p0.lb).length) leave(a[1]); // boshqa hech qaysi broker orqali ulanmagan
+            });
             return;
           }
-          if (str.length > 8000) return;
+          if (str.length > 8000 || str.charAt(0) !== "e") return;
+          var key = str.slice(0, 40), was = seen.get(key);
+          if (was !== undefined) { if (was && peers[was]) peers[was].lb[bi] = Date.now(); return; } // boshqa broker orqali kelgan nusxa
+          seen.set(key, "");
           inQ(function () {
             return unseal(R, str).then(function (env) {
               if (closed || !env || typeof env !== "object" || typeof env.f !== "string" || env.f.length > 40) return;
               var id = env.f, msg = env.m, p = peers[id];
+              seen.set(key, id);
               if (!msg || typeof msg !== "object" || !sane(msg, 4000)) return;
               var nowT = Date.now();
-              if (p && p.n !== env.n) { // shu o'quvchi qayta ulandi
+              if (p && p.n !== env.n) { // shu o'quvchi sahifani yangilab qayta kirdi
                 if (msg.type !== "hello") return;
                 leave(id); p = null;
               }
               if (!p) {
-                if (msg.type !== "hello") return;
-                p = peers[id] = { b: bi, n: env.n, ok: false, win: nowT, cnt: 0 };
+                if (msg.type !== "hello") { who(id, bi); return; }
+                p = peers[id] = { n: env.n, ok: false, win: nowT, cnt: 0, lb: {}, live: false };
               }
-              p.b = bi;
+              p.lb[bi] = nowT;
               if (nowT - p.win > 1000) { p.win = nowT; p.cnt = 0; }
               if (++p.cnt > 30) return; // juda tez-tez xabar — e'tiborsiz
+              if (msg.type === "~p") { p.live = true; if (p.ok) pub(clients[bi], BROKERS[bi], R.t + "/p/" + id, "~hb"); return; }
               if (!p.ok) {
                 if (msg.type !== "hello") return;
-                var ok = opts.onConn ? opts.onConn(id, msg) : true;
+                var ok = (msg.name != null && badName(msg.name)) || (opts.onConn ? opts.onConn(id, msg) : true);
                 p.ok = true;
                 if (ok !== true) {
                   api.send(id, { type: "reject", why: ok });
@@ -296,7 +351,7 @@
                 if (opts.onJoin) opts.onJoin(id, msg);
                 return;
               }
-              if (msg.type === "hello") return;
+              if (msg.type === "hello") { if (conns[id] && opts.onRejoin) opts.onRejoin(id, msg); return; } // aloqa tiklandi
               if (opts.onMsg) opts.onMsg(id, msg);
             });
           });
@@ -307,28 +362,38 @@
           if (opts.onError) opts.onError(e);
           rej(e);
         }, 20000);
-        BROKERS.forEach(function (url, bi) {
+        BROKERS.forEach(function (b, bi) {
           var c;
-          try { c = mconnect(url); } catch (e) { return; }
+          // o'qituvchi to'satdan uzilsa — broker xona ma'lumotini o'chiradi (qayta ulanganda yana yoziladi)
+          try { c = mconnect(b, { topic: TI, payload: "", qos: 0, retain: true }); } catch (e) { return; }
           clients[bi] = c;
           c.on("connect", function () {
             if (closed) return;
-            c.subscribe(R.t + "/h", { qos: 0 });
-            info(c);
+            c.subscribe(TH, { qos: 0 });
+            info(c, bi); flush();
             if (!settled) { settled = true; clearTimeout(to); res(api); }
           });
           c.on("message", function (topic, payload) { handle(bi, payload.toString()); });
           c.on("error", function () {});
         });
         // o'quvchilarga "o'qituvchi ekrani ochiq" signali va xona ma'lumotini yangilab turish
-        hbTimer = setInterval(function () { clients.forEach(function (c) { if (c && c.connected) try { c.publish(R.t + "/a", "~hb", { qos: 0 }); } catch (e) {} }); }, 10000);
-        infoTimer = setInterval(function () { clients.forEach(function (c) { if (c && c.connected) info(c); }); }, 60000);
+        timers.push(setInterval(function () { pubAll(TA, "~hb"); }, 10000));
+        timers.push(setInterval(function () { clients.forEach(function (c, bi) { info(c, bi); }); }, 60000));
+        // jonli o'quvchi 50 soniya hech qaysi broker orqali sado bermasa — chiqib ketgan (telefon o'chgan/uxlagan)
+        timers.push(setInterval(function () {
+          var t = Date.now();
+          Object.keys(peers).forEach(function (id) {
+            var p = peers[id]; if (!p.ok || !p.live) return;
+            for (var b in p.lb) if (t - p.lb[b] > 50000) delete p.lb[b];
+            if (!Object.keys(p.lb).length) inQ(function () { if (peers[id] === p) leave(id); });
+          });
+        }, 5000));
         window.addEventListener("pagehide", function () { api.close(); });
       });
     });
   }
 
-  // Xonaga qo'shilish. hello: {name, ...}; opts: {onMsg(msg), onClose()}
+  // Xonaga qo'shilish. hello: {name, ...}; opts: {onMsg(msg), onClose(why), onStatus(up, all)}
   var SELF_KEY = "ka.tarmoq.self.v2";
   function selfId(code) {
     var m = {};
@@ -337,98 +402,209 @@
     return m[code];
   }
   function join(code, hello, opts) {
-    code = normCode(code);
+    code = normCode(code); opts = opts || {};
+    var bn = hello && hello.name != null ? badName(hello.name) : "";
+    if (bn) return Promise.reject(new Error(bn));
     return loadMqtt().then(function () { return room(code); }).then(function (R) {
       return new Promise(function (res, rej) {
-        var id = selfId(code), n = rid(8), settled = false, dead = false, clients = [], C = null, found = false;
-        var lastHost = Date.now(), downSince = 0, watch = 0, probe = 0, outQ = queue(), inQ = queue();
+        var id = selfId(code), n = rid(8), settled = false, dead = false, found = false;
+        var cl = [], st = []; // st: 0 ulanmoqda, 1 ulangan (xona qidirilmoqda), 2 xona shu brokerda — ishlatiladi, 3 ulanib bo'lmadi
+        var lastHost = Date.now(), downSince = 0, watch = 0, probe = 0, ping = 0, hiT = 0, outQ = queue(), inQ = queue();
+        var seen = lru(600), lastS = 0, helloStr = "", whoAt = 0, outbox = [], needSync = false; // needSync: holatni qayta olguncha salom berib turamiz
         var hi = Object.assign({ type: "hello" }, hello);
-        var TP = R.t + "/p/" + id, TA = R.t + "/a", TI = R.t + "/i";
-        function willFor(nn) { return { topic: R.t + "/h", payload: "~bye " + id + " " + nn, qos: 0, retain: false }; }
+        var TP = R.t + "/p/" + id, TA = R.t + "/a", TI = R.t + "/i", TH = R.t + "/h";
+        function live() { var a = []; cl.forEach(function (c, bi) { if (c && st[bi] === 2 && c.connected) a.push(bi); }); return a; }
+        function status() { if (opts.onStatus && !dead) try { opts.onStatus(live().length, BROKERS.length); } catch (e) {} }
+        function pubLive(s, only) { var ok = false; (only != null ? [only] : live()).forEach(function (bi) { if (pub(cl[bi], BROKERS[bi], TH, s)) ok = true; }); return ok; }
+        function send(m, only) {
+          if (dead) return;
+          outQ(function () {
+            return seal(R, { f: id, n: n, m: m }).then(function (s) {
+              if (dead) return;
+              // hech qaysi broker ulanmagan bo'lsa — navbatda turadi (javob yo'qolmasin)
+              if (!pubLive(s, only) && only == null && m.type !== "~p") { outbox.push(s); if (outbox.length > 30) outbox.shift(); }
+            });
+          });
+        }
+        function flushOut() { if (!outbox.length || !live().length) return; var o = outbox; outbox = []; o.forEach(function (s) { pubLive(s); }); }
+        function sayHello(fresh, only) { // fresh: yangi shifr — o'qituvchi uni takror deb tashlab yubormasin
+          if (dead) return;
+          outQ(function () {
+            if (!fresh && helloStr) { pubLive(helloStr, only); return; }
+            return seal(R, { f: id, n: n, m: hi }).then(function (s) { if (!fresh) helloStr = s; if (!dead) pubLive(s, only); });
+          });
+        }
         // Telefon ekrani o'chib-yonsa yoki boshqa ilovaga o'tib qaytilsa: taymerlar to'xtab qolgan bo'ladi —
-        // "o'qituvchi javob bermayapti" deb darhol uzib qo'ymaslik uchun hisobni yangidan boshlaymiz
+        // "o'qituvchi javob bermayapti" deb darhol uzib qo'ymaslik uchun hisobni yangidan boshlaymiz va darhol "tirikman" deymiz
         function onVis() {
           if (dead || document.visibilityState !== "visible") return;
-          lastHost = Date.now(); downSince = 0; // MQTT o'zi 1,5 s da qayta ulanadi
+          lastHost = Date.now(); downSince = 0;
+          if (settled) send({ type: "~p" });
         }
         document.addEventListener("visibilitychange", onVis);
         window.addEventListener("pageshow", onVis);
-        function kill() { dead = true; clearInterval(watch); clearTimeout(probe); document.removeEventListener("visibilitychange", onVis); window.removeEventListener("pageshow", onVis); clients.forEach(function (c) { try { c.end(true); } catch (e) {} }); }
-        function fail(msg) { if (settled) return; settled = true; clearTimeout(to); kill(); rej(new Error(msg)); }
-        function bye() { if (C && C.connected) try { C.publish(R.t + "/h", "~bye " + id + " " + n, { qos: 0 }); } catch (e) {} }
-        function lost() { // aloqa butunlay yo'qoldi
+        function kill() {
+          dead = true; clearInterval(watch); clearInterval(ping); clearInterval(hiT); clearTimeout(probe); clearTimeout(to);
+          document.removeEventListener("visibilitychange", onVis); window.removeEventListener("pageshow", onVis);
+          cl.forEach(function (c) { try { if (c) c.end(true); } catch (e) {} });
+        }
+        function fail(msg) { if (settled) return; settled = true; kill(); rej(new Error(msg)); }
+        function bye() { pubLive("~bye " + id + " " + n); }
+        function lost(why) { // aloqa butunlay yo'qoldi
           if (dead) return;
           if (!settled) return fail("Ulanib bo'lmadi: aloqa uzildi");
-          bye(); kill(); if (opts.onClose) opts.onClose();
+          bye(); kill(); if (opts.onClose) opts.onClose(why || "");
         }
-        function send(m) {
+        function onPeerMsg(s) {
           if (dead) return;
-          var nn = n;
-          outQ(function () { return seal(R, { f: id, n: nn, m: m }).then(function (s) { if (C && C.connected && !dead) C.publish(R.t + "/h", s, { qos: 0 }); }); });
-        }
-        function onPeerMsg(str) {
-          if (dead) return;
-          if (str === "~hb") { lastHost = Date.now(); return; }
-          if (str === "~gone") { if (settled) lost(); else fail("O'qituvchi xonani yopgan"); return; }
+          if (s === "~hb") { lastHost = Date.now(); return; }
+          if (s === "~gone") { if (settled) lost("gone"); else fail("O'qituvchi xonani yopgan"); return; }
+          if (s === "~who") { // o'qituvchi bizni tanimadi (masalan, telefon uzoq uxlagan) — qayta salom beramiz
+            var tw = Date.now(); lastHost = tw;
+            if (tw - whoAt > 3000) { whoAt = tw; needSync = settled; sayHello(true); }
+            return;
+          }
+          if (s.charAt(0) !== "e") return;
+          var k = s.slice(0, 40); if (seen.get(k)) return; seen.set(k, 1); // boshqa broker orqali kelgan nusxa
           inQ(function () {
-            return unseal(R, str).then(function (msg) {
+            return unseal(R, s).then(function (msg) {
               if (dead || !msg || typeof msg !== "object" || !sane(msg, 300000)) return;
-              lastHost = Date.now();
+              lastHost = Date.now(); needSync = false;
+              if (typeof msg._s === "number") { if (msg._s <= lastS) return; lastS = msg._s; } // kechikib kelgan eski xabar
               if (!settled) {
                 if (msg.type === "reject") return fail(msg.why || "Xona qabul qilmadi");
-                settled = true; clearTimeout(to);
-                res({ id: id, send: send, close: function () { bye(); dead = true; setTimeout(kill, 300); } });
+                settled = true; clearTimeout(to); clearTimeout(probe); clearInterval(hiT);
+                res({
+                  id: id, send: function (m) { send(m); },
+                  status: function () { return { up: live().length, all: BROKERS.length }; },
+                  close: function () { bye(); dead = true; setTimeout(kill, 300); }
+                });
                 watch = setInterval(function () {
                   if (dead) return;
                   var t = Date.now();
-                  if (!C.connected) { if (!downSince) downSince = t; if (t - downSince > 45000) lost(); }
+                  if (!live().length) { if (!downSince) downSince = t; if (t - downSince > 40000) lost(); }
                   else { downSince = 0; if (t - lastHost > 45000) lost(); } // o'qituvchi ekrani javob bermayapti
+                  status();
                 }, 3000);
+                ping = setInterval(function () { if (needSync) sayHello(true); else send({ type: "~p" }); }, 15000);
+                send({ type: "~p" }); status();
               }
               if (opts.onMsg) opts.onMsg(msg);
               if (msg.type === "kick") kill();
             });
           });
         }
-        function choose(c) { // xona topilgan broker — qolganlarini yopamiz
-          if (found) return; found = true; C = c; clearTimeout(probe);
-          clients.forEach(function (o) { if (o !== c) try { o.end(true); } catch (e) {} });
-          clients = [c];
-          c.unsubscribe(TI);
-          c.subscribe([TP, TA], { qos: 0 }, function () { send(hi); });
-          // internet uzilib qayta ulansa — o'qituvchiga yana salom beramiz (ochkolar saqlanadi)
-          c.on("reconnect", function () { n = rid(8); c.options.will = willFor(n); });
-          c.on("connect", function () {
+        function activate(bi) { // shu brokerda xona bor — undan ham foydalanamiz (bittasi uzilsa, boshqasi ishlaydi)
+          var c = cl[bi]; if (!c || st[bi] === 2 || dead) return;
+          st[bi] = 2;
+          if (!found) {
+            found = true; clearTimeout(probe);
+            // salom yo'qolib qolsa — 6 soniyada yana yuboramiz
+            hiT = setInterval(function () { if (dead || settled) { clearInterval(hiT); return; } sayHello(true); }, 6000);
+          }
+          try { c.unsubscribe(TI); } catch (e) {}
+          c.subscribe([TP, TA], { qos: 0 }, function () {
             if (dead) return;
-            lastHost = Date.now();
-            c.subscribe([TP, TA], { qos: 0 }, function () { send(hi); });
+            if (settled) { send({ type: "~p" }, bi); flushOut(); } else sayHello(false, bi);
+            status();
           });
         }
+        function armProbe() { // ulangan brokerlarda xona yo'q — hali ulanayotganlarini kutamiz
+          clearTimeout(probe);
+          probe = setTimeout(function () {
+            if (found || dead) return;
+            if (st.some(function (x) { return x === 0; })) return armProbe(); // umumiy 25 soniyalik chegara bor
+            fail("Bunday kodli xona topilmadi. Kodni tekshiring yoki o'qituvchi ekrani ochiqligiga ishonch hosil qiling.");
+          }, 8000);
+        }
         var to = setTimeout(function () {
-          fail(found ? "Xona javob bermadi. O'qituvchi ekrani ochiqligini va kodni tekshiring." : "Internetga ulanib bo'lmadi. Internetni tekshirib, qayta urinib ko'ring.");
+          var any = st.some(function (x) { return x === 1 || x === 2; });
+          fail(found ? "Xona javob bermadi. O'qituvchi ekrani ochiqligini va kodni tekshiring." :
+            any ? "Bunday kodli xona topilmadi. Kodni tekshiring yoki o'qituvchi ekrani ochiqligiga ishonch hosil qiling." :
+            "Internetga ulanib bo'lmadi. Internetni tekshirib, qayta urinib ko'ring.");
         }, 25000);
-        BROKERS.forEach(function (url) {
+        BROKERS.forEach(function (b, bi) {
           var c;
-          try { c = mconnect(url, willFor(n)); } catch (e) { return; }
-          clients.push(c);
-          var first = true;
+          // kutilmaganda uzilsak — broker o'qituvchiga "shu broker orqali aloqa uzildi" deb xabar beradi
+          try { c = mconnect(b, { topic: TH, payload: "~bye " + id + " " + n + " " + bi, qos: 0, retain: false }); } catch (e) { st[bi] = 3; return; }
+          cl[bi] = c; st[bi] = 0;
           c.on("connect", function () {
-            if (!first || dead) return; first = false;
-            if (found) { if (c !== C) try { c.end(true); } catch (e) {} return; }
+            if (dead) return;
+            if (st[bi] === 2) { // shu broker qayta ulandi
+              var wasDown = !live().some(function (x) { return x !== bi; });
+              c.subscribe([TP, TA], { qos: 0 }, function () {
+                if (dead) return;
+                if (settled) { if (wasDown) { needSync = true; sayHello(true); } else send({ type: "~p" }, bi); } // hammasi uzilgan bo'lsa — holatni qayta so'raymiz
+                flushOut(); status();
+              });
+              return;
+            }
+            st[bi] = 1;
             c.subscribe(TI, { qos: 0 });
-            // har bir yangi ulangan broker uchun 8 soniya kutamiz (o'qituvchi boshqa brokerda bo'lishi mumkin)
-            clearTimeout(probe);
-            probe = setTimeout(function () { if (!found) fail("Bunday kodli xona topilmadi. Kodni tekshiring yoki o'qituvchi ekrani ochiqligiga ishonch hosil qiling."); }, 8000);
+            if (!found) armProbe();
           });
+          c.on("close", function () { if (st[bi] === 0) st[bi] = 3; status(); });
           c.on("message", function (topic, payload) {
             if (dead) return;
-            if (topic === TI) { if (!found && payload.toString().slice(0, 4) === "~on ") choose(c); return; }
-            if (c === C) onPeerMsg(payload.toString());
+            var s = payload.toString();
+            if (topic === TI) { if (s.slice(0, 4) === "~on ") activate(bi); return; }
+            if (st[bi] === 2) onPeerMsg(s);
           });
           c.on("error", function () {});
         });
       });
     });
+  }
+
+  /* ---------------- taqiqlangan ismlar (o'zbek, ingliz va rus so'kinishlari, haqoratlar) ----------------
+   * Kirill yoki lotin, raqam bilan yashirilgan (f4ck, 5uka), harfi cho'zilgan (fuuuck), bo'lib yozilgan (f u c k, s.u.k.a)
+   * yoki kirill harfi aralashtirilgan (fuсk) bo'lsa ham topiladi. Haqiqiy ismlar (Sikandar, Nigora, Shebanov…) bloklanmasligi uchun
+   * qisqa o'zaklar faqat so'z boshida yoki butun so'z sifatida tekshiriladi. */
+  var BAD_MSG = "Bu ismni ishlatib bo'lmaydi — o'z ismingizni yozing";
+  // so'z ichida uchrasa
+  var BAD_SUB = "fuck motherf bitch biatch asshole dickhead pussy whore slut cunt porn penis vagin blowjob handjob jerkoff wanker bastard retard faggot nigger rapist bullshit dumbass " +
+    "jalab jalap djalab qanjiq dalbayob dalbayop dolbayob dolboyob dolbaeb dalbaeb dolboeb dalboyob itvachcha haromzoda haramzoda haromi fohisha fahisha fohsha gandon qo'toq kutak " +
+    "onangni onangga ko'tingni ko'tinga ko'tingga sikay sikaman sikdim sikib sikish sikvor sikaver siktir sikil " +
+    "blyat blyad bliat bliad pizd zaebal nahuy nahui pohuy pidaras pidoras pidaraz pederast suchka shlyuh shluh";
+  // so'z shu bilan boshlansa
+  var BAD_PRE = "shit dick cock sex nude horny hitler ahmoq ahmaq tentak eshak cho'chqa to'ng'iz la'nat debil " +
+    "pidar pidor pider mudak mudil huyl huyo huev huet eban ebat yeban yebat yoban govn";
+  // butun so'z bo'lsa
+  var BAD_EXACT = "fk fck fuk wtf stfu kys nazi rape tits idiot stupid loser moron nigga niga seks seksi dildo dildos boobs boobies titties " +
+    "jinni maymun sik sikkan skay skey skaman harom suka suki blya huy hui huj chmo jopa dermo yob";
+  var CYR = { "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "j", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "x", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sh", "ъ": "", "ы": "i", "ь": "", "э": "e", "ю": "yu", "я": "ya", "ў": "o", "қ": "q", "ғ": "g", "ҳ": "h", "і": "i", "ә": "a", "ө": "o", "ү": "u", "ң": "n", "ұ": "u", "һ": "h" };
+  // lotin harfiga o'xshash kirill harflari (fuсk — "с" kirillcha)
+  var HOMO = { "а": "a", "в": "b", "е": "e", "ё": "e", "к": "k", "м": "m", "н": "h", "о": "o", "р": "p", "с": "c", "т": "t", "у": "y", "х": "x", "і": "i", "ј": "j", "ѕ": "s" };
+  var LEET = { "0": "o", "1": "i", "3": "e", "4": "a", "5": "s", "7": "t", "8": "b", "@": "a", "$": "s", "!": "i", "|": "i", "€": "e" };
+  function nmTokens(s, map) {
+    s = String(s || "").toLowerCase().replace(/[Ѐ-ӿ]/g, function (c) { var r = map[c]; return r != null ? r : c; });
+    try { s = s.normalize("NFKD").replace(/[̀-ͯ]/g, ""); } catch (e) {}
+    s = s.replace(/[0134578@$!|€]/g, function (c) { return LEET[c]; }).replace(/['`´ʻʼ‘’]/g, "")
+      .replace(/ı/g, "i").replace(/q/g, "k").replace(/x/g, "h").replace(/w/g, "v");
+    function sq(x) { return x.replace(/(.)\1+/g, "$1"); }
+    var w = s.split(/[^a-z]+/).filter(Boolean), out = w.map(sq), run = "";
+    // bo'lib yozilgan so'z (f u c k, fu-ck): ketma-ket qisqa bo'laklarni birlashtiramiz
+    w.forEach(function (x) { if (x.length <= 2) run += x; else { if (run.length > 2) out.push(sq(run)); run = ""; } });
+    if (run.length > 2) out.push(sq(run));
+    return out;
+  }
+  var BADS = null, BADP, BADE;
+  function badName(s) {
+    if (!s) return "";
+    if (!BADS) {
+      var nl = function (str) { return str.split(" ").map(function (x) { return nmTokens(x, CYR)[0]; }).filter(Boolean); };
+      BADS = nl(BAD_SUB); BADP = nl(BAD_PRE); BADE = {}; nl(BAD_EXACT).forEach(function (x) { BADE[x] = 1; });
+    }
+    s = String(s);
+    var toks = nmTokens(s, CYR);
+    if (/[Ѐ-ӿ]/.test(s)) toks = toks.concat(nmTokens(s, HOMO));
+    for (var i = 0; i < toks.length; i++) {
+      var t = toks[i], j;
+      if (BADE[t]) return BAD_MSG;
+      for (j = 0; j < BADP.length; j++) if (t.indexOf(BADP[j]) === 0) return BAD_MSG;
+      for (j = 0; j < BADS.length; j++) if (t.indexOf(BADS[j]) > -1) return BAD_MSG;
+    }
+    return "";
   }
 
   /* ---------------- shaxs va natija ---------------- */
@@ -445,7 +621,7 @@
   function joinUrl(page, code) { var u = location.href.split("#")[0].split("?")[0]; u = u.replace(/[^/]*$/, page); return u + "?kod=" + code; }
 
   window.KANet = {
-    GAMES: GAMES, makeQuestions: makeQuestions, host: host, join: join, normCode: normCode,
+    GAMES: GAMES, makeQuestions: makeQuestions, host: host, join: join, normCode: normCode, badName: badName,
     identity: identity, saveIdentity: saveIdentity, postResult: postResult, esc: esc, shuffle: shuffle, joinUrl: joinUrl
   };
 })();
