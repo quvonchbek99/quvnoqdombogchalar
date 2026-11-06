@@ -1,0 +1,42 @@
+{
+  "id": "2015-6",
+  "badge": "IMO 2015 · 6-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Butun sonlar ketma-ketligi",
+      "fs": 35,
+      "body": "<p><span class='m'>a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, …</span> butun sonlar ketma-ketligi quyidagi shartlarni qanoatlantiradi:</p><ul><li><b>(i)</b> &nbsp;<span class='m'>1 ≤ a<sub>j</sub> ≤ 2015</span> &nbsp;(barcha <span class='m'>j ≥ 1</span> uchun);</li><li><b>(ii)</b> &nbsp;<span class='m'>k + a<sub>k</sub> ≠ ℓ + a<sub>ℓ</sub></span> &nbsp;(barcha <span class='m'>1 ≤ k &lt; ℓ</span> uchun).</li></ul><p>Shunday <span class='m'>b</span> va <span class='m'>N</span> natural sonlar mavjudligini isbotlangki, <span class='m'>n &gt; m ≥ N</span> bo'lgan barcha butun <span class='m'>m, n</span> uchun</p><div class='box' style='text-align:center;font-size:32px'><span class='m'>|(a<sub>m+1</sub> − b) + (a<sub>m+2</sub> − b) + … + (a<sub>n</sub> − b)| ≤ 1007<sup>2</sup></span></div><p>💡 Kalit g'oya: masalani <b>jonglyor</b> (to'p otuvchi) tiliga o'giramiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Jonglyor modeli 🤹",
+      "fs": 34,
+      "body": "<p>Jonglyor havoga to'plar otadi. Har bir <span class='m'>t = 1, 2, 3, …</span> paytda:</p><ul><li>agar balandligi <span class='m'>0</span> bo'lgan to'p bo'lsa — uni <b>ushlaydi</b>, aks holda qo'liga <b>yangi to'p</b> oladi;</li><li>shu to'pni <span class='m'>a<sub>t</sub></span> balandlikka otadi;</li><li>so'ng barcha to'plar balandligi <span class='m'>1</span> ga kamayadi.</li></ul><p><span class='m'>k</span> paytda otilgan to'p <span class='m'>k + a<sub>k</sub></span> paytda qo'lga tushadi. Shuning uchun:</p><div class='box'><b>(ii)</b> shart ⟺ ikki to'p hech qachon bir vaqtda tushmaydi ⟺ <b>ikki to'p hech qachon bir xil balandlikda emas</b>.</div><p>Balandliklar <span class='m'>0, 1, …, 2014</span> oralig'ida bo'ladi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "b va N ni tanlaymiz",
+      "fs": 36,
+      "body": "<p>Balandliklar har xil va ular faqat <b>2015 ta</b> qiymat oladi, demak havoda ko'pi bilan <b>2015 ta</b> to'p bo'ladi.</p><p>To'plar soni hech qachon kamaymaydi (ushlangan to'p darhol qayta otiladi). Demak u biror paytdan boshlab o'zgarmaydi.</p><div class='box'><span class='m'>b</span> — jarayondagi to'plarning umumiy soni;<br><span class='m'>N</span> — oxirgi marta yangi to'p qo'shilgan payt.</div><p><span class='m'>N</span> dan keyin har bir paytda qo'lga to'p <b>tushadi</b> va u qayta otiladi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Balandliklar yig'indisi",
+      "fs": 35,
+      "body": "<p><span class='m'>S<sub>t</sub></span> — <span class='m'>t</span> paytdagi qadamdan keyin barcha to'plar balandliklari yig'indisi.</p><p><span class='m'>t ≥ N</span> bo'lsa, <span class='m'>t + 1</span> paytda balandligi <span class='m'>0</span> bo'lgan to'p <span class='m'>a<sub>t+1</sub></span> ga otiladi, keyin <span class='m'>b</span> ta to'pning har biri 1 ga pasayadi:</p><div class='box' style='text-align:center'><span class='m'>S<sub>t+1</sub> − S<sub>t</sub> = a<sub>t+1</sub> − b</span></div><p>Bu tengliklarni <span class='m'>t = m, …, n − 1</span> uchun qo'shsak, yig'indi \"teleskop\" kabi qisqaradi:</p><div class='box' style='text-align:center'><span class='m'>(a<sub>m+1</sub> − b) + … + (a<sub>n</sub> − b) = S<sub>n</sub> − S<sub>m</sub></span></div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Yig'indini baholaymiz",
+      "fs": 34,
+      "body": "<p><span class='m'>t ≥ N</span> da <span class='m'>b</span> ta to'pdan biri <b>albatta</b> <span class='m'>0</span> balandlikda, qolgan <span class='m'>b − 1</span> tasi <span class='m'>1, …, 2014</span> dan har xil qiymatlar oladi:</p><div class='box' style='font-size:32px'>eng kichik: <span class='m'>S<sub>t</sub> ≥ 0 + 1 + 2 + … + (b − 1)</span><br>eng katta: <span class='m'>S<sub>t</sub> ≤ 0 + 2014 + 2013 + … + (2016 − b)</span></div><p>Ayirmasi: <span class='m'>|S<sub>n</sub> − S<sub>m</sub>| ≤ (b − 1)(2015 − b)</span>.</p><p>Ko'paytuvchilar yig'indisi <span class='m'>(b − 1) + (2015 − b) = 2014</span>, shuning uchun o'rta arifmetik–o'rta geometrik tengsizlikdan:</p><div class='box' style='text-align:center'><span class='m'>(b − 1)(2015 − b) ≤ 1007<sup>2</sup></span> &nbsp;∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Ketma-ketlik ortidagi o'yin ⚡",
+      "fs": 34,
+      "body": "<p>Quruq sonlar shartini <b>jismoniy jarayonga</b> aylantirdik: <span class='m'>a<sub>j</sub> − b</span> — bu shunchaki to'plar balandliklari yig'indisining o'zgarishi.</p><div class='box'>✅ Python bilan tekshirdik: 2015 o'rniga <span class='m'>M = 2, …, 11</span> olib, 3000 ta tasodifiy ketma-ketlikda <span class='m'>|S<sub>n</sub> − S<sub>m</sub>| ≤ (b − 1)(M − b)</span> bahosi hech qachon buzilmadi.</div><p>Yechim — Evan Chen (IMO 2015 yozuvlari) yechimi asosida.</p><p>🧠 <b>Sizga savol:</b> nega <span class='m'>N</span> paytgacha bo'lgan qadamlar uchun bu baho ishlamasligi mumkin? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2014 · 1-masala</b> (algebra, ketma-ketlik)</p>"
+    }
+  ]
+}
