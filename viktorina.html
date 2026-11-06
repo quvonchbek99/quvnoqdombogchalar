@@ -549,7 +549,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="ka-tarmoq.js?v=20261107a"></script>
+<script src="ka-tarmoq.js?v=20261107b"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
 (function () {
@@ -1108,7 +1108,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     genReady = GEN_FILES.reduce(function (p, f) {
       return p.then(function () {
         if (mark[f] && window.kaSavol && window.kaSavol.has(mark[f])) return;
-        return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261107a"; s.onload = res; s.onerror = res; document.head.appendChild(s); });
+        return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261107b"; s.onload = res; s.onerror = res; document.head.appendChild(s); });
       });
     }, Promise.resolve());
     return genReady;
