@@ -1,0 +1,36 @@
+{
+  "id": "2015-2",
+  "badge": "IMO 2015 · 2-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · SONLAR NAZARIYASI",
+      "title": "Uchta ifoda — 2 ning darajasi",
+      "fs": 36,
+      "body": "<p>Shunday barcha <b>natural</b> <span class='m'>a, b, c</span> sonlarni topingki,</p><div class='box'><span class='m'>ab − c</span>, &nbsp; <span class='m'>bc − a</span>, &nbsp; <span class='m'>ca − b</span><br>sonlarining har biri <b>2 ning darajasi</b> bo'lsin (<span class='m'>2<sup>0</sup> = 1</span> ham hisobga olinadi).</div><p>Masalan, <span class='m'>a = b = c = 2</span>: uchala ifoda ham <span class='m'>2 · 2 − 2 = 2</span>. Yana qanday uchliklar bor?</p><p>💡 Kalit g'oya: 2 ning ikki darajasidan <b>kichigi kattasini bo'ladi</b>, demak ular <b>EKUB</b> orqali bog'lanadi.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Tayyorgarlik va juft a",
+      "fs": 32,
+      "body": "<p><b>Javob:</b> <span class='m'>(2, 2, 2)</span>, <span class='m'>(2, 2, 3)</span>, <span class='m'>(2, 6, 11)</span>, <span class='m'>(3, 5, 7)</span> va ularning o'rin almashtirishlari.</p><p>Umumiylikni buzmay <span class='m'>a ≥ b ≥ c</span>. Agar <span class='m'>c = 1</span> bo'lsa, <span class='m'>a − b</span> va <span class='m'>b − a</span> ikkalasi musbat bo'la olmaydi, demak <span class='m'>c ≥ 2</span>. Shunda <span class='m'>ab − c ≥ ca − b ≥ bc − a</span>.</p><div class='box'>2 ning darajalari: kichigi kattasini bo'ladi ⟹ <span class='m'>ca − b</span> soni <span class='m'>ab − c</span> ni bo'ladi.</div><p><b>1-hol: <span class='m'>a</span> juft.</b> <span class='m'>ca − b</span> soni <span class='m'>a(ca − b) + (ab − c) = c(a<sup>2</sup> − 1)</span> ni ham bo'ladi. <span class='m'>a<sup>2</sup> − 1</span> toq, demak <span class='m'>ca − b</span> soni <span class='m'>c</span> ni bo'ladi:</p><div class='box'><span class='m'>ca − b ≤ c</span> ⟹ <span class='m'>2(a − 1) ≤ a</span> ⟹ <span class='m'>a = b = c = 2</span>.</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Hammasi toq bo'lsa",
+      "fs": 31,
+      "body": "<p><b>2-hol: <span class='m'>a, b, c</span> — toq.</b> Agar <span class='m'>a = b</span> bo'lsa, <span class='m'>ca − b = a(c − 1)</span> toq ko'paytuvchi <span class='m'>a &gt; 1</span> ga ega — mumkin emas. Demak <span class='m'>a &gt; b &gt; c</span>, xususan <span class='m'>b ≤ a − 2</span>.</p><p>Yana <span class='m'>ca − b</span> soni <span class='m'>c(a<sup>2</sup> − 1)</span> ni bo'ladi, <span class='m'>c</span> toq ⟹ u <span class='m'>(a − 1)(a + 1)</span> dagi 2 ning darajasini bo'ladi. Ikki qo'shni juft sondan biri 4 ga bo'linmaydi, shuning uchun:</p><div class='box'><span class='m'>ca − b ≤ 2(a + 1) ≤ 3a − b</span> ⟹ <span class='m'>c = 3</span> va <span class='m'>a = b + 2</span>.</div><p><span class='m'>ca − b &gt; bc − a</span> va ikkalasi 2 ning darajasi, demak kamida <b>2 marta</b> katta:</p><div class='box'><span class='m'>2b + 6 ≥ 2(2b − 2)</span> ⟹ <span class='m'>b ≤ 5</span> ⟹ <span class='m'>b = 5</span>, <span class='m'>a = 7</span>.<br>Tekshiramiz: <span class='m'>32, 8, 16</span> ✓</div>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "a toq, b va c juft",
+      "fs": 31,
+      "body": "<p><b>3-hol.</b> Bunda <span class='m'>bc − a</span> toq ⟹ <span class='m'>bc − a = 1</span>, ya'ni <span class='m'>a = bc − 1</span> va <span class='m'>ca − b = bc<sup>2</sup> − b − c</span>. «Mo'jizaviy» ayniyat:</p><div class='box'><span class='m'>c<sup>3</sup> − b − c = (1 − c<sup>2</sup>)(ab − c) + (a + 1)(ca − b)</span></div><p>Shuning uchun <span class='m'>ca − b</span> soni <span class='m'>c<sup>3</sup> − b − c</span> ni ham bo'ladi.</p><ul><li>Agar <span class='m'>c<sup>3</sup> − b − c ≠ 0</span>: <span class='m'>|c<sup>3</sup> − b − c| ≥ bc<sup>2</sup> − b − c</span> ⟹ <span class='m'>b = c</span>, <span class='m'>ab − c = c(c<sup>2</sup> − 2)</span> ⟹ <span class='m'>c = 2</span>: <b><span class='m'>(3, 2, 2)</span></b>.</li><li>Agar <span class='m'>b = c<sup>3</sup> − c</span>: <span class='m'>ca − b = c<sup>3</sup>(c<sup>2</sup> − 2)</span> ⟹ <span class='m'>c = 2</span>, <span class='m'>b = 6</span>: <b><span class='m'>(11, 6, 2)</span></b>.</li></ul><p>Qolgan juftlik holatlarida <span class='m'>ab − c</span> toq ⟹ uchala ifoda 1 ga teng va ziddiyat chiqadi. ∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Faqat 4 ta uchlik!",
+      "fs": 34,
+      "body": "<p>Har uchlik uchun <span class='m'>ab − c, bc − a, ca − b</span> (tartib bilan bo'lishi shart emas):</p><div class='box'><span class='m'>(2, 2, 2)</span>: <span class='m'>2, 2, 2</span><br><span class='m'>(2, 2, 3)</span>: <span class='m'>1, 4, 4</span><br><span class='m'>(2, 6, 11)</span>: <span class='m'>1, 64, 16</span><br><span class='m'>(3, 5, 7)</span>: <span class='m'>8, 32, 16</span></div><p>✅ Python bilan <span class='m'>a, b, c &lt; 400</span> oralig'idagi barcha uchliklarni tekshirdik — boshqa yechim chiqmadi.</p><p>Yechim — Telv Cohl'ning eng qisqa usuli (Evan Chen yozuvlaridan). Asosiy qurol: <b>EKUB</b> va <b>juft-toqlik</b>.</p><p>🧠 <b>Sizga savol:</b> 3-qadamdagi ayniyatni qavslarni ochib tekshirib ko'ring. Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2015 · 3-masala</b> (geometriya, urinuvchi aylanalar)</p>"
+    }
+  ]
+}
