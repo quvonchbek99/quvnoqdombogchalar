@@ -59,3 +59,13 @@ self.addEventListener('fetch', e => {
     return hit || net.then(r => r || Response.error());
   }));
 });
+
+// Viktorina: «…, viktorinaga qayting!» bildirishnomasi bosilganda — ochiq viktorina varag'iga qaytaramiz
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const want = new URL((e.notification.data && e.notification.data.url) || 'viktorina.html', self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cs => {
+    for (const c of cs) if (new URL(c.url).pathname.endsWith('/viktorina.html') && 'focus' in c) return c.focus();
+    return self.clients.openWindow ? self.clients.openWindow(want) : null;
+  }));
+});
