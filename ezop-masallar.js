@@ -863,5 +863,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki bulbul unga sayrashni o'rgatishdan bosh tortdi", "Chunki u boshqa qushlardan kichik edi va ovozi eshitilmasdi", "Chunki u o'z tabiiy ovozini qabul qilmay, o'zganing ovozini taqlid qilishga urindi"],
     javob: 2,
     izoh: "Har bir jonzotning o'z ovozi va o'z tabiati bor. O'zganing ovozini ko'chirishga urinish o'zining qadr-qimmatini yo'qotishga olib keladi."
+  },
+  {
+    id: "ez-109", mavzu: "ehtiyotkorlik", sarlavha: "Tulki va ilon",
+    matn: "Yo'lda ketayotgan tulki sovuqdan qotib yotgan ilonni ko'rib qoldi. Ilon yalinib: \"Meni isitib qo'ysang, hech qachon senga yomonlik qilmayman\", dedi. Tulki rahmi kelib, uni o'ziga yaqin olib, qo'ynida isitdi. Ilon isib jonlangach, darhol tulkini chaqib oldi. Tulki o'lar holatda ekanini tushunib: \"Yomonlik qilishdan tiyilmaydigan jonzotga yaxshilik qilgan ekanman\", dedi.",
+    savol: "Tulki nima uchun ilonga yordam bergani uchun zarar ko'rdi?",
+    variantlar: ["Chunki u ilonning yomon xulqini bilmasdan, uning va'dasiga ehtiyotkorliksiz ishondi", "Chunki u ilonni isitish uchun juda sovuq joyda turdi", "Chunki ilon tulkidan och edi va ovqat talab qildi"],
+    javob: 0,
+    izoh: "Tulki ilonning xulqini bilmay turib, faqat va'daga tayanib ish tutdi. Yordam berishdan oldin odamning haqiqiy xulqini ham hisobga olish kerak."
   }
 ];
