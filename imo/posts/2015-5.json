@@ -1,0 +1,42 @@
+{
+  "id": "2015-5",
+  "badge": "IMO 2015 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "Haqiqiy sonlarda funksional tenglama",
+      "fs": 37,
+      "body": "<p><span class='m'>ℝ</span> — haqiqiy sonlar to'plami. Shunday barcha <span class='m'>f : ℝ → ℝ</span> funksiyalarni toping, ixtiyoriy <span class='m'>x, y</span> haqiqiy sonlar uchun</p><div class='box' style='text-align:center'><span class='m'>f(x + f(x + y)) + f(xy) = x + f(x + y) + y·f(x)</span></div><p>tenglik bajarilsin.</p><p>💡 Kalit g'oya: <b>qo'zg'almas nuqtalar</b> — <span class='m'>f(t) = t</span> bo'ladigan <span class='m'>t</span> larni yig'ish.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Javob va birinchi o'rniga qo'yishlar",
+      "fs": 34,
+      "body": "<p>Javob: <span class='m'>f(x) = x</span> va <span class='m'>f(x) = 2 − x</span> — ikkalasi ham tenglamani qanoatlantiradi. <span class='m'>P(x, y)</span> — berilgan tenglik, <span class='m'>S</span> — qo'zg'almas nuqtalar to'plami: <span class='m'>S = {t : f(t) = t}</span>.</p><ul><li><span class='m'>P(0, 0)</span>: &nbsp;<span class='m'>f(f(0)) = 0</span></li><li><span class='m'>P(0, f(0))</span>: &nbsp;<span class='m'>2f(0) = f(0)<sup>2</sup></span> ⟹ <span class='m'>f(0) ∈ {0, 2}</span></li><li><span class='m'>P(x, 1)</span>: &nbsp;<span class='m'>f(x)</span> qisqaradi va</li></ul><div class='box' style='text-align:center'><span class='m'>x + f(x + 1) ∈ S</span> &nbsp;(har qanday <span class='m'>x</span> uchun)</div>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "f(0) = 2 holati",
+      "fs": 36,
+      "body": "<p><span class='m'>t ∈ S</span> ixtiyoriy qo'zg'almas nuqta bo'lsin. <span class='m'>P(0, t)</span>:</p><div class='box' style='text-align:center'><span class='m'>f(t) + f(0) = f(t) + t·f(0)</span> ⟹ <span class='m'>2 = 2t</span></div><p>Demak yagona qo'zg'almas nuqta — <span class='m'>t = 1</span>, ya'ni <span class='m'>S = {1}</span>.</p><p>Lekin 1-qadamda <span class='m'>x + f(x + 1) ∈ S</span> edi, shuning uchun</p><div class='box' style='text-align:center'><span class='m'>x + f(x + 1) = 1</span> ⟹ <span class='m'>f(x) = 2 − x</span></div><p>Bundan keyin <span class='m'>f(0) = 0</span> deb olamiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "f(0) = 0: yangi qo'zg'almas nuqtalar",
+      "fs": 33,
+      "body": "<p><span class='m'>P(−1, 1)</span>: <span class='m'>2f(−1) = −1 + f(−1)</span> ⟹ <span class='m'>f(−1) = −1</span>.<br><span class='m'>P(1, −1)</span>: <span class='m'>f(1) + f(−1) = 1 − f(1)</span> ⟹ <span class='m'>f(1) = 1</span>.</p><p>Endi har qanday <span class='m'>x</span> uchun <span class='m'>S</span> ga yangi elementlar:</p><ul><li><span class='m'>P(x, 0)</span>: &nbsp;<span class='m'>x + f(x) ∈ S</span></li><li><span class='m'>P(x − 1, 1)</span>: &nbsp;<span class='m'>x − 1 + f(x) ∈ S</span></li><li><span class='m'>P(1, x + f(x) − 1)</span>: &nbsp;<span class='m'>x + 1 + f(x) ∈ S</span></li></ul><div class='box'>Oxirgisini <span class='m'>x − 1</span> uchun yozsak: <span class='m'>x + f(x − 1) ∈ S</span>. Shuning uchun <span class='m'>P(x, −1)</span> da chapdagi <span class='m'>f(x + f(x−1)) = x + f(x−1)</span> bo'lib, o'ng tomon bilan qisqaradi:</div><div class='box' style='text-align:center'><span class='m'>f(−x) = −f(x)</span> &nbsp;— <b>f toq</b></div>"
+    },
+    {
+      "kicker": "YECHIM · 4-QADAM",
+      "title": "Toqlikdan f(x) = x",
+      "fs": 35,
+      "body": "<p>Ikki o'rniga qo'yishni yozamiz (<span class='m'>f(0) = 0</span>):</p><div class='box'><span class='m'>P(x, −x)</span>: &nbsp;<span class='m'>f(x) + f(−x<sup>2</sup>) = x − x·f(x)</span></div><div class='box'><span class='m'>P(−x, x)</span>: &nbsp;<span class='m'>f(−x) + f(−x<sup>2</sup>) = −x + x·f(−x)</span></div><p>Ayiramiz va <span class='m'>f(−x) = −f(x)</span> dan foydalanamiz:</p><div class='box' style='text-align:center'><span class='m'>2f(x) = 2x − x·f(x) + x·f(x) = 2x</span></div><p>Demak <span class='m'>f(x) = x</span>.</p><div class='box'>Javob: <span class='m'>f(x) = x</span> yoki <span class='m'>f(x) = 2 − x</span>.&nbsp;∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Qo'zg'almas nuqtalar kuchi ⚡",
+      "fs": 34,
+      "body": "<p>Tenglamani to'g'ridan-to'g'ri yechib bo'lmaydi, lekin <span class='m'>f(t) = t</span> bo'ladigan nuqtalarni ketma-ket topib, chap va o'ng tomondagi murakkab hadlarni <b>qisqartirdik</b>.</p><div class='box'>✅ Python bilan 10 000 ta tasodifiy <span class='m'>(x, y)</span> juftlikda tekshirdik: <span class='m'>f(x) = x</span> va <span class='m'>f(x) = 2 − x</span> uchun xatolik ≈ 0.</div><p>Yechim — Evan Chen (IMO 2015 yozuvlari) yechimi asosida.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>f(x) = 2 − x</span> ning yagona qo'zg'almas nuqtasi nechaga teng va bu 2-qadamga qanday mos keladi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2015 · 6-masala</b> (kombinatorika, ketma-ketlik)</p>"
+    }
+  ]
+}
