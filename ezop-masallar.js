@@ -855,5 +855,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u xo'jayinidan qo'rqib, uzoq yurmasdi", "Chunki u itdan kichik edi va sakrashni bilmasdi", "Chunki u o'z tabiatiga mos kelmaydigan xatti-harakatni boshqadan nusxa ko'chirdi"],
     javob: 2,
     izoh: "Har bir jonzotning o'z xislati va vazifasi bor. Boshqaning xatti-harakatini o'zi uchun mos bo'lmasa ham taqlid qilish ko'pincha zarar keltiradi."
+  },
+  {
+    id: "ez-108", mavzu: "o'zlik", sarlavha: "Qarg'a va bulbul",
+    matn: "Qarg'a bulbulning chiroyli sayrashiga havas qildi va o'zi ham shunday kuylamoqchi bo'ldi. Kun bo'yi daraxt shoxida bulbul ohangini takrorlashga urindi, lekin har safar qo'pol qag'illash chiqardi. Shunda u sayrashni tashlab, ertasi kuni butun kunini boshqa qushlarning ovozlarini taqlid qilishga sarfladi. Oxiri hech narsani o'zlashtira olmadi va o'z tabiiy ovozini ham unutib qo'ydi.",
+    savol: "Qarg'a nima uchun sayrash o'rniga boshqa qushlar ovozini taqlid qilib ham o'zining ovozini yo'qotdi?",
+    variantlar: ["Chunki bulbul unga sayrashni o'rgatishdan bosh tortdi", "Chunki u boshqa qushlardan kichik edi va ovozi eshitilmasdi", "Chunki u o'z tabiiy ovozini qabul qilmay, o'zganing ovozini taqlid qilishga urindi"],
+    javob: 2,
+    izoh: "Har bir jonzotning o'z ovozi va o'z tabiati bor. O'zganing ovozini ko'chirishga urinish o'zining qadr-qimmatini yo'qotishga olib keladi."
   }
 ];
