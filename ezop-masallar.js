@@ -879,5 +879,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular uning doimiy bejiz shovqinidan o'rganib, ogohlantirishlarini e'tiborsiz qoldirgan edi", "Chunki ular qarg'aning ovozini umuman eshitmagan edi", "Chunki o'tloqdagi qushlar xavfdan oldinroq uchib ketgan edi"],
     javob: 0,
     izoh: "Bejiz va doimiy shovqin odamlarning ishonchini yo'qotadi. Shundan keyin haqiqiy xabar ham e'tiborsiz qolishi mumkin, shuning uchun so'zni o'rinli ishlatish kerak."
+  },
+  {
+    id: "ez-111", mavzu: "ahloq", sarlavha: "Chayon va qurbaqa",
+    matn: "Chayon daryo qirg'og'ida turib, qurbaqadan uni narigi tomonga olib o'tishni so'radi. Qurbaqa qo'rqib: \"Sen meni chaqib olasan\", dedi. Chayon esa: \"Chaqsam, o'zim ham cho'kib ketaman-ku, shuning uchun chaqmayman\", deb va'da berdi. Qurbaqa ishonib, uni orqasiga mindirdi, ammo suzib ketayotganda chayon uni chaqib yubordi.",
+    savol: "Chayon nima uchun o'z va'dasini buzib, qurbaqani chaqdi?",
+    variantlar: ["Chunki chayonning tabiati chaqish edi va u o'z xulqini o'zgartira olmadi", "Chunki qurbaqa uni olib o'tishdan oldin uni xafa qilgan edi", "Chunki daryo juda sayoz edi va chayon cho'kishdan qo'rqmadi"],
+    javob: 0,
+    izoh: "Chayon o'zi ham cho'kishini bilsa-da, tabiatidagi chaqish odatini tiya olmadi. Masal shuni ko'rsatadi: odamning haqiqiy xulqi so'zidan emas, qilmishidan bilinadi."
   }
 ];
