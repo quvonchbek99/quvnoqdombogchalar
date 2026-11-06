@@ -871,5 +871,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ilonning yomon xulqini bilmasdan, uning va'dasiga ehtiyotkorliksiz ishondi", "Chunki u ilonni isitish uchun juda sovuq joyda turdi", "Chunki ilon tulkidan och edi va ovqat talab qildi"],
     javob: 0,
     izoh: "Tulki ilonning xulqini bilmay turib, faqat va'daga tayanib ish tutdi. Yordam berishdan oldin odamning haqiqiy xulqini ham hisobga olish kerak."
+  },
+  {
+    id: "ez-110", mavzu: "ishonch", sarlavha: "Qarg'a va qichqiriq",
+    matn: "Qarg'a har kuni o'tloqqa kelib, qanotlarini qattiq qoqib, bejiz qichqirardi. Dastlab o'tloqdagi qushlar uning shovqinidan cho'chib, darhol uchib ketardi. Ammo kunlar o'tgach, ular bu shovqinga o'rganib, unga e'tibor bermay qo'ydi. Bir kuni haqiqiy xavf yaqinlashib, qarg'a ogohlantirish berganida, hech kim unga ishonmadi.",
+    savol: "Nima uchun haqiqiy xavf paydo bo'lganda qushlar qarg'aning ogohlantirishiga ishonmadi?",
+    variantlar: ["Chunki ular uning doimiy bejiz shovqinidan o'rganib, ogohlantirishlarini e'tiborsiz qoldirgan edi", "Chunki ular qarg'aning ovozini umuman eshitmagan edi", "Chunki o'tloqdagi qushlar xavfdan oldinroq uchib ketgan edi"],
+    javob: 0,
+    izoh: "Bejiz va doimiy shovqin odamlarning ishonchini yo'qotadi. Shundan keyin haqiqiy xabar ham e'tiborsiz qolishi mumkin, shuning uchun so'zni o'rinli ishlatish kerak."
   }
 ];
