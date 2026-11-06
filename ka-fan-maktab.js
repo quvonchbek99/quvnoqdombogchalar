@@ -48,7 +48,7 @@
     if (L === 1) {
       var P = R(5, 50) * 10000, d = pick([10, 15, 20, 25, 30, 40]), a = P * (100 - d) / 100;
       return Q("Mahsulot narxi <b>" + som(P) + "</b>. Unga <b>" + d + "%</b> chegirma qilindi. Yangi narx qancha?", som(a),
-        [som(P * d / 100), som(P + P * d / 100), som(P - d * 1000)],
+        [som(P * d / 100), som(P + P * d / 100), som(P * (100 - 2 * d) / 100)],
         ["Chegirma: " + sp(P) + " × " + d + " / 100 = " + sp(P * d / 100) + "; yangi narx: " + sp(P) + " − " + sp(P * d / 100) + " = " + sp(a)]);
     }
     if (L === 2) {

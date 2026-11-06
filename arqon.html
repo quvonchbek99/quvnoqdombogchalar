@@ -366,7 +366,7 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
   var genLoaded = {};
   function addJs(src) {
     if (genLoaded[src]) return genLoaded[src];
-    return (genLoaded[src] = new Promise(function (ok) { var sc = document.createElement("script"); sc.src = src + "?v=20261107a"; sc.onload = ok; sc.onerror = function () { delete genLoaded[src]; ok(); }; document.head.appendChild(sc); }));
+    return (genLoaded[src] = new Promise(function (ok) { var sc = document.createElement("script"); sc.src = src + "?v=20261107b"; sc.onload = ok; sc.onerror = function () { delete genLoaded[src]; ok(); }; document.head.appendChild(sc); }));
   }
   // tanlangan mavzular uchun generator fayllari (ketma-ket) + lug'at/savol banklari (kaFan.prep)
   function prepTopics(ids) {
