@@ -6,7 +6,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Jonli viktorina — Kahoot uslubida, o'zbek tilida — Kuvonch Academy</title>
-<meta name="description" content="Kahoot uslubidagi o'zbekcha viktorina: savol katta ekranda, o'quvchilar telefondan kod bilan kirib javob beradi. 110 ta matematika mavzusi, har safar yangi savollar, tez va to'g'ri javobga ko'p ochko, xato javobda yechim.">
+<meta name="description" content="Kahoot uslubidagi o'zbekcha viktorina: savol katta ekranda, o'quvchilar telefondan kod bilan kirib javob beradi. 20 fan, 110 ta matematika mavzusi, hamma fandan aralash test, har safar yangi savollar, tez va to'g'ri javobga ko'p ochko, xato javobda yechim.">
 <link rel="canonical" href="https://kuvonch.uz/viktorina.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kuvonch Academy">
@@ -403,7 +403,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="hero">
 <span class="kicker">⚡ Jonli viktorina</span>
 <h1>Viktorina <span>butun sinf bilan</span></h1>
-<p class="lead">Kahoot uslubida, o'zbek tilida: savol katta ekranda, o'quvchilar telefondan kod yoki QR bilan kirib javob beradi. Matematika, mantiq, ingliz va rus tili, fizika, kimyo, biologiya, geografiya, tarix, informatika va ona tili — hammasi bir joyda. Oxirida har bir o'quvchi PDF sertifikat oladi.</p>
+<p class="lead">Kahoot uslubida, o'zbek tilida: savol katta ekranda, o'quvchilar telefondan kod yoki QR bilan kirib javob beradi. Matematika, mantiq, ingliz va rus tili, fizika, kimyo, biologiya, geografiya, tarix, informatika, ona tili, adabiyot, huquq, iqtisodiyot, astronomiya, chizmachilik, ekologiya, tarbiya, ChQBT va jismoniy tarbiya — 20 fan bir joyda, xohlasangiz <b>hamma fandan aralash</b>. Oxirida har bir o'quvchi PDF sertifikat oladi.</p>
 </div>
 
 <section class="card" id="cJoin">
@@ -423,7 +423,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <h2><span class="num">1</span>Mavzu</h2>
 <p class="sub">Avval fanni, keyin bitta yoki bir nechta mavzuni tanlang — savollar shu mavzular generatoridan, har safar yangi chiqadi.</p>
 <div class="fans" id="tFans" role="toolbar" aria-label="Fanlar"></div>
-<div class="selbar"><div id="selChips" class="chips"></div><button type="button" id="selDaraja" class="btn small" title="1–11-sinf, 100 ta savol, osondan qiyinga">🎯 Daraja testi</button><button type="button" id="selClear" class="btn small">Tozalash</button></div>
+<div class="selbar"><div id="selChips" class="chips"></div><button type="button" id="selAralash" class="btn small" title="Har bir fandan bitta mavzu, 30 ta savol, osondan qiyinga">🔀 Hamma fandan aralash</button><button type="button" id="selDaraja" class="btn small" title="1–11-sinf, 100 ta savol, osondan qiyinga">🎯 Daraja testi</button><button type="button" id="selClear" class="btn small">Tozalash</button></div>
 <input id="tSearch" class="field" type="search" placeholder="🔎 Mavzu qidirish: logarifm, kasr, lug'at, Om qonuni, poytaxt…" aria-label="Mavzu qidirish" autocomplete="off">
 <div id="tList" class="tlist"></div>
 </section>
@@ -571,9 +571,21 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     ["o1","Ona tili · Kelishiklar va qo'shimchalar",18],["o2","Ona tili · So'z turkumlari",18],["o3","Ona tili · Fonetika va imlo",18],
     ["gf1","Grafiklar · Chiziqli funksiya grafigi",19],["gf2","Grafiklar · Kvadrat funksiya (parabola)",19],["gf3","Grafiklar · Funksiya grafigini tanib olish",19],["gf4","Grafiklar · Grafikdan qiymat o'qish",19],["gf5","Grafiklar · Grafikni surish va akslantirish",19],["gf6","Grafiklar · Ustunli diagramma",19],["gf8","Grafiklar · Trigonometrik funksiyalar grafigi",19],
     ["at0","Avtotest · Barcha mavzular (aralash)",20],["at1","Avtotest · Umumiy qoidalar va atamalar",20],["at2","Avtotest · Yo'l belgilari",20],["at3","Avtotest · Yo'l chiziqlari",20],["at4","Avtotest · Svetofor va tartibga soluvchi ishoralari",20],["at5","Avtotest · Harakatni boshlash va manevr",20],["at6","Avtotest · Tezlik, quvib o'tish, oraliq",20],["at7","Avtotest · To'xtash va to'xtab turish",20],["at8","Avtotest · Chorrahalar",20],["at9","Avtotest · Piyodalar, bekatlar, temir yo'l, avtomagistral",20],["at10","Avtotest · Yoritish asboblari va signallar",20],["at11","Avtotest · Shatakka olish, odam va yuk tashish",20],["at12","Avtotest · Texnik holat va jihozlar",20],["at13","Avtotest · Birinchi tibbiy yordam",20]]);
-  var GROUPS = ["🧮 Asosiy amallar", "📘 Mavzular (1–50)", "🎓 Algebra · Milliy sertifikat (51–70)", "📐 Geometriya (71–88)", "🎲 Kombinatorika va ehtimollik (89–96)", "⚛️ Fizika uchun matematika (97–98)", "📊 SAT statistika (99–102)", "🎯 Sinflar bo'yicha — daraja testi (1–11-sinf)", "🏫 1–9-sinf modullari", "🧠 Mantiq", "🇬🇧 Ingliz tili", "🇷🇺 Rus tili", "⚛️ Fizika", "🧪 Kimyo", "🧬 Biologiya", "🌍 Geografiya", "📜 Tarix", "💻 Informatika va robototexnika", "📝 Ona tili", "📈 Grafiklar (chizmali savollar)", "🚗 Avtotest (prava imtihoni)"];
+  // maktab fanlari (ka-fan-maktab.js)
+  TOPICS = TOPICS.concat([
+    ["ad1", "Adabiyot · O'zbek adiblari va ularning asarlari", 21],["ad2", "Adabiyot · Adabiyot nazariyasi: tur, janr va tasvir vositalari", 21],["ad3", "Adabiyot · Jahon adabiyoti", 21],
+    ["hq1", "Huquq · Konstitutsiya va davlat tuzilishi", 22],["hq2", "Huquq · Inson huquqlari, erkinliklari va burchlari", 22],["hq3", "Huquq · Huquq sohalari: mehnat, oila, ma'muriy va jinoyat huquqi asoslari", 22],
+    ["iq1", "Iqtisodiyot · Asosiy tushunchalar: ehtiyoj, talab, taklif, bozor", 23],["iq2", "Iqtisodiyot · Pul, bank va soliqlar", 23],["iq3", "Iqtisodiyot · Moliyaviy savodxonlik: byudjet, jamg'arma, kredit va foiz", 23],
+    ["as1", "Astronomiya · Quyosh sistemasi", 24],["as2", "Astronomiya · Yulduzlar, galaktikalar va koinot", 24],["as3", "Astronomiya · Astronomiya tarixi va kosmonavtika", 24],
+    ["cz1", "Chizmachilik · Chizma asboblari, formatlar va chiziq turlari", 25],["cz2", "Chizmachilik · Proyeksiyalar va ko'rinishlar", 25],["cz3", "Chizmachilik · Masshtab, o'lchamlar va kesimlar", 25],
+    ["ek1", "Ekologiya · Ekotizimlar va oziq zanjiri", 26],["ek2", "Ekologiya · Ekologik muammolar: Orol, iqlim, ifloslanish", 26],["ek3", "Ekologiya · Tabiatni muhofaza qilish", 26],
+    ["tb1", "Tarbiya · Odob-axloq va muomala madaniyati", 27],["tb2", "Tarbiya · Vatan, davlat ramzlari va milliy bayramlar", 27],["tb3", "Tarbiya · Sog'lom turmush, xavfsiz internet va kasb tanlash", 27],
+    ["cq1", "ChQBT · Birinchi tibbiy yordam", 28],["cq2", "ChQBT · Fuqaro muhofazasi va favqulodda vaziyatlar", 28],["cq3", "ChQBT · Qurolli Kuchlar va harbiy xizmat asoslari", 28],
+    ["jt1", "Jismoniy tarbiya · Sport turlari va o'yin qoidalari", 29],["jt2", "Jismoniy tarbiya · Olimpiya o'yinlari va o'zbek sportchilari", 29],["jt3", "Jismoniy tarbiya · Sog'liq, gigiyena va mashqlar", 29]
+  ]);
+  var GROUPS = ["🧮 Asosiy amallar", "📘 Mavzular (1–50)", "🎓 Algebra · Milliy sertifikat (51–70)", "📐 Geometriya (71–88)", "🎲 Kombinatorika va ehtimollik (89–96)", "⚛️ Fizika uchun matematika (97–98)", "📊 SAT statistika (99–102)", "🎯 Sinflar bo'yicha — daraja testi (1–11-sinf)", "🏫 1–9-sinf modullari", "🧠 Mantiq", "🇬🇧 Ingliz tili", "🇷🇺 Rus tili", "⚛️ Fizika", "🧪 Kimyo", "🧬 Biologiya", "🌍 Geografiya", "📜 Tarix", "💻 Informatika va robototexnika", "📝 Ona tili", "📈 Grafiklar (chizmali savollar)", "🚗 Avtotest (prava imtihoni)", "📖 Adabiyot", "⚖️ Huquq", "💰 Iqtisodiyot", "🔭 Astronomiya", "✏️ Chizmachilik", "🌱 Ekologiya", "🤝 Tarbiya", "🎖️ ChQBT (chaqiruvgacha tayyorgarlik)", "🏃 Jismoniy tarbiya"];
   // fanlar: qaysi guruhlar qaysi fanga tegishli (filtr tugmalari)
-  var FANS = [["all", "🌐 Hammasi", null], ["mat", "📐 Matematika", [19, 0, 1, 2, 3, 4, 5, 6, 7, 8]], ["mantiq", "🧠 Mantiq", [9]], ["ingliz", "🇬🇧 Ingliz tili", [10]], ["rus", "🇷🇺 Rus tili", [11]], ["fizika", "⚛️ Fizika", [12, 5]], ["kimyo", "🧪 Kimyo", [13]], ["biologiya", "🧬 Biologiya", [14]], ["geografiya", "🌍 Geografiya", [15]], ["tarix", "📜 Tarix", [16]], ["informatika", "💻 Informatika", [17]], ["ona", "📝 Ona tili", [18]], ["avto", "🚗 Avtotest", [20]]];
+  var FANS = [["all", "🌐 Hammasi", null], ["mat", "📐 Matematika", [19, 0, 1, 2, 3, 4, 5, 6, 7, 8]], ["mantiq", "🧠 Mantiq", [9]], ["ingliz", "🇬🇧 Ingliz tili", [10]], ["rus", "🇷🇺 Rus tili", [11]], ["fizika", "⚛️ Fizika", [12, 5]], ["kimyo", "🧪 Kimyo", [13]], ["biologiya", "🧬 Biologiya", [14]], ["geografiya", "🌍 Geografiya", [15]], ["tarix", "📜 Tarix", [16]], ["informatika", "💻 Informatika", [17]], ["ona", "📝 Ona tili", [18]], ["adabiyot", "📖 Adabiyot", [21]], ["huquq", "⚖️ Huquq", [22]], ["iqtisod", "💰 Iqtisodiyot", [23]], ["astronomiya", "🔭 Astronomiya", [24]], ["chizma", "✏️ Chizmachilik", [25]], ["ekologiya", "🌱 Ekologiya", [26]], ["tarbiya", "🤝 Tarbiya", [27]], ["chqbt", "🎖️ ChQBT", [28]], ["sport", "🏃 Jismoniy tarbiya", [29]], ["avto", "🚗 Avtotest", [20]]];
   var fanParam = (/[?&]fan=([a-z]+)/i.exec(location.search) || [])[1];
   var curFan = fanParam && FANS.some(function (f) { return f[0] === fanParam; }) ? fanParam : "all";
   var TITLE = {}; TOPICS.forEach(function (t) { TITLE[t[0]] = t[1]; });
@@ -584,7 +596,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="#fff"/></svg>',
     '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="30" height="30" rx="3" fill="#fff"/></svg>'];
   var SHAPE_NAME = ["▲ qizil", "◆ ko'k", "● sariq", "■ yashil"];
-  var GEN_FILES = ["ka-savollar.js", "ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js", "ka-savollar-6.js", "ka-savollar-7.js", "ka-savollar-8.js", "ka-savollar-9.js", "ka-savollar-10.js", "ka-savollar-11.js", "ka-savollar-12.js", "ka-sinf-modullar.js", "ka-savollar-fanlar.js", "ka-fan-tabiiy.js", "ka-fan-ijtimoiy.js", "ka-fan-avtotest.js", "ka-grafik.js", "ka-savol-qoshimcha.js"];
+  var GEN_FILES = ["ka-savollar.js", "ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js", "ka-savollar-6.js", "ka-savollar-7.js", "ka-savollar-8.js", "ka-savollar-9.js", "ka-savollar-10.js", "ka-savollar-11.js", "ka-savollar-12.js", "ka-sinf-modullar.js", "ka-savollar-fanlar.js", "ka-fan-tabiiy.js", "ka-fan-ijtimoiy.js", "ka-fan-avtotest.js", "ka-fan-maktab.js", "ka-grafik.js", "ka-savol-qoshimcha.js"];
   // QR kutubxonasi saytning o'zida (CDN ochilmasa ham ishlaydi), zaxira — cdnjs
   var QR_SRCS = ["vendor/qrcode-1.4.4.min.js", "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"];
   var LS = "ka.viktorina.v1", LS_P = "ka.viktorina.join.v1", MAX_PLAYERS = 80;
@@ -866,6 +878,23 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     });
     bindFans($("#tFans"), box, $("#tSearch"));
     $("#selClear").onclick = function () { cfg.topics = []; syncTopics(); };
+    // 🔀 Hamma fandan aralash: har bir fandan (avtotestdan tashqari) bitta tasodifiy mavzu — savollar fanlar bo'yicha teng taqsimlanadi
+    function aralash(silent) {
+      var pickT = [];
+      FANS.forEach(function (f) {
+        if (!f[2] || f[0] === "avto") return;
+        var c = TOPICS.filter(function (t) { return f[2].indexOf(t[2]) > -1 && t[2] !== 7 && !/^(e[1-6]|r[12])$/.test(t[0]); });
+        if (c.length) pickT.push(pick(c)[0]);
+      });
+      cfg.topics = shuffle(pickT); cfg.count = 30; cfg.lvl = "prog";
+      var allB = $('#tFans button[data-fan="all"]'); if (allB && curFan !== "all") allB.click();
+      syncTopics(); saveCfg();
+      $$("#cntOpts .opt").forEach(function (b) { b.classList.toggle("on", +b.dataset.v === 30); }); $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === "prog"); });
+      if (typeof summary === "function") summary();
+      if (!silent) toast("Aralash: " + pickT.length + " ta fan, har biridan 1 mavzu, 30 savol. Yana bossangiz — boshqa mavzular");
+    }
+    $("#selAralash").onclick = function () { aralash(false); };
+    if (/[?&]aralash=1/.test(location.search) && !aralash.done) { aralash.done = 1; aralash(false); }
     $("#selDaraja").onclick = function () { cfg.topics = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11"]; cfg.count = 100; cfg.lvl = "prog"; syncTopics(); $$("#cntOpts .opt").forEach(function (b) { b.classList.toggle("on", +b.dataset.v === 100); }); $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === "prog"); }); if (typeof summary === "function") summary(); toast("Daraja testi: 11 sinf, 100 savol, osondan qiyinga"); };
     $("#selChips").addEventListener("click", function (e) {
       var b = e.target.closest("button[data-id]"); if (!b) return;
@@ -1073,13 +1102,13 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   /* ---------------- savollar generatori (faqat o'qituvchida yuklanadi) ---------------- */
   var genReady = null;
   function loadGens() {
-    if (window.kaSavol && ["t102", "s11", "m1", "f1", "b1", "gf1"].every(function (id) { return window.kaSavol.has(id); })) return Promise.resolve();
+    if (window.kaSavol && ["t102", "s11", "m1", "f1", "b1", "gf1", "ad1"].every(function (id) { return window.kaSavol.has(id); })) return Promise.resolve();
     if (genReady) return genReady;
-    var mark = { "ka-savollar-fanlar.js": "m1", "ka-fan-tabiiy.js": "f1", "ka-fan-ijtimoiy.js": "b1", "ka-grafik.js": "gf1" };
+    var mark = { "ka-savollar-fanlar.js": "m1", "ka-fan-tabiiy.js": "f1", "ka-fan-ijtimoiy.js": "b1", "ka-fan-maktab.js": "ad1", "ka-grafik.js": "gf1" };
     genReady = GEN_FILES.reduce(function (p, f) {
       return p.then(function () {
         if (mark[f] && window.kaSavol && window.kaSavol.has(mark[f])) return;
-        return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261105a"; s.onload = res; s.onerror = res; document.head.appendChild(s); });
+        return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261107a"; s.onload = res; s.onerror = res; document.head.appendChild(s); });
       });
     }, Promise.resolve());
     return genReady;
