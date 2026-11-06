@@ -2,7 +2,7 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; media-src 'self'; img-src 'self' data:; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; media-src 'self' https://drive.usercontent.google.com https://*.googleusercontent.com https://drive.google.com; frame-src https://drive.google.com; img-src 'self' data:; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ezop masallari — Reels | Kuvonch Academy</title>
@@ -43,6 +43,7 @@
   <p class="sub">Har bir masal 9:16 qisqa video sifatida. Videoni bosib ijro eting.</p>
   <main id="list"></main>
 </div>
+<script src="ka-video.js"></script>
 <script src="ezop-masallar.js"></script>
 <script>
 (function () {
@@ -70,8 +71,12 @@
     v.playsInline = true;
     v.preload = 'none';
     v.setAttribute('poster', '');
-    v.src = 'media/ezop/' + m.id + '.mp4';
+    var yol = 'media/ezop/' + m.id + '.mp4';
+    var V = window.kaVideo;
+    v.src = V ? V.src(yol) : yol;
     v.addEventListener('error', function () {
+      // Drive manzili ochilmasa — Drive'ning o'z pleyeri
+      if (V && V.id(yol) && !v.dataset.drv) { v.dataset.drv = '1'; if (V.swap(v, yol)) return; }
       v.style.display = 'none';
       missing.style.display = 'flex';
     });

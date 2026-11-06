@@ -1004,6 +1004,8 @@
       document.head.appendChild(spr);
     }
   } catch (e) {}
+  // Menyuning fasl va oyga mos bezagi — har bir sahifada (sahifa o'zi ulamagan bo'lsa)
+  try { if (!window.kaFasl) { var fs = document.createElement("script"); fs.src = CLOUD_SRC.replace(/ka-bulut\.js$/, "ka-fasl.js"); fs.async = true; document.head.appendChild(fs); } } catch (e) {}
   // Bilim daraxti va Bilimcoin ₿ — har bir sahifada
   try { if (!window.kaDaraxt && !/[?&]daraxt=0/.test(location.search)) { var ds = document.createElement("script"); ds.src = CLOUD_SRC.replace(/ka-bulut\.js$/, "ka-daraxt.js"); ds.async = true; document.head.appendChild(ds); } } catch (e) {}
   if (location.hash === "#akkount") setTimeout(function () { window.kaAccount.open(); }, 300);
