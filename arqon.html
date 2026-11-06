@@ -349,13 +349,24 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
     ["i1","Informatika · Sanoq sistemalari",15],["i2","Informatika · Axborot birliklari",15],["i3","Informatika · Kompyuter, internet va dasturlash",15],["i4","Informatika · Mantiqiy amallar va algoritmlar",15],["i5","Informatika · Robototexnika asoslari",15],
     ["o1","Ona tili · Kelishiklar va qo'shimchalar",16],["o2","Ona tili · So'z turkumlari",16],["o3","Ona tili · Fonetika va imlo",16],
     ["at0","Avtotest · Barcha mavzular (aralash)",17],["at1","Avtotest · Umumiy qoidalar va atamalar",17],["at2","Avtotest · Yo'l belgilari",17],["at3","Avtotest · Yo'l chiziqlari",17],["at4","Avtotest · Svetofor va tartibga soluvchi ishoralari",17],["at5","Avtotest · Harakatni boshlash va manevr",17],["at6","Avtotest · Tezlik, quvib o'tish, oraliq",17],["at7","Avtotest · To'xtash va to'xtab turish",17],["at8","Avtotest · Chorrahalar",17],["at9","Avtotest · Piyodalar, bekatlar, temir yo'l, avtomagistral",17],["at10","Avtotest · Yoritish asboblari va signallar",17],["at11","Avtotest · Shatakka olish, odam va yuk tashish",17],["at12","Avtotest · Texnik holat va jihozlar",17],["at13","Avtotest · Birinchi tibbiy yordam",17]]);
-  GROUPS = GROUPS.concat(["🧠 Mantiq", "🇬🇧 Ingliz tili", "🇷🇺 Rus tili", "⚛️ Fizika", "🧪 Kimyo", "🧬 Biologiya", "🌍 Geografiya", "📜 Tarix", "💻 Informatika va robototexnika", "📝 Ona tili", "🚗 Avtotest (prava imtihoni)"]);
-  var GEN_EXTRA = [["ka-savollar-fanlar.js", /^(m|e|r)\d+$/], ["ka-fan-tabiiy.js", /^(f|k|i)\d+$/], ["ka-fan-ijtimoiy.js", /^(b|g|h|o)\d+$/], ["ka-fan-avtotest.js", /^at\d+$/]];
+  GROUPS = GROUPS.concat(["🧠 Mantiq", "🇬🇧 Ingliz tili", "🇷🇺 Rus tili", "⚛️ Fizika", "🧪 Kimyo", "🧬 Biologiya", "🌍 Geografiya", "📜 Tarix", "💻 Informatika va robototexnika", "📝 Ona tili", "🚗 Avtotest (prava imtihoni)", "📖 Adabiyot", "⚖️ Huquq", "💰 Iqtisodiyot", "🔭 Astronomiya", "✏️ Chizmachilik", "🌱 Ekologiya", "🤝 Tarbiya", "🎖️ ChQBT (chaqiruvgacha tayyorgarlik)", "🏃 Jismoniy tarbiya"]);
+  TOPICS = TOPICS.concat([
+    ["ad1", "Adabiyot · O'zbek adiblari va ularning asarlari", 18],["ad2", "Adabiyot · Adabiyot nazariyasi: tur, janr va tasvir vositalari", 18],["ad3", "Adabiyot · Jahon adabiyoti", 18],
+    ["hq1", "Huquq · Konstitutsiya va davlat tuzilishi", 19],["hq2", "Huquq · Inson huquqlari, erkinliklari va burchlari", 19],["hq3", "Huquq · Huquq sohalari: mehnat, oila, ma'muriy va jinoyat huquqi asoslari", 19],
+    ["iq1", "Iqtisodiyot · Asosiy tushunchalar: ehtiyoj, talab, taklif, bozor", 20],["iq2", "Iqtisodiyot · Pul, bank va soliqlar", 20],["iq3", "Iqtisodiyot · Moliyaviy savodxonlik: byudjet, jamg'arma, kredit va foiz", 20],
+    ["as1", "Astronomiya · Quyosh sistemasi", 21],["as2", "Astronomiya · Yulduzlar, galaktikalar va koinot", 21],["as3", "Astronomiya · Astronomiya tarixi va kosmonavtika", 21],
+    ["cz1", "Chizmachilik · Chizma asboblari, formatlar va chiziq turlari", 22],["cz2", "Chizmachilik · Proyeksiyalar va ko'rinishlar", 22],["cz3", "Chizmachilik · Masshtab, o'lchamlar va kesimlar", 22],
+    ["ek1", "Ekologiya · Ekotizimlar va oziq zanjiri", 23],["ek2", "Ekologiya · Ekologik muammolar: Orol, iqlim, ifloslanish", 23],["ek3", "Ekologiya · Tabiatni muhofaza qilish", 23],
+    ["tb1", "Tarbiya · Odob-axloq va muomala madaniyati", 24],["tb2", "Tarbiya · Vatan, davlat ramzlari va milliy bayramlar", 24],["tb3", "Tarbiya · Sog'lom turmush, xavfsiz internet va kasb tanlash", 24],
+    ["cq1", "ChQBT · Birinchi tibbiy yordam", 25],["cq2", "ChQBT · Fuqaro muhofazasi va favqulodda vaziyatlar", 25],["cq3", "ChQBT · Qurolli Kuchlar va harbiy xizmat asoslari", 25],
+    ["jt1", "Jismoniy tarbiya · Sport turlari va o'yin qoidalari", 26],["jt2", "Jismoniy tarbiya · Olimpiya o'yinlari va o'zbek sportchilari", 26],["jt3", "Jismoniy tarbiya · Sog'liq, gigiyena va mashqlar", 26]
+  ]);
+  var GEN_EXTRA = [["ka-savollar-fanlar.js", /^(m|e|r)\d+$/], ["ka-fan-tabiiy.js", /^(f|k|i)\d+$/], ["ka-fan-ijtimoiy.js", /^(b|g|h|o)\d+$/], ["ka-fan-avtotest.js", /^at\d+$/], ["ka-fan-maktab.js", /^(ad|hq|iq|as|cz|ek|tb|cq|jt)\d+$/]];
   function needGen(id) { for (var i = 0; i < GEN_EXTRA.length; i++) if (GEN_EXTRA[i][1].test(id)) return GEN_EXTRA[i][0]; return null; }
   var genLoaded = {};
   function addJs(src) {
     if (genLoaded[src]) return genLoaded[src];
-    return (genLoaded[src] = new Promise(function (ok) { var sc = document.createElement("script"); sc.src = src + "?v=20261106a"; sc.onload = ok; sc.onerror = function () { delete genLoaded[src]; ok(); }; document.head.appendChild(sc); }));
+    return (genLoaded[src] = new Promise(function (ok) { var sc = document.createElement("script"); sc.src = src + "?v=20261107a"; sc.onload = ok; sc.onerror = function () { delete genLoaded[src]; ok(); }; document.head.appendChild(sc); }));
   }
   // tanlangan mavzular uchun generator fayllari (ketma-ket) + lug'at/savol banklari (kaFan.prep)
   function prepTopics(ids) {
