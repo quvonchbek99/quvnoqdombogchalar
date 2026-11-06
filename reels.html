@@ -69,6 +69,7 @@ button,a{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 .missing b{display:block;font-size:40px;margin-bottom:6px}
 .stage.drv .tapzone,.stage.drv .bigplay,.stage.drv .prog,.stage.drv img.pst{display:none}
 .stage iframe.drive-player{z-index:1}
+.stage.drv~.info .cat,.stage.drv~.info h2,.stage.drv~.info p{pointer-events:none}
 .hint{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);padding:8px 14px;border-radius:999px;font-weight:700;font-size:14px;transition:opacity .4s;pointer-events:none;white-space:nowrap}
 .hint.off{opacity:0}
 .toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:40;background:rgba(0,0,0,.8);padding:10px 16px;border-radius:12px;font-weight:700;opacity:0;transition:opacity .25s;pointer-events:none}
@@ -162,7 +163,8 @@ button,a{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
   function sec(i) { return $("#feed").querySelector('.reel[data-i="' + i + '"]'); }
   function prime(i) { // keyingi videoni oldindan tayyorlab qo'yamiz
     var s = sec(i); if (!s) return; var v = $("video", s), x = items[i];
-    if (!x.drv && !v.getAttribute("src")) { v.setAttribute("src", V.src(x.src)); v.preload = "metadata"; }
+    if (x.drv || (V.iframe && V.id(x.src))) return; // Drive pleyeri faqat ochilganda yuklanadi
+    if (!v.getAttribute("src")) { v.setAttribute("src", V.src(x.src)); v.preload = "metadata"; }
   }
   function activate(i) {
     if (cur && cur.i === i) return;
@@ -177,7 +179,7 @@ button,a{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
     cur = { i: i, v: v, st: st };
     if (history.replaceState) history.replaceState(null, "", "#" + x.id);
     try { document.title = x.title + " — Kuvonch Reels"; } catch (e) {}
-    if (x.drv) { drive(); prime(i + 1); return; }
+    if (x.drv || (V.iframe && V.id(x.src))) { drive(); prime(i + 1); return; }
     if (!v.getAttribute("src")) v.setAttribute("src", V.src(x.src));
     v.preload = "auto"; v.muted = !sound;
     v.onerror = function () { if (x.drv) return; if (V.id(x.src)) drive(); else st.classList.add("err"); };

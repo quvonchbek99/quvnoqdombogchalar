@@ -12,6 +12,8 @@
   function dl(i) { return "https://drive.usercontent.google.com/download?id=" + i + "&export=download&confirm=t"; }
 
   window.kaVideo = {
+    /** Drive videoni to'g'ridan-to'g'ri <video> ga bermaydi (sinovda "Format error"), shuning uchun Drive pleyeri ishlatiladi */
+    iframe: true,
     /** Drive fayl ID si (yo'q bo'lsa null) */
     id: id,
     /** <video src> uchun manzil */

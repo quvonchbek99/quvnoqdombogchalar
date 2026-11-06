@@ -1,5 +1,8 @@
-/*! Kuvonch Academy — Reels ro'yxati. Yangi video qo'shish: media/ ga .mp4 (9:16) va media/poster/ ga .jpg qo'ying, so'ng shu ro'yxatga qator qo'shing.
- *  Ezop masallari bu yerga yozilmaydi — ezop-masallar.js dan avtomatik olinadi (media/ezop/<id>.mp4). */
+/*! Kuvonch Academy — Reels ro'yxati.
+ *  Videolar GitHub'da emas, Google Drive'da ("kuvonch.uz videolar" papkasi) — ka-video.js ga qarang.
+ *  Yangi video qo'shish: .mp4 (9:16) ni Drive papkasiga yuklang va ka-video.js dagi ro'yxatga yo'li + Drive ID sini yozing;
+ *  media/poster/ ga .jpg qo'ying, so'ng shu ro'yxatga qator qo'shing ("src" — o'sha yo'l, masalan media/yangi.mp4).
+ *  Ezop masallari bu yerga yozilmaydi — ezop-masallar.js dan avtomatik olinadi (yo'li media/ezop/<id>.mp4). */
 window.KA_REELS = [
   { id: "reklama-viktorina", cat: "sayt", src: "media/reklama/reklama-viktorina.mp4", poster: "media/poster/reklama-viktorina.jpg",
     title: "Jonli viktorina — Kahoot uslubida, o'zbek tilida", desc: "Savol katta ekranda, javob telefonda. 110 ta mavzu, tez va to'g'ri javobga ko'p ochko.", link: "viktorina.html", linkText: "⚡ Viktorinani ochish" },
