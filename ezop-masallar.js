@@ -911,5 +911,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ko'p do'st bo'lishning o'zi yetarli emas, haqiqiy do'st xavf paytida ko'rinadi", "Do'stlarining hammasi unga yordam berishga tayyor edi", "Ovchilar do'stlarini qo'rqitib haydab yuborgan edi"],
     javob: 0,
     izoh: "Quyon do'stlari sonini maqtagan edi, lekin qiyin paytda ulardan hech kim yordam bermadi. Haqiqiy do'stlik xavf paytida sinaladi, sonning ko'pligi esa hech narsani kafolatlamaydi."
+  },
+  {
+    id: "ez-115", mavzu: "himoya", sarlavha: "Tulki va kirpi",
+    matn: "Och tulki bir kuni o'rmon yo'lida kirpini uchratib, uni tushlikka yemoqchi bo'ldi. Kirpi qochmadi, balki tez orada tikanli kichik to'pga aylanib oldi. Tulki uni og'ziga olmoqchi bo'lib bir necha marta urindi, ammo har safar tikanlar og'zini ranjitdi. Oxiri charchagan tulki: \"Bu ovqat menga arzimaydi\", deb o'z yo'liga ketib qoldi.",
+    savol: "Tulki nima uchun kirpini yeya olmadi?",
+    variantlar: ["Kirpi o'zini tikanlari bilan himoya qilib, tulkining ushlashiga yo'l qo'ymadi", "Kirpi tulkidan kuchliroq edi va uni haydab yubordi", "Tulki kirpini yeyishni umuman xohlamagan edi"],
+    javob: 0,
+    izoh: "Kirpi qochishning o'rniga o'zini tikanlari bilan himoya qildi. Ba'zan kuch emas, to'g'ri himoya usuli vaziyatni hal qiladi."
   }
 ];
