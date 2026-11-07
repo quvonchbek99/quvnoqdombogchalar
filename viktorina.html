@@ -260,6 +260,12 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 .lob-miss{margin-top:10px;color:var(--text-dim);font-size:clamp(13px,1.4vw,17px)}
 .lob-miss b{color:var(--text)}
 .pl small{display:block;font-size:.55em;color:var(--text-dim);font-weight:700}
+/* boshqa qurilmadan qaytish so'rovlari (o'qituvchi ekrani) */
+.hask{position:absolute;right:14px;top:64px;z-index:40;display:flex;flex-direction:column;gap:10px;max-width:min(440px,92vw)}
+.hask:empty{display:none}
+.ask-i{background:#101a2e;border:2px solid #ffd166;border-radius:16px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.45);animation:pop .3s}
+.ask-i b{display:block;font-size:17px;margin-bottom:4px}.ask-i small{display:block;color:#c9d4ec;margin-bottom:10px}
+.ask-i div{display:flex;gap:8px;flex-wrap:wrap}.ask-i .btn{min-height:44px}
 /* jonli aloqa belgisi */
 .netd{display:inline-block;width:.62em;height:.62em;border-radius:50%;margin-right:.45em;vertical-align:.05em;background:#9fb0d0}
 .netd.on{background:#5ee6c7;box-shadow:0 0 0 3px rgba(94,230,199,.22)}
@@ -290,6 +296,7 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 .pk-list button .n{color:var(--text-dim);font-size:13px;min-width:1.8em}
 .pk-list button.on{background:rgba(94,230,199,.16);box-shadow:inset 4px 0 0 #5ee6c7}
 .pk-list button[disabled]{opacity:.4}
+.pk-list button[data-t]{opacity:.6}
 .pk-list button small{margin-left:auto;color:var(--gold);font-size:12px;font-weight:800}
 .pk .nickrow{display:flex;gap:8px}
 .pk .go{flex:0 0 auto;min-height:56px;width:100%}
@@ -557,7 +564,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="ka-tarmoq.js?v=20261107d"></script>
+<script src="ka-tarmoq.js?v=20261108a"></script>
 <script src="ka-sertifikat.js?v=20261107c"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
@@ -1204,7 +1211,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function hLive(t) { var l = $("#hLive"); if (l) l.textContent = t; }
   function hCount() { var on = H ? online().length : 0; $("#hCnt").textContent = "👥 " + on; hAway(); }
   // 📵 — hozir viktorinadan chiqib ketgan (boshqa ilovaga o'tgan) o'quvchilar
-  function awayNow() { return H ? allPlayers().filter(function (p) { return p.isAway; }) : []; }
+  function awayNow() { return H && cfg.guard !== false ? allPlayers().filter(function (p) { return p.isAway; }) : []; }
   function hAway() {
     var el = $("#hAway"); if (!el) return;
     var a = awayNow();
@@ -1212,7 +1219,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     el.title = a.length ? "Viktorinadan chiqib ketgan: " + a.map(function (p) { return p.name; }).join(", ") : "";
   }
   function onAway(p, msg) {
-    if (msg.type === "away") { p.isAway = true; p.away = (p.away || 0) + 1; hLive("📵 " + p.name + " viktorinadan chiqib ketdi"); }
+    if (msg.type === "away") { p.isAway = true; p.awayAt = Date.now(); if (cfg.guard !== false) { p.away = (p.away || 0) + 1; hLive("📵 " + p.name + " viktorinadan chiqib ketdi"); } }
     else { p.isAway = false; p.awayMs = (p.awayMs || 0) + Math.max(0, Math.min(36e5, +msg.ms || 0)); }
     hAway(); if (H.phase === "lobby") renderLobby();
   }
@@ -1235,7 +1242,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       go.disabled = false; go.textContent = "🚪 Xona ochish";
       if (!window.kaSavol) { toast("Savollar yuklanmadi — internetni tekshiring"); return; }
       var ro = cfg.rmode === "list" ? curRoster() : null;
-      H = { players: {}, byId: {}, qs: buildQs(), i: -1, phase: "lobby", api: null, code: "", timer: 0, stats: [], pending: {}, auto: null, paused: false,
+      H = { players: {}, byId: {}, qs: buildQs(), i: -1, phase: "lobby", api: null, code: "", timer: 0, stats: [], pending: {}, asks: {}, replaced: {}, auto: null, paused: false,
         roster: ro ? { key: cfg.rkey, name: ro.name, list: ro.list.slice() } : null, nicks: ro ? (lsGet(LS_NICK, {})[cfg.rkey] || {}) : {} };
       if (!H.qs.length) { toast("Bu mavzudan savol yaratib bo'lmadi — internetni tekshiring yoki boshqa mavzu tanlang"); H = null; return; }
       $("#hs").classList.add("on"); document.documentElement.style.overflow = "hidden"; document.body.style.overflow = "hidden";
@@ -1259,31 +1266,25 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     N.host({
       onConn: function (id, hello) {
         if (!H) return "Xona yopilgan";
+        if (H.replaced[id]) return "Siz boshqa qurilmadan qayta kirdingiz — bu oynani yopishingiz mumkin";
         if (H.roster) return Object.keys(H.pending).length > 120 ? "Xona band — birozdan so'ng urinib ko'ring" : true;
         var name = cleanName(hello && hello.name), tok = tokOf(hello);
         if (!name) return "Ismingizni yozing";
         if (letters(name) < 2) return "Ismingizni harflar bilan to'liq yozing";
         var key = name.toLowerCase(), ex = H.players[key];
-        // maxsus kalit: shu telefonning o'zi qayta kirsa (aloqa uzilgan, sahifa yopilgan) — o'z ismi va ochkolari bilan qaytadi
-        if (ex && ex.online && !(tok && ex.tok === tok)) return "«" + name + "» ismi band — boshqa ism yozing (masalan, familiya bilan)";
+        // ism band bo'lsa ham shu yerda rad etmaymiz — onJoin hal qiladi (o'zi qaytgan bo'lsa davom etadi, aks holda o'qituvchi tasdiqlaydi)
         if (!ex && allPlayers().length >= MAX_PLAYERS) return "Xona to'lgan (" + MAX_PLAYERS + " kishi)";
         return true;
       },
       onJoin: function (id, hello) {
         var tok = tokOf(hello);
         if (H.roster) { H.pending[id] = tok || 1; H.api.send(id, pickMsg(tok)); return; }
-        var name = cleanName(hello.name), key = name.toLowerCase(), p = H.players[key];
-        if (p) { if (p.id && p.id !== id) delete H.byId[p.id]; p.online = true; p.id = id; p.isAway = false; if (tok) p.tok = tok; }
-        else p = H.players[key] = { key: key, name: name, id: id, tok: tok, online: true, score: 0, correct: 0, wrong: 0, none: 0, streak: 0, best: 0, ans: {}, last: null, gain: 0 };
-        H.byId[id] = key;
-        H.api.send(id, welcomeMsg(p));
-        syncPlayer(p);
-        snd("pop"); hCount(); hLive(p.name + " qo'shildi");
-        if (H.phase === "lobby") renderLobby(); else if (H.phase === "q") renderAnswered();
+        joinFree(id, hello, false);
       },
       // jonli rejim: o'quvchi aloqasi butunlay uzilib tiklandi — turgan joyini (savol, ochko) qayta yuboramiz
       onRejoin: function (id, hello) {
         if (!H || !H.api) return;
+        if (H.asks[id]) { H.api.send(id, { type: "ask", name: H.asks[id].name }, true); return; }
         if (H.pending[id]) { H.api.send(id, pickMsg(tokOf(hello)), true); return; }
         var key = H.byId[id], p = key && H.players[key]; if (!p) return;
         p.online = true; p.isAway = false;
@@ -1296,7 +1297,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
         else if ((msg.type === "away" || msg.type === "back") && H.players[key]) onAway(H.players[key], msg);
       },
       onLeave: function (id) {
-        if (H) delete H.pending[id];
+        if (H) { delete H.pending[id]; if (H.asks[id]) { delete H.asks[id]; drawAsks(); } }
         var key = H && H.byId[id]; if (!key) return;
         var p = H.players[key]; if (p && p.id === id) { p.online = false; p.leftAt = Date.now(); }
         delete H.byId[id]; hCount(); sendTaken();
@@ -1307,6 +1308,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       if (!H) { api.close(); return; }
       H.api = api; H.code = api.code;
       clearInterval(H.netT); H.netT = setInterval(hNet, 3000); hNet();
+      clearInterval(H.askT); H.askT = setInterval(checkAsks, 3000);
       setPin();
       renderLobby();
     }).catch(function (e) { lobbyError(e); });
@@ -1319,6 +1321,71 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     el.textContent = st.up ? "🟢 Jonli" : "🟡 Tiklanmoqda…";
     el.title = st.up ? "Jonli aloqa: " + st.up + " ta server orqali (" + st.all + " tadan). Biri uzilsa ham o'yin davom etadi." : "Internet uzildi — o'zi qayta ulanmoqda. Javoblar navbatda turadi.";
   }
+  /* ---- Boshqa brauzer/telefondan o'z ismi bilan qaytish ----
+     Ism band bo'lsa: 1) o'sha telefon/brauzer (maxsus kalit) — darhol davom etadi; 2) ism egasi aslida yo'q
+     (aloqa uzilgan, 20 s dan beri boshqa ilovada yoki 25 s dan beri sado yo'q) — darhol davom etadi;
+     3) ism egasi hozir faol — o'qituvchi ekranida «Bu o'sha o'quvchimi?» so'raladi (egasi 25 s ichida yo'qolsa — o'zi).
+     Davom etganda ochkolar saqlanadi, eski qurilma o'yindan chiqariladi. */
+  function holderGone(p) {
+    if (!p.online || !p.id) return true;
+    var t = Date.now();
+    if (p.isAway && t - (p.awayAt || t) > 20000) return true;
+    var seen = H.api && H.api.seen ? H.api.seen(p.id) : 0;
+    return seen < 0 || (seen > 0 && t - seen > 25000);
+  }
+  function replaceOld(old, id) {
+    if (!old || old === id) return;
+    delete H.byId[old]; H.replaced[old] = 1;
+    try { H.api.kick(old, "Siz boshqa qurilmadan qayta kirdingiz — bu oynani yopishingiz mumkin"); } catch (e) {}
+  }
+  function joinFree(id, hello, force) {
+    var tok = tokOf(hello), name = cleanName(hello.name), key = name.toLowerCase(), p = H.players[key];
+    if (p && !force && p.online && p.id !== id && !(tok && p.tok === tok) && !holderGone(p)) return askTeacher(id, { kind: "name", key: key, name: p.name, hello: hello });
+    if (p) { replaceOld(p.id, id); p.online = true; p.id = id; p.isAway = false; if (tok) p.tok = tok; }
+    else p = H.players[key] = { key: key, name: name, id: id, tok: tok, online: true, score: 0, correct: 0, wrong: 0, none: 0, streak: 0, best: 0, ans: {}, last: null, gain: 0 };
+    H.byId[id] = key;
+    H.api.send(id, welcomeMsg(p), force);
+    syncPlayer(p, force);
+    snd("pop"); hCount(); hLive(p.name + (p.score || p.correct ? " qaytdi" : " qo'shildi"));
+    if (H.phase === "lobby") renderLobby(); else if (H.phase === "q") renderAnswered();
+  }
+  function askTeacher(id, a) {
+    a.since = Date.now(); H.asks[id] = a;
+    H.api.send(id, { type: "ask", name: a.name }, true);
+    snd("pop"); drawAsks();
+  }
+  function resolveAsk(id, yes, auto) {
+    var a = H && H.asks[id]; if (!a) return;
+    delete H.asks[id]; drawAsks();
+    if (!H.api || !H.api.conns[id]) return; // so'ragan telefon allaqachon chiqib ketgan
+    if (a.kind === "name") {
+      if (yes) joinFree(id, a.hello, true);
+      else H.api.kick(id, "«" + a.name + "» ismi band — boshqa ism yozing (masalan, familiya bilan)");
+    } else {
+      if (yes) claim(id, a.msg, true);
+      else H.api.send(id, { type: "pickErr", why: "Bu ism band — o'z ismingizni tanlang", taken: takenList() }, true);
+    }
+    if (yes) hLive("🔄 " + a.name + " boshqa qurilmadan qaytdi" + (auto ? "" : " — ruxsat berildi"));
+  }
+  function checkAsks() { // ism egasi yo'qolgan bo'lsa — o'qituvchi kutmasdan o'zi ruxsat beradi; 2 daqiqada javob bo'lmasa — rad
+    if (!H) return;
+    Object.keys(H.asks).forEach(function (id) {
+      var a = H.asks[id], p = H.players[a.key];
+      if (!p || holderGone(p)) resolveAsk(id, true, true);
+      else if (Date.now() - a.since > 120000) resolveAsk(id, false);
+    });
+  }
+  function drawAsks() {
+    var box = $("#hAsk");
+    if (!box) { box = document.createElement("div"); box.id = "hAsk"; box.className = "hask"; box.setAttribute("aria-live", "polite"); $("#hs").appendChild(box);
+      box.addEventListener("click", function (e) { var b = e.target.closest("[data-ask]"); if (b) resolveAsk(b.closest("[data-id]").dataset.id, b.dataset.ask === "yes"); }); }
+    box.innerHTML = Object.keys(H ? H.asks : {}).map(function (id) {
+      var a = H.asks[id];
+      return '<div class="ask-i" data-id="' + esc(id) + '"><b>🔄 «' + esc(a.name) + "» " + (a.kind === "name" ? "ismi bilan boshqa telefon kirmoqchi" : "ismini boshqa telefon tanladi") + "</b>" +
+        "<small>Bu o'sha o'quvchimi? «Ha» desangiz — ochkolari bilan davom etadi, eski telefoni o'yindan chiqadi.</small>" +
+        '<div><button type="button" class="btn primary" data-ask="yes">✅ Ha, o\'sha</button><button type="button" class="btn" data-ask="no">✖ Yo\'q, boshqa o\'quvchi</button></div></div>';
+    }).join("");
+  }
   function welcomeMsg(p) { return { type: "welcome", name: p.name, full: p.full ? shortName(p.full) : "", showQ: !!cfg.showQ, total: H.qs.length, score: p.score, d3: !!cfg.d3, guard: cfg.guard !== false }; }
   function lobbyError(e) {
     var el = $("#lobErr"); if (!el) return;
@@ -1326,27 +1393,27 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     $("#lobRetry").onclick = function () { el.textContent = ""; hostConnect(); };
   }
   /* ---- guruh ro'yxati: o'quvchi ismini tanlaydi ---- */
-  function takenList() { var t = []; for (var k in H.players) { var p = H.players[k]; if (p.online && p.r != null) t.push(p.r); } return t; }
+  function takenList() { var t = []; for (var k in H.players) { var p = H.players[k]; if (p.online && p.r != null && !holderGone(p)) t.push(p.r); } return t; }
   function pickMsg(tok) {
     var mine = -1; // shu telefon (maxsus kalit) avval tanlagan ism — "band" bo'lsa ham o'zi qayta tanlay oladi
     if (tok) for (var k in H.players) { var q = H.players[k]; if (q.r != null && q.tok === tok) { mine = q.r; break; } }
     return { type: "pick", group: H.roster.name, rk: H.roster.key, list: H.roster.list.map(shortName), taken: takenList(), nicks: H.nicks, mine: mine };
   }
   function sendTaken() { if (!H || !H.roster || !H.api) return; var t = takenList(); for (var id in H.pending) H.api.send(id, { type: "taken", taken: t }); }
-  function claim(id, msg) {
+  function claim(id, msg, force) {
     var r = msg.r | 0, list = H.roster.list;
     if (r < 0 || r >= list.length) return;
     var key = "r" + r, ex = H.players[key], tok = tokOf(msg);
-    if (ex && ex.online && ex.id !== id && !(tok && ex.tok === tok)) { H.api.send(id, { type: "pickErr", why: "Bu ism band — o'z ismingizni tanlang", taken: takenList() }); return; }
     var nick = cleanName(msg.nick).slice(0, 16), disp = nick || shortName(list[r]);
     if (nick && N.badName && N.badName(nick)) { H.api.send(id, { type: "pickErr", why: "Bu nikni ishlatib bo'lmaydi — boshqasini yozing yoki bo'sh qoldiring", taken: takenList() }); return; }
-    if (ex) { if (ex.id && ex.id !== id) delete H.byId[ex.id]; ex.online = true; ex.id = id; ex.nick = nick; ex.name = disp; ex.isAway = false; if (tok) ex.tok = tok; }
+    if (ex && !force && ex.online && ex.id !== id && !(tok && ex.tok === tok) && !holderGone(ex)) return askTeacher(id, { kind: "roster", key: key, name: shortName(list[r]), msg: msg });
+    if (ex) { replaceOld(ex.id, id); ex.online = true; ex.id = id; ex.nick = nick; ex.name = disp; ex.isAway = false; if (tok) ex.tok = tok; }
     else ex = H.players[key] = { key: key, r: r, full: list[r], nick: nick, name: disp, id: id, tok: tok, online: true, score: 0, correct: 0, wrong: 0, none: 0, streak: 0, best: 0, ans: {}, last: null, gain: 0 };
     delete H.pending[id]; H.byId[id] = key;
     if (nick) H.nicks[r] = nick; else delete H.nicks[r];
     var all = lsGet(LS_NICK, {}); all[H.roster.key] = H.nicks; lsSet(LS_NICK, all);
-    H.api.send(id, welcomeMsg(ex));
-    syncPlayer(ex); sendTaken();
+    H.api.send(id, welcomeMsg(ex), force);
+    syncPlayer(ex, force); sendTaken();
     snd("pop"); hCount(); hLive(ex.name + " qo'shildi");
     if (H.phase === "lobby") renderLobby(); else if (H.phase === "q") renderAnswered();
   }
@@ -1558,15 +1625,20 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       p.gain = pts; p.last = { ok: ok, pts: pts, j: a ? a.j : -1 };
     });
     H.stats[H.i] = { ok: okN, ans: ansN, all: allPlayers().length, counts: counts };
-    var order = ranked(), total = order.length;
+    var order = ranked(), total = order.length, res = {};
     order.forEach(function (p, r) {
       p.rank = r + 1;
       p.rev = { type: "reveal", i: H.i, ok: p.last.ok, pts: p.last.pts, score: p.score, rank: r + 1, of: total, streak: p.streak,
         timeout: p.last.j < 0, chosen: p.last.j >= 0 ? q.opts[p.last.j] : null, a: q.a, ci: q.ci, steps: q.steps.slice(0, 8), last: H.i === H.qs.length - 1,
         why: !p.last.ok && p.last.j >= 0 && kaSavol.why ? kaSavol.why({ a: q.a, topic: q.tid }, q.opts[p.last.j]) : "",
         nx: cfg.auto ? cfg.auto + boardSec() : 0, paused: !!H.paused };
-      if (p.online && H.api) H.api.send(p.id, p.rev);
+      if (p.online && p.id) res[p.id] = { ok: p.rev.ok, pts: p.rev.pts, score: p.rev.score, rank: p.rev.rank, streak: p.rev.streak, timeout: p.rev.timeout, chosen: p.rev.chosen, why: String(p.rev.why || "").slice(0, 200) };
     });
+    // hammaga BITTA xabar: umumiy qism + har bir o'quvchining natijasi (telefon faqat o'zinikini ko'rsatadi)
+    if (H.api) {
+      if (H.api.cast) H.api.cast({ type: "reveal", i: H.i, of: total, a: q.a, ci: q.ci, steps: q.steps.slice(0, 8), last: H.i === H.qs.length - 1, nx: cfg.auto ? cfg.auto + boardSec() : 0, paused: !!H.paused, res: res });
+      else order.forEach(function (p) { if (p.online) H.api.send(p.id, p.rev); });
+    }
     // ekranda
     snd("reveal");
     var hq = $("#hq"); hq.classList.add("rev");
@@ -1824,7 +1896,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function closeHost(force) {
     if (!H) return;
     if (!force && H.phase !== "end" && H.phase !== "lobby" && !confirm("Viktorina hali tugamagan. Yopasizmi?")) return;
-    clearInterval(H.timer); clearInterval(H.netT); autoClear();
+    clearInterval(H.timer); clearInterval(H.netT); clearInterval(H.askT); autoClear(); var ha = $("#hAsk"); if (ha) ha.innerHTML = "";
     try { if (H.api) { online().forEach(function (p) { H.api.send(p.id, { type: "kick", why: "O'qituvchi xonani yopdi" }); }); var api = H.api; setTimeout(function () { api.close(); }, 400); } } catch (e) {}
     wakeOff();
     H = null; refitFn = null; hAway(); hNet();
@@ -1951,6 +2023,23 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function pMsg(m) {
     if (!P || !m || typeof m !== "object") return;
     if (m._b != null && !P.inGame) return; // umumiy xabar (savol) — hali ism tanlamagan bo'lsa kerak emas
+    if (m.type === "reveal" && m.res) { // umumiy natija xabaridan o'zimiznikini olamiz
+      var mine = P.conn && m.res[P.conn.id]; if (!mine) return;
+      var r2 = {}, k; for (k in m) if (k !== "res") r2[k] = m[k]; for (k in mine) r2[k] = mine[k]; m = r2;
+    }
+    if (m.type === "ask") { // ism boshqa qurilmada ochiq — o'qituvchi tasdig'ini kutamiz
+      if (P.askName === m.name && $("#pAskX")) return;
+      P.askName = m.name; P.claiming = !!P.pick;
+      pView('<div class="big">⏳</div><h2>O\'qituvchi tasdig\'ini kutyapmiz</h2><p>«' + esc(m.name) + "» ismi hozir boshqa qurilmada ochiq.</p>" +
+        "<p class=\"nx\">O'sha siz bo'lsangiz — o'qituvchi «Ha» deyishi bilan (yoki eski qurilma o'chgan bo'lsa, 25 soniyada o'zi) ochkolaringiz bilan davom etasiz.</p>" +
+        '<button type="button" class="btn" id="pAskX">' + (P.pick ? "⬅ Ro'yxatga qaytish" : "✏️ Boshqa ism bilan kirish") + "</button>");
+      $("#pAskX").onclick = function () {
+        P.askName = "";
+        if (P.pick) { P.claiming = false; P.claim = null; pPick(P.pick); } else { sessEnd(); closePlayer(true); $("#jName").focus(); }
+      };
+      return;
+    }
+    P.askName = "";
     // o'yin xabari keldi — demak o'qituvchi bizni o'yinchi deb biladi ("xush kelibsiz" xabari yo'qolgan bo'lsa ham)
     if (m._b == null && /^(welcome|wait|q|hold|reveal|got|end)$/.test(m.type)) { P.inGame = true; P.claiming = false; }
     sessTouch();
@@ -2006,6 +2095,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     $("#pkGo").onclick = function () {
       if (P.sel < 0) return;
       var nick = $("#pkN").value.trim().slice(0, 16);
+      if ((m.taken || []).indexOf(P.sel) > -1 && !confirm("Bu ism hozir boshqa telefonda ochiq. O'zingiz bo'lsangiz — o'qituvchi tasdiqlaydi va ochkolaringiz bilan davom etasiz. So'rov yuborilsinmi?")) return;
       if (nick && N.badName && N.badName(nick)) { toast("Bu nikni ishlatib bo'lmaydi — boshqasini yozing yoki bo'sh qoldiring"); $("#pkN").focus(); return; }
       lsSet(LS_ME, { rk: m.rk, r: P.sel, nick: nick });
       P.claim = { rk: m.rk, r: P.sel, nick: nick }; P.claiming = true; sessSave({ claim: P.claim });
@@ -2018,11 +2108,10 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function drawPick() {
     var L = $("#pkL"), m = P && P.pick; if (!L || !m) return;
     var q = ($("#pkQ").value || "").trim().toLowerCase(), taken = m.taken || [];
-    if (P.sel >= 0 && taken.indexOf(P.sel) > -1) P.sel = -1;
     L.innerHTML = m.list.map(function (n, i) {
       if (q && n.toLowerCase().indexOf(q) < 0) return "";
       var t = taken.indexOf(i) > -1;
-      return '<button type="button" role="option" data-r="' + i + '"' + (t ? " disabled" : "") + (P.sel === i ? ' class="on" aria-selected="true"' : "") + '><span class="n">' + (i + 1) + "</span>" + esc(n) + (t ? "<small>band</small>" : "") + "</button>";
+      return '<button type="button" role="option" data-r="' + i + '"' + (t ? ' data-t="1"' : "") + (P.sel === i ? ' class="on" aria-selected="true"' : "") + '><span class="n">' + (i + 1) + "</span>" + esc(n) + (t ? "<small>band · so'rov</small>" : "") + "</button>";
     }).join("") || '<p style="padding:14px;color:#9fb0d0;margin:0">Topilmadi</p>';
     $("#pkGo").disabled = P.sel < 0;
     var on = $(".on", L); if (on && !q) on.scrollIntoView({ block: "nearest" });
@@ -2259,9 +2348,10 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     vib([300, 120, 300]);
   }
   function gHidden() {
-    if (!guardActive() || GD.at) return;
+    if (!P || !P.inGame || P.ended || GD.at) return;
     GD.at = GD.last = Date.now(); GD.n++; GD.spoke = false;
-    try { psend({ type: "away", n: GD.n }); } catch (e) {}
+    try { psend({ type: "away", n: GD.n }); } catch (e) {} // o'qituvchi biladi: bu telefon hozir ekranda emas (ismni boshqa brauzerdan qaytarish uchun ham)
+    if (!guardActive()) return;
     gAlarm("away");
     clearInterval(GD.iv);
     GD.iv = setInterval(function () {
@@ -2277,7 +2367,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     gNotifyClose();
     if (!P) return;
     try { psend({ type: "back", n: GD.n, ms: ms }); } catch (e) {}
-    if (P.ended) return;
+    if (P.ended || !guardActive()) return;
     var nm = callName();
     gWarn(nm, Math.max(1, Math.round(ms / 1000)), GD.n);
     vib([200, 100, 200]);

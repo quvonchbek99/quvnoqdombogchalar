@@ -304,6 +304,8 @@
             setTimeout(function () { if (!conns[id]) delete peers[id]; }, 1500);
           },
           status: function () { return { up: upCount(), all: BROKERS.length }; },
+          // o'quvchidan oxirgi marta qachon xabar kelgan (ms); -1 — bunday o'quvchi tarmoqda yo'q
+          seen: function (id) { var p = peers[id], m = 0; if (!p || !p.lb) return -1; for (var b in p.lb) if (p.lb[b] > m) m = p.lb[b]; return m; },
           close: function () {
             if (closed) return;
             outQ(function () {
