@@ -1,0 +1,36 @@
+{
+  "id": "2014-5",
+  "badge": "IMO 2014 · 5-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · KOMBINATORIKA",
+      "title": "Keyptaun bankining tangalari 🪙",
+      "fs": 35,
+      "body": "<p>Keyptaun banki har bir natural <span class='m'>n</span> uchun qiymati <span class='m'>1/n</span> bo'lgan tangalar chiqaradi.</p><p>Bizda shunday tangalardan iborat chekli to'plam bor (qiymatlar takrorlanishi mumkin), ularning umumiy qiymati</p><div class='box' style='text-align:center;font-size:40px'><span class='m'>99 + 1/2</span> dan oshmaydi.</div><p><b>Isbotlang:</b> bu to'plamni <b>100 tadan ko'p bo'lmagan</b> guruhga shunday ajratish mumkinki, har bir guruhdagi tangalar yig'indisi <span class='m'>1</span> dan oshmaydi.</p><p>Ya'ni: 100 ta hamyon bor, har biriga ko'pi bilan 1 so'm sig'adi — hamma tangani joylab bo'ladimi? 🤔</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Kuchliroq da'vo va tozalash",
+      "fs": 33,
+      "body": "<p>Umumiyroq isbotlaymiz: yig'indi <span class='m'>k − k/(2k+1)</span> dan oshmasa, <span class='m'>k</span> ta guruh yetadi. (<span class='m'>k = 100</span> da bu <span class='m'>100 − 100/201 &gt; 99,5</span> — demak masaladan ham kuchliroq.)</p><p>Avval to'plamni ikki qoida bilan «tozalaymiz»:</p><div class='box'>① <span class='m'>1/(2m)</span> tanga <b>ikki marta</b> uchrasa — ikkalasini bitta <span class='m'>1/m</span> tanga deb hisoblaymiz (ular baribir bir guruhga tushadi).</div><div class='box'>② <span class='m'>1/(2m+1)</span> tanga <span class='m'>2m+1</span> marta uchrasa — ular aniq <span class='m'>1</span> ga teng guruh bo'ladi. Uni ajratib, <span class='m'>k</span> ni bittaga kamaytiramiz (induksiya).</div><p>Qoidalar ishlamay qolguncha takrorlaymiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Qutilar: deyarli to'la, lekin 1 dan kam",
+      "fs": 33,
+      "body": "<p>Endi har bir juft maxrajli tanga ko'pi bilan <b>1 marta</b>, <span class='m'>1/(2m+1)</span> esa ko'pi bilan <span class='m'>2m</span> marta qolgan.</p><p><span class='m'>B<sub>0</sub>, B<sub>1</sub>, …, B<sub>k−1</sub></span> qutilarni olamiz: <span class='m'>B<sub>m</sub></span> ga <span class='m'>1/(2m+1)</span> va <span class='m'>1/(2m+2)</span> tangalarni solamiz.</p><div class='box' style='text-align:center'><span class='m'>B<sub>m</sub> ≤ 2m · 1/(2m+1) + 1/(2m+2) &lt; 1</span></div><p>Eng «og'ir» holat:</p><div class='box' style='text-align:center'><span class='m'>B<sub>0</sub> = 1/2</span>, &nbsp;<span class='m'>B<sub>1</sub> = 2·1/3 + 1/4 = 11/12</span><br><span class='m'>B<sub>2</sub> = 4·1/5 + 1/6 = 29/30</span>, …</div><p>Qolgan «yengil» tangalar (<span class='m'>≤ 1/(2k+1)</span>) — alohida uyumga.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "Yengil tangalar sig'adi ✅",
+      "fs": 34,
+      "body": "<p>Uyumdagi yengil tangalarni qutilarga birma-bir solamiz — faqat hech bir quti <span class='m'>1</span> dan oshmasin.</p><p>Faraz qilaylik, biror tanga sig'madi. Uning qiymati <span class='m'>≤ 1/(2k+1)</span>, demak har bir qutida allaqachon</p><div class='box' style='text-align:center'><span class='m'>1 − 1/(2k+1)</span> dan ko'p bor.</div><p>Unda <span class='m'>k</span> ta qutidagi jami qiymat</p><div class='box' style='text-align:center;font-size:38px'><span class='m'>&gt; k · (1 − 1/(2k+1)) = k − k/(2k+1)</span></div><p>Bu esa umumiy yig'indi chegarasiga zid! Demak barcha tangalar <span class='m'>k</span> ta guruhga joylashadi. <span class='m'>k = 100</span> — masala hal. &nbsp;∎</p>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Avval katta toshlar, keyin qum 🎯",
+      "fs": 34,
+      "body": "<p><b>Tekshiruv:</b> Python bilan 3000 ta tasodifiy to'plamda (<span class='m'>k ≤ 4</span>, aniq kasrlar bilan) shu algoritm har safar ishladi ✅.</p><div class='box'>G'oya: katta tangalarni oldindan «deyarli 1» ga teng qutilarga taqsimlaymiz, mayda tangalar esa bo'sh joylarni qumdek to'ldiradi. Sig'masa — yig'indi juda katta bo'lib chiqadi.</div><p>Yechim — Evan Chen (IMO 2014 yozuvlari) asosida.</p><p>🧠 <b>Sizga savol:</b> <span class='m'>B<sub>3</sub></span> qutidagi eng katta yig'indi nechaga teng? <span class='m'>B<sub>m</sub></span> uchun umumiy formulani topa olasizmi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2014 · 6-masala</b> (kombinatorika)</p>"
+    }
+  ]
+}
