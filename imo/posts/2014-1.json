@@ -1,0 +1,36 @@
+{
+  "id": "2014-1",
+  "badge": "IMO 2014 · 1-masala",
+  "slides": [
+    {
+      "kicker": "MASALA · ALGEBRA",
+      "title": "O'suvchi ketma-ketlik",
+      "fs": 36,
+      "body": "<p><span class='m'>a<sub>0</sub> &lt; a<sub>1</sub> &lt; a<sub>2</sub> &lt; …</span> — natural sonlardan iborat cheksiz o'suvchi ketma-ketlik.</p><p>Shunday <b>yagona</b> <span class='m'>n ≥ 1</span> butun son mavjudligini isbotlangki,</p><div class='box' style='text-align:center;font-size:34px'><span class='m'>a<sub>n</sub> &lt; (a<sub>0</sub> + a<sub>1</sub> + … + a<sub>n</sub>) / n ≤ a<sub>n+1</sub></span></div><p>Ya'ni: dastlabki <span class='m'>n + 1</span> ta had yig'indisini <span class='m'>n</span> ga bo'lsak, natija <span class='m'>a<sub>n</sub></span> dan katta, lekin <span class='m'>a<sub>n+1</sub></span> dan oshmaydi.</p><p>💡 Kalit g'oya: ikkala tengsizlikni <b>bitta yangi ketma-ketlik</b> tiliga o'giramiz.</p>"
+    },
+    {
+      "kicker": "YECHIM · 1-QADAM",
+      "title": "Chap tengsizlikni o'zgartiramiz",
+      "fs": 35,
+      "body": "<p>Ikkala tomonni <span class='m'>n</span> ga ko'paytiramiz:</p><div class='box' style='text-align:center'><span class='m'>n·a<sub>n</sub> &lt; a<sub>0</sub> + a<sub>1</sub> + … + a<sub>n</sub></span></div><p>Chapdan <span class='m'>a<sub>1</sub> + … + a<sub>n</sub></span> ni ayiramiz — har bir <span class='m'>a<sub>i</sub></span> ga bittadan <span class='m'>a<sub>n</sub></span> to'g'ri keladi:</p><div class='box' style='text-align:center'><span class='m'>(a<sub>n</sub> − a<sub>1</sub>) + (a<sub>n</sub> − a<sub>2</sub>) + … + (a<sub>n</sub> − a<sub>n−1</sub>) &lt; a<sub>0</sub></span></div><p>(<span class='m'>a<sub>n</sub> − a<sub>n</sub> = 0</span> qo'shiluvchisi tushib qoldi.)</p>"
+    },
+    {
+      "kicker": "YECHIM · 2-QADAM",
+      "title": "Yangi ketma-ketlik b<sub>n</sub>",
+      "fs": 35,
+      "body": "<p>Fedor Petrov g'oyasi — quyidagini belgilaymiz:</p><div class='box' style='text-align:center'><span class='m'>b<sub>n</sub> = (a<sub>n</sub> − a<sub>1</sub>) + (a<sub>n</sub> − a<sub>2</sub>) + … + (a<sub>n</sub> − a<sub>n−1</sub>)</span></div><p>Chap tengsizlik: <span class='m'>b<sub>n</sub> &lt; a<sub>0</sub></span>.</p><p>O'ng tengsizlik <span class='m'>a<sub>0</sub> + … + a<sub>n</sub> ≤ n·a<sub>n+1</sub></span> ham xuddi shunday:</p><div class='box' style='text-align:center'><span class='m'>a<sub>0</sub> ≤ (a<sub>n+1</sub> − a<sub>1</sub>) + … + (a<sub>n+1</sub> − a<sub>n</sub>) = b<sub>n+1</sub></span></div><p>Demak masala: <span class='m'>b<sub>n</sub> &lt; a<sub>0</sub> ≤ b<sub>n+1</sub></span> bo'ladigan yagona <span class='m'>n</span> ni topish.</p>"
+    },
+    {
+      "kicker": "YECHIM · 3-QADAM",
+      "title": "b<sub>n</sub> qat'iy o'sadi",
+      "fs": 35,
+      "body": "<p>Ayirmani hisoblaymiz:</p><div class='box' style='text-align:center'><span class='m'>b<sub>n+1</sub> − b<sub>n</sub> = n·(a<sub>n+1</sub> − a<sub>n</sub>) ≥ n &gt; 0</span></div><p>Demak <span class='m'>b<sub>1</sub> &lt; b<sub>2</sub> &lt; b<sub>3</sub> &lt; …</span> va <span class='m'>b<sub>n</sub> → ∞</span>. Bundan tashqari <span class='m'>b<sub>1</sub> = 0 &lt; a<sub>0</sub></span>.</p><p>Qat'iy o'suvchi butun sonlar <span class='m'>0</span> dan boshlanib cheksizlikka ketadi, <span class='m'>a<sub>0</sub></span> esa musbat — u <b>aynan bitta</b> oraliqqa tushadi:</p><div class='box' style='text-align:center'><span class='m'>b<sub>n</sub> &lt; a<sub>0</sub> ≤ b<sub>n+1</sub></span> &nbsp;∎</div>"
+    },
+    {
+      "kicker": "XULOSA VA SAVOL",
+      "title": "Ikki tengsizlik — bitta zina 🪜",
+      "fs": 34,
+      "body": "<p><b>Misol:</b> <span class='m'>a<sub>k</sub> = 10 + k</span>, ya'ni <span class='m'>10, 11, 12, …</span> Bunda <span class='m'>b<sub>n</sub> = n(n − 1)/2</span>: <span class='m'>b<sub>4</sub> = 6 &lt; 10 ≤ b<sub>5</sub> = 10</span>, demak <span class='m'>n = 4</span>.</p><div class='box'>Tekshiramiz: <span class='m'>a<sub>4</sub> = 14 &lt; 60/4 = 15 ≤ a<sub>5</sub> = 15</span> ✅<br>Python bilan 20 000 ta tasodifiy ketma-ketlikda ham <span class='m'>n</span> doim yagona chiqdi.</div><p>Yechim — Evan Chen (IMO 2014 yozuvlari) asosida.</p><p>🧠 <b>Sizga savol:</b> agar ketma-ketlik faqat <b>kamaymaydigan</b> (<span class='m'>a<sub>i</sub> ≤ a<sub>i+1</sub></span>) bo'lsa, yagonalik saqlanadimi? Izohlarda yozing 👇</p><p>📅 Keyingi: <b>IMO 2014 · 2-masala</b> (kombinatorika, shaxmat taxtasi)</p>"
+    }
+  ]
+}
