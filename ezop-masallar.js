@@ -887,5 +887,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki chayonning tabiati chaqish edi va u o'z xulqini o'zgartira olmadi", "Chunki qurbaqa uni olib o'tishdan oldin uni xafa qilgan edi", "Chunki daryo juda sayoz edi va chayon cho'kishdan qo'rqmadi"],
     javob: 0,
     izoh: "Chayon o'zi ham cho'kishini bilsa-da, tabiatidagi chaqish odatini tiya olmadi. Masal shuni ko'rsatadi: odamning haqiqiy xulqi so'zidan emas, qilmishidan bilinadi."
+  },
+  {
+    id: "ez-112", mavzu: "ahloq", sarlavha: "Toshbaqa va burgut",
+    matn: "Toshbaqa baland osmonda erkin aylanib yurgan burgutga qarab havas qildi. U burgutdan uchishni o'rgatishni so'radi, burgut esa toshbaqa sudralib yuradigan jonzot ekanini aytib rad etdi. Toshbaqa o'jarlik qilib, katta mukofot va'da qildi va oxiri burgutni ko'ndirdi. Burgut uni changalida ko'tarib balandga olib chiqdi va toshga tashlab yubordi, toshbaqa esa halok bo'ldi.",
+    savol: "Toshbaqa nima uchun halokatga uchradi?",
+    variantlar: ["Chunki burgut uni ushlashga qodir emas edi", "Chunki u o'z tabiatiga mos kelmaydigan imkoniyatga da'vo qildi va o'z chegarasini tan olmadi", "Chunki u burgutga va'da qilingan mukofotni bermagan edi"],
+    javob: 1,
+    izoh: "Toshbaqaning tabiati uchishga mos emas edi, ammo u buni tan olmadi va o'zini tabiatiga zid ishga urdi. Masal shuni o'rgatadi: o'z imkoniyatini bilmay, sharoitga mos bo'lmagan orzuga ergashish xavfli."
   }
 ];
