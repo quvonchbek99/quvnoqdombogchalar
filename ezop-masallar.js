@@ -895,5 +895,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki burgut uni ushlashga qodir emas edi", "Chunki u o'z tabiatiga mos kelmaydigan imkoniyatga da'vo qildi va o'z chegarasini tan olmadi", "Chunki u burgutga va'da qilingan mukofotni bermagan edi"],
     javob: 1,
     izoh: "Toshbaqaning tabiati uchishga mos emas edi, ammo u buni tan olmadi va o'zini tabiatiga zid ishga urdi. Masal shuni o'rgatadi: o'z imkoniyatini bilmay, sharoitga mos bo'lmagan orzuga ergashish xavfli."
+  },
+  {
+    id: "ez-113", mavzu: "hamkorlik", sarlavha: "Tulki va asalari uyasi",
+    matn: "Ayiq katta asalari uyasini topdi, ammo uni o'zi ochishdan qo'rqardi. Tulki unga yaqinlashib, asalni birga olishni taklif qildi, o'zi esa uyadan biroz uzoqroqda turib qoldi. Ayiq uyani ochganda, asalarilar unga butun to'da bo'lib hujum qildi. Tulki esa darhol qochib ketdi va ayiqni og'riq ichida yolg'iz qoldirdi.",
+    savol: "Tulki nima uchun ayiqni yolg'iz qoldirib ketdi?",
+    variantlar: ["U o'z xavfsizligini do'stining xavfsizligidan ustun qo'ydi", "U asalarilarni ayiqdan ko'proq yaxshi ko'rardi", "U asalni ayiqqa berishni xohlamagan edi"],
+    javob: 0,
+    izoh: "Tulki xavf paydo bo'lganda hamkorini tashlab qochdi. Haqiqiy hamkorlik faqat qulay paytda emas, xavfli paytda ham sinaladi."
   }
 ];
