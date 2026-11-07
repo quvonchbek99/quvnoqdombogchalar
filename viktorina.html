@@ -343,7 +343,9 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 .lob-join .lj-qrw{justify-self:center;display:flex;flex-direction:column;align-items:center;max-width:100%}
 @media (max-width:900px){.lob-join .lj-qrw{order:-1}}
 .lob-join .lj-zoom{display:block;margin:6px auto 0;font-size:clamp(12px,1.4vw,15px);font-weight:800;color:#1d3fbf;background:none;border:0;cursor:zoom-in;padding:4px 8px}
-.ov-top .pill#hPin{cursor:zoom-in}
+.ov-top .pill#hPin{cursor:zoom-in;display:inline-flex;align-items:center;gap:.45em;background:#fff;color:#0b1220;border-color:#fff;font-weight:800}
+.ov-top .pill#hPin b{color:#0b1220;letter-spacing:.06em}
+#hPin .miniqr{display:inline-block;width:1.75em;height:1.75em;line-height:0}#hPin .miniqr svg{width:100%;height:100%;display:block}
 .qrbig{position:fixed;inset:0;z-index:9800;background:#fff;color:#0b1220;display:flex;align-items:center;justify-content:center;gap:4vmin;padding:3vmin;cursor:zoom-out;flex-wrap:wrap}
 .qrbig[hidden]{display:none}
 .qrbig .qb-qr{width:min(90vmin,88vh);aspect-ratio:1;max-width:100%}
@@ -351,8 +353,14 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 .qrbig .qb-side{text-align:center;font-weight:800;color:#4a5677;font-size:clamp(16px,2.4vmin,26px)}
 .qrbig .qb-side b{display:block;font:900 clamp(56px,13vmin,150px)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:#0b1220;margin:6px 0 14px}
 .qrbig .qb-url{color:#1d3fbf;word-break:break-all;margin-bottom:14px}
+.qrbig .qb-late{color:#0b1220;margin:0 0 12px;font-size:clamp(14px,2vmin,22px)}
 .qrbig .qb-x{font-size:clamp(13px,1.8vmin,18px);color:#8a93a8}
 @media (orientation:portrait){.qrbig .qb-qr{width:min(94vw,68vh)}}
+/* unvon (o'quvchi telefonida) */
+.unv{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 2px;padding:10px 18px;border:2px solid var(--gold,#ffd166);border-radius:16px;background:rgba(255,209,102,.08)}
+.unv small{font-size:12px;color:var(--text-dim,#9fb0d0);text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.unv b{font-size:clamp(20px,6vw,28px)}
+.unv span{color:var(--gold,#ffd166);font-size:20px;letter-spacing:.12em}.unv span i{font-style:normal;opacity:.45}
 /* sertifikat */
 .cert{display:flex;flex-direction:column;gap:8px;align-items:center;width:min(440px,100%)}
 .cert img{width:100%;border-radius:8px;background:#fff;box-shadow:0 6px 22px rgba(0,0,0,.35)}
@@ -486,7 +494,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <label class="tog"><input type="checkbox" id="sSound"> 🔊 Ovoz effektlari</label>
 <label class="tog"><input type="checkbox" id="sGuard"> 📵 O'quvchi viktorinadan chiqib ketsa — telefoni ismini aytib «viktorinani ko'ring» desin</label>
 <label class="tog"><input type="checkbox" id="sFull"> ⛶ To'liq ekran (eng katta shrift)</label>
-<label class="tog"><input type="checkbox" id="sD3"> 🧊 3D rejim — chuqurlik, aylanuvchi kartalar (telefonlarda ham)</label>
+<label class="tog"><input type="checkbox" id="sD3"> 🧊 3D rejim — chuqurlik, aylanuvchi kartalar (faqat katta ekranda; telefonlar tez ishlashi uchun oddiy)</label>
 </div>
 </section>
 
@@ -524,7 +532,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="ov-top">
 <button type="button" data-a="exit" title="Yopish" aria-label="Yopish">✕</button>
 <div class="ttl" id="hTitle"></div>
-<span class="pill" id="hPin" role="button" tabindex="0" title="Bosing — QR kod katta ko'rinadi (kech qolganlar uchun)">Kod: <b>—</b></span>
+<span class="pill" id="hPin" role="button" tabindex="0" title="Bosing — QR kod katta ochiladi: ulana olmagan yoki kech qolgan o'quvchilar skanerlab kiradi (tugma: Q)">📱 QR · <b>—</b></span>
 <span class="pill net" id="hNet" hidden>🟢 Jonli</span>
 <span class="pill" id="hCnt">👥 0</span>
 <span class="pill away" id="hAway" role="button" tabindex="0" hidden>📵 0</span>
@@ -542,7 +550,6 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="ov-top">
 <button type="button" data-a="leave" title="Chiqish" aria-label="Chiqish">✕</button>
 <div class="ttl" id="pTitle">⚡ Viktorina</div>
-<button type="button" data-a="d3" title="3D rejim" aria-label="3D rejim" aria-pressed="false">🧊</button>
 <span class="pill" id="pScore">0</span>
 </div>
 <div class="ov-body" id="pBody"></div>
@@ -550,6 +557,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="toast" id="toast"></div>
 
 <script src="ka-tarmoq.js?v=20261107b"></script>
+<script src="ka-sertifikat.js?v=20261107c"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
 (function () {
@@ -1108,13 +1116,18 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     genReady = GEN_FILES.reduce(function (p, f) {
       return p.then(function () {
         if (mark[f] && window.kaSavol && window.kaSavol.has(mark[f])) return;
-        return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261107b"; s.onload = res; s.onerror = res; document.head.appendChild(s); });
+        // internet sekin bo'lsa ham bitta fayl hammasini to'xtatib qo'ymasin (15 soniyadan keyin keyingisiga o'tamiz)
+        return new Promise(function (res) { var s = document.createElement("script"); s.src = f + "?v=20261107b"; s.onload = res; s.onerror = res; setTimeout(res, 15000); document.head.appendChild(s); });
       });
     }, Promise.resolve());
     return genReady;
   }
   // generatorlar + tanlangan fanlarning lug'at fayllari (ingliz/rus tili) — faqat kerak bo'lganda
-  function prepTopics() { return loadGens().then(function () { return window.kaFan && window.kaFan.prep ? window.kaFan.prep(cfg.topics.concat(mixTopics())) : null; }); }
+  // "⏳ Tayyorlanmoqda…" tugmasi qotib qolmasin: 30 soniyadan keyin (yoki xato bo'lsa) bor savollar bilan davom etamiz
+  function prepTopics() {
+    var work = loadGens().then(function () { return window.kaFan && window.kaFan.prep ? window.kaFan.prep(cfg.topics.concat(mixTopics())) : null; });
+    return Promise.race([work, new Promise(function (res) { setTimeout(res, 30000); })]).catch(function () {});
+  }
   /* ---- aralashtirish: boshqa fanlardan qo'shimcha savollar ---- */
   function mixTopics() {
     if (!cfg.mix || !cfg.mix.pct || !cfg.mix.fans || !cfg.mix.fans.length) return [];
@@ -1223,7 +1236,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       var ro = cfg.rmode === "list" ? curRoster() : null;
       H = { players: {}, byId: {}, qs: buildQs(), i: -1, phase: "lobby", api: null, code: "", timer: 0, stats: [], pending: {}, auto: null, paused: false,
         roster: ro ? { key: cfg.rkey, name: ro.name, list: ro.list.slice() } : null, nicks: ro ? (lsGet(LS_NICK, {})[cfg.rkey] || {}) : {} };
-      if (!H.qs.length) { toast("Bu mavzudan savol yaratib bo'lmadi"); H = null; return; }
+      if (!H.qs.length) { toast("Bu mavzudan savol yaratib bo'lmadi — internetni tekshiring yoki boshqa mavzu tanlang"); H = null; return; }
       $("#hs").classList.add("on"); document.documentElement.style.overflow = "hidden"; document.body.style.overflow = "hidden";
       $('[data-a="sound"]', $("#hs")).textContent = cfg.sound ? "🔊" : "🔇";
       $('[data-a="full"]', $("#hs")).hidden = !fsOk();
@@ -1234,10 +1247,14 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       wakeOn();
       renderLobby();
       hostConnect();
+    }).catch(function () { // kutilmagan xato — tugma "⏳" holatida qotib qolmasin
+      var g = $("#go"); g.disabled = false; g.textContent = "🚪 Xona ochish";
+      if (H && !H.api) { H = null; $("#hs").classList.remove("on"); document.documentElement.style.overflow = ""; document.body.style.overflow = ""; }
+      toast("Xonani ochib bo'lmadi — qayta bosing");
     });
   }
   function hostConnect() {
-    $("#hPin").innerHTML = "Kod: <b>…</b>";
+    $("#hPin").innerHTML = "📱 QR · <b>…</b>";
     N.host({
       onConn: function (id, hello) {
         if (!H) return "Xona yopilgan";
@@ -1289,7 +1306,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       if (!H) { api.close(); return; }
       H.api = api; H.code = api.code;
       clearInterval(H.netT); H.netT = setInterval(hNet, 3000); hNet();
-      $("#hPin").innerHTML = "Kod: <b>" + api.code + "</b> 🔍";
+      setPin();
       renderLobby();
     }).catch(function (e) { lobbyError(e); });
   }
@@ -1363,7 +1380,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       });
     }
     $("#lUrl").textContent = shortUrl();
-    if (H.code) { $("#lPin").textContent = H.code; drawQr(); $("#hPin").innerHTML = "Kod: <b>" + H.code + "</b> 🔍"; }
+    if (H.code) { $("#lPin").textContent = H.code; drawQr(); setPin(); }
     $("#lCnt").innerHTML = "👥 <b>" + ps.length + "</b> o'quvchi" + (ps.length ? "" : " — kutilmoqda…");
     var box = $("#lPls"), have = {};
     $$(".pl", box).forEach(function (c) { have[c.dataset.k] = c; });
@@ -1406,13 +1423,19 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     });
   }
   /* QR kodni butun ekranga kattalashtirish — orqa partadagilar ham skanerlay oladi */
+  // yuqoridagi QR tugmasi: kichik QR rasm + kod (bosilsa katta QR ochiladi)
+  function setPin() {
+    if (!H || !H.code) return;
+    var put = function () { if (!H || !H.code) return; $("#hPin").innerHTML = (window.qrcode ? '<span class="miniqr" aria-hidden="true">' + qrSvg(joinUrl()) + "</span>" : "📱") + "QR · <b>" + esc(H.code) + "</b>"; };
+    put(); loadQr().then(put).catch(function () {});
+  }
   function showBigQr() {
     if (!H || !H.code) { toast("Xona kodi hali tayyor emas"); return; }
     var ov = $("#qrBig");
     if (!ov) {
       ov = document.createElement("div"); ov.className = "qrbig"; ov.id = "qrBig"; ov.hidden = true;
       ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", "QR kod — katta ko'rinish");
-      ov.innerHTML = '<div class="qb-qr" id="qbQr"></div><div class="qb-side">Telefon kamerasi bilan skanerlang<br>yoki kodni yozing<b id="qbPin"></b><div class="qb-url" id="qbUrl"></div><div class="qb-x">Yopish uchun istalgan joyni bosing</div></div>';
+      ov.innerHTML = '<div class="qb-qr" id="qbQr"></div><div class="qb-side">Telefon kamerasi bilan skanerlang<br>yoki kodni yozing<b id="qbPin"></b><div class="qb-late">Ulana olmagan yoki kech qolganlar ham hozir kira oladi — viktorina davom etayotgan bo\'lsa ham</div><div class="qb-url" id="qbUrl"></div><div class="qb-x">Yopish uchun istalgan joyni bosing</div></div>';
       document.body.appendChild(ov);
       ov.addEventListener("click", function () { ov.hidden = true; });
     }
@@ -1619,8 +1642,10 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     if (subj.length && subj.length <= 3) return subj.join(", ") + " (" + t.length + " ta mavzu)";
     return "Aralash viktorina: " + subj.length + " ta fan, " + t.length + " ta mavzu";
   }
+  // unvon — nechta savolni to'g'ri yechganiga qarab (ka-sertifikat.js: Mutlaq/Oltin/Kumush/Bronza bilimdon, Zukko izlanuvchi, Faol ishtirokchi)
+  function unvonOf(correct, total) { return window.kaSertifikat && kaSertifikat.unvon ? kaSertifikat.unvon(correct, total) : null; }
   function certData(p, rank, of) {
-    return { name: p.name, full: p.full ? String(p.full) : "", group: H.roster ? H.roster.name : "", topic: certTopic(), rank: rank, of: of, correct: p.correct, total: H.qs.length, score: p.score, date: dstr() };
+    return { name: p.name, full: p.full ? String(p.full) : "", group: H.roster ? H.roster.name : "", topic: certTopic(), rank: rank, of: of, correct: p.correct, total: H.qs.length, score: p.score, date: dstr(), unvon: unvonOf(p.correct, H.qs.length) };
   }
   function endMsg(p) {
     var order = ranked(), r = order.indexOf(p) + 1;
@@ -1630,7 +1655,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function loadCert() {
     if (window.kaSertifikat) return Promise.resolve();
     if (certLoad) return certLoad;
-    certLoad = new Promise(function (res, rej) { var s = document.createElement("script"); s.src = "ka-sertifikat.js?v=20261104a"; s.onload = function () { window.kaSertifikat ? res() : rej(); }; s.onerror = function () { certLoad = null; rej(); }; document.head.appendChild(s); });
+    certLoad = new Promise(function (res, rej) { var s = document.createElement("script"); s.src = "ka-sertifikat.js?v=20261107c"; s.onload = function () { window.kaSertifikat ? res() : rej(); }; s.onerror = function () { certLoad = null; rej(); }; document.head.appendChild(s); });
     return certLoad;
   }
   function allCerts(btn) {
@@ -1657,10 +1682,10 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     body.innerHTML = '<div class="end"><div class="pod">' + pod.map(function (p, k) {
       return p ? '<div class="c ' + cls[k] + '"><div class="nm">' + esc(p.name) + '</div><div class="sc">' + p.score + " ochko · " + p.correct + "/" + H.qs.length + '</div><div class="bar">' + place[k] + "</div></div>" : '<div class="c"></div>';
     }).join("") + "</div>" +
-      '<table class="tbl"><tr><th>#</th><th style="text-align:left">O\'quvchi</th><th>Ochko</th><th>✅</th><th>❌</th><th>⏰</th><th>Aniqlik</th></tr>' +
+      '<table class="tbl"><tr><th>#</th><th style="text-align:left">O\'quvchi</th><th>Ochko</th><th>✅</th><th>❌</th><th>⏰</th><th>Aniqlik</th><th style="text-align:left">Unvon</th></tr>' +
       order.map(function (p, r) {
         var tot = p.correct + p.wrong + p.none;
-        return "<tr><td>" + (r + 1) + '</td><td class="n">' + esc(p.name) + (p.full && p.nick ? ' <small style="color:#9fb0d0">' + esc(shortName(p.full)) + "</small>" : "") + (p.online ? "" : ' <small style="color:#9fb0d0">(chiqib ketgan)</small>') + (p.away ? ' <small style="color:#ff9d9d" title="Viktorina paytida telefonda boshqa ilovaga o\'tgan">📵' + p.away + "</small>" : "") + "</td><td>" + p.score + "</td><td>" + p.correct + "</td><td>" + p.wrong + "</td><td>" + p.none + "</td><td>" + (tot ? Math.round(p.correct / tot * 100) + "%" : "—") + "</td></tr>";
+        return "<tr><td>" + (r + 1) + '</td><td class="n">' + esc(p.name) + (p.full && p.nick ? ' <small style="color:#9fb0d0">' + esc(shortName(p.full)) + "</small>" : "") + (p.online ? "" : ' <small style="color:#9fb0d0">(chiqib ketgan)</small>') + (p.away ? ' <small style="color:#ff9d9d" title="Viktorina paytida telefonda boshqa ilovaga o\'tgan">📵' + p.away + "</small>" : "") + "</td><td>" + p.score + "</td><td>" + p.correct + "</td><td>" + p.wrong + "</td><td>" + p.none + "</td><td>" + (tot ? Math.round(p.correct / tot * 100) + "%" : "—") + '</td><td class="n">' + (function (u) { return u ? u.icon + " " + esc(u.name) : ""; })(unvonOf(p.correct, H.qs.length)) + "</td></tr>";
       }).join("") + "</table>" +
       '<details class="qa"><summary>📝 Savollar tahlili — eng qiyinlari birinchi</summary>' + qsHtml.map(function (o) {
         var bg = o.pc >= 70 ? "#5ee6c7" : o.pc >= 40 ? "#ffd479" : "#ff8585";
@@ -1752,12 +1777,15 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       allPlayers().forEach(function (p) { p.score = 0; p.correct = 0; p.wrong = 0; p.none = 0; p.streak = 0; p.best = 0; p.ans = {}; p.last = null; p.gain = 0; p.away = 0; p.awayMs = 0; if (!p.online) delete H.players[p.key]; });
       online().forEach(function (p) { H.api.send(p.id, { type: "wait", reset: true }); });
       hEl().innerHTML = ""; renderLobby();
+    }).catch(function () {
+      var bt = $("#eGo"); if (bt) { bt.disabled = false; bt.textContent = "▶ Yangi mavzuda boshlash"; }
+      toast("Savollarni tayyorlab bo'lmadi — qayta bosing");
     });
   }
   function downloadCsv() {
-    var rows = [["O'rin", "F.I.Sh.", "Nik", "Ochko", "To'g'ri", "Xato", "Javobsiz", "Savollar", "Guruh", "Mavzu", "Sana", "Chiqib ketdi (marta)"]], d = new Date().toLocaleString("uz-UZ"), topic = cfg.topics.map(function (id) { return TITLE[id]; }).join(", "), grp = H.roster ? H.roster.name : "";
-    ranked().forEach(function (p, r) { rows.push([r + 1, p.full || p.name, p.nick || "", p.score, p.correct, p.wrong, p.none, H.qs.length, grp, topic, d, p.away || 0]); });
-    if (H.roster) H.roster.list.forEach(function (n, i) { if (!H.players["r" + i]) rows.push(["—", n, "", 0, 0, 0, H.qs.length, H.qs.length, grp, topic, "qatnashmadi", ""]); });
+    var rows = [["O'rin", "F.I.Sh.", "Nik", "Ochko", "To'g'ri", "Xato", "Javobsiz", "Savollar", "Guruh", "Mavzu", "Sana", "Chiqib ketdi (marta)", "Unvon"]], d = new Date().toLocaleString("uz-UZ"), topic = cfg.topics.map(function (id) { return TITLE[id]; }).join(", "), grp = H.roster ? H.roster.name : "";
+    ranked().forEach(function (p, r) { rows.push([r + 1, p.full || p.name, p.nick || "", p.score, p.correct, p.wrong, p.none, H.qs.length, grp, topic, d, p.away || 0, (unvonOf(p.correct, H.qs.length) || {}).name || ""]); });
+    if (H.roster) H.roster.list.forEach(function (n, i) { if (!H.players["r" + i]) rows.push(["—", n, "", 0, 0, 0, H.qs.length, H.qs.length, grp, topic, "qatnashmadi", "", ""]); });
     var csv = "﻿" + rows.map(function (r) { return r.map(function (c) { c = String(c); return /[;"\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c; }).join(";"); }).join("\r\n");
     var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     a.download = "viktorina-natijalar-" + new Date().toISOString().slice(0, 10) + ".csv"; document.body.appendChild(a); a.click();
@@ -1882,7 +1910,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     if (!P || !m || typeof m !== "object") return;
     sessTouch();
     if (m.type === "nx") return pNext(m);
-    if (m.type === "d3") { if (lsGet(LS_D3P, null) == null) setD3($("#ps"), m.on); return; }
+    if (m.type === "d3") return; // 3D rejim faqat o'qituvchi ekranida — telefonlarda tugmalar qotib qolardi
     if (m.type === "taken") { if (P.pick) { P.pick.taken = (m.taken || []).filter(function (x) { return x !== P.pick.mine; }); drawPick(); } return; }
     if (m.type === "got") { // javob o'qituvchiga yetib bordi
       if (!P.pend || P.pend.i !== m.i) return;
@@ -1894,7 +1922,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     if (m.type === "q" && P.pend && P.pend.i === m.i) { psend(P.pend); return; }
     clearInterval(P.timer);
     if (m.type !== "welcome" && m.type !== "pick") stopResend();
-    if (m.type === "welcome") { P.name = m.name || P.name; P.full = m.full || ""; P.pick = null; P.inGame = true; P.guard = m.guard !== false; sessSave({ live: true }); netDot("on"); pScore(m.score); P.score = m.score || 0; var own = lsGet(LS_D3P, null); setD3($("#ps"), own == null ? m.d3 : own); return; }
+    if (m.type === "welcome") { P.name = m.name || P.name; P.full = m.full || ""; P.pick = null; P.inGame = true; P.guard = m.guard !== false; sessSave({ live: true }); netDot("on"); pScore(m.score); P.score = m.score || 0; setD3($("#ps"), false); return; }
     if (m.type === "pick") return pPick(m);
     if (m.type === "pickErr") { toast(m.why || "Bu ism band"); P.claim = null; if (P.pick) { P.pick.taken = m.taken || []; P.sel = -1; pPick(P.pick); } return; }
     if (m.type === "wait") {
@@ -2013,7 +2041,9 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     try { got = !!(coins && window.kaAccount && window.kaAccount.addCoins(coins, "Viktorina: " + m.correct + "/" + m.total)); } catch (e) {}
     try { var idn = N.identity(); N.postResult({ name: P.name, group: idn.group || "", topic: "Viktorina: " + (m.topic || ""), correct: m.correct, total: m.total, date: new Date().toLocaleString("uz-UZ") }); } catch (e) {}
     if (m.rank <= 3) { snd("win"); confetti(); }
+    var u = (m.cert && m.cert.unvon) || unvonOf(m.correct, m.total);
     pView('<div class="big">' + medal + "</div><h2>" + m.rank + "-o'rin!</h2><p>" + m.of + " o'quvchi ichida</p>" +
+      (u ? '<div class="unv"><small>Unvoningiz</small><b>' + u.icon + " " + esc(u.name) + '</b><span aria-label="' + u.stars + ' yulduz">' + "★★★★★".slice(0, u.stars) + '<i>' + "☆☆☆☆☆".slice(0, 5 - u.stars) + "</i></span></div>" : "") +
       '<div class="meta"><span>⭐ ' + m.score + " ochko</span><span>✅ " + m.correct + "/" + m.total + "</span>" + (got ? "<span>🪙 +" + coins + "</span>" : "") + "</div>" +
       '<div class="cert" id="pCert"><div class="spin"></div><p class="note">📜 Sertifikatingiz tayyorlanmoqda…</p></div>' +
       "<p>O'qituvchi yana boshlasa — shu yerda qoling.</p>", "endv");
@@ -2028,10 +2058,21 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       var img = new Image(); img.alt = "Sertifikat"; img.src = kaSertifikat.canvas(d, 1100).toDataURL("image/jpeg", 0.85);
       box.innerHTML = ""; box.appendChild(img);
       box.insertAdjacentHTML("beforeend", '<div class="row2"><button type="button" class="btn primary" id="pcPdf">📥 Sertifikat (PDF)</button>' + (kaSertifikat.canShare() ? '<button type="button" class="btn" id="pcShare">📤 Ulashish</button>' : "") + '</div><p class="note">PDF oq-qora — oddiy printerda chop etsa bo\'ladi.</p>');
-      var blobP = null;
-      function getPdf() { if (!blobP) blobP = kaSertifikat.pdf([d]); return blobP; }
-      $("#pcPdf").onclick = function () { var b = this; b.disabled = true; getPdf().then(function (bl) { kaSertifikat.save(bl, fname); b.disabled = false; toast("📜 Sertifikat yuklab olindi"); }); };
-      var sh = $("#pcShare"); if (sh) sh.onclick = function () { getPdf().then(function (bl) { return kaSertifikat.share(bl, fname); }).then(function (ok) { if (!ok) toast("Ulashib bo'lmadi — PDF tugmasini bosing"); }); };
+      // PDF oldindan (fonda) tayyorlanadi: iPhone'da «Ulashish» faqat bosilgan zahoti chaqirilsa ishlaydi
+      var blobP = null, ready = null;
+      function getPdf() { if (!blobP) blobP = kaSertifikat.pdf([d]).then(function (bl) { ready = bl; return bl; }, function (e) { blobP = null; throw e; }); return blobP; }
+      setTimeout(function () { getPdf().catch(function () {}); }, 400);
+      $("#pcPdf").onclick = function () {
+        var b = this;
+        if (ready) { kaSertifikat.save(ready, fname); toast("📜 Sertifikat yuklab olindi"); return; }
+        b.disabled = true; b.textContent = "⏳ Tayyorlanmoqda…";
+        getPdf().then(function (bl) { kaSertifikat.save(bl, fname); toast("📜 Sertifikat yuklab olindi"); }, function () { toast("PDF tayyorlab bo'lmadi — qayta bosing"); })
+          .then(function () { b.disabled = false; b.textContent = "📥 Sertifikat (PDF)"; });
+      };
+      var sh = $("#pcShare"); if (sh) sh.onclick = function () {
+        if (ready) { kaSertifikat.share(ready, fname).then(function (ok) { if (!ok) toast("Ulashib bo'lmadi — PDF tugmasini bosing"); }); return; }
+        toast("⏳ Sertifikat tayyorlanmoqda — 2 soniyadan keyin yana bosing"); getPdf().catch(function () {});
+      };
     }).catch(function () { var box = $("#pCert"); if (box) box.innerHTML = '<p class="note">Sertifikatni yuklab bo\'lmadi — internetni tekshiring.</p>'; });
   }
   // Aloqa uzildi — jonli rejim: ulanguncha o'zi qayta urinadi (ochkolar o'qituvchida saqlanadi, maxsus kalit bilan o'z ismiga qaytadi)
@@ -2218,7 +2259,6 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   $("#ps").addEventListener("click", function (e) {
     var b = e.target.closest("[data-a]"); if (!b) return;
     if (b.dataset.a === "leave" && (!P || P.ended || confirm("Viktorinadan chiqasizmi?"))) { sessEnd(); closePlayer(); }
-    else if (b.dataset.a === "d3") { var on = !$("#ps").classList.contains("d3"); lsSet(LS_D3P, on); setD3($("#ps"), on); }
   });
 
   /* ---------------- grafik chizish taxtasi ---------------- */
@@ -2245,6 +2285,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     } else if ((k === "s" || k === "S") && H.phase === "q") reveal();
     else if (k === "p" || k === "P") togglePause();
     else if ((k === "f" || k === "F") && fsOk()) goFull(!fsEl());
+    else if ((k === "q" || k === "Q") && H.code) showBigQr(); // katta QR — ulana olmaganlar uchun
   });
 
   /* ---------------- ishga tushirish ---------------- */

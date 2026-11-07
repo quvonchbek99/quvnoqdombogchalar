@@ -38,7 +38,21 @@
   }
   function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul ? Math.imul(h, 16777619) : (h * 16777619) | 0; } return (h >>> 0).toString(36).toUpperCase(); }
   function certNo(d) { var h = hash([d.full || d.name, d.topic, d.date, d.score, d.correct].join("|")); return "KA-" + ("000000" + h).slice(-6); }
-  function kindOf(d) { return d.kind || (!d.correct ? "ISHTIROKCHI" : d.rank === 1 ? "1-O'RIN · G'OLIB" : d.rank === 2 ? "2-O'RIN · SOVRINDOR" : d.rank === 3 ? "3-O'RIN · SOVRINDOR" : (d.total && d.correct / d.total >= 0.8 ? "A'LO NATIJA" : "FAOL ISHTIROKCHI")); }
+  function kindOf(d) { return d.kind || (d.correct && d.rank === 1 ? "1-O'RIN · G'OLIB" : d.correct && d.rank === 2 ? "2-O'RIN · SOVRINDOR" : d.correct && d.rank === 3 ? "3-O'RIN · SOVRINDOR" : "JONLI VIKTORINA"); }
+  /* Unvon — o'quvchi nechta savolni to'g'ri yechganiga qarab (fan nomidan qat'i nazar).
+     [chegara (aniqlik ulushi), unvon, yulduzlar, ekrandagi belgi] */
+  var UNVON = [[1, "Mutlaq bilimdon", 5, "🏆"], [0.9, "Oltin bilimdon", 5, "🥇"], [0.75, "Kumush bilimdon", 4, "🥈"], [0.6, "Bronza bilimdon", 3, "🥉"],
+    [0.4, "Zukko izlanuvchi", 2, "📘"], [1e-6, "Faol ishtirokchi", 1, "✨"], [0, "Ishtirokchi", 0, "🌱"]];
+  function unvon(correct, total) {
+    var a = total ? Math.max(0, correct || 0) / total : 0;
+    for (var i = 0; i < UNVON.length; i++) if (a >= UNVON[i][0] - 1e-9) return { name: UNVON[i][1], stars: UNVON[i][2], icon: UNVON[i][3], pct: Math.round(a * 100) };
+    return { name: "Ishtirokchi", stars: 0, icon: "🌱", pct: 0 };
+  }
+  function star(ctx, x, y, r, fill) { // besh qirrali yulduz: to'ldirilgan (qo'lga kiritilgan) yoki faqat chiziq (oq-qora printer uchun)
+    ctx.beginPath();
+    for (var i = 0; i < 10; i++) { var an = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.45 : r; ctx[i ? "lineTo" : "moveTo"](x + Math.cos(an) * rr, y + Math.sin(an) * rr); }
+    ctx.closePath(); if (fill) ctx.fill(); else ctx.stroke();
+  }
 
   function canvas(d, W) {
     W = W || 1754; var Hh = Math.round(W / 1.4142), k = W / 1754;
@@ -70,24 +84,35 @@
     var nm = String(d.full || d.name || "").trim() || "O'quvchi";
     fitFont(ctx, nm, 1260 * k, Math.round(78 * k), Math.round(36 * k), SERIF, "bold"); ctx.fillText(nm, cx, 616 * k);
     ctx.lineWidth = 2 * k; ctx.beginPath(); ctx.moveTo(cx - 560 * k, 644 * k); ctx.lineTo(cx + 560 * k, 644 * k); ctx.stroke();
-    if (d.full && d.name && d.name !== d.full) { ctx.font = Math.round(22 * k) + "px " + SANS; ctx.fillText("(" + d.name + ")", cx, 676 * k); }
+    var y = 644, nick = d.full && d.name && d.name !== d.full;
+    if (nick) { ctx.font = Math.round(22 * k) + "px " + SANS; ctx.fillText("(" + d.name + ")", cx, 676 * k); y = 676; }
+    // unvon: yulduzlar + unvon nomi
+    var u = d.unvon && d.unvon.name ? d.unvon : unvon(d.correct, d.total);
+    ctx.lineWidth = 2 * k;
+    for (var si = 0; si < 5; si++) star(ctx, cx + (si - 2) * 46 * k, (y + 44) * k, 17 * k, si < u.stars);
+    ctx.font = "bold " + Math.round(38 * k) + "px " + SERIF; var uw = spaced(ctx, u.name.toUpperCase(), cx, (y + 100) * k, 6 * k);
+    ctx.font = "italic " + Math.round(20 * k) + "px " + SERIF; ctx.fillText("unvoni", cx, (y + 126) * k);
+    ctx.lineWidth = 1.2 * k; ctx.beginPath(); ctx.moveTo(cx - uw / 2 - 30 * k, (y + 88) * k); ctx.lineTo(cx - uw / 2 - 120 * k, (y + 88) * k); ctx.moveTo(cx + uw / 2 + 30 * k, (y + 88) * k); ctx.lineTo(cx + uw / 2 + 120 * k, (y + 88) * k); ctx.stroke();
     // matn
     var topic = String(d.topic || "Jonli viktorina");
     var body = d.correct ? "«" + topic + "» bo'yicha jonli viktorinada " + d.total + " ta savoldan " + d.correct + " tasiga to'g'ri javob berib, " +
-      d.of + " nafar ishtirokchi orasida " + d.rank + "-o'rinni egalladi." : "«" + topic + "» bo'yicha jonli viktorinada ishtirok etdi. Keyingi safar albatta yaxshiroq natija bo'ladi!";
-    ctx.font = Math.round(29 * k) + "px " + SANS;
-    var lines = wrap(ctx, body, 1240 * k); if (lines.length > 3) { ctx.font = Math.round(25 * k) + "px " + SANS; lines = wrap(ctx, body, 1300 * k).slice(0, 4); }
-    var ly = (d.full && d.name && d.name !== d.full ? 728 : 712) * k;
-    lines.forEach(function (ln, j) { ctx.fillText(ln, cx, ly + j * 42 * k); });
+      d.of + " nafar ishtirokchi orasida " + d.rank + "-o'rinni egalladi va «" + u.name + "» unvoniga sazovor bo'ldi." :
+      "«" + topic + "» bo'yicha jonli viktorinada ishtirok etdi. Keyingi safar albatta yaxshiroq natija bo'ladi!";
+    var fs = 25, lh = 35, lines;
+    ctx.font = Math.round(fs * k) + "px " + SANS; lines = wrap(ctx, body, 1300 * k);
+    if (lines.length > 2 && nick) { fs = 22; lh = 31; ctx.font = Math.round(fs * k) + "px " + SANS; lines = wrap(ctx, body, 1360 * k); }
+    lines = lines.slice(0, 3);
+    var ly = y + 166;
+    lines.forEach(function (ln, j) { ctx.fillText(ln, cx, (ly + j * lh) * k); });
     // natija qutilari
     var acc = d.total ? Math.round(d.correct / d.total * 100) : 0;
     var boxes = [["O'RIN", d.rank + " / " + d.of], ["TO'G'RI JAVOB", d.correct + " / " + d.total], ["ANIQLIK", acc + "%"], ["OCHKO", String(d.score || 0)]];
-    var bw = 250 * k, gap = 34 * k, bx = cx - (boxes.length * bw + (boxes.length - 1) * gap) / 2, by = 868 * k, bh = 104 * k;
+    var bw = 250 * k, gap = 34 * k, bx = cx - (boxes.length * bw + (boxes.length - 1) * gap) / 2, by = 912 * k, bh = 88 * k;
     boxes.forEach(function (b, j) {
       var x = bx + j * (bw + gap);
       ctx.lineWidth = 2 * k; ctx.strokeRect(x, by, bw, bh); ctx.lineWidth = 0.8 * k; ctx.strokeRect(x + 6 * k, by + 6 * k, bw - 12 * k, bh - 12 * k);
-      ctx.font = "bold " + Math.round(17 * k) + "px " + SANS; spaced(ctx, b[0], x + bw / 2, by + 36 * k, 2.5 * k);
-      ctx.font = "bold " + Math.round(38 * k) + "px " + SERIF; ctx.fillText(b[1], x + bw / 2, by + 82 * k);
+      ctx.font = "bold " + Math.round(16 * k) + "px " + SANS; spaced(ctx, b[0], x + bw / 2, by + 32 * k, 2.5 * k);
+      ctx.font = "bold " + Math.round(34 * k) + "px " + SERIF; ctx.fillText(b[1], x + bw / 2, by + 72 * k);
     });
     // pastki qism: sana, raqam, imzo
     var fy = 1062 * k;
@@ -130,12 +155,14 @@
   // ko'p sahifali (o'qituvchi uchun) — brauzer qotib qolmasligi uchun bo'lib-bo'lib chiziladi
   function pdf(list, onProgress) {
     var many = list.length > 1, pages = [], i = 0;
-    return new Promise(function (res) {
+    // har safar bitta sahifa — sahifa (va tugmalar) qotib qolmasin; xato bo'lsa tugma "⏳" holatida qolmasligi uchun reject
+    return new Promise(function (res, rej) {
       (function step() {
-        var end = Math.min(list.length, i + 3);
-        for (; i < end; i++) pages.push(jpeg(canvas(list[i], many ? 1404 : 1754), many ? 0.82 : 0.9));
-        if (onProgress) onProgress(i, list.length);
-        if (i < list.length) setTimeout(step, 0); else res(build(pages));
+        try {
+          if (i < list.length) { pages.push(jpeg(canvas(list[i], many ? 1404 : 1754), many ? 0.82 : 0.9)); i++; }
+          if (onProgress) onProgress(i, list.length);
+          if (i < list.length) setTimeout(step, 16); else res(build(pages));
+        } catch (e) { rej(e); }
       })();
     });
   }
@@ -153,5 +180,5 @@
     return Promise.resolve(false);
   }
   function canShareFiles() { try { return !!(navigator.canShare && window.File && navigator.canShare({ files: [new File([""], "a.pdf", { type: "application/pdf" })] })); } catch (e) { return false; } }
-  window.kaSertifikat = { canvas: canvas, pdf: pdf, save: save, share: share, canShare: canShareFiles, no: certNo, kind: kindOf };
+  window.kaSertifikat = { canvas: canvas, pdf: pdf, save: save, share: share, canShare: canShareFiles, no: certNo, kind: kindOf, unvon: unvon };
 })();
