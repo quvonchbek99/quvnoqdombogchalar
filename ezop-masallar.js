@@ -919,5 +919,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Kirpi o'zini tikanlari bilan himoya qilib, tulkining ushlashiga yo'l qo'ymadi", "Kirpi tulkidan kuchliroq edi va uni haydab yubordi", "Tulki kirpini yeyishni umuman xohlamagan edi"],
     javob: 0,
     izoh: "Kirpi qochishning o'rniga o'zini tikanlari bilan himoya qildi. Ba'zan kuch emas, to'g'ri himoya usuli vaziyatni hal qiladi."
+  },
+  {
+    id: "ez-116", mavzu: "mantiq", sarlavha: "Bo'ri va tulki",
+    matn: "Bo'ri o'rmonda o'z kuchiga maqtanib, tulkini doim masxara qilardi. Bir kuni ovchilar itlari bilan o'rmonga kirib kelishdi. Bo'ri kuchini ishga solib, to'g'ri yo'lda qochmoqchi bo'ldi, ammo itlar uning izini tezda topib oldi. Tulki esa daryo bo'yidagi tor suv yo'lini topib, o'z izini suvda yo'qotdi va xavfdan qutulib qoldi.",
+    savol: "Tulki nima uchun xavfdan qutulib qoldi?",
+    variantlar: ["U kuchli bo'lgani uchun ovchilarni qo'rqitib haydadi", "U izini yashirib, vaziyatga aqli bilan yechim topdi", "Ovchilar tulkini ko'rmaganidan ketib qolishdi"],
+    javob: 1,
+    izoh: "Bo'ri faqat kuchiga tayandi, tulki esa vaziyatni o'ylab, izini yashiradigan yo'l topdi. Ko'p hollarda aql va mantiqiy fikrlash jismoniy kuchdan ustun keladi."
   }
 ];
