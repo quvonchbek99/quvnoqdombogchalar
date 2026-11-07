@@ -153,7 +153,9 @@
    *  - o'qituvchi to'satdan uzilsa, broker xona ma'lumotini o'zi o'chiradi (eski xonaga ulanib qolinmaydi).
    * Tashqi API: host(opts) -> {code, send, broadcast, kick, close, status}, join(code, hello, opts) -> {id, send, close, status}.
    *  host opts.onRejoin(id, hello) — o'quvchi aloqasi tiklangach holatini qayta yuborish uchun (ixtiyoriy);
-   *  join opts.onStatus(up, all) — nechta broker orqali ulangani (ixtiyoriy); opts.onClose(why) — why: "gone" = o'qituvchi xonani yopdi. */
+   *  join opts.onStatus(up, all) — nechta broker orqali ulangani (ixtiyoriy); opts.onClose(why) — why: "gone" = o'qituvchi xonani yopdi;
+ *  opts.onBeat(holat) — o'qituvchi yurak urishidagi o'yin holati; ulanish.resync() — holatni qayta so'rash.
+ *  host api.cast(msg) — hammaga bitta umumiy xabar; api.beat(holat) — o'yin holatini e'lon qilish. */
   var MQTT_SRC = SCRIPT_BASE + "mqtt.min.js?v=5.16.1";
   // Eski telefonlar (iOS 12–14, eski Android brauzerlari) MQTT 5-versiyasining yangi JS sintaksisini tushunmaydi —
   // ularga eski, mos keluvchi 4-versiya beriladi (API bir xil)
@@ -249,14 +251,24 @@
     var code = genCode();
     return loadMqtt().then(function () { return room(code); }).then(function (R) {
       return new Promise(function (res, rej) {
-        var clients = [], conns = {}, peers = {}, seqs = {}, whoT = {}, settled = false, closed = false, timers = [];
+        var clients = [], conns = {}, peers = {}, seqs = {}, whoT = {}, settled = false, closed = false, timers = [], bseq = 0, pubB = 0, state = "";
         var outQ = queue(), inQ = queue(), seen = lru(4000), backlog = [];
         var TH = R.t + "/h", TA = R.t + "/a", TI = R.t + "/i";
         function pubAll(t, s, retain) { var ok = false; clients.forEach(function (c, bi) { if (pub(c, BROKERS[bi], t, s, retain)) ok = true; }); return ok; }
         function upCount() { return clients.filter(function (c) { return c && c.connected; }).length; }
+        // Shaxsiy xabar: o'quvchi so'nggi paytda qaysi brokerlar orqali sado bergan bo'lsa, o'shalarning eng tezkor 3 tasiga
+        // (hammasiga emas — 27+ o'quvchida ochiq serverlar xabar oqimini cheklab qo'ymasligi uchun). Bilinmasa — hammasiga.
+        function pubTo(id, t, s) {
+          var p = peers[id], now = Date.now(), bs = [];
+          if (p && p.lb) for (var b in p.lb) if (now - p.lb[b] < 50000 && clients[b] && clients[b].connected && !(BROKERS[b].max && s.length > BROKERS[b].max)) bs.push(+b);
+          bs.sort(function (x, y) { return p.lb[y] - p.lb[x]; });
+          var ok = false;
+          bs.slice(0, 3).forEach(function (bi) { if (pub(clients[bi], BROKERS[bi], t, s)) ok = true; });
+          return ok || pubAll(t, s);
+        }
         var api = {
           code: code, conns: conns,
-          send: function (id, msg) {
+          send: function (id, msg, all) { // all: barcha brokerlar orqali (holatni qayta yuborishda — albatta yetib borsin)
             if (!peers[id] || closed) return;
             // _s — tartib raqami: o'quvchi kechikib kelgan eski xabarni tashlab yuboradi (eski versiyalar bu maydonga qaramaydi)
             var m = Object.assign({}, msg); m._s = seqs[id] = (seqs[id] || 0) + 1;
@@ -264,11 +276,27 @@
               return seal(R, m).then(function (s) {
                 if (closed) return;
                 var t = R.t + "/p/" + id;
-                if (!pubAll(t, s)) { backlog.push([t, s, Date.now()]); if (backlog.length > 800) backlog.shift(); }
+                if (!(all ? pubAll(t, s) : pubTo(id, t, s))) { backlog.push([t, s, Date.now()]); if (backlog.length > 800) backlog.shift(); }
               });
             });
           },
           broadcast: function (msg, except) { for (var id in conns) if (id !== except) api.send(id, msg); },
+          // Hammaga bir xil xabar (masalan, savol): BITTA shifrlangan xabar umumiy mavzuga — 27 ta alohida xabar o'rniga.
+          // _b — umumiy xabarlar tartib raqami; o'quvchi o'tkazib yuborganini yurak urishidagi raqamdan biladi
+          cast: function (msg) {
+            if (closed) return;
+            var m = Object.assign({}, msg); m._b = ++bseq;
+            outQ(function () {
+              return seal(R, m).then(function (s) {
+                if (closed) return;
+                if (!pubAll(TA, s)) { backlog.push([TA, s, Date.now()]); if (backlog.length > 800) backlog.shift(); }
+                pubB = m._b; // yurak urishi faqat yuborib bo'lingan raqamni aytadi
+              });
+            });
+          },
+          // O'yin holati (masalan "3 q", "3 reveal", "end") — yurak urishi bilan hammaga boradi; holat o'zgarsa darhol yuboriladi.
+          // Telefon o'z holati bilan solishtiradi: biror xabarni olmagan bo'lsa, o'zi holatni qayta so'raydi (qotib qolmaydi)
+          beat: function (st) { state = String(st || ""); outQ(function () { if (!closed) pubAll(TA, hb()); }); }, // navbat bilan — savoldan keyin
           kick: function (id, why) {
             if (!peers[id]) return;
             api.send(id, { type: "kick", why: why || "" });
@@ -294,6 +322,7 @@
           if (conns[id]) { delete conns[id]; if (opts.onLeave) opts.onLeave(id); }
         }
         function info(c, bi) { pub(c, BROKERS[bi], TI, "~on " + Date.now(), true); }
+        function hb() { return "~hb " + pubB + (state ? " " + state : ""); }
         function flush() { // aloqa uzilgan paytda yuborilmay qolgan xabarlar (1 daqiqadan eskilari emas)
           if (!backlog.length || !upCount()) return;
           var t = Date.now(), b = backlog; backlog = [];
@@ -337,7 +366,7 @@
               p.lb[bi] = nowT;
               if (nowT - p.win > 1000) { p.win = nowT; p.cnt = 0; }
               if (++p.cnt > 30) return; // juda tez-tez xabar — e'tiborsiz
-              if (msg.type === "~p") { p.live = true; if (p.ok) pub(clients[bi], BROKERS[bi], R.t + "/p/" + id, "~hb"); return; }
+              if (msg.type === "~p") { p.live = true; if (p.ok) pub(clients[bi], BROKERS[bi], R.t + "/p/" + id, hb()); return; }
               if (!p.ok) {
                 if (msg.type !== "hello") return;
                 var ok = (msg.name != null && badName(msg.name)) || (opts.onConn ? opts.onConn(id, msg) : true);
@@ -377,7 +406,7 @@
           c.on("error", function () {});
         });
         // o'quvchilarga "o'qituvchi ekrani ochiq" signali va xona ma'lumotini yangilab turish
-        timers.push(setInterval(function () { pubAll(TA, "~hb"); }, 10000));
+        timers.push(setInterval(function () { pubAll(TA, hb()); }, 5000));
         timers.push(setInterval(function () { clients.forEach(function (c, bi) { info(c, bi); }); }, 60000));
         // jonli o'quvchi 50 soniya hech qaysi broker orqali sado bermasa — chiqib ketgan (telefon o'chgan/uxlagan)
         timers.push(setInterval(function () {
@@ -410,7 +439,7 @@
         var id = selfId(code), n = rid(8), settled = false, dead = false, found = false;
         var cl = [], st = []; // st: 0 ulanmoqda, 1 ulangan (xona qidirilmoqda), 2 xona shu brokerda — ishlatiladi, 3 ulanib bo'lmadi
         var lastHost = Date.now(), downSince = 0, watch = 0, probe = 0, ping = 0, hiT = 0, outQ = queue(), inQ = queue();
-        var seen = lru(600), lastS = 0, helloStr = "", whoAt = 0, outbox = [], needSync = false; // needSync: holatni qayta olguncha salom berib turamiz
+        var seen = lru(600), lastS = 0, lastB = -1, helloStr = "", whoAt = 0, syncAt = 0, outbox = [], needSync = false; // needSync: holatni qayta olguncha salom berib turamiz
         var hi = Object.assign({ type: "hello" }, hello);
         var TP = R.t + "/p/" + id, TA = R.t + "/a", TI = R.t + "/i", TH = R.t + "/h";
         function live() { var a = []; cl.forEach(function (c, bi) { if (c && st[bi] === 2 && c.connected) a.push(bi); }); return a; }
@@ -427,6 +456,10 @@
           });
         }
         function flushOut() { if (!outbox.length || !live().length) return; var o = outbox; outbox = []; o.forEach(function (s) { pubLive(s); }); }
+        function resync() { // holatni qayta so'rash (ko'pi bilan 4 soniyada bir marta)
+          var t = Date.now(); if (dead || !settled || t - syncAt < 4000) return;
+          syncAt = t; needSync = true; sayHello(true);
+        }
         function sayHello(fresh, only) { // fresh: yangi shifr — o'qituvchi uni takror deb tashlab yubormasin
           if (dead) return;
           outQ(function () {
@@ -457,7 +490,16 @@
         }
         function onPeerMsg(s) {
           if (dead) return;
-          if (s === "~hb") { lastHost = Date.now(); return; }
+          if (s === "~hb" || s.slice(0, 4) === "~hb ") { // yurak urishi: "~hb <umumiy xabarlar soni> <o'yin holati>"
+            lastHost = Date.now();
+            if (s.length > 4 && settled) {
+              var sp = s.slice(4).split(" "), nb = +sp[0];
+              if (lastB < 0) lastB = nb;            // birinchi marta — boshlang'ich nuqta
+              else if (nb > lastB) setTimeout(function () { if (!dead && lastB < nb) { lastB = nb; resync(); } }, 2000); // umumiy xabar (savol) 2 s ichida kelmadi — holatni qayta so'raymiz
+              if (opts.onBeat) try { opts.onBeat(sp.slice(1).join(" ")); } catch (e) {}
+            }
+            return;
+          }
           if (s === "~gone") { if (settled) lost("gone"); else fail("O'qituvchi xonani yopgan"); return; }
           if (s === "~who") { // o'qituvchi bizni tanimadi (masalan, telefon uzoq uxlagan) — qayta salom beramiz
             var tw = Date.now(); lastHost = tw;
@@ -471,12 +513,14 @@
               if (dead || !msg || typeof msg !== "object" || !sane(msg, 300000)) return;
               lastHost = Date.now(); needSync = false;
               if (typeof msg._s === "number") { if (msg._s <= lastS) return; lastS = msg._s; } // kechikib kelgan eski xabar
+              if (typeof msg._b === "number") { if (msg._b <= lastB) return; lastB = msg._b; } // umumiy xabar: takror yoki eski
               if (!settled) {
                 if (msg.type === "reject") return fail(msg.why || "Xona qabul qilmadi");
                 settled = true; clearTimeout(to); clearTimeout(probe); clearInterval(hiT);
                 res({
                   id: id, send: function (m) { send(m); },
                   status: function () { return { up: live().length, all: BROKERS.length }; },
+                  resync: resync,
                   close: function () { bye(); dead = true; setTimeout(kill, 300); }
                 });
                 watch = setInterval(function () {

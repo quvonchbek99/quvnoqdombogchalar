@@ -492,6 +492,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="sets">
 <label class="tog"><input type="checkbox" id="sShowQ"> 📱 Savol va variantlar telefonda ham ko'rinsin</label>
 <label class="tog"><input type="checkbox" id="sSound"> 🔊 Ovoz effektlari</label>
+<label class="tog"><input type="checkbox" id="sXtime"> ⏱ Mantiqiy va uzun savollarga qo'shimcha vaqt (o'qib chiqishga ulgurishsin)</label>
 <label class="tog"><input type="checkbox" id="sGuard"> 📵 O'quvchi viktorinadan chiqib ketsa — telefoni ismini aytib «viktorinani ko'ring» desin</label>
 <label class="tog"><input type="checkbox" id="sFull"> ⛶ To'liq ekran (eng katta shrift)</label>
 <label class="tog"><input type="checkbox" id="sD3"> 🧊 3D rejim — chuqurlik, aylanuvchi kartalar (faqat katta ekranda; telefonlar tez ishlashi uchun oddiy)</label>
@@ -556,7 +557,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="ka-tarmoq.js?v=20261107b"></script>
+<script src="ka-tarmoq.js?v=20261107d"></script>
 <script src="ka-sertifikat.js?v=20261107c"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
@@ -630,7 +631,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function vib(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
 
   /* ---------------- sozlamalar ---------------- */
-  var cfg = { topics: [], count: 10, lvl: "prog", time: 20, auto: 8, showQ: true, sound: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
+  var cfg = { topics: [], count: 10, lvl: "prog", time: 20, auto: 8, showQ: true, sound: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
   try { var sv = JSON.parse(localStorage.getItem(LS) || "null"); if (sv) for (var k in sv) if (k in cfg) cfg[k] = sv[k]; } catch (e) {}
   var qp = /[?&]mavzu=([a-z0-9,]+)/i.exec(location.search);
   if (qp) cfg.topics = qp[1].split(",");
@@ -959,7 +960,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     var sa = $("#sAuto"); sa.value = String(cfg.auto); if (sa.value !== String(cfg.auto)) { sa.value = "8"; cfg.auto = 8; }
     sa.addEventListener("change", function () { cfg.auto = +sa.value; saveCfg(); summary(); });
     if (!fsOk()) { var fl = $("#sFull"); if (fl) fl.closest("label").style.display = "none"; }
-    [["#sShowQ", "showQ"], ["#sSound", "sound"], ["#sGuard", "guard"], ["#sFull", "full"], ["#sD3", "d3"]].forEach(function (p) {
+    [["#sShowQ", "showQ"], ["#sSound", "sound"], ["#sXtime", "xtime"], ["#sGuard", "guard"], ["#sFull", "full"], ["#sD3", "d3"]].forEach(function (p) {
       var c = $(p[0]); c.checked = !!cfg[p[1]]; c.addEventListener("change", function () { cfg[p[1]] = c.checked; });
     });
   }
@@ -1283,10 +1284,10 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       // jonli rejim: o'quvchi aloqasi butunlay uzilib tiklandi — turgan joyini (savol, ochko) qayta yuboramiz
       onRejoin: function (id, hello) {
         if (!H || !H.api) return;
-        if (H.pending[id]) { H.api.send(id, pickMsg(tokOf(hello))); return; }
+        if (H.pending[id]) { H.api.send(id, pickMsg(tokOf(hello)), true); return; }
         var key = H.byId[id], p = key && H.players[key]; if (!p) return;
         p.online = true; p.isAway = false;
-        H.api.send(id, welcomeMsg(p)); syncPlayer(p); hCount();
+        H.api.send(id, welcomeMsg(p), true); syncPlayer(p, true); hCount();
       },
       onMsg: function (id, msg) {
         if (H && H.pending[id] && msg.type === "claim") return claim(id, msg);
@@ -1349,12 +1350,13 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     snd("pop"); hCount(); hLive(ex.name + " qo'shildi");
     if (H.phase === "lobby") renderLobby(); else if (H.phase === "q") renderAnswered();
   }
-  function syncPlayer(p) {
+  function syncPlayer(p, all) { // all: barcha serverlar orqali (telefon holatni qayta so'raganda)
     if (!H.api || !p.online) return;
-    if (H.phase === "lobby") H.api.send(p.id, { type: "wait" });
-    else if (H.phase === "q" && p.ans[H.i] == null) H.api.send(p.id, qMsg(Math.max(1, cfg.time - (Date.now() - H.qStart) / 1000)));
-    else if (H.phase === "end") H.api.send(p.id, endMsg(p));
-    else H.api.send(p.id, { type: "hold", score: p.score });
+    if (H.phase === "lobby") H.api.send(p.id, { type: "wait" }, all);
+    else if (H.phase === "q" && p.ans[H.i] == null) H.api.send(p.id, qMsg(Math.max(1, qSec() - (Date.now() - H.qStart) / 1000)), all);
+    else if (H.phase === "end") H.api.send(p.id, endMsg(p), all);
+    else if ((H.phase === "reveal" || H.phase === "board") && p.rev && p.rev.i === H.i) H.api.send(p.id, p.rev, all); // natija yetib bormagan bo'lsa
+    else H.api.send(p.id, { type: "hold", score: p.score, i: H.i }, all);
   }
   function joinUrl() { return N.joinUrl("viktorina.html", H.code || ""); }
   function shortUrl() { return (location.host || "kuvonch.uz") + location.pathname.replace(/[^/]*$/, "") + "viktorina.html"; }
@@ -1365,7 +1367,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       body.innerHTML = '<div class="lob"><div class="lob-join"><div class="lj-txt">Telefonda oching:<b id="lUrl"></b>yoki QR kodni skanerlang</div>' +
         '<div class="lj-qrw"><div class="lj-qr" id="lQr" role="button" tabindex="0" aria-label="QR kod — kattalashtirish uchun bosing" title="Kattalashtirish uchun bosing"></div><button type="button" class="lj-zoom" id="lZoom">🔍 Bosing — QR kattalashadi</button></div><div class="lj-pin">Kod<b id="lPin">· · · · ·</b></div></div>' +
         '<div class="lob-pl"><div class="lob-cnt" id="lCnt"></div><div class="pls" id="lPls"></div></div>' +
-        '<div class="lob-go"><div class="info">' + H.qs.length + " ta savol · " + cfg.time + " soniyadan · " + esc(lvlName(cfg.lvl)) + '<div class="lob-err" id="lobErr"></div></div>' +
+        '<div class="lob-go"><div class="info">' + H.qs.length + " ta savol · " + cfg.time + " soniyadan" + (cfg.xtime !== false ? " (mantiqiy va uzun savollarga ko'proq)" : "") + " · " + esc(lvlName(cfg.lvl)) + '<div class="lob-err" id="lobErr"></div></div>' +
         '<button type="button" class="nextb" id="lStart" disabled>▶ Boshlash</button></div></div>';
       $("#lStart").onclick = startGame;
       $("#lQr").onclick = showBigQr; $("#lZoom").onclick = showBigQr;
@@ -1446,9 +1448,23 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   }
   document.addEventListener("keydown", function (e) { var ov = $("#qrBig"); if (e.key === "Escape" && ov && !ov.hidden) { ov.hidden = true; e.stopPropagation(); } }, true);
 
+  /* ⏱ Savolga vaqt: tanlangan vaqt + mantiqiy masalalarga +50%, uzun matnga o'qish uchun (har 12 belgiga +1 s),
+     grafik yoki rasmli savolga +5 s; ko'pi bilan tanlangan vaqtning 3 barobari. Sozlamada o'chirsa bo'ladi. */
+  function plainLen(x) { return String(x == null ? "" : x).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().length; }
+  function qSecOf(q) {
+    var T = cfg.time; if (!q || cfg.xtime === false) return T;
+    var len = plainLen(q.q) + q.opts.reduce(function (n, o) { return n + plainLen(o); }, 0) * 0.6;
+    var extra = Math.max(0, (len - 80) / 12);
+    if (/^m\d+$/.test(q.tid || "")) extra += T * 0.5;
+    if (q.g || q.r) extra += 5;
+    return Math.max(T, Math.min(T * 3, Math.round((T + extra) / 5) * 5));
+  }
+  function qSec() { var q = H && H.qs[H.i]; return q ? (q.sec || (q.sec = qSecOf(q))) : cfg.time; }
+  // o'yin holati telefonlarga yurak urishi bilan boradi — biror xabarni olmagan telefon o'zi holatni qayta so'raydi
+  function hBeat() { if (H && H.api && H.api.beat) H.api.beat(H.phase === "end" ? "-1 end" : H.i + " " + H.phase); }
   function qMsg(left) {
     var q = H.qs[H.i];
-    return { type: "q", i: H.i, total: H.qs.length, n: q.opts.length, time: Math.round(left || cfg.time), q: cfg.showQ ? q.q : null, opts: cfg.showQ ? q.opts : null, g: cfg.showQ && q.g ? q.g : null, og: cfg.showQ && q.og ? q.og : null, r: cfg.showQ && q.r ? q.r : null };
+    return { type: "q", i: H.i, total: H.qs.length, n: q.opts.length, time: Math.round(left || qSec()), q: cfg.showQ ? q.q : null, opts: cfg.showQ ? q.opts : null, g: cfg.showQ && q.g ? q.g : null, og: cfg.showQ && q.og ? q.og : null, r: cfg.showQ && q.r ? q.r : null };
   }
   function startGame() {
     if (!H || !allPlayers().length) return;
@@ -1462,11 +1478,13 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     H.phase = "q"; H.qStart = Date.now();
     if (H.qs[H.i].k) histMark(H.qs[H.i].k);
     allPlayers().forEach(function (p) { p.gain = 0; });
-    if (H.api) online().forEach(function (p) { H.api.send(p.id, qMsg(cfg.time)); });
+    // savol hammaga BITTA umumiy xabar bilan (27 ta alohida xabar o'rniga) — ochiq serverlar sekinlashmaydi
+    if (H.api) { if (H.api.cast) H.api.cast(qMsg(qSec())); else online().forEach(function (p) { H.api.send(p.id, qMsg(qSec())); }); }
+    hBeat();
     renderQuestion();
-    var lastSec = cfg.time;
+    var lastSec = qSec();
     H.timer = setInterval(function () {
-      var left = cfg.time - (Date.now() - H.qStart) / 1000;
+      var left = qSec() - (Date.now() - H.qStart) / 1000;
       renderRing(left);
       var s = Math.ceil(left); if (s !== lastSec) { lastSec = s; if (s <= 5 && s > 0) snd("tick"); }
       if (left <= 0) reveal();
@@ -1475,13 +1493,13 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function renderQuestion() {
     var q = H.qs[H.i], body = hEl();
     body.innerHTML = '<div class="hq' + (q.g ? " g" : q.og ? " og" : "") + '" id="hq"><div class="hq-bar"><span class="num">' + (H.i + 1) + "/" + H.qs.length + '</span><span class="tp">' + esc(TITLE[q.tid] || "") + " · " + "★★★".slice(0, q.L) + '</span><span class="ans" id="hAns"></span>' +
-      '<div class="ring" id="hRing"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" fill="none" stroke="#243252" stroke-width="5"/><circle id="hArc" cx="22" cy="22" r="19" fill="none" stroke="#5ee6c7" stroke-width="5" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="0"/></svg><b>' + cfg.time + "</b></div></div>" +
+      '<div class="ring" id="hRing"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" fill="none" stroke="#243252" stroke-width="5"/><circle id="hArc" cx="22" cy="22" r="19" fill="none" stroke="#5ee6c7" stroke-width="5" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="0"/></svg><b>' + qSec() + "</b></div></div>" +
       qBox(q.q, q.g, "hQ", "hq-q", q.r) +
       '<div class="tiles' + (q.opts.length <= 2 ? " n2" : "") + '" id="hTiles">' + tilesHtml(q.opts, true, q.og) + "</div>" +
       '<div class="hq-x" id="hX"><div class="fitq"></div></div>' +
       '<div class="hq-nav"><span class="st" id="hSt">Javoblar kutilmoqda…</span><button type="button" class="btn" id="hSkip">⏭ Javobni ko\'rsatish</button></div></div>';
     $("#hSkip").onclick = function () { reveal(); };
-    renderAnswered(); renderRing(cfg.time);
+    renderAnswered(); renderRing(qSec());
     refitFn = fitHost; fitHost();
     hLive("Savol " + (H.i + 1) + ": " + plain(q.q));
   }
@@ -1495,7 +1513,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function renderRing(left) {
     var arc = $("#hArc"), r = $("#hRing"); if (!arc || !r) return;
     left = Math.max(0, left);
-    arc.setAttribute("stroke-dashoffset", (119.4 * (1 - left / cfg.time)).toFixed(1));
+    arc.setAttribute("stroke-dashoffset", (119.4 * (1 - left / qSec())).toFixed(1));
     arc.setAttribute("stroke", left <= 5 ? "#ff8585" : "#5ee6c7");
     $("b", r).textContent = Math.ceil(left);
     r.classList.toggle("warn", left <= 5);
@@ -1527,8 +1545,8 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function reveal() {
     if (!H || H.phase !== "q") return;
     clearInterval(H.timer);
-    H.phase = "reveal";
-    var q = H.qs[H.i], T = cfg.time, counts = q.opts.map(function () { return 0; }), okN = 0, ansN = 0;
+    H.phase = "reveal"; hBeat();
+    var q = H.qs[H.i], T = qSec(), counts = q.opts.map(function () { return 0; }), okN = 0, ansN = 0;
     allPlayers().forEach(function (p) {
       var a = p.ans[H.i], ok = !!a && a.j === q.ci, pts = 0;
       if (a) { counts[a.j]++; ansN++; }
@@ -1543,10 +1561,11 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     var order = ranked(), total = order.length;
     order.forEach(function (p, r) {
       p.rank = r + 1;
-      if (p.online && H.api) H.api.send(p.id, { type: "reveal", i: H.i, ok: p.last.ok, pts: p.last.pts, score: p.score, rank: r + 1, of: total, streak: p.streak,
+      p.rev = { type: "reveal", i: H.i, ok: p.last.ok, pts: p.last.pts, score: p.score, rank: r + 1, of: total, streak: p.streak,
         timeout: p.last.j < 0, chosen: p.last.j >= 0 ? q.opts[p.last.j] : null, a: q.a, ci: q.ci, steps: q.steps.slice(0, 8), last: H.i === H.qs.length - 1,
         why: !p.last.ok && p.last.j >= 0 && kaSavol.why ? kaSavol.why({ a: q.a, topic: q.tid }, q.opts[p.last.j]) : "",
-        nx: cfg.auto ? cfg.auto + boardSec() : 0, paused: !!H.paused });
+        nx: cfg.auto ? cfg.auto + boardSec() : 0, paused: !!H.paused };
+      if (p.online && H.api) H.api.send(p.id, p.rev);
     });
     // ekranda
     snd("reveal");
@@ -1569,7 +1588,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   }
   function showBoard() {
     if (!H || H.phase !== "reveal") return;
-    H.phase = "board";
+    H.phase = "board"; hBeat();
     var top = ranked().slice(0, 5), last = H.i >= H.qs.length - 1, body = hEl();
     body.innerHTML = '<div class="brd"><h3>🏆 Reyting</h3><ol>' + top.map(function (p, k) {
       return '<li style="animation-delay:' + (k * .08) + 's"><span class="r">' + (k + 1) + '</span><span class="n">' + esc(p.name) + (p.streak >= 3 ? " 🔥" + p.streak : "") + "</span>" +
@@ -1672,7 +1691,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function endGame() {
     if (!H) return;
     clearInterval(H.timer); autoClear();
-    H.phase = "end";
+    H.phase = "end"; hBeat();
     var order = ranked(), body = hEl();
     order.forEach(function (p) { if (p.online && H.api) H.api.send(p.id, endMsg(p)); });
     snd("win"); confetti();
@@ -1771,7 +1790,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       if (!H) return;
       var qs = buildQs();
       if (!qs.length) { toast("Bu mavzudan savol yaratib bo'lmadi — boshqa mavzu tanlang"); var bt = $("#eGo"); if (bt) { bt.disabled = false; bt.textContent = "▶ Yangi mavzuda boshlash"; } return; }
-      autoClear(); H.qs = qs; H.i = -1; H.phase = "lobby"; H.stats = []; H.paused = false;
+      autoClear(); H.qs = qs; H.i = -1; H.phase = "lobby"; H.stats = []; H.paused = false; hBeat();
       var tt = cfg.topics.length === 1 ? TITLE[cfg.topics[0]] : cfg.topics.length + " ta mavzu";
       $("#hTitle").innerHTML = "⚡ " + esc(tt) + " <small>· " + H.qs.length + " ta savol · " + cfg.time + " s</small>";
       allPlayers().forEach(function (p) { p.score = 0; p.correct = 0; p.wrong = 0; p.none = 0; p.streak = 0; p.best = 0; p.ans = {}; p.last = null; p.gain = 0; p.away = 0; p.awayMs = 0; if (!p.online) delete H.players[p.key]; });
@@ -1842,6 +1861,28 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function sessEnd() { var x = sessGet(); if (x.live) { x.live = false; lsSet(LS_P, x); } }
   function sessTouch() { if (P && Date.now() - (P.saved || 0) > 20000) { P.saved = Date.now(); sessSave({}); } }
   function mkTok() { var a = new Uint8Array(12); crypto.getRandomValues(a); return Array.prototype.map.call(a, function (x) { return (x % 36).toString(36); }).join(""); }
+  /* Jonli rejim: o'qituvchi yurak urishidagi o'yin holatini telefon holati bilan solishtiramiz. Biror xabar (savol, natija, yakun)
+     yetib kelmagan bo'lsa — 2,5 soniyadan keyin holatni o'zi qayta so'raydi. Telefon "qotib" qolmaydi. */
+  function pBeat(st) {
+    if (!P || !P.conn) return;
+    var a = String(st).split(" "), i = +a[0], ph = a[1] || "";
+    var behind = function () {
+      if (!P || !P.conn) return false;
+      if (!P.inGame) return P.pick ? !!P.claiming : true; // o'yinga qabul qilingani haqidagi xabar yetib kelmagan
+      if (ph === "q") return !P.cur || P.cur.i !== i;
+      if (ph === "reveal" || ph === "board") return P.revI !== i && P.holdI !== i;
+      if (ph === "end") return !P.ended;
+      return false;
+    };
+    P.beatSt = st;
+    if (!behind() || P.beatT) return; // tekshiruv allaqachon kutilmoqda — yangi yurak urishlari uni qayta boshlamaydi
+    var me = P;
+    P.beatT = setTimeout(function () {
+      me.beatT = 0; if (P !== me) return;
+      if (me.beatSt === st && behind() && P.conn && P.conn.resync) P.conn.resync();
+      else if (me.beatSt !== st) pBeat(me.beatSt); // holat o'zgargan — yangisi bo'yicha tekshiramiz
+    }, 2500);
+  }
   function netDot(st) {
     var d = $("#pNet"); if (!d) return;
     d.className = "netd " + st;
@@ -1870,7 +1911,8 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     N.join(code, { name: name, pick: true, tok: tok }, {
       onMsg: function (m) { if (P === me) pMsg(m); },
       onClose: function (why) { if (P === me) pLost(why === "gone" ? "gone" : ""); },
-      onStatus: function (up) { if (P === me) netDot(up > 0 ? "on" : "re"); }
+      onStatus: function (up) { if (P === me) netDot(up > 0 ? "on" : "re"); },
+      onBeat: function (st) { if (P === me) pBeat(st); }
     }).then(function (c) {
       if (P !== me) { c.close(); return; }
       me.conn = c; me.tries = 0; netDot("on");
@@ -1908,6 +1950,9 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function stopResend() { if (P) { clearInterval(P.rsT); P.rsT = 0; P.pend = null; } }
   function pMsg(m) {
     if (!P || !m || typeof m !== "object") return;
+    if (m._b != null && !P.inGame) return; // umumiy xabar (savol) — hali ism tanlamagan bo'lsa kerak emas
+    // o'yin xabari keldi — demak o'qituvchi bizni o'yinchi deb biladi ("xush kelibsiz" xabari yo'qolgan bo'lsa ham)
+    if (m._b == null && /^(welcome|wait|q|hold|reveal|got|end)$/.test(m.type)) { P.inGame = true; P.claiming = false; }
     sessTouch();
     if (m.type === "nx") return pNext(m);
     if (m.type === "d3") return; // 3D rejim faqat o'qituvchi ekranida — telefonlarda tugmalar qotib qolardi
@@ -1924,12 +1969,12 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     if (m.type !== "welcome" && m.type !== "pick") stopResend();
     if (m.type === "welcome") { P.name = m.name || P.name; P.full = m.full || ""; P.pick = null; P.inGame = true; P.guard = m.guard !== false; sessSave({ live: true }); netDot("on"); pScore(m.score); P.score = m.score || 0; setD3($("#ps"), false); return; }
     if (m.type === "pick") return pPick(m);
-    if (m.type === "pickErr") { toast(m.why || "Bu ism band"); P.claim = null; if (P.pick) { P.pick.taken = m.taken || []; P.sel = -1; pPick(P.pick); } return; }
+    if (m.type === "pickErr") { toast(m.why || "Bu ism band"); P.claim = null; P.claiming = false; if (P.pick) { P.pick.taken = m.taken || []; P.sel = -1; pPick(P.pick); } return; }
     if (m.type === "wait") {
       if (m.reset) { P.score = 0; pScore(0); P.ended = false; sessSave({ live: true }); }
       return pView('<div class="big">✅</div><h2>Siz o\'yindasiz!</h2><p><b>' + esc(P.name) + "</b>" + (P.full && P.full !== P.name ? " (" + esc(P.full) + ")" : "") + " — ismingiz ekranda ko'rinadi.</p><p>O'qituvchi boshlashini kuting…</p>");
     }
-    if (m.type === "hold") { pScore(m.score); return pView('<div class="spin"></div><h2>Keyingi savolni kuting</h2><p>Ekranga qarang 👀</p>'); }
+    if (m.type === "hold") { P.holdI = m.i; stopResend(); pScore(m.score); return pView('<div class="spin"></div><h2>Keyingi savolni kuting</h2><p>Ekranga qarang 👀</p>'); }
     if (m.type === "q") return pQuestion(m);
     if (m.type === "reveal") return pReveal(m);
     if (m.type === "end") return pEnd(m);
@@ -1940,7 +1985,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     P.pick = m; m.taken = (m.taken || []).filter(function (x) { return x !== m.mine; }); // o'z ismimiz (maxsus kalit) "band" emas
     // qayta ulanishda ismni o'zi tanlaydi (ro'yxatdan qayta tanlash shart emas)
     if (P.claim && P.claim.rk === m.rk && m.taken.indexOf(P.claim.r) < 0) {
-      psend({ type: "claim", r: P.claim.r, nick: P.claim.nick, tok: P.tok });
+      P.claiming = true; psend({ type: "claim", r: P.claim.r, nick: P.claim.nick, tok: P.tok });
       return pView('<div class="spin"></div><h2>Qayta kirilmoqda…</h2>');
     }
     var me = lsGet(LS_ME, null);
@@ -1963,7 +2008,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       var nick = $("#pkN").value.trim().slice(0, 16);
       if (nick && N.badName && N.badName(nick)) { toast("Bu nikni ishlatib bo'lmaydi — boshqasini yozing yoki bo'sh qoldiring"); $("#pkN").focus(); return; }
       lsSet(LS_ME, { rk: m.rk, r: P.sel, nick: nick });
-      P.claim = { rk: m.rk, r: P.sel, nick: nick }; sessSave({ claim: P.claim });
+      P.claim = { rk: m.rk, r: P.sel, nick: nick }; P.claiming = true; sessSave({ claim: P.claim });
       psend({ type: "claim", r: P.sel, nick: nick, tok: P.tok });
       pView('<div class="spin"></div><h2>Tekshirilmoqda…</h2>');
     };
@@ -1983,6 +2028,8 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     var on = $(".on", L); if (on && !q) on.scrollIntoView({ block: "nearest" });
   }
   function pQuestion(m) {
+    clearInterval(P.timer);
+    if (P.pend && P.pend.i !== m.i) stopResend(); // oldingi savol javobini qayta yuborishni to'xtatamiz
     P.cur = m; P.answered = false;
     if (GD.at && guardActive()) { GD.last = Date.now(); gAlarm("q"); } // o'quvchi boshqa ilovada — yangi savol boshlandi
 
@@ -2011,6 +2058,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     }, 250);
   }
   function pReveal(m) {
+    P.revI = m.i; stopResend(); clearInterval(P.timer);
     P.score = m.score; pScore(m.score);
     var exp = m.ok ? "" : '<div class="exp"><div class="xa">✅ To\'g\'ri javob: ' + safe(m.a) + "</div>" + (m.chosen != null ? '<div style="color:#ff9c9c">❌ Siz tanladingiz: ' + safe(m.chosen) + "</div>" : "") +
       (m.why ? '<div class="why">❓ Nima uchun xato: ' + esc(m.why) + "</div>" : "") +
