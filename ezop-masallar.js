@@ -903,5 +903,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U o'z xavfsizligini do'stining xavfsizligidan ustun qo'ydi", "U asalarilarni ayiqdan ko'proq yaxshi ko'rardi", "U asalni ayiqqa berishni xohlamagan edi"],
     javob: 0,
     izoh: "Tulki xavf paydo bo'lganda hamkorini tashlab qochdi. Haqiqiy hamkorlik faqat qulay paytda emas, xavfli paytda ham sinaladi."
+  },
+  {
+    id: "ez-114", mavzu: "do'stlik", sarlavha: "Quyon va do'stlari",
+    matn: "Quyon o'zining ko'p do'stlari borligi bilan doim maqtanardi. Bir kuni ovchilar it bilan kelganda u do'stlaridan yordam so'radi. Ot tepishni bilmasligini, buqa esa shoxi bilan himoya qila olmasligini aytib, hech kim unga yordam bermadi. Quyon bor kuchi bilan qochib, zo'rg'a qutulib qoldi.",
+    savol: "Quyon xavf paytida nimani angladi?",
+    variantlar: ["Ko'p do'st bo'lishning o'zi yetarli emas, haqiqiy do'st xavf paytida ko'rinadi", "Do'stlarining hammasi unga yordam berishga tayyor edi", "Ovchilar do'stlarini qo'rqitib haydab yuborgan edi"],
+    javob: 0,
+    izoh: "Quyon do'stlari sonini maqtagan edi, lekin qiyin paytda ulardan hech kim yordam bermadi. Haqiqiy do'stlik xavf paytida sinaladi, sonning ko'pligi esa hech narsani kafolatlamaydi."
   }
 ];
