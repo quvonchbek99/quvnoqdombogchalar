@@ -130,7 +130,7 @@ button{cursor:pointer}
 
 /* ruler lab */
 .ruler-box{position:relative;border-radius:14px;border:1px solid var(--border);background:#0a1230;overflow:hidden}
-#rulerCv{display:block;width:100%;height:250px;touch-action:none;cursor:grab}
+#rulerCv{display:block;width:100%;height:250px;touch-action:pinch-zoom;cursor:grab}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:9px 16px;border-radius:12px;border:1px solid var(--border2);background:#121d44;font-weight:700;font-size:14px;color:var(--text);text-decoration:none}
 .btn:hover{border-color:var(--teal)}
@@ -242,7 +242,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 /* lab */
 .lab-main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:0}
 .stage{position:relative;background:#070d24;min-width:0}
-#labCv{display:block;width:100%;height:540px;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none}
+#labCv{display:block;width:100%;height:540px;touch-action:pinch-zoom;cursor:grab;-webkit-user-select:none;user-select:none}
 @media (max-width:560px){#labCv{height:480px}}
 .lab-msg{position:absolute;left:12px;right:12px;bottom:12px;padding:10px 14px;border-radius:12px;background:rgba(10,16,40,.92);border:1px solid var(--border2);font-size:14px;font-weight:600;display:none}
 .lab-msg.on{display:block}
@@ -809,6 +809,8 @@ function qi(k, html) { return '<i style="color:' + C[k] + '">' + html + "</i>"; 
 
 /* ---------- Canvas va animatsiya boshqaruvchisi (faqat ko'rinayotganlari chiziladi) ---------- */
 var DPR = Math.min(2, W.devicePixelRatio || 1);
+// Ikki barmoq bilan kattalashtirilganda tuvallar xira bo'lmasin: piksel zichligini kattalashtirish darajasiga moslaymiz
+function dprNow() { var d = W.devicePixelRatio || 1, s = (W.visualViewport && W.visualViewport.scale) || 1; return s > 1.05 ? Math.min(4, d * s) : Math.min(2, d); }
 var AN = [], raf = 0, lastT = 0;
 var io = ("IntersectionObserver" in W) ? new IntersectionObserver(function (es) {
   es.forEach(function (e) { var a = e.target.__an; if (a) { a.vis = e.isIntersecting; if (a.vis) a.dirty = true; if (a.onVis) a.onVis(a.vis); } });
@@ -823,8 +825,9 @@ function redraw(a) { if (a) { a.dirty = true; kick(); } }
 function fit(a) {
   var cv = a.cv, w = cv.clientWidth, h = cv.clientHeight;
   if (!w || !h) return false;
-  if (w !== a.w || h !== a.h || !a.ctx) {
-    a.w = w; a.h = h;
+  var dn = dprNow();
+  if (w !== a.w || h !== a.h || !a.ctx || a.dpr !== dn) {
+    a.w = w; a.h = h; a.dpr = dn; DPR = dn;
     cv.width = Math.round(w * DPR); cv.height = Math.round(h * DPR);
     a.ctx = cv.getContext("2d"); a.ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
@@ -848,6 +851,7 @@ function frame(ts) {
 }
 D.addEventListener("visibilitychange", function () { if (!D.hidden) { AN.forEach(function (a) { a.dirty = true; }); kick(); } });
 W.addEventListener("resize", function () { AN.forEach(function (a) { a.dirty = true; }); kick(); });
+if (W.visualViewport) W.visualViewport.addEventListener("resize", function () { AN.forEach(function (a) { a.dirty = true; }); kick(); });
 
 /* ---------- Chizish yordamchilari ---------- */
 function rr(c, x, y, w, h, r) { r = Math.max(0, Math.min(r, w / 2, h / 2)); c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
