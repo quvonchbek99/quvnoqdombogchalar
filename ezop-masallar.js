@@ -927,5 +927,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U kuchli bo'lgani uchun ovchilarni qo'rqitib haydadi", "U izini yashirib, vaziyatga aqli bilan yechim topdi", "Ovchilar tulkini ko'rmaganidan ketib qolishdi"],
     javob: 1,
     izoh: "Bo'ri faqat kuchiga tayandi, tulki esa vaziyatni o'ylab, izini yashiradigan yo'l topdi. Ko'p hollarda aql va mantiqiy fikrlash jismoniy kuchdan ustun keladi."
+  },
+  {
+    id: "ez-117", mavzu: "ishonch", sarlavha: "Ayiq va tulkining asali",
+    matn: "Ayiq yoz bo'yi asal yig'ib, qishga zaxira qilmoqchi bo'ldi. Tulki uning yonida paydo bo'lib: \"Asalingni daraxt tagidagi qorong'i inga yashirgin, hech kim topa olmaydi\", dedi va o'zi yordam berishni taklif qildi. Ayiq unga ishonib, asalni inga ko'chirdi. Har kuni tulki ayiq uyquda bo'lganda kelib, bir oz-bir oz asalni o'g'irlab yedi.",
+    savol: "Tulki asalni yashirishni nima uchun taklif qildi?",
+    variantlar: ["Ayiqni qishda ochdan qiynalishdan asrash uchun", "Asalni o'zi o'g'irlab yeyish uchun", "Ayiqqa asal yig'ishda yordam berish uchun"],
+    javob: 1,
+    izoh: "Tulki yordam berayotgandek ko'rinsa ham, uning haqiqiy maqsadi asalni o'zi yeyish edi. Maslahat berayotgan odamning niyatini ko'rinishidan emas, uning harakatlaridan bilish kerak."
   }
 ];
