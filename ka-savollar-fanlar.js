@@ -923,6 +923,16 @@
     return Q(q, cor, w.concat(ex ? [ex] : []), [shortTxt(it.izoh, 160)]);
   }
 
+  // m11 — Sherlock tergov ishlari (sherlock-ishlar.js dan)
+  function m11(L) {
+    var E = window.SHERLOCK_ISHLAR; if (!E || !E.length) return null;
+    var it = pickFresh("sherlock", E, 12), cor = it.variantlar[it.javob];
+    var w = it.variantlar.filter(function (x, i) { return i !== it.javob; });
+    var hik = String(it.hikoya).replace(/<(?!\/?(em|b|i)>)[^>]*>/g, "");
+    var q = "🔎 «" + it.sarlavha + "»<br><span style=\"font-size:.82em;font-weight:500\">" + hik + "</span><br><b>" + it.savol + "</b>";
+    return Q(q, cor, w, [shortTxt(it.izoh, 200)]);
+  }
+
   S.register("m1", m1, "Mantiq · Sonli ketma-ketliklar");
   S.register("m2", m2, "Mantiq · Ortiqchasini toping");
   S.register("m3", m3, "Mantiq · Harflar, kunlar, oylar va soat");
@@ -933,6 +943,7 @@
   S.register("m8", m8, "Mantiq · Kim qaysi kasbda? (mantiqiy jadval)");
   S.register("m9", m9, "Mantiq · Sehrli kvadrat va sonli jumboqlar");
   S.register("m10", m10, "Mantiq · Ezop masallari");
+  S.register("m11", m11, "Mantiq · Sherlock tergov ishlari");
 
   /* =====================================================================
    *  🇬🇧 INGLIZ TILI
@@ -1163,7 +1174,7 @@
     e4: ["english/assets/words-b4.js"], e5: ["english/assets/words-b5.js"], e6: ["english/assets/words-b6.js"],
     r1: ["rus-tili/assets/lugat-data.js"], r2: ["rus-tili/assets/lugat-data.js"], r4: ["rus-tili/assets/lugat-data.js"],
     r3: ["rus-tili/assets/mashq-data.js"], r6: ["rus-tili/assets/mashq-data.js"],
-    m10: ["ezop-masallar.js"]
+    m10: ["ezop-masallar.js"], m11: ["sherlock-ishlar.js"]
   };
   var LOADED = {};
   function addJs(src) {
