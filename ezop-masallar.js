@@ -943,5 +943,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Birinchi dehqonning, chunki u hech narsa qilmagan edi", "Ikkinchi dehqonning, chunki u suvni oldindan tayyorlagan edi", "Ikkalasining ekini ham butunlay quridi"],
     javob: 1,
     izoh: "Omadga umid qilish yetarli emas. Oldindan tayyorgarlik ko'rish, ya'ni suv zaxirasini yaratish, noqulay vaziyatlardan himoya qiladi."
+  },
+  {
+    id: "ez-119", mavzu: "mantiq", sarlavha: "Ikki yo'l",
+    matn: "Sayohatchi kech kirganda shaharga yo'l oldi va ikki yo'lga duch keldi. Biri qisqa edi, ammo botqoq va loyli joylardan o'tardi. Ikkinchisi uzunroq edi, lekin tekis va quruq edi. Mahalliy chol: \"Qisqa yo'l tez bo'ladi, deb o'ylama, u yerda ikki soat botasan\", dedi. Sayohatchi buni e'tiborsiz qoldirib, qisqa yo'lni tanladi va botqoqda ikki soat qolib ketdi.",
+    savol: "Sayohatchi darvoza yopilishidan oldin yetib olish uchun qaysi yo'lni tanlashi kerak edi?",
+    variantlar: ["Uzun, ammo tekis yo'lni, chunki u botqoqsiz edi", "Qisqa yo'lni, chunki u doim tezroq bo'ladi", "Yo'l tanlamasdan, shu kechada to'xtab qolishni"],
+    javob: 0,
+    izoh: "Eng qisqa masofa har doim eng tez yo'l emas. Yo'lning sharoiti vaqtga katta ta'sir qiladi, shuning uchun qarorni faqat masofaga emas, sharoitga ham qarab qabul qilish kerak."
   }
 ];
