@@ -148,3 +148,40 @@
   window.kaTil = { get: function () { return lang; }, set: set, speech: function () { return SR[lang]; }, t: function (s) { return lang === "uz" ? s : (tr(s) || s); }, apply: function () { apply(document.body); } };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
+
+/* Tepadagi chiplar (👤 akkount, 🌐 til, 🌳 daraxt) o'yin maydoni yoki o'yin tugmasi ustiga tushib qolsa —
+   vaqtincha yashirinadi (bosilgan barmoq o'yinga yetib borsin), joy bo'shashi bilan qaytadi. */
+(function () {
+  if (window.__kaChipJoy) return; window.__kaChipJoy = 1;
+  var SEL = ".acc-fixed,#ka-til-box,.kd-pill";
+  var CTRL = "canvas,button,a[href],input,select,textarea,label,summary,[role=button],[onclick],[data-act]";
+  try { var st = document.createElement("style"); st.textContent = ".ka-joy{opacity:0!important;pointer-events:none!important;transition:opacity .18s!important}"; document.head.appendChild(st); } catch (e) { return; }
+  function fixedUp(n) { for (; n && n.nodeType === 1 && n !== document.body; n = n.parentElement) { var p = getComputedStyle(n).position; if (p === "fixed" || p === "sticky") return true; } return false; }
+  function blocks(c) {
+    var r = c.getBoundingClientRect(); if (!r.width || !r.height) return false;
+    var pe = c.style.pointerEvents; c.style.pointerEvents = "none";
+    var y = r.top + r.height / 2, xs = [r.left + 6, r.left + r.width / 2, r.right - 6], hit = false;
+    var tinch = window.scrollY < 80 || document.documentElement.scrollHeight <= innerHeight + 4;
+    for (var i = 0; i < 3 && !hit; i++) {
+      var h = document.elementFromPoint(xs[i], y);
+      if (!h || h === document.body || h === document.documentElement || h.closest(SEL)) continue;
+      var t = h.closest(CTRL); if (!t) continue;
+      if (t.tagName === "CANVAS") { var q = t.getBoundingClientRect(); hit = q.width >= innerWidth * 0.45 && q.height >= 160; }
+      else hit = tinch || fixedUp(t);
+    }
+    c.style.pointerEvents = pe; return hit;
+  }
+  var raf = 0;
+  function check() {
+    raf = 0; if (document.hidden) return;
+    var cs = document.querySelectorAll(SEL);
+    for (var i = 0; i < cs.length; i++) { try { cs[i].classList.toggle("ka-joy", blocks(cs[i])); } catch (e) {} }
+  }
+  function soon() { if (!raf) raf = requestAnimationFrame(check); }
+  addEventListener("scroll", soon, { passive: true });
+  addEventListener("resize", soon);
+  addEventListener("pointerup", function () { setTimeout(soon, 250); }, true);
+  addEventListener("keyup", function () { setTimeout(soon, 250); }, true);
+  setInterval(soon, 900);
+  setTimeout(soon, 600);
+})();
