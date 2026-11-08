@@ -951,5 +951,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Uzun, ammo tekis yo'lni, chunki u botqoqsiz edi", "Qisqa yo'lni, chunki u doim tezroq bo'ladi", "Yo'l tanlamasdan, shu kechada to'xtab qolishni"],
     javob: 0,
     izoh: "Eng qisqa masofa har doim eng tez yo'l emas. Yo'lning sharoiti vaqtga katta ta'sir qiladi, shuning uchun qarorni faqat masofaga emas, sharoitga ham qarab qabul qilish kerak."
+  },
+  {
+    id: "ez-120", mavzu: "ahloq", sarlavha: "Laylak va dehqon",
+    matn: "Bir dehqonning ekinzorida ekinlarni yeb yurgan bir guruh qarg'alar bor edi. Dehqon ularni haydash uchun tuzoq qo'ydi va bir laylak ham tutilib qoldi. Laylak yalinib: \"Men ekin yemayman, men faqat laylakman, meni qo'yib yuboring\", dedi. Dehqon esa: \"Sen qanday qushlar bilan birga bo'lsang, o'shalar qilgan ishlar uchun ham javob berasan\", deb uni qo'yib yubormadi.",
+    savol: "Dehqon laylakni nima uchun tutib qo'yishga qaror qildi?",
+    variantlar: ["U ekinlarni yeyayotgan qarg'alar bilan birga topilgani uchun", "U o'zini laylak deb tanitgani uchun", "U ekinzorda juda baland ovoz chiqargani uchun"],
+    javob: 0,
+    izoh: "Kishi kimlar bilan birga bo'lsa, ko'pincha ularning ishlari uchun ham javob beradi. Shuning uchun do'st tanlashda ehtiyot bo'lish kerak."
   }
 ];
