@@ -43,7 +43,6 @@
 <a href="matematika.html">📐 Matematika</a>
 <a href="oyinlar.html">🎮 O'yinlar</a>
 <a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
-<a href="sherlok.html">🕵️ Sherlok</a>
 </nav>
 </header>
 
@@ -235,7 +234,7 @@ function makeStones(q) {
 function geo() {
   var w = S.w, h = S.h, top = 64, col = Math.max(62, Math.min(96, w * 0.16)), mat = { x: 10, y: 104, w: w - 20 - col, h: h - 104 - 12 };
   var n = Math.max(1, stones.length), cols = Math.min(12, Math.max(5, Math.ceil(Math.sqrt(n * mat.w / mat.h)))), gq = CUR && CUR.g <= 12 ? CUR.g : 0, per = 1, gap = 0;
-  if (gq) { per = Math.max(1, Math.floor(cols / gq)); cols = per * gq; gap = per > 1 ? 8 : 0; }
+  if (gq) { var cmax = Math.max(gq, Math.min(14, Math.floor((mat.w - 40) / 25))); per = Math.max(1, Math.floor(cmax / gq)); cols = per * gq; gap = per > 1 ? 12 : 0; }
   var rows = Math.ceil(n / cols);
   var cw = (mat.w - 40 - (per - 1) * gap) / cols, rh = Math.min(42, (mat.h - 50) / Math.max(1, rows)), r = Math.max(5, Math.min(14, cw * 0.32, rh * 0.36));
   return { w: w, h: h, top: top, mat: mat, cols: cols, rows: rows, cw: cw, rh: rh, r: r, gq: gq, gap: gap, sx: w - 10 - col / 2, gy: h - 26, sky: 118 };

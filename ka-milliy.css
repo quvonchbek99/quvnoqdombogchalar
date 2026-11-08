@@ -37,7 +37,7 @@ a{color:var(--teal)}
 .km-dots{display:inline-flex;gap:3px}
 .km-dots i{width:9px;height:9px;border-radius:50%;background:#26335f;display:inline-block}
 .km-dots i.on{background:var(--teal);box-shadow:0 0 8px rgba(53,240,196,.7)}
-.km-icon{min-width:36px;min-height:36px;border-radius:999px;border:1px solid var(--border);background:#0b1330;color:var(--text);font-size:16px;cursor:pointer}
+.km-icon{min-width:44px;min-height:44px;border-radius:999px;border:1px solid var(--border);background:#0b1330;color:var(--text);font-size:16px;cursor:pointer}
 .km-stage{position:relative;background:#081028}
 .km-stage canvas{display:block;width:100%;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .km-panel{padding:14px 14px 16px}

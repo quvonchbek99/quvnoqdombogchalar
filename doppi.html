@@ -47,7 +47,6 @@
 <a href="matematika.html">📐 Matematika</a>
 <a href="oyinlar.html">🎮 O'yinlar</a>
 <a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
-<a href="sherlok.html">🕵️ Sherlok</a>
 </nav>
 </header>
 
@@ -375,11 +374,14 @@ var S = K.stage({
     c.strokeStyle = "rgba(255,255,255,.18)"; c.lineWidth = 1.5; c.beginPath(); c.ellipse(g.cx, g.cy, g.orx, g.ory, 0, 0, TAU); c.stroke();
     // geometriya ko'rsatkichlari (5-daraja)
     if (CUR && CUR.N === N) drawGeo(c, g);
-    // soat mili yo'nalishi strelkasi
+    // soat mili yo'nalishi strelkasi (sof geometriya savollarida — burchak yoyi bilan ustma-ust tushmasin)
+    var geoOnly = CUR && (CUR.kind === "nb" || CUR.kind === "toAng" || CUR.kind === "dist" || CUR.kind === "rad");
+    if (!geoOnly) {
     c.strokeStyle = "rgba(255,226,154,.8)"; c.lineWidth = 2.5; c.beginPath(); c.ellipse(g.cx, g.cy, g.rx * 0.3, g.ry * 0.3, 0, -Math.PI * 0.9, -Math.PI * 0.15); c.stroke();
     var ea = -Math.PI * 0.15, ex = g.cx + g.rx * 0.3 * Math.cos(ea), ey = g.cy + g.ry * 0.3 * Math.sin(ea);
     c.fillStyle = "rgba(255,226,154,.9)"; c.beginPath(); c.moveTo(ex + 6, ey - 2); c.lineTo(ex - 5, ey - 6); c.lineTo(ex - 2, ey + 6); c.closePath(); c.fill();
     K.txt(c, "soat mili", g.cx, g.cy + 2, "rgba(255,240,210,.85)", 11, "center", 700);
+    }
     // haydovchi holati
     if (RUN) { RUN.t += dt; if (RUN.t >= RUN.dur && !RUN.done) { RUN.done = true; if (RUN.cb) RUN.cb(); } }
     var rs = CUR ? runState(g) : { a: kidAng(1, g) + g.dth / 2, dir: 1, k: 0 };
