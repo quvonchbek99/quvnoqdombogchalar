@@ -90,7 +90,7 @@
     ".acc-chip:not(.acc-fixed){position:relative}",
     "html[data-fasl] .acc-chip::after{content:var(--fasl-e);position:absolute;right:-7px;top:-8px;font-size:13px;line-height:1;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.55))}",
     // zarralar (faqat bosh menyuda)
-    ".fasl-zarra{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}",
+    ".fasl-zarra{position:absolute;top:0;right:0;bottom:0;left:0;overflow:hidden;pointer-events:none;z-index:0}",
     ".fasl-zarra span{position:absolute;top:0;left:var(--x);font-size:var(--s);line-height:1;opacity:0;color:var(--fasl-c);will-change:transform,opacity;animation:var(--an) var(--d) linear var(--w) infinite}",
     "html[data-fasl=yoz] .fasl-zarra span{color:var(--fasl-a);text-shadow:0 0 6px var(--fasl-a)}",
     "@keyframes fasl-tush{0%{opacity:0;transform:translate3d(0,-22px,0) rotate(0)}12%{opacity:.6}85%{opacity:.45}100%{opacity:0;transform:translate3d(var(--dx),var(--h),0) rotate(var(--r))}}",

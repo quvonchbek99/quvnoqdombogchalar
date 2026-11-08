@@ -172,7 +172,7 @@ textarea{resize:vertical;min-height:64px}
 #hwList{margin:10px 0 0;padding-left:22px}
 #hwList li{margin:6px 0}
 /* present */
-.pv{position:fixed;inset:0;z-index:5000;background:#000;display:flex;align-items:center;justify-content:center;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.pv{position:fixed;top:0;right:0;bottom:0;left:0;z-index:5000;background:#000;display:flex;align-items:center;justify-content:center;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .pv[hidden]{display:none}
 .pv-k{position:relative;overflow:hidden}
 .pv-k>.sl{position:absolute;left:0;top:0;transform-origin:0 0}
@@ -210,7 +210,9 @@ textarea{resize:vertical;min-height:64px}
   .tsheet td{border:1px solid #000;padding:2mm 4mm}
 }
 </style>
-<style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
+<style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}/* eski brauzerlar (Safari 14, Chrome<88) uchun: aspect-ratio bo'lmasa balandlik yo'qolmasin */
+@supports not (aspect-ratio:1/1){.stage{height:0;padding-bottom:56.25%}}
+</style>
 </head>
 <body>
 <div class="wrap">

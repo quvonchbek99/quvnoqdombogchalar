@@ -85,8 +85,8 @@
 
   var CSS = [
     "@property --kir{syntax:'<percentage>';inherits:false;initial-value:0%}",
-    "#ka-intro{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;background:#04071a;color:#f3f5ff;font-family:'Golos Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}",
-    "#ka-intro .ki-aur{position:absolute;inset:-20%;background:radial-gradient(40% 35% at 25% 30%,rgba(53,240,196,.28),transparent 70%),radial-gradient(38% 34% at 78% 28%,rgba(162,123,255,.32),transparent 70%),radial-gradient(42% 36% at 70% 82%,rgba(255,94,142,.24),transparent 70%),radial-gradient(36% 30% at 22% 80%,rgba(255,194,61,.2),transparent 70%);filter:blur(24px);animation:kiAur 14s ease-in-out infinite alternate}",
+    "#ka-intro{position:fixed;top:0;right:0;bottom:0;left:0;z-index:100000;display:grid;place-items:center;overflow:hidden;background:#04071a;color:#f3f5ff;font-family:'Golos Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}",
+    "#ka-intro .ki-aur{position:absolute;top:-20%;right:-20%;bottom:-20%;left:-20%;background:radial-gradient(40% 35% at 25% 30%,rgba(53,240,196,.28),transparent 70%),radial-gradient(38% 34% at 78% 28%,rgba(162,123,255,.32),transparent 70%),radial-gradient(42% 36% at 70% 82%,rgba(255,94,142,.24),transparent 70%),radial-gradient(36% 30% at 22% 80%,rgba(255,194,61,.2),transparent 70%);filter:blur(24px);animation:kiAur 14s ease-in-out infinite alternate}",
     "@keyframes kiAur{to{transform:translate(3%,-2%) scale(1.08) rotate(6deg)}}",
     "#ka-intro .ki-rays{position:absolute;left:50%;top:44%;width:240vmax;height:240vmax;margin:-120vmax 0 0 -120vmax;pointer-events:none;mix-blend-mode:screen;will-change:transform;",
     "-webkit-mask:radial-gradient(circle,transparent 0 2.5%,#000 5%,rgba(0,0,0,.5) 22%,transparent 46%);mask:radial-gradient(circle,transparent 0 2.5%,#000 5%,rgba(0,0,0,.5) 22%,transparent 46%)}",
@@ -104,7 +104,7 @@
     "#ka-intro.go .ki-say{opacity:1;transform:none}",
     "#ka-intro .ki-go{position:relative;display:inline-flex;align-items:center;gap:12px;border:0;cursor:pointer;font:700 18px/1 'Golos Text',system-ui,sans-serif;color:#060a1a;background:#fff;padding:18px 30px 18px 22px;border-radius:999px;box-shadow:0 0 0 6px rgba(255,255,255,.12),0 20px 60px -10px rgba(162,123,255,.8);opacity:0;animation:kiIn .7s 1.2s forwards;transition:transform .2s}",
     "#ka-intro .ki-go:hover{transform:scale(1.04)}",
-    "#ka-intro .ki-go::after{content:'';position:absolute;inset:-6px;border-radius:inherit;border:2px solid rgba(255,255,255,.55);animation:kiRing 1.8s 2s ease-out infinite;opacity:0}",
+    "#ka-intro .ki-go::after{content:'';position:absolute;top:-6px;right:-6px;bottom:-6px;left:-6px;border-radius:inherit;border:2px solid rgba(255,255,255,.55);animation:kiRing 1.8s 2s ease-out infinite;opacity:0}",
     "@keyframes kiRing{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}",
     "#ka-intro .ki-go svg{flex-shrink:0}",
     "#ka-intro .ki-mute{margin-top:16px;background:none;border:0;color:#9fb0d0;font:500 14.5px/1.4 'Golos Text',system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px;opacity:0;animation:kiIn .6s 1.5s forwards}",

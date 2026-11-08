@@ -81,3 +81,15 @@
   if (document.readyState === "complete") setTimeout(ready, 0);
   else window.addEventListener("load", function () { setTimeout(ready, 0); });
 })();
+
+/* iPhone/iPad (Safari) uchun: tugmalar tez-tez bosilganda sahifa kattalashib ketmasin,
+   va div/span ko'rinishidagi tugmalarga bosish ishlasin (iOS'da ular ba'zan "bosilmaydi"). */
+(function () {
+  if (window.__kaIosFix) return; window.__kaIosFix = 1;
+  try {
+    var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var css = ":where(button,a,[role=button],input,select,textarea,label,summary,[onclick],[data-act]){touch-action:manipulation}";
+    if (ios) css += "@media (hover:none){body{cursor:pointer}}";
+    var st = document.createElement("style"); st.textContent = css; (document.head || document.documentElement).appendChild(st);
+  } catch (e) {}
+})();

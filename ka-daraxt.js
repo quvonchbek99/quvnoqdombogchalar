@@ -42,7 +42,7 @@
   .kd-toast.on{transform:none;opacity:1;pointer-events:auto}
   .kd-toast b{color:#ffd479}
   .kd-coin{position:fixed;z-index:3600;font:900 22px/1 sans-serif;color:#ffd479;text-shadow:0 2px 8px rgba(0,0,0,.6);pointer-events:none;transition:transform .9s cubic-bezier(.3,.7,.3,1),opacity .9s}
-  .kd-bg{position:fixed;inset:0;z-index:3000;background:rgba(3,10,7,.78);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 12px}
+  .kd-bg{position:fixed;top:0;right:0;bottom:0;left:0;z-index:3000;background:rgba(3,10,7,.78);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 12px}
   .kd-bg.on{display:flex}
   .kd-card{width:min(560px,100%);margin:auto 0;background:#0f1d18;color:#eafff1;border:1px solid #24493a;border-radius:22px;overflow:hidden;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:0 30px 80px rgba(0,0,0,.6)}
   .kd-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 0}

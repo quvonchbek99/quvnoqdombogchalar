@@ -17,7 +17,7 @@
   .kj-frame{position:relative;overflow:hidden;height:210px;background:#111a2e;isolation:isolate}
   .kj-frame .ev-img{height:100%;transform-origin:var(--ox,50%) var(--oy,40%);animation:kjDrift var(--dur,18s) ease-in-out infinite alternate;will-change:transform}
   @keyframes kjDrift{0%{transform:scale(1.04) translate(var(--x1,0),var(--y1,0))}100%{transform:scale(1.16) translate(var(--x2,0),var(--y2,0))}}
-  .kj-frame::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 35%,transparent 55%,rgba(5,9,20,.55) 100%)}
+  .kj-frame::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 35%,transparent 55%,rgba(5,9,20,.55) 100%)}
   .kj-frame::after{content:"";position:absolute;top:-20%;bottom:-20%;width:40%;left:-60%;z-index:2;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-12deg);animation:kjSweep 7s ease-in-out infinite;animation-delay:var(--sd,0s)}
   @keyframes kjSweep{0%,70%{left:-60%}100%{left:130%}}
   .ev-card.kj-tilt{transition:transform .25s ease,border-color .15s;transform-style:preserve-3d}

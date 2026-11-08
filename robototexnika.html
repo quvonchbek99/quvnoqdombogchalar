@@ -1717,7 +1717,7 @@ function load3D(cb) {
 }
 function init3D() {
   var TH = window.THREE; if (!TH || T3) return;
-  var r = new TH.WebGLRenderer({ canvas: c3d, antialias: true, alpha: false });
+  var r; try { r = new TH.WebGLRenderer({ canvas: c3d, antialias: true, alpha: false }); } catch (e) { am.d3 = false; c3d.style.display = "none"; renderTools(); toast("Bu qurilmada 3D (WebGL) ishlamaydi — 2D ko'rinishda davom eting"); return; }
   r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   var sc = new TH.Scene(); sc.background = new TH.Color(0x0a1029); sc.fog = new TH.Fog(0x0a1029, 70, 140);
   var cam = new TH.PerspectiveCamera(45, 1, .5, 400);

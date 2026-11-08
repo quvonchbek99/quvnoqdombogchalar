@@ -113,7 +113,7 @@
     transition:border-color .15s, transform .15s, box-shadow .2s;
   }
   .car-card:hover{transform:translateY(-2px)}
-  .car-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 22px color-mix(in srgb, var(--accent) 35%, transparent)}
+  .car-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px rgba(244,196,48,0.3), 0 0 22px rgba(244,196,48,0.35);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 22px color-mix(in srgb, var(--accent) 35%, transparent)}
   .car-card svg{width:100%;height:auto;max-width:120px}
   .car-card .name{font-family:'Rajdhani';font-weight:700;font-size:18px}
   .car-card .tag{font-size:12px;color:var(--muted)}
@@ -125,7 +125,7 @@
     transition:border-color .15s, transform .15s, box-shadow .2s;
   }
   .diff-card:hover{transform:translateY(-2px)}
-  .diff-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent)}
+  .diff-card.sel{border-color:var(--accent);box-shadow:0 0 0 3px rgba(244,196,48,0.3);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent)}
   .diff-card .name{font-family:'Rajdhani';font-weight:700;font-size:17px;display:flex;align-items:center;gap:6px}
   .diff-card .tag{font-size:12px;color:var(--muted);line-height:1.4}
 
@@ -133,6 +133,7 @@
     font:inherit;font-weight:800;font-size:15px;letter-spacing:.02em;padding:13px 22px;border-radius:12px;
     border:none;cursor:pointer;background:var(--accent);color:var(--accent-ink);
     transition:transform .1s, filter .15s, box-shadow .2s;
+    box-shadow:0 0 0 0 rgba(244,196,48,0.6);
     box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
   }
   .btn:hover{filter:brightness(1.06)}
@@ -141,8 +142,8 @@
   .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text);box-shadow:none}
   .btn.pulse{animation:btnpulse 2.2s ease-in-out infinite}
   @keyframes btnpulse{
-    0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent)}
-    50%{box-shadow:0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent)}
+    0%,100%{box-shadow:0 0 0 0 rgba(244,196,48,0.45);box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent)}
+    50%{box-shadow:0 0 0 10px rgba(244,196,48,0);box-shadow:0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent)}
   }
 
   .rules{color:var(--muted);font-size:13.5px;line-height:1.6}
@@ -178,16 +179,17 @@
     background:var(--panel-2);border:1px solid var(--line);color:var(--muted);white-space:nowrap;
     transition:all .25s;
   }
-  .route-pill.done{background:color-mix(in srgb, var(--good) 20%, transparent);color:var(--good);border-color:transparent}
+  .route-pill.done{background:rgba(63,191,127,0.2);background:color-mix(in srgb, var(--good) 20%, transparent);color:var(--good);border-color:transparent}
   .route-pill.active{
     background:var(--accent);color:var(--accent-ink);border-color:transparent;
+    box-shadow:0 0 14px rgba(244,196,48,0.6);
     box-shadow:0 0 14px color-mix(in srgb, var(--accent) 60%, transparent);transform:scale(1.08);
   }
 
   /* --- streak / mukofot badge --- */
   .streak-badge{
     display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono';font-weight:700;font-size:13px;
-    padding:4px 10px;border-radius:999px;background:color-mix(in srgb, var(--accent) 20%, transparent);color:var(--accent);
+    padding:4px 10px;border-radius:999px;background:rgba(244,196,48,0.2);background:color-mix(in srgb, var(--accent) 20%, transparent);color:var(--accent);
     opacity:0;transform:translateY(-6px);transition:all .25s;
   }
   .streak-badge.show{opacity:1;transform:translateY(0)}
@@ -203,7 +205,7 @@
   .hint{color:var(--muted);font-size:12.5px;text-align:center;margin-top:8px}
 
   .flash{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    position:absolute;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;
     font-family:'Rajdhani';font-weight:700;font-size:15vw;pointer-events:none;opacity:0;
   }
   .flash.show{animation:flashpop .5s ease-out}
@@ -216,10 +218,11 @@
     display:inline-flex;align-items:center;justify-content:center;
     width:88px;height:88px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
     font-family:'Rajdhani';font-weight:700;font-size:44px;flex-shrink:0;position:relative;overflow:hidden;
+    box-shadow:0 0 26px rgba(244,196,48,0.55);
     box-shadow:0 0 26px color-mix(in srgb, var(--accent) 55%, transparent);
   }
   .grade-badge::after{
-    content:"";position:absolute;inset:0;
+    content:"";position:absolute;top:0;right:0;bottom:0;left:0;
     background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
     background-size:220% 100%;
     animation:shine 2.6s ease-in-out infinite;
@@ -237,10 +240,10 @@
   td.num{font-family:'JetBrains Mono';font-variant-numeric:tabular-nums}
   .board-wrap{overflow-x:auto}
   .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700}
-  .pill.g5{background:color-mix(in srgb, var(--good) 22%, transparent);color:var(--good)}
-  .pill.g4{background:color-mix(in srgb, var(--cobalt) 22%, transparent);color:var(--cobalt)}
-  .pill.g3{background:color-mix(in srgb, var(--accent) 30%, transparent);color:var(--accent-ink)}
-  .pill.g2{background:color-mix(in srgb, var(--bad) 22%, transparent);color:var(--bad)}
+  .pill.g5{background:rgba(63,191,127,0.22);background:color-mix(in srgb, var(--good) 22%, transparent);color:var(--good)}
+  .pill.g4{background:rgba(59,111,224,0.22);background:color-mix(in srgb, var(--cobalt) 22%, transparent);color:var(--cobalt)}
+  .pill.g3{background:rgba(244,196,48,0.3);background:color-mix(in srgb, var(--accent) 30%, transparent);color:var(--accent-ink)}
+  .pill.g2{background:rgba(224,72,59,0.22);background:color-mix(in srgb, var(--bad) 22%, transparent);color:var(--bad)}
   .filterbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
   .filterbar select,.filterbar input{font:inherit;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--text)}
   .empty{color:var(--muted);font-size:14px;padding:14px 0}

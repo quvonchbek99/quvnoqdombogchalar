@@ -188,7 +188,7 @@
   }
   .hero-cosmic::before{
     content:"";
-    position:absolute; inset:0; z-index:0;
+    position:absolute; top:0;right:0;bottom:0;left:0; z-index:0;
     background-image:
       radial-gradient(1.6px 1.6px at 8% 22%, rgba(255,255,255,.85), transparent),
       radial-gradient(1.2px 1.2px at 18% 68%, rgba(255,255,255,.55), transparent),
@@ -226,7 +226,7 @@
   .hero-cosmic .hero-note{ color:#E8C36B; }
   .hero-cosmic .alpha-drift{ color:#F4FBF6; opacity:.05; }
   .hero-cosmic .id-card{
-    background:rgba(24,39,33,.78); backdrop-filter:blur(6px);
+    background:rgba(24,39,33,.78); -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
     box-shadow:0 24px 60px -24px rgba(0,0,0,.75), 0 0 0 1px rgba(143,224,183,.16);
   }
   .hero-cosmic .id-card .role{ color:rgba(244,251,246,.65); }

@@ -135,7 +135,7 @@
     var box = document.createElement("div"); box.id = "ka-til-box";
     box.style.cssText = "position:fixed;left:112px;top:8px;z-index:961;";
     var sel = document.createElement("select"); sel.id = "ka-til-sel"; sel.setAttribute("aria-label", "Til / Language");
-    sel.style.cssText = "background:#141f38;color:#eef2ff;border:1px solid #243252;border-radius:999px;padding:7px 8px;font:700 13px/1 -apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35);height:38px;max-width:140px";
+    sel.style.cssText = "-webkit-appearance:none;-moz-appearance:none;appearance:none;background:#141f38 url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23eef2ff' stroke-width='1.6' fill='none'/%3E%3C/svg%3E\") no-repeat right 10px center/10px 6px;color:#eef2ff;border:1px solid #243252;border-radius:999px;padding:7px 26px 7px 10px;font:700 13px/1 -apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35);height:38px;max-width:140px";
     LANGS.forEach(function (x) { var o = document.createElement("option"); o.value = x[0]; o.textContent = "🌐 " + x[1]; sel.appendChild(o); });
     sel.value = lang; sel.onchange = function () { set(sel.value); };
     if (FORCE) { sel.disabled = true; sel.title = FORCE === "en" ? "This section is in English only" : ""; sel.style.opacity = ".75"; }
@@ -165,23 +165,44 @@
     for (var i = 0; i < 3 && !hit; i++) {
       var h = document.elementFromPoint(xs[i], y);
       if (!h || h === document.body || h === document.documentElement || h.closest(SEL)) continue;
-      var t = h.closest(CTRL); if (!t) continue;
+      var t = h.closest(CTRL);
+      if (!t) { for (var p = h, k = 0; p && p !== document.body && k < 4; p = p.parentElement, k++) { if (getComputedStyle(p).cursor === "pointer" && getComputedStyle(p.parentElement).cursor !== "pointer") { t = p; break; } } }
+      if (!t) continue;
       if (t.tagName === "CANVAS") { var q = t.getBoundingClientRect(); hit = q.width >= innerWidth * 0.45 && q.height >= 160; }
       else hit = tinch || fixedUp(t);
     }
     c.style.pointerEvents = pe; return hit;
   }
-  var raf = 0;
+  // pastga aylantirilganda chiplar yashirinadi, tepaga qaytilganda chiqadi (o'yin maydonini to'smasin)
+  var raf = 0, lastY = window.scrollY || 0, down = false;
+  function onScroll() {
+    var y = window.scrollY || 0;
+    if (y < 120) down = false; else if (y > lastY + 6) down = true; else if (y < lastY - 6) down = false;
+    if (Math.abs(y - lastY) > 6 || y < 120) lastY = y;
+    soon();
+  }
   function check() {
     raf = 0; if (document.hidden) return;
     var cs = document.querySelectorAll(SEL);
-    for (var i = 0; i < cs.length; i++) { try { cs[i].classList.toggle("ka-joy", blocks(cs[i])); } catch (e) {} }
+    for (var i = 0; i < cs.length; i++) { try { cs[i].classList.toggle("ka-joy", down || blocks(cs[i])); } catch (e) {} }
   }
   function soon() { if (!raf) raf = requestAnimationFrame(check); }
-  addEventListener("scroll", soon, { passive: true });
+  addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", soon);
   addEventListener("pointerup", function () { setTimeout(soon, 250); }, true);
   addEventListener("keyup", function () { setTimeout(soon, 250); }, true);
   setInterval(soon, 900);
   setTimeout(soon, 600);
+})();
+
+/* iPhone/iPad (Safari) uchun: tugmalar tez-tez bosilganda sahifa kattalashib ketmasin,
+   va div/span ko'rinishidagi tugmalarga bosish ishlasin (iOS'da ular ba'zan "bosilmaydi"). */
+(function () {
+  if (window.__kaIosFix) return; window.__kaIosFix = 1;
+  try {
+    var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var css = ":where(button,a,[role=button],input,select,textarea,label,summary,[onclick],[data-act]){touch-action:manipulation}";
+    if (ios) css += "@media (hover:none){body{cursor:pointer}}";
+    var st = document.createElement("style"); st.textContent = css; (document.head || document.documentElement).appendChild(st);
+  } catch (e) {}
 })();

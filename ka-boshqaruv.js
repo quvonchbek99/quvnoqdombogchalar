@@ -62,9 +62,9 @@
   /* ---- kamera oynasi (burchakda) ---- */
   function camView(stream) {
     var box = el("div", "position:fixed;right:10px;bottom:10px;width:132px;aspect-ratio:4/3;border-radius:12px;overflow:hidden;border:2px solid #7c9bff;background:#000;z-index:50");
-    var v = el("video", "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)", box);
+    var v = el("video", "position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)", box);
     v.setAttribute("playsinline", ""); v.muted = true; v.srcObject = stream;
-    var c = el("canvas", "position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1)", box);
+    var c = el("canvas", "position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;transform:scaleX(-1)", box);
     v.play().catch(function () {});
     return { box: box, video: v, canvas: c, ctx: c.getContext("2d") };
   }
@@ -75,7 +75,7 @@
 
   /* ---- kalibrovka oynasi ---- */
   function calibUI() {
-    var o = el("div", "position:fixed;inset:0;background:rgba(5,9,18,.92);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;color:#eef2ff;font:16px system-ui,sans-serif");
+    var o = el("div", "position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(5,9,18,.92);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;color:#eef2ff;font:16px system-ui,sans-serif");
     var dot = el("div", "position:absolute;width:34px;height:34px;border-radius:50%;background:#ffd479;box-shadow:0 0 0 8px rgba(255,212,121,.25)", o);
     var h = el("h2", "margin:0", o); h.textContent = "👁 Ko'zni sozlash";
     var p = el("p", "color:#9fb0d0;max-width:420px;margin:0", o);

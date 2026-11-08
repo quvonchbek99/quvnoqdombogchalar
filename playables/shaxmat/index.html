@@ -94,23 +94,23 @@ button{font:inherit;color:inherit}
 
 /* ---------- taxta ---------- */
 .bwrap{position:relative;width:var(--bs);height:var(--bs);border-radius:10px;box-shadow:0 18px 40px -18px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.06);touch-action:none;user-select:none;-webkit-user-select:none}
-.board{position:absolute;inset:0;border-radius:10px;overflow:hidden;cursor:pointer}
-.sqs{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr)}
+.board{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:10px;overflow:hidden;cursor:pointer}
+.sqs{position:absolute;top:0;right:0;bottom:0;left:0;display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr)}
 .sq{position:relative;background:var(--sq-d)}
 .sq.l{background:var(--sq-l)}
 .sq::before,.sq::after{content:"";position:absolute;pointer-events:none}
-.sq.last::before{inset:0;background:rgba(94,230,199,.42)}
+.sq.last::before{top:0;right:0;bottom:0;left:0;background:rgba(94,230,199,.42)}
 .sq.d.last::before{background:rgba(70,214,180,.5)}
-.sq.hint::before{inset:0;background:rgba(255,212,121,.55)}
-.sq.sel::before{inset:0;background:rgba(124,155,255,.62)}
-.sq.over::before{inset:0;background:rgba(124,155,255,.38);box-shadow:inset 0 0 0 3px rgba(255,255,255,.65)}
-.sq.check::before{inset:0;background:radial-gradient(circle,rgba(255,64,88,.95) 0%,rgba(255,64,88,.55) 38%,rgba(255,64,88,0) 72%)}
+.sq.hint::before{top:0;right:0;bottom:0;left:0;background:rgba(255,212,121,.55)}
+.sq.sel::before{top:0;right:0;bottom:0;left:0;background:rgba(124,155,255,.62)}
+.sq.over::before{top:0;right:0;bottom:0;left:0;background:rgba(124,155,255,.38);box-shadow:inset 0 0 0 3px rgba(255,255,255,.65)}
+.sq.check::before{top:0;right:0;bottom:0;left:0;background:radial-gradient(circle,rgba(255,64,88,.95) 0%,rgba(255,64,88,.55) 38%,rgba(255,64,88,0) 72%)}
 .sq.dot::after{left:50%;top:50%;width:30%;height:30%;margin:-15% 0 0 -15%;border-radius:50%;background:rgba(12,20,38,.3)}
-.sq.cap::after{inset:3%;border-radius:50%;box-shadow:inset 0 0 0 calc(var(--bs) * .009 + 2px) rgba(12,20,38,.32)}
+.sq.cap::after{top:3%;right:3%;bottom:3%;left:3%;border-radius:50%;box-shadow:inset 0 0 0 calc(var(--bs) * .009 + 2px) rgba(12,20,38,.32)}
 .sq .cf,.sq .cr{position:absolute;font:700 calc(var(--bs) * .024 + 2px)/1 "Space Grotesk",sans-serif;pointer-events:none;opacity:.9}
 .sq .cf{right:3px;bottom:2px}.sq .cr{left:3px;top:3px}
 .sq.l .cf,.sq.l .cr{color:var(--sq-d)}.sq.d .cf,.sq.d .cr{color:var(--sq-l)}
-.pcs{position:absolute;inset:0;pointer-events:none}
+.pcs{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}
 .pc{position:absolute;left:0;top:0;width:12.5%;height:12.5%;transition:transform var(--anim) var(--ease),opacity .18s;will-change:transform;z-index:1}
 .pc svg{display:block;width:100%;height:100%}
 .pc.moving{z-index:3}
@@ -119,8 +119,8 @@ button{font:inherit;color:inherit}
 .pc.gone{opacity:0;transform-origin:center}
 .pc.new{opacity:0}
 .board.noanim .pc{transition:none}
-.arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
-.promo{position:absolute;inset:0;z-index:8;background:rgba(6,10,20,.66);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;backdrop-filter:blur(2px)}
+.arrows{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:4}
+.promo{position:absolute;top:0;right:0;bottom:0;left:0;z-index:8;background:rgba(6,10,20,.66);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .promo[hidden]{display:none}
 .promo p{margin:0;font-weight:800;font-size:15px;color:#fff}
 .promo .row{display:flex;gap:8px}
@@ -205,7 +205,7 @@ details.help[open] summary::after{transform:rotate(-135deg)}
 }
 
 /* ---------- modal ---------- */
-.modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(4,8,18,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(4,8,18,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .modal[hidden]{display:none}
 .mbox{width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow:auto;background:linear-gradient(180deg,#17244a,#121c36);border:1px solid #2c3d66;border-radius:20px;padding:20px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8);animation:pop .28s var(--ease)}
 @keyframes pop{from{transform:translateY(14px) scale(.96);opacity:0}to{transform:none;opacity:1}}
@@ -231,7 +231,7 @@ details.help[open] summary::after{transform:rotate(-135deg)}
 
 #toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);z-index:60;background:#1b2a52;border:1px solid #33497d;color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100vw - 32px);text-align:center}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-#confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
+#confetti{position:fixed;top:0;right:0;bottom:0;left:0;pointer-events:none;z-index:70}
 [hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (max-width:380px){
@@ -1101,7 +1101,7 @@ var AI = {
     var self = this;
     if (this.useLocal) return;
     try {
-      var url = new URL("vendor/chess-0.10.3.js", location.href).href;
+      var cs = document.querySelector('script[src*="chess-0.10.3.js"]'), url = cs ? cs.src : new URL("vendor/chess-0.10.3.js", location.href).href;
       var src = "importScripts(" + JSON.stringify(url) + ");\n" + KAEngine.toString() +
         "\nvar E = KAEngine(Chess);\nonmessage = function (e) { E.handle(e.data, function (r) { postMessage(r); }); };\npostMessage({ type: 'ready', fast: E.fast });";
       var bu = URL.createObjectURL(new Blob([src], { type: "application/javascript" }));

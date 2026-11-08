@@ -86,7 +86,7 @@
   .ka-fab .ka-top-btn{background:var(--ka-card);color:var(--ka-text);border:1px solid var(--ka-border);width:44px;height:44px;opacity:0;pointer-events:none;transition:opacity .2s}
   .ka-fab .ka-top-btn.show{opacity:1;pointer-events:auto}
   /* Yon menyu (drawer) */
-  .ka-drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:980;opacity:0;pointer-events:none;transition:opacity .2s}
+  .ka-drawer-bg{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.5);z-index:980;opacity:0;pointer-events:none;transition:opacity .2s}
   .ka-drawer{position:fixed;top:0;right:0;bottom:0;width:min(380px,92vw);background:var(--ka-bg);border-left:1px solid var(--ka-border);z-index:990;
     transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
   .ka-open .ka-drawer{transform:none}.ka-open .ka-drawer-bg{opacity:1;pointer-events:auto}
@@ -106,7 +106,7 @@
   .ka-link.cur{background:rgba(124,155,255,.18);color:#fff}
   .ka-link .i{flex:0 0 22px;text-align:center}
   /* ===================== Grafik taxtasi ===================== */
-  .ka-g{position:fixed;inset:0;z-index:2000;background:var(--ka-bg);display:none;flex-direction:column;color:var(--ka-text);font-family:inherit}
+  .ka-g{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2000;background:var(--ka-bg);display:none;flex-direction:column;color:var(--ka-text);font-family:inherit}
   .ka-g.on{display:flex}
   .ka-g-top{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--ka-border);overflow-x:auto;scrollbar-width:none;flex:0 0 auto}
   .ka-g-top::-webkit-scrollbar{display:none}
@@ -117,11 +117,11 @@
   .ka-g .sw{width:26px;height:26px;border-radius:50%;padding:0;border:2px solid transparent}
   .ka-g .sw.act{border-color:#fff;box-shadow:0 0 0 2px var(--ka-acc2)}
   .ka-g-stage{position:relative;flex:1;min-height:0;touch-action:none}
-  .ka-g-desmos{position:absolute;inset:0;display:none;background:#fff;z-index:3}
+  .ka-g-desmos{position:absolute;top:0;right:0;bottom:0;left:0;display:none;background:#fff;z-index:3}
   .ka-g.desmos .ka-g-desmos{display:block}
   .ka-g.desmos .ka-g-coord{display:none}
   .ka-g-top button[data-act="desmos"].act{background:#5ee6c7;color:#06231d}
-  .ka-g-dload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#0b1220;font:600 15px/1.4 var(--ka-font);background:#fff}
+  .ka-g-dload{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;color:#0b1220;font:600 15px/1.4 var(--ka-font);background:#fff}
   /* ---- Guruhli tab (Qo'shimcha mavzular) ---- */
   .ka-subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
   .ka-subtab{border:1px solid var(--ka-border);background:var(--ka-soft);color:var(--ka-dim);padding:7px 11px;border-radius:999px;font:600 13px/1 var(--ka-font);cursor:pointer}
@@ -139,7 +139,7 @@
   .ka-gres a{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--ka-border);border-radius:12px;background:var(--ka-card);color:var(--ka-text);text-decoration:none;font-size:14px}
   .ka-gres a:hover{border-color:var(--ka-acc)}
   .ka-gres a small{color:var(--ka-dim);font-size:12px;margin-left:auto;white-space:nowrap}
-  .ka-g-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+  .ka-g-stage canvas{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;display:block;touch-action:none}
   .ka-g-coord{position:absolute;left:10px;top:10px;background:rgba(20,31,56,.85);border:1px solid var(--ka-border);border-radius:8px;padding:4px 8px;font:600 12px/1.2 ui-monospace,monospace;pointer-events:none}
   .ka-g-bot{border-top:1px solid var(--ka-border);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:0 0 auto;background:var(--ka-card)}
   .ka-g-bot .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}

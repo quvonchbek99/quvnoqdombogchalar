@@ -23,7 +23,7 @@
   .ai-fab{position:fixed;left:16px;bottom:18px;z-index:950;border:0;cursor:pointer;border-radius:999px;padding:13px 16px;
     background:#10a37f;color:#fff;font:700 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.45)}
   .ai-fab:hover{filter:brightness(1.08)}
-  .ai-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2200;display:none}
+  .ai-bg{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.5);z-index:2200;display:none}
   .ai-bg.on{display:block}
   .ai-panel{position:fixed;z-index:2201;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow-y:auto;
     background:#141f38;color:#eef2ff;border:1px solid #243252;border-radius:18px;padding:16px;display:none;flex-direction:column;gap:10px;

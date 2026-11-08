@@ -138,7 +138,7 @@
       f.src = u; f.className = "drive-player"; f.title = "Video";
       f.setAttribute("allow", "autoplay; fullscreen"); f.setAttribute("allowfullscreen", "");
       f.setAttribute("loading", "lazy");
-      f.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;background:#050a14";
+      f.style.cssText = "position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#050a14";
       try { video.pause(); } catch (e) {}
       video.removeAttribute("src"); video.style.display = "none";
       video.parentNode.insertBefore(f, video.nextSibling);

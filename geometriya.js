@@ -217,7 +217,7 @@
 
   // ---------- Oyna (panel) ----------
   var css = `
-  .kgeo{position:fixed;inset:0;z-index:2150;background:#0b1220;color:#eef2ff;display:none;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .kgeo{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2150;background:#0b1220;color:#eef2ff;display:none;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
   .kgeo.on{display:flex}
   .kgeo-top{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid #243252;flex-wrap:wrap}
   .kgeo-top b{font-size:17px;margin-right:auto}

@@ -56,9 +56,9 @@
   .big{font-size:44px;font-weight:800;color:var(--warn);line-height:1}
   .ex{margin-top:10px;font-size:14px;color:#c9d4ff;min-height:20px}
   .cam{position:relative;width:150px;aspect-ratio:4/3;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;flex:none}
-  .cam video,.cam canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+  .cam video,.cam canvas{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
   .side{display:flex;gap:12px;align-items:center;margin-top:12px}
-  .calib{position:fixed;inset:0;background:rgba(5,9,18,.92);z-index:20;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;text-align:center;padding:20px}
+  .calib{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(5,9,18,.92);z-index:20;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;text-align:center;padding:20px}
   .calib .dot{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 8px rgba(255,212,121,.25)}
   .res{font-size:56px;font-weight:800;text-align:center;margin:8px 0}
   .row{display:flex;gap:10px;flex-wrap:wrap}

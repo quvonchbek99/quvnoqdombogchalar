@@ -24,8 +24,8 @@
 [hidden]{display:none!important}
 html,body{margin:0;height:100%;overflow:hidden;background:#0b1412;color:var(--text);font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
 button{font-family:inherit}
-#cv{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
-.hud{position:fixed;inset:0;pointer-events:none;z-index:5}
+#cv{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;display:block;cursor:crosshair}
+.hud{position:fixed;top:0;right:0;bottom:0;left:0;pointer-events:none;z-index:5}
 .hud button{pointer-events:auto;cursor:pointer}
 #topR{position:absolute;top:calc(8px + env(safe-area-inset-top));right:8px;display:flex;gap:6px}
 #bar2{position:absolute;left:8px;right:8px;top:calc(56px + env(safe-area-inset-top));display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
@@ -54,7 +54,7 @@ button{font-family:inherit}
 #msg small{display:block;font:800 clamp(14px,3.8vw,18px) Manrope,sans-serif;color:var(--sand);letter-spacing:0;margin-top:6px}
 #msg.on{opacity:1}
 #fps{position:absolute;right:8px;top:calc(100px + env(safe-area-inset-top));font:700 11px monospace;color:#9f9}
-.ov{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:60px 14px 18px;background:rgba(4,10,9,.6);overflow:auto;touch-action:pan-y}
+.ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:60px 14px 18px;background:rgba(4,10,9,.6);overflow:auto;touch-action:pan-y}
 .card{width:min(520px,100%);background:linear-gradient(180deg,rgba(20,38,34,.97),rgba(12,22,20,.97));border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.55);margin:auto}
 .back{display:inline-flex;font:700 14px Manrope,sans-serif;color:var(--text);text-decoration:none;padding:7px 12px;border-radius:999px;background:#13221f;border:1px solid var(--line)}
 h1.t{font:700 clamp(36px,10vw,56px) Rajdhani,Manrope,sans-serif;margin:12px 0 2px;letter-spacing:1px;line-height:1}

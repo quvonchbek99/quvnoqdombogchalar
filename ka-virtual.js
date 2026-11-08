@@ -981,14 +981,14 @@
   /* ----------------------- DOM ----------------------- */
   var css = [
     "*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:" + TH.bg + ";color:#eef2ff;font-family:" + FONT + ";touch-action:none;-webkit-user-select:none;user-select:none}",
-    "#kv-c{position:fixed;inset:0;width:100%;height:100%;display:block}",
+    "#kv-c{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;display:block}",
     "#kv-v{position:fixed;width:2px;height:2px;opacity:0;pointer-events:none;left:0;top:0}",
     ".kv-hud{position:fixed;top:0;left:0;right:0;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;padding:10px 14px;gap:10px;pointer-events:none;z-index:5}",
     ".kv-pill{pointer-events:auto;background:rgba(0,0,0,.45);border:1px solid " + TH.acc + "55;border-radius:999px;padding:6px 14px;font-weight:700;font-size:15px;color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap;text-decoration:none}",
     ".kv-q{position:fixed;top:54px;left:50%;transform:translateX(-50%);max-width:94vw;text-align:center;font-weight:800;font-size:clamp(22px,4.6vw,44px);color:#fff;text-shadow:0 0 18px " + TH.acc + ",0 0 4px " + TH.acc + ";pointer-events:none;z-index:5;line-height:1.2;transition:transform .15s}",
     ".kv-q.bump{transform:translateX(-50%) scale(1.12)}",
     ".kv-sub{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);font-size:13px;color:#cfd8ef;opacity:.8;pointer-events:none;z-index:5;text-align:center;max-width:94vw}",
-    ".kv-ov{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%," + TH.acc + "22,rgba(0,0,0,.92) 70%);padding:16px;overflow:auto}",
+    ".kv-ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:20;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%," + TH.acc + "22,rgba(0,0,0,.92) 70%);padding:16px;overflow:auto}",
     ".kv-card{width:min(560px,100%);background:rgba(10,14,26,.92);border:1px solid " + TH.acc + "66;border-radius:22px;padding:22px 20px;box-shadow:0 0 40px " + TH.acc + "33;text-align:center}",
     ".kv-card h1{margin:4px 0 6px;font-size:clamp(22px,5vw,30px);color:#fff;text-shadow:0 0 14px " + TH.acc + "}",
     ".kv-tag{display:inline-block;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:" + TH.acc + ";border:1px solid " + TH.acc + "66;border-radius:999px;padding:3px 10px;margin:2px}",
@@ -1004,7 +1004,7 @@
     ".kv-big{font-size:56px;font-weight:900;color:#fff;text-shadow:0 0 24px " + TH.acc + ";margin:6px 0}",
     ".kv-note{font-size:12px;color:#8fa0c4;margin-top:10px}",
     ".kv-err{color:#ff9a9a;font-size:14px;margin-top:8px}",
-    ".kv-load{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:15;color:" + TH.acc + ";font-weight:700;letter-spacing:2px;font-size:14px;pointer-events:none;flex-direction:column;gap:12px}",
+    ".kv-load{position:fixed;top:0;right:0;bottom:0;left:0;display:none;align-items:center;justify-content:center;z-index:15;color:" + TH.acc + ";font-weight:700;letter-spacing:2px;font-size:14px;pointer-events:none;flex-direction:column;gap:12px}",
     ".kv-spin{width:46px;height:46px;border-radius:50%;border:3px solid " + TH.acc + "33;border-top-color:" + TH.acc + ";animation:kvs 1s linear infinite}@keyframes kvs{to{transform:rotate(360deg)}}",
     ".acc-fixed{display:none!important}",
     ".kv-teach{position:fixed;left:50%;bottom:58px;transform:translate(-50%,30px);opacity:0;max-width:min(760px,94vw);padding:12px 18px;border-radius:16px;font-weight:700;font-size:clamp(15px,2.4vw,21px);line-height:1.35;text-align:center;z-index:8;pointer-events:none;transition:.25s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}",
@@ -1472,7 +1472,7 @@
   var rec = null, recOn = false;
   function micToggle() {
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) { teach("Bu brauzerda ovozli kiritish yo'q — Chrome yoki Yandex ishlating", false, 2500); return; }
+    if (!SR) { teach(/iPhone|iPad|iPod/i.test(navigator.userAgent) ? "Bu brauzerda ovozli kiritish yo'q — Safari'da oching" : "Bu brauzerda ovozli kiritish yo'q — Chrome yoki Yandex ishlating", false, 2500); return; }
     if (recOn) { recOn = false; try { rec.stop(); } catch (e) {} micBtn.classList.remove("on"); return; }
     rec = new SR(); rec.lang = (CFG.voiceLang || "ru-RU"); rec.continuous = true; rec.interimResults = false; rec.maxAlternatives = 3;
     rec.onresult = function (e) {
@@ -1592,13 +1592,35 @@
     ctx.fillStyle = gr; ctx.shadowColor = c1; ctx.shadowBlur = opt.glow == null ? 22 : opt.glow;
     ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
     ctx.lineWidth = 2; ctx.strokeStyle = c1; ctx.stroke(); ctx.shadowBlur = 0;
-    if (label != null) { ctx.fillStyle = "#fff"; ctx.font = "800 " + fitFont(label, r, opt.max) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.shadowColor = "#000"; ctx.shadowBlur = 6; ctx.fillText(label, x, y + 1); ctx.shadowBlur = 0; }
+    if (label != null) drawLabel(String(label), fitFont(label, r, opt.max), x, y + 1);
+  }
+  // Soyali oq yozuvni bir marta alohida tuvalga chizib, keyin tayyor rasm sifatida qo'yamiz —
+  // har kadrda soya (blur) hisoblanmaydi, zaif telefonlarda o'yin sezilarli yengillashadi.
+  var labelCache = {}, labelN = 0;
+  try { if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", function () { labelCache = {}; labelN = 0; }); } catch (e) {}
+  function drawLabel(txt, fs, x, y) {
+    fs = Math.round(fs * 2) / 2;
+    var key = fs + "|" + DPR + "|" + txt, im = labelCache[key];
+    if (!im) {
+      try {
+        if (labelN > 400) { labelCache = {}; labelN = 0; }
+        var font = "800 " + fs + "px " + FONT, pad = 8;
+        ctx.font = font; var tw = Math.ceil(ctx.measureText(txt).width) + pad * 2, th = Math.ceil(fs * 1.4) + pad * 2;
+        var c = document.createElement("canvas"); c.width = Math.max(1, tw * DPR); c.height = Math.max(1, th * DPR);
+        var g = c.getContext("2d"); g.setTransform(DPR, 0, 0, DPR, 0, 0);
+        g.font = font; g.textAlign = "center"; g.textBaseline = "middle"; g.fillStyle = "#fff"; g.shadowColor = "#000"; g.shadowBlur = 6;
+        g.fillText(txt, tw / 2, th / 2);
+        im = labelCache[key] = { c: c, w: tw, h: th }; labelN++;
+      } catch (e) { im = null; }
+    }
+    ctx.fillStyle = "#fff"; ctx.font = "800 " + fs + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.shadowColor = "#000"; ctx.shadowBlur = 0;
+    if (im) ctx.drawImage(im.c, x - im.w / 2, y - im.h / 2, im.w, im.h); else ctx.fillText(txt, x, y);
   }
   function drawBox(x, y, w, h, label, opt) {
     opt = opt || {}; var c1 = opt.c || TH.acc;
     ctx.fillStyle = opt.fill || "rgba(0,0,0,.45)"; ctx.strokeStyle = c1; ctx.lineWidth = opt.lw || 2; ctx.shadowColor = c1; ctx.shadowBlur = opt.glow == null ? 14 : opt.glow;
     rr(x, y, w, h, Math.min(16, h * 0.25)); ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
-    if (label != null) { ctx.fillStyle = opt.tc || "#fff"; ctx.font = "800 " + (opt.fs || Math.min(h * 0.45, w / Math.max(2, String(label).length * 0.62))) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(label, x + w / 2, y + h / 2 + 1); }
+    if (label != null) { ctx.fillStyle = opt.tc || "#fff"; var fs0 = opt.fs || Math.min(h * 0.45, w / Math.max(2, String(label).length * 0.62)); ctx.font = "800 " + fs0 + "px " + FONT; var lw0 = ctx.measureText(String(label)).width; if (lw0 > w - 10 && lw0 > 0) ctx.font = "800 " + Math.max(8, fs0 * (w - 10) / lw0) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(label, x + w / 2, y + h / 2 + 1); }
   }
   function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
   function scatter(n, r, area) {
@@ -1803,8 +1825,9 @@
     function cxOf(pl) { return CFG.duel ? (pl ? W * 0.75 : W * 0.25) : W / 2; }
     function layout() {
       var vals = CFG.diff === 1 ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1];
-      var n = vals.length, w = Math.min(70, W * 0.9 / n); btns = [];
-      vals.forEach(function (v, i) { btns.push({ v: v, x: W / 2 - w * n / 2 + i * w + 3, y: H - w - 50, w: w - 6, h: w - 6 }); });
+      // tor ekranda (telefon) 2 qator — tugmalar barmoqqa yetarli katta bo'lsin va pastdagi javob paneli bilan ustma-ust tushmasin
+      var n = vals.length, rows = W < 560 ? 2 : 1, per = Math.ceil(n / rows), w = Math.min(70, W * 0.92 / per); btns = [];
+      vals.forEach(function (v, i) { var r = Math.floor(i / per), c = i - r * per, m = Math.min(per, n - r * per); btns.push({ v: v, x: W / 2 - w * m / 2 + c * w + 3, y: H - 84 - (rows - r) * w, w: w - 6, h: w - 6 }); });
     }
     function check(pl, val) {
       if (val === q.a) { good(cxOf(pl), H * 0.45, pl, q.a > 10 ? 15 : 0, q.e); nq(); return true; }
@@ -1860,7 +1883,10 @@
         if (mouseMode) {
           btns.forEach(function (b) { drawBox(b.x, b.y, b.w, b.h, b.v < 0 ? "⌫" : String(b.v)); });
           if (dm) { var sw = 56, x0 = W / 2 - D.length * (sw + 8) / 2; for (var i = 0; i < D.length; i++) drawBox(x0 + i * (sw + 8), H * 0.42, sw, sw * 1.2, typed[i] != null ? typed[i] : "", { c: i === typed.length ? TH.acc2 : TH.acc, fs: 34 }); }
-          ctx.fillStyle = "#cfd8ef"; ctx.font = "600 14px " + FONT; ctx.textAlign = "center"; ctx.fillText(dm ? "Kamerasiz rejim: javob raqamlarini ketma-ket bosing" : "Kamerasiz rejim: javob tugmasini bosing", W / 2, H - 24); return;
+          var hintT = dm ? "Kamerasiz rejim: javob raqamlarini ketma-ket bosing" : "Kamerasiz rejim: javob tugmasini bosing", hy = (btns.length ? btns[0].y : H - 40) - 14;
+          ctx.fillStyle = "#cfd8ef"; ctx.font = "600 14px " + FONT; ctx.textAlign = "center";
+          var hw = ctx.measureText(hintT).width; if (hw > W - 20) ctx.font = "600 " + Math.max(9, Math.floor(14 * (W - 20) / hw)) + "px " + FONT;
+          ctx.fillText(hintT, W / 2, hy); return;
         }
         hands.forEach(function (h) { var x = h.pts[0].x, y = Math.min(h.pts[12].y, h.pts[8].y) - 40; ctx.font = "900 " + (U * 7 + 10) + "px " + FONT; ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.shadowColor = TH.acc; ctx.shadowBlur = 18; ctx.fillText(h.fingers, x, y); ctx.shadowBlur = 0; });
         var C = counts();
@@ -1982,7 +2008,7 @@
         bins().forEach(function (b, i) {
           var hot = items.some(function (t) { return t.held && t.x > b.x && t.x < b.x + b.w && t.y > b.y - t.r; });
           drawBox(b.x, b.y, b.w, b.h, null, { c: i ? TH.acc2 : TH.acc, fill: hot ? (i ? TH.acc2 : TH.acc) + "33" : "rgba(0,0,0,.4)", glow: hot ? 30 : 12, lw: 3 });
-          ctx.fillStyle = "#fff"; ctx.font = "900 " + Math.min(b.h * 0.25, b.w / Math.max(4, b.l.length * 0.65)) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(b.l, b.x + b.w / 2, b.y + b.h / 2);
+          ctx.fillStyle = "#fff"; var bf = Math.min(b.h * 0.25, b.w / Math.max(4, b.l.length * 0.65)); ctx.font = "900 " + bf + "px " + FONT; var bw0 = ctx.measureText(b.l).width; if (bw0 > b.w - 12) ctx.font = "900 " + Math.max(9, bf * (b.w - 12) / bw0) + "px " + FONT; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(b.l, b.x + b.w / 2, b.y + b.h / 2);
         });
         items.forEach(function (t) { var sx = shx(t, dt); drawBall(t.x + sx, t.y, t.r * (t.held ? 1.1 : 1), t.s, { glow: t.held ? 40 : 20 }); });
       }
@@ -2902,7 +2928,7 @@
     $("kv-go").onclick = function () {
       mouseMode = false;
       if (camOn) { begin(); return; }
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { showStart("Bu brauzer kamerani qo'llab-quvvatlamaydi. Chrome yoki Yandex brauzerdan oching."); return; }
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { showStart(/iPhone|iPad|iPod/i.test(navigator.userAgent) ? "Bu ilova ichida kamera ishlamaydi. Saytni Safari'da oching (yoki «🖱 Kamerasiz» tugmasi bilan o'ynang)." : "Bu brauzer kamerani qo'llab-quvvatlamaydi. Chrome yoki Yandex brauzerdan oching (yoki «🖱 Kamerasiz» tugmasi bilan o'ynang)."); return; }
       ov.style.display = "none";
       startCamera().then(begin).catch(function (e) {
         loadEl.style.display = "none";

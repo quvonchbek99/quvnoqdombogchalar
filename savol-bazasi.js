@@ -187,7 +187,7 @@
   function injectCss() {
     if (document.getElementById("ka-count-css")) return;
     var st = document.createElement("style"); st.id = "ka-count-css";
-    st.textContent = ".ka-count{position:fixed;inset:0;z-index:200;background:rgba(5,8,14,.72);display:flex;align-items:center;justify-content:center;padding:16px}" +
+    st.textContent = ".ka-count{position:fixed;top:0;right:0;bottom:0;left:0;z-index:200;background:rgba(5,8,14,.72);display:flex;align-items:center;justify-content:center;padding:16px}" +
       ".ka-count-card{background:#151a24;color:#e8eefc;border:1px solid #2f4a7a;border-radius:18px;padding:24px 20px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.45)}" +
       ".ka-count-card h3{margin:0 0 6px;font-size:20px}.ka-count-card p{margin:0 0 18px;color:#9fb0cf;font-size:14px}" +
       ".ka-count-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}" +

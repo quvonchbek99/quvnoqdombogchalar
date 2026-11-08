@@ -12,7 +12,7 @@
   function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
   var css = "" +
-    ".ks-ov{position:fixed;inset:0;z-index:99990;display:flex;flex-direction:column;background:radial-gradient(circle at 50% -10%,#1b2750,#070c17 65%);color:#eef2ff;font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow:hidden;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}" +
+    ".ks-ov{position:fixed;top:0;right:0;bottom:0;left:0;z-index:99990;display:flex;flex-direction:column;background:radial-gradient(circle at 50% -10%,#1b2750,#070c17 65%);color:#eef2ff;font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow:hidden;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}" +
     ".ks-ov.light{background:#f6f8fc;color:#0b1220}" +
     ".ks-top{display:flex;align-items:center;gap:8px;padding:8px 12px;flex:none}" +
     ".ks-top b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}" +
@@ -20,7 +20,7 @@
     ".ks-top button[aria-pressed=true]{border-color:#5ee6c7;color:#5ee6c7}" +
     ".ks-bar{height:4px;background:rgba(127,140,180,.2);flex:none}.ks-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c9bff,#5ee6c7);transition:width .3s}" +
     ".ks-stage{flex:1;min-height:0;position:relative;perspective:1400px}" +
-    ".ks-s{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3vh 6vw;overflow:auto;backface-visibility:hidden;transition:transform .55s cubic-bezier(.3,.8,.3,1),opacity .45s}" +
+    ".ks-s{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3vh 6vw;overflow:auto;backface-visibility:hidden;transition:transform .55s cubic-bezier(.3,.8,.3,1),opacity .45s}" +
     ".ks-s.off{opacity:0;pointer-events:none;transform:translateX(8%)}.ks-s.off.prev{transform:translateX(-8%)}" +
     ".ks-ov.d3 .ks-s{transform-origin:50% 50% -40vw}.ks-ov.d3 .ks-s.off{transform:rotateY(-70deg)}.ks-ov.d3 .ks-s.off.prev{transform:rotateY(70deg)}" +
     ".ks-ov.d3 .ks-card{box-shadow:0 10px 0 rgba(0,0,0,.25),0 28px 50px rgba(0,0,0,.45);transform:rotateX(4deg)}" +

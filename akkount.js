@@ -130,7 +130,7 @@
   .acc-chip{display:inline-flex;align-items:center;gap:8px;background:#141f38;border:1px solid #243252;border-radius:999px;padding:4px 12px 4px 4px;color:#eef2ff;cursor:pointer;font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;white-space:nowrap}
   .acc-chip:hover{border-color:#7c9bff}
   .acc-chip .coin{color:#ffd479}
-  .acc-bg{position:fixed;inset:0;z-index:3000;background:rgba(3,7,16,.78);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 12px}
+  .acc-bg{position:fixed;top:0;right:0;bottom:0;left:0;z-index:3000;background:rgba(3,7,16,.78);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 12px}
   .acc-bg.on{display:flex}
   .acc-card{width:min(640px,100%);background:#141f38;color:#eef2ff;border:1px solid #243252;border-radius:22px;overflow:hidden;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:0 30px 80px rgba(0,0,0,.6);margin:auto 0}
   .acc-cover{position:relative;height:110px;background:linear-gradient(120deg,#6a5af9,#8b5cf6 45%,#10a37f)}
@@ -1027,23 +1027,44 @@
     for (var i = 0; i < 3 && !hit; i++) {
       var h = document.elementFromPoint(xs[i], y);
       if (!h || h === document.body || h === document.documentElement || h.closest(SEL)) continue;
-      var t = h.closest(CTRL); if (!t) continue;
+      var t = h.closest(CTRL);
+      if (!t) { for (var p = h, k = 0; p && p !== document.body && k < 4; p = p.parentElement, k++) { if (getComputedStyle(p).cursor === "pointer" && getComputedStyle(p.parentElement).cursor !== "pointer") { t = p; break; } } }
+      if (!t) continue;
       if (t.tagName === "CANVAS") { var q = t.getBoundingClientRect(); hit = q.width >= innerWidth * 0.45 && q.height >= 160; }
       else hit = tinch || fixedUp(t);
     }
     c.style.pointerEvents = pe; return hit;
   }
-  var raf = 0;
+  // pastga aylantirilganda chiplar yashirinadi, tepaga qaytilganda chiqadi (o'yin maydonini to'smasin)
+  var raf = 0, lastY = window.scrollY || 0, down = false;
+  function onScroll() {
+    var y = window.scrollY || 0;
+    if (y < 120) down = false; else if (y > lastY + 6) down = true; else if (y < lastY - 6) down = false;
+    if (Math.abs(y - lastY) > 6 || y < 120) lastY = y;
+    soon();
+  }
   function check() {
     raf = 0; if (document.hidden) return;
     var cs = document.querySelectorAll(SEL);
-    for (var i = 0; i < cs.length; i++) { try { cs[i].classList.toggle("ka-joy", blocks(cs[i])); } catch (e) {} }
+    for (var i = 0; i < cs.length; i++) { try { cs[i].classList.toggle("ka-joy", down || blocks(cs[i])); } catch (e) {} }
   }
   function soon() { if (!raf) raf = requestAnimationFrame(check); }
-  addEventListener("scroll", soon, { passive: true });
+  addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", soon);
   addEventListener("pointerup", function () { setTimeout(soon, 250); }, true);
   addEventListener("keyup", function () { setTimeout(soon, 250); }, true);
   setInterval(soon, 900);
   setTimeout(soon, 600);
+})();
+
+/* iPhone/iPad (Safari) uchun: tugmalar tez-tez bosilganda sahifa kattalashib ketmasin,
+   va div/span ko'rinishidagi tugmalarga bosish ishlasin (iOS'da ular ba'zan "bosilmaydi"). */
+(function () {
+  if (window.__kaIosFix) return; window.__kaIosFix = 1;
+  try {
+    var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var css = ":where(button,a,[role=button],input,select,textarea,label,summary,[onclick],[data-act]){touch-action:manipulation}";
+    if (ios) css += "@media (hover:none){body{cursor:pointer}}";
+    var st = document.createElement("style"); st.textContent = css; (document.head || document.documentElement).appendChild(st);
+  } catch (e) {}
 })();
