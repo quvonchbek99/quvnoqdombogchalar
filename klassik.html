@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Klassik (sakkizlik) — og'zaki hisob o'yini | Kuvonch Academy</title>
+<meta name="description" content="Bolalikdagi «Klassik» o'yinining matematik varianti: misolni yeching va javobi yozilgan katakka sakrang. 5 daraja: qo'shish, ayirish, karra jadvali, amallar tartibi, foiz va kasr.">
+<link rel="canonical" href="https://kuvonch.uz/klassik.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Klassik — bolalikdagi o'yinning matematik varianti">
+<meta property="og:description" content="Misolni yeching va javob yozilgan katakka sakrang — 10 ta to'g'ri sakrash bilan «Osmon»ga yeting.">
+<meta property="og:url" content="https://kuvonch.uz/klassik.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🇺🇿 Bolalikdagi o'yinlar · matematik variant</span>
+<h1>Klassik <span>(sakkizlik)</span></h1>
+<p class="km-lead">Mahalla ko'chasida bo'r bilan chizilgan kataklarni eslaysizmi? Bu safar har bir katakda son yozilgan. Misolni yeching va javobi yozilgan katakka sakrang — 10 ta to'g'ri sakrash bilan «Osmon»ga yetasiz.</p>
+<ul class="km-chips"><li>➕ Qo'shish va ayirish</li><li>✖️ Karra jadvali</li><li>🧮 Amallar tartibi</li><li>% Foiz va kasr</li></ul>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>📜 O'yin tarixi</h2>
+<p>«Klassik» (ba'zi mahallalarda «sakkizlik» yoki «katak») — asfaltga bo'r bilan chizilgan kataklar bo'ylab bir oyoqda sakrab o'ynaladigan o'yin. Yassi tosh avval 1-katakka, keyin 2-katakka tashlanadi; o'yinchi toshni bosmasdan sakrab chiqib, qaytishda uni olib keladi. Chiziqqa bossangiz yoki tosh katakdan chiqib ketsa — navbat do'stingizga o'tadi.</p>
+</section>
+<section>
+<h2>🎯 Matematik variant qoidalari</h2>
+<ol>
+<li>Har savolda kataklarga yangi sonlar yoziladi.</li>
+<li>Misolni yeching va javobi yozilgan katakka bosing — bola o'sha katakka sakraydi.</li>
+<li>Ketma-ket 3 ta to'g'ri javob — daraja oshadi (5 tagacha). Ikkita xato ketma-ket — daraja pasayadi.</li>
+<li>Xato qilsangiz, yana bir urinish beriladi; ikkinchi xatoda yechim ko'rsatiladi.</li>
+<li>🎁 Sirli quti chiqib qolsa — oching: ko'pincha yordam beradi, ba'zan ochko oladi!</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> 20 gacha qo'shish va ayirish</li>
+<li><b>2-daraja:</b> 100 gacha qo'shish va ayirish</li>
+<li><b>3-daraja:</b> karra jadvali va bo'lish</li>
+<li><b>4-daraja:</b> amallar tartibi va manfiy sonlar</li>
+<li><b>5-daraja:</b> foiz, kasr va darajalar</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html">🇺🇿 Boshqa bolalikdagi o'yinlar</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Bolalikdagi o'yinlar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Klassik (sakkizlik): og'zaki hisob o'yini */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf;
+var y = document.getElementById("year"); if (y) y.textContent = String(new Date().getFullYear());
+
+/* ---------- savollar (har daraja — o'z mavzusi) ---------- */
+function gen(L) {
+  var a, b, c, q, ans, mis = [], steps = [];
+  if (L === 1) {
+    if (Math.random() < 0.5) { a = ri(3, 12); b = ri(2, 20 - a); ans = a + b; q = a + " + " + b; mis = [ans - 1, ans + 1, a - b > 0 ? a - b : ans + 2]; steps = [a + " + " + b + " = " + ans]; }
+    else { a = ri(8, 20); b = ri(2, a - 1); ans = a - b; q = a + " − " + b; mis = [ans + 1, ans - 1, a + b <= 99 ? a + b : ans + 2]; steps = [a + " − " + b + " = " + ans]; }
+  } else if (L === 2) {
+    if (Math.random() < 0.5) {
+      a = ri(15, 68); b = ri(12, 99 - a); ans = a + b; q = a + " + " + b;
+      var noCarry = (Math.floor(a / 10) + Math.floor(b / 10)) * 10 + (a + b) % 10;
+      mis = [ans - 10, noCarry !== ans ? noCarry : ans + 10, ans + 1];
+      steps = [a + " + " + (b - b % 10) + " = " + (a + b - b % 10), (a + b - b % 10) + " + " + (b % 10) + " = " + ans];
+    } else {
+      a = ri(40, 99); b = ri(12, a - 5); ans = a - b; q = a + " − " + b;
+      var wrongBorrow = Math.abs(Math.floor(a / 10) - Math.floor(b / 10)) * 10 + Math.abs(a % 10 - b % 10);
+      mis = [ans + 10, wrongBorrow !== ans ? wrongBorrow : ans - 10, ans - 1];
+      steps = [a + " − " + (b - b % 10) + " = " + (a - b + b % 10), (a - b + b % 10) + " − " + (b % 10) + " = " + ans];
+    }
+  } else if (L === 3) {
+    a = ri(3, 9); b = ri(3, 9);
+    if (Math.random() < 0.6) { ans = a * b; q = a + " × " + b; mis = [a * (b + 1), a * (b - 1), a + b]; steps = [a + " × " + b + " = " + ans + "  (" + a + " ni " + b + " marta qo'shamiz)"]; }
+    else { c = a * b; ans = b; q = c + " : " + a; mis = [b + 1, b - 1, c - a]; steps = [a + " × " + b + " = " + c + ", demak " + c + " : " + a + " = " + b]; }
+  } else if (L === 4) {
+    var t = ri(0, 2);
+    if (t === 0) { a = ri(2, 20); b = ri(2, 9); c = ri(2, 9); ans = a + b * c; q = a + " + " + b + " × " + c; mis = [(a + b) * c, a + b + c, ans + b]; steps = ["Avval ko'paytirish: " + b + " × " + c + " = " + b * c, a + " + " + b * c + " = " + ans]; }
+    else if (t === 1) { a = ri(2, 9); b = ri(2, 9); c = ri(1, 8); ans = a * (b + c); q = a + " × (" + b + " + " + c + ")"; mis = [a * b + c, a + b + c, ans - a]; steps = ["Avval qavs ichi: " + b + " + " + c + " = " + (b + c), a + " × " + (b + c) + " = " + ans]; }
+    else { a = ri(3, 15); b = ri(a + 2, a + 20); ans = a - b; q = a + " − " + b; mis = [b - a, ans - 1, ans + 1]; steps = ["Kichikdan kattani ayirsak, natija manfiy bo'ladi", b + " − " + a + " = " + (b - a) + ", demak javob " + nf(ans)]; }
+  } else {
+    var u = ri(0, 2);
+    if (u === 0) { var p = pick([10, 20, 25, 50, 75]), base = pick([20, 40, 60, 80, 100, 120, 200]); ans = base * p / 100; q = base + " ning " + p + " %"; mis = [base / p, ans + 10, base - ans]; steps = [p + " % = " + p + "/100", base + " × " + p + " : 100 = " + nf(ans)]; }
+    else if (u === 1) { var den = pick([2, 3, 4, 5]), num = ri(1, den - 1), m = ri(2, 12) * den; ans = m / den * num; q = num + "/" + den + " qismi: " + m + " dan"; mis = [m / den, m - ans, ans + num]; steps = [m + " : " + den + " = " + m / den + "  (bir ulushi)", m / den + " × " + num + " = " + ans]; }
+    else { a = ri(2, 12); ans = a * a; q = a + "²"; mis = [a * 2, ans + a, ans - a]; steps = [a + "² = " + a + " × " + a + " = " + ans]; }
+  }
+  // Kataklarga yoziladigan 10 ta son: javob + odatiy xatolar + yaqin sonlar
+  var nums = [ans], seen = {}; seen[ans] = 1;
+  mis.forEach(function (m) { if (nums.length < 10 && isFinite(m) && Math.round(m) === m && !seen[m]) { seen[m] = 1; nums.push(m); } });
+  var guard = 0;
+  while (nums.length < 10 && guard++ < 200) { var d = ans + ri(-12, 12); if ((L < 4 && d < 0) || seen[d]) continue; seen[d] = 1; nums.push(d); }
+  return { q: q + " = ?", text: q, a: ans, steps: steps, input: "custom", hint: "👆 Javob yozilgan <b>katakka</b> bosing — bola o'sha yerga sakraydi.", cells: K.shuffle(nums) };
+}
+
+/* ---------- sahna: asfalt, bo'r kataklari, do'ppili bola ---------- */
+var CUR = null, kid = { x: 0, y: 0, fx: 0, fy: 0, tx: 0, ty: 0, t: 1, dur: 0.5, wob: 0 }, done = 0, marks = {}, sparks = [], hot = -1;
+var CELLS = []; // {i, x, y, w, h, label}
+function layout(w, h) {
+  // pastdan tepaga: 1, 2, 3, [4|5], 6, [7|8], 9, 10 (Osmon)
+  var top = 70, bot = h - 46, rows = 8, rh = (bot - top) / rows, cw = Math.min(118, w * 0.3), cx = w / 2;
+  var spec = [[1], [2], [3], [4, 5], [6], [7, 8], [9], [10]];
+  CELLS = [];
+  spec.forEach(function (row, r) {
+    var yy = bot - (r + 1) * rh;
+    if (row.length === 1) CELLS.push({ i: row[0], x: cx - cw / 2, y: yy, w: cw, h: rh, sky: row[0] === 10 });
+    else { CELLS.push({ i: row[0], x: cx - cw, y: yy, w: cw, h: rh }); CELLS.push({ i: row[1], x: cx, y: yy, w: cw, h: rh }); }
+  });
+}
+function cellOf(n) { for (var i = 0; i < CELLS.length; i++) if (CELLS[i].i === n) return CELLS[i]; return null; }
+function drawKid(c, x, y, s, t) {
+  var bob = Math.sin(t * 6) * 1.2;
+  c.save(); c.translate(x, y + bob);
+  c.fillStyle = "rgba(0,0,0,.35)"; c.beginPath(); c.ellipse(0, 4, 13 * s, 4 * s, 0, 0, 6.3); c.fill();
+  // oyoqlar
+  c.strokeStyle = "#2b3a6b"; c.lineWidth = 4 * s; c.lineCap = "round";
+  c.beginPath(); c.moveTo(-4 * s, -14 * s); c.lineTo(-5 * s, 0); c.moveTo(4 * s, -14 * s); c.lineTo(6 * s, -4 * s); c.stroke();
+  // ko'ylak
+  c.fillStyle = "#35f0c4"; K.rr(c, -9 * s, -34 * s, 18 * s, 22 * s, 6 * s); c.fill();
+  // qo'llar
+  c.strokeStyle = "#f2c9a0"; c.lineWidth = 3.5 * s; c.beginPath(); c.moveTo(-8 * s, -30 * s); c.lineTo(-15 * s, -20 * s); c.moveTo(8 * s, -30 * s); c.lineTo(15 * s, -38 * s); c.stroke();
+  // bosh
+  c.fillStyle = "#f2c9a0"; c.beginPath(); c.arc(0, -43 * s, 9 * s, 0, 6.3); c.fill();
+  // do'ppi (qora, oq naqshli)
+  c.fillStyle = "#11131c"; c.beginPath(); c.moveTo(-9.5 * s, -46 * s); c.lineTo(-8 * s, -55 * s); c.lineTo(8 * s, -55 * s); c.lineTo(9.5 * s, -46 * s); c.closePath(); c.fill();
+  c.strokeStyle = "#fff"; c.lineWidth = 1.2 * s; c.beginPath(); c.moveTo(-4 * s, -47 * s); c.quadraticCurveTo(-6 * s, -51 * s, -3 * s, -53 * s); c.moveTo(4 * s, -47 * s); c.quadraticCurveTo(6 * s, -51 * s, 3 * s, -53 * s); c.stroke();
+  // ko'zlar
+  c.fillStyle = "#1a1a1a"; c.beginPath(); c.arc(-3 * s, -43 * s, 1.2 * s, 0, 6.3); c.arc(3 * s, -43 * s, 1.2 * s, 0, 6.3); c.fill();
+  c.restore();
+}
+var S = K.stage({
+  label: "Klassik kataklari. Javob yozilgan katakka bosing.",
+  ratio: 1.25, minH: 430, maxH: 600,
+  onResize: function (S) { layout(S.w, S.h); placeKid(true); },
+  draw: function (c, w, h, dt, t) {
+    // asfalt
+    var g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#2b2f3a"); g.addColorStop(1, "#1d2029"); c.fillStyle = g; c.fillRect(0, 0, w, h);
+    c.fillStyle = "rgba(255,255,255,.035)"; for (var i = 0; i < 90; i++) { var px = (i * 97.13) % w, py = (i * 53.71 + 13) % h; c.fillRect(px, py, 2, 2); }
+    // tut daraxti soyasi va bordyur
+    c.fillStyle = "rgba(10,40,20,.35)"; c.beginPath(); c.ellipse(w - 20, 40, 90, 60, 0, 0, 6.3); c.fill();
+    c.fillStyle = "#3e4455"; c.fillRect(0, h - 14, w, 14);
+    // savol (tepada)
+    c.fillStyle = "rgba(6,10,26,.75)"; K.rr(c, 10, 10, w - 20, 48, 14); c.fill();
+    if (CUR) K.txt(c, CUR.text + " = ?", w / 2, 34, "#ffc23d", Math.min(26, w / 13), "center", 800);
+    else K.txt(c, "«Boshlash»ni bosing", w / 2, 34, "#93a3cc", 17, "center", 700);
+    // kataklar
+    c.lineWidth = 3; c.strokeStyle = "rgba(255,255,255,.88)"; c.lineJoin = "round";
+    CELLS.forEach(function (cl, k) {
+      var on = marks[cl.i];
+      if (on) { c.fillStyle = on === "ok" ? "rgba(53,240,196,.22)" : "rgba(255,107,127,.22)"; c.fillRect(cl.x + 2, cl.y + 2, cl.w - 4, cl.h - 4); }
+      if (hot === k) { c.fillStyle = "rgba(255,255,255,.08)"; c.fillRect(cl.x, cl.y, cl.w, cl.h); }
+      if (cl.sky) { c.beginPath(); c.moveTo(cl.x, cl.y + cl.h); c.lineTo(cl.x, cl.y + cl.h * 0.45); c.arc(cl.x + cl.w / 2, cl.y + cl.h * 0.45, cl.w / 2, Math.PI, 0); c.lineTo(cl.x + cl.w, cl.y + cl.h); c.stroke(); }
+      else c.strokeRect(cl.x, cl.y, cl.w, cl.h);
+      // katak raqami (kichik, burchakda) va javob soni (katta)
+      K.txt(c, String(cl.i), cl.x + 11, cl.y + 12, "rgba(255,255,255,.4)", 11, "center", 700);
+      if (CUR) { var v = CUR.cells[cl.i - 1]; K.txt(c, nf(v), cl.x + cl.w / 2, cl.y + cl.h / 2 + (cl.sky ? 4 : 2), "#f3f5ff", Math.min(24, cl.h * 0.42, cl.w / (String(nf(v)).length * 0.62 + 0.6)), "center", 800, '"Unbounded","Golos Text",sans-serif'); }
+      else if (cl.sky) K.txt(c, "OSMON", cl.x + cl.w / 2, cl.y + cl.h * 0.55, "rgba(255,255,255,.7)", 13, "center", 800);
+    });
+    // start chizig'i
+    c.setLineDash([8, 6]); c.beginPath(); c.moveTo(w / 2 - 70, h - 34); c.lineTo(w / 2 + 70, h - 34); c.stroke(); c.setLineDash([]);
+    K.txt(c, "START", w / 2 + 92, h - 34, "rgba(255,255,255,.5)", 11, "center", 800);
+    // progress: «Osmon»gacha
+    c.fillStyle = "rgba(6,10,26,.7)"; K.rr(c, 10, h - 32, 74, 22, 11); c.fill();
+    K.txt(c, "⭐ " + done + "/10", 47, h - 21, "#ffc23d", 12, "center", 800);
+    // bola: sakrash (parabola)
+    if (kid.t < 1) { kid.t = Math.min(1, kid.t + dt / kid.dur); }
+    var e = K.ease(kid.t), kx = kid.fx + (kid.tx - kid.fx) * e, ky = kid.fy + (kid.ty - kid.fy) * e - Math.sin(Math.PI * kid.t) * 46;
+    if (kid.wob > 0) { kid.wob = Math.max(0, kid.wob - dt); kx += Math.sin(kid.wob * 40) * 5; }
+    drawKid(c, kx, ky, kid.at ? 0.62 : Math.max(0.8, Math.min(1.1, w / 360)), t);
+    // uchqunlar
+    for (var j = sparks.length - 1; j >= 0; j--) { var p = sparks[j]; p.l -= dt; if (p.l <= 0) { sparks.splice(j, 1); continue; } p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 300 * dt; c.globalAlpha = Math.min(1, p.l * 2); c.fillStyle = p.c; c.fillRect(p.x, p.y, 4, 4); }
+    c.globalAlpha = 1;
+  }
+});
+S.cv.style.cursor = "pointer";
+function placeKid(snap) {
+  var x = S.w / 2, y = S.h - 22;
+  if (kid.at) { var cl = cellOf(kid.at); if (cl) { x = cl.x + cl.w - 14; y = cl.y + cl.h - 4; } }
+  if (snap) { kid.fx = kid.tx = x; kid.fy = kid.ty = y; kid.t = 1; }
+  else { var e = K.ease(kid.t); kid.fx = kid.fx + (kid.tx - kid.fx) * e; kid.fy = kid.fy + (kid.ty - kid.fy) * e; kid.tx = x; kid.ty = y; kid.t = 0; }
+}
+function burst(x, y, col) { for (var i = 0; i < 22; i++) sparks.push({ x: x, y: y, vx: (Math.random() - 0.5) * 260, vy: -Math.random() * 260, l: 0.6 + Math.random() * 0.5, c: col }); }
+function hit(p) { for (var i = 0; i < CELLS.length; i++) { var cl = CELLS[i]; if (p.x >= cl.x && p.x <= cl.x + cl.w && p.y >= cl.y && p.y <= cl.y + cl.h) return i; } return -1; }
+S.cv.addEventListener("pointermove", function (e) { if (e.pointerType === "mouse") { hot = hit(S.pos(e)); } });
+S.cv.addEventListener("pointerleave", function () { hot = -1; });
+S.cv.addEventListener("click", function (e) {
+  if (!CUR || G.state !== "play") return;
+  var k = hit(S.pos(e)); if (k < 0) return;
+  var cl = CELLS[k], v = CUR.cells[cl.i - 1];
+  kid.at = cl.i; placeKid(false); K.sfx.hop();
+  var ok = G.answer(v);
+  marks = {}; marks[cl.i] = ok ? "ok" : "no";
+  if (ok) { done++; burst(cl.x + cl.w / 2, cl.y + cl.h / 2, "#35f0c4"); }
+  else kid.wob = 0.5;
+});
+// Klaviatura: Tab bilan kataklar emas, raqam yozib Enter — kirish imkoniyati
+S.cv.tabIndex = 0;
+S.cv.addEventListener("keydown", function (e) {
+  if (!CUR || G.state !== "play") return;
+  var n = parseInt(e.key, 10); if (e.key === "0") n = 10;
+  if (n >= 1 && n <= 10) { var cl = cellOf(n); if (cl) { var r = S.cv.getBoundingClientRect(); S.cv.dispatchEvent(new MouseEvent("click", { clientX: r.left + cl.x + cl.w / 2, clientY: r.top + cl.y + cl.h / 2, bubbles: true })); } }
+});
+
+var G = K.game({
+  id: "klassik", title: "Klassik (sakkizlik)", barTitle: "KLASSIK · OG'ZAKI HISOB",
+  intro: "Misolni yeching va javobi yozilgan katakka bosing. 10 ta savol — «Osmon»gacha yo'l!",
+  resultTopic: "Milliy o'yin: Klassik (og'zaki hisob)",
+  mount: "game", scene: S.cv, rounds: 10, timeLimit: 90,
+  gen: gen,
+  onStart: function () { done = 0; marks = {}; kid.at = 0; placeKid(true); },
+  onQuestion: function (q) { CUR = q; marks = {}; },
+  onEnd: function (r) { CUR = null; if (r.stars === 3) { var sky = cellOf(10); kid.at = 10; placeKid(false); if (sky) burst(sky.x + sky.w / 2, sky.y + sky.h / 2, "#ffc23d"); } }
+});
+window.kaKlassik = { game: G, gen: gen };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

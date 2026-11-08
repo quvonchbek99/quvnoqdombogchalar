@@ -1,0 +1,106 @@
+/* Kuvonch Academy — «Bolalikdagi o'yinlar» va «Hayotiy hisob-kitoblar» sahifalari uchun umumiy uslub.
+   Eski brauzerlar uchun: inset, color-mix, :has, CSS nesting ishlatilmagan. */
+:root{
+  --night:#060a1a;--night-2:#0c1330;--line:#1d2850;--chalk:#f3f5ff;--haze:#93a3cc;
+  --teal:#35f0c4;--violet:#a27bff;--rose:#ff5e8e;--amber:#ffc23d;--sky:#5cb8ff;--leaf:#7ee36b;
+  --bg:var(--night);--card:#101a3a;--card-2:#0d1532;--border:var(--line);--text:var(--chalk);--dim:var(--haze);
+  --ok:#35f0c4;--no:#ff6b7f;
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --body:"Golos Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.55;
+  background-image:radial-gradient(900px 500px at 85% -10%,rgba(162,123,255,.16),transparent 60%),radial-gradient(700px 420px at -10% 10%,rgba(53,240,196,.10),transparent 60%);background-attachment:fixed}
+a{color:var(--teal)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px 40px}
+.knav a{font-family:var(--body)}
+.knav-head .brand{font-family:var(--display);font-weight:700;font-size:16px}
+
+/* Sarlavha qismi */
+.km-hero{padding:22px 0 8px}
+.km-kicker{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);background:rgba(255,194,61,.1);border:1px solid rgba(255,194,61,.3);border-radius:999px;padding:4px 12px}
+.km-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(26px,6vw,42px);line-height:1.15;margin:12px 0 8px}
+.km-hero h1 span{color:var(--teal)}
+.km-lead{color:var(--dim);font-size:16px;max-width:760px;margin:0}
+.km-chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:14px 0 0}
+.km-chips li{font-size:13px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:5px 12px;color:#cfd8ef}
+
+/* O'yin oynasi */
+.km-game{margin-top:18px;background:linear-gradient(180deg,#111c40,#0c1430);border:1px solid var(--border);border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.km-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--border);background:rgba(6,10,26,.5)}
+.km-bar .ttl{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.04em;color:#cfd8ef;margin-right:auto}
+.km-hud{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.km-pill{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:4px 10px;border-radius:999px;background:#0b1330;border:1px solid var(--border);font-weight:700;font-size:13.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.km-pill.combo{color:var(--amber);border-color:rgba(255,194,61,.45)}
+.km-game [hidden]{display:none!important}
+.km-dots{display:inline-flex;gap:3px}
+.km-dots i{width:9px;height:9px;border-radius:50%;background:#26335f;display:inline-block}
+.km-dots i.on{background:var(--teal);box-shadow:0 0 8px rgba(53,240,196,.7)}
+.km-icon{min-width:44px;min-height:44px;border-radius:999px;border:1px solid var(--border);background:#0b1330;color:var(--text);font-size:16px;cursor:pointer}
+.km-stage{position:relative;background:#081028}
+.km-stage canvas{display:block;width:100%;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.km-panel{padding:14px 14px 16px}
+.km-q{font-size:clamp(18px,4.6vw,23px);font-weight:700;line-height:1.35;margin:2px 0 10px;min-height:1.4em}
+.km-q b,.km-q .n{color:var(--amber)}
+.km-q small{display:block;font-size:14px;font-weight:500;color:var(--dim);margin-top:4px}
+.km-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:640px){.km-opts.four{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.km-opt{min-height:54px;padding:10px 8px;border-radius:14px;border:1.5px solid #2a3970;background:#13204a;color:var(--text);font:700 19px/1.2 var(--body);cursor:pointer;transition:transform .08s,background .15s,border-color .15s;font-variant-numeric:tabular-nums}
+.km-opt:hover{border-color:var(--teal)}
+.km-opt:active{transform:scale(.97)}
+.km-opt.ok{background:rgba(53,240,196,.18);border-color:var(--ok);color:#dffff6}
+.km-opt.no{background:rgba(255,107,127,.16);border-color:var(--no);color:#ffe1e6}
+.km-opt.off{opacity:.25;pointer-events:none}
+.km-opt:disabled{cursor:default}
+.km-inp{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.km-inp input{flex:1 1 140px;min-width:0;min-height:52px;border-radius:14px;border:1.5px solid #2a3970;background:#0b1330;color:var(--text);font:700 20px var(--body);padding:8px 14px;font-variant-numeric:tabular-nums}
+.km-inp input:focus{outline:none;border-color:var(--teal)}
+.km-inp .unit{color:var(--dim);font-weight:700}
+.km-btn{min-height:46px;padding:10px 18px;border-radius:14px;border:1.5px solid var(--border);background:#13204a;color:var(--text);font:700 15.5px var(--body);cursor:pointer}
+.km-btn.pri{background:linear-gradient(135deg,#35f0c4,#2bc9e8);border-color:transparent;color:#05221c}
+.km-btn.vio{background:linear-gradient(135deg,#a27bff,#7b5cff);border-color:transparent;color:#fff}
+.km-btn:active{transform:scale(.97)}
+.km-btn:disabled{opacity:.5;cursor:default}
+.km-btn:focus-visible,.km-opt:focus-visible,.km-icon:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.km-fb{margin-top:12px;border-radius:14px;padding:0 14px;max-height:0;overflow:hidden;transition:max-height .25s,padding .25s}
+.km-fb.show{padding:12px 14px;max-height:900px}
+.km-fb.ok{background:rgba(53,240,196,.1);border:1px solid rgba(53,240,196,.35)}
+.km-fb.no{background:rgba(255,107,127,.08);border:1px solid rgba(255,107,127,.35)}
+.km-fb h4{margin:0 0 6px;font-size:16px}
+.km-steps{margin:6px 0 0;padding-left:20px}
+.km-steps li{margin:3px 0}
+.km-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.km-help{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.km-help .km-btn{min-height:40px;padding:6px 12px;font-size:14px}
+.km-box{position:absolute;right:12px;top:12px;z-index:5;min-width:56px;min-height:56px;border-radius:16px;border:2px solid var(--amber);background:radial-gradient(circle at 30% 30%,#ffe08a,#ff9f1c);font-size:28px;cursor:pointer;box-shadow:0 0 24px rgba(255,194,61,.6);animation:km-bob 1.2s ease-in-out infinite}
+@keyframes km-bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+.km-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);z-index:4000;background:#101a3a;border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:14px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.km-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Boshlash va natija oynalari */
+.km-ov{position:absolute;top:0;right:0;bottom:0;left:0;z-index:6;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(6,10,26,.82)}
+.km-ov[hidden]{display:none}
+.km-card{width:100%;max-width:440px;background:#101a3a;border:1px solid var(--border);border-radius:20px;padding:18px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.km-card h3{font-family:var(--display);font-size:20px;margin:0 0 6px}
+.km-card p{color:var(--dim);margin:6px 0 12px;font-size:14.5px}
+.km-seg{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0}
+.km-seg button{min-width:44px;min-height:42px;border-radius:12px;border:1.5px solid var(--border);background:#0b1330;color:var(--text);font:700 15px var(--body);cursor:pointer;padding:6px 10px}
+.km-seg button[aria-pressed=true]{border-color:var(--teal);background:rgba(53,240,196,.14);color:#dffff6}
+.km-lbl{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);margin-top:10px}
+.km-stars{font-size:38px;letter-spacing:6px;margin:4px 0}
+.km-stars .off{opacity:.2}
+.km-big{font-family:var(--display);font-size:30px;color:var(--amber);margin:2px 0}
+
+/* Ma'lumot bloklari */
+.km-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:18px}
+.km-info section{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px 16px}
+.km-info h2{font-family:var(--display);font-size:16px;margin:0 0 6px}
+.km-info p,.km-info li{color:#cfd8ef;font-size:14.5px}
+.km-info ul,.km-info ol{padding-left:20px;margin:6px 0}
+.km-more{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.km-more a{display:inline-flex;align-items:center;min-height:42px;padding:8px 14px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);text-decoration:none;font-weight:600}
+.km-foot{margin-top:28px;padding:16px 0;border-top:1px solid var(--border);color:var(--dim);font-size:13.5px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+.km-foot nav{display:flex;flex-wrap:wrap;gap:12px}
+.km-foot a{color:var(--dim)}
+@media (prefers-reduced-motion:reduce){.km-box{animation:none}.km-fb{transition:none}}

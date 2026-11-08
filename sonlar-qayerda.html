@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sonlar qayerda? — ko'rish xotirasi mashqi | Kuvonch Academy</title>
+<meta name="description" content="Sonlar bir lahzaga ko'rinadi va yashirinadi — joyini eslab, 1 dan boshlab tartib bilan bosing. Har muvaffaqiyatdan keyin bitta son qo'shiladi. Tez ko'rish va teskari tartib rejimlari.">
+<link rel="canonical" href="https://kuvonch.uz/sonlar-qayerda.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Sonlar qayerda? — ko'rish xotirasi mashqi">
+<meta property="og:description" content="Sonlar yashirinadi — joyini eslab, tartib bilan bosing. Nechta sonni eslab qola olasiz?">
+<meta property="og:url" content="https://kuvonch.uz/sonlar-qayerda.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+<style>
+.dq{position:relative}
+.dq .km-icon{min-width:44px;min-height:44px}
+.dq .km-ov{overflow-y:auto;-webkit-overflow-scrolling:touch;align-items:flex-start;justify-content:flex-start}
+.dq .km-card{margin:auto}
+.dq-stage{padding:10px 0 14px;min-height:470px;display:flex;flex-direction:column;align-items:center;-webkit-user-select:none;user-select:none}
+.dq-desc{font-size:13.5px!important;color:var(--dim);margin:2px 0 0!important;min-height:2.7em}
+.dq-rec{color:var(--amber)!important;font-weight:700}
+.sq-msg{min-height:40px;margin:0 0 8px;padding:0 10px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;color:var(--dim)}
+.sq-msg b{color:var(--text)}
+.sq-msg.ok b{color:var(--ok)}
+.sq-msg.no b{color:var(--no)}
+.sq-grid{display:grid;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.sq-c{border-radius:12px;border:1.5px dashed rgba(147,163,204,.13)}
+.sq-t{display:flex;align-items:center;justify-content:center;padding:0;margin:0;border-radius:12px;border:2px solid #d9e2ff;background:#f3f5ff;color:#0c1430;font-family:var(--display);font-weight:800;line-height:1;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background-color .15s,border-color .15s,transform .12s}
+.sq-t:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.sq-t.hid{background:#5cb8ff;border-color:#8fd0ff;color:transparent}
+.sq-t.hid:active{transform:scale(.95)}
+.sq-t.ok{background:rgba(53,240,196,.2);border-color:var(--ok);color:#dffff6;cursor:default}
+.sq-t.bad{background:#ff6b7f;border-color:#ffd0d8;color:#2a0008}
+.sq-t.show{color:#0c1430}
+.sq-t.miss{background:#ffe08a;border-color:#ffc23d;color:#2b1d00}
+.sq-lives{letter-spacing:1px}
+.sq-scale{margin:10px 0 2px;text-align:left}
+.sq-scale .bar{display:flex;height:24px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.sq-scale .mk{position:relative;height:22px}
+.sq-scale .mk b{position:absolute;bottom:0;transform:translateX(-50%);font-size:12px;color:var(--text);white-space:nowrap}
+.sq-scale .bar span{display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:#0c1430}
+.sq-scale .lg{display:flex;justify-content:space-between;font-size:11.5px;color:var(--dim);margin-top:4px}
+.sq-scale p{font-size:12.5px!important;margin:6px 0 0!important}
+.sq-hist{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:8px 0}
+.sq-hist i{font-style:normal;min-width:28px;height:26px;padding:0 5px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;background:rgba(53,240,196,.16);border:1px solid rgba(53,240,196,.5)}
+.sq-hist i.f{background:rgba(255,107,127,.14);border-color:rgba(255,107,127,.5)}
+@media (prefers-reduced-motion:reduce){.sq-t{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🧠 Diqqat va xotira</span>
+<h1>Sonlar <span>qayerda?</span></h1>
+<p class="km-lead">Maydonda bir nechta son paydo bo'ladi. Ularning joyini eslab qoling — keyin sonlar yashirinadi va kataklarni 1 dan boshlab tartib bilan bosasiz. Har muvaffaqiyatdan keyin yana bitta son qo'shiladi. Nechtagacha bora olasiz?</p>
+<ul class="km-chips"><li>🙈 Ko'rish xotirasi</li><li>➕ Har safar +1 son</li><li>⚡ Tez ko'rish</li><li>🔁 Teskari tartib</li></ul>
+</section>
+
+<div id="game" class="km-game dq">
+<div class="km-bar"><span class="ttl">SONLAR QAYERDA?</span><div class="km-hud">
+<span class="km-pill" title="Sonlar soni">🔢 <span id="hK">4</span> ta</span>
+<span class="km-pill sq-lives" title="Jonlar" id="hL">❤️❤️❤️</span>
+<span class="km-pill" title="Eng ko'p">🏔 <span id="hM">—</span></span>
+<button class="km-icon" type="button" id="stop" aria-label="To'xtatish" title="To'xtatish">⏹</button>
+<button class="km-icon" type="button" id="mute" aria-label="Ovoz">🔊</button>
+</div></div>
+<div class="dq-stage" id="stage">
+<div class="sq-msg" id="msg" aria-live="polite"></div>
+<div class="sq-grid" id="grid" role="group" aria-label="Sonlar maydoni"></div>
+</div>
+<div class="km-ov" id="ov"></div>
+</div>
+
+<div class="km-info">
+<section>
+<h2>🧠 Bu mashq nimani rivojlantiradi</h2>
+<p>Bu — <b>ko'rish-fazoviy ishchi xotira</b> mashqi: ko'rgan narsani bir necha soniya «ko'z oldida» ushlab turish va undan foydalanish. Biz bu xotiradan har kuni foydalanamiz: doskadagi misolni daftarga ko'chirishda, xaritada yo'l izlashda, uy kalitini qayerga qo'yganimizni eslashda.</p>
+<p>Shunga o'xshash topshiriqni Kioto universiteti olimlari (Inoue va Matsuzava, 2007) yosh shimpanzelar bilan sinab ko'rgan — shuning uchun uni ba'zan «shimpanze testi» deyishadi. Mashq qilsangiz, aynan shu o'yinda natijangiz o'sadi. Bu umumiy xotira yoki aqlni oshiradi, deb va'da bermaymiz.</p>
+</section>
+<section>
+<h2>🎯 Qoidalar</h2>
+<ol>
+<li>Har raundda 4 tadan boshlab bir nechta son ko'rinadi.</li>
+<li><b>Klassik:</b> sonlar siz birinchi katakni bosguningizcha ko'rinib turadi. Birinchi sonni bosishingiz bilan qolganlari yashirinadi.</li>
+<li><b>⚡ Tez ko'rish:</b> sonlar faqat 0,7–1,5 soniya ko'rinadi.</li>
+<li><b>🔁 Teskari tartib:</b> eng kattasidan 1 gacha bosing.</li>
+<li>To'g'ri bajarsangiz — keyingi raundda bitta son ko'proq. Xato qilsangiz — bitta jon ketadi va raund boshqa joylashuv bilan qaytariladi. 3 ta jon bor.</li>
+<li>Kompyuterda strelkalar bilan katakdan katakka o'ting, Enter bilan bosing.</li>
+</ol>
+</section>
+<section>
+<h2>📈 Natijani qanday tushunish kerak</h2>
+<p>Asosiy natija — <b>xatosiz eslab qolgan eng ko'p son</b>. Taxminiy mo'ljal: ko'pchilik o'smir va kattalar bu turdagi topshiriqda 7–10 atrofida to'xtaydi, kichik yoshdagi bolalarda odatda biroz kamroq bo'ladi. 4–6 — yaxshi boshlanish, 11 dan yuqori esa kamdan-kam uchraydi.</p>
+<p>Bu raqamlar IQ yoki aqlning o'lchovi <b>emas</b>: natija yosh, charchoq, ekran kattaligi va mashqqa bog'liq va kundan-kunga o'zgarib turadi. Eng yaxshisi — o'zingizning oldingi rekordingizni yangilashga harakat qiling.</p>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html#diqqat">🧠 Boshqa diqqat va xotira mashqlari</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Diqqat va xotira</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html#diqqat">🧠 Diqqat va xotira</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Sonlar qayerda? (ko'rish-fazoviy xotira mashqi) */
+(function () {
+"use strict";
+var K = window.KAM, W = window, D = document;
+var $ = function (id) { return D.getElementById(id); };
+var yEl = $("year"); if (yEl) yEl.textContent = String(new Date().getFullYear());
+var RM = false; try { RM = W.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+var TOUCH = ("ontouchstart" in W) || (navigator.maxTouchPoints > 0);
+
+var PFX = "ka.diqqat.sonlar.";
+function lsGet(k, d) { try { var v = localStorage.getItem(PFX + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+function lsSet(k, v) { try { localStorage.setItem(PFX + k, JSON.stringify(v)); } catch (e) {} }
+
+/* ---------- ovoz ---------- */
+var muted = K.lsGet("mute", false), mutedAtLoad = muted, AC = null;
+function beep(f, t, type, vol) {
+  try {
+    if (!AC) { var C = W.AudioContext || W.webkitAudioContext; if (!C) return; AC = new C(); }
+    if (AC.state === "suspended") AC.resume();
+    var o = AC.createOscillator(), g = AC.createGain(), s = AC.currentTime;
+    o.type = type || "triangle"; o.frequency.setValueAtTime(f, s);
+    g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(vol || 0.1, s + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, s + t);
+    o.connect(g); g.connect(AC.destination); o.start(s); o.stop(s + t + 0.02);
+  } catch (e) {}
+}
+var FB = { ok: [660, 0.12], no: [200, 0.22, "sawtooth", 0.06], tap: [440, 0.05, "square", 0.04], up: [784, 0.16], end: [523, 0.3], hop: [520, 0.07, "sine"] };
+function snd(n) { if (muted) return; if (!mutedAtLoad) { try { K.sfx[n](); } catch (e) {} return; } var a = FB[n] || FB.tap; beep(a[0], a[1], a[2], a[3]); }
+var muteB = $("mute");
+muteB.textContent = muted ? "🔇" : "🔊";
+muteB.onclick = function () { muted = !muted; K.lsSet("mute", muted); muteB.textContent = muted ? "🔇" : "🔊"; if (!muted) snd("tap"); };
+
+/* ---------- sozlamalar ---------- */
+var VIEWS = { tap: { name: "1-ni bosguncha", ms: 0 }, s15: { name: "1,5 s", ms: 1500 }, s10: { name: "1,0 s", ms: 1000 }, s07: { name: "0,7 s", ms: 700 } };
+var cfg = { order: lsGet("order", "up"), view: lsGet("view", "tap") };
+if (cfg.order !== "up" && cfg.order !== "down") cfg.order = "up";
+if (!VIEWS[cfg.view]) cfg.view = "tap";
+var START_K = 4, LIVES = 3;
+
+var st = { state: "idle", k: START_K, lives: LIVES, maxK: 0, cells: [], pos: 0, tm: 0, hist: [], rounds: 0, wins: 0, cols: 5, rows: 7 };
+var el = { grid: $("grid"), msg: $("msg"), ov: $("ov"), game: $("game"), stage: $("stage") };
+
+function layoutDims() {
+  var w = (el.stage.clientWidth || 340) - 8;
+  if (w >= 560) { st.cols = 8; st.rows = 5; } else { st.cols = 5; st.rows = 7; }
+}
+function cellSize() {
+  var w = (el.stage.clientWidth || 340) - 8, gap = 6;
+  var byW = Math.floor((w - gap * (st.cols - 1)) / st.cols);
+  var byH = Math.floor(((W.innerHeight || 700) - 200 - gap * (st.rows - 1)) / st.rows);
+  return { c: Math.max(44, Math.min(84, byW, Math.max(byH, 46))), gap: gap };
+}
+function fitGrid() {
+  var s = cellSize();
+  el.grid.style.gridTemplateColumns = "repeat(" + st.cols + "," + s.c + "px)";
+  el.grid.style.gridAutoRows = s.c + "px";
+  el.grid.style.gap = s.gap + "px";
+  Array.prototype.forEach.call(el.grid.querySelectorAll(".sq-t"), function (b) { b.style.fontSize = Math.round(s.c * 0.46) + "px"; });
+}
+function hud() {
+  $("hK").textContent = st.k;
+  var h = ""; for (var i = 0; i < LIVES; i++) h += i < st.lives ? "❤️" : "🖤";
+  $("hL").textContent = h; $("hL").setAttribute("aria-label", "Jonlar: " + st.lives);
+  $("hM").textContent = st.maxK ? st.maxK : "—";
+}
+function msg(html, cls) { el.msg.className = "sq-msg" + (cls ? " " + cls : ""); el.msg.innerHTML = html ? "<span>" + html + "</span>" : ""; }
+
+/* ---------- raund ---------- */
+// cells[p] = son (1..k) yoki 0
+function newRound() {
+  layoutDims();
+  var total = st.cols * st.rows, idx = [];
+  for (var i = 0; i < total; i++) idx.push(i);
+  idx = K.shuffle(idx);
+  st.cells = []; for (var j = 0; j < total; j++) st.cells.push(0);
+  for (var n = 1; n <= st.k; n++) st.cells[idx[n - 1]] = n;
+  st.pos = 0; st.hidden = false;
+  render();
+}
+function seqAt(i) { return cfg.order === "up" ? i + 1 : st.k - i; }
+function render() {
+  var html = "", first = -1;
+  for (var p = 0; p < st.cells.length; p++) {
+    var v = st.cells[p];
+    if (v) { if (first < 0) first = p; html += '<button type="button" class="sq-t" data-p="' + p + '" tabindex="-1" aria-label="' + v + '">' + v + "</button>"; }
+    else html += '<span class="sq-c" data-p="' + p + '" aria-hidden="true"></span>';
+  }
+  el.grid.innerHTML = html;
+  var f = el.grid.querySelector(".sq-t"); if (f) f.tabIndex = 0;
+  fitGrid();
+}
+function tileAt(p) { return el.grid.querySelector('.sq-t[data-p="' + p + '"]'); }
+function hideAll() {
+  if (st.hidden) return; st.hidden = true; clearTimeout(st.tm);
+  Array.prototype.forEach.call(el.grid.querySelectorAll(".sq-t"), function (b) { if (!b.classList.contains("ok")) { b.classList.add("hid"); b.setAttribute("aria-label", "Yashirin katak"); } });
+  if (st.state === "show") st.state = "recall";
+  msg("Endi " + (cfg.order === "up" ? "<b>1</b> dan boshlab" : "<b>" + st.k + "</b> dan boshlab") + " tartib bilan bosing");
+}
+
+function beginRound() {
+  st.state = "show"; newRound(); hud();
+  var v = VIEWS[cfg.view];
+  if (v.ms) {
+    msg("Eslab qoling! <b>" + (v.ms / 1000).toFixed(1).replace(".", ",") + " s</b>");
+    st.tm = setTimeout(function () { if (st.state === "show") hideAll(); }, v.ms);
+  } else msg("Joylarni eslab qoling va <b>" + seqAt(0) + "</b> ni bosing");
+  if (!TOUCH) { var f = el.grid.querySelector(".sq-t[tabindex='0']"); if (f) try { f.focus({ preventScroll: true }); } catch (e) {} }
+}
+
+function press(p, b) {
+  if (st.state !== "show" && st.state !== "recall") return;
+  var v = st.cells[p], want = seqAt(st.pos);
+  if (!v || b.classList.contains("ok")) return;
+  if (v === want) {
+    st.pos++;
+    if (st.state === "show") hideAll();
+    b.classList.remove("hid"); b.classList.add("ok"); b.setAttribute("aria-label", v + " — topildi");
+    snd("hop");
+    if (st.pos >= st.k) roundWin();
+    else msg("Keyingi: <b>" + seqAt(st.pos) + "</b>");
+  } else roundFail(p);
+}
+function roundWin() {
+  st.state = "wait"; st.rounds++; st.wins++;
+  st.hist.push({ k: st.k, ok: true });
+  st.maxK = Math.max(st.maxK, st.k); snd("ok");
+  msg("✅ <b>Barakalla!</b> Endi " + (st.k + 1) + " ta son", "ok");
+  st.k = Math.min(st.cols * st.rows - 1, st.k + 1); hud();
+  st.tm = setTimeout(beginRound, 1100);
+}
+function roundFail(p) {
+  st.state = "wait"; st.rounds++; st.lives--;
+  st.hist.push({ k: st.k, ok: false });
+  snd("no");
+  // to'g'ri tartibni ko'rsatamiz
+  for (var q = 0; q < st.cells.length; q++) {
+    var b = tileAt(q); if (!b) continue;
+    b.classList.remove("hid"); b.textContent = st.cells[q]; b.setAttribute("aria-label", String(st.cells[q]));
+    if (q === p) b.classList.add("bad");
+    else if (st.cells[q] === seqAt(st.pos)) b.classList.add("miss");
+  }
+  hud();
+  if (st.lives <= 0) { msg("❌ <b>" + seqAt(st.pos) + "</b> sariq katakda edi. Jonlar tugadi.", "no"); st.tm = setTimeout(finish, 1700); }
+  else { msg("❌ <b>" + seqAt(st.pos) + "</b> sariq katakda edi. Yana " + st.k + " ta son bilan urinamiz", "no"); st.tm = setTimeout(beginRound, 2000); }
+}
+
+/* ---------- bosish va klaviatura ---------- */
+el.grid.addEventListener("pointerdown", function (e) {
+  if (e.button > 0) return;
+  var b = e.target && e.target.closest ? e.target.closest(".sq-t") : null; if (!b) return;
+  press(+b.getAttribute("data-p"), b);
+});
+el.grid.addEventListener("click", function (e) {
+  var b = e.target && e.target.closest ? e.target.closest(".sq-t") : null; if (!b) return;
+  if (!W.PointerEvent || e.detail === 0) press(+b.getAttribute("data-p"), b);
+});
+el.grid.addEventListener("keydown", function (e) {
+  var b = e.target && e.target.closest ? e.target.closest(".sq-t") : null; if (!b) return;
+  var dir = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] }[e.key];
+  if (!dir) return;
+  e.preventDefault();
+  var p = +b.getAttribute("data-p"), r = Math.floor(p / st.cols), c = p % st.cols, best = null, bd = 1e9;
+  // yo'nalish bo'yicha eng yaqin katak (bo'sh joylardan sakrab o'tadi)
+  Array.prototype.forEach.call(el.grid.querySelectorAll(".sq-t"), function (t) {
+    var q = +t.getAttribute("data-p"); if (q === p) return;
+    var dr = Math.floor(q / st.cols) - r, dc = q % st.cols - c;
+    var along = dc * dir[0] + dr * dir[1], side = Math.abs(dc * dir[1]) + Math.abs(dr * dir[0]);
+    if (along <= 0) return;
+    var d = along + side * 2.2; if (d < bd) { bd = d; best = t; }
+  });
+  if (best) { b.tabIndex = -1; best.tabIndex = 0; best.focus(); }
+});
+
+/* ---------- oynalar ---------- */
+function seg(g, items, val) {
+  return '<div class="km-seg" data-g="' + g + '">' + items.map(function (it) { return '<button type="button" data-v="' + it[0] + '" aria-pressed="' + (String(it[0]) === String(val)) + '">' + it[1] + "</button>"; }).join("") + "</div>";
+}
+function bestKey() { return "best." + cfg.order + "." + cfg.view; }
+function variantName() { return (cfg.order === "down" ? "Teskari" : "To'g'ri") + ", " + (VIEWS[cfg.view].ms ? "tez ko'rish " + VIEWS[cfg.view].name : "klassik"); }
+function stopAll() { clearTimeout(st.tm); }
+
+function showStart() {
+  stopAll(); st.state = "idle"; st.k = START_K; st.lives = LIVES; st.maxK = 0; hud();
+  newRound(); Array.prototype.forEach.call(el.grid.querySelectorAll(".sq-t"), function (b) { b.classList.add("hid"); });
+  msg("");
+  el.ov.innerHTML = '<div class="km-card"><h3>🙊 Sonlar qayerda?</h3><p>Sonlarning joyini eslab qoling, ular yashiringach — tartib bilan bosing.</p>' +
+    '<div class="km-lbl">Tartib</div>' + seg("order", [["up", "1 → k"], ["down", "🔁 k → 1 (teskari)"]], cfg.order) +
+    '<div class="km-lbl">Sonlar qancha ko\'rinadi</div>' + seg("view", [["tap", "🐒 Birinchisini bosguncha"], ["s15", "⚡ 1,5 s"], ["s10", "⚡ 1,0 s"], ["s07", "⚡ 0,7 s"]], cfg.view) +
+    '<p class="dq-desc" data-desc></p><p class="dq-rec" data-best></p>' +
+    '<button class="km-btn pri" type="button" data-go style="min-width:200px">▶ Boshlash</button></div>';
+  el.ov.hidden = false;
+  function upd() {
+    el.ov.querySelector("[data-desc]").textContent = (cfg.order === "up" ? "1 dan boshlab o'sish tartibida bosasiz. " : "Eng kattasidan 1 gacha — teskari tartibda bosasiz. ") +
+      (VIEWS[cfg.view].ms ? "Sonlar faqat " + VIEWS[cfg.view].name + " ko'rinadi." : "Sonlar birinchi katakni bosguningizcha ko'rinib turadi.") + " 4 ta sondan boshlanadi, 3 ta jon.";
+    var b = lsGet(bestKey(), null);
+    el.ov.querySelector("[data-best]").textContent = b ? "🏆 Shaxsiy rekord (" + variantName() + "): " + b.k + " ta son" : "";
+  }
+  upd();
+  Array.prototype.forEach.call(el.ov.querySelectorAll(".km-seg button"), function (bt) {
+    bt.onclick = function () {
+      var g = bt.parentNode.getAttribute("data-g"); cfg[g] = bt.getAttribute("data-v"); lsSet(g, cfg[g]);
+      Array.prototype.forEach.call(bt.parentNode.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", x === bt); });
+      snd("tap"); upd();
+    };
+  });
+  var go = el.ov.querySelector("[data-go]"); go.onclick = start;
+  if (!TOUCH) setTimeout(function () { try { go.focus({ preventScroll: true }); } catch (e) {} }, 30);
+}
+function intoView() {
+  try { var r = el.game.getBoundingClientRect(); if (r.top < 0 || r.top > W.innerHeight * 0.3) el.game.scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" }); } catch (e) {}
+}
+function start() {
+  snd("tap"); stopAll();
+  st.k = START_K; st.lives = LIVES; st.maxK = 0; st.hist = []; st.rounds = 0; st.wins = 0;
+  el.ov.hidden = true; intoView(); hud();
+  st.state = "wait"; msg("Tayyorlaning…");
+  st.tm = setTimeout(beginRound, RM ? 200 : 700);
+}
+
+function scale(k) {
+  var lo = 3, hi = 14, pct = Math.max(0, Math.min(100, (Math.min(k, hi) - lo) / (hi - lo) * 100));
+  var seg = function (a, b, col, t) { return '<span style="width:' + ((b - a) / (hi - lo) * 100) + "%;background:" + col + '">' + t + "</span>"; };
+  return '<div class="sq-scale" role="img" aria-label="Taxminiy mo\'ljal shkalasi, sizning natijangiz: ' + k + '">' +
+    (k ? '<div class="mk"><b style="left:' + Math.max(6, Math.min(94, pct)) + '%">▼ siz: ' + k + "</b></div>" : "") +
+    '<div class="bar">' + seg(3, 6.5, "#5cb8ff", "4–6") + seg(6.5, 10.5, "#35f0c4", "7–10") + seg(10.5, 14, "#ffc23d", "11+") + "</div>" +
+    '<div class="lg"><span>yaxshi boshlanish</span><span>ko\'pchilik shu yerda</span><span>kamdan-kam</span></div>' +
+    "<p>Taxminiy mo'ljal, IQ o'lchovi emas. Natija yosh, charchoq va ekran kattaligiga qarab o'zgaradi.</p></div>";
+}
+
+function finish() {
+  if (st.state === "end") return;
+  stopAll(); st.state = "end";
+  var k = st.maxK, f = cfg.view === "tap" ? 0 : 1;
+  var stars = k >= 9 - f ? 3 : k >= 7 - f ? 2 : k >= 5 - f ? 1 : 0;
+  var key = bestKey(), best = lsGet(key, null), isNew = k > 0 && (!best || k > best.k);
+  if (isNew) lsSet(key, { k: k, at: Date.now() });
+  var name = "Diqqat: Sonlar qayerda", coins = false, acct = W.kaAccount;
+  try { if (stars >= 1 && acct && acct.addCoins) coins = acct.addCoins(stars, name); } catch (e) {}
+  try { if (acct && acct.sendResult) acct.sendResult(name, st.wins, st.rounds); } catch (e) {}
+  snd("end");
+  var s = ""; for (var i = 1; i <= 3; i++) s += '<span class="' + (i <= stars ? "" : "off") + '">⭐</span>';
+  var hist = '<div class="sq-hist" aria-label="Raundlar">' + st.hist.map(function (h) { return '<i class="' + (h.ok ? "" : "f") + '" title="' + h.k + " ta son — " + (h.ok ? "to'g'ri" : "xato") + '">' + (h.ok ? "✓" : "✗") + h.k + "</i>"; }).join("") + "</div>";
+  var loggedIn = false; try { loggedIn = !!(acct && acct.me && acct.me()); } catch (e) {}
+  el.ov.innerHTML = '<div class="km-card"><h3>' + (stars === 3 ? "Ajoyib xotira!" : stars === 2 ? "Barakalla!" : stars === 1 ? "Yaxshi urinish!" : "Mashq qilsak, o'sadi!") + "</h3>" +
+    '<div class="km-stars">' + s + '</div><div class="km-big">' + (k || 0) + " ta son</div>" +
+    "<p>Xatosiz eslab qolgan eng ko'p son · " + variantName() + "</p>" + scale(k) + hist +
+    '<p class="dq-rec">' + (isNew ? (best ? "🏆 Yangi shaxsiy rekord! Oldingisi: " + best.k : "🏆 Birinchi rekordingiz!") : best ? "🏆 Shaxsiy rekord: " + best.k + " ta son" : "") + "</p>" +
+    (coins ? "<p>🪙 +" + stars + " Bilimcoin</p>" : (stars && !loggedIn ? '<p style="font-size:13px">Bilimcoin olish uchun akkauntga kiring.</p>' : "")) +
+    '<div class="km-row" style="justify-content:center"><button class="km-btn pri" type="button" data-again>🔁 Yana o\'ynash</button><button class="km-btn" type="button" data-menu>⚙️ Sozlamalar</button></div></div>';
+  el.ov.hidden = false;
+  el.ov.querySelector("[data-again]").onclick = start;
+  el.ov.querySelector("[data-menu]").onclick = showStart;
+  if (!TOUCH) setTimeout(function () { try { el.ov.querySelector("[data-again]").focus({ preventScroll: true }); } catch (e) {} }, 30);
+}
+
+/* ---------- pauza ---------- */
+function pause() {
+  if (st.state !== "show" && st.state !== "recall" && st.state !== "wait") return;
+  stopAll(); var wasShow = st.state === "show" || st.state === "wait";
+  st.state = "pause";
+  Array.prototype.forEach.call(el.grid.querySelectorAll(".sq-t"), function (b) { if (!b.classList.contains("ok")) b.classList.add("hid"); });
+  el.ov.innerHTML = '<div class="km-card"><h3>⏸ Pauza</h3><p>' + (wasShow ? "Sonlar yashirildi." : "Boshqa oynaga o'tdingiz.") + " Raund yangi joylashuv bilan qaytadan boshlanadi — jon ketmaydi." + '</p><div class="km-row" style="justify-content:center"><button class="km-btn pri" type="button" data-res>▶ Davom etish</button><button class="km-btn" type="button" data-menu>⚙️ Sozlamalar</button></div></div>';
+  el.ov.hidden = false;
+  el.ov.querySelector("[data-res]").onclick = function () { el.ov.hidden = true; if (st.lives <= 0) finish(); else beginRound(); };
+  el.ov.querySelector("[data-menu]").onclick = showStart;
+}
+D.addEventListener("visibilitychange", function () { if (D.hidden) pause(); });
+$("stop").onclick = function () { if (st.state === "show" || st.state === "recall" || st.state === "wait" || st.state === "pause") { snd("tap"); if (st.maxK) finish(); else showStart(); } };
+// O'lcham o'zgarsa faqat kataklar kattaligi o'zgaradi; ustunlar soni keyingi raundda yangilanadi (joylashuv buzilmasin)
+var rz = 0;
+W.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(fitGrid, 80); });
+
+showStart();
+
+// Sinov uchun ilgak
+W.kaSonlar = {
+  state: function () { return st.state; },
+  nextCell: function () { return st.cells.indexOf(seqAt(st.pos)); },
+  wrongCell: function () { var w = seqAt(st.pos); for (var p = 0; p < st.cells.length; p++) if (st.cells[p] && st.cells[p] !== w) { var b = tileAt(p); if (b && !b.classList.contains("ok")) return p; } return -1; },
+  info: function () { return { k: st.k, lives: st.lives, maxK: st.maxK, pos: st.pos, hidden: !!st.hidden, cols: st.cols, rows: st.rows, rounds: st.rounds }; },
+  cfg: cfg
+};
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

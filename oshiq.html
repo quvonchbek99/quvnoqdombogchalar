@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Oshiq — ehtimollik va kombinatorika o'yini | Kuvonch Academy</title>
+<meta name="description" content="Bolalikdagi «Oshiq» o'yinining matematik varianti: oshiq tashlang, chastotalar jadvalini to'ldiring va ehtimollik savollarini yeching. 5 daraja: sanash, nisbiy chastota, ehtimol, ikki va uch oshiq, kutilgan son.">
+<link rel="canonical" href="https://kuvonch.uz/oshiq.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Oshiq — bolalikdagi o'yinning matematik varianti">
+<meta property="og:description" content="Olchi, tova, pukka, chikka! Oshiq tashlang, jadval tuzing va ehtimollikni o'yin orqali o'rganing.">
+<meta property="og:url" content="https://kuvonch.uz/oshiq.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<style>
+.oq-ctrl{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:10px 12px;border-top:1px solid var(--border);background:rgba(6,10,26,.45)}
+.oq-ctrl .km-btn{min-height:48px;flex:0 0 auto}
+.oq-note{flex:1 1 210px;min-width:0;font-size:12.5px;line-height:1.4;color:var(--dim)}
+.oq-note b{color:#cfd8ef}
+.oq-wait .km-opts,.oq-wait [data-h="ff"]{display:none}
+.oq-big{display:block;width:100%;min-height:58px;font-size:18px;margin-bottom:4px}
+.oq-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+</style>
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🇺🇿 Bolalikdagi o'yinlar · matematik variant</span>
+<h1>Oshiq <span>(ehtimollik)</span></h1>
+<p class="km-lead">Olchi, tova, pukka, chikka — oshiq qaysi tomoni bilan tushadi? Hovlida oshiq tashlang, natijalarni jadvalga yig'ing va tasodifning ham o'z qonuniyati borligini kashf eting.</p>
+<ul class="km-chips"><li>🎲 Ehtimollik</li><li>📊 Chastotalar jadvali</li><li>🔢 Kombinatorika</li><li>✖️ Ko'paytirish qoidasi</li></ul>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>📜 O'yin tarixi</h2>
+<p>Oshiq — qo'yning to'piq suyagi. Bu o'yin juda qadimiy: to'piq suyaklarini qadimgi yunonlar ham soqqa kabi tashlab o'ynashgan, shuning uchun ehtimollar tarixida oshiqni «birinchi soqqa» deb ham atashadi. Mahallada bolalar oshiqlarni chiziq bo'ylab bir qatorga terib qo'yishadi, so'ng navbat bilan og'ir <b>saqa</b> (ichiga qo'rg'oshin quyilgan katta oshiq) bilan otib, ularni qatordan urib chiqarishadi — urib chiqarilgan oshiq otganniki bo'ladi. Oshiqning to'rt tomoni bor: <b>olchi</b>, <b>tova</b>, <b>pukka</b> va <b>chikka</b>; navbatni ham ko'pincha oshiq qaysi tomoni bilan tushishiga qarab belgilashadi.</p>
+</section>
+<section>
+<h2>🎯 Matematik variant qoidalari</h2>
+<ol>
+<li>«🎲 Tashlash» tugmasini bosing yoki hovliga bosing (sichqoncha bilan o'ngga «sermasangiz», oshiqlar uzoqroq uchadi).</li>
+<li>Har bir tushgan oshiq chastotalar jadvaliga qo'shiladi. 1–2-darajada savol aynan sizning tashlashlaringiz haqida bo'ladi.</li>
+<li><b>p</b> — shu raunddagi <b>virtual</b> oshiqning ehtimollari (masalan, olchi 0,4 · tova 0,4 · pukka 0,1 · chikka 0,1). Bu sonlar o'yin uchun olingan, haqiqiy oshiqning ilmiy o'lchovi emas; har raundda oshiq «almashadi».</li>
+<li>Ketma-ket 3 ta to'g'ri javob — daraja oshadi; ikkita xato ketma-ket — pasayadi. Xato qilsangiz, yana bir urinish beriladi.</li>
+<li>🎁 Sirli quti chiqib qolsa — oching: ko'pincha yordam beradi, ba'zan ochko oladi!</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> natijalarni sanash va chastotalar jadvalini o'qish</li>
+<li><b>2-daraja:</b> nisbiy chastota — kasr, o'nli kasr va foizda</li>
+<li><b>3-daraja:</b> bitta hodisa ehtimoli, qarama-qarshi hodisa va «yoki»</li>
+<li><b>4-daraja:</b> ikki oshiq: 4 × 4 = 16 natija, ko'paytirish qoidasi</li>
+<li><b>5-daraja:</b> kutilgan son, uch oshiq (4³ = 64) va «kamida bittasi»</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html">🇺🇿 Boshqa bolalikdagi o'yinlar</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Bolalikdagi o'yinlar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Oshiq: ehtimollik va kombinatorika o'yini */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf, round = K.round, shuffle = K.shuffle;
+var D = document;
+var yEl = D.getElementById("year"); if (yEl) yEl.textContent = String(new Date().getFullYear());
+
+/* ---------- o'yin oshig'i: tomonlar va ehtimollar (o'ndan birlarda) ---------- */
+var SIDES = ["olchi", "tova", "pukka", "chikka"];
+var COL = { olchi: "#35f0c4", tova: "#ffc23d", pukka: "#ff5e8e", chikka: "#b493ff" };
+var PRESETS = [[4, 4, 1, 1], [3, 4, 2, 1], [4, 3, 1, 2], [5, 3, 1, 1], [3, 5, 1, 1], [4, 2, 2, 2], [2, 4, 3, 1]];
+var p10 = {}, presetI = 0;
+function setPreset(i) { presetI = i; SIDES.forEach(function (s, j) { p10[s] = PRESETS[i][j]; }); }
+setPreset(0);
+function pStr(s) { return nf(p10[s] / 10); }
+function r6(x) { return round(x, 6); }
+function roll() { var r = Math.random() * 10, acc = 0; for (var i = 0; i < 4; i++) { acc += p10[SIDES[i]]; if (r < acc) return SIDES[i]; } return SIDES[3]; }
+
+/* ---------- jadval: mantiqiy (savollar uchun) va ko'rinadigan (tushgan sari) ---------- */
+function zero() { return { olchi: 0, tova: 0, pukka: 0, chikka: 0 }; }
+var T = zero(), NT = 0, ST = zero(), SN = 0, DISP = zero(), maxD = 4;
+function cnt(arr, s) { var k = 0; for (var i = 0; i < arr.length; i++) if (arr[i] === s) k++; return k; }
+function plus(pend) { var t = {}; SIDES.forEach(function (s) { t[s] = T[s] + cnt(pend, s); }); return t; }
+function others(x) { return SIDES.filter(function (s) { return s !== x; }); }
+function sb(s) { return '<b style="color:' + COL[s] + '">«' + s + '»</b>'; }
+function line(hide) { return "<small>Bu raund oshig'i: " + SIDES.map(function (s) { return s + " " + (s === hide ? "?" : pStr(s)); }).join(" · ") + "</small>"; }
+function nonneg(a) { return a.filter(function (x) { return x != null && isFinite(x) && x >= 0; }); }
+function tableStr(t) { return SIDES.map(function (s) { return s + " " + t[s]; }).join(", "); }
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var r = a % b; a = b; b = r; } return a || 1; }
+
+// Kasr ko'rinishidagi variantlar: qiymati takrorlanmasin
+function fracOpts(k, n) {
+  var out = [k + "/" + n], vals = [k / n];
+  [[n - k, n], [k, n - k], [n, k], [k, n - 5], [k + 1, n], [k - 1, n], [k, n + 1], [k + 2, n]].forEach(function (p) {
+    if (out.length >= 4 || p[0] < 0 || p[1] <= 0) return;
+    if (p[1] === n - 5 && n - 5 < k) return;
+    var v = p[0] / p[1]; for (var i = 0; i < vals.length; i++) if (Math.abs(vals[i] - v) < 1e-9) return;
+    out.push(p[0] + "/" + p[1]); vals.push(v);
+  });
+  return out;
+}
+
+/* ---------- savollar ---------- */
+function genThrow(L) {
+  var k = L === 1 ? 3 : 5, pend = [], i;
+  for (i = 0; i < k; i++) pend.push(roll());
+  var t = plus(pend), n = NT + k, ty, X, Y, a, mis, steps, opts = null, unit = null, aText = null, okNote = null, hl;
+  var lead = "🎲 <b>" + k + " ta oshiq</b>ni tashlang, keyin jadvalga qarang.<br>";
+  if (L === 1) {
+    ty = ri(0, 6);
+    if (ty === 6) {
+      var m = ri(2, 5); X = pick(SIDES);
+      return { q: "<b>" + m + " ta</b> oshiq birga tashlanadi. Ular orasida " + sb(X) + "lar soni nechta bo'lishi mumkin? <b>Nechta har xil</b> javob bor?<small>«Birorta ham yo'q» (0 ta) ham bitta imkoniyat hisoblanadi.</small>",
+        a: m + 1, mistakes: [m, m + 2, m - 1 > 0 ? m - 1 : null, 2 * m !== m + 1 ? 2 * m : null, 4], steps: ["«" + X + "»lar soni 0 ta, 1 ta, … , " + m + " ta bo'lishi mumkin", "0 dan " + m + " gacha sonlar: " + m + " + 1 = " + (m + 1) + " ta imkoniyat"],
+        need: false, k: 3, hl: [X], meta: { t: "L1m", m: m } };
+    }
+    X = pick(SIDES); Y = pick(others(X));
+    if (ty === 4 && t[X] === t[Y]) ty = 0;
+    if (ty === 4 && t[X] < t[Y]) { var sw = X; X = Y; Y = sw; }
+    var mx = Math.max(t.olchi, t.tova, t.pukka, t.chikka), nMax = SIDES.filter(function (s) { return t[s] === mx; }).length;
+    if (ty === 5 && nMax > 1) ty = 0;
+    hl = [X];
+    if (ty === 0) { a = t[X]; mis = [t[X] + 1, t[X] - 1, n, cnt(pend, X), t[Y]]; steps = ["Jadvalda «" + X + "» qatoriga qaraymiz", "U yerda " + a + " yozilgan — demak, " + a + " marta"]; lead += sb(X) + " jadvalda jami necha marta tushgan?"; }
+    else if (ty === 1) { a = cnt(pend, X); mis = [k - a, t[X], a + 1, a - 1]; steps = ["Shu tashlashda tushganlar: " + pend.join(", "), "«" + X + "» — " + a + " ta"]; lead = "🎲 <b>" + k + " ta oshiq</b>ni tashlang.<br>Shu tashlashdagi " + k + " ta oshiqdan nechtasi " + sb(X) + " tushdi?"; }
+    else if (ty === 2) { a = n; mis = [n - k, n + 1, mx, n - 1]; steps = ["Jadvaldagi barcha sonlarni qo'shamiz", SIDES.map(function (s) { return t[s]; }).join(" + ") + " = " + n]; lead += "Hozirgacha <b>jami</b> nechta oshiq tashlandi?"; hl = []; }
+    else if (ty === 3) { a = t[X] + t[Y]; mis = [Math.abs(t[X] - t[Y]), t[X], n, a + 1]; steps = ["«" + X + "» — " + t[X] + " marta, «" + Y + "» — " + t[Y] + " marta", t[X] + " + " + t[Y] + " = " + a]; lead += sb(X) + " va " + sb(Y) + " birgalikda necha marta tushgan?"; hl = [X, Y]; }
+    else if (ty === 4) { a = t[X] - t[Y]; mis = [t[X] + t[Y], t[X], a + 1, a - 1]; steps = ["«" + X + "» — " + t[X] + " marta, «" + Y + "» — " + t[Y] + " marta", t[X] + " − " + t[Y] + " = " + a]; lead += sb(X) + " " + sb(Y) + "dan <b>nechtaga</b> ko'p tushgan?"; hl = [X, Y]; }
+    else {
+      X = SIDES.filter(function (s) { return t[s] === mx; })[0];
+      a = X; aText = "«" + X + "»"; opts = SIDES.slice(); hl = [];
+      steps = ["Jadval: " + tableStr(t), "Eng katta son — " + mx + ", bu «" + X + "»"]; lead += "Qaysi tomon <b>eng ko'p</b> tushgan?";
+      okNote = "Eng ko'p uchraydigan qiymat statistikada «moda» deyiladi.";
+    }
+    return { q: lead, a: a, mistakes: opts ? null : nonneg(mis), opts: opts, aText: aText, okNote: okNote, steps: steps, need: true, pend: pend, k: k, hl: hl, meta: { t: "L1." + ty, X: X, Y: Y, n: n, tab: t } };
+  }
+  // 2-daraja: nisbiy chastota (o'z tajribangiz)
+  var withK = SIDES.filter(function (s) { return t[s] > 0; });
+  X = pick(withK.length ? withK : SIDES); var kx = t[X], g = gcd(kx, n);
+  ty = ri(0, 3); hl = [X];
+  var base = ["Nisbiy chastota = «" + X + "» soni : jami tashlashlar soni", kx + " : " + n + " = " + kx + "/" + n + (g > 1 && kx ? " = " + kx / g + "/" + n / g : "")];
+  if (ty === 0) {
+    a = kx + "/" + n; opts = fracOpts(kx, n); steps = base;
+    lead += "Tajribangizda " + sb(X) + " ning <b>nisbiy chastotasi</b> (ulushi) qaysi kasrga teng?";
+  } else if (ty === 1) {
+    var ex = (100 * kx) % n === 0; a = Math.round(100 * kx / n); unit = "%";
+    mis = [kx, Math.round(100 * (n - kx) / n), n - kx > 0 ? Math.round(100 * kx / (n - kx)) : null, a + 10, a - 10];
+    steps = base.concat([kx + "/" + n + " × 100 % = " + nf(r6(100 * kx / n)) + " %" + (ex ? "" : " ≈ " + a + " %")]);
+    lead += sb(X) + " barcha tashlashlarning necha foizini tashkil qiladi?" + (ex ? "" : "<small>Butun foizgacha yaxlitlang.</small>");
+  } else if (ty === 2) {
+    a = round(kx / n, 2);
+    mis = [round((n - kx) / n, 2), round(kx / 100, 2), n - kx > 0 ? round(kx / (n - kx), 2) : null, round(kx / 10, 2)];
+    steps = base.concat([kx + " : " + n + " = " + nf(r6(kx / n)) + (Math.abs(r6(kx / n) - a) > 1e-9 ? " ≈ " + nf(a) : "")]);
+    lead += sb(X) + " ning nisbiy chastotasini <b>o'nli kasr</b> bilan yozing.<small>Yuzdan birlargacha (0,01 gacha) yaxlitlang.</small>";
+  } else {
+    var lhs = kx * 10, rhs = p10[X] * n;
+    a = lhs > rhs ? "kattaroq" : lhs < rhs ? "kichikroq" : "teng"; opts = ["kattaroq", "kichikroq", "teng"];
+    steps = base.concat(["O'nli kasrda: " + nf(round(kx / n, 3)) + (Math.abs(round(kx / n, 3) - kx / n) > 1e-9 ? "…" : ""), "Taqqoslaymiz: " + nf(round(kx / n, 3)) + " va " + pStr(X) + " → nisbiy chastota " + a]);
+    lead += "Bu raund oshig'ida " + sb(X) + " ehtimoli <b>" + pStr(X) + "</b>. Tajribangizdagi nisbiy chastota undan kattaroq, kichikroqmi yoki teng?";
+    okNote = "Tashlashlar ko'paygan sari nisbiy chastota odatda ehtimolga yaqinlashib boradi (katta sonlar qonuni).";
+  }
+  return { q: lead, a: a, opts: opts, mistakes: opts ? null : nonneg(mis), unit: unit, okNote: okNote, steps: steps, need: true, pend: pend, k: k, hl: hl, meta: { t: "L2." + ty, X: X, n: n, k: kx, tab: t } };
+}
+
+function gen(L) {
+  if (L <= 2) return genThrow(L);
+  var pr = shuffle(SIDES), X = pr[0], Y = pr[1], Z = pr[2], px = p10[X], py = p10[Y], pz = p10[Z];
+  var a, mis = [], steps, opts = null, unit = null, aText = null, okNote = null, hide = null, txt, ty, meta;
+  var PX = px / 10, PY = py / 10;
+  if (L === 3) {
+    ty = ri(0, 5);
+    if (ty === 0) { a = r6(1 - PX); mis = [PX, r6(1 - PX - PY), r6((10 - px) / 100), 0.75]; steps = ["«" + X + "» tushmasligi — qarama-qarshi hodisa", "P(«" + X + "» emas) = 1 − P(«" + X + "») = 1 − " + nf(PX) + " = " + nf(a)]; txt = "Bitta oshiq tashlanadi. Uning " + sb(X) + " bo'lib <b>tushmaslik</b> ehtimoli qancha?"; }
+    else if (ty === 1) { a = r6(PX + PY); mis = [r6(PX * PY), r6(Math.abs(PX - PY)), PX, r6(1 - PX - PY)]; steps = ["Bitta oshiq bir vaqtda ham «" + X + "», ham «" + Y + "» bo'lib tusha olmaydi", "Shuning uchun ehtimollar qo'shiladi: " + nf(PX) + " + " + nf(PY) + " = " + nf(a)]; txt = "Bitta oshiq tashlanadi. " + sb(X) + " <b>yoki</b> " + sb(Y) + " tushish ehtimoli qancha?"; }
+    else if (ty === 2) { hide = X; a = PX; var rest = others(X); mis = [r6(1 - PX), 0.25, r6(PX / 10), r6(PX + 0.1)]; steps = ["Barcha tomonlar ehtimollarining yig'indisi 1 ga teng", "1 − (" + rest.map(pStr).join(" + ") + ") = 1 − " + nf(r6(1 - PX)) + " = " + nf(a)]; txt = "Oshiqning uch tomoni ehtimoli ma'lum: " + rest.map(function (s) { return s + " " + pStr(s); }).join(", ") + ". " + sb(X) + " ehtimoli qancha?"; }
+    else if (ty === 3) { a = r6(1 - PX - PY); mis = [r6(PX + PY), r6(1 - PX), r6((1 - PX) * (1 - PY)), r6(PX * PY)]; steps = ["«" + X + "» yoki «" + Y + "» ehtimoli: " + nf(PX) + " + " + nf(PY) + " = " + nf(r6(PX + PY)), "Qarama-qarshi hodisa: 1 − " + nf(r6(PX + PY)) + " = " + nf(a)]; txt = "Bitta oshiq tashlanadi. <b>Na</b> " + sb(X) + ", <b>na</b> " + sb(Y) + " tushish ehtimoli qancha?"; }
+    else if (ty === 4) { a = (px + py) * 10; unit = "%"; mis = [px + py, px * py, (10 - px - py) * 10, a + 10]; steps = ["P = " + nf(PX) + " + " + nf(PY) + " = " + nf(r6(PX + PY)), nf(r6(PX + PY)) + " × 100 % = " + a + " %"]; txt = sb(X) + " yoki " + sb(Y) + " tushish ehtimolini <b>foizda</b> ifodalang."; }
+    else {
+      var A = "«" + X + "»", B = "«" + Y + "» yoki «" + Z + "»", Eq = "Ikkalasi teng"; opts = [A, B, Eq];
+      a = px > py + pz ? A : px < py + pz ? B : Eq;
+      steps = ["P(" + A + ") = " + nf(PX), "P(" + B + ") = " + nf(PY) + " + " + pStr(Z) + " = " + nf(r6(PY + pz / 10)), "Taqqoslaymiz: " + (a === Eq ? "ikkalasi teng" : (a === A ? A : B) + " ehtimoli kattaroq")];
+      txt = "Bitta oshiq tashlanadi. Qaysi hodisaning ehtimoli <b>kattaroq</b>: " + sb(X) + " tushishimi yoki " + sb(Y) + " yoki " + sb(Z) + " tushishimi?";
+    }
+    meta = { t: "L3." + ty, X: X, Y: Y, Z: Z };
+  } else if (L === 4) {
+    ty = ri(0, 7);
+    var head = "<b>Ikkita</b> oshiq birga tashlanadi (ular bir-biriga bog'liq emas). ";
+    if (ty === 0) { a = 16; mis = [8, 4, 10, 12]; steps = ["1-oshiq: 4 ta natija, 2-oshiq: 4 ta natija", "Ko'paytirish qoidasi: 4 × 4 = 16"]; txt = head + "Nechta har xil natija bo'lishi mumkin? <small>(1-oshiq tomoni; 2-oshiq tomoni) juftliklari sanaladi.</small>"; }
+    else if (ty === 1) { a = r6(PX * PX); mis = [r6(2 * PX), PX, r6(PX / 2), r6(PX * PX * 2)]; steps = ["Ikkala oshiq ham «" + X + "» — ikki hodisa birga ro'y beradi", "Ehtimollar ko'paytiriladi: " + nf(PX) + " × " + nf(PX) + " = " + nf(a)]; txt = head + "<b>Ikkalasi ham</b> " + sb(X) + " tushish ehtimoli qancha?"; }
+    else if (ty === 2) { a = r6(PX * PY); mis = [r6(PX + PY), r6(2 * PX * PY), PX, r6(Math.abs(PX - PY))]; steps = ["1-oshiq «" + X + "»: " + nf(PX) + ", 2-oshiq «" + Y + "»: " + nf(PY), "Ko'paytiramiz: " + nf(PX) + " × " + nf(PY) + " = " + nf(a)]; txt = head + "<b>1-oshiq</b> " + sb(X) + ", <b>2-oshiq</b> " + sb(Y) + " tushish ehtimoli qancha?"; }
+    else if (ty === 3) { var sq = 0, mq = 0; SIDES.forEach(function (s) { sq += p10[s] * p10[s]; mq = Math.max(mq, p10[s] * p10[s]); }); a = r6(sq / 100); mis = [0.25, r6(mq / 100), r6(2 * sq / 100) <= 1 ? r6(2 * sq / 100) : 0.5, 0.5]; steps = ["Ikkalasi bir xil: olchi-olchi, tova-tova, pukka-pukka yoki chikka-chikka", SIDES.map(function (s) { return pStr(s) + "²"; }).join(" + ") + " = " + nf(a)]; txt = head + "Ikkala oshiq <b>bir xil</b> tomon bilan tushish ehtimoli qancha?" + line(); }
+    else if (ty === 4) { a = r6(2 * PX * (1 - PX)); mis = [r6(PX * (1 - PX)), r6(2 * PX), r6(PX * PX), r6(1 - PX * PX)]; steps = ["1-si «" + X + "», 2-si emas: " + nf(PX) + " × " + nf(r6(1 - PX)) + " = " + nf(r6(PX * (1 - PX))), "Yoki aksincha — yana shuncha", nf(r6(PX * (1 - PX))) + " + " + nf(r6(PX * (1 - PX))) + " = " + nf(a)]; txt = head + "<b>Aynan bittasi</b> " + sb(X) + " tushish ehtimoli qancha?"; }
+    else if (ty === 5) { a = 7; mis = [8, 9, 6, 4]; steps = ["Jami 4 × 4 = 16 natija", "Ikkalasida ham «" + X + "» yo'q: 3 × 3 = 9 natija", "16 − 9 = 7"]; txt = head + "16 ta natijadan nechtasida <b>kamida bitta</b> " + sb(X) + " bor?"; }
+    else if (ty === 6) { a = 12; mis = [16, 6, 8, 4]; steps = ["Jami 16 natija", "Ikkalasi bir xil bo'lgan natijalar 4 ta (olchi-olchi, tova-tova, …)", "16 − 4 = 12"]; txt = head + "16 ta natijadan nechtasida oshiqlar <b>har xil</b> tomon bilan tushgan?"; }
+    else { a = r6((1 - PX) * (1 - PX)); mis = [r6(1 - 2 * PX), r6(1 - PX), r6(1 - PX * PX), r6(PX * PX)]; steps = ["Bitta oshiq «" + X + "» bo'lmasligi: 1 − " + nf(PX) + " = " + nf(r6(1 - PX)), "Ikkalasi ham: " + nf(r6(1 - PX)) + " × " + nf(r6(1 - PX)) + " = " + nf(a)]; txt = head + "<b>Birortasi ham</b> " + sb(X) + " tushmaslik ehtimoli qancha?"; }
+    meta = { t: "L4." + ty, X: X, Y: Y };
+  } else {
+    ty = ri(0, 5);
+    if (ty === 0) { var N = pick([20, 30, 40, 50, 60, 80, 100, 150, 200, 250, 300, 400, 500]); a = N * px / 10; mis = [N * (10 - px) / 10, N % 4 ? null : N / 4, (N * px) % 100 ? null : N * px / 100, a + N / 10]; steps = ["Kutilgan son = tashlashlar soni × ehtimol", N + " × " + nf(PX) + " = " + a]; txt = "Oshiq <b>" + N + " marta</b> tashlanadi. " + sb(X) + " taxminan necha marta tushishi kutiladi?"; meta = { t: "L5.0", X: X, N: N }; }
+    else if (ty === 1) { a = 64; mis = [12, 16, 27, 48]; steps = ["Har bir oshiqda 4 ta natija", "4 × 4 × 4 = 4³ = 64"]; txt = "<b>Uchta</b> oshiq birga tashlanadi. Nechta har xil natija bo'lishi mumkin? <small>(1-, 2-, 3-oshiq tomonlari) uchliklari sanaladi.</small>"; meta = { t: "L5.1" }; }
+    else if (ty === 2) { a = r6(PX * PX * PX); mis = [r6(3 * PX), r6(PX * PX), PX, r6(PX / 3)]; steps = ["Uchala hodisa birga ro'y beradi — ehtimollar ko'paytiriladi", nf(PX) + " × " + nf(PX) + " × " + nf(PX) + " = " + nf(a)]; txt = "<b>Uchta</b> oshiq tashlanadi. <b>Uchalasi ham</b> " + sb(X) + " tushish ehtimoli qancha?"; meta = { t: "L5.2", X: X }; }
+    else if (ty === 3) { var m = pick([2, 3]), qn = r6(1 - PX), qm = r6(Math.pow(qn, m)); a = r6(1 - qm); mis = [r6(m * PX), r6(Math.pow(PX, m)), qm, r6(1 - qn)]; steps = ["Qarama-qarshi hodisa: birorta ham «" + X + "» tushmaydi", "Uning ehtimoli: " + nf(qn) + (m === 2 ? "²" : "³") + " = " + nf(qm), "Kamida bittasi: 1 − " + nf(qm) + " = " + nf(a)]; txt = "<b>" + m + " ta</b> oshiq tashlanadi. <b>Kamida bittasi</b> " + sb(X) + " tushish ehtimoli qancha?"; meta = { t: "L5.3", X: X, m: m }; }
+    else if (ty === 4) { var N2 = pick([100, 200, 300, 400, 500]); a = N2 * px * px / 100; mis = [N2 * 2 * px / 10, N2 * px / 10, N2 % 16 ? null : N2 / 16, a * 2]; steps = ["Ikkalasi ham «" + X + "»: " + nf(PX) + " × " + nf(PX) + " = " + nf(r6(PX * PX)), "Kutilgan son: " + N2 + " × " + nf(r6(PX * PX)) + " = " + a]; txt = "Ikkita oshiq birga <b>" + N2 + " marta</b> tashlanadi. Necha marta <b>ikkalasi ham</b> " + sb(X) + " tushishi kutiladi?"; meta = { t: "L5.4", X: X, N: N2 }; }
+    else { a = 37; mis = [27, 48, 16, 36]; steps = ["Jami: 4³ = 64 natija", "Birortasida ham «" + X + "» yo'q: 3³ = 27 natija", "64 − 27 = 37"]; txt = "<b>Uchta</b> oshiq tashlanadi. 64 ta natijadan nechtasida <b>kamida bitta</b> " + sb(X) + " bor?"; meta = { t: "L5.5", X: X }; }
+  }
+  var noLine = (L === 4 && (ty === 0 || ty === 3 || ty === 5 || ty === 6)) || (L === 5 && (ty === 1 || ty === 5));
+  if (!noLine) txt += line(hide);
+  return { q: txt, a: a, opts: opts, mistakes: opts ? null : nonneg(mis), unit: unit, aText: aText, okNote: okNote, steps: steps, need: false, k: L - 2, hl: hide ? [] : [X], hideP: hide, meta: meta };
+}
+
+/* ---------- sahna: hovli, tut daraxti, oshiqlar, chastotalar jadvali ---------- */
+var CUR = null, OS = [], sparks = [], throwId = 0, armT = 0, pulse = 0, LY = {};
+function layout(w, h) {
+  var cw = w >= 600 ? 470 : Math.round(w - 20 - Math.min(110, w * 0.27));
+  LY.ch = { x: 10, y: 10, w: cw, h: 34 + 4 * 23 + 8 };
+  LY.yTop = LY.ch.y + LY.ch.h + 14; LY.yBot = h - 12;
+  LY.kx = Math.max(32, Math.min(64, w * 0.09)); LY.ky = LY.yBot - 4;
+  LY.s = Math.max(0.85, Math.min(1.15, w / 380));
+}
+function hand() { return { x: LY.kx + 14 * LY.s, y: LY.ky - 44 * LY.s }; }
+function toPx(nx, ny) { return { x: nx * S.w, y: LY.yTop + ny * (LY.yBot - LY.yTop) }; }
+
+function bone(c, a, b) {
+  c.beginPath(); c.moveTo(-a, 0);
+  c.bezierCurveTo(-a, -b * 1.15, -a * 0.42, -b * 1.05, 0, -b * 0.7);
+  c.bezierCurveTo(a * 0.42, -b * 1.05, a, -b * 1.15, a, 0);
+  c.bezierCurveTo(a, b * 1.15, a * 0.42, b * 1.05, 0, b * 0.7);
+  c.bezierCurveTo(-a * 0.42, b * 1.05, -a, b * 1.15, -a, 0); c.closePath();
+}
+function drawOshiq(c, x, y, s, rot, face, alpha, saqa) {
+  c.save(); c.translate(x, y); c.rotate(rot); c.globalAlpha = alpha == null ? 1 : alpha;
+  var narrow = face === "pukka" || face === "chikka", a = 13 * s, b = (narrow ? 6.4 : 9) * s;
+  var g = c.createLinearGradient(0, -b, 0, b);
+  g.addColorStop(0, saqa ? "#e8836b" : "#fbf1dc"); g.addColorStop(1, saqa ? "#9a3424" : "#c7a87a");
+  bone(c, a, b); c.fillStyle = g; c.fill(); c.lineWidth = 1.4; c.strokeStyle = saqa ? "#5a1c12" : "#7a5c3a"; c.stroke();
+  c.lineWidth = 1.3 * s; c.lineCap = "round";
+  if (face === "olchi") {
+    c.fillStyle = "rgba(92,60,30,.55)"; c.beginPath(); c.ellipse(0, 0, a * 0.5, b * 0.4, 0, 0, 6.283); c.fill();
+    c.strokeStyle = "rgba(255,255,255,.55)"; c.beginPath(); c.ellipse(0, b * 0.1, a * 0.48, b * 0.36, 0, 0.3, 2.8); c.stroke();
+  } else if (face === "tova") {
+    c.strokeStyle = "rgba(122,90,52,.75)"; c.beginPath(); c.moveTo(-a * 0.62, b * 0.15); c.quadraticCurveTo(0, -b * 0.55, a * 0.62, b * 0.15); c.stroke();
+    c.fillStyle = "rgba(255,255,255,.6)"; c.beginPath(); c.ellipse(-a * 0.22, -b * 0.38, a * 0.22, b * 0.16, -0.3, 0, 6.283); c.fill();
+  } else if (face === "pukka") {
+    c.strokeStyle = "rgba(100,68,38,.85)"; c.beginPath(); c.moveTo(-a * 0.62, b * 0.25); c.bezierCurveTo(-a * 0.2, -b * 0.95, a * 0.2, b * 0.95, a * 0.62, -b * 0.25); c.stroke();
+  } else {
+    c.fillStyle = "rgba(100,68,38,.65)"; c.beginPath(); c.arc(a * 0.18, 0, b * 0.34, 0, 6.283); c.fill();
+    c.strokeStyle = "rgba(100,68,38,.5)"; c.beginPath(); c.moveTo(-a * 0.62, 0); c.lineTo(-a * 0.12, 0); c.stroke();
+  }
+  c.restore();
+}
+function atlasVest(c, s) {
+  c.save(); c.beginPath(); c.moveTo(-10 * s, -38 * s); c.lineTo(-3 * s, -38 * s); c.lineTo(-2 * s, -16 * s); c.lineTo(-10 * s, -16 * s); c.closePath();
+  c.moveTo(10 * s, -38 * s); c.lineTo(3 * s, -38 * s); c.lineTo(2 * s, -16 * s); c.lineTo(10 * s, -16 * s); c.closePath(); c.clip();
+  var cols = ["#d6336c", "#ffc23d", "#2f9be0", "#2fbf71", "#7b3fd1"];
+  for (var i = -6; i < 6; i++) { c.fillStyle = cols[(i + 10) % 5]; c.beginPath(); var x = i * 3.4 * s; c.moveTo(x, -40 * s); c.bezierCurveTo(x + 3 * s, -32 * s, x - 3 * s, -24 * s, x, -14 * s); c.lineTo(x + 3.4 * s, -14 * s); c.bezierCurveTo(x + 0.4 * s, -24 * s, x + 6.4 * s, -32 * s, x + 3.4 * s, -40 * s); c.closePath(); c.fill(); }
+  c.restore();
+}
+function doppi(c, s, y) {
+  c.fillStyle = "#14161f"; c.beginPath(); c.moveTo(-9.5 * s, y); c.lineTo(-8 * s, y - 9 * s); c.lineTo(8 * s, y - 9 * s); c.lineTo(9.5 * s, y); c.closePath(); c.fill();
+  c.fillStyle = "#f4f1e8";
+  [-4.2, 4.2].forEach(function (dx) { c.beginPath(); c.moveTo(dx * s, y - 1.5 * s); c.quadraticCurveTo((dx - 2.6) * s, y - 5 * s, (dx + 0.6) * s, y - 7.5 * s); c.quadraticCurveTo((dx + 1.6) * s, y - 4 * s, dx * s, y - 1.5 * s); c.fill(); });
+}
+function drawKid(c, x, y, s, arm, t) {
+  c.save(); c.translate(x, y + Math.sin(t * 2.4) * 0.8);
+  c.fillStyle = "rgba(0,0,0,.3)"; c.beginPath(); c.ellipse(0, 3, 16 * s, 4 * s, 0, 0, 6.283); c.fill();
+  c.strokeStyle = "#2b3a6b"; c.lineWidth = 5 * s; c.lineCap = "round";
+  c.beginPath(); c.moveTo(-4 * s, -16 * s); c.lineTo(-7 * s, -2 * s); c.moveTo(4 * s, -16 * s); c.lineTo(8 * s, -2 * s); c.stroke();
+  c.fillStyle = "#1b1b1f"; c.beginPath(); c.ellipse(-8 * s, 0, 4.5 * s, 2.3 * s, 0, 0, 6.283); c.fill(); c.beginPath(); c.ellipse(9 * s, 0, 4.5 * s, 2.3 * s, 0, 0, 6.283); c.fill();
+  c.fillStyle = "#f4f1e8"; K.rr(c, -10 * s, -38 * s, 20 * s, 24 * s, 6 * s); c.fill();
+  atlasVest(c, s);
+  c.strokeStyle = "#f2c9a0"; c.lineWidth = 3.6 * s;
+  c.beginPath(); c.moveTo(-8 * s, -33 * s); c.lineTo(-13 * s, -21 * s); c.stroke();
+  var an = 1.9 - arm * 2.5, hx = 8 * s + Math.cos(an) * 15 * s, hy = -33 * s + Math.sin(an) * 15 * s;
+  c.beginPath(); c.moveTo(8 * s, -33 * s); c.lineTo(hx, hy); c.stroke();
+  c.fillStyle = "#f2c9a0"; c.beginPath(); c.arc(0, -46 * s, 9 * s, 0, 6.283); c.fill();
+  c.fillStyle = "#2a1a10"; c.beginPath(); c.arc(-8.6 * s, -46 * s, 2.2 * s, 0, 6.283); c.fill(); c.beginPath(); c.arc(8.6 * s, -46 * s, 2.2 * s, 0, 6.283); c.fill();
+  doppi(c, s, -49 * s);
+  c.fillStyle = "#1a1a1a"; c.beginPath(); c.arc(-2 * s, -45 * s, 1.2 * s, 0, 6.283); c.fill(); c.beginPath(); c.arc(5 * s, -45 * s, 1.2 * s, 0, 6.283); c.fill();
+  c.strokeStyle = "#9b5a3c"; c.lineWidth = 1.2 * s; c.beginPath(); c.arc(1.5 * s, -42 * s, 3 * s, 0.3, 2.6); c.stroke();
+  c.restore();
+}
+function drawTree(c, x, y, s, t) {
+  c.fillStyle = "#5b3b22"; c.beginPath(); c.moveTo(x - 7 * s, y); c.quadraticCurveTo(x - 3 * s, y - 40 * s, x - 9 * s, y - 70 * s); c.lineTo(x + 3 * s, y - 72 * s); c.quadraticCurveTo(x + 4 * s, y - 40 * s, x + 8 * s, y); c.closePath(); c.fill();
+  var sw = Math.sin(t * 0.8) * 2 * s, blobs = [[-30, -82, 30], [6, -100, 34], [36, -78, 28], [-6, -70, 26], [22, -62, 22], [-40, -60, 20]];
+  blobs.forEach(function (b, i) { c.fillStyle = i % 2 ? "#2e6a33" : "#3b8240"; c.beginPath(); c.arc(x + b[0] * s + sw, y + b[1] * s, b[2] * s, 0, 6.283); c.fill(); });
+  c.fillStyle = "rgba(255,255,255,.08)"; c.beginPath(); c.arc(x - 4 * s + sw, y - 108 * s, 18 * s, 0, 6.283); c.fill();
+  for (var i = 0; i < 22; i++) { var ax = x + ((i * 37) % 90 - 45) * s + sw, ay = y - (55 + (i * 23) % 60) * s; c.fillStyle = i % 3 ? "#3a1240" : "#f1e9f5"; c.beginPath(); c.arc(ax, ay, 2.1 * s, 0, 6.283); c.fill(); }
+}
+function burst(x, y, col, n) { for (var i = 0; i < (n || 22); i++) sparks.push({ x: x, y: y, vx: (Math.random() - 0.5) * 280, vy: -Math.random() * 280, l: 0.6 + Math.random() * 0.5, c: col }); }
+
+var S = K.stage({
+  label: "Hovli: oshiqlar va chastotalar jadvali. Oshiq tashlash uchun bosing yoki «Tashlash» tugmasidan foydalaning.",
+  ratio: 0.95, minH: 380, maxH: 480,
+  onResize: function (S) { layout(S.w, S.h); },
+  draw: function (c, w, h, dt, t) {
+    if (!LY.ch) layout(w, h);
+    var i, j, s = LY.s;
+    // paxsa devor (orqa fon)
+    c.fillStyle = "#8e6a47"; c.fillRect(0, 0, w, LY.yTop);
+    c.strokeStyle = "rgba(60,38,20,.35)"; c.lineWidth = 1;
+    for (j = 0; j * 16 < LY.yTop; j++) { c.beginPath(); c.moveTo(0, j * 16 + 0.5); c.lineTo(w, j * 16 + 0.5); c.stroke(); for (i = (j % 2) * 22; i < w; i += 44) { c.beginPath(); c.moveTo(i + 0.5, j * 16); c.lineTo(i + 0.5, j * 16 + 16); c.stroke(); } }
+    c.fillStyle = "rgba(255,230,180,.08)"; for (i = 0; i < 60; i++) c.fillRect((i * 71.3) % w, (i * 29.7) % LY.yTop, 6, 1);
+    // hovli tuprog'i
+    var g = c.createLinearGradient(0, LY.yTop, 0, h); g.addColorStop(0, "#7a5636"); g.addColorStop(1, "#553923"); c.fillStyle = g; c.fillRect(0, LY.yTop, w, h - LY.yTop);
+    c.fillStyle = "rgba(0,0,0,.25)"; c.fillRect(0, LY.yTop, w, 5);
+    for (i = 0; i < 70; i++) { var px = (i * 97.13) % w, py = LY.yTop + 8 + (i * 53.71) % (h - LY.yTop - 10); c.fillStyle = i % 3 ? "rgba(255,240,210,.10)" : "rgba(30,18,8,.25)"; c.beginPath(); c.ellipse(px, py, 2 + (i % 3), 1.4, 0, 0, 6.283); c.fill(); }
+    // tut daraxti soyasi va daraxt (o'ng tomonda)
+    c.fillStyle = "rgba(20,30,10,.22)"; c.beginPath(); c.ellipse(w - 70, LY.yTop + 40, 90, 34, 0, 0, 6.283); c.fill();
+    var ts = w >= 600 ? Math.min(1.25, w / 560) : Math.max(0.62, Math.min(0.85, w / 470));
+    drawTree(c, w >= 600 ? w - 90 : w - (w - LY.ch.w - 20) / 2 - 6, LY.yTop + 22, ts, t);
+    // an'anaviy «kon»: chiziq va terilgan oshiqlar
+    var lx0 = Math.max(LY.kx + 90, w * 0.42), lx1 = w - (w >= 600 ? 170 : 96), ly = LY.yTop + 16;
+    if (lx1 - lx0 > 60) {
+      c.strokeStyle = "rgba(255,240,210,.35)"; c.lineWidth = 2; c.setLineDash([6, 4]); c.beginPath(); c.moveTo(lx0, ly + 6); c.lineTo(lx1, ly + 6); c.stroke(); c.setLineDash([]);
+      for (i = 0; i < 5; i++) drawOshiq(c, lx0 + 14 + i * ((lx1 - lx0 - 28) / 4), ly, 0.55, Math.PI / 2, "pukka", 0.9);
+    }
+    // saqa (bolaning oyog'i yonida)
+    drawOshiq(c, LY.kx + 26 * s, LY.ky - 2, 0.75, 0.35, "tova", 1, true);
+    // oshiqlar: soyalar, keyin o'zlari
+    var hp = hand();
+    for (i = OS.length - 1; i >= 0; i--) { var o = OS[i]; if (o.fade) { o.alpha -= dt * 1.6; if (o.alpha <= 0) { OS.splice(i, 1); continue; } } }
+    OS.forEach(function (o) {
+      var e = toPx(o.tx, o.ty), x, y, z = 0;
+      if (o.st === "fly") {
+        o.t += dt; var u = Math.min(1, o.t / o.T);
+        x = hp.x + (e.x - hp.x) * u; y = hp.y + 40 * s + (e.y - hp.y - 40 * s) * u; z = 40 * s * (1 - u) + o.H * 4 * u * (1 - u);
+        o.rot += o.vr * dt; o.face = SIDES[Math.floor(o.t * 11 + o.i) % 4];
+        if (u >= 1) { o.st = "bounce"; o.t = 0; K.sfx.hop(); }
+      } else if (o.st === "bounce") {
+        o.t += dt; var b = Math.min(1, o.t / 0.28);
+        x = e.x + o.slide * b; y = e.y; z = 9 * Math.sin(Math.PI * b); o.rot += o.vr * dt * 0.4; o.face = b < 0.5 ? SIDES[(o.i + 1) % 4] : o.side;
+        if (b >= 1) { o.st = "rest"; o.face = o.side; settle(o); }
+      } else { x = e.x + o.slide; y = e.y; }
+      o.x = x; o.y = y;
+      c.fillStyle = "rgba(0,0,0," + (0.32 * o.alpha) + ")"; c.beginPath(); c.ellipse(x, y + 5, 13 * o.sc * Math.max(0.5, 1 - z / 160), 4.5 * o.sc, 0, 0, 6.283); c.fill();
+      drawOshiq(c, x, y - z, o.sc, o.rot, o.face, o.alpha);
+    });
+    OS.forEach(function (o) {
+      if (o.st !== "rest" || o.fade) return;
+      var lbl = o.side, tw = lbl.length * 6.6 + 14, bx = o.x - tw / 2, by = o.y - 34 * o.sc;
+      c.globalAlpha = o.alpha; c.fillStyle = "rgba(6,10,26,.82)"; K.rr(c, bx, by - 10, tw, 19, 9); c.fill();
+      c.strokeStyle = COL[o.side]; c.lineWidth = 1.5; K.rr(c, bx, by - 10, tw, 19, 9); c.stroke();
+      K.txt(c, lbl, o.x, by, COL[o.side], 11.5, "center", 800); c.globalAlpha = 1;
+    });
+    // bola
+    if (armT > 0) armT = Math.max(0, armT - dt * 1.8);
+    drawKid(c, LY.kx, LY.ky, s, armT > 0.5 ? (1 - armT) * 2 : armT * 2, t);
+    // ko'rsatma
+    if (CUR && CUR.need && !CUR.thrown && G.state === "play") {
+      pulse += dt; var al = 0.6 + 0.4 * Math.sin(pulse * 4), cx = (LY.kx + w) / 2, cy = (LY.yTop + LY.yBot) / 2;
+      c.globalAlpha = al; c.fillStyle = "rgba(6,10,26,.75)"; K.rr(c, cx - 118, cy - 17, 236, 34, 17); c.fill();
+      K.txt(c, "👆 Hovliga bosing — tashlang!", cx, cy, "#ffc23d", 14.5, "center", 800); c.globalAlpha = 1;
+    }
+    // chastotalar jadvali
+    drawChart(c, dt);
+    // uchqunlar
+    for (j = sparks.length - 1; j >= 0; j--) { var p = sparks[j]; p.l -= dt; if (p.l <= 0) { sparks.splice(j, 1); continue; } p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 320 * dt; c.globalAlpha = Math.min(1, p.l * 2); c.fillStyle = p.c; c.fillRect(p.x, p.y, 4, 4); }
+    c.globalAlpha = 1;
+  }
+});
+S.cv.style.cursor = "pointer";
+S.cv.style.touchAction = "pan-y";
+
+function drawChart(c, dt) {
+  var b = LY.ch, x = b.x, y = b.y, cw = b.w, rowH = 23, i;
+  c.fillStyle = "rgba(8,12,30,.86)"; K.rr(c, x, y, cw, b.h, 14); c.fill();
+  c.strokeStyle = "rgba(255,255,255,.12)"; c.lineWidth = 1; K.rr(c, x + 0.5, y + 0.5, cw - 1, b.h - 1, 14); c.stroke();
+  K.txt(c, "📊 Chastotalar jadvali", x + 12, y + 17, "#f3f5ff", 13, "left", 800);
+  K.txt(c, "jami: " + SN, x + cw - 12, y + 17, "#ffc23d", 13, "right", 800);
+  var mx = 4; SIDES.forEach(function (s) { DISP[s] += (ST[s] - DISP[s]) * Math.min(1, dt * 8); mx = Math.max(mx, ST[s]); });
+  maxD += (mx - maxD) * Math.min(1, dt * 6);
+  var bx = x + 116, bw = Math.max(40, cw - 116 - 36);
+  for (i = 0; i < 4; i++) {
+    var s = SIDES[i], ry = y + 32 + i * rowH, my = ry + rowH / 2, hl = CUR && CUR.hl && CUR.hl.indexOf(s) >= 0 && G.state !== "idle";
+    if (hl) { c.fillStyle = "rgba(255,255,255,.07)"; K.rr(c, x + 4, ry + 1, cw - 8, rowH - 2, 8); c.fill(); }
+    c.fillStyle = COL[s]; c.beginPath(); c.arc(x + 16, my, 4.5, 0, 6.283); c.fill();
+    K.txt(c, s, x + 26, my, "#f3f5ff", 13, "left", 700);
+    K.txt(c, "p=" + (CUR && CUR.hideP === s ? "?" : pStr(s)), x + 76, my, "#93a3cc", 11.5, "left", 700);
+    c.fillStyle = "rgba(255,255,255,.07)"; K.rr(c, bx, ry + 5, bw, rowH - 10, 6); c.fill();
+    var bl = bw * DISP[s] / Math.max(1, maxD);
+    if (bl > 1) { c.fillStyle = COL[s]; K.rr(c, bx, ry + 5, bl, rowH - 10, 6); c.fill(); }
+    K.txt(c, String(ST[s]), x + cw - 12, my, "#f3f5ff", 14, "right", 800);
+  }
+}
+
+/* ---------- tashlash ---------- */
+// Yangi savolda sahna ekrandan butunlay chiqib ketgan bo'lsa — uni qaytadan ko'rsatamiz
+function ensureVisible() {
+  try { var r = S.cv.getBoundingClientRect(), vh = window.innerHeight || 600; if (r.top < -r.height * 0.5 || r.top > vh - 60) window.scrollBy(0, r.top - 64); } catch (e) {}
+}
+
+var live = null, btn = null, note = null;
+function flying() { for (var i = 0; i < OS.length; i++) if (!OS[i].fade && OS[i].st !== "rest") return true; return false; }
+function canThrow() { return G.state === "play" && !flying() && !(CUR && CUR.need && CUR.thrown); }
+function freeK() { return CUR && CUR.k ? CUR.k : 3; }
+function doThrow(power) {
+  if (!canThrow()) {
+    if (G.state === "play" && CUR && CUR.need && CUR.thrown && !flying()) K.toast("Avval savolga javob bering 🙂");
+    return;
+  }
+  var sides, i;
+  if (CUR && CUR.need && !CUR.thrown) {
+    sides = CUR.pend.slice(); CUR.thrown = true;
+    var bb = G.el.ans.querySelector(".oq-big"); if (bb) { bb.disabled = true; bb.textContent = "Oshiqlar uchmoqda…"; }
+  }
+  else { sides = []; for (i = 0; i < freeK(); i++) sides.push(roll()); }
+  sides.forEach(function (s) { T[s]++; }); NT += sides.length;
+  throwId++;
+  OS.forEach(function (o) { o.fade = true; });
+  var pw = Math.max(0.55, Math.min(1.25, power || 1)), placed = [], minX = (LY.kx + 80) / S.w, maxX = Math.min(S.w - 30, LY.kx + 80 + (S.w - LY.kx - 110) * pw) / S.w;
+  sides.forEach(function (sd, k) {
+    var tx = 0, ty = 0, tries = 0, ok;
+    do { tx = minX + Math.random() * Math.max(0.05, maxX - minX); ty = 0.2 + Math.random() * 0.72; ok = true;
+      for (var j = 0; j < placed.length; j++) { var dx = (tx - placed[j][0]) * S.w, dy = (ty - placed[j][1]) * (LY.yBot - LY.yTop); if (dx * dx + dy * dy < 44 * 44) ok = false; }
+    } while (!ok && ++tries < 30);
+    placed.push([tx, ty]);
+    OS.push({ id: throwId, i: k, side: sd, face: sd, tx: tx, ty: ty, t: -k * 0.07, T: 0.62 + Math.random() * 0.22, H: 70 + Math.random() * 50, rot: Math.random() * 6, vr: (Math.random() < 0.5 ? -1 : 1) * (9 + Math.random() * 8), slide: (Math.random() - 0.3) * 18, st: "fly", alpha: 1, sc: 1.05 * LY.s });
+  });
+  armT = 1; K.sfx.tap(); updBtn(); S.kick();
+  // Tuval ko'rinmay qolsa (sahifa pastga aylantirilgan) animatsiya to'xtaydi — natijani baribir yakunlaymiz
+  var id = throwId;
+  setTimeout(function () { OS.forEach(function (o) { if (o.id === id && o.st !== "rest") { o.st = "rest"; o.face = o.side; settle(o); } }); }, 2300);
+}
+function settle(o) {
+  ST[o.side]++; SN++;
+  var rest = OS.filter(function (x) { return x.id === o.id && x.st !== "rest"; });
+  if (rest.length) return;
+  var mine = OS.filter(function (x) { return x.id === o.id; }).map(function (x) { return x.side; });
+  if (live) live.textContent = "Tushdi: " + mine.join(", ") + ". Jadval: " + tableStr(ST) + ", jami " + SN + ".";
+  if (CUR && CUR.need && CUR.thrown && G.state === "play") revealOpts();
+  updBtn();
+}
+function revealOpts() {
+  G.root.classList.remove("oq-wait");
+  var bb = G.el.ans.querySelector(".oq-big"); if (bb) bb.parentNode.removeChild(bb);
+}
+function updBtn() {
+  if (!btn) return;
+  var need = CUR && CUR.need && !CUR.thrown, k = need ? CUR.k : freeK();
+  btn.textContent = "🎲 Tashlash (" + k + " ta oshiq)";
+  btn.disabled = !(G && G.state === "play") || flying() || !!(CUR && CUR.need && CUR.thrown);
+}
+
+// Tuval: bosish = tashlash, o'ngga sermash = kuchliroq tashlash
+var down = null;
+S.cv.addEventListener("pointerdown", function (e) { down = { x: e.clientX, y: e.clientY, t: Date.now() }; });
+S.cv.addEventListener("pointercancel", function () { down = null; });
+S.cv.addEventListener("pointerup", function (e) {
+  if (!down) return; var dx = e.clientX - down.x, dy = e.clientY - down.y, d = Math.sqrt(dx * dx + dy * dy); down = null;
+  if (d > 30 && Math.abs(dy) > Math.abs(dx)) return;
+  doThrow(d > 30 && dx > 0 ? 0.7 + Math.min(0.55, d / 300) : 1);
+});
+S.cv.tabIndex = 0;
+S.cv.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doThrow(1); } });
+
+/* ---------- sahna o'rami: tuval + boshqaruv qatori ---------- */
+var scene = D.createElement("div");
+scene.appendChild(S.cv);
+var ctrl = D.createElement("div"); ctrl.className = "oq-ctrl";
+ctrl.innerHTML = '<button class="km-btn pri" type="button" data-oq="throw">🎲 Tashlash</button><span class="oq-note" data-oq="note"></span><div class="oq-sr" aria-live="polite" data-oq="live"></div>';
+scene.appendChild(ctrl);
+btn = ctrl.querySelector('[data-oq="throw"]'); note = ctrl.querySelector('[data-oq="note"]'); live = ctrl.querySelector('[data-oq="live"]');
+btn.onclick = function () { doThrow(1); };
+function updNote() { var hp = CUR && CUR.hideP; note.innerHTML = "<b>p</b> — shu raunddagi <b>virtual</b> oshiq ehtimollari: " + SIDES.map(function (s) { return s + " " + (s === hp ? "?" : pStr(s)); }).join(" · ") + ". O'yin uchun olingan, ilmiy o'lchov emas."; }
+updNote();
+
+var roundNo = 0;
+var G = K.game({
+  id: "oshiq", title: "Oshiq", barTitle: "OSHIQ · EHTIMOLLIK",
+  intro: "Oshiqlarni tashlang, chastotalar jadvalini kuzating va ehtimollik savollariga javob bering. 10 ta savol.",
+  resultTopic: "Milliy o'yin: Oshiq (ehtimollik)",
+  mount: "game", scene: scene, rounds: 10, timeLimit: 120,
+  gen: gen,
+  onStart: function () {
+    if (roundNo++ > 0) { var n = presetI; while (n === presetI) n = ri(0, PRESETS.length - 1); setPreset(n); }
+    T = zero(); NT = 0; ST = zero(); SN = 0; DISP = zero(); maxD = 4; OS = []; CUR = null; updNote();
+    if (live) live.textContent = "Yangi raund. Jadval bo'sh.";
+  },
+  onQuestion: function (q) {
+    CUR = q; pulse = 0; updNote(); if (q.need) ensureVisible();
+    var old = G.el.ans.querySelector(".oq-big"); if (old) old.parentNode.removeChild(old);
+    if (q.need) {
+      G.root.classList.add("oq-wait");
+      var bb = D.createElement("button"); bb.type = "button"; bb.className = "km-btn pri oq-big"; bb.textContent = "🎲 Tashlash (" + q.k + " ta oshiq)";
+      bb.onclick = function () { doThrow(1); };
+      G.el.ans.insertBefore(bb, G.el.ans.firstChild);
+    } else G.root.classList.remove("oq-wait");
+    updBtn();
+  },
+  onResult: function (ok, q) {
+    if (ok) { burst(LY.ch.x + LY.ch.w / 2, LY.ch.y + LY.ch.h, "#35f0c4"); burst(LY.ch.x + LY.ch.w / 2, LY.ch.y + LY.ch.h, "#ffc23d", 10); }
+    if (ok || G.tries >= 2) { q.hideP = null; updNote(); }
+    setTimeout(updBtn, 0);
+  },
+  onEnd: function (r) {
+    CUR = null; G.root.classList.remove("oq-wait"); updBtn();
+    if (r.stars === 3) { burst(S.w / 2, S.h / 2, "#ffc23d", 40); burst(S.w / 2, S.h / 2, "#35f0c4", 30); }
+  }
+});
+updBtn();
+window.kaOshiq = { game: G, gen: gen, state: function () { return { T: T, NT: NT, p10: p10, ST: ST, SN: SN }; }, setTally: function (t) { SIDES.forEach(function (s) { T[s] = t[s] || 0; }); NT = T.olchi + T.tova + T.pukka + T.chikka; }, setPreset: setPreset, PRESETS: PRESETS };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

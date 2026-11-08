@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Besh tosh — bo'lish, guruhlash va qoldiq o'yini | Kuvonch Academy</title>
+<meta name="description" content="Bolalikdagi «Besh tosh» o'yinining matematik varianti: tosh havoda ekan, toshlarni guruhlab sanang. 5 daraja: guruhlab sanash, bo'lish, qoldiqli bo'lish, N = k·g + r, EKUK va EKUB masalalari.">
+<link rel="canonical" href="https://kuvonch.uz/besh-tosh.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Besh tosh — bolalikdagi o'yinning matematik varianti">
+<meta property="og:description" content="Toshni yuqoriga otdingiz — u qaytib tushguncha javob bering! Bo'lish, qoldiq, EKUK va EKUB haqida o'yin.">
+<meta property="og:url" content="https://kuvonch.uz/besh-tosh.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<style>
+.bt-speed{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:700;color:var(--dim)}
+.bt-speed button{min-height:40px;min-width:44px;padding:6px 12px;border-radius:12px;border:1.5px solid var(--border);background:#0b1330;color:var(--text);font:700 14px var(--body);cursor:pointer}
+.bt-speed button[aria-pressed=true]{border-color:var(--teal);background:rgba(53,240,196,.14);color:#dffff6}
+.bt-speed button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+</style>
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🇺🇿 Bolalikdagi o'yinlar · matematik variant</span>
+<h1>Besh <span>tosh</span></h1>
+<p class="km-lead">Ariq bo'yidan terilgan silliq toshlar, dastarxon ustida o'tirgan qizlar va bitta qoida: tosh havoda ekan, qolganlarini olib ulgur! Bu safar toshni yuqoriga otgach, savolga javob berasiz — tosh qaytib tushguncha. To'g'ri javob bersangiz, qo'l toshlarni aytilgan guruhlarda terib oladi.</p>
+<ul class="km-chips"><li>✋ Guruhlab sanash</li><li>➗ Bo'lish</li><li>🧮 Qoldiqli bo'lish</li><li>🔁 Karralilar, EKUK, EKUB</li></ul>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>📜 O'yin tarixi</h2>
+<p>«Besh tosh» (ba'zi joylarda «tosh o'yin», «ashiq-tosh») — qizlar va o'g'il bolalar birdek sevgan qo'l chaqqonligi o'yini. Beshta silliq tosh yerga sochiladi. O'yinchi bittasini yuqoriga otadi va u qaytib tushguncha yerdagi toshlardan birini olib, otilganini havoda ilib oladi. Keyin ikkitadan, uchtadan, to'rttadan oladi. Ilib ololmasangiz yoki boshqa toshga tegib ketsangiz — navbat o'rtog'ingizga o'tadi.</p>
+</section>
+<section>
+<h2>🎯 Matematik variant qoidalari</h2>
+<ol>
+<li>Har savolda tosh yuqoriga otiladi — u qaytib tushguncha javob bering (taymer — toshning o'zi).</li>
+<li>Har savolga faqat <b>bitta</b> urinish beriladi. Vaqt tugasa — tosh yerga tushadi va yechim ko'rsatiladi.</li>
+<li>To'g'ri javobda qo'l toshlarni savoldagi guruhlarda terib oladi.</li>
+<li>Yechim ko'rsatilayotganda tosh havoda «qotib» turadi — shoshilmay o'qing.</li>
+<li>Tosh tezligini o'zingiz tanlang: 🐢 sekin, 🙂 o'rtacha, ⚡ tez.</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> 2, 5 va 10 tadan guruhlab sanash</li>
+<li><b>2-daraja:</b> qoldiqsiz bo'lish — nechta guruh chiqadi</li>
+<li><b>3-daraja:</b> qoldiqli bo'lish — «nechta guruh, nechta qoldiq»</li>
+<li><b>4-daraja:</b> umumiy sonni topish N = k · g + r va noma'lum son</li>
+<li><b>5-daraja:</b> karralilar, umumiy karrali (EKUK), umumiy bo'luvchi (EKUB)</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html">🇺🇿 Boshqa bolalikdagi o'yinlar</a>
+<a href="oq-terak.html">🌳 Oq terakmi, ko'k terak</a>
+<a href="doppi.html">🧢 Do'ppi tashlamachoq</a>
+<a href="bekinmachoq.html">🙈 Bekinmachoq</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Bolalikdagi o'yinlar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Besh tosh: bo'lish, guruhlash va qoldiq */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf, shuffle = K.shuffle;
+var y = document.getElementById("year"); if (y) y.textContent = String(new Date().getFullYear());
+var TAU = Math.PI * 2;
+
+/* ---------- savollar ---------- */
+function gcd(a, b) { while (b) { var t = a % b; a = b; b = t; } return a; }
+function lcm(a, b) { return a / gcd(a, b) * b; }
+function gr(k, r) { return k + " guruh, " + r + " qoldiq"; }
+function grParse(v) { var m = /(\d+)\D+(\d+)/.exec(String(v)); return m ? [+m[1], +m[2]] : null; }
+// Matnli variantlar (qoldiqli bo'lish): to'g'ri javob + odatiy xatolar, takrorlanmas
+function grOpts(k, r, g, N) {
+  var c = [[k, r], [k + 1, r > 0 ? g - r : 1], [k - 1, r + g], [k, g - r], [r, k], [k + 1, 0], [k, r + 1], [k - 1, r]], seen = {}, out = [];
+  c.forEach(function (p) {
+    if (out.length >= 4 || p[0] < 0 || p[1] < 0) return;
+    var key = p[0] + ":" + p[1]; if (seen[key]) return;
+    if (out.length && p[0] * g + p[1] === N && p[1] < g) return;   // ikkinchi to'g'ri javob bo'lmasin
+    seen[key] = 1; out.push(gr(p[0], p[1]));
+  });
+  return out;
+}
+var SPEED = 1;
+function T(base) { return Math.round(base * SPEED); }
+function gen(L) { return tidy(gen0(L)); }
+function gen0(L) {
+  L = Math.max(1, Math.min(5, L || 1));
+  var g, k, r, N, a, b, ans, q, st;
+  if (L === 1) {
+    g = pick([2, 2, 5, 5, 10]); k = ri(3, g === 10 ? 9 : 10); N = g * k;
+    if (Math.random() < 0.5) {
+      return { kind: "count", g: g, k: k, r: 0, N: N, a: N, mistakes: [N + g, N - g, g + k, N + 1], fall: T(15),
+        q: "Qo'l toshlarni <b>" + g + " tadan</b> terib oldi va buni <b>" + k + " marta</b> qildi. Hammasi bo'lib nechta tosh terildi?",
+        short: g + " tadan × " + k + " marta", steps: [g + " tadan " + k + " marta — bu " + g + " × " + k + ".", "Sanab chiqamiz: " + seqSk(g, k) + ".", "Jami: " + N + " ta tosh."] };
+    }
+    return { kind: "groups", g: g, k: k, r: 0, N: N, a: k, mistakes: [k + 1, k - 1, N - g, g], fall: T(15),
+      q: "Dastarxonda <b>" + N + " ta</b> tosh. Ularni <b>" + g + " tadan</b> sanasak, nechta guruh chiqadi?",
+      short: N + " ta → " + g + " tadan", steps: [g + " tadan sanaymiz: " + seqSk(g, k) + ".", "Hammasi " + k + " qadamda tugadi: " + N + " : " + g + " = " + k + " guruh."] };
+  }
+  if (L === 2) {
+    g = ri(3, 9); k = ri(3, 10); N = g * k;
+    var ctx = pick(["Dastarxondagi", "Ariq bo'yidan terilgan", "Qopchadagi", "Hovlidan yig'ilgan"]);
+    return { kind: "div", g: g, k: k, r: 0, N: N, a: k, mistakes: [k + 1, k - 1, N - g, g === k ? k + 2 : g], fall: T(16),
+      q: ctx + " <b>" + N + " ta</b> toshni <b>" + g + " tadan</b> guruhlasak, nechta guruh bo'ladi?",
+      short: N + " : " + g + " = ?", steps: [N + " : " + g + " — " + g + " ning nechta karrasi " + N + " ga teng?", g + " × " + k + " = " + N + ".", "Demak " + k + " ta guruh, qoldiq yo'q."] };
+  }
+  if (L === 3) {
+    g = ri(3, 9); k = ri(2, 9); r = ri(1, g - 1); N = g * k + r;
+    var opts = grOpts(k, r, g, N), right = gr(k, r);
+    return { kind: "rem", g: g, k: k, r: r, N: N, a: right, aText: right, opts: opts, input: "opts", fall: T(20),
+      check: function (v) { var p = grParse(v); return !!p && p[0] === k && p[1] === r; },
+      q: "<b>" + N + " ta</b> toshni <b>" + g + " tadan</b> guruhlaymiz. Nechta to'liq guruh chiqadi va nechta tosh ortib qoladi?",
+      short: N + " : " + g + " = ? (qoldiq ?)", steps: [g + " ning " + N + " dan oshmaydigan eng katta karralisi: " + g + " × " + k + " = " + (g * k) + ".", "Qoldiq: " + N + " − " + (g * k) + " = " + r + ".", "Qoldiq bo'luvchidan kichik: " + r + " < " + g + " ✔", "Javob: " + right + "."] };
+  }
+  if (L === 4) {
+    var t = ri(0, 2);
+    if (t === 0) {
+      g = ri(3, 9); k = ri(3, 12); r = ri(1, g - 1); N = g * k + r;
+      return { kind: "total", g: g, k: k, r: r, N: N, a: N, mistakes: [g * k, g * k - r, g * (k + 1), N + g, k * r + g], fall: T(18),
+        q: "Toshlar <b>" + g + " tadan</b> terilganda <b>" + k + "</b> ta to'liq guruh chiqdi va yana <b>" + r + "</b> ta tosh ortib qoldi. Hammasi nechta tosh?",
+        short: g + " · " + k + " + " + r + " = ?", steps: ["N = g · k + r formulasi: guruhdagi soni × guruhlar soni + qoldiq.", g + " · " + k + " = " + (g * k) + ".", (g * k) + " + " + r + " = " + N + " ta tosh."] };
+    }
+    if (t === 1) {
+      g = ri(3, 9); k = ri(3, 11); r = ri(1, g - 1); N = g * k + r;
+      return { kind: "missG", g: g, k: k, r: r, N: N, a: g, mistakes: [g + 1, g - 1, k, Math.floor(N / k) !== g ? Math.floor(N / k) : g + 2, r], fall: T(20),
+        q: "<b>" + N + " ta</b> toshni teng guruhlarga ajratdik: <b>" + k + "</b> ta guruh chiqdi va <b>" + r + "</b> ta tosh ortib qoldi. Har bir guruhda nechta tosh bor?",
+        short: N + " = ? · " + k + " + " + r, steps: ["Qoldiqni olib tashlaymiz: " + N + " − " + r + " = " + (N - r) + ".", (N - r) + " ta tosh " + k + " ta guruhga teng bo'lingan: " + (N - r) + " : " + k + " = " + g + ".", "Tekshiruv: qoldiq " + r + " < " + g + " ✔ — har guruhda " + g + " ta tosh."] };
+    }
+    // noma'lum bo'linuvchi: ? : g = k (qoldiq r)
+    g = ri(3, 9); k = ri(3, 12); r = ri(0, g - 1); N = g * k + r;
+    return { kind: "missN", g: g, k: k, r: r, N: N, a: N, mistakes: [g * k, N + g, g * k - r, k * r + g, N - 1].filter(function (v) { return v !== N; }), fall: T(18),
+      q: "Qaysi sonni <b>" + g + "</b> ga bo'lsak, bo'linma <b>" + k + "</b>, qoldiq <b>" + r + "</b> bo'ladi? <small>Toshlar soni ? : " + g + " = " + k + " (qoldiq " + r + ")</small>",
+      short: "? : " + g + " = " + k + " (q. " + r + ")", steps: ["Bo'linuvchi = bo'luvchi × bo'linma + qoldiq.", "? = " + g + " × " + k + " + " + r + " = " + (g * k) + " + " + r + " = " + N + ".", "Tekshiruv: " + N + " : " + g + " = " + k + " (qoldiq " + r + ") ✔"] };
+  }
+  // L === 5
+  var u = ri(0, 3);
+  if (u === 0 || u === 1) {
+    // ham a tadan, ham b tadan qoldiqsiz terish mumkin, [lo; hi] oralig'ida yagona son
+    for (var tries = 0; tries < 200; tries++) {
+      a = ri(2, 8); b = ri(2, 9); if (a === b) continue;
+      var m = lcm(a, b); if (m < 6 || m > 60 || m === Math.max(a, b)) continue;
+      var c = ri(1, Math.max(1, Math.floor(90 / m))), x = c * m, lo = Math.max(1, x - ri(1, m - 1)), hi = Math.min(lo + m - 1, x + ri(0, m - 1));
+      if (hi < x) continue;
+      var cnt = 0; for (var v = lo; v <= hi; v++) if (v % a === 0 && v % b === 0) cnt++;
+      if (cnt !== 1) continue;
+      var near = []; for (v = lo; v <= hi; v++) if (v !== x && (v % a === 0 || v % b === 0)) near.push(v);
+      var mis = shuffle(near).slice(0, 3), guard = 0;
+      while (mis.length < 3 && guard++ < 50) { var f2 = ri(lo, hi); if (f2 !== x && mis.indexOf(f2) < 0) mis.push(f2); }
+      return { kind: "lcmR", a1: a, b1: b, lo: lo, hi: hi, N: x, g: a, k: x / a, r: 0, a: x, mistakes: mis, fall: T(24),
+        q: "Toshlarni <b>" + a + " tadan</b> ham, <b>" + b + " tadan</b> ham qoldiqsiz terib bo'ladi. Toshlar soni <b>" + lo + " dan " + hi + " gacha</b>. Nechta tosh bor?",
+        short: a + " ga ham, " + b + " ga ham · " + lo + "–" + hi, steps: ["Son " + a + " ga ham, " + b + " ga ham bo'linishi kerak — demak u EKUK(" + a + "; " + b + ") ning karralisi.", "EKUK(" + a + "; " + b + ") = " + m + ".", m + " ning karralilari: " + kar(m, hi), lo + " va " + hi + " orasida faqat " + x + " bor."] };
+    }
+  }
+  if (u === 2) {
+    a = ri(2, 8); b = ri(2, 9); if (a === b) b = a + 1;
+    var M = lcm(a, b);
+    return { kind: "lcm", a1: a, b1: b, N: M, g: a, k: M / a, r: 0, a: M, mistakes: [a * b !== M ? a * b : M * 2, M + a, Math.max(a, b), gcd(a, b) !== 1 ? gcd(a, b) : a + b], fall: T(22),
+      q: "Malika toshlarni <b>" + a + " tadan</b>, Zarina esa <b>" + b + " tadan</b> teradi. Ikkalasi ham qoldiqsiz terishi uchun eng kamida nechta tosh kerak?",
+      short: "EKUK(" + a + "; " + b + ") = ?", steps: [a + " ning karralilari: " + kar(a, M), b + " ning karralilari: " + kar(b, M), "Eng kichik umumiy karrali: EKUK(" + a + "; " + b + ") = " + M + "."] };
+  }
+  // EKUB: oq va qora toshlarni bir xil guruhlarga ajratish
+  var gg = ri(2, 9), p1 = ri(2, 7), p2 = ri(2, 7); while (gcd(p1, p2) !== 1 || p1 === p2) { p1 = ri(2, 7); p2 = ri(2, 7); }
+  a = gg * p1; b = gg * p2;
+  return { kind: "gcd", a1: a, b1: b, N: a + b, g: gg, k: p1 + p2, r: 0, a: gg, mistakes: [gg * 2 <= Math.min(a, b) && a % (gg * 2) ? gg * 2 : gg + 1, Math.min(a, b), gg > 2 ? gg - 1 : gg + 3, p1 + p2], fall: T(24),
+    q: "<b>" + a + " ta</b> oq va <b>" + b + " ta</b> qora tosh bor. Ularni shunday guruhlarga ajratmoqchimiz: har guruhda faqat bir xil rangli toshlar, barcha guruhlar bir xil kattalikda va eng katta bo'lsin. Har guruhda nechta tosh bo'ladi?",
+    short: "EKUB(" + a + "; " + b + ") = ?", steps: [a + " ning bo'luvchilari: " + divs(a) + ".", b + " ning bo'luvchilari: " + divs(b) + ".", "Eng katta umumiy bo'luvchi: EKUB(" + a + "; " + b + ") = " + gg + ".", "Har guruhda " + gg + " ta tosh: oqlardan " + p1 + " ta, qoralardan " + p2 + " ta guruh."] };
+}
+// Hamma savollar: bitta urinish, faqat musbat va javobdan farqli xato variantlar
+var HIDE = { total: 1, missN: 1, lcmR: 1, lcm: 1 };   // javob — toshlar soni: javobgacha toshlar qopchada
+function tidy(q) {
+  q.oneTry = true; q.hide = !!HIDE[q.kind];
+  if (q.mistakes) {
+    var seen = {}, out = [];
+    q.mistakes.concat([q.a + 1, q.a + 2, q.a - 1, q.a + 3, q.a * 2]).forEach(function (v) {
+      if (out.length < 3 && typeof v === "number" && v > 0 && isFinite(v) && v !== q.a && !seen[v]) { seen[v] = 1; out.push(v); }
+    });
+    q.mistakes = out;
+  }
+  return q;
+}
+function seqSk(g, k) { var o = []; for (var i = 1; i <= k; i++) o.push(g * i); return o.join(", "); }
+function kar(m, upto) { var o = [], i; for (i = 1; i * m <= upto + m && o.length < 8; i++) o.push(m * i); return o.join(", ") + ", …"; }
+function divs(n) { var o = []; for (var i = 1; i <= n; i++) if (n % i === 0) o.push(i); return o.join(", "); }
+
+/* ---------- sahna: dastarxon, toshlar, qo'l ---------- */
+var CUR = null, phase = "idle", air = { t: 0, dur: 15, h: 0, cy: 0, frozen: false }, stones = [], pickAnim = null, sparks = [], shown = 0, caught = 0, msg = null;
+var STONE_COLS = ["#d9d4c7", "#c8beb0", "#b5a99a", "#e6dfd3", "#a99c8c", "#cfc6b6", "#bfb3a3"];
+function makeStones(q) {
+  var n = Math.min(60, q.N), list = [];
+  for (var i = 0; i < n; i++) list.push({ c: pick(STONE_COLS), rx: 0.5 + Math.random() * 0.25, rot: Math.random() * 3, gone: false, g: Math.floor(i / q.g), white: q.kind === "gcd" ? i < q.a1 : null });
+  return list;
+}
+function geo() {
+  var w = S.w, h = S.h, top = 64, col = Math.max(62, Math.min(96, w * 0.16)), mat = { x: 10, y: 104, w: w - 20 - col, h: h - 104 - 12 };
+  var n = Math.max(1, stones.length), cols = Math.min(12, Math.max(5, Math.ceil(Math.sqrt(n * mat.w / mat.h)))), gq = CUR && CUR.g <= 12 ? CUR.g : 0, per = 1, gap = 0;
+  if (gq) { var cmax = Math.max(gq, Math.min(14, Math.floor((mat.w - 40) / 25))); per = Math.max(1, Math.floor(cmax / gq)); cols = per * gq; gap = per > 1 ? 12 : 0; }
+  var rows = Math.ceil(n / cols);
+  var cw = (mat.w - 40 - (per - 1) * gap) / cols, rh = Math.min(42, (mat.h - 50) / Math.max(1, rows)), r = Math.max(5, Math.min(14, cw * 0.32, rh * 0.36));
+  return { w: w, h: h, top: top, mat: mat, cols: cols, rows: rows, cw: cw, rh: rh, r: r, gq: gq, gap: gap, sx: w - 10 - col / 2, gy: h - 26, sky: 118 };
+}
+function stonePos(i, g) {
+  // guruhlar bo'yicha joylash: har guruh qatorda yonma-yon, guruhlar orasida bo'sh joy
+  var col = i % g.cols, row = Math.floor(i / g.cols), jx = ((i * 37) % 7 - 3) * 0.6, jy = ((i * 53) % 5 - 2) * 0.6;
+  var tot = g.rows * g.rh, y0 = g.mat.y + 18 + (g.mat.h - 46 - tot) / 2 + g.rh / 2;
+  return { x: g.mat.x + 20 + (col + 0.5) * g.cw + (g.gq ? Math.floor(col / g.gq) * g.gap : 0) + jx, y: y0 + row * g.rh + jy };
+}
+function stoneDraw(c, x, yy, r, col, rot, white) {
+  c.save(); c.translate(x, yy); c.rotate(rot || 0);
+  c.fillStyle = "rgba(0,0,0,.25)"; c.beginPath(); c.ellipse(1.5, r * 0.45, r * 1.05, r * 0.5, 0, 0, TAU); c.fill();
+  var gr2 = c.createRadialGradient(-r * 0.35, -r * 0.35, r * 0.1, 0, 0, r * 1.2); gr2.addColorStop(0, white === false ? "#6b6f7b" : "#ffffff"); gr2.addColorStop(0.35, white === false ? "#3b3f4a" : col); gr2.addColorStop(1, white === false ? "#1d2027" : "#7d7365");
+  c.fillStyle = gr2; c.beginPath(); c.ellipse(0, 0, r * 1.08, r * 0.86, 0, 0, TAU); c.fill();
+  c.restore();
+}
+function handDraw(c, x, yy, s, open) {
+  c.save(); c.translate(x, yy); c.scale(s, s);
+  c.fillStyle = "#e8b88f"; c.strokeStyle = "#b9835c"; c.lineWidth = 1.5;
+  // yeng (atlas)
+  var cols = ["#e63946", "#ffd166", "#2a9d8f", "#7b2cbf"];
+  for (var i = 0; i < 5; i++) { c.fillStyle = cols[i % 4]; c.fillRect(-16 + i * 6.4, -64, 6.6, 30); }
+  c.fillStyle = "#e8b88f"; K.rr(c, -14, -38, 28, 30, 12); c.fill(); c.stroke();
+  var f = open ? 1 : 0.55;
+  for (i = 0; i < 4; i++) { K.rr(c, -13 + i * 7, -14, 6, 16 * f + 4, 3); c.fill(); c.stroke(); }
+  c.save(); c.rotate(open ? -0.6 : -0.2); K.rr(c, -20, -30, 6, 18, 3); c.fill(); c.stroke(); c.restore();
+  c.restore();
+}
+// Qopcha (javob toshlar soni bo'lgan savollarda — sanab qo'ymaslik uchun)
+function bagDraw(c, g, t) {
+  var m = g.mat, cx = m.x + m.w / 2, cy = m.y + m.h / 2 + 10, r = Math.min(m.w, m.h) * 0.28, wob = Math.sin(t * 2) * 0.03;
+  c.save(); c.translate(cx, cy); c.rotate(wob);
+  c.fillStyle = "rgba(0,0,0,.28)"; c.beginPath(); c.ellipse(4, r * 0.95, r * 0.95, r * 0.22, 0, 0, TAU); c.fill();
+  c.fillStyle = "#c79a5a"; c.beginPath(); c.moveTo(-r * 0.35, -r * 0.75); c.quadraticCurveTo(-r * 1.1, -r * 0.2, -r * 0.95, r * 0.55); c.quadraticCurveTo(-r * 0.8, r * 1.0, 0, r * 1.0); c.quadraticCurveTo(r * 0.8, r * 1.0, r * 0.95, r * 0.55); c.quadraticCurveTo(r * 1.1, -r * 0.2, r * 0.35, -r * 0.75); c.closePath(); c.fill();
+  c.strokeStyle = "#8a6232"; c.lineWidth = 2; c.stroke();
+  c.fillStyle = "#e0b878"; c.beginPath(); c.ellipse(0, -r * 0.82, r * 0.42, r * 0.16, 0, 0, TAU); c.fill(); c.stroke();
+  c.strokeStyle = "#e63946"; c.lineWidth = 4; c.beginPath(); c.moveTo(-r * 0.36, -r * 0.6); c.quadraticCurveTo(0, -r * 0.5, r * 0.36, -r * 0.6); c.stroke();
+  // atlas yamoq
+  var cols = ["#e63946", "#ffd166", "#2a9d8f", "#7b2cbf"]; for (var i = 0; i < 6; i++) { c.fillStyle = cols[i % 4]; c.fillRect(-r * 0.45 + i * r * 0.15, r * 0.05, r * 0.15, r * 0.42); }
+  c.restore();
+  K.txt(c, "?", cx, cy - r * 0.15, "#3b2210", Math.max(22, r * 0.5), "center", 800);
+  K.txt(c, "Qopchada nechta tosh bor?", cx, m.y + 26, "rgba(255,240,210,.92)", 13, "center", 800);
+}
+var BG = null, BGk = "";
+function bgCanvas(w, h, dpr) {
+  var key = w + "x" + h + "@" + dpr; if (BG && BGk === key) return BG;
+  var cv = document.createElement("canvas"); cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  var c = cv.getContext("2d"), i; c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  var g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#3a5f8f"); g.addColorStop(0.3, "#8bb7d9"); g.addColorStop(0.32, "#c99a6b"); g.addColorStop(1, "#a67a4c"); c.fillStyle = g; c.fillRect(0, 0, w, h);
+  // tut barglari (tepada) va uzum so'risi
+  c.fillStyle = "#2f6b3a"; for (i = 0; i < 9; i++) { c.beginPath(); c.ellipse((i + 0.3) * w / 8, 6, w / 9, 26, 0, 0, TAU); c.fill(); }
+  c.fillStyle = "#3b8046"; for (i = 0; i < 8; i++) { c.beginPath(); c.ellipse((i + 0.8) * w / 8, 18, w / 13, 18, 0, 0, TAU); c.fill(); }
+  c.strokeStyle = "#6b4a2b"; c.lineWidth = 3; c.beginPath(); c.moveTo(0, 36); c.lineTo(w, 36); c.stroke();
+  c.fillStyle = "#5a2a6b"; for (i = 0; i < 4; i++) { var gx = w * (0.15 + i * 0.24); for (var j = 0; j < 7; j++) { var r2 = 3.2; c.beginPath(); c.arc(gx + (j % 3 - 1) * 5 + (j > 4 ? 0 : 0), 42 + Math.floor(j / 3) * 5 + (j === 6 ? 2 : 0), r2, 0, TAU); c.fill(); } }
+  for (i = 0; i < 90; i++) { c.fillStyle = "rgba(80,40,10,.15)"; c.fillRect((i * 97.13) % w, h * 0.32 + ((i * 53.71) % (h * 0.68)), 2, 2); }
+  BG = cv; BGk = key; return cv;
+}
+function matDraw(c, g) {
+  var m = g.mat;
+  c.fillStyle = "rgba(0,0,0,.25)"; K.rr(c, m.x + 3, m.y + 5, m.w, m.h, 14); c.fill();
+  c.fillStyle = "#9d1c22"; K.rr(c, m.x, m.y, m.w, m.h, 14); c.fill();
+  c.strokeStyle = "#ffd166"; c.lineWidth = 3; K.rr(c, m.x + 7, m.y + 7, m.w - 14, m.h - 14, 10); c.stroke();
+  c.strokeStyle = "rgba(255,209,102,.45)"; c.lineWidth = 1.5; K.rr(c, m.x + 13, m.y + 13, m.w - 26, m.h - 26, 8); c.stroke();
+  // burchak naqshlari (islimiy)
+  c.fillStyle = "#1d3557";
+  [[m.x + 22, m.y + 22], [m.x + m.w - 22, m.y + 22], [m.x + 22, m.y + m.h - 22], [m.x + m.w - 22, m.y + m.h - 22]].forEach(function (p) { c.beginPath(); c.moveTo(p[0], p[1] - 7); c.lineTo(p[0] + 7, p[1]); c.lineTo(p[0], p[1] + 7); c.lineTo(p[0] - 7, p[1]); c.closePath(); c.fill(); });
+}
+var S = K.stage({
+  label: "Besh tosh: dastarxon ustidagi toshlar va havodagi tosh. Tosh tushguncha javob bering.",
+  ratio: 1.05, minH: 400, maxH: 540,
+  draw: function (c, w, h, dt, t) {
+    c.drawImage(bgCanvas(w, h, S.dpr), 0, 0, w, h);
+    var g = geo(), i;
+    matDraw(c, g);
+    // guruh chiziqlari (to'g'ri javobdan keyin)
+    var q = CUR, hidden = q && q.hide && G.state === "play";
+    if (hidden) bagDraw(c, g, t);
+    for (i = 0; i < stones.length && !hidden; i++) {
+      var st = stones[i]; if (st.gone) continue;
+      var p = stonePos(i, g), hi = pickAnim && pickAnim.grp === st.g && q && q.g;
+      stoneDraw(c, p.x, p.y, g.r, st.c, st.rot, st.white);
+      if (hi) { c.strokeStyle = "rgba(53,240,196,.9)"; c.lineWidth = 2; c.beginPath(); c.arc(p.x, p.y, g.r + 3, 0, TAU); c.stroke(); }
+    }
+    if (q && !hidden && q.N > stones.length) K.txt(c, "… va yana " + (q.N - stones.length) + " ta", g.mat.x + g.mat.w / 2, g.mat.y + g.mat.h - 19, "#ffe6a8", 12, "center", 800);
+    // terish animatsiyasi
+    if (pickAnim) {
+      pickAnim.t += dt;
+      var per = pickAnim.per, gi = Math.floor(pickAnim.t / per), lt = (pickAnim.t % per) / per;
+      if (gi < pickAnim.n) {
+        pickAnim.grp = gi;
+        var idx = []; for (i = 0; i < stones.length; i++) if (stones[i].g === gi && !stones[i].gone) idx.push(i);
+        if (idx.length) {
+          var cx = 0, cy = 0; idx.forEach(function (k) { var pp = stonePos(k, g); cx += pp.x; cy += pp.y; }); cx /= idx.length; cy /= idx.length;
+          var hx = cx, hy = cy - 70 * (1 - Math.sin(Math.min(1, lt * 1.6) * Math.PI)) + 8;
+          if (lt > 0.55) { idx.forEach(function (k) { stones[k].gone = true; }); caught++; K.sfx.tap(); burst(cx, cy, ["#35f0c4", "#fff"], 8); }
+          handDraw(c, hx, hy, Math.max(0.8, Math.min(1.2, w / 380)), lt < 0.4);
+          K.txt(c, String(Math.min(q.N, (gi + 1) * q.g)), cx, cy - 34, "#ffc23d", 15, "center", 800);
+        }
+      } else if (!pickAnim.done) { pickAnim.done = true; pickAnim.grp = -1; }
+      if (pickAnim.done && q && q.r > 0 && q.N <= 60) {
+        var rx = 0, ry = 0, rn = 0; for (i = 0; i < stones.length; i++) if (!stones[i].gone) { var rp = stonePos(i, g); rx += rp.x; ry += rp.y; rn++; }
+        if (rn) { rx /= rn; ry /= rn; c.fillStyle = "rgba(6,10,26,.85)"; K.rr(c, rx - 44, ry - 40, 88, 22, 9); c.fill(); K.txt(c, "qoldiq: " + rn, rx, ry - 29, "#ffc23d", 13, "center", 800); }
+      }
+    }
+    // havodagi tosh
+    if (CUR && phase !== "idle") {
+      tick();
+      var p01 = Math.min(1, air.t / air.dur), up = 0.18, hgt;
+      if (p01 < up) hgt = Math.sin((p01 / up) * Math.PI / 2); else hgt = 1 - Math.pow((p01 - up) / (1 - up), 2.2);
+      if (phase === "caught") { air.cy = Math.max(0, air.cy - dt * 2.2); hgt = air.cy; }
+      else if (phase === "fell") hgt = 0;
+      else air.h = hgt;
+      var sx = g.sx, gyy = g.gy, skyY = g.sky, sy2 = gyy - (gyy - skyY) * hgt;
+      c.fillStyle = "rgba(6,10,26,.18)"; K.rr(c, sx - 26, skyY - 26, 52, gyy - skyY + 44, 18); c.fill();
+      // vaqt ko'rsatkichi: balandlik shkalasi
+      c.strokeStyle = "rgba(255,255,255,.35)"; c.lineWidth = 2; c.setLineDash([3, 5]); c.beginPath(); c.moveTo(sx, skyY); c.lineTo(sx, gyy); c.stroke(); c.setLineDash([]);
+      var left = Math.max(0, air.dur - air.t);
+      if (phase === "air") {
+        var ly = Math.max(skyY - 12, sy2 - 30);
+        c.fillStyle = left < 4 ? "rgba(255,107,127,.95)" : "rgba(6,10,26,.8)"; K.rr(c, sx - 24, ly - 11, 48, 22, 10); c.fill();
+        K.txt(c, Math.ceil(left) + " s", sx, ly, "#fff", 13, "center", 800);
+      }
+      c.fillStyle = "rgba(0,0,0," + (0.12 + 0.25 * (1 - hgt)) + ")"; c.beginPath(); c.ellipse(sx, gyy + 6, 12 - 6 * hgt, 4 - 2 * hgt, 0, 0, TAU); c.fill();
+      stoneDraw(c, sx, sy2 + (phase === "fell" ? 0 : Math.sin(t * 9) * 0.5), 12, "#e6dfd3", t * (phase === "air" && !air.frozen ? 6 : 0));
+      if (air.frozen && phase === "air") K.txt(c, "⏸", sx, sy2 + 22, "#fff", 13, "center", 800);
+      if (phase === "caught") handDraw(c, sx, gyy + 6, Math.max(0.75, Math.min(1.05, w / 420)), air.cy > 0.05);
+      if (phase === "fell") { c.fillStyle = "rgba(255,107,127,.92)"; K.rr(c, sx - 28, gyy - 44, 56, 22, 10); c.fill(); K.txt(c, "Tushdi", sx, gyy - 33, "#fff", 12, "center", 800); }
+    }
+    // tepadagi lavha
+    c.fillStyle = "rgba(6,10,26,.82)"; K.rr(c, 10, 52, w - 20, 40, 13); c.fill();
+    if (CUR) K.txt(c, CUR.short, w / 2 + 22, 72, "#ffc23d", Math.max(12, Math.min(21, (w - 90) / (CUR.short.length * 0.56))), "center", 800);
+    else K.txt(c, "«Boshlash»ni bosing", w / 2, 72, "#93a3cc", 17, "center", 700);
+    c.fillStyle = "rgba(255,194,61,.18)"; K.rr(c, 16, 58, 50, 28, 9); c.fill(); K.txt(c, "✋ " + shown, 41, 72.5, "#fff3d0", 13, "center", 800);
+    if (msg && msg.t > 0) { msg.t -= dt; c.globalAlpha = Math.min(1, msg.t * 2); c.fillStyle = "rgba(6,10,26,.85)"; c.font = "800 15px \"Golos Text\",system-ui,sans-serif"; var mw = c.measureText(msg.s).width + 24; var mx = g.mat.x + g.mat.w / 2; K.rr(c, mx - mw / 2, g.mat.y + g.mat.h / 2 - 15, mw, 30, 12); c.fill(); K.txt(c, msg.s, mx, g.mat.y + g.mat.h / 2, msg.c, 15, "center", 800); c.globalAlpha = 1; }
+    for (var j = sparks.length - 1; j >= 0; j--) { var s2 = sparks[j]; s2.l -= dt; if (s2.l <= 0) { sparks.splice(j, 1); continue; } s2.x += s2.vx * dt; s2.y += s2.vy * dt; s2.vy += 300 * dt; c.globalAlpha = Math.min(1, s2.l * 2); c.fillStyle = s2.c; c.fillRect(s2.x - 2, s2.y - 2, 4, 4); }
+    c.globalAlpha = 1;
+  }
+});
+function burst(x, yy, cols, n) { for (var i = 0; i < (n || 24); i++) sparks.push({ x: x, y: yy, vx: (Math.random() - 0.5) * 240, vy: -Math.random() * 220 - 30, l: 0.5 + Math.random() * 0.5, c: pick(cols) }); }
+function timeUp() {
+  if (G.state !== "play") return;
+  K.sfx.no(); msg = { s: "Vaqt tugadi — tosh yerga tushdi!", t: 2.2, c: "#ff9aa8" };
+  G.answer("__vaqt__");
+}
+// Yechim paneli ochiq ekan — tosh havoda to'xtab turadi
+function syncFreeze() { air.frozen = G.state !== "play" || document.hidden; }
+document.addEventListener("visibilitychange", function () { syncFreeze(); air.last = 0; });
+// Vaqt haqiqiy soat bo'yicha o'tadi (tuval ekrandan chiqib ketsa ham tosh tushaveradi)
+function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+function tick() {
+  var n = now(), d = air.last ? Math.min(0.5, (n - air.last) / 1000) : 0; air.last = n;
+  syncFreeze();
+  if (phase === "air" && !air.frozen && CUR) { air.t += d; if (air.t >= air.dur) { phase = "fell"; timeUp(); } }
+}
+
+function speedBar(g) {
+  var box = document.createElement("div"); box.className = "bt-speed"; box.setAttribute("role", "group"); box.setAttribute("aria-label", "Tosh tezligi");
+  box.innerHTML = '<span>Tosh tezligi:</span>' + [["1.5", "🐢 Sekin"], ["1", "🙂 O'rtacha"], ["0.7", "⚡ Tez"]].map(function (o) { return '<button type="button" data-sp="' + o[0] + '" aria-pressed="' + (String(SPEED) === o[0]) + '">' + o[1] + "</button>"; }).join("");
+  Array.prototype.forEach.call(box.querySelectorAll("[data-sp]"), function (b) {
+    b.onclick = function () {
+      var old = SPEED; SPEED = parseFloat(b.getAttribute("data-sp")); K.lsSet("besh-tosh.speed", SPEED);
+      Array.prototype.forEach.call(box.querySelectorAll("[data-sp]"), function (x) { x.setAttribute("aria-pressed", x === b); });
+      if (phase === "air" && CUR) { var f = SPEED / old; air.t *= f; air.dur *= f; }
+      K.sfx.tap();
+    };
+  });
+  return box;
+}
+SPEED = (function () { var v = K.lsGet("besh-tosh.speed", 1); return v === 1.5 || v === 0.7 ? v : 1; })();
+
+var G = K.game({
+  id: "besh-tosh", title: "Besh tosh", barTitle: "BESH TOSH · BO'LISH VA QOLDIQ",
+  intro: "Tosh havoga otiladi — u yerga tushguncha javob bering! Har savolga bitta urinish. To'g'ri javobda qo'l toshlarni guruhlab teradi.",
+  resultTopic: "Milliy o'yin: Besh tosh (bo'lish va qoldiq)",
+  mount: "game", scene: S.cv, rounds: 10, timeLimit: 100, okDelay: 2300,
+  gen: function (L, g) { return gen(L, g); },
+  onStart: function () { shown = 0; sparks = []; phase = "idle"; pickAnim = null; },
+  onQuestion: function (q, g) {
+    CUR = q; stones = makeStones(q); pickAnim = null; caught = 0; msg = null;
+    phase = "air"; air.t = 0; air.dur = q.fall || 18; air.frozen = false; air.cy = 1; air.last = 0; tick();
+    K.sfx.hop();
+    g.el.ans.appendChild(speedBar(g));
+  },
+  onResult: function (ok, q, v, g) {
+    if (ok) {
+      shown++; phase = "caught"; air.cy = air.h || 0.5;
+      var full = Math.floor(stones.length / q.g), n = Math.min(q.N <= 60 && q.r > 0 ? full : Math.ceil(stones.length / q.g), 12), per = Math.max(0.12, Math.min(0.35, 1.6 / Math.max(1, n)));
+      pickAnim = { t: 0, n: n, per: per, grp: -1, done: false };
+      msg = { s: "Ilib oldim!", t: 1.6, c: "#35f0c4" };
+      var g4 = geo(); burst(g4.sx, g4.gy - 30, ["#ffc23d", "#35f0c4", "#fff", "#ff5e8e"]);
+    } else {
+      if (phase === "air") { phase = "fell"; if (v !== "__vaqt__") msg = { s: "Xato — tosh qo'ldan tushib ketdi", t: 2, c: "#ff9aa8" }; }
+    }
+    syncFreeze();
+  },
+  onEnd: function (r) { CUR = null; phase = "idle"; pickAnim = null; if (r.stars >= 2) burst(S.w / 2, S.h / 2, ["#ffc23d", "#35f0c4", "#fff"]); }
+});
+// Dvigatel holatini kuzatamiz: yechim ochiq — tosh to'xtaydi, keyingi savol — davom etadi
+setInterval(tick, 150);
+window.kaBeshTosh = { game: G, gen: gen, air: air, target: function () { return null; } };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
