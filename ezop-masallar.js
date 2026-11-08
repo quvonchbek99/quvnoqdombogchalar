@@ -959,5 +959,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U ekinlarni yeyayotgan qarg'alar bilan birga topilgani uchun", "U o'zini laylak deb tanitgani uchun", "U ekinzorda juda baland ovoz chiqargani uchun"],
     javob: 0,
     izoh: "Kishi kimlar bilan birga bo'lsa, ko'pincha ularning ishlari uchun ham javob beradi. Shuning uchun do'st tanlashda ehtiyot bo'lish kerak."
+  },
+  {
+    id: "ez-121", mavzu: "mantiq", sarlavha: "Quduqdagi qurbaqa",
+    matn: "Quduqda yashaydigan qurbaqa o'z quduqini butun olam deb bilardi. Bir kuni dengizdan kelgan qurbaqa unga dengiz quduqdan ancha katta ekanini aytdi. Quduqdagi qurbaqa ishonmadi va: \"Quduqimdan kattaroq suv bo'lishi mumkin emas, men buni ko'rib turibman\", dedi.",
+    savol: "Quduqdagi qurbaqa nega dengiz haqidagi gapga ishonmadi?",
+    variantlar: ["Chunki u dengizni ko'rib, uni yoqtirmagani uchun", "Chunki u faqat o'zi ko'rganini haqiqat deb bilgani uchun", "Chunki dengiz quduqdan kichik ekanini bilgani uchun"],
+    javob: 1,
+    izoh: "Faqat o'zi ko'rganiga ishonish odamni yangi bilimdan mahrum qiladi. Katta dunyoni bilish uchun o'z doirangdan chiqib ko'rish kerak."
   }
 ];
