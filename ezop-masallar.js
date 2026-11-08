@@ -935,5 +935,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ayiqni qishda ochdan qiynalishdan asrash uchun", "Asalni o'zi o'g'irlab yeyish uchun", "Ayiqqa asal yig'ishda yordam berish uchun"],
     javob: 1,
     izoh: "Tulki yordam berayotgandek ko'rinsa ham, uning haqiqiy maqsadi asalni o'zi yeyish edi. Maslahat berayotgan odamning niyatini ko'rinishidan emas, uning harakatlaridan bilish kerak."
+  },
+  {
+    id: "ez-118", mavzu: "mantiq", sarlavha: "Ariqsiz dehqon",
+    matn: "Ikki qo'shni dehqon yonma-yon yer ekishdi. Birinchisi: \"Yomg'ir yog'sa, hammasi o'zi o'sadi\", deb ariq qazimadi va suv yo'llarini tayyorlamadi. Ikkinchisi esa har kuni ekinlarni kuzatib, oldindan ariq qazib, suvni yig'ib qo'ydi. Yoz qurg'oqchilik bo'lib, uzoq vaqt yomg'ir yog'masdan qoldi.",
+    savol: "Qurg'oqchilik kelganda qaysi dehqonning ekini saqlanib qoldi?",
+    variantlar: ["Birinchi dehqonning, chunki u hech narsa qilmagan edi", "Ikkinchi dehqonning, chunki u suvni oldindan tayyorlagan edi", "Ikkalasining ekini ham butunlay quridi"],
+    javob: 1,
+    izoh: "Omadga umid qilish yetarli emas. Oldindan tayyorgarlik ko'rish, ya'ni suv zaxirasini yaratish, noqulay vaziyatlardan himoya qiladi."
   }
 ];
