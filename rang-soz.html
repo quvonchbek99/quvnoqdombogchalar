@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Rang va so'z (Strup testi) — diqqat mashqi | Kuvonch Academy</title>
+<meta name="description" content="«QIZIL» so'zi ko'k rangda yozilgan — so'zni emas, rangini tanlang. Strup testi asosidagi diqqat mashqi: 5 daraja, qoida almashishi, tezkor rejim, ovoz bilan javob va javob vaqtini o'lchash.">
+<link rel="canonical" href="https://kuvonch.uz/rang-soz.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Rang va so'z — Strup testi asosidagi diqqat mashqi">
+<meta property="og:description" content="So'zni emas, harflarning rangini tanlang. O'z Strup effektingizni millisekundlarda o'lchang.">
+<meta property="og:url" content="https://kuvonch.uz/rang-soz.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+<style>
+.dq{position:relative}
+.dq .km-icon{min-width:44px;min-height:44px}
+.dq .km-ov{overflow-y:auto;-webkit-overflow-scrolling:touch;align-items:flex-start;justify-content:flex-start}
+.dq .km-card{margin:auto}
+.dq-stage{padding:12px 12px 16px;min-height:500px;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.dq-desc{font-size:13.5px!important;color:var(--dim);margin:2px 0 0!important;min-height:2.7em}
+.dq-note{font-size:12.5px!important;margin:4px 0 8px!important}
+.dq-rec{color:var(--amber)!important;font-weight:700}
+.dq-bars{margin:10px 0 4px;text-align:left}
+.dq-bars .row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13.5px}
+.dq-bars .lb{flex:0 0 78px;color:var(--dim);font-weight:700}
+.dq-bars .tr{flex:1 1 auto;height:16px;border-radius:8px;background:#0b1330;border:1px solid var(--border);overflow:hidden}
+.dq-bars .tr i{display:block;height:100%;border-radius:8px;background:var(--teal)}
+.dq-bars .tr i.b{background:var(--violet)}
+.dq-bars .v{flex:0 0 64px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.rs-card{position:relative;max-width:540px;height:clamp(150px,44vw,214px);margin:2px auto 0;border-radius:20px;background:#141b3a;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.1);overflow:hidden}
+.rs-card.ok{box-shadow:0 0 0 4px var(--ok)}
+.rs-card.no{box-shadow:0 0 0 4px var(--no)}
+.rs-word{font-family:var(--display);font-weight:800;line-height:1.05;white-space:nowrap;padding:8px 14px;border-radius:16px;border:0 solid transparent}
+.rs-card.frame .rs-word{border-width:7px}
+.rs-card.sw{padding-top:34px}
+.rs-rule{position:absolute;top:10px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:999px;background:#060a1a;color:#fff;border:2px solid #fff;font:800 14px var(--body);letter-spacing:.08em;white-space:nowrap}
+.rs-rule.soz{background:#fff;color:#060a1a;border-color:#060a1a}
+.rs-tbar{max-width:540px;height:7px;margin:10px auto 0;border-radius:4px;background:#0b1330;overflow:hidden}
+.rs-tbar i{display:block;height:100%;width:100%;background:var(--sky);border-radius:4px}
+.rs-ask{max-width:540px;margin:8px auto 0;min-height:1.5em;text-align:center;font-weight:700;color:var(--dim);font-size:15px}
+.rs-ask b{color:var(--text)}
+.rs-ask.no b{color:var(--no)}
+.rs-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:540px;margin:10px auto 0}
+.rs-opts.n4{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:600px){.rs-opts.n4{grid-template-columns:repeat(4,minmax(0,1fr))}.rs-opts.n6{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.rs-btn{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;min-height:58px;padding:6px 6px;border-radius:14px;border:1.5px solid #2a3970;background:#13204a;color:var(--text);font:700 14.5px var(--body);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.rs-btn:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.rs-btn.hit{border-color:var(--ok);background:rgba(53,240,196,.16)}
+.rs-btn.miss{border-color:var(--no);background:rgba(255,107,127,.14)}
+.rs-sw{flex:0 0 26px;height:26px;border-radius:8px;border:2px solid rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.rs-key{position:absolute;top:3px;right:6px;font-size:10.5px;color:var(--dim);display:none}
+@media (hover:hover) and (pointer:fine){.rs-key{display:block}}
+.rs-mic{max-width:540px;margin:10px auto 0;padding:8px 12px;border-radius:12px;border:1px dashed var(--border);color:var(--dim);font-size:14px;text-align:center;min-height:40px}
+.rs-mic b{color:var(--text)}
+.rs-mic.live{border-color:var(--teal)}
+.rs-count{font-family:var(--display);font-weight:800;font-size:64px;color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+<a href="sherlok.html">🕵️ Sherlok</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🧠 Diqqat va xotira</span>
+<h1>Rang va so'z <span>(Strup testi)</span></h1>
+<p class="km-lead">Kartada «QIZIL» deb yozilgan, lekin harflar ko'k rangda. Qaysi birini aytasiz? So'zni emas — harflarning rangini tanlang. Ko'zingiz so'zni o'zi o'qib qo'yadi, shuning uchun bu ko'ringanidan qiyinroq!</p>
+<ul class="km-chips"><li>🎨 6 ta rang, oq va qora ham</li><li>🔀 Qoida almashadi</li><li>⏱ Javob vaqti, ms</li><li id="chipVoice">🎤 Ovoz bilan javob</li></ul>
+</section>
+
+<div id="game" class="km-game dq">
+<div class="km-bar"><span class="ttl">RANG VA SO'Z · STRUP</span><div class="km-hud">
+<span class="km-pill" title="Daraja">📶 <span id="hLv">1</span></span>
+<span class="km-pill" title="Karta">🃏 <span id="hN">0/0</span></span>
+<span class="km-pill" title="To'g'ri javoblar">✅ <span id="hOk">0</span></span>
+<span class="km-pill" title="Oxirgi javob vaqti">⚡ <span id="hRt">—</span></span>
+<button class="km-icon" type="button" id="mute" aria-label="Ovoz">🔊</button>
+</div></div>
+<div class="dq-stage">
+<div class="rs-card" id="card" aria-live="off"><span class="rs-rule" id="rule" hidden></span><span class="rs-word" id="word"></span></div>
+<div class="rs-tbar" aria-hidden="true"><i id="tbar"></i></div>
+<p class="rs-ask" id="ask" aria-live="polite"></p>
+<div class="rs-opts" id="opts" role="group" aria-label="Rang tanlovi"></div>
+<div class="rs-mic" id="mic" hidden aria-live="polite">🎤 <span id="micTxt">Tinglayapman…</span></div>
+</div>
+<div class="km-ov" id="ov"></div>
+</div>
+
+<div class="km-info">
+<section>
+<h2>🧠 Bu mashq nimani rivojlantiradi</h2>
+<p>Biz yozuvni o'zimiz sezmagan holda, avtomatik o'qiymiz. «QIZIL» so'zi ko'k rangda yozilsa, miya bir vaqtning o'zida ikkita javob tayyorlaydi va keraksizini to'xtatib turishi kerak. Bu hodisani 1935-yilda psixolog Jon Ridli Strup tasvirlagan, shuning uchun u <b>Strup effekti</b> deb ataladi.</p>
+<p>Mashq diqqatni kerakli belgiga qaratish, «avtomatik» javobni to'xtatib turish va qoidani tez almashtirishni mashq qildiradi. Muntazam o'ynasangiz, aynan shu turdagi topshiriqlarda tezroq va aniqroq bo'lasiz. Bu ko'nikma boshqa ishlarga ham o'z-o'zidan ko'chadi, deb va'da bermaymiz — buni tadqiqotlar bir xil tasdiqlamaydi.</p>
+</section>
+<section>
+<h2>🎯 Qoidalar</h2>
+<ol>
+<li>Kartada rang nomi yoziladi. <b>So'zni emas, harflarning rangini</b> tanlang.</li>
+<li>1-daraja — qizishish: so'z va rang bir xil.</li>
+<li>3-darajada kartada belgi chiqadi: <b>🎨 RANG</b> — rangini, <b>🔤 SO'Z</b> — yozilgan so'zni tanlang.</li>
+<li>Har bir kartaga vaqt beriladi; 4-darajada u tobora qisqaradi. 5-darajada so'z rangli ramka ichida — ramkaga emas, harflarga qarang.</li>
+<li>Kompyuterda <b>1–6</b> raqam tugmalari bilan javob bering. «🎤 Ovoz bilan» rejimida rang nomini ovoz chiqarib ayting: o'zbekcha, ruscha yoki inglizcha.</li>
+<li>Qizil va yashilni ajratish qiyin bo'lsa, «👁 Qulay 4» to'plamini tanlang: ko'k, sariq, qora, oq.</li>
+</ol>
+</section>
+<section>
+<h2>📈 Natijani qanday tushunish kerak</h2>
+<p><b>Javob vaqti</b> — karta paydo bo'lgandan bosguningizgacha o'tgan vaqt, millisekundlarda (1000 ms = 1 soniya).</p>
+<p>So'z va rang mos kelganda odatda tezroq javob beramiz. Mos kelmagan kartalardagi o'rtacha vaqtdan mos kartalardagini ayirsak — sizning <b>Strup effektingiz</b> chiqadi. U ko'pincha bir necha o'n millisekunddan bir necha yuz millisekundgacha bo'ladi va charchoq, kayfiyat, kunning vaqtiga qarab o'zgaradi.</p>
+<p>Farq kichrayib borsa — chalg'ituvchi so'zni yaxshiroq e'tiborsiz qoldiryapsiz. Natijani boshqalarnikiga emas, o'zingizning oldingi natijangizga solishtiring. Ovoz rejimida vaqtga nutqni tanib olish kechikishi ham qo'shiladi.</p>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html#diqqat">🧠 Boshqa diqqat va xotira mashqlari</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Diqqat va xotira</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html#diqqat">🧠 Diqqat va xotira</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Rang va so'z (Strup testi): diqqat mashqi */
+(function () {
+"use strict";
+var K = window.KAM, W = window, D = document;
+var $ = function (id) { return D.getElementById(id); };
+var yEl = $("year"); if (yEl) yEl.textContent = String(new Date().getFullYear());
+var now = function () { return (W.performance && performance.now) ? performance.now() : Date.now(); };
+var RM = false; try { RM = W.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+var TOUCH = ("ontouchstart" in W) || (navigator.maxTouchPoints > 0);
+
+/* ---------- saqlash (ka.diqqat.rangsoz.*) ---------- */
+var PFX = "ka.diqqat.rangsoz.";
+function lsGet(k, d) { try { var v = localStorage.getItem(PFX + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+function lsSet(k, v) { try { localStorage.setItem(PFX + k, JSON.stringify(v)); } catch (e) {} }
+
+/* ---------- ovoz (sayt bo'yicha umumiy «mute») ---------- */
+var muted = K.lsGet("mute", false), mutedAtLoad = muted, AC = null;
+function beep(f, t, type, vol) {
+  try {
+    if (!AC) { var C = W.AudioContext || W.webkitAudioContext; if (!C) return; AC = new C(); }
+    if (AC.state === "suspended") AC.resume();
+    var o = AC.createOscillator(), g = AC.createGain(), s = AC.currentTime;
+    o.type = type || "triangle"; o.frequency.setValueAtTime(f, s);
+    g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(vol || 0.1, s + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, s + t);
+    o.connect(g); g.connect(AC.destination); o.start(s); o.stop(s + t + 0.02);
+  } catch (e) {}
+}
+var FB = { ok: [660, 0.12], no: [200, 0.22, "sawtooth", 0.06], tap: [440, 0.05, "square", 0.04], up: [784, 0.16], end: [523, 0.3], hop: [520, 0.07, "sine"] };
+function snd(n) { if (muted) return; if (!mutedAtLoad) { try { K.sfx[n](); } catch (e) {} return; } var a = FB[n] || FB.tap; beep(a[0], a[1], a[2], a[3]); }
+var muteB = $("mute");
+muteB.textContent = muted ? "🔇" : "🔊";
+muteB.onclick = function () { muted = !muted; K.lsSet("mute", muted); muteB.textContent = muted ? "🔇" : "🔊"; if (!muted) snd("tap"); };
+
+/* ---------- ranglar ----------
+   Har bir rang faqat o'zi yaxshi ko'rinadigan fonda chiqadi (kontrast >= 3:1):
+   d — to'q ko'k, g — o'rta kulrang (qora ham, oq ham aniq ko'rinadi), l — och krem.
+   Qora va oq harflar doim kulrang fonda; boshqa ranglar uchun fon tasodifiy tanlanadi. */
+var BG = { d: "#141b3a", g: "#6f737c", l: "#f2efe6" };
+var COLS = {
+  qizil:  { name: "QIZIL",  ink: "#ff3b3b", bgs: ["d", "l"] },
+  kok:    { name: "KO'K",   ink: "#3d7bff", bgs: ["d", "l"] },
+  yashil: { name: "YASHIL", ink: "#1fbf55", bgs: ["d"] },
+  sariq:  { name: "SARIQ",  ink: "#ffd60a", bgs: ["d", "g"] },
+  qora:   { name: "QORA",   ink: "#000000", bgs: ["g"] },
+  oq:     { name: "OQ",     ink: "#ffffff", bgs: ["g"] }
+};
+var PALS = { "6": ["qizil", "kok", "yashil", "sariq", "qora", "oq"], "4": ["qizil", "kok", "yashil", "sariq"], "q4": ["kok", "sariq", "qora", "oq"] };
+var EXTRA = ["BINAFSHA", "PUSHTI", "JIGARRANG"];
+var LV = [null,
+  { name: "Mos", desc: "So'z va rang bir xil — qizishib olish uchun.", n: 16, lim: 4000, cong: 1 },
+  { name: "Strup", desc: "Ko'pincha so'z bir rangni aytadi, harflar esa boshqa rangda bo'ladi. Harflarning rangini tanlang!", n: 24, lim: 3500, cong: 0.3 },
+  { name: "Qoida almashadi", desc: "«🎨 RANG» — harflar rangini, «🔤 SO'Z» — yozilgan so'zni tanlang.", n: 24, lim: 4000, cong: 0.3, sw: true },
+  { name: "Tezkor", desc: "Har kartaga vaqt kam va har to'g'ri javobdan keyin yana qisqaradi.", n: 24, lim: 2200, cong: 0.3, fast: true },
+  { name: "Ramka", desc: "So'z boshqa rangdagi ramka ichida. Ramkaga emas, harflarga qarang.", n: 24, lim: 3500, cong: 0.25, frame: true }
+];
+
+/* ---------- nutqni tanish (bo'lsa) ---------- */
+var SRC = W.SpeechRecognition || W.webkitSpeechRecognition || null;
+if (!SRC) { var cv0 = $("chipVoice"); if (cv0) cv0.parentNode.removeChild(cv0); }
+var SYN = {
+  qizil: { w: ["qizil", "kizil", "qizl", "qizi", "қизил", "кизил", "red"], s: ["красн"] },
+  kok: { w: ["kok", "kuk", "koq", "кўк", "кок", "кук", "blue"], s: ["синий", "синя", "сине", "голуб"] },
+  yashil: { w: ["yashil", "yashl", "yoshil", "яшил", "green"], s: ["зелен"] },
+  sariq: { w: ["sariq", "sarik", "sarig", "сариқ", "сарик", "yellow"], s: ["желт"] },
+  qora: { w: ["qora", "kora", "қора", "кора", "black"], s: ["черн"] },
+  oq: { w: ["oq", "ok", "oqq", "оқ", "ок", "white"], s: ["белы", "бела", "белое"] }
+};
+function normTok(s) { return String(s).toLowerCase().replace(/ё/g, "е").replace(/[’ʻʼ`‘'ʹ‛]/g, "").replace(/[^a-zа-яўқғҳ0-9]/g, ""); }
+function colourOf(tok) {
+  var t = normTok(tok); if (!t) return null;
+  for (var k in SYN) {
+    if (SYN[k].w.indexOf(t) >= 0) return k;
+    for (var j = 0; j < SYN[k].s.length; j++) if (t.indexOf(SYN[k].s[j]) === 0) return k;
+  }
+  return null;
+}
+function coloursIn(text) { var out = []; String(text).split(/[\s,.;!?\-]+/).forEach(function (w) { var c = colourOf(w); if (c) out.push(c); }); return out; }
+
+/* ---------- holat ---------- */
+var cfg = { lv: Math.max(1, Math.min(5, lsGet("lv", 1) | 0)), pal: PALS[lsGet("pal", "6")] ? lsGet("pal", "6") : "6", inp: lsGet("inp", "tap") };
+if (cfg.inp === "voice" && !SRC) cfg.inp = "tap";
+var st = { state: "idle", i: 0, n: 0, cur: null, log: [], pts: 0, lim: 0, tm: 0, nx: 0 };
+var el = { card: $("card"), word: $("word"), rule: $("rule"), tbar: $("tbar"), ask: $("ask"), opts: $("opts"), mic: $("mic"), micTxt: $("micTxt"), ov: $("ov"), game: $("game") };
+
+function pal() { return PALS[cfg.pal]; }
+function limFor() { var L = LV[cfg.lv], base = L.fast ? st.lim : L.lim; return cfg.inp === "voice" ? Math.round(base * 1.6 + 1200) : base; }
+function hud() {
+  $("hLv").textContent = cfg.lv + " · " + LV[cfg.lv].name;
+  $("hN").textContent = Math.min(st.i, st.n) + "/" + st.n;
+  $("hOk").textContent = st.log.filter(function (r) { return r.ok; }).length;
+}
+
+/* ---------- javob tugmalari ---------- */
+function onTap(b, fn) {
+  if (W.PointerEvent) {
+    b.addEventListener("pointerdown", function (e) { if (e.button > 0) return; fn(e); });
+    b.addEventListener("click", function (e) { if (e.detail === 0) fn(e); });
+  } else b.addEventListener("click", fn);
+}
+function buildOpts() {
+  var p = pal();
+  el.opts.className = "rs-opts n" + p.length;
+  el.opts.innerHTML = p.map(function (k, i) {
+    return '<button type="button" class="rs-btn" data-k="' + k + '" aria-label="' + COLS[k].name + '"><span class="rs-sw" style="background:' + COLS[k].ink + '"></span>' + COLS[k].name + '<span class="rs-key">' + (i + 1) + "</span></button>";
+  }).join("");
+  Array.prototype.forEach.call(el.opts.querySelectorAll(".rs-btn"), function (b) { onTap(b, function () { answer(b.getAttribute("data-k"), "tap", b); }); });
+}
+
+/* ---------- karta yaratish ---------- */
+function gen(prev) {
+  var L = LV[cfg.lv], p = pal(), ink, g = 0;
+  do { ink = K.pick(p); } while (prev && ink === prev.ink && g++ < 10);
+  var cong = Math.random() < L.cong;
+  var wordK = cong ? ink : K.pick(p.filter(function (k) { return k !== ink; }));
+  var word = COLS[wordK].name;
+  var rule = "rang";
+  if (L.sw) rule = !prev ? K.pick(["rang", "soz"]) : (Math.random() < 0.38 ? (prev.rule === "rang" ? "soz" : "rang") : prev.rule);
+  if (L.frame && !cong && Math.random() < 0.2) { word = K.pick(EXTRA); wordK = null; }
+  var bg = K.pick(COLS[ink].bgs), frame = null;
+  if (L.frame) {
+    var fc = p.filter(function (k) { return k !== ink && COLS[k].bgs.indexOf(bg) >= 0; });
+    if (wordK && wordK !== ink && fc.indexOf(wordK) >= 0 && Math.random() < 0.5) frame = wordK;
+    else if (fc.length) frame = K.pick(fc);
+  }
+  return { ink: ink, word: word, wordK: wordK, rule: rule, ans: rule === "rang" ? ink : wordK, cong: cong, frame: frame, bg: bg, sw: !!(prev && L.sw && prev.rule !== rule) };
+}
+
+function fitWord(text) {
+  var cw = el.card.clientWidth || 320, ch = (el.card.clientHeight || 160) - (el.rule.hidden ? 0 : 34);
+  var fs = Math.floor((cw - 64) / (Math.max(2, text.length) * 0.82));
+  el.word.style.fontSize = Math.max(24, Math.min(80, fs, ch * 0.44)) + "px";
+}
+function blank() {
+  el.card.className = "rs-card"; el.card.style.background = BG.d; el.word.textContent = ""; el.word.style.borderColor = "transparent"; el.rule.hidden = true;
+}
+function bar(ms) {
+  var b = el.tbar; b.style.transition = "none"; b.style.width = "100%";
+  void b.offsetWidth;
+  if (ms > 0) { b.style.transition = "width " + ms + "ms linear"; b.style.width = "0%"; }
+}
+
+function showCard() {
+  if (st.state !== "play") return;
+  if (st.i >= st.n) { finish(); return; }
+  var prev = st.cur;
+  var t = gen(prev); st.cur = t; st.i++; t.done = false;
+  var L = LV[cfg.lv];
+  el.card.className = "rs-card" + (t.frame ? " frame" : "") + (L.sw ? " sw" : "");
+  el.card.style.background = BG[t.bg];
+  el.word.textContent = t.word;
+  el.word.style.color = COLS[t.ink].ink;
+  el.word.style.borderColor = t.frame ? COLS[t.frame].ink : "transparent";
+  if (L.sw) { el.rule.hidden = false; el.rule.className = "rs-rule" + (t.rule === "soz" ? " soz" : ""); el.rule.textContent = t.rule === "soz" ? "🔤 SO'Z" : "🎨 RANG"; }
+  else el.rule.hidden = true;
+  fitWord(t.word);
+  el.ask.className = "rs-ask"; el.ask.innerHTML = t.rule === "soz" ? "Yozilgan <b>so'zni</b> tanlang" : "Harflarning <b>rangini</b> tanlang";
+  Array.prototype.forEach.call(el.opts.querySelectorAll(".rs-btn"), function (b) { b.classList.remove("hit", "miss"); });
+  hud();
+  var lim = limFor(); t.lim = lim;
+  bar(lim);
+  t.t0 = now();
+  // Karta ekranda chizilgan paytdan vaqtni hisoblaymiz
+  if (W.requestAnimationFrame) requestAnimationFrame(function () { if (st.cur === t && !t.done) t.t0 = now(); });
+  clearTimeout(st.tm);
+  st.tm = setTimeout(function () { if (st.cur === t && !t.done) answer(null, "time"); }, lim);
+}
+
+function answer(k, src, btn) {
+  var t = st.cur;
+  if (st.state !== "play" || !t || t.done) return;
+  t.done = true; clearTimeout(st.tm);
+  var rt = Math.round(now() - t.t0), ok = k != null && k === t.ans;
+  var L = LV[cfg.lv];
+  st.log.push({ ok: ok, rt: rt, cong: t.cong, sw: t.sw, rule: t.rule, to: k == null, src: src });
+  var b = el.tbar, w = b.getBoundingClientRect().width; b.style.transition = "none"; b.style.width = w + "px";
+  if (ok) {
+    st.pts += 10 + Math.round(10 * Math.max(0, 1 - rt / t.lim));
+    if (L.fast) st.lim = Math.max(1200, st.lim - 60);
+    el.card.className += " ok"; if (btn) btn.classList.add("hit"); snd("ok");
+    $("hRt").textContent = rt + " ms";
+  } else {
+    if (L.fast) st.lim = Math.min(LV[4].lim, st.lim + 150);
+    el.card.className += " no"; if (btn) btn.classList.add("miss"); snd("no");
+    var right = t.ans ? COLS[t.ans].name : "";
+    el.ask.className = "rs-ask no";
+    el.ask.innerHTML = (k == null ? "⏰ Vaqt tugadi. " : "✗ ") + "To'g'ri javob: <b>" + right + "</b>";
+    var rb = el.opts.querySelector('[data-k="' + t.ans + '"]'); if (rb) rb.classList.add("hit");
+    $("hRt").textContent = k == null ? "—" : rt + " ms";
+  }
+  hud();
+  clearTimeout(st.nx);
+  st.nx = setTimeout(function () { if (st.state !== "play") return; blank(); st.nx = setTimeout(showCard, 260); }, ok ? 300 : 950);
+}
+
+/* ---------- ovoz bilan javob ---------- */
+var rec = null, recWant = false, recLangs = ["uz-UZ", "ru-RU", "en-US"], recLi = 0, used = {}, lastStart = 0;
+function micShow(html, live) { el.mic.hidden = false; el.micTxt.innerHTML = html; el.mic.className = "rs-mic" + (live ? " live" : ""); }
+function heard(text, idx, alts) {
+  var cs = coloursIn(text);
+  if (!cs.length && alts) for (var j = 0; j < alts.length && !cs.length; j++) cs = coloursIn(alts[j]);
+  micShow("Eshitildi: <b>«" + K.esc(String(text).trim().slice(-40)) + "»</b>", true);
+  var prevN = used[idx] || 0;
+  if (cs.length > prevN) { used[idx] = cs.length; var c = cs[cs.length - 1]; if (pal().indexOf(c) >= 0) answer(c, "voice", el.opts.querySelector('[data-k="' + c + '"]')); }
+}
+function recStop() { recWant = false; if (rec) { try { rec.onend = null; rec.abort(); } catch (e) {} } rec = null; }
+function recStart() {
+  if (!SRC) return false;
+  recStop(); recWant = true; used = {};
+  try {
+    var r = new SRC(); rec = r;
+    r.lang = recLangs[recLi]; r.continuous = true; r.interimResults = true; r.maxAlternatives = 3;
+    r.onresult = function (e) {
+      for (var i = e.resultIndex; i < e.results.length; i++) {
+        var res = e.results[i], alts = [];
+        for (var j = 1; j < res.length; j++) alts.push(res[j].transcript);
+        heard(res[0].transcript, i, alts);
+      }
+    };
+    r.onerror = function (e) {
+      var er = e && e.error;
+      if (er === "language-not-supported" && recLi < recLangs.length - 1) { recLi++; K.toast("🎤 " + recLangs[recLi - 1] + " qo'llab-quvvatlanmadi — " + recLangs[recLi] + " bilan tinglaymiz"); return; }
+      if (er === "not-allowed" || er === "service-not-allowed" || er === "audio-capture") {
+        recWant = false; cfg.inp = "tap"; micShow("Mikrofonga ruxsat berilmadi — tugmalar bilan javob bering.", false); K.toast("🎤 Mikrofon ishlamadi — tugmalar bilan davom etamiz");
+      }
+    };
+    r.onend = function () {
+      if (!recWant || rec !== r) return;
+      var wait = Math.max(0, 600 - (now() - lastStart));
+      setTimeout(function () { if (recWant && rec === r) { used = {}; try { lastStart = now(); r.lang = recLangs[recLi]; r.start(); } catch (e) {} } }, wait);
+    };
+    lastStart = now(); r.start();
+    micShow("Tinglayapman… rang nomini ayting", true);
+    return true;
+  } catch (e) { recWant = false; return false; }
+}
+
+/* ---------- boshlash / natija oynalari ---------- */
+function seg(g, items, val) {
+  return '<div class="km-seg" data-g="' + g + '">' + items.map(function (it) { return '<button type="button" data-v="' + it[0] + '" aria-pressed="' + (String(it[0]) === String(val)) + '">' + it[1] + "</button>"; }).join("") + "</div>";
+}
+function bestKey() { return "best." + cfg.lv + "." + cfg.pal + "." + cfg.inp; }
+function showStart() {
+  st.state = "idle"; recStop(); clearTimeout(st.tm); clearTimeout(st.nx); blank(); bar(0);
+  el.ask.innerHTML = ""; el.mic.hidden = true;
+  var lv = []; for (var i = 1; i <= 5; i++) lv.push([i, String(i)]);
+  var b = lsGet(bestKey(), null);
+  el.ov.innerHTML = '<div class="km-card"><h3>🎨 Rang va so\'z</h3><p>So\'zni emas — <b>harflarning rangini</b> tanlang. Tez, lekin shoshilmasdan!</p>' +
+    '<div class="km-lbl">Daraja</div>' + seg("lv", lv, cfg.lv) + '<p class="dq-desc" data-desc></p>' +
+    '<div class="km-lbl">Ranglar</div>' + seg("pal", [["6", "6 rang"], ["4", "4 rang"], ["q4", "👁 Qulay 4"]], cfg.pal) +
+    '<p class="dq-note">«Qulay 4» — qizil-yashilni ajratish qiyin bo\'lganlar uchun: ko\'k, sariq, qora, oq.</p>' +
+    (SRC ? '<div class="km-lbl">Javob berish</div>' + seg("inp", [["tap", "👆 Tugmalar"], ["voice", "🎤 Ovoz bilan"]], cfg.inp) : "") +
+    '<p class="dq-rec" data-best>' + (b ? "🏆 Shaxsiy rekord: " + b.pts + " ochko · o'rtacha " + b.rt + " ms" : "") + "</p>" +
+    '<button class="km-btn pri" type="button" data-go style="min-width:200px">▶ Boshlash</button></div>';
+  el.ov.hidden = false;
+  var desc = el.ov.querySelector("[data-desc]");
+  function upd() {
+    desc.textContent = LV[cfg.lv].desc + " (" + LV[cfg.lv].n + " ta karta)";
+    var bb = lsGet(bestKey(), null); el.ov.querySelector("[data-best]").textContent = bb ? "🏆 Shaxsiy rekord: " + bb.pts + " ochko · o'rtacha " + bb.rt + " ms" : "";
+  }
+  upd();
+  Array.prototype.forEach.call(el.ov.querySelectorAll(".km-seg"), function (sg) {
+    var g = sg.getAttribute("data-g");
+    Array.prototype.forEach.call(sg.querySelectorAll("button"), function (bt) {
+      bt.onclick = function () {
+        var v = bt.getAttribute("data-v"); cfg[g] = g === "lv" ? +v : v; lsSet(g, cfg[g]);
+        Array.prototype.forEach.call(sg.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", x === bt); });
+        snd("tap"); upd(); hud(); if (g === "pal") buildOpts();
+      };
+    });
+  });
+  var go = el.ov.querySelector("[data-go]");
+  go.onclick = function () { start(); };
+  if (!TOUCH) setTimeout(function () { try { go.focus({ preventScroll: true }); } catch (e) {} }, 30);
+  st.i = 0; st.n = LV[cfg.lv].n; st.log = []; hud(); buildOpts();
+}
+
+function intoView() {
+  try { var r = el.game.getBoundingClientRect(); if (r.top < 0 || r.top > W.innerHeight * 0.35) el.game.scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" }); } catch (e) {}
+}
+function start() {
+  snd("tap");
+  st.n = LV[cfg.lv].n; st.i = 0; st.log = []; st.pts = 0; st.cur = null; st.lim = LV[cfg.lv].lim;
+  buildOpts(); hud(); $("hRt").textContent = "—";
+  el.ov.hidden = true; el.mic.hidden = true;
+  if (cfg.inp === "voice") { if (!recStart()) { cfg.inp = "tap"; K.toast("🎤 Ovozni tanish ishga tushmadi — tugmalar bilan javob bering"); } }
+  intoView();
+  st.state = "count";
+  var c = 3;
+  (function tick() {
+    if (st.state !== "count") return;
+    if (c === 0) { st.state = "play"; blank(); st.nx = setTimeout(showCard, 200); return; }
+    blank(); el.word.innerHTML = '<span class="rs-count">' + c + "</span>"; el.word.style.fontSize = "";
+    el.ask.innerHTML = c === 3 ? (LV[cfg.lv].sw ? "Belgiga qarang: <b>🎨 RANG</b> yoki <b>🔤 SO'Z</b>" : "Harflarning <b>rangini</b> tanlang") : el.ask.innerHTML;
+    snd("hop"); c--; st.nx = setTimeout(tick, 650);
+  })();
+}
+
+function avg(a) { if (!a.length) return 0; var s = 0; a.forEach(function (x) { s += x; }); return Math.round(s / a.length); }
+function finish() {
+  if (st.state === "end") return;
+  st.state = "end"; clearTimeout(st.tm); clearTimeout(st.nx); recStop(); bar(0);
+  var log = st.log, n = log.length || st.n;
+  var ok = log.filter(function (r) { return r.ok; });
+  var acc = ok.length / Math.max(1, n);
+  var stars = acc >= 0.9 ? 3 : acc >= 0.75 ? 2 : acc >= 0.55 ? 1 : 0;
+  var rtC = ok.filter(function (r) { return r.cong; }).map(function (r) { return r.rt; });
+  var rtI = ok.filter(function (r) { return !r.cong; }).map(function (r) { return r.rt; });
+  var aAll = avg(ok.map(function (r) { return r.rt; })), aC = avg(rtC), aI = avg(rtI);
+  var html = "";
+  if (rtC.length >= 2 && rtI.length >= 2) {
+    var mx = Math.max(aC, aI, 1);
+    html += '<div class="dq-bars" role="img" aria-label="Mos kartalar: ' + aC + ' ms, mos kelmagan kartalar: ' + aI + ' ms">' +
+      '<div class="row"><span class="lb">Mos</span><span class="tr"><i style="width:' + Math.round(aC / mx * 100) + '%"></i></span><span class="v">' + aC + ' ms</span></div>' +
+      '<div class="row"><span class="lb">Mos emas</span><span class="tr"><i class="b" style="width:' + Math.round(aI / mx * 100) + '%"></i></span><span class="v">' + aI + ' ms</span></div></div>' +
+      "<p><b>Strup effekti: " + (aI - aC >= 0 ? "+" : "−") + Math.abs(aI - aC) + " ms</b><br><span style=\"font-size:13px\">" + (aI - aC > 0 ? "Mos kelmagan kartalarda shuncha sekinroq javob berdingiz." : "Bu safar farq sezilmadi — zo'r diqqat!") + "</span></p>";
+  } else if (cfg.lv === 1) html += '<p style="font-size:13.5px">1-darajada barcha kartalar mos. Strup effektini o\'lchash uchun 2-darajani o\'ynang.</p>';
+  else html += '<p style="font-size:13.5px">Strup effektini hisoblash uchun to\'g\'ri javoblar yetarli emas.</p>';
+  if (LV[cfg.lv].sw) {
+    var rs = ok.filter(function (r) { return r.sw; }).map(function (r) { return r.rt; }), rr = ok.filter(function (r) { return !r.sw; }).map(function (r) { return r.rt; });
+    if (rs.length >= 2 && rr.length >= 2) html += '<p style="font-size:13.5px">🔀 Qoida almashganda: ' + (avg(rs) - avg(rr) >= 0 ? "+" : "−") + Math.abs(avg(rs) - avg(rr)) + " ms</p>";
+  }
+  var timeouts = log.filter(function (r) { return r.to; }).length;
+  var key = bestKey(), best = lsGet(key, null), isNew = !best || st.pts > best.pts;
+  if (isNew && ok.length) lsSet(key, { pts: st.pts, rt: aAll, at: Date.now() });
+  var name = "Diqqat: Rang va so'z", coins = false, acct = W.kaAccount;
+  try { if (stars >= 1 && acct && acct.addCoins) coins = acct.addCoins(stars, name); } catch (e) {}
+  try { if (acct && acct.sendResult) acct.sendResult(name, ok.length, n); } catch (e) {}
+  snd("end");
+  var s = ""; for (var i = 1; i <= 3; i++) s += '<span class="' + (i <= stars ? "" : "off") + '">⭐</span>';
+  var loggedIn = false; try { loggedIn = !!(acct && acct.me && acct.me()); } catch (e) {}
+  el.ov.innerHTML = '<div class="km-card"><h3>' + (stars === 3 ? "Ajoyib diqqat!" : stars === 2 ? "Barakalla!" : stars === 1 ? "Yaxshi urinish!" : "Yana mashq qilamiz!") + "</h3>" +
+    '<div class="km-stars">' + s + '</div><div class="km-big">' + ok.length + "/" + n + "</div>" +
+    "<p>" + st.pts + " ochko · o'rtacha javob: <b>" + (ok.length ? aAll + " ms" : "—") + "</b>" + (timeouts ? " · ⏰ " + timeouts : "") + "<br>Daraja: " + cfg.lv + " · " + LV[cfg.lv].name + (cfg.inp === "voice" ? " · 🎤 ovoz" : "") + "</p>" + html +
+    '<p class="dq-rec">' + (isNew && ok.length ? "🏆 Yangi shaxsiy rekord!" : best ? "🏆 Shaxsiy rekord: " + best.pts + " ochko · " + best.rt + " ms" : "") + "</p>" +
+    (coins ? "<p>🪙 +" + stars + " Bilimcoin</p>" : (stars && !loggedIn ? '<p style="font-size:13px">Bilimcoin olish uchun akkauntga kiring.</p>' : "")) +
+    '<div class="km-row" style="justify-content:center"><button class="km-btn pri" type="button" data-again>🔁 Yana o\'ynash</button><button class="km-btn" type="button" data-menu>⚙️ Sozlamalar</button></div></div>';
+  el.ov.hidden = false;
+  el.ov.querySelector("[data-again]").onclick = start;
+  el.ov.querySelector("[data-menu]").onclick = showStart;
+  if (!TOUCH) setTimeout(function () { try { el.ov.querySelector("[data-again]").focus({ preventScroll: true }); } catch (e) {} }, 30);
+}
+
+/* ---------- pauza (boshqa varaqqa o'tilganda) ---------- */
+function pause() {
+  if (st.state !== "play" && st.state !== "count") return;
+  clearTimeout(st.tm); clearTimeout(st.nx); recStop();
+  if (st.cur && !st.cur.done) { st.cur.done = true; st.i = Math.max(0, st.i - 1); }
+  st.state = "pause"; bar(0); blank();
+  el.ov.innerHTML = '<div class="km-card"><h3>⏸ Pauza</h3><p>Javob vaqti to\'g\'ri o\'lchanishi uchun o\'yin to\'xtatildi.</p><div class="km-row" style="justify-content:center"><button class="km-btn pri" type="button" data-res>▶ Davom etish</button><button class="km-btn" type="button" data-menu>⚙️ Sozlamalar</button></div></div>';
+  el.ov.hidden = false;
+  el.ov.querySelector("[data-res]").onclick = function () { el.ov.hidden = true; if (cfg.inp === "voice") recStart(); st.state = "play"; st.nx = setTimeout(showCard, 400); };
+  el.ov.querySelector("[data-menu]").onclick = showStart;
+}
+D.addEventListener("visibilitychange", function () { if (D.hidden) pause(); });
+
+/* ---------- klaviatura: 1–6 ---------- */
+D.addEventListener("keydown", function (e) {
+  var tg = e.target && e.target.tagName; if (tg === "INPUT" || tg === "SELECT" || tg === "TEXTAREA") return;
+  if (st.state !== "play" || e.ctrlKey || e.metaKey || e.altKey) return;
+  var n = parseInt(e.key, 10), p = pal();
+  if (n >= 1 && n <= p.length) { e.preventDefault(); answer(p[n - 1], "key", el.opts.querySelector('[data-k="' + p[n - 1] + '"]')); }
+});
+W.addEventListener("resize", function () { if (st.cur && st.state === "play" && !st.cur.done) fitWord(st.cur.word); });
+
+showStart();
+
+// Sinov uchun ilgak (avtomatik testlar to'g'ri javobni bilishi uchun)
+W.kaRangSoz = {
+  state: function () { return st.state; },
+  cur: function () { var t = st.cur; return t ? { ink: t.ink, word: t.word, rule: t.rule, ans: t.ans, cong: t.cong, done: t.done, bg: t.bg, frame: t.frame } : null; },
+  log: function () { return st.log.slice(); },
+  cfg: cfg, cols: COLS, bg: BG, voice: function (text) { heard(text, "t" + Math.random(), []); }, coloursIn: coloursIn, hasVoice: !!SRC
+};
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

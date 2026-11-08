@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Uy ta'miri — yuza, perimetr, kafel va bo'yoq hisobi | Kuvonch Academy</title>
+<meta name="description" content="Xona rejasi masshtabda: pol yuzi, kafel soni (10 % zaxira bilan), devor yuzi, plintus, bo'yoq litri va bankalar soni, gulqog'oz rulonlari va ta'mir smetasi. 5 daraja.">
+<link rel="canonical" href="https://kuvonch.uz/tamir.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Uy ta'miri — hayotiy hisob-kitob o'yini">
+<meta property="og:description" content="Kafel, bo'yoq, plintus, gulqog'oz — nechta kerak va qancha turadi? Xona rejasidan hisoblang.">
+<meta property="og:url" content="https://kuvonch.uz/tamir.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<style>
+.hx-note{margin:12px 0 0;font-size:13.5px;color:#cfd8ef;background:rgba(255,194,61,.08);border:1px dashed rgba(255,194,61,.4);border-radius:12px;padding:8px 12px;max-width:760px}
+.km-q .rcp{display:block;font-size:14.5px;font-weight:500;color:var(--dim);margin-top:4px}
+.km-q .tag{display:inline-block;font-size:12px;font-weight:700;color:#1a1300;background:var(--amber);border-radius:999px;padding:1px 8px;vertical-align:2px}
+</style>
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+<a href="sherlok.html">🕵️ Sherlok</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🧾 Hayotiy hisob-kitoblar</span>
+<h1>Uy <span>ta'miri</span></h1>
+<p class="km-lead">Xona rejasi masshtabda chizilgan: uzunligi, eni, balandligi, eshik va derazalar. Polga necha dona kafel, devorga necha banka bo'yoq, nechta plintus va necha rulon gulqog'oz kerak — va hammasi qancha turadi?</p>
+<ul class="km-chips"><li>📐 Yuza va perimetr</li><li>🧱 Kafel + 10 % zaxira</li><li>🪣 Bo'yoq va bankalar</li><li>🧻 Gulqog'oz rulonlari</li></ul>
+<p class="hx-note">💡 O'lchamlar, sarf me'yorlari va narxlar — mashq uchun olingan <b>misol sonlar</b>. Haqiqiy ta'mirda mahsulot yorlig'idagi me'yorni o'qing.</p>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>🏠 Hayotda qayerda kerak</h2>
+<p>Ta'mirga material ozgina kam olinsa, yana do'konga borish kerak — boshqa partiyada rangi farq qilishi ham mumkin. Ko'p olinsa, pul behuda ketadi. Shuning uchun ustalar avval yuza va perimetrni hisoblaydi, kafelga 10 % zaxira qo'shadi (kesishda sinadi, qirqimi chiqadi) va dona, banka, rulon sonini doim <b>yuqoriga yaxlitlaydi</b>: 7,3 banka bo'yoq sotilmaydi — 8 banka olinadi.</p>
+</section>
+<section>
+<h2>🎯 Qoidalar</h2>
+<ol>
+<li>Sahnada xona rejasi masshtabda chizilgan; savolga kerakli hamma o'lchamlar savol matnida ham yozilgan.</li>
+<li>Javobni yozing yoki tanlang. Kasr sonni vergul (<b>12,5</b>) yoki nuqta (<b>12.5</b>) bilan yozish mumkin.</li>
+<li>Ketma-ket 3 ta to'g'ri javob — daraja oshadi (5 tagacha). Ikki xato ketma-ket — daraja pasayadi.</li>
+<li>Xato qilsangiz, yana bir urinish beriladi; ikkinchi xatoda qadam-baqadam yechim chiqadi.</li>
+<li>🎁 Sirli quti chiqib qolsa — oching: ko'pincha yordam beradi, ba'zan ochko oladi!</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> pol yuzi (uzunlik × en) va perimetr</li>
+<li><b>2-daraja:</b> sm va m: kafel yuzi, qatordagi kafellar, 10 % zaxira bilan kafel soni</li>
+<li><b>3-daraja:</b> devor yuzi (eshik va derazalarsiz), plintus uzunligi va soni</li>
+<li><b>4-daraja:</b> bo'yoq: litr, qatlamlar, bankalar soni; kafel qutilari</li>
+<li><b>5-daraja:</b> gulqog'oz rulonlari va material narxi (smeta)</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html#hayotiy">🧾 Boshqa hayotiy hisob-kitoblar</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Hayotiy hisob-kitoblar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Uy ta'miri: yuza, perimetr, kafel, bo'yoq, gulqog'oz */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf, rnd = K.round;
+var y = document.getElementById("year"); if (y) y.textContent = String(new Date().getFullYear());
+var FONT = '"Golos Text",system-ui,sans-serif';
+
+/* ---------- xona: barcha o'lchamlar santimetrda (butun son — hisob aniq chiqadi) ---------- */
+function m(cm) { return nf(rnd(cm / 100, 4)); }            // 420 → "4,2"
+function m2(cm2) { return rnd(cm2 / 10000, 6); }           // sm² → m²
+function ceilE(x) { return Math.ceil(x - 1e-9); }
+// " = 4" yoki " ≈ 3,57": bo'linma butun (yoki d xonali) bo'lsa — tenglik, aks holda taqriban
+function eq(x, d) { var r = rnd(x, d == null ? 2 : d); return (Math.abs(r - x) < 1e-9 ? " = " : " ≈ ") + nf(r); }
+function roundRat(num, den) { return Math.floor((2 * num + den) / (2 * den)); } // butun sonlarda yarmini yuqoriga yaxlitlash
+function som(x) { return nf(x) + " so'm"; }
+function mis(arr, ans) {
+  var out = [], seen = {};
+  arr.forEach(function (v) { if (typeof v !== "number" || !isFinite(v)) return; v = rnd(v, 6); if (v <= 0 || Math.abs(v - ans) < 1e-9 || seen[v]) return; seen[v] = 1; out.push(v); });
+  return out;
+}
+var DOORS = [[80, 200], [90, 200], [90, 210], [100, 210]];
+var WINS = [[120, 140], [140, 150], [150, 150], [120, 150], [200, 150], [100, 120]];
+function room(opt) {
+  opt = opt || {};
+  var step = opt.step || 10, A, B;
+  do { A = ri(30, 65) * 10; B = ri(25, 50) * 10; if (step === 50) { A = ri(6, 12) * 50; B = ri(5, 9) * 50; } if (step === 100) { A = ri(3, 7) * 100; B = ri(2, 5) * 100; } } while (B >= A || A - B < 40);
+  var d = pick(DOORS), w = pick(WINS), k = A >= 450 && Math.random() < 0.55 ? 2 : 1;
+  if (k === 2 && w[0] * 2 > A - 80) w = [120, 140];
+  return { A: A, B: B, H: opt.H || pick([250, 260, 270, 280, 300]), dw: d[0], dh: d[1], ww: w[0], wh: w[1], wn: k };
+}
+function P(R) { return 2 * (R.A + R.B); }                   // sm
+function floorCm2(R) { return R.A * R.B; }
+function wallCm2(R) { return P(R) * R.H - R.dw * R.dh - R.wn * R.ww * R.wh; }
+function roomTxt(R, withH) { return "Xona <b>" + m(R.A) + " m × " + m(R.B) + " m</b>" + (withH ? ", balandligi <b>" + m(R.H) + " m</b>" : ""); }
+function openTxt(R) { return "eshik " + m(R.dw) + " × " + m(R.dh) + " m, " + (R.wn === 2 ? "2 ta deraza, har biri " : "deraza ") + m(R.ww) + " × " + m(R.wh) + " m"; }
+function sc(R, mode, o) { o = o || {}; o.R = R; o.mode = mode; return o; }
+
+/* ---------- savollar ---------- */
+function gen(L) {
+  var r = Math.random();
+  if (L === 1) return r < 0.5 ? t1area() : r < 0.85 ? t1perim() : t1laminate();
+  if (L === 2) return r < 0.3 ? t2tileArea() : r < 0.6 ? t2row() : t2reserve();
+  if (L === 3) return r < 0.55 ? t3walls() : r < 0.8 ? t3skirt() : t3planks();
+  if (L === 4) return r < 0.35 ? t4litres() : r < 0.7 ? t4cans() : t4boxes();
+  return r < 0.4 ? t5paper() : r < 0.7 ? t5tileCost() : t5paintCost();
+}
+
+function t1area() {
+  var R = room({ step: Math.random() < 0.5 ? 50 : 10 }), ans = m2(floorCm2(R));
+  return {
+    q: roomTxt(R) + ". Pol yuzi necha kvadrat metr?",
+    a: ans, unit: "m²", input: Math.random() < 0.5 ? "opts" : "num", tol: 0.006,
+    mistakes: mis([m2(P(R) * 100), rnd((R.A + R.B) / 100, 4), ans * 2, rnd(ans + R.B / 100, 4)], ans),
+    hint1: "Yuza = uzunlik × en.",
+    steps: ["Pol yuzi = uzunlik × en", m(R.A) + " × " + m(R.B) + " = " + nf(ans) + " m²"],
+    sc: sc(R, "floor")
+  };
+}
+function t1perim() {
+  var R = room({ step: Math.random() < 0.5 ? 50 : 10 }), ans = rnd(P(R) / 100, 4);
+  return {
+    q: roomTxt(R) + ". Xonaning perimetri (devorlar bo'ylab aylana uzunligi) necha metr?",
+    a: ans, unit: "m", input: Math.random() < 0.5 ? "opts" : "num", tol: 0.006,
+    mistakes: mis([rnd((R.A + R.B) / 100, 4), m2(floorCm2(R)), rnd((2 * R.A + R.B) / 100, 4), ans + 1], ans),
+    hint1: "To'rtta devorning uzunligini qo'shing.",
+    steps: ["Perimetr = 2 × (uzunlik + en)", "2 × (" + m(R.A) + " + " + m(R.B) + ") = 2 × " + m(R.A + R.B) + " = " + nf(ans) + " m"],
+    sc: sc(R, "perim")
+  };
+}
+function t1laminate() {
+  var R = room({ step: 50 }), S = m2(floorCm2(R)), pr = pick([65000, 75000, 85000, 95000, 120000]), ans = rnd(S * pr, 2);
+  return {
+    q: roomTxt(R) + ". Polga laminat yotqizamiz: 1 m² — <b>" + som(pr) + "</b> (misol narx). Laminat necha so'm turadi?",
+    a: ans, unit: "so'm", input: "num", tol: 0.5,
+    mistakes: [], hint1: "Avval pol yuzini toping.",
+    steps: ["Pol yuzi: " + m(R.A) + " × " + m(R.B) + " = " + nf(S) + " m²", nf(S) + " × " + nf(pr) + " = " + som(ans)],
+    sc: sc(R, "floor")
+  };
+}
+function t2tileArea() {
+  var t = pick([20, 25, 30, 40, 45, 50, 60]), ans = m2(t * t);
+  return {
+    q: "Kafel o'lchami <b>" + t + " × " + t + " sm</b>. Bitta kafelning yuzi necha kvadrat metr?",
+    a: ans, unit: "m²", input: "opts", tol: 1e-6,
+    mistakes: mis([t * t, rnd(t * t / 100, 4), rnd(t * t / 1000, 4), rnd(t / 100 * 2, 4), rnd(t * 4 / 100, 4)], ans),
+    steps: [t + " sm = " + m(t) + " m (1 m = 100 sm)", m(t) + " × " + m(t) + " = " + nf(ans) + " m²", "Yoki: " + t + " × " + t + " = " + nf(t * t) + " sm², 1 m² = 10 000 sm²"],
+    sc: sc(room({ step: 100 }), "tile", { tile: t, one: true })
+  };
+}
+function t2row() {
+  var t = pick([20, 25, 40, 50]), R;
+  do { R = room({ step: 50 }); } while (R.A % t || R.B % t);
+  var along = Math.random() < 0.5, ans = along ? R.A / t : (R.A / t) * (R.B / t);
+  return {
+    q: roomTxt(R) + ". Kafel <b>" + t + " × " + t + " sm</b>. " + (along ? "Uzunlik bo'ylab bitta qatorga nechta kafel sig'adi?" : "Zaxirasiz, polga nechta kafel kerak? (kafel kesilmaydi — o'lchamlar butun chiqadi)"),
+    a: ans, unit: "ta", input: Math.random() < 0.5 ? "opts" : "num",
+    mistakes: along ? mis([R.A / 10, R.B / t, ans * 2, ans + 1], ans) : mis([R.A / t + R.B / t, ans * 2, (R.A * R.B) / (t * 100), ans + R.A / t], ans),
+    steps: along ? [m(R.A) + " m = " + R.A + " sm", R.A + " : " + t + " = " + ans + " ta"] : ["Uzunlik bo'ylab: " + R.A + " : " + t + " = " + R.A / t + " ta", "En bo'ylab: " + R.B + " : " + t + " = " + R.B / t + " ta", R.A / t + " × " + R.B / t + " = " + ans + " ta"],
+    sc: sc(R, "tile", { tile: t })
+  };
+}
+function tilesRes(R, t) { return ceilE(floorCm2(R) * 11 / (t * t * 10)); }
+function t2reserve() {
+  var R = room({}), t = pick([30, 40, 45, 50, 60]), raw = floorCm2(R) / (t * t), ans = tilesRes(R, t);
+  return {
+    q: roomTxt(R) + ". Kafel <b>" + t + " × " + t + " sm</b>. Kesishda sinishi uchun <b>10 % zaxira</b> qo'shamiz. Nechta kafel olish kerak?",
+    a: ans, unit: "ta", input: "num",
+    mistakes: [], hint1: "Pol yuzini bitta kafel yuziga bo'ling, keyin 1,1 ga ko'paytiring va yuqoriga yaxlitlang.",
+    steps: ["Pol yuzi: " + m(R.A) + " × " + m(R.B) + " = " + nf(m2(floorCm2(R))) + " m²", "Bitta kafel: " + m(t) + " × " + m(t) + " = " + nf(m2(t * t)) + " m²", nf(m2(floorCm2(R))) + " : " + nf(m2(t * t)) + eq(raw) + " ta", "10 % zaxira: " + nf(rnd(raw, 2)) + " × 1,1" + eq(raw * 1.1), "Kafel yarimta sotilmaydi va kam bo'lsa yetmaydi — yuqoriga yaxlitlaymiz: " + ans + " ta"],
+    okNote: "Nega yuqoriga? Pastga yaxlitlasak, oxirgi qatorga kafel yetmay qoladi.",
+    sc: sc(R, "tile", { tile: t })
+  };
+}
+function t3walls() {
+  var R = room({}), Sw = m2(wallCm2(R)), full = m2(P(R) * R.H);
+  return {
+    q: roomTxt(R, true) + "; " + openTxt(R) + ". Bo'yaladigan devorlar yuzi necha m²? (eshik va derazalar bo'yalmaydi)" + (Math.abs(Sw * 100 - Math.round(Sw * 100)) > 1e-6 ? " <span class=\"tag\">0,01 gacha yaxlitlash mumkin</span>" : ""),
+    a: Sw, unit: "m²", input: "num", tol: 0.006, ph: "masalan: 36,42",
+    mistakes: [], hint1: "Avval 4 ta devorning to'liq yuzini toping: perimetr × balandlik.",
+    steps: ["Perimetr: 2 × (" + m(R.A) + " + " + m(R.B) + ") = " + m(P(R)) + " m", "Devorlar to'liq: " + m(P(R)) + " × " + m(R.H) + " = " + nf(full) + " m²", "Eshik: " + m(R.dw) + " × " + m(R.dh) + " = " + nf(m2(R.dw * R.dh)) + " m²", "Deraza" + (R.wn === 2 ? "lar: 2 × " : ": ") + m(R.ww) + " × " + m(R.wh) + " = " + nf(m2(R.wn * R.ww * R.wh)) + " m²", nf(full) + " − " + nf(m2(R.dw * R.dh)) + " − " + nf(m2(R.wn * R.ww * R.wh)) + " = " + nf(Sw) + " m²"],
+    sc: sc(R, "walls")
+  };
+}
+function t3skirt() {
+  var R = room({}), ans = rnd((P(R) - R.dw) / 100, 4);
+  return {
+    q: roomTxt(R) + ", eshik eni <b>" + m(R.dw) + " m</b>. Plintus (pol bo'ylab devor tagiga qo'yiladigan reyka) eshik ostiga qo'yilmaydi. Necha metr plintus kerak?",
+    a: ans, unit: "m", input: Math.random() < 0.4 ? "opts" : "num", tol: 0.006,
+    mistakes: mis([rnd(P(R) / 100, 4), rnd((R.A + R.B - R.dw) / 100, 4), rnd((P(R) - 2 * R.dw) / 100, 4), rnd((P(R) + R.dw) / 100, 4)], ans),
+    steps: ["Perimetr: 2 × (" + m(R.A) + " + " + m(R.B) + ") = " + m(P(R)) + " m", "Eshik o'rni ayriladi: " + m(P(R)) + " − " + m(R.dw) + " = " + nf(ans) + " m"],
+    sc: sc(R, "skirt")
+  };
+}
+function t3planks() {
+  var R = room({}), len = pick([200, 250, 300]), need = P(R) - R.dw, ans = ceilE(need / len);
+  return {
+    q: roomTxt(R) + ", eshik eni " + m(R.dw) + " m. Plintus <b>" + m(len) + " metrlik</b> bo'laklarda sotiladi. Eshik ostiga plintus qo'yilmaydi. Nechta bo'lak olish kerak?",
+    a: ans, unit: "ta", input: "num",
+    mistakes: [], hint1: "Avval plintus uzunligini toping, keyin bo'lak uzunligiga bo'ling.",
+    steps: ["Plintus uzunligi: " + m(P(R)) + " − " + m(R.dw) + " = " + m(need) + " m", m(need) + " : " + m(len) + eq(need / len), need % len === 0 ? "Qoldiqsiz: " + ans + " ta" : "Yetishi uchun yuqoriga yaxlitlaymiz: " + ans + " ta (oxirgi bo'lakdan qirqib olinadi)"],
+    sc: sc(R, "skirt", { plank: len })
+  };
+}
+function paintSet() { return { cov: pick([8, 10, 12]), coats: pick([1, 2, 2]), can: pick([2.5, 3, 5]), price: 0 }; }
+function t4litres() {
+  var R = room({}), Pn = paintSet(), Sw = m2(wallCm2(R)), lit = wallCm2(R) * Pn.coats / (Pn.cov * 10000), ans = roundRat(wallCm2(R) * Pn.coats, Pn.cov * 1000) / 10, exact = Math.abs(ans - lit) < 1e-9;
+  return {
+    q: roomTxt(R, true) + "; " + openTxt(R) + ". Bo'yoq sarfi (misol): <b>1 litr " + Pn.cov + " m²</b> ga yetadi, devorlar <b>" + Pn.coats + " qatlam</b> bo'yaladi. Necha litr bo'yoq kerak?" + (exact ? "" : " <span class=\"tag\">0,1 gacha yaxlitlang</span>"),
+    a: ans, unit: "l", input: "num", tol: 0.051, ph: "masalan: 7,3",
+    mistakes: [], hint1: "Devor yuzi × qatlamlar soni : 1 litr bo'yaydigan yuza.",
+    steps: ["Devorlar yuzi (eshik va derazasiz): " + nf(Sw) + " m²", Pn.coats === 2 ? "2 qatlam: " + nf(Sw) + " × 2 = " + nf(rnd(Sw * 2, 4)) + " m²" : "1 qatlam: " + nf(Sw) + " m²", nf(rnd(Sw * Pn.coats, 4)) + " : " + Pn.cov + eq(lit, 3) + " l"].concat(exact ? [] : ["0,1 gacha yaxlitlaymiz: ≈ " + nf(ans) + " l"]),
+    sc: sc(R, "paint", { cov: Pn.cov, coats: Pn.coats })
+  };
+}
+function t4cans() {
+  var R = room({}), Pn = paintSet(), lit, ans, ceil = Math.random() < 0.35;
+  var Sc = ceil ? floorCm2(R) : wallCm2(R);
+  lit = Sc * Pn.coats / (Pn.cov * 10000); ans = ceilE(lit / Pn.can);
+  return {
+    q: (ceil ? roomTxt(R) + ". <b>Shift</b> (ship) bo'yaladi" : roomTxt(R, true) + "; " + openTxt(R) + ". Devorlar bo'yaladi") + ": " + Pn.coats + " qatlam, 1 litr " + Pn.cov + " m² ga yetadi (misol). Bo'yoq <b>" + nf(Pn.can) + " litrlik</b> bankada sotiladi. Nechta banka olish kerak?",
+    a: ans, unit: "ta", input: "num",
+    mistakes: [], hint1: "Avval necha litr kerakligini toping, keyin banka hajmiga bo'lib, yuqoriga yaxlitlang.",
+    steps: [(ceil ? "Shift yuzi = pol yuzi: " + m(R.A) + " × " + m(R.B) + " = " : "Devorlar yuzi: ") + nf(m2(Sc)) + " m²", "Bo'yoq: " + nf(m2(Sc)) + (Pn.coats === 2 ? " × 2" : "") + " : " + Pn.cov + eq(lit) + " l", nf(rnd(lit, 2)) + " : " + nf(Pn.can) + eq(lit / Pn.can) + " banka", "Banka bo'lib sotilmaydi — yuqoriga yaxlitlaymiz: " + ans + " ta"],
+    sc: sc(R, ceil ? "ceil" : "paint", { cov: Pn.cov, coats: Pn.coats, can: Pn.can })
+  };
+}
+function t4boxes() {
+  var R = room({}), t = pick([30, 40, 50, 60]), inBox = t === 60 ? 4 : t === 50 ? pick([5, 6]) : t === 40 ? pick([6, 8]) : pick([10, 12]), n = tilesRes(R, t), ans = ceilE(n / inBox);
+  return {
+    q: roomTxt(R) + ". Kafel <b>" + t + " × " + t + " sm</b>, 10 % zaxira bilan. Bir qutida <b>" + inBox + " ta</b> kafel. Nechta quti olish kerak?",
+    a: ans, unit: "quti", input: "num",
+    mistakes: [], hint1: "Avval zaxira bilan kafel sonini toping (yuqoriga yaxlitlab).",
+    steps: ["Pol: " + nf(m2(floorCm2(R))) + " m², kafel: " + nf(m2(t * t)) + " m²", "Zaxira bilan: " + nf(m2(floorCm2(R))) + " : " + nf(m2(t * t)) + " × 1,1" + eq(floorCm2(R) * 1.1 / (t * t)) + " → " + n + " ta", n + " : " + inBox + eq(n / inBox) + " → " + ans + " quti (quti ochib sotilmaydi)"],
+    sc: sc(R, "tile", { tile: t })
+  };
+}
+function t5paper() {
+  var R = room({ H: pick([250, 260, 270, 280]) }), rw = pick([53, 53, 106]), rl = 1000, per = Math.floor(rl / R.H), strips = ceilE(P(R) / rw), ans = ceilE(strips / per);
+  return {
+    q: roomTxt(R, true) + ". Gulqog'oz rulonining uzunligi <b>10 m</b>, eni <b>" + m(rw) + " m</b> (misol). Eshik va deraza ustiga ham kichik bo'laklar kerak, shuning uchun ularni ayirmaymiz. Necha rulon kerak?",
+    a: ans, unit: "rulon", input: "num",
+    mistakes: [], hint1: "Bir rulondan nechta to'liq bo'lak (balandlikda) chiqishini toping.",
+    steps: ["Perimetr: " + m(P(R)) + " m", "Bo'laklar soni: " + m(P(R)) + " : " + m(rw) + eq(P(R) / rw) + " → " + strips + " ta (yuqoriga)", "Bir rulondan: 10 : " + m(R.H) + eq(rl / R.H) + " → " + per + " ta to'liq bo'lak (pastga — qolgan qismi kalta)", strips + " : " + per + eq(strips / per) + " → " + ans + " rulon (yuqoriga)"],
+    okNote: "Bu yerda ikki xil yaxlitlash bor: rulondan chiqadigan bo'lak — pastga, kerakli soni — yuqoriga.",
+    sc: sc(R, "paper", { rw: rw, per: per })
+  };
+}
+function t5tileCost() {
+  var R = room({}), t = pick([40, 50, 60]), inBox = t === 60 ? 4 : t === 50 ? 5 : 8, bp = pick([95000, 120000, 145000, 160000, 185000]), n = tilesRes(R, t), bx = ceilE(n / inBox), ans = bx * bp;
+  return {
+    q: roomTxt(R) + ". Kafel " + t + " × " + t + " sm, 10 % zaxira bilan; bir qutida " + inBox + " ta, quti narxi <b>" + som(bp) + "</b> (misol). Kafelga necha so'm ketadi?",
+    a: ans, unit: "so'm", input: "num", tol: 0.5,
+    mistakes: [], hint1: "Kafel soni → qutilar soni (yuqoriga) → narx.",
+    steps: ["Pol: " + nf(m2(floorCm2(R))) + " m², kafel: " + nf(m2(t * t)) + " m²", "Zaxira bilan kafel: " + nf(m2(floorCm2(R))) + " : " + nf(m2(t * t)) + " × 1,1" + eq(floorCm2(R) * 1.1 / (t * t)) + " → " + n + " ta", "Qutilar: " + n + " : " + inBox + " → " + bx + " ta", bx + " × " + nf(bp) + " = " + som(ans)],
+    sc: sc(R, "tile", { tile: t, cost: true })
+  };
+}
+function t5paintCost() {
+  var R = room({}), Pn = paintSet(), cp = Pn.can === 5 ? pick([180000, 210000, 240000]) : pick([95000, 110000, 125000]), lit = wallCm2(R) * Pn.coats / (Pn.cov * 10000), cans = ceilE(lit / Pn.can), ans = cans * cp;
+  return {
+    q: roomTxt(R, true) + "; " + openTxt(R) + ". Devorlar " + Pn.coats + " qatlam bo'yaladi, 1 l — " + Pn.cov + " m². " + nf(Pn.can) + " litrlik banka — <b>" + som(cp) + "</b> (misol). Bo'yoqqa necha so'm ketadi?",
+    a: ans, unit: "so'm", input: "num", tol: 0.5,
+    mistakes: [], hint1: "Devor yuzi → litr → bankalar (yuqoriga) → narx.",
+    steps: ["Devorlar yuzi: " + nf(m2(wallCm2(R))) + " m²", "Bo'yoq: " + nf(m2(wallCm2(R))) + (Pn.coats === 2 ? " × 2" : "") + " : " + Pn.cov + eq(lit) + " l", "Bankalar: " + nf(rnd(lit, 2)) + " : " + nf(Pn.can) + eq(lit / Pn.can) + " → " + cans + " ta", cans + " × " + nf(cp) + " = " + som(ans)],
+    sc: sc(R, "paint", { cov: Pn.cov, coats: Pn.coats, can: Pn.can, cost: true })
+  };
+}
+
+/* ---------- sahna: masshtabli reja va devorlar yoyilmasi ---------- */
+var CUR = null, grow = 0, DEMO = { A: 500, B: 400, H: 270, dw: 90, dh: 200, ww: 150, wh: 150, wn: 2 };
+function fitTxt(c, s, x, y, maxW, col, size, align, weight) {
+  c.font = (weight || 700) + " " + size + "px " + FONT;
+  var w = c.measureText(s).width; if (w > maxW && w > 0) size = Math.max(7, Math.floor(size * maxW / w * 10) / 10);
+  K.txt(c, s, x, y, col, size, align, weight);
+}
+function chip(c, s, x, y, col, bg, size) {
+  size = size || 13; c.font = "800 " + size + "px " + FONT; var w = c.measureText(s).width + 18;
+  c.fillStyle = bg || "rgba(6,10,26,.85)"; K.rr(c, x - w / 2, y - size * 0.9, w, size * 1.8, size * 0.9); c.fill();
+  K.txt(c, s, x, y, col || "#ffc23d", size, "center", 800); return w;
+}
+function dimLine(c, x1, y1, x2, y2, lab, col, off) {
+  c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 1.5;
+  c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke();
+  var a = Math.atan2(y2 - y1, x2 - x1);
+  [[x1, y1, a], [x2, y2, a + Math.PI]].forEach(function (p) { c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(p[0] + Math.cos(p[2] + 0.4) * 7, p[1] + Math.sin(p[2] + 0.4) * 7); c.lineTo(p[0] + Math.cos(p[2] - 0.4) * 7, p[1] + Math.sin(p[2] - 0.4) * 7); c.closePath(); c.fill(); });
+  chip(c, lab, (x1 + x2) / 2 + (off ? off[0] : 0), (y1 + y2) / 2 + (off ? off[1] : 0), col, "rgba(6,10,26,.9)", 12.5);
+}
+function plan(c, x0, y0, w0, h0, S, t) {
+  var R = S.R, pL = 56, pR = 20, pT = 38, pB = 34, s = Math.min((w0 - pL - pR) / R.A, (h0 - pT - pB) / R.B), W = R.A * s, H = R.B * s, x = x0 + pL + (w0 - pL - pR - W) / 2, y = y0 + pT + (h0 - pT - pB - H) / 2;
+  // pol
+  c.fillStyle = S.mode === "ceil" ? "#e9ecf5" : "#c9a77c"; c.fillRect(x, y, W, H);
+  if (S.mode !== "ceil") { c.strokeStyle = "rgba(90,60,30,.25)"; c.lineWidth = 1; for (var px = x + 14; px < x + W; px += 14) { c.beginPath(); c.moveTo(px, y); c.lineTo(px, y + H); c.stroke(); } }
+  if (S.mode === "floor" || S.mode === "ceil") {
+    c.fillStyle = S.mode === "ceil" ? "rgba(92,184,255,.35)" : "rgba(53,240,196," + (0.25 + 0.15 * Math.sin(t * 3)) + ")"; c.fillRect(x, y, W * Math.min(1, grow), H);
+    chip(c, S.mode === "ceil" ? "shift = ? m²" : "? m²", x + W / 2, y + H / 2, "#1a1300", "#ffc23d", 15);
+  }
+  if (S.mode === "tile") {
+    var ts = S.tile * s, cols = Math.ceil(R.A / S.tile), rows = Math.ceil(R.B / S.tile), shown = Math.floor(cols * rows * Math.min(1, grow));
+    c.save(); c.beginPath(); c.rect(x, y, W, H); c.clip();
+    for (var i = 0; i < shown; i++) {
+      var cx = i % cols, cy = Math.floor(i / cols), tx = x + cx * ts, ty = y + cy * ts, cut = (cx + 1) * S.tile > R.A || (cy + 1) * S.tile > R.B;
+      c.fillStyle = cut ? "#c7d3e6" : ((cx + cy) % 2 ? "#e8eef8" : "#f6f8fc"); c.fillRect(tx, ty, ts, ts);
+      c.strokeStyle = "#8d9bb5"; c.lineWidth = 1; c.strokeRect(tx + 0.5, ty + 0.5, ts - 1, ts - 1);
+    }
+    c.restore();
+    fitTxt(c, "kesiladigan kafel — kulrang", x + W / 2, y + H + 22, W + 40, "#93a3cc", 11.5, "center", 600);
+  }
+  // devorlar
+  c.strokeStyle = "#e9edf7"; c.lineWidth = 7; c.lineJoin = "miter"; c.strokeRect(x - 3.5, y - 3.5, W + 7, H + 7);
+  // perimetr / plintus ajratish
+  if (S.mode === "perim" || S.mode === "skirt") {
+    var dash = (t * 40) % 20;
+    c.strokeStyle = S.mode === "skirt" ? "#a27bff" : "#ff5e8e"; c.lineWidth = 5; c.setLineDash([12, 8]); c.lineDashOffset = -dash;
+    c.strokeRect(x + 3, y + 3, W - 6, H - 6); c.setLineDash([]); c.lineDashOffset = 0;
+    chip(c, S.mode === "skirt" ? "plintus = ? m" : "P = ? m", x + W / 2, y + H / 2, "#fff", S.mode === "skirt" ? "#7b5cff" : "#d6336c", 14);
+  }
+  // eshik (pastki devorda, o'ngroqda) — ochilish yoyi bilan
+  var dW = R.dw * s, dx = x + W - dW - Math.min(W * 0.12, 40);
+  c.strokeStyle = "#0b1330"; c.lineWidth = 9; c.beginPath(); c.moveTo(dx, y + H + 3.5); c.lineTo(dx + dW, y + H + 3.5); c.stroke();
+  c.strokeStyle = "#ffc23d"; c.lineWidth = 2; c.beginPath(); c.moveTo(dx, y + H); c.lineTo(dx, y + H - dW); c.stroke();
+  c.setLineDash([4, 4]); c.beginPath(); c.arc(dx, y + H, dW, -Math.PI / 2, 0); c.stroke(); c.setLineDash([]);
+  if (S.mode === "skirt") { c.strokeStyle = "#ff5e8e"; c.lineWidth = 2; c.beginPath(); c.moveTo(dx, y + H + 10); c.lineTo(dx + dW, y + H + 10); c.stroke(); fitTxt(c, "eshik — plintussiz", dx + dW / 2, y + H + 22, 140, "#ff9db8", 11, "center", 700); }
+  // derazalar (yuqori devorda)
+  var wW = R.ww * s;
+  for (var k = 0; k < R.wn; k++) {
+    var wx = x + W * (R.wn === 1 ? 0.5 : (k === 0 ? 0.28 : 0.72)) - wW / 2;
+    c.fillStyle = "#0b1330"; c.fillRect(wx, y - 7, wW, 7);
+    c.strokeStyle = "#5cb8ff"; c.lineWidth = 2; c.beginPath(); c.moveTo(wx, y - 5.5); c.lineTo(wx + wW, y - 5.5); c.moveTo(wx, y - 1.5); c.lineTo(wx + wW, y - 1.5); c.stroke();
+  }
+  // o'lcham chiziqlari
+  if (S.mode !== "tile" || !S.one) {
+    dimLine(c, x, y - 20, x + W, y - 20, m(R.A) + " m", "#cfd8ef", [0, 0]);
+    dimLine(c, x - 14, y, x - 14, y + H, m(R.B) + " m", "#cfd8ef", [-12, 0]);
+  }
+  return { x: x, y: y, W: W, H: H };
+}
+function unfolded(c, x0, y0, w0, h0, S, t) {
+  var R = S.R, p = P(R), s = Math.min((w0 - 20) / p, (h0 - 52) / R.H), W = p * s, H = R.H * s, x = x0 + (w0 - W) / 2, y = y0 + 28 + (h0 - 52 - H) / 2;
+  fitTxt(c, "Devorlar yoyilmasi: " + m(p) + " m × " + m(R.H) + " m", x0 + w0 / 2, y0 + 12, w0 - 10, "#cfd8ef", 13, "center", 800);
+  var col = S.mode === "paper" ? "#efe3c8" : "#e7ebf3";
+  c.fillStyle = col; c.fillRect(x, y, W, H);
+  if (S.mode === "paint") { var g = Math.min(1, grow); c.fillStyle = "rgba(53,240,196,.55)"; c.fillRect(x, y + H * (1 - g), W, H * g); }
+  if (S.mode === "paper") {
+    var sw = S.rw * s, n = Math.ceil(p / S.rw), shown = Math.ceil(n * Math.min(1, grow));
+    for (var i = 0; i < shown; i++) { var sx = x + i * sw; c.fillStyle = i % 2 ? "rgba(162,123,255,.28)" : "rgba(162,123,255,.16)"; c.fillRect(sx, y, Math.min(sw, x + W - sx), H); c.strokeStyle = "rgba(162,123,255,.6)"; c.lineWidth = 1; c.beginPath(); c.moveTo(sx + 0.5, y); c.lineTo(sx + 0.5, y + H); c.stroke(); }
+  }
+  // devorlar orasidagi burchaklar
+  var cs = [0, R.A, R.A + R.B, 2 * R.A + R.B, p];
+  c.strokeStyle = "rgba(11,19,48,.6)"; c.lineWidth = 2;
+  for (var j = 1; j < 4; j++) { c.beginPath(); c.moveTo(x + cs[j] * s, y); c.lineTo(x + cs[j] * s, y + H); c.stroke(); }
+  // eshik (1-devorda), derazalar (3-devorda)
+  var doorX = x + (R.A - R.dw - 40) * s;
+  c.fillStyle = "#6b4a2b"; c.fillRect(doorX, y + H - R.dh * s, R.dw * s, R.dh * s);
+  c.fillStyle = "#ffc23d"; c.beginPath(); c.arc(doorX + R.dw * s * 0.8, y + H - R.dh * s * 0.5, 2, 0, 6.283); c.fill();
+  var wallX = x + (R.A + R.B) * s, wallW = R.A * s;
+  for (var k = 0; k < R.wn; k++) {
+    var wx = wallX + wallW * (R.wn === 1 ? 0.5 : (k === 0 ? 0.28 : 0.72)) - R.ww * s / 2, wy = y + 90 * s;
+    c.fillStyle = "#1d4f86"; c.fillRect(wx, wy, R.ww * s, R.wh * s);
+    c.strokeStyle = "#cfe6ff"; c.lineWidth = 1.5; c.strokeRect(wx, wy, R.ww * s, R.wh * s);
+    c.beginPath(); c.moveTo(wx + R.ww * s / 2, wy); c.lineTo(wx + R.ww * s / 2, wy + R.wh * s); c.stroke();
+  }
+  c.strokeStyle = "#e9edf7"; c.lineWidth = 2; c.strokeRect(x, y, W, H);
+  var lab = S.mode === "paint" ? "devor = ? m²" + (S.coats === 2 ? " · 2 qatlam" : "") : S.mode === "paper" ? "eni " + m(S.rw) + " m — nechta bo'lak?" : "devorlar − eshik − deraza = ? m²";
+  chip(c, lab, x0 + w0 / 2, y + H + 14, "#1a1300", "#ffc23d", 12.5);
+  return { x: x, y: y, W: W, H: H };
+}
+function paintCan(c, x, y, s, S, t) {
+  c.fillStyle = "#c9d2e3"; K.rr(c, x - s * 0.4, y - s * 0.5, s * 0.8, s, 6); c.fill();
+  c.fillStyle = "#35f0c4"; c.fillRect(x - s * 0.4, y - s * 0.12, s * 0.8, s * 0.36);
+  c.strokeStyle = "#7d8597"; c.lineWidth = 2; c.beginPath(); c.arc(x, y - s * 0.5, s * 0.36, Math.PI, 0); c.stroke();
+  fitTxt(c, S.can ? nf(S.can) + " l" : "1 l = " + S.cov + " m²", x, y + s * 0.06, s * 0.76, "#05221c", Math.max(10, s * 0.2), "center", 800);
+}
+function info(c, x, y, w, rows) {
+  var lh = 22, h = rows.length * lh + 14;
+  c.fillStyle = "rgba(6,10,26,.78)"; K.rr(c, x, y, w, h, 12); c.fill();
+  rows.forEach(function (r, i) { fitTxt(c, r, x + 10, y + 7 + lh * i + lh / 2, w - 20, i ? "#cfd8ef" : "#ffc23d", 12.5, "left", i ? 600 : 800); });
+  return h;
+}
+function infoRows(S) {
+  var R = S.R, rows = ["📐 Xona (misol)"];
+  rows.push(m(R.A) + " × " + m(R.B) + " m" + (/walls|paint|paper/.test(S.mode) ? ", h = " + m(R.H) + " m" : ""));
+  if (/walls|paint|skirt/.test(S.mode)) rows.push("eshik " + m(R.dw) + (S.mode === "skirt" ? " m" : " × " + m(R.dh) + " m"));
+  if (/walls|paint/.test(S.mode)) rows.push((R.wn === 2 ? "2 × " : "") + "deraza " + m(R.ww) + " × " + m(R.wh));
+  if (S.mode === "tile") rows.push("kafel " + S.tile + " × " + S.tile + " sm");
+  if (S.plank) rows.push("bo'lak " + m(S.plank) + " m");
+  if (S.mode === "paint" || S.mode === "ceil") rows.push((S.coats || 1) + " qatlam, 1 l — " + S.cov + " m²");
+  if (S.mode === "paper") rows.push("rulon 10 m × " + m(S.rw) + " m");
+  return rows;
+}
+
+var S = K.stage({
+  label: "Xona rejasi masshtabda: uzunlik, en, eshik va derazalar; kerak bo'lsa devorlar yoyilmasi. Savol uchun kerakli barcha o'lchamlar savol matnida ham yozilgan.",
+  ratio: 0.62, minH: 400, maxH: 470,
+  draw: function (c, w, h, dt, t) {
+    grow = Math.min(1.2, grow + dt * 0.9);
+    var g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#14204a"); g.addColorStop(1, "#0c1430"); c.fillStyle = g; c.fillRect(0, 0, w, h);
+    // millimetrli qog'oz
+    c.strokeStyle = "rgba(92,184,255,.06)"; c.lineWidth = 1;
+    for (var gx = 0; gx < w; gx += 16) { c.beginPath(); c.moveTo(gx + 0.5, 0); c.lineTo(gx + 0.5, h); c.stroke(); }
+    for (var gy = 0; gy < h; gy += 16) { c.beginPath(); c.moveTo(0, gy + 0.5); c.lineTo(w, gy + 0.5); c.stroke(); }
+    var Sx = CUR && CUR.sc ? CUR.sc : { R: DEMO, mode: "plan" }, wallsMode = /walls|paint|paper/.test(Sx.mode), wide = w >= 640;
+    var rowsW = Sx.mode !== "plan" ? infoRows(Sx) : [], ih = rowsW.length * 22 + 26;
+    if (wallsMode) {
+      if (wide) { plan(c, 0, ih, w * 0.42, h - ih, Sx, t); unfolded(c, w * 0.42, 0, w * 0.58, h, Sx, t); }
+      else { plan(c, 0, 0, w, h * 0.5, Sx, t); unfolded(c, 0, h * 0.5, w, h * 0.5, Sx, t); }
+    } else {
+      var iw = wide ? 210 : 0;
+      plan(c, iw, 0, w - iw, h - (wide ? 0 : 6), Sx, t);
+    }
+    if (Sx.mode !== "plan") {
+      var rows = infoRows(Sx);
+      if (wide) info(c, 12, 12, wallsMode ? 190 : 186, rows);
+      else if (!wallsMode) { /* mobil: ma'lumot tepada qisqa */ chip(c, rows.slice(1).join(" · "), w / 2, 14, "#cfd8ef", "rgba(6,10,26,.85)", 11.5); }
+      if ((Sx.mode === "paint" || Sx.mode === "ceil") && (wide || Sx.mode === "ceil")) paintCan(c, w - 44, h - 50, 56, Sx, t);
+    } else {
+      chip(c, "📐 Reja masshtabda · «Boshlash»ni bosing", w / 2, 16, "#cfd8ef", "rgba(6,10,26,.85)", 12);
+    }
+  }
+});
+
+var G = K.game({
+  id: "tamir", title: "Uy ta'miri", barTitle: "UY TA'MIRI · YUZA VA PERIMETR",
+  intro: "Xona rejasidan pol yuzi, kafel, devor, bo'yoq va gulqog'oz hisobini qiling. Kerakli son doim yuqoriga yaxlitlanadi!",
+  resultTopic: "Hayotiy hisob: Uy ta'miri", coinWhy: "Hayotiy hisob: Uy ta'miri",
+  mount: "game", scene: S.cv, rounds: 10, timeLimit: 180,
+  gen: gen,
+  onQuestion: function (q) { CUR = q; grow = 0; },
+  onEnd: function () { CUR = null; }
+});
+window.kaTamir = { game: G, gen: gen };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

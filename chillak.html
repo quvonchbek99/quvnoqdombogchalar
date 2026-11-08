@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Chillak — o'lchash va proporsiya o'yini | Kuvonch Academy</title>
+<meta name="description" content="Bolalikdagi «Chillak» o'yinining matematik varianti: chillakni uring, masofani tayoq bilan o'lchang, santimetr va metrga o'tkazing, proporsiya, burchak va o'rtacha qiymat bilan ishlang. 5 daraja.">
+<link rel="canonical" href="https://kuvonch.uz/chillak.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Chillak — bolalikdagi o'yinning matematik varianti">
+<meta property="og:description" content="Chillakni uring va masofani tayoq bilan o'lchang: uzunlik birliklari, proporsiya, burchak va o'rtacha qiymat.">
+<meta property="og:url" content="https://kuvonch.uz/chillak.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<style>
+.ck-ctrl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 12px;border-top:1px solid var(--border);background:rgba(6,10,26,.45)}
+.ck-row{min-width:0}
+.ck-lab{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;font-weight:700;color:#cfd8ef}
+.ck-lab output{color:var(--amber);font-variant-numeric:tabular-nums}
+.ck-row input{display:block;width:100%;height:34px;margin:0;accent-color:#35f0c4;cursor:pointer}
+.ck-hit{grid-column:2;grid-row:1/span 2;min-height:96px;padding:10px 14px}
+.ck-wait .km-opts,.ck-wait [data-h="ff"]{display:none}
+.ck-tip{margin:0;font-size:15px;color:var(--dim)}
+.ck-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+</style>
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+<a href="sherlok.html">🕵️ Sherlok</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🇺🇿 Bolalikdagi o'yinlar · matematik variant</span>
+<h1>Chillak <span>(o'lchash)</span></h1>
+<p class="km-lead">Chuqurcha ustidagi chillakni uzun tayoq bilan urib, iloji boricha uzoqqa uchiring! Keyin masofani xuddi bolalikdagidek — tayoq bilan o'lchaysiz, so'ng santimetr va metrga o'tkazasiz.</p>
+<ul class="km-chips"><li>📏 Uzunlik birliklari</li><li>⚖️ Proporsiya</li><li>📐 Burchak va masofa</li><li>📊 O'rtacha qiymat va foiz</li></ul>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>📜 O'yin tarixi</h2>
+<p>«Chillak» (ba'zi joylarda «chillik» deyishadi) — ikki tayoq bilan o'ynaladigan qadimiy o'yin: kaftdek qisqa, ikki uchi o'tkirlangan <b>chillak</b> va uzun <b>tayoq</b>. Chillak yerdagi kichik chuqurcha ustiga ko'ndalang qo'yiladi. O'yinchi tayoq bilan chillakning o'tkir uchiga urib uni havoga sakratadi va yana bir zarba bilan uzoqqa uchiradi. Raqiblar uni havoda ushlashga harakat qilishadi. Chillak qayerga tushsa, chuqurchagacha bo'lgan masofa tayoq bilan o'lchanadi — har bir tayoq bir ochko.</p>
+</section>
+<section>
+<h2>🎯 Matematik variant qoidalari</h2>
+<ol>
+<li>Burchak va kuchni tanlang: tuval ustida orqaga torting (rogatka kabi) yoki pastdagi slayderlardan foydalaning, so'ng «🏏 Urish».</li>
+<li>Chillak havo qarshiligisiz haqiqiy parabola bo'ylab uchadi: masofa R = v²·sin(2θ) : g.</li>
+<li>Yerdagi har bir belgi — bitta tayoq. Tayoq uzunligi har raundda o'zgaradi (60, 75, 80 yoki 90 sm).</li>
+<li>Har zarbadan keyin aynan shu uchish haqida savol beriladi. Ketma-ket 3 ta to'g'ri javob — daraja oshadi.</li>
+<li>🎁 Sirli quti chiqib qolsa — oching: ko'pincha yordam beradi, ba'zan ochko oladi!</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> masofani butun tayoqlarda o'qish va taqqoslash</li>
+<li><b>2-daraja:</b> tayoqni santimetr va metrga o'tkazish</li>
+<li><b>3-daraja:</b> metrni tayoqqa aylantirish (o'nli kasrga bo'lish) va proporsiya</li>
+<li><b>4-daraja:</b> burchak (45° sirri) va tezlik: masofa : vaqt</li>
+<li><b>5-daraja:</b> oxirgi 3 zarbaning o'rtachasi va foizli o'zgarish</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html">🇺🇿 Boshqa bolalikdagi o'yinlar</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Bolalikdagi o'yinlar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Chillak: o'lchash va proporsiya o'yini */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf, round = K.round;
+var D = document;
+var yEl = D.getElementById("year"); if (yEl) yEl.textContent = String(new Date().getFullYear());
+
+/* ---------- fizika ---------- */
+var GRAV = 9.8, LTS = [60, 75, 80, 90], Lt = 75;
+function speed(pow) { return 4 + pow; }
+function sim(ang, pow) {
+  var v = speed(pow), th = ang * Math.PI / 180;
+  return { ang: ang, pow: pow, v: v, R: v * v * Math.sin(2 * th) / GRAV, H: v * v * Math.pow(Math.sin(th), 2) / (2 * GRAV), T: 2 * v * Math.sin(th) / GRAV, Lt: Lt };
+}
+var HITS = []; // shu raunddagi zarbalar
+function r1(x) { return round(x, 1); }
+function r2(x) { return round(x, 2); }
+function nonneg(a) { return a.filter(function (x) { return x != null && isFinite(x) && x > 0; }); }
+function gcd(a, b) { while (b) { var t = a % b; a = b; b = t; } return a; }
+// Butun tayoqlar: chegaraga juda yaqin bo'lsa — eng yaqin butun songa yaxlitlash so'raladi
+function tcount(s) {
+  var u = s.R * 100 / s.Lt, fl = Math.floor(u), fr = u - fl, near = !(fr >= 0.15 && fr <= 0.85);
+  return { u: u, fl: fl, near: near, n: near ? Math.round(u) : fl };
+}
+
+/* ---------- savollar: avval «uring», tushgandan keyin — shu uchish haqida ---------- */
+function gen(L) {
+  return { q: "🏏 <b>Chillakni uring!</b><small>Burchak va kuchni tanlang, so'ng «Urish» tugmasini bosing yoki tuvalda chillakni orqaga tortib qo'yib yuboring.</small>", a: 0, mistakes: [1, 2, 3], input: "opts", need: true, L: L, steps: [] };
+}
+function build(L, s, q) {
+  q = q || {};
+  var tc = tcount(s), n = tc.n, R1 = r1(s.R), a, mis = [], steps = [], opts = null, unit = null, okNote = null, txt, ty, aText = null, ex = {};
+  var ltm = s.Lt / 100;
+  var cntTxt = tc.near ? "Chillak taxminan necha tayoq uzoqlikka tushdi? <small>Eng yaqin butun tayoqqa yaxlitlang. Har bir belgi — 1 tayoq (" + s.Lt + " sm).</small>"
+    : "Chuqurchadan chillakkacha nechta <b>to'liq</b> tayoq sig'adi? <small>Har bir belgi — 1 tayoq (" + s.Lt + " sm).</small>";
+  var cntSteps = ["Belgilarni chuqurchadan (0) boshlab sanaymiz", "Chillak " + tc.fl + "- va " + (tc.fl + 1) + "-belgilar orasiga tushgan", tc.near ? "U " + n + "-belgiga juda yaqin → taxminan " + n + " tayoq" : "To'liq tayoqlar soni — " + tc.fl];
+  if (L === 1) {
+    ty = Math.random() < 0.6 ? 0 : 1;
+    if (ty === 0) { txt = cntTxt; a = n; mis = [n + 1, n - 1, n + 2, tc.near ? n - 2 : Math.round(tc.u) !== n ? Math.round(tc.u) : n - 2]; steps = cntSteps; }
+    else {
+      var Y = Math.max(1, n + pick([-6, -5, -4, -3, -2, 2, 3, 4, 5, 6]));
+      if (Y === n) Y = n + 3; ex.Y = Y;
+      var far = n > Y;
+      txt = "Do'stingizning chillagi <b>" + Y + " tayoq</b>qa tushgan edi. Sizniki " + (tc.near ? "(eng yaqin butun tayoqqacha)" : "(to'liq tayoqlarda)") + " undan nechta tayoq " + (far ? "<b>uzoq</b>" : "<b>yaqin</b>") + "?";
+      a = Math.abs(n - Y); mis = [n + Y, n, a + 1, a - 1, Y];
+      steps = cntSteps.concat([(far ? n + " − " + Y : Y + " − " + n) + " = " + a]);
+    }
+  } else if (L === 2) {
+    ty = ri(0, 2);
+    if (ty === 0) { a = n * s.Lt; unit = "sm"; mis = [n + s.Lt, n * s.Lt / 10, (n + 1) * s.Lt, (n - 1) * s.Lt]; txt = "Chillak <b>" + n + " tayoq</b> uzoqlikka tushdi. Tayoq uzunligi <b>" + s.Lt + " sm</b>. Bu necha <b>santimetr</b>?"; steps = ["1 tayoq = " + s.Lt + " sm", n + " × " + s.Lt + " = " + a + " sm"]; }
+    else if (ty === 1) { a = r2(n * ltm); unit = "m"; mis = [n * s.Lt, r2(n * s.Lt / 10), r2(n * s.Lt / 1000), r2((n + 1) * ltm), r2(n + ltm)]; txt = "Chillak <b>" + n + " tayoq</b> uzoqlikka tushdi. Tayoq uzunligi <b>" + s.Lt + " sm</b>. Bu necha <b>metr</b>?"; steps = [n + " × " + s.Lt + " = " + n * s.Lt + " sm", "1 m = 100 sm, shuning uchun " + n * s.Lt + " : 100 = " + nf(a) + " m"]; }
+    else { var cm = Math.round(s.R * 100); a = r2(cm / 100); unit = "m"; mis = [r2(cm / 10), r2(cm / 1000), cm, r2(cm / 100 + 1)]; txt = "O'lchov lentasi ko'rsatdi: chillak <b>" + cm + " sm</b> uchdi. Bu necha <b>metr</b>?"; steps = ["1 m = 100 sm", cm + " : 100 = " + nf(a) + " m"]; }
+  } else if (L === 3) {
+    ty = Math.random() < 0.55 ? 0 : 1;
+    if (ty === 0) {
+      var e3 = R1 * 100 / s.Lt; a = r1(e3); var exact = Math.abs(e3 - a) < 1e-9;
+      mis = [r1(R1 * ltm), r2(R1 / s.Lt), Math.floor(e3) !== a ? Math.floor(e3) : null, r1(R1 * 10 / s.Lt), r1(a + 1)];
+      txt = "Chillak <b>≈ " + nf(R1) + " m</b> uzoqlikka tushdi. Tayoq uzunligi <b>" + s.Lt + " sm</b>. Bu masofa necha tayoq?" + (exact ? "" : "<small>0,1 gacha yaxlitlang.</small>");
+      steps = [s.Lt + " sm = " + nf(ltm) + " m", "Masofani tayoq uzunligiga bo'lamiz: " + nf(R1) + " : " + nf(ltm) + " = " + (exact ? nf(a) : nf(round(e3, 3)) + "… ≈ " + nf(a))];
+      unit = "tayoq";
+    } else {
+      var cands = [50, 60, 75, 80, 90, 100, 120].filter(function (x) { return x !== s.Lt; }), nice = cands.filter(function (x) { return (n * s.Lt) % x === 0; });
+      var L2 = pick(nice.length ? nice : cands), dist = n * s.Lt, ex2 = dist / L2; a = r1(ex2); ex.L2 = L2;
+      mis = [r1(n * L2 / s.Lt), n, r1(ex2 + 1), r1(dist / 100)];
+      txt = "Siz chillakkacha <b>" + n + " tayoq</b> o'lchadingiz (tayog'ingiz <b>" + s.Lt + " sm</b>). Do'stingizning tayog'i <b>" + L2 + " sm</b>. Uning tayog'i bilan necha tayoq chiqadi?" + (Math.abs(ex2 - a) < 1e-9 ? "" : "<small>0,1 gacha yaxlitlang.</small>");
+      steps = ["Masofa: " + n + " × " + s.Lt + " = " + dist + " sm", dist + " : " + L2 + " = " + (Math.abs(ex2 - a) < 1e-9 ? nf(a) : nf(round(ex2, 3)) + "… ≈ " + nf(a))];
+      okNote = "Tayoq uzunroq bo'lsa, tayoqlar soni kamayadi — bu teskari proporsionallik.";
+      unit = "tayoq";
+    }
+  } else if (L === 4) {
+    ty = ri(0, 4);
+    if (ty === 2 && s.ang === 45) ty = 0;
+    if (ty === 3 && s.T < 0.5) ty = 4;
+    if (ty === 0) {
+      var angs = [30, 45, 60, 75]; if (angs.indexOf(s.ang) < 0 && s.ang !== 45) angs[s.ang < 45 ? 0 : 3] = s.ang;
+      opts = angs.map(function (x) { return x + "°"; }); a = "45°";
+      txt = "Siz <b>" + s.ang + "°</b> bilan urdingiz. Kuchni o'zgartirmasdan qaysi burchakda ursangiz, chillak <b>eng uzoqqa</b> uchadi?";
+      steps = ["Masofa formulasi: R = v²·sin(2θ) : g", "sin(2θ) eng katta qiymatga (1 ga) 2θ = 90° bo'lganda erishadi", "Demak θ = 45°"];
+      okNote = "Havo qarshiligi bo'lmaganda 45° — eng «uzoq» burchak.";
+    } else if (ty === 1) {
+      var A = s.ang, B, sA = Math.sin(2 * A * Math.PI / 180), sB, tries = 0;
+      do { B = 5 * ri(3, 15); sB = Math.sin(2 * B * Math.PI / 180); } while ((B === A || (Math.abs(sA - sB) < 0.04 && B !== 90 - A)) && ++tries < 50);
+      if (Math.random() < 0.3 && A !== 45) { B = 90 - A; sB = sA; }
+      ex.B = B;
+      var eq = B === 90 - A || Math.abs(sA - sB) < 1e-12;
+      opts = ["A zarba", "B zarba", "Teng uchadi"]; a = eq ? "Teng uchadi" : sA > sB ? "A zarba" : "B zarba";
+      txt = "Kuch bir xil (" + s.pow + "). <b>A</b> zarba — " + A + "° (sizniki), <b>B</b> zarba — " + B + "°. Qaysi biri uzoqroq uchadi?";
+      steps = ["R = v²·sin(2θ) : g, v ikkalasida bir xil — faqat sin(2θ) ni taqqoslaymiz", "A: sin(" + 2 * A + "°) ≈ " + nf(round(sA, 3)) + ", B: sin(" + 2 * B + "°) ≈ " + nf(round(sB, 3)), eq ? "Qiymatlar teng: " + A + "° + " + B + "° = 90° — bunday burchaklarda masofa bir xil" : (sA > sB ? "A" : "B") + " kattaroq — u uzoqroq uchadi (45° ga yaqinroq)"];
+    } else if (ty === 2) {
+      var C = 90 - s.ang; a = R1; unit = "m";
+      mis = [r1(R1 * C / s.ang), r1(R1 * 2), r1(R1 / 2), r1(R1 + 2)];
+      txt = "Siz <b>" + s.ang + "°</b> bilan urdingiz va chillak <b>≈ " + nf(R1) + " m</b> ga tushdi. Kuchni o'zgartirmay <b>" + C + "°</b> bilan ursangiz, chillak qancha uchadi?";
+      steps = ["R = v²·sin(2θ) : g", "sin(2 × " + C + "°) = sin(" + 2 * C + "°) = sin(180° − " + 2 * C + "°) = sin(" + 2 * s.ang + "°)", "Demak masofa o'zgarmaydi: ≈ " + nf(R1) + " m"];
+      okNote = s.ang + "° va " + C + "° — yig'indisi 90°. Bunday burchaklar bir xil masofa beradi (lekin balandlik har xil!).";
+    } else if (ty === 3) {
+      var T1 = r1(s.T), ex3 = R1 / T1; a = r1(ex3); unit = "m/s";
+      mis = [r1(R1 * T1), r2(T1 / R1), r1(ex3 / 2), r1(s.v)];
+      txt = "Chillak havoda <b>" + nf(T1) + " s</b> uchdi va <b>≈ " + nf(R1) + " m</b> naridagi yerga tushdi. U gorizontal yo'nalishda o'rtacha qanday tezlik bilan uchgan?" + (Math.abs(ex3 - a) < 1e-9 ? "" : "<small>0,1 gacha yaxlitlang.</small>");
+      steps = ["Tezlik = masofa : vaqt", nf(R1) + " : " + nf(T1) + " = " + (Math.abs(ex3 - a) < 1e-9 ? nf(a) : nf(round(ex3, 3)) + "… ≈ " + nf(a)) + " m/s"];
+    } else {
+      a = r1(4 * R1); unit = "m"; mis = [r1(2 * R1), r1(R1 + 2), r1(8 * R1), r1(3 * R1)];
+      txt = "Chillak <b>v = " + s.v + " m/s</b> tezlik bilan uchib, <b>≈ " + nf(R1) + " m</b> ga tushdi. Burchak o'sha qolib, tezlik <b>2 marta</b> oshsa, chillak qancha uchadi?";
+      steps = ["R = v²·sin(2θ) : g — masofa tezlikning <b>kvadratiga</b> proporsional", "Tezlik 2 marta oshsa, masofa 2² = 4 marta oshadi", nf(R1) + " × 4 = " + nf(a) + " m"];
+    }
+  } else {
+    var H = HITS.slice(-3), cur = H[H.length - 1], prev = H.length >= 2 ? H[H.length - 2] : null; ex.H = H;
+    var d2 = r1(cur.R), d1 = prev ? r1(prev.R) : 0;
+    var pc = prev && d1 > 0 ? Math.abs(d2 - d1) / d1 * 100 : 0;
+    ty = H.length >= 3 && (Math.random() < 0.55 || !prev || d1 === d2) ? 0 : prev && d1 !== d2 && Math.round(pc) > 0 && pc <= 300 ? 1 : 2;
+    if (ty === 0) {
+      var ds = H.map(function (h) { return r1(h.R); }), sum = r1(ds[0] + ds[1] + ds[2]), ex4 = sum / 3; a = r1(ex4); unit = "m";
+      var sorted = ds.slice().sort(function (x, y) { return x - y; });
+      mis = [sum, r1(sum / 2), sorted[1], r1((ds[0] + ds[2]) / 2), r1(a + 1)];
+      txt = "Oxirgi 3 zarba: <b>" + ds.map(function (d) { return nf(d) + " m"; }).join("</b>, <b>") + "</b>. O'rtacha masofa qancha?" + (Math.abs(ex4 - a) < 1e-9 ? "" : "<small>0,1 gacha yaxlitlang.</small>");
+      steps = ["Yig'indi: " + ds.map(nf).join(" + ") + " = " + nf(sum), "O'rtacha: " + nf(sum) + " : 3 = " + (Math.abs(ex4 - a) < 1e-9 ? nf(a) : nf(round(ex4, 3)) + "… ≈ " + nf(a)) + " m"];
+    } else if (ty === 1) {
+      var up = d2 > d1, diff = r1(Math.abs(d2 - d1)), exP = diff / d1 * 100; a = Math.round(exP); unit = "%";
+      mis = [Math.round(diff / d2 * 100), Math.round(d2 / d1 * 100), Math.round(diff), a + 5, a - 5];
+      txt = "Oldingi zarba <b>≈ " + nf(d1) + " m</b>, bu zarba <b>≈ " + nf(d2) + " m</b>. Masofa necha foizga <b>" + (up ? "oshdi" : "kamaydi") + "</b>?" + (Math.abs(exP - a) < 1e-9 ? "" : "<small>Butun foizgacha yaxlitlang.</small>");
+      steps = ["Farq: " + nf(Math.max(d1, d2)) + " − " + nf(Math.min(d1, d2)) + " = " + nf(diff) + " m", "Oldingi qiymatga nisbatan: " + nf(diff) + " : " + nf(d1) + " × 100 % = " + nf(round(exP, 2)) + " %" + (Math.abs(exP - a) < 1e-9 ? "" : " ≈ " + a + " %")];
+      okNote = "Foizli o'zgarish doim <b>oldingi</b> (boshlang'ich) qiymatga nisbatan hisoblanadi.";
+    } else {
+      var p = pick([10, 20, 30, 50]), inc = r2(d2 * p / 100); a = r2(d2 + inc); unit = "m"; ex.p = p;
+      mis = [r2(d2 + p), r2(d2 * p / 100), r2(d2 * (1 - p / 100)), r2(d2 + p / 10)];
+      txt = "Bu zarbada chillak <b>≈ " + nf(d2) + " m</b> uchdi. Keyingi zarba <b>" + p + " %</b> uzoqroq bo'lsa, chillak necha metrga tushadi?";
+      steps = [p + " % = " + nf(p / 100), nf(d2) + " × " + nf(p / 100) + " = " + nf(inc) + " m qo'shiladi", nf(d2) + " + " + nf(inc) + " = " + nf(a) + " m"];
+    }
+  }
+  q.q = txt; q.a = a; q.opts = opts; q.mistakes = opts ? null : nonneg(mis); q.steps = steps; q.unit = unit; q.okNote = okNote; q.aText = aText;
+  q.meta = { L: L, ty: ty, s: s, n: n, near: tc.near, ex: ex };
+  return q;
+}
+
+/* ---------- sahna: mahalla ko'chasi, chuqurcha, bola, chillak ---------- */
+var CUR = null, aim = { ang: 40, pow: 6 }, shot = null, fly = null, swing = 0, sparks = [], trail = [], dust = [], meas = null, sc = 14, scT = 14, cam = 0, camT = 0, zoomOn = null, LY = {};
+var drag = null, pulse = 0;
+function layout(w, h) {
+  LY.gy = h - 50; LY.x0 = Math.max(70, Math.round(w * 0.13)); LY.s = Math.max(0.85, Math.min(1.15, w / 380));
+}
+function wx(x) { return LY.x0 + (x - cam) * sc; }
+function wy(y) { return LY.gy - 6 - y * sc; }
+function fitFor(R, H) { return Math.max(3, Math.min((S.w - LY.x0 - 26) / Math.max(4.5, R * 1.14), (LY.gy - 84) / Math.max(1.2, H * 1.08))); }
+function idleScale() { var last = HITS.length ? HITS[HITS.length - 1] : null; return fitFor(last ? Math.max(8, last.R) : 10, last ? last.H : 3); }
+// Kamera: uchishda — butun yo'l; tushgandan keyin (1-daraja) — belgilar aniq ko'rinsin deb yaqinlashtiramiz
+function retarget(snap) {
+  if (fly) { scT = fitFor(fly.s.R, fly.s.H); camT = 0; }
+  else if (zoomOn) {
+    var full = fitFor(zoomOn.R, zoomOn.H), need = 30 / (Lt / 100);
+    if (need > full) { scT = need; camT = Math.max(0, zoomOn.R - 0.62 * (S.w - LY.x0 - 12) / need); }
+    else { scT = full; camT = 0; }
+  } else { scT = idleScale(); camT = 0; }
+  if (snap) { sc = scT; cam = camT; }
+}
+
+function doppi(c, s, y) {
+  c.fillStyle = "#14161f"; c.beginPath(); c.moveTo(-9.5 * s, y); c.lineTo(-8 * s, y - 9 * s); c.lineTo(8 * s, y - 9 * s); c.lineTo(9.5 * s, y); c.closePath(); c.fill();
+  c.fillStyle = "#f4f1e8";
+  [-4.2, 4.2].forEach(function (dx) { c.beginPath(); c.moveTo(dx * s, y - 1.5 * s); c.quadraticCurveTo((dx - 2.6) * s, y - 5 * s, (dx + 0.6) * s, y - 7.5 * s); c.quadraticCurveTo((dx + 1.6) * s, y - 4 * s, dx * s, y - 1.5 * s); c.fill(); });
+}
+function drawKid(c, x, y, s, sw, t) {
+  // sw: 0 — tayoq orqaga ko'tarilgan, 1 — zarba oxiri
+  c.save(); c.translate(x, y);
+  c.fillStyle = "rgba(0,0,0,.3)"; c.beginPath(); c.ellipse(0, 2, 16 * s, 4 * s, 0, 0, 6.283); c.fill();
+  c.strokeStyle = "#3a2a5a"; c.lineWidth = 5 * s; c.lineCap = "round";
+  c.beginPath(); c.moveTo(-3 * s, -18 * s); c.lineTo(-8 * s, -2 * s); c.moveTo(4 * s, -18 * s); c.lineTo(9 * s, -2 * s); c.stroke();
+  c.fillStyle = "#1b1b1f"; c.beginPath(); c.ellipse(-9 * s, 0, 4.5 * s, 2.3 * s, 0, 0, 6.283); c.fill(); c.beginPath(); c.ellipse(10 * s, 0, 4.5 * s, 2.3 * s, 0, 0, 6.283); c.fill();
+  // ko'ylak (oq) va kamzul (yashil)
+  c.fillStyle = "#f4f1e8"; K.rr(c, -10 * s, -40 * s, 20 * s, 24 * s, 6 * s); c.fill();
+  c.fillStyle = "#2f8f5a"; c.beginPath(); c.moveTo(-10 * s, -38 * s); c.lineTo(-3 * s, -38 * s); c.lineTo(-2 * s, -16 * s); c.lineTo(-10 * s, -16 * s); c.closePath(); c.fill();
+  c.beginPath(); c.moveTo(10 * s, -38 * s); c.lineTo(3 * s, -38 * s); c.lineTo(2 * s, -16 * s); c.lineTo(10 * s, -16 * s); c.closePath(); c.fill();
+  c.fillStyle = "#c79b2e"; c.fillRect(-10 * s, -20 * s, 20 * s, 2.5 * s);
+  // tayoq va qo'llar
+  var an = -2.25 + sw * 2.75, hx = 7 * s + Math.cos(an) * 12 * s, hy = -32 * s + Math.sin(an) * 12 * s;
+  c.strokeStyle = "#7a4f28"; c.lineWidth = 3.4 * s; c.beginPath(); c.moveTo(hx - Math.cos(an) * 6 * s, hy - Math.sin(an) * 6 * s); c.lineTo(hx + Math.cos(an) * 46 * s, hy + Math.sin(an) * 46 * s); c.stroke();
+  c.strokeStyle = "#a7743f"; c.lineWidth = 1.2 * s; c.beginPath(); c.moveTo(hx, hy - 1 * s); c.lineTo(hx + Math.cos(an) * 44 * s, hy + Math.sin(an) * 44 * s - 1 * s); c.stroke();
+  c.strokeStyle = "#f2c9a0"; c.lineWidth = 3.6 * s; c.beginPath(); c.moveTo(-6 * s, -34 * s); c.lineTo(hx - 2 * s, hy + 1 * s); c.moveTo(7 * s, -34 * s); c.lineTo(hx, hy); c.stroke();
+  // bosh
+  c.fillStyle = "#f2c9a0"; c.beginPath(); c.arc(0, -48 * s, 9 * s, 0, 6.283); c.fill();
+  doppi(c, s, -51 * s);
+  c.fillStyle = "#1a1a1a"; c.beginPath(); c.arc(3 * s, -48 * s, 1.2 * s, 0, 6.283); c.fill(); c.beginPath(); c.arc(7 * s, -48 * s, 1.1 * s, 0, 6.283); c.fill();
+  c.strokeStyle = "#9b5a3c"; c.lineWidth = 1.2 * s; c.beginPath(); c.arc(4.5 * s, -44.5 * s, 2.6 * s, 0.2, 2.4); c.stroke();
+  c.restore();
+}
+function drawChillak(c, x, y, rot, s) {
+  c.save(); c.translate(x, y); c.rotate(rot);
+  var L = 12 * s, Wd = 3.2 * s;
+  c.fillStyle = "#d9a55c"; c.beginPath(); c.moveTo(-L, 0); c.lineTo(-L + 5 * s, -Wd); c.lineTo(L - 5 * s, -Wd); c.lineTo(L, 0); c.lineTo(L - 5 * s, Wd); c.lineTo(-L + 5 * s, Wd); c.closePath(); c.fill();
+  c.strokeStyle = "#6b4520"; c.lineWidth = 1; c.stroke();
+  c.strokeStyle = "rgba(107,69,32,.6)"; c.beginPath(); c.moveTo(-L + 6 * s, -1); c.lineTo(L - 6 * s, -1); c.stroke();
+  c.restore();
+}
+function drawBackdrop(c, w, h, t) {
+  var gy = LY.gy, i;
+  var g = c.createLinearGradient(0, 0, 0, gy); g.addColorStop(0, "#1f2a5a"); g.addColorStop(0.55, "#6a5a8e"); g.addColorStop(1, "#f0a868");
+  c.fillStyle = g; c.fillRect(0, 0, w, gy);
+  // quyosh
+  c.fillStyle = "rgba(255,214,140,.9)"; c.beginPath(); c.arc(w * 0.82, gy - 70, 22, 0, 6.283); c.fill();
+  c.fillStyle = "rgba(255,214,140,.18)"; c.beginPath(); c.arc(w * 0.82, gy - 70, 40, 0, 6.283); c.fill();
+  // uzoqdagi uylar va teraklar
+  for (i = 0; i < 9; i++) {
+    var hx = (i * 173.7) % (w + 80) - 40, hw = 46 + (i * 37) % 40, hh = 24 + (i * 19) % 22, hyy = gy - 26;
+    c.fillStyle = i % 2 ? "#5b4668" : "#4d3b5c"; c.fillRect(hx, hyy - hh, hw, hh + 26);
+    c.fillStyle = "#3c2d4a"; c.fillRect(hx - 3, hyy - hh - 4, hw + 6, 5);
+    c.fillStyle = "rgba(255,210,130,.55)"; c.fillRect(hx + hw * 0.3, hyy - hh * 0.6, 7, 9);
+  }
+  for (i = 0; i < 6; i++) {
+    var tx = (i * 211.3 + 60) % (w + 40), th = 70 + (i * 23) % 40, sw = Math.sin(t * 0.9 + i) * 1.5;
+    c.fillStyle = "#3a3f5e"; c.beginPath(); c.ellipse(tx + sw, gy - 26 - th / 2, 8, th / 2, 0, 0, 6.283); c.fill();
+  }
+  // yo'l (tuproq)
+  var g2 = c.createLinearGradient(0, gy, 0, h); g2.addColorStop(0, "#8a6440"); g2.addColorStop(1, "#4e3420"); c.fillStyle = g2; c.fillRect(0, gy - 6, w, h - gy + 6);
+  c.fillStyle = "rgba(0,0,0,.18)"; c.fillRect(0, gy - 6, w, 3);
+  for (i = 0; i < 60; i++) { var px = (i * 97.13) % w, py = gy + 4 + (i * 41.7) % (h - gy - 6); c.fillStyle = i % 3 ? "rgba(255,235,200,.10)" : "rgba(30,18,8,.25)"; c.beginPath(); c.ellipse(px, py, 2 + (i % 3), 1.3, 0, 0, 6.283); c.fill(); }
+  // tut daraxti (chap tomonda, bola ortida)
+  var bx = 18, by = gy - 6, s = Math.max(0.7, Math.min(1.05, w / 520));
+  c.fillStyle = "#5b3b22"; c.beginPath(); c.moveTo(bx - 6 * s, by); c.quadraticCurveTo(bx - 2 * s, by - 40 * s, bx - 8 * s, by - 72 * s); c.lineTo(bx + 4 * s, by - 74 * s); c.quadraticCurveTo(bx + 5 * s, by - 40 * s, bx + 8 * s, by); c.closePath(); c.fill();
+  var swv = Math.sin(t * 0.8) * 2 * s;
+  [[-26, -86, 28], [8, -104, 32], [34, -82, 26], [-4, -72, 24], [-36, -64, 18]].forEach(function (b, k) { c.fillStyle = k % 2 ? "#2e6a33" : "#3b8240"; c.beginPath(); c.arc(bx + b[0] * s + swv, by + b[1] * s, b[2] * s, 0, 6.283); c.fill(); });
+  for (i = 0; i < 16; i++) { c.fillStyle = i % 3 ? "#3a1240" : "#f1e9f5"; c.beginPath(); c.arc(bx + ((i * 37) % 80 - 40) * s + swv, by - (60 + (i * 23) % 52) * s, 2 * s, 0, 6.283); c.fill(); }
+}
+function drawGround(c, w) {
+  var gy = LY.gy, step = s2px(), every = step >= 22 ? 1 : step >= 12 ? 2 : step >= 6 ? 5 : 10, k, X;
+  var k0 = Math.max(0, Math.floor(cam * 100 / Lt) - 1), maxK = k0 + Math.ceil(w / Math.max(1, step)) + 2;
+  for (k = k0; k <= maxK; k++) {
+    X = wx(k * Lt / 100); if (X < -10) continue; if (X > w + 2) break;
+    var big = k % every === 0, mid = !big && every >= 5 && k % every === Math.floor(every / 2) && every === 10;
+    c.strokeStyle = big ? "rgba(255,255,255,.9)" : "rgba(255,255,255,.5)"; c.lineWidth = big ? 2 : mid ? 1.6 : 1.2;
+    c.beginPath(); c.moveTo(X, gy - 6); c.lineTo(X, gy + (big ? 8 : mid ? 5 : 3)); c.stroke();
+    if (big) K.txt(c, String(k), X, gy + 19, k === 0 ? "#ffc23d" : "rgba(255,255,255,.95)", step >= 22 ? 12.5 : 11.5, "center", 800);
+  }
+  c.fillStyle = "rgba(6,10,26,.55)"; K.rr(c, 8, gy + 28, 176, 18, 9); c.fill();
+  K.txt(c, "belgi = 1 tayoq (" + Lt + " sm)", 16, gy + 37, "rgba(255,255,255,.85)", 11, "left", 700);
+}
+function s2px() { return Lt / 100 * sc; }
+function burst(x, y, col, n) { for (var i = 0; i < (n || 22); i++) sparks.push({ x: x, y: y, vx: (Math.random() - 0.5) * 260, vy: -Math.random() * 240, l: 0.6 + Math.random() * 0.5, c: col }); }
+
+var S = K.stage({
+  label: "Mahalla ko'chasi: chuqurcha ustidagi chillak va tayoq belgilari. Burchak va kuchni tanlab chillakni uring.",
+  ratio: 0.82, minH: 320, maxH: 450,
+  onResize: function (S) { layout(S.w, S.h); retarget(true); },
+  draw: function (c, w, h, dt, t) {
+    if (!LY.gy) layout(w, h);
+    sc += (scT - sc) * Math.min(1, dt * 3.2); cam += (camT - cam) * Math.min(1, dt * 3.2);
+    drawBackdrop(c, w, h, t);
+    drawGround(c, w);
+    var i, s = LY.s, gy = LY.gy;
+    // chuqurcha
+    var hx0 = wx(0);
+    c.fillStyle = "#2a1a0e"; c.beginPath(); c.ellipse(hx0, gy - 4, 14 * s, 4.5 * s, 0, 0, 6.283); c.fill();
+    c.strokeStyle = "rgba(255,235,200,.25)"; c.lineWidth = 1; c.beginPath(); c.ellipse(hx0, gy - 3, 15 * s, 5 * s, 0, 0, 3.14); c.stroke();
+    // oldingi zarbalar belgilari (javob berilganlari)
+    HITS.forEach(function (hh, k) {
+      if (!hh.shown || hh === (fly && fly.s)) return; var X = wx(hh.R); if (X > w - 4 || X < 2) return;
+      var last = k === HITS.length - 1 && !fly;
+      c.strokeStyle = last ? "#ffc23d" : "rgba(255,255,255,.5)"; c.lineWidth = 2; c.beginPath(); c.moveTo(X, gy - 6); c.lineTo(X, gy - 26); c.stroke();
+      c.fillStyle = last ? "#ffc23d" : "rgba(255,255,255,.5)"; c.beginPath(); c.moveTo(X, gy - 26); c.lineTo(X + 11, gy - 22); c.lineTo(X, gy - 18); c.closePath(); c.fill();
+      K.txt(c, String(k + 1), X, gy - 33, last ? "#ffc23d" : "rgba(255,255,255,.7)", 10.5, "center", 800);
+    });
+    // o'lchash animatsiyasi: tayoqni yerga ketma-ket qo'yib sanash
+    if (meas) {
+      meas.t += dt; var segs = meas.n, per = Math.min(0.16, 1.6 / Math.max(1, segs)), k2 = Math.min(segs, Math.floor(meas.t / per)), st = s2px();
+      var m0 = wx(0);
+      c.fillStyle = "rgba(255,194,61,.22)"; c.fillRect(m0, gy - 10, k2 * st, 8);
+      if (k2 < segs) { c.strokeStyle = "#c08a4a"; c.lineWidth = 4; c.beginPath(); c.moveTo(m0 + k2 * st, gy - 8); c.lineTo(m0 + (k2 + 1) * st, gy - 8); c.stroke(); }
+      var lx = Math.min(w - 70, Math.max(70, m0 + k2 * st));
+      c.fillStyle = "rgba(6,10,26,.82)"; K.rr(c, lx - 62, gy - 70, 124, 24, 12); c.fill();
+      K.txt(c, k2 + " tayoq" + (k2 >= segs ? " · ≈ " + nf(r1(meas.R)) + " m" : ""), lx, gy - 58, "#ffc23d", 12.5, "center", 800);
+      if (k2 >= segs && !meas.done) { meas.done = true; K.sfx.tap(); }
+    }
+    // tushgan joy: tik chiziq va halqa (tayoq belgisini aniq o'qish uchun)
+    if (shot && !fly && CUR && CUR.ready && G.state === "play") {
+      var sx = wx(shot.R), pr = 0.5 + 0.5 * Math.sin(t * 5);
+      c.strokeStyle = "rgba(255,194,61,.9)"; c.lineWidth = 1.5; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(sx, gy - 34); c.lineTo(sx, gy + 8); c.stroke(); c.setLineDash([]);
+      c.strokeStyle = "rgba(255,194,61," + (0.35 + 0.5 * pr) + ")"; c.lineWidth = 2.5; c.beginPath(); c.ellipse(sx, gy - 9, 16 * s + pr * 4, 7 * s + pr * 2, 0, 0, 6.283); c.stroke();
+      K.txt(c, "▼", sx, gy - 42, "#ffc23d", 13, "center", 800);
+    }
+    // mo'ljal (nishon)
+    var aiming = canHit();
+    if (aiming) {
+      pulse += dt;
+      var an = aim.ang * Math.PI / 180, len = (34 + aim.pow * 9) * s, ox = wx(0), oy = gy - 10;
+      c.strokeStyle = "rgba(255,255,255,.35)"; c.lineWidth = 1.5; c.setLineDash([4, 4]); c.beginPath(); c.moveTo(ox, oy); c.lineTo(ox + 70 * s, oy); c.stroke(); c.setLineDash([]);
+      c.strokeStyle = "rgba(255,194,61,.8)"; c.beginPath(); c.arc(ox, oy, 26 * s, -an, 0); c.stroke();
+      var ex = ox + Math.cos(an) * len, ey = oy - Math.sin(an) * len;
+      c.strokeStyle = drag ? "#ffc23d" : "rgba(53,240,196," + (0.65 + 0.35 * Math.sin(pulse * 4)) + ")"; c.lineWidth = 4; c.lineCap = "round";
+      c.beginPath(); c.moveTo(ox, oy); c.lineTo(ex, ey); c.stroke();
+      c.fillStyle = c.strokeStyle; c.beginPath(); c.moveTo(ex + Math.cos(an) * 8, ey - Math.sin(an) * 8); c.lineTo(ex + Math.cos(an + 2.5) * 9, ey - Math.sin(an + 2.5) * 9); c.lineTo(ex + Math.cos(an - 2.5) * 9, ey - Math.sin(an - 2.5) * 9); c.closePath(); c.fill();
+      K.txt(c, aim.ang + "°", ox + 36 * s, oy - 12 * s, "#ffc23d", 12, "left", 800);
+      if (drag) { c.strokeStyle = "rgba(255,255,255,.4)"; c.lineWidth = 2; c.setLineDash([3, 5]); c.beginPath(); c.moveTo(drag.sx, drag.sy); c.lineTo(drag.cx, drag.cy); c.stroke(); c.setLineDash([]); }
+    }
+    // chillak
+    var cx, cy, rot;
+    if (fly) {
+      fly.t += dt; var u = Math.min(1, fly.t / fly.dur), tt = u * fly.s.T, th = fly.s.ang * Math.PI / 180;
+      var xm = fly.s.v * Math.cos(th) * tt, ym = Math.max(0, fly.s.v * Math.sin(th) * tt - GRAV * tt * tt / 2);
+      cx = wx(xm); cy = wy(ym); rot = fly.t * 14;
+      trail.push({ x: xm, y: ym }); if (trail.length > 70) trail.shift();
+      if (u >= 1) land();
+    } else if (shot) { cx = wx(shot.R); cy = gy - 9; rot = 0.25; }
+    else { cx = wx(0) + 2; cy = gy - 9; rot = -0.12; }
+    for (i = 0; i < trail.length; i += 2) { c.fillStyle = "rgba(255,255,255," + (0.12 + 0.5 * i / trail.length) + ")"; c.beginPath(); c.arc(wx(trail[i].x), wy(trail[i].y), 1.8, 0, 6.283); c.fill(); }
+    drawChillak(c, cx, cy, rot, s);
+    // bola
+    if (swing > 0) swing = Math.max(0, swing - dt * 2.2);
+    var swv = swing > 0 ? (swing > 0.75 ? (1 - swing) * 4 * 0.2 : 0.2 + (0.75 - swing) / 0.75 * 0.8) : (aiming ? 0.05 + 0.05 * Math.sin(t * 3) : 0.55);
+    drawKid(c, wx(0) - 30 * s, gy - 4, s, swv, t);
+    // chang
+    for (i = dust.length - 1; i >= 0; i--) { var d = dust[i]; d.l -= dt; if (d.l <= 0) { dust.splice(i, 1); continue; } d.x += d.vx * dt; d.y += d.vy * dt; d.r += dt * 14; c.fillStyle = "rgba(210,180,140," + (d.l * 0.6) + ")"; c.beginPath(); c.arc(d.x, d.y, d.r, 0, 6.283); c.fill(); }
+    // HUD: tayoq uzunligi va mo'ljal
+    c.fillStyle = "rgba(6,10,26,.78)"; K.rr(c, 8, 8, 150, 44, 12); c.fill();
+    K.txt(c, "📏 1 tayoq = " + Lt + " sm", 16, 21, "#f3f5ff", 12, "left", 800);
+    K.txt(c, "📐 " + aim.ang + "°  ⚡ " + aim.pow + "  (v=" + speed(aim.pow) + " m/s)", 16, 39, "#93a3cc", 11, "left", 700);
+    // oxirgi zarbalar ro'yxati
+    var shown = HITS.filter(function (x) { return x.shown; }).slice(-3);
+    if (shown.length) {
+      var bw = 132, bh = 18 + shown.length * 16, bxx = w - bw - 8, byy = G.el.stage.querySelector(".km-box") ? 76 : 8;
+      if (w < 330) bxx = 8, byy = 58;
+      c.fillStyle = "rgba(6,10,26,.78)"; K.rr(c, bxx, byy, bw, bh, 12); c.fill();
+      K.txt(c, "Oxirgi zarbalar", bxx + 10, byy + 10, "#93a3cc", 10.5, "left", 800);
+      shown.forEach(function (x, k) { K.txt(c, (HITS.indexOf(x) + 1) + ") " + x.ang + "° → " + nf(r1(x.R)) + " m", bxx + 10, byy + 26 + k * 16, "#f3f5ff", 11.5, "left", 700); });
+    }
+    if (aiming && CUR && CUR.need && !drag) {
+      var al = 0.55 + 0.45 * Math.sin(pulse * 3.5), mx = (LY.x0 + w) / 2 + 20, my = gy * 0.42 + 20;
+      c.globalAlpha = al; c.fillStyle = "rgba(6,10,26,.72)"; K.rr(c, mx - 112, my - 15, 224, 30, 15); c.fill();
+      K.txt(c, "↙ Orqaga torting va qo'yib yuboring", mx, my, "#ffc23d", 12.5, "center", 800); c.globalAlpha = 1;
+    }
+    // uchqunlar
+    for (i = sparks.length - 1; i >= 0; i--) { var p = sparks[i]; p.l -= dt; if (p.l <= 0) { sparks.splice(i, 1); continue; } p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 300 * dt; c.globalAlpha = Math.min(1, p.l * 2); c.fillStyle = p.c; c.fillRect(p.x, p.y, 4, 4); }
+    c.globalAlpha = 1;
+  }
+});
+
+/* ---------- urish ---------- */
+// Yangi savolda sahna ekrandan butunlay chiqib ketgan bo'lsa — uni qaytadan ko'rsatamiz
+function ensureVisible() {
+  try { var r = S.cv.getBoundingClientRect(), vh = window.innerHeight || 600; if (r.top < -r.height * 0.5 || r.top > vh - 60) window.scrollBy(0, r.top - 64); } catch (e) {}
+}
+
+var live = null, hitBtn = null, angIn = null, powIn = null, angOut = null, powOut = null;
+function canHit() { return !!(G && G.state === "play" && CUR && CUR.need && !CUR.hit && !fly); }
+function setTouch() { S.cv.style.touchAction = canHit() ? "none" : "manipulation"; S.cv.style.cursor = canHit() ? "crosshair" : "default"; }
+function syncUI() {
+  if (angIn) { angIn.value = aim.ang; powIn.value = aim.pow; angOut.textContent = aim.ang + "°"; powOut.textContent = aim.pow + " (v=" + speed(aim.pow) + " m/s)"; }
+  if (hitBtn) hitBtn.disabled = !canHit();
+  setTouch();
+}
+function doHit() {
+  if (!canHit()) { if (G.state === "play" && CUR && CUR.hit && !fly) K.toast("Avval savolga javob bering 🙂"); return; }
+  var s = sim(aim.ang, aim.pow);
+  CUR.hit = true; HITS.push(s);
+  fly = { s: s, t: -0.12, dur: Math.max(0.8, Math.min(2.2, s.T)) }; trail = []; meas = null; shot = null; zoomOn = null;
+  retarget(false);
+  swing = 1; K.sfx.hop(); setTimeout(function () { K.sfx.tap(); }, 120);
+  if (live) live.textContent = "Zarba: " + s.ang + " daraja, kuch " + s.pow + ".";
+  syncUI(); S.kick();
+  var me = s;
+  setTimeout(function () { if (fly && fly.s === me) land(); }, fly.dur * 1000 + 1400);
+}
+function land() {
+  var s = fly.s; fly = null; shot = s;
+  if (CUR && CUR.L === 1 && G.state === "play") zoomOn = s;
+  retarget(false);
+  var X = wx(s.R); for (var i = 0; i < 14; i++) dust.push({ x: X, y: LY.gy - 6, vx: (Math.random() - 0.5) * 80, vy: -Math.random() * 40, r: 2, l: 0.5 + Math.random() * 0.4 });
+  K.sfx.hop();
+  var tc = tcount(s);
+  if (live) live.textContent = "Chillak tushdi: " + tc.fl + "- va " + (tc.fl + 1) + "-belgilar orasida.";
+  if (CUR && CUR.need && CUR.hit && G.state === "play") {
+    build(CUR.L, s, CUR); delete CUR.shown;
+    G.el.q.innerHTML = CUR.q; G.renderAnswer(CUR);
+    G.root.classList.remove("ck-wait"); CUR.ready = true;
+  }
+  syncUI();
+}
+
+var down = null;
+S.cv.addEventListener("pointerdown", function (e) {
+  if (!canHit()) return;
+  var p = S.pos(e); down = { x: p.x, y: p.y, id: e.pointerId };
+  drag = { sx: p.x, sy: p.y, cx: p.x, cy: p.y };
+  try { S.cv.setPointerCapture(e.pointerId); } catch (er) {}
+});
+S.cv.addEventListener("pointermove", function (e) {
+  if (!down || e.pointerId !== down.id) return;
+  var p = S.pos(e); drag.cx = p.x; drag.cy = p.y;
+  var lx = down.x - p.x, ly = p.y - down.y, d = Math.sqrt(lx * lx + ly * ly);
+  if (d < 12) return;
+  if (lx < 0) { lx = -lx; ly = -ly; } // teskari tortilsa ham ishlaydi
+  var ang = Math.round(Math.atan2(ly, lx) * 180 / Math.PI), pull = Math.min(S.w * 0.42, 170);
+  aim.ang = Math.max(15, Math.min(75, ang)); aim.pow = Math.max(1, Math.min(10, Math.round(d / pull * 10)));
+  syncUI();
+});
+function endDrag(e, cancel) {
+  if (!down || (e && e.pointerId !== down.id)) return;
+  down = null; drag = null;
+  if (!cancel) doHit(); else syncUI();
+}
+S.cv.addEventListener("pointerup", function (e) { endDrag(e, false); });
+S.cv.addEventListener("pointercancel", function (e) { endDrag(e, true); });
+S.cv.tabIndex = 0;
+S.cv.addEventListener("keydown", function (e) {
+  if (!canHit()) return;
+  var k = e.key;
+  if (k === "ArrowUp" || k === "ArrowDown") { aim.ang = Math.max(15, Math.min(75, aim.ang + (k === "ArrowUp" ? 1 : -1))); }
+  else if (k === "ArrowRight" || k === "ArrowLeft") { aim.pow = Math.max(1, Math.min(10, aim.pow + (k === "ArrowRight" ? 1 : -1))); }
+  else if (k === "Enter" || k === " ") { doHit(); }
+  else return;
+  e.preventDefault(); syncUI();
+});
+
+/* ---------- sahna o'rami: tuval + slayderlar ---------- */
+var scene = D.createElement("div");
+scene.appendChild(S.cv);
+var ctrl = D.createElement("div"); ctrl.className = "ck-ctrl";
+ctrl.innerHTML =
+  '<div class="ck-row"><div class="ck-lab"><label for="ck-ang">📐 Burchak</label><output data-ck="ao">40°</output></div><input id="ck-ang" type="range" min="15" max="75" step="1" value="40"></div>' +
+  '<div class="ck-row"><div class="ck-lab"><label for="ck-pow">⚡ Kuch</label><output data-ck="po">6</output></div><input id="ck-pow" type="range" min="1" max="10" step="1" value="6"></div>' +
+  '<button class="km-btn pri ck-hit" type="button" data-ck="hit">🏏 Urish</button><div class="ck-sr" aria-live="polite" data-ck="live"></div>';
+scene.appendChild(ctrl);
+angIn = ctrl.querySelector("#ck-ang"); powIn = ctrl.querySelector("#ck-pow"); angOut = ctrl.querySelector('[data-ck="ao"]'); powOut = ctrl.querySelector('[data-ck="po"]');
+hitBtn = ctrl.querySelector('[data-ck="hit"]'); live = ctrl.querySelector('[data-ck="live"]');
+angIn.oninput = function () { aim.ang = +angIn.value; syncUI(); S.kick(); };
+powIn.oninput = function () { aim.pow = +powIn.value; syncUI(); S.kick(); };
+hitBtn.onclick = function () { doHit(); };
+
+var lastLt = 0;
+var G = K.game({
+  id: "chillak", title: "Chillak", barTitle: "CHILLAK · O'LCHASH",
+  intro: "Chillakni uring, masofani tayoq bilan o'lchang va savolga javob bering. Har savoldan oldin — bitta zarba. 10 ta savol.",
+  resultTopic: "Milliy o'yin: Chillak (o'lchash va proporsiya)",
+  mount: "game", scene: scene, rounds: 10, timeLimit: 120,
+  gen: gen,
+  onStart: function () {
+    var c = LTS.filter(function (x) { return x !== lastLt; }); Lt = pick(c); lastLt = Lt;
+    HITS = []; shot = null; fly = null; trail = []; meas = null; zoomOn = null; retarget(false);
+    if (live) live.textContent = "Yangi raund. Tayoq uzunligi " + Lt + " santimetr.";
+  },
+  onQuestion: function (q) {
+    CUR = q; pulse = 0; meas = null; ensureVisible();
+    G.root.classList.add("ck-wait");
+    var tip = D.createElement("p"); tip.className = "ck-tip"; tip.innerHTML = "👆 Slayderlar bilan burchak va kuchni tanlang yoki tuvalda chillakni orqaga tortib qo'yib yuboring.";
+    G.el.ans.insertBefore(tip, G.el.ans.firstChild);
+    shot = null; zoomOn = null; retarget(false);
+    syncUI();
+  },
+  onResult: function (ok, q) {
+    var s = q.meta && q.meta.s;
+    if (s && (ok || G.tries >= 2 || q.input !== "opts")) {
+      s.shown = true;
+      if (q.meta.L <= 3) meas = { t: 0, n: q.meta.near ? Math.round(s.R * 100 / s.Lt) : Math.floor(s.R * 100 / s.Lt), R: s.R };
+    }
+    if (ok) { var X = wx(s ? s.R : 0); burst(Math.min(S.w - 10, X), LY.gy - 12, "#35f0c4"); burst(Math.min(S.w - 10, X), LY.gy - 12, "#ffc23d", 10); }
+    syncUI();
+  },
+  onEnd: function (r) {
+    CUR = null; G.root.classList.remove("ck-wait"); syncUI();
+    if (r.stars === 3) { burst(S.w / 2, S.h / 2, "#ffc23d", 40); burst(S.w / 2, S.h / 2, "#35f0c4", 30); }
+  }
+});
+syncUI();
+
+// Sinov uchun: tasodifiy zarba bilan to'liq savol yasash
+function make(L) {
+  var keep = HITS, keepLt = Lt;
+  Lt = pick(LTS); HITS = [];
+  var k = ri(1, 4); for (var i = 0; i < k; i++) HITS.push(sim(ri(15, 75), ri(1, 10)));
+  var q = build(L, HITS[HITS.length - 1], {});
+  HITS = keep; Lt = keepLt; return q;
+}
+window.kaChillak = { game: G, gen: gen, build: build, sim: sim, make: make, aim: aim, hit: doHit, ready: function () { return !!(CUR && CUR.ready); }, hits: function () { return HITS; } };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

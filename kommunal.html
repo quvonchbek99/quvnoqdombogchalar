@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Kommunal to'lovlar — hisoblagich va tarif hisobi | Kuvonch Academy</title>
+<meta name="description" content="Elektr, gaz va sovuq suv hisoblagichlari: sarfni toping, to'lov summasini hisoblang, oylarni foizda taqqoslang, ikki pog'onali tarifni o'rganing. Tariflar — mashq uchun misol.">
+<link rel="canonical" href="https://kuvonch.uz/kommunal.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Kommunal to'lovlar — hayotiy hisob-kitob o'yini">
+<meta property="og:description" content="Hisoblagich ko'rsatkichidan sarfni, sarfdan to'lovni toping; oylarni taqqoslang va ikki pog'onali tarifni hisoblang.">
+<meta property="og:url" content="https://kuvonch.uz/kommunal.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<style>
+.hx-note{margin:12px 0 0;font-size:13.5px;color:#cfd8ef;background:rgba(255,194,61,.08);border:1px dashed rgba(255,194,61,.4);border-radius:12px;padding:8px 12px;max-width:760px}
+.km-q .rcp{display:block;font-size:14.5px;font-weight:500;color:var(--dim);margin-top:4px}
+.km-q .tag{display:inline-block;font-size:12px;font-weight:700;color:#05221c;background:var(--amber);border-radius:999px;padding:1px 8px;vertical-align:2px}
+</style>
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+<a href="sherlok.html">🕵️ Sherlok</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🧾 Hayotiy hisob-kitoblar</span>
+<h1>Kommunal <span>to'lovlar</span></h1>
+<p class="km-lead">Har oy uyga elektr, gaz va suv uchun hisob keladi. Hisoblagichdagi ikki sondan sarfni, sarfdan to'lovni toping, oylarni foizda taqqoslang va ikki pog'onali tarif qanday ishlashini bilib oling.</p>
+<ul class="km-chips"><li>🔢 Ko'rsatkichlar farqi</li><li>⚡ Sarf × tarif</li><li>📈 Foizda o'zgarish</li><li>🪜 Ikki pog'onali tarif</li></ul>
+<p class="hx-note">⚠️ O'yindagi tariflar — <b>mashq uchun misol tariflar</b>. Ular rasmiy yoki amaldagi tariflar emas; haqiqiy tarifni kommunal xizmat hisob-varag'idan ko'ring.</p>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>🏠 Hayotda qayerda kerak</h2>
+<p>Hisoblagich ko'rsatkichini o'zingiz yozib, to'lovni tekshira olsangiz, xato hisobga pul to'lamaysiz. Qaysi oyda sarf oshganini foizda ko'rish oilaga tejashni rejalashtirishga yordam beradi. Ko'p joyda tarif pog'onali: belgilangan me'yordan oshgan har bir birlik qimmatroq — shuning uchun me'yorni bilish foydali.</p>
+</section>
+<section>
+<h2>🎯 Qoidalar</h2>
+<ol>
+<li>Sahnada hisoblagichlar ko'rinadi: oldingi va hozirgi ko'rsatkich. Hamma kerakli sonlar savol matnida ham yozilgan.</li>
+<li>Javobni yozing yoki tanlang. Kasr sonni vergul (<b>7,4</b>) yoki nuqta (<b>7.4</b>) bilan yozish mumkin; «yaxlitlang» deyilsa — aytilgan aniqlikkacha.</li>
+<li>Ketma-ket 3 ta to'g'ri javob — daraja oshadi (5 tagacha). Ikki xato ketma-ket — daraja pasayadi.</li>
+<li>Xato qilsangiz, yana bir urinish beriladi; ikkinchi xatoda qadam-baqadam yechim chiqadi.</li>
+<li>🎁 Sirli quti chiqib qolsa — oching: ko'pincha yordam beradi, ba'zan ochko oladi!</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> sarf = hozirgi ko'rsatkich − oldingi ko'rsatkich</li>
+<li><b>2-daraja:</b> to'lov = sarf × tarif va teskari masala</li>
+<li><b>3-daraja:</b> oylik jami to'lov, qarz va oldindan to'lov, kunlik o'rtacha sarf</li>
+<li><b>4-daraja:</b> oylarni taqqoslash: necha foizga oshdi yoki kamaydi</li>
+<li><b>5-daraja:</b> ikki pog'onali tarif: me'yorgacha va me'yordan oshgan qism</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html#hayotiy">🧾 Boshqa hayotiy hisob-kitoblar</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Hayotiy hisob-kitoblar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Kommunal to'lovlar: hisoblagich, tarif va foiz */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf, rnd = K.round;
+var y = document.getElementById("year"); if (y) y.textContent = String(new Date().getFullYear());
+var FONT = '"Golos Text",system-ui,sans-serif';
+
+/* ---------- xizmatlar va MISOL tariflar (rasmiy emas) ---------- */
+var T = {
+  e: { k: "e", N: "Elektr", n: "elektr", ic: "⚡", u: "kVt·soat", col: "#ffc23d", dig: 6, t: [450, 600, 800, 1000], c: [110, 420], o: [8000, 60000] },
+  g: { k: "g", N: "Gaz", n: "gaz", ic: "🔥", u: "m³", col: "#ff8a5c", dig: 5, t: [800, 1000, 1200, 1500], c: [35, 320], o: [1500, 40000] },
+  s: { k: "s", N: "Sovuq suv", n: "sovuq suv", ic: "💧", u: "m³", col: "#5cb8ff", dig: 5, t: [1500, 2000, 2500, 3000], c: [5, 26], o: [120, 3000] }
+};
+var MONTHS = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"];
+var DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function som(x) { return nf(x) + " so'm"; }
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function pad(v, d) { var s = String(v); while (s.length < d) s = "0" + s; return s; }
+function mis(arr, ans) {
+  var out = [], seen = {};
+  arr.forEach(function (m) { if (typeof m !== "number" || !isFinite(m)) return; m = rnd(m, 6); if (m <= 0 || Math.abs(m - ans) < 1e-9 || seen[m]) return; seen[m] = 1; out.push(m); });
+  return out;
+}
+function anyT() { return T[pick(["e", "e", "g", "s"])]; }
+function reading(t) { // {old, nw, c}
+  var c = ri(t.c[0], t.c[1]), old = ri(t.o[0], t.o[1]);
+  if (Math.random() < 0.45) { var d = Math.pow(10, String(c).length); old = old - (old % d) + d - ri(1, Math.max(2, c - 1)); } // xonadan o'tish (qarz olish) holati
+  return { old: old, nw: old + c, c: c };
+}
+function noBorrow(a, b) { // xonama-xona katta raqamdan kichigini ayirish (odatiy xato)
+  var sa = String(a), sb = pad(b, sa.length), r = "";
+  for (var i = 0; i < sa.length; i++) r += Math.abs(+sa[i] - +sb[i]);
+  return +r;
+}
+function rdTxt(t, r) { return "oldingi ko'rsatkich <b>" + nf(r.old) + "</b>, hozirgisi <b>" + nf(r.nw) + "</b>"; }
+function mtr(t, r, o) { o = o || {}; return { t: t.k, old: r ? r.old : null, nw: r ? (o.hideNew ? null : r.nw) : null, sarf: o.sarf != null ? o.sarf : "?", tarif: o.tarif || null, pay: o.pay || null, focus: o.focus !== false }; }
+
+/* ---------- savollar ---------- */
+function gen(L) {
+  var r = Math.random();
+  if (L === 1) return r < 0.72 ? k1sarf() : k1new();
+  if (L === 2) return r < 0.68 ? k2pay() : k2inv();
+  if (L === 3) return r < 0.45 ? k3total() : r < 0.72 ? k3daily() : k3debt();
+  if (L === 4) return r < 0.4 ? k4pct() : r < 0.62 ? k4diff() : r < 0.82 ? k4tariff() : k4daily();
+  return r < 0.42 ? k5cost() : r < 0.62 ? k5over() : r < 0.82 ? k5inv() : k5norm();
+}
+
+function k1sarf() {
+  var t = anyT(), R = reading(t), ans = R.c;
+  return {
+    q: cap(t.n) + " hisoblagichi: " + rdTxt(t, R) + ". Shu oyda necha " + t.u + " sarflangan?",
+    a: ans, unit: t.u, input: Math.random() < 0.45 ? "opts" : "num",
+    mistakes: mis([noBorrow(R.nw, R.old), ans + 1, ans - 10, ans + 100, ans + 10], ans),
+    hint1: "Kattasidan kichigini ayiring: hozirgi − oldingi.",
+    steps: ["Sarf = hozirgi − oldingi", nf(R.nw) + " − " + nf(R.old) + " = " + nf(ans) + " " + t.u],
+    sc: { kind: "m", list: [mtr(t, R)] }
+  };
+}
+function k1new() {
+  var t = anyT(), R = reading(t);
+  return {
+    q: cap(t.n) + " hisoblagichi o'tgan oy <b>" + nf(R.old) + "</b> ni ko'rsatgan edi. Shu oyda <b>" + nf(R.c) + " " + t.u + "</b> sarflandi. Hisoblagich hozir qaysi sonni ko'rsatadi?",
+    a: R.nw, unit: "", input: "opts",
+    mistakes: mis([R.old - R.c, R.nw + 10, R.nw - 100, R.nw + 1000, R.nw - 1], R.nw),
+    steps: ["Hozirgi = oldingi + sarf", nf(R.old) + " + " + nf(R.c) + " = " + nf(R.nw)],
+    sc: { kind: "m", list: [mtr(t, R, { hideNew: true, sarf: nf(R.c) })] }
+  };
+}
+function k2pay() {
+  var t = anyT(), R = reading(t), tr = pick(t.t), byRd = Math.random() < 0.6, ans = R.c * tr;
+  var q = byRd ? cap(t.n) + ": " + rdTxt(t, R) + ". Tarif (misol): 1 " + t.u + " — <b>" + som(tr) + "</b>. Necha so'm to'lanadi?"
+    : "Shu oyda <b>" + nf(R.c) + " " + t.u + "</b> " + t.n + " sarflandi. Tarif (misol): 1 " + t.u + " — <b>" + som(tr) + "</b>. Necha so'm to'lanadi?";
+  var steps = byRd ? ["Sarf: " + nf(R.nw) + " − " + nf(R.old) + " = " + nf(R.c) + " " + t.u] : [];
+  steps.push("To'lov = sarf × tarif = " + nf(R.c) + " × " + nf(tr) + " = " + som(ans));
+  return {
+    q: q, a: ans, unit: "so'm", input: "num", tol: 0.5,
+    mistakes: mis([R.nw * tr, ans / 10, (R.c + 1) * tr], ans), hint1: byRd ? "Avval sarfni toping, keyin tarifga ko'paytiring." : "",
+    steps: steps, sc: { kind: "m", list: [mtr(t, byRd ? R : null, { sarf: byRd ? "?" : nf(R.c), tarif: nf(tr), pay: "?" })] }
+  };
+}
+function k2inv() {
+  var t = anyT(), c = ri(t.c[0], t.c[1]), tr = pick(t.t), pay = c * tr;
+  return {
+    q: cap(t.n) + " uchun <b>" + som(pay) + "</b> to'landi. Tarif (misol): 1 " + t.u + " — <b>" + som(tr) + "</b>. Necha " + t.u + " sarflangan?",
+    a: c, unit: t.u, input: Math.random() < 0.4 ? "opts" : "num",
+    mistakes: mis([pay / tr / 10, c + 10, c * 10, c - 1], c),
+    steps: ["Sarf = to'lov : tarif", nf(pay) + " : " + nf(tr) + " = " + nf(c) + " " + t.u],
+    sc: { kind: "m", list: [mtr(t, null, { sarf: "?", tarif: nf(tr), pay: nf(pay) })] }
+  };
+}
+function k3total() {
+  var ks = Math.random() < 0.55 ? ["e", "g", "s"] : K.shuffle(["e", "g", "s"]).slice(0, 2).sort(), tot = 0, list = [], parts = [], steps = [];
+  ks.forEach(function (k) {
+    var t = T[k], R = reading(t), tr = pick(t.t), p = R.c * tr; tot += p;
+    list.push(mtr(t, R, { tarif: nf(tr) }));
+    parts.push(t.N + ": " + nf(R.old) + " → " + nf(R.nw) + ", tarif " + nf(tr) + " so'm/" + t.u);
+    steps.push(t.N + ": (" + nf(R.nw) + " − " + nf(R.old) + ") × " + nf(tr) + " = " + nf(R.c) + " × " + nf(tr) + " = " + som(p));
+  });
+  steps.push("Jami: " + steps.map(function (s) { return s.split(" = ").pop().replace(" so'm", ""); }).join(" + ") + " = " + som(tot));
+  return {
+    q: "Shu oy uchun jami necha so'm to'lanadi?<span class=\"rcp\">" + parts.join("<br>") + "<br>Tariflar — mashq uchun misol.</span>",
+    a: tot, unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    hint1: "Har bir xizmatni alohida hisoblab, keyin qo'shing.", steps: steps, sc: { kind: "m", list: list }
+  };
+}
+function k3daily() {
+  var t = pick([T.e, T.e, T.s, T.g]), m = ri(0, 11), d = DAYS[m], c;
+  if (Math.random() < 0.4 && t.k !== "s") c = d * ri(Math.ceil(t.c[0] / d), Math.floor(t.c[1] / d));
+  else c = ri(t.c[0], t.c[1]);
+  var x = c / d, ans = Math.floor((20 * c + d) / (2 * d)) / 10, whole = Math.abs(ans - x) < 1e-9;
+  return {
+    q: MONTHS[m].charAt(0).toUpperCase() + MONTHS[m].slice(1) + " oyida (" + d + " kun) <b>" + nf(c) + " " + t.u + "</b> " + t.n + " sarflandi. Kuniga o'rtacha necha " + t.u + " sarflangan?" + (whole ? "" : " <span class=\"tag\">0,1 gacha yaxlitlang</span>"),
+    a: ans, unit: t.u, input: "num", tol: whole ? 1e-6 : 0.051, ph: "masalan: 7,4",
+    mistakes: [], hint1: "Oy sarfini oydagi kunlar soniga bo'ling.",
+    steps: whole ? [nf(c) + " : " + d + " = " + nf(ans) + " " + t.u] : [nf(c) + " : " + d + " ≈ " + nf(rnd(x, 3)), "0,1 gacha yaxlitlaymiz: ≈ " + nf(ans) + " " + t.u],
+    sc: { kind: "m", list: [mtr(t, null, { sarf: nf(c) })], note: MONTHS[m] + ": " + d + " kun · kuniga ?" }
+  };
+}
+function k3debt() {
+  var t = anyT(), R = reading(t), tr = pick(t.t), p = R.c * tr, debt = Math.random() < 0.55, ex = ri(1, 8) * 5000;
+  if (!debt) ex = Math.min(ex, Math.max(1000, Math.floor(p / 2000) * 1000));
+  var ans = debt ? p + ex : p - ex;
+  return {
+    q: cap(t.n) + ": " + rdTxt(t, R) + ", tarif (misol) " + som(tr) + ". " + (debt ? "O'tgan oydan <b>" + som(ex) + " qarz</b> qolgan." : "Hisobda <b>" + som(ex) + " oldindan to'lov</b> (ortiqcha to'langan pul) bor.") + " Shu oy necha so'm to'lash kerak?",
+    a: ans, unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    hint1: debt ? "Qarz shu oy to'loviga qo'shiladi." : "Oldindan to'langan pul shu oy to'lovidan ayriladi.",
+    steps: ["Sarf: " + nf(R.nw) + " − " + nf(R.old) + " = " + nf(R.c) + " " + t.u, "Shu oy: " + nf(R.c) + " × " + nf(tr) + " = " + som(p), debt ? "Qarz qo'shiladi: " + nf(p) + " + " + nf(ex) + " = " + som(ans) : "Oldindan to'lov ayriladi: " + nf(p) + " − " + nf(ex) + " = " + som(ans)],
+    sc: { kind: "m", list: [mtr(t, R, { tarif: nf(tr), pay: "?" })], note: debt ? "Qarz: " + nf(ex) + " so'm" : "Oldindan to'lov: " + nf(ex) + " so'm" }
+  };
+}
+function pctPair(t) { // v1 va foiz p: v2 = v1(100+p)/100 butun bo'lsin
+  var p = pick([10, 15, 20, 25, 30, 40, 50, 60, -10, -15, -20, -25, -30, -40]), v1, tries = 0;
+  do { v1 = t.k === "s" ? pick([10, 12, 14, 15, 16, 18, 20, 24, 25]) : ri(Math.ceil(t.c[0] / 20), Math.floor(t.c[1] / 20)) * 20; tries++; } while ((v1 * (100 + p)) % 100 !== 0 && tries < 50);
+  if ((v1 * (100 + p)) % 100 !== 0) { v1 = 100; p = pick([20, -20, 30]); }
+  return { v1: v1, v2: v1 * (100 + p) / 100, p: p };
+}
+function k4pct() {
+  var t = anyT(), P = pctPair(t), m = ri(1, 11), up = P.p > 0, ans = Math.abs(P.p), d = Math.abs(P.v2 - P.v1), wrongBase = rnd(d / P.v2 * 100, 1);
+  return {
+    q: cap(t.n) + " sarfi: " + MONTHS[m - 1] + "da <b>" + nf(P.v1) + " " + t.u + "</b>, " + MONTHS[m] + "da <b>" + nf(P.v2) + " " + t.u + "</b>. " + cap(MONTHS[m]) + "da sarf " + MONTHS[m - 1] + "ga nisbatan necha foizga " + (up ? "oshdi" : "kamaydi") + "?",
+    a: ans, unit: "%", input: Math.random() < 0.5 ? "opts" : "num", tol: 1e-6,
+    mistakes: mis([wrongBase, d, ans + 5, ans * 2 <= 100 ? ans * 2 : ans - 5], ans),
+    hint1: "Farqni avvalgi (" + MONTHS[m - 1] + ") oy sarfiga bo'ling.",
+    steps: ["Farq: " + nf(Math.max(P.v1, P.v2)) + " − " + nf(Math.min(P.v1, P.v2)) + " = " + nf(d) + " " + t.u, "Avvalgi oyga nisbatan: " + nf(d) + " : " + nf(P.v1) + " × 100 % = " + ans + " %", "Diqqat: foiz avvalgi oy sarfidan olinadi, keyingisidan emas"],
+    sc: { kind: "bars", t: t.k, items: [{ lab: MONTHS[m - 1], v: P.v1 }, { lab: MONTHS[m], v: P.v2 }], tag: (up ? "+" : "−") + "? %" }
+  };
+}
+function k4diff() {
+  var t = anyT(), m = ri(1, 11), tr = pick(t.t), c1 = ri(t.c[0], t.c[1]), c2 = ri(t.c[0], t.c[1]);
+  while (c2 === c1) c2 = ri(t.c[0], t.c[1]);
+  var p1 = c1 * tr, p2 = c2 * tr, ans = Math.abs(p2 - p1), more = p2 > p1;
+  return {
+    q: cap(t.n) + ": " + MONTHS[m - 1] + "da " + nf(c1) + " " + t.u + ", " + MONTHS[m] + "da " + nf(c2) + " " + t.u + " sarflandi. Tarif (misol) — " + som(tr) + ". " + cap(MONTHS[m]) + "da necha so'm " + (more ? "ko'p" : "kam") + " to'landi?",
+    a: ans, unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    steps: [cap(MONTHS[m - 1]) + ": " + nf(c1) + " × " + nf(tr) + " = " + som(p1), cap(MONTHS[m]) + ": " + nf(c2) + " × " + nf(tr) + " = " + som(p2), "Farq: " + nf(Math.max(p1, p2)) + " − " + nf(Math.min(p1, p2)) + " = " + som(ans) + " (yoki " + nf(Math.abs(c2 - c1)) + " × " + nf(tr) + ")"],
+    sc: { kind: "bars", t: t.k, items: [{ lab: MONTHS[m - 1], v: c1 }, { lab: MONTHS[m], v: c2 }], tag: "? so'm", tarif: nf(tr) }
+  };
+}
+function k4tariff() {
+  var t = anyT(), PR = [[400, 500], [500, 600], [600, 750], [800, 1000], [1000, 1200], [1200, 1500], [1500, 1800], [2000, 2500], [2500, 3000], [600, 900], [500, 550], [800, 880], [1000, 1150], [400, 480], [1200, 1320], [2000, 2300], [1500, 1950], [600, 840]];
+  var lo = t.k === "e" ? 400 : t.k === "g" ? 600 : 1200, hi = t.k === "e" ? 1200 : t.k === "g" ? 1500 : 3000;
+  var pr = pick(PR.filter(function (x) { return x[0] >= lo && x[0] <= hi; }));
+  var a = pr[0], b = pr[1], p = (b - a) / a * 100;
+  if (Math.random() < 0.5) {
+    return {
+      q: "Misol uchun: " + t.n + " tarifi " + som(a) + " dan " + som(b) + " ga oshdi. Tarif necha foizga oshdi?",
+      a: p, unit: "%", input: Math.random() < 0.5 ? "opts" : "num", tol: 1e-6,
+      mistakes: mis([rnd((b - a) / b * 100, 1), b - a, p + 5, p / 2], p),
+      steps: ["Oshish: " + nf(b) + " − " + nf(a) + " = " + nf(b - a) + " so'm", nf(b - a) + " : " + nf(a) + " × 100 % = " + nf(p) + " %"],
+      sc: { kind: "bars", t: t.k, items: [{ lab: "eski tarif", v: a }, { lab: "yangi tarif", v: b }], tag: "+? %", money: true }
+    };
+  }
+  var c = ri(t.c[0], t.c[1]), ans = c * b;
+  return {
+    q: "Misol uchun: " + t.n + " tarifi " + som(a) + " dan " + som(b) + " ga oshdi. Oila har oy <b>" + nf(c) + " " + t.u + "</b> sarflaydi. Endi to'lov necha so'm ko'payadi?",
+    a: c * (b - a), unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    steps: ["Avval: " + nf(c) + " × " + nf(a) + " = " + som(c * a), "Endi: " + nf(c) + " × " + nf(b) + " = " + som(ans), "Farq: " + nf(ans) + " − " + nf(c * a) + " = " + som(c * (b - a)) + " (yoki " + nf(c) + " × " + nf(b - a) + ")"],
+    sc: { kind: "bars", t: t.k, items: [{ lab: "eski tarif", v: a }, { lab: "yangi tarif", v: b }], tag: "? so'm", money: true }
+  };
+}
+function k4daily() {
+  var t = pick([T.e, T.g]), m = ri(1, 11), d1 = DAYS[m - 1], d2 = DAYS[m], a1 = ri(4, 12), a2 = a1 + pick([1, 2, 3, -1, -2]);
+  if (a2 <= 0) a2 = a1 + 1;
+  var c1 = a1 * d1, c2 = a2 * d2, ans = Math.abs(a2 - a1), up = a2 > a1;
+  return {
+    q: cap(t.n) + ": " + MONTHS[m - 1] + "da (" + d1 + " kun) " + nf(c1) + " " + t.u + ", " + MONTHS[m] + "da (" + d2 + " kun) " + nf(c2) + " " + t.u + ". Kunlik o'rtacha sarf necha " + t.u + "ga " + (up ? "oshdi" : "kamaydi") + "?",
+    a: ans, unit: t.u, input: "num", tol: 1e-6,
+    mistakes: [], hint1: "Har oyning kunlik o'rtachasini alohida toping.",
+    steps: [cap(MONTHS[m - 1]) + ": " + nf(c1) + " : " + d1 + " = " + a1 + " " + t.u + " kuniga", cap(MONTHS[m]) + ": " + nf(c2) + " : " + d2 + " = " + a2 + " " + t.u + " kuniga", "Farq: " + Math.max(a1, a2) + " − " + Math.min(a1, a2) + " = " + ans + " " + t.u],
+    sc: { kind: "bars", t: t.k, items: [{ lab: MONTHS[m - 1] + " (" + d1 + ")", v: c1 }, { lab: MONTHS[m] + " (" + d2 + ")", v: c2 }], tag: "kuniga ?" }
+  };
+}
+// Ikki pog'onali MISOL tarif
+function tier(t) {
+  if (t.k === "e") { var n = pick([150, 200, 250, 300]), t1 = pick([450, 600, 800]); return { N: n, t1: t1, t2: t1 + pick([200, 300, 400, 600]), c: n + ri(10, 220) }; }
+  var n2 = pick([100, 150, 200, 300]), u1 = pick([800, 1000, 1200]); return { N: n2, t1: u1, t2: u1 + pick([300, 500, 800]), c: n2 + ri(10, 160) };
+}
+function tierTxt(t, P) { return "Misol tarif: oyiga <b>" + nf(P.N) + " " + t.u + "</b> gacha — <b>" + som(P.t1) + "</b>, undan oshgan har bir " + t.u + " — <b>" + som(P.t2) + "</b>."; }
+function tsc(t, P, o) { o = o || {}; return { kind: "tier", t: t.k, c: P.c, N: P.N, t1: P.t1, t2: P.t2, hideC: !!o.hideC, pay: o.pay || "?" }; }
+function k5cost() {
+  var t = pick([T.e, T.e, T.g]), P = tier(t), under = Math.random() < 0.15;
+  if (under) P.c = P.N - ri(5, 60);
+  var x = Math.max(0, P.c - P.N), ans = Math.min(P.c, P.N) * P.t1 + x * P.t2;
+  return {
+    q: tierTxt(t, P) + " Shu oyda <b>" + nf(P.c) + " " + t.u + "</b> " + t.n + " sarflandi. Necha so'm to'lanadi?",
+    a: ans, unit: "so'm", input: "num", tol: 0.5,
+    mistakes: [], hint1: "Sarfni ikki qismga bo'ling: me'yorgacha va me'yordan oshgan qism.",
+    steps: under ? ["Sarf me'yordan oshmagan (" + nf(P.c) + " < " + nf(P.N) + ")", "Hammasi arzon tarifda: " + nf(P.c) + " × " + nf(P.t1) + " = " + som(ans)]
+      : ["Me'yorgacha: " + nf(P.N) + " × " + nf(P.t1) + " = " + som(P.N * P.t1), "Oshgan qism: " + nf(P.c) + " − " + nf(P.N) + " = " + nf(x) + " " + t.u, nf(x) + " × " + nf(P.t2) + " = " + som(x * P.t2), "Jami: " + nf(P.N * P.t1) + " + " + nf(x * P.t2) + " = " + som(ans)],
+    okNote: under ? "" : "Xato yo'l: hammasini bitta tarifga ko'paytirish (" + nf(P.c) + " × " + nf(P.t1) + " yoki × " + nf(P.t2) + ").",
+    sc: tsc(t, P)
+  };
+}
+function k5over() {
+  var t = pick([T.e, T.g]), P = tier(t), x = P.c - P.N, ans = x * P.t2;
+  return {
+    q: tierTxt(t, P) + " Sarf <b>" + nf(P.c) + " " + t.u + "</b>. Me'yordan oshgan qism uchun necha so'm to'lanadi?",
+    a: ans, unit: "so'm", input: Math.random() < 0.4 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([P.c * P.t2, x * P.t1, P.N * P.t2, ans + P.t2], ans),
+    steps: ["Oshgan qism: " + nf(P.c) + " − " + nf(P.N) + " = " + nf(x) + " " + t.u, nf(x) + " × " + nf(P.t2) + " = " + som(ans)],
+    sc: tsc(t, P, { pay: "oshgan qism ?" })
+  };
+}
+function k5inv() {
+  var t = pick([T.e, T.e, T.g]), P = tier(t), x = P.c - P.N, pay = P.N * P.t1 + x * P.t2;
+  return {
+    q: tierTxt(t, P) + " Oila " + t.n + " uchun <b>" + som(pay) + "</b> to'ladi. Necha " + t.u + " sarflangan?",
+    a: P.c, unit: t.u, input: "num",
+    mistakes: [], hint1: "Avval me'yorgacha qismning narxini ayiring.",
+    steps: ["Me'yorgacha qism: " + nf(P.N) + " × " + nf(P.t1) + " = " + som(P.N * P.t1), "Qolgan pul: " + nf(pay) + " − " + nf(P.N * P.t1) + " = " + som(x * P.t2), "Oshgan qism: " + nf(x * P.t2) + " : " + nf(P.t2) + " = " + nf(x) + " " + t.u, "Jami sarf: " + nf(P.N) + " + " + nf(x) + " = " + nf(P.c) + " " + t.u],
+    sc: tsc(t, P, { hideC: true, pay: nf(pay) })
+  };
+}
+function k5norm() {
+  var t = pick([T.e, T.g]), d = pick([30, 30, 31]), per = ri(4, 10), Nn = per * d, P = { N: Nn, t1: pick(t.t), t2: 0, c: Nn };
+  P.t2 = P.t1 + pick([200, 400, 500]);
+  return {
+    q: "Misol tarif: oyiga <b>" + nf(Nn) + " " + t.u + "</b> gacha — " + som(P.t1) + ", undan oshgani — " + som(P.t2) + ". Oy " + d + " kun. Me'yordan oshmaslik uchun kuniga o'rtacha ko'pi bilan necha " + t.u + " " + t.n + " sarflash mumkin?",
+    a: per, unit: t.u, input: Math.random() < 0.5 ? "opts" : "num",
+    mistakes: mis([Nn / 10, per + 1, rnd(Nn / (d === 30 ? 31 : 30), 1), Nn / 7], per),
+    steps: [nf(Nn) + " : " + d + " = " + per + " " + t.u + " kuniga"],
+    sc: { kind: "tier", t: t.k, c: Nn, N: Nn, t1: P.t1, t2: P.t2, hideC: true, days: d }
+  };
+}
+
+/* ---------- sahna: hisoblagichlar, ustunlar, pog'onali tarif ---------- */
+var CUR = null, glow = 0;
+function fitTxt(c, s, x, y, maxW, col, size, align, weight) {
+  c.font = (weight || 700) + " " + size + "px " + FONT;
+  var w = c.measureText(s).width; if (w > maxW && w > 0) size = Math.max(7, Math.floor(size * maxW / w * 10) / 10);
+  K.txt(c, s, x, y, col, size, align, weight);
+}
+function bg(c, w, h) {
+  var g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#1b2340"); g.addColorStop(1, "#111733"); c.fillStyle = g; c.fillRect(0, 0, w, h);
+  // kafel devor
+  c.strokeStyle = "rgba(255,255,255,.04)"; c.lineWidth = 1;
+  for (var x = 0; x < w; x += 36) { c.beginPath(); c.moveTo(x + 0.5, 0); c.lineTo(x + 0.5, h); c.stroke(); }
+  for (var yy = 0; yy < h; yy += 36) { c.beginPath(); c.moveTo(0, yy + 0.5); c.lineTo(w, yy + 0.5); c.stroke(); }
+  // quvur
+  c.fillStyle = "#3a4466"; c.fillRect(0, 14, w, 6); c.fillStyle = "rgba(255,255,255,.12)"; c.fillRect(0, 14, w, 2);
+}
+function counter(c, x, y, w, v, dig, hidden) {
+  var bw = w / dig, bh = Math.min(34, bw * 1.45), s = v == null ? null : pad(v, dig);
+  c.fillStyle = "#0a0d16"; K.rr(c, x - 3, y - 3, w + 6, bh + 6, 6); c.fill();
+  for (var i = 0; i < dig; i++) {
+    var bx = x + i * bw;
+    var g = c.createLinearGradient(0, y, 0, y + bh); g.addColorStop(0, "#2a2f3d"); g.addColorStop(0.5, "#f7f7f2"); g.addColorStop(1, "#2a2f3d");
+    c.fillStyle = hidden || s == null ? "#1d2232" : "#11141d"; c.fillRect(bx + 1, y, bw - 2, bh);
+    if (!hidden && s != null) { c.fillStyle = "rgba(255,255,255,.06)"; c.fillRect(bx + 1, y, bw - 2, bh / 2); }
+    fitTxt(c, hidden || s == null ? "?" : s.charAt(i), bx + bw / 2, y + bh / 2 + 1, bw - 2, hidden || s == null ? "#ffc23d" : "#f3f5ff", Math.min(22, bh * 0.68), "center", 800);
+  }
+  return bh;
+}
+function meterLines(M, nar) {
+  var tt = T[M.t], lines = [[M.sarfLab || "Sarf", M.sarf + (M.sarf === "?" ? "" : " " + tt.u)]];
+  if (M.extra) lines.push(M.extra);
+  if (M.tarif) lines.push([nar ? "Tarif" : "Tarif (misol)", M.tarif + (nar ? "" : " so'm")]);
+  if (M.pay) lines.push(["To'lov", M.pay + (M.pay === "?" || nar ? "" : " so'm")]);
+  return lines;
+}
+function meterH(w, M) { // kartaning kerakli balandligi
+  var tt = T[M.t], nar = w < 170, cw = w - (nar ? 18 : 24) - 6, bh = Math.min(34, cw / tt.dig * 1.45);
+  return 48 + (M.old != null ? 2 * (14 + bh + 12) - 2 : 84) + meterLines(M, nar).length * 24 + 8;
+}
+function dial(c, x, y, r, col, t) {
+  c.fillStyle = "#f7f7f2"; c.beginPath(); c.arc(x, y, r, 0, 6.283); c.fill();
+  c.strokeStyle = "#1a1d27"; c.lineWidth = 2; c.stroke();
+  for (var i = 0; i < 10; i++) { var a = i / 10 * 6.283; c.beginPath(); c.moveTo(x + Math.cos(a) * r * 0.78, y + Math.sin(a) * r * 0.78); c.lineTo(x + Math.cos(a) * r * 0.92, y + Math.sin(a) * r * 0.92); c.lineWidth = 1.5; c.stroke(); }
+  var an = t * 1.8 - 1.57; c.strokeStyle = "#d62828"; c.lineWidth = 3; c.lineCap = "round";
+  c.beginPath(); c.moveTo(x, y); c.lineTo(x + Math.cos(an) * r * 0.7, y + Math.sin(an) * r * 0.7); c.stroke(); c.lineCap = "butt";
+  c.fillStyle = col; c.beginPath(); c.arc(x, y, r * 0.12, 0, 6.283); c.fill();
+}
+function meterCard(c, x, y, w, h, M, t) {
+  var tt = T[M.t];
+  c.save(); c.shadowColor = "rgba(0,0,0,.45)"; c.shadowBlur = 14; c.shadowOffsetY = 5;
+  c.fillStyle = M.t === "g" ? "#c9a83a" : M.t === "s" ? "#2f6fa8" : "#d9dde6"; K.rr(c, x, y, w, h, 14); c.fill(); c.restore();
+  var inner = M.t === "e" ? "#eef1f6" : M.t === "g" ? "#e8cf6a" : "#3d84c4";
+  c.fillStyle = inner; K.rr(c, x + 5, y + 5, w - 10, h - 10, 10); c.fill();
+  var dark = M.t === "s" ? "#f3f5ff" : "#1a1d27", sub = M.t === "s" ? "rgba(243,245,255,.8)" : "rgba(26,29,39,.68)";
+  var nar = w < 170;
+  c.fillStyle = "#151a2c"; K.rr(c, x + 10, y + 10, w - 20, 28, 8); c.fill();
+  fitTxt(c, tt.ic + " " + tt.N.toUpperCase() + (nar ? "" : " · " + tt.u), x + w / 2, y + 24, w - 30, tt.col, 13, "center", 800);
+  var cy = y + 48, pad2 = nar ? 9 : 12, cw = w - pad2 * 2, fs = Math.max(10, Math.min(12.5, w / 11));
+  if (M.old != null) {
+    fitTxt(c, nar ? "Oldingi" : "Oldingi ko'rsatkich", x + pad2, cy + 6, cw, sub, fs, "left", 700); cy += 14;
+    cy += counter(c, x + pad2 + 3, cy, cw - 6, M.old, tt.dig, false) + 12;
+    fitTxt(c, nar ? "Hozirgi" : "Hozirgi ko'rsatkich", x + pad2, cy + 6, cw, sub, fs, "left", 700); cy += 14;
+    cy += counter(c, x + pad2 + 3, cy, cw - 6, M.nw, tt.dig, M.nw == null) + 10;
+  } else {
+    dial(c, x + w / 2, cy + 38, 32, tt.col, t);
+    cy += 84;
+  }
+  var lines = meterLines(M, nar), lh = 24;
+  lines.forEach(function (L, i) {
+    var ly = cy + lh * i + lh / 2;
+    fitTxt(c, L[0], x + pad2, ly, cw * 0.48, sub, fs, "left", 700);
+    fitTxt(c, L[1], x + w - pad2, ly, cw * 0.55, L[1].charAt(0) === "?" ? (M.t === "s" ? "#ffe08a" : "#c2410c") : dark, fs * 1.12, "right", 800);
+  });
+}
+function bill(c, x, y, w, h, M) {
+  var tt = T[M.t];
+  c.save(); c.shadowColor = "rgba(0,0,0,.45)"; c.shadowBlur = 12; c.shadowOffsetY = 4;
+  c.fillStyle = "#fdfdfb"; K.rr(c, x, y, w, h, 8); c.fill(); c.restore();
+  c.fillStyle = tt.col; c.fillRect(x, y, w, 5);
+  fitTxt(c, "🧾 HISOB", x + w / 2, y + 24, w - 16, "#22252e", 14, "center", 800);
+  fitTxt(c, tt.N, x + w / 2, y + 42, w - 16, "#6b7180", 12, "center", 700);
+  var rows = [["Sarf", M.sarf === "?" ? "?" : M.sarf + " " + tt.u], ["Tarif", M.tarif ? M.tarif : "—"], ["To'lov", M.pay ? M.pay : "—"]];
+  var lh = Math.min(42, (h - 92) / 3);
+  rows.forEach(function (r, j) {
+    var ry = y + 62 + j * lh;
+    c.strokeStyle = "rgba(0,0,0,.12)"; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(x + 8, ry - 6); c.lineTo(x + w - 8, ry - 6); c.stroke(); c.setLineDash([]);
+    fitTxt(c, r[0], x + 10, ry + 6, w - 20, "#6b7180", 11.5, "left", 700);
+    fitTxt(c, r[1] + (r[1] !== "?" && r[1] !== "—" && j ? " so'm" : ""), x + w - 10, ry + 22, w - 20, r[1] === "?" ? "#c2410c" : "#22252e", 14, "right", 800);
+  });
+  fitTxt(c, "misol tarif", x + w / 2, y + h - 14, w - 16, "#8a8f9c", 11, "center", 600);
+}
+function drawMeters(c, w, h, S, t) {
+  var n = S.list.length, gap = 10, top = 32, bottom = S.note ? 40 : 12, avail = h - top - bottom;
+  if (n === 1) {
+    var M = S.list[0], mw = Math.min(290, Math.max(190, w * 0.56)), bw = Math.min(210, w - mw - 34), tot = mw + 14 + bw, x0 = (w - tot) / 2;
+    var mh = Math.min(avail, meterH(mw, M)), my = top + (avail - mh) / 2;
+    meterCard(c, x0, my, mw, mh, M, t);
+    bill(c, x0 + mw + 14, my + 8, bw, mh - 16, M);
+  } else {
+    var cw = Math.min(250, (w - 20 - gap * (n - 1)) / n), x1 = (w - (cw * n + gap * (n - 1))) / 2, mh2 = 0;
+    S.list.forEach(function (M2) { mh2 = Math.max(mh2, meterH(cw, M2)); });
+    mh2 = Math.min(avail, mh2);
+    S.list.forEach(function (M2, i) { meterCard(c, x1 + i * (cw + gap), top + (avail - mh2) / 2, cw, mh2, M2, t); });
+  }
+  if (S.note) {
+    c.font = "800 13px " + FONT; var nw = Math.min(w - 20, c.measureText(S.note).width + 28);
+    c.fillStyle = "rgba(6,10,26,.8)"; K.rr(c, w / 2 - nw / 2, h - 34, nw, 26, 13); c.fill();
+    fitTxt(c, S.note, w / 2, h - 21, nw - 16, "#ffc23d", 13, "center", 800);
+  }
+}
+function drawBars(c, w, h, S, t) {
+  var tt = T[S.t], top = 84, base = h - 46, maxV = 0;
+  S.items.forEach(function (it) { maxV = Math.max(maxV, it.v); });
+  fitTxt(c, tt.ic + " " + tt.N + (S.money ? " · tarif, so'm" : " · sarf, " + tt.u), w / 2, 36, w - 20, "#cfd8ef", 14, "center", 800);
+  var n = S.items.length, bw = Math.min(110, w / (n * 2.2)), gap = bw * 1.1, x0 = w / 2 - (n * bw + (n - 1) * gap) / 2;
+  c.strokeStyle = "rgba(255,255,255,.25)"; c.beginPath(); c.moveTo(20, base + 0.5); c.lineTo(w - 20, base + 0.5); c.stroke();
+  var tops = [];
+  S.items.forEach(function (it, i) {
+    var bh = (base - top - 26) * it.v / maxV * Math.min(1, 0.4 + glow), bx = x0 + i * (bw + gap), by = base - bh;
+    var g = c.createLinearGradient(0, by, 0, base); g.addColorStop(0, tt.col); g.addColorStop(1, "rgba(255,255,255,.08)");
+    c.fillStyle = g; K.rr(c, bx, by, bw, bh, 8); c.fill();
+    fitTxt(c, nf(it.v), bx + bw / 2, by - 13, bw + gap * 0.8, "#f3f5ff", 15, "center", 800);
+    fitTxt(c, it.lab, bx + bw / 2, base + 16, bw + gap * 0.9, "#93a3cc", 12.5, "center", 700);
+    tops.push([bx + bw / 2, by]);
+  });
+  if (tops.length === 2) {
+    var ax = (tops[0][0] + tops[1][0]) / 2, ay = Math.max(76, Math.min(tops[0][1], tops[1][1]) - 30);
+    c.strokeStyle = "#ffc23d"; c.lineWidth = 2; c.setLineDash([5, 4]);
+    c.beginPath(); c.moveTo(tops[0][0], tops[0][1] - 26); c.quadraticCurveTo(ax, ay - 8, tops[1][0], tops[1][1] - 26); c.stroke(); c.setLineDash([]);
+    c.font = "800 14px " + FONT; var tw = c.measureText(S.tag).width + 20;
+    c.fillStyle = "#ffc23d"; K.rr(c, ax - tw / 2, ay - 26, tw, 24, 12); c.fill();
+    K.txt(c, S.tag, ax, ay - 14, "#1a1300", 14, "center", 800);
+  }
+  if (S.tarif) fitTxt(c, "Tarif (misol): " + S.tarif + " so'm / " + tt.u, w / 2, h - 14, w - 20, "#93a3cc", 12, "center", 700);
+  else fitTxt(c, "Sonlar — mashq uchun misol", w / 2, h - 14, w - 20, "rgba(147,163,204,.7)", 11.5, "center", 600);
+}
+function drawTier(c, w, h, S, t) {
+  var tt = T[S.t], top = 44, base = h - 30, mw = Math.min(260, Math.max(140, w * 0.42)), bw = Math.min(80, Math.max(46, w * 0.14));
+  // chap tomonda — ixcham hisoblagich
+  var TM = { t: S.t, old: null, nw: null, sarf: S.hideC ? "?" : nf(S.c), sarfLab: S.days ? "Kuniga" : null, tarif: null, pay: S.days ? null : S.pay, extra: S.days ? ["Oy", S.days + " kun"] : null };
+  var th = Math.min(base - top + 14, meterH(mw, TM));
+  meterCard(c, 12, top - 12 + (base - top + 14 - th) / 2, mw, th, TM, t);
+  // o'ngda — pog'onali ustun
+  var bx = 12 + mw + Math.max(18, Math.min(60, (w - mw - bw - 140) / 2)), lx = bx + bw + 10, lw = w - lx - 8;
+  var cv = S.hideC ? S.N * 1.3 : S.c, maxV = Math.max(cv, S.N) * 1.08, scale = (base - top) / maxV, nH = S.N * scale, cH = cv * scale, yL = base - nH;
+  c.fillStyle = "rgba(255,255,255,.06)"; K.rr(c, bx, top, bw, base - top, 8); c.fill();
+  c.fillStyle = "#35f0c4"; K.rr(c, bx, yL, bw, nH, 6); c.fill();
+  if (cH > nH + 1 && !S.hideC) { c.fillStyle = "#ff5e8e"; K.rr(c, bx, base - cH, bw, cH - nH, 6); c.fill(); }
+  if (S.hideC && S.c > S.N) { c.strokeStyle = "#ff5e8e"; c.setLineDash([5, 4]); c.lineWidth = 2; c.strokeRect(bx + 1, base - cH, bw - 2, cH - nH); c.setLineDash([]); fitTxt(c, "?", bx + bw / 2, base - (cH + nH) / 2, bw, "#ff5e8e", 22, "center", 800); }
+  // me'yor chizig'i va yorliqlar (bir-biriga tegmasin)
+  c.strokeStyle = "#ffc23d"; c.lineWidth = 2; c.setLineDash([7, 5]); c.beginPath(); c.moveTo(bx - 8, yL); c.lineTo(w - 6, yL); c.stroke(); c.setLineDash([]);
+  var fs = Math.max(11, Math.min(13.5, lw / 9));
+  fitTxt(c, "me'yor " + nf(S.N), lx, yL + 12, lw, "#ffc23d", fs, "left", 800);
+  fitTxt(c, "× " + nf(S.t1) + " so'm", lx, Math.max(yL + 32, base - nH / 2), lw, "#35f0c4", fs, "left", 800);
+  var y2 = Math.max(top + 8, Math.min(yL - 14, base - (cH + nH) / 2));
+  fitTxt(c, "oshgani × " + nf(S.t2), lx, y2, lw, "#ff8fb0", fs, "left", 800);
+  fitTxt(c, tt.u + " · misol tarif", bx + bw / 2, base + 14, Math.min(220, (w - bx) * 2), "#93a3cc", 11.5, "center", 700);
+}
+
+var S = K.stage({
+  label: "Hisoblagichlar, oylar bo'yicha ustunlar yoki pog'onali tarif chizmasi. Savol uchun kerakli hamma sonlar pastdagi savol matnida ham yozilgan.",
+  ratio: 0.5, minH: 340, maxH: 400,
+  draw: function (c, w, h, dt, t) {
+    glow = Math.min(1, glow + dt * 1.6);
+    bg(c, w, h);
+    var s = CUR && CUR.sc ? CUR.sc : { kind: "m", list: [{ t: "e", old: 12850, nw: 13096, sarf: "?", tarif: null, pay: null }, { t: "g", old: 4512, nw: 4598, sarf: "?" }, { t: "s", old: 382, nw: 397, sarf: "?" }] };
+    if (s.kind === "bars") drawBars(c, w, h, s, t);
+    else if (s.kind === "tier") drawTier(c, w, h, s, t);
+    else drawMeters(c, w, h, s, t);
+  }
+});
+
+var G = K.game({
+  id: "kommunal", title: "Kommunal to'lovlar", barTitle: "KOMMUNAL · HISOBLAGICH VA TARIF",
+  intro: "Hisoblagichdan sarfni, sarfdan to'lovni toping. Diqqat: tariflar — mashq uchun misol, rasmiy tariflar emas.",
+  resultTopic: "Hayotiy hisob: Kommunal to'lov", coinWhy: "Hayotiy hisob: Kommunal to'lov",
+  mount: "game", scene: S.cv, rounds: 10, timeLimit: 150,
+  gen: gen,
+  onQuestion: function (q) { CUR = q; glow = 0; },
+  onEnd: function () { CUR = null; }
+});
+window.kaKommunal = { game: G, gen: gen };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

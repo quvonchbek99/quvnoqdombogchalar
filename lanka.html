@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lanka — karra jadvali va tez hisob o'yini | Kuvonch Academy</title>
+<meta name="description" content="Bolalikdagi «Lanka» o'yinining matematik varianti: lanka yerga tushguncha misolni yeching va uni yana tepib yuboring. 5 daraja: karra jadvali, bo'lish, ikki xonali songa ko'paytirish, kvadratlar va tez hisob usullari.">
+<link rel="canonical" href="https://kuvonch.uz/lanka.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Lanka — bolalikdagi o'yinning matematik varianti">
+<meta property="og:description" content="Lanka yerga tushguncha javob bering! Karra jadvali va tez og'zaki hisob — eng uzun tepishlar seriyasini yig'ing.">
+<meta property="og:url" content="https://kuvonch.uz/lanka.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<style>
+.lk-ctrl{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--border);background:rgba(6,10,26,.45)}
+.lk-ctrl .km-btn{min-height:44px;padding:8px 14px;font-size:14px}
+.lk-ctrl .km-btn[aria-pressed=true]{border-color:var(--teal);background:rgba(53,240,196,.14)}
+.lk-best{font-weight:700;font-size:14px;color:#cfd8ef}
+.lk-best b{color:var(--amber)}
+#game .km-opt{min-height:64px;font-size:24px;font-family:var(--display)}
+.lk-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+</style>
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+<a href="sherlok.html">🕵️ Sherlok</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🇺🇿 Bolalikdagi o'yinlar · matematik variant</span>
+<h1>Lanka <span>(tez hisob)</span></h1>
+<p class="km-lead">Lankani yerga tushirmay necha marta tepa olardingiz? Bu safar har bir tepish — bitta misol. Lanka yerga tushguncha to'g'ri javobni tanlang, uni yana havoga uchiring va eng uzun seriyani yig'ing!</p>
+<ul class="km-chips"><li>✖️ Karra jadvali</li><li>➗ Bo'lish</li><li>⚡ Tez og'zaki hisob</li><li>🧠 Hisoblash usullari</li></ul>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>📜 O'yin tarixi</h2>
+<p>Lanka — tagiga kichik qo'rg'oshin bo'lagi (yoki tanga) tikilgan bir tutam yung yoki pat. U havoda patlari yuqoriga qaragan holda sekin tushadi. Bolalar uni oyoqning ichki tomoni bilan tepib, yerga tushirmaslikka harakat qilishadi va tepishlarni ovoz chiqarib sanashadi: «bir, ikki, uch…». Kim ko'p marta ketma-ket tepsa — o'sha g'olib. Mahirlari lankani tizza, tovon va hatto yelka bilan ham o'ynatadi.</p>
+</section>
+<section>
+<h2>🎯 Matematik variant qoidalari</h2>
+<ol>
+<li>Bola lankani tepadi — u havoga ko'tarilib, sekin pastga tusha boshlaydi.</li>
+<li>Lanka yerga tushguncha 4 ta javobdan to'g'risini tanlang. To'g'ri bo'lsa — bola uni yana tepadi va seriya davom etadi.</li>
+<li>Xato yoki kech qolsangiz — lanka yerga tushadi, seriya qaytadan boshlanadi. Bu o'yinda har savolga faqat bitta urinish bor.</li>
+<li>Daraja oshgan sari lanka tezroq tushadi. Shoshilmasdan o'ylamoqchi bo'lsangiz — «🐢 Sekin rejim»ni yoqing.</li>
+<li>Ochiq yechim oynasida lanka to'xtab turadi. Eng uzun seriyangiz shu qurilmada saqlanadi.</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> 2, 5 va 10 ga ko'paytirish</li>
+<li><b>2-daraja:</b> to'liq karra jadvali (2–9)</li>
+<li><b>3-daraja:</b> jadval asosida bo'lish</li>
+<li><b>4-daraja:</b> ikki xonali sonni bir xonali songa ko'paytirish</li>
+<li><b>5-daraja:</b> aralash: kvadratlar, ×25 va ×125 usullari, o'nli kasrlar (3,5 × 4)</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html">🇺🇿 Boshqa bolalikdagi o'yinlar</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Bolalikdagi o'yinlar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Lanka: karra jadvali va tez og'zaki hisob o'yini */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf, round = K.round;
+var D = document;
+var yEl = D.getElementById("year"); if (yEl) yEl.textContent = String(new Date().getFullYear());
+
+/* ---------- savollar ---------- */
+function rev(n) { var s = String(n); return s.length === 2 && s.charAt(0) !== s.charAt(1) ? +s.split("").reverse().join("") : null; }
+function gen(L) {
+  var a, b, ans, t, mis = [], steps = [];
+  if (L === 1) {
+    var m = pick([2, 5, 10]), k = ri(2, 10);
+    if (Math.random() < 0.5) { a = m; b = k; } else { a = k; b = m; }
+    ans = m * k; t = a + " × " + b;
+    mis = [m * (k + 1), m * (k - 1), m + k, (m === 5 ? 2 : 5) * k, ans + 1];
+    steps = m === 2 ? [k + " × 2 — bu " + k + " ni ikki marta olish", k + " + " + k + " = " + ans]
+      : m === 5 ? [k + " × 5 = " + k + " × 10 : 2", k * 10 + " : 2 = " + ans]
+      : [k + " × 10 — " + k + " ning oxiriga 0 qo'shamiz", "Javob: " + ans];
+  } else if (L === 2) {
+    a = ri(2, 9); b = ri(2, 9); if (a <= 2 && b <= 5) b = ri(6, 9);
+    ans = a * b; t = a + " × " + b;
+    mis = [a * (b + 1), a * (b - 1), (a + 1) * b, (a - 1) * b, a + b, rev(ans)];
+    var x = Math.max(a, b), y = Math.min(a, b);
+    if (x === 9) steps = [y + " × 9 = " + y + " × 10 − " + y, y * 10 + " − " + y + " = " + ans];
+    else if (x > 5) steps = [y + " × " + x + " = " + y + " × 5 + " + y + " × " + (x - 5), y * 5 + " + " + y * (x - 5) + " = " + ans];
+    else steps = [x + " ni " + y + " marta qo'shamiz", Array(y + 1).join(x + " + ").slice(0, -3) + " = " + ans];
+  } else if (L === 3) {
+    a = ri(2, 9); b = ri(2, 10); var c = a * b;
+    ans = b; t = c + " : " + a;
+    mis = [b + 1, b - 1, a !== b ? a : b + 2, c - a > 0 && c - a !== b ? c - a : b + 3, b + 2];
+    steps = ["Savol: " + a + " ni nechaga ko'paytirsak " + c + " chiqadi?", a + " × " + b + " = " + c, "Demak, " + c + " : " + a + " = " + b];
+  } else if (L === 4) {
+    do { a = ri(12, 98); } while (a % 10 === 0 || a % 11 === 0 && Math.random() < 0.5);
+    b = ri(3, 9); ans = a * b; t = a + " × " + b;
+    var tn = a - a % 10, on = a % 10, noCarry = tn * b + (on * b) % 10;
+    mis = [noCarry !== ans ? noCarry : ans + 10, tn * b + on, ans - b, ans + b, ans + 10, ans - 10];
+    steps = [a + " = " + tn + " + " + on, tn + " × " + b + " = " + tn * b, on + " × " + b + " = " + on * b, tn * b + " + " + on * b + " = " + ans];
+  } else {
+    var ty = ri(0, 3);
+    if (ty === 0) {
+      var n = ri(11, 20); ans = n * n; t = n + "²";
+      mis = [2 * n, ans + n, ans - n, ans + 10, n * (n + 1)];
+      steps = [n + "² = " + n + " × " + n, n + " × 10 = " + n * 10 + ", " + n + " × " + (n - 10) + " = " + n * (n - 10), n * 10 + " + " + n * (n - 10) + " = " + ans];
+    } else if (ty === 1) {
+      var q4 = ri(2, 12), n4 = q4 * 4; ans = n4 * 25; t = n4 + " × 25";
+      mis = [n4 * 20, q4 * 10, ans + 25, ans - 25, ans * 10];
+      steps = ["25 = 100 : 4", n4 + " : 4 = " + q4, q4 + " × 100 = " + ans];
+    } else if (ty === 2) {
+      var q8 = ri(2, 9), n8 = q8 * 8; ans = n8 * 125; t = n8 + " × 125";
+      mis = [q8 * 100, ans + 125, ans - 125, n8 * 100, q8 * 10000];
+      steps = ["125 = 1000 : 8", n8 + " : 8 = " + q8, q8 + " × 1000 = " + ans];
+    } else {
+      var dec = pick([[0.5, 5], [1.5, 15], [2.5, 25], [3.5, 35], [4.5, 45], [1.2, 12], [0.2, 2], [0.4, 4], [2.4, 24], [0.6, 6], [1.5, 15], [3.5, 35]]);
+      var nn = ri(2, 9); ans = round(dec[0] * nn, 2); t = nf(dec[0]) + " × " + nn;
+      var whole = dec[1] * nn;
+      mis = [whole, round(ans / 10, 2), round(ans + 1, 2), Math.floor(dec[0]) * nn, round(ans + 0.5, 2), round(ans - 1, 2)];
+      steps = ["Vergulsiz ko'paytiramiz: " + dec[1] + " × " + nn + " = " + whole, "Ko'paytuvchida verguldan keyin 1 ta raqam bor — javobda ham 1 ta raqam ajratamiz", nf(whole / 10, 1) + " = " + nf(ans)];
+    }
+  }
+  mis = mis.filter(function (v) { return v != null && isFinite(v) && v > 0 && v !== ans; });
+  return { q: '<span style="font-family:var(--display);font-size:1.25em">' + t + ' = ?</span><small>Lanka yerga tushguncha javobni tanlang!</small>', text: t, a: ans, mistakes: mis, steps: steps, oneTry: true, input: "opts" };
+}
+
+/* ---------- lanka holati ---------- */
+// Tushish vaqti (soniya): daraja oshgan sari qisqaradi, seriya uzaygan sari biroz tezlashadi, lekin MINT dan kam emas
+var BASE = [0, 9, 8, 7, 6.5, 6], MINT = [0, 7, 6, 5.5, 5, 5];
+var slow = !!K.lsGet("lanka.slow", false), bestRun = K.lsGet("lanka.streak", 0) || 0, run = 0;
+var LZ = { st: "ground", t: 0, y: 0, x: 0, T: 8, tr: 0.7, apex: 0, from: 0, left: 0 }, CUR = null, sparks = [], kick = 0, LY = {}, pops = [];
+function fallTime(L) { var b = Math.max(MINT[L], BASE[L] - 0.12 * run); return round(b * (slow ? 1.6 : 1), 2); }
+function layout(w, h) {
+  LY.gy = h - 34; LY.s = Math.max(0.95, Math.min(1.35, w / 340));
+  LY.kx = Math.round(w * 0.42); LY.foot = LY.gy - 14 * LY.s; LY.lx = LY.kx + 20 * LY.s;
+  LY.apex = Math.min(92, LY.gy - 120);
+}
+
+/* ---------- chizish ---------- */
+function doppi(c, s, y) {
+  c.fillStyle = "#14161f"; c.beginPath(); c.moveTo(-9.5 * s, y); c.lineTo(-8 * s, y - 9 * s); c.lineTo(8 * s, y - 9 * s); c.lineTo(9.5 * s, y); c.closePath(); c.fill();
+  c.fillStyle = "#f4f1e8";
+  [-4.2, 4.2].forEach(function (dx) { c.beginPath(); c.moveTo(dx * s, y - 1.5 * s); c.quadraticCurveTo((dx - 2.6) * s, y - 5 * s, (dx + 0.6) * s, y - 7.5 * s); c.quadraticCurveTo((dx + 1.6) * s, y - 4 * s, dx * s, y - 1.5 * s); c.fill(); });
+}
+function drawKid(c, x, y, s, k, look, t) {
+  // k: 0..1 — tepish harakati (oyoq ko'tariladi)
+  c.save(); c.translate(x, y);
+  c.fillStyle = "rgba(0,0,0,.3)"; c.beginPath(); c.ellipse(0, 2, 17 * s, 4 * s, 0, 0, 6.283); c.fill();
+  c.lineCap = "round"; c.strokeStyle = "#2b3a6b"; c.lineWidth = 5 * s;
+  // tayanch oyoq
+  c.beginPath(); c.moveTo(-4 * s, -20 * s); c.lineTo(-6 * s, -2 * s); c.stroke();
+  // tepuvchi oyoq: son va boldir
+  var kne = { x: 6 * s + k * 8 * s, y: -11 * s - k * 9 * s }, ft = { x: 7 * s + k * 18 * s, y: -2 * s - k * 12 * s };
+  c.beginPath(); c.moveTo(4 * s, -20 * s); c.lineTo(kne.x, kne.y); c.lineTo(ft.x - 3 * s, ft.y); c.stroke();
+  c.fillStyle = "#1b1b1f"; c.beginPath(); c.ellipse(-7 * s, 0, 4.6 * s, 2.3 * s, 0, 0, 6.283); c.fill();
+  c.save(); c.translate(ft.x, ft.y); c.rotate(-k * 0.5); c.beginPath(); c.ellipse(0, 0, 5 * s, 2.4 * s, 0, 0, 6.283); c.fill(); c.restore();
+  // ko'ylak, to'n naqshli kamzul
+  c.fillStyle = "#f4f1e8"; K.rr(c, -10 * s, -42 * s, 20 * s, 25 * s, 6 * s); c.fill();
+  c.fillStyle = "#2f6fd0"; c.beginPath(); c.moveTo(-10 * s, -40 * s); c.lineTo(-3 * s, -40 * s); c.lineTo(-2 * s, -18 * s); c.lineTo(-10 * s, -18 * s); c.closePath(); c.fill();
+  c.beginPath(); c.moveTo(10 * s, -40 * s); c.lineTo(3 * s, -40 * s); c.lineTo(2 * s, -18 * s); c.lineTo(10 * s, -18 * s); c.closePath(); c.fill();
+  c.fillStyle = "#ffc23d"; for (var i = 0; i < 4; i++) { c.beginPath(); c.arc(-6.5 * s, (-36 + i * 5) * s, 1 * s, 0, 6.283); c.arc(6.5 * s, (-36 + i * 5) * s, 1 * s, 0, 6.283); c.fill(); }
+  // qo'llar (muvozanat uchun yonga)
+  c.strokeStyle = "#f2c9a0"; c.lineWidth = 3.6 * s;
+  c.beginPath(); c.moveTo(-8 * s, -36 * s); c.lineTo(-17 * s, -27 * s - k * 6 * s); c.moveTo(8 * s, -36 * s); c.lineTo(17 * s, -29 * s + k * 3 * s); c.stroke();
+  // bosh (lankaga qaraydi)
+  c.fillStyle = "#f2c9a0"; c.beginPath(); c.arc(0, -51 * s, 9 * s, 0, 6.283); c.fill();
+  doppi(c, s, -54 * s);
+  var ex = 3 * s, ey = -51 * s + look * 2.2 * s;
+  c.fillStyle = "#1a1a1a"; c.beginPath(); c.arc(ex - 1 * s, ey, 1.25 * s, 0, 6.283); c.fill(); c.beginPath(); c.arc(ex + 4 * s, ey, 1.2 * s, 0, 6.283); c.fill();
+  c.strokeStyle = "#9b5a3c"; c.lineWidth = 1.2 * s; c.beginPath(); c.arc(2.5 * s, -46.5 * s, 2.6 * s, 0.2, 2.6); c.stroke();
+  c.restore();
+}
+function drawLanka(c, x, y, s, vy, t, onGround) {
+  c.save(); c.translate(x, y);
+  // tushayotganda patlar yuqoriga, ko'tarilayotganda biroz «yotadi»
+  var tilt = onGround ? 1.35 : Math.max(-0.25, Math.min(0.25, vy * 0.0018)) + Math.sin(t * 7) * 0.06;
+  c.rotate(tilt);
+  var fl = Math.sin(t * 14) * 1.2 * s, cols = ["#ff5e8e", "#ffc23d", "#35f0c4", "#f3f5ff", "#ff5e8e", "#a27bff", "#ffc23d"];
+  for (var i = 0; i < 7; i++) {
+    var an = -Math.PI / 2 + (i - 3) * 0.17, len = (21 + (i % 2) * 4) * s;
+    c.strokeStyle = cols[i]; c.lineWidth = 3.2 * s; c.lineCap = "round";
+    c.beginPath(); c.moveTo(0, -3 * s); c.quadraticCurveTo(Math.cos(an) * len * 0.5 + fl, Math.sin(an) * len * 0.5, Math.cos(an) * len + fl * (i - 3) * 0.3, Math.sin(an) * len); c.stroke();
+  }
+  c.fillStyle = "rgba(255,255,255,.75)"; c.beginPath(); c.ellipse(0, -10 * s, 3 * s, 7 * s, 0, 0, 6.283); c.fill();
+  // qo'rg'oshin tagi (teri bilan o'ralgan)
+  c.fillStyle = "#6b6f7a"; c.beginPath(); c.ellipse(0, 0, 7 * s, 3.4 * s, 0, 0, 6.283); c.fill();
+  c.fillStyle = "#3f2a1a"; c.beginPath(); c.ellipse(0, -1.6 * s, 7.4 * s, 2.6 * s, 0, 0, 6.283); c.fill();
+  c.strokeStyle = "rgba(255,255,255,.35)"; c.lineWidth = 1; c.beginPath(); c.ellipse(0, 0.6 * s, 6 * s, 2 * s, 0, 0.2, 2.9); c.stroke();
+  c.restore();
+}
+function drawYard(c, w, h, t) {
+  var gy = LY.gy, i;
+  var g = c.createLinearGradient(0, 0, 0, gy); g.addColorStop(0, "#5fb4ee"); g.addColorStop(1, "#bfe3f7"); c.fillStyle = g; c.fillRect(0, 0, w, gy);
+  // bulutlar
+  c.fillStyle = "rgba(255,255,255,.75)";
+  for (i = 0; i < 3; i++) { var cx = ((i * 263 + t * 6) % (w + 160)) - 80, cy = 70 + i * 28; c.beginPath(); c.arc(cx, cy, 14, 0, 6.283); c.arc(cx + 16, cy - 6, 17, 0, 6.283); c.arc(cx + 34, cy, 13, 0, 6.283); c.fill(); }
+  // paxsa devor va darvoza (o'ymakor naqsh)
+  var wy = gy - 92;
+  c.fillStyle = "#c79a68"; c.fillRect(0, wy, w, gy - wy);
+  c.strokeStyle = "rgba(90,60,30,.28)"; c.lineWidth = 1;
+  for (var r = 0; wy + r * 14 < gy; r++) { c.beginPath(); c.moveTo(0, wy + r * 14 + 0.5); c.lineTo(w, wy + r * 14 + 0.5); c.stroke(); }
+  c.fillStyle = "#a57a4c"; c.fillRect(0, wy - 6, w, 8);
+  var dx = w - Math.min(170, w * 0.36), dw = Math.min(130, w * 0.3), dy = wy - 26;
+  c.fillStyle = "#6b4220"; c.fillRect(dx - 8, dy - 8, dw + 16, gy - dy + 8);
+  c.fillStyle = "#8a5a2b"; c.fillRect(dx, dy, dw / 2 - 2, gy - dy); c.fillRect(dx + dw / 2 + 2, dy, dw / 2 - 2, gy - dy);
+  c.strokeStyle = "#d9a55c"; c.lineWidth = 2;
+  [dx + dw / 4 - 1, dx + 3 * dw / 4 + 1].forEach(function (mx) {
+    for (var k = 0; k < 3; k++) {
+      var my = dy + 18 + k * ((gy - dy - 30) / 3);
+      c.beginPath(); c.moveTo(mx, my - 9); c.lineTo(mx + 9, my); c.lineTo(mx, my + 9); c.lineTo(mx - 9, my); c.closePath(); c.stroke();
+      c.beginPath(); c.arc(mx, my, 3, 0, 6.283); c.stroke();
+    }
+  });
+  c.fillStyle = "#3f2a14"; c.beginPath(); c.moveTo(dx - 14, dy - 8); c.lineTo(dx + dw / 2, dy - 26); c.lineTo(dx + dw + 14, dy - 8); c.closePath(); c.fill();
+  // tut daraxti (chapda)
+  var bx = Math.max(34, w * 0.1), by = gy, s = Math.max(0.85, Math.min(1.25, w / 420)), sw = Math.sin(t * 0.8) * 2 * s;
+  c.fillStyle = "#5b3b22"; c.beginPath(); c.moveTo(bx - 8 * s, by); c.quadraticCurveTo(bx - 3 * s, by - 60 * s, bx - 10 * s, by - 100 * s); c.lineTo(bx + 5 * s, by - 102 * s); c.quadraticCurveTo(bx + 6 * s, by - 60 * s, bx + 10 * s, by); c.closePath(); c.fill();
+  [[-34, -116, 34], [8, -138, 38], [42, -110, 30], [-6, -98, 28], [-46, -90, 22], [30, -88, 22]].forEach(function (b, k) { c.fillStyle = k % 2 ? "#2e6a33" : "#3b8240"; c.beginPath(); c.arc(bx + b[0] * s + sw, by + b[1] * s, b[2] * s, 0, 6.283); c.fill(); });
+  for (i = 0; i < 20; i++) { c.fillStyle = i % 3 ? "#3a1240" : "#f1e9f5"; c.beginPath(); c.arc(bx + ((i * 37) % 96 - 48) * s + sw, by - (84 + (i * 23) % 64) * s, 2.2 * s, 0, 6.283); c.fill(); }
+  // hovli yerlari: tuproq + g'isht yo'lak
+  var g2 = c.createLinearGradient(0, gy, 0, h); g2.addColorStop(0, "#9a7148"); g2.addColorStop(1, "#6a4a2c"); c.fillStyle = g2; c.fillRect(0, gy, w, h - gy);
+  c.fillStyle = "rgba(0,0,0,.16)"; c.fillRect(0, gy, w, 3);
+  for (i = 0; i < 46; i++) { var px = (i * 97.13) % w, py = gy + 5 + (i * 41.7) % (h - gy - 6); c.fillStyle = i % 3 ? "rgba(255,240,210,.12)" : "rgba(30,18,8,.25)"; c.beginPath(); c.ellipse(px, py, 2 + (i % 3), 1.3, 0, 0, 6.283); c.fill(); }
+}
+function burst(x, y, col, n) { for (var i = 0; i < (n || 22); i++) sparks.push({ x: x, y: y, vx: (Math.random() - 0.5) * 280, vy: -Math.random() * 260, l: 0.6 + Math.random() * 0.5, c: col }); }
+
+var S = K.stage({
+  label: "Hovlida lanka tepayotgan bola. Lanka yerga tushguncha pastdagi to'rtta javobdan to'g'risini tanlang.",
+  ratio: 0.7, minH: 250, maxH: 420,
+  onResize: function (S) { layout(S.w, S.h); },
+  draw: function (c, w, h, dt, t) {
+    if (!LY.gy) layout(w, h);
+    var s = LY.s, gy = LY.gy, i;
+    step(dt); lastStep = now();
+    drawYard(c, w, h, t);
+    // savol taxtachasi
+    c.fillStyle = "rgba(6,10,26,.8)"; K.rr(c, 10, 10, w - 20, 52, 14); c.fill();
+    if (CUR && G.state !== "idle") K.txt(c, CUR.text + " = ?", w / 2, 33, "#ffc23d", Math.min(28, w / 12), "center", 800, '"Unbounded","Golos Text",sans-serif');
+    else K.txt(c, "«Boshlash»ni bosing", w / 2, 33, "#93a3cc", 17, "center", 700);
+    // vaqt chizig'i
+    if (LZ.st === "fall" || LZ.st === "rise") {
+      var frac = LZ.st === "rise" ? 1 : Math.max(0, 1 - LZ.t / LZ.T), col = frac > 0.5 ? "#35f0c4" : frac > 0.25 ? "#ffc23d" : "#ff6b7f";
+      c.fillStyle = "rgba(255,255,255,.12)"; K.rr(c, 22, 54, w - 44, 4, 2); c.fill();
+      c.fillStyle = col; K.rr(c, 22, 54, Math.max(4, (w - 44) * frac), 4, 2); c.fill();
+    }
+    // seriya va rekord
+    c.fillStyle = "rgba(6,10,26,.72)"; K.rr(c, 10, 70, 112, 44, 12); c.fill();
+    K.txt(c, "🔥 Seriya", 20, 82, "#93a3cc", 11, "left", 800);
+    K.txt(c, String(run), 20, 101, "#ffc23d", 19, "left", 800, '"Unbounded","Golos Text",sans-serif');
+    K.txt(c, "🏆 " + bestRun, 112, 101, "#f3f5ff", 13, "right", 800);
+    if (LZ.st === "fall" && G.state === "play") {
+      var left = Math.max(0, LZ.T - LZ.t);
+      c.fillStyle = "rgba(6,10,26,.72)"; K.rr(c, w - 92, 70, 82, 30, 12); c.fill();
+      K.txt(c, "⏱ " + nf(Math.ceil(left * 10) / 10, 1) + " s", w - 51, 85, left < LZ.T * 0.25 ? "#ff6b7f" : "#f3f5ff", 13, "center", 800);
+    }
+    // soya
+    var hgt = Math.max(0, LY.foot - LZ.y), sh = Math.max(0.25, 1 - hgt / (gy - LY.apex + 20));
+    c.fillStyle = "rgba(0,0,0," + (0.3 * sh) + ")"; c.beginPath(); c.ellipse(LZ.x, gy + 4, 10 * s * sh + 3, 3 * s * sh + 1, 0, 0, 6.283); c.fill();
+    // bola
+    if (kick > 0) kick = Math.max(0, kick - dt * 3.2);
+    var kv = kick > 0 ? Math.sin(Math.PI * (1 - kick)) : 0, look = Math.max(-1, Math.min(1, (LZ.y - (LY.apex + LY.foot) / 2) / ((LY.foot - LY.apex) / 2)));
+    drawKid(c, LY.kx, gy, s, kv, look, t);
+    // lanka
+    drawLanka(c, LZ.x, LZ.y, s, LZ.vy || 0, t, LZ.st === "ground");
+    // «+1» yozuvlari
+    for (i = pops.length - 1; i >= 0; i--) { var p = pops[i]; p.l -= dt; if (p.l <= 0) { pops.splice(i, 1); continue; } c.globalAlpha = Math.min(1, p.l * 1.6); K.txt(c, p.s, p.x, p.y - (1 - p.l) * 40, p.c, 18, "center", 800, '"Unbounded","Golos Text",sans-serif'); }
+    c.globalAlpha = 1;
+    // uchqunlar
+    for (i = sparks.length - 1; i >= 0; i--) { var q = sparks[i]; q.l -= dt; if (q.l <= 0) { sparks.splice(i, 1); continue; } q.x += q.vx * dt; q.y += q.vy * dt; q.vy += 320 * dt; c.globalAlpha = Math.min(1, q.l * 2); c.fillStyle = q.c; c.fillRect(q.x, q.y, 4, 4); }
+    c.globalAlpha = 1;
+  }
+});
+
+/* ---------- lanka harakati (og'irlik kuchi ostida parabola) ---------- */
+// ko'tarilish: oyoqdan cho'qqigacha tr soniyada; tushish: cho'qqidan oyoqqacha T soniyada (sekin «pat» tezlanishi)
+function launch() { LZ.st = "rise"; LZ.t = 0; LZ.tr = 0.75; kick = 1; K.sfx.hop(); }
+function step(dt) {
+  if (!LY.gy) return;
+  var H = LY.foot - LY.apex;
+  LZ.x = LY.lx + Math.sin(S.t * 1.3) * 6 * LY.s;
+  if (LZ.st === "rise") {
+    LZ.t += dt; var u = Math.min(1, LZ.t / LZ.tr);
+    LZ.y = LY.foot - H * (1 - (1 - u) * (1 - u)); LZ.vy = -2 * H * (1 - u) / LZ.tr;
+    if (u >= 1) { LZ.st = CUR && G.state === "play" ? "fall" : "hang"; LZ.t = 0; }
+  } else if (LZ.st === "hang") {
+    LZ.y = LY.apex + Math.sin(S.t * 2) * 3; LZ.vy = 0;
+    if (CUR && G.state === "play") { LZ.st = "fall"; LZ.t = 0; }
+  } else if (LZ.st === "fall") {
+    if (G.state === "play") LZ.t += dt; // yechim oynasi ochiq bo'lsa — to'xtaydi
+    var f = Math.min(1, LZ.t / LZ.T);
+    LZ.y = LY.apex + H * f * f; LZ.vy = 2 * H * f / LZ.T;
+    if (f >= 1 && G.state === "play") timeUp();
+  } else if (LZ.st === "drop") {
+    LZ.t += dt; LZ.vy += 900 * dt; LZ.y = Math.min(LY.gy - 4, LZ.y + LZ.vy * dt);
+    if (LZ.y >= LY.gy - 4) { LZ.st = "ground"; LZ.y = LY.gy - 4; for (var i = 0; i < 10; i++) sparks.push({ x: LZ.x, y: LY.gy, vx: (Math.random() - 0.5) * 90, vy: -Math.random() * 60, l: 0.4, c: "rgba(210,180,140,.9)" }); }
+  } else if (LZ.st === "ground") { LZ.y = LY.gy - 4; LZ.vy = 0; }
+}
+// Yangi savolda sahna ekrandan butunlay chiqib ketgan bo'lsa — uni qaytadan ko'rsatamiz
+// Lanka — vaqt o'lchagichi: tuval va javob tugmalari birga ko'rinib tursin
+function ensureVisible() {
+  try {
+    var r = S.cv.getBoundingClientRect(), ob = G.el.ans.getBoundingClientRect().bottom, vh = window.innerHeight || 600;
+    if (r.top >= 0 && ob <= vh) return;
+    var want = r.top - 6; if (ob - want > vh) want = ob - vh + 8;
+    if (Math.abs(want) > 12) window.scrollBy(0, want);
+  } catch (e) {}
+}
+// Tuval ko'rinmasa (rAF to'xtaydi) ham lanka vaqti to'g'ri o'tsin
+var lastStep = 0;
+function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+setInterval(function () { var n = now(); if (!D.hidden && lastStep && n - lastStep > 160) { step(Math.min(0.25, (n - lastStep) / 1000)); lastStep = n; } }, 100);
+function timeUp() {
+  if (!CUR || G.state !== "play") return;
+  K.toast("⏱ Lanka yerga tushdi!");
+  if (live) live.textContent = "Vaqt tugadi, lanka yerga tushdi.";
+  G.answer("__vaqt__");
+}
+function drop() { LZ.st = "drop"; LZ.vy = Math.max(60, LZ.vy || 0); LZ.t = 0; }
+
+/* ---------- boshqaruv qatori: sekin rejim va rekord ---------- */
+var scene = D.createElement("div"); scene.appendChild(S.cv);
+var ctrl = D.createElement("div"); ctrl.className = "lk-ctrl";
+ctrl.innerHTML = '<span class="lk-best">🏆 Eng uzun seriya: <b data-lk="best">' + bestRun + '</b></span><button class="km-btn" type="button" data-lk="slow" aria-pressed="' + slow + '">🐢 Sekin rejim</button><div class="lk-sr" aria-live="polite" data-lk="live"></div>';
+scene.appendChild(ctrl);
+var bestEl = ctrl.querySelector('[data-lk="best"]'), slowBtn = ctrl.querySelector('[data-lk="slow"]'), live = ctrl.querySelector('[data-lk="live"]');
+slowBtn.onclick = function () {
+  slow = !slow; K.lsSet("lanka.slow", slow); slowBtn.setAttribute("aria-pressed", String(slow)); K.sfx.tap();
+  if (CUR) { var f = LZ.st === "fall" ? LZ.t / LZ.T : 0; LZ.T = fallTime(CUR.L || G.level); if (LZ.st === "fall") LZ.t = f * LZ.T; }
+  K.toast(slow ? "🐢 Sekin rejim yoqildi: lanka sekinroq tushadi" : "Oddiy tezlik");
+};
+
+var G = K.game({
+  id: "lanka", title: "Lanka", barTitle: "LANKA · TEZ HISOB",
+  intro: "Lanka yerga tushguncha to'g'ri javobni tanlang — bola uni yana tepadi! Har savolga bitta urinish. 10 ta savol.",
+  resultTopic: "Milliy o'yin: Lanka (karra jadvali va tez hisob)",
+  mount: "game", scene: scene, rounds: 10, timeLimit: 90, okDelay: 1100,
+  gen: function (L) { var q = gen(L); q.L = L; return q; },
+  onStart: function () { run = 0; LZ.st = "ground"; LZ.y = LY.gy - 4; },
+  onQuestion: function (q) {
+    CUR = q; LZ.T = fallTime(q.L); ensureVisible(); lastStep = now();
+    if (LZ.st === "ground" || LZ.st === "drop" || LZ.st === "fall") launch(); // «O'tkazish»da ham bola lankani qayta tepadi
+    if (live) live.textContent = q.text + " teng? Vaqt: " + nf(LZ.T) + " soniya.";
+  },
+  onResult: function (ok) {
+    if (ok) {
+      run++;
+      if (run > bestRun) { bestRun = run; K.lsSet("lanka.streak", bestRun); bestEl.textContent = bestRun; if (run >= 3) K.toast("🏆 Yangi rekord seriya: " + run + "!"); }
+      launch();
+      burst(LZ.x, LZ.y, "#35f0c4"); burst(LZ.x, LZ.y, "#ffc23d", 10);
+      pops.push({ s: "+1 🦶", x: LZ.x + 30, y: LZ.y - 20, l: 1, c: "#ffc23d" });
+      if (live) live.textContent = "To'g'ri! Seriya: " + run + ".";
+    } else {
+      run = 0; drop();
+    }
+  },
+  onEnd: function (r) {
+    CUR = null;
+    if (LZ.st === "fall" || LZ.st === "rise") { LZ.st = "hang"; }
+    if (r.stars === 3) { burst(S.w / 2, S.h / 2, "#ffc23d", 40); burst(S.w / 2, S.h / 2, "#35f0c4", 30); }
+  }
+});
+window.kaLanka = { game: G, gen: gen, lz: LZ, fallTime: fallTime, best: function () { return bestRun; }, run: function () { return run; } };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

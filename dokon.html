@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Do'konda aqlli xarid — chegirma, qaytim, birlik narxi | Kuvonch Academy</title>
+<meta name="description" content="Narx yorliqlari va chek: chegirma foizi, ketma-ket ikki chegirma, «2 ta olsangiz 3-si bepul» yoki «−30 %», 1 kg va 1 litr narxi, qaytim, muddatli to'lovda ortiqcha to'lov. 5 daraja.">
+<link rel="canonical" href="https://kuvonch.uz/dokon.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Do'konda aqlli xarid — hayotiy hisob-kitob o'yini">
+<meta property="og:description" content="Qaysi taklif haqiqatan arzon? Chegirma, aksiya, kilogramm narxi va muddatli to'lovni hisoblang.">
+<meta property="og:url" content="https://kuvonch.uz/dokon.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-milliy.css">
+<style>
+.hx-note{margin:12px 0 0;font-size:13.5px;color:#cfd8ef;background:rgba(255,194,61,.08);border:1px dashed rgba(255,194,61,.4);border-radius:12px;padding:8px 12px;max-width:760px}
+.km-q .rcp{display:block;font-size:14.5px;font-weight:500;color:var(--dim);margin-top:4px}
+.km-opt.txt{font-size:16px;line-height:1.3}
+</style>
+<script src="ka-fasl.js"></script>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="milliy-oyinlar.html" class="new">🇺🇿 Bolalikdagi o'yinlar</a>
+<a href="sherlok.html">🕵️ Sherlok</a>
+</nav>
+</header>
+
+<section class="km-hero">
+<span class="km-kicker">🧾 Hayotiy hisob-kitoblar</span>
+<h1>Do'konda <span>aqlli xarid</span></h1>
+<p class="km-lead">«−50 %!», «2 ta olsangiz 3-si bepul!», «Oyiga atigi 230 000 so'm!» — do'kondagi yozuvlar jozibali, lekin qaysi taklif haqiqatan arzon? Yorliq va chekdagi sonlardan hisoblang: chegirma, qaytim, kilogramm narxi va muddatli to'lovdagi ortiqcha pul.</p>
+<ul class="km-chips"><li>🏷️ Chegirma foizi</li><li>💵 Qaytim</li><li>⚖️ 1 kg / 1 l narxi</li><li>📆 Muddatli to'lov</li></ul>
+<p class="hx-note">💡 O'yindagi narxlar va aksiyalar — mashq uchun olingan <b>misol narxlar</b>, biror do'konning haqiqiy narxi emas.</p>
+</section>
+
+<div id="game"></div>
+
+<div class="km-info">
+<section>
+<h2>🏠 Hayotda qayerda kerak</h2>
+<p>Katta qadoq har doim ham arzon emas, ikki marta 20 % chegirma esa 40 % emas. «Oyiga oz-ozdan» to'lov ko'pincha naqd narxdan qimmatga tushadi. Bir daqiqalik hisob — oila byudjetida tejalgan pul. Kassada qaytimni tekshirish ham odat bo'lsin.</p>
+</section>
+<section>
+<h2>🎯 Qoidalar</h2>
+<ol>
+<li>Sahnada narx yorliqlari, aksiya belgilari yoki chek ko'rinadi; kerakli hamma sonlar savol matnida ham yozilgan.</li>
+<li>Javobni yozing yoki tanlang. Kasr sonni vergul (<b>12,5</b>) yoki nuqta (<b>12.5</b>) bilan yozish mumkin.</li>
+<li>Ketma-ket 3 ta to'g'ri javob — daraja oshadi (5 tagacha). Ikki xato ketma-ket — daraja pasayadi.</li>
+<li>Xato qilsangiz, yana bir urinish beriladi; ikkinchi xatoda qadam-baqadam yechim chiqadi.</li>
+<li>🎁 Sirli quti chiqib qolsa — oching: ko'pincha yordam beradi, ba'zan ochko oladi!</li>
+</ol>
+</section>
+<section>
+<h2>🧠 Nimani o'rganamiz</h2>
+<ul>
+<li><b>1-daraja:</b> chegirma summasi, chegirmadan keyingi narx, oddiy qaytim</li>
+<li><b>2-daraja:</b> chek: miqdor × narx, jami va qaytim; chegirma necha foiz ekanini topish</li>
+<li><b>3-daraja:</b> 1 kg va 1 litr narxi, qaysi qadoq arzonroq, katta qadoqda qancha tejaladi</li>
+<li><b>4-daraja:</b> ketma-ket ikki chegirma (foizlar qo'shilmaydi!), «2 ta olsangiz 3-si bepul» yoki «−30 %»</li>
+<li><b>5-daraja:</b> muddatli to'lov: jami summa, ortiqcha to'lov va uning foizi; chegirmagacha narxni topish</li>
+</ul>
+</section>
+</div>
+
+<div class="km-more">
+<a href="milliy-oyinlar.html#hayotiy">🧾 Boshqa hayotiy hisob-kitoblar</a>
+<a href="oyinlar.html">🎮 Barcha o'yinlar</a>
+</div>
+
+<footer class="km-foot">
+<div>&copy; <span id="year">2026</span> Kuvonch Academy · Hayotiy hisob-kitoblar</div>
+<nav aria-label="Boshqa sahifalar"><a href="oyinlar.html">🎮 O'yinlar</a><a href="milliy-oyinlar.html">🇺🇿 Bolalikdagi o'yinlar</a><a href="matematika.html">📐 Matematika</a></nav>
+</footer>
+</div>
+
+<script src="ka-milliy.js"></script>
+<script>
+/*! Kuvonch Academy — Do'konda aqlli xarid: chegirma, qaytim, birlik narxi, muddatli to'lov */
+(function () {
+"use strict";
+var K = window.KAM, ri = K.ri, pick = K.pick, nf = K.nf, rnd = K.round;
+var y = document.getElementById("year"); if (y) y.textContent = String(new Date().getFullYear());
+var FONT = '"Golos Text",system-ui,sans-serif';
+
+function som(x) { return nf(x) + " so'm"; }
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+function mis(arr, ans) {
+  var out = [], seen = {};
+  arr.forEach(function (v) { if (typeof v !== "number" || !isFinite(v)) return; v = rnd(v, 6); if (v <= 0 || Math.abs(v - ans) < 1e-9 || seen[v]) return; seen[v] = 1; out.push(v); });
+  return out;
+}
+
+/* ---------- MISOL narxlar (haqiqiy do'kon narxi emas) ---------- */
+var FOOD = [ // dona yoki qadoq narxi
+  { n: "non", t: "bread", p: [4000, 4500, 5000], u: "dona" },
+  { n: "sut (1 l)", t: "carton", p: [12000, 13000, 14000], u: "dona" },
+  { n: "tuxum (10 ta)", t: "egg", p: [15000, 16000, 18000], u: "quti" },
+  { n: "choy", t: "box", p: [17500, 18500, 21000], u: "quti" },
+  { n: "makaron", t: "box", p: [8500, 9500, 11000], u: "dona" },
+  { n: "pechenye", t: "box", p: [6500, 7500, 8000], u: "dona" },
+  { n: "suv (1,5 l)", t: "bottle", p: [3500, 4000, 4500], u: "dona" },
+  { n: "sharbat (1 l)", t: "carton", p: [14500, 15500, 16500], u: "dona" },
+  { n: "daftar", t: "note", p: [3500, 4000, 4500], u: "dona" },
+  { n: "ruchka", t: "pen", p: [2000, 2500, 3000], u: "dona" }
+];
+var KG = [ // kilogramm bilan
+  { n: "olma", t: "apple", p: [10000, 12000, 14000] },
+  { n: "kartoshka", t: "potato", p: [5000, 6000, 7000] },
+  { n: "pomidor", t: "tomato", p: [12000, 15000, 18000] },
+  { n: "uzum", t: "grape", p: [16000, 18000, 20000] }
+];
+var WEAR = [
+  { n: "ko'ylak", t: "shirt", p: [160000, 180000, 200000, 240000] },
+  { n: "futbolka", t: "shirt", p: [80000, 90000, 120000] },
+  { n: "krossovka", t: "shoe", p: [360000, 420000, 450000, 520000] },
+  { n: "ryukzak", t: "bag", p: [180000, 220000, 260000] },
+  { n: "kurtka", t: "shirt", p: [480000, 560000, 640000, 700000] },
+  { n: "naushnik", t: "phones", p: [120000, 150000, 200000, 250000] },
+  { n: "qo'l soati", t: "watch", p: [280000, 320000, 400000] }
+];
+var TECH = [
+  { n: "telefon", t: "phone" }, { n: "muzlatkich", t: "fridge" }, { n: "kir yuvish mashinasi", t: "washer" },
+  { n: "noutbuk", t: "laptop" }, { n: "televizor", t: "tv" }, { n: "konditsioner", t: "ac" }
+];
+var PACK = [ // birlik narxi: kg yoki l
+  { n: "guruch", t: "sack", u: "kg", sz: [[0.5, "500 g"], [1, "1 kg"], [2, "2 kg"], [5, "5 kg"]] },
+  { n: "shakar", t: "sack", u: "kg", sz: [[0.5, "500 g"], [1, "1 kg"], [3, "3 kg"], [5, "5 kg"]] },
+  { n: "un", t: "sack", u: "kg", sz: [[1, "1 kg"], [2, "2 kg"], [5, "5 kg"], [10, "10 kg"]] },
+  { n: "kir yuvish kukuni", t: "sack", u: "kg", sz: [[0.4, "400 g"], [1.5, "1,5 kg"], [3, "3 kg"], [6, "6 kg"]] },
+  { n: "choy", t: "box", u: "kg", sz: [[0.1, "100 g"], [0.25, "250 g"], [0.5, "500 g"]] },
+  { n: "asal", t: "jar", u: "kg", sz: [[0.25, "250 g"], [0.5, "500 g"], [1, "1 kg"]] },
+  { n: "sut", t: "carton", u: "l", sz: [[0.5, "0,5 l"], [0.9, "900 ml"], [1, "1 l"], [2, "2 l"]] },
+  { n: "o'simlik yog'i", t: "bottle", u: "l", sz: [[0.9, "900 ml"], [1, "1 l"], [3, "3 l"], [5, "5 l"]] },
+  { n: "ichimlik suvi", t: "bottle", u: "l", sz: [[0.5, "0,5 l"], [1.5, "1,5 l"], [5, "5 l"], [10, "10 l"]] }
+];
+var UNIT_BASE = { "guruch": [20000, 30000], "shakar": [12000, 18000], "un": [7000, 11000], "kir yuvish kukuni": [24000, 40000], "choy": [60000, 120000], "asal": [80000, 140000], "sut": [10000, 16000], "o'simlik yog'i": [20000, 30000], "ichimlik suvi": [1500, 4000] };
+var NOTES = [5000, 10000, 20000, 50000, 100000, 200000];
+
+function payWith(tot) { // eng kichik «chiroyli» banknot(lar)
+  for (var i = 0; i < NOTES.length; i++) if (NOTES[i] > tot) return [NOTES[i]];
+  var k = Math.floor(tot / 200000) + 1; var out = []; for (var j = 0; j < k; j++) out.push(200000); return out;
+}
+function sumA(a) { var s = 0; a.forEach(function (x) { s += x; }); return s; }
+function tag(it, o) { o = o || {}; var r = { t: it.t, n: it.n, price: o.price, old: o.old || null, badge: o.badge || null, size: o.size || null, unit: o.unit || null, free: !!o.free, hide: !!o.hide, sc: o.sc || 1, lab: o.lab || null }; return r; }
+
+/* ---------- savollar ---------- */
+function gen(L) {
+  var r = Math.random();
+  if (L === 1) return r < 0.4 ? d1new() : r < 0.7 ? d1amount() : d1change();
+  if (L === 2) return r < 0.38 ? d2receipt() : r < 0.7 ? d2change() : d2pct();
+  if (L === 3) return r < 0.38 ? d3unit() : r < 0.72 ? d3which() : d3save();
+  if (L === 4) return r < 0.3 ? d4two() : r < 0.5 ? d4twoPct() : r < 0.78 ? d4promo() : r < 0.9 ? d4promoSum() : d4upDown();
+  return r < 0.25 ? d5total() : r < 0.5 ? d5over() : r < 0.75 ? d5overPct() : d5before();
+}
+function discPair() { // narx va chegirma: chegirma summasi 100 ga karrali
+  var it, P, d, g = 0;
+  do { it = pick(WEAR); P = pick(it.p); d = pick([10, 15, 20, 25, 30, 40, 50]); g++; } while ((P * d) % 10000 !== 0 && g < 60);
+  return { it: it, P: P, d: d, cut: P * d / 100, nw: P - P * d / 100 };
+}
+function d1new() {
+  var D = discPair();
+  return {
+    q: cap(D.it.n) + " narxi <b>" + som(D.P) + "</b>, bugun <b>" + D.d + " % chegirma</b>. Chegirmadan keyingi narx necha so'm?",
+    a: D.nw, unit: "so'm", input: Math.random() < 0.5 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([D.cut, D.P - D.d * 1000, D.P + D.cut, D.P - D.d * 100], D.nw),
+    hint1: "Avval chegirma summasini toping: narxning " + D.d + " %i.",
+    steps: ["Chegirma: " + nf(D.P) + " × " + D.d + " : 100 = " + som(D.cut), "Yangi narx: " + nf(D.P) + " − " + nf(D.cut) + " = " + som(D.nw), "Yoki birdaniga: " + nf(D.P) + " × " + (100 - D.d) + " % = " + som(D.nw)],
+    sc: { items: [tag(D.it, { price: null, old: D.P, badge: "−" + D.d + " %" })] }
+  };
+}
+function d1amount() {
+  var D = discPair();
+  return {
+    q: cap(D.it.n) + " <b>" + som(D.P) + "</b> turadi. Aksiyada <b>" + D.d + " % chegirma</b>. Xaridor necha so'm tejaydi?",
+    a: D.cut, unit: "so'm", input: Math.random() < 0.5 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([D.nw, D.d * 1000, D.cut * 10, D.cut / 10, D.d * 100], D.cut),
+    steps: [D.d + " % = " + D.d + "/100", nf(D.P) + " × " + D.d + " : 100 = " + som(D.cut)],
+    sc: { items: [tag(D.it, { price: null, old: D.P, badge: "−" + D.d + " %" })] }
+  };
+}
+function d1change() {
+  var n = pick([1, 2, 2, 3]), its = K.shuffle(FOOD).slice(0, n), lines = [], tot = 0;
+  its.forEach(function (it) { var p = pick(it.p); tot += p; lines.push([cap(it.n), p]); });
+  var paid = payWith(tot), P = sumA(paid), ans = P - tot;
+  return {
+    q: "Xarid: " + lines.map(function (l) { return l[0].toLowerCase() + " — " + nf(l[1]); }).join(", ") + " so'm. Kassirga <b>" + som(P) + "</b> berdingiz. Qaytim necha so'm?",
+    a: ans, unit: "so'm", input: Math.random() < 0.4 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([ans + 1000, ans - 1000, ans + 500, P - lines[0][1], tot], ans),
+    steps: (n > 1 ? ["Jami: " + lines.map(function (l) { return nf(l[1]); }).join(" + ") + " = " + som(tot)] : []).concat(["Qaytim: " + nf(P) + " − " + nf(tot) + " = " + som(ans)]),
+    sc: { items: its.map(function (it, i) { return tag(it, { price: lines[i][1] }); }), rc: { lines: lines.map(function (l) { return [l[0], nf(l[1])]; }), total: n > 1 ? "?" : nf(tot), paid: nf(P), change: "?" } }
+  };
+}
+function receiptData() {
+  var n = pick([3, 3, 4]), fs = K.shuffle(FOOD).slice(0, n - 1), kg = pick(KG), lines = [], tot = 0, txt = [];
+  fs.forEach(function (it) { var q = pick([1, 2, 2, 3, 4]), p = pick(it.p), s = q * p; tot += s; lines.push({ l: cap(it.n), d: q + " × " + nf(p), s: s, it: it, p: p }); txt.push(it.n + ": " + q + " × " + nf(p)); });
+  var w = pick([0.5, 1.5, 2, 2.5, 3]), kp = pick(kg.p), ks = Math.round(w * kp); tot += ks;
+  lines.push({ l: cap(kg.n), d: nf(w) + " kg × " + nf(kp), s: ks, it: kg, p: kp }); txt.push(kg.n + ": " + nf(w) + " kg, 1 kg — " + nf(kp));
+  return { lines: lines, tot: tot, txt: txt };
+}
+function d2receipt() {
+  var R = receiptData();
+  return {
+    q: "Chekdagi xaridlar jami necha so'm?<span class=\"rcp\">" + R.txt.join("; ") + " so'm.</span>",
+    a: R.tot, unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    hint1: "Har bir qatorni alohida hisoblang: miqdor × narx.",
+    steps: R.lines.map(function (l) { return l.l + ": " + l.d + " = " + som(l.s); }).concat(["Jami: " + R.lines.map(function (l) { return nf(l.s); }).join(" + ") + " = " + som(R.tot)]),
+    sc: { items: R.lines.slice(0, 3).map(function (l) { return tag(l.it, { price: l.p, unit: l.it.u ? null : "1 kg" }); }), rc: { lines: R.lines.map(function (l) { return [l.l + " " + l.d, "?"]; }), total: "?" } }
+  };
+}
+function d2change() {
+  var R = receiptData(), paid = payWith(R.tot), P = sumA(paid), ans = P - R.tot;
+  if (Math.random() < 0.5 && R.tot < 150000) { paid = [100000, 50000]; P = 150000; if (P <= R.tot) { paid = [200000]; P = 200000; } ans = P - R.tot; }
+  return {
+    q: "Chek: " + R.lines.map(function (l) { return l.l.toLowerCase() + " " + l.d + " = " + nf(l.s); }).join("; ") + " so'm. Siz <b>" + paid.map(function (v) { return nf(v); }).join(" + ") + "</b> so'm berdingiz. Qaytim necha so'm?",
+    a: ans, unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    steps: ["Jami: " + R.lines.map(function (l) { return nf(l.s); }).join(" + ") + " = " + som(R.tot), "Berilgan: " + paid.map(function (v) { return nf(v); }).join(" + ") + " = " + som(P), "Qaytim: " + nf(P) + " − " + nf(R.tot) + " = " + som(ans)],
+    sc: { items: R.lines.slice(0, 3).map(function (l) { return tag(l.it, { price: l.p }); }), rc: { lines: R.lines.map(function (l) { return [l.l + " " + l.d, nf(l.s)]; }), total: nf(R.tot), paid: nf(P), change: "?" } }
+  };
+}
+function d2pct() {
+  var D = discPair(), wrong = rnd(D.cut / D.nw * 100, 1);
+  return {
+    q: cap(D.it.n) + " narxi <b>" + som(D.P) + "</b> edi, endi <b>" + som(D.nw) + "</b>. Chegirma necha foiz?",
+    a: D.d, unit: "%", input: Math.random() < 0.5 ? "opts" : "num", tol: 1e-6,
+    mistakes: mis([wrong, D.cut / 1000, 100 - D.d, D.d + 5, D.d * 2 <= 90 ? D.d * 2 : D.d - 5], D.d),
+    hint1: "Chegirma summasini eski narxga bo'ling.",
+    steps: ["Chegirma summasi: " + nf(D.P) + " − " + nf(D.nw) + " = " + som(D.cut), nf(D.cut) + " : " + nf(D.P) + " × 100 % = " + D.d + " %", "Diqqat: foiz eski (avvalgi) narxdan hisoblanadi"],
+    sc: { items: [tag(D.it, { price: D.nw, old: D.P, badge: "−? %" })] }
+  };
+}
+function packOf(base) { // birlik narxi butun bo'ladigan qadoq
+  var g = 0, sz, u, price;
+  do { sz = pick(base.sz); u = ri(UNIT_BASE[base.n][0] / 500, UNIT_BASE[base.n][1] / 500) * 500; price = rnd(sz[0] * u, 6); g++; } while ((price % 100 !== 0) && g < 80);
+  return { sz: sz, u: u, price: price };
+}
+function d3unit() {
+  var b = pick(PACK), Pk = packOf(b), U = b.u === "kg" ? "1 kg" : "1 litr";
+  var gd = 0; while (Pk.sz[0] === 1 && gd++ < 40) Pk = packOf(b);
+  return {
+    q: cap(b.n) + ": <b>" + Pk.sz[1] + "</b> lik qadoq — <b>" + som(Pk.price) + "</b>. " + U + " " + b.n + " necha so'mga tushadi?",
+    a: Pk.u, unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    hint1: Pk.sz[0] < 1 ? "Qadoq " + U + "dan kichik: " + U + "da necha shunday qadoq bor?" : "Narxni qadoqdagi " + b.u + " soniga bo'ling.",
+    steps: (Pk.sz[1] === nf(Pk.sz[0]) + " " + b.u ? [] : [Pk.sz[1] + " = " + nf(Pk.sz[0]) + " " + b.u]).concat([nf(Pk.price) + " : " + nf(Pk.sz[0]) + " = " + som(Pk.u) + " (" + U + " uchun)"]),
+    sc: { items: [tag({ t: b.t, n: b.n }, { price: Pk.price, size: Pk.sz[1], unit: U + " = ?", sc: Pk.sz[0] })] }
+  };
+}
+function d3which() {
+  var b = pick(PACK), n = Math.random() < 0.55 ? 2 : 3, ps = [], g = 0, uniq;
+  do {
+    ps = []; var used = {};
+    for (var i = 0; i < n; i++) { var Pk = packOf(b), k = 0; while (used[Pk.sz[1]] && k++ < 20) Pk = packOf(b); used[Pk.sz[1]] = 1; ps.push(Pk); }
+    var us = ps.map(function (p) { return p.u; }).sort(function (a, c) { return a - c; });
+    uniq = us[0] !== us[1] && Object.keys(used).length === n; g++;
+  } while (!uniq && g < 80);
+  ps.sort(function (a, c) { return a.sz[0] - c.sz[0]; });
+  var L = ["A", "B", "C"], best = 0;
+  ps.forEach(function (p, i) { if (p.u < ps[best].u) best = i; });
+  var opts = ps.map(function (p, i) { return L[i] + " — " + p.sz[1]; }), U = b.u === "kg" ? "1 kg" : "1 l";
+  if (n === 2) opts.push("Ikkalasi bir xil");
+  return {
+    q: "Do'konda " + b.n + " " + n + " xil qadoqda sotiladi: " + ps.map(function (p, i) { return "<b>" + L[i] + "</b>: " + p.sz[1] + " — " + som(p.price); }).join("; ") + ". " + U + " hisobida qaysi biri <b>arzonroq</b>?",
+    a: opts[best], opts: opts, input: "opts", aText: opts[best],
+    steps: ps.map(function (p, i) { return L[i] + ": " + nf(p.price) + " : " + nf(p.sz[0]) + " = " + som(p.u) + " (" + U + ")"; }).concat(["Eng kichik birlik narxi — " + opts[best]]),
+    okNote: best === n - 1 ? "Bu safar katta qadoq arzon chiqdi — lekin har doim ham shunday emas!" : "Ko'rdingizmi: katta qadoq har doim ham arzon emas!",
+    sc: { items: ps.map(function (p, i) { return tag({ t: b.t, n: L[i] }, { price: p.price, size: p.sz[1], unit: U + " = ?", sc: p.sz[0], lab: L[i] }); }) }
+  };
+}
+function d3save() {
+  var b = pick(PACK.filter(function (p) { return p.u === "kg"; })), g = 0, sm, bg, k, sP, bP;
+  do {
+    var i = ri(0, b.sz.length - 2), j = ri(i + 1, b.sz.length - 1); sm = b.sz[i]; bg = b.sz[j]; k = rnd(bg[0] / sm[0], 6);
+    var u = ri(UNIT_BASE[b.n][0] / 500, UNIT_BASE[b.n][1] / 500) * 500;
+    sP = rnd(sm[0] * u * (1 + pick([0.05, 0.1, 0.15, 0.2])), 6); sP = Math.round(sP / 500) * 500; bP = Math.round(bg[0] * u / 500) * 500; g++;
+  } while ((Math.round(k) !== k || k * sP <= bP) && g < 80);
+  var tot = k * sP, ans = tot - bP;
+  return {
+    q: "Sizga <b>" + bg[1] + "</b> " + b.n + " kerak. Kichik qadoq: " + sm[1] + " — <b>" + som(sP) + "</b>. Katta qadoq: " + bg[1] + " — <b>" + som(bP) + "</b>. Katta qadoqni olsangiz, necha so'm tejaysiz?",
+    a: ans, unit: "so'm", input: Math.random() < 0.35 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([bP - sP, sP * (k - 1), tot, ans + sP], ans),
+    steps: [bg[1] + " uchun kichik qadoqdan " + nf(bg[0]) + " : " + nf(sm[0]) + " = " + k + " ta kerak", k + " × " + nf(sP) + " = " + som(tot), "Tejash: " + nf(tot) + " − " + nf(bP) + " = " + som(ans)],
+    sc: { items: [tag({ t: b.t, n: "kichik" }, { price: sP, size: sm[1], sc: sm[0], lab: "× " + k }), tag({ t: b.t, n: "katta" }, { price: bP, size: bg[1], sc: bg[0] })] }
+  };
+}
+function twoD() {
+  var g = 0, it, P, a, b, f;
+  do { it = pick(WEAR); P = pick(it.p); a = pick([10, 20, 25, 30, 40, 50]); b = pick([10, 20, 25, 50, 5, 15]); f = P * (100 - a) * (100 - b) / 10000; g++; }
+  while ((f % 100 !== 0 || ((100 - a) * (100 - b)) % 100 !== 0) && g < 200);
+  return { it: it, P: P, a: a, b: b, mid: P * (100 - a) / 100, f: f, tot: 100 - (100 - a) * (100 - b) / 100 };
+}
+function d4two() {
+  var D = twoD(), wrong = D.P * (100 - D.a - D.b) / 100;
+  return {
+    q: cap(D.it.n) + " <b>" + som(D.P) + "</b>. Avval <b>" + D.a + " %</b> chegirma qilindi, keyin yangi narxga yana <b>" + D.b + " %</b> chegirma. Yakuniy narx necha so'm?",
+    a: D.f, unit: "so'm", input: Math.random() < 0.45 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([wrong, D.mid, D.P * D.b / 100, D.P - D.P * D.a / 100 * D.b / 100], D.f),
+    hint1: "Ikkinchi chegirma birinchi chegirmadan keyingi narxdan hisoblanadi.",
+    steps: ["1-chegirma: " + nf(D.P) + " × " + (100 - D.a) + " % = " + som(D.mid), "2-chegirma yangi narxdan: " + nf(D.mid) + " × " + (100 - D.b) + " % = " + som(D.f), "Diqqat: " + D.a + " % + " + D.b + " % = " + (D.a + D.b) + " % deb hisoblash xato — " + som(wrong) + " chiqib qoladi"],
+    sc: { items: [tag(D.it, { price: null, old: D.P, badge: "−" + D.a + " %, keyin −" + D.b + " %" })] }
+  };
+}
+function d4twoPct() {
+  var D = twoD();
+  return {
+    q: "Do'konda avval <b>" + D.a + " %</b>, keyin yangi narxga yana <b>" + D.b + " %</b> chegirma qilindi. Umumiy chegirma boshlang'ich narxning necha foizi?",
+    a: D.tot, unit: "%", input: "opts", tol: 1e-6,
+    mistakes: mis([D.a + D.b, D.a * D.b / 10, Math.max(D.a, D.b), D.tot + 5, D.tot - 3], D.tot),
+    steps: ["Narxni 100 % deb olamiz", "1-chegirmadan keyin: 100 % × " + (100 - D.a) + " % = " + (100 - D.a) + " %", "2-chegirmadan keyin: " + (100 - D.a) + " % × " + (100 - D.b) + " % = " + nf((100 - D.a) * (100 - D.b) / 100) + " %", "Umumiy chegirma: 100 − " + nf((100 - D.a) * (100 - D.b) / 100) + " = " + nf(D.tot) + " % (" + (D.a + D.b) + " % emas!)"],
+    sc: { items: [tag(D.it, { price: null, badge: "−" + D.a + " %, keyin −" + D.b + " %", unit: "jami chegirma: ? %" })] }
+  };
+}
+function promo() {
+  var it = pick(FOOD.concat([{ n: "futbolka", t: "shirt", p: [60000, 80000, 90000] }, { n: "shampun", t: "bottle", p: [28000, 32000, 36000] }])), p = pick(it.p), n = pick([3, 3, 4, 5, 6]);
+  var free = Math.floor(n / 3), A = (n - free) * p, B = Math.round(n * p * 0.7);
+  return { it: it, p: p, n: n, free: free, A: A, B: B };
+}
+var OA = "A: 2 ta olsangiz 3-si bepul", OB = "B: −30 % chegirma", OS = "Ikkalasi bir xil";
+function d4promo() {
+  var X = promo(), best = X.A < X.B ? OA : X.B < X.A ? OB : OS;
+  return {
+    q: "Sizga <b>" + X.n + " ta</b> " + X.it.n + " kerak (1 tasi " + som(X.p) + "). Do'kon A: «<b>2 ta olsangiz 3-si bepul</b>» (har 3 tadan 1 tasi bepul). Do'kon B: hammasiga <b>−30 %</b>. Qaysi biri arzonroq?",
+    a: best, opts: [OA, OB, OS], input: "opts", aText: best, oneTry: true,
+    steps: ["A: " + X.n + " tadan " + X.free + " tasi bepul, " + (X.n - X.free) + " tasi uchun to'laysiz: " + (X.n - X.free) + " × " + nf(X.p) + " = " + som(X.A), "B: " + X.n + " × " + nf(X.p) + " = " + som(X.n * X.p) + ", 70 % i: " + som(X.B), best === OS ? "Ikkalasi teng" : "Arzonroq: " + best + " (farq " + som(Math.abs(X.A - X.B)) + ")"],
+    okNote: X.n % 3 === 0 ? "3 ta (yoki 6 ta) olganda «2+1» aslida 33 % chegirma — bu 30 % dan ko'p." : "Bepul mahsulot faqat har 3-si uchun beriladi — shuning uchun " + X.n + " ta olganda «−30 %» foydaliroq.",
+    sc: { items: [tag(X.it, { price: X.p, lab: "× " + X.n })], offers: { a: "2 + 1 bepul", b: "−30 %", n: X.n } }
+  };
+}
+function d4promoSum() {
+  var X = promo(), useA = Math.random() < 0.5, ans = useA ? X.A : X.B;
+  return {
+    q: "1 ta " + X.it.n + " — <b>" + som(X.p) + "</b>. Siz <b>" + X.n + " ta</b> olasiz. " + (useA ? "Aksiya: «<b>2 ta olsangiz 3-si bepul</b>» (har 3 tadan 1 tasi bepul)." : "Aksiya: hammasiga <b>−30 %</b>.") + " Kassada necha so'm to'laysiz?",
+    a: ans, unit: "so'm", input: Math.random() < 0.4 ? "opts" : "num", tol: 0.5,
+    mistakes: mis(useA ? [X.n * X.p, (X.n - 1) * X.p, Math.round(X.n * X.p * 2 / 3), X.B] : [X.n * X.p * 0.3, X.n * X.p - 30000, X.A, X.p * 0.7], ans),
+    steps: useA ? [X.n + " tadan bepul: " + X.n + " : 3 = " + X.free + " ta (butun qismi)", "To'lanadi: " + (X.n - X.free) + " × " + nf(X.p) + " = " + som(ans)] : ["Jami: " + X.n + " × " + nf(X.p) + " = " + som(X.n * X.p), "30 % chegirma bilan: " + nf(X.n * X.p) + " × 70 % = " + som(ans)],
+    sc: { items: [tag(X.it, { price: X.p, lab: "× " + X.n, badge: useA ? "2 + 1" : "−30 %" })], offers: useA ? { a: "2 + 1 bepul", n: X.n } : { b: "−30 %", n: X.n } }
+  };
+}
+function d4upDown() {
+  var it = pick(WEAR), P = pick(it.p), p = pick([10, 20, 25, 50]), mid = P * (100 + p) / 100, f = mid * (100 - p) / 100;
+  return {
+    q: cap(it.n) + " narxi <b>" + som(P) + "</b> edi. Avval narx <b>" + p + " %</b> oshirildi, keyin yangi narx <b>" + p + " %</b> tushirildi. Endi narx necha so'm?",
+    a: f, unit: "so'm", input: "opts", tol: 0.5,
+    mistakes: mis([P, P + P * p / 100, mid, P - P * p / 100], f),
+    steps: ["Oshgach: " + nf(P) + " × " + (100 + p) + " % = " + som(mid), "Tushgach: " + nf(mid) + " × " + (100 - p) + " % = " + som(f), "Boshlang'ich narxga qaytmadi: ikkinchi foiz kattaroq sondan olindi"],
+    sc: { items: [tag(it, { price: null, old: P, badge: "+" + p + " %, keyin −" + p + " %" })] }
+  };
+}
+function plan() {
+  var g = 0, it = pick(TECH), C, n, p, T, m, first = 0;
+  do {
+    C = pick([1200000, 1800000, 2400000, 3000000, 3600000, 4800000, 6000000, 7200000, 9600000]);
+    n = pick([3, 6, 6, 10, 12, 12, 18, 24]); p = pick(n <= 6 ? [5, 6, 8, 10, 12] : n <= 12 ? [10, 12, 15, 18, 20, 24, 25] : [18, 20, 24, 25, 30, 36]);
+    T = C * (100 + p) / 100; first = Math.random() < 0.3 ? C * pick([10, 20]) / 100 : 0; m = (T - first) / n; g++;
+  } while ((m % 1000 !== 0) && g < 400);
+  if (m % 1000 !== 0) { C = 1200000; n = 12; p = 20; first = 0; T = 1440000; m = 120000; }
+  return { it: it, C: C, n: n, p: p, T: T, m: m, first: first };
+}
+function planTxt(X) { return cap(X.it.n) + " naqd narxi <b>" + som(X.C) + "</b>. Muddatli to'lov: " + (X.first ? "boshlang'ich to'lov <b>" + som(X.first) + "</b>, so'ng " : "") + "<b>" + X.n + " oy</b> davomida oyiga <b>" + som(X.m) + "</b>."; }
+function planSteps(X) { return [(X.first ? nf(X.first) + " + " : "") + X.n + " × " + nf(X.m) + " = " + som(X.T)]; }
+function psc(X, o) { return { items: [tag(X.it, { price: X.C, lab: "naqd" })], plan: { n: X.n, m: X.m, first: X.first, ask: o } }; }
+function d5total() {
+  var X = plan();
+  return {
+    q: planTxt(X) + " Muddatli to'lovda jami necha so'm to'lanadi?",
+    a: X.T, unit: "so'm", input: "num", tol: 0.5, mistakes: [],
+    steps: planSteps(X), sc: psc(X, "jami ?")
+  };
+}
+function d5over() {
+  var X = plan(), o = X.T - X.C;
+  return {
+    q: planTxt(X) + " Naqd narxga nisbatan necha so'm ortiqcha to'lanadi?",
+    a: o, unit: "so'm", input: Math.random() < 0.35 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([X.T, X.m, X.n * X.m, o + X.m, o - X.m], o),
+    hint1: "Avval muddatli to'lovning jami summasini toping.",
+    steps: planSteps(X).concat(["Ortiqcha: " + nf(X.T) + " − " + nf(X.C) + " = " + som(o)]),
+    sc: psc(X, "ortiqcha ?")
+  };
+}
+function d5overPct() {
+  var X = plan(), o = X.T - X.C, wrong = rnd(o / X.T * 100, 1);
+  return {
+    q: planTxt(X) + " Ortiqcha to'lov naqd narxning necha foizini tashkil qiladi?",
+    a: X.p, unit: "%", input: Math.random() < 0.5 ? "opts" : "num", tol: 1e-6,
+    mistakes: mis([wrong, X.p + 5, X.n, rnd(X.p / X.n, 1), 100 + X.p], X.p),
+    hint1: "Ortiqcha summani naqd narxga bo'ling.",
+    steps: planSteps(X).concat(["Ortiqcha: " + nf(X.T) + " − " + nf(X.C) + " = " + som(o), nf(o) + " : " + nf(X.C) + " × 100 % = " + X.p + " %"]),
+    sc: psc(X, "ortiqcha ? %")
+  };
+}
+function d5before() {
+  var g = 0, it, P, d, nw;
+  do { it = pick(WEAR); P = pick(it.p); d = pick([10, 20, 25, 40, 50, 15, 30]); nw = P * (100 - d) / 100; g++; } while (nw % 1000 !== 0 && g < 80);
+  var wrong = rnd(nw * (100 + d) / 100, 2);
+  return {
+    q: cap(it.n) + " <b>" + d + " % chegirma</b> bilan <b>" + som(nw) + "</b> ga sotilmoqda. Chegirmagacha narxi necha so'm bo'lgan?",
+    a: P, unit: "so'm", input: Math.random() < 0.5 ? "opts" : "num", tol: 0.5,
+    mistakes: mis([wrong, nw + d * 1000, nw * 2, nw + nw * d / 100], P),
+    hint1: "Chegirmadan keyingi narx eski narxning " + (100 - d) + " %i.",
+    steps: [nf(nw) + " — eski narxning " + (100 - d) + " %i", "1 %: " + nf(nw) + " : " + (100 - d) + " = " + nf(rnd(nw / (100 - d), 4)), "100 %: " + nf(rnd(nw / (100 - d), 4)) + " × 100 = " + som(P), "Xato yo'l: " + nf(nw) + " ga " + d + " % qo'shish → " + som(wrong)],
+    sc: { items: [tag(it, { price: nw, old: "?", badge: "−" + d + " %" })] }
+  };
+}
+
+/* ---------- sahna: peshtaxta, mahsulotlar, narx yorliqlari, chek, to'lov jadvali ---------- */
+var CUR = null, pop = 0;
+function fitTxt(c, s, x, y, maxW, col, size, align, weight) {
+  c.font = (weight || 700) + " " + size + "px " + FONT;
+  var w = c.measureText(s).width; if (w > maxW && w > 0) size = Math.max(7, Math.floor(size * maxW / w * 10) / 10);
+  K.txt(c, s, x, y, col, size, align, weight);
+}
+function hr(i) { var x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+function prod(c, t, x, y, s) { // x — markaz, y — pastki chiziq, s — o'lcham
+  var i;
+  c.save(); c.translate(x, y);
+  if (t === "carton") { c.fillStyle = "#f4f7fb"; c.fillRect(-s * 0.26, -s * 0.78, s * 0.52, s * 0.78); c.fillStyle = "#d9e2ef"; c.beginPath(); c.moveTo(-s * 0.26, -s * 0.78); c.lineTo(0, -s * 0.98); c.lineTo(s * 0.26, -s * 0.78); c.closePath(); c.fill(); c.fillStyle = "#3b82f6"; c.fillRect(-s * 0.26, -s * 0.45, s * 0.52, s * 0.16); }
+  else if (t === "bottle") { c.fillStyle = "rgba(170,220,255,.85)"; K.rr(c, -s * 0.2, -s * 0.72, s * 0.4, s * 0.72, s * 0.08); c.fill(); c.fillRect(-s * 0.08, -s * 0.9, s * 0.16, s * 0.2); c.fillStyle = "#ff5e8e"; c.fillRect(-s * 0.09, -s * 0.98, s * 0.18, s * 0.09); c.fillStyle = "#ffc23d"; c.fillRect(-s * 0.2, -s * 0.48, s * 0.4, s * 0.18); }
+  else if (t === "sack") { c.fillStyle = "#efe3c8"; c.beginPath(); c.moveTo(-s * 0.3, 0); c.lineTo(-s * 0.34, -s * 0.66); c.quadraticCurveTo(0, -s * 0.84, s * 0.34, -s * 0.66); c.lineTo(s * 0.3, 0); c.closePath(); c.fill(); c.fillStyle = "#c0392b"; c.fillRect(-s * 0.22, -s * 0.42, s * 0.44, s * 0.16); }
+  else if (t === "box") { c.fillStyle = "#c2410c"; c.fillRect(-s * 0.3, -s * 0.56, s * 0.6, s * 0.56); c.fillStyle = "#ffc23d"; c.fillRect(-s * 0.3, -s * 0.38, s * 0.6, s * 0.12); c.fillStyle = "rgba(255,255,255,.25)"; c.fillRect(-s * 0.3, -s * 0.56, s * 0.6, s * 0.06); }
+  else if (t === "jar") { c.fillStyle = "#f2a516"; K.rr(c, -s * 0.24, -s * 0.6, s * 0.48, s * 0.6, s * 0.1); c.fill(); c.fillStyle = "#7c4a12"; c.fillRect(-s * 0.26, -s * 0.7, s * 0.52, s * 0.12); c.fillStyle = "#fff6e0"; c.fillRect(-s * 0.16, -s * 0.38, s * 0.32, s * 0.16); }
+  else if (t === "bread") { c.fillStyle = "#d9934a"; c.beginPath(); c.ellipse(0, -s * 0.2, s * 0.38, s * 0.2, 0, 0, 6.283); c.fill(); c.fillStyle = "#f1c48a"; c.beginPath(); c.ellipse(0, -s * 0.22, s * 0.2, s * 0.1, 0, 0, 6.283); c.fill(); c.fillStyle = "#7c4a12"; for (i = 0; i < 7; i++) { c.fillRect(-s * 0.12 + i * s * 0.04, -s * 0.23, 2, 2); } }
+  else if (t === "egg") { c.fillStyle = "#c7b299"; c.fillRect(-s * 0.36, -s * 0.2, s * 0.72, s * 0.2); c.fillStyle = "#fff5e6"; for (i = 0; i < 5; i++) { c.beginPath(); c.ellipse(-s * 0.28 + i * s * 0.14, -s * 0.26, s * 0.06, s * 0.08, 0, 0, 6.283); c.fill(); } }
+  else if (t === "note") { c.fillStyle = "#5cb8ff"; c.fillRect(-s * 0.24, -s * 0.66, s * 0.48, s * 0.66); c.fillStyle = "#fff"; c.fillRect(-s * 0.16, -s * 0.5, s * 0.32, s * 0.12); c.strokeStyle = "#1d4f86"; c.lineWidth = 2; c.beginPath(); c.moveTo(-s * 0.2, -s * 0.66); c.lineTo(-s * 0.2, 0); c.stroke(); }
+  else if (t === "pen") { c.rotate(-0.6); c.fillStyle = "#3b82f6"; c.fillRect(-s * 0.04, -s * 0.7, s * 0.08, s * 0.6); c.fillStyle = "#f4f7fb"; c.beginPath(); c.moveTo(-s * 0.04, -s * 0.1); c.lineTo(s * 0.04, -s * 0.1); c.lineTo(0, 0); c.fill(); }
+  else if (t === "apple" || t === "tomato" || t === "potato" || t === "grape") {
+    var col = t === "apple" ? "#e63946" : t === "tomato" ? "#ff4d2e" : t === "potato" ? "#c8a165" : "#7b4fa8", r = t === "grape" ? s * 0.07 : s * 0.13, pts = t === "grape" ? [[0, 3], [-1, 2], [1, 2], [-2, 1], [0, 1], [2, 1], [-1, 0], [1, 0]] : [[-1, 0], [1, 0], [0, 1], [-2, 0], [2, 0], [-1, 1], [1, 1]];
+    pts.forEach(function (p, k) { c.fillStyle = col; c.beginPath(); c.ellipse(p[0] * r * 1.05, -r - p[1] * r * 1.6 - (t === "grape" ? 0 : 0), r, r * (t === "potato" ? 0.75 : 1), 0, 0, 6.283); c.fill(); c.fillStyle = "rgba(255,255,255,.25)"; c.beginPath(); c.arc(p[0] * r * 1.05 - r * 0.35, -r - p[1] * r * 1.6 - r * 0.3, r * 0.25, 0, 6.283); c.fill(); });
+    if (t !== "potato") { c.fillStyle = "#4caf50"; c.fillRect(-2, -s * 0.62, 4, s * 0.08); }
+  }
+  else if (t === "shirt") { c.fillStyle = "#35f0c4"; c.beginPath(); c.moveTo(-s * 0.14, -s * 0.78); c.lineTo(-s * 0.38, -s * 0.66); c.lineTo(-s * 0.44, -s * 0.46); c.lineTo(-s * 0.28, -s * 0.42); c.lineTo(-s * 0.28, 0); c.lineTo(s * 0.28, 0); c.lineTo(s * 0.28, -s * 0.42); c.lineTo(s * 0.44, -s * 0.46); c.lineTo(s * 0.38, -s * 0.66); c.lineTo(s * 0.14, -s * 0.78); c.quadraticCurveTo(0, -s * 0.66, -s * 0.14, -s * 0.78); c.fill(); }
+  else if (t === "shoe") { c.fillStyle = "#f4f7fb"; c.fillRect(-s * 0.42, -s * 0.1, s * 0.84, s * 0.1); c.fillStyle = "#a27bff"; c.beginPath(); c.moveTo(-s * 0.42, -s * 0.1); c.lineTo(-s * 0.38, -s * 0.4); c.lineTo(-s * 0.1, -s * 0.42); c.quadraticCurveTo(s * 0.1, -s * 0.22, s * 0.42, -s * 0.18); c.lineTo(s * 0.42, -s * 0.1); c.closePath(); c.fill(); c.strokeStyle = "#fff"; c.lineWidth = 1.5; for (i = 0; i < 3; i++) { c.beginPath(); c.moveTo(-s * 0.14 + i * s * 0.06, -s * 0.38 + i * s * 0.04); c.lineTo(-s * 0.06 + i * s * 0.06, -s * 0.34 + i * s * 0.04); c.stroke(); } }
+  else if (t === "bag") { c.fillStyle = "#ff8a5c"; K.rr(c, -s * 0.3, -s * 0.7, s * 0.6, s * 0.7, s * 0.14); c.fill(); c.fillStyle = "#c2410c"; K.rr(c, -s * 0.2, -s * 0.36, s * 0.4, s * 0.24, s * 0.06); c.fill(); c.strokeStyle = "#c2410c"; c.lineWidth = 3; c.beginPath(); c.arc(0, -s * 0.7, s * 0.12, Math.PI, 0); c.stroke(); }
+  else if (t === "phones") { c.strokeStyle = "#cfd8ef"; c.lineWidth = s * 0.07; c.beginPath(); c.arc(0, -s * 0.36, s * 0.28, Math.PI, 0); c.stroke(); c.fillStyle = "#a27bff"; K.rr(c, -s * 0.36, -s * 0.42, s * 0.16, s * 0.3, 6); c.fill(); K.rr(c, s * 0.2, -s * 0.42, s * 0.16, s * 0.3, 6); c.fill(); }
+  else if (t === "watch") { c.fillStyle = "#3a4466"; c.fillRect(-s * 0.08, -s * 0.8, s * 0.16, s * 0.8); c.fillStyle = "#ffc23d"; c.beginPath(); c.arc(0, -s * 0.4, s * 0.18, 0, 6.283); c.fill(); c.fillStyle = "#0b1330"; c.beginPath(); c.arc(0, -s * 0.4, s * 0.14, 0, 6.283); c.fill(); c.strokeStyle = "#fff"; c.lineWidth = 2; c.beginPath(); c.moveTo(0, -s * 0.4); c.lineTo(0, -s * 0.5); c.moveTo(0, -s * 0.4); c.lineTo(s * 0.07, -s * 0.38); c.stroke(); }
+  else if (t === "phone") { c.fillStyle = "#1a1d27"; K.rr(c, -s * 0.2, -s * 0.84, s * 0.4, s * 0.8, s * 0.06); c.fill(); var gg = c.createLinearGradient(0, -s * 0.8, 0, -s * 0.1); gg.addColorStop(0, "#5cb8ff"); gg.addColorStop(1, "#a27bff"); c.fillStyle = gg; K.rr(c, -s * 0.17, -s * 0.8, s * 0.34, s * 0.72, s * 0.04); c.fill(); }
+  else if (t === "fridge") { c.fillStyle = "#e7ebf3"; K.rr(c, -s * 0.28, -s * 0.98, s * 0.56, s * 0.98, s * 0.05); c.fill(); c.strokeStyle = "#9aa6bd"; c.lineWidth = 2; c.beginPath(); c.moveTo(-s * 0.28, -s * 0.62); c.lineTo(s * 0.28, -s * 0.62); c.stroke(); c.fillStyle = "#9aa6bd"; c.fillRect(s * 0.18, -s * 0.9, 3, s * 0.18); c.fillRect(s * 0.18, -s * 0.54, 3, s * 0.3); }
+  else if (t === "washer") { c.fillStyle = "#e7ebf3"; K.rr(c, -s * 0.34, -s * 0.8, s * 0.68, s * 0.8, s * 0.05); c.fill(); c.fillStyle = "#1d4f86"; c.beginPath(); c.arc(0, -s * 0.36, s * 0.2, 0, 6.283); c.fill(); c.fillStyle = "#5cb8ff"; c.beginPath(); c.arc(0, -s * 0.36, s * 0.14, 0, 6.283); c.fill(); c.fillStyle = "#9aa6bd"; c.fillRect(-s * 0.3, -s * 0.74, s * 0.6, s * 0.08); }
+  else if (t === "laptop") { c.fillStyle = "#3a4466"; K.rr(c, -s * 0.38, -s * 0.66, s * 0.76, s * 0.5, 4); c.fill(); c.fillStyle = "#5cb8ff"; c.fillRect(-s * 0.34, -s * 0.62, s * 0.68, s * 0.42); c.fillStyle = "#9aa6bd"; c.beginPath(); c.moveTo(-s * 0.46, -s * 0.06); c.lineTo(s * 0.46, -s * 0.06); c.lineTo(s * 0.4, -s * 0.16); c.lineTo(-s * 0.4, -s * 0.16); c.closePath(); c.fill(); }
+  else if (t === "tv") { c.fillStyle = "#1a1d27"; K.rr(c, -s * 0.46, -s * 0.74, s * 0.92, s * 0.56, 5); c.fill(); var g2 = c.createLinearGradient(-s * 0.4, 0, s * 0.4, 0); g2.addColorStop(0, "#35f0c4"); g2.addColorStop(1, "#5cb8ff"); c.fillStyle = g2; c.fillRect(-s * 0.42, -s * 0.7, s * 0.84, s * 0.48); c.fillStyle = "#3a4466"; c.fillRect(-s * 0.04, -s * 0.18, s * 0.08, s * 0.12); c.fillRect(-s * 0.2, -s * 0.06, s * 0.4, s * 0.06); }
+  else if (t === "ac") { c.fillStyle = "#f4f7fb"; K.rr(c, -s * 0.46, -s * 0.66, s * 0.92, s * 0.3, s * 0.08); c.fill(); c.fillStyle = "#9aa6bd"; c.fillRect(-s * 0.4, -s * 0.44, s * 0.8, 3); c.strokeStyle = "rgba(92,184,255,.7)"; c.lineWidth = 2; for (i = 0; i < 3; i++) { c.beginPath(); c.moveTo(-s * 0.2 + i * s * 0.2, -s * 0.3); c.quadraticCurveTo(-s * 0.15 + i * s * 0.2, -s * 0.16, -s * 0.22 + i * s * 0.2, -s * 0.04); c.stroke(); } }
+  c.restore();
+}
+function priceTag(c, x, y, w, it) { // x — markaz, y — yuqori chet
+  var h = it.old != null ? 62 : 48;
+  if (it.unit) h += 18;
+  c.save(); c.shadowColor = "rgba(0,0,0,.35)"; c.shadowBlur = 8; c.shadowOffsetY = 3;
+  c.fillStyle = "#ffe14d"; K.rr(c, x - w / 2, y, w, h, 8); c.fill(); c.restore();
+  c.fillStyle = "#0b1330"; c.beginPath(); c.arc(x - w / 2 + 9, y + 9, 3, 0, 6.283); c.fill();
+  var ty = y + 14;
+  fitTxt(c, cap(it.n) + (it.size ? " · " + it.size : ""), x, ty, w - 22, "#1a1d27", 12, "center", 800); ty += 20;
+  if (it.old != null) {
+    var os = typeof it.old === "number" ? nf(it.old) : it.old;
+    fitTxt(c, os, x, ty, w - 14, "#6b7180", 13, "center", 800);
+    if (os !== "?") { c.font = "800 13px " + FONT; var ow = Math.min(w - 14, c.measureText(os).width); c.strokeStyle = "#d62828"; c.lineWidth = 2; c.beginPath(); c.moveTo(x - ow / 2 - 3, ty + 1); c.lineTo(x + ow / 2 + 3, ty - 1); c.stroke(); }
+    ty += 18;
+  }
+  fitTxt(c, it.price != null && !it.hide ? nf(it.price) : "?", x, ty, w - 14, "#d62828", 18, "center", 800);
+  if (it.unit) { ty += 18; fitTxt(c, it.unit, x, ty, w - 14, "#1d4f86", 11.5, "center", 800); }
+  return h;
+}
+function badge(c, x, y, s, txt2, t) {
+  var sc = 1 + 0.05 * Math.sin(t * 5);
+  c.save(); c.translate(x, y); c.scale(sc, sc); c.rotate(-0.18);
+  c.font = "800 13px " + FONT; var w = Math.max(44, c.measureText(txt2).width + 18);
+  c.fillStyle = "#d62828"; K.rr(c, -w / 2, -14, w, 28, 14); c.fill();
+  K.txt(c, txt2, 0, 0, "#fff", 13, "center", 800); c.restore();
+}
+function shelf(c, x0, y0, w0, h0, items, t) {
+  var n = items.length, sw0 = Math.min(w0, n * 230); x0 += (w0 - sw0) / 2; w0 = sw0;
+  var cw = w0 / n, base = y0 + h0 * 0.52;
+  // javon
+  c.fillStyle = "#6b4a2b"; c.fillRect(x0 + 6, base, w0 - 12, 10); c.fillStyle = "rgba(0,0,0,.25)"; c.fillRect(x0 + 6, base + 10, w0 - 12, 6);
+  items.forEach(function (it, i) {
+    var cx = x0 + cw * i + cw / 2, mx = Math.min(cw * 0.78, h0 * 0.44, 150), s = mx * (it.sc && it.sc !== 1 ? Math.max(0.55, Math.min(1, 0.6 + 0.22 * Math.log(1 + it.sc * 2))) : 0.9) * (0.92 + 0.08 * Math.min(1, pop));
+    prod(c, it.t, cx, base, s);
+    if (it.lab) { c.font = "800 13px " + FONT; var lw = c.measureText(it.lab).width + 16; c.fillStyle = "rgba(6,10,26,.85)"; K.rr(c, cx + s * 0.18, base - s * 0.98, lw, 22, 11); c.fill(); K.txt(c, it.lab, cx + s * 0.18 + lw / 2, base - s * 0.98 + 11, "#ffc23d", 13, "center", 800); }
+    if (it.badge) badge(c, cx - s * 0.3, base - s * 0.9, s, it.badge, t + i);
+    priceTag(c, cx, base + 22, Math.min(cw - 10, 150), it);
+  });
+}
+function receiptH(rc, h) { var rows = 2 + rc.lines.length + (rc.total != null ? 1 : 0) + (rc.paid ? 1 : 0) + (rc.change ? 1 : 0), lh = Math.min(24, (h - 22) / (rows + 0.4)); return Math.min(h, lh * (rows + 0.4) + 18); }
+function sign(c, w) { // «misol narxlar» belgisi
+  var s2 = "🏷️ Misol narxlar — mashq uchun"; c.font = "700 11.5px " + FONT; var tw = c.measureText(s2).width + 20;
+  c.fillStyle = "rgba(6,10,26,.7)"; K.rr(c, w / 2 - tw / 2, 4, tw, 20, 10); c.fill(); K.txt(c, s2, w / 2, 14, "#cfd8ef", 11.5, "center", 700);
+}
+function receipt(c, x, y, w, h, rc) {
+  var rows = 2 + rc.lines.length + (rc.total != null ? 1 : 0) + (rc.paid ? 1 : 0) + (rc.change ? 1 : 0);
+  var lh = Math.min(24, (h - 22) / (rows + 0.4)), hh = Math.min(h, lh * (rows + 0.4) + 18), fs = Math.max(9, Math.min(13.5, lh * 0.58));
+  c.save(); c.shadowColor = "rgba(0,0,0,.45)"; c.shadowBlur = 12; c.shadowOffsetY = 4; c.fillStyle = "#fdfdfb";
+  c.beginPath(); c.moveTo(x, y); c.lineTo(x + w, y); c.lineTo(x + w, y + hh - 5);
+  var nz = Math.max(6, Math.round(w / 12)), st = w / nz; for (var i = nz; i > 0; i--) { c.lineTo(x + (i - 0.5) * st, y + hh); c.lineTo(x + (i - 1) * st, y + hh - 5); }
+  c.closePath(); c.fill(); c.restore();
+  var yy = y + 8 + lh / 2, mono = "#22252e";
+  fitTxt(c, "🧾 CHEK", x + w / 2, yy, w - 12, mono, fs * 1.1, "center", 800); yy += lh * 0.85;
+  fitTxt(c, "misol narxlar, so'm", x + w / 2, yy, w - 12, "#8a8f9c", fs * 0.82, "center", 600); yy += lh;
+  function dash(yl) { c.strokeStyle = "rgba(0,0,0,.25)"; c.setLineDash([3, 3]); c.beginPath(); c.moveTo(x + 8, yl); c.lineTo(x + w - 8, yl); c.stroke(); c.setLineDash([]); }
+  dash(yy - lh / 2);
+  rc.lines.forEach(function (l) {
+    fitTxt(c, l[0], x + 8, yy, w * 0.66, mono, fs * 0.92, "left", 700);
+    fitTxt(c, l[1], x + w - 8, yy, w * 0.32, l[1] === "?" ? "#d9480f" : mono, fs, "right", 800); yy += lh;
+  });
+  dash(yy - lh / 2);
+  function row(lab, v, col) { fitTxt(c, lab, x + 8, yy, w * 0.45, mono, fs, "left", 800); fitTxt(c, v, x + w - 8, yy, w * 0.52, v === "?" ? "#d9480f" : col || mono, fs * 1.05, "right", 800); yy += lh; }
+  if (rc.total != null) row("JAMI", rc.total);
+  if (rc.paid) row("Berildi", rc.paid, "#1f7a4d");
+  if (rc.change) row("Qaytim", rc.change);
+}
+function offers(c, x, y, w, h, O, t) {
+  var boxes = []; if (O.a) boxes.push(["A", O.a, "#35f0c4"]); if (O.b) boxes.push(["B", O.b, "#ff5e8e"]);
+  var bh = Math.min(64, (h - 10 * (boxes.length - 1)) / boxes.length);
+  boxes.forEach(function (b, i) {
+    var by = y + i * (bh + 10);
+    c.fillStyle = "rgba(6,10,26,.8)"; K.rr(c, x, by, w, bh, 14); c.fill(); c.strokeStyle = b[2]; c.lineWidth = 2; K.rr(c, x + 1, by + 1, w - 2, bh - 2, 13); c.stroke();
+    fitTxt(c, "Do'kon " + b[0], x + 12, by + 16, w - 24, b[2], 12, "left", 800);
+    fitTxt(c, b[1], x + 12, by + bh - 20, w - 24, "#f3f5ff", 17, "left", 800);
+  });
+  // savat: n ta mahsulot, har 3-si «bepul»
+  if (O.a) {
+    var n = O.n, s = Math.min(22, (w - 10) / n), sx = x + w - n * s - 8;
+    for (var k = 0; k < n; k++) { var fr = (k + 1) % 3 === 0; c.fillStyle = fr ? "#35f0c4" : "rgba(243,245,255,.55)"; c.beginPath(); c.arc(sx + k * s + s / 2, y + 16, s * 0.34, 0, 6.283); c.fill(); }
+  }
+}
+function planGrid(c, x, y, w, h, Pn, t) {
+  var cells = Pn.n + (Pn.first ? 1 : 0), cols = Math.min(cells, w < 300 ? 6 : 8), rows = Math.ceil(cells / cols), cw = (w - 8) / cols, ch = Math.min(40, (h - 46) / rows);
+  fitTxt(c, "📆 Muddatli to'lov jadvali", x + w / 2, y + 12, w - 10, "#cfd8ef", 13, "center", 800);
+  for (var i = 0; i < cells; i++) {
+    var cx = x + 4 + (i % cols) * cw, cy = y + 28 + Math.floor(i / cols) * ch, isF = Pn.first && i === 0, show = i < Math.ceil(cells * Math.min(1, pop * 1.4));
+    c.fillStyle = isF ? "rgba(255,194,61,.25)" : "rgba(53,240,196,.14)"; K.rr(c, cx + 2, cy + 2, cw - 4, ch - 4, 7); c.fill();
+    if (show) fitTxt(c, isF ? "boshl." : (i + (Pn.first ? 0 : 1)) + "-oy", cx + cw / 2, cy + ch / 2, cw - 8, isF ? "#ffc23d" : "#93a3cc", 11, "center", 700);
+  }
+  var by = y + 28 + rows * ch + 6;
+  c.fillStyle = "#ffc23d"; c.font = "800 14px " + FONT;
+  var lab = (Pn.first ? nf(Pn.first) + " + " : "") + Pn.n + " × " + nf(Pn.m) + " · " + Pn.ask;
+  var lw = Math.min(w - 6, c.measureText(lab).width + 22);
+  K.rr(c, x + w / 2 - lw / 2, by, lw, 26, 13); c.fill();
+  fitTxt(c, lab, x + w / 2, by + 13, lw - 14, "#1a1300", 14, "center", 800);
+}
+function bgDraw(c, w, h) {
+  var g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "#22184a"); g.addColorStop(1, "#121a3c"); c.fillStyle = g; c.fillRect(0, 0, w, h);
+  // vitrina chiroqlari
+  for (var i = 0; i < 6; i++) { var lx = (i + 0.5) * w / 6; var rg = c.createRadialGradient(lx, 0, 2, lx, 0, 70); rg.addColorStop(0, "rgba(255,230,160,.18)"); rg.addColorStop(1, "rgba(255,230,160,0)"); c.fillStyle = rg; c.fillRect(lx - 70, 0, 140, 70); }
+}
+var S = K.stage({
+  label: "Do'kon peshtaxtasi: mahsulotlar, narx yorliqlari, aksiya belgilari, chek yoki muddatli to'lov jadvali. Savol uchun kerakli barcha sonlar savol matnida ham yozilgan.",
+  ratio: 0.52, minH: 360, maxH: 420,
+  draw: function (c, w, h, dt, t) {
+    pop = Math.min(1.2, pop + dt * 1.5);
+    bgDraw(c, w, h);
+    var s = CUR && CUR.sc ? CUR.sc : { items: [tag(WEAR[2], { price: 360000, old: 450000, badge: "−20 %" }), tag(FOOD[1], { price: 13000 }), tag(TECH[0], { price: 2400000, lab: "naqd" })] };
+    var side = s.rc || s.plan || s.offers, wide = w >= 620;
+    sign(c, w);
+    if (!side) { shelf(c, 8, 22, w - 16, h - 30, s.items, t); return; }
+    if (wide) {
+      var sw = w * 0.5;
+      shelf(c, 8, 10, sw - 8, h - 20, s.items, t);
+      if (s.rc) { var rh2 = receiptH(s.rc, h - 34); receipt(c, sw + 20, 26 + (h - 34 - rh2) / 2, Math.min(280, w - sw - 36), rh2, s.rc); }
+      else if (s.plan) planGrid(c, sw + 10, 20, w - sw - 22, h - 30, s.plan, t);
+      else offers(c, sw + 20, h / 2 - 70, w - sw - 40, 140, s.offers, t);
+    } else if (s.rc) {
+      var rw = Math.round(w * 0.56), rh = receiptH(s.rc, h - 34), ry = 26 + (h - 34 - rh) / 2;
+      receipt(c, 8, ry, rw, rh, s.rc);
+      shelf(c, rw + 12, ry + 4, w - rw - 18, Math.min(h * 0.62, rh + 40), s.items.slice(0, 1), t);
+    } else {
+      shelf(c, 8, 16, w - 16, h * 0.56, s.items, t);
+      if (s.plan) planGrid(c, 8, h * 0.6, w - 16, h * 0.4 - 6, s.plan, t);
+      else offers(c, 12, h * 0.62, w - 24, h * 0.38 - 10, s.offers, t);
+    }
+  }
+});
+
+var G = K.game({
+  id: "dokon", title: "Do'konda aqlli xarid", barTitle: "DO'KON · CHEGIRMA VA NARX",
+  intro: "Qaysi taklif haqiqatan arzon? Chegirma, qaytim, kilogramm narxi va muddatli to'lovni hisoblang. Narxlar — mashq uchun misol.",
+  resultTopic: "Hayotiy hisob: Do'konda aqlli xarid", coinWhy: "Hayotiy hisob: Do'konda aqlli xarid",
+  mount: "game", scene: S.cv, rounds: 10, timeLimit: 150,
+  gen: gen,
+  onQuestion: function (q) {
+    CUR = q; pop = 0;
+    if (q.input === "opts" && typeof q.a === "string") Array.prototype.forEach.call(document.querySelectorAll("#game .km-opt"), function (b) { b.classList.add("txt"); });
+  },
+  onEnd: function () { CUR = null; }
+});
+window.kaDokon = { game: G, gen: gen };
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
