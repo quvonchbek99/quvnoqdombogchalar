@@ -975,5 +975,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Ovchi kaptarning chiroyli ekanini ko'rib, uni asrashni xohlagani uchun", "Chumoli ovchining oyog'ini chaqib, uning e'tiborini chalg'itgani uchun", "Ovchi kaptar bilan do'st bo'lishni xohlagani uchun"],
     javob: 1,
     izoh: "Chumoli kaptarga qilgan yaxshiligini shu tarzda qaytardi: u ovchining e'tiborini chalg'itib, kaptarni xavfdan qutqardi. Yaxshilik ko'pincha kutilmagan joydan qaytib keladi."
+  },
+  {
+    id: "ez-123", mavzu: "ochko'zlik", sarlavha: "It va uning soyasi",
+    matn: "It qassobxonadan katta go'sht bo'lagini tishlab olib, ko'prik orqali uyiga qaytayotgan edi. Suvda o'z aksini ko'rib, unga boshqa it ham katta go'sht ko'tarib kelayotgandek tuyuldi. Ko'proq olish uchun og'zidagi go'shtni tashlab, aksga tashlandi, lekin suvga sakrab tushdi.",
+    savol: "It nima uchun o'z go'shtini yo'qotdi?",
+    variantlar: ["Chunki u bor go'shtni tashlab, suvdagi aks uchun ko'proq olishga urindi", "Chunki ko'prik juda tor edi va go'sht suvga tushib ketdi", "Chunki boshqa it uni ko'rib, go'shtini tortib oldi"],
+    javob: 0,
+    izoh: "It mavjud go'shtdan voz kechib, yo'q narsani qo'lga kiritmoqchi bo'ldi va ikkalasini ham yo'qotdi. Ochko'zlik ko'pincha bor narsani ham yo'qotishga olib keladi."
   }
 ];
