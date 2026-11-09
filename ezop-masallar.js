@@ -991,5 +991,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki sham endi kuchliroq yondi", "Chunki shamolning alangaga yetib borish yo'li to'sildi", "Chunki Ali shamni kitobdan uzoqroqqa qo'ydi"],
     javob: 1,
     izoh: "Alangani o'chirgan narsa shamol edi. Deraza yopilgach, shamol sham oldiga yetib kelolmadi. Sababni bartaraf etish natijani o'zgartirishning eng oddiy yo'lidir."
+  },
+  {
+    id: "ez-125", mavzu: "mantiq", sarlavha: "Qumursqa va barg",
+    matn: "Yozning issiq kunlarida qumursqa ariq bo'yida oziq izlab yurardi. Tuyqusdan oyog'i sirg'alib, suvga tushib ketdi. Oqim uni tez olib ketayotgan edi, u bor kuchi bilan yaqin atrofdagi barg tomon intildi. Barg suvda suzib yurgan edi, qumursqa unga chiqib oldi va oqim bo'ylab sokin sohilga yetib keldi.",
+    savol: "Qumursqa qanday qilib suvdan omon qutuldi?",
+    variantlar: ["U suvda suzib yurgan bargga chiqib oldi", "U oqimga qarshi suzib, o'zi sohilga chiqdi", "Bir chumoli uni qutqarish uchun suvga sakradi"],
+    javob: 0,
+    izoh: "Qumursqa vaziyatda o'ziga yordam beradigan eng yaqin imkoniyatni tez topdi va unga yopishdi. Xavf paytida aqlli tanlov va tezkorlik omon qolishga yordam beradi."
   }
 ];
