@@ -967,5 +967,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u dengizni ko'rib, uni yoqtirmagani uchun", "Chunki u faqat o'zi ko'rganini haqiqat deb bilgani uchun", "Chunki dengiz quduqdan kichik ekanini bilgani uchun"],
     javob: 1,
     izoh: "Faqat o'zi ko'rganiga ishonish odamni yangi bilimdan mahrum qiladi. Katta dunyoni bilish uchun o'z doirangdan chiqib ko'rish kerak."
+  },
+  {
+    id: "ez-122", mavzu: "mantiq", sarlavha: "Chumoli va kaptar",
+    matn: "Chumoli daryo bo'yida suvga tushib qoldi. Kaptar uni ko'rib, daraxt bargini suvga tashladi va chumoli bargga chiqib qutuldi. Ko'p o'tmay ovchi kaptarni o'qlamoqchi bo'ldi, lekin chumoli ovchining oyog'iga chaqib oldi va ovchi og'riqdan sakrab yubordi.",
+    savol: "Ovchi o'qini otmay qoldi. Buning asosiy sababi nima?",
+    variantlar: ["Ovchi kaptarning chiroyli ekanini ko'rib, uni asrashni xohlagani uchun", "Chumoli ovchining oyog'ini chaqib, uning e'tiborini chalg'itgani uchun", "Ovchi kaptar bilan do'st bo'lishni xohlagani uchun"],
+    javob: 1,
+    izoh: "Chumoli kaptarga qilgan yaxshiligini shu tarzda qaytardi: u ovchining e'tiborini chalg'itib, kaptarni xavfdan qutqardi. Yaxshilik ko'pincha kutilmagan joydan qaytib keladi."
   }
 ];
