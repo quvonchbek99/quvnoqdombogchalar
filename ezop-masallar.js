@@ -999,5 +999,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U suvda suzib yurgan bargga chiqib oldi", "U oqimga qarshi suzib, o'zi sohilga chiqdi", "Bir chumoli uni qutqarish uchun suvga sakradi"],
     javob: 0,
     izoh: "Qumursqa vaziyatda o'ziga yordam beradigan eng yaqin imkoniyatni tez topdi va unga yopishdi. Xavf paytida aqlli tanlov va tezkorlik omon qolishga yordam beradi."
+  },
+  {
+    id: "ez-126", mavzu: "mehnat", sarlavha: "Ikki arra",
+    matn: "Ikki o'tinchi bir xil qalin daraxtni kesish uchun ishga tushdi. Birinchisi har bir tanaffusda arrasini charxlab, tishlarini o'tkirlab turdi. Ikkinchisi esa arrasini hech qachon o'tkirlamadi va ishni kuch bilan davom ettirdi. Quyosh botganda birinchi o'tinchi daraxtning katta qismini kesib bo'lgan edi, ikkinchisi esa hali ham ish o'rtasida qolgan edi.",
+    savol: "Birinchi o'tinchi nega ko'proq ish qildi?",
+    variantlar: ["U arrasini muntazam o'tkirlab turdi", "U ikkinchi o'tinchidan kuchliroq edi", "U daraxtning faqat yo'g'on shoxlarini kesdi"],
+    javob: 0,
+    izoh: "O'tkir arra kam kuch bilan tez kesadi. Vositaga g'amxo'rlik qilish ishni yengillashtiradi va vaqtni tejaydi."
   }
 ];
