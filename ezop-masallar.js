@@ -983,5 +983,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u bor go'shtni tashlab, suvdagi aks uchun ko'proq olishga urindi", "Chunki ko'prik juda tor edi va go'sht suvga tushib ketdi", "Chunki boshqa it uni ko'rib, go'shtini tortib oldi"],
     javob: 0,
     izoh: "It mavjud go'shtdan voz kechib, yo'q narsani qo'lga kiritmoqchi bo'ldi va ikkalasini ham yo'qotdi. Ochko'zlik ko'pincha bor narsani ham yo'qotishga olib keladi."
+  },
+  {
+    id: "ez-124", mavzu: "mantiq", sarlavha: "Shamol va sham",
+    matn: "Qorong'i kecha edi. Ali uyida sham yorug'ida kitob o'qiyotgan edi. Deraza ochiq bo'lgani uchun tashqaridan esgan shamol sham alangasini bir necha marta o'chirib yubordi. Ali bu safar derazani sekin yopdi va shamni qayta yoqdi. Endi alanga tinch yonardi, kitob sahifalari ham titramasdi.",
+    savol: "Shamning alangasi nega endi o'chmadi?",
+    variantlar: ["Chunki sham endi kuchliroq yondi", "Chunki shamolning alangaga yetib borish yo'li to'sildi", "Chunki Ali shamni kitobdan uzoqroqqa qo'ydi"],
+    javob: 1,
+    izoh: "Alangani o'chirgan narsa shamol edi. Deraza yopilgach, shamol sham oldiga yetib kelolmadi. Sababni bartaraf etish natijani o'zgartirishning eng oddiy yo'lidir."
   }
 ];
