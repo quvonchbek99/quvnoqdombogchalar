@@ -10,10 +10,14 @@
  *  havola   — ixtiyoriy: Instagram/Telegram/sayt havolasi (bosilsa ochiladi)
  *  xabar    — ixtiyoriy: qisqa fikri
  *  sana     — "2026-10-17" ko'rinishida
+ *  oila     — true bo'lsa: ro'yxat tepasida ❤️ bilan alohida turadi (medal, jami summa va "Top homiylar"ga kirmaydi)
+ *  matn     — ixtiyoriy: summa o'rnida ko'rsatiladigan yozuv (masalan "♾ cheksiz")
  *  Reyting avtomatik: summa bo'yicha, teng bo'lsa — sanasi bo'yicha.
  *  ===========================================================================
  */
 window.HOMIYLAR = [
+  { ism: "My mom", oila: true, matn: "444 mln so'm", xabar: "Cheksiz mehr" },
+  { ism: "My dad", oila: true, matn: "♾ cheksiz", xabar: "Cheksiz mehr va boylik — 2012-yil 12-aprelgacha" },
   // { ism: "Aliyev Vali", summa: 50000, havola: "https://instagram.com/…", xabar: "Zo'r loyiha!", sana: "2026-10-17" },
   // { ism: "@matematik_uz", summa: 0, havola: "https://t.me/…", xabar: "Kanalda ulashdim", sana: "2026-10-16" },
   { ism: "Hamroyev Ibrohim", summa: 100000, sana: "2026-11-10" },
@@ -26,7 +30,8 @@ window.HOMIYLAR = [
   var H = (window.HOMIYLAR || []).filter(function (h) { return h && h.ism; });
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function fmt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
-  function rank() { return H.slice().sort(function (a, b) { return (b.summa || 0) - (a.summa || 0) || String(b.sana || "").localeCompare(String(a.sana || "")); }); }
+  function oila() { return H.filter(function (h) { return h.oila; }); }
+  function rank() { return H.filter(function (h) { return !h.oila; }).sort(function (a, b) { return (b.summa || 0) - (a.summa || 0) || String(b.sana || "").localeCompare(String(a.sana || "")); }); }
   function kofe(s) { return s >= 10000 ? "☕".repeat(Math.min(5, Math.round(s / 50000) || 1)) : "🔗"; }
   function daraja(s) { return s >= 500000 ? "💎 Oltin homiy" : s >= 150000 ? "🥇 Katta homiy" : s >= 50000 ? "🥈 Homiy" : s > 0 ? "🥉 Do'st" : "🔗 Ulashgan"; }
 
@@ -55,6 +60,8 @@ window.HOMIYLAR = [
     ".hm-row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:#0e1628;border:1px solid #243252;border-radius:14px;padding:12px 14px;color:#eef2ff;transition:transform .2s,border-color .2s}",
     ".hm-row:hover{transform:translateX(4px);border-color:#5ee6c7}",
     ".hm-row.top1{background:linear-gradient(135deg,rgba(255,212,121,.18),#0e1628);border-color:#ffd479}",
+    ".hm-row.oila{background:linear-gradient(135deg,rgba(255,122,154,.20),#0e1628);border-color:#ff7a9a}",
+    ".oila .hm-n{background:#ff7a9a;color:#fff;font-size:20px}.oila .hm-amt{color:#ffb3c4}",
     ".hm-row.top2{border-color:#c0c7d6}.hm-row.top3{border-color:#d08a4a}",
     ".hm-n{width:44px;height:44px;border-radius:50%;background:#1a2540;display:flex;align-items:center;justify-content:center;font:900 16px/1 inherit;color:#9fb0d0}",
     ".top1 .hm-n{background:#ffd479;color:#2a1b00;font-size:22px}.top2 .hm-n{background:#c0c7d6;color:#111}.top3 .hm-n{background:#d08a4a;color:#fff}",
@@ -72,18 +79,23 @@ window.HOMIYLAR = [
   document.head.appendChild(css);
 
   function statsHTML() {
-    if (!H.length) return "";
-    var tot = H.reduce(function (s, h) { return s + (+h.summa || 0); }, 0), n = H.length, links = H.filter(function (h) { return !h.summa; }).length;
+    var D = rank();
+    if (!D.length) return "";
+    var tot = D.reduce(function (s, h) { return s + (+h.summa || 0); }, 0), n = D.length, links = D.filter(function (h) { return !h.summa; }).length;
     return '<div class="hm-stats"><div><b>' + n + '</b><small>homiy</small></div><div><b>' + fmt(tot) + '</b><small>so\'m jami</small></div><div><b>' + Math.max(0, Math.round(tot / 10000)) + '</b><small>piyola kofe</small></div><div><b>' + links + '</b><small>havola bilan</small></div></div>';
   }
   function listHTML(limit) {
-    var R = rank().slice(0, limit || 50);
+    var R = rank().slice(0, limit || 50), O = oila();
+    var oilaHTML = O.map(function (h) {
+      return '<li class="hm-row oila"><div class="hm-n">❤️</div><div class="hm-who"><b>' + esc(h.ism) + '</b>' + (h.xabar ? '<small>' + esc(h.xabar) + '</small>' : "") + '</div><div class="hm-amt">' + esc(h.matn || (h.summa ? fmt(h.summa) + " so'm" : "♾")) + '<small>❤️ Oilam</small></div></li>';
+    }).join("");
+    if (!R.length && O.length) return '<ol class="hm-list">' + oilaHTML + '</ol>';
     if (!R.length) return '<div class="hm-empty">Hali homiylar ro\'yxati bo\'sh — birinchi bo\'ling! Kofe uchun hissa qo\'shing yoki saytni ulashib, havolani Telegram\'da (@miir1999) yuboring: ismingiz shu yerda chiqadi.</div>';
-    return '<ol class="hm-list">' + R.map(function (h, i) {
+    return '<ol class="hm-list">' + oilaHTML + R.map(function (h, i) {
       var cls = i === 0 ? "top1" : i === 1 ? "top2" : i === 2 ? "top3" : "", medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : String(i + 1);
       var safe = /^https?:\/\//i.test(String(h.havola || "")) ? String(h.havola) : "";
       var who = safe ? '<a href="' + esc(safe) + '" target="_blank" rel="noopener noreferrer nofollow">' + esc(safe.replace(/^https?:\/\/(www\.)?/, "").slice(0, 36)) + '</a>' : "";
-      return '<li class="hm-row ' + cls + '"><div class="hm-n">' + medal + '</div><div class="hm-who"><b>' + esc(h.ism) + '</b>' + who + (h.xabar ? '<small>“' + esc(h.xabar) + '”</small>' : "") + '</div><div class="hm-amt">' + (h.summa ? fmt(h.summa) + " so'm" : "🔗 havola") + '<small>' + daraja(+h.summa || 0) + " " + kofe(+h.summa || 0) + (h.sana ? " · " + esc(h.sana) : "") + '</small></div></li>';
+      return '<li class="hm-row ' + cls + '"><div class="hm-n">' + medal + '</div><div class="hm-who"><b>' + esc(h.ism) + '</b>' + who + (h.xabar ? '<small>“' + esc(h.xabar) + '”</small>' : "") + '</div><div class="hm-amt">' + (h.matn ? esc(h.matn) : h.summa ? fmt(h.summa) + " so'm" : "🔗 havola") + '<small>' + daraja(+h.summa || 0) + " " + kofe(+h.summa || 0) + (h.sana ? " · " + esc(h.sana) : "") + '</small></div></li>';
     }).join("") + "</ol>";
   }
   window.kaHomiylar = { stats: statsHTML, list: listHTML, data: H };
