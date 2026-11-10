@@ -329,6 +329,15 @@
   }
   function askNew0(ctx) {
     var st = ctx.st, m = ctx.mode, it;
+    if (m === "xato") {
+      var L0 = (ctx.xato || []).slice().sort(function (a, b) { return (b.n || 1) - (a.n || 1) || a.ts - b.ts; }), x = null;
+      for (var xi = 0; xi < L0.length; xi++) if (L0[xi].id !== st.lastX || L0.length === 1) { x = L0[xi]; break; }
+      if (!x) { st.cur = null; return ""; }
+      st.lastX = x.id; st.tries = 0;
+      if (x.o && x.o.length >= 2 && x.o.indexOf(x.a) >= 0) { var o2 = shuffle(x.o); st.cur = { k: "mc", q: x.q, opts: o2, ci: o2.indexOf(x.a), a: x.a, s: x.s, t: x.t, xid: x.id }; return "Xatolar daftaringdan: " + x.q + " " + o2.map(function (o, i) { return LET[i] + ") " + o; }).join("; ") + "."; }
+      if (parseNum(x.a) != null && /^[\s\d.,\/\-−]+$/.test(x.a)) { st.cur = { k: "num", q: x.q, a: parseNum(x.a), h: x.s || "Avvalgi xatoingni esla.", s: x.a + (x.s ? ". " + x.s : ""), t: x.t, xid: x.id }; return "Xatolar daftaringdan: " + x.q; }
+      st.cur = { k: "tr", q: x.q, a: [x.a], f: bare, lang: "uz", t: x.t, xid: x.id }; return "Xatolar daftaringdan: " + x.q;
+    }
     st.tries = 0;
     if (m === "en") { it = nextItem(st, "en" + band(ctx.sinf), bankFor(ENB, ctx.sinf)); st.cur = { k: "tr", q: it[1], a: it[2], f: enNorm, lang: "en" }; return "Inglizchada qanday deyiladi: «" + it[1] + "»?"; }
     if (m === "ru") { it = nextItem(st, "ru" + band(ctx.sinf), bankFor(RUB, ctx.sinf)); st.cur = { k: "tr", q: it[1], a: it[2], f: bare, lang: "ru" }; return "Ruschada qanday deyiladi: «" + it[1] + "»?"; }
@@ -345,12 +354,14 @@
     ru: "Salom! Men Kuvi. Rus tilini birga mashq qilamiz.",
     math: "Salom! Men Kuvi, matematika ustozingman. Qani, bitta misol!",
     logic: "Salom! Men Kuvi. Miyangni charxlaymiz: mantiqiy masala!",
-    free: "Salom! Men Kuvi, kuvonch.uz ning ovozli ustoziman. Istalgan fandan savol bering yoki yuqoridan rejim tanlang."
+    free: "Salom! Men Kuvi, kuvonch.uz ning ovozli ustoziman. Istalgan fandan savol bering yoki yuqoridan rejim tanlang.",
+    xato: "Salom! Bu — xatolar daftaring. Avval xato qilgan savollaringni qayta yechamiz: har birini ikki marta to'g'ri topsang, daftardan o'chadi."
   };
 
   function start(ctx) {
     ctx.st = ctx.st || {};
-    if (!ctx.name) { ctx.st.askName = 1; ctx.st.cur = null; return { t: INTRO[ctx.mode].replace(/ (Qani|Tarjima|Rus tilini|Miyangni|Savol beraman|Istalgan)[\s\S]*$/, "") + " Avval tanishib olaylik: isming nima?", mood: "happy" }; }
+    if (!ctx.name && ctx.mode !== "xato") { ctx.st.askName = 1; ctx.st.cur = null; return { t: INTRO[ctx.mode].replace(/ (Qani|Tarjima|Rus tilini|Miyangni|Savol beraman|Istalgan)[\s\S]*$/, "") + " Avval tanishib olaylik: isming nima?", mood: "happy" }; }
+    if (ctx.mode === "xato" && !(ctx.xato || []).length) return { t: "Xatolar daftaring hozircha bo'sh — demak xato yo'q, qoyil! Viktorina yoki mashqda xato qilsang, shu yerga yozib qo'yaman va keyin birga tuzatamiz.", mood: "love" };
     var q = askNew(ctx);
     return { t: INTRO[ctx.mode].replace("Salom!", "Salom, " + ctx.name + "!").replace("Hello!", "Hello, " + ctx.name + "!") + (q ? " " + q : ""), mood: "happy", opts: optsOf(ctx.st) };
   }
@@ -365,6 +376,12 @@
     return null;
   }
 
+  // xato bo'lgan savol — «Xatolar daftari» uchun
+  function wr(c, ch) { return { q: c.q, a: c.k === "mc" ? c.a : c.k === "tr" ? c.a[0] : fmt(c.a), o: c.k === "mc" ? c.opts : null, s: c.s || c.h || "", t: c.t || c.tid || "", ch: ch == null ? "bilmadi" : String(ch) }; }
+  function tally(st, ok, c, ch) {
+    st.cnt = (st.cnt || 0) + 1; if (ok) st.okN = (st.okN || 0) + 1;
+    st.log = (st.log || []).concat([{ ok: !!ok, q: c.q, a: c.k === "mc" ? c.a : c.k === "tr" ? c.a[0] : fmt(c.a), ch: ch == null ? "" : String(ch), t: c.t || c.tid || "" }]).slice(-12);
+  }
   function optsOf(st) { return st.cur && st.cur.k === "mc" ? st.cur.opts.map(function (o, i) { return LET[i] + ") " + o; }) : null; }
   function checkAnswer(t, ctx) {
     var st = ctx.st, c = st.cur, nx, nc = ctx.mode === "free" && c.m && c.m !== "free" ? { mode: c.m, sinf: ctx.sinf, st: st, tease: ctx.tease, bank: ctx.bank, name: ctx.name } : ctx;
@@ -374,49 +391,51 @@
       var ch = choiceOf(t, c), right = LET[c.ci] + ") " + c.a;
       if (ch < 0 && isNo(t)) {
         st.tries++;
-        if (isGive(t) || st.tries >= 2) { st.lvl = Math.max(1, (st.lvl || 1) - 1); nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: " + right + "." + (c.s ? " " + c.s.replace(/[.!]+$/, "") + "." : "") + " Keyingisi: " + nx, mood: "think" }; }
+        if (isGive(t) || st.tries >= 2) { st.lvl = Math.max(1, (st.lvl || 1) - 1); tally(st, false, c, null); nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: " + right + "." + (c.s ? " " + c.s.replace(/[.!]+$/, "") + "." : "") + " Keyingisi: " + nx, mood: "think" }; }
         var wrongs = []; for (var z = 0; z < c.opts.length; z++) if (z !== c.ci) wrongs.push(z);
-        var drop = pick(wrongs); return { t: tz(ctx) + "Yordam: " + LET[drop] + " variant noto'g'ri. Qolganlaridan birini tanlang.", mood: "think" };
+        var drop = pick(wrongs); c.bad = 1; return { t: tz(ctx) + "Yordam: " + LET[drop] + " variant noto'g'ri. Qolganlaridan birini tanlang.", mood: "think" };
       }
       if (ch < 0) return { t: "Variantlardan birini ayting: A, B, C yoki D. Bilmasangiz, «bilmayman» deng. " + c.q, mood: "think" };
       if (ch === c.ci) {
+        tally(st, !c.bad, c, c.opts[ch]);
         st.ok = (st.ok || 0) + 1; st.run = (st.run || 0) + 1; if (st.run >= 2) { st.lvl = Math.min(3, (st.lvl || 1) + 1); st.run = 0; }
         nx = askNew(nc);
         return { t: nm(ctx, pick(PRAISE)) + " " + right + ". " + (st.ok % 5 === 0 ? "Ketma-ket " + st.ok + " ta to'g'ri, ofarin! " : "") + "Keyingisi: " + nx, mood: st.ok % 5 === 0 ? "love" : "happy" };
       }
-      st.run = 0; st.lvl = Math.max(1, (st.lvl || 1) - 1);
+      st.run = 0; st.lvl = Math.max(1, (st.lvl || 1) - 1); tally(st, false, c, c.opts[ch]);
       var s3 = c.s; nx = askNew(nc);
       return { t: tz(ctx) + "Afsus, " + LET[ch] + " emas. To'g'ri javob: " + right + "." + (s3 ? " " + s3.replace(/[.!]+$/, "") + "." : "") + " Keyingisi: " + nx, mood: "strict" };
     }
     if (c.k === "num") {
       var v0 = parseNum(t);
       if (v0 != null && !/bilm|билм/.test(norm(t))) { /* javob — pastda tekshiramiz */ }
-      else if (isGive(t)) { var sg = String(c.s).replace(/[.!]+$/, ""); nx = askNew(nc); return { t: "Mayli, aytaman: " + sg + ". Keyingi savol: " + nx, mood: "think" }; }
+      else if (isGive(t)) { var sg = String(c.s).replace(/[.!]+$/, ""); tally(st, false, c, null); nx = askNew(nc); return { t: "Mayli, aytaman: " + sg + ". Keyingi savol: " + nx, mood: "think" }; }
       else if (isNo(t)) {
         st.tries++;
-        if (st.tries >= 2) { var s1 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(nc); return { t: "Mayli, tushuntiraman: " + s1 + ". Keyingi savol: " + nx, mood: "think" }; }
-        return { t: tz(ctx) + "Yordam: " + c.h, mood: "think" };
+        if (st.tries >= 2) { var s1 = String(c.s).replace(/[.!]+$/, ""); tally(st, false, c, null); nx = askNew(nc); return { t: "Mayli, tushuntiraman: " + s1 + ". Keyingi savol: " + nx, mood: "think" }; }
+        c.bad = 1; return { t: tz(ctx) + "Yordam: " + c.h, mood: "think" };
       }
       var v = v0;
       if (v == null) return { t: "Javobni son bilan ayting, yoki «bilmayman» deng — tushuntiraman. Savol: " + c.q, mood: "think" };
       if (Math.abs(v - c.a) < 1e-6 || Math.abs(v - c.a) <= Math.abs(c.a) * 1e-3) {
+        tally(st, !c.bad, c, fmt(v));
         st.ok = (st.ok || 0) + 1; nx = askNew(nc);
         return { t: nm(ctx, pick(PRAISE)) + " " + fmt(v) + ". " + (st.ok % 5 === 0 ? "Ketma-ket " + st.ok + " ta to'g'ri javob, ofarin! " : "") + "Keyingisi: " + nx, mood: st.ok % 5 === 0 ? "love" : "happy" };
       }
       st.tries++;
-      if (st.tries >= 2) { var s2 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
-      return { t: tz(ctx) + pick(WRONG) + " Maslahat: " + c.h, mood: "strict" };
+      if (st.tries >= 2) { var s2 = String(c.s).replace(/[.!]+$/, ""); tally(st, false, c, fmt(v)); nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
+      c.bad = 1; return { t: tz(ctx) + pick(WRONG) + " Maslahat: " + c.h, mood: "strict" };
     }
     if (c.k === "tr") {
-      if (isNo(t)) { var a0 = c.a[0]; nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: \"" + a0 + "\". Takrorlab ko'ring! Keyingisi: " + nx, mood: "think" }; }
+      if (isNo(t)) { var a0 = c.a[0]; tally(st, false, c, null); nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: \"" + a0 + "\". Takrorlab ko'ring! Keyingisi: " + nx, mood: "think" }; }
       if (c.lang === "en" && !/[a-z]/.test(norm(t))) return { t: "Javobni inglizcha ayting. Mikrofon tilini EN ga qo'ying. Savol: «" + c.q + "»", mood: "think" };
       if (c.lang === "ru" && !/[а-я]/.test(norm(t))) return { t: "Javobni ruscha ayting. Mikrofon tilini RU ga qo'ying. Savol: «" + c.q + "»", mood: "think" };
       var sc = bestSim(t, c.a, c.f);
       if (sc < .6 && c.lang === "en") { var gg = grammar(t); if (gg.fixes.length) return { t: "Kichik xato: " + gg.fixes[0] + ". To'g'ri: \"" + gg.fixed + "\". Endi savolimga javob bering: «" + c.q + "»", mood: "strict" }; }
-      if (sc >= .84) { st.ok = (st.ok || 0) + 1; nx = askNew(nc); return { t: nm(ctx, pick(PRAISE)) + (sc < .99 ? " Aniqrog'i: \"" + c.a[0] + "\"." : "") + " Keyingisi: " + nx, mood: "happy" }; }
+      if (sc >= .84) { tally(st, !c.bad, c, t); st.ok = (st.ok || 0) + 1; nx = askNew(nc); return { t: nm(ctx, pick(PRAISE)) + (sc < .99 ? " Aniqrog'i: \"" + c.a[0] + "\"." : "") + " Keyingisi: " + nx, mood: "happy" }; }
       st.tries++;
-      if (sc >= .55 || st.tries >= 2) { var a1 = c.a[0]; nx = askNew(nc); return { t: (sc >= .55 ? "Deyarli! " : "") + "To'g'ri variant: \"" + a1 + "\". Takrorlab qo'ying. Keyingisi: " + nx, mood: sc >= .55 ? "think" : "strict" }; }
-      return { t: tz(ctx) + pick(WRONG) + " «" + c.q + "»", mood: "strict" };
+      if (sc >= .55 || st.tries >= 2) { var a1 = c.a[0]; tally(st, false, c, t); nx = askNew(nc); return { t: (sc >= .55 ? "Deyarli! " : "") + "To'g'ri variant: \"" + a1 + "\". Takrorlab qo'ying. Keyingisi: " + nx, mood: sc >= .55 ? "think" : "strict" }; }
+      c.bad = 1; return { t: tz(ctx) + pick(WRONG) + " «" + c.q + "»", mood: "strict" };
     }
     if (c.k === "ielts") {
       if (!looksEnglish(t)) return { t: "IELTS'da javob inglizcha bo'lishi kerak. Mikrofon tilini EN ga qo'yib, qayta ayting: \"" + c.q + "\"", mood: "strict" };
@@ -450,7 +469,21 @@
       var sn = norm(t);
       for (var f = 0; f < FACTS.length; f++) if (FACTS[f][0].test(sn)) return { t: FACTS[f][1] + " Endi savolga qaytamiz: " + st.cur.q, mood: "happy" };
     }
-    if (st.cur) { var r = checkAnswer(t, ctx); if (r) { if (r.opts === undefined) r.opts = optsOf(st); return r; } }
+    if (st.cur) {
+      var c0 = st.cur, cnt0 = st.cnt || 0, ok0 = st.okN || 0, bad0 = !!c0.bad, r = checkAnswer(t, ctx);
+      if (r) {
+        if (r.opts === undefined) r.opts = optsOf(st);
+        if ((st.cnt || 0) > cnt0) {
+          var okNow = (st.okN || 0) > ok0;
+          if (!okNow && !bad0 && ctx.mode !== "xato") r.wrong = wr(c0, (st.log[st.log.length - 1] || {}).ch);
+          if (c0.xid) r.xhit = { id: c0.xid, ok: okNow };
+          if (st.cnt % 10 === 0) { var lg = st.log.slice(-10), okc = lg.filter(function (x) { return x.ok; }).length; r.summary = { n: lg.length, ok: okc, wrongs: lg.filter(function (x) { return !x.ok; }) }; r.t += " Oxirgi " + lg.length + " ta savoldan " + okc + " tasini to'g'ri topding" + (okc >= 8 ? " — zo'r natija!" : okc >= 5 ? " — yaxshi, lekin hali o'sish bor." : " — keling, xatolar ustida ishlaymiz."); }
+        }
+        if (!bad0 && c0.bad && (st.cnt || 0) === cnt0) { if (ctx.mode !== "xato") r.wrong = wr(c0, t); if (c0.xid) r.xhit = { id: c0.xid, ok: false }; }
+        if (ctx.mode === "xato" && !st.cur && /Keyingisi: $|Keyingi savol: $/.test(r.t)) r.t = r.t.replace(/(Keyingisi|Keyingi savol): $/, "Xatolar daftaring bo'shadi — barchasini tuzatding, qoyil!");
+        return r;
+      }
+    }
     // Erkin inglizcha gap: grammatikani tekshirish
     if ((ctx.mode === "en" || ctx.mode === "free") && looksEnglish(t)) {
       var g = grammar(t);

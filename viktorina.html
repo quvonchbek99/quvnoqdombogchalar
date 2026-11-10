@@ -224,6 +224,9 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 .pv .big{font-size:clamp(56px,18vw,110px);line-height:1}
 .pv .kuvi{width:clamp(96px,30vw,150px)}
 .kvh{flex:0 0 auto;display:flex;align-items:center}
+.kvai{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.06);border:1px solid #2a3a66;border-radius:16px;padding:12px 14px;margin:12px auto;text-align:left;max-width:640px}
+.kvai .kuvi{width:64px;flex:0 0 auto}.kvai p{margin:4px 0 8px;font-size:15px;line-height:1.45}.kvai .btn{display:inline-block;text-decoration:none}
+#pKv{background:none;border:0;font-size:20px;cursor:pointer;padding:4px 8px;color:inherit}
 .kvh .kvr{flex-direction:row;gap:10px;margin:0}
 .kvh .kuvi{width:clamp(56px,6vw,84px)}
 .kvh .kvq{font-size:clamp(13px,1.5vw,18px);max-width:min(46vw,520px);text-align:left}
@@ -581,6 +584,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="ov-top">
 <button type="button" data-a="leave" title="Chiqish" aria-label="Chiqish">✕</button>
 <div class="ttl" id="pTitle">⚡ Viktorina</div>
+<button type="button" id="pKv" title="Kuvi ovozi (telefonda)" aria-label="Kuvi ovozi" aria-pressed="false">🔇</button>
 <span class="pill" id="pScore">0</span>
 </div>
 <div class="ov-body" id="pBody"></div>
@@ -589,7 +593,9 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 
 <script src="ka-tarmoq.js?v=20261110a"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
-<script src="ka-kuvi.js?v=20261110b"></script>
+<script src="ka-kuvi.js?v=20261110d"></script>
+<script src="ka-xato.js?v=20261110a"></script>
+<script src="ka-ai.js?v=20261110a"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
 (function () {
@@ -1801,6 +1807,21 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       .catch(function () { toast("Sertifikatlarni tayyorlab bo'lmadi"); })
       .then(function () { btn.disabled = false; btn.textContent = lbl; });
   }
+  // Viktorina oxirida Kuvi sinf natijasini tahlil qiladi: qaysi savollar qiyin bo'ldi, nimani qayta o'tish kerak
+  function hostAI(qs, order) {
+    var tb = $("#eTbl"); if (!tb || !order.length || !qs.length) return;
+    var box = document.createElement("div"); box.className = "kvai"; box.id = "hAI";
+    box.innerHTML = (window.kaKuvi ? kaKuvi.svg("think") : "") + '<div><b>🤖 Kuvi xulosasi</b><p id="hAIt">Sinf natijasini tahlil qilyapman…</p></div>';
+    tb.parentNode.insertBefore(box, tb.nextSibling);
+    var hard = qs.filter(function (o) { return o.s && o.s.all; }).slice(0, 4), avg = 0;
+    order.forEach(function (p) { avg += p.correct; }); avg = Math.round(avg / order.length * 10) / 10;
+    var off = "O'rtacha natija: " + avg + " / " + H.qs.length + ". " + (hard.length ? "Eng qiyin savol: «" + plain(hard[0].q.q).slice(0, 90) + "» — faqat " + hard[0].pc + "% to'g'ri topdi. Shu mavzuni qayta tushuntirib, yana bir viktorina o'tkazish tavsiya etiladi." : "");
+    function set(t) { var el = $("#hAIt"); if (el) el.textContent = String(t || off).replace(/^\s*\[\w+\]\s*/, "").replace(/[*_#`]+/g, ""); if (cfg.sound && window.kaKuvi) kaKuvi.say(el ? el.textContent : off, "think"); }
+    if (!window.kaAI || !kaAI.text) { set(off); return; }
+    var prompt = "Viktorina: " + H.qs.length + " ta savol, " + order.length + " o'quvchi, o'rtacha " + avg + " ta to'g'ri javob. Eng qiyin savollar:\n" + hard.map(function (o, i) { return (i + 1) + ") " + plain(o.q.q).slice(0, 200) + " — to'g'ri javob: " + plain(o.q.a) + ", " + o.pc + "% to'g'ri topdi (mavzu: " + (TITLE[o.q.tid] || "") + ")"; }).join("\n");
+    var sys = "Sen Kuvi — kuvonch.uz ning AI yordamchisisan va o'qituvchiga gapiryapsan. Sinf natijasini 3 qisqa gapda tahlil qil (oddiy o'zbekcha matn, markdown va emoji yo'q): umumiy daraja, qaysi mavzu/tushunchada sinf qiynaldi va keyingi darsda nimani qayta tushuntirish kerakligi bo'yicha bitta aniq tavsiya.";
+    kaAI.text(prompt, sys).then(set, function () { set(off); });
+  }
   function endGame() {
     if (!H) return;
     clearInterval(H.timer); autoClear();
@@ -1830,6 +1851,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       '<div class="egrow"><label class="sl">Savollar <select id="eCount"><option value="5">5 ta</option><option value="10">10 ta</option><option value="15">15 ta</option><option value="20">20 ta</option><option value="30">30 ta</option></select></label>' +
       '<label class="sl">Daraja <select id="eLvl"><option value="prog">📈 osondan qiyinga</option><option value="1">★ oson</option><option value="2">★★ o\'rta</option><option value="3">★★★ murakkab</option><option value="mix">🔀 aralash</option></select></label>' +
       '<button type="button" class="nextb" id="eGo">▶ Yangi mavzuda boshlash</button></div></section></div>';
+    hostAI(qsHtml, order);
     $("#eAgain").onclick = playAgain;
     $("#eCsv").onclick = downloadCsv;
     $("#eCert").onclick = function () { allCerts(this); };
@@ -2376,6 +2398,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       (m.steps && m.steps.length ? "<ol>" + m.steps.map(function (s) { return "<li>" + safe(s) + "</li>"; }).join("") + "</ol>" : "") + "</div>";
     if (m.ok) { vib([40, 40, 40]); snd("ok"); } else { vib(200); snd("bad"); }
     if (m.tz != null) P.tz = m.tz;
+    if (!m.ok) { var pq = (P.cur && P.cur.i === m.i && P.cur.q) || (P.pack && P.pack.qs && P.pack.qs[m.i] && P.pack.qs[m.i].q) || ""; if (pq) pWrong(m.i, pq, m.a, m.chosen, m.steps); }
     pView(kuviTop(m.ok, m.timeout, m.streak, m.tz) + (m.ok ? '<h2>To\'g\'ri!</h2><div class="pts">+' + m.pts + "</div>" : "<h2>" + (m.timeout ? "Vaqt tugadi" : "Xato") + "</h2>") +
       '<div class="meta"><span>⭐ ' + m.score + "</span><span>🏅 " + m.rank + "-o'rin / " + m.of + "</span>" + (m.streak >= 2 ? "<span>🔥 " + m.streak + " ketma-ket</span>" : "") + "</div>" + exp +
       '<div class="nx" id="pNx" aria-live="polite"></div>', m.ok ? "okv" : "badv");
@@ -2384,7 +2407,43 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   // Kuvi telefonda: to'g'ri bo'lsa maqtaydi, xato bo'lsa (sozlama yoqiq bo'lsa) tegishadi
   function kuviTop(ok, timeout, streak, tz) {
     if (!window.kaKuvi) return '<div class="big">' + (ok ? "✅" : timeout ? "⏰" : "❌") + "</div>";
-    return kaKuvi.react(ok ? "ok" : timeout ? "timeout" : "bad", { tz: tz == null ? (P && P.tz != null ? P.tz : 1) : tz, n: streak }).html;
+    var kr = kaKuvi.react(ok ? "ok" : timeout ? "timeout" : "bad", { tz: tz == null ? (P && P.tz != null ? P.tz : 1) : tz, n: streak });
+    // telefonda Kuvi ovozi yoqilgan bo'lsa: qiz bolaga erkak, o'g'il bolaga ayol ovozida aytadi
+    if (kvOn()) setTimeout(function () { try { kaKuvi.say(kr.text, kr.mood, kaKuvi.voiceFor(kr.mood, kaKuvi.nameG(P && P.name))); } catch (e) {} }, 250);
+    return kr.html;
+  }
+  function kvOn() { try { return localStorage.getItem("ka.viktorina.kv") === "1"; } catch (e) { return false; } }
+  function kvDraw() { var b = $("#pKv"); if (!b) return; var on = kvOn(); b.textContent = on ? "🔊" : "🔇"; b.setAttribute("aria-pressed", String(on)); b.title = on ? "Kuvi ovozi yoqiq" : "Kuvi ovozini yoqish"; }
+  (function () {
+    var b = $("#pKv"); if (!b) return; kvDraw();
+    b.addEventListener("click", function () {
+      var on = !kvOn(); try { localStorage.setItem("ka.viktorina.kv", on ? "1" : "0"); } catch (e) {}
+      kvDraw();
+      try { if (window.kaAI) kaAI.actx(); if (on && window.kaKuvi) kaKuvi.say("Salom! Endi javoblaringga ovoz chiqarib munosabat bildiraman.", "happy", kaKuvi.voiceFor("happy", kaKuvi.nameG(P && P.name))); else if (window.kaKuvi) kaKuvi.stop(); } catch (e) {}
+    });
+  })();
+  // xatolarni yig'amiz: oxirida AI tahlili va «Xatolar daftari» uchun
+  function pWrong(i, q, a, ch, steps) {
+    if (!P) return; P.wrongs = P.wrongs || [];
+    for (var k = 0; k < P.wrongs.length; k++) if (P.wrongs[k].i === i) return;
+    P.wrongs.push({ i: i, q: plain(q || ""), a: plain(a == null ? "" : a), ch: ch == null ? "javob bermadi" : plain(ch), s: (steps || []).slice(0, 3).map(plain).join(". ") });
+  }
+  // Test oxirida: Kuvi xatolarni AI bilan tahlil qilib, izoh va maslahat beradi
+  function kuviEndNote(ok, total, topic) {
+    var W = (P && P.wrongs || []).filter(function (w) { return w.q && w.a; }), body = pBody(), pv = body && body.querySelector(".pv"); if (!pv) return;
+    if (window.kaXato) W.forEach(function (w) { kaXato.add({ q: w.q, a: w.a, ch: w.ch, s: w.s, t: "Viktorina: " + (topic || ""), src: "viktorina" }); });
+    var box = document.createElement("div"); box.className = "kvai";
+    box.innerHTML = (window.kaKuvi ? kaKuvi.svg(W.length ? "think" : "love") : "") + '<div><p id="pAIt">' + (W.length ? "Kuvi xatolaringizni tahlil qilyapti…" : "Barakalla! Birorta ham xato qilmadingiz — siz chempionsiz!") + "</p>" +
+      (W.length ? '<a class="btn" href="ai-ustoz.html?rejim=xato">📒 Xatolar ustida ishlash (' + W.length + ")</a>" : "") + "</div>";
+    pv.appendChild(box);
+    if (!W.length) return;
+    var off = W.length + " ta xato qildingiz. Masalan: «" + W[0].q.slice(0, 80) + "» — to'g'ri javob: " + W[0].a + ". Barcha xatolaringizni «Xatolar daftari»ga yozib qo'ydim — Kuvi bilan tuzatib oling!";
+    function set(t) { var el = $("#pAIt"); if (el) el.textContent = String(t || off).replace(/^\s*\[\w+\]\s*/, "").replace(/[*_#`]+/g, ""); if (kvOn() && window.kaKuvi) kaKuvi.say(el ? el.textContent : off, "think", kaKuvi.voiceFor("think", kaKuvi.nameG(P && P.name))); }
+    if (!window.kaAI || !kaAI.text) { set(off); return; }
+    var prompt = "O'quvchi viktorinada " + total + " ta savoldan " + ok + " tasiga to'g'ri javob berdi. Xatolari:\n" + W.slice(0, 8).map(function (w, i) { return (i + 1) + ") " + w.q.slice(0, 200) + " — to'g'ri javob: " + w.a + "; o'quvchi javobi: " + w.ch; }).join("\n");
+    var sys = "Sen Kuvi — kuvonch.uz ning mehribon AI ustozisan. O'quvchining xatolarini tahlil qil: 2–3 qisqa gap, oddiy o'zbekcha matn (markdown, emoji, ro'yxat yo'q). Qaysi mavzuda qiynalayotganini, nima uchun adashgan bo'lishi mumkinligini ayt va bitta aniq maslahat ber. Biroz maqta va ruhlantir.";
+    // butun sinf bir vaqtda so'ramasin — biroz kechiktirib yuboramiz
+    setTimeout(function () { kaAI.text(prompt, sys).then(set, function () { set(off); }); }, Math.floor(Math.random() * 6000));
   }
   // "Keyingi savol: 9 s" — o'qituvchi avtomatik rejimda bo'lsa
   function pNext(m) {
@@ -2419,6 +2478,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       (wasSolo ? '<p class="solonote">📴 Aloqa uzilgan paytdagi javoblaringiz ham hisobga olindi</p>' : "") +
       "<p>O'qituvchi yana boshlasa — shu yerda qoling.</p>", "endv", true);
     pCert(m);
+    kuviEndNote(m.correct, m.total, m.topic);
   }
   /* o'quvchiga sertifikat: rasm ko'rinishi + PDF yuklab olish / ulashish */
   function pCert(m) {
@@ -2583,6 +2643,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     pScore(S0.score);
     if (ok) { vib([40, 40, 40]); snd("ok"); } else { vib(200); snd("bad"); }
     var last = i >= S0.n - 1, chosen = a.j >= 0 ? q.o[a.j] : null;
+    if (!ok) pWrong(i, q.q, k.a, chosen, k.st);
     var exp = ok ? "" : '<div class="exp"><div class="xa">✅ To\'g\'ri javob: ' + safe(k.a) + "</div>" + (chosen != null ? '<div style="color:#ff9c9c">❌ Siz tanladingiz: ' + safe(chosen) + "</div>" : "") +
       (k.st && k.st.length ? "<ol>" + k.st.map(function (s) { return "<li>" + safe(s) + "</li>"; }).join("") + "</ol>" : "") + "</div>";
     pView(kuviTop(ok, a.j < 0, S0.streak, null) + (ok ? '<h2>To\'g\'ri!</h2><div class="pts">+' + pts + "</div>" : "<h2>" + (a.j < 0 ? "Vaqt tugadi" : "Xato") + "</h2>") +
@@ -2612,6 +2673,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       '<div class="cert" id="pCert"><div class="spin"></div><p class="note">📜 Sertifikatingiz tayyorlanmoqda…</p></div>' +
       '<p class="solonote">📴 O\'qituvchi ekrani bilan aloqa uzilgan paytda telefoningizda yakunlandi. Aloqa tiklansa — javoblaringiz o\'qituvchiga yuboriladi va umumiy reytingdagi o\'rningiz shu yerda chiqadi.</p>', "endv", true);
     pCert({ cert: d, topic: d.topic, rank: null, of: null, correct: S0.correct, total: S0.n, score: S0.score });
+    kuviEndNote(S0.correct, S0.n, S0.topic);
   }
   // o'qituvchi ekrani 25 soniya sado bermasa — mustaqil rejimni taklif qilamiz
   setInterval(function () {

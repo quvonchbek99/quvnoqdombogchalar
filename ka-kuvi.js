@@ -109,9 +109,39 @@
     var A = { a: "а", b: "б", d: "д", e: "е", f: "ф", g: "г", h: "х", i: "и", j: "дж", k: "к", l: "л", m: "м", n: "н", o: "о", p: "п", q: "к", r: "р", s: "с", t: "т", u: "у", v: "в", x: "х", y: "й", z: "з", c: "к", w: "в", "'": "" };
     return s.replace(/[a-z']/g, function (c) { return A[c] != null ? A[c] : c; });
   }
-  // O'zbekcha matnni kayfiyatga mos ovozda o'qiydi (o'zbek ovozi bo'lmasa turkcha, keyin ruscha ovoz bilan)
+  // O'quvchi ismidan jinsini taxmin qilish (sozlamada qo'lda tanlash ham mumkin)
+  var GIRL = /^(nilufar|mohinur|gulnoz|sevinch|shahlo|oydin|zuxro|zuhro|nigor|dildor|malak|sabo|mehrangiz|ruxsor|nargiz|shirin|oygul|guli|mohigul|marhabo|muattar|hilola|lobar|dilrabo|go'zal|gozal|munis|ra'no|rano|zilola)$/;
+  var BOYA = /^(musa|hamza|isa|mustafa|yahya|ota|zakariya|murtaza|mirza)$/;
+  function nameG(full) {
+    var w = String(full || "").trim().toLowerCase().replace(/[ʻʼ‘’`]/g, "'").split(/\s+/), n = w.length > 1 && /(ov|ev|ova|eva|yev|yeva|iy)$/.test(w[0]) ? w[1] : w[0];
+    n = String(n || "").replace(/jon$/, ""); if (n.length < 2) return "";
+    if (GIRL.test(n)) return "girl"; if (BOYA.test(n)) return "boy";
+    if (/(a|oy|gul|niso|bonu|bibi|lo|noz|xol)$/.test(n) || /[аяе]$/.test(n)) return "girl";
+    return "boy";
+  }
+  // Qiz bolaga — erkak ovozi, o'g'il bolaga — ayol ovozi (jahli chiqqanda — erkak); noma'lum bo'lsa kayfiyatga qarab
+  function voiceFor(mood, sg) {
+    var c = {}; try { c = JSON.parse(localStorage.getItem("ka.ustoz.cfg") || "{}") || {}; } catch (e) {}
+    if (c.vg === "f" || c.vg === "m") return c.vg;
+    if (sg === "girl") return "m";
+    if (sg === "boy") return mood === "strict" || mood === "jealous" ? "m" : "f";
+    return (PROS[mood] || PROS.neutral).g;
+  }
+  function vsrc() { try { return (JSON.parse(localStorage.getItem("ka.ustoz.cfg") || "{}") || {}).vsrc || "auto"; } catch (e) { return "auto"; } }
+  // O'zbekcha matnni kayfiyatga mos ovozda o'qiydi: qurilmada o'zbek ovozi bo'lmasa — Gemini bulut ovozi (ka-ai.js),
+  // u ham bo'lmasa — turkcha yoki ruscha qurilma ovozi bilan
   var lastCancel = 0;
   function say(text, mood, pref, onend) {
+    if (!text) { if (onend) onend(); return; }
+    var src = vsrc(), sy = window.speechSynthesis, pr0 = pros(mood, pref);
+    if (window.kaAI && kaAI.usable() && src !== "device" && (src === "cloud" || !voice("uz", pr0.g))) {
+      try { if (sy) sy.cancel(); } catch (e) {}
+      kaAI.speak(String(text).replace(/[«»]/g, ""), mood, pr0.g).then(function () { if (onend) onend(); }, function () { deviceSay(text, mood, pref, onend); });
+      return;
+    }
+    deviceSay(text, mood, pref, onend);
+  }
+  function deviceSay(text, mood, pref, onend) {
     var sy = window.speechSynthesis; if (!sy || !text) { if (onend) onend(); return; }
     var pr = pros(mood, pref), t = String(text).replace(/[«»“”"]/g, ""), v = voice("uz", pr.g);
     if (!v) { v = voice("tr", pr.g); if (v) t = toTr(t); else { v = voice("ru", pr.g); if (v) t = toCyr(t); } }
@@ -141,5 +171,5 @@
     "@media (prefers-reduced-motion:reduce){.kuvi .kvo,.kuvi .kvb,.kuvi .kvf path{animation:none}}";
   try { var st = document.createElement("style"); st.id = "ka-kuvi-css"; st.appendChild(document.createTextNode(css)); (document.head || document.documentElement).appendChild(st); } catch (e) {}
 
-  window.kaKuvi = { svg: svg, react: react, tease: tease, lines: L, moods: M, voice: voice, pros: pros, say: say, gender: gOf };
+  window.kaKuvi = { svg: svg, react: react, tease: tease, lines: L, moods: M, voice: voice, pros: pros, say: say, gender: gOf, nameG: nameG, voiceFor: voiceFor, stop: function () { try { if (window.kaAI) kaAI.stop(); if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} } };
 })();

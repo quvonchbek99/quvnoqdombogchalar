@@ -154,3 +154,14 @@
 
   window.kaFasl = { oy: oy, kun: kun, fasl: FASL, bayram: B ? B[1] : null, ranglar: O.slice(1, 4) };
 })();
+
+/* Kuvi — ovozli AI ustoz tugmasi (butun sayt): ka-kuvi-fab.js ni ulaymiz */
+(function () {
+  try {
+    if (window.__kaKuviFabL) return; window.__kaKuviFabL = 1;
+    var me = document.currentScript && document.currentScript.src;
+    if (!me) { var ss = document.querySelectorAll('script[src*="statistika.js"],script[src*="ka-fasl.js"]'); me = ss.length ? ss[ss.length - 1].src : ""; }
+    var s = document.createElement("script"); s.src = (me ? me.replace(/[^\/]*(\?.*)?$/, "") : "/") + "ka-kuvi-fab.js?v=20261110a"; s.async = true;
+    (document.head || document.documentElement).appendChild(s);
+  } catch (e) {}
+})();

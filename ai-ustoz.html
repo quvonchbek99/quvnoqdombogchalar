@@ -133,6 +133,8 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 .toast{position:fixed;left:50%;bottom:calc(120px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:14px;font-size:14px;font-weight:600;z-index:3000;transition:.25s;pointer-events:none;max-width:calc(100vw - 32px);text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%)}
 .grecaptcha-badge{visibility:hidden}
+.embed .top{padding:10px 58px 2px 12px;justify-content:flex-start}.embed .top h1{display:none}
+.embed .acc-fixed,.embed .kd-pill,.embed .kd-toast,.embed .acc-toast{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:760px){.top{padding:54px 12px 2px}.top h1{font-size:14px}}
 @media (max-width:420px){.top h1{display:none}.top{justify-content:flex-end}.ib{min-width:40px;height:40px;padding:0 8px}}
@@ -204,6 +206,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
     <button type="button" data-q="Keyingi savol">⏭ Keyingi</button>
     <button type="button" data-q="Menga mashq bering">🎯 Mashq</button>
     <button type="button" data-rep="1">🔁 Takrorla</button>
+    <button type="button" data-sum="1">📊 Natija</button>
   </div>
 </main>
 
@@ -245,6 +248,12 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <div class="row"><button class="ib" type="button" data-th="">Avto</button><button class="ib" type="button" data-th="light">☀️ Yorug'</button><button class="ib" type="button" data-th="dark">🌙 Tungi</button></div>
 </div></div>
 
+<div class="sheet" id="sVoice" role="dialog" aria-modal="true" aria-labelledby="vH"><div class="in">
+  <h2 id="vH">🔊 Eng yaxshi ovozni yoqaymi?</h2>
+  <p>Telefoningizda (brauzeringizda) o'zbekcha ovoz topilmadi, shuning uchun Kuvi robotga o'xshab gapiryapti. Eng tabiiy ovoz — <b>Kuvi bulut ovozi (Gemini)</b>: ayol va erkak ovozi, kayfiyatga qarab o'zgaradi. Qiz bolaga erkak, o'g'il bolaga ayol ovozida gapiradi. Internet ishlatadi.</p>
+  <div class="row"><button class="go" type="button" id="vYes" style="margin:0">✅ Ha, yoqing</button><button class="ib" type="button" id="vNo">Yo'q, telefon ovozi</button></div>
+  <p class="note">Telefonning o'z ovozini yaxshilash: Android — <b>Sozlamalar → Til va kiritish → Matnni nutqqa o'girish → Google → ovoz ma'lumotlarini o'rnatish</b>. Kompyuterda eng yaxshi o'zbekcha ovoz — <b>Microsoft Edge</b> brauzerida.</p>
+</div></div>
 <div class="sheet" id="sHist" role="dialog" aria-modal="true" aria-labelledby="histH"><div class="in">
   <h2 id="histH">📜 Suhbat tarixi <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
   <div class="hist" id="histL"></div>
@@ -252,8 +261,10 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 </div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="ka-kuvi.js?v=20261110c"></script>
-<script src="ka-ustoz-bilim.js?v=20261110m"></script>
+<script src="ka-kuvi.js?v=20261110d"></script>
+<script src="ka-xato.js?v=20261110a"></script>
+<script src="ka-ai.js?v=20261110a"></script>
+<script src="ka-ustoz-bilim.js?v=20261110n"></script>
 <script>
 (function () {
 "use strict";
@@ -269,13 +280,16 @@ var Q = new URLSearchParams(location.search);
 var C = Object.assign({ mode: "free", sinf: "7", voice: true, rate: 1, engine: "auto", mic: "auto", auto: false, tease: true, vg: "auto", fan: "mix", name: "", sg: "", vsrc: "auto", theme: "" }, lsGet(LS_CFG, {}) || {});
 var MODES = {
   en: { n: "Ingliz tili", ic: "🇬🇧", mic: "en-US" }, ielts: { n: "IELTS speaking", ic: "🎤", mic: "en-US" }, ru: { n: "Rus tili", ic: "🇷🇺", mic: "ru-RU" },
-  math: { n: "Matematika", ic: "➗", mic: "uz-UZ" }, logic: { n: "Mantiq", ic: "🧩", mic: "uz-UZ" }, free: { n: "Barcha fanlar", ic: "📚", mic: "uz-UZ" }
+  math: { n: "Matematika", ic: "➗", mic: "uz-UZ" }, logic: { n: "Mantiq", ic: "🧩", mic: "uz-UZ" }, free: { n: "Barcha fanlar", ic: "📚", mic: "uz-UZ" },
+  xato: { n: "Xatolar daftari", ic: "📒", mic: "uz-UZ" }
 };
 var SINF = [["1", "1-sinf"], ["2", "2-sinf"], ["3", "3-sinf"], ["4", "4-sinf"], ["5", "5-sinf"], ["6", "6-sinf"], ["7", "7-sinf"], ["8", "8-sinf"], ["9", "9-sinf"], ["10", "10-sinf"], ["11", "11-sinf"], ["t1", "Texnikum 1-kurs"], ["t2", "Texnikum 2-kurs"]];
 if (MODES[Q.get("rejim")]) C.mode = Q.get("rejim");
 if (Q.get("sinf") && SINF.some(function (s) { return s[0] === Q.get("sinf"); })) C.sinf = Q.get("sinf");
 if (!MODES[C.mode]) C.mode = "free";
 var TOPIC = String(Q.get("mavzu") || "").slice(0, 120);
+var EMBED = Q.get("embed") === "1";
+if (EMBED) document.documentElement.classList.add("embed");
 function saveCfg() { lsSet(LS_CFG, C); }
 function applyTheme() { if (C.theme) document.documentElement.setAttribute("data-theme", C.theme); else document.documentElement.removeAttribute("data-theme"); }
 applyTheme();
@@ -471,7 +485,15 @@ function cloudOn(l) {
   if (!C.voice || C.vsrc === "device" || tts.off > Date.now()) return false;
   if (!window.KA_TTS_MOCK && (!fb.ai || fbOff() || dayN() >= DAY_LIMIT)) return false;
   if (C.vsrc === "cloud") return true;
-  return l === "uz" && !vFor("uz"); // avto: qurilmada o'zbek ovozi bo'lmasa
+  if (l !== "uz" || vFor("uz")) return false; // avto: faqat qurilmada o'zbek ovozi bo'lmasa
+  if (C.vAsk !== "yes") { voiceAsk(); return false; }
+  return true;
+}
+// Telefonda o'zbekcha ovoz yo'q — eng yaxshi ovozni (Gemini bulut ovozi) yoqishga ruxsat so'raymiz
+var vAsked = false;
+function voiceAsk() {
+  if (vAsked || C.vAsk || !fb.ai) return; vAsked = true;
+  setTimeout(function () { if (!$(".sheet.on")) openSheet("#sVoice"); }, 600);
 }
 function b64bytes(b) { var s = atob(b), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
 function pcmBuf(bytes, rate) { var ac = actx(), n = bytes.length >> 1, buf = ac.createBuffer(1, n, rate), d = buf.getChannelData(0), dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength); for (var i = 0; i < n; i++) d[i] = dv.getInt16(i * 2, true) / 32768; return buf; }
@@ -697,6 +719,7 @@ function bankSpec() {
   return { t: t, f: f };
 }
 var BANK = { key: "", ids: [], p: null };
+if (Q.get("fan") && (FAN_T[Q.get("fan")] || Q.get("fan") === "mix")) C.fan = Q.get("fan");
 function loadJs(src) { return new Promise(function (res) { var el = document.createElement("script"); el.src = src + "?v=20261110k"; el.async = false; el.onload = res; el.onerror = res; setTimeout(res, 20000); document.head.appendChild(el); }); }
 var LOADED = {};
 function ensureBank() {
@@ -709,12 +732,15 @@ function ensureBank() {
     .then(function () { if (BANK.key !== key) return BANK.ids; BANK.ids = window.kaSavol ? sp.t.filter(function (id) { return kaSavol.has(id); }) : []; return BANK.ids; });
   return BANK.p;
 }
-function bctx(c) { return { mode: C.mode, sinf: C.sinf, st: c.st, tease: !!C.tease, bank: BANK.key === C.mode + "|" + C.sinf + "|" + C.fan ? BANK.ids : [], name: C.name || "", aiOn: chain()[0] !== "off" }; }
+function bctx(c) { return { mode: C.mode, sinf: C.sinf, st: c.st, tease: !!C.tease, bank: BANK.key === C.mode + "|" + C.sinf + "|" + C.fan ? BANK.ids : [], name: C.name || "", aiOn: chain()[0] !== "off", xato: window.kaXato ? kaXato.list() : [] }; }
 var lastOpts = null;
 function viaOffline(text) {
   var c = cur(), ctx = bctx(c), r = B.reply(text, ctx);
   c.st = ctx.st; lastOpts = r.opts || null;
   if (r.name) { C.name = r.name; saveCfg(); }
+  if (r.wrong && window.kaXato) { r.wrong.src = "kuvi"; if (!r.wrong.t) r.wrong.t = MODES[C.mode].n; kaXato.add(r.wrong); drawModes(); }
+  if (r.xhit && window.kaXato) { kaXato.hit(r.xhit.id, r.xhit.ok); drawModes(); }
+  if (r.summary) pendingSum = r.summary;
   if (r.sg) { C.sg = r.sg; saveCfg(); }
   return "[" + r.mood + "] " + r.t;
 }
@@ -827,7 +853,32 @@ async function send(text) {
   $("#qk").hidden = false; drawOpts(lastOpts);
   if (S === "think") setState("idle");
 }
-function afterSpeak() { if (C.auto && hasSR && !$(".sheet.on")) setTimeout(function () { if (S === "idle" && !recOn) micStart(false); }, 350); }
+var pendingSum = null, sumBusy = false;
+function sumText(sm) {
+  return "O'quvchi" + (C.name ? " (" + C.name + ")" : "") + ", " + grade() + ", " + MODES[C.mode].n + " rejimida oxirgi " + sm.n + " ta savoldan " + sm.ok + " tasini birinchi urinishda to'g'ri topdi." +
+    (sm.wrongs.length ? " Xatolari:\n" + sm.wrongs.slice(0, 6).map(function (w, i) { return (i + 1) + ") " + w.q + " — to'g'ri javob: " + w.a + (w.ch ? "; o'quvchi javobi: " + w.ch : ""); }).join("\n") : " Xato qilmadi.");
+}
+function offSum(sm) {
+  if (!sm.wrongs.length) return "Ajoyib! Hech xato qilmading. Qiyinroq savollarga o'tamiz!";
+  var w = sm.wrongs[0];
+  return sm.ok + " / " + sm.n + ". Asosiy xato: «" + w.q.slice(0, 80) + "» — to'g'ri javob " + w.a + ". Xatolaringni «📒 Xatolar daftari»ga yozib qo'ydim — o'sha yerda birga tuzatamiz.";
+}
+// AI tahlili: xatolarni baholab, izoh va maslahat beradi
+function sessionSum(sm) {
+  if (sumBusy) return;
+  var st = cur().st;
+  if (!sm) { var lg = (st.log || []).slice(-10); if (!lg.length) { say("Hali birorta savolga javob bermading. Qani, boshladik!"); return; } sm = { n: lg.length, ok: lg.filter(function (x) { return x.ok; }).length, wrongs: lg.filter(function (x) { return !x.ok; }) }; }
+  sumBusy = true; setMood("think"); setState("think"); showAI("Natijangni tahlil qilyapman…");
+  var sys = "Sen Kuvi — kuvonch.uz ning mehribon AI ustozisan. O'quvchining natijasini tahlil qil: 2–3 qisqa gap, oddiy o'zbekcha matn (markdown va emoji yo'q). Qaysi mavzuda qiynalayotganini va nima uchun xato qilgan bo'lishi mumkinligini ayt, bitta aniq maslahat ber. Maqtovni unutma. Oxirida «Xatolar daftari»da mashq qilishni taklif qil. Javobni bitta kayfiyat tegi bilan boshla: [happy], [love], [think] yoki [strict].";
+  var done = function (t) {
+    sumBusy = false; var p = parseMood(t); if (p.mood) setMood(p.mood); else setMood("think");
+    cur().h.push({ r: "a", t: p.t, m: mood }); saveChat(); showAI(p.t); if (S === "think") setState("idle"); say(p.t, afterSpeak);
+  };
+  if (window.kaAI && chain()[0] !== "off") kaAI.text(sumText(sm), sys).then(done, function () { done("[think] " + offSum(sm)); });
+  else done("[think] " + offSum(sm));
+}
+function afterSpeak() {
+  if (pendingSum) { var sm = pendingSum; pendingSum = null; setTimeout(function () { sessionSum(sm); }, 400); return; } if (C.auto && hasSR && !$(".sheet.on")) setTimeout(function () { if (S === "idle" && !recOn) micStart(false); }, 350); }
 function intro(speak) {
   var c = cur(), ctx = bctx(c), r = B.start(ctx);
   c.st = ctx.st;
@@ -854,7 +905,7 @@ $("#go").addEventListener("click", function () {
 function drawModes() {
   var nav = $("#modes"); nav.innerHTML = "";
   Object.keys(MODES).forEach(function (k) {
-    var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = MODES[k].ic + " " + MODES[k].n;
+    var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = MODES[k].ic + " " + MODES[k].n + (k === "xato" && window.kaXato ? " (" + kaXato.count() + ")" : "");
     b.setAttribute("aria-pressed", String(k === C.mode));
     b.addEventListener("click", function () { if (k === C.mode) return; C.mode = k; saveCfg(); drawModes(); drawLang(); onModeChange(); });
     nav.appendChild(b);
@@ -880,8 +931,11 @@ $("#bLang").addEventListener("click", function () { var i = LANGS.indexOf(micLan
 function showKbd(on) { var f = $("#tf"); f.hidden = on === undefined ? !f.hidden : !on; if (!f.hidden) setTimeout(function () { $("#ti").focus(); }, 30); }
 $("#bKbd").addEventListener("click", function () { showKbd(); });
 $("#tf").addEventListener("submit", function (e) { e.preventDefault(); var v = $("#ti").value; $("#ti").value = ""; send(v); });
+$("#vYes").addEventListener("click", function () { C.vAsk = "yes"; saveCfg(); closeSheets(); unlockAudio(); var la = cur().h.filter(function (x) { return x.r === "a"; }).pop(); stopSpeak(); setMood("love"); say("Mana, endi tabiiy ovozda gapiraman!" + (la ? " " + la.t : ""), afterSpeak); });
+$("#vNo").addEventListener("click", function () { C.vAsk = "no"; saveCfg(); closeSheets(); });
 $("#qk").addEventListener("click", function (e) {
   var b = e.target.closest("button"); if (!b) return;
+  if (b.hasAttribute("data-sum")) { unlockAudio(); hideGo(); sessionSum(); return; }
   if (b.hasAttribute("data-rep")) { var la = cur().h.filter(function (x) { return x.r === "a"; }).pop(); if (la) { unlockAudio(); hideGo(); say(la.t, afterSpeak); } return; }
   send(b.getAttribute("data-q"));
 });
