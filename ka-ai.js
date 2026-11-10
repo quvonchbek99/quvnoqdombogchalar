@@ -33,11 +33,30 @@
   var MODELS = ["gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview", "gemini-2.5-flash-preview-tts"];
   var VOICE = { f: "Kore", m: "Charon" };
   var STYLE = { neutral: "warm, friendly and gentle", happy: "cheerful and excited", love: "very warm and affectionate", think: "calm and thoughtful", strict: "firm, stern and a little angry", jealous: "dramatic and playfully jealous", sad: "soft and a little sad", wow: "surprised and amazed" };
-  var DAY_LIMIT = 300, mi = Math.min(+lsGet("ka.tts.m", 0) || 0, MODELS.length - 1), cache = {};
+  var mi = Math.min(+lsGet("ka.tts.m", 0) || 0, MODELS.length - 1), cache = {};
   function today() { return new Date(Date.now() + 5 * 3600000).toISOString().slice(0, 10); }
-  function dayN() { var d = lsGet("ka.tts.day", {}) || {}; return d.d === today() ? d.n | 0 : 0; }
-  function dayInc() { lsSet("ka.tts.day", { d: today(), n: dayN() + 1 }); }
-  function usable() { return !!imp && !!window.Promise && S.off <= Date.now() && dayN() < DAY_LIMIT && !!(window.AudioContext || window.webkitAudioContext); }
+  function cnt(k) { var d = lsGet(k, {}) || {}; return d.d === today() ? d.n | 0 : 0; }
+  function inc(k) { lsSet(k, { d: today(), n: cnt(k) + 1 }); }
+  function dayN() { return cnt("ka.tts.day"); }
+  function dayInc() { inc("ka.tts.day"); }
+  /* ---------- Kunlik limitlar (bir qurilma uchun, Toshkent kuni) ----------
+     tts — tabiiy ovozdagi gap bo'laklari (bitta javob ≈ 2–3 bo'lak), txt — AI xabarlari va ovozni tanish.
+     Sinov davrida tabiiy ovoz hammaga; keyin bepul foydalanuvchiga ozgina, Pro'ga ko'p. */
+  var LIM = { trialUntil: "2026-12-31", trial: { tts: 30, txt: 50 }, free: { tts: 6, txt: 30 }, pro: { tts: 600, txt: 300 } };
+  function isPro() { var p = lsGet("ka.pro.v1", null); return !!(p && p.active && (!p.until || p.until > Date.now())); }
+  function refreshPro() {
+    var p = lsGet("ka.pro.v1", null);
+    if (p && Date.now() - (p.ts || 0) < 3 * 3600000) return Promise.resolve(isPro());
+    if (!window.kaAccount || !kaAccount.cloud || !(kaAccount.me && kaAccount.me())) return Promise.resolve(isPro());
+    return kaAccount.cloud().then(function (K) { return K && K.premiumStatus ? K.premiumStatus() : null; }).then(function (s) {
+      if (s && s.signed !== false) lsSet("ka.pro.v1", { active: !!(s && s.active), until: s && s.until ? +new Date(s.until) : 0, ts: Date.now() });
+      return isPro();
+    }, function () { return isPro(); });
+  }
+  function trial() { return today() <= LIM.trialUntil; }
+  function limits() { return isPro() ? LIM.pro : trial() ? LIM.trial : LIM.free; }
+  function left(kind) { var L = limits(); return kind === "tts" ? L.tts - dayN() : L.txt - cnt("ka.ai.day"); }
+  function usable() { return !!imp && !!window.Promise && S.off <= Date.now() && left("tts") > 0 && !!(window.AudioContext || window.webkitAudioContext); }
   var AC = null;
   function actx() {
     if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } }
@@ -114,6 +133,7 @@
   var TXT = ["gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-2.5-flash-lite"];
   function text(prompt, sys, i) {
     i = i || 0;
+    if (!i) { if (left("txt") <= 0) return Promise.reject(new Error("kunlik AI limiti tugadi")); inc("ka.ai.day"); }
     return load().then(function () {
       var o = { model: TXT[i] }; if (sys) o.systemInstruction = sys;
       return S.M.getGenerativeModel(S.ai, o).generateContent(prompt).then(function (r) { return r.response.text(); });
@@ -123,5 +143,6 @@
       throw e;
     });
   }
-  window.kaAI = { waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
+  setTimeout(function () { refreshPro(); }, 1500);
+  window.kaAI = { limits: limits, left: left, isPro: isPro, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
 })();

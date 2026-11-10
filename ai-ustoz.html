@@ -99,6 +99,8 @@ button{font:inherit;color:inherit}
 .qk{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:560px;margin-top:10px}
 .opts[hidden]{display:none}
+.probar{max-width:560px;margin:8px auto 0;padding:9px 12px;border-radius:12px;background:var(--card);border:1px dashed #a78bfa;font-size:13.5px;text-align:center}
+.probar[hidden]{display:none}.probar a{font-weight:700;color:#7c3aed}
 .opts button{border:2px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;font:600 15px/1.3 "Golos Text",sans-serif;text-align:left;cursor:pointer;min-height:48px}
 .opts button:hover{border-color:var(--kc)}
 @media (max-width:420px){.opts{grid-template-columns:1fr}}
@@ -201,6 +203,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   </div>
   <button class="go" id="go" type="button">▶ Suhbatni boshlash</button>
   <div class="opts" id="opts" hidden></div>
+  <p class="probar" id="proBar" hidden></p>
   <div class="qk" id="qk" hidden>
     <button type="button" data-q="Yordam bering, maslahat kerak">💡 Yordam</button>
     <button type="button" data-q="Keyingi savol">⏭ Keyingi</button>
@@ -267,7 +270,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 
 <script src="ka-kuvi.js?v=20261110d"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261110b"></script>
+<script src="ka-ai.js?v=20261110c"></script>
 <script src="ka-ustoz-bilim.js?v=20261110n"></script>
 <script>
 (function () {
@@ -278,8 +281,8 @@ function lsGet(k, d) { try { var v = localStorage.getItem(k); return v == null ?
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 var B = window.kaUstozBilim;
-var LS_CFG = "ka.ustoz.cfg", LS_CHAT = "ka.ustoz.chat", LS_DAY = "ka.ustoz.day", LS_FBOFF = "ka.ustoz.fboff", LS_FBM = "ka.ustoz.fbm", LS_AI = "ka.ai.cfg";
-var DAY_LIMIT = 80;
+var LS_CFG = "ka.ustoz.cfg", LS_CHAT = "ka.ustoz.chat", LS_DAY = "ka.ai.day", LS_FBOFF = "ka.ustoz.fboff", LS_FBM = "ka.ustoz.fbm", LS_AI = "ka.ai.cfg";
+function dayLimit() { return window.kaAI && kaAI.limits ? kaAI.limits().txt : 30; }
 var Q = new URLSearchParams(location.search);
 var C = Object.assign({ mode: "free", sinf: "7", voice: true, rate: 1, engine: "auto", mic: "auto", auto: false, tease: true, vg: "auto", fan: "mix", name: "", sg: "", vsrc: "auto", theme: "" }, lsGet(LS_CFG, {}) || {});
 var MODES = {
@@ -448,11 +451,11 @@ function segs(text) {
 }
 var TQ = [], tBusy = false, tGen = 0, unlocked = false, speakEnd = null, voiceWarned = false;
 function unlockAudio() { actx(); if (unlocked || !SS) { unlocked = true; return; } unlocked = true; try { var u = new SpeechSynthesisUtterance(" "); u.volume = 0; SS.speak(u); } catch (e) {} }
-var TTS_DAY = 400;
+
 function sayAdd(text) {
   segs(text).forEach(function (s) {
     s.m = mood;
-    if (cloudOn(s.l) && ttsDayN() < TTS_DAY) {
+    if (cloudOn(s.l) && ttsDayN() < ttsLimit()) {
       // bulut ovozi: gaplarga bo'lib, hammasini birdaniga tayyorlaymiz — birinchi gap tezroq eshitiladi, orasida uzilish bo'lmaydi
       var parts = s.t.match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [s.t], cur = "";
       parts.forEach(function (p) { cur += p; if (cur.trim().length >= 28 || p === parts[parts.length - 1]) { var it = { t: cur.trim(), l: s.l, m: s.m, c: 1 }; if (it.t) { TQ.push(it); ttsGet(it); ttsDayInc(); } cur = ""; } });
@@ -463,8 +466,18 @@ function sayAdd(text) {
   });
   pump();
 }
-function ttsDayN() { var d = lsGet("ka.ustoz.ttsday", {}) || {}; return d.d === today() ? d.n | 0 : 0; }
-function ttsDayInc() { lsSet("ka.ustoz.ttsday", { d: today(), n: ttsDayN() + 1 }); }
+function ttsDayN() { var d = lsGet("ka.tts.day", {}) || {}; return d.d === today() ? d.n | 0 : 0; }
+function ttsDayInc() { lsSet("ka.tts.day", { d: today(), n: ttsDayN() + 1 }); }
+function ttsLimit() { return window.kaAI && kaAI.limits ? kaAI.limits().tts : 6; }
+// limit tugaganda bir marta aytamiz: tabiiy ovoz va ko'proq AI — Pro obunada
+var proNoted = "";
+function proNote(kind) {
+  if (proNoted.indexOf(kind) >= 0 || (window.kaAI && kaAI.isPro && kaAI.isPro())) return; proNoted += kind;
+  var pro = window.kaAI && kaAI.isPro && kaAI.isPro(), L = window.kaAI && kaAI.LIM ? kaAI.LIM : { pro: { tts: 600, txt: 300 } };
+  var t = kind === "tts" ? "Bugungi tabiiy ovoz limiti tugadi — endi telefon ovozida gapiraman. 💎 Pro obunada Kuvi kuniga " + Math.round(L.pro.tts / 2.5) + " tagacha javobni tabiiy ovozda aytadi."
+    : "Bugungi AI suhbat limiti tugadi — ertagacha oflayn mashqlar bilan davom etamiz. 💎 Pro obunada kuniga " + L.pro.txt + " ta AI xabar.";
+  if (!pro) { $("#proBar").innerHTML = esc(t) + ' <a href="premium.html" target="_top">Pro olish →</a>'; $("#proBar").hidden = false; }
+}
 function pump() {
   if (tBusy) return;
   var it = TQ.shift();
@@ -487,7 +500,8 @@ function actx() {
 }
 function cloudOn(l) {
   if (!C.voice || C.vsrc === "device" || tts.off > Date.now()) return false;
-  if (!window.KA_TTS_MOCK && (!fb.ai || fbOff() || dayN() >= DAY_LIMIT)) return false;
+  if (!window.KA_TTS_MOCK && (!fb.ai || fbOff() || dayN() >= dayLimit())) return false;
+  if (!window.KA_TTS_MOCK && ttsDayN() >= ttsLimit()) { proNote("tts"); return false; }
   if (C.vsrc === "cloud") return true;
   if (l !== "uz" || vFor("uz")) return false; // avto: faqat qurilmada o'zbek ovozi bo'lmasa
   if (C.vAsk !== "yes") { voiceAsk(); return false; }
@@ -604,6 +618,8 @@ function transcribe(b64) {
   if (window.KA_STT_MOCK) return window.KA_STT_MOCK(b64);
   return fbLoad().then(function () {
     var model = fb.M.getGenerativeModel(fb.ai, { model: FB_MODELS[fb.mi] });
+    if (dayN() >= dayLimit()) { proNote("txt"); throw new Error("kunlik AI limiti tugadi"); }
+    dayInc();
     return model.generateContent([{ inlineData: { mimeType: "audio/wav", data: b64 } }, { text: "Transcribe exactly what is said in this audio. The speaker is usually a student speaking Uzbek (write it in Uzbek Latin script), sometimes English or Russian. Output only the transcript, nothing else. If there is no speech, output: (jim)" }])
       .then(function (r) { return r.response.text(); });
   });
@@ -842,7 +858,8 @@ function drawOpts(o) {
   el.hidden = !(o && o.length);
 }
 function chain() {
-  var c = aiCfg(), hasKey = !!(c.key || c.worker), fbOk = !fbOff() && dayN() < DAY_LIMIT;
+  var c = aiCfg(), hasKey = !!(c.key || c.worker), fbOk = !fbOff() && dayN() < dayLimit();
+  if (!fbOff() && dayN() >= dayLimit() && !window.KA_AI_MOCK) proNote("txt");
   if (C.engine === "fb") return ["fb", "off"];
   if (C.engine === "key") return hasKey ? ["key", "off"] : ["off"];
   if (C.engine === "puter") return ["puter", "off"];
@@ -1048,7 +1065,9 @@ function voiceNote() {
 }
 function fbNote() {
   var off = fbOff(), n = dayN();
-  $("#fbNote").innerHTML = "Hozir ishlayotgani: <b>" + ENG_N[lastEng] + "</b>. Bugun Gemini bilan " + n + " / " + DAY_LIMIT + " ta xabar." +
+  var pro = window.kaAI && kaAI.isPro && kaAI.isPro(), tr = window.kaAI && kaAI.trial && kaAI.trial();
+  $("#fbNote").innerHTML = "Hozir ishlayotgani: <b>" + ENG_N[lastEng] + "</b>. Bugun: AI xabar <b>" + n + " / " + dayLimit() + "</b>, tabiiy ovoz <b>" + ttsDayN() + " / " + ttsLimit() + "</b> bo'lak. " +
+    (pro ? "💎 Pro obuna faol." : (tr ? "Sinov davri: tabiiy ovoz hammaga ochiq (31-dekabrgacha). " : "") + '<a href="premium.html" target="_top">💎 Pro obuna</a> — ko\'proq AI va tabiiy ovoz.') +
     (off && fb.err ? "<br>kuvonch.uz Gemini hozir ulanmadi" + (/api-not-enabled|not been used|403/i.test(fb.err) ? " — sayt egasi Firebase konsolida <b>AI Logic → Get started → Gemini Developer API</b> ni yoqishi kerak (bepul)." : " (" + esc(fb.err.slice(0, 80)) + ").") : "");
 }
 $("#bCfg").addEventListener("click", function () {
