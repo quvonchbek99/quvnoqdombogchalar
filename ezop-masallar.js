@@ -1007,5 +1007,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U arrasini muntazam o'tkirlab turdi", "U ikkinchi o'tinchidan kuchliroq edi", "U daraxtning faqat yo'g'on shoxlarini kesdi"],
     javob: 0,
     izoh: "O'tkir arra kam kuch bilan tez kesadi. Vositaga g'amxo'rlik qilish ishni yengillashtiradi va vaqtni tejaydi."
+  },
+  {
+    id: "ez-127", mavzu: "mantiq", sarlavha: "Yog'och va olov",
+    matn: "Qish kechasi uch do'st katta gulxan yoqish uchun o'tin yig'di. Birinchisi quruq shoxlarni, ikkinchisi esa yangi kesilgan ho'l shoxlarni olib keldi. Uchinchisi ularni aralashtirib, hammasini gulxanga qo'shib yubordi. Quruq shoxlar tez alangalanib isitib turdi, ammo ho'l shoxlar qalin tutun chiqarib, olovning kuchini pasaytirdi.",
+    savol: "Gulxan nega kuchsiz yonishga boshladi?",
+    variantlar: ["Chunki ho'l shoxlar olovning kuchini pasaytirdi", "Chunki do'stlar gulxanni juda kech yoqishdi", "Chunki quruq shoxlar tutun chiqarardi"],
+    javob: 0,
+    izoh: "Namlik olovning issiqligini yutadi va tutun hosil qiladi. Yaxshi yonish uchun quruq, sog'lom o'tin tanlash kerak."
   }
 ];
