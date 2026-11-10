@@ -272,7 +272,8 @@
     if (!free.length) { st.used[key] = []; free = list; }
     var it = pick(free), idx = list.indexOf(it); st.used[key].push(idx); return it;
   }
-  function askNew(ctx) {
+  function askNew(ctx) { var q = askNew0(ctx); if (ctx.st.cur) ctx.st.cur.m = ctx.mode; return q; }
+  function askNew0(ctx) {
     var st = ctx.st, m = ctx.mode, it;
     st.tries = 0;
     if (m === "en") { it = nextItem(st, "en" + band(ctx.sinf), bankFor(ENB, ctx.sinf)); st.cur = { k: "tr", q: it[1], a: it[2], f: enNorm, lang: "en" }; return "Inglizchada qanday deyiladi: «" + it[1] + "»?"; }
@@ -307,34 +308,34 @@
   }
 
   function checkAnswer(t, ctx) {
-    var st = ctx.st, c = st.cur, nx;
+    var st = ctx.st, c = st.cur, nx, nc = ctx.mode === "free" && c.m && c.m !== "free" ? { mode: c.m, sinf: ctx.sinf, st: st, tease: ctx.tease } : ctx;
     if (isRepeat(t)) return { t: c.k === "tr" ? "Takrorlayman: «" + c.q + "»" : c.q, mood: "neutral" };
-    if (isSkip(t)) { var ans = c.k === "num" ? fmt(c.a) : c.k === "tr" ? "\"" + c.a[0] + "\"" : ""; nx = askNew(ctx); return { t: (ans ? "Javob: " + ans + ". " : "") + "Keyingisi: " + nx, mood: "neutral" }; }
+    if (isSkip(t)) { var ans = c.k === "num" ? fmt(c.a) : c.k === "tr" ? "\"" + c.a[0] + "\"" : ""; nx = askNew(nc); return { t: (ans ? "Javob: " + ans + ". " : "") + "Keyingisi: " + nx, mood: "neutral" }; }
     if (c.k === "num") {
       if (isNo(t)) {
         st.tries++;
-        if (st.tries >= 2) { var s1 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(ctx); return { t: "Mayli, tushuntiraman: " + s1 + ". Keyingi savol: " + nx, mood: "think" }; }
+        if (st.tries >= 2) { var s1 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(nc); return { t: "Mayli, tushuntiraman: " + s1 + ". Keyingi savol: " + nx, mood: "think" }; }
         return { t: tz(ctx) + "Yordam: " + c.h, mood: "think" };
       }
       var v = parseNum(t);
       if (v == null) return { t: "Javobni son bilan ayting. Savol: " + c.q, mood: "think" };
       if (Math.abs(v - c.a) < 1e-6 || Math.abs(v - c.a) <= Math.abs(c.a) * 1e-3) {
-        st.ok = (st.ok || 0) + 1; nx = askNew(ctx);
+        st.ok = (st.ok || 0) + 1; nx = askNew(nc);
         return { t: pick(PRAISE) + " " + fmt(v) + ". " + (st.ok % 5 === 0 ? "Ketma-ket " + st.ok + " ta to'g'ri javob, ofarin! " : "") + "Keyingisi: " + nx, mood: st.ok % 5 === 0 ? "love" : "happy" };
       }
       st.tries++;
-      if (st.tries >= 2) { var s2 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(ctx); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
+      if (st.tries >= 2) { var s2 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
       return { t: tz(ctx) + pick(WRONG) + " Maslahat: " + c.h, mood: "strict" };
     }
     if (c.k === "tr") {
-      if (isNo(t)) { var a0 = c.a[0]; nx = askNew(ctx); return { t: tz(ctx) + "To'g'ri javob: \"" + a0 + "\". Takrorlab ko'ring! Keyingisi: " + nx, mood: "think" }; }
+      if (isNo(t)) { var a0 = c.a[0]; nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: \"" + a0 + "\". Takrorlab ko'ring! Keyingisi: " + nx, mood: "think" }; }
       if (c.lang === "en" && !/[a-z]/.test(norm(t))) return { t: "Javobni inglizcha ayting. Mikrofon tilini EN ga qo'ying. Savol: «" + c.q + "»", mood: "think" };
       if (c.lang === "ru" && !/[а-я]/.test(norm(t))) return { t: "Javobni ruscha ayting. Mikrofon tilini RU ga qo'ying. Savol: «" + c.q + "»", mood: "think" };
       var sc = bestSim(t, c.a, c.f);
       if (sc < .6 && c.lang === "en") { var gg = grammar(t); if (gg.fixes.length) return { t: "Kichik xato: " + gg.fixes[0] + ". To'g'ri: \"" + gg.fixed + "\". Endi savolimga javob bering: «" + c.q + "»", mood: "strict" }; }
-      if (sc >= .84) { st.ok = (st.ok || 0) + 1; nx = askNew(ctx); return { t: pick(PRAISE) + (sc < .99 ? " Aniqrog'i: \"" + c.a[0] + "\"." : "") + " Keyingisi: " + nx, mood: "happy" }; }
+      if (sc >= .84) { st.ok = (st.ok || 0) + 1; nx = askNew(nc); return { t: pick(PRAISE) + (sc < .99 ? " Aniqrog'i: \"" + c.a[0] + "\"." : "") + " Keyingisi: " + nx, mood: "happy" }; }
       st.tries++;
-      if (sc >= .55 || st.tries >= 2) { var a1 = c.a[0]; nx = askNew(ctx); return { t: (sc >= .55 ? "Deyarli! " : "") + "To'g'ri variant: \"" + a1 + "\". Takrorlab qo'ying. Keyingisi: " + nx, mood: sc >= .55 ? "think" : "strict" }; }
+      if (sc >= .55 || st.tries >= 2) { var a1 = c.a[0]; nx = askNew(nc); return { t: (sc >= .55 ? "Deyarli! " : "") + "To'g'ri variant: \"" + a1 + "\". Takrorlab qo'ying. Keyingisi: " + nx, mood: sc >= .55 ? "think" : "strict" }; }
       return { t: tz(ctx) + pick(WRONG) + " «" + c.q + "»", mood: "strict" };
     }
     if (c.k === "ielts") {
@@ -343,7 +344,7 @@
       if (r.n < 25) tips.push("javobni uzaytiring, sabab va misol qo'shing");
       if (r.links < 2) tips.push("«because», «for example», «however» kabi bog'lovchilarni ishlating");
       if (g.fixes.length) tips.push("grammatika: " + g.fixes[0]);
-      nx = askNew(ctx);
+      nx = askNew(nc);
       return { t: "Taxminiy band: " + r.band.toFixed(1).replace(".", ",") + ". " + (tips.length ? "Maslahat: " + tips.join("; ") + "." : "Juda yaxshi, ravon javob!") + (g.fixes.length ? " Yaxshiroq variant: \"" + g.fixed + "\"." : "") + " Keyingi savol: " + nx.replace(/^Mana savol: /, ""), mood: r.band >= 6 ? "happy" : "think" };
     }
     return null;
@@ -355,6 +356,10 @@
     if (!t) return { t: "Eshitmadim. Yana bir bor ayting.", mood: "think" };
     var so = social(t);
     if (so) { if (st.cur && so.mood !== "jealous") so.t += " Endi savolga qaytamiz: " + (st.cur.k === "tr" ? "«" + st.cur.q + "»" : st.cur.q); return so; }
+    if (st.cur && ctx.mode === "free" && parseNum(t) == null) {
+      var sn = norm(t);
+      for (var f = 0; f < FACTS.length; f++) if (FACTS[f][0].test(sn)) return { t: FACTS[f][1] + " Endi savolga qaytamiz: " + st.cur.q, mood: "happy" };
+    }
     if (st.cur) { var r = checkAnswer(t, ctx); if (r) return r; }
     // Erkin inglizcha gap: grammatikani tekshirish
     if ((ctx.mode === "en" || ctx.mode === "free") && looksEnglish(t)) {
@@ -372,11 +377,13 @@
       return { t: "Bugun " + d.getDate() + "-" + M[d.getMonth()] + ", soat " + d.getHours() + ":" + ("0" + d.getMinutes()).slice(-2) + ".", mood: "neutral" };
     }
     for (var i = 0; i < FACTS.length; i++) if (FACTS[i][0].test(s)) return { t: FACTS[i][1] + " Yana nima qiziq?", mood: "happy" };
-    if (/\b(mashq|savol ber|misol ber|test|boshla|start|o'yna)\w*/.test(s) || ctx.mode !== "free") {
-      var q = askNew(ctx);
-      if (q) return { t: "Qani, mashq qilamiz! " + q, mood: "happy" };
-    }
-    return { t: "Hozir oflayn rejimdaman, shuning uchun hamma savolga javob bera olmayman. Yuqoridan rejim tanlang — ingliz tili, IELTS, rus tili, matematika yoki mantiq — va birga mashq qilamiz!", mood: "think" };
+    var q;
+    if (ctx.mode !== "free") { q = askNew(ctx); if (q) return { t: "Qani, mashq qilamiz! " + q, mood: "happy" }; }
+    // Erkin rejim, oflayn: suhbatni to'xtatmaymiz — matematika yoki mantiqdan savol beramiz
+    var sub = Math.random() < .5 ? "math" : "logic", c2 = { mode: sub, sinf: ctx.sinf, st: st };
+    q = askNew(c2);
+    var first = !st.offNote; st.offNote = 1;
+    return { t: (first ? "Hozir internetdagi AI ulanmagan, shuning uchun erkin savollarga to'liq javob bera olmayman. Lekin zerikmaymiz! " : "Qani, yana bittasi! ") + (sub === "math" ? "Misol: " : "Mantiqiy masala: ") + q, mood: first ? "think" : "happy" };
   }
 
   window.kaUstozBilim = { start: start, reply: reply, parseNum: parseNum, uzWords: uzWords, grammar: grammar, ieltsBand: ieltsBand, rival: RIVAL, jealous: JEAL };

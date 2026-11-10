@@ -222,6 +222,12 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 .pv h2{margin:0;font-size:clamp(24px,7vw,40px);line-height:1.15}
 .pv p{margin:0;color:var(--text-dim);font-size:17px;max-width:420px}
 .pv .big{font-size:clamp(56px,18vw,110px);line-height:1}
+.pv .kuvi{width:clamp(96px,30vw,150px)}
+.kvh{flex:0 0 auto;display:flex;align-items:center}
+.kvh .kvr{flex-direction:row;gap:10px;margin:0}
+.kvh .kuvi{width:clamp(56px,6vw,84px)}
+.kvh .kvq{font-size:clamp(13px,1.5vw,18px);max-width:min(46vw,520px);text-align:left}
+.kvh .kvq:before{left:-7px;top:50%;margin:-7px 0 0;border:7px solid transparent;border-left:0;border-right-color:#fff}
 .pv.okv{background:radial-gradient(circle,rgba(42,157,75,.35),transparent 70%)}
 .pv.badv{background:radial-gradient(circle,rgba(229,72,77,.3),transparent 70%)}
 .pv .pts{font-weight:900;font-size:clamp(30px,9vw,54px);line-height:1;color:#7dffd9}
@@ -512,6 +518,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 <div class="sets">
 <label class="tog"><input type="checkbox" id="sShowQ"> 📱 Savol va variantlar telefonda ham ko'rinsin</label>
 <label class="tog"><input type="checkbox" id="sSound"> 🔊 Ovoz effektlari</label>
+<label class="tog"><input type="checkbox" id="sTease"> 😜 Kuvi tegajoq hazili — xato qilsa «qovoq kalla», «oshqovoq», «xumpar», «poponam» deb tegishadi</label>
 <label class="tog"><input type="checkbox" id="sXtime"> ⏱ Mantiqiy va uzun savollarga qo'shimcha vaqt (o'qib chiqishga ulgurishsin)</label>
 <label class="tog"><input type="checkbox" id="sGuard"> 📵 O'quvchi viktorinadan chiqib ketsa — telefoni ismini aytib «viktorinani ko'ring» desin</label>
 <label class="tog"><input type="checkbox" id="sFull"> ⛶ To'liq ekran (eng katta shrift)</label>
@@ -582,6 +589,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 
 <script src="ka-tarmoq.js?v=20261110a"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
+<script src="ka-kuvi.js?v=20261110b"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
 (function () {
@@ -654,7 +662,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function vib(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
 
   /* ---------------- sozlamalar ---------------- */
-  var cfg = { topics: [], count: 10, lvl: "prog", time: 20, auto: 8, showQ: true, sound: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
+  var cfg = { topics: [], count: 10, lvl: "prog", time: 20, auto: 8, showQ: true, sound: true, tease: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
   try { var sv = JSON.parse(localStorage.getItem(LS) || "null"); if (sv) for (var k in sv) if (k in cfg) cfg[k] = sv[k]; } catch (e) {}
   var qp = /[?&]mavzu=([a-z0-9,]+)/i.exec(location.search);
   if (qp) cfg.topics = qp[1].split(",");
@@ -983,7 +991,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     var sa = $("#sAuto"); sa.value = String(cfg.auto); if (sa.value !== String(cfg.auto)) { sa.value = "8"; cfg.auto = 8; }
     sa.addEventListener("change", function () { cfg.auto = +sa.value; saveCfg(); summary(); });
     if (!fsOk()) { var fl = $("#sFull"); if (fl) fl.closest("label").style.display = "none"; }
-    [["#sShowQ", "showQ"], ["#sSound", "sound"], ["#sXtime", "xtime"], ["#sGuard", "guard"], ["#sFull", "full"], ["#sD3", "d3"]].forEach(function (p) {
+    [["#sShowQ", "showQ"], ["#sSound", "sound"], ["#sTease", "tease"], ["#sXtime", "xtime"], ["#sGuard", "guard"], ["#sFull", "full"], ["#sD3", "d3"]].forEach(function (p) {
       var c = $(p[0]); c.checked = !!cfg[p[1]]; c.addEventListener("change", function () { cfg[p[1]] = c.checked; });
     });
   }
@@ -1655,7 +1663,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     var order = ranked(), total = order.length, res = {};
     order.forEach(function (p, r) {
       p.rank = r + 1;
-      p.rev = { type: "reveal", i: H.i, ok: p.last.ok, pts: p.last.pts, score: p.score, rank: r + 1, of: total, streak: p.streak, c: p.correct,
+      p.rev = { type: "reveal", tz: cfg.tease === false ? 0 : 1, i: H.i, ok: p.last.ok, pts: p.last.pts, score: p.score, rank: r + 1, of: total, streak: p.streak, c: p.correct,
         timeout: p.last.j < 0, chosen: p.last.j >= 0 ? q.opts[p.last.j] : null, a: q.a, ci: q.ci, steps: q.steps.slice(0, 8), last: H.i === H.qs.length - 1,
         why: !p.last.ok && p.last.j >= 0 && kaSavol.why ? kaSavol.why({ a: q.a, topic: q.tid }, q.opts[p.last.j]) : "",
         nx: cfg.auto ? cfg.auto + boardSec() : 0, paused: !!H.paused };
@@ -1663,7 +1671,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     });
     // hammaga BITTA xabar: umumiy qism + har bir o'quvchining natijasi (telefon faqat o'zinikini ko'rsatadi)
     if (H.api) {
-      if (H.api.cast) H.api.cast({ type: "reveal", i: H.i, of: total, a: q.a, ci: q.ci, steps: q.steps.slice(0, 8), last: H.i === H.qs.length - 1, nx: cfg.auto ? cfg.auto + boardSec() : 0, paused: !!H.paused, res: res });
+      if (H.api.cast) H.api.cast({ type: "reveal", tz: cfg.tease === false ? 0 : 1, i: H.i, of: total, a: q.a, ci: q.ci, steps: q.steps.slice(0, 8), last: H.i === H.qs.length - 1, nx: cfg.auto ? cfg.auto + boardSec() : 0, paused: !!H.paused, res: res });
       else order.forEach(function (p) { if (p.online) H.api.send(p.id, p.rev); });
     }
     // ekranda
@@ -1678,6 +1686,11 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     $("#hX .fitq").innerHTML = x;
     var pc = total ? Math.round(okN / total * 100) : 0;
     $("#hSt").innerHTML = "✅ " + okN + " ta to'g'ri · ❌ " + (ansN - okN) + " ta xato · ⏰ " + (total - ansN) + " ta javobsiz · <b>" + pc + "%</b>";
+    if (total && window.kaKuvi) {
+      var kr = kaKuvi.react(pc >= 70 ? "cGood" : pc >= 35 ? "cMid" : "cBad", { tz: cfg.tease !== false });
+      $("#hSt").insertAdjacentHTML("beforebegin", '<div class="kvh">' + kr.html + "</div>");
+      if (cfg.sound) setTimeout(function () { if (kaKuvi.say) kaKuvi.say(kr.text, kr.mood); else gSay(kr.text); }, 450);
+    }
     var nav = $("#hSkip"); nav.className = "nextb"; nav.innerHTML = "🏆 Reyting ▶" + CD_HTML; nav.onclick = function () { showBoard(); };
     if (cfg.auto) { nav.insertAdjacentHTML("beforebegin", pauseBtn()); bindPause(); }
     renderRing(0);
@@ -2362,10 +2375,16 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
       (m.why ? '<div class="why">❓ Nima uchun xato: ' + esc(m.why) + "</div>" : "") +
       (m.steps && m.steps.length ? "<ol>" + m.steps.map(function (s) { return "<li>" + safe(s) + "</li>"; }).join("") + "</ol>" : "") + "</div>";
     if (m.ok) { vib([40, 40, 40]); snd("ok"); } else { vib(200); snd("bad"); }
-    pView((m.ok ? '<div class="big">✅</div><h2>To\'g\'ri!</h2><div class="pts">+' + m.pts + "</div>" : '<div class="big">' + (m.timeout ? "⏰" : "❌") + "</div><h2>" + (m.timeout ? "Vaqt tugadi" : "Xato") + "</h2>") +
+    if (m.tz != null) P.tz = m.tz;
+    pView(kuviTop(m.ok, m.timeout, m.streak, m.tz) + (m.ok ? '<h2>To\'g\'ri!</h2><div class="pts">+' + m.pts + "</div>" : "<h2>" + (m.timeout ? "Vaqt tugadi" : "Xato") + "</h2>") +
       '<div class="meta"><span>⭐ ' + m.score + "</span><span>🏅 " + m.rank + "-o'rin / " + m.of + "</span>" + (m.streak >= 2 ? "<span>🔥 " + m.streak + " ketma-ket</span>" : "") + "</div>" + exp +
       '<div class="nx" id="pNx" aria-live="polite"></div>', m.ok ? "okv" : "badv");
     pNext({ s: m.nx, paused: m.paused, last: m.last });
+  }
+  // Kuvi telefonda: to'g'ri bo'lsa maqtaydi, xato bo'lsa (sozlama yoqiq bo'lsa) tegishadi
+  function kuviTop(ok, timeout, streak, tz) {
+    if (!window.kaKuvi) return '<div class="big">' + (ok ? "✅" : timeout ? "⏰" : "❌") + "</div>";
+    return kaKuvi.react(ok ? "ok" : timeout ? "timeout" : "bad", { tz: tz == null ? (P && P.tz != null ? P.tz : 1) : tz, n: streak }).html;
   }
   // "Keyingi savol: 9 s" — o'qituvchi avtomatik rejimda bo'lsa
   function pNext(m) {
@@ -2566,7 +2585,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
     var last = i >= S0.n - 1, chosen = a.j >= 0 ? q.o[a.j] : null;
     var exp = ok ? "" : '<div class="exp"><div class="xa">✅ To\'g\'ri javob: ' + safe(k.a) + "</div>" + (chosen != null ? '<div style="color:#ff9c9c">❌ Siz tanladingiz: ' + safe(chosen) + "</div>" : "") +
       (k.st && k.st.length ? "<ol>" + k.st.map(function (s) { return "<li>" + safe(s) + "</li>"; }).join("") + "</ol>" : "") + "</div>";
-    pView((ok ? '<div class="big">✅</div><h2>To\'g\'ri!</h2><div class="pts">+' + pts + "</div>" : '<div class="big">' + (a.j < 0 ? "⏰" : "❌") + "</div><h2>" + (a.j < 0 ? "Vaqt tugadi" : "Xato") + "</h2>") +
+    pView(kuviTop(ok, a.j < 0, S0.streak, null) + (ok ? '<h2>To\'g\'ri!</h2><div class="pts">+' + pts + "</div>" : "<h2>" + (a.j < 0 ? "Vaqt tugadi" : "Xato") + "</h2>") +
       '<div class="meta"><span>⭐ ' + S0.score + "</span><span>✅ " + S0.correct + "</span>" + (S0.streak >= 2 ? "<span>🔥 " + S0.streak + " ketma-ket</span>" : "") + "</div>" + exp +
       '<button type="button" class="btn primary" id="soNext">' + (last ? "🏁 Natijani ko'rish" : "▶ Keyingi savol (" + (i + 2) + "/" + S0.n + ")") + "</button>" +
       '<p class="solonote">📴 Mustaqil rejim — javoblaringiz aloqa tiklanganda o\'qituvchiga yuboriladi</p>', ok ? "okv" : "badv", true);
