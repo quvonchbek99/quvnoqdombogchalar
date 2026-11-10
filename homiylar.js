@@ -16,6 +16,8 @@
 window.HOMIYLAR = [
   // { ism: "Aliyev Vali", summa: 50000, havola: "https://instagram.com/…", xabar: "Zo'r loyiha!", sana: "2026-10-17" },
   // { ism: "@matematik_uz", summa: 0, havola: "https://t.me/…", xabar: "Kanalda ulashdim", sana: "2026-10-16" },
+  { ism: "Hamroyev Ibrohim", summa: 100000, sana: "2026-11-10" },
+  { ism: "Islomov Oybek", summa: 400000, sana: "2026-11-10" },
 ];
 
 (function () {
