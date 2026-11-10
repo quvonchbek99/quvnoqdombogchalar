@@ -88,7 +88,8 @@
   var LOVE = ["Voy, rahmat! Yuragim eriydi. Davom etamizmi?", "Sen ham zo'rsan! Shunday davom etsang, hammadan o'zib ketasan.", "Rahmat, do'stim! Men ham sen bilan o'qishni yaxshi ko'raman."];
   var PRAISE = ["Barakalla! To'g'ri!", "Zo'r! Aynan shunday!", "Ofarin, juda yaxshi!", "Ana, ko'rdingmi, uddalading!", "To'ppa-to'g'ri! Qoyil!"];
   // Tegajoq hazil (sozlamada o'chirsa bo'ladi): bilmasa yoki xato qilsa, mehr bilan tegishadi
-  var TEASE = ["Voy qovoq kalla-ey!", "Ey oshqovoq, shuni ham bilmaysanmi?", "Qovunjon, bir o'ylab ko'r-chi!", "Hay qovoq kallajonim...", "Oshqovoqcha, bunisi oson-ku!", "Voy qovun-ey, shunga ham-a?", "Qovoq kalla, uxlab qoldingmi?"];
+  var TEASE = ["Voy qovoq kalla-ey!", "Ey oshqovoq, shuni ham bilmaysanmi?", "Qovunjon, bir o'ylab ko'r-chi!", "Hay qovoq kallajonim...", "Oshqovoqcha, bunisi oson-ku!", "Voy qovun-ey, shunga ham-a?", "Qovoq kalla, uxlab qoldingmi?",
+    "Ey xumpar, qayoqqa qarayapsan?", "Voy eshakvoy-ey!", "Eshak-ey, yana o'ylab ko'r!", "Voy poponam-ey, shuni ham bilmaysanmi?", "Hay poponam...", "Tarvuz kalla, bunisi oson-ku!", "Xumparvoy, miyangni ishlat-chi!"];
   function tz(ctx) { return ctx && ctx.tease && Math.random() < .65 ? pick(TEASE) + " " : ""; }
   var WRONG = ["Hmm, unchalik emas. Yana bir urinib ko'r.", "Yaqin, lekin to'g'ri emas. O'ylab ko'r-chi.", "Unday emas. Qani, yana bir marta!"];
 

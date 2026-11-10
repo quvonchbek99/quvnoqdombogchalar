@@ -224,7 +224,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <div class="row"><label for="cRate">Tezlik</label><input type="range" id="cRate" min="0.7" max="1.4" step="0.05"><span id="cRateV"></span></div>
   <div class="row"><label><input type="checkbox" id="cAuto"> Kuvi gapirib bo'lgach, o'zi tinglay boshlasin</label></div>
   <h3>Fe'l-atvor</h3>
-  <div class="row"><label><input type="checkbox" id="cTease"> 😜 Tegajoq hazil — bilmasa yoki xato qilsa «qovoq kalla», «oshqovoq», «qovun» deb tegishadi</label></div>
+  <div class="row"><label><input type="checkbox" id="cTease"> 😜 Tegajoq hazil — bilmasa yoki xato qilsa «qovoq kalla», «oshqovoq», «xumpar», «eshak», «poponam» deb tegishadi</label></div>
   <div class="note" id="vNote"></div>
   <h3>Ko'rinish</h3>
   <div class="row"><button class="ib" type="button" data-th="">Avto</button><button class="ib" type="button" data-th="light">☀️ Yorug'</button><button class="ib" type="button" data-th="dark">🌙 Tungi</button></div>
@@ -237,7 +237,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 </div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="ka-ustoz-bilim.js?v=20261110b"></script>
+<script src="ka-ustoz-bilim.js?v=20261110c"></script>
 <script>
 (function () {
 "use strict";
@@ -596,7 +596,7 @@ function sysPrompt() {
     logic: "Rejim: mantiq. Yoshiga mos mantiqiy masala va topishmoq ber, javobni tekshir, noto'g'ri bo'lsa ishora ber, ikkinchi urinishdan keyin yechimni qisqa tushuntir.",
     free: "Rejim: barcha fanlar — matematika, fizika, kimyo, biologiya, tarix, geografiya, ona tili, adabiyot, informatika va boshqalar. Savolga " + g + " tushunadigan qilib qisqa javob ber va o'ylashga undovchi bitta savol bilan yakunla."
   };
-  if (C.tease) base.push("Tegajoq hazil: o'quvchi oson savolga javob bera olmasa, xato qilsa yoki «bilmayman» desa, ba'zan (har gal emas) mehr bilan, kulgili qilib «qovun», «qovoq kalla», «oshqovoq», «qovoq kallajonim» kabi so'zlar bilan tegishib qo'y (masalan: \"Voy qovoq kalla, shuni ham bilmaysanmi? Mayli, birga topamiz!\"), keyin darhol dalda berib yordam ber. Bundan qattiqroq yoki haqoratli so'z ishlatma. O'quvchi xafa bo'lsa, charchaganini yoki qiynalayotganini aytsa — tegishma, faqat qo'llab-quvvatla.");
+  if (C.tease) base.push("Tegajoq hazil: o'quvchi oson savolga javob bera olmasa, xato qilsa yoki «bilmayman» desa, ba'zan (har gal emas) mehr bilan, kulgili qilib «qovun», «qovoq kalla», «oshqovoq», «xumpar», «eshak», «eshakvoy», «poponam», «tarvuz kalla» kabi so'zlar bilan tegishib qo'y (masalan: \"Voy qovoq kalla, shuni ham bilmaysanmi? Mayli, birga topamiz!\"), keyin darhol dalda berib yordam ber. Bundan qattiqroq yoki haqoratli so'z ishlatma. O'quvchi xafa bo'lsa, charchaganini yoki qiynalayotganini aytsa — tegishma, faqat qo'llab-quvvatla.");
   if (TOPIC) base.push("Hozirgi dars mavzusi: " + TOPIC + ". Suhbatni shu mavzu atrofida olib bor.");
   return base.concat(M[C.mode]).join("\n");
 }
