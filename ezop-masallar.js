@@ -1039,5 +1039,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki tovuqlar don yeyishni yoqtirmasdi", "Chunki mushuk juda katta va dahshatli edi", "Chunki mushukning harakatlari so'zlariga mos kelmasdi"],
     javob: 2,
     izoh: "Odamning yoki hayvonning nima deyishidan ko'ra, qanday harakat qilishiga qarab xulosa chiqarish to'g'ri. So'z va amal bir-biriga mos kelmasa, ishonchsizlik paydo bo'ladi."
+  },
+  {
+    id: "ez-131", mavzu: "mantiq", sarlavha: "Qo'ng'iz va ariq",
+    matn: "Yomg'irdan keyin ariq suvi ko'tarilib, qirg'oqqa urila boshladi. Qo'ng'iz bargga minib olgan edi, oqim uni tezda o'rtaga olib ketdi. U qirg'oqdagi chumolilarni chaqirib qichqirdi, ammo ular faqat qarab turishdi, hech narsa qilishmadi. Shunda bir bola ariq yoniga kelib, uzun tayoqni cho'zdi va barg yaqinlashganda qo'ngizni tortib oldi.",
+    savol: "Qo'ng'izni oqimdan kim qutqardi?",
+    variantlar: ["Chumolilar, chunki ular uni qutqarish uchun harakat qilgan", "Bola, chunki u uzun tayoqni cho'zib, qo'ngizni tortib olgan", "Ariq suvi, chunki u o'zi pasayib qo'ngizni qirg'oqqa olib chiqqan"],
+    javob: 1,
+    izoh: "Chumolilar faqat qarab turdi, bola esa amal qilib qo'ngizni qutqardi. Yordam so'z bilan emas, aniq harakat bilan keladi."
   }
 ];
