@@ -95,7 +95,8 @@
     ctx.lineWidth = 1.2 * k; ctx.beginPath(); ctx.moveTo(cx - uw / 2 - 30 * k, (y + 88) * k); ctx.lineTo(cx - uw / 2 - 120 * k, (y + 88) * k); ctx.moveTo(cx + uw / 2 + 30 * k, (y + 88) * k); ctx.lineTo(cx + uw / 2 + 120 * k, (y + 88) * k); ctx.stroke();
     // matn
     var topic = String(d.topic || "Jonli viktorina");
-    var body = d.correct ? "«" + topic + "» bo'yicha jonli viktorinada " + d.total + " ta savoldan " + d.correct + " tasiga to'g'ri javob berib, " +
+    var body = d.correct && !d.rank ? "«" + topic + "» bo'yicha viktorinada " + d.total + " ta savoldan " + d.correct + " tasiga to'g'ri javob berib, «" + u.name + "» unvoniga sazovor bo'ldi." :
+      d.correct ? "«" + topic + "» bo'yicha jonli viktorinada " + d.total + " ta savoldan " + d.correct + " tasiga to'g'ri javob berib, " +
       d.of + " nafar ishtirokchi orasida " + d.rank + "-o'rinni egalladi va «" + u.name + "» unvoniga sazovor bo'ldi." :
       "«" + topic + "» bo'yicha jonli viktorinada ishtirok etdi. Keyingi safar albatta yaxshiroq natija bo'ladi!";
     var fs = 25, lh = 35, lines;
@@ -106,7 +107,7 @@
     lines.forEach(function (ln, j) { ctx.fillText(ln, cx, (ly + j * lh) * k); });
     // natija qutilari
     var acc = d.total ? Math.round(d.correct / d.total * 100) : 0;
-    var boxes = [["O'RIN", d.rank + " / " + d.of], ["TO'G'RI JAVOB", d.correct + " / " + d.total], ["ANIQLIK", acc + "%"], ["OCHKO", String(d.score || 0)]];
+    var boxes = [["O'RIN", d.rank ? d.rank + " / " + d.of : "—"], ["TO'G'RI JAVOB", d.correct + " / " + d.total], ["ANIQLIK", acc + "%"], ["OCHKO", String(d.score || 0)]];
     var bw = 250 * k, gap = 34 * k, bx = cx - (boxes.length * bw + (boxes.length - 1) * gap) / 2, by = 912 * k, bh = 88 * k;
     boxes.forEach(function (b, j) {
       var x = bx + j * (bw + gap);

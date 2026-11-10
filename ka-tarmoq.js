@@ -248,10 +248,13 @@
 
   // Xona ochish. opts: {onConn(id, hello) -> true/xato matni, onJoin(id, hello), onRejoin(id, hello), onMsg(id,msg), onLeave(id), onError(e)}
   function host(opts) {
-    var code = genCode();
+    // opts.code — tok o'chib qolgandan keyin o'sha xonani qayta ochish uchun (telefonlar o'zi qaytadi)
+    var code = opts && opts.code && normCode(opts.code).length === 5 ? normCode(opts.code) : genCode();
     return loadMqtt().then(function () { return room(code); }).then(function (R) {
       return new Promise(function (res, rej) {
-        var clients = [], conns = {}, peers = {}, seqs = {}, whoT = {}, settled = false, closed = false, timers = [], bseq = 0, pubB = 0, state = "";
+        var clients = [], conns = {}, peers = {}, seqs = {}, whoT = {}, settled = false, closed = false, timers = [], bseq = Date.now(), pubB = bseq, state = "";
+        // tartib raqamlari vaqtdan boshlanadi: xona qayta ochilganda ham telefon yangi xabarlarni «eski» deb tashlab yubormaydi
+        var seq0 = Date.now();
         var outQ = queue(), inQ = queue(), seen = lru(4000), backlog = [];
         var TH = R.t + "/h", TA = R.t + "/a", TI = R.t + "/i";
         function pubAll(t, s, retain) { var ok = false; clients.forEach(function (c, bi) { if (pub(c, BROKERS[bi], t, s, retain)) ok = true; }); return ok; }
@@ -271,7 +274,7 @@
           send: function (id, msg, all) { // all: barcha brokerlar orqali (holatni qayta yuborishda — albatta yetib borsin)
             if (!peers[id] || closed) return;
             // _s — tartib raqami: o'quvchi kechikib kelgan eski xabarni tashlab yuboradi (eski versiyalar bu maydonga qaramaydi)
-            var m = Object.assign({}, msg); m._s = seqs[id] = (seqs[id] || 0) + 1;
+            var m = Object.assign({}, msg); m._s = seqs[id] = (seqs[id] || seq0) + 1;
             outQ(function () {
               return seal(R, m).then(function (s) {
                 if (closed) return;
