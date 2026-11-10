@@ -440,6 +440,9 @@
       var had = !!st.cur, q0 = had ? (st.cur.k === "tr" ? "«" + st.cur.q + "»" : st.cur.q) : askNew(ctx);
       return { t: "Tanishganimdan xursandman, " + nmx + "! Endi seni ismingdan chaqiraman. " + (had ? "Qani, savolga qaytamiz: " : "Qani, boshladik: ") + q0, mood: "love", name: nmx, opts: optsOf(st) };
     }
+    var sx = norm(t);
+    if (/(^|\s)(men )?(qiz ?bola(man)?|qizman)(\s|$)/.test(sx)) return { t: "Tushundim, endi siz bilan erkak ovozida gaplashaman!" + (st.cur ? " Savolga qaytamiz: " + (st.cur.k === "tr" ? "«" + st.cur.q + "»" : st.cur.q) : ""), mood: "happy", sg: "girl", opts: optsOf(st) };
+    if (/(^|\s)(men )?(o'g'il ?bola(man)?|o'g'lonman|bolaman)(\s|$)/.test(sx) && !/bo'laman/.test(sx)) return { t: "Tushundim, endi sen bilan ayol ovozida gaplashaman!" + (st.cur ? " Savolga qaytamiz: " + (st.cur.k === "tr" ? "«" + st.cur.q + "»" : st.cur.q) : ""), mood: "happy", sg: "boy", opts: optsOf(st) };
     if (/(isming nima|ismimni bilasanmi|men kimman|ismimni ayt)/.test(norm(t))) return { t: ctx.name ? "Sen " + ctx.name + "san-ku! Unutmayman." : "Hali aytmading-ku! Isming nima?", mood: ctx.name ? "love" : "think" };
     var so = social(t);
     if (so) { if (st.cur && so.mood !== "jealous") so.t += " Endi savolga qaytamiz: " + (st.cur.k === "tr" ? "«" + st.cur.q + "»" : st.cur.q); return so; }
