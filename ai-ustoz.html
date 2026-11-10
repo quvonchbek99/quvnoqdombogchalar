@@ -331,7 +331,7 @@ function render() {
   $("#st").className = "st " + S;
   updLook(); setMouth(0);
 }
-function setMood(m) { if (MOODS[m]) { mood = m; render(); } }
+function setMood(m) { if (MOODS[m]) { var ch = m !== mood; mood = m; render(); if (ch && EMBED && window.parent !== window) { try { parent.postMessage({ kuviMood: m }, location.origin); } catch (e) {} } } }
 function updLook() { LOOK.setAttribute("transform", "translate(" + look.x.toFixed(1) + " " + (look.y + dy).toFixed(1) + ")"); }
 function setMouth(open) {
   if (open > 0) { MTH.style.opacity = "0"; MO.setAttribute("ry", open.toFixed(1)); }
@@ -382,7 +382,7 @@ var SS = window.speechSynthesis || null, VO = [];
 function loadVoices() { try { VO = SS ? SS.getVoices() || [] : []; } catch (e) { VO = []; } voiceNote(); }
 if (SS) { loadVoices(); try { SS.addEventListener("voiceschanged", loadVoices); } catch (e) { SS.onvoiceschanged = loadVoices; } }
 function vFor(l, g) {
-  if (window.kaKuvi) return kaKuvi.voice(l, g || "");
+  if (window.kaYuz) return kaYuz.voice(l, g || "");
   var c = VO.filter(function (v) { return String(v.lang || "").toLowerCase().replace("_", "-").indexOf(l) === 0; });
   return c[0] || null;
 }
@@ -399,12 +399,12 @@ function studentG() { return C.sg || nameG(C.name); }
 // Qiz bolaga — erkak ovozi, o'g'il bolaga — ayol ovozi (jahli chiqqanda erkak ovozi); sozlamada qo'lda tanlash ham mumkin
 function voiceG(m) {
   if (C.vg === "f" || C.vg === "m") return C.vg;
-  var s = studentG(), d = window.kaKuvi ? kaKuvi.pros(m).g : "f";
+  var s = studentG(), d = window.kaYuz ? kaYuz.pros(m).g : "f";
   if (s === "girl") return "m";
   if (s === "boy") return m === "strict" || m === "jealous" ? "m" : "f";
   return d;
 }
-function prosOf(m) { var g = voiceG(m); return window.kaKuvi ? kaKuvi.pros(m, g) : { r: 1, p: 1.08, g: g }; }
+function prosOf(m) { var g = voiceG(m); return window.kaYuz ? kaYuz.pros(m, g) : { r: 1, p: 1.08, g: g }; }
 function numWords(t) { return t.replace(/-?\d+(?:[.,]\d+)?/g, function (m) { var v = parseFloat(m.replace(",", ".")); return isFinite(v) ? B.uzWords(v) : m; }); }
 function toTr(t) {
   return numWords(t).replace(/[oO]['ʻʼ‘’`]/g, "o").replace(/[gG]['ʻʼ‘’`]/g, "g").replace(/sh/g, "ş").replace(/Sh|SH/g, "Ş").replace(/ch/g, "ç").replace(/Ch|CH/g, "Ç")
@@ -950,7 +950,7 @@ function voiceNote() {
   var el = $("#vNote"); if (!el || !tts || !fb) return;
   var uz = vFor("uz", "f"), tr = vFor("tr", "f"), ru = vFor("ru", "f"), en = vFor("en", "f"), um = vFor("uz", "m") || vFor("tr", "m") || vFor("ru", "m");
   el.innerHTML = !SS ? "Bu brauzerda ovoz chiqarish yo'q — matn ko'rinadi." :
-    "O'zbekcha: <b>" + esc(uz ? uz.name : tr ? "o'zbek ovozi yo'q, turkcha ovoz bilan o'qiladi (" + tr.name + ")" : ru ? "o'zbek ovozi yo'q, ruscha ovoz bilan o'qiladi" : "ovoz topilmadi") + "</b><br>Jahl ovozi (erkak): <b>" + esc(um && window.kaKuvi && kaKuvi.gender(um) === "m" ? um.name : "erkak ovozi topilmadi — ohang pasaytiriladi") + "</b><br>Inglizcha: <b>" + esc(en ? en.name : "yo'q") + "</b> · Ruscha: <b>" + esc(ru ? ru.name : "yo'q") + "</b>" +
+    "O'zbekcha: <b>" + esc(uz ? uz.name : tr ? "o'zbek ovozi yo'q, turkcha ovoz bilan o'qiladi (" + tr.name + ")" : ru ? "o'zbek ovozi yo'q, ruscha ovoz bilan o'qiladi" : "ovoz topilmadi") + "</b><br>Jahl ovozi (erkak): <b>" + esc(um && window.kaYuz && kaYuz.gender(um) === "m" ? um.name : "erkak ovozi topilmadi — ohang pasaytiriladi") + "</b><br>Inglizcha: <b>" + esc(en ? en.name : "yo'q") + "</b> · Ruscha: <b>" + esc(ru ? ru.name : "yo'q") + "</b>" +
     "<br>Bulut ovozi (Gemini): <b>" + (C.vsrc === "device" ? "o'chiq" : tts.off > Date.now() ? "vaqtincha ishlamayapti" + (tts.err ? " (" + esc(tts.err.slice(0, 60)) + ")" : "") : fb.ai ? "tayyor" : "AI ulanganda ishlaydi") + "</b>" +
     (uz ? "" : "<br>Eng tabiiy o'zbekcha ovoz: kompyuterda <b>Microsoft Edge</b> brauzeri (Madina / Sardor ovozlari), yoki Windows sozlamalarida «Til → O'zbek tili → Nutq» paketini o'rnating.");
 }

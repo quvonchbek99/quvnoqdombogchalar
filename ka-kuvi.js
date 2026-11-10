@@ -1,13 +1,13 @@
 /*!
  * Kuvonch Academy — «Kuvi» personaji: kayfiyatga qarab shakli va yuzi o'zgaradigan kichik SVG
  * hamda vaziyatga mos gaplar (maqtov, tegajoq hazil, sinfga murojaat). ES5 — eski telefonlarda ham ishlaydi.
- * API: kaKuvi.svg(mood, cls) -> SVG matni
- *      kaKuvi.react(kind, {tz, n}) -> {mood, text, html}   kind: ok | bad | timeout | cGood | cMid | cBad
- *      kaKuvi.tease() -> tegajoq hazil yoqilganmi (AI ustoz sozlamasi bilan umumiy)
+ * API: kaYuz.svg(mood, cls) -> SVG matni
+ *      kaYuz.react(kind, {tz, n}) -> {mood, text, html}   kind: ok | bad | timeout | cGood | cMid | cBad
+ *      kaYuz.tease() -> tegajoq hazil yoqilganmi (AI ustoz sozlamasi bilan umumiy)
  */
 (function () {
   "use strict";
-  if (window.kaKuvi) return;
+  if (window.kaYuz) return;
 
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
   function poly(cx, cy, R, r, n, rot) {
@@ -171,5 +171,5 @@
     "@media (prefers-reduced-motion:reduce){.kuvi .kvo,.kuvi .kvb,.kuvi .kvf path{animation:none}}";
   try { var st = document.createElement("style"); st.id = "ka-kuvi-css"; st.appendChild(document.createTextNode(css)); (document.head || document.documentElement).appendChild(st); } catch (e) {}
 
-  window.kaKuvi = { svg: svg, react: react, tease: tease, lines: L, moods: M, voice: voice, pros: pros, say: say, gender: gOf, nameG: nameG, voiceFor: voiceFor, stop: function () { try { if (window.kaAI) kaAI.stop(); if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} } };
+  window.kaYuz = { svg: svg, react: react, tease: tease, lines: L, moods: M, voice: voice, pros: pros, say: say, gender: gOf, nameG: nameG, voiceFor: voiceFor, stop: function () { try { if (window.kaAI) kaAI.stop(); if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} } };
 })();

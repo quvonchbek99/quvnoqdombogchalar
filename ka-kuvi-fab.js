@@ -27,11 +27,37 @@
     "@media (min-width:700px){.kvov{align-items:center}.kvov .bx{border-radius:22px}}" +
     ".kvov iframe{width:100%;height:100%;border:0;display:block}.kvov .x{position:absolute;right:10px;top:10px;z-index:2;width:38px;height:38px;border-radius:12px;border:1px solid #e3dfd7;background:#fff;font-size:18px;cursor:pointer}" +
     "@media print{.kvfab,.kvtip,.kvov{display:none!important}}";
+  var b = null, stEl = null;
+  function css1() { if (!stEl) { stEl = document.createElement("style"); stEl.textContent = css; document.head.appendChild(stEl); } }
+  // Suhbat oynasi (sahifa ustida): FAB ham, robot-maskot Kuvi ham shuni ochadi
+  function openChat() {
+    css1(); if (document.querySelector(".kvov")) return;
+    var ov = document.createElement("div"); ov.className = "kvov"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", "Kuvi — AI ustoz");
+    var f = fan(), url = base + "ai-ustoz.html?embed=1&rejim=" + mode() + (f ? "&fan=" + f : "") + "&mavzu=" + encodeURIComponent(topic());
+    ov.innerHTML = '<div class="bx"><button type="button" class="x" aria-label="Yopish">✕</button><iframe allow="microphone; autoplay" title="Kuvi — AI ustoz"></iframe></div>';
+    ov.querySelector("iframe").src = url;
+    function close() { ov.remove(); document.removeEventListener("keydown", esc); if (b && document.body.contains(b)) b.focus(); robot("happy", "Yana gaplashamiz! 👋"); }
+    function esc(e) { if (e.key === "Escape") close(); }
+    ov.querySelector(".x").onclick = close; ov.onclick = function (e) { if (e.target === ov) close(); };
+    document.addEventListener("keydown", esc);
+    document.body.appendChild(ov);
+  }
+  window.kaKuviChat = { open: openChat };
+  // robot-maskot (ka-effektlar.js) bor bo'lsa — uning LED-yuzi suhbatdagi kayfiyatga qarab o'zgaradi
+  function hasRobot() { return !!document.querySelector(".ka-kuvi"); }
+  function robot(emo, text) { try { if (hasRobot() && window.kaKuvi && kaKuvi.react) kaKuvi.react(emo, text); } catch (e) {} }
+  var EMO = { happy: "happy", love: "love", think: "thinking", strict: "angry", jealous: "angry", sad: "sad", wow: "surprised" };
+  window.addEventListener("message", function (e) {
+    if (e.origin !== location.origin || !e.data || !e.data.kuviMood) return;
+    var TX = { happy: "Zo'r! 😄", love: "💖 Barakalla!", think: "Hmm… 🤔", strict: "Diqqat bilan! 🤨", jealous: "Rashkim keldi! 🔥", sad: "Xafa bo'lmang 🥺", wow: "Voy! 😮" };
+    var m = EMO[e.data.kuviMood]; if (m) robot(m, TX[e.data.kuviMood] || "");
+  });
   function boot() {
-    var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
-    var b = document.createElement("button"); b.type = "button"; b.className = "kvfab"; b.setAttribute("aria-label", "Kuvi — ovozli AI ustoz bilan gaplashish");
+    css1();
+    if (hasRobot()) return; // robot-maskot o'zi suhbatni ochadi
+    b = document.createElement("button"); b.type = "button"; b.className = "kvfab"; b.setAttribute("aria-label", "Kuvi — ovozli AI ustoz bilan gaplashish");
     b.title = "Kuvi — ovozli AI ustoz";
-    function face() { b.innerHTML = window.kaKuvi ? kaKuvi.svg(Math.random() < .5 ? "happy" : "neutral") : "🤖"; }
+    function face() { b.innerHTML = window.kaYuz ? kaYuz.svg(Math.random() < .5 ? "happy" : "neutral") : "🤖"; }
     face(); document.body.appendChild(b);
     var day = new Date().toISOString().slice(0, 10), seen = ""; try { seen = localStorage.getItem("ka.kuvi.fab.tip") || ""; } catch (e) {}
     if (seen !== day) {
@@ -41,19 +67,9 @@
       setTimeout(function () { tip.style.opacity = "0"; setTimeout(function () { tip.remove(); }, 500); }, 7000);
       try { localStorage.setItem("ka.kuvi.fab.tip", day); } catch (e) {}
     }
-    b.onclick = function () {
-      var ov = document.createElement("div"); ov.className = "kvov"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", "Kuvi — AI ustoz");
-      var f = fan(), url = base + "ai-ustoz.html?embed=1&rejim=" + mode() + (f ? "&fan=" + f : "") + "&mavzu=" + encodeURIComponent(topic());
-      ov.innerHTML = '<div class="bx"><button type="button" class="x" aria-label="Yopish">✕</button><iframe allow="microphone; autoplay" title="Kuvi — AI ustoz"></iframe></div>';
-      ov.querySelector("iframe").src = url;
-      function close() { ov.remove(); document.removeEventListener("keydown", esc); b.focus(); }
-      function esc(e) { if (e.key === "Escape") close(); }
-      ov.querySelector(".x").onclick = close; ov.onclick = function (e) { if (e.target === ov) close(); };
-      document.addEventListener("keydown", esc);
-      document.body.appendChild(ov);
-    };
+    b.onclick = openChat;
     setInterval(function () { if (document.body.contains(b) && !document.hidden) face(); }, 12000);
   }
-  function go() { if (window.kaKuvi) boot(); else { var s = document.createElement("script"); s.src = base + "ka-kuvi.js?v=20261110d"; s.onload = boot; s.onerror = boot; document.head.appendChild(s); } }
+  function go() { if (window.kaYuz) setTimeout(boot, 800); else { var s = document.createElement("script"); s.src = base + "ka-kuvi.js?v=20261110d"; s.onload = function () { setTimeout(boot, 800); }; s.onerror = boot; document.head.appendChild(s); } }
   if (document.body) go(); else document.addEventListener("DOMContentLoaded", go);
 })();

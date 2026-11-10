@@ -302,13 +302,20 @@
     var hookTries = 0, hookIv = setInterval(function () { if (hookCoins() || ++hookTries > 20) clearInterval(hookIv); }, 500);
 
     // ---------- kiritish ----------
+    var chatT = 0;
     function onTap(ev) {
       if (ev) ev.preventDefault();
       wake();
       var now = performance.now(); taps = taps.filter(function (q) { return now - q < 1400; }); taps.push(now);
-      if (taps.length >= 6) { taps = []; react("dizzy"); return; }
-      if (taps.length >= 4) { react("angry"); return; }
+      if (taps.length >= 6) { clearTimeout(chatT); taps = []; react("dizzy"); return; }
+      if (taps.length >= 4) { clearTimeout(chatT); react("angry"); return; }
       if (mode === "fly") { react("surprised"); return; }
+      // Kuvi endi ovozli AI ustoz: bitta bosilsa — suhbat oynasi ochiladi (tez-tez bosilsa — avvalgi o'yinlar)
+      if (window.kaKuviChat) {
+        clearTimeout(chatT); setEmo("happy", 2.5); jump(70); speak("Gaplashamiz! 🎙 Savolingizni ayting", 2);
+        chatT = setTimeout(function () { if (taps.length < 3) window.kaKuviChat.open(); }, 520);
+        return;
+      }
       var r = Math.random();
       if (r < .12) { react("fly", "Uchdik! 🚀"); return; }
       stopped = 3.5; jump(95);
