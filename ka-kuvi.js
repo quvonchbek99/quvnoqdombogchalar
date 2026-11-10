@@ -87,8 +87,8 @@
 
   /* ---------- Ovoz: kayfiyatga mos ohang va jins (odatda muloyim ayol, jahli chiqqanda erkak) ---------- */
   // r — tezlik, p — ohang balandligi, g — f (ayol) / m (erkak)
-  var PROS = { neutral: { r: .96, p: 1.1, g: "f" }, happy: { r: 1.06, p: 1.24, g: "f" }, love: { r: .9, p: 1.16, g: "f" }, think: { r: .9, p: 1.02, g: "f" },
-    strict: { r: .98, p: .78, g: "m" }, jealous: { r: 1.06, p: .7, g: "m" }, sad: { r: .84, p: .9, g: "f" }, wow: { r: 1.04, p: 1.34, g: "f" }, listen: { r: .96, p: 1.1, g: "f" } };
+  var PROS = { neutral: { r: 1.04, p: 1.1, g: "f" }, happy: { r: 1.12, p: 1.22, g: "f" }, love: { r: .98, p: 1.16, g: "f" }, think: { r: .98, p: 1.04, g: "f" },
+    strict: { r: 1.04, p: .78, g: "m" }, jealous: { r: 1.1, p: .7, g: "m" }, sad: { r: .92, p: .92, g: "f" }, wow: { r: 1.1, p: 1.32, g: "f" }, listen: { r: 1.04, p: 1.1, g: "f" } };
   var FEM = /(zira|irina|madina|svetlana|dariya|aria|jenny|michelle|samantha|karen|victoria|anna|elena|ekaterina|milena|yelda|emel|filiz|seda|natasha|hazel|susan|libby|sonia|\bava\b|emma|tatyana|alena|aigul|aylin|google us english|google русский|google türkçe)/i;
   var MAL = /(david|mark|pavel|sardor|dmitry|\bguy\b|ryan|davis|tony|ahmet|yuri|maxim|\balex\b|daniel|fred|thomas|george|james|andrew|brian|christopher|eric|roger|tolga|daulet|google uk english male)/i;
   function gOf(v) { var n = v && v.name || ""; if (/female|woman/i.test(n)) return "f"; if (/\bmale\b|\bman\b/i.test(n)) return "m"; if (FEM.test(n)) return "f"; if (MAL.test(n)) return "m"; return "?"; }
