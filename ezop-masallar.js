@@ -1031,5 +1031,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U shox oldi va hamma narsadan xursand bo'ldi", "U bor narsasidan ham ayrildi", "U hech narsa so'ramadi va yolg'iz qoldi"],
     javob: 1,
     izoh: "Ortiqcha narsaga intilish bor narsani ham yo'qotishga olib keladi. Qanoat, ya'ni o'zida borga shukr qilish, ko'pincha eng katta boylikdir."
+  },
+  {
+    id: "ez-130", mavzu: "mantiq", sarlavha: "Mushuk va tovuqlar",
+    matn: "Och mushuk tovuqlar qo'rasi yonida aylanib yurib, \"Endi men yomon ishlardan voz kechdim, go'sht emas, faqat don yeyman\" dedi. Tovuqlar uning so'zlariga ishonmoqchi bo'lishdi. Lekin mushuk qo'ra eshigi oldida o'tirib, ko'zlarini tovuqlardan uzmas, dumini esa sekin silkitib turardi. Kechqurun tovuqlar uning shirin gaplarini emas, qilayotgan ishlarini hisobga olib, qo'ra eshigini mahkam yopishdi.",
+    savol: "Tovuqlar nega mushukning so'zlariga ishonmadi?",
+    variantlar: ["Chunki tovuqlar don yeyishni yoqtirmasdi", "Chunki mushuk juda katta va dahshatli edi", "Chunki mushukning harakatlari so'zlariga mos kelmasdi"],
+    javob: 2,
+    izoh: "Odamning yoki hayvonning nima deyishidan ko'ra, qanday harakat qilishiga qarab xulosa chiqarish to'g'ri. So'z va amal bir-biriga mos kelmasa, ishonchsizlik paydo bo'ladi."
   }
 ];
