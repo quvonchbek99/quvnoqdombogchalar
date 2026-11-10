@@ -430,13 +430,23 @@ function segs(text) {
 }
 var TQ = [], tBusy = false, tGen = 0, unlocked = false, speakEnd = null, voiceWarned = false;
 function unlockAudio() { actx(); if (unlocked || !SS) { unlocked = true; return; } unlocked = true; try { var u = new SpeechSynthesisUtterance(" "); u.volume = 0; SS.speak(u); } catch (e) {} }
+var TTS_DAY = 400;
 function sayAdd(text) {
   segs(text).forEach(function (s) {
-    s.m = mood; var last = TQ[TQ.length - 1];
-    if (last && last.l === s.l && last.m === s.m) last.t += " " + s.t; else TQ.push(s);
+    s.m = mood;
+    if (cloudOn(s.l) && ttsDayN() < TTS_DAY) {
+      // bulut ovozi: gaplarga bo'lib, hammasini birdaniga tayyorlaymiz — birinchi gap tezroq eshitiladi, orasida uzilish bo'lmaydi
+      var parts = s.t.match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [s.t], cur = "";
+      parts.forEach(function (p) { cur += p; if (cur.trim().length >= 28 || p === parts[parts.length - 1]) { var it = { t: cur.trim(), l: s.l, m: s.m, c: 1 }; if (it.t) { TQ.push(it); ttsGet(it); ttsDayInc(); } cur = ""; } });
+      return;
+    }
+    var last = TQ[TQ.length - 1];
+    if (last && !last.c && last.l === s.l && last.m === s.m) last.t += " " + s.t; else TQ.push(s);
   });
   pump();
 }
+function ttsDayN() { var d = lsGet("ka.ustoz.ttsday", {}) || {}; return d.d === today() ? d.n | 0 : 0; }
+function ttsDayInc() { lsSet("ka.ustoz.ttsday", { d: today(), n: ttsDayN() + 1 }); }
 function pump() {
   if (tBusy) return;
   var it = TQ.shift();
@@ -502,7 +512,7 @@ function playBuf(buf, done) {
 }
 function speakOne(it, done) {
   var pr = prosOf(it.m);
-  if (C.voice && cloudOn(it.l)) {
+  if (C.voice && (it.c || cloudOn(it.l)) && tts.off <= Date.now()) {
     var gen = tGen;
     if (TQ[0] && cloudOn(TQ[0].l)) ttsGet(TQ[0]); // keyingi gapni oldindan tayyorlab qo'yamiz
     ttsGet(it).then(function (buf) { if (gen !== tGen) return; playBuf(buf, done); }, function (e) { if (gen !== tGen) return; ttsFail(e); deviceSpeak(it, pr, done); });
