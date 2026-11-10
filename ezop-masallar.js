@@ -1015,5 +1015,14 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ho'l shoxlar olovning kuchini pasaytirdi", "Chunki do'stlar gulxanni juda kech yoqishdi", "Chunki quruq shoxlar tutun chiqarardi"],
     javob: 0,
     izoh: "Namlik olovning issiqligini yutadi va tutun hosil qiladi. Yaxshi yonish uchun quruq, sog'lom o'tin tanlash kerak."
+  },
+  {
+    id: "ez-128", mavzu: "sabr", sarlavha: "Kulol va ko'zalar",
+    matn: "Kulol bir vaqtning o'zida ikkita ko'za yasadi. Birinchisini sabr bilan avval yaxshilab quritib, keyin pishirdi. Ikkinchisini esa tezroq sotish uchun, hali nam holida issiq quyoshga qo'ydi. Kechqurun kuchli shamol esib, ikkinchi ko'za yoriladi, birinchisi esa butun qoldi.",
+    savol: "Ikkinchi ko'za nega yorildi?",
+    variantlar: ["Chunki u yetarli quritilmasdan, shoshilib quyoshga qo'yilgan edi", "Chunki u birinchisidan kattaroq edi", "Chunki kulol uni sotishni xohlamadi"],
+    javob: 0,
+    izoh: "Loy to'liq quritilmasa, ichidagi namlik ko'zaning yorilishiga sabab bo'ladi. Jarayonning bosqichlariga sabr bilan rioya qilish sifatli natija beradi."
   }
 ];
+
