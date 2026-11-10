@@ -223,6 +223,8 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <div class="row"><label><input type="checkbox" id="cVoice"> Kuvi ovoz chiqarib gapirsin</label></div>
   <div class="row"><label for="cRate">Tezlik</label><input type="range" id="cRate" min="0.7" max="1.4" step="0.05"><span id="cRateV"></span></div>
   <div class="row"><label><input type="checkbox" id="cAuto"> Kuvi gapirib bo'lgach, o'zi tinglay boshlasin</label></div>
+  <h3>Fe'l-atvor</h3>
+  <div class="row"><label><input type="checkbox" id="cTease"> 😜 Tegajoq hazil — bilmasa yoki xato qilsa «qovoq kalla», «oshqovoq», «qovun» deb tegishadi</label></div>
   <div class="note" id="vNote"></div>
   <h3>Ko'rinish</h3>
   <div class="row"><button class="ib" type="button" data-th="">Avto</button><button class="ib" type="button" data-th="light">☀️ Yorug'</button><button class="ib" type="button" data-th="dark">🌙 Tungi</button></div>
@@ -235,7 +237,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 </div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="ka-ustoz-bilim.js?v=20261110a"></script>
+<script src="ka-ustoz-bilim.js?v=20261110b"></script>
 <script>
 (function () {
 "use strict";
@@ -248,7 +250,7 @@ var B = window.kaUstozBilim;
 var LS_CFG = "ka.ustoz.cfg", LS_CHAT = "ka.ustoz.chat", LS_DAY = "ka.ustoz.day", LS_FBOFF = "ka.ustoz.fboff", LS_FBM = "ka.ustoz.fbm", LS_AI = "ka.ai.cfg";
 var DAY_LIMIT = 80;
 var Q = new URLSearchParams(location.search);
-var C = Object.assign({ mode: "free", sinf: "7", voice: true, rate: 1, engine: "auto", mic: "auto", auto: false, theme: "" }, lsGet(LS_CFG, {}) || {});
+var C = Object.assign({ mode: "free", sinf: "7", voice: true, rate: 1, engine: "auto", mic: "auto", auto: false, tease: true, theme: "" }, lsGet(LS_CFG, {}) || {});
 var MODES = {
   en: { n: "Ingliz tili", ic: "🇬🇧", mic: "en-US" }, ielts: { n: "IELTS speaking", ic: "🎤", mic: "en-US" }, ru: { n: "Rus tili", ic: "🇷🇺", mic: "ru-RU" },
   math: { n: "Matematika", ic: "➗", mic: "uz-UZ" }, logic: { n: "Mantiq", ic: "🧩", mic: "uz-UZ" }, free: { n: "Barcha fanlar", ic: "📚", mic: "uz-UZ" }
@@ -548,7 +550,7 @@ async function viaPuter(h, onPart) {
   return acc;
 }
 function viaOffline(text) {
-  var c = cur(), ctx = { mode: C.mode, sinf: C.sinf, st: c.st }, r = B.reply(text, ctx);
+  var c = cur(), ctx = { mode: C.mode, sinf: C.sinf, st: c.st, tease: !!C.tease }, r = B.reply(text, ctx);
   c.st = ctx.st; return "[" + r.mood + "] " + r.t;
 }
 function chain() {
@@ -594,6 +596,7 @@ function sysPrompt() {
     logic: "Rejim: mantiq. Yoshiga mos mantiqiy masala va topishmoq ber, javobni tekshir, noto'g'ri bo'lsa ishora ber, ikkinchi urinishdan keyin yechimni qisqa tushuntir.",
     free: "Rejim: barcha fanlar — matematika, fizika, kimyo, biologiya, tarix, geografiya, ona tili, adabiyot, informatika va boshqalar. Savolga " + g + " tushunadigan qilib qisqa javob ber va o'ylashga undovchi bitta savol bilan yakunla."
   };
+  if (C.tease) base.push("Tegajoq hazil: o'quvchi oson savolga javob bera olmasa, xato qilsa yoki «bilmayman» desa, ba'zan (har gal emas) mehr bilan, kulgili qilib «qovun», «qovoq kalla», «oshqovoq», «qovoq kallajonim» kabi so'zlar bilan tegishib qo'y (masalan: \"Voy qovoq kalla, shuni ham bilmaysanmi? Mayli, birga topamiz!\"), keyin darhol dalda berib yordam ber. Bundan qattiqroq yoki haqoratli so'z ishlatma. O'quvchi xafa bo'lsa, charchaganini yoki qiynalayotganini aytsa — tegishma, faqat qo'llab-quvvatla.");
   if (TOPIC) base.push("Hozirgi dars mavzusi: " + TOPIC + ". Suhbatni shu mavzu atrofida olib bor.");
   return base.concat(M[C.mode]).join("\n");
 }
@@ -722,7 +725,7 @@ function fbNote() {
 }
 $("#bCfg").addEventListener("click", function () {
   $$("input[name=en]").forEach(function (r) { r.checked = r.value === C.engine; });
-  $("#gKey").value = aiCfg().key || ""; $("#cVoice").checked = !!C.voice; $("#cRate").value = C.rate; $("#cRateV").textContent = "×" + (+C.rate).toFixed(2); $("#cAuto").checked = !!C.auto;
+  $("#gKey").value = aiCfg().key || ""; $("#cVoice").checked = !!C.voice; $("#cRate").value = C.rate; $("#cRateV").textContent = "×" + (+C.rate).toFixed(2); $("#cAuto").checked = !!C.auto; $("#cTease").checked = !!C.tease;
   fbNote(); voiceNote(); openSheet("#sCfg");
 });
 $("#eng").addEventListener("click", function () { $("#bCfg").click(); });
@@ -735,6 +738,7 @@ $("#pLogin").addEventListener("click", async function () {
 $("#cVoice").addEventListener("change", function () { C.voice = this.checked; saveCfg(); if (!C.voice) stopSpeak(); });
 $("#cRate").addEventListener("input", function () { C.rate = +this.value; $("#cRateV").textContent = "×" + C.rate.toFixed(2); saveCfg(); });
 $("#cAuto").addEventListener("change", function () { C.auto = this.checked; saveCfg(); });
+$("#cTease").addEventListener("change", function () { C.tease = this.checked; saveCfg(); toast(C.tease ? "Tegajoq hazil yoqildi 😜" : "Tegajoq hazil o'chirildi"); });
 $$("[data-th]").forEach(function (b) { b.addEventListener("click", function () { C.theme = b.getAttribute("data-th"); saveCfg(); applyTheme(); }); });
 $("#bHist").addEventListener("click", function () {
   var h = cur().h, L = $("#histL");

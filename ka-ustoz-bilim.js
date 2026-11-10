@@ -87,6 +87,9 @@
   ];
   var LOVE = ["Voy, rahmat! Yuragim eriydi. Davom etamizmi?", "Sen ham zo'rsan! Shunday davom etsang, hammadan o'zib ketasan.", "Rahmat, do'stim! Men ham sen bilan o'qishni yaxshi ko'raman."];
   var PRAISE = ["Barakalla! To'g'ri!", "Zo'r! Aynan shunday!", "Ofarin, juda yaxshi!", "Ana, ko'rdingmi, uddalading!", "To'ppa-to'g'ri! Qoyil!"];
+  // Tegajoq hazil (sozlamada o'chirsa bo'ladi): bilmasa yoki xato qilsa, mehr bilan tegishadi
+  var TEASE = ["Voy qovoq kalla-ey!", "Ey oshqovoq, shuni ham bilmaysanmi?", "Qovunjon, bir o'ylab ko'r-chi!", "Hay qovoq kallajonim...", "Oshqovoqcha, bunisi oson-ku!", "Voy qovun-ey, shunga ham-a?", "Qovoq kalla, uxlab qoldingmi?"];
+  function tz(ctx) { return ctx && ctx.tease && Math.random() < .65 ? pick(TEASE) + " " : ""; }
   var WRONG = ["Hmm, unchalik emas. Yana bir urinib ko'r.", "Yaqin, lekin to'g'ri emas. O'ylab ko'r-chi.", "Unday emas. Qani, yana bir marta!"];
 
   /* ---------- Ingliz tili: tarjima mashqlari (o'zbekcha -> inglizcha) ---------- */
@@ -310,7 +313,7 @@
       if (isNo(t)) {
         st.tries++;
         if (st.tries >= 2) { var s1 = c.s; nx = askNew(ctx); return { t: "Mayli, tushuntiraman: " + s1 + ". Keyingi savol: " + nx, mood: "think" }; }
-        return { t: "Yordam: " + c.h, mood: "think" };
+        return { t: tz(ctx) + "Yordam: " + c.h, mood: "think" };
       }
       var v = parseNum(t);
       if (v == null) return { t: "Javobni son bilan ayting. Savol: " + c.q, mood: "think" };
@@ -319,11 +322,11 @@
         return { t: pick(PRAISE) + " " + fmt(v) + ". " + (st.ok % 5 === 0 ? "Ketma-ket " + st.ok + " ta to'g'ri javob, ofarin! " : "") + "Keyingisi: " + nx, mood: st.ok % 5 === 0 ? "love" : "happy" };
       }
       st.tries++;
-      if (st.tries >= 2) { var s2 = c.s; nx = askNew(ctx); return { t: "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
-      return { t: pick(WRONG) + " Maslahat: " + c.h, mood: "strict" };
+      if (st.tries >= 2) { var s2 = c.s; nx = askNew(ctx); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
+      return { t: tz(ctx) + pick(WRONG) + " Maslahat: " + c.h, mood: "strict" };
     }
     if (c.k === "tr") {
-      if (isNo(t)) { var a0 = c.a[0]; nx = askNew(ctx); return { t: "To'g'ri javob: \"" + a0 + "\". Takrorlab ko'ring! Keyingisi: " + nx, mood: "think" }; }
+      if (isNo(t)) { var a0 = c.a[0]; nx = askNew(ctx); return { t: tz(ctx) + "To'g'ri javob: \"" + a0 + "\". Takrorlab ko'ring! Keyingisi: " + nx, mood: "think" }; }
       if (c.lang === "en" && !/[a-z]/.test(norm(t))) return { t: "Javobni inglizcha ayting. Mikrofon tilini EN ga qo'ying. Savol: «" + c.q + "»", mood: "think" };
       if (c.lang === "ru" && !/[а-я]/.test(norm(t))) return { t: "Javobni ruscha ayting. Mikrofon tilini RU ga qo'ying. Savol: «" + c.q + "»", mood: "think" };
       var sc = bestSim(t, c.a, c.f);
@@ -331,7 +334,7 @@
       if (sc >= .84) { st.ok = (st.ok || 0) + 1; nx = askNew(ctx); return { t: pick(PRAISE) + (sc < .99 ? " Aniqrog'i: \"" + c.a[0] + "\"." : "") + " Keyingisi: " + nx, mood: "happy" }; }
       st.tries++;
       if (sc >= .55 || st.tries >= 2) { var a1 = c.a[0]; nx = askNew(ctx); return { t: (sc >= .55 ? "Deyarli! " : "") + "To'g'ri variant: \"" + a1 + "\". Takrorlab qo'ying. Keyingisi: " + nx, mood: sc >= .55 ? "think" : "strict" }; }
-      return { t: pick(WRONG) + " «" + c.q + "»", mood: "strict" };
+      return { t: tz(ctx) + pick(WRONG) + " «" + c.q + "»", mood: "strict" };
     }
     if (c.k === "ielts") {
       if (!looksEnglish(t)) return { t: "IELTS'da javob inglizcha bo'lishi kerak. Mikrofon tilini EN ga qo'yib, qayta ayting: \"" + c.q + "\"", mood: "strict" };
