@@ -267,7 +267,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 
 <script src="ka-kuvi.js?v=20261110d"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261110a"></script>
+<script src="ka-ai.js?v=20261110b"></script>
 <script src="ka-ustoz-bilim.js?v=20261110n"></script>
 <script>
 (function () {
@@ -478,7 +478,7 @@ function fake(t, done) { setTimeout(done, Math.min(9000, 350 + t.length * 55 / (
 var TTS_MODELS = ["gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview", "gemini-2.5-flash-preview-tts"];
 var TTS_V = { f: "Kore", m: "Charon" };
 var STYLE = { neutral: "warm, friendly and gentle", happy: "cheerful and excited", love: "very warm and affectionate", think: "calm and thoughtful", strict: "firm, stern and a little angry", jealous: "dramatic and playfully jealous", sad: "soft and a little sad", wow: "surprised and amazed" };
-var tts = { mi: Math.min(+lsGet("ka.ustoz.ttsm", 0) || 0, TTS_MODELS.length - 1), off: 0, cache: {}, err: "" };
+var tts = { mi: Math.min(+lsGet("ka.ustoz.ttsm", 0) || 0, TTS_MODELS.length - 1), off: +lsGet("ka.tts.off", 0) || 0, cache: {}, err: "" };
 var AC = null, curSrc = null, anal = null, abuf = null;
 function actx() {
   if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); anal = AC.createAnalyser(); anal.fftSize = 512; anal.connect(AC.destination); abuf = new Uint8Array(anal.fftSize); } catch (e) { AC = null; } }
@@ -524,9 +524,10 @@ async function ttsFetch(text, mood, g) {
   throw new Error("TTS modeli topilmadi");
 }
 function ttsGet(it) { var g = voiceG(it.m), k = g + "|" + it.m + "|" + it.t; if (!tts.cache[k]) { tts.cache[k] = ttsFetch(it.t, it.m, g); tts.cache[k].catch(function () { delete tts.cache[k]; }); } return tts.cache[k]; }
+function retryMs(m) { var r = /retryDelay"\s*:\s*"(\d+)s/.exec(m) || /retry in (?:(\d+)h)?(?:(\d+)m)?/i.exec(m); if (!r) return 0; if (r.length === 2) return +r[1] * 1000; return ((+r[1] || 0) * 3600 + (+r[2] || 0) * 60) * 1000; }
 function ttsFail(e) {
   var m = String((e && ((e.code || "") + " " + (e.message || ""))) || e); tts.err = m;
-  tts.off = Date.now() + (/429|quota|RESOURCE_EXHAUSTED|rate/i.test(m) ? 10 : 30) * 60000;
+  tts.off = Date.now() + Math.min(24 * 3600000, retryMs(m) || (/429|quota|RESOURCE_EXHAUSTED|rate/i.test(m) ? 10 : 30) * 60000); lsSet("ka.tts.off", tts.off);
   try { console.warn("[Kuvi] TTS:", m); } catch (x) {}
 }
 function playBuf(buf, done) {
@@ -856,7 +857,7 @@ function engFail(e, err) {
   if (e === "fb") {
     fb.err = m;
     if (/api-not-enabled|not been used|disabled|PERMISSION_DENIED|403|no-api-key|no-app-id/i.test(m)) lsSet(LS_FBOFF, Date.now() + 30 * 60000);
-    else if (/429|quota|RESOURCE_EXHAUSTED|rate/i.test(m)) lsSet(LS_FBOFF, Date.now() + 10 * 60000);
+    else if (/429|quota|RESOURCE_EXHAUSTED|rate/i.test(m)) lsSet(LS_FBOFF, Date.now() + Math.min(24 * 3600000, retryMs(m) || 10 * 60000));
     else lsSet(LS_FBOFF, Date.now() + 2 * 60000);
   }
   if (e === "puter" && /auth/i.test(m)) puterOk = false;

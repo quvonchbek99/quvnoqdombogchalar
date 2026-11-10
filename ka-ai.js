@@ -13,6 +13,7 @@
   var RECAPTCHA_KEY = "6Ld1sBkuAAAAANmZqRdMg6WXBQuE0sYGmX67i5kj"; // ochiq sayt kaliti (maxfiy emas)
   var imp = null; try { imp = new Function("u", "return import(u)"); } catch (e) { imp = null; }
   var S = { M: null, ai: null, off: 0, err: "" }, P = null;
+  try { S.off = +JSON.parse(localStorage.getItem("ka.tts.off") || "0") || 0; } catch (e) {}
   function lsGet(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
   function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   function load() {
@@ -45,9 +46,14 @@
   }
   function bytes(b) { var s = atob(b), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
   function pcm(by, rate) { var ac = actx(), n = by.length >> 1, buf = ac.createBuffer(1, n, rate), d = buf.getChannelData(0), dv = new DataView(by.buffer, by.byteOffset, by.byteLength); for (var i = 0; i < n; i++) d[i] = dv.getInt16(i * 2, true) / 32768; return buf; }
+  function waitMs(m) {
+    var r = /retryDelay"\s*:\s*"(\d+)s/.exec(m) || /retry in (?:(\d+)h)?(?:(\d+)m)?/i.exec(m);
+    if (!r) return 0; if (r.length === 2) return +r[1] * 1000; return ((+r[1] || 0) * 3600 + (+r[2] || 0) * 60) * 1000;
+  }
   function fail(e) {
     var m = String((e && ((e.code || "") + " " + (e.message || ""))) || e); S.err = m;
-    S.off = Date.now() + (/429|quota|RESOURCE_EXHAUSTED|rate/i.test(m) ? 10 : 30) * 60000;
+    var w = waitMs(m); S.off = Date.now() + Math.min(24 * 3600000, w || (/429|quota|RESOURCE_EXHAUSTED|rate/i.test(m) ? 10 : 30) * 60000);
+    lsSet("ka.tts.off", S.off);
     try { console.warn("[Kuvi] TTS:", m); } catch (x) {}
   }
   function tryModel(text, mood, g, i) {
@@ -117,5 +123,5 @@
       throw e;
     });
   }
-  window.kaAI = { text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
+  window.kaAI = { waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
 })();
