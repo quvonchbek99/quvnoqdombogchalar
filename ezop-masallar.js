@@ -1023,6 +1023,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yetarli quritilmasdan, shoshilib quyoshga qo'yilgan edi", "Chunki u birinchisidan kattaroq edi", "Chunki kulol uni sotishni xohlamadi"],
     javob: 0,
     izoh: "Loy to'liq quritilmasa, ichidagi namlik ko'zaning yorilishiga sabab bo'ladi. Jarayonning bosqichlariga sabr bilan rioya qilish sifatli natija beradi."
+  },
+  {
+    id: "ez-129", mavzu: "qanoat", sarlavha: "Tuya va shox",
+    matn: "Bir kuni tuya cho'l bo'ylab yurib, boshqa hayvonlarning shoxlarini ko'rib hasad qildi. U ham shox bo'lsa, o'zini kuchliroq his qilishini o'ylab, egasiga yolvordi. Egasi uning iltijosini eshitdi, lekin shox o'rniga tuyaning ham bor qulog'ini kesib tashladi. Shu kundan boshlab tuya shox orttira olmadi, qulog'idan ham ayrildi.",
+    savol: "Tuya ko'proq so'raganda nima bo'ldi?",
+    variantlar: ["U shox oldi va hamma narsadan xursand bo'ldi", "U bor narsasidan ham ayrildi", "U hech narsa so'ramadi va yolg'iz qoldi"],
+    javob: 1,
+    izoh: "Ortiqcha narsaga intilish bor narsani ham yo'qotishga olib keladi. Qanoat, ya'ni o'zida borga shukr qilish, ko'pincha eng katta boylikdir."
   }
 ];
-
