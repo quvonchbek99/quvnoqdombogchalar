@@ -1811,25 +1811,40 @@
   };
 
   L["Ehtimollik va kombinatorikalar"] = {
-    n: "Kombinatorika \"nechta usulda?\" degan savolga javob beradi: tartiblash, tanlash, joylashtirish. Ehtimollik esa tasodifiy hodisa ro'y berish imkoniyatini 0 dan 1 gacha son bilan baholaydi.",
+    n: "Kombinatorika \"nechta usulda?\" degan savolga javob beradi va uch asosiy turga bo'linadi: o'rin almashtirish (bor n ta elementning barchasini tartiblash), joylashtirish — o'rinlashtirish (n tadan k tasini tanlab, ularni tartib bilan joylashtirish) va guruhlash (n tadan k tasini tartibga e'tibor bermasdan tanlash). Bu uchtasini farqlashning kaliti — savolda TARTIB muhimmi (kim qaysi o'rinda, qaysi lavozimda) yoki faqat KIMLAR tanlangani muhimmi, shuni aniqlashdir. Ehtimollik nazariyasi ko'pincha aynan shu sanash usullaridan foydalanib, tasodifiy hodisaning ro'y berish imkoniyatini 0 dan 1 gacha son bilan baholaydi.",
     tu: [
       ["Faktorial", "n! = 1 · 2 · 3 · … · n;  0! = 1."],
-      ["O'rin almashtirishlar", "n ta elementni tartiblash usullari soni: Pₙ = n!."],
-      ["Guruhlashlar", "n ta elementdan k tasini tartibsiz tanlash usullari soni: Cₙᵏ."],
+      ["O'rin almashtirish (permutatsiya)", "n ta TURLI elementning barchasini har xil tartibda joylash usullari soni: Pₙ = n!. Masalan, 3 kishini qatorga tizish — 3! = 6 usul."],
+      ["Joylashtirish (o'rinlashtirish)", "n ta elementdan k tasini TANLAB, keyin ularni tartib bilan joylashtirish usullari soni: Aₙᵏ. Tartib muhim — kim qaysi o'rinda (lavozimda) turgani natijani o'zgartiradi."],
+      ["Guruhlash (kombinatsiya)", "n ta elementdan k tasini tartibga qaramasdan TANLASH usullari soni: Cₙᵏ. Faqat kimlar tanlangani muhim, ular qanday tartibda tanlangani emas."],
       ["Klassik ehtimollik", "P = qulay hollar soni / barcha teng imkoniyatli hollar soni."]
     ],
     q: [
       "n! = n · (n − 1)!",
-      "Cₙᵏ = n! / (k!·(n − k)!)  (guruhlash — tartib muhim emas)",
-      "Aₙᵏ = n! / (n − k)!  (o'rinlashtirish — tartib muhim)",
+      "Pₙ = n!   (o'rin almashtirish — barcha n ta element, tartib muhim)",
+      "Aₙᵏ = n! / (n − k)! = n·(n − 1)·…·(n − k + 1)   (joylashtirish — k ta tanlanadi, tartib muhim)",
+      "Cₙᵏ = n! / (k!·(n − k)!) = Aₙᵏ / k!   (guruhlash — k ta tanlanadi, tartib muhim emas)",
+      "Cₙᵏ = Cₙⁿ⁻ᵏ",
+      "Aₙⁿ = Pₙ   (barcha n tasini joylashtirish — o'rin almashtirishning o'zi)",
       "P(A) = m / n,   0 ≤ P(A) ≤ 1",
       "P(Ā) = 1 − P(A)  (Ā — A ga qarama-qarshi hodisa)"
     ],
     m: [
+      { s: "5 kishi bir qatorga necha xil usulda tizilishi mumkin?", y: ["Hammasi — 5 kishining barchasi tartiblanadi, demak o'rin almashtirish: P₅ = 5!.", "5! = 5·4·3·2·1 = 120."], j: "120" },
+      { s: "10 nafar yugurchidan birinchi uch o'rin (oltin, kumush, bronza medal) necha xil usulda taqsimlanishi mumkin?", y: ["Har bir medal — alohida lavozim: kim oltin, kim kumush, kim bronza olgani muhim. Demak, bu joylashtirish: A₁₀³.", "A₁₀³ = 10·9·8 = 720."], j: "720" },
+      { s: "25 o'quvchilik sinfdan prezident va o'rinbosar (ikki xil lavozim) saylanishi kerak. Nechta usul bilan tanlash mumkin?", y: ["Ikki lavozim bir xil emas — tartib muhim, demak joylashtirish: A₂₅².", "A₂₅² = 25·24 = 600."], j: "600" },
       { s: "C₅³ ni hisoblang.", y: ["C₅³ = 5! / (3!·2!) = 120 / (6·2)", "= 120 / 12 = 10."], j: "10" },
+      { s: "12 nafar o'quvchidan 5 kishilik (lavozimsiz) sayohat guruhi necha xil usulda tuzilishi mumkin?", y: ["Guruh ichida lavozim yo'q — faqat kimlar tanlangani muhim, demak guruhlash: C₁₂⁵.", "C₁₂⁵ = 12! / (5!·7!) = (12·11·10·9·8) / 120 = 95040 / 120", "= 792."], j: "792" },
+      { s: "8 kishidan 3 kishilik komissiya tuziladi. a) Komissiyada lavozim bo'lmasa; b) komissiyada rais, o'rinbosar va kotib lavozimlari bo'lsa — har birida necha xil usulda tanlash mumkin?", y: ["a) Lavozim yo'q — guruhlash: C₈³ = 8! / (3!·5!) = 336/6 = 56.", "b) Uch xil lavozim bor — joylashtirish: A₈³ = 8·7·6 = 336.", "Tekshirish: A₈³ = C₈³ · 3! = 56 · 6 = 336 — har bir 3 kishilik guruhni lavozimlarga 3! = 6 xil usulda joylashtirish mumkin."], j: "a) 56;  b) 336" },
+      { s: "Qutida 5 ta oq va 3 ta qora shar bor. Qutidan tasodifan 2 ta shar olinadi. Ikkisi ham oq bo'lish ehtimolini toping.", y: ["Barcha teng imkoniyatli hollar: 8 tadan 2 tasini tanlash — C₈² = 28.", "Qulay hollar: 5 ta oq shardan 2 tasini tanlash — C₅² = 10.", "P = 10/28 = 5/14."], j: "5/14" },
       { s: "Qutida 11 ta shar bor, ulardan 2 tasi qizil. Tasodifan olingan shar qizil bo'lishi ehtimolini toping.", y: ["P = 2/11 ≈ 0,1818."], j: "2/11" }
     ],
-    x: ["Tartib muhim bo'lmaganda Cₙᵏ o'rniga Aₙᵏ ni ishlatish.", "Ehtimollik uchun 1 dan katta javob chiqarish (bunday bo'lishi mumkin emas)."],
+    x: [
+      "Tartib muhim bo'lmaganda Cₙᵏ o'rniga Aₙᵏ ni ishlatish (yoki aksincha) — avval \"tartib muhimmi?\" deb so'rash kerak.",
+      "Joylashtirish Aₙᵏ bilan o'rin almashtirish Pₙ ni aralashtirib yuborish: Pₙ barcha n ta element uchun, Aₙᵏ esa faqat tanlangan k ta (k < n) element uchun ishlatiladi.",
+      "n! ni hisoblashda 0! = 1 ekanini unutish.",
+      "Ehtimollik uchun 1 dan katta javob chiqarish (bunday bo'lishi mumkin emas)."
+    ],
     h: "Ehtimollar nazariyasi 1654-yilda Blez Paskal va Per Fermaning to'xtatilgan o'yindagi tikilgan pulni adolatli taqsimlash haqidagi yozishmalarida tug'ildi. Gyuygens 1657-yilda bu sohadagi birinchi kitobni yozdi, Yakob Bernulli \"Taxminlar san'ati\" (1713)da katta sonlar qonunini isbotladi. Binomial koeffitsiyentlar jadvalini Paskaldan oldin al-Karajiy, Umar Xayyom va xitoylik Yan Xuy bilgan. 1933-yilda Kolmogorov ehtimollarning aksiomatik asosini yaratdi.",
     o: [
       ["Blez Paskal", "1623–1662", "Ferma bilan ehtimollar nazariyasiga asos soldi; Paskal uchburchagi."],
