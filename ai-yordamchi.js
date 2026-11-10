@@ -44,6 +44,7 @@
   .ai-row{display:flex;gap:8px;flex-wrap:wrap}
   .ai-go{flex:1 1 200px;background:#10a37f;color:#fff;border:0;border-radius:12px;padding:12px 14px;font:700 15px/1 inherit;cursor:pointer}
   .ai-copy{flex:0 0 auto;background:#111a2e;color:#eef2ff;border:1px solid #243252;border-radius:12px;padding:12px 14px;font:600 14px/1 inherit;cursor:pointer}
+  .ai-kuvi{flex:1 1 100%;background:#ec4899;color:#fff;border:0;border-radius:12px;padding:12px 14px;font:700 15px/1 inherit;cursor:pointer}
   .ai-note{font-size:12px;color:#9fb0d0}
   .ai-msg{font-size:13px;color:#5ee6c7;min-height:1em}
   .ai-topicbtn{display:inline-flex;align-items:center;gap:6px;margin:10px 8px 10px 0;background:rgba(16,163,127,.14);border:1px solid #10a37f;color:#5ee6c7;border-radius:12px;padding:9px 14px;font:600 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;cursor:pointer}
@@ -98,7 +99,7 @@
     '<label class="ai-topic">Mavzu<select id="ai-topic"><option value="">— Umumiy savol —</option></select></label>' +
     '<div class="ai-modes"></div>' +
     '<textarea id="ai-text" placeholder="Misol yoki savolingizni yozing. Masalan: x^2 - 5x + 6 = 0 tenglamani yeching"></textarea>' +
-    '<div class="ai-row"><button class="ai-go" type="button">ChatGPT\'da so\'rash ↗</button><button class="ai-copy" type="button">📋 Nusxa</button></div>' +
+    '<div class="ai-row"><button class="ai-go" type="button">ChatGPT\'da so\'rash ↗</button><button class="ai-copy" type="button">📋 Nusxa</button><button class="ai-kuvi" type="button">🗣 Kuvi bilan ovozda</button></div>' +
     '<div class="ai-msg"></div>' +
     '<div class="ai-note">Savol tayyor ko\'rsatma bilan ChatGPT\'da yangi oynada ochiladi. AI ham xato qilishi mumkin — javobni darslikdagi qoidalar bilan solishtiring.</div>';
   document.body.append(bg, panel);
@@ -157,6 +158,7 @@
     ask(prompt());
   };
   $(".ai-copy", panel).onclick = function () { copy(prompt()); };
+  $(".ai-kuvi", panel).onclick = function () { var t = topicName(); location.href = "ai-ustoz.html?rejim=math" + (t ? "&mavzu=" + encodeURIComponent(t) : ""); };
   $(".ai-x", panel).onclick = close;
   bg.onclick = close;
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
