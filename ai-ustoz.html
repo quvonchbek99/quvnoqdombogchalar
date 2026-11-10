@@ -216,7 +216,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <button class="ib lg" id="bKbd" type="button" title="Yozib yuborish" aria-label="Yozib yuborish">⌨️</button>
 </div>
 <form class="tf" id="tf" hidden autocomplete="off"><input id="ti" type="text" maxlength="600" placeholder="Xabar yozing…" aria-label="Xabar"><button type="submit" aria-label="Yuborish">➤</button></form>
-<p class="hint" id="hint">Gapirish uchun <kbd>Space</kbd> ni yoki Kuvi'ni bosib turing · qisqa bossangiz, gapni tugatguningizcha tinglaydi</p>
+<p class="hint" id="hint">Gapirish: 🎙 ni yoki Kuvi'ni bir marta bosing — gapirib bo'lgach o'zi to'xtaydi. Kompyuterda <kbd>Space</kbd>.</p>
 
 <div class="sheet" id="sCfg" role="dialog" aria-modal="true" aria-labelledby="cfgH"><div class="in">
   <h2 id="cfgH">⚙️ Sozlamalar <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
@@ -244,6 +244,10 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <h3>Fe'l-atvor</h3>
   <div class="row"><label><input type="checkbox" id="cTease"> 😜 Tegajoq hazil — bilmasa yoki xato qilsa «qovoq kalla», «oshqovoq», «xumpar», «eshak», «poponam» deb tegishadi</label></div>
   <div class="note" id="vNote"></div>
+  <h3>Tinglash</h3>
+  <label class="opt"><input type="radio" name="stt" value="auto"><span><b>Avto (tavsiya)</b><small>Avval brauzerning ovoz tanishi; telefonda ishlamasa (Xiaomi, Redmi, Huawei…) — o'zi Gemini'ga o'tadi</small></span></label>
+  <label class="opt"><input type="radio" name="stt" value="gemini"><span><b>Doim Gemini tinglasin</b><small>Har qanday telefonda ishlaydi, o'zbekchani yaxshi tushunadi; internet kerak</small></span></label>
+  <label class="opt"><input type="radio" name="stt" value="browser"><span><b>Faqat brauzer (Google)</b><small>Chrome'da tez, yozayotganingizni darhol ko'rsatadi</small></span></label>
   <h3>Ko'rinish</h3>
   <div class="row"><button class="ib" type="button" data-th="">Avto</button><button class="ib" type="button" data-th="light">☀️ Yorug'</button><button class="ib" type="button" data-th="dark">🌙 Tungi</button></div>
 </div></div>
@@ -357,7 +361,7 @@ window.addEventListener("pointermove", function (e) {
 }, { passive: true });
 function setState(s) {
   S = s;
-  var T = { idle: hasSR ? "Sizning navbatingiz — bosib turib gapiring" : "Xabar yozing", listen: "Tinglayapman…", think: "Kuvi o'ylayapti…", speak: "Kuvi gapiryapti…" };
+  var T = { idle: hasSR || canMic ? "Sizning navbatingiz — bosib gapiring" : "Xabar yozing", listen: "Tinglayapman…", think: "Kuvi o'ylayapti…", speak: "Kuvi gapiryapti…" };
   $("#stT").textContent = T[s] || "";
   $("#mic").classList.toggle("on", s === "listen");
   render();
@@ -566,36 +570,123 @@ var rec = null, recOn = false, recTxt = "", tapMode = false, silT = null, maxT =
 var LANGS = ["uz-UZ", "en-US", "ru-RU"], LN = { "uz-UZ": "UZ", "en-US": "EN", "ru-RU": "RU" };
 function micLang() { return C.mic !== "auto" && LN[C.mic] ? C.mic : MODES[C.mode].mic; }
 function drawLang() { var b = $("#bLang"); b.textContent = LN[micLang()]; b.title = "Mikrofon tili: " + LN[micLang()] + (C.mic === "auto" ? " (avto)" : "") + " — bosib almashtiring"; b.hidden = !hasSR; }
+/* ---- Gemini orqali tinglash: brauzer ovozni taniy olmasa (Xiaomi/Redmi, Huawei, Mi Browser, ilova ichida) ----
+   Mikrofondan ovoz yoziladi (WAV, 16 kHz), Gemini uni matnga aylantiradi — Google ovoz xizmati shart emas. */
+var GR = { on: false };
+var canMic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && (window.AudioContext || window.webkitAudioContext));
+function sttMode() {
+  if (C.stt === "gemini" && canMic) return "gemini";
+  if (C.stt === "browser" && hasSR) return "browser";
+  if (hasSR && !lsGet("ka.ustoz.sttg", 0)) return "browser";
+  return canMic ? "gemini" : hasSR ? "browser" : "";
+}
+function sttFallback(why) {
+  if (!canMic || C.stt === "browser") return false;
+  lsSet("ka.ustoz.sttg", 1); drawHint();
+  toast((why || "Brauzer ovozni taniy olmadi") + " — endi Gemini orqali tinglayman. Yana bosib gapiring 🎙", 5000);
+  return true;
+}
+function b64of(u8) { var s = "", i, CH = 0x8000; for (i = 0; i < u8.length; i += CH) s += String.fromCharCode.apply(null, u8.subarray(i, i + CH)); return btoa(s); }
+function toWav(chunks, inRate) {
+  var n = 0, i, j; chunks.forEach(function (c) { n += c.length; });
+  var all = new Float32Array(n), o = 0; chunks.forEach(function (c) { all.set(c, o); o += c.length; });
+  var out = 16000, ratio = inRate / out, m = Math.floor(n / ratio), pcm = new Int16Array(m);
+  for (i = 0; i < m; i++) { var a = Math.floor(i * ratio), b = Math.min(n, Math.floor((i + 1) * ratio)), sum = 0; for (j = a; j < b; j++) sum += all[j]; var v = b > a ? sum / (b - a) : all[a] || 0; v = Math.max(-1, Math.min(1, v * 1.6)); pcm[i] = v < 0 ? v * 32768 : v * 32767; }
+  var buf = new ArrayBuffer(44 + m * 2), dv = new DataView(buf);
+  function str(off, t) { for (var k = 0; k < t.length; k++) dv.setUint8(off + k, t.charCodeAt(k)); }
+  str(0, "RIFF"); dv.setUint32(4, 36 + m * 2, true); str(8, "WAVE"); str(12, "fmt "); dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+  dv.setUint32(24, out, true); dv.setUint32(28, out * 2, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true); str(36, "data"); dv.setUint32(40, m * 2, true);
+  new Int16Array(buf, 44).set(pcm);
+  return b64of(new Uint8Array(buf));
+}
+function transcribe(b64) {
+  if (window.KA_STT_MOCK) return window.KA_STT_MOCK(b64);
+  return fbLoad().then(function () {
+    var model = fb.M.getGenerativeModel(fb.ai, { model: FB_MODELS[fb.mi] });
+    return model.generateContent([{ inlineData: { mimeType: "audio/wav", data: b64 } }, { text: "Transcribe exactly what is said in this audio. The speaker is usually a student speaking Uzbek (write it in Uzbek Latin script), sometimes English or Russian. Output only the transcript, nothing else. If there is no speech, output: (jim)" }])
+      .then(function (r) { return r.response.text(); });
+  });
+}
+function gStart(hold) {
+  if (GR.on) return;
+  if (!window.KA_STT_MOCK && chain()[0] === "off") { toast("Ovoz bilan gaplashish uchun internet kerak — hozircha yozib yuboring", 4500); showKbd(true); return; }
+  stopSpeak(); askGen++; streaming = false;
+  GR = { on: true, tap: !hold, t0: Date.now(), spoke: false, lastLoud: 0, chunks: [], ready: false };
+  recOn = true; setState("listen"); showYou("🎙 …");
+  var my = GR;
+  navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, channelCount: 1 } }).then(function (stream) {
+    if (!my.on) { stream.getTracks().forEach(function (t) { t.stop(); }); return; }
+    var ac = new (window.AudioContext || window.webkitAudioContext)();
+    my.stream = stream; my.ac = ac; my.rate = ac.sampleRate; my.src = ac.createMediaStreamSource(stream); my.proc = ac.createScriptProcessor(4096, 1, 1);
+    my.proc.onaudioprocess = function (e) {
+      if (!my.on) return;
+      var d = e.inputBuffer.getChannelData(0), sq = 0, k; my.chunks.push(new Float32Array(d));
+      for (k = 0; k < d.length; k += 8) sq += d[k] * d[k];
+      var rms = Math.sqrt(sq / (d.length / 8)), now = Date.now();
+      if (rms > .015) { my.lastLoud = now; my.spoke = true; }
+      setMouth(0); look.y = -2 - Math.min(6, rms * 120); updLook();
+      if (my.tap && my.spoke && now - my.lastLoud > 1400) gStop();
+      else if (my.tap && !my.spoke && now - my.t0 > 8000) gStop(true);
+      else if (now - my.t0 > 30000) gStop();
+    };
+    my.src.connect(my.proc); my.proc.connect(ac.destination); my.ready = true;
+  }, function () {
+    my.on = false; recOn = false; if (S === "listen") setState("idle"); showYou("");
+    toast("Mikrofonga ruxsat bering: brauzer menyusi → Sayt sozlamalari → Mikrofon → Ruxsat", 6000);
+  });
+}
+function gStop(cancel) {
+  var my = GR; if (!my.on) return; my.on = false; recOn = false;
+  try { my.proc && my.proc.disconnect(); my.src && my.src.disconnect(); } catch (e) {}
+  try { my.stream && my.stream.getTracks().forEach(function (t) { t.stop(); }); } catch (e) {}
+  try { my.ac && my.ac.close(); } catch (e) {}
+  look.y = 0; updLook();
+  if (S === "listen") setState("idle");
+  if (cancel || !my.spoke || !my.chunks.length) { showYou(""); if (!cancel || !my.spoke) toast("Ovoz eshitilmadi — mikrofonga yaqinroq gapiring"); return; }
+  var b64 = toWav(my.chunks, my.rate || 48000);
+  setMood("think"); setState("think"); showYou("🎙 Tinglab oldim…");
+  transcribe(b64).then(function (t) {
+    t = String(t || "").replace(/^\s*["«]|["»]\s*$/g, "").trim();
+    if (!t || /^\(?\s*(jim|silence|no speech)/i.test(t)) { if (S === "think") setState("idle"); showYou(""); toast("Tushunmadim — yana bir bor ayting"); return; }
+    send(t);
+  }, function (e) { if (S === "think") setState("idle"); showYou(""); try { console.warn("[Kuvi] STT:", e && e.message); } catch (x) {} toast("Ovozni tanib bo'lmadi — yozib yuboring", 4500); showKbd(true); });
+}
+var srQuick = 0;
 function micStart(hold) {
   unlockAudio(); hideGo();
-  if (!hasSR) { showKbd(true); toast("Bu brauzer ovozni tanimaydi — yozib yuboring (Chrome yoki Edge tavsiya)"); return; }
+  var md = sttMode();
+  if (md === "gemini") { gStart(hold); return; }
+  if (!md) { showKbd(true); toast("Bu brauzer mikrofonni bermaydi — yozib yuboring (Chrome tavsiya)"); return; }
   if (recOn) return;
   stopSpeak(); askGen++; streaming = false;
-  try { rec = new SR(); } catch (e) { hasSR = false; showKbd(true); return; }
-  rec.lang = micLang(); rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
-  recTxt = ""; tapMode = !hold;
+  try { rec = new SR(); } catch (e) { hasSR = false; if (!sttFallback()) showKbd(true); return; }
+  // Android'da «continuous» rejimi tez-tez o'zi o'chib qoladi — telefonda bitta gap rejimida tinglaymiz
+  var mobile = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+  rec.lang = micLang(); rec.interimResults = true; rec.continuous = !mobile; rec.maxAlternatives = 1;
+  recTxt = ""; tapMode = !hold; var t0 = Date.now(), errC = "";
   rec.onresult = function (e) {
     var fin = "", tmp = "", i; for (i = 0; i < e.results.length; i++) { var r = e.results[i]; if (r.isFinal) fin += r[0].transcript + " "; else tmp += r[0].transcript + " "; }
     recTxt = (fin + tmp).replace(/\s+/g, " ").trim(); showYou(recTxt);
     if (tapMode) { clearTimeout(silT); silT = setTimeout(micStop, 1500); }
   };
   rec.onerror = function (e) {
-    var c = e && e.error;
-    if (c === "not-allowed" || c === "service-not-allowed") toast("Mikrofonga ruxsat bering (manzil satridagi 🔒 belgisi orqali)", 5000);
-    else if (c === "language-not-supported") { toast(LN[rec.lang] + " tili bu brauzerda tanilmaydi — boshqa tilni tanlang yoki yozing", 5000); showKbd(true); }
+    var c = errC = e && e.error || "";
+    if (c === "not-allowed") toast("Mikrofonga ruxsat bering: brauzer menyusi → Sayt sozlamalari → Mikrofon", 6000);
+    else if (c === "service-not-allowed" || c === "language-not-supported" || c === "network" || c === "audio-capture") { if (!sttFallback(c === "language-not-supported" ? LN[rec.lang] + " tili bu telefonda tanilmaydi" : "Telefoningizning ovoz xizmati ishlamadi")) toast("Ovozni tanib bo'lmadi — yozib yuboring", 4500); }
     else if (c === "no-speech") toast("Ovoz eshitilmadi — mikrofonga yaqinroq gapiring");
-    else if (c === "network") toast("Ovozni tanish uchun internet kerak — yozib yuboring", 5000);
   };
   rec.onend = function () {
     recOn = false; clearTimeout(silT); clearTimeout(maxT);
     if (S === "listen") setState("idle");
     var t = recTxt.trim(); recTxt = "";
-    if (t) send(t);
+    if (t) { srQuick = 0; send(t); return; }
+    // hech narsa eshitmay darhol o'chib qolsa (Xiaomi va boshqalarda shunday bo'ladi) — ikkinchi marta Gemini'ga o'tamiz
+    if (!errC && Date.now() - t0 < 1500 && ++srQuick >= 2) { srQuick = 0; sttFallback("Telefoningiz ovozni darhol o'chirib qo'ymoqda"); }
   };
   try { rec.start(); recOn = true; setState("listen"); maxT = setTimeout(micStop, 30000); }
-  catch (e) { recOn = false; toast("Mikrofon ishga tushmadi"); }
+  catch (e) { recOn = false; if (!sttFallback()) toast("Mikrofon ishga tushmadi"); }
 }
-function micStop() { clearTimeout(silT); if (rec && recOn) { try { rec.stop(); } catch (e) {} } }
+function micStop() { clearTimeout(silT); if (GR.on) { gStop(); return; } if (rec && recOn) { try { rec.stop(); } catch (e) {} } }
 function bindPTT(el) {
   var t0 = 0, down = false;
   el.addEventListener("pointerdown", function (e) {
@@ -604,7 +695,7 @@ function bindPTT(el) {
     down = true; t0 = Date.now(); micStart(true);
     try { el.setPointerCapture(e.pointerId); } catch (x) {}
   });
-  function up() { if (!down) return; down = false; if (Date.now() - t0 > 450) micStop(); else { tapMode = true; clearTimeout(silT); silT = setTimeout(micStop, 4000); } }
+  function up() { if (!down) return; down = false; if (Date.now() - t0 > 450) micStop(); else if (GR.on) GR.tap = true; else { tapMode = true; clearTimeout(silT); silT = setTimeout(micStop, 4000); } }
   el.addEventListener("pointerup", up); el.addEventListener("pointercancel", up);
   el.addEventListener("click", function (e) { e.preventDefault(); });
   el.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); if (recOn) micStop(); else micStart(false); } });
@@ -961,7 +1052,7 @@ function fbNote() {
 }
 $("#bCfg").addEventListener("click", function () {
   $$("input[name=en]").forEach(function (r) { r.checked = r.value === C.engine; });
-  $("#gKey").value = aiCfg().key || ""; $("#cVoice").checked = !!C.voice; $("#cRate").value = C.rate; $("#cRateV").textContent = "×" + (+C.rate).toFixed(2); $("#cAuto").checked = !!C.auto; $("#cTease").checked = !!C.tease; $$("input[name=vg]").forEach(function (r) { r.checked = r.value === (C.vg || "auto"); }); $$("input[name=sg]").forEach(function (r) { r.checked = r.value === (C.sg || ""); }); $$("input[name=vsrc]").forEach(function (r) { r.checked = r.value === (C.vsrc || "auto"); });
+  $("#gKey").value = aiCfg().key || ""; $("#cVoice").checked = !!C.voice; $("#cRate").value = C.rate; $("#cRateV").textContent = "×" + (+C.rate).toFixed(2); $("#cAuto").checked = !!C.auto; $$("input[name=stt]").forEach(function (r) { r.checked = r.value === (C.stt || "auto"); }); $("#cTease").checked = !!C.tease; $$("input[name=vg]").forEach(function (r) { r.checked = r.value === (C.vg || "auto"); }); $$("input[name=sg]").forEach(function (r) { r.checked = r.value === (C.sg || ""); }); $$("input[name=vsrc]").forEach(function (r) { r.checked = r.value === (C.vsrc || "auto"); });
   fbNote(); voiceNote(); openSheet("#sCfg");
 });
 $("#eng").addEventListener("click", function () { $("#bCfg").click(); });
@@ -973,6 +1064,7 @@ $("#pLogin").addEventListener("click", async function () {
 });
 $("#cVoice").addEventListener("change", function () { C.voice = this.checked; saveCfg(); if (!C.voice) stopSpeak(); });
 $("#cRate").addEventListener("input", function () { C.rate = +this.value; $("#cRateV").textContent = "×" + C.rate.toFixed(2); saveCfg(); });
+$$("input[name=stt]").forEach(function (r) { r.addEventListener("change", function () { C.stt = r.value; if (r.value === "browser") lsSet("ka.ustoz.sttg", 0); saveCfg(); drawHint(); toast(r.value === "gemini" ? "Endi Gemini tinglaydi" : r.value === "browser" ? "Endi brauzer tinglaydi" : "Avto"); }); });
 $("#cAuto").addEventListener("change", function () { C.auto = this.checked; saveCfg(); });
 $$("input[name=vg]").forEach(function (r) { r.addEventListener("change", function () { C.vg = r.value; saveCfg(); stopSpeak(); var md = r.value === "m" ? "strict" : "happy"; setMood(md); say(r.value === "m" ? "Mana, erkak ovozim. Jahlim chiqsa shunday gapiraman!" : r.value === "f" ? "Salom! Endi doim shu ovozda gapiraman." : "Odatda muloyim gapiraman, jahlim chiqsa — ovozim o'zgaradi!"); }); });
 $$("input[name=sg]").forEach(function (r) { r.addEventListener("change", function () { C.sg = r.value; saveCfg(); toast(C.sg === "girl" ? "Qiz bola — Kuvi erkak ovozida gapiradi" : C.sg === "boy" ? "O'g'il bola — Kuvi ayol ovozida gapiradi" : "Ismdan aniqlanadi"); }); });
@@ -993,7 +1085,12 @@ document.addEventListener("visibilitychange", function () { if (document.hidden)
   try { var u = window.kaAccount && kaAccount.me && kaAccount.me(); if (u && u.name) { var w = String(u.name).trim().split(/\s+/), pickW = w.length > 1 && /(ov|ev|ova|eva|iy|yev|yeva)$/i.test(w[0]) ? w[1] : w[0]; var n = B.findName("ismim " + pickW); if (n) { C.name = n; saveCfg(); } } } catch (e) {}
 })();
 drawModes(); drawLang(); render(); setState("idle"); restore(); ensureBank();
-if (!hasSR) { showKbd(true); $("#hint").textContent = "Brauzeringiz ovozni tanimaydi — yozib yuboring. Ovoz bilan gaplashish uchun Chrome yoki Edge'da oching."; $("#mic").hidden = true; }
+function drawHint() {
+  var h = $("#hint"), md = sttMode();
+  if (!md) { showKbd(true); h.textContent = "Brauzeringiz mikrofonni bermaydi — yozib yuboring. Ovoz bilan gaplashish uchun Chrome'da oching."; $("#mic").hidden = true; return; }
+  h.innerHTML = "Gapirish: 🎙 ni yoki Kuvi'ni <b>bir marta bosing</b> — gapirib bo'lgach o'zi to'xtaydi (yoki bosib turing). Kompyuterda <kbd>Space</kbd>." + (md === "gemini" ? " · Ovozni Gemini tinglaydi" : "");
+}
+drawHint();
 if (C.engine === "off") drawEng("off");
 else if (C.engine === "auto" && !fbOff()) fbLoad().catch(function (e) { engFail("fb", e); });
 window.kaUstoz = { send: send, say: say, setMood: setMood, state: function () { return { S: S, mood: mood, eng: lastEng, h: cur().h }; }, segs: segs, toTr: toTr, toCyr: toCyr, speakable: speakable };
