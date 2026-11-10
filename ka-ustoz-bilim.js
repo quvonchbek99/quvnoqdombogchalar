@@ -313,7 +313,7 @@
     if (c.k === "num") {
       if (isNo(t)) {
         st.tries++;
-        if (st.tries >= 2) { var s1 = c.s; nx = askNew(ctx); return { t: "Mayli, tushuntiraman: " + s1 + ". Keyingi savol: " + nx, mood: "think" }; }
+        if (st.tries >= 2) { var s1 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(ctx); return { t: "Mayli, tushuntiraman: " + s1 + ". Keyingi savol: " + nx, mood: "think" }; }
         return { t: tz(ctx) + "Yordam: " + c.h, mood: "think" };
       }
       var v = parseNum(t);
@@ -323,7 +323,7 @@
         return { t: pick(PRAISE) + " " + fmt(v) + ". " + (st.ok % 5 === 0 ? "Ketma-ket " + st.ok + " ta to'g'ri javob, ofarin! " : "") + "Keyingisi: " + nx, mood: st.ok % 5 === 0 ? "love" : "happy" };
       }
       st.tries++;
-      if (st.tries >= 2) { var s2 = c.s; nx = askNew(ctx); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
+      if (st.tries >= 2) { var s2 = String(c.s).replace(/[.!]+$/, ""); nx = askNew(ctx); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
       return { t: tz(ctx) + pick(WRONG) + " Maslahat: " + c.h, mood: "strict" };
     }
     if (c.k === "tr") {
