@@ -270,7 +270,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 
 <script src="ka-kuvi.js?v=20261110d"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261110c"></script>
+<script src="ka-ai.js?v=20261111a"></script>
 <script src="ka-ustoz-bilim.js?v=20261110n"></script>
 <script>
 (function () {
@@ -499,24 +499,30 @@ function actx() {
   return AC;
 }
 function cloudOn(l) {
-  if (!C.voice || C.vsrc === "device" || tts.off > Date.now()) return false;
-  if (!window.KA_TTS_MOCK && (!fb.ai || fbOff() || dayN() >= dayLimit())) return false;
+  var az = azOn();
+  if (!C.voice || C.vsrc === "device" || (!az && tts.off > Date.now())) return false;
+  if (!az && !window.KA_TTS_MOCK && (!fb.ai || fbOff() || dayN() >= dayLimit())) return false;
   if (!window.KA_TTS_MOCK && ttsDayN() >= ttsLimit()) { proNote("tts"); return false; }
   if (C.vsrc === "cloud") return true;
-  if (l !== "uz" || vFor("uz")) return false; // avto: faqat qurilmada o'zbek ovozi bo'lmasa
+  if (vFor("uz") || (l !== "uz" && !az)) return false; // avto: qurilmada o'zbek ovozi bo'lmasa (Azure bo'lsa inglizcha/ruscha ham tabiiy)
   if (C.vAsk !== "yes") { voiceAsk(); return false; }
   return true;
 }
 // Telefonda o'zbekcha ovoz yo'q — eng yaxshi ovozni (Gemini bulut ovozi) yoqishga ruxsat so'raymiz
 var vAsked = false;
 function voiceAsk() {
-  if (vAsked || C.vAsk || !fb.ai) return; vAsked = true;
+  if (vAsked || C.vAsk || !(fb.ai || azOn())) return; vAsked = true;
   setTimeout(function () { if (!$(".sheet.on")) openSheet("#sVoice"); }, 600);
 }
 function b64bytes(b) { var s = atob(b), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
 function pcmBuf(bytes, rate) { var ac = actx(), n = bytes.length >> 1, buf = ac.createBuffer(1, n, rate), d = buf.getChannelData(0), dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength); for (var i = 0; i < n; i++) d[i] = dv.getInt16(i * 2, true) / 32768; return buf; }
-async function ttsFetch(text, mood, g) {
+function azOn() { return !!(window.kaAI && kaAI.azOn && kaAI.azOn()); }
+async function ttsFetch(text, mood, g, lang) {
   if (window.KA_TTS_MOCK) return window.KA_TTS_MOCK(text, mood, g, actx());
+  // 1) Azure: Madina / Sardor — eng tabiiy o'zbekcha ovoz
+  if (azOn()) { try { return await kaAI.azTTS(text, mood, g, lang); } catch (e) { kaAI.azFail(e); } }
+  // 2) Gemini ovozi (zaxira)
+  if (tts.off > Date.now()) throw new Error("bulut ovozi hozir yo'q");
   await fbLoad();
   var prompt = "Read the following text aloud in its own language (it is Uzbek unless it is clearly English or Russian). Speak in a " + (STYLE[mood] || STYLE.neutral) + " tone, at a natural, lively human pace, like a kind teacher talking to a student:\n" + text;
   for (var i = tts.mi; i < TTS_MODELS.length; i++) {
@@ -537,7 +543,7 @@ async function ttsFetch(text, mood, g) {
   }
   throw new Error("TTS modeli topilmadi");
 }
-function ttsGet(it) { var g = voiceG(it.m), k = g + "|" + it.m + "|" + it.t; if (!tts.cache[k]) { tts.cache[k] = ttsFetch(it.t, it.m, g); tts.cache[k].catch(function () { delete tts.cache[k]; }); } return tts.cache[k]; }
+function ttsGet(it) { var g = voiceG(it.m), k = g + "|" + it.m + "|" + it.l + "|" + it.t; if (!tts.cache[k]) { tts.cache[k] = ttsFetch(it.t, it.m, g, it.l); tts.cache[k].catch(function () { delete tts.cache[k]; }); } return tts.cache[k]; }
 function retryMs(m) { var r = /retryDelay"\s*:\s*"(\d+)s/.exec(m) || /retry in (?:(\d+)h)?(?:(\d+)m)?/i.exec(m); if (!r) return 0; if (r.length === 2) return +r[1] * 1000; return ((+r[1] || 0) * 3600 + (+r[2] || 0) * 60) * 1000; }
 function ttsFail(e) {
   var m = String((e && ((e.code || "") + " " + (e.message || ""))) || e); tts.err = m;
@@ -553,7 +559,7 @@ function playBuf(buf, done) {
 }
 function speakOne(it, done) {
   var pr = prosOf(it.m);
-  if (C.voice && (it.c || cloudOn(it.l)) && tts.off <= Date.now()) {
+  if (C.voice && (it.c || cloudOn(it.l)) && (tts.off <= Date.now() || azOn())) {
     var gen = tGen;
     if (TQ[0] && cloudOn(TQ[0].l)) ttsGet(TQ[0]); // keyingi gapni oldindan tayyorlab qo'yamiz
     ttsGet(it).then(function (buf) { if (gen !== tGen) return; playBuf(buf, done); }, function (e) { if (gen !== tGen) return; ttsFail(e); deviceSpeak(it, pr, done); });
@@ -616,6 +622,14 @@ function toWav(chunks, inRate) {
 }
 function transcribe(b64) {
   if (window.KA_STT_MOCK) return window.KA_STT_MOCK(b64);
+  // 1) Azure: o'zbekcha nutqni tanish (Gemini limitini sarflamaydi)
+  if (azOn()) {
+    var bin = atob(b64), u8 = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    return kaAI.azSTT(u8, micLang()).then(function (t) { if (t) return t; throw new Error("bo'sh"); })["catch"](function (e) { if (!/bo'sh/.test(String(e && e.message))) kaAI.azFail(e); return gTranscribe(b64); });
+  }
+  return gTranscribe(b64);
+}
+function gTranscribe(b64) {
   return fbLoad().then(function () {
     var model = fb.M.getGenerativeModel(fb.ai, { model: FB_MODELS[fb.mi] });
     if (dayN() >= dayLimit()) { proNote("txt"); throw new Error("kunlik AI limiti tugadi"); }
@@ -626,7 +640,7 @@ function transcribe(b64) {
 }
 function gStart(hold) {
   if (GR.on) return;
-  if (!window.KA_STT_MOCK && chain()[0] === "off") { toast("Ovoz bilan gaplashish uchun internet kerak — hozircha yozib yuboring", 4500); showKbd(true); return; }
+  if (!window.KA_STT_MOCK && !azOn() && chain()[0] === "off") { toast("Ovoz bilan gaplashish uchun internet kerak — hozircha yozib yuboring", 4500); showKbd(true); return; }
   stopSpeak(); askGen++; streaming = false;
   GR = { on: true, tap: !hold, t0: Date.now(), spoke: false, lastLoud: 0, chunks: [], ready: false };
   recOn = true; setState("listen"); showYou("🎙 …");

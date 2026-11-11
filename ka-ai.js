@@ -56,7 +56,32 @@
   function trial() { return today() <= LIM.trialUntil; }
   function limits() { return isPro() ? LIM.pro : trial() ? LIM.trial : LIM.free; }
   function left(kind) { var L = limits(); return kind === "tts" ? L.tts - dayN() : L.txt - cnt("ka.ai.day"); }
-  function usable() { return !!imp && !!window.Promise && S.off <= Date.now() && left("tts") > 0 && !!(window.AudioContext || window.webkitAudioContext); }
+  function usable() { return !!window.Promise && (azOn() || (!!imp && S.off <= Date.now())) && left("tts") > 0 && !!(window.AudioContext || window.webkitAudioContext); }
+
+  /* ---------- Azure: o'zbekcha tabiiy ovoz (Madina — ayol, Sardor — erkak) «Kuvi ovoz serveri» orqali ----------
+     Server: tools/kuvi-ovoz-worker.js (Cloudflare Worker). Azure kaliti o'sha yerda yashirin turadi.
+     Bir xil gap ikkinchi marta aytilsa — telefon xotirasidan (pulsiz, darhol). */
+  var AZ_URL = "";
+  function azUrl() { var u = ""; try { u = localStorage.getItem("ka.az.url") || ""; } catch (e) {} u = u || AZ_URL; return u ? String(u).replace(/^"|"$/g, "").replace(/\/+$/, "") : ""; }
+  function azOn() { return !!azUrl() && !!window.fetch && (S.azOff || 0) <= Date.now(); }
+  function azFail(e) { S.azErr = String((e && e.message) || e); S.azOff = Date.now() + (/429/.test(S.azErr) ? 10 : 3) * 60000; try { console.warn("[Kuvi] Azure:", S.azErr); } catch (x) {} }
+  function hashS(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = (h * 16777619) >>> 0; } return h.toString(36) + s.length.toString(36); }
+  function azFetch(body) { return fetch(azUrl() + "/tts", { method: "POST", headers: { "Content-Type": "application/json" }, body: body }).then(function (r) { if (!r.ok) throw new Error("azure " + r.status); return r; }); }
+  function azTTS(text, mood, g, lang) {
+    var body = JSON.stringify({ text: text, mood: mood || "neutral", g: g === "m" ? "m" : "f", lang: lang || (/[а-яё]/i.test(text) ? "ru" : "uz") });
+    var key = "https://kuvi-ovoz.local/v1/" + hashS(body);
+    var open = window.caches && caches.open ? caches.open("kuvi-ovoz-v1")["catch"](function () { return null; }) : Promise.resolve(null);
+    return open.then(function (c) {
+      return (c ? c.match(key) : Promise.resolve(null)).then(function (hit) {
+        if (hit) return hit.arrayBuffer();
+        return azFetch(body).then(function (r) { if (c) { try { c.put(key, r.clone())["catch"](function () {}); } catch (e) {} } return r.arrayBuffer(); });
+      });
+    }).then(function (ab) { var ac = actx(); return new Promise(function (res, rej) { ac.decodeAudioData(ab, res, rej); }); });
+  }
+  function azSTT(wavBytes, lang) {
+    return fetch(azUrl() + "/stt?lang=" + encodeURIComponent(lang || "uz-UZ"), { method: "POST", headers: { "Content-Type": "audio/wav" }, body: wavBytes })
+      .then(function (r) { if (!r.ok) throw new Error("azure stt " + r.status); return r.json(); }).then(function (j) { return j.text || ""; });
+  }
   var AC = null;
   function actx() {
     if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } }
@@ -95,12 +120,13 @@
     });
   }
   // matn -> AudioBuffer (bir xil gap qayta so'ralsa — xotiradan)
-  function tts(text, mood, g) {
-    var k = (g || "f") + "|" + (mood || "") + "|" + text;
+  function tts(text, mood, g, lang) {
+    var k = (g || "f") + "|" + (mood || "") + "|" + (lang || "") + "|" + text;
     if (cache[k]) return cache[k];
     if (!usable()) return Promise.reject(new Error("bulut ovozi hozir yo'q"));
     dayInc();
-    cache[k] = load().then(function () { if (!actx()) throw new Error("AudioContext yo'q"); return tryModel(text, mood, g, mi); });
+    var gem = function () { if (S.off > Date.now() || !imp) throw new Error("Gemini ovozi hozir yo'q"); return load().then(function () { if (!actx()) throw new Error("AudioContext yo'q"); return tryModel(text, mood, g, mi); }); };
+    cache[k] = azOn() ? azTTS(text, mood, g, lang)["catch"](function (e) { azFail(e); return gem(); }) : Promise.resolve().then(gem);
     cache[k]["catch"](function (e) { delete cache[k]; fail(e); });
     return cache[k];
   }
@@ -144,5 +170,5 @@
     });
   }
   setTimeout(function () { refreshPro(); }, 1500);
-  window.kaAI = { limits: limits, left: left, isPro: isPro, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
+  window.kaAI = { azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
 })();
