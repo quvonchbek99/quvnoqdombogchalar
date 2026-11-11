@@ -1063,5 +1063,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Faqat ibodat qilib, hech narsa qilmasdan yordam kelishini kutish orqali", "O'zi ham harakat qilib, g'ildirakni surish va otlarni ruhlantirish orqali", "Yukni shu yerda tashlab, aravani loyda qoldirib ketish orqali"],
     javob: 1,
     izoh: "Yordam faqat o'zing qo'lingdan kelganini qilganingdan keyin keladi. Avval harakat qil, keyin yordam so'ra."
+  },
+  {
+    id: "ez-134", mavzu: "mehnat", sarlavha: "Chumchuq va tovuqlar",
+    matn: "Yoz kunlarining birida chumchuq tovuqlarni ko'rib masxara qildi: \"Siz doim yerni kovlab, don qidirib yurasiz, men esa quyoshda dam olaman.\" Tovuqlar esa har kuni don terib, omborlarini to'ldirib borishdi. Kuz kelib, sovuq va yomg'ir boshlanganda yerda don qolmadi, chumchuqning esa hech narsasi yo'q edi.",
+    savol: "Chumchuq qish kelganda nega ochlikka duch keldi?",
+    variantlar: ["Chunki u yozda dam olib, oziq-ovqat to'plamagan edi", "Chunki tovuqlar uni uyidan haydab chiqargan edi", "Chunki qish o'tgan yilgidan ancha qisqa bo'lgan edi"],
+    javob: 0,
+    izoh: "Qiyin paytda ochlikdan qutulish uchun ish vaqtida tayyorgarlik ko'rish kerak. Yozda qilingan mehnat kuzda va qishda o'zini oqlaydi."
   }
 ];
