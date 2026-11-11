@@ -1071,5 +1071,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yozda dam olib, oziq-ovqat to'plamagan edi", "Chunki tovuqlar uni uyidan haydab chiqargan edi", "Chunki qish o'tgan yilgidan ancha qisqa bo'lgan edi"],
     javob: 0,
     izoh: "Qiyin paytda ochlikdan qutulish uchun ish vaqtida tayyorgarlik ko'rish kerak. Yozda qilingan mehnat kuzda va qishda o'zini oqlaydi."
+  },
+  {
+    id: "ez-135", mavzu: "ehtiyotkorlik", sarlavha: "Kichik ko'l va baliqlar",
+    matn: "Yoz boshida kichik ko'lda bir necha baliq yashardi. Kunlar issiqlashib, suv tobora kamayib borar edi, qirg'oqda esa loy ko'rinib qoldi. Ba'zi baliqlar uzoqdagi chuqur daryoga ko'chishni taklif qilgan edi, lekin boshqalari: \"Hali vaqt bor, keyinroq ham ulgurarmiz\", deb kutishni ma'qul ko'rdi. Bir kuni ko'l butunlay sayozlashib, baliqlar qush va tulkilarga yaqin qoldi.",
+    savol: "Baliqlar nega xavfga duch keldi?",
+    variantlar: ["Chunki ular xavf belgisi paydo bo'lganda ham ko'chishni kechiktirgan edi", "Chunki ko'l yoz kelganda muzlab qolgan edi", "Chunki ular suvdan chiqib uchishni o'rgangan edi"],
+    javob: 0,
+    izoh: "Xavf belgilari paydo bo'lganda darhol harakat qilish kerak. Kechiktirilgan qaror ko'pincha vaqt o'tgach, iloj qolmagan paytda kech bo'ladi."
   }
 ];
