@@ -1047,5 +1047,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chumolilar, chunki ular uni qutqarish uchun harakat qilgan", "Bola, chunki u uzun tayoqni cho'zib, qo'ngizni tortib olgan", "Ariq suvi, chunki u o'zi pasayib qo'ngizni qirg'oqqa olib chiqqan"],
     javob: 1,
     izoh: "Chumolilar faqat qarab turdi, bola esa amal qilib qo'ngizni qutqardi. Yordam so'z bilan emas, aniq harakat bilan keladi."
+  },
+  {
+    id: "ez-132", mavzu: "mantiq", sarlavha: "Adashgan yozuv",
+    matn: "Dehqon bozorga ikki savat olma olib bordi: biri qizil, biri yashil edi. Lekin savatlar ustidagi yozuvlar adashib qo'yilgan edi, qizil olmalar savatiga \"Yashil\", yashil olmalar savatiga \"Qizil\" deb yozilgan edi. Xaridor yozuvga ko'r-ko'rona ishonmasdan, har bir savatdan bitta olmani olib ko'rdi. Shu tariqa u savatlarning haqiqatda qaysi rangdagi olmalarni saqlayotganini aniqladi.",
+    savol: "Xaridor nega yozuvga ishonmay, olmalarga qaradi?",
+    variantlar: ["Chunki yozuv xato bo'lishi mumkin edi, haqiqiy dalil esa olmaning o'zida edi", "Chunki savatlarda olma umuman yo'q edi", "Chunki dehqon uni aldashni xohlamagan edi"],
+    javob: 0,
+    izoh: "Yozuv xato bo'lishi mumkin, shuning uchun uni ko'r-ko'rona qabul qilish xavfli. Xulosa chiqarishdan oldin uni haqiqiy narsa bilan tekshirish kerak."
   }
 ];
