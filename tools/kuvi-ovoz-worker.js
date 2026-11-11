@@ -10,7 +10,7 @@
  * O'rnatish (Cloudflare → Workers & Pages → Create → Worker):
  *   1) Shu kodni «Edit code» oynasiga qo'yib, Deploy bosing.
  *   2) Settings → Variables and Secrets:
- *        AZ_REGION = westeurope           (Azure Speech resursi turgan hudud, Text turi)
+ *        AZ_REGION = swedencentral        (Azure Speech resursi turgan hudud, Text turi; resurs: kuvonch-ovoz, Sweden Central)
  *        AZ_KEY    = <Azure KEY 1>        (Secret turi — hech kimga ko'rinmaydi)
  *   3) Worker manzilini (https://kuvi-ovoz.<...>.workers.dev) sayt sozlamasiga yozamiz.
  * Azure'da «Free F0» tarifini tanlang: oyiga 500 000 belgi bepul, limitdan oshsa pul yechilmaydi — shunchaki to'xtaydi.

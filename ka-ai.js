@@ -61,7 +61,7 @@
   /* ---------- Azure: o'zbekcha tabiiy ovoz (Madina — ayol, Sardor — erkak) «Kuvi ovoz serveri» orqali ----------
      Server: tools/kuvi-ovoz-worker.js (Cloudflare Worker). Azure kaliti o'sha yerda yashirin turadi.
      Bir xil gap ikkinchi marta aytilsa — telefon xotirasidan (pulsiz, darhol). */
-  var AZ_URL = "";
+  var AZ_URL = "https://kuvi-ovoz.quvonchmash12.workers.dev";
   function azUrl() { var u = ""; try { u = localStorage.getItem("ka.az.url") || ""; } catch (e) {} u = u || AZ_URL; return u ? String(u).replace(/^"|"$/g, "").replace(/\/+$/, "") : ""; }
   function azOn() { return !!azUrl() && !!window.fetch && (S.azOff || 0) <= Date.now(); }
   function azFail(e) { S.azErr = String((e && e.message) || e); S.azOff = Date.now() + (/429/.test(S.azErr) ? 10 : 3) * 60000; try { console.warn("[Kuvi] Azure:", S.azErr); } catch (x) {} }
