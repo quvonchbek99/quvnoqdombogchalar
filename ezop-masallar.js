@@ -1055,5 +1055,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki yozuv xato bo'lishi mumkin edi, haqiqiy dalil esa olmaning o'zida edi", "Chunki savatlarda olma umuman yo'q edi", "Chunki dehqon uni aldashni xohlamagan edi"],
     javob: 0,
     izoh: "Yozuv xato bo'lishi mumkin, shuning uchun uni ko'r-ko'rona qabul qilish xavfli. Xulosa chiqarishdan oldin uni haqiqiy narsa bilan tekshirish kerak."
+  },
+  {
+    id: "ez-133", mavzu: "mehnat", sarlavha: "Aravakash va yordam",
+    matn: "Bir aravakash bozorga yuk olib ketayotganda, arava yo'lda chuqur loyga botib qoldi. U tiz cho'kib, yordam so'rab ibodat qila boshladi. Shunda unga ovoz keldi: \"Yelkangni g'ildirakka tirab, otlaringni ruhlantir, shundan keyin yordam so'ra.\"",
+    savol: "Aravakash aravani loydan qanday chiqarishi kerak edi?",
+    variantlar: ["Faqat ibodat qilib, hech narsa qilmasdan yordam kelishini kutish orqali", "O'zi ham harakat qilib, g'ildirakni surish va otlarni ruhlantirish orqali", "Yukni shu yerda tashlab, aravani loyda qoldirib ketish orqali"],
+    javob: 1,
+    izoh: "Yordam faqat o'zing qo'lingdan kelganini qilganingdan keyin keladi. Avval harakat qil, keyin yordam so'ra."
   }
 ];
