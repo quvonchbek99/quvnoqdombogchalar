@@ -1079,5 +1079,15 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular xavf belgisi paydo bo'lganda ham ko'chishni kechiktirgan edi", "Chunki ko'l yoz kelganda muzlab qolgan edi", "Chunki ular suvdan chiqib uchishni o'rgangan edi"],
     javob: 0,
     izoh: "Xavf belgilari paydo bo'lganda darhol harakat qilish kerak. Kechiktirilgan qaror ko'pincha vaqt o'tgach, iloj qolmagan paytda kech bo'ladi."
+  },
+  {
+    id: "ez-136",
+    mavzu: "ehtiyotkorlik",
+    sarlavha: "Kalit va eshik",
+    matn: "Bir bola uyiga kalit bilan kirardi, lekin kalitni har safar boshqa joyga qo'yib unutardi. Bir kuni kalit yo'qolib, u eshik oldida ancha vaqt kutib qoldi. Shundan keyin u kalitni har doim bir joyga, cho'ntagiga solib qo'yishni odat qildi.",
+    savol: "Bola nega kalitni cho'ntagiga solib qo'yishni odat qildi?",
+    variantlar: ["Chunki kalitni qidirib vaqtini behuda sarflashdan charchagan edi", "Chunki kalitni boshqa bolaga berib qo'ygan edi", "Chunki eshik endi doim ochiq bo'lishi kerak edi"],
+    javob: 0,
+    izoh: "Narsalarni doimiy joyiga qo'yish vaqt va asabni tejaydi. Tartib ham ehtiyotkorlikning bir ko'rinishi."
   }
 ];
