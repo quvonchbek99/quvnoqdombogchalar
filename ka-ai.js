@@ -42,16 +42,26 @@
   /* ---------- Kunlik limitlar (bir qurilma uchun, Toshkent kuni) ----------
      tts — tabiiy ovozdagi gap bo'laklari (bitta javob ≈ 2–3 bo'lak), txt — AI xabarlari va ovozni tanish.
      Sinov davrida tabiiy ovoz hammaga; keyin bepul foydalanuvchiga ozgina, Pro'ga ko'p. */
-  var LIM = { trialUntil: "2026-12-31", trial: { tts: 30, txt: 50 }, free: { tts: 6, txt: 30 }, pro: { tts: 600, txt: 300 } };
-  function isPro() { var p = lsGet("ka.pro.v1", null); return !!(p && p.active && (!p.until || p.until > Date.now())); }
-  function refreshPro() {
-    var p = lsGet("ka.pro.v1", null);
-    if (p && Date.now() - (p.ts || 0) < 3 * 3600000) return Promise.resolve(isPro());
-    if (!window.kaAccount || !kaAccount.cloud || !(kaAccount.me && kaAccount.me())) return Promise.resolve(isPro());
-    return kaAccount.cloud().then(function (K) { return K && K.premiumStatus ? K.premiumStatus() : null; }).then(function (s) {
-      if (s && s.signed !== false) lsSet("ka.pro.v1", { active: !!(s && s.active), until: s && s.until ? +new Date(s.until) : 0, ts: Date.now() });
+  // Pro obunachi va admin — cheklovsiz (umumiy himoya: ovoz serverida bitta IP uchun 10 daqiqada 150 so'rov)
+  var LIM = { trialUntil: "2026-12-31", trial: { tts: 30, txt: 50 }, free: { tts: 6, txt: 30 }, pro: { tts: Infinity, txt: Infinity } };
+  var PRO_K = "ka.pro.v2", proP = null;
+  function proRec() { return lsGet(PRO_K, null); }
+  function isAdmin() { var p = proRec(); return !!(p && p.admin); }
+  function isPro() { var p = proRec(); return !!(p && (p.admin || (p.active && (!p.until || p.until > Date.now())))); }
+  function proEvt() { try { window.dispatchEvent(new CustomEvent("ka-pro", { detail: { pro: isPro(), admin: isAdmin() } })); } catch (e) {} }
+  // force=true — keshga qaramay serverdan qayta tekshiradi (limit tugaganda, obuna olingach)
+  function refreshPro(force) {
+    var p = proRec();
+    if (!force && p && Date.now() - (p.ts || 0) < (isPro() ? 3 * 3600000 : 10 * 60000)) return Promise.resolve(isPro());
+    if (!window.kaAccount || !kaAccount.cloud) return Promise.resolve(isPro());
+    if (!(kaAccount.me && kaAccount.me())) { if (p && isPro()) { lsSet(PRO_K, { active: false, admin: false, until: 0, ts: Date.now() }); proEvt(); } return Promise.resolve(false); }
+    if (proP) return proP;
+    proP = kaAccount.cloud().then(function (K) { return K && K.premiumStatus ? K.premiumStatus() : null; }).then(function (s) {
+      proP = null;
+      if (s && !s.error) { lsSet(PRO_K, { active: !!s.active, admin: !!s.admin, until: s.until ? +new Date(s.until) : 0, ts: Date.now() }); proEvt(); }
       return isPro();
-    }, function () { return isPro(); });
+    }, function () { proP = null; return isPro(); });
+    return proP;
   }
   function trial() { return today() <= LIM.trialUntil; }
   function limits() { return isPro() ? LIM.pro : trial() ? LIM.trial : LIM.free; }
@@ -159,7 +169,11 @@
   var TXT = ["gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-2.5-flash-lite"];
   function text(prompt, sys, i) {
     i = i || 0;
-    if (!i) { if (left("txt") <= 0) return Promise.reject(new Error("kunlik AI limiti tugadi")); inc("ka.ai.day"); }
+    if (!i && left("txt") <= 0) {
+      // limit tugadi — balki Pro/admin endi tasdiqlanar (obuna yangi olingan bo'lishi mumkin)
+      return refreshPro(true).then(function () { if (left("txt") <= 0) throw new Error("kunlik AI limiti tugadi"); return text(prompt, sys, 0); });
+    }
+    if (!i) inc("ka.ai.day");
     return load().then(function () {
       var o = { model: TXT[i] }; if (sys) o.systemInstruction = sys;
       return S.M.getGenerativeModel(S.ai, o).generateContent(prompt).then(function (r) { return r.response.text(); });
@@ -169,6 +183,8 @@
       throw e;
     });
   }
-  setTimeout(function () { refreshPro(); }, 1500);
-  window.kaAI = { azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
+  setTimeout(function () { refreshPro(); }, 1200);
+  // sahifaga qaytganda (masalan, Pro olingach) holatni yangilaymiz
+  try { document.addEventListener("visibilitychange", function () { if (!document.hidden) refreshPro(); }); } catch (e) {}
+  window.kaAI = { azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, isAdmin: isAdmin, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
 })();

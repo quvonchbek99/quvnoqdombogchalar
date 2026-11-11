@@ -71,8 +71,8 @@ table.cmp th.pro{color:var(--gold)} .y{color:var(--ac);font-weight:800}.n{color:
     <tr><td>Barcha premium testlar (to'liq to'plam)</td><td class="n">—</td><td class="y">✔</td></tr>
     <tr><td>Yangi qo'shiladigan premium testlar</td><td class="n">—</td><td class="y">✔</td></tr>
     <tr><td>🤖 AI dars slaydlari (PPTX), test va uy vazifasi — <a href="ai-slayd.html">ai-slayd.html</a></td><td class="n">3 ta bepul</td><td class="y">✔ cheksiz</td></tr>
-    <tr><td>🗣 Kuvi AI ustoz: AI suhbat — <a href="ai-ustoz.html">ai-ustoz.html</a></td><td class="n">kuniga 30 ta xabar</td><td class="y">✔ kuniga 300 ta</td></tr>
-    <tr><td>🔊 Kuvi tabiiy ovozi (Gemini, ayol va erkak ovozi)</td><td class="n">31-dekabrgacha sinov, keyin kuniga 2–3 javob</td><td class="y">✔ kuniga ~240 javob</td></tr>
+    <tr><td>🗣 Kuvi AI ustoz: AI suhbat — <a href="ai-ustoz.html">ai-ustoz.html</a></td><td class="n">kuniga 30 ta xabar</td><td class="y">✔ cheklovsiz</td></tr>
+    <tr><td>🔊 Kuvi tabiiy o'zbekcha ovozi (Madina va Sardor)</td><td class="n">31-dekabrgacha sinov, keyin kuniga 2–3 javob</td><td class="y">✔ cheklovsiz</td></tr>
     <tr><td>🎓 Milliy sertifikat va SAT sinov imtihonlari — <a href="sertifikat.html">sertifikat.html</a></td><td class="y">✔</td><td class="y">✔</td></tr>
   </tbody></table>
 </section>
@@ -113,8 +113,8 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
       box.appendChild(b); return;
     }
     if (st.active) {
-      var bd = el("span", "badge ok", "Premium faol"); box.appendChild(bd);
-      box.appendChild(el("p", "sub", fmtD(st.until) + " gacha barcha premium testlar ochiq."));
+      var bd = el("span", "badge ok", st.admin ? "Admin" : "Premium faol"); box.appendChild(bd);
+      box.appendChild(el("p", "sub", st.admin && !(st.until && st.until > new Date()) ? "Admin sifatida barcha premium testlar va Kuvi cheklovsiz ochiq." : fmtD(st.until) + " gacha barcha premium testlar ochiq."));
       return;
     }
     box.appendChild(el("span", "badge", "Obuna yo'q"));

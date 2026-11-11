@@ -303,13 +303,18 @@
       try { var c = await load(); await c.auth.authStateReady(); return c.auth.currentUser ? await c.auth.currentUser.getIdToken() : null; } catch (e) { return null; }
     },
     // ---- Premium ----
+    // Pro holati. Admin (admins/{uid}) — hamma imkoniyat ochiq. Kirish holati yuklanishini kutamiz (aks holda sahifa ochilganda «kirmagan» chiqib qoladi).
     premiumStatus: async function () {
       try {
-        var c = await load(), u = c.auth.currentUser;
+        var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser;
         if (!u) return { signed: false, active: false };
-        var s = await c.F.getDoc(c.F.doc(c.db, "premium", u.uid));
+        var r = await Promise.all([
+          c.F.getDoc(c.F.doc(c.db, "premium", u.uid)),
+          c.F.getDoc(c.F.doc(c.db, "admins", u.uid)).then(function (a) { return a.exists(); }, function () { return false; })
+        ]);
+        var s = r[0], admin = !!r[1];
         var until = s.exists() && s.data().until && s.data().until.toDate ? s.data().until.toDate() : null;
-        return { signed: true, uid: u.uid, active: !!until && until > new Date(), until: until };
+        return { signed: true, uid: u.uid, admin: admin, active: admin || (!!until && until > new Date()), until: until };
       } catch (e) { return { signed: true, active: false, error: e && e.code }; }
     },
     premiumCatalog: async function () {
