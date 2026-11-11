@@ -82,6 +82,12 @@
   // Rol: o'quvchi yoki o'qituvchi (o'qituvchilikni admin tasdiqlaydi — teachers/{uid})
   function rolOf(r) { return r === "oqituvchi" ? "oqituvchi" : "oquvchi"; }
   function planOf(p) { return p === "oqituvchi" ? "oqituvchi" : "oquvchi"; }
+  // Yangi maydonlar (rol, plan) eski Firestore qoidalarida rad etilsa — o'sha maydonsiz qayta yozamiz (qoidalar yangilanguncha sayt buzilmasin)
+  function denied(e) { return !!e && (e.code === "permission-denied" || /permission/i.test(String(e.message || ""))); }
+  async function setCompat(F, ref, data, keys) {
+    try { return await F.setDoc(ref, data); }
+    catch (e) { if (!denied(e)) throw e; var d = Object.assign({}, data); keys.forEach(function (k) { delete d[k]; }); return await F.setDoc(ref, d); }
+  }
 
   // Profilni serverga yozish. Qoida: tanga bir yozuvda ko'pi bilan +200 va yozuvlar orasida 2 soniya,
   // shuning uchun katta o'sish bo'laklarga bo'linadi.
@@ -145,7 +151,7 @@
       var cred = await c.A.createUserWithEmailAndPassword(c.auth, email, password);
       window.__kaCloudAuth = c.auth; cloudState = null;
       var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000); first.rol = rolOf(p.rol);
-      await c.F.setDoc(c.F.doc(c.db, "users", cred.user.uid), first);
+      await setCompat(c.F, c.F.doc(c.db, "users", cred.user.uid), first, ["rol"]);
       cloudState = { coins: first.coins, correct: first.correct, answered: first.answered, tests: first.tests };
       return cred.user.uid;
     },
@@ -196,7 +202,7 @@
         catch (e) { var k = e && e.code; if (k === "auth/email-already-in-use" || k === "auth/credential-already-in-use") throw { code: "auth/email-already-in-use" }; if (k !== "auth/provider-already-linked") throw e; }
       }
       var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000); first.rol = rolOf(p.rol);
-      await c.F.setDoc(c.F.doc(c.db, "users", u.uid), first);
+      await setCompat(c.F, c.F.doc(c.db, "users", u.uid), first, ["rol"]);
       cloudState = { coins: first.coins, correct: first.correct, answered: first.answered, tests: first.tests }; pendingG = null;
       return u.uid;
     },
@@ -276,10 +282,15 @@
       var old = 0; try { var ps = await c.F.getDoc(pref); if (ps.exists() && ps.data().until && ps.data().until.toMillis) old = ps.data().until.toMillis(); if (old > Date.now() && planOf(ps.data().plan) === "oqituvchi") throw { code: "oqituvchi-pro" }; } catch (e) { if (e && e.code === "oqituvchi-pro") throw e; }
       var base = old > Date.now() ? old : Date.now() - 600000; // soat farqi uchun 10 daqiqa zaxira
       var until = c.F.Timestamp.fromMillis(base + days * 86400000);
-      var b = c.F.writeBatch(c.db);
-      b.update(uref, { bc: bc - cost, updated: c.F.serverTimestamp() });
-      b.set(pref, { until: until, by: u.uid, at: c.F.serverTimestamp(), days: days, plan: "oquvchi" });
-      await b.commit();
+      var pro = { until: until, by: u.uid, at: c.F.serverTimestamp(), days: days, plan: "oquvchi" };
+      for (var k = 0; k < 2; k++) {
+        try {
+          var b = c.F.writeBatch(c.db);
+          b.update(uref, { bc: bc - cost, updated: c.F.serverTimestamp() });
+          b.set(pref, pro);
+          await b.commit(); break;
+        } catch (e) { if (k || !denied(e)) throw e; pro = { until: until, by: u.uid, at: c.F.serverTimestamp(), days: days }; }
+      }
       return { bc: bc - cost, until: until.toDate() };
     },
     // Profil turi: "oquvchi" | "oqituvchi" (o'qituvchi bo'lsa — admin tasdig'ini kutadi)
@@ -394,7 +405,10 @@
       var c = await load(), u = c.auth.currentUser; if (!u) throw { code: "auth/requires-recent-login" };
       var ps = await c.F.getDoc(c.F.doc(c.db, "users", u.uid)); var pr = ps.exists() ? ps.data() : {};
       var id = u.uid + "_" + Date.now().toString(36);
-      await c.F.setDoc(c.F.doc(c.db, "payments", id), { uid: u.uid, name: String(pr.name || "").slice(0, 40), group: String(pr.group || "").slice(0, 20), note: String(note || "").slice(0, 200), img: String(img), status: "pending", plan: planOf(plan), at: c.F.serverTimestamp() });
+      var pl = planOf(plan), nt = String(note || "").slice(0, 200);
+      var doc = { uid: u.uid, name: String(pr.name || "").slice(0, 40), group: String(pr.group || "").slice(0, 20), note: nt, img: String(img), status: "pending", plan: pl, at: c.F.serverTimestamp() };
+      try { await c.F.setDoc(c.F.doc(c.db, "payments", id), doc); }
+      catch (e) { if (!denied(e)) throw e; delete doc.plan; if (pl === "oqituvchi") doc.note = ("[O'qituvchi Pro] " + nt).slice(0, 200); await c.F.setDoc(c.F.doc(c.db, "payments", id), doc); }
       return id;
     },
     myPayment: async function () {
