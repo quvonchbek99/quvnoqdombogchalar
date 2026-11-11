@@ -695,12 +695,12 @@ function usedN(){try{return +(localStorage.getItem(LS_USED)||0)}catch(e){return 
 function drawQuota(){
  var q=$("#quota");if(gMode()!=="owner"){q.hidden=true;return}
  q.hidden=false;var left=Math.max(0,FREE-usedN());
- q.innerHTML=pro?"💎 Pro — cheksiz.":"Sayt kaliti bilan: <b>"+left+" ta</b> bepul urinish qoldi. Keyin <a href=\"premium.html\">Pro obuna</a> yoki o'z kalitingiz. Puter va Oflayn rejimlari doim bepul va cheksiz.";
+ q.innerHTML=pro?"💎 O'qituvchi Pro — cheksiz.":"Sayt kaliti bilan: <b>"+left+" ta</b> bepul urinish qoldi. Keyin <a href=\"premium.html#oqituvchi\">💎 O'qituvchi Pro</a> yoki o'z kalitingiz. Puter va Oflayn rejimlari doim bepul va cheksiz.";
 }
 async function geminiChat(prompt){
  var c=gcfg(),mode=gMode();
  if(!mode)throw new Error("Gemini sozlanmagan: kalit yoki Worker manzilini kiriting");
- if(mode==="owner"&&!pro&&usedN()>=FREE)throw new Error("Sayt kaliti bilan 3 ta bepul urinish tugadi. Pro obuna oling yoki Bepul AI (Puter) rejimidan foydalaning");
+ if(mode==="owner"&&!pro&&usedN()>=FREE)throw new Error("Sayt kaliti bilan 3 ta bepul urinish tugadi. O'qituvchi Pro oling yoki Bepul AI (Puter) rejimidan foydalaning");
  var body=JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:.7,responseMimeType:"application/json"}});
  var r;
  if(mode==="key")r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key="+encodeURIComponent(c.key),{method:"POST",headers:{"Content-Type":"application/json"},body:body});
@@ -1335,7 +1335,8 @@ function init(){
  $("#testPrint").onclick=function(){printDeck(true,true)};
  $("#testReset").onclick=drawQuiz;
  // Pro holati (faqat sayt egasining Worker rejimi uchun)
- if(DEFAULT_WORKER)(async function(){try{if(window.kaCloud&&window.kaCloud.premiumStatus){var s=await window.kaCloud.premiumStatus();pro=!!(s&&s.active)}}catch(e){}drawQuota()})();
+ // AI slaydlar — o'qituvchi asbobi: O'qituvchi Pro (yoki eski tarifsiz Pro) bo'lsa cheksiz
+ if(DEFAULT_WORKER)(async function(){try{var K=window.kaCloud||(window.kaAccount&&kaAccount.cloud?await kaAccount.cloud():null);if(K&&K.premiumStatus){var s=await K.premiumStatus();pro=!!(s&&s.active&&(s.plan==="oqituvchi"||s.legacy))}}catch(e){}drawQuota()})();
  // oxirgi ochilgan slayd
  var L=lsGet(LS_DECKS,[])||[];
  if(L[0]&&L[0].deck&&/[?&]oxirgi\b/.test(location.search))openDeck(L[0].deck,true);

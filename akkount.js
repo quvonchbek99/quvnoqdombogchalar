@@ -56,7 +56,7 @@
     });
     rec.cloud = uid; rec.name = (data && data.name) || name; rec.group = (data && data.group != null) ? data.group : group;
     if (data) {
-      rec.av = data.av | 0;
+      rec.av = data.av | 0; if (data.rol) rec.rol = data.rol === "oqituvchi" ? "oqituvchi" : "oquvchi";
       rec.coins = Math.max(rec.coins || 0, data.coins | 0); rec.correct = Math.max(rec.correct || 0, data.correct | 0);
       rec.answered = Math.max(rec.answered || 0, data.answered | 0); rec.tests = Math.max(rec.tests || 0, data.tests | 0);
     } else if (rec.av == null) rec.av = 0;
@@ -102,7 +102,50 @@
     var a = AVATARS[(u && u.av) || 0] || AVATARS[0];
     return '<span class="acc-av" style="' + st + ";background:" + a[1] + '">' + a[0] + "</span>";
   }
+  // ---------- Rol (o'quvchi / o'qituvchi) va Pro holati ----------
+  function rolHTML(r) {
+    r = r === "oqituvchi" ? "oqituvchi" : "oquvchi";
+    return '<div class="acc-rolw"><div class="acc-rolh">Men kimman?</div><div class="acc-rol">' +
+      '<label><input type="radio" name="rol" value="oquvchi"' + (r === "oquvchi" ? " checked" : "") + '> 🎒 O\'quvchiman</label>' +
+      '<label><input type="radio" name="rol" value="oqituvchi"' + (r === "oqituvchi" ? " checked" : "") + '> 🎓 O\'qituvchiman</label></div>' +
+      '<div class="acc-rolnote">O\'qituvchi profili admin tasdiqlagach faollashadi (🎓 belgisi chiqadi).</div></div>';
+  }
+  function rolVal(f) { var x = f.querySelector('input[name="rol"]:checked'); return x && x.value === "oqituvchi" ? "oqituvchi" : "oquvchi"; }
+  function stOf(u) { return (u && u.st) || {}; }
+  function isT(u) { var s = stOf(u); return !!(s.teacher || s.admin); }
+  function saveLocal() { try { localStorage.setItem(LS, JSON.stringify(DB)); } catch (e) {} }
+  // Bulutdan rol, o'qituvchi tasdig'i va Pro tarifini olib keladi (sahifa yuklanishini sekinlashtirmaslik uchun keshlanadi)
+  var stP = null;
+  function stRefresh(maxAge) {
+    var u = me(); if (!u || !u.cloud) return Promise.resolve(null);
+    if (u.st && Date.now() - (u.st.ts || 0) < (maxAge == null ? 6 * 3600000 : maxAge)) return Promise.resolve(u.st);
+    if (stP) return stP;
+    stP = cloud().then(function (K) {
+      if (!K || !K.premiumStatus) return null;
+      return K.session().then(function (uid) { return uid && uid === u.cloud ? K.premiumStatus() : null; });
+    }).then(function (s) {
+      stP = null;
+      if (!s || s.error || s.signed === false) return null;
+      var cu = me(); if (!cu || cu.cloud !== s.uid) return null;
+      cu.st = { teacher: !!s.teacher, admin: !!s.admin, rol: s.rol || "oquvchi", plan: s.plan || "", active: !!s.active, until: s.until ? +new Date(s.until) : 0, ts: Date.now() };
+      cu.rol = cu.st.rol; saveLocal(); renderChip();
+      // Kuvi (ka-ai.js) ham Pro holatini darhol bilsin
+      try { localStorage.setItem("ka.pro.v2", JSON.stringify({ active: cu.st.active, admin: cu.st.admin, until: cu.st.until, ts: Date.now() })); window.dispatchEvent(new CustomEvent("ka-pro", { detail: { pro: cu.st.active, admin: cu.st.admin } })); } catch (e) {}
+      return cu.st;
+    }, function () { stP = null; return null; });
+    return stP;
+  }
+  function badgesHTML(u) {
+    var s = stOf(u), r = s.rol || u.rol || "oquvchi", out = [];
+    if (s.admin) out.push('<span class="acc-bd t">👑 Admin · O\'qituvchi</span>');
+    else if (s.teacher) out.push('<span class="acc-bd t">🎓 O\'qituvchi ✓</span>');
+    else if (r === "oqituvchi") out.push('<span class="acc-bd w">🎓 O\'qituvchi · ⏳ tasdiq kutilmoqda</span>');
+    else out.push('<span class="acc-bd s">🎒 O\'quvchi</span>');
+    if (s.active && !s.admin) out.push('<span class="acc-bd p">💎 ' + (s.plan === "oqituvchi" ? "O\'qituvchi Pro" : "O\'quvchi Pro") + (s.until ? " · " + new Date(s.until).toLocaleDateString("uz-UZ") + " gacha" : "") + "</span>");
+    return out.join("");
+  }
   function level(c) { return Math.floor((c || 0) / 100) + 1; }
+  function subTxt(u) { var c = u.coins || 0; return (u.group ? u.group + " guruh · " : "") + level(c) + "-daraja · " + (isT(u) ? "Ustoz" : title(c)); }
   var TITLES = ["Yangi o'quvchi", "Izlanuvchi", "Hisobchi", "Bilimdon", "Matematik", "Ustoz", "Akademik", "Grossmeyster"];
   function title(c) { return TITLES[Math.min(TITLES.length - 1, level(c) - 1)]; }
 
@@ -169,6 +212,22 @@
   .acc-form input{background:#0b1220;border:1px solid #243252;color:#eef2ff;border-radius:10px;padding:10px 12px;font:500 15px/1.2 inherit;text-transform:none;letter-spacing:0;outline:none}
   .acc-form input:focus{border-color:#7c9bff}
   .acc-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .acc-rolh{font-size:12px;color:#9fb0d0;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+  .acc-rol{display:flex;gap:8px;flex-wrap:wrap}
+  .acc-form .acc-rol label{flex:1 1 140px;flex-direction:row;align-items:center;gap:8px;border:1px solid #243252;border-radius:12px;padding:10px 12px;cursor:pointer;background:#0f1830;text-transform:none;letter-spacing:0;font-size:14px;color:#eef2ff}
+  .acc-form .acc-rol input{accent-color:#a78bfa;width:18px;height:18px;margin:0}
+  .acc-form .acc-rol label:has(input:checked){border-color:#a78bfa;background:#1d1640}
+  .acc-rolnote{font-size:12px;color:#9fb0d0;margin-top:4px}
+  .acc-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .acc-rolact:not(:empty){margin-top:-4px}
+  .acc-bd{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid #243252;background:#0f1830;color:#cfe0ff;white-space:nowrap}
+  .acc-bd.t{border-color:#a78bfa;color:#e3d9ff;background:#1d1640}
+  .acc-bd.s{border-color:#5ee6c7;color:#bff6e8;background:#0f2a26}
+  .acc-bd.w{border-color:#ffd479;color:#ffe7ad;background:#2b2210}
+  .acc-bd.p{border-color:#ffd479;color:#1b1300;background:linear-gradient(135deg,#ffd479,#ffb547)}
+  .acc-chip.t{border-color:#a78bfa}
+  .acc-chip.pro{box-shadow:0 0 0 2px rgba(255,212,121,.6),0 4px 14px rgba(0,0,0,.35)}
+  .acc-chip .rb{font-size:13px;line-height:1}
   @media (max-width:520px){.acc-grid2{grid-template-columns:1fr}}
   .acc-avpick{display:flex;flex-wrap:wrap;gap:8px}
   .acc-avpick button{border:2px solid transparent;background:none;padding:2px;border-radius:50%;cursor:pointer}
@@ -191,6 +250,7 @@
   .acc-ic{flex:0 0 auto;min-width:42px;min-height:40px;background:#111a2e;border:1px solid #243252;color:#eef2ff;border-radius:10px;font-size:16px;line-height:1;cursor:pointer;padding:0 8px}
   .acc-ic:hover{border-color:#7c9bff;background:#16223d}
   .acc-btn.sm{padding:8px 11px;font-size:13px}
+  a.acc-btn{text-decoration:none;display:inline-flex;align-items:center;gap:6px}
   .acc-form .acc-chk{flex-direction:row;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-weight:600;color:#cfd8f0;font-size:13px;cursor:pointer}
   .acc-form .acc-chk input{width:18px;height:18px;padding:0;accent-color:#8b5cf6;flex:0 0 auto}
   .acc-chk small{display:block;color:#8090b0;font-weight:500;font-size:11.5px;margin-top:1px}
@@ -307,7 +367,10 @@
   function renderChip() {
     try { window.dispatchEvent(new Event("ka-acc")); } catch (e) {}
     var u = me();
-    chip.innerHTML = u ? avatarHTML(u, 28) + '<span>' + esc(u.name.split(" ")[0]) + '</span><span class="coin">🪙 ' + (u.coins || 0) + "</span>"
+    var s = stOf(u);
+    chip.classList.toggle("t", !!(u && isT(u))); chip.classList.toggle("pro", !!(u && s.active));
+    chip.title = u ? (isT(u) ? "O'qituvchi" : "O'quvchi") + (s.active ? " · Pro" : "") + " — akkount" : "Akkount";
+    chip.innerHTML = u ? avatarHTML(u, 28) + '<span>' + esc(u.name.split(" ")[0]) + '</span>' + (isT(u) ? '<span class="rb" aria-label="O\'qituvchi">🎓</span>' : "") + '<span class="coin">🪙 ' + (u.coins || 0) + "</span>" + (s.active ? '<span class="rb" aria-label="Pro">💎</span>' : "")
       : '<span class="acc-av" style="width:28px;height:28px;font-size:15px;background:#243252">👤</span><span>Kirish</span>';
   }
 
@@ -581,6 +644,7 @@
       '<div class="acc-top">' + avatarHTML({ av: av }, 96) + '<div class="acc-name"><h3>➕ Gmail bilan yangi akkount</h3><div class="sub">' + esc(info.email || "") + "</div></div></div>" +
       '<div class="acc-body"><form class="acc-form">' + userHidden("") +
       '<div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required placeholder="Masalan: Aziza Karimova"></label><label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25"></label></div>' +
+      rolHTML(pre.rol) +
       '<label>Parol (ixtiyoriy — Gmail\'siz qurilmada ism va guruh bilan kirish uchun)' + pwHTML("pw", { ac: "new-password", min: 6, gen: 1, ph: "bo'sh qoldirsangiz — faqat Gmail bilan kirasiz" }) + "</label>" + saveChk(true) +
       '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">Akkount ochish</button><button class="acc-btn" type="button" data-a="back">← Orqaga</button></div></form></div>';
     var f = $("form", card), msg = $(".acc-msg", f);
@@ -598,7 +662,7 @@
       try {
         var K = await cloud();
         var loc = null; Object.keys(DB).forEach(function (id) { var o = DB[id]; if (!o.cloud && norm(o.name) === norm(name) && norm(o.group) === norm(group)) loc = o; });
-        var p = { name: name, group: group, av: loc ? (loc.av | 0) : av, coins: loc ? loc.coins | 0 : 0, correct: loc ? loc.correct | 0 : 0, answered: loc ? loc.answered | 0 : 0, tests: loc ? loc.tests | 0 : 0 };
+        var p = { name: name, group: group, av: loc ? (loc.av | 0) : av, coins: loc ? loc.coins | 0 : 0, correct: loc ? loc.correct | 0 : 0, answered: loc ? loc.answered | 0 : 0, tests: loc ? loc.tests | 0 : 0, rol: rolVal(f) };
         var uid = await K.googleCreate(p, pw || null);
         var id = adoptCloud(uid, name, group, p);
         if (pw) { if (f.keep.checked) keySave(id, name, group, pw); browserStore(name, group, pw); setCur(id); syncIdentity(); renderChip(); showKeys(id, pw, "✅ Akkount ochildi!"); }
@@ -732,6 +796,7 @@
       userHidden("") +
       '<div class="acc-grid2"><label>Ism va familiya<input name="name" maxlength="40" required placeholder="Masalan: Aziza Karimova"></label>' +
       '<label>Guruh<input name="group" maxlength="20" placeholder="Masalan: 05-25"></label></div>' +
+      rolHTML(u.rol || (stOf(u).teacher ? "oqituvchi" : "")) +
       (cloudAcc ? '<div class="acc-banner">☁️ Akkaunt bulutda. Ism va guruhni o\'zgartirib bo\'lmaydi (kirish shularga bog\'langan). Parolni profildagi «🔑 Parolni o\'zgartirish» orqali almashtiring.</div>' :
         '<label>' + (editId ? "Bulutga ulash uchun parol (kamida 6 ta belgi)" : "Parol (kamida 6 ta belgi)") + pwHTML("pw", { ac: "new-password", min: 6, req: !editId, gen: 1, ph: editId ? "bo'sh qoldirsangiz akkaunt faqat shu qurilmada qoladi" : "🎲 bosing — parol o'ylab beradi" }) + "</label>" + saveChk(true)) +
       '<div class="acc-msg"></div><div class="acc-btns"><button class="acc-btn primary" type="submit">' + (editId ? "Saqlash" : "Akkount ochish") + '</button>' +
@@ -767,16 +832,22 @@
       if (dup) { msg.textContent = "Bu ism va guruh bilan akkount allaqachon bor — ro'yxatdan tanlang."; return; }
       var id = editId || ("u" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6));
       var rec = DB[id] || { coins: 0, correct: 0, answered: 0, tests: 0, history: [], created: Date.now(), done: {} };
-      rec.name = name; rec.group = f.group.value.trim(); rec.av = draft.av; rec.photo = draft.photo;
+      var oldRol = rec.rol || "oquvchi";
+      rec.name = name; rec.group = f.group.value.trim(); rec.av = draft.av; rec.photo = draft.photo; rec.rol = rolVal(f);
       if (f.pw && pw) {
         msg.className = "acc-msg ok"; msg.textContent = "Bulutga ulanmoqda…";
         var K = await cloud();
         if (!K) { msg.className = "acc-msg"; msg.textContent = "Internet bilan aloqa yo'q — keyinroq urinib ko'ring."; return; }
         try {
-          var uid = await K.register({ name: rec.name, group: rec.group, av: rec.av, coins: rec.coins, correct: rec.correct, answered: rec.answered, tests: rec.tests }, pw);
+          var uid = await K.register({ name: rec.name, group: rec.group, av: rec.av, coins: rec.coins, correct: rec.correct, answered: rec.answered, tests: rec.tests, rol: rec.rol }, pw);
           if (uid !== id) { if (DB[id]) delete DB[id]; if (curId() === id) setCur(uid); id = uid; }
           rec.cloud = uid;
         } catch (er) { msg.className = "acc-msg"; msg.textContent = K.uzError(er); return; }
+      }
+      // bulutdagi akkauntda rol o'zgarsa — serverga yozamiz (o'qituvchi so'rovi adminga ko'rinadi)
+      if (cloudAcc && rec.rol !== oldRol) {
+        try { var K2 = await cloud(); if (K2) { await K2.session(); await K2.setRol(rec.rol); rec.st = null; } }
+        catch (er) { rec.rol = oldRol; msg.className = "acc-msg"; msg.textContent = "Rolni saqlab bo'lmadi: " + (window.kaCloud ? window.kaCloud.uzError(er) : "xato"); return; }
       }
       DB[id] = rec; save();
       if (pw && rec.cloud) { if (f.keep && f.keep.checked) keySave(id, rec.name, rec.group, pw); browserStore(rec.name, rec.group, pw); }
@@ -795,7 +866,8 @@
     var c = u.coins || 0, lv = level(c), pct = c % 100;
     var acc = u.answered ? Math.round((u.correct || 0) / u.answered * 100) : 0;
     card.innerHTML = '<div class="acc-cover"><button class="acc-x" type="button" aria-label="Yopish">✕</button></div>' +
-      '<div class="acc-top">' + avatarHTML(u, 110) + '<div class="acc-name"><h3>' + esc(u.name) + '</h3><div class="sub">' + esc(u.group ? u.group + " guruh · " : "") + lv + "-daraja · " + title(c) + "</div></div></div>" +
+      '<div class="acc-top">' + avatarHTML(u, 110) + '<div class="acc-name"><h3>' + esc(u.name) + '</h3><div class="sub">' + esc(subTxt(u)) + '</div><div class="acc-badges">' + badgesHTML(u) + "</div></div></div>" +
+      '<div class="acc-rolact"></div>' +
       '<div class="acc-body">' +
       '<div class="acc-stats"><div class="acc-stat coin"><b>' + c + '</b><span>🪙 Coin</span></div><div class="acc-stat"><b>' + (u.tests || 0) + '</b><span>Testlar</span></div>' +
       '<div class="acc-stat"><b>' + (u.correct || 0) + '</b><span>To\'g\'ri javob</span></div><div class="acc-stat"><b>' + acc + '%</b><span>Aniqlik</span></div></div>' +
@@ -826,7 +898,7 @@
         var medal = ["🥇", "🥈", "🥉"];
         list.innerHTML = rows.length ? rows.map(function (x, i) {
           return '<div class="acc-row' + (x.id === u.cloud ? " me" : "") + '"><b style="width:26px;text-align:center">' + (medal[i] || i + 1) + "</b>" + avatarHTML({ av: x.av }, 34) +
-            '<div class="grow"><div class="t">' + esc(x.name) + '</div><div class="d">' + esc(x.group || "") + " · " + level(x.coins) + '-daraja</div></div><div class="c">' + x.coins + " 🪙</div></div>";
+            '<div class="grow"><div class="t">' + esc(x.name) + (x.t ? ' <span title="O\'qituvchi">🎓</span>' : "") + '</div><div class="d">' + esc(x.group || "") + " · " + (x.t ? "o'qituvchi · " : "") + level(x.coins) + '-daraja</div></div><div class="c">' + x.coins + " 🪙</div></div>";
         }).join("") : '<div class="acc-empty">Hali hech kim yo\'q.</div>';
       }).catch(function () { list.innerHTML = '<div class="acc-empty">Reytingni yuklab bo\'lmadi (internet yoki kirish muddati tugagan). «Chiqish» va qayta kiring.</div>'; });
     } else {
@@ -840,6 +912,22 @@
     }
     $(".acc-x", card).onclick = close;
     $('[data-a="edit"]', card).onclick = function () { showForm(curId()); };
+    // Rol va Pro: tugmalar + serverdan yangilash
+    (function () {
+      var box = $(".acc-rolact", card); if (!box) return;
+      function paint() {
+        var cu = me(); if (!cu || cu !== u) return;
+        var s = stOf(cu), r = s.rol || cu.rol || "oquvchi", h = "";
+        var bd = $(".acc-badges", card); if (bd) bd.innerHTML = badgesHTML(cu);
+        var sb = $(".acc-name .sub", card); if (sb) sb.textContent = subTxt(cu);
+        if (s.teacher || s.admin) h = '<div class="acc-btns"><a class="acc-btn sm" href="ustoz.html">📊 O\'qituvchi paneli</a>' + (s.active && s.plan === "oqituvchi" ? "" : '<a class="acc-btn sm" href="premium.html#oqituvchi">💎 O\'qituvchi Pro</a>') + "</div>";
+        else if (r === "oqituvchi") h = '<div class="acc-banner">🎓 O\'qituvchi profili so\'raldi — admin tasdiqlagach belgingiz yashil bo\'ladi va o\'qituvchi paneli ochiladi.</div>';
+        else if (!s.active) h = '<div class="acc-btns"><a class="acc-btn sm" href="premium.html">💎 O\'quvchi Pro</a></div>';
+        box.innerHTML = h;
+      }
+      paint();
+      if (u.cloud) stRefresh(2 * 60000).then(paint);
+    })();
     (function () {
       var st = $(".g-st", card), lm = $(".acc-lmsg", card), ig = $(".ig-in", card);
       function say(t) { lm.textContent = t || ""; }
@@ -976,11 +1064,12 @@
     };
   }
   if (me()) syncIdentity();
-  if (me() && me().cloud) cloudSched();
+  if (me() && me().cloud) { cloudSched(); setTimeout(function () { stRefresh(); }, 4000); }
 
   // Boshqa modullar uchun
   window.kaAccount = {
     me: me, open: function () { me() ? showProfile() : showLogin(); }, cloud: cloud,
+    status: function (maxAge) { return stRefresh(maxAge); }, isTeacher: function () { return isT(me()); },
     addCoins: function (n, why) { var u = me(); if (!u) return false; n = Math.max(0, Math.min(200, Math.floor(+n || 0))); if (!n) return false; u.coins = (u.coins || 0) + n; save(); renderChip(); toast("+" + n + " 🪙"); return true; },
     // O'qituvchi jadvaliga natija yuborish (faqat akkauntga kirgan o'quvchi uchun)
     sendResult: function (topic, correct, total) {

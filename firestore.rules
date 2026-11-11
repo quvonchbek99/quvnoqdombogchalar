@@ -12,12 +12,23 @@ service cloud.firestore {
         && exists(/databases/$(database)/documents/premium/$(request.auth.uid))
         && get(/databases/$(database)/documents/premium/$(request.auth.uid)).data.until > request.time;
     }
+    // Pro tarifi: "oquvchi" (sukut) yoki "oqituvchi"
+    function planOfDoc(uid) { return get(/databases/$(database)/documents/premium/$(uid)).data.get('plan', 'oquvchi'); }
+    // Tasdiqlangan o'qituvchi: teachers/{uid} (faqat admin yozadi)
+    function isTeacher() {
+      return signedIn() && exists(/databases/$(database)/documents/teachers/$(request.auth.uid));
+    }
+    function teacherGroups() {
+      return get(/databases/$(database)/documents/teachers/$(request.auth.uid)).data.get('groups', []);
+    }
+    function isTeacherPro() { return isTeacher() && isPremium() && planOfDoc(request.auth.uid) == 'oqituvchi'; }
     function str(v, n) { return v is string && v.size() >= 1 && v.size() <= n; }
     // Bilimcoin ₿: har kuni 1 ta (Toshkent vaqti bo'yicha kun), faqat Pro sotib olishda kamayadi
     function cost(days) { return days == 7 ? 15 : (days == 30 ? 50 : 1000000); }
     function tday(t) { return (t + duration.value(5, 'h')).date(); }
     function validProfile(d) {
-      return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated','bc','suv','streak','dailyAt'])
+      return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated','bc','suv','streak','dailyAt','rol'])
+        && d.get('rol', 'oquvchi') in ['oquvchi', 'oqituvchi']
         && d.get('bc', 0) is int && d.get('bc', 0) >= 0
         && d.get('suv', 0) is int && d.get('suv', 0) >= 0
         && d.get('streak', 0) is int && d.get('streak', 0) >= 0
@@ -59,7 +70,9 @@ service cloud.firestore {
     function buyPro(uid) {
       let d = request.resource.data;
       let up = /databases/$(database)/documents/users/$(uid);
-      return d.keys().hasOnly(['until','by','at','days'])
+      return d.keys().hasOnly(['until','by','at','days','plan'])
+        && d.get('plan', 'oquvchi') == 'oquvchi'
+        && (resource == null || resource.data.get('plan', 'oquvchi') == 'oquvchi' || resource.data.until < request.time)
         && d.by == uid && d.at == request.time
         && (d.days == 7 || d.days == 30)
         && d.until is timestamp && d.until > request.time
@@ -103,10 +116,21 @@ service cloud.firestore {
         && request.resource.data.correct <= request.resource.data.total
         && request.resource.data.total <= 200
         && request.resource.data.at == request.time;
-      allow read, delete: if isAdmin();
+      // o'qituvchi Pro: faqat admin bergan guruhlari natijalari
+      allow read: if isAdmin() || (isTeacherPro() && resource.data.group in teacherGroups());
+      allow delete: if isAdmin();
     }
 
-    // O'qituvchilar ro'yxati: faqat Firebase konsolidan qo'lda to'ldiriladi
+    // Tasdiqlangan o'qituvchilar: profil belgisi uchun kirgan hamma ko'radi, yozish faqat adminga
+    match /teachers/{uid} {
+      allow read: if signedIn();
+      allow write: if isAdmin()
+        && request.resource.data.keys().hasOnly(['name','group','groups','by','at'])
+        && request.resource.data.groups is list && request.resource.data.groups.size() <= 30;
+      allow delete: if isAdmin();
+    }
+
+    // Adminlar ro'yxati: faqat Firebase konsolidan qo'lda to'ldiriladi
     match /admins/{uid} {
       allow read: if signedIn() && request.auth.uid == uid;
       allow write: if false;
@@ -123,7 +147,8 @@ service cloud.firestore {
     // To'lov cheklari: egasi yuboradi va o'zinikini ko'radi; tasdiqlash/rad etish faqat o'qituvchi
     match /payments/{id} {
       allow create: if signedIn()
-        && request.resource.data.keys().hasOnly(['uid','name','group','note','img','status','at'])
+        && request.resource.data.keys().hasOnly(['uid','name','group','note','img','status','plan','at'])
+        && request.resource.data.get('plan', 'oquvchi') in ['oquvchi', 'oqituvchi']
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.status == 'pending'
         && request.resource.data.img is string && request.resource.data.img.size() <= 700000

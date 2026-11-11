@@ -61,6 +61,7 @@
     if (c === "auth/provider-already-linked") return "Gmail allaqachon ulangan.";
     if (c === "no-profile") return "Bu Gmail hali hech bir akkountga ulanmagan. Avval parol bilan kiring va profilda «Gmail ulash» ni bosing.";
     if (c === "permission-denied") return "Ruxsat yo'q.";
+    if (c === "oqituvchi-pro") return "Sizda 🎓 O'qituvchi Pro faol — Bilimcoin bilan O'quvchi Pro olish shart emas.";
     if (c === "kam-tanga") return "Bilimcoin yetmaydi" + (e.need ? " — yana " + e.need + " ₿ kerak." : ".");
     return "Xatolik yuz berdi. Qayta urinib ko'ring.";
   }
@@ -77,6 +78,10 @@
       updated: F.serverTimestamp()
     };
   }
+
+  // Rol: o'quvchi yoki o'qituvchi (o'qituvchilikni admin tasdiqlaydi — teachers/{uid})
+  function rolOf(r) { return r === "oqituvchi" ? "oqituvchi" : "oquvchi"; }
+  function planOf(p) { return p === "oqituvchi" ? "oqituvchi" : "oquvchi"; }
 
   // Profilni serverga yozish. Qoida: tanga bir yozuvda ko'pi bilan +200 va yozuvlar orasida 2 soniya,
   // shuning uchun katta o'sish bo'laklarga bo'linadi.
@@ -139,7 +144,7 @@
       var email = await emailFor(p.name, p.group);
       var cred = await c.A.createUserWithEmailAndPassword(c.auth, email, password);
       window.__kaCloudAuth = c.auth; cloudState = null;
-      var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000);
+      var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000); first.rol = rolOf(p.rol);
       await c.F.setDoc(c.F.doc(c.db, "users", cred.user.uid), first);
       cloudState = { coins: first.coins, correct: first.correct, answered: first.answered, tests: first.tests };
       return cred.user.uid;
@@ -190,7 +195,7 @@
         try { await c.A.linkWithCredential(u, c.A.EmailAuthProvider.credential(await emailFor(p.name, p.group), password)); }
         catch (e) { var k = e && e.code; if (k === "auth/email-already-in-use" || k === "auth/credential-already-in-use") throw { code: "auth/email-already-in-use" }; if (k !== "auth/provider-already-linked") throw e; }
       }
-      var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000);
+      var first = clean(p, c.F); first.coins = Math.min(first.coins, 5000); first.rol = rolOf(p.rol);
       await c.F.setDoc(c.F.doc(c.db, "users", u.uid), first);
       cloudState = { coins: first.coins, correct: first.correct, answered: first.answered, tests: first.tests }; pendingG = null;
       return u.uid;
@@ -268,14 +273,21 @@
       var uref = c.F.doc(c.db, "users", u.uid), pref = c.F.doc(c.db, "premium", u.uid);
       var us = await c.F.getDoc(uref); if (!us.exists()) throw { code: "no-profile" };
       var bc = us.data().bc | 0; if (bc < cost) throw { code: "kam-tanga", need: cost - bc };
-      var old = 0; try { var ps = await c.F.getDoc(pref); if (ps.exists() && ps.data().until && ps.data().until.toMillis) old = ps.data().until.toMillis(); } catch (e) {}
+      var old = 0; try { var ps = await c.F.getDoc(pref); if (ps.exists() && ps.data().until && ps.data().until.toMillis) old = ps.data().until.toMillis(); if (old > Date.now() && planOf(ps.data().plan) === "oqituvchi") throw { code: "oqituvchi-pro" }; } catch (e) { if (e && e.code === "oqituvchi-pro") throw e; }
       var base = old > Date.now() ? old : Date.now() - 600000; // soat farqi uchun 10 daqiqa zaxira
       var until = c.F.Timestamp.fromMillis(base + days * 86400000);
       var b = c.F.writeBatch(c.db);
       b.update(uref, { bc: bc - cost, updated: c.F.serverTimestamp() });
-      b.set(pref, { until: until, by: u.uid, at: c.F.serverTimestamp(), days: days });
+      b.set(pref, { until: until, by: u.uid, at: c.F.serverTimestamp(), days: days, plan: "oquvchi" });
       await b.commit();
       return { bc: bc - cost, until: until.toDate() };
+    },
+    // Profil turi: "oquvchi" | "oqituvchi" (o'qituvchi bo'lsa — admin tasdig'ini kutadi)
+    setRol: async function (rol) {
+      var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser;
+      if (!u) throw { code: "auth/requires-recent-login" };
+      await c.F.updateDoc(c.F.doc(c.db, "users", u.uid), { rol: rolOf(rol), updated: c.F.serverTimestamp() });
+      return rolOf(rol);
     },
     signOut: async function () { try { var c = await load(); cloudState = null; await c.A.signOut(c.auth); } catch (e) {} },
     push: push,
@@ -284,7 +296,8 @@
       var c = await load();
       var q = c.F.query(c.F.collection(c.db, "users"), c.F.orderBy("coins", "desc"), c.F.limit(n || 50));
       var s = await c.F.getDocs(q), out = [];
-      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, name: x.name, group: x.group, av: x.av, coins: x.coins | 0 }); });
+      var tch = {}; try { (await c.F.getDocs(c.F.query(c.F.collection(c.db, "teachers"), c.F.limit(300)))).forEach(function (d) { tch[d.id] = 1; }); } catch (e) {}
+      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, name: x.name, group: x.group, av: x.av, coins: x.coins | 0, t: !!tch[d.id] }); });
       return out;
     },
     // O'qituvchi jadvali uchun: natijani serverga yozish
@@ -308,13 +321,19 @@
       try {
         var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser;
         if (!u) return { signed: false, active: false };
+        var no = function () { return null; };
         var r = await Promise.all([
           c.F.getDoc(c.F.doc(c.db, "premium", u.uid)),
-          c.F.getDoc(c.F.doc(c.db, "admins", u.uid)).then(function (a) { return a.exists(); }, function () { return false; })
+          c.F.getDoc(c.F.doc(c.db, "admins", u.uid)).then(function (a) { return a.exists(); }, function () { return false; }),
+          c.F.getDoc(c.F.doc(c.db, "teachers", u.uid)).then(function (a) { return a.exists() ? a.data() : null; }, no),
+          c.F.getDoc(c.F.doc(c.db, "users", u.uid)).then(function (a) { return a.exists() ? a.data() : null; }, no)
         ]);
-        var s = r[0], admin = !!r[1];
+        var s = r[0], admin = !!r[1], tch = r[2], prof = r[3] || {};
         var until = s.exists() && s.data().until && s.data().until.toDate ? s.data().until.toDate() : null;
-        return { signed: true, uid: u.uid, admin: admin, active: admin || (!!until && until > new Date()), until: until };
+        var paid = !!until && until > new Date();
+        return { signed: true, uid: u.uid, admin: admin, active: admin || paid, until: until,
+          plan: admin ? "oqituvchi" : paid ? planOf(s.data().plan) : "", legacy: paid && !s.data().plan, // eski (tarifsiz) Pro — avvalgi imkoniyatlar saqlanadi
+          rol: admin || tch ? "oqituvchi" : rolOf(prof.rol), teacher: admin || !!tch, groups: tch && tch.groups ? tch.groups : [] };
       } catch (e) { return { signed: true, active: false, error: e && e.code }; }
     },
     premiumCatalog: async function () {
@@ -363,18 +382,19 @@
       b.delete(c.F.doc(c.db, "premiumTests", id)); b.delete(c.F.doc(c.db, "premiumCatalog", id));
       await b.commit();
     },
-    grantPremium: async function (uid, days) {
+    grantPremium: async function (uid, days, plan) {
       var c = await load(), ref = c.F.doc(c.db, "premium", uid), base = Date.now();
       var s = await c.F.getDoc(ref);
       if (s.exists() && s.data().until && s.data().until.toMillis() > base) base = s.data().until.toMillis();
-      await c.F.setDoc(ref, { until: c.F.Timestamp.fromMillis(base + days * 86400000), by: c.auth.currentUser.uid, at: c.F.serverTimestamp() });
+      if (!plan) plan = s.exists() ? planOf(s.data().plan) : "oquvchi";
+      await c.F.setDoc(ref, { until: c.F.Timestamp.fromMillis(base + days * 86400000), by: c.auth.currentUser.uid, at: c.F.serverTimestamp(), plan: planOf(plan) });
     },
     // ---- To'lov cheklari (sayt ichida tasdiqlash) ----
-    submitPayment: async function (img, note) {
+    submitPayment: async function (img, note, plan) {
       var c = await load(), u = c.auth.currentUser; if (!u) throw { code: "auth/requires-recent-login" };
       var ps = await c.F.getDoc(c.F.doc(c.db, "users", u.uid)); var pr = ps.exists() ? ps.data() : {};
       var id = u.uid + "_" + Date.now().toString(36);
-      await c.F.setDoc(c.F.doc(c.db, "payments", id), { uid: u.uid, name: String(pr.name || "").slice(0, 40), group: String(pr.group || "").slice(0, 20), note: String(note || "").slice(0, 200), img: String(img), status: "pending", at: c.F.serverTimestamp() });
+      await c.F.setDoc(c.F.doc(c.db, "payments", id), { uid: u.uid, name: String(pr.name || "").slice(0, 40), group: String(pr.group || "").slice(0, 20), note: String(note || "").slice(0, 200), img: String(img), status: "pending", plan: planOf(plan), at: c.F.serverTimestamp() });
       return id;
     },
     myPayment: async function () {
@@ -389,11 +409,11 @@
     listPayments: async function () {
       var c = await load(), out = [];
       var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "payments"), c.F.orderBy("at", "desc"), c.F.limit(60)));
-      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, uid: x.uid, name: x.name, group: x.group, note: x.note || "", img: x.img, status: x.status, reason: x.reason || "", at: x.at && x.at.toDate ? x.at.toDate() : null }); });
+      s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, uid: x.uid, name: x.name, group: x.group, note: x.note || "", img: x.img, status: x.status, plan: planOf(x.plan), reason: x.reason || "", at: x.at && x.at.toDate ? x.at.toDate() : null }); });
       return out;
     },
-    approvePayment: async function (id, uid, days) {
-      var c = await load(); await window.kaCloud.grantPremium(uid, days || 365);
+    approvePayment: async function (id, uid, days, plan) {
+      var c = await load(); await window.kaCloud.grantPremium(uid, days || 365, plan || "oquvchi");
       await c.F.updateDoc(c.F.doc(c.db, "payments", id), { status: "approved", reviewed: c.F.serverTimestamp() });
     },
     rejectPayment: async function (id, reason) {
@@ -404,13 +424,13 @@
     listPremium: async function () {
       var c = await load(), out = [];
       var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "premium"), c.F.limit(500)));
-      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, until: x.until && x.until.toDate ? x.until.toDate() : null }); });
+      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, plan: planOf(x.plan), until: x.until && x.until.toDate ? x.until.toDate() : null }); });
       return out;
     },
     listUsers: async function (n) {
       var c = await load(), out = [];
       var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "users"), c.F.limit(n || 500)));
-      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, name: x.name, group: x.group }); });
+      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, name: x.name, group: x.group, rol: rolOf(x.rol) }); });
       return out;
     },
     deleteProfile: async function () {
@@ -419,6 +439,38 @@
     // O'qituvchi: admins/{uid} hujjati bormi
     isAdmin: async function () {
       try { var c = await load(), u = c.auth.currentUser; if (!u) return false; var s = await c.F.getDoc(c.F.doc(c.db, "admins", u.uid)); return s.exists(); } catch (e) { return false; }
+    },
+    // ---- O'qituvchilar (tasdiqlash — faqat admin) ----
+    teacherRequests: async function () {
+      var c = await load(), out = [];
+      var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "users"), c.F.where("rol", "==", "oqituvchi"), c.F.limit(300)));
+      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, name: x.name, group: x.group }); });
+      return out;
+    },
+    listTeachers: async function () {
+      var c = await load(), out = [];
+      var s = await c.F.getDocs(c.F.query(c.F.collection(c.db, "teachers"), c.F.limit(300)));
+      s.forEach(function (d) { var x = d.data(); out.push({ uid: d.id, name: x.name || "", group: x.group || "", groups: x.groups || [], at: x.at && x.at.toDate ? x.at.toDate() : null }); });
+      return out;
+    },
+    approveTeacher: async function (uid, name, group, groups) {
+      var c = await load(), gs = (groups || []).map(function (g) { return String(g).trim().slice(0, 20); }).filter(Boolean).slice(0, 30);
+      await c.F.setDoc(c.F.doc(c.db, "teachers", uid), { name: String(name || "").slice(0, 40), group: String(group || "").slice(0, 20), groups: gs, by: c.auth.currentUser.uid, at: c.F.serverTimestamp() });
+    },
+    revokeTeacher: async function (uid) { var c = await load(); await c.F.deleteDoc(c.F.doc(c.db, "teachers", uid)); },
+    myTeacher: async function () {
+      try { var c = await load(); await c.auth.authStateReady(); var u = c.auth.currentUser; if (!u) return null;
+        var s = await c.F.getDoc(c.F.doc(c.db, "teachers", u.uid)); return s.exists() ? Object.assign({ uid: u.uid }, s.data()) : null; } catch (e) { return null; }
+    },
+    // O'qituvchi Pro: faqat o'z guruhlari natijalari (qoidalar ham shuni talab qiladi)
+    listResultsFor: async function (groups) {
+      var c = await load(), gs = (groups || []).slice(0, 30), out = [];
+      if (!gs.length) return out;
+      // har bir guruh alohida so'rov: qoidalar «group == …» ni aniq tekshira oladi
+      var snaps = await Promise.all(gs.map(function (g) { return c.F.getDocs(c.F.query(c.F.collection(c.db, "results"), c.F.where("group", "==", g), c.F.limit(500))); }));
+      snaps.forEach(function (s) { s.forEach(function (d) { var x = d.data(); out.push({ id: d.id, name: x.name, group: x.group, topic: x.topic, correct: x.correct | 0, total: x.total | 0, at: x.at && x.at.toDate ? x.at.toDate() : null }); }); });
+      out.sort(function (a, b) { return (b.at ? b.at.getTime() : 0) - (a.at ? a.at.getTime() : 0); });
+      return out;
     },
     listResults: async function (n) {
       var c = await load();

@@ -44,6 +44,14 @@ table.cmp th,table.cmp td{padding:9px 8px;border-bottom:1px solid var(--bd);text
 table.cmp th:first-child,table.cmp td:first-child{text-align:left}
 table.cmp th{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
 table.cmp th.pro{color:var(--gold)} .y{color:var(--ac);font-weight:800}.n{color:var(--dim)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:8px 0 6px}
+.plan{border:1px solid var(--bd);border-radius:16px;padding:14px;background:#0e1628;scroll-margin-top:70px}
+.plan h3{margin:0 0 4px;font-size:17px} .plan.t{border-color:#a78bfa;background:linear-gradient(160deg,#1d1640,#0e1628)}
+.plan .price b{font-size:26px} .plan ul{margin:6px 0 0;padding-left:18px;color:var(--dim);font-size:13.5px}
+table.cmp th.tp{color:#c9b8ff}
+.pick{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.pick label{flex:1 1 180px;display:flex;gap:8px;align-items:center;border:1px solid var(--bd);border-radius:12px;padding:9px 11px;cursor:pointer;font-size:14px}
+.pick label:has(input:checked){border-color:var(--gold);background:#1a1608}
 .chek input[type=file]{display:block;margin:8px 0;color:var(--dim)} .chek img{max-width:100%;max-height:260px;border-radius:12px;border:1px solid var(--bd);margin:6px 0}
 .chek textarea{width:100%;background:var(--soft);border:1px solid var(--bd);color:var(--tx);border-radius:10px;padding:9px;font:inherit}
 .msg.ok{color:var(--ac)}
@@ -60,21 +68,31 @@ table.cmp th.pro{color:var(--gold)} .y{color:var(--ac);font-weight:800}.n{color:
 <p class="sub">Imtihonga tayyorlov uchun maxsus savollar to'plami. Bepul namunalar bilan avval sinab ko'ring.</p>
 
 <section class="card" id="plan">
-  <span class="badge">💎 Pro obuna</span>
-  <div class="price"><s>300 000 so'm</s><b>30 000 so'm</b><span>/ 1 yil</span><small>−90% chegirma</small></div>
-  <p class="sub" style="margin:0 0 6px">Bir yillik Pro obuna — oyiga atigi 2 500 so'm. Oddiy narx 300 000 so'm, hozir 1 yilga 30 000 so'm.</p>
-  <table class="cmp"><thead><tr><th>Imkoniyat</th><th>Oddiy (bepul)</th><th class="pro">Pro</th></tr></thead><tbody>
-    <tr><td>Barcha mavzular, xossalar va mashqlar</td><td class="y">✔</td><td class="y">✔</td></tr>
-    <tr><td>O'yinlar va akkount, coinlar</td><td class="y">✔</td><td class="y">✔</td></tr>
-    <tr><td>Natijalar o'qituvchiga yuboriladi</td><td class="y">✔</td><td class="y">✔</td></tr>
-    <tr><td>Bepul namuna testlar</td><td class="y">✔</td><td class="y">✔</td></tr>
-    <tr><td>Barcha premium testlar (to'liq to'plam)</td><td class="n">—</td><td class="y">✔</td></tr>
-    <tr><td>Yangi qo'shiladigan premium testlar</td><td class="n">—</td><td class="y">✔</td></tr>
-    <tr><td>🤖 AI dars slaydlari (PPTX), test va uy vazifasi — <a href="ai-slayd.html">ai-slayd.html</a></td><td class="n">3 ta bepul</td><td class="y">✔ cheksiz</td></tr>
-    <tr><td>🗣 Kuvi AI ustoz: AI suhbat — <a href="ai-ustoz.html">ai-ustoz.html</a></td><td class="n">kuniga 30 ta xabar</td><td class="y">✔ cheklovsiz</td></tr>
-    <tr><td>🔊 Kuvi tabiiy o'zbekcha ovozi (Madina va Sardor)</td><td class="n">31-dekabrgacha sinov, keyin kuniga 2–3 javob</td><td class="y">✔ cheklovsiz</td></tr>
-    <tr><td>🎓 Milliy sertifikat va SAT sinov imtihonlari — <a href="sertifikat.html">sertifikat.html</a></td><td class="y">✔</td><td class="y">✔</td></tr>
+  <span class="badge">💎 Pro obuna — 2 xil tarif</span>
+  <div class="plans">
+    <div class="plan" id="oquvchi">
+      <h3>🎒 O'quvchi Pro</h3>
+      <div class="price"><s>300 000 so'm</s><b>30 000 so'm</b><span>/ 1 yil</span><small>−90%</small></div>
+      <ul><li>Barcha premium testlar</li><li>Kuvi AI ustoz — cheklovsiz suhbat va o'zbekcha ovoz</li><li>Yoki <b>Bilimcoin</b> bilan: 7 kun = 15 ₿, 30 kun = 50 ₿ (Bilim daraxtida)</li></ul>
+    </div>
+    <div class="plan t" id="oqituvchi">
+      <h3>🎓 O'qituvchi Pro</h3>
+      <div class="price"><b id="tprice">—</b><span id="tper"></span></div>
+      <ul><li>O'quvchi Pro'dagi hammasi</li><li>🤖 AI dars slaydlari, test va uy vazifasi — cheksiz</li><li>📊 O'qituvchi paneli: o'z guruhlaringiz natijalari, CSV (Excel)</li><li>Faqat tasdiqlangan o'qituvchi profili uchun</li></ul>
+    </div>
+  </div>
+  <table class="cmp"><thead><tr><th>Imkoniyat</th><th>Bepul</th><th class="pro">🎒 O'quvchi Pro</th><th class="tp">🎓 O'qituvchi Pro</th></tr></thead><tbody>
+    <tr><td>Barcha mavzular, xossalar va mashqlar</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>O'yinlar, akkount, coinlar, Sherlock</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>Bepul namuna testlar</td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>Barcha premium testlar (va yangi qo'shiladiganlari)</td><td class="n">—</td><td class="y">✔</td><td class="y">✔</td></tr>
+    <tr><td>🗣 Kuvi AI ustoz: AI suhbat — <a href="ai-ustoz.html">ai-ustoz.html</a></td><td class="n">kuniga 30 ta</td><td class="y">✔ cheklovsiz</td><td class="y">✔ cheklovsiz</td></tr>
+    <tr><td>🔊 Kuvi tabiiy o'zbekcha ovozi (Madina va Sardor)</td><td class="n">31-dekabrgacha sinov</td><td class="y">✔ cheklovsiz</td><td class="y">✔ cheklovsiz</td></tr>
+    <tr><td>🤖 AI dars slaydlari (PPTX), test va uy vazifasi — <a href="ai-slayd.html">ai-slayd.html</a></td><td class="n">3 ta bepul</td><td class="n">3 ta bepul</td><td class="y">✔ cheksiz</td></tr>
+    <tr><td>📊 O'qituvchi paneli: guruhlaringiz natijalari — <a href="ustoz.html">ustoz.html</a></td><td class="n">—</td><td class="n">—</td><td class="y">✔</td></tr>
+    <tr><td>🎓 Milliy sertifikat va SAT sinov imtihonlari — <a href="sertifikat.html">sertifikat.html</a></td><td class="y">✔</td><td class="y">✔</td><td class="y">✔</td></tr>
   </tbody></table>
+  <p class="sub" style="margin:0">Profil turi akkauntda tanlanadi: «🎒 O'quvchiman» yoki «🎓 O'qituvchiman». O'qituvchi profili admin tasdiqlagach faollashadi.</p>
 </section>
 <section class="card" id="state"></section>
 <section id="list"></section>
@@ -90,7 +108,8 @@ table.cmp th.pro{color:var(--gold)} .y{color:var(--ac);font-weight:800}.n{color:
 
 <script>
 /* To'lov ma'lumotlari — o'qituvchi shu yerni to'ldiradi. Bo'sh qoldirilsa "tez orada" deb ko'rsatiladi. */
-var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "Humo 9860 1301 3808 2859 yoki Visa 4916 9909 0854 3579 (Quvonchbek Mashrapov)", telegram: "@miir1999" };
+/* teacherPrice — O'qituvchi Pro narxi (masalan: "100 000 so'm / 1 yil"). Bo'sh bo'lsa: "narxi Telegram orqali kelishiladi". */
+var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", teacherPrice: "", card: "Humo 9860 1301 3808 2859 yoki Visa 4916 9909 0854 3579 (Quvonchbek Mashrapov)", telegram: "@miir1999" };
 </script>
 <script src="ka-bulut.js"></script>
 <script src="ka-effektlar.js"></script>
@@ -100,9 +119,12 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
   "use strict";
   var K = window.kaCloud, $ = function (s) { return document.querySelector(s); };
   var st = null, lastKey = "";
+  (function () { var tp = document.getElementById("tprice"), per = document.getElementById("tper"); if (!tp) return;
+    var m = String(PAY.teacherPrice || "").match(/^(.*?)(\s*\/.*)?$/);
+    if (PAY.teacherPrice) { tp.textContent = m[1]; per.textContent = m[2] ? " " + m[2].trim() : ""; } else { tp.textContent = "Kelishiladi"; tp.style.fontSize = "20px"; per.textContent = " · Telegram " + (PAY.telegram || ""); } })();
 
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
-  function fmtD(d) { return d ? d.toLocaleDateString("uz-UZ") : ""; }
+  function fmtD(d) { if (d && !(d instanceof Date)) d = new Date(d); return d && !isNaN(d) ? d.toLocaleDateString("uz-UZ") : ""; }
 
   function renderState() {
     var box = $("#state"); box.innerHTML = "";
@@ -112,16 +134,19 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
       var b = el("button", "pri", "Kirish / akkaunt ochish"); b.onclick = function () { window.kaAccount && window.kaAccount.open(); };
       box.appendChild(b); return;
     }
+    var tch = !!(st.teacher || st.rol === "oqituvchi");
     if (st.active) {
-      var bd = el("span", "badge ok", st.admin ? "Admin" : "Premium faol"); box.appendChild(bd);
-      box.appendChild(el("p", "sub", st.admin && !(st.until && st.until > new Date()) ? "Admin sifatida barcha premium testlar va Kuvi cheklovsiz ochiq." : fmtD(st.until) + " gacha barcha premium testlar ochiq."));
+      var bd = el("span", "badge ok", st.admin ? "👑 Admin" : st.plan === "oqituvchi" ? "🎓 O'qituvchi Pro faol" : "🎒 O'quvchi Pro faol"); box.appendChild(bd);
+      box.appendChild(el("p", "sub", st.admin && !(st.until && st.until > new Date()) ? "Admin sifatida hamma imkoniyat cheklovsiz ochiq." : (fmtD(st.until) ? fmtD(st.until) + " gacha b" : "B") + "archa premium testlar va Kuvi cheklovsiz ochiq." + (st.plan === "oqituvchi" ? " AI slaydlar va o'qituvchi paneli ham ochiq." : "")));
+      // o'qituvchi profili, lekin o'quvchi tarifi — O'qituvchi Pro'ga o'tish
+      if (!st.admin && tch && st.plan !== "oqituvchi") { box.appendChild(el("p", "sub", "Siz o'qituvchi profilidasiz — AI slaydlar va o'qituvchi paneli uchun 🎓 O'qituvchi Pro'ga o'ting:")); box.appendChild(chekBox("oqituvchi")); }
       return;
     }
     box.appendChild(el("span", "badge", "Obuna yo'q"));
-    box.appendChild(el("p", "sub", "Bepul namunalar ochiq. Hammasini ochish uchun premium obuna oling."));
+    box.appendChild(el("p", "sub", "Bepul namunalar ochiq. Hammasini ochish uchun tarifni tanlang va obuna oling." + (tch && !st.teacher ? " (O'qituvchi profilingiz hali tasdiqlanmagan — O'qituvchi Pro tasdiqlangach ishlaydi.)" : "")));
     var info = el("div"); 
     if (PAY.card || PAY.telegram) {
-      var t = "To'lov" + (PAY.price ? " (" + PAY.price + ")" : "") + (PAY.card ? ": karta " + PAY.card : "") + ". ";
+      var t = "To'lov — 🎒 O'quvchi Pro: " + (PAY.price || "kelishiladi") + "; 🎓 O'qituvchi Pro: " + (PAY.teacherPrice || "narxi Telegram orqali kelishiladi") + (PAY.card ? ". Karta: " + PAY.card : "") + ". ";
       info.appendChild(el("p", "", t + "So'ng chekni" + (PAY.telegram ? " Telegram " + PAY.telegram + " ga" : " o'qituvchiga") + " va quyidagi kodingizni yuboring:"));
       var c = el("code", "", st.uid); info.appendChild(c);
       var cb = el("button", "", "Kodni nusxalash"); cb.style.marginLeft = "8px";
@@ -133,7 +158,7 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
       info.appendChild(el("code", "", st.uid));
     }
     box.appendChild(info);
-    box.appendChild(chekBox());
+    box.appendChild(chekBox(tch ? "oqituvchi" : "oquvchi"));
   }
 
   /* ---- Chek yuborish (sayt ichida) ---- */
@@ -157,7 +182,7 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
       fr.readAsDataURL(file);
     });
   }
-  function chekBox() {
+  function chekBox(plan0) {
     var box = el("div", "chek"); box.style.marginTop = "12px";
     var wrap = el("div"); box.appendChild(wrap);
     function draw(pay) {
@@ -165,6 +190,12 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
       if (pay && pay.status === "pending") { wrap.appendChild(el("span", "badge", "⏳ Chek ko'rib chiqilmoqda")); wrap.appendChild(el("p", "sub", "O'qituvchi tasdiqlagach shu sahifa o'zi yangilanadi (sahifani qayta oching).")); return; }
       if (pay && pay.status === "rejected") wrap.appendChild(el("p", "msg", "❌ Oldingi chek rad etildi" + (pay.reason ? ": " + pay.reason : "") + ". Qaytadan yuboring."));
       wrap.appendChild(el("b", "", "🧾 To'lov chekini yuborish"));
+      var pk = el("div", "pick"); pk.setAttribute("role", "radiogroup"); pk.setAttribute("aria-label", "Tarif");
+      [["oquvchi", "🎒 O'quvchi Pro"], ["oqituvchi", "🎓 O'qituvchi Pro"]].forEach(function (x) {
+        var lb = el("label"), r = el("input"); r.type = "radio"; r.name = "plan"; r.value = x[0]; r.checked = x[0] === (plan0 || "oquvchi");
+        lb.appendChild(r); lb.appendChild(document.createTextNode(" " + x[1])); pk.appendChild(lb);
+      });
+      wrap.appendChild(pk);
       var f = el("input"); f.type = "file"; f.accept = "image/*"; wrap.appendChild(f);
       var pv = el("img"); pv.hidden = true; wrap.appendChild(pv);
       var note = el("textarea"); note.rows = 2; note.maxLength = 200; note.placeholder = "Izoh (ixtiyoriy): to'lov vaqti, karta oxirgi raqamlari..."; wrap.appendChild(note);
@@ -179,7 +210,8 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
       };
       send.onclick = async function () {
         if (!data) return; send.disabled = true; msg.className = "msg"; msg.textContent = "Yuborilmoqda…";
-        try { await K.submitPayment(data, note.value.trim()); draw({ status: "pending" }); }
+        var pl = (wrap.querySelector('input[name="plan"]:checked') || {}).value || "oquvchi";
+        try { await K.submitPayment(data, note.value.trim(), pl); draw({ status: "pending" }); }
         catch (e) { send.disabled = false; msg.textContent = "Yuborib bo'lmadi (" + ((e && e.code) || "xato") + "). Qayta urinib ko'ring."; }
       };
     }
@@ -211,7 +243,7 @@ var PAY = { price: "30 000 so'm / 1 yil (chegirma, oddiy narx 300 000)", card: "
   async function refresh() {
     await K.session();
     st = await K.premiumStatus();
-    var key = (st.signed ? st.uid : "-") + "|" + st.active;
+    var key = (st.signed ? st.uid : "-") + "|" + st.active + "|" + (st.plan || "") + "|" + (st.rol || "");
     if (key === lastKey && $("#list").children.length) return;
     lastKey = key;
     renderState();

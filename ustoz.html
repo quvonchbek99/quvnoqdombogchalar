@@ -42,6 +42,8 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .hint{font-size:12.5px;color:var(--dim)}
 code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-break:break-all}
 [hidden]{display:none!important}
+body.tmode #pay,body.tmode #pm,body.tmode #hm,body.tmode #pt,body.tmode #tc{display:none!important}
+.mode{display:inline-block;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;border:1px solid #a78bfa;color:#e3d9ff;background:#1d1640;margin-left:8px;vertical-align:middle}
 </style>
 <script async src="statistika.js"></script>
 <style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
@@ -50,7 +52,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 <div class="wrap">
 <header><a href="mashqlar.html">← Mashqlar</a><a href="index.html">Kuvonch Academy</a></header>
 <h1>📊 O'qituvchi paneli</h1>
-<p class="sub">O'quvchilarning bulutga yozilgan test va o'yin natijalari. Faqat o'qituvchi hisobi ko'ra oladi.</p>
+<p class="sub">O'quvchilarning bulutga yozilgan test va o'yin natijalari. Admin hamma natijani, tasdiqlangan o'qituvchi (💎 O'qituvchi Pro) — o'z guruhlari natijalarini ko'radi. <span class="mode" id="modeb" hidden></span></p>
 
 <section class="card" id="login" hidden>
   <form id="lf" class="row" style="align-items:end">
@@ -65,9 +67,16 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 
 <section class="card" id="noadmin" hidden>
   <b>Bu akkaunt hali o'qituvchi sifatida tasdiqlanmagan.</b>
-  <p class="hint">O'qituvchi paneliga kirish uchun quyidagi kodni <a href="https://t.me/miir1999" target="_blank" rel="noopener noreferrer" style="color:var(--ac2)">Telegram @miir1999</a> ga yuboring. Tasdiqlangach shu sahifani qayta oching.</p>
+  <p class="hint">Saytdagi akkaunt profilida «✏️ Tahrirlash» → <b>«🎓 O'qituvchiman»</b> ni tanlang — so'rovingiz adminga ko'rinadi. Tezroq tasdiqlash uchun quyidagi kodni <a href="https://t.me/miir1999" target="_blank" rel="noopener noreferrer" style="color:var(--ac2)">Telegram @miir1999</a> ga yuboring. Tasdiqlangach shu sahifani qayta oching.</p>
   <p><code id="uid"></code> <button type="button" id="uidCopy" style="margin-left:8px">Nusxa olish</button></p>
   <button id="out1" type="button">Chiqish</button>
+</section>
+
+<section class="card" id="needpro" hidden>
+  <b>🎓 Siz tasdiqlangan o'qituvchisiz.</b>
+  <p class="hint">Guruhlaringiz natijalarini shu yerda ko'rish — <b>💎 O'qituvchi Pro</b> imkoniyati. <a href="premium.html#oqituvchi" style="color:var(--ac2)">O'qituvchi Pro olish →</a></p>
+  <p class="hint" id="needg"></p>
+  <button id="out3" type="button">Chiqish</button>
 </section>
 
 <div id="app" hidden>
@@ -101,9 +110,18 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
     <div class="tw"><table id="t2"><thead><tr><th>Vaqt</th><th>O'quvchi</th><th>Guruh</th><th>Mavzu</th><th>Natija</th></tr></thead><tbody></tbody></table></div>
   </section>
 
+  <section class="card" id="tc">
+    <h3 style="margin:0 0 4px">🎓 O'qituvchilar</h3>
+    <p class="hint">Profilida «🎓 O'qituvchiman» ni tanlaganlar. Guruhlarini vergul bilan yozing (masalan: <code>05-25, 10-26</code>) — O'qituvchi Pro bo'lsa, panelda faqat shu guruhlar natijalarini ko'radi.</p>
+    <div id="tcl"></div>
+    <h4 style="margin:16px 0 6px">Tasdiqlangan o'qituvchilar</h4>
+    <div class="tw"><table id="t6"><thead><tr><th>O'qituvchi</th><th>Guruhlari</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="msg" id="tcmsg"></div>
+  </section>
+
   <section class="card" id="pay">
     <h3 style="margin:0 0 4px">🧾 To'lov cheklari</h3>
-    <p class="hint">O'quvchilar yuborgan cheklar. Chekni ko'rib, «✅ 1 yilga tasdiqlash» ni bosing — Pro obuna o'quvchida o'zi ochiladi.</p>
+    <p class="hint">Yuborilgan cheklar. Chekni ko'rib, «✅ 1 yilga tasdiqlash» ni bosing — so'ralgan tarif (🎒 O'quvchi Pro yoki 🎓 O'qituvchi Pro) akkauntda o'zi ochiladi.</p>
     <div id="payl"></div>
     <div class="msg" id="paymsg"></div>
   </section>
@@ -114,11 +132,12 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
     <div class="row" style="align-items:end">
       <label>Ism bo'yicha qidirish<input id="pq" placeholder="masalan: Aziza"></label>
       <label>yoki UID<input id="pu" placeholder="o'quvchi bergan kod"></label>
+      <label>Tarif<select id="pplan"><option value="oquvchi">🎒 O'quvchi Pro</option><option value="oqituvchi">🎓 O'qituvchi Pro</option></select></label>
       <button id="pgo" type="button">Qidirish</button>
     </div>
     <div id="pres" style="margin-top:10px"></div>
     <h4 style="margin:16px 0 6px">Faol obunalar</h4>
-    <div class="tw"><table id="t3"><thead><tr><th>O'quvchi</th><th>Gacha</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="tw"><table id="t3"><thead><tr><th>Foydalanuvchi</th><th>Tarif</th><th>Gacha</th><th></th></tr></thead><tbody></tbody></table></div>
     <div class="msg" id="pmsg"></div>
   </section>
 
@@ -158,7 +177,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
   "use strict";
   var K = window.kaCloud;
   var $ = function (s) { return document.querySelector(s); };
-  var ALL = [], sortK = "avg", sortDir = -1;
+  var ALL = [], sortK = "avg", sortDir = -1, MODE = "", GROUPS = [];
 
   function show(id, on) { $(id).hidden = !on; }
   function pctOf(r) { return r.total ? Math.round(r.correct / r.total * 100) : 0; }
@@ -227,7 +246,10 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 
   async function load() {
     $("#status").textContent = "Yuklanmoqda…";
-    try { ALL = await K.listResults(1000); fillGroups(); render(); }
+    try {
+      if (MODE === "teacher" && !GROUPS.length) { ALL = []; fillGroups(); render(); $("#status").textContent = "Admin hali guruhlaringizni biriktirmagan — Telegram orqali guruhlaringizni yozib yuboring."; return; }
+      ALL = MODE === "teacher" ? await K.listResultsFor(GROUPS) : await K.listResults(1000); fillGroups(); render();
+    }
     catch (e) { $("#status").textContent = "Natijalarni yuklab bo'lmadi: " + (e && e.code || "xato"); }
   }
 
@@ -242,14 +264,23 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 
   async function afterSignIn(uid) {
     show("#login", false);
-    if (await K.isAdmin()) { show("#noadmin", false); show("#app", true); load(); }
-    else { $("#uid").textContent = uid; show("#noadmin", true); show("#app", false); }
+    if (await K.isAdmin()) { MODE = "admin"; $("#modeb").textContent = "👑 Admin"; show("#modeb", true); show("#noadmin", false); show("#app", true); load(); return; }
+    var t = await K.myTeacher();
+    if (t) {
+      MODE = "teacher"; GROUPS = t.groups || []; document.body.classList.add("tmode");
+      $("#modeb").textContent = "🎓 O'qituvchi" + (GROUPS.length ? " · " + GROUPS.join(", ") : ""); show("#modeb", true);
+      var st = await K.premiumStatus();
+      if (st && st.active && st.plan === "oqituvchi") { show("#noadmin", false); show("#needpro", false); show("#app", true); load(); }
+      else { $("#needg").textContent = GROUPS.length ? "Biriktirilgan guruhlar: " + GROUPS.join(", ") : "Guruhlaringiz hali biriktirilmagan."; show("#needpro", true); show("#app", false); }
+      return;
+    }
+    $("#uid").textContent = uid; show("#noadmin", true); show("#app", false);
   }
-  async function signOut() { await K.signOut(); show("#app", false); show("#noadmin", false); show("#login", true); }
+  async function signOut() { await K.signOut(); MODE = ""; GROUPS = []; document.body.classList.remove("tmode"); show("#modeb", false); show("#app", false); show("#noadmin", false); show("#needpro", false); show("#login", true); }
 
   ["#fg", "#fd"].forEach(function (s) { $(s).onchange = render; });
   ["#ft", "#fn"].forEach(function (s) { $(s).oninput = render; });
-  $("#reload").onclick = load; $("#csv").onclick = exportCsv; $("#out1").onclick = signOut; $("#out2").onclick = signOut;
+  $("#reload").onclick = load; $("#csv").onclick = exportCsv; $("#out1").onclick = signOut; $("#out2").onclick = signOut; $("#out3").onclick = signOut;
   $("#uidCopy").onclick = function () { var t = $("#uid").textContent; try { navigator.clipboard.writeText(t).then(function () { $("#uidCopy").textContent = "Nusxalandi ✓"; }); } catch (e) {} };
   Array.prototype.forEach.call(document.querySelectorAll("#t1 th"), function (th) {
     th.onclick = function () { var k = th.getAttribute("data-k"); if (sortK === k) sortDir = -sortDir; else { sortK = k; sortDir = (k === "name" || k === "group") ? 1 : -1; } render(); };
@@ -273,7 +304,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
 (function () {
   "use strict";
   var K = window.kaCloud, $ = function (s) { return document.querySelector(s); };
-  var users = null, names = {};
+  var users = null, names = {}, PLAN_N = { oquvchi: "🎒 O'quvchi Pro", oqituvchi: "🎓 O'qituvchi Pro" };
   function cell(tr, t) { var e = document.createElement("td"); e.textContent = t; tr.appendChild(e); return e; }
   function btn(t, fn) { var b = document.createElement("button"); b.type = "button"; b.textContent = t; b.style.marginRight = "6px"; b.onclick = fn; return b; }
   function say(id, t, ok) { var m = $(id); m.className = "msg" + (ok ? " ok" : ""); m.textContent = t; }
@@ -299,12 +330,12 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
     var a = document.createElement("a"); a.href = x.img; a.target = "_blank"; a.rel = "noopener";
     var im = document.createElement("img"); im.src = x.img; im.alt = "chek"; im.style.cssText = "width:120px;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--bd)"; a.appendChild(im); d.appendChild(a);
     var t = document.createElement("div"); t.style.flex = "1"; t.style.minWidth = "180px";
-    var b = document.createElement("b"); b.textContent = (x.name || x.uid) + (x.group ? " (" + x.group + ")" : ""); t.appendChild(b);
+    var b = document.createElement("b"); b.textContent = (x.name || x.uid) + (x.group ? " (" + x.group + ")" : "") + " · " + PLAN_N[x.plan || "oquvchi"]; t.appendChild(b);
     var m = document.createElement("div"); m.className = "hint"; m.textContent = (x.at ? x.at.toLocaleString("uz-UZ") : "") + (x.note ? " · " + x.note : "") + (actions ? "" : " · " + (x.status === "approved" ? "✅ tasdiqlangan" : "❌ rad etilgan" + (x.reason ? ": " + x.reason : ""))); t.appendChild(m);
     if (actions) {
       var row = document.createElement("div"); row.style.marginTop = "8px";
       row.appendChild(btn("✅ 1 yilga tasdiqlash", async function () {
-        try { await K.approvePayment(x.id, x.uid, 365); say("#paymsg", "✅ " + (x.name || x.uid) + ": Pro obuna 1 yilga ochildi", true); loadPayments(); loadPremium(); }
+        try { await K.approvePayment(x.id, x.uid, 365, x.plan); say("#paymsg", "✅ " + (x.name || x.uid) + ": " + PLAN_N[x.plan || "oquvchi"] + " 1 yilga ochildi", true); loadPayments(); loadPremium(); }
         catch (e) { say("#paymsg", "Bo'lmadi: " + (e && e.code || "xato")); }
       }));
       row.appendChild(btn("❌ Rad etish", async function () {
@@ -321,19 +352,21 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
       await loadUsers();
       var list = await K.listPremium(), tb = $("#t3 tbody"); tb.innerHTML = "";
       list.forEach(function (p) {
-        var tr = document.createElement("tr"); cell(tr, names[p.uid] || p.uid);
+        var tr = document.createElement("tr"); cell(tr, names[p.uid] || p.uid); cell(tr, PLAN_N[p.plan || "oquvchi"]);
         var active = p.until && p.until > new Date();
         cell(tr, (p.until ? p.until.toLocaleDateString("uz-UZ") : "—") + (active ? "" : " (tugagan)"));
         var td = document.createElement("td");
-        td.appendChild(btn("+30 kun", function () { grant(p.uid, 30); })); td.appendChild(btn("+1 yil", function () { grant(p.uid, 365); }));
+        td.appendChild(btn("+30 kun", function () { grant(p.uid, 30, p.plan); })); td.appendChild(btn("+1 yil", function () { grant(p.uid, 365, p.plan); }));
+        td.appendChild(btn(p.plan === "oqituvchi" ? "→ O'quvchi Pro" : "→ O'qituvchi Pro", function () { grant(p.uid, 0, p.plan === "oqituvchi" ? "oquvchi" : "oqituvchi"); }));
         td.appendChild(btn("Bekor qilish", async function () { await K.revokePremium(p.uid); loadPremium(); }));
         tr.appendChild(td); tb.appendChild(tr);
       });
       if (!list.length) { var e = document.createElement("tr"); cell(e, "Hozircha obunachi yo'q."); tb.appendChild(e); }
     } catch (e) { say("#pmsg", "Yuklab bo'lmadi: " + (e && e.code || "xato")); }
   }
-  async function grant(uid, days) {
-    try { await K.grantPremium(uid, days); say("#pmsg", "✅ " + (names[uid] || uid) + ": +" + days + " kun berildi", true); loadPremium(); }
+  async function grant(uid, days, plan) {
+    plan = plan || $("#pplan").value;
+    try { await K.grantPremium(uid, days, plan); say("#pmsg", "✅ " + (names[uid] || uid) + ": " + PLAN_N[plan] + (days ? " +" + days + " kun berildi" : " — tarif o'zgartirildi"), true); loadPremium(); }
     catch (e) { say("#pmsg", "Bo'lmadi: " + (e && e.code || "xato")); }
   }
   $("#pgo").onclick = async function () {
@@ -351,6 +384,37 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
       });
     } catch (e) { say("#pmsg", "Qidirib bo'lmadi: " + (e && e.code || "xato")); }
   };
+
+  async function loadTeachers() {
+    var box = $("#tcl"); box.textContent = "Yuklanmoqda…";
+    try {
+      var req = await K.teacherRequests(), ok = await K.listTeachers(), okMap = {};
+      ok.forEach(function (t) { okMap[t.uid] = t; });
+      box.innerHTML = "";
+      var pend = req.filter(function (u) { return !okMap[u.uid]; });
+      if (!pend.length) box.textContent = "Yangi so'rov yo'q.";
+      pend.forEach(function (u) {
+        var d = document.createElement("div"); d.style.cssText = "display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0";
+        var sp = document.createElement("span"); sp.textContent = "⏳ " + u.name + (u.group ? " (" + u.group + ")" : ""); sp.style.minWidth = "180px"; d.appendChild(sp);
+        var gi = document.createElement("input"); gi.placeholder = "guruhlari: 05-25, 10-26"; gi.value = u.group || ""; gi.style.cssText = "flex:1;min-width:160px;background:#0b1220;border:1px solid var(--bd);color:var(--tx);border-radius:10px;padding:8px 10px"; d.appendChild(gi);
+        d.appendChild(btn("✅ Tasdiqlash", async function () {
+          try { await K.approveTeacher(u.uid, u.name, u.group, gi.value.split(/[,;]+/)); say("#tcmsg", "✅ " + u.name + " o'qituvchi sifatida tasdiqlandi", true); loadTeachers(); }
+          catch (e) { say("#tcmsg", "Bo'lmadi: " + (e && e.code || "xato") + " (Firestore qoidalari yangilanganmi?)"); }
+        }));
+        box.appendChild(d);
+      });
+      var tb = $("#t6 tbody"); tb.innerHTML = "";
+      ok.forEach(function (t) {
+        var tr = document.createElement("tr"); cell(tr, "🎓 " + t.name + (t.group ? " (" + t.group + ")" : ""));
+        var tg = document.createElement("td"), gi = document.createElement("input"); gi.value = (t.groups || []).join(", "); gi.style.cssText = "min-width:150px;background:#0b1220;border:1px solid var(--bd);color:var(--tx);border-radius:10px;padding:6px 8px"; tg.appendChild(gi); tr.appendChild(tg);
+        var td = document.createElement("td");
+        td.appendChild(btn("💾 Saqlash", async function () { try { await K.approveTeacher(t.uid, t.name, t.group, gi.value.split(/[,;]+/)); say("#tcmsg", "✅ Guruhlar saqlandi: " + t.name, true); } catch (e) { say("#tcmsg", "Bo'lmadi: " + (e && e.code || "xato")); } }));
+        td.appendChild(btn("Bekor qilish", async function () { if (!confirm(t.name + " o'qituvchilar ro'yxatidan olinsinmi?")) return; try { await K.revokeTeacher(t.uid); loadTeachers(); } catch (e) { say("#tcmsg", "Bo'lmadi: " + (e && e.code || "xato")); } }));
+        tr.appendChild(td); tb.appendChild(tr);
+      });
+      if (!ok.length) { var e = document.createElement("tr"); cell(e, "Hozircha yo'q."); tb.appendChild(e); }
+    } catch (e) { box.textContent = "Yuklab bo'lmadi: " + (e && e.code || "xato") + " (Firestore qoidalari yangilanganmi?)"; }
+  }
 
   async function loadTests() {
     try {
@@ -405,7 +469,7 @@ code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;word-bre
   };
 
   // Panel ochilganda (o'qituvchi tasdiqlangach) yuklash
-  var t = setInterval(function () { if (!$("#app").hidden) { clearInterval(t); loadPayments(); loadPremium(); loadTests(); loadHomiylar(); } }, 500);
+  var t = setInterval(function () { if (!$("#app").hidden) { clearInterval(t); if (document.body.classList.contains("tmode")) return; loadTeachers(); loadPayments(); loadPremium(); loadTests(); loadHomiylar(); } }, 500);
 })();
 </script>
 </body>
