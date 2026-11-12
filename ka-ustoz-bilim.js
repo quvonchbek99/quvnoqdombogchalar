@@ -89,7 +89,14 @@
     if (asked && !/\d/.test(s)) { var w = s.replace(/[.!?,]/g, " ").trim().split(/\s+/); if (w.length <= 2) return capName(w[w.length - 1].replace(/(man|jon)$/i, "")); }
     return "";
   }
-  function nm(ctx, t) { return ctx && ctx.name && Math.random() < .55 ? t.replace(/([!.])\s*$/, ", " + ctx.name + "$1") : t; }
+  // Murojaat: ba'zan ismi bilan, ba'zan erkalab (poponam, akam, kampirim…)
+  function petW(ctx) { return window.kaYuz && kaYuz.pet ? kaYuz.pet(ctx && ctx.sg) : pick(["poponam", "jonim", "yulduzim", "chempionim"]); }
+  function nm(ctx, t) {
+    if (!ctx) return t; var r = Math.random();
+    if (ctx.name && r < .4) return t.replace(/([!.])\s*$/, ", " + ctx.name + "$1");
+    if (r < .75) return t.replace(/([!.])\s*$/, ", " + petW(ctx) + "$1");
+    return t;
+  }
 
   /* ---------- Hazil, rashk, mehr ---------- */
   var RIVAL = /(chat\s*-?\s*gpt|чат\s*гпт|\bgpt\b|gemini|deep\s*seek|claude|grok|copilot|алиса|alisa|boshqa (ai|ustoz|o'qituvchi|repetitor|bot)|repetitor|репетитор|другой учитель)/i;
@@ -101,7 +108,8 @@
     "Boshqa bot haqida eshitishni ham xohlamayman! Yaxshisi, bilimingni menga ko'rsat."
   ];
   var LOVE = ["Voy, rahmat! Yuragim eriydi. Davom etamizmi?", "Sen ham zo'rsan! Shunday davom etsang, hammadan o'zib ketasan.", "Rahmat, do'stim! Men ham sen bilan o'qishni yaxshi ko'raman."];
-  var PRAISE = ["Barakalla! To'g'ri!", "Zo'r! Aynan shunday!", "Ofarin, juda yaxshi!", "Ana, ko'rdingmi, uddalading!", "To'ppa-to'g'ri! Qoyil!"];
+  var PRAISE = ["Barakalla! To'g'ri!", "Zo'r! Aynan shunday!", "Ofarin, juda yaxshi!", "Ana, ko'rdingmi, uddalading!", "To'ppa-to'g'ri! Qoyil!", "Ajoyib! To'g'ri!", "Voy, zo'rsan-ku!"];
+  var CRY = ["Uhu-uhu, yig'lab yubordim-ku! Burnim ham oqib ketdi.", "Voy-voy, ko'z yoshlarim to'kildi!", "Uhu-uhu... mayli, yig'lamayman, birga o'rganamiz."];
   // Tegajoq hazil (sozlamada o'chirsa bo'ladi): bilmasa yoki xato qilsa, mehr bilan tegishadi
   var TEASE = ["Voy qovoq kalla-ey!", "Ey oshqovoq, shuni ham bilmaysanmi?", "Qovunjon, bir o'ylab ko'r-chi!", "Hay qovoq kallajonim...", "Oshqovoqcha, bunisi oson-ku!", "Voy qovun-ey, shunga ham-a?", "Qovoq kalla, uxlab qoldingmi?",
     "Ey xumpar, qayoqqa qarayapsan?", "Voy eshakvoy-ey!", "Eshak-ey, yana o'ylab ko'r!", "Voy poponam-ey, shuni ham bilmaysanmi?", "Hay poponam...", "Tarvuz kalla, bunisi oson-ku!", "Xumparvoy, miyangni ishlat-chi!"];
@@ -237,6 +245,31 @@
       function () { var t = pick([["sin 30°", .5], ["cos 60°", .5], ["sin 90°", 1], ["cos 0°", 1], ["tg 45°", 1], ["cos 90°", 0]]); return { q: t[0] + " ning qiymati nechaga teng?", a: t[1], h: "Asosiy burchaklar jadvalini esla.", s: t[0] + " = " + fmt(t[1]) }; }
     ]
   ];
+  /* ---------- Og'zaki qo'shish: 6 daraja, ketma-ket 3 ta to'g'ri — daraja oshadi, xato — pasayadi ---------- */
+  var QLV = [
+    function () { var a = ri(2, 9), b = ri(2, 9); return [a, b]; },
+    function () { var a = ri(11, 49), b = ri(2, 9); return [a, b]; },
+    function () { var a = ri(1, 7) * 10 + ri(0, 4), b = ri(1, 2) * 10 + ri(0, 5); return [a, b]; },
+    function () { var a = ri(15, 69), b = ri(15, 39); if ((a % 10) + (b % 10) < 10) b += 6; return [a, b]; },
+    function () { return Math.random() < .5 ? [ri(110, 480), ri(15, 99)] : [ri(11, 49), ri(11, 39), ri(5, 19)]; },
+    function () { return Math.random() < .5 ? [ri(120, 590), ri(110, 390)] : [ri(15, 69), ri(15, 49), ri(15, 49), ri(5, 19)]; }
+  ];
+  var QTIP = ["Barmoqlaringda sanab ko'r yoki kattarog'idan boshlab sana.", "Avval birliklarni qo'sh, o'nliklar o'zgarmaydi.", "O'nliklarni alohida, birliklarni alohida qo'sh.",
+    "Birliklar 10 dan oshsa, bitta o'nlik yuqoriga o'tadi. Masalan, kichigini o'nlikka yaxlitlab ol.", "Sonlarni o'nlik va birliklarga ajratib, bosqichma-bosqich qo'sh.", "Avval yuzliklarni, keyin o'nliklarni, oxirida birliklarni qo'sh."];
+  function qoshQ(st) {
+    var lv = st.qlvl || 1;
+    if (st.qseen !== (st.cnt || 0)) {
+      st.qseen = st.cnt || 0; st.qup = 0;
+      var last = (st.log || [])[st.log ? st.log.length - 1 : 0];
+      if (last && last.t === "Og'zaki qo'shish") {
+        if (last.ok) { st.qrun = (st.qrun || 0) + 1; if (st.qrun >= 3 && lv < QLV.length) { lv++; st.qrun = 0; st.qup = 1; } }
+        else { st.qrun = 0; if (lv > 1) lv--; }
+      }
+    }
+    st.qlvl = lv;
+    var n = QLV[lv - 1](), sum = 0, i; for (i = 0; i < n.length; i++) sum += n[i];
+    return { q: n.join(" + ") + " = ?", a: sum, h: QTIP[lv - 1], s: n.join(" + ") + " = " + sum, lv: lv };
+  }
   function mathQ(sinf) { var b = band(sinf); if (b > 0 && Math.random() < .25) b--; return pick(MG[b])(); }
 
   /* ---------- Mantiqiy masalalar ---------- */
@@ -342,9 +375,10 @@
     if (m === "en") { it = nextItem(st, "en" + band(ctx.sinf), bankFor(ENB, ctx.sinf)); st.cur = { k: "tr", q: it[1], a: it[2], f: enNorm, lang: "en" }; return "Inglizchada qanday deyiladi: «" + it[1] + "»?"; }
     if (m === "ru") { it = nextItem(st, "ru" + band(ctx.sinf), bankFor(RUB, ctx.sinf)); st.cur = { k: "tr", q: it[1], a: it[2], f: bare, lang: "ru" }; return "Ruschada qanday deyiladi: «" + it[1] + "»?"; }
     if (m === "ielts") { it = nextItem(st, "ielts", IELTS); st.cur = { k: "ielts", q: it }; return "Mana savol: \"" + it + "\" Javobni inglizcha, kamida uch-to'rt gap bilan ayting."; }
-    var bq = (ctx.bank && ctx.bank.length && (m === "math" || m === "fan" || Math.random() < .55)) ? bankQ(ctx) : null;
+    var bq = (m !== "qosh" && ctx.bank && ctx.bank.length && (m === "math" || m === "fan" || Math.random() < .55)) ? bankQ(ctx) : null;
     if (bq) return bq;
     if (m === "math") { it = mathQ(ctx.sinf); st.cur = { k: "num", q: it.q, a: it.a, h: it.h, s: it.s }; return it.q; }
+    if (m === "qosh") { it = qoshQ(st); st.cur = { k: "num", q: it.q, a: it.a, h: it.h, s: it.s, t: "Og'zaki qo'shish", ts: Date.now() + 1800 }; return it.q; }
     if (m === "logic") { it = nextItem(st, "logic", LOGIC); st.cur = { k: "num", q: it[0], a: it[1], h: "Shoshilma, savolni yana bir bor o'qib chiq.", s: it[2] }; return it[0]; }
     st.cur = null; return "";
   }
@@ -353,6 +387,7 @@
     ielts: "Hello! Men Kuvi, IELTS Speaking murabbiyingman. Savol beraman, siz javob berasiz, men taxminiy band aytaman.",
     ru: "Salom! Men Kuvi. Rus tilini birga mashq qilamiz.",
     math: "Salom! Men Kuvi, matematika ustozingman. Qani, bitta misol!",
+    qosh: "Salom! Men Kuvi. Og'zaki qo'shish mashqi: men misol aytaman, sen javobni ovoz chiqarib aytasan. Tez va to'g'ri topsang, daraja oshadi!",
     logic: "Salom! Men Kuvi. Miyangni charxlaymiz: mantiqiy masala!",
     free: "Salom! Men Kuvi, kuvonch.uz ning ovozli ustoziman. Istalgan fandan savol bering yoki yuqoridan rejim tanlang.",
     xato: "Salom! Bu — xatolar daftaring. Avval xato qilgan savollaringni qayta yechamiz: har birini ikki marta to'g'ri topsang, daftardan o'chadi."
@@ -419,11 +454,15 @@
       if (v == null) return { t: "Javobni son bilan ayting, yoki «bilmayman» deng — tushuntiraman. Savol: " + c.q, mood: "think" };
       if (Math.abs(v - c.a) < 1e-6 || Math.abs(v - c.a) <= Math.abs(c.a) * 1e-3) {
         tally(st, !c.bad, c, fmt(v));
-        st.ok = (st.ok || 0) + 1; nx = askNew(nc);
-        return { t: nm(ctx, pick(PRAISE)) + " " + fmt(v) + ". " + (st.ok % 5 === 0 ? "Ketma-ket " + st.ok + " ta to'g'ri javob, ofarin! " : "") + "Keyingisi: " + nx, mood: st.ok % 5 === 0 ? "love" : "happy" };
+        st.ok = (st.ok || 0) + 1;
+        var sp = ctx.mode === "qosh" && c.ts ? Math.max(.6, (Date.now() - c.ts) / 1000) : 0, fast = sp && sp < 7;
+        nx = askNew(nc);
+        var big = st.ok % 5 === 0, md5 = big ? (Math.random() < .5 ? "laugh" : "love") : fast && sp < 4.5 ? "wink" : "happy";
+        return { t: (md5 === "laugh" ? "Ha-ha-ha! " : "") + nm(ctx, pick(PRAISE)) + " " + fmt(v) + ". " + (fast ? "Chaqmoqdek tez — " + String(Math.round(sp * 10) / 10).replace(".", ",") + " soniya! " : "") +
+          (big ? "Ketma-ket " + st.ok + " ta to'g'ri javob, ofarin! " : "") + (ctx.mode === "qosh" && st.qup ? "Endi qiyinroq misollar! " : "") + "Keyingisi: " + nx, mood: md5 };
       }
       st.tries++;
-      if (st.tries >= 2) { var s2 = String(c.s).replace(/[.!]+$/, ""); tally(st, false, c, fmt(v)); nx = askNew(nc); return { t: tz(ctx) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, keyingisini albatta topasiz: " + nx, mood: "sad" }; }
+      if (st.tries >= 2) { var s2 = String(c.s).replace(/[.!]+$/, ""), cr = Math.random() < .4; tally(st, false, c, fmt(v)); nx = askNew(nc); return { t: (cr ? pick(CRY) + " " : tz(ctx)) + "To'g'ri javob: " + s2 + ". Xafa bo'lmang, " + petW(ctx) + ", keyingisini albatta topasiz: " + nx, mood: cr ? "cry" : "sad" }; }
       c.bad = 1; return { t: tz(ctx) + pick(WRONG) + " Maslahat: " + c.h, mood: "strict" };
     }
     if (c.k === "tr") {

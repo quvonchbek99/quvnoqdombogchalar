@@ -46,10 +46,10 @@
   // robot-maskot (ka-effektlar.js) bor bo'lsa — uning LED-yuzi suhbatdagi kayfiyatga qarab o'zgaradi
   function hasRobot() { return !!document.querySelector(".ka-kuvi"); }
   function robot(emo, text) { try { if (hasRobot() && window.kaKuvi && kaKuvi.react) kaKuvi.react(emo, text); } catch (e) {} }
-  var EMO = { happy: "happy", love: "love", think: "thinking", strict: "angry", jealous: "angry", sad: "sad", wow: "surprised" };
+  var EMO = { happy: "happy", love: "love", think: "thinking", strict: "angry", jealous: "angry", sad: "sad", wow: "surprised", laugh: "celebrate", cry: "sad", shy: "love", wink: "wink" };
   window.addEventListener("message", function (e) {
     if (e.origin !== location.origin || !e.data || !e.data.kuviMood) return;
-    var TX = { happy: "Zo'r! 😄", love: "💖 Barakalla!", think: "Hmm… 🤔", strict: "Diqqat bilan! 🤨", jealous: "Rashkim keldi! 🔥", sad: "Xafa bo'lmang 🥺", wow: "Voy! 😮" };
+    var TX = { happy: "Zo'r! 😄", love: "💖 Barakalla!", think: "Hmm… 🤔", strict: "Diqqat bilan! 🤨", jealous: "Rashkim keldi! 🔥", sad: "Xafa bo'lmang 🥺", wow: "Voy! 😮", laugh: "Ha-ha-ha! 😂", cry: "Uhu-uhu 😭", shy: "Uyalib ketdim ☺️", wink: "😉" };
     var m = EMO[e.data.kuviMood]; if (m) robot(m, TX[e.data.kuviMood] || "");
   });
   function boot() {
@@ -70,6 +70,6 @@
     b.onclick = openChat;
     setInterval(function () { if (document.body.contains(b) && !document.hidden) face(); }, 12000);
   }
-  function go() { if (window.kaYuz) setTimeout(boot, 800); else { var s = document.createElement("script"); s.src = base + "ka-kuvi.js?v=20261110d"; s.onload = function () { setTimeout(boot, 800); }; s.onerror = boot; document.head.appendChild(s); } }
+  function go() { if (window.kaYuz) setTimeout(boot, 800); else { var s = document.createElement("script"); s.src = base + "ka-kuvi.js?v=20261112b"; s.onload = function () { setTimeout(boot, 800); }; s.onerror = boot; document.head.appendChild(s); } }
   if (document.body) go(); else document.addEventListener("DOMContentLoaded", go);
 })();

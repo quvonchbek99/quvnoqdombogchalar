@@ -593,7 +593,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 
 <script src="ka-tarmoq.js?v=20261110a"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
-<script src="ka-kuvi.js?v=20261110d"></script>
+<script src="ka-kuvi.js?v=20261112b"></script>
 <script src="ka-xato.js?v=20261110a"></script>
 <script src="ka-ai.js?v=20261112a"></script>
 <script>
@@ -2407,7 +2407,9 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   // Kuvi telefonda: to'g'ri bo'lsa maqtaydi, xato bo'lsa (sozlama yoqiq bo'lsa) tegishadi
   function kuviTop(ok, timeout, streak, tz) {
     if (!window.kaYuz) return '<div class="big">' + (ok ? "✅" : timeout ? "⏰" : "❌") + "</div>";
-    var kr = kaYuz.react(ok ? "ok" : timeout ? "timeout" : "bad", { tz: tz == null ? (P && P.tz != null ? P.tz : 1) : tz, n: streak });
+    // Kuvi savol mavzusiga mos kiyinadi (fizika — ko'zoynak, tarix — do'ppi…) va o'quvchini erkalab chaqiradi
+    var qq = (P && P.cur && P.cur.q) || "", ofit = ""; try { ofit = kaYuz.outfitFor ? kaYuz.outfitFor(plain(qq)) : ""; } catch (e) {}
+    var kr = kaYuz.react(ok ? "ok" : timeout ? "timeout" : "bad", { tz: tz == null ? (P && P.tz != null ? P.tz : 1) : tz, n: streak, sg: kaYuz.nameG(P && P.name), outfit: ofit });
     // telefonda Kuvi ovozi yoqilgan bo'lsa: qiz bolaga erkak, o'g'il bolaga ayol ovozida aytadi
     if (kvOn()) setTimeout(function () { try { kaYuz.say(kr.text, kr.mood, kaYuz.voiceFor(kr.mood, kaYuz.nameG(P && P.name))); } catch (e) {} }, 250);
     return kr.html;
