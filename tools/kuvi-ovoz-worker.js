@@ -5,7 +5,8 @@
  *   POST /tts  — matnni o'zbekcha tabiiy ovozga aylantiradi (Madina — ayol, Sardor — erkak; inglizcha/ruscha ham)
  *   POST /stt  — o'quvchi ovozini (WAV, 16 kHz) matnga aylantiradi (o'zbek/ingliz/rus)
  *   POST /chat — Kuvi'ning «miyasi»: Groq (bepul, juda tez) — gpt-oss-120b, band bo'lsa Llama
- *   POST /gstt — o'quvchi ovozini Groq Whisper bilan matnga aylantiradi (bepul: kuniga ~8 soat ovoz)
+ *   POST /gstt — o'quvchi ovozini Groq Whisper bilan matnga aylantiradi (bepul: kuniga ~8 soat ovoz);
+ *                &auto=1 — tilni o'zi aniqlaydi (ingliz/rus rejimida o'quvchi o'zbekcha ham gapiradi)
  *   GET  /ping — server ishlayaptimi
  * Azure va Groq kalitlari shu serverda yashirin turadi, saytning ochiq kodida ko'rinmaydi.
  *
@@ -124,28 +125,41 @@ async function chat(req, env, cors) {
 async function gstt(req, env, url, cors) {
   if (!env.GROQ_KEY) return json({ error: "GROQ_KEY sozlanmagan" }, 503, cors);
   const q = url.searchParams.get("lang") || "uz";
-  const lang = { "uz-UZ": "uz", "en-US": "en", "en-GB": "en", "ru-RU": "ru", uz: "uz", en: "en", ru: "ru" }[q] || "uz";
+  const lang = q === "auto" || url.searchParams.get("auto") === "1" ? "" : { "uz-UZ": "uz", "en-US": "en", "en-GB": "en", "ru-RU": "ru", uz: "uz", en: "en", ru: "ru" }[q] || "uz";
   const audio = await req.arrayBuffer();
   if (!audio.byteLength) return json({ error: "ovoz yo'q" }, 400, cors);
   if (audio.byteLength > 1900000) return json({ error: "ovoz juda uzun (60 soniyagacha)" }, 413, cors);
+  let r = await whisper(env, audio, lang);
+  // til avto: o'zbekchani Whisper ba'zan turkcha/qozoqcha deb o'ylaydi — o'zbekcha deb qayta tinglaymiz
+  if (r.ok && !lang && !/^(en|ru|uz)$/.test(r.lang)) r = await whisper(env, audio, "uz");
+  if (!r.ok) return json({ error: "groq " + r.err }, /^429/.test(r.err) ? 429 : 502, cors);
+  return json({ text: r.text, lang: r.lang, model: r.model }, 200, cors);
+}
+const WL = { english: "en", en: "en", russian: "ru", ru: "ru", uzbek: "uz", uz: "uz" };
+async function whisper(env, audio, lang) {
   let last = "";
   for (const model of G_STT) {
     const fd = new FormData();
     fd.append("file", new Blob([audio], { type: "audio/wav" }), "ovoz.wav");
-    fd.append("model", model); fd.append("language", lang); fd.append("response_format", "json"); fd.append("temperature", "0");
+    fd.append("model", model); fd.append("response_format", lang ? "json" : "verbose_json"); fd.append("temperature", "0");
+    if (lang) fd.append("language", lang);
     if (lang === "uz") fd.append("prompt", "O'zbekcha, lotin yozuvida.");
     const r = await fetch(GROQ + "/audio/transcriptions", { method: "POST", headers: { "Authorization": "Bearer " + env.GROQ_KEY }, body: fd });
     if (r.ok) {
       const j = await r.json().catch(() => ({}));
-      let t = String(j.text || "").trim();
-      if (lang === "uz") t = cyr2lat(t);
+      let t = String(j.text || "").trim(), l = lang;
+      if (!l) {
+        const d = String(j.language || "").toLowerCase();
+        l = WL[d] || (d ? d : /[ўқғҳ]/i.test(t) ? "uz" : /[а-яё]/i.test(t) ? "ru" : /[şçğıöü]/i.test(t) ? "tr" : /(o'|g'|oʻ|gʻ)/i.test(t) ? "uz" : "en");
+      }
+      if (l === "uz") t = cyr2lat(t);
       if (/^o'zbekcha,? lotin yozuvida\.?$/i.test(t)) t = ""; // jimlikda Whisper ko'rsatmani qaytarib qo'yadi
-      return json({ text: t, model }, 200, cors);
+      return { ok: true, text: t, lang: l, model };
     }
     last = r.status + " " + (await r.text().catch(() => "")).slice(0, 160);
     if (r.status === 401 || r.status === 403) break;
   }
-  return json({ error: "groq " + last }, /^429/.test(last) ? 429 : 502, cors);
+  return { ok: false, err: last };
 }
 // Whisper ba'zan o'zbekchani kirillda yozadi — lotinga o'giramiz
 const C2L = { "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "j", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "x", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sh", "ъ": "'", "ь": "", "ы": "i", "э": "e", "ю": "yu", "я": "ya", "ў": "o'", "қ": "q", "ғ": "g'", "ҳ": "h" };

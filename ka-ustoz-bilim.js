@@ -398,8 +398,21 @@
     xato: "Salom! Bu — xatolar daftaring. Avval xato qilgan savollaringni qayta yechamiz: har birini ikki marta to'g'ri topsang, daftardan o'chadi."
   };
 
+  // AI ulangan bo'lsa suhbat tanishuvdan boshlanadi — test savoli bilan emas
+  var HI = {
+    en: ["Qalaysan? \"How are you today?\"", "Kayfiyating qalay? \"How was your day?\""],
+    ielts: ["\"How are you today?\" Kayfiyating qanday?"],
+    ru: ["Ishlar qalay? «Как дела?»", "Kayfiyating qanday? «Как настроение?»"],
+    def: ["Qalaysan, kayfiyatlar qanday?", "Bugun kuning qanday o'tdi?", "Qalaysan? Bugun nima qiziq ish qilding?"]
+  };
   function start(ctx) {
     ctx.st = ctx.st || {};
+    if (ctx.aiOn && ctx.mode !== "xato" && ctx.mode !== "qosh") {
+      ctx.st.cur = null; ctx.st.askName = 0;
+      var hi = INTRO[ctx.mode].replace(/ (Qani|Tarjima|Rus tilini|Miyangni|Savol beraman|Istalgan)[\s\S]*$/, "");
+      if (!ctx.name) return { t: hi + " Avval tanishib olaylik: isming nima?" + (ctx.mode === "en" || ctx.mode === "ielts" ? " \"What is your name?\"" : ctx.mode === "ru" ? " «Как тебя зовут?»" : ""), mood: "happy" };
+      return { t: hi.replace("Salom!", "Salom, " + ctx.name + "!").replace("Hello!", "Hello, " + ctx.name + "!") + " " + pick(HI[ctx.mode] || HI.def), mood: "happy" };
+    }
     if (!ctx.name && ctx.mode !== "xato") { ctx.st.askName = 1; ctx.st.cur = null; return { t: INTRO[ctx.mode].replace(/ (Qani|Tarjima|Rus tilini|Miyangni|Savol beraman|Istalgan)[\s\S]*$/, "") + " Avval tanishib olaylik: isming nima?", mood: "happy" }; }
     if (ctx.mode === "xato" && !(ctx.xato || []).length) return { t: "Xatolar daftaring hozircha bo'sh — demak xato yo'q, qoyil! Viktorina yoki mashqda xato qilsang, shu yerga yozib qo'yaman va keyin birga tuzatamiz.", mood: "love" };
     var q = askNew(ctx);
@@ -410,7 +423,7 @@
     var s = norm(t), p = " " + s + " ";
     if (RIVAL.test(t)) return { t: pick(JEAL), mood: "jealous" };
     if (/ (rahmat|raxmat|thank|спасибо|zo'r|zor |ajoyib|yaxshi ko'raman|love you|super|молодец)/.test(p) && s.split(" ").length <= 6) return { t: pick(LOVE), mood: "love" };
-    if (/ (sen kimsan|kimsan|isming nima|who are you|кто ты|seni kim)/.test(p)) return { t: "Men Kuvi — kuvonch.uz saytining ovozli ustoziman. Internet va AI ulangan bo'lsa Google Gemini yordamida gaplashaman, bo'lmasa oflayn mashqlar bilan o'qitaman.", mood: "happy" };
+    if (/ (sen kimsan|kimsan|isming nima|who are you|кто ты|seni kim)/.test(p)) return { t: "Men Kuvi — kuvonch.uz saytining ovozli ustoziman. Internet bo'lsa sun'iy intellekt yordamida erkin gaplashaman, bo'lmasa oflayn mashqlar bilan o'qitaman.", mood: "happy" };
     if (/^(salom|assalomu? alaykum|hello|hi|hey|привет|здравствуй)/.test(s)) return { t: "Va alaykum assalom! Kayfiyatlar qalay? Qani, boshladik!", mood: "happy" };
     if (/ (zerikdim|charchadim|qiyin|i am tired|bored|устал)/.test(p)) return { t: "Tushunaman, ba'zan qiyin bo'ladi. Keling, bitta osonroq savol bilan davom etamiz, keyin dam olasiz!", mood: "sad" };
     return null;
@@ -556,7 +569,8 @@
   // Bu xabarni AI'siz, shu yerning o'zida tez hal qilsa bo'ladimi? (savolga javob, «keyingi», «bilmayman», ism)
   function local(text, ctx) {
     var t = String(text || ""), st = ctx.st || {}, s = norm(t);
-    if (findName(t, st.askName && !st.cur)) return true;
+    // AI ulangan bo'lsa ismni ham, suhbatni ham AI o'zi davom ettiradi (oflayn «miya» darhol test bermasin)
+    if (!ctx.aiOn && findName(t, st.askName && !st.cur)) return true;
     if (/(^|\s)(savol ber|misol ber|mashq ber|test ber|menga mashq|keyingi|boshqa savol|yana savol|yana bitta)/.test(s)) return true;
     var c = st.cur; if (!c) return false;
     if (isSkip(t) || isRepeat(t) || isNo(t)) return true;

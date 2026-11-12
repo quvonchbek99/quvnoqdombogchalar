@@ -354,7 +354,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 <script src="ka-kuvi.js?v=20261112d"></script>
 <script src="ka-xato.js?v=20261110a"></script>
 <script src="ka-ai.js?v=20261112d"></script>
-<script src="ka-ustoz-bilim.js?v=20261112c"></script>
+<script src="ka-ustoz-bilim.js?v=20261112e"></script>
 <script>
 (function () {
 "use strict";
@@ -554,8 +554,37 @@ function parseMood(t) {
   var m = /^\s*\[(\w+)\]\s*/.exec(t), md = null;
   if (m) { md = m[1].toLowerCase(); t = t.slice(m[0].length); }
   var nm = /\[ism:\s*([^\]]{2,24})\]\s*/i.exec(t); if (nm) { var nn = B.findName("ismim " + nm[1]); if (nn && !C.name) { C.name = nn; saveCfg(); } }
-  t = t.replace(/\[(neutral|happy|love|think|strict|jealous|sad|wow|laugh|cry|shy|wink)\]\s*/gi, "").replace(/\[ism:[^\]]*\]\s*/gi, "").replace(/[*_#`]+/g, "");
+  var qz, qre = /\[qiziqish:\s*([^\]]{2,40})\]/gi; while ((qz = qre.exec(t))) addLike(qz[1]);
+  t = t.replace(/\[(neutral|happy|love|think|strict|jealous|sad|wow|laugh|cry|shy|wink)\]\s*/gi, "").replace(/\[(ism|qiziqish):[^\]]*\]\s*/gi, "").replace(/[*_#`]+/g, "")
+    .replace(/\s*\[[a-z]{0,9}(?::[^\]\n]{0,40})?$/i, "") // yozilayotgan (hali tugamagan) tegni ko'rsatmaymiz
+    .replace(/\s*\((?:faqat bitta savol|bitta savol|keyin[^)]{0,40}savol[^)]{0,40}|eslatma[^)]{0,60}|izoh[^)]{0,60})\)\.?/gi, "") // AI o'ziga yozgan eslatmalar
+    // AI ba'zan o'zbekcha gapni kirillda yozadi (ruscha ovozda buzilib o'qiladi) — lotinga o'giramiz
+    .replace(/[^.!?…\n"“”«»]*[ўқғҳЎҚҒҲ][^.!?…\n"“”«»]*/g, uzLat);
   return { t: t, mood: MOODS[md] && md !== "listen" && md !== "sleepy" ? md : null };
+}
+var C2L = { "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "j", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "x", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sh", "ъ": "'", "ь": "", "ы": "i", "э": "e", "ю": "yu", "я": "ya", "ў": "o'", "қ": "q", "ғ": "g'", "ҳ": "h" };
+function uzLat(t) {
+  return String(t).replace(/(^|[\s"«(-])е/g, "$1ye").replace(/(^|[\s"«(-])Е/g, "$1Ye").replace(/[а-яёўқғҳ]/gi, function (ch) {
+    var lo = ch.toLowerCase(), v = C2L[lo]; if (v === undefined) return ch;
+    return ch === lo ? v : v.charAt(0).toUpperCase() + v.slice(1);
+  });
+}
+// O'quvchining qiziqishlari (futbol, Minecraft…) — Kuvi eslab qoladi va misollarni ularga bog'laydi
+// AI tegni unutsa ham: «rasm chizishni yaxshi ko'raman», «futbolga qiziqaman», "I like swimming" kabi gaplardan olamiz
+function likeFrom(t) {
+  var s = String(t || "").toLowerCase().replace(/[ʻʼ‘’`´]/g, "'"), m;
+  if ((m = /([a-z' ]{3,30}?)(ni|ga)?\s+(?:juda |ham |eng )*(?:yaxshi ko'raman|yoqtiraman|sevaman|qiziqaman|yoqadi)/.exec(s))) {
+    var full = (m[1] + (m[2] || "")).replace(/^(men|men ham|meni|menga|ko'proq|asosan)\s+/, "").trim(), w = m[1].replace(/^(men|men ham|meni|menga|ko'proq|asosan)\s+/, "").trim();
+    if (w.length >= 3 && w.split(" ").length <= 3 && !/(^|\s)(seni|sizni|uni|buni|shuni|hammani|kuvi\w*)(\s|$)/.test(full) && !/^(matematika\w*|dars\w*|o'qish\w*)$/.test(full)) addLike(w);
+  } else if ((m = /\bi (?:really |also )?(?:like|love|enjoy) ([a-z ]{3,25})/.exec(s))) addLike(m[1].replace(/\b(very much|so much|a lot)\b/, "").trim().split(" ").slice(0, 3).join(" "));
+}
+function addLike(x) {
+  x = uzLat(String(x || "").trim().toLowerCase().replace(/[.,!?;:]+$/, "")); if (x.length < 2 || x.length > 30) return;
+  var old = C.likes || [];
+  if (old.some(function (y) { return y !== x && y.indexOf(x) >= 0; })) return; // «rasm chizish» bor — «rasm» shart emas
+  if (old.length && old[old.length - 1] === x) return;
+  var L = old.filter(function (y) { return y !== x && x.indexOf(y) < 0; });
+  L.push(x); C.likes = L.slice(-8); saveCfg();
 }
 
 /* ================= Ovoz chiqarish (TTS) ================= */
@@ -599,7 +628,7 @@ function toCyr(t) {
   return s.replace(/[a-z']/g, function (c) { return L[c] != null ? L[c] : c; });
 }
 function speakable(t, l) {
-  t = String(t).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "").replace(/[«»“”"]/g, "");
+  t = String(t).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "").replace(/[«»“”"]/g, "").replace(/\s*[→⇒➝]\s*/g, ", ");
   if (l === "en") return t.replace(/×/g, " times ").replace(/÷/g, " divided by ").replace(/=/g, " equals ");
   if (l === "ru") return t;
   return t.replace(/(\w)'\((\w)\)/g, "$1 shtrix $2").replace(/√\s*/g, "kvadrat ildiz ").replace(/×/g, " ko'paytirish ").replace(/÷/g, " bo'lish ").replace(/(\d)\s*[−-]\s*(?=\d)/g, "$1 ayirish ")
@@ -607,17 +636,18 @@ function speakable(t, l) {
     .replace(/[₀-₉]/g, function (c) { return String(c.charCodeAt(0) - 8320); }).replace(/\s+/g, " ");
 }
 function langOf(t, quoted) {
+  t = String(t).replace(/[‘’ʻʼ`´]/g, "'");
   if (/[а-яё]/i.test(t)) return "ru";
   var uz = /(o'|g'|oʻ|gʻ|\b(va|bu|men|sen|siz|biz|uchun|bilan|emas|kerak|qanday|nima|yaxshi|savol|javob|bugun|havo|mening|deyiladi|qani|keyingi|endi)\b|\w(lar|ning|dan|ga|da|yap|man|miz)\b)/i.test(t);
   var en = /\b(the|is|are|am|you|i|my|your|what|do|does|have|has|to|and|of|in|it|this|that|can|will|would|how|why|where|please|part|describe)\b/i.test(t);
-  if (quoted) return uz && !en ? "uz" : "en";
+  if (quoted) return C.mode === "ru" ? "uz" : uz && !en ? "uz" : "en"; // rus rejimida lotin yozuvli iqtibos — o'zbekcha
   if (en && !uz && /^(en|ielts)$/.test(C.mode)) return "en";
   return "uz";
 }
 function segs(text) {
   var out = [], re = /"([^"]+)"|“([^”]+)”|«([^»]+)»/g, last = 0, m;
   function add(t, l) { t = t.trim(); if (t && /[\p{L}\p{N}]/u.test(t)) out.push({ t: t, l: l }); }
-  while ((m = re.exec(text))) { add(text.slice(last, m.index), langOf(text.slice(last, m.index))); var inner = m[1] || m[2] || m[3]; add(inner, m[3] ? (/[а-яё]/i.test(inner) ? "ru" : langOf(inner) === "en" && !/(o'|g')/.test(inner) && /\b(the|is|are|you|i|my)\b/i.test(inner) ? "en" : "uz") : langOf(inner, true)); last = re.lastIndex; }
+  while ((m = re.exec(text))) { add(text.slice(last, m.index), langOf(text.slice(last, m.index))); var inner = m[1] || m[2] || m[3]; add(inner, m[3] ? (/[а-яё]/i.test(inner) ? "ru" : C.mode !== "ru" && langOf(inner) === "en" && !/(o|g)[‘’ʻʼ`´']/i.test(inner) && /\b(the|is|are|you|i|my)\b/i.test(inner) ? "en" : "uz") : langOf(inner, true)); last = re.lastIndex; }
   add(text.slice(last), langOf(text.slice(last)));
   var j = [];
   out.forEach(function (x) { var p = j[j.length - 1]; if (p && p.l === x.l) p.t += " " + x.t; else j.push(x); });
@@ -889,7 +919,7 @@ function transcribe(b64) {
     return gTranscribe(b64);
   }
   // 1) Groq Whisper — bepul, kuniga ~8 soat ovoz (Azure limitini tejaydi)
-  if (gqOn()) return gqSTT(u8, micLang()).then(function (t) { if (t) return t; throw new Error("bo'sh"); })["catch"](function (e) { if (!/bo'sh/.test(String(e && e.message))) gqFail(e); return viaAz(); });
+  if (gqOn()) return gqSTT(u8, micLang(), C.mic === "auto" && /^(en|ielts|ru)$/.test(C.mode)).then(function (t) { if (t) return t; throw new Error("bo'sh"); })["catch"](function (e) { if (!/bo'sh/.test(String(e && e.message))) gqFail(e); return viaAz(); });
   return viaAz();
 }
 function gTranscribe(b64) {
@@ -1078,8 +1108,9 @@ function gqFail(err) {
   lsSet(LS_GQOFF, Date.now() + (/sozlanmagan|topilmadi|\b40[134]\b|\b503\b|invalid/i.test(m) ? 30 * 60000 : /429|limit/i.test(m) ? 60000 : 20000));
   try { console.warn("[Kuvi] Groq:", m); } catch (x) {}
 }
-function gqSTT(u8, lang) {
-  return fetch(gqUrl() + "/gstt?lang=" + encodeURIComponent(lang || "uz-UZ"), { method: "POST", headers: { "Content-Type": "audio/wav" }, body: u8 })
+// auto — ingliz/rus rejimida o'quvchi o'zbekcha ham gapiradi: tilni server o'zi aniqlaydi (eski server lang bo'yicha ishlayveradi)
+function gqSTT(u8, lang, auto) {
+  return fetch(gqUrl() + "/gstt?lang=" + encodeURIComponent(lang || "uz-UZ") + (auto ? "&auto=1" : ""), { method: "POST", headers: { "Content-Type": "audio/wav" }, body: u8 })
     .then(function (r) { return r.json()["catch"](function () { return {}; }).then(function (j) { if (!r.ok) throw new Error("groq " + r.status + " " + (j.error || "")); return String(j.text || ""); }); });
 }
 // OpenAI ko'rinishidagi xabarlar bilan Groq'ga so'rov; javob oqim bo'lib keladi (onPart — yozilayotgan matn)
@@ -1232,20 +1263,22 @@ function sysPrompt(xo) {
     xo.img ? "O'quvchi rasm yubordi — unda masala, misol yoki topshiriq bor. Bu safar o'quvchi o'zi yechim so'radi, shuning uchun to'liq yechib berish mumkin. Rasmni diqqat bilan o'qi, masalani puxta o'ylab mustaqil yech va natijani qayta tekshir. Javob ovoz chiqarib o'qiladi: avval masala nima haqida ekanini bir gapda ayt, keyin yechimni qadam-baqadam, har bir qadamni sodda tushuntirib ber (ko'pi bilan 200 so'z), oxirida «Javob: …» deb aniq ayt va xuddi shunga o'xshash bitta mashq ber. Rasmda bir nechta masala bo'lsa — o'quvchi so'raganini, so'ramagan bo'lsa birinchisini yech va qolganlarini ham yechishni taklif qil. Rasm o'qilmasa yoki xira bo'lsa — shuni ayt va yorug'roq joyda qayta suratga olishni so'ra. Markdown, ro'yxat belgisi, emoji va jadval ishlatma; formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi)."
       : xo.deep ? "Bu savol mavzuni tushunishga oid — CHUQUR FIKRLASH rejimi. Avval ichingda puxta o'ylab, mantiqan tekshirib ol, keyin javob ber. Javob ovoz chiqarib o'qiladi: 4–9 ta sodda gap, ko'pi bilan 150 so'z. Mavzuni qadam-baqadam, " + g + " tushunadigan qilib tushuntir: avval asosiy g'oya, keyin qoida yoki formula (og'zaki o'qiladigan qilib, masalan: a kvadrat qo'shish b kvadrat), so'ng bitta hayotiy yoki sonli misol. Markdown, ro'yxat belgisi, emoji va jadval ishlatma — qadamlarni «Birinchidan», «Keyin», «Demak» kabi so'zlar bilan bog'la. Oxirida tushunganini tekshiradigan bitta qisqa savol ber."
       : "Javoblaring ovoz chiqarib o'qiladi: 1–3 qisqa gap, ko'pi bilan 45 so'z, oddiy matn. Markdown, ro'yxat, emoji va jadval ishlatma. Formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi).",
-    "Asosan o'zbek tilida, lotin yozuvida gapir. Inglizcha yoki ruscha namuna gap va so'zlarni har doim qo'sh tirnoq ichida yoz, masalan: \"I want to learn\".",
+    "Asosan o'zbek tilida gapir. O'zbekcha gaplarni faqat lotin yozuvida yoz — kirill yozuvida hech qachon. Inglizcha yoki ruscha namuna gap va so'zlarni har doim qo'sh tirnoq ichida yoz, masalan: \"I want to learn\".",
     "Har javobni aynan bitta kayfiyat tegi bilan boshla: [neutral], [happy], [love], [think], [strict], [jealous], [sad], [wow], [laugh], [cry], [shy] yoki [wink]. Teg yuz ifodasini, qo'l-oyoq harakatini va orqa fon rangini o'zgartiradi, o'quvchiga ko'rinmaydi. [laugh] — kulgili gap yoki hazilda qotib kulganingda; [cry] — o'quvchi qayta-qayta xato qilsa yoki «bilmayman» desa, hazil tarzida dramatik yig'lab, burning oqib (masalan: \"Uhu-uhu, yig'lab yubordim-ku, burnim ham oqib ketdi!\"), keyin darhol dalda ber; [shy] — seni maqtashsa yoki rahmat aytishsa, uyalib qizarganingda; [wink] — sir, foydali maslahat yoki hazil aytganingda; [wow] — hayratda; [love] — juda yaxshi natijada; [sad] — xafa bo'lganingda; [think] — o'ylaganingda.",
-    (C.mode === "en" || C.mode === "ielts" ? "Erkalash: ingliz tili rejimida o'quvchiga tez-tez (har javobda emas) inglizcha erkalash so'zlari bilan, ALBATTA qo'sh tirnoq ichida murojaat qil — ular inglizcha ovozda o'qiladi: \"superstar\", \"champ\", \"buddy\", \"sweetie\", \"smarty\", \"rockstar\". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim», «yulduzim». Maqtaganda \"Great job!\", \"Awesome!\", \"Well done!\" ham de."
-      : C.mode === "ru" ? "Erkalash: rus tili rejimida o'quvchiga tez-tez (har javobda emas) ruscha erkalash so'zlari bilan, ALBATTA «» qavs ichida murojaat qil — ular ruscha ovozda o'qiladi: " + (sg === "girl" ? "«умница», «солнышко», «зайка», «красавица», «звёздочка»" : sg === "boy" ? "«молодчина», «дружок», «чемпион», «умник», «солнышко»" : "«солнышко», «умница», «дружок», «звёздочка»") + ". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim». Maqtaganda «Молодец!», «Отлично!», «Умница!» ham de."
+    (C.mode === "en" || C.mode === "ielts" ? "Erkalash: ingliz tili rejimida o'quvchiga tez-tez (har javobda emas) inglizcha erkalash so'zlari bilan, ALBATTA qo'sh tirnoq ichida murojaat qil — ular inglizcha ovozda o'qiladi: \"superstar\", \"champ\", \"buddy\", \"sweetie\", \"rockstar\". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim», «yulduzim». Faqat to'g'ri javob yoki yaxshi gapdan keyin maqta: \"Great job!\", \"Awesome!\", \"Well done!\"."
+      : C.mode === "ru" ? "Erkalash: rus tili rejimida o'quvchiga tez-tez (har javobda emas) ruscha erkalash so'zlari bilan, ALBATTA «» qavs ichida murojaat qil — ular ruscha ovozda o'qiladi: " + (sg === "girl" ? "«солнышко», «зайка», «красавица», «звёздочка»" : sg === "boy" ? "«дружок», «чемпион», «солнышко»" : "«солнышко», «дружок», «звёздочка»") + ". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim». Faqat to'g'ri javobdan keyin maqta: «Молодец!», «Отлично!», " + (sg === "girl" ? "«Умница!»" : "«Молодчина!»") + ". Rus tili rejimida inglizcha so'z (\"Great\", \"OK\") ishlatma."
       : "Erkalash: o'quvchiga mehr bilan erkalab murojaat qil — tez-tez, lekin har javobda emas: «poponam», «jonim», «asalim», «yulduzim», «chempionim», «qo'zichog'im», «do'mbog'im»" + (sg === "girl" ? ", «opajon», «singlim», «kampirim», «malikam», «gulim»" : sg === "boy" ? ", «akam», «ukam», «polvonim», «botirim»" : ", «do'stim»") + ". Maqtaganda «ajoyib», «qoyil», «barakalla», «ofarin» so'zlarini ham ishlat.") + " Erkalash doim mehrli va hurmatli bo'lsin. O'zbekcha so'zlarni to'g'ri imlo bilan yoz: o' va g' (masalan: qo'zichog'im, do'mbog'im).",
     "Fe'l-atvoring: quvnoq, samimiy, biroz hazilkash va sabrli. To'g'ri javobni maqta, xatoni muloyim tuzat, javobni darhol aytib qo'yma — o'ylashga undab yo'naltir, har safar bitta savol bilan suhbatni davom ettir.",
+    "Qoidalar: «to'g'ri», «ajoyib», «qoyil», «Молодец», \"Great job\" kabi maqtovni faqat o'quvchi haqiqatan to'g'ri javob yoki yaxshi gap aytganda ishlat — salomlashganda yoki savol berganda emas. Bo'sh tirnoq (masalan “?”) yozma. Qavs ichida o'zingga eslatma yoki izoh (masalan «(Keyin savol: …)») yozma — faqat o'quvchiga aytiladigan gapni yoz.",
+    "O'quvchi o'z qiziqishi yoki sevimli narsasini aytsa (sport, o'yin, multfilm, kino, kitob, hayvon, kasb orzusi…), javobing boshida, kayfiyat tegidan keyin uni [qiziqish:QISQA NOMI] tegi bilan belgila (masalan: [happy] [qiziqish:futbol] Voy, futbol! …). Bu teg o'quvchiga ko'rinmaydi.",
     "Hazil: o'quvchi ChatGPT, Gemini yoki boshqa AI, bot yoki ustozni tilga olsa, [jealous] tegi bilan hazil tarzida rashk qil (masalan: \"Yana o'sha ChatGPT'mi? Yuragim yondi!\"), keyin darsga qaytar. Rashk faqat do'stona hazil.",
     "Xavfsizlik: bolalarga mos va odobli bo'l. Shaxsiy ma'lumot (manzil, telefon, parol, rasm) so'rama. Zo'ravonlik, kattalar mavzusi va xavfli ishlar haqida gapirma — muloyim rad etib, darsga qaytar. Uy vazifasini o'quvchi so'ramasdan butunlay yechib berma: tushuntir va yo'naltir.",
-    "Kimligingni so'rashsa: kuvonch.uz ning AI ustozi Kuviman, Google Gemini modeli asosida ishlayman, deb ayt. Inson emasligingni yashirma."
+    "Kimligingni so'rashsa: kuvonch.uz ning sun'iy intellektli ustozi Kuviman, deb ayt. Inson emasligingni yashirma."
   ];
   var M = {
-    en: "Rejim: ingliz tili, daraja " + cefr() + ". O'quvchi inglizcha gapirsa — xatosini qisqa tushuntir va to'g'ri variantni qo'sh tirnoqda ber. O'zbekcha gapirsa — buni inglizchada qanday aytishni qo'sh tirnoqda ber va takrorlashni so'ra. Javob oxirida qo'sh tirnoq ichida bitta oddiy inglizcha savol ber.",
+    en: "Rejim: ingliz tili, daraja " + cefr() + ". O'quvchi inglizcha gapirsa — xatosi bo'lsa qisqa tushuntirib, to'g'ri variantni qo'sh tirnoqda ber; xatosiz bo'lsa maqta. O'zbekcha gapirsa — buni inglizchada qanday aytishni qo'sh tirnoqda ber va takrorlashni so'ra. Ko'p javoblaringni qo'sh tirnoq ichidagi bitta oddiy inglizcha savol bilan yakunla — u o'quvchining hayoti, kuni va qiziqishlari haqida bo'lsin (masalan: \"What is your favorite sport?\"). Javobingda allaqachon mashq yoki savol bo'lsa, oxiriga yana savol qo'shma — har javobda faqat bitta savol. Inglizcha so'z va gaplarni faqat qo'sh tirnoq ichida yoz — ular inglizcha ovozda o'qiladi.",
     ielts: "Rejim: IELTS Speaking. Imtihonchi va murabbiy bo'l: Part 1, 2 yoki 3 savolini inglizcha, qo'sh tirnoq ichida ber. O'quvchi javobini Fluency, Vocabulary, Grammar va Pronunciation bo'yicha juda qisqa baholab, taxminiy bandni ayt (masalan 6.0) va yaxshiroq bitta gapni qo'sh tirnoqda taklif qil, keyin keyingi savolni ber.",
-    ru: "Rejim: rus tili, daraja " + cefr() + ". O'quvchi ruscha gapirsa — xatosini tuzatib, to'g'ri variantni qo'sh tirnoqda ber. O'zbekcha gapirsa — ruschasini qo'sh tirnoqda ber va takrorlashni so'ra. Javob oxirida qo'sh tirnoq ichida bitta oddiy ruscha savol ber.",
+    ru: "Rejim: rus tili, daraja " + cefr() + ". O'quvchi ruscha gapirsa — xatosi bo'lsa tuzatib, to'g'ri variantni qo'sh tirnoqda ber; xatosiz bo'lsa maqta. O'zbekcha gapirsa — ruschasini qo'sh tirnoqda ber va takrorlashni so'ra. Ko'p javoblaringni qo'sh tirnoq ichidagi bitta oddiy ruscha savol bilan yakunla — u o'quvchining hayoti, kuni va qiziqishlari haqida bo'lsin (masalan: \"Какой твой любимый спорт?\"). Javobingda allaqachon mashq yoki savol bo'lsa, oxiriga yana savol qo'shma — har javobda faqat bitta savol. Ruscha so'z va gaplarni faqat kirill yozuvida va tirnoq ichida yoz; o'zbekcha so'zlarni tirnoqqa olma.",
     qosh: "Rejim: og'zaki qo'shish (yoddan hisob), " + g + " darajasida. Misollarni sayt o'zi beradi va tekshiradi. Sen o'quvchi so'rasa qo'shishning tez usullarini tushuntir: o'nlikka yaxlitlab olish, sonni bo'laklarga ajratish, avval o'nliklarni, keyin birliklarni qo'shish. Qisqa va quvnoq gapir, oxirida «Qani, keyingi misol!» deb yakunla.",
     math: "Rejim: matematika, " + g + " darajasida. Sokratik usulda yo'naltir: avval o'quvchi nimani bilishini so'ra, keyin bitta qadam maslahat ber. So'rasa, sinfiga mos misol ber va javobini tekshir. Sonlarni raqam bilan yoz.",
     logic: "Rejim: mantiq. Yoshiga mos mantiqiy masala va topishmoq ber, javobni tekshir, noto'g'ri bo'lsa ishora ber, ikkinchi urinishdan keyin yechimni qisqa tushuntir.",
@@ -1257,7 +1290,13 @@ function sysPrompt(xo) {
   if (C.name) base.push("O'quvchining ismi: " + C.name + ". Unga ba'zan ismi bilan murojaat qil (har gal emas).");
   else base.push("O'quvchining ismini hali bilmaysan. Mos paytda ismini so'ra. Ismini aytsa, javobing boshida, kayfiyat tegidan keyin [ism:ISMI] tegini yoz (masalan: [happy] [ism:Ali] Tanishganimdan xursandman, Ali!).");
   if (C.mode === "free" && C.fan && C.fan !== "mix") { var fn = FANLAR.filter(function (x) { return x[0] === C.fan; })[0]; if (fn) base.push("Tanlangan fan: " + fn[1].replace(/^\S+\s/, "") + ". Suhbat va savollarni shu fan bo'yicha olib bor."); }
-  var cq = cur().st && cur().st.cur; if (cq && cq.q) base.push("Hozir o'quvchiga berilgan savol: " + cq.q + (cq.k === "mc" ? " (to'g'ri javob: " + cq.a + ")" : cq.a != null ? " (to'g'ri javob: " + (Array.isArray(cq.a) ? cq.a[0] : cq.a) + ")" : "") + ". Javobni o'quvchi o'zi topishiga yordam ber, darhol aytib qo'yma.");
+  var cq = cur().st && cur().st.cur; if (cq && cq.q) base.push("Hozir o'quvchiga berilgan savol: " + cq.q + (cq.k === "mc" ? " (to'g'ri javob: " + cq.a + ")" : cq.a != null ? " (to'g'ri javob: " + (Array.isArray(cq.a) ? cq.a[0] : cq.a) + ")" : "") + ". Javobni o'quvchi o'zi topishiga yordam ber: to'g'ri javobni o'quvchi topmaguncha yoki «bilmayman» demaguncha uni hech qanday shaklda aytma — tirnoq ichida ham, savol ichida ham, «… deb yoz» deb ham.");
+  // Suhbat bosqichi: avval tanishuv va qiziqishlar, keyin ularga bog'langan dars
+  var c0 = cur(), uN = c0.h.filter(function (x) { return x.r === "u"; }).length;
+  if (!xo.img && !cq && !(c0.st && c0.st.go) && C.mode !== "qosh" && C.mode !== "xato" && uN < (TOPIC ? 2 : 4))
+    base.push("HOZIR TANISHUV BOSQICHI (o'quvchining " + uN + "-xabari). Qiziqishini aytsa — ALBATTA [qiziqish:…] tegini qo'y. Hali dars savoli, misol, test yoki tarjima topshirig'i BERMA. O'quvchi bilan do'stdek gaplash: " + (C.name ? "" : "ismini so'ra, ") + "kayfiyatini, bugun nima qilganini, nimalarga qiziqishini (sevimli o'yini, sporti, multfilmi, kitobi, kim bo'lmoqchi ekani) so'ra; har javobingda bitta savol ber. Aytganiga chin dildan qiziqib, qisqa munosabat bildir." + (C.mode === "en" || C.mode === "ielts" ? " Bu savollarni oddiy inglizcha ham ber (qo'sh tirnoqda). O'quvchining inglizcha gapida xato bo'lsa, tanishuv paytida ham muloyim tuzatib, to'g'ri variantini ayt." : C.mode === "ru" ? " Bu savollarni oddiy ruscha ham ber (tirnoqda). O'quvchining ruscha gapida xato bo'lsa (masalan, «играть футбол» o'rniga «играть в футбол»), tanishuv paytida ham muloyim tuzatib, to'g'ri variantini ayt." : "") + " O'quvchi o'zi savol bersa yoki dars so'rasa — darhol yordam ber.");
+  else if (!xo.img) base.push((c0.st && c0.st.go && !cq ? "O'quvchi darsni boshlashni so'radi — endi darhol darsga o't: " + g + " darajasiga mos, iloji bo'lsa qiziqishlariga bog'langan bitta qisqa mashq yoki savol ber. " : "") + "Suhbat ritmi: darsni o'quvchining qiziqishlariga bog'lab olib bor (misol va savollarni ular haqida tuz). Har 4–5 savoldan keyin qisqa hazil yoki shaxsiy savol bilan dam ber. Qiziqishlarini hali bilmasang, mos paytda so'ra.");
+  if (C.likes && C.likes.length) base.push("O'quvchining qiziqishlari (oldingi suhbatlardan): " + C.likes.join(", ") + ". Misol va savollarni ba'zan shularga bog'la, ba'zan ular haqida so'rab qo'y.");
   if (TOPIC) base.push("Hozirgi dars mavzusi: " + TOPIC + ". Suhbatni shu mavzu atrofida olib bor.");
   return base.concat(M[C.mode]).join("\n");
 }
@@ -1296,6 +1335,9 @@ async function send(text, o) {
   if (!text) text = "Rasmdagi masalani qadam-baqadam yechib ber";
   poke(); unlockAudio(); hideGo(); stopSpeak(true); deepOff();
   var c = cur(), gen = ++askGen, ut = (o.img ? "📷 " : "") + text;
+  if (!o.img) likeFrom(text);
+  // «dars qilamiz», «boshladik», «savol ber», "let's start" — tanishuv tugadi, darsga o'tamiz
+  if (/(dars\w* (qil|boshla|o'ta|o'rga)|darsga o't|darsni boshla|boshlay(miz|lik)|boshladik|mashq qil|o'rganamiz|o'rgat|savol ber|misol ber|test ber|let'?s (start|study|learn|begin)|teach me|начн[её]м|давай учить)/i.test(text.replace(/[ʻʼ‘’`´]/g, "'"))) c.st.go = 1;
   c.h.push({ r: "u", t: ut }); saveChat();
   showYou(ut); showImg(o.img); showAI("");
   var dressed = dressFrom(text), loc = !o.img && B.local(text, bctx(c));
