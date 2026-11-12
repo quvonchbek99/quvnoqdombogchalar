@@ -22,6 +22,10 @@
 <meta name="theme-color" content="#f4f2ee">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://kuvi-ovoz.quvonchmash12.workers.dev" crossorigin>
+<link rel="preconnect" href="https://firebasevertexai.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://content-firebaseappcheck.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@600;800&display=swap">
 <style>
 :root{--bg:#f4f2ee;--card:#ffffff;--ink:#1d2230;--dim:#6b7280;--line:#e3dfd7;--fill:#ffffff;--eye:#1d2230;--kc:#3b82f6;--kg:rgba(59,130,246,.45);--red:#ef4444;color-scheme:light}
@@ -613,7 +617,7 @@ function segs(text) {
   return j;
 }
 var TQ = [], tBusy = false, tGen = 0, unlocked = false, speakEnd = null, voiceWarned = false;
-function unlockAudio() { actx(); if (unlocked || !SS) { unlocked = true; return; } unlocked = true; try { var u = new SpeechSynthesisUtterance(" "); u.volume = 0; SS.speak(u); } catch (e) {} }
+function unlockAudio() { actx(); setTimeout(ackWarm, 300); if (unlocked || !SS) { unlocked = true; return; } unlocked = true; try { var u = new SpeechSynthesisUtterance(" "); u.volume = 0; SS.speak(u); } catch (e) {} }
 
 function sayAdd(text) {
   segs(text).forEach(function (s) {
@@ -646,8 +650,33 @@ function proNote(kind) {
 }
 function proOk() { proNoted = ""; $("#proBar").hidden = true; }
 window.addEventListener("ka-pro", function (e) { if (e.detail && e.detail.pro) proOk(); });
+/* ---- Tezkor javob: o'quvchi gapirib bo'lgach, Kuvi darhol «Hmm…» deydi. Bu gaplar telefon xotirasida saqlanadi
+   (birinchi marta bir martagina yuklanadi), shuning uchun 0,1 soniyada eshitiladi — AI javobi tayyorlanguncha jim turmaydi ---- */
+var ACK = { n: ["Hmm…", "Xo'sh…", "Qani-qani…", "Bir soniya…", "Hmm, ko'raylik…"], d: ["Keling, chuqurroq o'ylab ko'ray…", "Qiziq savol! Hozir tushuntiraman…"], i: ["Rasmni ko'ryapman… hozir yechamiz."] };
+var ackT = null, ackEnd = 0, ackLast = 0, ackSrc = null, ackWarmed = false, pumpT = null;
+function ackCan() { return !!C.voice && azOn() && C.vsrc !== "device" && (C.vsrc === "cloud" || (!vFor("uz") && C.vAsk === "yes")); }
+function ackWarm() {
+  if (ackWarmed || !ackCan()) return; ackWarmed = true;
+  ACK.n.concat(ACK.d, ACK.i).forEach(function (t, i) { setTimeout(function () { try { ttsGet({ t: t, m: "think", l: "uz" })["catch"](function () {}); } catch (e) {} }, 600 + i * 300); });
+}
+function ackStop() { clearTimeout(ackT); ackEnd = 0; try { if (ackSrc) { var a = ackSrc; ackSrc = null; a.stop(); } } catch (e) {} }
+function ackPlay(kind) {
+  if (!ackCan() || tBusy || TQ.length || recOn) return;
+  var t = ACK[kind][Math.floor(Math.random() * ACK[kind].length)], t0 = Date.now(), gen = tGen;
+  ttsGet({ t: t, m: "think", l: "uz" }).then(function (buf) {
+    if (Date.now() - t0 > 450 || tBusy || TQ.length || recOn || gen !== tGen) return; // xotirada bo'lmasa — kech qoladi, aytmaymiz
+    var ac = actx(); if (!ac) return;
+    var src = ac.createBufferSource(); src.buffer = buf; src.connect(anal || ac.destination); ackSrc = src;
+    ackLast = Date.now(); ackEnd = ackLast + buf.duration * 1000 + 120; mouthOn(true);
+    src.onended = function () { if (ackSrc === src) ackSrc = null; if (!tBusy) mouthOn(false); };
+    try { src.start(); } catch (e) { ackEnd = 0; }
+  }, function () {});
+}
+function ackSoon(kind, ms) { if (C.mode === "qosh") return; clearTimeout(ackT); ackT = setTimeout(function () { if (kind === "n" && Date.now() - ackLast < 3000) return; ackPlay(kind); }, ms); }
 function pump() {
   if (tBusy) return;
+  var w = ackEnd - Date.now(); if (w > 40 && TQ.length) { clearTimeout(pumpT); pumpT = setTimeout(pump, w); return; }
+  clearTimeout(ackT);
   var it = TQ.shift();
   if (!it) { mouthOn(false); if (S === "speak" && !streaming) { setState("idle"); if (speakEnd) { var f = speakEnd; speakEnd = null; f(); } } return; }
   tBusy = true; if (S !== "speak") setState("speak"); mouthOn(true);
@@ -750,7 +779,8 @@ function deviceSpeak(it, pr, done) {
   setTimeout(function () { try { if (SS.resume) SS.resume(); SS.speak(u); } catch (e) { end(); } }, Math.max(0, 140 - (Date.now() - lastCancel)));
 }
 var lastCancel = 0;
-function stopSpeak() { tGen++; TQ = []; tBusy = false; speakEnd = null; try { if (curSrc) { var cs = curSrc; curSrc = null; cs.stop(); } } catch (e) {} try { if (SS && (SS.speaking || SS.pending)) { SS.cancel(); lastCancel = Date.now(); } } catch (e) {} mouthOn(false); if (S === "speak") setState("idle"); }
+// keepAck — «Hmm…» kabi tezkor javobni to'xtatmaydi (yangi savol yuborilganda)
+function stopSpeak(keepAck) { tGen++; TQ = []; tBusy = false; speakEnd = null; clearTimeout(pumpT); if (!keepAck) ackStop(); try { if (curSrc) { var cs = curSrc; curSrc = null; cs.stop(); } } catch (e) {} try { if (SS && (SS.speaking || SS.pending)) { SS.cancel(); lastCancel = Date.now(); } } catch (e) {} if (!(keepAck && ackSrc)) mouthOn(false); if (S === "speak") setState("idle"); }
 function say(text, then) { stopSpeak(); speakEnd = then || null; sayAdd(text); }
 
 /* ================= Ovozni tanish (STT) ================= */
@@ -824,7 +854,7 @@ function gStart(hold) {
       var rms = Math.sqrt(sq / (d.length / 8)), now = Date.now();
       if (rms > .015) { my.lastLoud = now; my.spoke = true; }
       setMouth(0); look.y = -2 - Math.min(6, rms * 120); updLook();
-      if (my.tap && my.spoke && now - my.lastLoud > 1400) gStop();
+      if (my.tap && my.spoke && now - my.lastLoud > 950) gStop();
       else if (my.tap && !my.spoke && now - my.t0 > 8000) gStop(true);
       else if (now - my.t0 > 30000) gStop();
     };
@@ -843,7 +873,7 @@ function gStop(cancel) {
   if (S === "listen") setState("idle");
   if (cancel || !my.spoke || !my.chunks.length) { showYou(""); if (!cancel || !my.spoke) toast("Ovoz eshitilmadi — mikrofonga yaqinroq gapiring"); return; }
   var b64 = toWav(my.chunks, my.rate || 48000);
-  setMood("think"); setState("think"); showYou("🎙 Tinglab oldim…");
+  setMood("think"); setState("think"); showYou("🎙 Tinglab oldim…"); ackSoon("n", 200);
   transcribe(b64).then(function (t) {
     t = String(t || "").replace(/^\s*["«]|["»]\s*$/g, "").trim();
     if (!t || /^\(?\s*(jim|silence|no speech)/i.test(t)) { if (S === "think") setState("idle"); showYou(""); toast("Tushunmadim — yana bir bor ayting"); return; }
@@ -866,7 +896,7 @@ function micStart(hold) {
   rec.onresult = function (e) {
     var fin = "", tmp = "", i; for (i = 0; i < e.results.length; i++) { var r = e.results[i]; if (r.isFinal) fin += r[0].transcript + " "; else tmp += r[0].transcript + " "; }
     recTxt = (fin + tmp).replace(/\s+/g, " ").trim(); showYou(recTxt);
-    if (tapMode) { clearTimeout(silT); silT = setTimeout(micStop, 1500); }
+    if (tapMode) { clearTimeout(silT); silT = setTimeout(micStop, 1000); }
   };
   rec.onerror = function (e) {
     var c = errC = e && e.error || "";
@@ -926,7 +956,7 @@ function fbLoad() {
     fb.p = Promise.all([import(FB_BASE + "firebase-app.js"), import(FB_BASE + "firebase-ai.js"), import(FB_BASE + "firebase-app-check.js")]).then(function (m) {
       var A = m[0], app = A.getApps().length ? A.getApp() : A.initializeApp(FB_CFG);
       // App Check: Gemini kvotasini begona saytlardan himoya qiladi (reCAPTCHA, faqat kuvonch.uz uchun)
-      if (!window.__kaAppCheck) { try { m[2].initializeAppCheck(app, { provider: new m[2].ReCaptchaEnterpriseProvider(RECAPTCHA_KEY), isTokenAutoRefreshEnabled: true }); window.__kaAppCheck = 1; } catch (e) { try { console.warn("[Kuvi] AppCheck:", e && e.message); } catch (x) {} } }
+      if (!window.__kaAppCheck) { try { var acI = m[2].initializeAppCheck(app, { provider: new m[2].ReCaptchaEnterpriseProvider(RECAPTCHA_KEY), isTokenAutoRefreshEnabled: true }); window.__kaAppCheck = 1; try { m[2].getToken(acI, false)["catch"](function () {}); } catch (e) {} } catch (e) { try { console.warn("[Kuvi] AppCheck:", e && e.message); } catch (x) {} } }
       fb.M = m[1]; fb.ai = m[1].getAI(app, { backend: new m[1].GoogleAIBackend() }); return fb;
     });
     fb.p.catch(function () { fb.p = null; });
@@ -1070,8 +1100,10 @@ function engFail(e, err) {
 }
 function grade() { return C.sinf.charAt(0) === "t" ? "texnikum " + C.sinf.slice(1) + "-kurs talabasi" : C.sinf + "-sinf o'quvchisi"; }
 function cefr() { var k = C.sinf.charAt(0) === "t" ? 12 : +C.sinf; return k <= 4 ? "A1 (boshlang'ich)" : k <= 7 ? "A2" : k <= 9 ? "B1" : "B1–B2"; }
-var DEEPRE = /(tushuntir|tushunmadim|nima (degani|uchun|bu)|nega\b|nimaga\b|nima sababdan|qanday (qilib|ishlaydi|yechiladi|topiladi|hosil)|isbotla|isbot|yechib ber|yechimi|batafsil|to'liq|mavzu|farqi|qoida|formula|teorema|misol bilan|o'rgat|explain|\bwhy\b|how does|how to|объясни|почему|как решить)/i;
-function isDeep(t) { t = String(t || "").replace(/[ʻʼ‘’`]/g, "'"); return C.deep !== false && (DEEPRE.test(t) || t.length > 90); }
+// Chuqur fikrlash (sekinroq, lekin to'liq) — faqat aniq so'ralganda: «tushuntir», «batafsil», «isbotla», «yechib ber»…
+// Oddiy suhbat tez model bilan qoladi, aks holda har javob 5–8 soniya kechikadi
+var DEEPRE = /(tushuntir|tushunmadim|batafsil|to'liq ayt|to'liqroq|isbotla|isbot qil|yechib ber|yechimini (ayt|ko'rsat)|qadam-baqadam|misol bilan|o'rgatib|explain|объясни|как решить)/i;
+function isDeep(t) { t = String(t || "").replace(/[ʻʼ‘’`]/g, "'"); return C.deep !== false && DEEPRE.test(t); }
 function sysPrompt(xo) {
   xo = xo || {};
   var g = grade(), sg = studentG(), base = [
@@ -1120,6 +1152,8 @@ function feeder(gen) {
     else {
       var re = /[.!?…](?=\s)|\n/g, m;
       while ((m = re.exec(rest))) { var upto = rest.slice(0, m.index + 1), q = (upto.match(/"/g) || []).length; if (q % 2 === 0) cut = m.index + 1; }
+      // birinchi gap uzun bo'lsa — vergulgacha bo'lgan qismini darhol ovozga beramiz (javob tezroq eshitiladi)
+      if (cut < 0 && spoken === 0 && rest.length > 70) { var ci = rest.lastIndexOf(", "); if (ci > 25 && ((rest.slice(0, ci).match(/"/g) || []).length % 2 === 0)) cut = ci + 1; }
     }
     if (cut > 0) { var piece = rest.slice(0, cut); spoken += cut; if (piece.trim()) { if (S === "think") mouthOn(true); sayAdd(piece); } }
   };
@@ -1130,7 +1164,7 @@ async function send(text, o) {
   o = o || {};
   text = String(text || "").trim().slice(0, 600); if (!text && !o.img) return;
   if (!text) text = "Rasmdagi masalani qadam-baqadam yechib ber";
-  poke(); unlockAudio(); hideGo(); stopSpeak(); deepOff();
+  poke(); unlockAudio(); hideGo(); stopSpeak(true); deepOff();
   var c = cur(), gen = ++askGen, ut = (o.img ? "📷 " : "") + text;
   c.h.push({ r: "u", t: ut }); saveChat();
   showYou(ut); showImg(o.img); showAI("");
@@ -1138,6 +1172,7 @@ async function send(text, o) {
   deepNow = !loc && (!!o.img || isDeep(text));
   setMood("think"); setState("think");
   if (deepNow) { fxBurst("deep", 3); deepT = setInterval(function () { if (S === "think") fxBurst("deep", 1); }, 1700); }
+  if (!loc) { var ak = o.img ? "i" : deepNow ? "d" : "n"; ackSoon(ak, ak !== "n" && Date.now() - ackLast < 3000 ? 1600 : 150); }
   drawOpts(null); lastOpts = null;
   var feed = feeder(gen), list = loc ? ["off"] : chain(), out = null, used = "off", xo = { deep: deepNow, img: o.img || null };
   if (o.img) list = list.filter(function (e) { return e === "fb" || e === "key"; });
