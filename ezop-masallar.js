@@ -1117,5 +1117,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u urug'larni vaqtida ekib, muntazam parvarish qildi", "Chunki uning yeri ikkinchisinikidan ancha katta edi", "Chunki u omadli edi va ob-havo faqat unga yaxshi keldi"],
     javob: 0,
     izoh: "Hosil tasodifga emas, vaqtida qilingan ish va muntazam parvarishga bog'liq. Ishni keyinga qoldirish esa mumkin bo'lgan imkoniyatni yo'qotadi."
+  },
+  {
+    id: "ez-140", mavzu: "mehnat", sarlavha: "Asalari va kapalak",
+    matn: "Yoz boshida asalari va kapalak bir gulzorda uchrashdi. Asalari har kuni ertalabdan kechgacha gullardan nektar yig'ib, uyasiga tashidi. Kapalak esa kunlarini quyosh ostida aylanib, raqsga tushib o'tkazdi va ertangi kun haqida o'ylamadi. Qish kelib, sovuq yomg'ir yog'ganda asalari issiq uyasida to'yib yedi, kapalak esa qanotlari sovuqdan qotib, yordam so'rab qoldi.",
+    savol: "Qish kelganda asalari nega ochlikdan qutuldi?",
+    variantlar: ["Chunki qish u uchun juda iliq keldi", "Chunki u yoz davomida zaxira yig'gan edi", "Chunki u kapalakdan ko'p ovqat olgan edi"],
+    javob: 1,
+    izoh: "Asalari yozda mehnat qilib zaxira to'plagani uchun qishda qiynalmadi. Kelajakka tayyorgarlik oldindan qilingan mehnat bilan ta'minlanadi."
   }
 ];
