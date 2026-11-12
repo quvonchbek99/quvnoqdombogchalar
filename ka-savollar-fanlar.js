@@ -924,13 +924,19 @@
   }
 
   // m11 — Sherlock tergov ishlari (sherlock-ishlar.js dan)
+  // har bir ishda 3 ta savol: asosiy + qoshimcha[] — hammasi bitta ro'yxatga yoyiladi
+  var M11 = null;
   function m11(L) {
     var E = window.SHERLOCK_ISHLAR; if (!E || !E.length) return null;
-    var it = pickFresh("sherlock", E, 12), cor = it.variantlar[it.javob];
-    var w = it.variantlar.filter(function (x, i) { return i !== it.javob; });
+    if (!M11 || M11.src !== E) {
+      M11 = []; M11.src = E;
+      E.forEach(function (c) { M11.push({ c: c, q: c }); (c.qoshimcha || []).forEach(function (x) { M11.push({ c: c, q: x }); }); });
+    }
+    var o = pickFresh("sherlock", M11, 12), it = o.c, x = o.q, cor = x.variantlar[x.javob];
+    var w = x.variantlar.filter(function (v, i) { return i !== x.javob; });
     var hik = String(it.hikoya).replace(/<(?!\/?(em|b|i)>)[^>]*>/g, "");
-    var q = "🔎 «" + it.sarlavha + "»<br><span style=\"font-size:.82em;font-weight:500\">" + hik + "</span><br><b>" + it.savol + "</b>";
-    return Q(q, cor, w, [shortTxt(it.izoh, 200)]);
+    var q = "🔎 «" + it.sarlavha + "»<br><span style=\"font-size:.82em;font-weight:500\">" + hik + "</span><br><b>" + x.savol + "</b>";
+    return Q(q, cor, w, [shortTxt(x.izoh, 200)]);
   }
 
   S.register("m1", m1, "Mantiq · Sonli ketma-ketliklar");
@@ -1174,7 +1180,7 @@
     e4: ["english/assets/words-b4.js"], e5: ["english/assets/words-b5.js"], e6: ["english/assets/words-b6.js"],
     r1: ["rus-tili/assets/lugat-data.js"], r2: ["rus-tili/assets/lugat-data.js"], r4: ["rus-tili/assets/lugat-data.js"],
     r3: ["rus-tili/assets/mashq-data.js"], r6: ["rus-tili/assets/mashq-data.js"],
-    m10: ["ezop-masallar.js"], m11: ["sherlock-ishlar.js"]
+    m10: ["ezop-masallar.js"], m11: ["sherlock-ishlar.js?v=20261112b"]
   };
   var LOADED = {};
   function addJs(src) {
@@ -1186,6 +1192,6 @@
     need: function (ids) { var o = []; (ids || []).forEach(function (id) { (NEED[id] || []).forEach(function (f) { if (o.indexOf(f) < 0) o.push(f); }); }); return o; },
     prep: function (ids) { return Promise.all(window.kaFan.need(ids).map(addJs)); },
     // node testlari uchun
-    loadNode: function (root, vm, ctx, fs) { var all = {}; for (var k in NEED) NEED[k].forEach(function (f) { all[f] = 1; }); for (var f in all) vm.runInContext(fs.readFileSync(root + "/" + f, "utf8"), ctx, { filename: f }); }
+    loadNode: function (root, vm, ctx, fs) { var all = {}; for (var k in NEED) NEED[k].forEach(function (f) { all[f] = 1; }); for (var f in all) vm.runInContext(fs.readFileSync(root + "/" + f.split("?")[0], "utf8"), ctx, { filename: f }); }
   };
 })();
