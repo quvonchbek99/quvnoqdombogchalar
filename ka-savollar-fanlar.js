@@ -1180,7 +1180,7 @@
     e4: ["english/assets/words-b4.js"], e5: ["english/assets/words-b5.js"], e6: ["english/assets/words-b6.js"],
     r1: ["rus-tili/assets/lugat-data.js"], r2: ["rus-tili/assets/lugat-data.js"], r4: ["rus-tili/assets/lugat-data.js"],
     r3: ["rus-tili/assets/mashq-data.js"], r6: ["rus-tili/assets/mashq-data.js"],
-    m10: ["ezop-masallar.js"], m11: ["sherlock-ishlar.js?v=20261112b"]
+    m10: ["ezop-masallar.js"], m11: ["sherlock-ishlar.js?v=20261113a"]
   };
   var LOADED = {};
   function addJs(src) {

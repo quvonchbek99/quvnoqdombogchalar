@@ -210,39 +210,39 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Baskervillar iti",
   "yil": 1902,
   "sarlavha": "Olovli ko‘zlar",
-  "hikoya": "Botqoq yonidagi qishloqda bir savdogar qo‘rquvdan vafot etdi. Uning so‘ziga ko‘ra, kechasi botqoqda olovday yonib turgan bahaybat it uni ta’qib qilgan. Qishloqning yagona cho‘poni aytadi: «Bu botqoq farishtasi, unga tegib bo‘lmaydi». Holmes itni ko‘zdan kechirdi: yungida qora smola dog‘lari bor, o‘tkir, achchiq hid keladi; qorong‘ida it hovlidagi odamni ham yaqqol ko‘rsatib turardi.",
-  "savol": "Itning qorong‘ida yonib turishining siri nimada edi?",
+  "hikoya": "Baskervillar qasri yonidagi botqoqlikda ser <em>Charlz Baskervil</em> to‘satdan vafot etdi — shifokorlar yurak xurujini aytishdi. Uning yuzida dahshatli qo‘rquv qotib qolgan, jasad yaqinida esa ulkan it panjasining izlari bor edi. Atrofda qadimiy afsona yuradi: Baskervillar oilasini dahshatli arvoh-it ta’qib qiladi. Kechalari botqoqda og‘zi va ko‘zlaridan olov sachratib yuguradigan bahaybat itni ko‘rganlar ham bor. Holmes oxiri o‘sha itni otib to‘xtatdi va yaqindan qaradi: tumshug‘i va boshiga qorong‘ida yaltiraydigan qandaydir moy surtilgan, undan o‘tkir kimyoviy hid kelardi. Qo‘shni tabiatshunos <em>Stapleton</em> botqoqdagi yashirin so‘qmoqlarni hammadan yaxshi bilardi.",
+  "savol": "Itning qorong‘ida «olovday» yonib turishining siri nimada edi?",
   "variantlar": [
-   "It haqiqatan ham ruh edi — shuning uchun yonardi",
-   "Yunga smola bilan aralashgan fosfor surtilgan — fosfor qorong‘ida yonib turadi, bu ishni esa cho‘pon qilgan",
-   "It yorug‘likni qaytaruvchi suvda cho‘mib chiqqan — bu tasodif",
-   "Guvoh qorong‘ida qo‘rqib, yonib turgan narsani o‘zi o‘ylab topgan"
+   "It haqiqatan ham arvoh edi — shuning uchun yonardi",
+   "Unga fosforli bo‘yoq surtilgan — fosfor qorong‘ida yaltiraydi; buni itning egasi ataylab qilgan",
+   "It yorug‘likni qaytaruvchi suvda cho‘milgan — bu tasodif",
+   "Guvohlar qo‘rqib, olovni o‘zlari o‘ylab topishgan"
   ],
   "javob": 1,
-  "izoh": "Fosfor havo bilan tegishganda qorong‘ida yonib turadi — «olovli ko‘zlar» shu. Ikkinchi dalil: yundagi smola. Uni itga surtish uchun itni ushlab turish kerak — ya’ni uni yaxshi taniydigan, har kuni yonida bo‘lgan odam. Qishloqda itni boshqaradigan yagona kishi — cho‘pon, uning «farishta, tegmang» degan gaplari ham odamlar botqoqqa yaqinlashmasligi uchun kerak edi. Qo‘rquv — eng oson boshqariladigan dalil.",
+  "izoh": "Arvoh moy va kimyoviy hid qoldirmaydi — bular odam qo‘li bilan surtilgan modda belgisi. Fosfor qorong‘ida yaltirab turadi, shuning uchun oddiy, lekin juda katta it «olovli arvoh»ga aylangan. Itni botqoqdagi yashirin joyda boqib, unga fosfor surtgan odam — Stapleton edi: u o‘zini yashirib yurgan, Baskervillar merosiga ko‘z tikkan qarindosh bo‘lib chiqdi. Qoida: g‘ayritabiiy ko‘ringan narsaning ortidan avval tabiiy sababni qidir.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Itning yungidagi qora smola va achchiq hid nimaga ishora qildi?",
+    "savol": "Itning boshidagi yaltiroq moy va o‘tkir kimyoviy hid nimaga ishora qildi?",
     "variantlar": [
      "It botqoqda yashovchi yovvoyi hayvon",
-     "Yungga ataylab nimadir surtilgan — yonib turish g‘ayritabiiy emas, sun’iy",
+     "Itga ataylab nimadir surtilgan — bu «mo‘jiza» emas, odamning hiylasi",
      "Itni kimdir yaqinda yuvgan",
      "It kasal bo‘lib qolgan"
     ],
     "javob": 1,
-    "izoh": "G‘ayritabiiy narsa izi qolmaydi; smola va kimyoviy hid esa inson qo‘li bilan surtilgan modda borligini ko‘rsatadi."
+    "izoh": "G‘ayritabiiy narsa iz qoldirmaydi; moy va kimyoviy hid esa inson qo‘li bilan surtilgan modda borligini ko‘rsatadi."
    },
    {
-    "savol": "Cho‘ponning «Bu botqoq farishtasi, unga tegib bo‘lmaydi» degan gapi nega shubhali?",
+    "savol": "Botqoqning yashirin so‘qmoqlarini yaxshi bilishi nega Stapletonni shubhali qiladi?",
     "variantlar": [
-     "U shunchaki qishloq afsonasini aytgan",
-     "U itdan qo‘rqqan",
-     "U itni hech qachon ko‘rmagan",
-     "U itni ilohiy qilib ko‘rsatib, odamlarni tekshirishdan qaytarmoqchi"
+     "Botqoqni yaxshi biladigan odam hech qachon jinoyat qilmaydi",
+     "U botqoqda adashib qolishdan qo‘rqardi",
+     "U itdan qo‘rqqani uchun botqoqqa borardi",
+     "Bahaybat itni odamlar ko‘zidan yashirib boqish uchun aynan shunday joy va bilim kerak edi"
     ],
     "javob": 3,
-    "izoh": "Jinoyatchi ko‘pincha sirni sirligicha qoldirishdan manfaatdor. «Tegib bo‘lmaydi» degan gap tekshiruvni to‘xtatishga urinish edi."
+    "izoh": "Katta itni hech kimga ko‘rsatmay boqish uchun yashirin joy kerak. Botqoq ichidagi xavfsiz so‘qmoqni bilgan odam itni o‘sha yerda yashira olardi — Stapleton aynan shunday qilgan."
    }
   ]
  },
@@ -336,16 +336,16 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Qizil sochlar ligasi",
   "yil": 1891,
   "sarlavha": "Qizil sochlar ligasi",
-  "hikoya": "Zargar do‘koni egasi g‘alati taklif oldi: «Qizil sochli erkaklar ligasi» unga kuniga to‘rt soat ensiklopediya ko‘chirish evaziga katta pul to‘laydi. Sakkiz hafta davomida u har kuni do‘konini yopib, shaharning narigi chetiga borib ishladi. Ko‘chirilgan matnni hech kim bir marta ham tekshirmadi. Keyin liga «yopildi» deb e’lon qilindi, to‘lov ham to‘xtadi. Do‘kon ostidan bo‘sh, gumburlab eshitiladigan tovush chiqdi; ko‘cha bo‘ylab yurib, ikki bino narida bank ombori joylashganini aniqlashdi.",
+  "hikoya": "Lombard (garov do‘koni) egasi <em>Jabez Uilson</em> g‘alati taklif oldi: «Qizil sochlilar ligasi» unga kuniga to‘rt soat ensiklopediyani qo‘lda ko‘chirib yozish evaziga yaxshi pul to‘laydi. Bu ishni unga yordamchisi topib bergan — u arzon maoshga ishlashga rozi bo‘lgan, bo‘sh vaqtini esa yerto‘lada «suratlarni ochish» bilan o‘tkazardi. Sakkiz hafta davomida Uilson har kuni do‘konni yordamchisiga qoldirib, shaharning boshqa qismidagi idoraga borib ishladi. Ko‘chirilgan matnni hech kim bir marta ham tekshirmadi. Keyin liga to‘satdan «yopildi». Holmes do‘kon oldidagi yo‘lakni hassasi bilan taqillatib ko‘rdi va yordamchining shimi tizzalarda yedirilib, kir bo‘lganiga e’tibor berdi. Do‘konning orqa tomonida esa yirik bank joylashgan edi.",
   "savol": "Liga aslida nima maqsadda tuzilgan edi?",
   "variantlar": [
    "Qizil sochli odamlarga yordam berish uchun — xolis xayriya",
    "Ensiklopediyadan qizil sochli odamlar ro‘yxatini tuzish uchun",
-   "Zargarni har kuni do‘kondan olib ketish uchun — shu vaqtda jinoyatchilar uning pollari ostidan bank omboriga yer osti yo‘lini qazishdi",
+   "Uilsonni har kuni do‘kondan uzoqlashtirish uchun — shu vaqtda yerto‘ladan bank omboriga yer osti yo‘li qazilgan",
    "Do‘kon binosini arzon narxda ijaraga olish uchun"
   ],
   "javob": 2,
-  "izoh": "Ishning o‘zi ma’nosiz edi: matnni hech kim tekshirmadi, pul esa bemalol to‘landi. Demak liga matndan emas, faqat vaqtdan foydalanardi — zargar har kuni doimiy ravishda uydan uzoqda bo‘lishi kerak edi. Bo‘sh pol va yaqin atrofdagi bank — yer ostidan qazilgan yo‘l. Qoida: jinoyatda «nima uchun buncha katta va bema’ni mehnat sarflandi?» degan savol ko‘pincha qasddan qilingan chalg‘itishni ochib beradi.",
+  "izoh": "Ishning o‘zi ma’nosiz edi: matnni hech kim tekshirmadi, pul esa bemalol to‘landi. Demak liga matndan emas, vaqtdan foydalanardi — Uilson har kuni bir necha soat do‘kondan uzoqda bo‘lishi kerak edi. Yerto‘lada ko‘p vaqt o‘tkazadigan yordamchi, uning tizzalari yedirilgan shimi va orqadagi bank birlashganda javob chiqadi: yordamchi (aslida mashhur jinoyatchi Jon Kley) yerto‘ladan bank omboriga lahm qazigan. Qoida: «Nega bunday bema’ni ishga pul to‘lanyapti?» degan savol ko‘pincha chalg‘itishni ochib beradi.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
@@ -353,11 +353,11 @@ window.SHERLOCK_ISHLAR = [
     "variantlar": [
      "Liga a’zolari juda ishonuvchan edi",
      "Matn juda oson edi",
-     "Ishning o‘zi ahamiyatsiz edi — muhimi zargarning do‘kondan uzoqda bo‘lishi edi",
+     "Ishning o‘zi ahamiyatsiz edi — muhimi Uilsonning do‘kondan uzoqda bo‘lishi edi",
      "Ligada xodimlar yetishmasdi"
     ],
     "javob": 2,
-    "izoh": "Natijasi tekshirilmaydigan ish — bahona. Haqiqiy maqsad ishning o‘zida emas, uning oqibatida: do‘kon bo‘sh qolgan."
+    "izoh": "Natijasi tekshirilmaydigan ish — bahona. Haqiqiy maqsad ishning o‘zida emas, uning oqibatida: Uilson do‘kondan uzoqda edi."
    },
    {
     "savol": "Liga «yopildi» deb e’lon qilingani nimaga ishora qiladi?",
@@ -504,39 +504,39 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Buzilgan lab",
   "yil": 1891,
   "sarlavha": "Tilanchining xonasi",
-  "hikoya": "Hurmatli jurnalist kechqurun shaharning noxush mahallasiga kirib, g‘oyib bo‘ldi. Politsiya derazasida qon izi bo‘lgan xonani topdi, pastda daryo oqib turardi, ko‘ylagi yirtilgan holda topildi. Guvohlar: «Uni tilanchi o‘ldirgan». Holmes e’tibor berdi: daryodan hech qanday jasad chiqmadi; o‘sha tilanchining xonasidan jurnalistning kiyimlari, qog‘ozlari va katta miqdordagi mayda tangalar topildi. Tilanchining o‘zi politsiya kirgan payt derazadan chiqib g‘oyib bo‘ldi.",
-  "savol": "Jurnalist qayerda va kim bo‘lib yashiringan?",
+  "hikoya": "Hurmatli janob <em>Nevill Sent-Kler</em> har kuni shaharga «ishga» borib, kechqurun qaytardi; oilasi farovon yashardi. Bir kuni xotini shaharning xilvat ko‘chasida tasodifan erini bir uyning yuqori qavat derazasida ko‘rib qoldi — eri uni ko‘rib qo‘rqib ketdi-yu, darhol g‘oyib bo‘ldi. Politsiya o‘sha xonada faqat yuzida xunuk chandig‘i bor tilanchi <em>Xyu Bun</em>ni topdi. Deraza tokchasida qon izi, xonada esa Nevillning kiyimlari bor edi; daryodan topilgan paltosining cho‘ntaklari mayda tangalarga to‘la edi. Jasad topilmadi. Tilanchi hibsga olindi, ammo hech narsani tan olmadi.",
+  "savol": "Nevill Sent-Kler aslida qayerda edi?",
   "variantlar": [
    "Daryoga tushib halok bo‘lgan",
    "Uni tilanchi o‘ldirib, jasadini yashirgan",
-   "U o‘zi tilanchi bo‘lgan — niqobda tilanchilik qilib topgan puli jurnalist maoshidan ko‘p bo‘lgani uchun, xotini uni tanib qolgach, yashirinishga majbur bo‘lgan",
+   "U tilanchi Xyu Bunning o‘zi edi — grim bilan qiyofasini o‘zgartirib, tilanchilik qilib pul topardi",
    "Boshqa shaharga qochib ketgan"
   ],
   "javob": 2,
-  "izoh": "Qon izi va daryo — eng oson ishoniladigan, lekin jasad yo‘q. Hal qiluvchi dalil boshqa: tilanchining xonasida jurnalistning shaxsiy buyumlari va katta pul topilgan, tilanchi esa politsiyadan qochgan. Ya’ni bir odam ikki ism bilan yashagan. Holmes qoidasi: «Sig‘maydigan dalilni tashla, qolganlari hikoyani o‘zi tuzadi». Eng ko‘p gapiradigan joy — odam yashirinmoqchi bo‘lgan joy.",
+  "izoh": "Qon izi va daryo qotillikka o‘xshaydi, lekin jasad yo‘q. Nevill xonada ko‘ringan, lekin u yerdan chiqib ketganini hech kim ko‘rmagan; xonada esa faqat tilanchi va Nevillning kiyimlari bor. Demak ular — bitta odam. Nevill bir paytlar jurnalist bo‘lgan: tilanchilar haqida maqola yozish uchun grim qilib ko‘chada o‘tirgan va tilanchilikdan maoshidan ham ko‘p pul tushishini bilib qolgan.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Tilanchi xonasidan topilgan ko‘p mayda tangalar nimani ko‘rsatadi?",
+    "savol": "Paltoning cho‘ntaklaridagi ko‘p mayda tangalar nimani ko‘rsatadi?",
     "variantlar": [
-     "Tilanchilikdan juda ko‘p pul tushgan — bu kasb juda daromadli bo‘lgan",
-     "Tilanchi o‘g‘ri edi",
-     "Jurnalist u yerda pul yashirgan",
-     "Tangalarni politsiya qoldirgan"
+     "Tilanchilikdan juda ko‘p pul tushgan — bu «kasb» daromadli edi",
+     "Tilanchi bankdan pul o‘g‘irlagan",
+     "Tangalarni politsiya qoldirgan",
+     "Nevill tanga yig‘ishni yaxshi ko‘rardi"
     ],
     "javob": 0,
-    "izoh": "Mayda tangalar — tilanchilik daromadi. Ularning ko‘pligi jurnalist nega ikki hayot kechirganini tushuntiradi."
+    "izoh": "Mayda tangalar — tilanchilik daromadi. Ularning ko‘pligi Nevill nega ikki xil hayot kechirganini tushuntiradi: ko‘chada tilanchilik qilish unga maoshdan ko‘ra ko‘proq pul keltirardi."
    },
    {
-    "savol": "Nima uchun jasad topilmagani muhim?",
+    "savol": "Holmes sirni qanday isbotladi?",
     "variantlar": [
-     "Daryo jasadni olib ketgan",
-     "Qotil jasadni yoqib yuborgan",
-     "Odam o‘ldirilmagan bo‘lishi mumkin — u shunchaki boshqa qiyofaga kirgan",
-     "Jasad keyinroq topiladi"
+     "Tilanchini uzoq so‘roq qildi",
+     "Daryodan jasadni topdi",
+     "Kamerada tilanchining yuzini ho‘l gubka bilan yuvdi — grim ostidan Nevill chiqdi",
+     "Xonani qaytadan tintuv qildi"
     ],
     "javob": 2,
-    "izoh": "Qon izi va yirtilgan ko‘ylak qotillikka o‘xshaydi, lekin jasadning yo‘qligi «hech kim o‘lmagan» degan ehtimolni ham qoldiradi."
+    "izoh": "Eng oddiy sinov — eng ishonchli: soxta chandiq va grim suvga chidamaydi. Holmes taxminini bitta harakat bilan isbotladi."
    }
   ]
  },
@@ -546,36 +546,36 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Moviy yoqut",
   "yil": 1892,
   "sarlavha": "G‘ozning ichida",
-  "hikoya": "Noyob moviy yoqut grafinya xonasidan yo‘qoldi. O‘sha kuni uyga bozordan g‘oz sotib olingan va pishirilgan edi. Holmes bozordan g‘ozlar izini kuzatdi va bir g‘ozning bo‘g‘zidan yoqutni topdi. Aniqlanishicha, yoqutni grafinya xizmatkori olgan, lekin uydan chiqayotganda ko‘zdan qochirish uchun toshni bozorda sotilayotgan tirik g‘ozlardan birining tomog‘iga tiqib yuborgan.",
-  "savol": "Moviy yoqut qayerda yashiringan edi?",
+  "hikoya": "Grafinya Morkarning mashhur moviy yoquti mehmonxonadagi xonasidan o‘g‘irlandi; politsiya xonada ta’mir ishlarini qilgan chilangarni qamab qo‘ydi. Bir necha kundan keyin eshik og‘asi <em>Peterson</em> ko‘chadagi janjalda tushib qolgan eski shlyapa va semiz g‘ozni Holmesga olib keldi. G‘ozni pishirish uchun so‘yishganda, uning bo‘g‘zidan... moviy yoqut chiqdi! Holmes g‘ozning yo‘lini teskari kuzatdi: shlyapa egasi → u g‘ozni olgan qovoqxona → qovoqxonaga g‘oz sotgan bozor savdogari → savdogarga g‘ozlarni yetkazgan shahar chetidagi ayol. Ma’lum bo‘lishicha, bu ayol <em>Rayder</em> ismli yigitning opasi ekan, Rayder esa aynan o‘sha mehmonxonada xizmatchi bo‘lib ishlardi.",
+  "savol": "Yoqutni kim o‘g‘irlagan va qanday yashirgan?",
   "variantlar": [
-   "Xizmatkorning cho‘ntagida",
-   "G‘ozning bo‘g‘zida — tirik g‘oz bilan birga uydan chiqarilgan",
-   "Guvohni shlyapasining astarida",
-   "Bog‘dagi daraxt kovagida"
+   "Qamalgan chilangar — u toshni ko‘chada tashlab yuborgan",
+   "Mehmonxona xizmatchisi Rayder — u toshni opasining hovlisidagi tirik g‘ozning bo‘g‘ziga tiqib yuborgan",
+   "Shlyapa egasi — u g‘ozni ataylab yo‘qotgan",
+   "Bozor savdogari — u toshni sotmoqchi bo‘lgan"
   ],
   "javob": 1,
-  "izoh": "Xizmatkor uydan chiqishda tekshiruvdan qochish uchun toshni «o‘zi harakatlanadigan» buyum ichiga yashirgan: g‘oz uydan chiqqan, bozorda sotilgan, keyin sotib olinib pishirilgan — tosh bo‘g‘zidan topilgan. Holmes toshni shlyapa yoki odamlar orqali emas, aynan g‘ozlar zanjiri orqali qidirgan, chunki jismoniy narsa faqat jismoniy yo‘l bilan ko‘chadi — shu yo‘lni kuzatish eng ishonchli usul.",
+  "izoh": "Zanjirning ikki uchi uchrashadi: tosh mehmonxonadan g‘oyib bo‘lgan va g‘ozlar boqiladigan hovlida g‘oz bo‘g‘ziga tushgan. Ikkala joyni bog‘laydigan yagona odam — mehmonxonada ishlaydigan va opasinikiga boradigan Rayder. U chilangarni ayblatib, toshni ehtiyot uchun tirik g‘ozga yutqizgan, ammo keyin g‘ozlarni adashtirib, boshqasini olib ketgan. Holmes qo‘rqib ketgan Rayderni qo‘yib yubordi, begunoh chilangar esa oqlandi.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Nega xizmatkor yoqutni o‘zi bilan olib chiqmadi?",
+    "savol": "Nega Rayder yoqutni o‘zi bilan olib yurmadi?",
     "variantlar": [
      "U yoqutni sotishni xohlamagan",
      "U yoqutni yo‘qotib qo‘ygan",
-     "Yoqut juda katta edi",
-     "Uydan chiqishda tekshirilib qolishdan qo‘rqqan"
+     "Yoqut juda katta va og‘ir edi",
+     "Politsiya tintuvidan qo‘rqqan — tirik g‘ozning ichi eng kutilmagan yashirin joy edi"
     ],
     "javob": 3,
-    "izoh": "Qimmatbaho narsani yashirish uchun eng ishonchli joy — hech kim tekshirmaydigan narsa: tirik g‘ozning tomog‘i."
+    "izoh": "Qimmatbaho narsani yashirish uchun eng yaxshi joy — hech kim tekshirmaydigan narsa: tirik g‘ozning bo‘g‘zi."
    },
    {
     "savol": "Holmes yoqut iziga qanday tushdi?",
     "variantlar": [
-     "Xizmatkorni tintuv qildi",
-     "U bozordan g‘ozlarning kimdan kimga sotilganini birin-ketin kuzatdi",
+     "Chilangarni qayta so‘roq qildi",
+     "G‘ozning kimdan kimga sotilganini birin-ketin teskari kuzatdi",
      "Grafinyadan so‘radi",
-     "Gazetaga e’lon berdi"
+     "Mehmonxonani qayta tintuv qildi"
     ],
     "javob": 1,
     "izoh": "Narsalar zanjirini teskari kuzatish — klassik usul: g‘oz qayerdan kelgan bo‘lsa, yoqut ham o‘sha yo‘ldan o‘tgan."
@@ -588,7 +588,7 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Ola bog‘ich",
   "yil": 1892,
   "sarlavha": "Jiringlamaydigan qo‘ng‘iroq",
-  "hikoya": "Qizning singlisi to‘ydan oldin, ichkaridan qulflangan xonada, hech qanday ko‘rinadigan iz qoldirmasdan vafot etdi. Qiz kechasi past, hushtakka o‘xshash ovoz eshitganini aytdi. Holmes xonani tekshirdi: karavot polga mahkamlangan; karavot yonida qo‘ng‘iroq shnuri osilib turadi, lekin uni tortganda hech qayerda jiringlamaydi — shnur hech qanday qo‘ng‘iroqqa ulanmagan; shiftdagi shamollatish tuynugi qo‘shni xonaga chiqadi, u yerda otasi yashaydi.",
+  "hikoya": "Qizning singlisi to‘ydan oldin, ichkaridan qulflangan xonada, hech qanday ko‘rinadigan iz qoldirmasdan vafot etdi. Qiz kechasi past, hushtakka o‘xshash ovoz eshitganini aytdi. Holmes xonani tekshirdi: karavot polga mahkamlangan; karavot yonida qo‘ng‘iroq shnuri osilib turadi, lekin uni tortganda hech qayerda jiringlamaydi — shnur hech qanday qo‘ng‘iroqqa ulanmagan; shiftdagi shamollatish tuynugi qo‘shni xonaga chiqadi, u yerda o‘gay otasi yashaydi.",
   "savol": "Qo‘ng‘iroq shnurining asl vazifasi nima edi?",
   "variantlar": [
    "Bu oddiy qo‘ng‘iroq edi, shunchaki buzilgan",
@@ -614,13 +614,13 @@ window.SHERLOCK_ISHLAR = [
    {
     "savol": "Shamollatish tuynugi qayerga ochilishi nima uchun muhim?",
     "variantlar": [
-     "U otaning xonasiga chiqadi — demak, «nimadir» o‘sha xonadan yuborilgan",
+     "U o‘gay otaning xonasiga chiqadi — demak, «nimadir» o‘sha xonadan yuborilgan",
      "U ko‘chaga chiqadi",
      "U hech qayerga chiqmaydi",
      "U oshxonaga chiqadi"
     ],
     "javob": 0,
-    "izoh": "Odatda shamollatish tuynugi tashqariga ochiladi. Ichki xonaga ochilishi g‘ayritabiiy va otani bevosita bog‘laydi."
+    "izoh": "Odatda shamollatish tuynugi tashqariga ochiladi. Ichki xonaga ochilishi g‘ayritabiiy va o‘gay otani bevosita bog‘laydi."
    }
   ]
  },
@@ -630,39 +630,39 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Muhandis barmog‘i",
   "yil": 1892,
   "sarlavha": "Tunda ishlagan press",
-  "hikoya": "Yosh muhandis kechasi yashirin manzilga chaqirilib, buzilgan gidravlik pressni tuzatdi. Egasi unga katta summa to‘lab, uni tashqariga chiqarib yubordi va eshikni qulfladi. Muhandis e’tibor berdi: press ostidagi pol gips bilan qoplangan, gipsda tangaga o‘xshash dumaloq izlar bor; pressdagi teshik ham xuddi shu o‘lchamda; xonada ko‘p miqdorda qo‘rg‘oshin va oq kukun turardi.",
-  "savol": "U yerda nima ishlab chiqarilayotgan edi?",
+  "hikoya": "Yosh gidravlika muhandisi <em>Xeterli</em>ga notanish polkovnik katta pul taklif qildi: kechasi shahar chetidagi yolg‘iz uyga borib, buzilgan gidravlik pressni ko‘rib berish kerak. «Biz u bilan oqartiruvchi tuproqni g‘isht qilib bosamiz. Bu ish sir qolsin», dedi polkovnik. Bekatdan uyga muhandisni derazalari bekitilgan yopiq aravada, bir soatcha yo‘l yurib olib borishdi. Press ichiga kirgan muhandis polda tuproq emas, qotib qolgan metall qatlamini ko‘rdi. U bu haqda so‘ragan zahoti uni press ichida qamab, pressni ishga tushirishdi. Muhandis zo‘rg‘a qochib qoldi, ammo bosh barmog‘idan ayrildi.",
+  "savol": "U yerda aslida nima ishlab chiqarilayotgan edi?",
   "variantlar": [
+   "Oqartiruvchi tuproq g‘ishtlari",
+   "Qalbaki tangalar — press metallni soxta tanga uchun bosardi",
    "Chinni idishlar",
-   "Qalbaki tangalar — press bilan metallga tanga naqshini zarb qilishayotgan edi",
-   "Gipsdan haykalchalar",
    "Zavod uchun ehtiyot qismlar"
   ],
   "javob": 1,
-  "izoh": "Dalillarni birlashtiramiz: gipsdagi dumaloq izlar tanga shaklida — gips namuna bo‘lib xizmat qilgan; qo‘rg‘oshin — tanga uchun eng arzon metall; pressdagi teshik va tanga o‘lchamining mos kelishi; ishning tunda, yashirin manzilda va maxfiy tarzda bajarilishi. Haqiqiy zavod bo‘lganida bu maxfiylik ham, gips namunalar ham kerak bo‘lmasdi. O‘lchamlarni solishtiring — mos kelgan o‘lcham mos kelgan jinoyatni ko‘rsatadi.",
+  "izoh": "Polkovnikning «tuproq» haqidagi gapi poldagi metall qatlami bilan zid. Katta to‘lov, tungi ish, yopiq arava, qattiq sir va muhandis haqiqatni ko‘rishi bilan uni o‘ldirmoqchi bo‘lishgani — bularning hammasi qonunsiz ishni ko‘rsatadi. Bu uyda qalbakichilar to‘dasi soxta kumush tangalar yasar edi. Holmes uyni topdi, lekin u o‘sha kecha yonib ketdi, to‘da esa qochib qoldi.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Gipsdagi tangaga o‘xshash dumaloq izlar va teshik o‘lchami nimani ko‘rsatadi?",
+    "savol": "Poldagi metall qatlami nimani ko‘rsatdi?",
     "variantlar": [
-     "Pressda non yopilgan",
-     "Press qog‘oz bosish uchun",
-     "Press aynan tanga o‘lchamidagi buyumlarni zarb qilish uchun ishlatilgan",
-     "Izlar tasodifiy"
+     "Press eskirib zanglab qolgan",
+     "Polning o‘zi metalldan qilingan",
+     "Pressda tuproq emas, metall bosilgan — polkovnikning gapi yolg‘on",
+     "Bu tasodifan to‘kilgan bo‘yoq"
     ],
     "javob": 2,
-    "izoh": "Iz va asbobning o‘lchami mos kelsa, asbob aynan shu buyumni yasagan. Bu tanga zarbiga ishora."
+    "izoh": "So‘z va dalil zid kelsa, dalilga ishon. Tuproq bosiladigan pressda metall qatlami paydo bo‘lmaydi."
    },
    {
-    "savol": "Nega muhandisni kechasi va yashirincha chaqirishgan?",
+    "savol": "Nega muhandisni yopiq aravada, uzoq yo‘l bilan olib borishdi?",
     "variantlar": [
-     "Ish qonunsiz edi va ular guvohlardan qochishgan",
-     "Kunduzi press band edi",
-     "Muhandis kunduzi ishlamasdi",
-     "Bu oddiy ehtiyotkorlik"
+     "U uyning qayerdaligini bilmasligi uchun — ish qonunsiz edi",
+     "Yo‘l juda yomon edi",
+     "Muhandis sovqotmasligi uchun",
+     "Bu oddiy mehmondo‘stlik edi"
     ],
     "javob": 0,
-    "izoh": "Halol ish kunduzi va ochiq qilinadi. Yashirinlik va katta to‘lov — sir saqlash evaziga berilgan pul."
+    "izoh": "Halol ish yashirilmaydi. Holmes esa yana bir dalilga e’tibor berdi: bekatda arava oti tetik va terlamagan edi — demak uy bekatdan uzoq emas, arava shunchaki aylanib yurgan. Uy haqiqatan ham bekat yaqinidan topildi."
    }
   ]
  },
@@ -711,42 +711,42 @@ window.SHERLOCK_ISHLAR = [
  {
   "det": "xolms",
   "kitob": "sarguzasht",
-  "asar": "Beryulli toj",
+  "asar": "Berill toj",
   "yil": 1892,
   "sarlavha": "Singan toj",
-  "hikoya": "Bankirga juda qimmatbaho toj garovga qoldirildi. Kechasi toj qulfdan ochilib, uchta tosh yo‘qoldi, oltin ramka esa singan. Bankirning o‘g‘li qorda, ko‘chada, qo‘lida singan ramka parchasi bilan topildi va ayblanuvchi bo‘ldi; u hech narsa tushuntirmadi. Holmes aniqladi: yigitning oyog‘i yalang‘och; qor izlari uydan ko‘chaga to‘g‘ri yo‘nalgan, qaytishda ham o‘sha yo‘l; toshlar uning ustidan ham, uyidan ham topilmadi. Ramka parchasi uydan 40 metr narida, ko‘cha tomonida yotgan edi.",
-  "savol": "Qaysi dalil yigitning begunohligini ko‘rsatadi?",
+  "hikoya": "Bankir <em>Xolder</em>ga juda qimmatbaho berill toj garovga qoldirildi; u tojni uyidagi javonga qulflab qo‘ydi. Uyda uning o‘g‘li <em>Artur</em> va jiyani <em>Meri</em> ham yashardi. Yarim tunda shovqindan uyg‘ongan bankir Arturni qo‘lida toj bilan ko‘rdi — tojning bir burchagi uchta toshi bilan sindirib olingan edi. Artur o‘zini oqlamadi, faqat «men o‘g‘ri emasman» dedi. Holmes deraza tagidagi qorni tekshirdi: u yerda etik kiygan notanish erkak kimnidir kutib turgan, keyin ko‘cha tomon yugurgan. Uning ortidan uydan yalangoyoq odam quvib chiqqan. Ikki iz uchrashgan joyda qor titilib ketgan, qon tomchilari bor. So‘ng etikli iz uzoqlashib ketgan, yalangoyoq iz esa uyga qaytgan.",
+  "savol": "Qordagi izlar nimani ko‘rsatadi?",
   "variantlar": [
-   "Qo‘lida ramka parchasi bo‘lgani — bu aybning isboti",
-   "Uyga qaytish izining mavjudligi: toshlarni olib qochayotgan odam yalangoyoq qorli ko‘chaga chiqib, keyin uyga qaytmaydi",
-   "U hech narsa aytmagani — sukut aybsizlik belgisi",
-   "Bankir tojni o‘zi buzgan"
+   "Artur tojni sindirib, toshlarni sherigiga uzatgan",
+   "Artur o‘g‘ri emas: u tojni olib qochgan begonani quvib, olishuvda tojning katta qismini qaytarib olgan",
+   "Tojni bankirning o‘zi sindirgan",
+   "Izlar eski — ular voqeaga aloqasiz"
   ],
   "javob": 1,
-  "izoh": "Qochayotgan o‘g‘ri uchun maqsad — toshlar bilan uzoqlashish. Yigit esa qo‘lida na poyabzal, na xalta bilan qorli ko‘chaga chiqqan va orqaga qaytgan: bu ta’qib qilish harakati, yashirinish emas. Parcha ko‘chada, yo‘l chetida topilgan — haqiqiy o‘g‘ri uni yo‘lda tashlab ketgan. Holmes uchun harakat yo‘nalishi — niyatning eng halol yozuvi.",
+  "izoh": "Izlarni ketma-ket o‘qiymiz: etikli odam deraza tagida kutgan — demak tojni unga derazadan kimdir uzatgan. Yalangoyoq odam uning ortidan quvgan, olishuv bo‘lgan; tojning katta qismi uyga qaytgan, uchta toshli parcha esa etikli odam bilan ketgan. Agar Artur o‘g‘ri bo‘lganida, u begonani quvmasdi. Holmes uchun harakat yo‘nalishi — niyatning eng halol yozuvi.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Yigitning yalangoyoq bo‘lgani nimani anglatadi?",
+    "savol": "Arturning yalangoyoq bo‘lgani nimani anglatadi?",
     "variantlar": [
-     "U o‘g‘ri bo‘lib, iz qoldirmaslik uchun",
+     "U iz qoldirmaslik uchun poyabzalini yechgan",
      "U shoshilib, kimnidir quvib chiqqan — oldindan rejalashtirilgan o‘g‘irlik emas",
      "U uyquda yurgan",
-     "U poyabzalini yo‘qotgan"
+     "U poyabzalini yo‘qotib qo‘ygan"
     ],
     "javob": 1,
     "izoh": "Rejalashtirgan o‘g‘ri poyabzal kiyadi. Yalangoyoq chiqish — kutilmagan holat, kimnidir to‘xtatishga urinish."
    },
    {
-    "savol": "Ramka parchasi uydan 40 metr narida yotgani nimani ko‘rsatadi?",
+    "savol": "Artur nega o‘zini oqlamadi?",
     "variantlar": [
-     "Yigit parchani o‘zi otib yuborgan",
-     "Parcha tasodifan yumalab ketgan",
-     "Bu boshqa tojning parchasi",
-     "Toj uchun ko‘chada kurash bo‘lgan va toshlarni boshqa odam olib ketgan"
+     "U haqiqatan aybdor edi",
+     "U otasidan qo‘rqqan",
+     "U hech narsani eslay olmagan",
+     "U tojni derazadan begonaga uzatgan odamni — o‘zi yaxshi ko‘rgan Merini himoya qilmoqchi edi"
     ],
     "javob": 3,
-    "izoh": "Agar yigit o‘g‘ri bo‘lganida, butun toj uning qo‘lida bo‘lardi. Parcha ko‘chada — demak, toj ikki kishi orasida tortishib, sinib qolgan."
+    "izoh": "Ba’zan jim turish aybni emas, kimnidir himoya qilishni bildiradi. Tojni derazadan uzatgan Meri edi — u ayyor janob Jorj Bernuellga aldanib qolgan edi. Artur Merini yaxshi ko‘rgani uchun uni sotmadi."
    }
   ]
  },
@@ -798,16 +798,16 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Kumush yulduz",
   "yil": 1892,
   "sarlavha": "Itning jimligi",
-  "hikoya": "Poyga otxonasidan eng qimmatli tulpor kechasi g‘oyib bo‘ldi. Hovlida qo‘riqchi it bor: u har qanday notanish odamni ko‘rsa darhol huraveradi. O‘sha kecha it bir marta ham qichqirmadi. Otboqar aytadi: «O‘g‘rilar itni uxlatib qo‘yishgan». Holmes javob berdi: «Yo‘q — it tanimagan odamni albatta sezardi».",
-  "savol": "Holmes nimani nazarda tutdi?",
+  "hikoya": "Mashhur poyga oti <em>Kumush yulduz</em> kechasi otxonadan g‘oyib bo‘ldi, uning murabbiyi esa ertalab dashtda o‘lik holda topildi. O‘sha kecha otxonani qo‘riqlagan yigit qattiq uxlab qolgan — kechki ovqatiga uyqu dori qo‘shilgan ekan. Otxona hovlisida qo‘riqchi it bor: u notanish odamni ko‘rsa, darhol hura boshlaydi. Ertalab it sog‘-salomat edi. Inspektor: «Otni begona o‘g‘ri olib ketgan», deb hisobladi. Holmes esa «tundagi itning g‘alati xatti-harakatiga» e’tibor qaratdi. «Ammo it tunda hech narsa qilmagan-ku», dedi inspektor. «Ana o‘sha g‘alati», dedi Holmes.",
+  "savol": "Holmes itning jimligidan qanday xulosa chiqardi?",
   "variantlar": [
    "It qari bo‘lgani uchun hura olmagan",
-   "O‘g‘ri it tanigan odam — ya’ni otboqarning o‘zi bo‘lgan",
+   "Tunda otni olib chiqqan odam itga tanish edi — u begona emas, otxonaning o‘z odami",
    "Ot o‘z oyog‘i bilan qochib ketgan",
-   "O‘g‘rilar itni oldindan zahar bilan o‘ldirishgan"
+   "O‘g‘ri itni oldindan zaharlab qo‘ygan"
   ],
   "javob": 1,
-  "izoh": "Bu mashhur «it qichqirmagan» qoidasi: it begona odamga huraveradi, tanigan odamga esa jim qoladi. It jim qolgan bo‘lsa, o‘g‘ri uni tanigan kishi — otboqarning o‘zi yoki unga eng yaqin odam. Ba’zan eng kuchli dalil — sodir bo‘lmagan voqea: aynan jimlik ayblovni ko‘rsatadi.",
+  "izoh": "It begonaga huradi, tanish odamga esa jim qoladi. O‘sha kecha otxonaga kimdir kirib, otni olib chiqqan — it esa churq etmagan. Demak bu odam itga yaxshi tanish edi. Haqiqatda otni murabbiyning o‘zi olib chiqqan: u poygadan oldin otni oqsatib qo‘ymoqchi bo‘lgan, ammo dashtda ot uni tepib o‘ldirgan. Ba’zan eng kuchli dalil — sodir bo‘lmagan voqea.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
@@ -815,22 +815,22 @@ window.SHERLOCK_ISHLAR = [
     "variantlar": [
      "Itning izlariga",
      "Otning izlariga",
-     "Otboqarning so‘zlariga",
+     "Inspektorning so‘zlariga",
      "Sodir bo‘lmagan narsaga — itning hurmaganiga"
     ],
     "javob": 3,
     "izoh": "Ba’zan eng muhim dalil — kutilgan narsaning bo‘lmagani. It hurmagan, demak, kelgan odam unga tanish."
    },
    {
-    "savol": "Nega «itni uxlatishgan» degan izoh zaif?",
+    "savol": "Qo‘riqchi yigitning ovqatiga uyqu dori qo‘shilgani nimani ko‘rsatadi?",
     "variantlar": [
-     "Itlarni uxlatib bo‘lmaydi",
-     "It uxlatilganini ko‘rsatadigan hech qanday iz yo‘q, oddiy izoh esa — u tanish odamni ko‘rgan",
-     "It o‘zi ketib qolgan",
-     "It kasal edi"
+     "Yigit dorini o‘zi bilib ichgan",
+     "Jinoyat oldindan rejalashtirilgan — uni yigitning kechki ovqatini biladigan, uyga yaqin odam uyushtirgan",
+     "Ovqat tasodifan buzilib qolgan",
+     "Otni o‘sha yigit o‘g‘irlagan"
     ],
     "javob": 1,
-    "izoh": "Ikki izohdan oddiy va dalillarga mos keladiganini tanlash kerak. Tanish odam haqidagi izoh qo‘shimcha taxmin talab qilmaydi."
+    "izoh": "Dorini qaysi ovqatga solishni oldindan bilish uchun uydagi tartibni yaxshi bilish kerak. Bu dalil ham itning jimligi bilan bir yo‘nalishga ishora qiladi: jinoyatchi begona emas, ichkaridagi odam."
    }
   ]
  },
@@ -840,39 +840,39 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Sariq yuz",
   "yil": 1893,
   "sarlavha": "Sariq yuz",
-  "hikoya": "Er xotinining bog‘idagi kichik uyda kimnidir yashiryapti deb gumon qildi. Kechasi u derazada qo‘rqinchli sariq yuzli figura ko‘rdi va ishonchi silkindi. Holmes uyga kirib divanda yonboshlab yotgan kichkina figurani topdi: yuzida sariq mumdan yasalgan niqob bor, sham yorug‘ida niqob derazaga aks etgan. Uyda bolalar kiyimi va yangi o‘yinchoqlar bor; xotin bog‘boniga «bu uyga hech kim kirmasin» deb tayinlagan. Figura deraza tokchasidan baland chiqmasdi.",
+  "hikoya": "<em>Grant Manro</em> xotini <em>Effi</em>ning yaqindagi kichik kottejga yashirincha qatnayotganini sezib qoldi. Bir kuni u kottej derazasida g‘alati, qimirlamaydigan, o‘likdek sariq yuzni ko‘rdi — yuz deraza tokchasidan zo‘rg‘a ko‘tarilib turardi. Effi ilgari Amerikada beva qolgan: birinchi eri va kichkina qizi isitmadan vafot etgan, degan edi. Endi u «Menga ishon, bir kun hammasini aytaman» deyishdan nariga o‘tmasdi. Kottejga esa bolalar kiyimlari va o‘yinchoqlar olib kirilayotgani ko‘rilgan.",
   "savol": "Derazadagi «sariq yuz» aslida nima edi?",
   "variantlar": [
-   "Xotinining yashirin sevgilisi",
-   "Qochib kelgan mahbus, unga yashirincha yordam berishayotgan edi",
-   "Mum niqob kiygan kichkina bola — xotin yashirincha parvarishlayotgan qarindoshi",
-   "Derazaga osilgan oyna yorug‘likni qaytargan"
+   "Effining birinchi eri — u tirik bo‘lib chiqqan",
+   "Qochib kelgan mahbus",
+   "Sariq niqob taqqan kichkina qizcha — Effining tirik qizi",
+   "Derazaga osilgan oynadagi aks"
   ],
   "javob": 2,
-  "izoh": "Uch dalil bir yo‘nalishga ishora qiladi: figura juda past bo‘lgani (tokchadan baland chiqmagan), uydagi bolalar kiyimi va niqobning o‘zi. Katta odam bo‘lganida o‘lcham ham, kiyim ham mos kelmasdi. Holmes odamlar eng ko‘p qo‘rqadigan narsadan boshlaydi: «qo‘rqinchli yuz» — bu shunchaki niqob, niqobni esa faqat yuzini yashirishga majbur bo‘lgan odam kiyadi.",
+  "izoh": "Dalillar bir yo‘nalishga ishora qiladi: yuz qimirlamaydi va g‘ayritabiiy rangda — bu niqob; u tokchadan zo‘rg‘a ko‘rinadi — bo‘yi past; kottejga bolalar kiyimi va o‘yinchoqlar tashilgan. Effining qizi tirik edi. Qizig‘i: bu ishda Holmesning o‘zi ham xato qilgan — u «birinchi eri tirik va Effini qo‘rqitmoqda» deb o‘ylagan edi. Shundan keyin u Uotsonga: «Agar yana o‘zimga haddan tashqari ishonsam, qulog‘imga „Norberi“ deb shivirla», degan.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Figura deraza tokchasidan baland chiqmasligi nimani ko‘rsatadi?",
+    "savol": "Yuzning deraza tokchasidan zo‘rg‘a ko‘rinishi nimani ko‘rsatadi?",
     "variantlar": [
-     "Bu juda qari odam",
-     "Bu o‘tirgan katta odam",
-     "Bu kichkina bola",
-     "Bu qo‘g‘irchoq"
+     "Derazada juda baland bo‘yli odam turgan",
+     "Derazani xizmatkor tozalayotgan bo‘lgan",
+     "Derazada bo‘yi past odam — bola turgan",
+     "Bu qo‘shni uydagi odamning aksi"
     ],
     "javob": 2,
-    "izoh": "Bo‘y — muhim dalil. Past bo‘yli figura, bolalar kiyimi va o‘yinchoqlar bilan birga, bola ekanini aniq ko‘rsatadi."
+    "izoh": "Bo‘y — muhim dalil. Past bo‘y, bolalar kiyimi va o‘yinchoqlar birgalikda bola ekanini ko‘rsatadi."
    },
    {
-    "savol": "Xotin nega bu sirni eridan yashirdi?",
+    "savol": "Effi nega bu sirni eridan yashirdi?",
     "variantlar": [
-     "U bola va o‘tmishi haqida eridan qo‘rqqan, uni yo‘qotishdan xavotirlangan",
-     "U erini aldamoqchi edi",
-     "U bolani o‘g‘irlagan",
-     "U eriga sovg‘a tayyorlayotgan edi"
+     "Qizi tirikligini aytsa, eri uni tashlab ketishidan qo‘rqqan",
+     "U erini aldab, pulini olmoqchi edi",
+     "Qizcha o‘g‘irlab kelingan edi",
+     "U eriga kutilmagan sovg‘a tayyorlayotgan edi"
     ],
     "javob": 0,
-    "izoh": "Yashirish har doim ham jinoyat emas. Ba’zan odam yaqinini yo‘qotishdan qo‘rqib sir saqlaydi — Holmes buni shunday ishlardan biri sifatida eslardi."
+    "izoh": "Yashirish har doim ham jinoyat emas. Effi yaqinlarini yo‘qotishdan qo‘rqib sir saqlagan. Haqiqat ochilganda Grant Manro qizchani quchoqlab, ikkalasini ham oilasiga qabul qildi."
    }
   ]
  },
@@ -1302,39 +1302,39 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Norvud quruvchisi",
   "yil": 1903,
   "sarlavha": "Yangi barmoq izi",
-  "hikoya": "Quruvchi g‘oyib bo‘ldi; uy yonida kuygan jasad topildi. Uy devorida «qurbon»ning qonli barmoq izi bor edi. Politsiya quruvchining yosh mijozini aybladi: mijozning qo‘li qonli, u uyda bo‘lgan. Holmes izni ko‘zdan kechirdi: iz yangi — bo‘yoq kabi yaltirab turardi va devorga ro‘pposadan bosilgan edi. Uyning ichidan esa yashirilgan oziq-ovqat, yangi kiyim va pul topildi.",
+  "hikoya": "Keksa quruvchi <em>Jonas Oldeykr</em> g‘oyib bo‘ldi, hovlisidagi yog‘och uyumidan esa kuygan qoldiqlar topildi. Bir kun oldin u butun boyligini yosh advokat <em>Makfarleyn</em>ga meros qoldirib vasiyatnoma yozgan edi — Makfarleyn o‘sha oqshom uning uyida bo‘lgan. Makfarleyn hibsga olindi. Ertasi kuni inspektor Lestreyd dahliz devorida Makfarleynning qonli bosh barmoq izini topdi. Ammo Holmes o‘sha devorni bir kun avval sinchiklab ko‘rgan edi — u yerda hech qanday iz yo‘q edi. Bundan tashqari, Holmes yuqori qavatdagi yo‘lakni o‘lchab chiqdi: u pastdagi xuddi shunday yo‘lakdan bir necha qadam qisqa chiqdi.",
   "savol": "Holmes qanday xulosaga keldi?",
   "variantlar": [
-   "Mijoz aybdor — qonli qo‘l buni isbotlaydi",
-   "Iz yangi bo‘yoq bilan bosilgan: quruvchining o‘zi o‘z barmoq izini devorga bosib, mijozni ayblash uchun «o‘lib qolgan» ko‘rinishini yaratgan — demak quruvchi tirik",
-   "Jasad yoqilganda iz tasodifan paydo bo‘lgan",
-   "Izning holati hech narsani anglatmaydi"
+   "Makfarleyn aybdor — barmoq izi buni isbotlaydi",
+   "Iz Makfarleyn hibsga olingandan keyin soxta qilib bosilgan — Oldeykr tirik va uyda yashirinib yotibdi",
+   "Holmes kecha izni ko‘rmay qolgan",
+   "Oldeykrni begona o‘g‘ri o‘ldirgan"
   ],
   "javob": 1,
-  "izoh": "Vaqt hal qiluvchi omil: agar iz jinoyat paytida qolgan bo‘lsa, u qurib, xiralashib qolishi kerak edi — u esa yangi va yaltiroq. Jinoyatdan keyin paydo bo‘lgan izni faqat tirik odam qoldiradi, o‘z barmoq izini esa faqat o‘zi qoldira oladi. Uy ichidagi oziq-ovqat va yangi kiyim ikkinchi dalil: «o‘lgan» odam yashirincha yashab, o‘z ishini kuzatib yurgan. Eng kichik nomuvofiqlik — eng katta yolg‘onning peshonasida.",
+  "izoh": "Kecha devorda iz yo‘q edi, bugun bor — demak u keyin bosilgan. Makfarleyn esa bu paytda qamoqda edi, ya’ni izni u bosa olmasdi: kimdir uni ataylab ayblamoqchi. Kuygan «qoldiqlar» shunchaki hayvon suyaklari bo‘lib chiqdi. Oldeykr o‘zini o‘lgan qilib ko‘rsatib, Makfarleynni qamatmoqchi edi. Izni u Makfarleyn hujjatga bosgan mum muhrdan nusxa olib, o‘z qoni bilan devorga bosgan.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Barmoq izining «yangi» bo‘lishi nima uchun muhim?",
+    "savol": "Kecha yo‘q bo‘lgan izning bugun paydo bo‘lishi nimani anglatadi?",
     "variantlar": [
-     "Iz qadimiy edi",
-     "Iz noaniq edi",
-     "Bu boshqa odamning izi",
-     "Avvalgi tekshiruvda iz bo‘lmagan — demak, uni keyin kimdir ataylab bosgan"
+     "Iz eski, kecha shunchaki ko‘rinmagan",
+     "Izni Holmesning o‘zi qoldirgan",
+     "Iz devordagi namlikdan o‘z-o‘zidan bo‘rtib chiqqan",
+     "Izni keyin kimdir ataylab bosgan — u soxta dalil"
     ],
     "javob": 3,
     "izoh": "Agar iz qotillik paytida qolgan bo‘lsa, u avval ham ko‘rinardi. Keyin paydo bo‘lgan iz — qo‘yilgan dalil."
    },
    {
-    "savol": "Uy ichida yashirilgan oziq-ovqat va pul nimani ko‘rsatadi?",
+    "savol": "Yuqori yo‘lakning pastdagidan qisqa chiqishi nimani ko‘rsatadi?",
     "variantlar": [
-     "Xizmatkor o‘g‘irlik qilgan",
-     "Kimdir uyda yashirinib yashamoqda — «o‘lgan» quruvchi tirik",
-     "Bu qishga zaxira",
-     "Mijoz uni qoldirgan"
+     "Uy qiyshiq qurilgan",
+     "Devor ortida yashirin xona bor — «o‘lgan» quruvchi o‘sha yerda yashiringan",
+     "Holmes noto‘g‘ri o‘lchagan",
+     "Yuqori qavatga yangi gilam to‘shalgan"
     ],
     "javob": 1,
-    "izoh": "Yashirin zaxira — yashiringan odamning belgisi. «O‘lik» odamga ovqat kerak emas."
+    "izoh": "Bir uyning ikki qavatidagi bir xil yo‘laklar teng bo‘lishi kerak. Farq — yashirin bo‘shliq. Holmes «Yong‘in!» deb baqirtirgach, Oldeykr o‘sha yashirin xonadan o‘zi otilib chiqdi."
    }
   ]
  },
@@ -1554,39 +1554,39 @@ window.SHERLOCK_ISHLAR = [
   "asar": "Olti Napoleon",
   "yil": 1904,
   "sarlavha": "Olti byust",
-  "hikoya": "Shahar bo‘ylab g‘alati jinoyatlar yuz berdi: kimdir Napoleonning gips byustlarini sotib olib, sindirib tashlardi. Boshqa hech narsa o‘g‘irlanmadi — na pul, na kumush. Holmes barcha byustlar bir ustadan, bir partiyadan chiqqanini aniqladi. Birinchi sindirilgan byustlar parchalari orasida gipsga o‘ralgan kichik bo‘shliq bo‘lgan. Bir yil avval bir zodagonning qora marvaridi o‘sha gips ustaxonasida yo‘qolgan edi.",
+  "hikoya": "Londonda g‘alati jinoyatlar boshlandi: kimdir do‘kon va uylarga kirib, Napoleonning gips byustlarini o‘g‘irlar va darhol sindirib tashlardi. Boshqa hech narsa olinmasdi — na pul, na kumush. Inspektor Lestreyd: «Bu Napoleonni yomon ko‘radigan telbaning ishi», dedi. Holmes esa aniqladi: barcha byustlar bitta ustaxonada, bir paytda quyilgan oltita byustdan edi. Bir yil oldin o‘sha ustaxonada ishlagan italyan <em>Beppo</em> mashhur qora marvarid o‘g‘irlangan kunlarda politsiyadan yashirinib yurgan, so‘ng boshqa ish uchun qamalib ketgan edi. Byustlarni u doim yorug‘ joyda — chiroq yoki ko‘cha fonari tagida sindirardi.",
   "savol": "Nega jinoyatchi faqat Napoleon byustlarini sindirardi?",
   "variantlar": [
    "Napoleonga bo‘lgan nafrat tufayli",
    "Gips qimmatbaho material bo‘lgani uchun",
-   "U marvaridni byustlardan birining gipsiga yashirgan va uni topish uchun hamma byustni sindirishga majbur edi",
+   "U marvaridni hali qotmagan byustlardan birining ichiga yashirgan; qaysi biriga ekanini bilmagani uchun hammasini sindirardi",
    "U ruhiy kasal edi, shuning uchun hamma byustni sindirardi"
   ],
   "javob": 2,
-  "izoh": "Jinoyatning foydasi yo‘q: pul olinmagan, qimmatbaho narsalarga tegilmagan. Faqat bir xil, bir partiyadan chiqqan buyumlar. Demak jinoyatchi byustning o‘zini emas, ichidagi narsani qidirardi. U marvaridni gips qotishidan oldin ichiga yashirgan, qaysi nusxada qolganini esa eslay olmagan — shuning uchun hammasini sindirishga majbur bo‘lgan. Harakat ma’nosiz ko‘rinsa, «nima uchun» emas, «nima uchun aynan shu narsa» deb so‘rang.",
+  "izoh": "Jinoyatning foydasi yo‘q: pul olinmagan, qimmatbaho narsalarga tegilmagan. Faqat bir xil, bir partiyadan chiqqan buyumlar. Demak jinoyatchi byustning o‘zini emas, ichidagi narsani qidirardi. Beppo politsiyadan qochib ustaxonaga kirganda, marvaridni qurib turgan byustlardan birining ichiga yashirgan. Qamoqdan chiqqach, oltita byust qayerga sotilganini birma-bir topib, sindirib chiqqan. Harakat ma’nosiz ko‘rinsa, «nima uchun» emas, «nima uchun aynan shu narsa» deb so‘rang.",
   "muallif": "Artur Konan Doyl",
   "qoshimcha": [
    {
-    "savol": "Nima uchun jinoyatchi aynan bir partiyadagi byustlarni qidirdi?",
+    "savol": "Nega Beppo byustlarni aynan yorug‘ joyda sindirardi?",
     "variantlar": [
-     "U Napoleonni yomon ko‘rardi",
-     "Ular eng arzon edi",
-     "Bu tasodif",
-     "Marvarid aynan o‘sha partiya quyilayotganda bittasiga yashirilgan — qaysi biriga ekanini u bilmasdi"
+     "Qo‘lga tushishni xohlagan",
+     "Qorong‘idan qo‘rqardi",
+     "Gips yorug‘da osonroq sinadi",
+     "Parchalar orasidan kichik narsani — marvaridni qidirish uchun"
     ],
     "javob": 3,
-    "izoh": "Bilmagan narsani qidirishning yagona yo‘li — barcha nomzodlarni tekshirish."
+    "izoh": "Yorug‘lik — qidiruv belgisi. Shunchaki sindirmoqchi bo‘lgan odamga chiroq kerak emas; ichidan nimanidir topmoqchi bo‘lgan odamga esa kerak."
    },
    {
     "savol": "Holmes qanday qilib jinoyatchidan oldin marvaridni topdi?",
     "variantlar": [
-     "Byustlarni rentgen qildi",
-     "Oxirgi byustni sotib olib, uni o‘zi sindirdi",
+     "Byustlarni suvga solib ko‘rdi",
+     "Oxirgi byustni egasidan sotib olib, uni o‘zi sindirdi",
      "Jinoyatchini so‘roq qildi",
      "Ustaxonani tintuv qildi"
     ],
     "javob": 1,
-    "izoh": "Agar barcha byustlarning taqdiri ma’lum bo‘lsa, marvarid oxirgisida qoladi."
+    "izoh": "Beshta byustning taqdiri ma’lum bo‘lgach, marvarid faqat oltinchisida qolishi mumkin edi. Holmes uni egasidan sotib olib, o‘sha yerda sindirdi — ichidan Borjia oilasining qora marvaridi chiqdi."
    }
   ]
  },
@@ -4703,22 +4703,22 @@ window.SHERLOCK_ISHLAR = [
   "kitob": "mantiq",
   "manba": "Sof mantiq · yolg‘onchini topish",
   "sarlavha": "Uch gumondor va bitta yolg‘on",
-  "hikoya": "Grafinyaning xonasidan moviy yoqut g‘oyib bo‘ldi. Kechqurun xonaga faqat uch kishi kirgan: xizmatkor <em>Ayola</em>, darvozabon <em>Bekzod</em> va mehmon <em>Sanjar</em>. Holmes ularni birma-bir so‘roq qildi. Ayola: «Yoqutni Bekzod o‘g‘irladi». Bekzod: «Yoqutni Sanjar o‘g‘irladi». Sanjar: «Men begunohman». Holmes tergovchilarga qat’iy aytdi: «Uch kishidan faqat bittasi yolg‘on gapiryapti».",
+  "hikoya": "Grafinyaning xonasidan moviy yoqut g‘oyib bo‘ldi. Kechqurun xonaga faqat uch kishi kirgan: xizmatkor <em>Aziza</em>, darvozabon <em>Bekzod</em> va mehmon <em>Sanjar</em>. Yoqutni ulardan faqat bittasi olgani aniq. Holmes ularni birma-bir so‘roq qildi. Aziza: «Yoqutni Bekzod o‘g‘irladi». Bekzod: «Yoqutni Sanjar o‘g‘irladi». Sanjar: «Men begunohman». Holmes tergovchilarga qat’iy aytdi: «Uch kishidan faqat bittasi yolg‘on gapiryapti».",
   "savol": "Yoqutni kim o‘g‘irlagan?",
   "variantlar": [
-   "Ayola",
+   "Aziza",
    "Bekzod",
    "Sanjar",
    "Ma’lumot yetarli emas"
   ],
   "javob": 1,
-  "izoh": "Har bir variantni tekshiramiz. Ayola aybdor bo‘lsa: Ayolaning gapi yolg‘on, Bekzodning gapi ham yolg‘on, Sanjarning gapi rost — ikkita yolg‘on, shart buziladi. Sanjar aybdor bo‘lsa: xuddi shunday ikkita yolg‘on. Bekzod aybdor bo‘lsa: Ayola rost, Bekzod yolg‘on, Sanjar rost — aynan bitta yolg‘on. Demak, aybdor — Bekzod.",
+  "izoh": "Har bir variantni tekshiramiz. Aziza aybdor bo‘lsa: Azizaning gapi yolg‘on, Bekzodning gapi ham yolg‘on, Sanjarning gapi rost — ikkita yolg‘on, shart buziladi. Sanjar aybdor bo‘lsa: xuddi shunday ikkita yolg‘on. Bekzod aybdor bo‘lsa: Aziza rost, Bekzod yolg‘on, Sanjar rost — aynan bitta yolg‘on. Demak, aybdor — Bekzod.",
   "qoshimcha": [
    {
-    "savol": "Agar Ayola yolg‘on gapirgan bo‘lsa, nima bo‘lardi?",
+    "savol": "Agar Aziza yolg‘on gapirgan bo‘lsa, nima bo‘lardi?",
     "variantlar": [
      "Hammasi to‘g‘ri bo‘lardi",
-     "Ayola o‘g‘ri bo‘lardi",
+     "Aziza o‘g‘ri bo‘lardi",
      "Bekzod yolg‘onchi bo‘lardi",
      "Bekzod aybsiz, demak Sanjar o‘g‘ri — lekin unda Sanjarning gapi ham yolg‘on bo‘lib, ikki yolg‘onchi chiqadi"
     ],
@@ -4743,38 +4743,38 @@ window.SHERLOCK_ISHLAR = [
   "kitob": "mantiq",
   "manba": "Qulflangan xona klassikasi",
   "sarlavha": "Muzlatilgan zahar",
-  "hikoya": "Professor Brinston ish xonasida o‘lik holda topildi. Xona ichkaridan qulflangan, deraza mahkam yopiq. Stoldagi viski qadagichida zahar bor, ammo javondagi muhrlangan shishada zahar yo‘q — keyingi tekshiruv ham shishani toza ko‘rsatdi. Qadagich kechqurun xizmatchi tomonidan yuvilib, javonga qo‘yilgan, viskini esa professor o‘zi quygan. Mehmonlar bir soat oldin xonaga muz bilan to‘la chelak olib kirishgan edi.",
+  "hikoya": "Professor <em>Brinston</em> ish xonasida o‘lik holda topildi. Xona ichkaridan qulflangan, deraza mahkam yopiq. Stoldagi viski qadahida zahar bor, lekin javondagi muhrlangan viski shishasida zahar yo‘q. Qadahni kechqurun xizmatkor yuvib, javonga qo‘ygan; viskini professor o‘zi quygan. Professor viskini doim muz bilan ichardi. Kechqurun ikki mehmon xonaga muz to‘la chelak olib kirib, bir soatcha o‘tirib, chiqib ketishgan.",
   "savol": "Holmes qanday xulosaga keldi?",
   "variantlar": [
-   "Professor o‘zini o‘zi o‘ldirgan — zahar choyga solingan",
-   "Zahar muz bo‘lakchasining ichida edi: muz eriganda qadagichga o‘tdi",
-   "Zahar qadagichning tagiga oldindan surtilgan",
+   "Professor o‘zini o‘zi zaharlagan — zahar choyga solingan",
+   "Zahar muz bo‘lagi ichiga solingan: muz erigach, zahar qadahdagi viskiga o‘tgan",
+   "Zahar viski shishasining ichida bo‘lgan",
    "Professor viski ichishdan oldin zaharli dori qabul qilgan"
   ],
   "javob": 1,
-  "izoh": "Zahar shishaga tushmagan, qadagich ham toza yuvilgan — demak, zahar keyin, ichimlikka tayyorlangan paytda qo‘shilgan. Yagona yo‘l: zahar muz kubining ichiga solingan. Muz erigach, zahar qadagichga o‘tadi va shisha toza qoladi. Muzni tayyorlagan mehmonlar — qotillar. Holmes uchun «kimning qo‘li muzga tegdi» degan savol «kim zahar soldi» savolidan muhimroq bo‘ldi.",
+  "izoh": "Zaharning yo‘lini bosqichma-bosqich tekshiramiz. Shishadagi viski toza, qadah oldindan yuvilgan — demak zahar qadahga na viski bilan, na qadahning o‘zi bilan kelgan. Qadahga tushgan yana bitta narsa bor — muz. Uni olib kirgan mehmonlar zaharni muz ichiga muzlatib qo‘yishgan: muz asta erigan, zahar viskiga o‘tgan, bu paytda esa mehmonlar allaqachon ketib bo‘lgan. Shuning uchun xona ichkaridan qulflangan bo‘lsa ham, qotil xonada bo‘lishi shart emas edi.",
   "qoshimcha": [
    {
-    "savol": "Nega muhrlangan shisha toza bo‘lishi muhim?",
+    "savol": "Nega muhrlangan shishaning toza chiqqani muhim?",
     "variantlar": [
      "Shisha soxta edi",
-     "Zahar viskida emas, keyin qo‘shilgan narsada bo‘lgan",
-     "Viski qimmat edi",
-     "Professor ichmagan"
+     "Zahar viskida emas, qadahga keyin qo‘shilgan narsada bo‘lgan",
+     "Viski juda qimmat edi",
+     "Professor umuman viski ichmagan"
     ],
     "javob": 1,
-    "izoh": "Manbani chiqarib tashlash: viski toza, qadagich yuvilgan — demak zahar qadagichga keyin tushgan."
+    "izoh": "Manbalarni birma-bir chiqarib tashlaymiz: viski toza, qadah yuvilgan. Demak zahar qadahga keyin qo‘shilgan narsa bilan tushgan."
    },
    {
-    "savol": "Agar mehmonlar muzni olib kirmaganida, qaysi versiya kuchliroq bo‘lardi?",
+    "savol": "Nega zaharni aynan muzga solish qotil uchun qulay edi?",
     "variantlar": [
-     "Professor o‘zini zaharlagan",
-     "Viskida zahar bo‘lgan",
-     "Qadagich zaharli edi",
-     "Zahar qadagichga boshqa yo‘l bilan — xonadagi odam tomonidan qo‘shilgan"
+     "Muz zaharni kuchliroq qiladi",
+     "Muz zaharning rangini o‘zgartiradi",
+     "Muz zaharni zararsiz qilib qo‘yadi",
+     "Muz asta eriydi — zahar qotil xonadan chiqib ketgandan keyin ta’sir qiladi"
     ],
     "javob": 3,
-    "izoh": "Muz — zaharning «kechikkan yetkazuvchisi». U bo‘lmasa, qotil xonada bo‘lishi kerak edi."
+    "izoh": "Muz — zaharning «kechikkan yetkazuvchisi». U erigunicha qotil uzoqqa ketib, o‘ziga alibi tayyorlab ulguradi."
    }
   ]
  },
@@ -4823,16 +4823,16 @@ window.SHERLOCK_ISHLAR = [
   "kitob": "mantiq",
   "manba": "Qulflangan xona · deduksiya zanjiri",
   "sarlavha": "Qor ostidagi xona",
-  "hikoya": "Qishloq uyida lord o‘z xonasida o‘ldirilgan. Eshik ichkaridan qulflangan, kalit eshik yonidagi stolda. Deraza ikkinchi qavatda; kechadan beri qor yog‘gan, deraza tokchasidagi qor tekis — birorta iz yo‘q, pastda ham qadam ko‘rinmaydi. Uyda kechqurun faqat lord va xizmatkor qolgan. Xizmatkor aytadi: «Kechqurun derazadan notanish kishi kirib, xo‘jayinni o‘ldirib, yana derazadan chiqib ketdi».",
+  "hikoya": "Qishloq uyida lord o‘z xonasida o‘ldirilgan. Eshik ichkaridan qulflangan, kalit xonadagi stolda yotibdi — ammo xizmatkorda barcha xonalarning zaxira kaliti bor. Xonaning yagona derazasi ikkinchi qavatda. Qor kechqurun to‘xtagan, lord esa yarim tunda o‘ldirilgan. Ertalab deraza tokchasidagi qor tekis — birorta iz yo‘q, deraza tagida ham qadam izlari ko‘rinmaydi. Kechasi uyda faqat lord va xizmatkor bo‘lgan. Xizmatkor aytadi: «Yarim tunda derazadan notanish kishi kirib, xo‘jayinni o‘ldirdi-da, yana derazadan chiqib ketdi».",
   "savol": "Holmes nega xizmatkordan shubhalandi?",
   "variantlar": [
    "Chunki xizmatkor eng ko‘p qo‘rqqan odam edi",
-   "Chunki tokchadagi tekis qor va pastdagi izsizlik: derazadan hech kim chiqmagan, demak qotil uy ichida edi",
+   "Tokchadagi tekis qor va deraza tagidagi izsizlik: derazadan hech kim kirib-chiqmagan, demak qotil uy ichida edi",
    "Chunki lordning kaliti cho‘ntagida edi",
    "Chunki ikkinchi qavatga hech kim chiqa olmaydi"
   ],
   "javob": 1,
-  "izoh": "Deduksiya ikki dalilga tayanadi. Birinchisi: agar kimdir derazadan chiqqan bo‘lsa, yangi qorda iz qolishi va pastda qadamlar ko‘rinishi shart edi — ikkalasi ham yo‘q. Demak, tashqaridan hech kim kirmagan. Ikkinchisi: eshik ichkaridan qulflangan, demak qotil ichkarida bo‘lgan. Uyda esa lord va xizmatkordan boshqa hech kim yo‘q edi. Xizmatkorning hikoyasi — o‘zi to‘qigan izoh.",
+  "izoh": "Deduksiya ikki dalilga tayanadi. Birinchisi: qor qotillikdan oldin to‘xtagan, demak derazadan kirib-chiqqan odam tokchada ham, deraza tagida ham albatta iz qoldirardi — iz yo‘q. Demak tashqaridan hech kim kelmagan. Ikkinchisi: eshik qulflangan, lekin zaxira kalit xizmatkorda — u xonaga kirib, chiqib, eshikni yana qulflab qo‘yishi mumkin edi. Uyda esa lord va xizmatkordan boshqa hech kim yo‘q. Xizmatkorning «notanish odam» haqidagi hikoyasi — o‘zi to‘qigan izoh.",
   "qoshimcha": [
    {
     "savol": "Deraza tokchasidagi tekis qor qaysi gapni rad etadi?",
@@ -4863,7 +4863,7 @@ window.SHERLOCK_ISHLAR = [
   "kitob": "mantiq",
   "manba": "Uch quti klassikasi",
   "sarlavha": "Noto‘g‘ri yozuvlar",
-  "hikoya": "Skotlend-Yard omborida uchta quti bor, yozuvlari: «Olma», «Nok», «Aralash». Holmes aytadi: «Uchala yozuv ham noto‘g‘ri». Har bir qutida faqat bitta turdagi meva yoki ikkalasining aralashmasi bo‘lishi mumkin.",
+  "hikoya": "Skotlend-Yard omborida uchta quti bor: birida faqat olma, birida faqat nok, uchinchisida olma bilan nok aralash. Qutilarga «Olma», «Nok», «Aralash» deb yozilgan, ammo Holmes aytadi: «Uchala yozuv ham noto‘g‘ri yopishtirilgan».",
   "savol": "Qaysi qutidan bitta meva olsangiz, uchala qutining ichidagini ham aniqlay olasiz?",
   "variantlar": [
    "«Olma» yozuvi bor qutidan",
@@ -4903,27 +4903,27 @@ window.SHERLOCK_ISHLAR = [
   "kitob": "mantiq",
   "manba": "Deduksiya + kod",
   "sarlavha": "Shifrlangan xat",
-  "hikoya": "Qotilning cho‘ntagidan qog‘oz topildi. Unda shunday yozuv bor:<br><br>«<b>UIF DMPDL TUSJLT POE</b>»<br><br>Holmes qog‘ozga qarab jilmaydi: «Bu juda oddiy shifr. Har bir harfni alifboda bir qadam orqaga surish kifoya».",
-  "savol": "Xat nimani aytadi va voqea qachon bo‘lishi kerak edi?",
+  "hikoya": "Gumondorning cho‘ntagidan qog‘oz topildi. Unda shunday yozuv bor:<br><br>«<b>TPBU CJSEB LFM</b>»<br><br>Holmes qog‘ozga qarab jilmaydi: «Bu juda oddiy shifr. Har bir harfni alifboda bir qadam orqaga surish kifoya». (Shifrda oddiy lotin alifbosi ishlatilgan: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z.)",
+  "savol": "Xatda nima deyilgan va uchrashuv qachon bo‘lishi kerak edi?",
   "variantlar": [
-   "«The clock strikes one» — soat birni urgan paytda",
-   "«The clock strikes two» — soat ikkini urgan paytda",
-   "«The cloud stays low» — bulutli kunda",
-   "«The clock is slow» — soat orqada qolgan"
+   "«SOAT BIRDA KEL» — uchrashuv soat birda",
+   "«SOAT IKKIDA KEL» — uchrashuv soat ikkida",
+   "«SOAT BIRDA KET» — soat birda ketish kerak",
+   "«SOAT BESHDA KEL» — uchrashuv soat beshda"
   ],
   "javob": 0,
-  "izoh": "Har bir harfni bir pog‘ona orqaga suramiz: U→T, I→H, F→E — THE. D→C, M→L, P→O, D→C, L→K — CLOCK. T→S, U→T, S→R, J→I, L→K, T→S — STRIKES. P→O, O→N, F→E — ONE. Natija: «The clock strikes one». Holmes nafaqat matnni, balki vaqtni ham aniqladi — jinoyat 01:00 ga rejalashtirilgan. Bunday shifr Sezar shifri deyiladi: harfni alifbo bo‘ylab siljitish.",
+  "izoh": "Har bir harfni bir pog‘ona orqaga suramiz: T→S, P→O, B→A, U→T — SOAT. C→B, J→I, S→R, E→D, B→A — BIRDA. L→K, F→E, M→L — KEL. Natija: «SOAT BIRDA KEL». Holmes nafaqat matnni, balki uchrashuv vaqtini ham aniqladi. Bunday shifr Sezar shifri deyiladi: har bir harf alifbo bo‘ylab bir xil qadamga suriladi.",
   "qoshimcha": [
    {
-    "savol": "«UIF» so‘zini bir harf orqaga surib o‘qisak, qanday so‘z chiqadi?",
+    "savol": "«TPBU» so‘zidagi har bir harfni bir qadam orqaga sursak, qanday so‘z chiqadi?",
     "variantlar": [
-     "TIE",
-     "VJG",
-     "THE",
-     "SHE"
+     "UQCV",
+     "SOAR",
+     "SOAT",
+     "ROAT"
     ],
     "javob": 2,
-    "izoh": "U→T, I→H, F→E. Har bir harfni alifboda bitta orqaga surish — Sezar shifrining eng oddiy turi."
+    "izoh": "T→S, P→O, B→A, U→T. Har bir harfni alifboda bittadan orqaga surish — Sezar shifrining eng oddiy turi. Oldinga sursak (UQCV), ma’nosiz so‘z chiqadi."
    },
    {
     "savol": "Bunday shifrni yechishda eng muhim belgi nima edi?",
@@ -4943,7 +4943,7 @@ window.SHERLOCK_ISHLAR = [
   "kitob": "mantiq",
   "manba": "Holmesning sevimli usuli — kuzatish",
   "sarlavha": "Qadam izlari",
-  "hikoya": "Kechqurun qishloqda o‘g‘irlik bo‘ldi. Qor yangi yog‘gan. Uch kishi gumondor. Ulardan biri — chap oyog‘i jarohatlangan temirchi; u «butun kechqurun uyda yotdim» deydi. Uydan 200 metr narida qordagi qadam izlari topildi: bir oyoq izi ikkinchisidan sezilarli chuqurroq, qadamlar esa notekis — goh qisqa, goh uzun.",
+  "hikoya": "Kechqurun qishloqda o‘g‘irlik bo‘ldi. Qor kechqurun yog‘ib, o‘g‘irlikdan sal oldin to‘xtagan. Uch kishi gumondor: ikki sog‘lom yigit va chap oyog‘i jarohatlangan temirchi; temirchi «butun kechqurun uyda yotdim» deydi. O‘g‘irlangan uydan 200 metr narida qordagi qadam izlari topildi: bir oyoq izi ikkinchisidan sezilarli chuqurroq, qadamlar esa notekis — goh qisqa, goh uzun.",
   "savol": "Qaysi dalil temirchiga ishora qiladi?",
   "variantlar": [
    "Izlarning o‘lchami katta botinka bo‘lgani",
@@ -4983,7 +4983,7 @@ window.SHERLOCK_ISHLAR = [
   "kitob": "mantiq",
   "manba": "Sof mantiq",
   "sarlavha": "Yolg‘onchilar halqasi",
-  "hikoya": "Uch aka-uka meros haqida bahslashdi. Holmes har biridan guvohlik oldi. Ali: «Vali — yolg‘onchi». Vali: «Soli — yolg‘onchi». Soli: «Ali ham, Vali ham yolg‘onchi». Holmes tergovchilarga dedi: «Uchadan faqat bittasi rost gapirmoqda».",
+  "hikoya": "Uch aka-uka meros haqida bahslashdi. Holmes har biridan guvohlik oldi. Ali: «Vali — yolg‘onchi». Vali: «Soli — yolg‘onchi». Soli: «Ali ham, Vali ham yolg‘onchi». Holmes tergovchilarga dedi: «Uchovidan faqat bittasi rost gapirmoqda».",
   "savol": "Kim haqiqatni aytdi?",
   "variantlar": [
    "Ali",
