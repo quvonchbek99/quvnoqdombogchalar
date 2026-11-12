@@ -1,44 +1,126 @@
-/* Sherlock — mantiqiy tergov ishlari: Konan Doylning 60 ta asari (har biriga bitta ish) + Holmes uslubidagi mantiq ishlari.
-   sherlock.html va Sinf viktorinasi (m11) shu fayldan oladi. kitob — to‘plam, asar — asl asar nomi, javob — to‘g‘ri variant indeksi. */
+/* Detektiv ishlari (Sherlock bo‘limi): Konan Doylning 60 ta asari, Agata Kristi (Puaro, Marpl), Edgar Po, Chesterton, Kollinz, Chexov asarlari asosida mantiqiy tergov ishlari + mantiq ishlari.
+   sherlock.html va Sinf viktorinasi (m11) shu fayldan oladi. det — detektiv, kitob — to‘plam, asar — asl asar, javob — to‘g‘ri variant indeksi. */
+window.SHERLOCK_DETEKTIVLAR = [
+ {
+  "id": "xolms",
+  "nom": "Sherlok Xolms",
+  "muallif": "Artur Konan Doyl",
+  "belgi": "🔍"
+ },
+ {
+  "id": "puaro",
+  "nom": "Herkul Puaro",
+  "muallif": "Agata Kristi",
+  "belgi": "🎩"
+ },
+ {
+  "id": "marpl",
+  "nom": "Miss Marpl",
+  "muallif": "Agata Kristi",
+  "belgi": "🧶"
+ },
+ {
+  "id": "dyupen",
+  "nom": "Ogyust Dyupen",
+  "muallif": "Edgar Allan Po",
+  "belgi": "🕯️"
+ },
+ {
+  "id": "braun",
+  "nom": "Ota Braun",
+  "muallif": "G. K. Chesterton",
+  "belgi": "🌂"
+ },
+ {
+  "id": "klassika",
+  "nom": "Boshqa klassika",
+  "muallif": "Kollinz, Chexov",
+  "belgi": "📚"
+ },
+ {
+  "id": "mantiq",
+  "nom": "Mantiq ishlari",
+  "muallif": "Kuvonch Academy",
+  "belgi": "🧩"
+ }
+];
 window.SHERLOCK_KITOBLAR = [
  {
   "id": "roman",
   "nom": "Romanlar",
-  "yil": "1887–1915"
+  "yil": "1887–1915",
+  "det": "xolms"
  },
  {
   "id": "sarguzasht",
   "nom": "Sherlok Xolmsning sarguzashtlari",
-  "yil": "1892"
+  "yil": "1892",
+  "det": "xolms"
  },
  {
   "id": "xotira",
   "nom": "Sherlok Xolms haqida xotiralar",
-  "yil": "1894"
+  "yil": "1894",
+  "det": "xolms"
  },
  {
   "id": "qaytish",
   "nom": "Sherlok Xolmsning qaytishi",
-  "yil": "1905"
+  "yil": "1905",
+  "det": "xolms"
  },
  {
   "id": "tazim",
   "nom": "Uning so‘nggi ta’zimi",
-  "yil": "1917"
+  "yil": "1917",
+  "det": "xolms"
  },
  {
   "id": "arxiv",
   "nom": "Sherlok Xolms arxivi",
-  "yil": "1927"
+  "yil": "1927",
+  "det": "xolms"
+ },
+ {
+  "id": "puaro",
+  "nom": "Herkul Puaro ishlari",
+  "yil": "1920–1953",
+  "det": "puaro"
+ },
+ {
+  "id": "marpl",
+  "nom": "Miss Marpl ishlari",
+  "yil": "1930–1942",
+  "det": "marpl"
+ },
+ {
+  "id": "dyupen",
+  "nom": "Edgar Po hikoyalari",
+  "yil": "1841–1844",
+  "det": "dyupen"
+ },
+ {
+  "id": "braun",
+  "nom": "Ota Braun hikoyalari",
+  "yil": "1910–1911",
+  "det": "braun"
+ },
+ {
+  "id": "klassika",
+  "nom": "Boshqa klassik detektivlar",
+  "yil": "1868–1884",
+  "det": "klassika"
  },
  {
   "id": "mantiq",
   "nom": "Holmes uslubidagi mantiq ishlari",
-  "yil": "Kuvonch Academy"
+  "yil": "Kuvonch Academy",
+  "det": "mantiq"
  }
 ];
 window.SHERLOCK_ISHLAR = [
  {
+  "det": "xolms",
   "kitob": "roman",
   "asar": "Qizil tusdagi etyud",
   "yil": 1887,
@@ -52,9 +134,11 @@ window.SHERLOCK_ISHLAR = [
    "Holmes shunchaki eng ko‘p uchraydigan javobni taxmin qildi: o‘sha paytda ko‘p shifokorlar Afg‘onistondan qaytayotgan edi"
   ],
   "javob": 2,
-  "izoh": "Holmes dalillarni zanjir qilib bog‘laydi. Yuz qora, bilak oq — demak qoralik tug‘ma emas, issiq iqlimda kuygan. Yuz horg‘in — og‘ir kunlar va kasallikni boshidan kechirgan. Qo‘lini ehtiyot qiladi — yaralangan. Harbiy qomat va shifokorlik — harbiy shifokor. 1880-yilda ingliz harbiy shifokori tropik quyoshda yaralanib, kasallanib qaytishi mumkin bo‘lgan joy — Afg‘oniston. Bu taxmin emas, dalillardan chiqqan yagona xulosa."
+  "izoh": "Holmes dalillarni zanjir qilib bog‘laydi. Yuz qora, bilak oq — demak qoralik tug‘ma emas, issiq iqlimda kuygan. Yuz horg‘in — og‘ir kunlar va kasallikni boshidan kechirgan. Qo‘lini ehtiyot qiladi — yaralangan. Harbiy qomat va shifokorlik — harbiy shifokor. 1880-yilda ingliz harbiy shifokori tropik quyoshda yaralanib, kasallanib qaytishi mumkin bo‘lgan joy — Afg‘oniston. Bu taxmin emas, dalillardan chiqqan yagona xulosa.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "roman",
   "asar": "To‘rtlik belgisi",
   "yil": 1890,
@@ -68,9 +152,11 @@ window.SHERLOCK_ISHLAR = [
    "Soat egasi tartibli va boy odam: qimmat soatni ehtiyot qilib, uni muntazam ustaga ko‘rsatib turgan"
   ],
   "javob": 0,
-  "izoh": "Ellik yillik soat va W harfi — oilaviy meros. Odatda meros to‘ng‘ich o‘g‘ilga o‘tadi va unda otaning ismi bo‘ladi (H. W.). Kalit teshigi atrofidagi tirnalishlar — har kecha qaltiroq qo‘l bilan soat burab qo‘yilgan; hushyor odam bunchalik adashmaydi. Ichki qopqoqdagi raqamlar — garovxona belgisi: soat bir necha marta garovga qo‘yilgan, demak egasi tez-tez pulga muhtoj bo‘lgan, ba’zan esa uni qaytarib olishga qurbi yetgan."
+  "izoh": "Ellik yillik soat va W harfi — oilaviy meros. Odatda meros to‘ng‘ich o‘g‘ilga o‘tadi va unda otaning ismi bo‘ladi (H. W.). Kalit teshigi atrofidagi tirnalishlar — har kecha qaltiroq qo‘l bilan soat burab qo‘yilgan; hushyor odam bunchalik adashmaydi. Ichki qopqoqdagi raqamlar — garovxona belgisi: soat bir necha marta garovga qo‘yilgan, demak egasi tez-tez pulga muhtoj bo‘lgan, ba’zan esa uni qaytarib olishga qurbi yetgan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "roman",
   "asar": "Baskervillar iti",
   "yil": 1902,
@@ -84,9 +170,11 @@ window.SHERLOCK_ISHLAR = [
    "Guvoh qorong‘ida qo‘rqib, yonib turgan narsani o‘zi o‘ylab topgan"
   ],
   "javob": 1,
-  "izoh": "Fosfor havo bilan tegishganda qorong‘ida yonib turadi — «olovli ko‘zlar» shu. Ikkinchi dalil: yundagi smola. Uni itga surtish uchun itni ushlab turish kerak — ya’ni uni yaxshi taniydigan, har kuni yonida bo‘lgan odam. Qishloqda itni boshqaradigan yagona kishi — cho‘pon, uning «farishta, tegmang» degan gaplari ham odamlar botqoqqa yaqinlashmasligi uchun kerak edi. Qo‘rquv — eng oson boshqariladigan dalil."
+  "izoh": "Fosfor havo bilan tegishganda qorong‘ida yonib turadi — «olovli ko‘zlar» shu. Ikkinchi dalil: yundagi smola. Uni itga surtish uchun itni ushlab turish kerak — ya’ni uni yaxshi taniydigan, har kuni yonida bo‘lgan odam. Qishloqda itni boshqaradigan yagona kishi — cho‘pon, uning «farishta, tegmang» degan gaplari ham odamlar botqoqqa yaqinlashmasligi uchun kerak edi. Qo‘rquv — eng oson boshqariladigan dalil.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "roman",
   "asar": "Qo‘rquv vodiysi",
   "yil": 1915,
@@ -100,9 +188,11 @@ window.SHERLOCK_ISHLAR = [
    "Undan og‘irlik sifatida foydalanilgan: kimdir bir tugun narsani (kiyimni) gantelga bog‘lab, xandaq suviga cho‘ktirgan"
   ],
   "javob": 3,
-  "izoh": "Bitta gantel faqat bitta maqsadga yaraydi — og‘ir yuk sifatida. Qasr suv bilan o‘ralgan; yashirilishi kerak bo‘lgan narsani eng oson joy — xandaqqa cho‘ktirishgan. Holmes xandaqdan gantelga bog‘langan kiyim tugunini chiqartirdi. Kiyimning yashirilgani jasad xo‘jayinniki emasligiga ishora bo‘ldi: Duglas tirik edi va hujum qilgan odamni o‘zi o‘ldirib, o‘z o‘limini sahnalashtirgan edi."
+  "izoh": "Bitta gantel faqat bitta maqsadga yaraydi — og‘ir yuk sifatida. Qasr suv bilan o‘ralgan; yashirilishi kerak bo‘lgan narsani eng oson joy — xandaqqa cho‘ktirishgan. Holmes xandaqdan gantelga bog‘langan kiyim tugunini chiqartirdi. Kiyimning yashirilgani jasad xo‘jayinniki emasligiga ishora bo‘ldi: Duglas tirik edi va hujum qilgan odamni o‘zi o‘ldirib, o‘z o‘limini sahnalashtirgan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Bogemiyadagi janjal",
   "yil": 1891,
@@ -116,9 +206,11 @@ window.SHERLOCK_ISHLAR = [
    "Qo‘shnilarning e’tiborini tortib, politsiyani uyga chaqirish uchun bahona kerak edi"
   ],
   "javob": 1,
-  "izoh": "Holmes tintuv bilan topib bo‘lmaydigan joyni egasining o‘ziga ko‘rsattirdi. Xavf paytida odam o‘ylab o‘tirmaydi: bolali ona bolasiga, yolg‘iz ayol zargarlik qutisiga, Irena esa surat yashiringan maxfiy devor panjarasiga intildi. Bu — kuzatishga asoslangan psixologik tajriba: dalilni izlash o‘rniga, dalil egasini uni ko‘rsatishga majburlash."
+  "izoh": "Holmes tintuv bilan topib bo‘lmaydigan joyni egasining o‘ziga ko‘rsattirdi. Xavf paytida odam o‘ylab o‘tirmaydi: bolali ona bolasiga, yolg‘iz ayol zargarlik qutisiga, Irena esa surat yashiringan maxfiy devor panjarasiga intildi. Bu — kuzatishga asoslangan psixologik tajriba: dalilni izlash o‘rniga, dalil egasini uni ko‘rsatishga majburlash.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Qizil sochlar ligasi",
   "yil": 1891,
@@ -132,9 +224,11 @@ window.SHERLOCK_ISHLAR = [
    "Do‘kon binosini arzon narxda ijaraga olish uchun"
   ],
   "javob": 2,
-  "izoh": "Ishning o‘zi ma’nosiz edi: matnni hech kim tekshirmadi, pul esa bemalol to‘landi. Demak liga matndan emas, faqat vaqtdan foydalanardi — zargar har kuni doimiy ravishda uydan uzoqda bo‘lishi kerak edi. Bo‘sh pol va yaqin atrofdagi bank — yer ostidan qazilgan yo‘l. Qoida: jinoyatda «nima uchun buncha katta va bema’ni mehnat sarflandi?» degan savol ko‘pincha qasddan qilingan chalg‘itishni ochib beradi."
+  "izoh": "Ishning o‘zi ma’nosiz edi: matnni hech kim tekshirmadi, pul esa bemalol to‘landi. Demak liga matndan emas, faqat vaqtdan foydalanardi — zargar har kuni doimiy ravishda uydan uzoqda bo‘lishi kerak edi. Bo‘sh pol va yaqin atrofdagi bank — yer ostidan qazilgan yo‘l. Qoida: jinoyatda «nima uchun buncha katta va bema’ni mehnat sarflandi?» degan savol ko‘pincha qasddan qilingan chalg‘itishni ochib beradi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Shaxsiyat masalasi",
   "yil": 1891,
@@ -148,9 +242,11 @@ window.SHERLOCK_ISHLAR = [
    "Uindibenkning idorasidagi xizmatchi: u xo‘jayinining mashinkasidan yashirincha foydalanardi"
   ],
   "javob": 1,
-  "izoh": "Har bir g‘alatilik bitta maqsadga xizmat qiladi — tanib qolinmaslik: kechasi uchrashuv, qora ko‘zoynak, soxta soqol, shivirlash, qo‘lyozma o‘rniga mashinka. Enjel va Uindibenk hech qachon birga ko‘rinmagan. Hal qiluvchi dalil — mashinkaning o‘ziga xos nuqsonlari: xatlar bitta mashinkada yozilgan. O‘gay ota qizning daromadini yo‘qotmaslik uchun uni yillab «g‘oyib bo‘lgan kuyov»ni kutishga majburlamoqchi bo‘lgan."
+  "izoh": "Har bir g‘alatilik bitta maqsadga xizmat qiladi — tanib qolinmaslik: kechasi uchrashuv, qora ko‘zoynak, soxta soqol, shivirlash, qo‘lyozma o‘rniga mashinka. Enjel va Uindibenk hech qachon birga ko‘rinmagan. Hal qiluvchi dalil — mashinkaning o‘ziga xos nuqsonlari: xatlar bitta mashinkada yozilgan. O‘gay ota qizning daromadini yo‘qotmaslik uchun uni yillab «g‘oyib bo‘lgan kuyov»ni kutishga majburlamoqchi bo‘lgan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Boskom vodiysi siri",
   "yil": 1891,
@@ -164,9 +260,11 @@ window.SHERLOCK_ISHLAR = [
    "Ota qotilni tanigan va uni «Ballarat»dagi o‘tmishidan kelgan odam deb aytmoqchi bo‘lgan — o‘g‘li so‘zning faqat oxirini eshitgan"
   ],
   "javob": 3,
-  "izoh": "O‘layotgan odam tasodifiy so‘z aytmaydi — u qotilni ko‘rsatishga harakat qiladi. «Kuu-i» chaqirig‘i va Avstraliya o‘tmishi bitta yo‘nalishni beradi. «Ballarat» so‘zining oxiri «...a rat» bo‘lib eshitiladi. Demak, qotil — Makkartini Avstraliyadagi o‘tmishidan taniydigan odam. Bu Holmesni haqiqiy qotil — Ballaratdan kelgan Jon Tyornerga olib bordi."
+  "izoh": "O‘layotgan odam tasodifiy so‘z aytmaydi — u qotilni ko‘rsatishga harakat qiladi. «Kuu-i» chaqirig‘i va Avstraliya o‘tmishi bitta yo‘nalishni beradi. «Ballarat» so‘zining oxiri «...a rat» bo‘lib eshitiladi. Demak, qotil — Makkartini Avstraliyadagi o‘tmishidan taniydigan odam. Bu Holmesni haqiqiy qotil — Ballaratdan kelgan Jon Tyornerga olib bordi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Besh apelsin urug‘i",
   "yil": 1891,
@@ -180,9 +278,11 @@ window.SHERLOCK_ISHLAR = [
    "Pochta ba’zi xatlarni tasodifan kechiktirgan — vaqtlarda hech qanday qonuniyat yo‘q"
   ],
   "javob": 0,
-  "izoh": "Kechikish masofaga mos: Hindistondan — haftalar, Shotlandiyadan — kunlar, Londondan — darhol. Demak, jinoyatchilar xat yuborilgan joydan o‘zlari yo‘lga chiqishadi. Xat tez paroxodda keladi, ular esa sekinroq — demak, ular yelkanli kemada. Barcha manzillar port ekani ham shuni tasdiqlaydi. Holmes kema ro‘yxatlaridan «Yolg‘iz yulduz» yelkanli kemasini topdi."
+  "izoh": "Kechikish masofaga mos: Hindistondan — haftalar, Shotlandiyadan — kunlar, Londondan — darhol. Demak, jinoyatchilar xat yuborilgan joydan o‘zlari yo‘lga chiqishadi. Xat tez paroxodda keladi, ular esa sekinroq — demak, ular yelkanli kemada. Barcha manzillar port ekani ham shuni tasdiqlaydi. Holmes kema ro‘yxatlaridan «Yolg‘iz yulduz» yelkanli kemasini topdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Buzilgan lab",
   "yil": 1891,
@@ -196,9 +296,11 @@ window.SHERLOCK_ISHLAR = [
    "Boshqa shaharga qochib ketgan"
   ],
   "javob": 2,
-  "izoh": "Qon izi va daryo — eng oson ishoniladigan, lekin jasad yo‘q. Hal qiluvchi dalil boshqa: tilanchining xonasida jurnalistning shaxsiy buyumlari va katta pul topilgan, tilanchi esa politsiyadan qochgan. Ya’ni bir odam ikki ism bilan yashagan. Holmes qoidasi: «Sig‘maydigan dalilni tashla, qolganlari hikoyani o‘zi tuzadi». Eng ko‘p gapiradigan joy — odam yashirinmoqchi bo‘lgan joy."
+  "izoh": "Qon izi va daryo — eng oson ishoniladigan, lekin jasad yo‘q. Hal qiluvchi dalil boshqa: tilanchining xonasida jurnalistning shaxsiy buyumlari va katta pul topilgan, tilanchi esa politsiyadan qochgan. Ya’ni bir odam ikki ism bilan yashagan. Holmes qoidasi: «Sig‘maydigan dalilni tashla, qolganlari hikoyani o‘zi tuzadi». Eng ko‘p gapiradigan joy — odam yashirinmoqchi bo‘lgan joy.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Moviy yoqut",
   "yil": 1892,
@@ -212,9 +314,11 @@ window.SHERLOCK_ISHLAR = [
    "Bog‘dagi daraxt kovagida"
   ],
   "javob": 1,
-  "izoh": "Xizmatkor uydan chiqishda tekshiruvdan qochish uchun toshni «o‘zi harakatlanadigan» buyum ichiga yashirgan: g‘oz uydan chiqqan, bozorda sotilgan, keyin sotib olinib pishirilgan — tosh bo‘g‘zidan topilgan. Holmes toshni shlyapa yoki odamlar orqali emas, aynan g‘ozlar zanjiri orqali qidirgan, chunki jismoniy narsa faqat jismoniy yo‘l bilan ko‘chadi — shu yo‘lni kuzatish eng ishonchli usul."
+  "izoh": "Xizmatkor uydan chiqishda tekshiruvdan qochish uchun toshni «o‘zi harakatlanadigan» buyum ichiga yashirgan: g‘oz uydan chiqqan, bozorda sotilgan, keyin sotib olinib pishirilgan — tosh bo‘g‘zidan topilgan. Holmes toshni shlyapa yoki odamlar orqali emas, aynan g‘ozlar zanjiri orqali qidirgan, chunki jismoniy narsa faqat jismoniy yo‘l bilan ko‘chadi — shu yo‘lni kuzatish eng ishonchli usul.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Ola bog‘ich",
   "yil": 1892,
@@ -228,9 +332,11 @@ window.SHERLOCK_ISHLAR = [
    "Uni xizmatkorlar bezak sifatida osib qo‘ygan"
   ],
   "javob": 1,
-  "izoh": "Uch dalil bitta tizimga birlashadi: shnur hech narsaga ulanmagan — demak u qo‘ng‘iroq emas; uning yuqori uchi shamollatish tuynugi ro‘parasida; karavot polga mahkamlangan, ya’ni yotgan odam tuynuk ostidan uzoqlasha olmaydi. Kechasi eshitilgan hushtak — ilonni qaytarib chaqirish signali. Shnur — ilon uchun ko‘prik. Mantiqda «foydasiz narsa» bo‘lmaydi: vazifasi noma’lum buyum aynan jinoyat sxemasining kaliti bo‘ladi."
+  "izoh": "Uch dalil bitta tizimga birlashadi: shnur hech narsaga ulanmagan — demak u qo‘ng‘iroq emas; uning yuqori uchi shamollatish tuynugi ro‘parasida; karavot polga mahkamlangan, ya’ni yotgan odam tuynuk ostidan uzoqlasha olmaydi. Kechasi eshitilgan hushtak — ilonni qaytarib chaqirish signali. Shnur — ilon uchun ko‘prik. Mantiqda «foydasiz narsa» bo‘lmaydi: vazifasi noma’lum buyum aynan jinoyat sxemasining kaliti bo‘ladi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Muhandis barmog‘i",
   "yil": 1892,
@@ -244,9 +350,11 @@ window.SHERLOCK_ISHLAR = [
    "Zavod uchun ehtiyot qismlar"
   ],
   "javob": 1,
-  "izoh": "Dalillarni birlashtiramiz: gipsdagi dumaloq izlar tanga shaklida — gips namuna bo‘lib xizmat qilgan; qo‘rg‘oshin — tanga uchun eng arzon metall; pressdagi teshik va tanga o‘lchamining mos kelishi; ishning tunda, yashirin manzilda va maxfiy tarzda bajarilishi. Haqiqiy zavod bo‘lganida bu maxfiylik ham, gips namunalar ham kerak bo‘lmasdi. O‘lchamlarni solishtiring — mos kelgan o‘lcham mos kelgan jinoyatni ko‘rsatadi."
+  "izoh": "Dalillarni birlashtiramiz: gipsdagi dumaloq izlar tanga shaklida — gips namuna bo‘lib xizmat qilgan; qo‘rg‘oshin — tanga uchun eng arzon metall; pressdagi teshik va tanga o‘lchamining mos kelishi; ishning tunda, yashirin manzilda va maxfiy tarzda bajarilishi. Haqiqiy zavod bo‘lganida bu maxfiylik ham, gips namunalar ham kerak bo‘lmasdi. O‘lchamlarni solishtiring — mos kelgan o‘lcham mos kelgan jinoyatni ko‘rsatadi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Zodagon bo‘ydoq",
   "yil": 1892,
@@ -260,9 +368,11 @@ window.SHERLOCK_ISHLAR = [
    "Lordning o‘zi uni yashirgan: nikohdan keyin sepi bo‘yicha kelishmovchilik chiqqan"
   ],
   "javob": 2,
-  "izoh": "O‘zgarish aniq bir lahzada yuz bergan: dasta tushib, notanish odam uni qaytarib berganda. Demak, aynan shu paytda kelin kimnidir ko‘rgan va qo‘liga xat berilgan. «Da’voni egallash» iborasi — kimningdir unga nisbatan oldingi huquqi borligiga ishora. Bunday odam — o‘lgan deb hisoblangan birinchi eri. Holmes uni qimmat mehmonxona hisobi orqali topdi."
+  "izoh": "O‘zgarish aniq bir lahzada yuz bergan: dasta tushib, notanish odam uni qaytarib berganda. Demak, aynan shu paytda kelin kimnidir ko‘rgan va qo‘liga xat berilgan. «Da’voni egallash» iborasi — kimningdir unga nisbatan oldingi huquqi borligiga ishora. Bunday odam — o‘lgan deb hisoblangan birinchi eri. Holmes uni qimmat mehmonxona hisobi orqali topdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Beryulli toj",
   "yil": 1892,
@@ -276,9 +386,11 @@ window.SHERLOCK_ISHLAR = [
    "Bankir tojni o‘zi buzgan"
   ],
   "javob": 1,
-  "izoh": "Qochayotgan o‘g‘ri uchun maqsad — toshlar bilan uzoqlashish. Yigit esa qo‘lida na poyabzal, na xalta bilan qorli ko‘chaga chiqqan va orqaga qaytgan: bu ta’qib qilish harakati, yashirinish emas. Parcha ko‘chada, yo‘l chetida topilgan — haqiqiy o‘g‘ri uni yo‘lda tashlab ketgan. Holmes uchun harakat yo‘nalishi — niyatning eng halol yozuvi."
+  "izoh": "Qochayotgan o‘g‘ri uchun maqsad — toshlar bilan uzoqlashish. Yigit esa qo‘lida na poyabzal, na xalta bilan qorli ko‘chaga chiqqan va orqaga qaytgan: bu ta’qib qilish harakati, yashirinish emas. Parcha ko‘chada, yo‘l chetida topilgan — haqiqiy o‘g‘ri uni yo‘lda tashlab ketgan. Holmes uchun harakat yo‘nalishi — niyatning eng halol yozuvi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "sarguzasht",
   "asar": "Mis buklar",
   "yil": 1892,
@@ -292,9 +404,11 @@ window.SHERLOCK_ISHLAR = [
    "Violettaning yuzini quyoshdan asrash uchun — xo‘jayin uning sog‘lig‘iga g‘amxo‘rlik qilardi"
   ],
   "javob": 2,
-  "izoh": "Barcha shartlar bitta maqsadga — kimgadir o‘xshashga xizmat qiladi: kalta soch (sandiqdagi kesilgan soch — Elisniki), uning ko‘ylagi, yuz ko‘rinmasligi uchun derazaga orqa o‘girish, xursandlik ko‘rinishi uchun kulish. Kuzatuvchi — ko‘chadagi yigit. Qulflangan qanot esa «Amerikaga ketgan» qizning aslida uyda qamab qo‘yilganini ko‘rsatadi: otasi uning merosini qo‘ldan chiqarmaslik uchun turmushga chiqishiga yo‘l qo‘ymagan edi."
+  "izoh": "Barcha shartlar bitta maqsadga — kimgadir o‘xshashga xizmat qiladi: kalta soch (sandiqdagi kesilgan soch — Elisniki), uning ko‘ylagi, yuz ko‘rinmasligi uchun derazaga orqa o‘girish, xursandlik ko‘rinishi uchun kulish. Kuzatuvchi — ko‘chadagi yigit. Qulflangan qanot esa «Amerikaga ketgan» qizning aslida uyda qamab qo‘yilganini ko‘rsatadi: otasi uning merosini qo‘ldan chiqarmaslik uchun turmushga chiqishiga yo‘l qo‘ymagan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Kumush yulduz",
   "yil": 1892,
@@ -308,9 +422,11 @@ window.SHERLOCK_ISHLAR = [
    "O‘g‘rilar itni oldindan zahar bilan o‘ldirishgan"
   ],
   "javob": 1,
-  "izoh": "Bu mashhur «it qichqirmagan» qoidasi: it begona odamga huraveradi, tanigan odamga esa jim qoladi. It jim qolgan bo‘lsa, o‘g‘ri uni tanigan kishi — otboqarning o‘zi yoki unga eng yaqin odam. Ba’zan eng kuchli dalil — sodir bo‘lmagan voqea: aynan jimlik ayblovni ko‘rsatadi."
+  "izoh": "Bu mashhur «it qichqirmagan» qoidasi: it begona odamga huraveradi, tanigan odamga esa jim qoladi. It jim qolgan bo‘lsa, o‘g‘ri uni tanigan kishi — otboqarning o‘zi yoki unga eng yaqin odam. Ba’zan eng kuchli dalil — sodir bo‘lmagan voqea: aynan jimlik ayblovni ko‘rsatadi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Sariq yuz",
   "yil": 1893,
@@ -324,9 +440,11 @@ window.SHERLOCK_ISHLAR = [
    "Derazaga osilgan oyna yorug‘likni qaytargan"
   ],
   "javob": 2,
-  "izoh": "Uch dalil bir yo‘nalishga ishora qiladi: figura juda past bo‘lgani (tokchadan baland chiqmagan), uydagi bolalar kiyimi va niqobning o‘zi. Katta odam bo‘lganida o‘lcham ham, kiyim ham mos kelmasdi. Holmes odamlar eng ko‘p qo‘rqadigan narsadan boshlaydi: «qo‘rqinchli yuz» — bu shunchaki niqob, niqobni esa faqat yuzini yashirishga majbur bo‘lgan odam kiyadi."
+  "izoh": "Uch dalil bir yo‘nalishga ishora qiladi: figura juda past bo‘lgani (tokchadan baland chiqmagan), uydagi bolalar kiyimi va niqobning o‘zi. Katta odam bo‘lganida o‘lcham ham, kiyim ham mos kelmasdi. Holmes odamlar eng ko‘p qo‘rqadigan narsadan boshlaydi: «qo‘rqinchli yuz» — bu shunchaki niqob, niqobni esa faqat yuzini yashirishga majbur bo‘lgan odam kiyadi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Birja klerki",
   "yil": 1893,
@@ -340,9 +458,11 @@ window.SHERLOCK_ISHLAR = [
    "Aka-uka Pinnerlar katalog sotish bilan shug‘ullanadi va arzon ishchi kuchi qidirayotgan edi"
   ],
   "javob": 0,
-  "izoh": "Oltin plomba aynan bir joyda tasodifan takrorlanmaydi: «aka-uka» bitta odam, faqat qiyofasini o‘zgartirgan. Paykroftdan nima olindi? Qo‘lyozma namunasi va firmaga xat yozmaslik va’dasi. Natija: firmada uni hech kim tanimaydi, demak uning nomi bilan boshqa odam ishga chiqishi mumkin. Ma’nosiz ish esa Paykroftni band qilib, uzoqda ushlab turish uchun edi."
+  "izoh": "Oltin plomba aynan bir joyda tasodifan takrorlanmaydi: «aka-uka» bitta odam, faqat qiyofasini o‘zgartirgan. Paykroftdan nima olindi? Qo‘lyozma namunasi va firmaga xat yozmaslik va’dasi. Natija: firmada uni hech kim tanimaydi, demak uning nomi bilan boshqa odam ishga chiqishi mumkin. Ma’nosiz ish esa Paykroftni band qilib, uzoqda ushlab turish uchun edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "«Gloriya Skott»",
   "yil": 1893,
@@ -356,9 +476,11 @@ window.SHERLOCK_ISHLAR = [
    "Kerakli so‘zlar oralig‘iga ma’nosiz so‘zlar qo‘shilgan: begona odam oddiy xat ko‘radi, kalitni (har uchinchi so‘z) bilgan odam esa xabarni o‘qiydi"
   ],
   "javob": 3,
-  "izoh": "Bu — yashirish usuli: xabar shifrlanmaydi, balki ko‘p «shovqin» so‘zlar orasiga ko‘miladi. Ma’nosizlikning o‘zi dalil edi: oddiy xatda bunchalik g‘alati gaplar bo‘lmaydi. Holmes oddiy qoidalarni ketma-ket sinab ko‘rdi; «har uchinchi so‘z» qoidasi butun matndan ma’noli gap berdi. Agar bitta qoida butun matndan izchil gap chiqarsa, bu tasodif emas."
+  "izoh": "Bu — yashirish usuli: xabar shifrlanmaydi, balki ko‘p «shovqin» so‘zlar orasiga ko‘miladi. Ma’nosizlikning o‘zi dalil edi: oddiy xatda bunchalik g‘alati gaplar bo‘lmaydi. Holmes oddiy qoidalarni ketma-ket sinab ko‘rdi; «har uchinchi so‘z» qoidasi butun matndan ma’noli gap berdi. Agar bitta qoida butun matndan izchil gap chiqarsa, bu tasodif emas.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Masgreyvlar marosimi",
   "yil": 1893,
@@ -372,9 +494,11 @@ window.SHERLOCK_ISHLAR = [
    "106 fut"
   ],
   "javob": 1,
-  "izoh": "Bir vaqtning o‘zida barcha narsalarning soyasi ularning balandligiga proporsional: 6 : 9 = 64 : x. Demak, x = 64 · 9 / 6 = 96 fut. Holmes soyaning uchini topib, marosimdagi keyingi qadamlarni (shimolga, sharqqa qadamlar) bajardi va yerto‘ladagi yashirin joyni topdi. Bu — o‘xshash uchburchaklar geometriyasining tergovdagi qo‘llanishi."
+  "izoh": "Bir vaqtning o‘zida barcha narsalarning soyasi ularning balandligiga proporsional: 6 : 9 = 64 : x. Demak, x = 64 · 9 / 6 = 96 fut. Holmes soyaning uchini topib, marosimdagi keyingi qadamlarni (shimolga, sharqqa qadamlar) bajardi va yerto‘ladagi yashirin joyni topdi. Bu — o‘xshash uchburchaklar geometriyasining tergovdagi qo‘llanishi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Reygeyt mulkdorlari",
   "yil": 1893,
@@ -388,9 +512,11 @@ window.SHERLOCK_ISHLAR = [
    "Xat ikki qismdan iborat: biri ko‘p yillar oldin, ikkinchisi yaqinda yozib to‘ldirilgan"
   ],
   "javob": 1,
-  "izoh": "Ikki xil yozuv so‘zma-so‘z almashadi — demak, ikki kishi bitta varaqda birga yozgan. Sababi — o‘zaro ishonchsizlik: birgalikda yozilgan xat ikkalasini ham bir xil bog‘laydi. Kuchli qo‘l bo‘sh joy qoldirgan — u birinchi yozgan va yetakchilik qilgan. Keksalik belgilari bor qo‘l — ota. Oilaviy o‘xshashlik ularni bir oiladan deb ko‘rsatadi."
+  "izoh": "Ikki xil yozuv so‘zma-so‘z almashadi — demak, ikki kishi bitta varaqda birga yozgan. Sababi — o‘zaro ishonchsizlik: birgalikda yozilgan xat ikkalasini ham bir xil bog‘laydi. Kuchli qo‘l bo‘sh joy qoldirgan — u birinchi yozgan va yetakchilik qilgan. Keksalik belgilari bor qo‘l — ota. Oilaviy o‘xshashlik ularni bir oiladan deb ko‘rsatadi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Bukri odam",
   "yil": 1893,
@@ -404,9 +530,11 @@ window.SHERLOCK_ISHLAR = [
    "Xonada uchinchi odam bo‘lgan va u deraza orqali ketayotib kalitni olib ketgan"
   ],
   "javob": 3,
-  "izoh": "Eshik qulflangan, kalit esa xonada ham, ikkala odamda ham yo‘q. Kalit o‘z-o‘zidan yo‘qolmaydi — uni kimdir olib chiqib ketgan. Ichkaridagilardan biri o‘lgan, biri hushsiz — ular buni qila olmaydi. Demak, uchinchi odam bo‘lgan; izlar ham buni tasdiqladi. U Barkli yillar oldin xiyonat qilgan sobiq askar bo‘lib chiqdi: polkovnik uni ko‘rib, qattiq qo‘rqqan, yiqilib, boshini kamin panjarasiga urgan."
+  "izoh": "Eshik qulflangan, kalit esa xonada ham, ikkala odamda ham yo‘q. Kalit o‘z-o‘zidan yo‘qolmaydi — uni kimdir olib chiqib ketgan. Ichkaridagilardan biri o‘lgan, biri hushsiz — ular buni qila olmaydi. Demak, uchinchi odam bo‘lgan; izlar ham buni tasdiqladi. U Barkli yillar oldin xiyonat qilgan sobiq askar bo‘lib chiqdi: polkovnik uni ko‘rib, qattiq qo‘rqqan, yiqilib, boshini kamin panjarasiga urgan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Doimiy bemor",
   "yil": 1893,
@@ -420,9 +548,11 @@ window.SHERLOCK_ISHLAR = [
    "Bu tasodifiy qoldiqlar: kaminni bir necha kundan beri hech kim tozalamagan"
   ],
   "javob": 0,
-  "izoh": "Sigaralar Blessington chekadigan navdan emas — demak, ular unga tegishli emas. Chekish usullari har xil: mundshtuk bilan va mundshtuksiz, pichoq bilan kesib va tish bilan uzib — bir nechta odam. To‘rtta sigara — ular xonada uzoq kutishgan. Zinapoyadagi begona izlar, otvyortka va vintlar (ilgak o‘rnatish uchun) bilan birga, bu rejalashtirilgan qotillik ekanini ko‘rsatadi: Blessingtonni o‘zining sobiq sheriklari osib o‘ldirishgan."
+  "izoh": "Sigaralar Blessington chekadigan navdan emas — demak, ular unga tegishli emas. Chekish usullari har xil: mundshtuk bilan va mundshtuksiz, pichoq bilan kesib va tish bilan uzib — bir nechta odam. To‘rtta sigara — ular xonada uzoq kutishgan. Zinapoyadagi begona izlar, otvyortka va vintlar (ilgak o‘rnatish uchun) bilan birga, bu rejalashtirilgan qotillik ekanini ko‘rsatadi: Blessingtonni o‘zining sobiq sheriklari osib o‘ldirishgan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Yunon tarjimon",
   "yil": 1893,
@@ -436,9 +566,11 @@ window.SHERLOCK_ISHLAR = [
    "Qaddining tikligi — u qattiqqo‘l ota, demak bolalari bor va xotini bilan ajrashgan"
   ],
   "javob": 2,
-  "izoh": "Har bir xulosa o‘z dalilidan chiqadi: motam bog‘ichi — yaqin odam vafoti; bolalar narsalarini otaning o‘zi olishi — xotini endi yo‘q. Shaqildoq — go‘dak, rasmli kitob — kattaroq bola. Mikroft hatto xotin tug‘ruqda vafot etgan bo‘lishi mumkin deb taxmin qildi. Qoraygan yuz (Hindiston), tik qad va shlyapani qiyshiq kiyish (harbiy odat) esa boshqa xulosalar uchun dalil."
+  "izoh": "Har bir xulosa o‘z dalilidan chiqadi: motam bog‘ichi — yaqin odam vafoti; bolalar narsalarini otaning o‘zi olishi — xotini endi yo‘q. Shaqildoq — go‘dak, rasmli kitob — kattaroq bola. Mikroft hatto xotin tug‘ruqda vafot etgan bo‘lishi mumkin deb taxmin qildi. Qoraygan yuz (Hindiston), tik qad va shlyapani qiyshiq kiyish (harbiy odat) esa boshqa xulosalar uchun dalil.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "Dengiz shartnomasi",
   "yil": 1893,
@@ -452,9 +584,11 @@ window.SHERLOCK_ISHLAR = [
    "O‘g‘ri hujjatni yoqib yuborgan: maqsadi pul emas, Felpsning martabasini buzish edi"
   ],
   "javob": 2,
-  "izoh": "Qimmatli sir tezda sotiladi — sotilmagan bo‘lsa, demak, o‘g‘ri unga yeta olmayapti. Nima to‘sqinlik qiladi? Felps yotgan xona doim odam bilan band, o‘sha xona esa ilgari Jozefniki edi. Felps tuzala boshlashi bilan derazani ochishga urinish bo‘ldi — kimdir aynan shu xonaga kirishi kerak edi. Holmes xonani kuzatuvga oldi va Jozefni pol taxtasi ostidan shartnomani olayotganda qo‘lga tushirdi."
+  "izoh": "Qimmatli sir tezda sotiladi — sotilmagan bo‘lsa, demak, o‘g‘ri unga yeta olmayapti. Nima to‘sqinlik qiladi? Felps yotgan xona doim odam bilan band, o‘sha xona esa ilgari Jozefniki edi. Felps tuzala boshlashi bilan derazani ochishga urinish bo‘ldi — kimdir aynan shu xonaga kirishi kerak edi. Holmes xonani kuzatuvga oldi va Jozefni pol taxtasi ostidan shartnomani olayotganda qo‘lga tushirdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "xotira",
   "asar": "So‘nggi ish",
   "yil": 1893,
@@ -468,9 +602,11 @@ window.SHERLOCK_ISHLAR = [
    "Bu mahalliy bolalarning sayyohlar bilan qiladigan odatiy hazili edi"
   ],
   "javob": 0,
-  "izoh": "Xat eng qulay lahzada keldi: ikkalasi shahar tashqarisidagi xilvat joyda. U Uotsonning shifokorlik burchiga murojaat qildi — rad etib bo‘lmaydigan sabab. Natija — Holmes yolg‘iz qoldi. Mehmonxonada hech kim xat yozmagan. Bundan foyda ko‘radigan yagona odam — Holmes bilan yakkama-yakka uchrashmoqchi bo‘lgan Moriarti. Holmes buni sezgan, lekin do‘stini xavfdan uzoqlashtirish uchun indamagan."
+  "izoh": "Xat eng qulay lahzada keldi: ikkalasi shahar tashqarisidagi xilvat joyda. U Uotsonning shifokorlik burchiga murojaat qildi — rad etib bo‘lmaydigan sabab. Natija — Holmes yolg‘iz qoldi. Mehmonxonada hech kim xat yozmagan. Bundan foyda ko‘radigan yagona odam — Holmes bilan yakkama-yakka uchrashmoqchi bo‘lgan Moriarti. Holmes buni sezgan, lekin do‘stini xavfdan uzoqlashtirish uchun indamagan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Bo‘sh uy",
   "yil": 1903,
@@ -484,9 +620,11 @@ window.SHERLOCK_ISHLAR = [
    "Mergan derazadagi soyani Holmes deb o‘ylab, otish uchun eng qulay joy — ro‘paradagi bo‘sh uyga keladi va pistirmaga tushadi"
   ],
   "javob": 3,
-  "izoh": "Holmes ovchining o‘zini ovladi: merganga nishon kerak — derazadagi «jonli» soya; otish uchun qulay joy kerak — ro‘paradagi bo‘sh uy. Demak, mergan aynan o‘sha uyga keladi va Holmes undan oldin u yerga yashirinib oldi. Moran byustga havo miltig‘idan o‘q uzdi va shu zahoti qo‘lga olindi. Byustni burib turish esa soya haqiqiy odamnikidek ko‘rinishi uchun edi."
+  "izoh": "Holmes ovchining o‘zini ovladi: merganga nishon kerak — derazadagi «jonli» soya; otish uchun qulay joy kerak — ro‘paradagi bo‘sh uy. Demak, mergan aynan o‘sha uyga keladi va Holmes undan oldin u yerga yashirinib oldi. Moran byustga havo miltig‘idan o‘q uzdi va shu zahoti qo‘lga olindi. Byustni burib turish esa soya haqiqiy odamnikidek ko‘rinishi uchun edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Norvud quruvchisi",
   "yil": 1903,
@@ -500,9 +638,11 @@ window.SHERLOCK_ISHLAR = [
    "Izning holati hech narsani anglatmaydi"
   ],
   "javob": 1,
-  "izoh": "Vaqt hal qiluvchi omil: agar iz jinoyat paytida qolgan bo‘lsa, u qurib, xiralashib qolishi kerak edi — u esa yangi va yaltiroq. Jinoyatdan keyin paydo bo‘lgan izni faqat tirik odam qoldiradi, o‘z barmoq izini esa faqat o‘zi qoldira oladi. Uy ichidagi oziq-ovqat va yangi kiyim ikkinchi dalil: «o‘lgan» odam yashirincha yashab, o‘z ishini kuzatib yurgan. Eng kichik nomuvofiqlik — eng katta yolg‘onning peshonasida."
+  "izoh": "Vaqt hal qiluvchi omil: agar iz jinoyat paytida qolgan bo‘lsa, u qurib, xiralashib qolishi kerak edi — u esa yangi va yaltiroq. Jinoyatdan keyin paydo bo‘lgan izni faqat tirik odam qoldiradi, o‘z barmoq izini esa faqat o‘zi qoldira oladi. Uy ichidagi oziq-ovqat va yangi kiyim ikkinchi dalil: «o‘lgan» odam yashirincha yashab, o‘z ishini kuzatib yurgan. Eng kichik nomuvofiqlik — eng katta yolg‘onning peshonasida.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Raqsga tushayotgan odamchalar",
   "yil": 1903,
@@ -516,9 +656,11 @@ window.SHERLOCK_ISHLAR = [
    "Shifr kalitini Kubittning xotinidan so‘rab bildi, chunki u xabarlarni taniydi"
   ],
   "javob": 1,
-  "izoh": "Bu — chastota tahlili: har bir tilda harflar turlicha tez-tez uchraydi. Agar har bir belgi bitta harfni bildirsa, eng ko‘p uchraydigan belgi eng ko‘p ishlatiladigan harf — E bo‘lishi ehtimoli yuqori. Bayroqchalar so‘zlarni ajratadi va so‘z uzunligi ma’lum bo‘ladi. Keyin ismlar (Elsi) va tez-tez ishlatiladigan so‘zlar orqali qolgan harflar topildi. Holmes shu shifrda o‘zi xabar yozib, jinoyatchini tuzoqqa tushirdi."
+  "izoh": "Bu — chastota tahlili: har bir tilda harflar turlicha tez-tez uchraydi. Agar har bir belgi bitta harfni bildirsa, eng ko‘p uchraydigan belgi eng ko‘p ishlatiladigan harf — E bo‘lishi ehtimoli yuqori. Bayroqchalar so‘zlarni ajratadi va so‘z uzunligi ma’lum bo‘ladi. Keyin ismlar (Elsi) va tez-tez ishlatiladigan so‘zlar orqali qolgan harflar topildi. Holmes shu shifrda o‘zi xabar yozib, jinoyatchini tuzoqqa tushirdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Yolg‘iz velosipedchi",
   "yil": 1903,
@@ -532,9 +674,11 @@ window.SHERLOCK_ISHLAR = [
    "Bu poygaga tayyorlanayotgan sportchi: u qizning tezligiga moslashib, mashq qilardi"
   ],
   "javob": 1,
-  "izoh": "Xatti-harakat maqsadni ochadi: u yaqinlashmaydi va hujum qilmaydi — zarar yetkazmoqchi emas. Masofa saqlaydi, yuzini yashiradi, qochadi — tanilib qolishdan qo‘rqadi, ya’ni qiz uni taniydi. Har shanba aniq vaqtda chiqadi — qizning jadvalini biladi. Haqiqatan, bu soxta soqol taqqan Karruters edi: u qizni boshqa xavfli odamlardan yashirincha qo‘riqlab yurgan."
+  "izoh": "Xatti-harakat maqsadni ochadi: u yaqinlashmaydi va hujum qilmaydi — zarar yetkazmoqchi emas. Masofa saqlaydi, yuzini yashiradi, qochadi — tanilib qolishdan qo‘rqadi, ya’ni qiz uni taniydi. Har shanba aniq vaqtda chiqadi — qizning jadvalini biladi. Haqiqatan, bu soxta soqol taqqan Karruters edi: u qizni boshqa xavfli odamlardan yashirincha qo‘riqlab yurgan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Monastir maktabi",
   "yil": 1904,
@@ -548,9 +692,11 @@ window.SHERLOCK_ISHLAR = [
    "Otlarniki: izlarni chalkashtirish uchun ularga sigir tuyog‘i shaklidagi maxsus taqalar qoqilgan"
   ],
   "javob": 3,
-  "izoh": "Ikki zid fakt: sigir izlari ko‘p, sigirlar esa yo‘q. Izlarning tartibi (yo‘rtish, chopish) sigirga emas, otga xos. Demak, iz qoldirgan hayvon — ot, faqat tuyog‘i «sigirniki». Bu ataylab qilingan niqob: kuzatuvchilarni chalg‘itish uchun otlarga sigir tuyog‘i shaklidagi taqalar qoqilgan. Holmes mehmonxona temirchixonasidan aynan shunday eski taqalarni topdi."
+  "izoh": "Ikki zid fakt: sigir izlari ko‘p, sigirlar esa yo‘q. Izlarning tartibi (yo‘rtish, chopish) sigirga emas, otga xos. Demak, iz qoldirgan hayvon — ot, faqat tuyog‘i «sigirniki». Bu ataylab qilingan niqob: kuzatuvchilarni chalg‘itish uchun otlarga sigir tuyog‘i shaklidagi taqalar qoqilgan. Holmes mehmonxona temirchixonasidan aynan shunday eski taqalarni topdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Qora Piter",
   "yil": 1904,
@@ -564,9 +710,11 @@ window.SHERLOCK_ISHLAR = [
    "Neligan qotil: u kulbada bo‘lgan, daftarni qidirgan, tajriba esa hech narsani o‘zgartirmaydi"
   ],
   "javob": 0,
-  "izoh": "Tajriba gumonni tekshirish usuli: agar sog‘lom Holmes cho‘chqa tanasini bir zarbada teshib o‘tkaza olmasa, ozg‘in Neligan tirik odamni devorga mixlay olmaydi. Demak, qotil — garpundan foydalanishni yaxshi biladigan baquvvat dengizchi. Holmes «garpunchi kerak» degan e’lon berdi va kapitanning sobiq hamkasbi Patrik Kerns keldi — u qotil bo‘lib chiqdi."
+  "izoh": "Tajriba gumonni tekshirish usuli: agar sog‘lom Holmes cho‘chqa tanasini bir zarbada teshib o‘tkaza olmasa, ozg‘in Neligan tirik odamni devorga mixlay olmaydi. Demak, qotil — garpundan foydalanishni yaxshi biladigan baquvvat dengizchi. Holmes «garpunchi kerak» degan e’lon berdi va kapitanning sobiq hamkasbi Patrik Kerns keldi — u qotil bo‘lib chiqdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Charlz Ogastes Milverton",
   "yil": 1904,
@@ -580,9 +728,11 @@ window.SHERLOCK_ISHLAR = [
    "Milvertonning o‘zi yollagan, keyin unga xiyonat qilgan ikki qo‘riqchi"
   ],
   "javob": 2,
-  "izoh": "Tasvir Uotsonga juda mos keladi, Holmesning hazili esa ochiq ishora. Uotsonning o‘zi o‘sha kecha devordan oshib qochganini eslaydi. Demak, «ikki niqobli» — ular. Holmes va Uotson shantaj qurbonlarini qutqarish uchun xatlarni yoqish niyatida kirishgan va ko‘z oldilarida bir xonim Milvertonni otganini ko‘rishgan. Holmes ishni olishdan bosh tortdi."
+  "izoh": "Tasvir Uotsonga juda mos keladi, Holmesning hazili esa ochiq ishora. Uotsonning o‘zi o‘sha kecha devordan oshib qochganini eslaydi. Demak, «ikki niqobli» — ular. Holmes va Uotson shantaj qurbonlarini qutqarish uchun xatlarni yoqish niyatida kirishgan va ko‘z oldilarida bir xonim Milvertonni otganini ko‘rishgan. Holmes ishni olishdan bosh tortdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Olti Napoleon",
   "yil": 1904,
@@ -596,9 +746,11 @@ window.SHERLOCK_ISHLAR = [
    "U ruhiy kasal edi, shuning uchun hamma byustni sindirardi"
   ],
   "javob": 2,
-  "izoh": "Jinoyatning foydasi yo‘q: pul olinmagan, qimmatbaho narsalarga tegilmagan. Faqat bir xil, bir partiyadan chiqqan buyumlar. Demak jinoyatchi byustning o‘zini emas, ichidagi narsani qidirardi. U marvaridni gips qotishidan oldin ichiga yashirgan, qaysi nusxada qolganini esa eslay olmagan — shuning uchun hammasini sindirishga majbur bo‘lgan. Harakat ma’nosiz ko‘rinsa, «nima uchun» emas, «nima uchun aynan shu narsa» deb so‘rang."
+  "izoh": "Jinoyatning foydasi yo‘q: pul olinmagan, qimmatbaho narsalarga tegilmagan. Faqat bir xil, bir partiyadan chiqqan buyumlar. Demak jinoyatchi byustning o‘zini emas, ichidagi narsani qidirardi. U marvaridni gips qotishidan oldin ichiga yashirgan, qaysi nusxada qolganini esa eslay olmagan — shuning uchun hammasini sindirishga majbur bo‘lgan. Harakat ma’nosiz ko‘rinsa, «nima uchun» emas, «nima uchun aynan shu narsa» deb so‘rang.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Uch talaba",
   "yil": 1904,
@@ -612,9 +764,11 @@ window.SHERLOCK_ISHLAR = [
    "O‘qituvchining xizmatkori: u xonaga kalit bilan erkin kira oladi"
   ],
   "javob": 2,
-  "izoh": "Uch dalil bitta odamga olib boradi. Kimdir derazadan stoldagi qog‘ozlarni ko‘rib, kirishga qaror qilgan — buning uchun juda baland bo‘y kerak. Qora loy — sakrash chuquri loyi. Stoldagi tirnalish — mixli sport poyabzali izi. Uchalasi — baland bo‘yli sakrovchi Gilkrist. U aybini bo‘yniga oldi va o‘qishni tashlab ketishga qaror qildi."
+  "izoh": "Uch dalil bitta odamga olib boradi. Kimdir derazadan stoldagi qog‘ozlarni ko‘rib, kirishga qaror qilgan — buning uchun juda baland bo‘y kerak. Qora loy — sakrash chuquri loyi. Stoldagi tirnalish — mixli sport poyabzali izi. Uchalasi — baland bo‘yli sakrovchi Gilkrist. U aybini bo‘yniga oldi va o‘qishni tashlab ketishga qaror qildi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Oltin pensne",
   "yil": 1904,
@@ -628,9 +782,11 @@ window.SHERLOCK_ISHLAR = [
    "Ayol yo‘lakdagi derazadan sakrab, ko‘chaga qochib ketgan"
   ],
   "javob": 0,
-  "izoh": "Kuchli yaqindan ko‘ruvchi odam ko‘zoynaksiz o‘tli yo‘lakda izsiz yura olmaydi — izlar yo‘q, demak bog‘ga chiqmagan. Ikkala yo‘lak bir xil — ko‘rmaydigan odam osongina adashadi. Demak, u professor xonasiga kirgan va o‘sha yerda. Holmes kulni polga to‘kdi: keyin kuldagi yangi izlar xonada yashiringan kimdir chiqib yurganini ko‘rsatdi. Ayol kitob javoni ortidagi yashirin bo‘shliqdan chiqdi."
+  "izoh": "Kuchli yaqindan ko‘ruvchi odam ko‘zoynaksiz o‘tli yo‘lakda izsiz yura olmaydi — izlar yo‘q, demak bog‘ga chiqmagan. Ikkala yo‘lak bir xil — ko‘rmaydigan odam osongina adashadi. Demak, u professor xonasiga kirgan va o‘sha yerda. Holmes kulni polga to‘kdi: keyin kuldagi yangi izlar xonada yashiringan kimdir chiqib yurganini ko‘rsatdi. Ayol kitob javoni ortidagi yashirin bo‘shliqdan chiqdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Yo‘qolgan himoyachi",
   "yil": 1904,
@@ -644,9 +800,11 @@ window.SHERLOCK_ISHLAR = [
    "It anis hidi qoldirgan g‘ildirak izini kuzatadi: doktorga ko‘rinmasdan uning manzilini topish mumkin"
   ],
   "javob": 3,
-  "izoh": "Doktor ko‘zga ko‘rinadigan kuzatuvdan qochardi — demak, ko‘rinmaydigan iz qoldirish kerak edi. G‘ildirak har aylanganda yerda hid qoldiradi, izquvar it esa bunday hidni kilometrlab kuzatadi. Holmes aravadan uzoqda qolib, uni bemalol kuzatdi va qishloqdagi kulbani topdi: u yerda Stauntonning yashirincha uylangan, og‘ir kasal xotini yotgan edi."
+  "izoh": "Doktor ko‘zga ko‘rinadigan kuzatuvdan qochardi — demak, ko‘rinmaydigan iz qoldirish kerak edi. G‘ildirak har aylanganda yerda hid qoldiradi, izquvar it esa bunday hidni kilometrlab kuzatadi. Holmes aravadan uzoqda qolib, uni bemalol kuzatdi va qishloqdagi kulbani topdi: u yerda Stauntonning yashirincha uylangan, og‘ir kasal xotini yotgan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Ebbi-Grenj",
   "yil": 1904,
@@ -660,9 +818,11 @@ window.SHERLOCK_ISHLAR = [
    "Ikki o‘g‘ri vino ichmagan, faqat ularning boshlig‘i ichgan — bu uning qo‘pol odatini ko‘rsatadi"
   ],
   "javob": 1,
-  "izoh": "Bitta shishadan ketma-ket quyilsa, quyqa odatda faqat oxirgi qadahda emas, boshqalarida ham ozroq bo‘ladi; ikkita qadahning mutlaqo tiniqligi va bittasida juda ko‘p quyqa — qoldiqlar bir joyga to‘kilganining belgisi. Demak, sahna sun’iy: kimdir «uch kishi ichgan» ko‘rinishini yaratgan. Holmes xonim kimnidir yashirayotganini tushundi — u zolim eridan uni himoya qilgan dengizchi kapitan Kroker edi."
+  "izoh": "Bitta shishadan ketma-ket quyilsa, quyqa odatda faqat oxirgi qadahda emas, boshqalarida ham ozroq bo‘ladi; ikkita qadahning mutlaqo tiniqligi va bittasida juda ko‘p quyqa — qoldiqlar bir joyga to‘kilganining belgisi. Demak, sahna sun’iy: kimdir «uch kishi ichgan» ko‘rinishini yaratgan. Holmes xonim kimnidir yashirayotganini tushundi — u zolim eridan uni himoya qilgan dengizchi kapitan Kroker edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "qaytish",
   "asar": "Ikkinchi dog‘",
   "yil": 1904,
@@ -676,9 +836,11 @@ window.SHERLOCK_ISHLAR = [
    "Politsiya tergov paytida gilamni tozalash uchun olib, noto‘g‘ri qaytargan"
   ],
   "javob": 1,
-  "izoh": "Qon gilamdan o‘tib, polga tushadi — qotillik paytida dog‘lar ustma-ust bo‘lgan. Hozir mos emas — gilam keyin siljitilgan. Nega? Gilam ostida yashirin joy bor va undan kimdir nimanidir olgan, so‘ng shoshib gilamni qayta yotqizgan. Politsiyachi xonani qisqa vaqtga tashlab ketganini tan oldi — aynan o‘sha paytda kirgan xonim yashirin joydan o‘g‘irlangan maxfiy xatni olgan edi."
+  "izoh": "Qon gilamdan o‘tib, polga tushadi — qotillik paytida dog‘lar ustma-ust bo‘lgan. Hozir mos emas — gilam keyin siljitilgan. Nega? Gilam ostida yashirin joy bor va undan kimdir nimanidir olgan, so‘ng shoshib gilamni qayta yotqizgan. Politsiyachi xonani qisqa vaqtga tashlab ketganini tan oldi — aynan o‘sha paytda kirgan xonim yashirin joydan o‘g‘irlangan maxfiy xatni olgan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "Visteriya uyi",
   "yil": 1908,
@@ -692,9 +854,11 @@ window.SHERLOCK_ISHLAR = [
    "Bu juda katta uy: asosiy zinapoyasi va birinchi yo‘lakning o‘zida o‘ngda kamida yetti eshigi bor; u Garsiyaning uyidan piyoda boriladigan masofada"
   ],
   "javob": 3,
-  "izoh": "«Birinchi yo‘lak, o‘ngdan yettinchi eshik» — bitta yo‘lakda o‘ngda yetti eshik kichik uyda bo‘lmaydi; asosiy zinapoyaning tilga olinishi ham katta qasrga ishora. «Yashil — ochiq, oq — yopiq» — signal: yo‘l ochiq yoki xavfli. Garsiya kechasi piyoda chiqqan — demak, uy yaqin. Holmes atrofdagi katta uylarni ko‘rib chiqib, Xay-Geybl qasrini topdi; u yerda yashirinib yurgan sobiq zolim hukmdor yashardi."
+  "izoh": "«Birinchi yo‘lak, o‘ngdan yettinchi eshik» — bitta yo‘lakda o‘ngda yetti eshik kichik uyda bo‘lmaydi; asosiy zinapoyaning tilga olinishi ham katta qasrga ishora. «Yashil — ochiq, oq — yopiq» — signal: yo‘l ochiq yoki xavfli. Garsiya kechasi piyoda chiqqan — demak, uy yaqin. Holmes atrofdagi katta uylarni ko‘rib chiqib, Xay-Geybl qasrini topdi; u yerda yashirinib yurgan sobiq zolim hukmdor yashardi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "Karton quti",
   "yil": 1893,
@@ -708,9 +872,11 @@ window.SHERLOCK_ISHLAR = [
    "Qutini miss Kushingning o‘zi yuborgan, u e’tibor tortishni xohlagan"
   ],
   "javob": 0,
-  "izoh": "Quloq shakli yuzdan ham o‘ziga xos va ko‘pincha oilada meros bo‘lib o‘tadi. Ayol qulog‘i miss Kushingnikiga juda o‘xshash — demak, uning yaqin qarindoshiniki. Talabalar tasodifan aynan uning singlisining qulog‘ini yubora olmaydi — bu hazil emas. Dengizchilar tuguni jinoyatchining kasbini ko‘rsatdi. Qutini singlisining eri — rashk tufayli jinoyat qilgan dengizchi Jim Braun yuborgan edi."
+  "izoh": "Quloq shakli yuzdan ham o‘ziga xos va ko‘pincha oilada meros bo‘lib o‘tadi. Ayol qulog‘i miss Kushingnikiga juda o‘xshash — demak, uning yaqin qarindoshiniki. Talabalar tasodifan aynan uning singlisining qulog‘ini yubora olmaydi — bu hazil emas. Dengizchilar tuguni jinoyatchining kasbini ko‘rsatdi. Qutini singlisining eri — rashk tufayli jinoyat qilgan dengizchi Jim Braun yuborgan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "Qizil doira",
   "yil": 1911,
@@ -724,9 +890,11 @@ window.SHERLOCK_ISHLAR = [
    "Ijarachi og‘ir kasal, gapira olmaydi va odamlardan yuqtirib qo‘yishdan qo‘rqadi"
   ],
   "javob": 2,
-  "izoh": "Mo‘ylovli odam sigaretni oxirigacha cheka olmaydi — mo‘ylovini kuydiradi. Demak, chekayotgan odam mo‘ylovsiz — u xonani olgan soqolli erkak emas. Bosma harflar esa yozuvi tanilib qolishidan qo‘rqishni ko‘rsatadi. Xulosa: ijarachi almashtirilgan va yashirinib yotibdi. Haqiqatan, xonada xavfli to‘dadan yashiringan italyan ayol yashardi, eri esa uni ro‘paradagi derazadan chiroq signallari bilan ogohlantirib turardi."
+  "izoh": "Mo‘ylovli odam sigaretni oxirigacha cheka olmaydi — mo‘ylovini kuydiradi. Demak, chekayotgan odam mo‘ylovsiz — u xonani olgan soqolli erkak emas. Bosma harflar esa yozuvi tanilib qolishidan qo‘rqishni ko‘rsatadi. Xulosa: ijarachi almashtirilgan va yashirinib yotibdi. Haqiqatan, xonada xavfli to‘dadan yashiringan italyan ayol yashardi, eri esa uni ro‘paradagi derazadan chiroq signallari bilan ogohlantirib turardi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "Bryus-Partington chizmalari",
   "yil": 1908,
@@ -740,9 +908,11 @@ window.SHERLOCK_ISHLAR = [
    "U chizmalarni yo‘qotib qo‘yib, uyatdan o‘zini poyezd ostiga tashlagan"
   ],
   "javob": 2,
-  "izoh": "Qonning yo‘qligi — o‘lim boshqa joyda bo‘lgan. Chiptaning yo‘qligi — u yo‘lovchi sifatida poyezdga chiqmagan. Jasad aynan silkinish bo‘ladigan ayirmada — u hech narsaga mahkam turmagan, ya’ni vagon ichida emas, tomida bo‘lgan. Vagon tomiga jasadni faqat poyezd to‘xtaydigan joyda, relslar ustiga qaragan derazadan qo‘yish mumkin. Holmes shunday derazasi bor uyni — josus Oberstayn uyini topdi."
+  "izoh": "Qonning yo‘qligi — o‘lim boshqa joyda bo‘lgan. Chiptaning yo‘qligi — u yo‘lovchi sifatida poyezdga chiqmagan. Jasad aynan silkinish bo‘ladigan ayirmada — u hech narsaga mahkam turmagan, ya’ni vagon ichida emas, tomida bo‘lgan. Vagon tomiga jasadni faqat poyezd to‘xtaydigan joyda, relslar ustiga qaragan derazadan qo‘yish mumkin. Holmes shunday derazasi bor uyni — josus Oberstayn uyini topdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "O‘layotgan detektiv",
   "yil": 1913,
@@ -756,9 +926,11 @@ window.SHERLOCK_ISHLAR = [
    "Holmes Smit olib keladigan maxsus dorini kutayotgan va vaqtni behuda o‘tkazishni istamagan"
   ],
   "javob": 0,
-  "izoh": "Rejaning o‘zagi — Smitni Holmes rostdan o‘layapti deb ishontirish va jinoyatini tan oldirish. Buning uchun eng muhim guvoh — Uotson ham ishonishi kerak edi, aks holda u Smitni ishontira olmasdi. Uch kunlik ochlik, vazelin, belladonna va bo‘yoq «kasallik»ni yaratdi; yaqindan tekshirgan shifokor buni darhol sezardi. Smit Holmesni zaharlamoqchi bo‘lganini o‘zi aytib berdi, Uotson esa buni eshitdi."
+  "izoh": "Rejaning o‘zagi — Smitni Holmes rostdan o‘layapti deb ishontirish va jinoyatini tan oldirish. Buning uchun eng muhim guvoh — Uotson ham ishonishi kerak edi, aks holda u Smitni ishontira olmasdi. Uch kunlik ochlik, vazelin, belladonna va bo‘yoq «kasallik»ni yaratdi; yaqindan tekshirgan shifokor buni darhol sezardi. Smit Holmesni zaharlamoqchi bo‘lganini o‘zi aytib berdi, Uotson esa buni eshitdi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "Ledi Frensis Karfaksning g‘oyib bo‘lishi",
   "yil": 1911,
@@ -772,9 +944,11 @@ window.SHERLOCK_ISHLAR = [
    "Unda ikki kishi bo‘lishi kerak: kampirning jasadi va uning ostida tiriklayin, behush holda yashirilgan Ledi Frensis"
   ],
   "javob": 3,
-  "izoh": "Kichkina kampir uchun katta tobut — bo‘sh joy qoladi, demak, yana kimdir solinishi kerak. Ledi Frensis yo‘qolgan, uni yashirish kerak. Rasmiy dafn — eng xavfsiz niqob: hech kim marhumning tobutini ochmaydi. Holmes dafn oldidan tobutni ochtirdi: ichida xloroform bilan uxlatilgan Ledi Frensis bor edi va u o‘z vaqtida qutqarildi."
+  "izoh": "Kichkina kampir uchun katta tobut — bo‘sh joy qoladi, demak, yana kimdir solinishi kerak. Ledi Frensis yo‘qolgan, uni yashirish kerak. Rasmiy dafn — eng xavfsiz niqob: hech kim marhumning tobutini ochmaydi. Holmes dafn oldidan tobutni ochtirdi: ichida xloroform bilan uxlatilgan Ledi Frensis bor edi va u o‘z vaqtida qutqarildi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "Shayton oyog‘i",
   "yil": 1910,
@@ -788,9 +962,11 @@ window.SHERLOCK_ISHLAR = [
    "Ikkala holatda ham odamlarni tunda kimdir dahshatli qiyofada qo‘rqitib ketgan"
   ],
   "javob": 1,
-  "izoh": "Umumiy omillar: tor, dim xona va nimaningdir yonishi (kamin, kunduzi yonayotgan chiroq). Kunduzi chiroq yoqishning odatiy sababi yo‘q — demak, u boshqa maqsadda yoqilgan. Holmes chiroqdan kukun qoldig‘ini olib, Uotson bilan xavfli tajriba qildi: kukunni yoqqanda ikkalasi ham dahshatli qo‘rquvga tushib, zo‘rg‘a qutulishdi. Bu Afrikadan olib kelingan «shayton oyog‘i» ildizining kukuni edi."
+  "izoh": "Umumiy omillar: tor, dim xona va nimaningdir yonishi (kamin, kunduzi yonayotgan chiroq). Kunduzi chiroq yoqishning odatiy sababi yo‘q — demak, u boshqa maqsadda yoqilgan. Holmes chiroqdan kukun qoldig‘ini olib, Uotson bilan xavfli tajriba qildi: kukunni yoqqanda ikkalasi ham dahshatli qo‘rquvga tushib, zo‘rg‘a qutulishdi. Bu Afrikadan olib kelingan «shayton oyog‘i» ildizining kukuni edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "tazim",
   "asar": "Uning so‘nggi ta’zimi",
   "yil": 1917,
@@ -804,9 +980,11 @@ window.SHERLOCK_ISHLAR = [
    "Shifrlangan kodlar: Altamont nemislar uchun ham, inglizlar uchun ham ishlaydigan ikki tomonlama josus edi"
   ],
   "javob": 1,
-  "izoh": "Holmes nafaqaga chiqib, Sasseksda asalari boqar va bu haqda kitob yozgan edi — muqovadagi nom Holmesga ishora. Altamontning josusga eng ishonchli manba bo‘lgani ham tasodif emas: Holmes ikki yil davomida fon Borkka ataylab noto‘g‘ri ma’lumot yetkazib, nemis razvedkasini chalg‘itib kelgan. So‘nggi «hujjat» uning hazili va qopqoni edi."
+  "izoh": "Holmes nafaqaga chiqib, Sasseksda asalari boqar va bu haqda kitob yozgan edi — muqovadagi nom Holmesga ishora. Altamontning josusga eng ishonchli manba bo‘lgani ham tasodif emas: Holmes ikki yil davomida fon Borkka ataylab noto‘g‘ri ma’lumot yetkazib, nemis razvedkasini chalg‘itib kelgan. So‘nggi «hujjat» uning hazili va qopqoni edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Mashhur mijoz",
   "yil": 1924,
@@ -820,9 +998,11 @@ window.SHERLOCK_ISHLAR = [
    "Baronning o‘z qo‘li bilan yozilgan shaxsiy daftari: uni «tuhmat» yoki «dushmanning gapi» deb rad etib bo‘lmaydi"
   ],
   "javob": 3,
-  "izoh": "Violetta boshqalarning so‘zlariga ishonmaydi — u har qanday guvohni baronning dushmani deb hisoblaydi. Bunday ishonchni faqat baronning o‘zidan chiqqan, uning qo‘lyozmasidagi dalil buzishi mumkin. Shuning uchun Holmes daftarni qo‘lga kiritishga qaror qildi. Dalilning kuchi uni qabul qiluvchi odam nimaga ishonishiga ham bog‘liq."
+  "izoh": "Violetta boshqalarning so‘zlariga ishonmaydi — u har qanday guvohni baronning dushmani deb hisoblaydi. Bunday ishonchni faqat baronning o‘zidan chiqqan, uning qo‘lyozmasidagi dalil buzishi mumkin. Shuning uchun Holmes daftarni qo‘lga kiritishga qaror qildi. Dalilning kuchi uni qabul qiluvchi odam nimaga ishonishiga ham bog‘liq.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Oqargan askar",
   "yil": 1926,
@@ -836,9 +1016,11 @@ window.SHERLOCK_ISHLAR = [
    "Hech qaysi birini: do‘sti tunda adashgan, Godfri haqiqatan ham sayohatda"
   ],
   "javob": 0,
-  "izoh": "Bu — chiqarib tashlash usuli: mumkin bo‘lmaganini olib tashlasang, qolgani, qanchalik g‘alati bo‘lmasin, haqiqatdir. Jinoyatchini ota-onasi o‘z uyi yonida yashirmaydi — uni chet elga jo‘natishardi. Aqldan ozgan odam qattiq nazorat ostida bo‘lardi. Qoladi — kasallik. Oppoq yuz va teri kasalliklari mutaxassisi buni tasdiqladi. Godfri og‘ir yuqumli kasallikka chalinganidan qo‘rqardi, aslida esa bu xavfsiz teri kasalligi ekani ma’lum bo‘ldi."
+  "izoh": "Bu — chiqarib tashlash usuli: mumkin bo‘lmaganini olib tashlasang, qolgani, qanchalik g‘alati bo‘lmasin, haqiqatdir. Jinoyatchini ota-onasi o‘z uyi yonida yashirmaydi — uni chet elga jo‘natishardi. Aqldan ozgan odam qattiq nazorat ostida bo‘lardi. Qoladi — kasallik. Oppoq yuz va teri kasalliklari mutaxassisi buni tasdiqladi. Godfri og‘ir yuqumli kasallikka chalinganidan qo‘rqardi, aslida esa bu xavfsiz teri kasalligi ekani ma’lum bo‘ldi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Mazarin olmosi",
   "yil": 1921,
@@ -852,9 +1034,11 @@ window.SHERLOCK_ISHLAR = [
    "Jinoyatchilar baland gapirishgan, ovoz devor orqali yotoqxonaga yetib borgan"
   ],
   "javob": 2,
-  "izoh": "Biz ovoz odamning qayerdaligini ko‘rsatadi, deb o‘ylaymiz — Holmes shundan foydalandi: skripka sadosi uni yotoqxonada «ushlab turdi», aslida esa grammofon chalardi. Jinoyatchilar xonada yolg‘izmiz deb ochiq gapirishdi. Mum byust esa diqqatni chalg‘itadigan va Holmesga ko‘rinmay o‘tirish uchun joy beradigan niqob edi. Kutilgan dalilga — ovozga ko‘r-ko‘rona ishonmaslik kerak."
+  "izoh": "Biz ovoz odamning qayerdaligini ko‘rsatadi, deb o‘ylaymiz — Holmes shundan foydalandi: skripka sadosi uni yotoqxonada «ushlab turdi», aslida esa grammofon chalardi. Jinoyatchilar xonada yolg‘izmiz deb ochiq gapirishdi. Mum byust esa diqqatni chalg‘itadigan va Holmesga ko‘rinmay o‘tirish uchun joy beradigan niqob edi. Kutilgan dalilga — ovozga ko‘r-ko‘rona ishonmaslik kerak.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Uch peshtoqli uy",
   "yil": 1926,
@@ -868,9 +1052,11 @@ window.SHERLOCK_ISHLAR = [
    "Bevaxonning qimmatbaho zargarlik buyumlarini, ularni arzon olib qolish uchun"
   ],
   "javob": 2,
-  "izoh": "Uyni haddan tashqari qimmatga, lekin «hamma narsasi bilan» olishmoqchi — demak, ularga uy emas, ichidagi narsa kerak. Bostirib kirganlar boshqa hech narsaga tegmay, faqat Duglasning yuklarini titkilashgan — izlanayotgan narsa o‘sha yerda. Duglasning boy xonim bilan janjali sababni ko‘rsatdi: u o‘sha xonim haqida fosh qiluvchi roman yozgan, xonim esa uni yo‘q qilmoqchi edi."
+  "izoh": "Uyni haddan tashqari qimmatga, lekin «hamma narsasi bilan» olishmoqchi — demak, ularga uy emas, ichidagi narsa kerak. Bostirib kirganlar boshqa hech narsaga tegmay, faqat Duglasning yuklarini titkilashgan — izlanayotgan narsa o‘sha yerda. Duglasning boy xonim bilan janjali sababni ko‘rsatdi: u o‘sha xonim haqida fosh qiluvchi roman yozgan, xonim esa uni yo‘q qilmoqchi edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Sasseks vampiri",
   "yil": 1924,
@@ -884,9 +1070,11 @@ window.SHERLOCK_ISHLAR = [
    "Ona qandaydir g‘ayritabiiy kuch ta’sirida edi — buni tushuntirib bo‘lmaydi"
   ],
   "javob": 0,
-  "izoh": "Holmes g‘ayritabiiy izohni darhol rad etdi: «Arvohlarga bizning ishimizda joy yo‘q». Qolgan dalillar: devordagi o‘qlar va o‘qdondagi bo‘sh joy — zaharli o‘q; bo‘yindagi kichik yara — sanchiq izi; zaharni so‘rib olish — ma’lum qutqarish usuli. Kimda sabab bor? Ukasidan rashk qiladigan Jeki. Ona erining qalbini og‘ritmaslik uchun o‘g‘il haqida indamagan."
+  "izoh": "Holmes g‘ayritabiiy izohni darhol rad etdi: «Arvohlarga bizning ishimizda joy yo‘q». Qolgan dalillar: devordagi o‘qlar va o‘qdondagi bo‘sh joy — zaharli o‘q; bo‘yindagi kichik yara — sanchiq izi; zaharni so‘rib olish — ma’lum qutqarish usuli. Kimda sabab bor? Ukasidan rashk qiladigan Jeki. Ona erining qalbini og‘ritmaslik uchun o‘g‘il haqida indamagan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Uch Garrideb",
   "yil": 1924,
@@ -900,9 +1088,11 @@ window.SHERLOCK_ISHLAR = [
    "Neytanni bir kunga uyidan chiqarish uchun: uning xonasi ostida jinoyatchi kerak bo‘lgan narsa — qalbaki pul bosmaxonasi bor edi"
   ],
   "javob": 3,
-  "izoh": "Vasiyatning yagona amaliy natijasi — hech qayerga chiqmaydigan Neytanning uydan uzoqlashishi. Demak, maqsad uning xonasida. «Amerikalik»ning yolg‘oni (ingliz kiyimi, Angliyada uzoq yashagan) uning da’volariga ishonch yo‘qligini ko‘rsatdi. Holmes va Uotson xonada pistirma qo‘yishdi: «Jon Garrideb» — aslida jinoyatchi Evans — pol ostidagi qalbaki pul bosmaxonasiga tushmoqchi bo‘lganda qo‘lga olindi."
+  "izoh": "Vasiyatning yagona amaliy natijasi — hech qayerga chiqmaydigan Neytanning uydan uzoqlashishi. Demak, maqsad uning xonasida. «Amerikalik»ning yolg‘oni (ingliz kiyimi, Angliyada uzoq yashagan) uning da’volariga ishonch yo‘qligini ko‘rsatdi. Holmes va Uotson xonada pistirma qo‘yishdi: «Jon Garrideb» — aslida jinoyatchi Evans — pol ostidagi qalbaki pul bosmaxonasiga tushmoqchi bo‘lganda qo‘lga olindi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Tor ko‘prigi muammosi",
   "yil": 1922,
@@ -916,9 +1106,11 @@ window.SHERLOCK_ISHLAR = [
    "O‘yiq ancha oldin paydo bo‘lgan, ishga aloqasi yo‘q — qotilni javondagi qurol ko‘rsatib turibdi"
   ],
   "javob": 1,
-  "izoh": "Jinoyatchi qurolni o‘z javoniga yashirib, o‘zini o‘zi fosh qilmaydi — demak, javondagi to‘pponcha birovning tuzog‘i. Qurolning jasad yonida yo‘qligi va to‘siqdagi o‘yiq bitta mexanizmni ko‘rsatadi: haqiqiy qurol ipga, ip esa toshga bog‘langan; xonim otgach, tosh qurolni to‘siq osha suvga tortgan. Holmes buni Uotsonning to‘pponchasi bilan takrorlab ko‘rsatdi va suvdan qurolni topdi. Rashkchi xonim enagani yo‘q qilmoqchi bo‘lgan edi."
+  "izoh": "Jinoyatchi qurolni o‘z javoniga yashirib, o‘zini o‘zi fosh qilmaydi — demak, javondagi to‘pponcha birovning tuzog‘i. Qurolning jasad yonida yo‘qligi va to‘siqdagi o‘yiq bitta mexanizmni ko‘rsatadi: haqiqiy qurol ipga, ip esa toshga bog‘langan; xonim otgach, tosh qurolni to‘siq osha suvga tortgan. Holmes buni Uotsonning to‘pponchasi bilan takrorlab ko‘rsatdi va suvdan qurolni topdi. Rashkchi xonim enagani yo‘q qilmoqchi bo‘lgan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Emaklovchi odam",
   "yil": 1923,
@@ -932,9 +1124,11 @@ window.SHERLOCK_ISHLAR = [
    "Professor qizining to‘yga roziligini buzish uchun o‘zini ataylab g‘alati tutyapti"
   ],
   "javob": 1,
-  "izoh": "It — eng sezgir guvoh: u egasiga faqat egasi «boshqa mavjudot»ga aylanganda tashlanadi. To‘rt oyoqlab yurish, tirmashish va dag‘al qo‘l bo‘g‘imlari — maymunga xos belgilar. Takrorlanish va Pragadan kelgan jo‘natmalar — muntazam qabul qilinadigan dori. Yosh qizga uylanish niyati esa sabab: professor yasharishni xohlagan. Bu langur maymunidan olingan zardob edi."
+  "izoh": "It — eng sezgir guvoh: u egasiga faqat egasi «boshqa mavjudot»ga aylanganda tashlanadi. To‘rt oyoqlab yurish, tirmashish va dag‘al qo‘l bo‘g‘imlari — maymunga xos belgilar. Takrorlanish va Pragadan kelgan jo‘natmalar — muntazam qabul qilinadigan dori. Yosh qizga uylanish niyati esa sabab: professor yasharishni xohlagan. Bu langur maymunidan olingan zardob edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Arslon yolasi",
   "yil": 1926,
@@ -948,9 +1142,11 @@ window.SHERLOCK_ISHLAR = [
    "«Arslon yolasi» deb ataladigan zaharli meduza: uning uzun tolalari teriga qamchi izidek iz qoldiradi"
   ],
   "javob": 3,
-  "izoh": "Sohilda boshqa iz yo‘q — qotil odam emas. Sochiq quruq — u suvda bo‘lgan va ofat suvda ro‘y bergan. Iti ham shu suvda halok bo‘lgan — xavf o‘sha joyda doimiy. «Arslon yolasi» — alahlash emas, u ko‘rgan narsaning ta’rifi: sarg‘ish sochga o‘xshash tolali meduza. Holmes uni o‘qigan kitobidan tanidi va suvda topdi. Bu safar «aybdor» — tabiat."
+  "izoh": "Sohilda boshqa iz yo‘q — qotil odam emas. Sochiq quruq — u suvda bo‘lgan va ofat suvda ro‘y bergan. Iti ham shu suvda halok bo‘lgan — xavf o‘sha joyda doimiy. «Arslon yolasi» — alahlash emas, u ko‘rgan narsaning ta’rifi: sarg‘ish sochga o‘xshash tolali meduza. Holmes uni o‘qigan kitobidan tanidi va suvda topdi. Bu safar «aybdor» — tabiat.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Yuzi yopiq ijarachi",
   "yil": 1927,
@@ -964,9 +1160,11 @@ window.SHERLOCK_ISHLAR = [
    "Jarohatlar sherni qafasga qaytarishga uringan boshqa artistlardan qolgan"
   ],
   "javob": 0,
-  "izoh": "Hayvon tirnog‘i bir xil chuqurlikdagi, aniq parallel va teng masofali chiziqlar qoldirmaydi — bunday iz bir xil yasalgan asbobniki. Sherning xatti-harakati ham g‘alati: u eng yaqin odamga emas, boshqasiga tashlangan. Ko‘p yillardan keyin missis Ronder Holmesga haqiqatni aytdi: ular Leonardo bilan birga mixli to‘qmoq bilan erini o‘ldirib, sherni qo‘yib yuborishgan, ammo sher ayolning o‘ziga tashlangan."
+  "izoh": "Hayvon tirnog‘i bir xil chuqurlikdagi, aniq parallel va teng masofali chiziqlar qoldirmaydi — bunday iz bir xil yasalgan asbobniki. Sherning xatti-harakati ham g‘alati: u eng yaqin odamga emas, boshqasiga tashlangan. Ko‘p yillardan keyin missis Ronder Holmesga haqiqatni aytdi: ular Leonardo bilan birga mixli to‘qmoq bilan erini o‘ldirib, sherni qo‘yib yuborishgan, ammo sher ayolning o‘ziga tashlangan.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Shoskom-Old-Pleys",
   "yil": 1927,
@@ -980,9 +1178,11 @@ window.SHERLOCK_ISHLAR = [
    "It aravaga qo‘shilgan notanish otdan qo‘rqib ketgan"
   ],
   "javob": 2,
-  "izoh": "It avval quvonib yugurdi — aravani taniydi; lekin yaqinlashib, begona hidni sezgach, g‘azablandi. It aldanmaydi: ichkaridagi odam uning bekasi emas. Nega yashirishadi? Ledi Beatris vafot etsa, mulk boshqa merosxo‘rga o‘tadi va Ser Robert poygagacha kreditorlardan qutula olmaydi. Haqiqatan, xonim tabiiy o‘lim bilan vafot etgan, aka esa poyga o‘tguncha buni yashirib, uning o‘rniga ayol kiyimidagi odamni aravaga o‘tqazgan edi."
+  "izoh": "It avval quvonib yugurdi — aravani taniydi; lekin yaqinlashib, begona hidni sezgach, g‘azablandi. It aldanmaydi: ichkaridagi odam uning bekasi emas. Nega yashirishadi? Ledi Beatris vafot etsa, mulk boshqa merosxo‘rga o‘tadi va Ser Robert poygagacha kreditorlardan qutula olmaydi. Haqiqatan, xonim tabiiy o‘lim bilan vafot etgan, aka esa poyga o‘tguncha buni yashirib, uning o‘rniga ayol kiyimidagi odamni aravaga o‘tqazgan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "xolms",
   "kitob": "arxiv",
   "asar": "Iste’fodagi bo‘yoqchi",
   "yil": 1926,
@@ -996,9 +1196,461 @@ window.SHERLOCK_ISHLAR = [
    "Uy egasi sifatida u har yili shu faslda ta’mir qilishni odat qilgan edi"
   ],
   "javob": 2,
-  "izoh": "Xasis odam sababsiz pul sarflamaydi — bo‘yashning jiddiy sababi bor. O‘tkir hidli bo‘yoq boshqa hidni yashirishning eng oson yo‘li. Havo kirmaydigan xona va jo‘mragi tashqaridagi gaz quvuri — ichkaridagilarni tashqaridan gaz bilan o‘ldirish imkonini beradi. Holmes buni isbotladi. Amberlining teatrdagi alibisi ham yolg‘on chiqdi: chiptadagi o‘rindiq o‘sha kecha bo‘sh qolgan edi."
+  "izoh": "Xasis odam sababsiz pul sarflamaydi — bo‘yashning jiddiy sababi bor. O‘tkir hidli bo‘yoq boshqa hidni yashirishning eng oson yo‘li. Havo kirmaydigan xona va jo‘mragi tashqaridagi gaz quvuri — ichkaridagilarni tashqaridan gaz bilan o‘ldirish imkonini beradi. Holmes buni isbotladi. Amberlining teatrdagi alibisi ham yolg‘on chiqdi: chiptadagi o‘rindiq o‘sha kecha bo‘sh qolgan edi.",
+  "muallif": "Artur Konan Doyl"
  },
  {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Stayls qasridagi sirli voqea",
+  "yil": 1920,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Oxirgi qoshiq dori",
+  "hikoya": "Stayls qasrining bekasi missis <em>Ingltorp</em> kechasi strixnin zaharidan vafot etdi. U har kuni kechqurun bir shishadan quvvat beruvchi dori ichardi; dorining tarkibida juda oz miqdorda strixnin bor edi — bu odatiy, xavfsiz doza. Gumon ostidagi eri <em>Alfred</em> o‘sha kecha uyda yo‘q edi. Herkul Puaro xonadan bo‘shab qolgan uyqu dori — bromid kukuni qutichasini topdi. Kimyogarlar biladi: bromid strixninli eritmaga qo‘shilsa, strixnin cho‘kib, shisha tagiga yig‘iladi.",
+  "savol": "Qotil uyda bo‘lmasa ham qanday qilib zaharlay olgan?",
+  "variantlar": [
+   "Zahar o‘sha kechasi kakaoga qo‘shilgan, uni qotil uyga qaytib kelib, yashirincha ichirgan",
+   "U oldindan dori shishasiga bromid qo‘shib qo‘ygan: butun strixnin shisha tagiga cho‘kib, oxirgi qoshiqqa to‘plangan — o‘sha dozani ichgan bemor vafot etgan",
+   "Bemor o‘zi adashib, bir kunda bir necha qoshiq ichib yuborgan",
+   "Strixnin xonaga kechasi deraza orqali tutun bilan kiritilgan"
+  ],
+  "javob": 1,
+  "izoh": "Har kungi doza xavfsiz edi — demak, zahar miqdori qandaydir yo‘l bilan to‘plangan. Bromid strixninni cho‘ktiradi: shishaning ustki qismi deyarli toza, tagida esa butun strixnin qoladi. Kim oxirgi qoshiqni ichsa, o‘limli dozani oladi. Shu tufayli qotil o‘lim kechasi uydan uzoqda bo‘lib, o‘ziga «alibi» yaratishi mumkin edi. Bo‘sh bromid qutichasi bu mexanizmni ochib berdi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Rojer Ekroydning o‘ldirilishi",
+  "yil": 1926,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Soat 9:30 dagi ovoz",
+  "hikoya": "Boy <em>Rojer Ekroyd</em> o‘z kabinetida pichoq bilan o‘ldirildi. Kotibi soat 9:30 da kabinet eshigi oldidan o‘tib, Ekroydning ichkarida kim bilandir pul haqida gaplashayotganini eshitgan — shuning uchun hamma uni 9:30 da hali tirik deb hisobladi. Lekin Puaro bir tafsilotga e’tibor qaratdi: kabinetdagi katta kreslo odatdagi joyidan devordan surib chiqarilgan, keyin esa kimdir uni joyiga qaytargan. Ekroyd yaqinda diktofon — ovoz yozib oladigan qurilma sotib olgan edi, u esa hech qayerdan topilmadi.",
+  "savol": "Kotib 9:30 da nimani eshitgan?",
+  "variantlar": [
+   "Ekroydning tirik ovozini: u 9:30 da hali tirik bo‘lgan, qotil keyin kirgan",
+   "Radioeshittirishni: kotib uni adashib Ekroyd deb o‘ylagan",
+   "Ekroydning o‘zi kimgadir telefonda gapirayotganini",
+   "Diktofondagi yozuvni: Ekroyd allaqachon o‘lgan edi, qotil diktofonni surilgan kreslo ortiga yashirib, vaqtni soxtalashtirgan"
+  ],
+  "javob": 3,
+  "izoh": "«Kim bilandir gaplashayotgan» ovozga javob bergan ikkinchi ovoz yo‘q edi — bu yozuv bo‘lishi mumkin. Yo‘qolgan diktofon va g‘alati surilgan kreslo bir-birini to‘ldiradi: kreslo qurilmani eshikdan ko‘rinmas qilib yashirgan. Demak, o‘lim vaqti aslida ancha oldin, «9:30 dagi ovoz» esa qotilning alibisi edi. Diktofonni keyin olib ketish va kreslo joyini qaytarish imkoniga ega odam qotil bo‘lib chiqdi — bu hikoyachi doktorning o‘zi edi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Sharq ekspressidagi qotillik",
+  "yil": 1934,
+  "muallif": "Agata Kristi",
+  "sarlavha": "O‘n ikki jarohat",
+  "hikoya": "Qor bo‘roni sabab to‘xtab qolgan «Sharq ekspressi» poyezdida yo‘lovchi <em>Ratchett</em> o‘z kupesida o‘ldirildi. Uning tanasida 12 ta pichoq jarohati bor edi: ba’zilari chuqur, ba’zilari yuzaki, kimdir o‘ng qo‘l bilan, kimdir chap qo‘l bilan urgan. Vagondagi yo‘lovchilar turli millat va tabaqadan bo‘lib, bir-birini tanimasligini aytishardi. Puaro aniqladi: Ratchett yillar oldin kichkina qiz Deyzi Armstrongni o‘g‘irlab, o‘ldirgan jinoyatchi edi, yo‘lovchilarning har biri esa qandaydir yo‘l bilan Armstronglar oilasiga bog‘liq.",
+  "savol": "O‘n ikki xil jarohat nimani ko‘rsatadi?",
+  "variantlar": [
+   "Qotil bitta emas: o‘n ikki kishi — Armstronglar oilasiga yaqin yo‘lovchilar — navbatma-navbat bittadan zarba bergan",
+   "Bitta qotil qo‘llarini almashtirib, ataylab har xil kuch bilan urgan",
+   "Qotil tashqaridan kelgan, poyezd to‘xtaganda qochib ketgan",
+   "Jarohatlarning bir qismi o‘limdan keyin tergovchilarni chalg‘itish uchun qilingan"
+  ],
+  "javob": 0,
+  "izoh": "Chuqur va yuzaki, o‘ng va chap qo‘l zarbalari — turli kuch va odatdagi odamlar. Bir xil sababga ega o‘n ikki odam — Armstronglar fojiasiga bog‘langan yo‘lovchilar. Bir-birini «tanimaslik» esa kelishilgan yolg‘on edi. O‘n ikki kishi — xuddi sud hay’ati kabi — o‘zlaricha hukm chiqargan. Puaro ikki izohni taklif qildi va haqiqatni bilsa ham, politsiyaga oddiy izohni berishga qaror qildi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "ABC qotilliklari",
+  "yil": 1936,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Alifbo bo‘yicha qotil",
+  "hikoya": "Puaroga «ABC» imzosi bilan xatlar kela boshladi: har gal qotillik qayerda bo‘lishi oldindan aytilardi. Andoverda — Elis Asher (A), Bexhillda — Betti Barnard (B), Cherstonda — boy ser Karmaykl Klark (C) o‘ldirildi; har jasad yonida «ABC» temir yo‘l qo‘llanmasi qoldirilgan. Hamma buni aqldan ozgan maniakning ishi deb hisobladi. Puaro esa bitta narsaga e’tibor berdi: barcha qurbonlar ichida faqat bitta odamning o‘limidan kimdir katta foyda ko‘radi — ser Karmaykl boy edi va merosi ukasiga o‘tishi kerak edi.",
+  "savol": "Puaroning xulosasi qanday?",
+  "variantlar": [
+   "Qotil haqiqatan ham alifboga berilib ketgan ruhiy kasal odam",
+   "Har bir qotillikni turli odamlar qilgan, ular «ABC» nomini ko‘chirib olishgan",
+   "Seriya niqob: qotilga faqat bitta o‘lim — ser Karmaykl Klarkniki kerak edi; qolganlari uni «maniak qurboni» qilib ko‘rsatish uchun o‘ylab topilgan",
+   "Qurbonlar bir-birini tanigan va ular birgalikda sir yashirgan"
+  ],
+  "javob": 2,
+  "izoh": "Seriya qotilliklarda odatda shaxsiy sabab bo‘lmaydi — shuning uchun hamma maniakni qidiradi. Puaro aksincha so‘radi: kimning o‘limidan kim foyda ko‘radi? Faqat ser Karmaykl o‘limi aniq foyda berardi. Demak, A va B — haqiqiy maqsadni yashiradigan «o‘rmon», C esa — yashirilgan «barg». Qotil aybni bechora, ruhan zaif savdogar Kastga ag‘darmoqchi bo‘lgan. Haqiqiy qotil — merosxo‘r Franklin Klark edi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Nildagi o‘lim",
+  "yil": 1937,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Yarador, lekin qotil",
+  "hikoya": "Nil daryosidagi kemada boy kelin <em>Linnet</em> uyqusida otib o‘ldirildi. Gumon uning sobiq dugonasi <em>Jakelin</em>ga tushdi, lekin o‘sha paytda Jakelin salonda hammaning ko‘z o‘ngida Linnetning eri <em>Saymon</em>ni oyog‘idan otgan Jakelinni darhol kayutasiga olib ketib, nazorat ostida ushlashdi; Saymon esa yarador oyog‘i bilan yura olmasdi va shifokor kelguncha salonda qisqa vaqt yolg‘iz qoldi. Keyinroq Puaro qizil tirnoq laki shishasini topdi — ichida lak emas, qizil siyoh bor edi; daryodan esa baxmal ro‘molga o‘ralgan to‘pponcha chiqdi.",
+  "savol": "Yarador Saymon qanday qilib qotil bo‘lishi mumkin?",
+  "variantlar": [
+   "Saymon yarador emasdi, lekin Linnetni Jakelin otgan",
+   "Linnetni kemaning boshqa yo‘lovchisi otgan, Saymon esa aybsiz",
+   "Salondagi otish soxta edi: Jakelin ataylab yonidan otgan, Saymon «qon»ni qizil siyoh bilan ko‘rsatgan; u yolg‘iz qolgan daqiqalarda yugurib borib Linnetni o‘ldirgan, so‘ng qaytib, haqiqatan oyog‘ini otib, to‘pponchani suvga tashlagan",
+   "Saymon kayutadan chiqmagan, Linnetni kemaga yashirincha chiqqan begona odam o‘ldirgan"
+  ],
+  "javob": 2,
+  "izoh": "Ikki «mustahkam» alibi — Jakelin hammaning ko‘z oldida, Saymon yarador — bir-birini tasdiqlaydi; bu o‘zaro kelishilgan sahna bo‘lishi mumkin. Qizil siyoh solingan lak shishasi — soxta qon. Baxmal ro‘mol — otish ovozini bo‘g‘ish uchun. Demak, avval yara yo‘q edi; Saymon bo‘sh qolgan daqiqalarda Linnetni o‘ldirib, keyin o‘zini haqiqatan yaralagan. Jakelin va Saymon birga boy kelinning merosini maqsad qilgan edi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Chekka uydagi xavf",
+  "yil": 1932,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Faqat o‘zi ko‘rgan suiqasdlar",
+  "hikoya": "Yosh <em>Nik Bakli</em> Puaroga so‘nggi kunlarda uch marta o‘limdan qutulib qolganini aytdi: karavoti ustiga og‘ir surat tushdi, qoyadan tosh qulab, ozgina tegmay o‘tdi, mashinasining tormozi buzildi. Shlyapasida esa o‘q teshigi bor edi. Puaro uni himoya qilish uchun qarindoshi <em>Meggi</em>ni uyga chaqirtirdi. Bayram kechasi Meggi Nikning qizil ro‘molini yopinib bog‘ga chiqdi va otib o‘ldirildi. Keyin ma’lum bo‘ldi: yaqinda halok bo‘lgan mashhur uchuvchi Seton yashirincha Meggiga unashtirilgan va katta merosini «Magdala Bakli» nomiga qoldirgan edi. Oilaviy an’anaga ko‘ra ikkala amakivachchaning ham to‘liq ismi Magdala edi.",
+  "savol": "Qaysi xulosa to‘g‘ri?",
+  "variantlar": [
+   "Suiqasdlarni Nikning o‘zi uyushtirgan: haqiqiy maqsad Meggini «adashib o‘ldirilgan» qilib ko‘rsatish edi — Nik o‘zi ro‘molni berib, Meggini otgan va «Magdala Bakli» sifatida merosni o‘zi egallamoqchi bo‘lgan",
+   "Qotil Nikni o‘ldirmoqchi bo‘lgan, ammo ro‘mol tufayli adashib Meggini otgan",
+   "Meggini Nikning sevgilisi rashk tufayli o‘ldirgan",
+   "Barcha hodisalar tasodif, Meggi esa adashgan o‘q qurboni"
+  ],
+  "javob": 0,
+  "izoh": "Barcha «suiqasdlar» faqat Nikning so‘zidan ma’lum — guvoh yo‘q. Shunday odam o‘zi uchun xavf «yaratishi» mumkin. Ro‘molni kim berdi va Meggi qayerga borishini kim bildi? Nik. Meros «Magdala Bakli» nomiga — Seton aslida Meggiga unashtirilgan, lekin ism ikkalasiga ham mos. Demak, Nikka Meggining o‘limi kerak edi va «adashib o‘ldirilgan» ko‘rinishi uni gumondan qutqarardi. Puaro sahnani teskari o‘qib, haqiqatni topdi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Lord Edjver vafot etadi",
+  "yil": 1933,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Parij hukmi",
+  "hikoya": "Aktrisa <em>Jeyn Uilkinson</em>ning eri lord <em>Edjver</em> o‘ldirildi. Xizmatkorlar o‘sha kechasi Jeynni uyga kirganini ko‘rishgan, ammo xuddi shu soatda Jeyn boshqa joydagi kechki ziyofatda, ko‘plab guvohlarning ko‘z o‘ngida edi. Ziyofatda «Jeyn» qadimgi yunon afsonasi — Parij hukmi haqida bilimdonlik bilan gaplashgan edi. Keyinroq boshqa bir suhbatda haqiqiy Jeyn «Parij» so‘zini eshitib, faqat Fransiya poytaxti va moda haqida gapirdi — afsonadan bexabar edi. O‘sha davrda Jeynga taqlid qilib, uni mohirona o‘ynaydigan aktrisa <em>Karlotta Adams</em> ham bor edi.",
+  "savol": "Ziyofatda o‘tirgan «Jeyn» kim edi?",
+  "variantlar": [
+   "Haqiqiy Jeyn: demak, uyga kirgan ayol Karlotta va qotil o‘sha",
+   "Jeynning egizak singlisi",
+   "Ziyofatdagi va uydagi ayol bitta odam — guvohlar soatni adashtirgan",
+   "Uni o‘ynayotgan Karlotta Adams: haqiqiy Jeyn esa shu paytda uyga borib, erini o‘ldirgan — alibi soxta"
+  ],
+  "javob": 3,
+  "izoh": "Bir odamning bilimi to‘satdan yo‘qolmaydi. Ziyofatdagi «Jeyn» afsonani yaxshi bilgan, haqiqiy Jeyn esa bilmaydi — demak, ular har xil odamlar. Ziyofatdagi ayol ma’lumotli aktrisa Karlotta bo‘lgan. Shunda xizmatkorlar ko‘rgan ayol — haqiqiy Jeyn. U Karlottani o‘zining o‘rniga ziyofatga yuborib, mustahkam alibi yaratgan va erini o‘ldirgan, keyin sirni biladigan Karlottani ham yo‘q qilgan."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Quyosh ostidagi yovuzlik",
+  "yil": 1941,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Qoraygan «jasad»",
+  "hikoya": "Orolchada go‘zal aktrisa <em>Arlena</em> o‘lik topildi. Soat 11:45 da <em>Patrik Redfern</em> va missis <em>Bryuster</em> qayiqda Pixy ko‘rfaziga borishdi va qumda yuzini yerga qaratib yotgan, qorayib ketgan, oq cho‘milish kostyumi va katta yashil shlyapa kiygan ayolni ko‘rishdi. Patrik unga yaqinlashib, «u o‘lgan» dedi; Bryuster esa jasadga tegmay, yordam chaqirishga ketdi. Patrikning xotini <em>Kristina</em> o‘sha paytda boshqa joyda bo‘lganini aytdi; lekin uning terisi oppoq, quyoshda deyarli qoraymasdi. Puaro esa o‘sha kuni mehmonxona derazasidan kimdir terini qoraytiruvchi bo‘yoq shishasini tashlab yuborganini bilib oldi.",
+  "savol": "11:45 da qumda yotgan kim edi?",
+  "variantlar": [
+   "Arlenaning o‘zi, u allaqachon o‘lgan edi",
+   "Qoraytiruvchi bo‘yoq surtib, Arlenaning kiyimini kiygan Kristina: Arlena hali tirik edi va keyinroq, Patrik yolg‘iz qolganda o‘ldirildi",
+   "Ko‘rfazga tasodifan kelgan boshqa sayyoh ayol",
+   "Mehmonxonadagi xizmatkor ayol, u Arlenaga yordam berayotgan edi"
+  ],
+  "javob": 1,
+  "izoh": "Jasadni faqat Patrik yaqindan «tekshirgan», Bryuster esa uzoqdan ko‘rgan — guvohlik juda zaif. Yuz ko‘rinmagan, faqat kiyim va qoraygan teri tanilgan. Qoraytiruvchi bo‘yoq — «qoraygan» teri soxta bo‘lishi mumkin. Shunday qilib, Kristina o‘lik bo‘lib yotgan, so‘ng tezda qaytib ketib, alibisini mustahkamlagan; Patrik esa yolg‘iz qolib, g‘orda yashiringan Arlenani o‘ldirgan. Ikki kishi o‘lim vaqtini soxtalashtirgan."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Beshta cho‘chqacha",
+  "yil": 1942,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Shishadagi barmoq izlari",
+  "hikoya": "O‘n olti yil oldin rassom <em>Emyas Kreyl</em> pivoga qo‘shilgan zahardan vafot etgan, xotini <em>Kerolayn</em> esa qotillikda ayblanib, qamoqda vafot etgan edi. Qizi Puarodan haqiqatni topishni so‘radi. Puaro eski ish hujjatlarini o‘qidi: pivo shishasida Emyasning barmoq izlari bor edi, ammo ular tirik odam shishani ushlay olmaydigan g‘alati holatda joylashgan edi. Guvohlar Kerolaynni jasad yonida shishani ro‘mol bilan artayotganini ko‘rishgan. Kerolayn sudda deyarli o‘zini himoya qilmagan.",
+  "savol": "Barmoq izlarining g‘alati holati nimani ko‘rsatadi?",
+  "variantlar": [
+   "Emyas o‘lim oldidan og‘riqdan shishani g‘alati ushlagan",
+   "Izlarni Kerolayn o‘lgan erining barmoqlarini shishaga bosib, ataylab qoldirgan: u kimnidir — o‘zi aybdor deb o‘ylagan yaqinini — himoya qilib, o‘z joniga qasddek ko‘rsatmoqchi bo‘lgan; demak, uning o‘zi qotil emas",
+   "Kerolayn izlarni o‘chirmoqchi bo‘lgan, chunki u qotil",
+   "Shishani politsiya noto‘g‘ri tekshirgan, izlarda ma’no yo‘q"
+  ],
+  "javob": 1,
+  "izoh": "Shishani artib, keyin marhumning barmoqlarini bosish — kimningdir izini yo‘q qilib, o‘z joniga qasd sahnasini yaratish. Qotil odatda o‘zini himoya qiladi, Kerolayn esa sudda indamagan — u kimnidir qutqarishga harakat qilgan. U singlisi Anjela aybdor deb o‘ylagan edi. Demak, Kerolayn aybsiz edi. Haqiqiy qotil — Emyasning muhabbatini yo‘qotishdan qo‘rqqan yosh Elza Grir bo‘lib chiqdi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Puaroning Rojdestvo bayrami",
+  "yil": 1938,
+  "muallif": "Agata Kristi",
+  "sarlavha": "O‘likning chinqirig‘i",
+  "hikoya": "Rojdestvo kechasi boy chol <em>Simeon Li</em>ning xonasidan mebellarning ag‘darilish shovqini va qulog‘ni teshadigan chinqiriq eshitildi. Hamma yugurib keldi: eshik ichkaridan qulflangan, Simeon o‘lik, xona ostin-ustun. O‘sha paytda oila a’zolari va mahalliy politsiya boshlig‘i <em>Sagden</em> pastki qavatda birga edi. Keyinroq Simeonning nabirasi xona polidan pushti rezina bo‘lagi va kichik yog‘och tiqinni topdi — xuddi bolalar o‘ynaydigan, havosi chiqqanda chinqirib ovoz chiqaradigan rezina cho‘chqacha-sharnikiga o‘xshash.",
+  "savol": "Chinqiriq va shovqin haqida qaysi xulosa to‘g‘ri?",
+  "variantlar": [
+   "Simeon aynan chinqirgan paytda o‘ldirilgan, qotil derazadan qochgan",
+   "Chinqiriqni Simeonning o‘zi qo‘rqib chiqargan, u yurak xurujidan vafot etgan",
+   "Rezina bo‘lagi bolalardan qolgan va voqeaga aloqasi yo‘q",
+   "Simeon ancha oldin o‘ldirilgan; chinqiriqni havosi chiqayotgan rezina o‘yinchoq, shovqinni esa arqon bilan ag‘dariladigan qilib qo‘yilgan mebel chiqargan — qotil shu paytda boshqalar bilan birga bo‘lib, alibi yaratgan"
+  ],
+  "javob": 3,
+  "izoh": "Agar chinqiriq paytida hamma pastda bo‘lsa, eng kuchli alibiga ega odamlarni ham tekshirish kerak. Pushti rezina va tiqin — chinqiradigan o‘yinchoq shar qoldiqlari: u havosi chiqib bo‘lgach, mexanizm o‘zi ovoz chiqaradi. Demak, «o‘lim vaqti» soxta, haqiqiy qotillik avvalroq bo‘lgan. Bunday tuzoq qo‘yish uchun xonaga erkin kira oladigan va hech kim shubha qilmaydigan odam kerak — bu Simeonning noqonuniy o‘g‘li bo‘lgan politsiya boshlig‘i Sagden edi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Soqov guvoh",
+  "yil": 1937,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Kecha bo‘yi tashqarida qolgan it",
+  "hikoya": "Keksa miss <em>Arundel</em> kechasi zinapoyadan yiqilib tushdi. Zinada uning iti <em>Bob</em>ning to‘pi topildi va hamma: «It to‘pini zinada qoldirgan, bechora xonim unga qoqilgan», dedi. Ammo xizmatkor eslab qoldi: o‘sha kecha Bob uyga qaytmagan, ertalabgacha tashqarida qolgan edi. Puaro esa zinapoyaning yuqori pog‘onasi yonida, devor taxtasiga qoqilgan va lak surtilgan kichkina mixni topdi.",
+  "savol": "Bu dalillardan qanday xulosa chiqadi?",
+  "variantlar": [
+   "To‘pni zinaga it emas, kimdir qo‘ygan; mix esa ip tortib, qoqilish tuzog‘i yasash uchun qoqilgan — bu baxtsiz hodisa emas, suiqasd edi",
+   "Bob kechqurun to‘pni zinada qoldirib, keyin tashqariga chiqqan",
+   "Xonim zinadan bosh aylanib yiqilgan, to‘p tasodifan u yerda bo‘lgan",
+   "Mix eski ta’mirdan qolgan, xizmatkor to‘pni adashib zinada qoldirgan"
+  ],
+  "javob": 0,
+  "izoh": "It kecha bo‘yi tashqarida bo‘lgan — u to‘pni zinaga qo‘ya olmaydi. Demak, to‘pni odam qo‘ygan va «it aybdor» ko‘rinishini yaratgan. Zinaning yuqorisidagi yangi lakli mix — tortilgan ip uchun tayanch: ip va to‘p birga yiqilishni «tabiiy» ko‘rsatadi. Bu suiqasd muvaffaqiyatsiz bo‘lgan, ammo qotil keyinroq xonimni zaharlab o‘ldirgan. «Soqov guvoh» — it bo‘lib chiqdi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Dafn marosimidan keyin",
+  "yil": 1953,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Oynadagi aks",
+  "hikoya": "Boy <em>Richard Aberneti</em>ning dafn marosimidan keyin uning singlisi <em>Kora</em> qarindoshlar oldida: «U o‘ldirilgan edi-ku, shunday emasmi?» deb so‘radi. Ertasi kuni Koraning o‘zi o‘ldirildi. Qarindoshlar Korani yigirma yildan beri ko‘rmagan edi. Kelin <em>Xelen</em> esa nimadir g‘alati bo‘lganini his qildi: Kora haqiqatan ham boshini bir yonga qiyshaytirib gapirardi, lekin marosimda boshini «noto‘g‘ri» tomonga — teskari tomonga qiyshaytirgan edi. Koraning yonida yashovchi xizmatchi ayol miss <em>Gilkrist</em> uning odatlarini yaxshi bilardi.",
+  "savol": "Boshning teskari tomonga qiyshayishi nimani anglatadi?",
+  "variantlar": [
+   "Kora qarib, odatini o‘zgartirgan",
+   "Xelen adashgan, bu muhim tafsilot emas",
+   "Marosimdagi «Kora» aslida uning odatlarini oynaga qarab mashq qilgan boshqa ayol — miss Gilkrist edi: oynadagi aks o‘ng va chapni almashtiradi",
+   "Kora o‘sha kuni bo‘ynini shikastlagan edi"
+  ],
+  "javob": 2,
+  "izoh": "Odamni oynaga qarab o‘rgansangiz, uning harakatlarini teskari takrorlaysiz: o‘ngga qiyshayish chapga aylanadi. Qarindoshlar Korani yillar davomida ko‘rmagani niqobni osonlashtirgan. Demak, «U o‘ldirilgan edi-ku» degan gapni Kora emas, uning qiyofasidagi Gilkrist aytgan — tergovni noto‘g‘ri yo‘lga solish uchun. Haqiqiy maqsad esa Korani o‘ldirib, uning qimmatbaho kartinasini olish edi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Shokolad qutisi",
+  "yil": 1923,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Almashgan qopqoqlar",
+  "hikoya": "Yosh Puaro Belgiyada ishlagan paytida deputat <em>Pol Derular</em> kechki ovqatdan keyin to‘satdan vafot etdi. Shifokorlar yurak xastaligi dedi. Puaro uning xonasida ikkita shokolad qutisini topdi: biri pushti rangda — qopqog‘i ko‘k, ikkinchisi ko‘k — qopqog‘i pushti. Qutilardan biridagi shokoladlar ichiga yurak dorisi — trinitrin tabletkalari yashirilgan bo‘lishi mumkin edi. Uyda yashovchilar orasida ko‘zi juda xira ko‘radigan, kataraktadan aziyat chekadigan keksa onasi ham bor edi.",
+  "savol": "Almashib qolgan qopqoqlar kimni ko‘rsatadi?",
+  "variantlar": [
+   "Xizmatkorni: u shoshilib ishlagan",
+   "Shokolad sotgan do‘konchini: u qopqoqlarni adashtirib yuborgan",
+   "Qutilarni qayta yopgan odam ranglarni ajrata olmagan — ya’ni ko‘zi juda xira keksa ona: u o‘g‘lini zaharlagan",
+   "Deputatning siyosiy raqibini: u qutilarni ataylab almashtirgan"
+  ],
+  "javob": 2,
+  "izoh": "Pushti va ko‘k rang — oddiy ko‘zga juda farqli; ularni almashtirib yuborish uchun ranglarni ajrata olmaslik kerak. Uydagilar orasida shunday odam — kataraktali keksa ona. U o‘g‘lining dindorlikka qarshi siyosati uchun uni o‘zi jazolashga qaror qilgan. Puaro bu ishda o‘zini kech qolgan deb hisobladi va keyinchalik o‘ziga ortiqcha ishonganda Gastingsga: «Menga «shokolad qutisi» deb eslatib qo‘ying», derdi."
+ },
+ {
+  "det": "puaro",
+  "kitob": "puaro",
+  "asar": "Myus ko‘chasidagi qotillik",
+  "yil": 1936,
+  "muallif": "Agata Kristi",
+  "sarlavha": "O‘ng qo‘ldagi to‘pponcha",
+  "hikoya": "Gay Foks bayrami kechasi — atrofda mushaklar portlab turgan paytda — yosh beva missis <em>Allen</em> o‘z xonasida o‘q bilan halok bo‘ldi. Eshik qulflangan edi. To‘pponcha uning o‘ng qo‘lida, o‘q jarohati esa chap qulog‘ining orqasida edi. Kuldonda turli sigaret qoldiqlari bor edi. U bilan birga yashovchi dugonasi miss <em>Plenderleyt</em> o‘sha kecha uyda bo‘lmagan, ertalab qaytgan. Missis Allenni sobiq harbiy bir janob shantaj qilib yurgani ma’lum bo‘ldi.",
+  "savol": "To‘pponcha va jarohatning joylashuvi nimani ko‘rsatadi?",
+  "variantlar": [
+   "Sahna tabiiy emas: o‘ng qo‘l bilan chap quloq ortini otish deyarli mumkin emas — kimdir o‘limdan keyin xonaga kirib, to‘pponchani qo‘liga qo‘ygan va holatni o‘zgartirgan",
+   "Missis Allen chapaqay bo‘lgan, to‘pponchani o‘ng qo‘liga olgan",
+   "Qotil uni otib, to‘pponchani o‘ng qo‘liga ataylab, xatosiz joylashtirgan",
+   "Bu tasodifiy o‘q — mushak portlashi paytida to‘pponcha o‘zi otilgan"
+  ],
+  "javob": 0,
+  "izoh": "Jarohat va qurolning joylashuvi bir-biriga mos kelmasa, bu sahnaga keyin aralashilganini ko‘rsatadi. Puaro tafsilotlarni (sigaret qoldiqlari, xonadan yo‘qolgan narsalar) yig‘ib, tushundi: missis Allen o‘z joniga qasd qilgan, dugonasi esa uni shantaj qilgan odamni jazolash uchun buni qotillikka o‘xshatib, sahnani o‘zgartirgan. Uning maqsadi — shantajchini qotillikda ayblash edi."
+ },
+ {
+  "det": "marpl",
+  "kitob": "marpl",
+  "asar": "Kutubxonadagi jasad",
+  "yil": 1942,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Tishlangan tirnoqlar",
+  "hikoya": "Polkovnik <em>Bentri</em>ning kutubxonasida notanish yosh qizning jasadi topildi. Uni yaqin atrofdagi mehmonxonada raqqosa bo‘lib ishlagan <em>Rubi Kin</em> deb tanishdi. Ammo miss <em>Marpl</em> ikki tafsilotga e’tibor qaratdi: jasadning tirnoqlari tishlab tashlangan, Rubi esa uzun, chiroyli bo‘yalgan tirnoqlari bilan mashhur edi; jasaddagi ko‘ylak eski bo‘lib, sevgilisi bilan uchrashuvga borayotgan qiz kiyadigan ko‘ylak emas edi. Bu orada yaqin qishloqdan <em>Pamela Rivz</em> ismli qiz bedarak yo‘qolgani xabar qilindi.",
+  "savol": "Miss Marpl qanday xulosaga keldi?",
+  "variantlar": [
+   "Jasad Rubi, u o‘lim oldidan tirnoqlarini tishlagan",
+   "Jasad Rubi, kiyimni qotil almashtirgan",
+   "Jasadni Bentrining o‘zi kutubxonaga olib kelgan",
+   "Jasad Rubi emas: tirnoqlari va ko‘ylagi mos kelmaydi — bu Pamela Rivz; jasadlar almashtirilgan va o‘lim vaqti hamda joyi soxtalashtirilgan"
+  ],
+  "javob": 3,
+  "izoh": "Uzun bo‘yalgan tirnoqlar bir kechada tishlangan holga kelmaydi; tirnoq tishlash — yillik odat. Uchrashuvga boradigan qiz eng yaxshi ko‘ylagini kiyadi. Demak, jasadni Rubi deb aniqlash xato yoki ataylab qilingan. Bu almashtirish qotillarga Rubi o‘lgan vaqtni soxtalashtirib, alibi yaratish imkonini bergan. Tanib berganlarning o‘zi rejaning ishtirokchisi edi."
+ },
+ {
+  "det": "marpl",
+  "kitob": "marpl",
+  "asar": "Ruhoniy uyidagi qotillik",
+  "yil": 1930,
+  "muallif": "Agata Kristi",
+  "sarlavha": "Juda qulay soat",
+  "hikoya": "Polkovnik <em>Proteroy</em> ruhoniy uyining kabinetida otib o‘ldirildi. Stolda ag‘darilgan soat 6:22 ni ko‘rsatib to‘xtab qolgan, yonida esa polkovnikning qo‘li bilan yozilgan, tepasiga «6:20» deb qo‘yilgan tugallanmagan xat bor edi. Ruhoniy esa bu soat doim 15 daqiqa oldinda yurishini bilardi. Miss <em>Marpl</em>: «Bunchalik aniq dalillar menga yoqmaydi», dedi.",
+  "savol": "Miss Marpl nimadan shubhalandi?",
+  "variantlar": [
+   "Polkovnik 6:20 da xat yozib, 6:22 da otilgan — hammasi aniq",
+   "Soat va xatdagi vaqt ataylab qoldirilgan: ular qotilga kerakli o‘lim vaqtini «isbotlash» — alibi yaratish uchun sahnalashtirilgan",
+   "Soat tasodifan ag‘darilgan, unda hech qanday ma’no yo‘q",
+   "Xatni ruhoniy yozgan, chunki u soatning noto‘g‘riligini bilardi"
+  ],
+  "javob": 1,
+  "izoh": "Haqiqiy jinoyatda vaqtni ikki tomondan bunchalik aniq «tasdiqlaydigan» dalillar kam uchraydi. Ag‘darilgan soat — klassik tuzoq; xat tepasidagi vaqt — g‘alati, odatdagi xatda soat yozilmaydi. Bunday dalillar kimgadir aynan o‘sha vaqtda boshqa joyda bo‘lganini ko‘rsatish uchun kerak. Haqiqiy o‘lim vaqti boshqacha edi va qotillar shu soxta vaqt atrofida alibilarini qurgan."
+ },
+ {
+  "det": "dyupen",
+  "kitob": "dyupen",
+  "asar": "Morg ko‘chasidagi qotillik",
+  "yil": 1841,
+  "muallif": "Edgar Allan Po",
+  "sarlavha": "Hech kim tushunmagan ovoz",
+  "hikoya": "Parijdagi uyda ona va qiz dahshatli tarzda o‘ldirildi: xona ichkaridan yopilgan, kuch ishlatilishi g‘ayritabiiy darajada. Qo‘shnilar ichkaridan ikki ovoz eshitishgan: biri — fransuzcha gapirgan erkak, ikkinchisi — g‘alati, qichqiriqli ovoz. Guvohlar ikkinchi ovoz haqida har xil gapirdi: fransuz uni ispancha, gollandiyalik — fransuzcha, ingliz — nemischa, ispan — inglizcha, italyan — ruscha deb o‘yladi; hech biri o‘sha tilni bilmasdi va hech kim bitta ham so‘zni ajrata olmadi. Ogyust <em>Dyupen</em> jasad qo‘lidan odamnikiga o‘xshamaydigan jun topdi.",
+  "savol": "Ikkinchi ovoz haqida Dyupenning xulosasi qanday?",
+  "variantlar": [
+   "Bu ko‘p tilni biladigan xorijlik jinoyatchi",
+   "Bu inson ovozi emas: har bir guvoh uni o‘zi bilmaydigan tilga nisbat bergan va hech kim so‘z ajrata olmagan — bu kuchli hayvon, katta maymun (orangutan) edi",
+   "Bu bir nechta odam, har biri o‘z tilida gapirgan",
+   "Guvohlar qo‘rqib, aqldan ozgan odamni eshitishgan"
+  ],
+  "javob": 1,
+  "izoh": "Har bir guvoh ovozni o‘zi bilmaydigan tilga nisbat bergani — ovozda tanish nutq yo‘qligini ko‘rsatadi. Bitta ham so‘z ajratilmagan. G‘ayritabiiy kuch, chaqqonlik (derazadan kirish-chiqish) va odamnikiga o‘xshamaydigan jun bilan birga, bu hayvonga ishora qiladi. Dyupen dengizchining qochgan orangutanini topdi. Bu — tarixdagi birinchi detektiv hikoyalardan biri."
+ },
+ {
+  "det": "dyupen",
+  "kitob": "dyupen",
+  "asar": "O‘g‘irlangan xat",
+  "yil": 1844,
+  "muallif": "Edgar Allan Po",
+  "sarlavha": "Ko‘z oldidagi yashirin joy",
+  "hikoya": "Vazir <em>D.</em> juda muhim xatni o‘g‘irlab, uni o‘z uyida saqlayotgani ma’lum edi. Politsiya uch oy davomida uyni sinchiklab tintuv qildi: mebel oyoqlarini burg‘uladi, har bir g‘ishtni mikroskopda tekshirdi, kitoblarning har bir varag‘ini ko‘rdi — xat topilmadi. Ogyust <em>Dyupen</em> vazirning uyiga mehmon bo‘lib bordi va kamin ustidagi oddiy tashrif kartochkalari tokchasida eski, g‘ijimlangan, boshqa muhr bilan yopilgan xatni ko‘rdi.",
+  "savol": "Nega politsiya xatni topa olmadi?",
+  "variantlar": [
+   "Xat uyda umuman bo‘lmagan, vazir uni o‘zi bilan olib yurgan",
+   "Politsiya yaxshi qidirmagan, ular dangasa edi",
+   "Xat ko‘rinmas siyoh bilan yozilgan edi",
+   "Ular uni maxfiy joylardan qidirishgan, vazir esa uni ochiq joyda — hamma ko‘radigan tokchada, ko‘rinishini o‘zgartirib qo‘ygan edi"
+  ],
+  "javob": 3,
+  "izoh": "Politsiya «aqlli odam narsani albatta yashirin joyga yashiradi» degan qoliplar bilan ishlagan. Vazir esa aqlli va buni bilardi — shuning uchun xatni eng ko‘zga tashlanadigan, lekin hech kim e’tibor bermaydigan joyga qo‘ydi va uni eski, keraksiz qog‘oz qiyofasiga keltirdi. Dyupen raqibning fikrlash tarzini tahlil qilib, uni topdi va o‘rniga nusxa qoldirdi."
+ },
+ {
+  "det": "dyupen",
+  "kitob": "dyupen",
+  "asar": "Oltin qo‘ng‘iz",
+  "yil": 1843,
+  "muallif": "Edgar Allan Po",
+  "sarlavha": "Qaroqchi shifri",
+  "hikoya": "<em>Uilyam Legran</em> pergament parchasida qaroqchi kapitan Kiddning yashirin xazinasi haqidagi shifrlangan yozuvni topdi. Yozuv raqamlar va belgilardan iborat edi, so‘zlar orasida bo‘sh joy yo‘q. Legran mulohaza qildi: kapitan ingliz edi, demak, matn ingliz tilida. Belgilarni sanab chiqqanda, eng ko‘p uchragan belgi «8» bo‘ldi. Ingliz tilida eng ko‘p ishlatiladigan harf — <em>E</em>, eng ko‘p ishlatiladigan so‘z esa «the».",
+  "savol": "Legran shifrni yechishni qanday davom ettirdi?",
+  "variantlar": [
+   "«8» ni E deb oldi, so‘ng matndan oxiri «8» bilan tugaydigan, tez-tez takrorlanadigan uch belgili birikmani qidirib, uni «the» deb topdi va harflarni birin-ketin ochdi",
+   "Har bir belgini alifboda bitta oldinga surib o‘qidi",
+   "Belgilarni teskari tartibda o‘qib chiqdi",
+   "Shifr kalitini pergamentni olovga tutib topdi va qolganini taxmin qildi"
+  ],
+  "javob": 0,
+  "izoh": "Bu — chastota tahlili, Holmesning «Raqsga tushayotgan odamchalar»idan ancha oldin yozilgan. Eng ko‘p uchraydigan belgi — eng ko‘p uchraydigan harf. Keyingi qadam — eng ko‘p uchraydigan so‘z: «the» uch harfli va E bilan tugaydi. Har bir yangi topilgan harf boshqa so‘zlarni ochadi. Pergamentdagi yashirin yozuv esa, darhaqiqat, olov issig‘ida paydo bo‘lgan edi — lekin shifrni yechish faqat mantiq bilan amalga oshdi."
+ },
+ {
+  "det": "braun",
+  "kitob": "braun",
+  "asar": "Moviy xoch",
+  "yil": 1910,
+  "muallif": "G. K. Chesterton",
+  "sarlavha": "G‘alati izlar zanjiri",
+  "hikoya": "Mashhur o‘g‘ri <em>Flambo</em>ni ta’qib qilayotgan politsiya boshlig‘i <em>Valantin</em> Londonda g‘alati hodisalarga duch keldi: kafeda shakardonga tuz solingan; restoranda kimdir sho‘rvani devorga sachratib, uzr so‘rab, pul to‘lab ketgan; do‘kondagi olma va apelsinlarning narx yozuvlari almashtirilgan; boshqa bir joyda deraza oynasi ataylab sindirilib, zarar oldindan to‘langan. Har gal bu ishlarni ikki ruhoniydan biri — past bo‘yli, oddiygina ota <em>Braun</em> qilgani aytildi. Valantin bu g‘alati izlar bo‘ylab yurdi.",
+  "savol": "Ota Braun nega bunday g‘alati ishlarni qildi?",
+  "variantlar": [
+   "U shunchaki parishonxotir odam edi",
+   "U Flamboning sherigi bo‘lib, politsiyani chalg‘itayotgan edi",
+   "U yonidagi «ruhoniy» Flambo ekanini sezgan va politsiya kuzatib kelishi uchun ataylab ko‘zga tashlanadigan izlar qoldirgan",
+   "U o‘ziga e’tibor tortib, gazetalarga chiqmoqchi edi"
+  ],
+  "javob": 2,
+  "izoh": "Har bir g‘alati harakat shovqin chiqarardi va odamlarning esida qolardi — ya’ni iz qoldirardi. Zararlarni oldindan to‘lash — u buni ataylab qilganini ko‘rsatadi. Ota Braun Flambo o‘zini ruhoniy qilib ko‘rsatayotganini sezgan: soxta «ruhoniy» aqlga qarshi gapirgan, haqiqiy ruhoniy esa bunday qilmaydi. Valantin bu izlar orqali ularni topdi va Flambo qo‘lga tushdi."
+ },
+ {
+  "det": "braun",
+  "kitob": "braun",
+  "asar": "Ko‘rinmas odam",
+  "yil": 1911,
+  "muallif": "G. K. Chesterton",
+  "sarlavha": "Hech kim kirmagan uy",
+  "hikoya": "Ixtirochi <em>Smayt</em> o‘z kvartirasida o‘ldirildi. Uy kirish eshigini to‘rt kishi — darvozabon, politsiyachi, kashtan sotuvchi va yana bir kuzatuvchi — butun vaqt kuzatib turdi; ularning har biri: «Hech kim kirmadi», deb qasam ichdi. Ammo qorda uyga kirib-chiqqan iz bor edi, jasad esa yo‘qolib qolgan. Ota <em>Braun</em> so‘radi: «Hech kim kirmadi» deganda, ular kimni hisobga olmagan bo‘lishi mumkin?",
+  "savol": "Qotil kim edi?",
+  "variantlar": [
+   "Kuzatuvchilardan biri, u yolg‘on gapirgan",
+   "Smaytning o‘zi ixtiro qilgan robot",
+   "Pochtachi: u har kuni keladi, odamlar uni «hech kim» deb hisoblab, e’tibor bermaydi — u jasadni xat solinadigan katta sumkasida olib chiqib ketgan",
+   "Uyga tom orqali tushgan noma’lum odam"
+  ],
+  "javob": 2,
+  "izoh": "«Hech kim kirmadi» degan gap — kuzatilgan narsa emas, xulosa. Odamlar kundalik, odatiy kishilarni (pochtachi, xizmatchi) «kimdir» deb hisoblamaydi — ular «ruhan ko‘rinmas». Qordagi iz kimdir kirganini isbotlaydi. Pochtachining katta sumkasi esa jasadni olib chiqishga yetadi. Bu hikoya bizni kuzatuvchining e’tiboriga ham shubha bilan qarashga o‘rgatadi."
+ },
+ {
+  "det": "braun",
+  "kitob": "braun",
+  "asar": "Qo‘ng‘iroqxona bolg‘asi",
+  "yil": 1910,
+  "muallif": "G. K. Chesterton",
+  "sarlavha": "Kichik bolg‘aning ulkan zarbasi",
+  "hikoya": "Qishloqda polkovnik <em>Boxun</em> boshiga urilgan zarbadan halok bo‘ldi: bosh suyagi ezilib ketgan, yonida esa juda kichik, yengil bolg‘a yotardi. Hamma gumonni qishloqning eng kuchli odami — temirchiga qaratdi: bunday zarbani faqat u bera oladi. Ammo temirchining ishonchli alibisi bor edi. Voqea baland qo‘ng‘iroqxona minorasi tagida, ochiq maydonda yuz bergan. Ota <em>Braun</em> marhumning ukasi — ruhoniy bilan minoraning yuqori ayvoniga chiqqanda pastga qarab: «Bu yerdan odamlar hasharotdek kichik ko‘rinadi», dedi.",
+  "savol": "Ota Braun qanday xulosaga keldi?",
+  "variantlar": [
+   "Bolg‘ani kuchli qo‘l urmagan — u baland minoradan tashlangan: yengil bolg‘a balanddan tushib, ulkan kuch bilan urilgan; qotil — minoradan pastga qaragan odam",
+   "Temirchi yolg‘on alibi o‘ylab topgan va o‘zi urgan",
+   "Polkovnik otdan yiqilib, boshini bolg‘aga urgan",
+   "Bolg‘ani bir nechta odam birga ko‘tarib urgan"
+  ],
+  "javob": 0,
+  "izoh": "Kichik bolg‘a va ulkan zarba — ziddiyat: kuch qo‘ldan emas, boshqa manbadan kelgan. Balanddan tushgan jism tezlik oladi — kichik massaga katta tezlik qo‘shilsa, zarba juda kuchli bo‘ladi. Voqea joyi minora tagida — demak, manba yuqorida. Minorada bo‘lgan odam — marhumning ukasi; u o‘z akasini balanddan qarab «gunohkor» deb hukm qilgan va bolg‘ani tashlagan."
+ },
+ {
+  "det": "braun",
+  "kitob": "braun",
+  "asar": "Singan qilich belgisi",
+  "yil": 1911,
+  "muallif": "G. K. Chesterton",
+  "sarlavha": "Barg qayerga yashiriladi?",
+  "hikoya": "Mashhur general <em>Sent-Kler</em> urushda kutilmaganda, aqlga sig‘maydigan hujum uyushtirib, ko‘p askarini halok qilgan va o‘zi ham o‘lgan edi. Hamma uni qahramon deb hisoblardi. Ota <em>Braun</em> do‘sti Flamboga savol berdi: «Aqlli odam bargni qayerga yashiradi?» — «O‘rmonga». — «O‘rmon bo‘lmasa-chi?» — «O‘rmon o‘stiradi». Keyin Braun generalning qilichi uchi singanini, u esa jangdan oldin kimnidir o‘ldirgani haqidagi guvohlikni eslatdi.",
+  "savol": "Ota Braunning «barg va o‘rmon» haqidagi mulohazasi nimani bildiradi?",
+  "variantlar": [
+   "General jangda chindan qahramonlarcha halok bo‘lgan",
+   "Qilich jangda tasodifan singan",
+   "General dushman bilan til biriktirgan, xolos",
+   "General bitta jasadni — o‘zi o‘ldirgan odamni — yashirish uchun ataylab ma’nosiz hujum uyushtirib, jasadlar «o‘rmon»ini yaratgan"
+  ],
+  "javob": 3,
+  "izoh": "Bir jasad tinch kunda shubha uyg‘otadi; jang maydonidagi ko‘plab jasadlar orasida u ko‘zga tashlanmaydi. Shuning uchun «o‘rmon» — ya’ni ko‘plab qurbonlar — sun’iy yaratilgan. Singan qilich uchi qotillik qurolini ko‘rsatgan. Bu — yashirish mantig‘ining dahshatli misoli: kerakli narsani o‘xshash narsalar orasiga ko‘mish."
+ },
+ {
+  "det": "klassika",
+  "kitob": "klassika",
+  "asar": "Oy toshi",
+  "yil": 1868,
+  "muallif": "Uilki Kollinz",
+  "sarlavha": "Tungi xalatdagi bo‘yoq",
+  "hikoya": "Tug‘ilgan kun kechasi yosh <em>Reychel</em>ga sovg‘a qilingan mashhur hind olmosi — Oy toshi uning xonasidan g‘oyib bo‘ldi. Xona eshigi kechqurun yangi bo‘yalgan, bo‘yoq hali qurimagan edi va eshikdagi bo‘yoq ertalab bir joyida surtilib ketgani ko‘rindi. Bir yil o‘tib, <em>Franklin Bleyk</em> o‘zining tungi xalatida o‘sha bo‘yoq dog‘ini topdi — lekin u olmosni olganini umuman eslamaydi. Ma’lum bo‘lishicha, o‘sha kechasi shifokor yashirincha uning ichimligiga afyunli dori (laudanum) qo‘shgan, Franklin esa o‘sha kunlarda olmosning xavfsizligidan qattiq xavotirda edi.",
+  "savol": "Franklin olmosni olganini nega eslamaydi?",
+  "variantlar": [
+   "U yolg‘on gapiryapti — olmosni sotib yuborgan",
+   "Afyunli dori ta’sirida, uyqusiz va xavotirda yurgan holda, u uyqu-hushyorlik orasida olmosni «xavfsiz joyga» olib qo‘ygan va buni bilmagan",
+   "Xalatni boshqa odam kiyib, olmosni olgan",
+   "Bo‘yoq dog‘i tasodifiy, olmosni xizmatchi qiz olgan"
+  ],
+  "javob": 1,
+  "izoh": "Bo‘yoq dog‘i olmos olingan vaqtda eshikka tekkan odamni ko‘rsatadi — bu Franklinning xalati. Lekin u buni eslamaydi. Afyun dori va xavotir — tushida yurish va ongsiz harakatlarga sabab bo‘lishi mumkin. Shifokor tajribani takrorladi: Franklin yana dori ichib, xuddi shunday harakatlar qildi. Bu ingliz adabiyotidagi ilk uzun detektiv romanlardan biri."
+ },
+ {
+  "det": "klassika",
+  "kitob": "klassika",
+  "asar": "Shved gugurti",
+  "yil": 1884,
+  "muallif": "Anton Chexov",
+  "sarlavha": "Kam uchraydigan gugurt",
+  "hikoya": "Qishloqda iste’fodagi kornet <em>Klyauzov</em> g‘oyib bo‘ldi; xonasi ostin-ustun, karavot yonida esa bitta yoqilgan <em>shved gugurti</em> topildi. Tergovchining yosh, g‘ayratli yordamchisi o‘yladi: «Bu atrofda hamma oddiy gugurt ishlatadi, shved gugurti esa juda kam — uni faqat bir-ikki xonadonda topish mumkin». Gugurt izidan borib, ular politsiya boshlig‘ining yosh xotini aynan shunday gugurt ishlatishini aniqlashdi.",
+  "savol": "Gugurt izi oxir-oqibat nimaga olib keldi?",
+  "variantlar": [
+   "Politsiya boshlig‘ining xotini Klyauzovni o‘ldirgani isbotlandi",
+   "Klyauzovni topishga: u o‘ldirilmagan ekan — politsiya boshlig‘ining xotini uni o‘z hammomida yashirib saqlayotgan edi",
+   "Gugurt tasodifan tushib qolgan, ish yopildi",
+   "Klyauzovni o‘g‘irlab ketgan qaroqchilar to‘dasi topildi"
+  ],
+  "javob": 1,
+  "izoh": "Dalil to‘g‘ri tanlangan: kam uchraydigan narsa — kuchli iz, chunki u gumondorlar doirasini toraytiradi. Lekin tergovchilar «qotillik» degan xulosaga shoshilgan edi. Chexovning kulgili hikoyasi shuni o‘rgatadi: dalil to‘g‘ri yo‘lni ko‘rsatishi mumkin, ammo boshidanoq tanlangan «jinoyat» haqidagi taxmin noto‘g‘ri bo‘lishi mumkin. Tirik va sog‘ Klyauzov hammomda topildi."
+ },
+ {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Sof mantiq · yolg‘onchini topish",
   "sarlavha": "Uch gumondor va bitta yolg‘on",
@@ -1014,6 +1666,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "Har bir variantni tekshiramiz. Ayola aybdor bo‘lsa: Ayolaning gapi yolg‘on, Bekzodning gapi ham yolg‘on, Sanjarning gapi rost — ikkita yolg‘on, shart buziladi. Sanjar aybdor bo‘lsa: xuddi shunday ikkita yolg‘on. Bekzod aybdor bo‘lsa: Ayola rost, Bekzod yolg‘on, Sanjar rost — aynan bitta yolg‘on. Demak, aybdor — Bekzod."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Qulflangan xona klassikasi",
   "sarlavha": "Muzlatilgan zahar",
@@ -1029,6 +1682,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "Zahar shishaga tushmagan, qadagich ham toza yuvilgan — demak, zahar keyin, ichimlikka tayyorlangan paytda qo‘shilgan. Yagona yo‘l: zahar muz kubining ichiga solingan. Muz erigach, zahar qadagichga o‘tadi va shisha toza qoladi. Muzni tayyorlagan mehmonlar — qotillar. Holmes uchun «kimning qo‘li muzga tegdi» degan savol «kim zahar soldi» savolidan muhimroq bo‘ldi."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Guvohning alibisi",
   "sarlavha": "Bekat soati",
@@ -1044,6 +1698,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "Soat 20 daqiqa orqada. Demak, soat 7:00 ni ko‘rsatganda haqiqiy vaqt 7:20. Poyezd esa 7:05 da ketgan — ya’ni guvoh «7:00» deb aytgan paytda poyezd 15 daqiqa oldin jo‘nab bo‘lgan. Guvoh Klerkni poyezdga chiqayotganini ko‘ra olmasdi. Alibi soatga tayansa, avval soatning o‘zini tekshirish kerak."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Qulflangan xona · deduksiya zanjiri",
   "sarlavha": "Qor ostidagi xona",
@@ -1059,6 +1714,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "Deduksiya ikki dalilga tayanadi. Birinchisi: agar kimdir derazadan chiqqan bo‘lsa, yangi qorda iz qolishi va pastda qadamlar ko‘rinishi shart edi — ikkalasi ham yo‘q. Demak, tashqaridan hech kim kirmagan. Ikkinchisi: eshik ichkaridan qulflangan, demak qotil ichkarida bo‘lgan. Uyda esa lord va xizmatkordan boshqa hech kim yo‘q edi. Xizmatkorning hikoyasi — o‘zi to‘qigan izoh."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Uch quti klassikasi",
   "sarlavha": "Noto‘g‘ri yozuvlar",
@@ -1074,6 +1730,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "«Aralash» yozuvi noto‘g‘ri, demak u yerda aralash yo‘q — ichida faqat olma yoki faqat nok. Bitta meva olish yetarli. Qolganini mantiq hal qiladi. Masalan, «Aralash»dan olma chiqdi: bu quti — olma. Unda olma qolmagan, «Olma» yozuvli qutida esa olma bo‘lishi mumkin emas (yozuv noto‘g‘ri) — u yerda nok. Qolgan «Nok» yozuvlisida aralash bo‘ladi. «Olma» yoki «Nok» yozuvli qutidan olsangiz, noaniqlik qoladi, chunki u yerda ikki xil variant bo‘lishi mumkin."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Deduksiya + kod",
   "sarlavha": "Shifrlangan xat",
@@ -1089,6 +1746,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "Har bir harfni bir pog‘ona orqaga suramiz: U→T, I→H, F→E — THE. D→C, M→L, P→O, D→C, L→K — CLOCK. T→S, U→T, S→R, J→I, L→K, T→S — STRIKES. P→O, O→N, F→E — ONE. Natija: «The clock strikes one». Holmes nafaqat matnni, balki vaqtni ham aniqladi — jinoyat 01:00 ga rejalashtirilgan. Bunday shifr Sezar shifri deyiladi: harfni alifbo bo‘ylab siljitish."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Holmesning sevimli usuli — kuzatish",
   "sarlavha": "Qadam izlari",
@@ -1104,6 +1762,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "Cho‘loq odam oqsaydi: jarohatlangan oyog‘iga kamroq tayanadi yoki sog‘lom oyog‘iga ko‘proq bosim beradi. Natijada ikki oyoq izining chuqurligi har xil bo‘ladi, qadamlar esa notekis — kalta va uzun qadamlar almashinadi. Holmes uchun botinkaning o‘lchami emas, yurish sur’ati — eng ishonchli «imzo». Diqqat: izlar yo‘nalishi ham, qor vaqti ham bu yerda ikkinchi darajali."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Sof mantiq",
   "sarlavha": "Yolg‘onchilar halqasi",
@@ -1119,6 +1778,7 @@ window.SHERLOCK_ISHLAR = [
   "izoh": "Bir-bir tekshiramiz. Ali rost deb olaylik: u «Vali yolg‘onchi» degani to‘g‘ri, demak Vali yolg‘onchi. U holda Valining «Soli yolg‘onchi» degan gapi yolg‘on — Soli rostgo‘y. Ammo rostgo‘y faqat bitta bo‘lishi shart, ziddiyat. Soli rost deb olaylik: «Ali ham, Vali ham yolg‘onchi» degani to‘g‘ri; Ali yolg‘onchi bo‘lsa, uning «Vali yolg‘onchi» degan gapi yolg‘on — Vali rostgo‘y, yana ziddiyat. Vali rost deb olaylik: Alining gapi yolg‘on — Ali yolg‘onchi, to‘g‘ri. Solining gapi yolg‘on, chunki Vali rost — Soli yolg‘onchi. Hammasi mos: haqiqatni Vali aytdi. Ziddiyatli variant yiqiladi, bitta mos variant qoladi."
  },
  {
+  "det": "mantiq",
   "kitob": "mantiq",
   "manba": "Mantiqiy jadval",
   "sarlavha": "Uch qavatli uy",

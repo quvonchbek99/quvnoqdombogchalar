@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sherlock — mantiqiy tergov ishlari | Kuvonch Academy</title>
-<meta name="description" content="Sherlock uslubidagi 20 ta detektiv ish: hikoyani o'qing, dalillarni tahlil qiling va mantiqiy savolga javob bering. O'zbek tilida bepul mantiq mashqlari.">
+<title>Sherlock va detektivlar — mantiqiy tergov ishlari | Kuvonch Academy</title>
+<meta name="description" content="94 ta detektiv ish: Sherlok Xolms (Konan Doylning 60 asari), Herkul Puaro va Miss Marpl (Agata Kristi), Dyupen (Edgar Po), Ota Braun (Chesterton) va boshqalar. Hikoyani o'qing, dalillarni tahlil qiling, mantiqiy savolga javob bering. O'zbek tilida bepul.">
 <meta name="theme-color" content="#060a1a">
 <link rel="canonical" href="https://kuvonch.uz/sherlock.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,6 +67,41 @@ h1 .grad{background:linear-gradient(100deg,var(--teal),var(--violet) 60%,var(--r
 .tag.yil{color:var(--amber);border-color:#4a3a14;background:transparent}
 @media (max-width:640px){.shelf{flex-wrap:nowrap;overflow-x:auto;margin:22px -16px 0;padding:0 16px 4px;scrollbar-width:none}.shelf::-webkit-scrollbar{display:none}.shelf button{white-space:nowrap;flex:none}}
 .counter{font-size:13px;color:var(--haze);white-space:nowrap;font-variant-numeric:tabular-nums}
+.shelf.sub{margin-top:10px}
+.shelf.sub button{font-size:12.5px;padding:6px 12px;background:transparent}
+.shelf button .ok{color:var(--teal);font-weight:700}
+.me{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 0;font-size:13.5px;color:var(--haze)}
+.me b{color:var(--chalk)} .me .rk{color:var(--amber);font-weight:700}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.tools .btn{font-size:13.5px;padding:8px 14px}
+.toc{margin:0 0 16px;border:1px solid var(--line);border-radius:16px;background:#0b1430;padding:6px 8px;max-height:420px;overflow:auto}
+.toc[hidden]{display:none}
+.toc h4{margin:10px 10px 4px;font-family:var(--display);font-size:13px;color:var(--amber);letter-spacing:.04em}
+.toc button{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:transparent;border:0;border-radius:10px;padding:7px 10px;color:var(--chalk);font-family:inherit;font-size:14px;cursor:pointer}
+.toc button:hover,.toc button.cur{background:#152048}
+.toc .st{flex:0 0 22px;text-align:center;font-weight:700}
+.toc .st.ok{color:var(--teal)} .toc .st.no{color:var(--rose)} .toc .st.nw{color:#4b5a8a}
+.toc small{color:var(--haze);margin-left:auto;font-size:12px;white-space:nowrap}
+.opt.cut{opacity:.35;text-decoration:line-through}
+.tag.mu{color:#d9ccff;border-color:#3a2d6b;background:transparent}
+.solved{font-size:12px;color:var(--teal);border:1px solid #1f5a4d;border-radius:999px;padding:3px 9px}
+/* ---------- chop etish: oq-qora kitob ---------- */
+#book{display:none}
+@media print{
+  @page{margin:16mm 14mm}
+  body{background:#fff!important;color:#000!important}
+  body>*:not(#book){display:none!important}
+  #book{display:block;color:#000;font:11.5pt/1.45 Georgia,"Times New Roman",serif}
+  #book h1{font:700 22pt/1.2 Georgia,serif;margin:0 0 4mm;color:#000;background:none;-webkit-text-fill-color:#000}
+  #book h2{font:700 13.5pt/1.3 Georgia,serif;margin:0 0 1.5mm;color:#000}
+  #book .meta{font-size:9.5pt;margin:0 0 2mm;font-style:italic}
+  #book .case{break-inside:avoid;page-break-inside:avoid;margin:0 0 7mm;padding:0 0 5mm;border-bottom:.4pt solid #000}
+  #book .q{font-weight:700;margin:2mm 0 1mm}
+  #book ol{margin:0;padding-left:7mm} #book li{margin:0 0 .8mm}
+  #book .ans{break-before:page;page-break-before:always}
+  #book .ans p{margin:0 0 2.5mm} #book em{font-style:normal;font-weight:700}
+  #book .toc-p{columns:2;font-size:10pt;margin:0 0 6mm} #book .toc-p div{break-inside:avoid}
+}
 
 /* ---------- case card ---------- */
 .card{background:linear-gradient(180deg,var(--card),#0d1633);border:1px solid var(--line);
@@ -151,13 +186,15 @@ footer a{color:var(--haze)}
 <main class="wrap">
 
   <header class="hero">
-    <div class="kicker" id="kicker">🔎 Mantiqiy tergov · 69 ish</div>
-    <h1>Sherlock: <span class="grad">mantiq maktabi</span></h1>
-    <p class="lead">Konan Doylning Sherlok Xolms haqidagi <b>60 ta asarining har biridan bitta tergov</b> va Holmes uslubidagi mantiq ishlari. Har bir ish — qisqa detektiv hikoya. Dalillarni o‘qing, ortiqcha ma’lumotni chetga suring va mantiqiy savolga javob bering. Har javobdan keyin Holmes o‘z xulosasini tushuntiradi.</p>
+    <div class="kicker" id="kicker">🔎 Mantiqiy tergov</div>
+    <h1>Sherlock va detektivlar: <span class="grad">mantiq maktabi</span></h1>
+    <p class="lead">Konan Doylning Sherlok Xolms haqidagi <b>60 ta asarining har biridan bitta tergov</b>, Agata Kristining <b>Herkul Puaro</b> va <b>Miss Marpl</b>i, Edgar Poning <b>Dyupen</b>i, Chestertonning <b>Ota Braun</b>i va boshqa klassik detektivlar. Har bir ish — qisqa detektiv hikoya. Dalillarni o‘qing, ortiqcha ma’lumotni chetga suring va mantiqiy savolga javob bering — keyin detektiv o‘z xulosasini tushuntiradi.</p>
     <p class="quote">«Siz ko‘ryapsiz, lekin kuzatmaysiz. Kuzatish va xulosa chiqarish orasidagi farq — butun ishning kaliti.»</p>
+    <div class="me" id="me"></div>
   </header>
 
-  <div class="shelf" id="shelf" role="group" aria-label="To‘plamni tanlang"></div>
+  <div class="shelf" id="shelf" role="group" aria-label="Detektivni tanlang"></div>
+  <div class="shelf sub" id="shelf2" role="group" aria-label="Kitobni tanlang" hidden></div>
 
   <div class="progress">
     <span class="counter" id="counter">Ish 1</span>
@@ -165,9 +202,16 @@ footer a{color:var(--haze)}
     <span class="counter" id="scoreline">0 ball</span>
   </div>
 
+  <div class="tools">
+    <button class="btn" id="tocBtn" type="button" aria-expanded="false" aria-controls="toc">📖 Mundarija</button>
+    <button class="btn" id="printBtn" type="button">🖨 Kitob qilib chop etish</button>
+  </div>
+  <nav class="toc" id="toc" hidden aria-label="Mundarija"></nav>
+
   <section id="app" aria-live="polite"></section>
 
   <div class="note">
+    <b>Kitob qilib chop etish:</b> tanlangan to‘plam oq-qora printerga mos kitob ko‘rinishida chiqadi — boshida mundarija, har bir ish alohida bob, oxirida javoblar va izohlar.<br><br>
     <b>Bu savollarni sinf viktorinasiga ulash:</b> quyidagi tugma orqali savollar bazasini JSON fayl sifatida yuklab oling va <a href="sinf-oyinlari.html">Sinf viktorinasi</a> bo‘limiga import qiling. Har bir savolda matn, 4 ta variant, to‘g‘ri javob va izoh bor.
   </div>
 
@@ -176,57 +220,114 @@ footer a{color:var(--haze)}
   </footer>
 </main>
 
-<script src="sherlock-ishlar.js?v=20261111a"></script>
+<script src="sherlock-ishlar.js?v=20261112a"></script>
 <script>
 /* ============ ISHLAR: sherlock-ishlar.js dan (viktorina ham shu fayldan oladi) ============ */
+const DETS = window.SHERLOCK_DETEKTIVLAR || [];
+const KITOBLAR = window.SHERLOCK_KITOBLAR || [];
+const DET_OF = {}; DETS.forEach(d => DET_OF[d.id] = d);
 const ALL = (window.SHERLOCK_ISHLAR || []).map((c, i) => ({
-  n: i + 1, kitob: c.kitob, asar: c.asar || '', yil: c.yil || '',
+  n: i + 1, id: c.sarlavha, det: c.det || 'mantiq', kitob: c.kitob, asar: c.asar || '', yil: c.yil || '', muallif: c.muallif || '',
   title: c.sarlavha, source: c.asar ? `«${c.asar.replace(/^«|»$/g, '')}» asosida` : (c.manba || 'Mantiq'),
   story: c.hikoya, question: c.savol, options: c.variantlar, correct: c.javob, why: c.izoh
 }));
-const KITOBLAR = window.SHERLOCK_KITOBLAR || [];
+const esc = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+
+/* ---- yechilgan ishlar (shu qurilmada) ---- */
+const SOLVED_KEY = 'sherlock_yechildi_v1';
+let SOLVED = {}; try { SOLVED = JSON.parse(localStorage.getItem(SOLVED_KEY) || '{}') || {}; } catch (e) {}
+function saveSolved(){ try { localStorage.setItem(SOLVED_KEY, JSON.stringify(SOLVED)); } catch (e) {} }
+const solvedIn = list => list.filter(c => SOLVED[c.id] === 1).length;
+function rankOf(n){
+  if (n >= ALL.length) return 'Buyuk detektiv';
+  if (n >= 60) return 'Beyker-strit 221B mehmoni';
+  if (n >= 30) return 'Skotlend-Yard inspektori';
+  if (n >= 10) return 'Yosh detektiv';
+  return 'Boshlovchi izquvar';
+}
+
 let CASES = ALL, setKey = 'hammasi';
 function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 // variantlar har safar aralashadi (to‘g‘ri javob doim bir joyda turmasin)
 function mix(c){ const o = shuffle(c.options.map((t, i) => ({ t, ok: i === c.correct }))); return Object.assign({}, c, { options: o.map(x => x.t), correct: o.findIndex(x => x.ok) }); }
-function pickSet(key){
+function listOf(key){
+  if (key === 'hammasi') return ALL;
+  if (key === 'tasodif') { const yangi = ALL.filter(c => SOLVED[c.id] !== 1); return shuffle(yangi.length >= 10 ? yangi : ALL).slice(0, 10); }
+  if (key.startsWith('det:')) return ALL.filter(c => c.det === key.slice(4));
+  if (key.startsWith('kitob:')) return ALL.filter(c => c.kitob === key.slice(6));
+  return ALL;
+}
+function setName(key){
+  if (key === 'hammasi') return 'Barcha ishlar';
+  if (key === 'tasodif') return 'Tasodifiy 10 ta';
+  if (key.startsWith('det:')) { const d = DET_OF[key.slice(4)]; return d ? d.nom : key; }
+  if (key.startsWith('kitob:')) { const k = KITOBLAR.find(x => x.id === key.slice(6)); return k ? k.nom : key; }
+  return key;
+}
+function pickSet(key, startAt){
   setKey = key;
-  let list = key === 'hammasi' ? ALL : key === 'tasodif' ? shuffle(ALL).slice(0, 10) : ALL.filter(c => c.kitob === key);
-  CASES = list.map(mix); idx = 0; score = 0; results.length = 0;
-  document.querySelectorAll('#shelf button').forEach(b => b.classList.toggle('on', b.dataset.k === key));
+  CASES = listOf(key).map(mix); score = 0; results.length = 0; hinted.length = 0;
+  // yechilmagan birinchi ishdan boshlaymiz
+  idx = startAt != null ? startAt : Math.max(0, CASES.findIndex(c => SOLVED[c.id] !== 1));
+  if (idx >= CASES.length) idx = 0;
   try { localStorage.setItem('sherlock_set', key); } catch (e) {}
-  renderCase();
+  drawShelf(); drawToc(); renderCase();
 }
 function drawShelf(){
-  const sh = document.getElementById('shelf'); if (!sh) return;
-  const items = [['hammasi', 'Hammasi', ALL.length], ['tasodif', '🎲 Tasodifiy 10 ta', '']]
-    .concat(KITOBLAR.map(k => [k.id, k.nom, ALL.filter(c => c.kitob === k.id).length]));
-  sh.innerHTML = items.map(([k, t, n]) => `<button type="button" data-k="${k}">${t}${n !== '' ? ` <small>${n}</small>` : ''}</button>`).join('');
-  sh.addEventListener('click', e => { const b = e.target.closest('button'); if (b) pickSet(b.dataset.k); });
-  const kk = document.getElementById('kicker'); if (kk) kk.textContent = `🔎 Mantiqiy tergov · ${ALL.length} ish`;
+  const sh = document.getElementById('shelf'), sh2 = document.getElementById('shelf2');
+  const cnt = list => { const n = list.length, k = solvedIn(list); return k ? `<small><span class="ok">✓${k}</span>/${n}</small>` : `<small>${n}</small>`; };
+  const dets = DETS.map(d => ['det:' + d.id, `${d.belgi} ${d.nom}`, ALL.filter(c => c.det === d.id)]);
+  const items = [['hammasi', 'Hammasi', ALL], ['tasodif', '🎲 Tasodifiy 10 ta', null]].concat(dets);
+  const curDet = setKey.startsWith('kitob:') ? (KITOBLAR.find(k => k.id === setKey.slice(6)) || {}).det : setKey.startsWith('det:') ? setKey.slice(4) : '';
+  sh.innerHTML = items.map(([k, t, l]) => `<button type="button" data-k="${k}" class="${k === setKey || ('det:' + curDet) === k ? 'on' : ''}">${t}${l ? ' ' + cnt(l) : ''}</button>`).join('');
+  // Sherlok Xolms — 6 ta kitob alohida
+  const books = curDet ? KITOBLAR.filter(k => k.det === curDet) : [];
+  sh2.hidden = books.length < 2;
+  sh2.innerHTML = books.length < 2 ? '' : [`<button type="button" data-k="det:${curDet}" class="${setKey === 'det:' + curDet ? 'on' : ''}">Hamma kitoblar</button>`]
+    .concat(books.map(b => `<button type="button" data-k="kitob:${b.id}" class="${setKey === 'kitob:' + b.id ? 'on' : ''}">${esc(b.nom)} <small>${b.yil}</small> ${cnt(ALL.filter(c => c.kitob === b.id))}</button>`)).join('');
+  const total = solvedIn(ALL);
+  document.getElementById('kicker').textContent = `🔎 Mantiqiy tergov · ${ALL.length} ish · ${DETS.length - 1} detektiv`;
+  document.getElementById('me').innerHTML = `Yechilgan ishlar: <b>${total} / ${ALL.length}</b> · Darajangiz: <span class="rk">${rankOf(total)}</span>`;
 }
+document.getElementById('shelf').addEventListener('click', e => { const b = e.target.closest('button'); if (b) pickSet(b.dataset.k); });
+document.getElementById('shelf2').addEventListener('click', e => { const b = e.target.closest('button'); if (b) pickSet(b.dataset.k); });
+
+/* ---- mundarija ---- */
+function drawToc(){
+  const t = document.getElementById('toc'); let h = '', last = '';
+  CASES.forEach((c, i) => {
+    const grp = setKey === 'tasodif' ? '' : (KITOBLAR.find(k => k.id === c.kitob) || {}).nom || '';
+    if (grp && grp !== last) { h += `<h4>${esc(grp)}</h4>`; last = grp; }
+    const st = SOLVED[c.id] === 1 ? '<span class="st ok" aria-label="yechilgan">✓</span>' : SOLVED[c.id] === 0 ? '<span class="st no" aria-label="xato">✗</span>' : '<span class="st nw" aria-label="yangi">•</span>';
+    h += `<button type="button" data-i="${i}" class="${i === idx ? 'cur' : ''}">${st}<span>${i + 1}. ${esc(c.title)}</span><small>${esc(c.asar || c.source)}</small></button>`;
+  });
+  t.innerHTML = h;
+}
+document.getElementById('toc').addEventListener('click', e => { const b = e.target.closest('button[data-i]'); if (!b) return; idx = +b.dataset.i; renderCase(); });
+document.getElementById('tocBtn').addEventListener('click', () => { const t = document.getElementById('toc'), b = document.getElementById('tocBtn'); t.hidden = !t.hidden; b.setAttribute('aria-expanded', String(!t.hidden)); if (!t.hidden) drawToc(); });
 
 /* ============ HOLAT ============ */
 const app = document.getElementById('app');
 const barFill = document.getElementById('barfill');
 const counter = document.getElementById('counter');
 const scoreline = document.getElementById('scoreline');
-let idx = 0, score = 0, answered = false;
-const results = [];
+let idx = 0, score = 0, answered = false, usedHint = false;
+const results = [], hinted = [];
 const BEST_KEY = () => 'sherlock_best_' + setKey;
+const fmt = x => (Math.round(x * 2) / 2).toString().replace('.5', '½').replace(/^0½/, '½');
 
 function renderCase(){
-  answered = false;
+  answered = false; usedHint = false;
   const c = CASES[idx];
   counter.textContent = `Ish ${idx+1} / ${CASES.length}`;
   barFill.style.width = `${(idx / CASES.length) * 100}%`;
-  scoreline.textContent = `${score} ball`;
-
+  scoreline.textContent = `${fmt(score)} ball`;
+  const d = DET_OF[c.det] || {};
   app.innerHTML = `
     <article class="card">
       <div class="case-top">
-        <span class="tag">Ish ${String(idx+1).padStart(2,'0')}</span>
-        <span class="tag src">${c.source}</span>${c.yil ? `<span class="tag yil">${c.yil}</span>` : ''}
+        <span class="tag">${d.belgi || '🔎'} Ish ${String(idx+1).padStart(2,'0')}</span>
+        <span class="tag src">${esc(c.source)}</span>${c.muallif ? `<span class="tag mu">${esc(c.muallif)}</span>` : ''}${c.yil ? `<span class="tag yil">${c.yil}</span>` : ''}${SOLVED[c.id] === 1 ? '<span class="solved">✓ yechilgan</span>' : ''}
         <h2>${c.title}</h2>
       </div>
       <p class="story">${c.story}</p>
@@ -243,19 +344,35 @@ function renderCase(){
       </div>
       <div class="card-foot">
         <span class="counter" id="hint">Variantni tanlang yoki 1–4 tugmasini bosing</span>
-        <button class="btn solid" id="next" disabled>Keyingi ish →</button>
+        <span>
+          <button class="btn" id="clue" type="button" title="Bitta noto‘g‘ri variant olib tashlanadi; to‘g‘ri javob ½ ball beradi">🔍 Dalil</button>
+          <button class="btn solid" id="next" disabled>Keyingi ish →</button>
+        </span>
       </div>
     </article>`;
 
   document.getElementById('opts').addEventListener('click', e => {
     const b = e.target.closest('.opt');
-    if (b) choose(+b.dataset.i);
+    if (b && !b.classList.contains('cut')) choose(+b.dataset.i);
   });
+  document.getElementById('clue').addEventListener('click', useClue);
   document.getElementById('next').addEventListener('click', () => {
     if (idx < CASES.length - 1) { idx++; renderCase(); }
     else renderResult();
   });
+  if (!document.getElementById('toc').hidden) drawToc();
   window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Maslahat: bitta noto‘g‘ri variantni olib tashlaydi
+function useClue(){
+  if (answered || usedHint) return;
+  const c = CASES[idx], wrong = c.options.map((_, i) => i).filter(i => i !== c.correct);
+  const i = wrong[Math.floor(Math.random() * wrong.length)];
+  const b = document.querySelectorAll('.opt')[i]; b.classList.add('cut'); b.disabled = true;
+  usedHint = true; hinted[idx] = true;
+  const cl = document.getElementById('clue'); cl.disabled = true; cl.textContent = '🔍 Dalil ishlatildi';
+  document.getElementById('hint').textContent = 'Bitta noto‘g‘ri variant olib tashlandi · to‘g‘ri javob ½ ball';
 }
 
 function choose(i){
@@ -263,58 +380,71 @@ function choose(i){
   answered = true;
   const c = CASES[idx];
   const ok = i === c.correct;
-  if (ok) score++;
+  const first = ok && SOLVED[c.id] !== 1;
+  if (ok) score += usedHint ? 0.5 : 1;
   results[idx] = ok;
+  if (ok) SOLVED[c.id] = 1; else if (SOLVED[c.id] !== 1) SOLVED[c.id] = 0;
+  saveSolved();
+  // birinchi marta yechilgan ish — akkauntga 2 coin (dalilsiz bo‘lsa)
+  if (first && !usedHint && window.kaAccount && kaAccount.me && kaAccount.me()) { try { kaAccount.addCoins(2, 'sherlock'); } catch (e) {} }
 
   document.querySelectorAll('.opt').forEach((b, j) => {
     b.disabled = true;
     if (j === c.correct) b.classList.add('correct');
     else if (j === i) b.classList.add('wrong');
   });
+  const cl = document.getElementById('clue'); if (cl) cl.disabled = true;
 
   const fb = document.getElementById('fb');
   fb.classList.add('show', ok ? 'ok' : 'no');
   fb.querySelector('.verdict').textContent = ok ? '✓ To‘g‘ri xulosa' : '✗ Xulosa xato';
   fb.querySelector('p').textContent = c.why;
 
-  document.getElementById('hint').textContent = ok ? '+1 ball' : 'Izohni o‘qing';
+  document.getElementById('hint').textContent = ok ? (usedHint ? '+½ ball' : '+1 ball') + (first ? ' · yangi ish yechildi' : '') : 'Izohni o‘qing';
   const n = document.getElementById('next');
   n.disabled = false;
   n.textContent = idx < CASES.length - 1 ? 'Keyingi ish →' : 'Natijani ko‘rish →';
-  scoreline.textContent = `${score} ball`;
+  scoreline.textContent = `${fmt(score)} ball`;
   barFill.style.width = `${((idx+1) / CASES.length) * 100}%`;
+  drawShelf();
+  if (!document.getElementById('toc').hidden) drawToc();
 }
 
 function renderResult(){
-  const total = CASES.length;
+  const total = CASES.length, done = results.filter(r => r !== undefined).length;
+  const right = results.filter(Boolean).length;
   const pct = Math.round(score / total * 100);
   let rank;
-  if (score === total) rank = "Sherlokning o‘zi";
-  else if (score >= total - 2) rank = "Baker Street tinglovchisi";
+  if (score === total) rank = "Buyuk detektiv";
+  else if (score >= total - 2) rank = "Beyker-strit 221B mehmoni";
   else if (score >= Math.ceil(total/2)) rank = "Yosh detektiv";
   else rank = "Boshlovchi izquvar";
 
   let prevBest = 0; try { prevBest = +(localStorage.getItem(BEST_KEY()) || 0); } catch (e) {}
   const isBest = score > prevBest;
   if (isBest) { try { localStorage.setItem(BEST_KEY(), score); } catch (e) {} }
+  // o‘qituvchi jadvaliga natija (akkauntga kirgan bo‘lsa)
+  if (done >= 5 && window.kaAccount && kaAccount.sendResult) { try { kaAccount.sendResult('Detektiv: ' + setName(setKey), right, total); } catch (e) {} }
 
   app.innerHTML = `
     <article class="card result">
-      <span class="tag">Tergov yakunlandi</span>
-      <div class="score-ring" style="--p:${pct}"><b>${score}/${total}</b></div>
+      <span class="tag">Tergov yakunlandi · ${esc(setName(setKey))}</span>
+      <div class="score-ring" style="--p:${pct}"><b>${fmt(score)}/${total}</b></div>
       <p class="rank">${rank}</p>
-      <p class="lead" style="margin-bottom:8px">${pct}% ish muvaffaqiyatli yopildi.${isBest ? ' Bu — sizning rekordingiz!' : (prevBest ? ` Rekordingiz: ${prevBest}/${total}.` : '')}</p>
+      <p class="lead" style="margin-bottom:8px">${pct}% ish muvaffaqiyatli yopildi.${isBest ? ' Bu — sizning rekordingiz!' : (prevBest ? ` Rekordingiz: ${fmt(prevBest)}/${total}.` : '')}</p>
       <div class="chips">
-        ${results.map((r,i)=>`<span class="chip ${r?'ok':'no'}" title="Ish ${i+1}">${i+1}</span>`).join('')}
+        ${CASES.map((c,i)=>`<span class="chip ${results[i] === true ? 'ok' : results[i] === false ? 'no' : ''}" title="${esc(c.title)}${hinted[i] ? ' (dalil bilan)' : ''}">${i+1}</span>`).join('')}
       </div>
       <div>
         <button class="btn solid" id="again">↻ Yana o‘ynash</button>
+        <button class="btn" id="rand">🎲 Tasodifiy 10 ta</button>
         <button class="btn" id="dl">⬇ Viktorina uchun JSON</button>
         <a class="btn ghost" href="sinf-oyinlari.html">🎯 Sinf viktorinasi</a>
       </div>
     </article>`;
 
-  document.getElementById('again').addEventListener('click', () => pickSet(setKey));
+  document.getElementById('again').addEventListener('click', () => pickSet(setKey, 0));
+  document.getElementById('rand').addEventListener('click', () => pickSet('tasodif'));
   document.getElementById('dl').addEventListener('click', downloadJSON);
   window.scrollTo({top:0, behavior:'smooth'});
   counter.textContent = 'Yakun';
@@ -326,16 +456,30 @@ function downloadJSON(){
     hikoya: c.story.replace(/<[^>]+>/g, ''),
     variantlar: c.options,
     togri: c.correct,
-    izoh: c.why
+    izoh: c.why,
+    manba: c.asar ? `${c.asar}${c.muallif ? ' — ' + c.muallif : ''}` : 'Mantiq'
   }));
   const blob = new Blob([JSON.stringify({ manba: 'sherlock.html', fan: 'mantiq', savollar: data }, null, 2)],
                         {type:'application/json;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'sherlock-savollar.json';
+  a.download = 'detektiv-savollar.json';
   a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
 }
+
+/* ---- kitob: oq-qora chop etish (asl variantlar tartibi, javoblar oxirida) ---- */
+function buildBook(){
+  const list = setKey === 'tasodif' ? CASES.map(c => ALL.find(x => x.id === c.id)) : listOf(setKey);
+  let book = document.getElementById('book'); if (!book) { book = document.createElement('div'); book.id = 'book'; document.body.appendChild(book); }
+  let h = `<h1>${esc(setName(setKey))} — detektiv mantiq ishlari</h1><p class="meta">Kuvonch Academy · kuvonch.uz/sherlock.html · ${list.length} ta ish</p>`;
+  h += '<div class="toc-p">' + list.map((c, i) => `<div>${i + 1}. ${esc(c.title)}${c.asar ? ' — <i>' + esc(c.asar) + '</i>' : ''}</div>`).join('') + '</div>';
+  h += list.map((c, i) => `<section class="case"><h2>${i + 1}. ${esc(c.title)}</h2><p class="meta">${esc(c.source)}${c.muallif ? ' · ' + esc(c.muallif) : ''}${c.yil ? ' · ' + c.yil : ''}</p><p>${c.story}</p><p class="q">${esc(c.question)}</p><ol type="A">${c.options.map(o => `<li>${esc(o)}</li>`).join('')}</ol></section>`).join('');
+  h += '<section class="ans"><h1>Javoblar va izohlar</h1>' + list.map((c, i) => `<p><b>${i + 1}. ${'ABCD'[c.correct]}</b> — ${esc(c.why)}</p>`).join('') + '</section>';
+  book.innerHTML = h;
+}
+document.getElementById('printBtn').addEventListener('click', () => { buildBook(); window.print(); });
+window.addEventListener('beforeprint', buildBook);
 
 /* klaviatura: 1–4 tanlash, Enter — keyingi */
 document.addEventListener('keydown', e => {
@@ -350,10 +494,9 @@ document.addEventListener('keydown', e => {
   }
 });
 
-drawShelf();
 let _k = 'hammasi'; try { _k = localStorage.getItem('sherlock_set') || 'hammasi'; } catch (e) {}
-if (_k !== 'hammasi' && _k !== 'tasodif' && !KITOBLAR.some(k => k.id === _k)) _k = 'hammasi';
-pickSet(_k);
+const _ok = _k === 'hammasi' || _k === 'tasodif' || (_k.startsWith('det:') && DET_OF[_k.slice(4)]) || (_k.startsWith('kitob:') && KITOBLAR.some(k => k.id === _k.slice(6)));
+pickSet(_ok ? _k : 'hammasi');
 </script>
 </body>
 </html>
