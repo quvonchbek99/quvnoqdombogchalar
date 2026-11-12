@@ -90,7 +90,8 @@
     return "";
   }
   // Murojaat: ba'zan ismi bilan, ba'zan erkalab (poponam, akam, kampirim…)
-  function petW(ctx) { return window.kaYuz && kaYuz.pet ? kaYuz.pet(ctx && ctx.sg) : pick(["poponam", "jonim", "yulduzim", "chempionim"]); }
+  function mlang(ctx) { var m = ctx && ctx.mode; return m === "en" || m === "ielts" ? "en" : m === "ru" ? "ru" : "uz"; }
+  function petW(ctx) { return window.kaYuz && kaYuz.pet ? kaYuz.pet(ctx && ctx.sg, mlang(ctx)) : pick(["poponam", "jonim", "yulduzim", "chempionim"]); }
   function nm(ctx, t) {
     if (!ctx) return t; var r = Math.random();
     if (ctx.name && r < .4) return t.replace(/([!.])\s*$/, ", " + ctx.name + "$1");
@@ -113,7 +114,11 @@
   // Tegajoq hazil (sozlamada o'chirsa bo'ladi): bilmasa yoki xato qilsa, mehr bilan tegishadi
   var TEASE = ["Voy qovoq kalla-ey!", "Ey oshqovoq, shuni ham bilmaysanmi?", "Qovunjon, bir o'ylab ko'r-chi!", "Hay qovoq kallajonim...", "Oshqovoqcha, bunisi oson-ku!", "Voy qovun-ey, shunga ham-a?", "Qovoq kalla, uxlab qoldingmi?",
     "Ey xumpar, qayoqqa qarayapsan?", "Voy eshakvoy-ey!", "Eshak-ey, yana o'ylab ko'r!", "Voy poponam-ey, shuni ham bilmaysanmi?", "Hay poponam...", "Tarvuz kalla, bunisi oson-ku!", "Xumparvoy, miyangni ishlat-chi!"];
-  function tz(ctx) { return ctx && ctx.tease && Math.random() < .65 ? pick(TEASE) + " " : ""; }
+  function tz(ctx) {
+    if (!(ctx && ctx.tease && Math.random() < .65)) return "";
+    var l = mlang(ctx); if (l !== "uz" && window.kaYuz && kaYuz.teaseW) return pick(["Voy, ", "Ey, ", "Hay, "]) + kaYuz.teaseW(l) + "! ";
+    return pick(TEASE) + " ";
+  }
   var WRONG = ["Hmm, unchalik emas. Yana bir urinib ko'r.", "Yaqin, lekin to'g'ri emas. O'ylab ko'r-chi.", "Unday emas. Qani, yana bir marta!"];
 
   /* ---------- Ingliz tili: tarjima mashqlari (o'zbekcha -> inglizcha) ---------- */

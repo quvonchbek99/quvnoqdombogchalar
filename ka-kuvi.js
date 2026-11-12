@@ -170,11 +170,21 @@
 
   /* ---------- Erkalash so'zlari (o'g'il / qiz / noma'lum) ---------- */
   var PET = {
-    boy: ["akam", "ukam", "polvonim", "botirim", "chempionim", "yulduzim", "aqllivoy", "poponam", "jonim", "asalim", "qo'zichog'im", "toychog'im", "do'mbog'im", "shunqorim", "cholvoyim", "kichkina Al-Xorazmiy", "professorim"],
+    boy: ["akam", "ukam", "polvonim", "botirim", "chempionim", "yulduzim", "aqllivoy", "poponam", "jonim", "asalim", "qo'zichog'im", "toychog'im", "do'mbog'im", "shunqorim", "kichkina Al-Xorazmiy", "professorim"],
     girl: ["opajon", "singlim", "kampirim", "malikam", "gulim", "yulduzim", "asalim", "jonim", "poponam", "qo'zichog'im", "aqlli qizim", "kichkina olimam", "do'mbog'im", "chempionim", "shakarim"],
     x: ["poponam", "jonim", "asalim", "yulduzim", "do'stim", "chempionim", "aqllim", "qo'zichog'im", "ajoyib bolam", "do'mbog'im", "kichkina daho"]
   };
-  function pet(sg) { return pick(PET[sg === "boy" || sg === "girl" ? sg : "x"]); }
+  // Ingliz va rus tili rejimida — o'sha tildagi erkalash so'zlari (qo'shtirnoq ichida — o'z tilidagi ovozda o'qiladi)
+  var PET_EN = ["superstar", "champ", "buddy", "sweetie", "smarty", "rockstar", "my little genius"];
+  var PET_RU = { boy: ["молодчина", "дружок", "чемпион", "умник", "зайчик", "солнышко", "богатырь"], girl: ["умница", "солнышко", "зайка", "красавица", "звёздочка", "принцесса"], x: ["солнышко", "умница", "дружок", "звёздочка", "чемпион"] };
+  var TZ = { en: ["silly goose", "sleepyhead", "pumpkin head", "noodle brain", "little dreamer"], ru: ["тыковка", "соня", "растеряшка", "ворона", "голова садовая"] };
+  function gk(sg) { return sg === "boy" || sg === "girl" ? sg : "x"; }
+  function pet(sg, lang) {
+    if (lang === "en") return '"' + pick(PET_EN) + '"';
+    if (lang === "ru") return "«" + pick(PET_RU[gk(sg)]) + "»";
+    return pick(PET[gk(sg)]);
+  }
+  function teaseW(lang) { return lang === "en" ? '"' + pick(TZ.en) + '"' : lang === "ru" ? "«" + pick(TZ.ru) + "»" : ""; }
 
   var uid = 0;
   function svg(mood, cls, o) {
@@ -425,5 +435,5 @@
     "@media (prefers-reduced-motion:reduce){.kuvi .kvo,.kuvi .kvb,.kuvi .kvf path{animation:none}}" + ARTCSS + poseCss() + outCss();
   try { var st = document.createElement("style"); st.id = "ka-kuvi-css"; st.appendChild(document.createTextNode(css)); (document.head || document.documentElement).appendChild(st); } catch (e) {}
 
-  window.kaYuz = { svg: svg, react: react, tease: tease, lines: L, moods: M, art: art, outfitFor: outfitFor, pet: pet, actOf: actOf, voice: voice, pros: pros, say: say, gender: gOf, nameG: nameG, voiceFor: voiceFor, stop: function () { try { if (window.kaAI) kaAI.stop(); if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} } };
+  window.kaYuz = { svg: svg, react: react, tease: tease, lines: L, moods: M, art: art, outfitFor: outfitFor, pet: pet, teaseW: teaseW, actOf: actOf, voice: voice, pros: pros, say: say, gender: gOf, nameG: nameG, voiceFor: voiceFor, stop: function () { try { if (window.kaAI) kaAI.stop(); if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} } };
 })();

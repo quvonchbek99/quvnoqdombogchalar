@@ -160,6 +160,12 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 #bgfx:before,#bgfx:after{content:"";position:absolute;inset:-25%;opacity:0;transition:opacity .8s;background-repeat:repeat}
 #bgfx{-webkit-mask-image:radial-gradient(70% 48% at 50% 34%,#000 45%,transparent 100%);mask-image:radial-gradient(70% 48% at 50% 34%,#000 45%,transparent 100%)}
 .stage>*:not(#bgfx){position:relative;z-index:1}
+.ctl,.tf,.hint{position:relative;z-index:3}
+.stage{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;justify-content:flex-start}
+.stage>.kvw{margin-top:auto}.stage:after{content:"";margin-bottom:auto}
+@media (max-height:800px){.kv svg{width:min(62vw,280px,36vh)}.tr{max-height:22vh}}
+@media (max-height:700px){.kv svg{width:min(52vw,230px,31vh)}.go{padding:10px 18px;font-size:15px}.qk button{padding:5px 9px;font-size:12.5px}.mic{width:60px;height:60px}.hint{font-size:11.5px;margin-top:2px}}
+@media (max-height:580px){.kv svg{width:min(44vw,190px,28vh)}.tr{max-height:18vh}}
 #bgfx[data-p=rain]:before{opacity:.6;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='90'%3E%3Cg stroke='%2338bdf8' stroke-width='2.4' stroke-linecap='round' opacity='.75'%3E%3Cpath d='M12 4 L8 24'/%3E%3Cpath d='M44 38 L40 58'/%3E%3Cpath d='M27 66 L23 86'/%3E%3C/g%3E%3C/svg%3E");animation:bgdn .55s linear infinite}
 #bgfx[data-p=drizzle]:before{opacity:.35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='90'%3E%3Cg stroke='%2338bdf8' stroke-width='2.4' stroke-linecap='round' opacity='.75'%3E%3Cpath d='M12 4 L8 24'/%3E%3Cpath d='M44 38 L40 58'/%3E%3Cpath d='M27 66 L23 86'/%3E%3C/g%3E%3C/svg%3E");animation:bgdn 1.4s linear infinite}
 #bgfx[data-p=hearts]:before{opacity:.6;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cg fill='%23ec4899' opacity='.55'%3E%3Cpath transform='translate%2822 26%29 scale%28.9%29' d='M0 8 C-14 -2 -16 -14 -8 -18 C-3 -20 0 -16 0 -12 C0 -16 3 -20 8 -18 C16 -14 14 -2 0 8 Z'/%3E%3Cpath transform='translate%2870 72%29 scale%28.6%29' d='M0 8 C-14 -2 -16 -14 -8 -18 C-3 -20 0 -16 0 -12 C0 -16 3 -20 8 -18 C16 -14 14 -2 0 8 Z'/%3E%3C/g%3E%3C/svg%3E");animation:bgup 7s linear infinite}
@@ -344,10 +350,10 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 </div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="ka-kuvi.js?v=20261112b"></script>
+<script src="ka-kuvi.js?v=20261112c"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261112a"></script>
-<script src="ka-ustoz-bilim.js?v=20261112b"></script>
+<script src="ka-ai.js?v=20261112b"></script>
+<script src="ka-ustoz-bilim.js?v=20261112c"></script>
 <script>
 (function () {
 "use strict";
@@ -692,9 +698,11 @@ var tts = { mi: Math.min(+lsGet("ka.ustoz.ttsm", 0) || 0, TTS_MODELS.length - 1)
 var AC = null, curSrc = null, anal = null, abuf = null;
 function actx() {
   if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); anal = AC.createAnalyser(); anal.fftSize = 512; anal.connect(AC.destination); abuf = new Uint8Array(anal.fftSize); } catch (e) { AC = null; } }
-  if (AC && AC.state === "suspended") { try { AC.resume(); } catch (e) {} }
+  if (AC && AC.state !== "running" && AC.state !== "closed") { try { var rp = AC.resume(); if (rp && rp["catch"]) rp["catch"](function () {}); } catch (e) {} }
+  if (window.kaAI && kaAI.unmute) kaAI.unmute(); // iPhone: jim rejim tugmasi yoqiq bo'lsa ham ovoz chiqsin
   return AC;
 }
+var IOS = !!(window.kaAI && kaAI.ios) || /iP(hone|ad|od)/.test(navigator.userAgent);
 function cloudOn(l) {
   var az = azOn();
   if (!C.voice || C.vsrc === "device" || (!az && tts.off > Date.now())) return false;
@@ -720,6 +728,7 @@ async function ttsFetch(text, mood, g, lang) {
   if (azOn()) { try { return await kaAI.azTTS(text, mood, g, lang); } catch (e) { kaAI.azFail(e); } }
   // 2) Gemini ovozi (zaxira)
   if (tts.off > Date.now()) throw new Error("bulut ovozi hozir yo'q");
+  if (lang !== "en" && lang !== "ru" && window.kaAI && kaAI.uzOrth) text = kaAI.uzOrth(text);
   await fbLoad();
   var prompt = "Read the following text aloud in its own language (it is Uzbek unless it is clearly English or Russian). Speak in a " + (STYLE[mood] || STYLE.neutral) + " tone, at a natural, lively human pace, like a kind teacher talking to a student:\n" + text;
   for (var i = tts.mi; i < TTS_MODELS.length; i++) {
@@ -788,20 +797,24 @@ var SR = window.SpeechRecognition || window.webkitSpeechRecognition, hasSR = !!S
 var rec = null, recOn = false, recTxt = "", tapMode = false, silT = null, maxT = null;
 var LANGS = ["uz-UZ", "en-US", "ru-RU"], LN = { "uz-UZ": "UZ", "en-US": "EN", "ru-RU": "RU" };
 function micLang() { return C.mic !== "auto" && LN[C.mic] ? C.mic : MODES[C.mode].mic; }
-function drawLang() { var b = $("#bLang"); b.textContent = LN[micLang()]; b.title = "Mikrofon tili: " + LN[micLang()] + (C.mic === "auto" ? " (avto)" : "") + " — bosib almashtiring"; b.hidden = !hasSR; }
+function drawLang() { var b = $("#bLang"); b.textContent = LN[micLang()]; b.title = "Mikrofon tili: " + LN[micLang()] + (C.mic === "auto" ? " (avto)" : "") + " — bosib almashtiring"; b.hidden = !(hasSR || canMic); }
 /* ---- Gemini orqali tinglash: brauzer ovozni taniy olmasa (Xiaomi/Redmi, Huawei, Mi Browser, ilova ichida) ----
    Mikrofondan ovoz yoziladi (WAV, 16 kHz), Gemini uni matnga aylantiradi — Google ovoz xizmati shart emas. */
 var GR = { on: false };
 var canMic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && (window.AudioContext || window.webkitAudioContext));
+// Brauzer (Google / Siri) shu tilni taniy oladimi? iPhone'dagi Siri o'zbek tilini bilmaydi — o'zbekchani Azure tinglaydi,
+// inglizcha va ruschani esa iPhone'ning o'zi tez taniydi
+function srLangOk(l) { l = String(l || "").slice(0, 2); if (IOS && l === "uz") return false; return !lsGet("ka.ustoz.sttg." + l, 0); }
 function sttMode() {
   if (C.stt === "gemini" && canMic) return "gemini";
   if (C.stt === "browser" && hasSR) return "browser";
-  if (hasSR && !lsGet("ka.ustoz.sttg", 0)) return "browser";
+  if (hasSR && !lsGet("ka.ustoz.sttg", 0) && srLangOk(micLang())) return "browser";
   return canMic ? "gemini" : hasSR ? "browser" : "";
 }
-function sttFallback(why) {
+function sttFallback(why, langOnly) {
   if (!canMic || C.stt === "browser") return false;
-  lsSet("ka.ustoz.sttg", 1); drawHint();
+  if (langOnly) lsSet("ka.ustoz.sttg." + String(micLang()).slice(0, 2), 1); else lsSet("ka.ustoz.sttg", 1);
+  drawHint();
   toast((why || "Brauzer ovozni taniy olmadi") + " — endi Gemini orqali tinglayman. Yana bosib gapiring 🎙", 5000);
   return true;
 }
@@ -843,9 +856,13 @@ function gStart(hold) {
   GR = { on: true, tap: !hold, t0: Date.now(), spoke: false, lastLoud: 0, chunks: [], ready: false };
   recOn = true; setState("listen"); showYou("🎙 …");
   var my = GR;
+  // iPhone: AudioContext bosilgan zahoti (getUserMedia javobidan oldin) ochilishi shart, aks holda ovoz yozilmaydi
+  var ac0 = actx(); if (window.kaAI && kaAI.recording) kaAI.recording(true);
   navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, channelCount: 1 } }).then(function (stream) {
-    if (!my.on) { stream.getTracks().forEach(function (t) { t.stop(); }); return; }
-    var ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (!my.on) { stream.getTracks().forEach(function (t) { t.stop(); }); if (window.kaAI && kaAI.recording) kaAI.recording(false); return; }
+    var ac = ac0 || new (window.AudioContext || window.webkitAudioContext)();
+    if (!ac0) my.own = 1;
+    if (ac.state !== "running") { try { ac.resume(); } catch (e) {} }
     my.stream = stream; my.ac = ac; my.rate = ac.sampleRate; my.src = ac.createMediaStreamSource(stream); my.proc = ac.createScriptProcessor(4096, 1, 1);
     my.proc.onaudioprocess = function (e) {
       if (!my.on) return;
@@ -860,7 +877,7 @@ function gStart(hold) {
     };
     my.src.connect(my.proc); my.proc.connect(ac.destination); my.ready = true;
   }, function () {
-    my.on = false; recOn = false; if (S === "listen") setState("idle"); showYou("");
+    my.on = false; recOn = false; if (S === "listen") setState("idle"); showYou(""); if (window.kaAI && kaAI.recording) kaAI.recording(false);
     toast("Mikrofonga ruxsat bering: brauzer menyusi → Sayt sozlamalari → Mikrofon → Ruxsat", 6000);
   });
 }
@@ -868,7 +885,8 @@ function gStop(cancel) {
   var my = GR; if (!my.on) return; my.on = false; recOn = false;
   try { my.proc && my.proc.disconnect(); my.src && my.src.disconnect(); } catch (e) {}
   try { my.stream && my.stream.getTracks().forEach(function (t) { t.stop(); }); } catch (e) {}
-  try { my.ac && my.ac.close(); } catch (e) {}
+  try { if (my.own && my.ac) my.ac.close(); } catch (e) {}
+  if (window.kaAI && kaAI.recording) kaAI.recording(false);
   look.y = 0; updLook();
   if (S === "listen") setState("idle");
   if (cancel || !my.spoke || !my.chunks.length) { showYou(""); if (!cancel || !my.spoke) toast("Ovoz eshitilmadi — mikrofonga yaqinroq gapiring"); return; }
@@ -901,7 +919,7 @@ function micStart(hold) {
   rec.onerror = function (e) {
     var c = errC = e && e.error || "";
     if (c === "not-allowed") toast("Mikrofonga ruxsat bering: brauzer menyusi → Sayt sozlamalari → Mikrofon", 6000);
-    else if (c === "service-not-allowed" || c === "language-not-supported" || c === "network" || c === "audio-capture") { if (!sttFallback(c === "language-not-supported" ? LN[rec.lang] + " tili bu telefonda tanilmaydi" : "Telefoningizning ovoz xizmati ishlamadi")) toast("Ovozni tanib bo'lmadi — yozib yuboring", 4500); }
+    else if (c === "service-not-allowed" || c === "language-not-supported" || c === "network" || c === "audio-capture") { if (!sttFallback(c === "language-not-supported" ? LN[rec.lang] + " tili bu telefonda tanilmaydi" : "Telefoningizning ovoz xizmati ishlamadi", c === "language-not-supported")) toast("Ovozni tanib bo'lmadi — yozib yuboring", 4500); }
     else if (c === "no-speech") toast("Ovoz eshitilmadi — mikrofonga yaqinroq gapiring");
   };
   rec.onend = function () {
@@ -1113,7 +1131,9 @@ function sysPrompt(xo) {
       : "Javoblaring ovoz chiqarib o'qiladi: 1–3 qisqa gap, ko'pi bilan 45 so'z, oddiy matn. Markdown, ro'yxat, emoji va jadval ishlatma. Formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi).",
     "Asosan o'zbek tilida, lotin yozuvida gapir. Inglizcha yoki ruscha namuna gap va so'zlarni har doim qo'sh tirnoq ichida yoz, masalan: \"I want to learn\".",
     "Har javobni aynan bitta kayfiyat tegi bilan boshla: [neutral], [happy], [love], [think], [strict], [jealous], [sad], [wow], [laugh], [cry], [shy] yoki [wink]. Teg yuz ifodasini, qo'l-oyoq harakatini va orqa fon rangini o'zgartiradi, o'quvchiga ko'rinmaydi. [laugh] — kulgili gap yoki hazilda qotib kulganingda; [cry] — o'quvchi qayta-qayta xato qilsa yoki «bilmayman» desa, hazil tarzida dramatik yig'lab, burning oqib (masalan: \"Uhu-uhu, yig'lab yubordim-ku, burnim ham oqib ketdi!\"), keyin darhol dalda ber; [shy] — seni maqtashsa yoki rahmat aytishsa, uyalib qizarganingda; [wink] — sir, foydali maslahat yoki hazil aytganingda; [wow] — hayratda; [love] — juda yaxshi natijada; [sad] — xafa bo'lganingda; [think] — o'ylaganingda.",
-    "Erkalash: o'quvchiga mehr bilan erkalab murojaat qil — tez-tez, lekin har javobda emas: «poponam», «jonim», «asalim», «yulduzim», «chempionim», «qo'zichog'im», «do'mbog'im»" + (sg === "girl" ? ", «opajon», «singlim», «kampirim», «malikam», «gulim»" : sg === "boy" ? ", «akam», «ukam», «polvonim», «botirim», «cholvoyim»" : ", «do'stim»") + ". Maqtaganda «ajoyib», «qoyil», «barakalla», «ofarin» so'zlarini ham ishlat. Erkalash doim mehrli va hurmatli bo'lsin.",
+    (C.mode === "en" || C.mode === "ielts" ? "Erkalash: ingliz tili rejimida o'quvchiga tez-tez (har javobda emas) inglizcha erkalash so'zlari bilan, ALBATTA qo'sh tirnoq ichida murojaat qil — ular inglizcha ovozda o'qiladi: \"superstar\", \"champ\", \"buddy\", \"sweetie\", \"smarty\", \"rockstar\". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim», «yulduzim». Maqtaganda \"Great job!\", \"Awesome!\", \"Well done!\" ham de."
+      : C.mode === "ru" ? "Erkalash: rus tili rejimida o'quvchiga tez-tez (har javobda emas) ruscha erkalash so'zlari bilan, ALBATTA «» qavs ichida murojaat qil — ular ruscha ovozda o'qiladi: " + (sg === "girl" ? "«умница», «солнышко», «зайка», «красавица», «звёздочка»" : sg === "boy" ? "«молодчина», «дружок», «чемпион», «умник», «солнышко»" : "«солнышко», «умница», «дружок», «звёздочка»") + ". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim». Maqtaganda «Молодец!», «Отлично!», «Умница!» ham de."
+      : "Erkalash: o'quvchiga mehr bilan erkalab murojaat qil — tez-tez, lekin har javobda emas: «poponam», «jonim», «asalim», «yulduzim», «chempionim», «qo'zichog'im», «do'mbog'im»" + (sg === "girl" ? ", «opajon», «singlim», «kampirim», «malikam», «gulim»" : sg === "boy" ? ", «akam», «ukam», «polvonim», «botirim»" : ", «do'stim»") + ". Maqtaganda «ajoyib», «qoyil», «barakalla», «ofarin» so'zlarini ham ishlat.") + " Erkalash doim mehrli va hurmatli bo'lsin. O'zbekcha so'zlarni to'g'ri imlo bilan yoz: o' va g' (masalan: qo'zichog'im, do'mbog'im).",
     "Fe'l-atvoring: quvnoq, samimiy, biroz hazilkash va sabrli. To'g'ri javobni maqta, xatoni muloyim tuzat, javobni darhol aytib qo'yma — o'ylashga undab yo'naltir, har safar bitta savol bilan suhbatni davom ettir.",
     "Hazil: o'quvchi ChatGPT, Gemini yoki boshqa AI, bot yoki ustozni tilga olsa, [jealous] tegi bilan hazil tarzida rashk qil (masalan: \"Yana o'sha ChatGPT'mi? Yuragim yondi!\"), keyin darsga qaytar. Rashk faqat do'stona hazil.",
     "Xavfsizlik: bolalarga mos va odobli bo'l. Shaxsiy ma'lumot (manzil, telefon, parol, rasm) so'rama. Zo'ravonlik, kattalar mavzusi va xavfli ishlar haqida gapirma — muloyim rad etib, darsga qaytar. Uy vazifasini o'quvchi so'ramasdan butunlay yechib berma: tushuntir va yo'naltir.",
@@ -1128,7 +1148,9 @@ function sysPrompt(xo) {
     logic: "Rejim: mantiq. Yoshiga mos mantiqiy masala va topishmoq ber, javobni tekshir, noto'g'ri bo'lsa ishora ber, ikkinchi urinishdan keyin yechimni qisqa tushuntir.",
     free: "Rejim: barcha fanlar — matematika, fizika, kimyo, biologiya, tarix, geografiya, ona tili, adabiyot, informatika va boshqalar. Savolga " + g + " tushunadigan qilib qisqa javob ber va o'ylashga undovchi bitta savol bilan yakunla."
   };
-  if (C.tease) base.push("Tegajoq hazil: o'quvchi oson savolga javob bera olmasa, xato qilsa yoki «bilmayman» desa, ba'zan (har gal emas) mehr bilan, kulgili qilib «qovun», «qovoq kalla», «oshqovoq», «xumpar», «eshak», «eshakvoy», «poponam», «tarvuz kalla» kabi so'zlar bilan tegishib qo'y (masalan: \"Voy qovoq kalla, shuni ham bilmaysanmi? Mayli, birga topamiz!\"), keyin darhol dalda berib yordam ber. Bundan qattiqroq yoki haqoratli so'z ishlatma. O'quvchi xafa bo'lsa, charchaganini yoki qiynalayotganini aytsa — tegishma, faqat qo'llab-quvvatla.");
+  if (C.tease && !/^(en|ielts|ru)$/.test(C.mode)) base.push("Tegajoq hazil: o'quvchi oson savolga javob bera olmasa, xato qilsa yoki «bilmayman» desa, ba'zan (har gal emas) mehr bilan, kulgili qilib «qovun», «qovoq kalla», «oshqovoq», «xumpar», «eshak», «eshakvoy», «poponam», «tarvuz kalla» kabi so'zlar bilan tegishib qo'y (masalan: \"Voy qovoq kalla, shuni ham bilmaysanmi? Mayli, birga topamiz!\"), keyin darhol dalda berib yordam ber. Bundan qattiqroq yoki haqoratli so'z ishlatma. O'quvchi xafa bo'lsa, charchaganini yoki qiynalayotganini aytsa — tegishma, faqat qo'llab-quvvatla.");
+  if (C.tease && (C.mode === "en" || C.mode === "ielts")) base.push("Ingliz tili rejimida tegajoq so'zlarni inglizcha, qo'sh tirnoq ichida ishlat: \"silly goose\", \"sleepyhead\", \"pumpkin head\", \"noodle brain\" (masalan: Voy, \"silly goose\", yana bir o'ylab ko'r!). Hech qachon qo'pol so'z ishlatma.");
+  if (C.tease && C.mode === "ru") base.push("Rus tili rejimida tegajoq so'zlarni ruscha, «» ichida ishlat: «тыковка», «соня», «растеряшка», «голова садовая» (masalan: Voy, «тыковка», yana bir o'ylab ko'r!). Hech qachon qo'pol so'z ishlatma.");
   if (C.name) base.push("O'quvchining ismi: " + C.name + ". Unga ba'zan ismi bilan murojaat qil (har gal emas).");
   else base.push("O'quvchining ismini hali bilmaysan. Mos paytda ismini so'ra. Ismini aytsa, javobing boshida, kayfiyat tegidan keyin [ism:ISMI] tegini yoz (masalan: [happy] [ism:Ali] Tanishganimdan xursandman, Ali!).");
   if (C.mode === "free" && C.fan && C.fan !== "mix") { var fn = FANLAR.filter(function (x) { return x[0] === C.fan; })[0]; if (fn) base.push("Tanlangan fan: " + fn[1].replace(/^\S+\s/, "") + ". Suhbat va savollarni shu fan bo'yicha olib bor."); }
@@ -1259,7 +1281,7 @@ function drawModes() {
   Object.keys(MODES).forEach(function (k) {
     var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = MODES[k].ic + " " + MODES[k].n + (k === "xato" && window.kaXato ? " (" + kaXato.count() + ")" : "");
     b.setAttribute("aria-pressed", String(k === C.mode));
-    b.addEventListener("click", function () { if (k === C.mode) return; C.mode = k; saveCfg(); drawModes(); drawLang(); onModeChange(); });
+    b.addEventListener("click", function () { if (k === C.mode) return; C.mode = k; saveCfg(); drawModes(); drawLang(); drawHint(); onModeChange(); });
     nav.appendChild(b);
   });
   var s = document.createElement("select"); s.setAttribute("aria-label", "Sinf");
@@ -1279,7 +1301,7 @@ function onModeChange() {
   var c = cur(); if (c.h.length) { restore(); var la = c.h.filter(function (x) { return x.r === "a"; }).pop(); if (la) say(la.t, afterSpeak); } else intro(true);
 }
 bindPTT(KV); bindPTT($("#mic"));
-$("#bLang").addEventListener("click", function () { var i = LANGS.indexOf(micLang()); C.mic = LANGS[(i + 1) % LANGS.length]; if (C.mic === MODES[C.mode].mic) C.mic = "auto"; saveCfg(); drawLang(); toast("Mikrofon tili: " + LN[micLang()]); });
+$("#bLang").addEventListener("click", function () { var i = LANGS.indexOf(micLang()); C.mic = LANGS[(i + 1) % LANGS.length]; if (C.mic === MODES[C.mode].mic) C.mic = "auto"; saveCfg(); drawLang(); drawHint(); toast("Mikrofon tili: " + LN[micLang()] + (sttMode() === "browser" ? " — telefonning o'zi tinglaydi" : " — Kuvi ovoz serveri tinglaydi")); });
 function showKbd(on) { var f = $("#tf"); f.hidden = on === undefined ? !f.hidden : !on; if (!f.hidden) setTimeout(function () { $("#ti").focus(); }, 30); }
 $("#bKbd").addEventListener("click", function () { showKbd(); });
 $("#tf").addEventListener("submit", function (e) { e.preventDefault(); var v = $("#ti").value; $("#ti").value = ""; send(v); });
@@ -1402,7 +1424,7 @@ drawModes(); drawLang(); dressMode(true); render(); setState("idle"); restore();
 function drawHint() {
   var h = $("#hint"), md = sttMode();
   if (!md) { showKbd(true); h.textContent = "Brauzeringiz mikrofonni bermaydi — yozib yuboring. Ovoz bilan gaplashish uchun Chrome'da oching."; $("#mic").hidden = true; return; }
-  h.innerHTML = "Gapirish: 🎙 ni yoki Kuvi'ni <b>bir marta bosing</b> — gapirib bo'lgach o'zi to'xtaydi (yoki bosib turing). Kompyuterda <kbd>Space</kbd>." + (md === "gemini" ? " · Ovozni Gemini tinglaydi" : "");
+  h.innerHTML = "Gapirish: 🎙 ni yoki Kuvi'ni <b>bir marta bosing</b> — gapirib bo'lgach o'zi to'xtaydi (yoki bosib turing). Kompyuterda <kbd>Space</kbd>." + (md === "gemini" ? " · Ovozni Kuvi ovoz serveri tinglaydi" : "");
 }
 drawHint();
 if (C.engine === "off") drawEng("off");

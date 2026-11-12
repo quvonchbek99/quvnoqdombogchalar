@@ -80,6 +80,8 @@
   function hashS(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = (h * 16777619) >>> 0; } return h.toString(36) + s.length.toString(36); }
   function azFetch(body) { return fetch(azUrl() + "/tts", { method: "POST", headers: { "Content-Type": "application/json" }, body: body }).then(function (r) { if (!r.ok) throw new Error("azure " + r.status); return r; }); }
   function azTTS(text, mood, g, lang) {
+    lang = lang || (/[а-яё]/i.test(text) ? "ru" : "uz");
+    if (lang === "uz") text = uzOrth(text);
     var body = JSON.stringify({ text: text, mood: mood || "neutral", g: g === "m" ? "m" : "f", lang: lang || (/[а-яё]/i.test(text) ? "ru" : "uz") });
     var key = "https://kuvi-ovoz.local/v1/" + hashS(body);
     var open = window.caches && caches.open ? caches.open("kuvi-ovoz-v1")["catch"](function () { return null; }) : Promise.resolve(null);
@@ -94,12 +96,44 @@
     return fetch(azUrl() + "/stt?lang=" + encodeURIComponent(lang || "uz-UZ"), { method: "POST", headers: { "Content-Type": "audio/wav" }, body: wavBytes })
       .then(function (r) { if (!r.ok) throw new Error("azure stt " + r.status); return r.json(); }).then(function (j) { return j.text || ""; });
   }
+  /* ---------- iPhone / iPad: ovoz jim rejim tugmasi yoqiq bo'lsa ham eshitilsin ----------
+     iOS Web Audio'ni «jim rejim»da o'chirib qo'yadi. Yangi iOS'da audioSession.type = "playback" yetadi,
+     eskisida sahifada ovozsiz <audio> aylanib tursa, ovoz «media» sifatida chiqadi. */
+  var IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var silentEl = null, silentOn = false;
+  function session(type) { try { if (navigator.audioSession && navigator.audioSession.type !== type) navigator.audioSession.type = type; } catch (e) {} }
+  function silentUrl() {
+    var n = 2000, b = new ArrayBuffer(44 + n), v = new DataView(b), i;
+    function w(o, t) { for (var k = 0; k < t.length; k++) v.setUint8(o + k, t.charCodeAt(k)); }
+    w(0, "RIFF"); v.setUint32(4, 36 + n, true); w(8, "WAVE"); w(12, "fmt "); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, "data"); v.setUint32(40, n, true);
+    for (i = 0; i < n; i++) v.setUint8(44 + i, 128);
+    return URL.createObjectURL(new Blob([b], { type: "audio/wav" }));
+  }
+  // foydalanuvchi ekranga tekkan paytda chaqiriladi (actx ichidan)
+  function unmute() {
+    if (!IOS) return;
+    if (!rec) session("playback");
+    if (silentOn || document.hidden) return;
+    try {
+      if (!silentEl) { silentEl = document.createElement("audio"); silentEl.setAttribute("x-webkit-airplay", "deny"); silentEl.setAttribute("playsinline", ""); silentEl.loop = true; silentEl.preload = "auto"; silentEl.src = silentUrl(); }
+      var pr = silentEl.play(); silentOn = true;
+      if (pr && pr["catch"]) pr["catch"](function () { silentOn = false; });
+    } catch (e) { silentOn = false; }
+  }
+  // mikrofon yoqilganda iOS «yozish va ijro» rejimiga o'tadi, o'chganda yana «ijro»ga qaytamiz
+  var rec = false;
+  function recording(on) { rec = !!on; if (IOS) session(on ? "play-and-record" : "playback"); }
+  try { document.addEventListener("visibilitychange", function () { if (document.hidden && silentEl && silentOn) { try { silentEl.pause(); } catch (e) {} silentOn = false; } }); } catch (e) {}
   var AC = null;
   function actx() {
     if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } }
-    if (AC && AC.state === "suspended") { try { AC.resume(); } catch (e) {} }
+    if (AC && AC.state !== "running" && AC.state !== "closed") { try { var r = AC.resume(); if (r && r["catch"]) r["catch"](function () {}); } catch (e) {} }
+    unmute();
     return AC;
   }
+  // O'zbekcha imlo: o' / g' -> oʻ / gʻ. Azure oddiy apostrofli so'zlarni buzib o'qiydi («qo'zichog'im» -> «qoz jo kim»), ʻ bilan esa to'g'ri aytadi
+  function uzOrth(t) { return String(t).replace(/([oOgG])['‘’`ʼ]/g, "$1ʻ"); }
   function bytes(b) { var s = atob(b), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
   function pcm(by, rate) { var ac = actx(), n = by.length >> 1, buf = ac.createBuffer(1, n, rate), d = buf.getChannelData(0), dv = new DataView(by.buffer, by.byteOffset, by.byteLength); for (var i = 0; i < n; i++) d[i] = dv.getInt16(i * 2, true) / 32768; return buf; }
   function waitMs(m) {
@@ -188,5 +222,5 @@
   setTimeout(function () { refreshPro(); }, 1200);
   // sahifaga qaytganda (masalan, Pro olingach) holatni yangilaymiz
   try { document.addEventListener("visibilitychange", function () { if (!document.hidden) refreshPro(); }); } catch (e) {}
-  window.kaAI = { azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, isAdmin: isAdmin, isOpen: isOpen, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
+  window.kaAI = { unmute: unmute, recording: recording, ios: IOS, uzOrth: uzOrth, azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, isAdmin: isAdmin, isOpen: isOpen, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
 })();

@@ -593,9 +593,9 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 
 <script src="ka-tarmoq.js?v=20261110a"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
-<script src="ka-kuvi.js?v=20261112b"></script>
+<script src="ka-kuvi.js?v=20261112c"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261112a"></script>
+<script src="ka-ai.js?v=20261112b"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
 (function () {
@@ -692,6 +692,7 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
   function unlockAudio() {
     try {
       var ac = getAC(); if (!ac) return;
+      if (window.kaAI && kaAI.unmute) kaAI.unmute(); // iPhone: jim rejim tugmasi yoqiq bo'lsa ham ovoz chiqsin
       var b = ac.createBuffer(1, 1, 22050), src = ac.createBufferSource(); src.buffer = b; src.connect(ac.destination); src.start(0);
       if (ac.state === "running") ["touchend", "pointerdown", "keydown", "click"].forEach(function (ev) { document.removeEventListener(ev, unlockAudio, true); });
     } catch (e) {}
