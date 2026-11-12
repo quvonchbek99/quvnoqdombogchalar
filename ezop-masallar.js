@@ -1125,5 +1125,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki qish u uchun juda iliq keldi", "Chunki u yoz davomida zaxira yig'gan edi", "Chunki u kapalakdan ko'p ovqat olgan edi"],
     javob: 1,
     izoh: "Asalari yozda mehnat qilib zaxira to'plagani uchun qishda qiynalmadi. Kelajakka tayyorgarlik oldindan qilingan mehnat bilan ta'minlanadi."
+  },
+  {
+    id: "ez-141", mavzu: "mantiq", sarlavha: "Ko'lmak va daryo",
+    matn: "Yomg'irdan keyin yo'l chetida katta bir ko'lmak paydo bo'ldi. Ko'lmak o'zini daryodan ham ulug' deb o'ylab, qirg'oqdagi daraxtlarga kibr bilan qarar edi. Yoz kelib, havo isib ketgach, uning suvi kunma-kun kamayib, oxiri butunlay qurib qoldi. Daryo esa tog'dan doimiy oqib keladigan suvga tayangani uchun yoz bo'yi to'lib oqdi.",
+    savol: "Nega ko'lmak yoz kelganda qurib qoldi, daryo esa oqishda davom etdi?",
+    variantlar: ["Chunki ko'lmakning suvi faqat yomg'irdan to'plangan edi, doimiy manbai yo'q edi", "Chunki ko'lmak daryodan kattaroq edi va suvini tez sarflab yubordi", "Chunki ko'lmak yoz kelganda sovuq joyda qoldi"],
+    javob: 0,
+    izoh: "Yomg'ir suvi vaqtincha bo'ladi, doimiy manbaga ega bo'lmagan narsa uzoq yashay olmaydi. Ko'rinishining katta bo'lishi barqarorlikni kafolatlamaydi."
   }
 ];
