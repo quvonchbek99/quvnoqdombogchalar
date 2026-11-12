@@ -295,7 +295,8 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 <div class="sheet" id="sCfg" role="dialog" aria-modal="true" aria-labelledby="cfgH"><div class="in">
   <h2 id="cfgH">⚙️ Sozlamalar <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
   <h3>AI manbasi</h3>
-  <label class="opt"><input type="radio" name="en" value="auto"><span><b>Avto (tavsiya)</b><small>kuvonch.uz Gemini → o'z kalitingiz → Puter → oflayn — qaysi biri ishlasa</small></span></label>
+  <label class="opt"><input type="radio" name="en" value="auto"><span><b>Avto (tavsiya)</b><small>Groq → kuvonch.uz Gemini → o'z kalitingiz → Puter → oflayn — qaysi biri ishlasa</small></span></label>
+  <label class="opt"><input type="radio" name="en" value="groq"><span><b>Groq (bepul, tez)</b><small>Kuvi serveri orqali, kalitsiz. Rasmdagi masalalarni baribir Gemini yechadi</small></span></label>
   <label class="opt"><input type="radio" name="en" value="fb"><span><b>Gemini (kuvonch.uz)</b><small>Kalitsiz. Sayt egasi Firebase'da AI Logic'ni yoqqan bo'lishi kerak</small></span></label>
   <label class="opt"><input type="radio" name="en" value="key"><span><b>O'z Gemini kalitim</b><small>Bepul kalit: aistudio.google.com/apikey — faqat shu brauzerda saqlanadi (AI slayd bilan umumiy)</small></span></label>
   <div class="row"><input type="password" id="gKey" placeholder="Gemini API kalit (AIza…)" autocomplete="off"><button class="ib" type="button" id="gSave">Saqlash</button></div>
@@ -363,7 +364,7 @@ function lsGet(k, d) { try { var v = localStorage.getItem(k); return v == null ?
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 var B = window.kaUstozBilim;
-var LS_CFG = "ka.ustoz.cfg", LS_CHAT = "ka.ustoz.chat", LS_DAY = "ka.ai.day", LS_FBOFF = "ka.ustoz.fboff", LS_FBM = "ka.ustoz.fbm", LS_AI = "ka.ai.cfg";
+var LS_CFG = "ka.ustoz.cfg", LS_CHAT = "ka.ustoz.chat", LS_DAY = "ka.ai.day", LS_FBOFF = "ka.ustoz.fboff", LS_FBM = "ka.ustoz.fbm", LS_AI = "ka.ai.cfg", LS_GQOFF = "ka.ustoz.gqoff";
 function dayLimit() { return window.kaAI && kaAI.limits ? kaAI.limits().txt : 30; }
 var Q = new URLSearchParams(location.search);
 var C = Object.assign({ mode: "free", sinf: "7", voice: true, rate: 1, engine: "auto", mic: "auto", auto: false, tease: true, vg: "auto", fan: "mix", name: "", sg: "", vsrc: "auto", theme: "", deep: true, life: true }, lsGet(LS_CFG, {}) || {});
@@ -863,7 +864,7 @@ function sttFallback(why, langOnly) {
   if (!canMic || C.stt === "browser") return false;
   if (langOnly) lsSet("ka.ustoz.sttg." + String(micLang()).slice(0, 2), 1); else lsSet("ka.ustoz.sttg", 1);
   drawHint();
-  toast((why || "Brauzer ovozni taniy olmadi") + " — endi Gemini orqali tinglayman. Yana bosib gapiring 🎙", 5000);
+  toast((why || "Brauzer ovozni taniy olmadi") + " — endi Kuvi serveri orqali tinglayman. Yana bosib gapiring 🎙", 5000);
   return true;
 }
 function b64of(u8) { var s = "", i, CH = 0x8000; for (i = 0; i < u8.length; i += CH) s += String.fromCharCode.apply(null, u8.subarray(i, i + CH)); return btoa(s); }
@@ -881,12 +882,15 @@ function toWav(chunks, inRate) {
 }
 function transcribe(b64) {
   if (window.KA_STT_MOCK) return window.KA_STT_MOCK(b64);
-  // 1) Azure: o'zbekcha nutqni tanish (Gemini limitini sarflamaydi)
-  if (azOn()) {
-    var bin = atob(b64), u8 = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
-    return kaAI.azSTT(u8, micLang()).then(function (t) { if (t) return t; throw new Error("bo'sh"); })["catch"](function (e) { if (!/bo'sh/.test(String(e && e.message))) kaAI.azFail(e); return gTranscribe(b64); });
+  var bin = atob(b64), u8 = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  // 2) Azure: o'zbekcha nutqni tanish (Gemini limitini sarflamaydi), 3) bo'lmasa Gemini
+  function viaAz() {
+    if (azOn()) return kaAI.azSTT(u8, micLang()).then(function (t) { if (t) return t; throw new Error("bo'sh"); })["catch"](function (e) { if (!/bo'sh/.test(String(e && e.message))) kaAI.azFail(e); return gTranscribe(b64); });
+    return gTranscribe(b64);
   }
-  return gTranscribe(b64);
+  // 1) Groq Whisper — bepul, kuniga ~8 soat ovoz (Azure limitini tejaydi)
+  if (gqOn()) return gqSTT(u8, micLang()).then(function (t) { if (t) return t; throw new Error("bo'sh"); })["catch"](function (e) { if (!/bo'sh/.test(String(e && e.message))) gqFail(e); return viaAz(); });
+  return viaAz();
 }
 function gTranscribe(b64) {
   return fbLoad().then(function () {
@@ -1062,6 +1066,55 @@ async function viaFirebase(h, onPart, xo) {
   }
   throw new Error("model topilmadi");
 }
+/* ---- Groq (bepul, juda tez): Kuvi ovoz serveri orqali (tools/kuvi-ovoz-worker.js → /chat, /gstt).
+   Groq kaliti serverda yashirin, saytning ochiq kodida yo'q. Band bo'lsa (bepul limit) — Gemini'ga o'tadi. ---- */
+var GQ = { err: "" };
+function gqUrl() { return window.kaAI && kaAI.azUrl ? kaAI.azUrl() : ""; }
+function gqOff() { return (lsGet(LS_GQOFF, 0) || 0) > Date.now(); }
+function gqOn() { return !!gqUrl() && !!window.fetch && !gqOff(); }
+function gqFail(err) {
+  var m = String((err && err.message) || err); GQ.err = m;
+  // server hali yangilanmagan / kalit qo'yilmagan yoki noto'g'ri — 30 daqiqa so'ramaymiz; limit — 1 daqiqa; boshqa xato — 20 soniya
+  lsSet(LS_GQOFF, Date.now() + (/sozlanmagan|topilmadi|\b40[134]\b|\b503\b|invalid/i.test(m) ? 30 * 60000 : /429|limit/i.test(m) ? 60000 : 20000));
+  try { console.warn("[Kuvi] Groq:", m); } catch (x) {}
+}
+function gqSTT(u8, lang) {
+  return fetch(gqUrl() + "/gstt?lang=" + encodeURIComponent(lang || "uz-UZ"), { method: "POST", headers: { "Content-Type": "audio/wav" }, body: u8 })
+    .then(function (r) { return r.json()["catch"](function () { return {}; }).then(function (j) { if (!r.ok) throw new Error("groq " + r.status + " " + (j.error || "")); return String(j.text || ""); }); });
+}
+// OpenAI ko'rinishidagi xabarlar bilan Groq'ga so'rov; javob oqim bo'lib keladi (onPart — yozilayotgan matn)
+async function groqChat(msgs, deep, onPart) {
+  var r = await fetch(gqUrl() + "/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs, deep: !!deep, stream: true }) });
+  if (!r.ok) { var em = ""; try { em = (await r.json()).error || ""; } catch (e) {} throw new Error("groq " + r.status + " " + em); }
+  var acc = "", buf = "";
+  function eat(chunk, end) {
+    buf += chunk; var ls = buf.split("\n"); buf = end ? "" : ls.pop();
+    for (var i = 0; i < ls.length; i++) {
+      var ln = ls[i].trim(); if (ln.indexOf("data:") !== 0) continue;
+      var d = ln.slice(5).trim(); if (!d || d === "[DONE]") continue;
+      try { var t = ((((JSON.parse(d).choices || [])[0] || {}).delta) || {}).content; if (t) { acc += t; onPart && onPart(acc); } } catch (e) {}
+    }
+  }
+  if (r.body && r.body.getReader && window.TextDecoder) {
+    var rd = r.body.getReader(), dec = new TextDecoder();
+    for (;;) { var s = await rd.read(); if (s.done) break; eat(dec.decode(s.value, { stream: true }), false); }
+    eat("", true);
+  } else eat(await r.text(), true);
+  acc = acc.trim();
+  if (!acc) throw new Error("bo'sh javob");
+  return acc;
+}
+async function viaGroq(h, onPart, xo) {
+  xo = xo || {};
+  if (xo.img) throw new Error("rasm Gemini'da");
+  var msgs = [{ role: "system", content: sysPrompt(xo) }];
+  h.slice(-14).forEach(function (x) {
+    var role = x.r === "u" ? "user" : "assistant", t = x.r === "a" ? "[" + (x.m || "neutral") + "] " + x.t : x.t, L = msgs[msgs.length - 1];
+    if (L.role === role) L.content += "\n" + t; else msgs.push({ role: role, content: t });
+  });
+  if (msgs.length > 1 && msgs[1].role === "assistant") msgs.splice(1, 0, { role: "user", content: "(Suhbat boshlandi)" });
+  return groqChat(msgs, xo.deep, onPart);
+}
 function aiCfg() { return lsGet(LS_AI, {}) || {}; }
 async function viaKey(h, onPart, xo) {
   xo = xo || {};
@@ -1144,14 +1197,15 @@ function drawOpts(o) {
 function chain() {
   var c = aiCfg(), hasKey = !!(c.key || c.worker), fbOk = !fbOff() && dayN() < dayLimit();
   if (!fbOff() && dayN() >= dayLimit() && !window.KA_AI_MOCK) proNote("txt");
+  if (C.engine === "groq") return gqUrl() ? ["groq", "off"] : ["off"];
   if (C.engine === "fb") return ["fb", "off"];
   if (C.engine === "key") return hasKey ? ["key", "off"] : ["off"];
   if (C.engine === "puter") return ["puter", "off"];
   if (C.engine === "off") return ["off"];
-  var a = []; if (fbOk || window.KA_AI_MOCK) a.push("fb"); if (hasKey) a.push("key"); if (window.puter && window.puter.ai && puterOk) a.push("puter"); a.push("off"); return a;
+  var a = []; if (gqOn() && !window.KA_AI_MOCK) a.push("groq"); if (fbOk || window.KA_AI_MOCK) a.push("fb"); if (hasKey) a.push("key"); if (window.puter && window.puter.ai && puterOk) a.push("puter"); a.push("off"); return a;
 }
 var puterOk = false, lastEng = "auto";
-var ENG_N = { auto: "Avto", fb: "Gemini", key: "Gemini (kalit)", puter: "Puter AI", off: "Oflayn" };
+var ENG_N = { auto: "Avto", groq: "Groq", fb: "Gemini", key: "Gemini (kalit)", puter: "Puter AI", off: "Oflayn" };
 function drawEng(e) { lastEng = e || lastEng; var b = $("#eng"); b.className = "ib pill " + (lastEng === "off" ? "off" : lastEng === "auto" ? "" : "ai"); $("#engT").textContent = ENG_N[lastEng]; }
 function engFail(e, err) {
   var m = String((err && ((err.code || "") + " " + (err.message || ""))) || err);
@@ -1161,6 +1215,7 @@ function engFail(e, err) {
     else if (/429|quota|RESOURCE_EXHAUSTED|rate/i.test(m)) lsSet(LS_FBOFF, Date.now() + Math.min(24 * 3600000, retryMs(m) || 10 * 60000));
     else lsSet(LS_FBOFF, Date.now() + 2 * 60000);
   }
+  if (e === "groq") { gqFail(err); return; }
   if (e === "puter" && /auth/i.test(m)) puterOk = false;
   try { console.warn("[Kuvi] " + e + ":", m); } catch (x) {}
 }
@@ -1257,7 +1312,7 @@ async function send(text, o) {
     if (e === "off") { out = viaOffline(text); used = "off"; break; }
     try {
       var hh = c.h.slice(), cb = function (t) { feed(t, false); };
-      out = await (e === "fb" ? viaFirebase(hh, cb, xo) : e === "key" ? viaKey(hh, cb, xo) : viaPuter(hh, cb, xo));
+      out = await (e === "groq" ? viaGroq(hh, cb, xo) : e === "fb" ? viaFirebase(hh, cb, xo) : e === "key" ? viaKey(hh, cb, xo) : viaPuter(hh, cb, xo));
       used = e; if (e === "fb") dayInc(); break;
     } catch (err) {
       engFail(e, err);
@@ -1301,7 +1356,9 @@ function sessionSum(sm) {
     sumBusy = false; var p = parseMood(t); if (p.mood) setMood(p.mood); else setMood("think");
     cur().h.push({ r: "a", t: p.t, m: mood }); saveChat(); showAI(p.t); if (S === "think") setState("idle"); say(p.t, afterSpeak);
   };
-  if (window.kaAI && chain()[0] !== "off") kaAI.text(sumText(sm), sys).then(done, function () { done("[think] " + offSum(sm)); });
+  var viaKa = function () { if (window.kaAI && chain().some(function (e) { return e !== "off" && e !== "groq"; })) kaAI.text(sumText(sm), sys).then(done, function () { done("[think] " + offSum(sm)); }); else done("[think] " + offSum(sm)); };
+  if (gqOn() && C.engine !== "fb" && C.engine !== "key" && C.engine !== "puter" && C.engine !== "off") groqChat([{ role: "system", content: sys }, { role: "user", content: sumText(sm) }], false, null).then(done, function (err) { gqFail(err); viaKa(); });
+  else if (window.kaAI && chain()[0] !== "off") kaAI.text(sumText(sm), sys).then(done, function () { done("[think] " + offSum(sm)); });
   else done("[think] " + offSum(sm));
 }
 function afterSpeak() {
@@ -1388,6 +1445,7 @@ function fbNote() {
   var pro = isProNow(), adm = !!(window.kaAI && kaAI.isAdmin && kaAI.isAdmin()), tr = window.kaAI && kaAI.trial && kaAI.trial();
   $("#fbNote").innerHTML = "Hozir ishlayotgani: <b>" + ENG_N[lastEng] + "</b>. Bugun: AI xabar <b>" + n + " / " + limTxt(dayLimit()) + "</b>, tabiiy ovoz <b>" + ttsDayN() + " / " + limTxt(ttsLimit()) + "</b> bo'lak. " +
     (adm ? "👑 Admin — hamma imkoniyat cheklovsiz." : window.kaAI && kaAI.isOpen && kaAI.isOpen() ? "🟢 Kuvi hammaga to'liq ochiq — cheklovsiz." : pro ? "💎 Pro obuna faol — cheklovsiz." :(tr ? "Sinov davri: tabiiy ovoz hammaga ochiq (31-dekabrgacha). " : "") + '<a href="premium.html" target="_top">💎 Pro obuna</a> — ko\'proq AI va tabiiy ovoz.') +
+    "<br>Groq (bepul, tez): <b>" + (gqOn() ? "tayyor" : !gqUrl() ? "ulanmagan" : /sozlanmagan/.test(GQ.err) ? "serverda Groq kaliti hali qo'yilmagan" : "vaqtincha band" + (GQ.err ? " (" + esc(GQ.err.slice(0, 60)) + ")" : "")) + "</b>" +
     (off && fb.err ? "<br>kuvonch.uz Gemini hozir ulanmadi" + (/api-not-enabled|not been used|403/i.test(fb.err) ? " — sayt egasi Firebase konsolida <b>AI Logic → Get started → Gemini Developer API</b> ni yoqishi kerak (bepul)." : " (" + esc(fb.err.slice(0, 80)) + ").") : "");
 }
 $("#bCfg").addEventListener("click", function () {
@@ -1397,7 +1455,7 @@ $("#bCfg").addEventListener("click", function () {
   fbNote(); voiceNote(); openSheet("#sCfg");
 });
 $("#eng").addEventListener("click", function () { $("#bCfg").click(); });
-$$("input[name=en]").forEach(function (r) { r.addEventListener("change", function () { C.engine = r.value; saveCfg(); if (r.value === "fb") lsSet(LS_FBOFF, 0); toast("AI manbasi: " + r.parentNode.querySelector("b").textContent); }); });
+$$("input[name=en]").forEach(function (r) { r.addEventListener("change", function () { C.engine = r.value; saveCfg(); if (r.value === "fb") lsSet(LS_FBOFF, 0); if (r.value === "groq") lsSet(LS_GQOFF, 0); toast("AI manbasi: " + r.parentNode.querySelector("b").textContent); }); });
 $("#gSave").addEventListener("click", function () { var c = aiCfg(), v = $("#gKey").value.trim(); if (v) c.key = v; else delete c.key; lsSet(LS_AI, c); toast(v ? "Kalit saqlandi" : "Kalit o'chirildi"); });
 $("#pLogin").addEventListener("click", async function () {
   try { await puterLoad(); var a = window.puter.auth; if (a && a.signIn && !(await puterSigned())) await a.signIn({ attempt_temp_user_creation: true }); puterOk = true; toast("Puter ulandi ✓"); }
