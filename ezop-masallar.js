@@ -1099,5 +1099,15 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u uyasini xavfli joyga qurardi va maslahatga quloq solmasdi", "Chunki u bahorda uya qurishni umuman bilmasdi", "Chunki bog'dagi shoxlar juda baland edi"],
     javob: 0,
     izoh: "Xavfli joy tanlash va ogohlantirishga quloq solmaslik muammoni har yili takrorlaydi. Qaror qabul qilishdan oldin xavfni baholash va tajribali odamlar fikriga e'tibor berish kerak."
+  },
+  {
+    id: "ez-138",
+    mavzu: "ehtiyotkorlik",
+    sarlavha: "Qushcha va bolalari",
+    matn: "Bir qushcha dalaning o'rtasida uya qurgan edi. Dehqon ekinni o'rish vaqti kelganini aytib, qo'shnilaridan yordam so'radi. Qushcha bolalariga: \"Hali xavf yo'q, eshitib turinglar\", dedi. Ertasi kuni dehqon qo'shnilarni kutmay, o'g'illari bilan o'zi o'rishga qaror qildi. Qushcha bu gapni eshitgach, bolalarini darhol boshqa joyga olib ketdi.",
+    savol: "Qushcha nega bolalarini boshqa joyga ko'chirdi?",
+    variantlar: ["Chunki dehqon endi qo'shnilarga emas, o'zi ekinni o'rishga kirishgan edi", "Chunki dehqon uyani buzib tashlashga va'da bergan edi", "Chunki qish yaqinlashib, qushlar issiq yurtga uchishi kerak edi"],
+    javob: 0,
+    izoh: "Dehqonning o'zi o'rishga qaror qilgani xavf yaqinlashganini bildirardi. Qushcha gapdan emas, harakatdan xulosa chiqardi: o'zgarish belgisi ko'ringach, kechiktirmay tayyorgarlik ko'rish kerak."
   }
 ];
