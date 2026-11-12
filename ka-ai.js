@@ -43,7 +43,8 @@
      tts — tabiiy ovozdagi gap bo'laklari (bitta javob ≈ 2–3 bo'lak), txt — AI xabarlari va ovozni tanish.
      Sinov davrida tabiiy ovoz hammaga; keyin bepul foydalanuvchiga ozgina, Pro'ga ko'p. */
   // Pro obunachi va admin — cheklovsiz (umumiy himoya: ovoz serverida bitta IP uchun 10 daqiqada 150 so'rov)
-  var LIM = { trialUntil: "2026-12-31", trial: { tts: 30, txt: 50 }, free: { tts: 6, txt: 30 }, pro: { tts: Infinity, txt: Infinity } };
+  // open: true — Kuvi HAMMAGA to'liq ochiq (kunlik limit yo'q). Limitlarni qaytarish uchun false qiling.
+  var LIM = { open: true, trialUntil: "2026-12-31", trial: { tts: 30, txt: 50 }, free: { tts: 6, txt: 30 }, pro: { tts: Infinity, txt: Infinity } };
   var PRO_K = "ka.pro.v2", proP = null;
   function proRec() { return lsGet(PRO_K, null); }
   function isAdmin() { var p = proRec(); return !!(p && p.admin); }
@@ -64,7 +65,8 @@
     return proP;
   }
   function trial() { return today() <= LIM.trialUntil; }
-  function limits() { return isPro() ? LIM.pro : trial() ? LIM.trial : LIM.free; }
+  function isOpen() { return !!LIM.open; }
+  function limits() { return isOpen() || isPro() ? LIM.pro : trial() ? LIM.trial : LIM.free; }
   function left(kind) { var L = limits(); return kind === "tts" ? L.tts - dayN() : L.txt - cnt("ka.ai.day"); }
   function usable() { return !!window.Promise && (azOn() || (!!imp && S.off <= Date.now())) && left("tts") > 0 && !!(window.AudioContext || window.webkitAudioContext); }
 
@@ -186,5 +188,5 @@
   setTimeout(function () { refreshPro(); }, 1200);
   // sahifaga qaytganda (masalan, Pro olingach) holatni yangilaymiz
   try { document.addEventListener("visibilitychange", function () { if (!document.hidden) refreshPro(); }); } catch (e) {}
-  window.kaAI = { azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, isAdmin: isAdmin, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
+  window.kaAI = { azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, isAdmin: isAdmin, isOpen: isOpen, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
 })();

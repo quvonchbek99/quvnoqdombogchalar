@@ -270,7 +270,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 
 <script src="ka-kuvi.js?v=20261110d"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261111c"></script>
+<script src="ka-ai.js?v=20261112a"></script>
 <script src="ka-ustoz-bilim.js?v=20261110n"></script>
 <script>
 (function () {
@@ -471,7 +471,7 @@ function ttsDayInc() { lsSet("ka.tts.day", { d: today(), n: ttsDayN() + 1 }); }
 function ttsLimit() { return window.kaAI && kaAI.limits ? kaAI.limits().tts : 6; }
 // limit tugaganda bir marta aytamiz: tabiiy ovoz va ko'proq AI — Pro obunada
 var proNoted = "";
-function isProNow() { return !!(window.kaAI && kaAI.isPro && kaAI.isPro()); }
+function isProNow() { return !!(window.kaAI && ((kaAI.isOpen && kaAI.isOpen()) || (kaAI.isPro && kaAI.isPro()))); }
 function limTxt(n) { return n === Infinity ? "cheksiz" : n; }
 function proNote(kind) {
   if (proNoted.indexOf(kind) >= 0 || isProNow()) return; proNoted += kind;
@@ -1086,7 +1086,7 @@ function fbNote() {
   var off = fbOff(), n = dayN();
   var pro = isProNow(), adm = !!(window.kaAI && kaAI.isAdmin && kaAI.isAdmin()), tr = window.kaAI && kaAI.trial && kaAI.trial();
   $("#fbNote").innerHTML = "Hozir ishlayotgani: <b>" + ENG_N[lastEng] + "</b>. Bugun: AI xabar <b>" + n + " / " + limTxt(dayLimit()) + "</b>, tabiiy ovoz <b>" + ttsDayN() + " / " + limTxt(ttsLimit()) + "</b> bo'lak. " +
-    (adm ? "👑 Admin — hamma imkoniyat cheklovsiz." : pro ? "💎 Pro obuna faol — cheklovsiz." :(tr ? "Sinov davri: tabiiy ovoz hammaga ochiq (31-dekabrgacha). " : "") + '<a href="premium.html" target="_top">💎 Pro obuna</a> — ko\'proq AI va tabiiy ovoz.') +
+    (adm ? "👑 Admin — hamma imkoniyat cheklovsiz." : window.kaAI && kaAI.isOpen && kaAI.isOpen() ? "🟢 Kuvi hammaga to'liq ochiq — cheklovsiz." : pro ? "💎 Pro obuna faol — cheklovsiz." :(tr ? "Sinov davri: tabiiy ovoz hammaga ochiq (31-dekabrgacha). " : "") + '<a href="premium.html" target="_top">💎 Pro obuna</a> — ko\'proq AI va tabiiy ovoz.') +
     (off && fb.err ? "<br>kuvonch.uz Gemini hozir ulanmadi" + (/api-not-enabled|not been used|403/i.test(fb.err) ? " — sayt egasi Firebase konsolida <b>AI Logic → Get started → Gemini Developer API</b> ni yoqishi kerak (bepul)." : " (" + esc(fb.err.slice(0, 80)) + ").") : "");
 }
 $("#bCfg").addEventListener("click", function () {
