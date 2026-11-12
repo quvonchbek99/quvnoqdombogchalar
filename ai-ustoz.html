@@ -352,7 +352,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 
 <script src="ka-kuvi.js?v=20261112c"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261112b"></script>
+<script src="ka-ai.js?v=20261112c"></script>
 <script src="ka-ustoz-bilim.js?v=20261112c"></script>
 <script>
 (function () {
@@ -630,8 +630,15 @@ function sayAdd(text) {
     s.m = mood;
     if (cloudOn(s.l) && ttsDayN() < ttsLimit()) {
       // bulut ovozi: gaplarga bo'lib, hammasini birdaniga tayyorlaymiz — birinchi gap tezroq eshitiladi, orasida uzilish bo'lmaydi
-      var parts = s.t.match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [s.t], cur = "";
-      parts.forEach(function (p) { cur += p; if (cur.trim().length >= 28 || p === parts[parts.length - 1]) { var it = { t: cur.trim(), l: s.l, m: s.m, c: 1 }; if (it.t) { TQ.push(it); ttsGet(it); ttsDayInc(); } cur = ""; } });
+      // Azure bepul tarifi butun sayt uchun daqiqasiga 20 so'rov beradi — shuning uchun gaplarni birlashtiramiz:
+      // javobning birinchi gapi alohida (tez eshitiladi), qolganlari 240 belgigacha bitta so'rovda
+      var parts = s.t.match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [s.t], cur = "", firstOne = !tBusy && !TQ.length;
+      parts.forEach(function (p, i) {
+        cur += p; var nx = parts[i + 1], lim = firstOne ? 28 : 240;
+        if (i === parts.length - 1 || cur.trim().length >= lim || (!firstOne && nx && (cur + nx).length > 240)) {
+          var it = { t: cur.trim(), l: s.l, m: s.m, c: 1 }; if (it.t) { TQ.push(it); ttsGet(it); ttsDayInc(); } cur = ""; firstOne = false;
+        }
+      });
       return;
     }
     var last = TQ[TQ.length - 1];
@@ -658,17 +665,19 @@ function proOk() { proNoted = ""; $("#proBar").hidden = true; }
 window.addEventListener("ka-pro", function (e) { if (e.detail && e.detail.pro) proOk(); });
 /* ---- Tezkor javob: o'quvchi gapirib bo'lgach, Kuvi darhol «Hmm…» deydi. Bu gaplar telefon xotirasida saqlanadi
    (birinchi marta bir martagina yuklanadi), shuning uchun 0,1 soniyada eshitiladi — AI javobi tayyorlanguncha jim turmaydi ---- */
-var ACK = { n: ["Hmm…", "Xo'sh…", "Qani-qani…", "Bir soniya…", "Hmm, ko'raylik…"], d: ["Keling, chuqurroq o'ylab ko'ray…", "Qiziq savol! Hozir tushuntiraman…"], i: ["Rasmni ko'ryapman… hozir yechamiz."] };
-var ackT = null, ackEnd = 0, ackLast = 0, ackSrc = null, ackWarmed = false, pumpT = null;
+var ACK = { n: ["Hmm…", "Xo'sh…", "Bir soniya…"], d: ["Keling, chuqurroq o'ylab ko'ray…"], i: ["Rasmni ko'ryapman… hozir yechamiz."] };
+var ackT = null, ackEnd = 0, ackLast = 0, ackSrc = null, ackWarmed = false, pumpT = null, ackReady = {};
 function ackCan() { return !!C.voice && azOn() && C.vsrc !== "device" && (C.vsrc === "cloud" || (!vFor("uz") && C.vAsk === "yes")); }
 function ackWarm() {
   if (ackWarmed || !ackCan()) return; ackWarmed = true;
-  ACK.n.concat(ACK.d, ACK.i).forEach(function (t, i) { setTimeout(function () { try { ttsGet({ t: t, m: "think", l: "uz" })["catch"](function () {}); } catch (e) {} }, 600 + i * 300); });
+  // sekin-asta (limitni band qilmaslik uchun), bir marta yuklangach telefon xotirasida qoladi
+  ACK.n.concat(ACK.d, ACK.i).forEach(function (t, i) { setTimeout(function () { if (!ackCan()) return; try { ttsGet({ t: t, m: "think", l: "uz" }).then(function () { ackReady[t] = 1; }, function () {}); } catch (e) {} }, 1500 + i * 7000); });
 }
 function ackStop() { clearTimeout(ackT); ackEnd = 0; try { if (ackSrc) { var a = ackSrc; ackSrc = null; a.stop(); } } catch (e) {} }
 function ackPlay(kind) {
   if (!ackCan() || tBusy || TQ.length || recOn) return;
-  var t = ACK[kind][Math.floor(Math.random() * ACK[kind].length)], t0 = Date.now(), gen = tGen;
+  var ready = ACK[kind].filter(function (x) { return ackReady[x]; }); if (!ready.length) return; // faqat xotirada borini aytamiz
+  var t = ready[Math.floor(Math.random() * ready.length)], t0 = Date.now(), gen = tGen;
   ttsGet({ t: t, m: "think", l: "uz" }).then(function (buf) {
     if (Date.now() - t0 > 450 || tBusy || TQ.length || recOn || gen !== tGen) return; // xotirada bo'lmasa — kech qoladi, aytmaymiz
     var ac = actx(); if (!ac) return;
@@ -725,7 +734,14 @@ function azOn() { return !!(window.kaAI && kaAI.azOn && kaAI.azOn()); }
 async function ttsFetch(text, mood, g, lang) {
   if (window.KA_TTS_MOCK) return window.KA_TTS_MOCK(text, mood, g, actx());
   // 1) Azure: Madina / Sardor — eng tabiiy o'zbekcha ovoz
-  if (azOn()) { try { return await kaAI.azTTS(text, mood, g, lang); } catch (e) { kaAI.azFail(e); } }
+  if (azOn()) {
+    try { return await kaAI.azTTS(text, mood, g, lang); }
+    catch (e) {
+      kaAI.azFail(e);
+      // bepul limit (butun sayt uchun daqiqasiga 20 ta) — o'qituvchi tushunishi uchun bir marta aytamiz
+      if (/429/.test(String(e && e.message)) && Date.now() - (window.__azT || 0) > 300000) { window.__azT = Date.now(); toast("Ovoz serveri band (bepul limit) — 20 soniya telefon ovozida gapiraman", 4500); }
+    }
+  }
   // 2) Gemini ovozi (zaxira)
   if (tts.off > Date.now()) throw new Error("bulut ovozi hozir yo'q");
   if (lang !== "en" && lang !== "ru" && window.kaAI && kaAI.uzOrth) text = kaAI.uzOrth(text);
@@ -1162,7 +1178,7 @@ function sysPrompt(xo) {
 /* ================= Asosiy oqim ================= */
 var askGen = 0, streaming = false;
 function feeder(gen) {
-  var spoken = 0, moodSet = false;
+  var spoken = 0, moodSet = false, first = true, pend = "";
   return function (full, final) {
     if (gen !== askGen) return;
     var p = parseMood(full);
@@ -1177,7 +1193,12 @@ function feeder(gen) {
       // birinchi gap uzun bo'lsa — vergulgacha bo'lgan qismini darhol ovozga beramiz (javob tezroq eshitiladi)
       if (cut < 0 && spoken === 0 && rest.length > 70) { var ci = rest.lastIndexOf(", "); if (ci > 25 && ((rest.slice(0, ci).match(/"/g) || []).length % 2 === 0)) cut = ci + 1; }
     }
-    if (cut > 0) { var piece = rest.slice(0, cut); spoken += cut; if (piece.trim()) { if (S === "think") mouthOn(true); sayAdd(piece); } }
+    if (cut > 0) {
+      var piece = rest.slice(0, cut); spoken += cut;
+      if (piece.trim()) { if (S === "think") mouthOn(true); if (first) { first = false; sayAdd(piece); } else pend += piece; }
+    }
+    // birinchi gapdan keyingilarini yig'ib, bitta so'rov bilan ovozga beramiz (Azure limitini tejash)
+    if (pend && (final || pend.length >= 200)) { var pp = pend; pend = ""; sayAdd(pp); }
   };
 }
 function showImg(img) { var el = $("#trImg"); if (img && img.url) { el.src = img.url; el.hidden = false; } else { el.hidden = true; el.removeAttribute("src"); } }
@@ -1325,6 +1346,8 @@ function voiceNote() {
   var uz = vFor("uz", "f"), tr = vFor("tr", "f"), ru = vFor("ru", "f"), en = vFor("en", "f"), um = vFor("uz", "m") || vFor("tr", "m") || vFor("ru", "m");
   el.innerHTML = !SS ? "Bu brauzerda ovoz chiqarish yo'q — matn ko'rinadi." :
     "O'zbekcha: <b>" + esc(uz ? uz.name : tr ? "o'zbek ovozi yo'q, turkcha ovoz bilan o'qiladi (" + tr.name + ")" : ru ? "o'zbek ovozi yo'q, ruscha ovoz bilan o'qiladi" : "ovoz topilmadi") + "</b><br>Jahl ovozi (erkak): <b>" + esc(um && window.kaYuz && kaYuz.gender(um) === "m" ? um.name : "erkak ovozi topilmadi — ohang pasaytiriladi") + "</b><br>Inglizcha: <b>" + esc(en ? en.name : "yo'q") + "</b> · Ruscha: <b>" + esc(ru ? ru.name : "yo'q") + "</b>" +
+    "<br>Kuvi ovoz serveri (Azure): <b>" + (function () { var st = window.kaAI && kaAI.state || {}, off = (st.azOff || 0) - Date.now(); return azOn() ? "tayyor" : off > 0 ? "band (bepul limit), " + Math.ceil(off / 1000) + " soniyada qaytadi" : "ulanmagan"; })() + "</b>" +
+    " <small>· shu telefondan oxirgi daqiqada " + ((window.kaAI && kaAI.state && kaAI.state.azMin) || 0) + " so'rov; bepul tarif butun sayt uchun daqiqasiga 20 ta</small>" +
     "<br>Bulut ovozi (Gemini): <b>" + (C.vsrc === "device" ? "o'chiq" : tts.off > Date.now() ? "vaqtincha ishlamayapti" + (tts.err ? " (" + esc(tts.err.slice(0, 60)) + ")" : "") : fb.ai ? "tayyor" : "AI ulanganda ishlaydi") + "</b>" +
     (uz ? "" : "<br>Eng tabiiy o'zbekcha ovoz: kompyuterda <b>Microsoft Edge</b> brauzeri (Madina / Sardor ovozlari), yoki Windows sozlamalarida «Til → O'zbek tili → Nutq» paketini o'rnating.");
 }

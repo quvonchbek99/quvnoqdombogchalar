@@ -76,9 +76,22 @@
   var AZ_URL = "https://kuvi-ovoz.quvonchmash12.workers.dev";
   function azUrl() { var u = ""; try { u = localStorage.getItem("ka.az.url") || ""; } catch (e) {} u = u || AZ_URL; return u ? String(u).replace(/^"|"$/g, "").replace(/\/+$/, "") : ""; }
   function azOn() { return !!azUrl() && !!window.fetch && (S.azOff || 0) <= Date.now(); }
-  function azFail(e) { S.azErr = String((e && e.message) || e); S.azOff = Date.now() + (/429/.test(S.azErr) ? 10 : 3) * 60000; try { console.warn("[Kuvi] Azure:", S.azErr); } catch (x) {} }
+  /* Azure bepul (F0) tarif cheklovlari: ovozga aylantirish — BUTUN SAYT uchun daqiqasiga 20 ta so'rov,
+     ovozni tanish — bir vaqtda 1 ta. Limitga urilsa (429), Azure'ni 10 daqiqaga o'chirmaymiz:
+     bir oz kutib qayta urinamiz, bo'lmasa 20 soniyagina zaxira ovozga o'tamiz. */
+  function azFail(e) { S.azErr = String((e && e.message) || e); S.azErrAt = Date.now(); S.azOff = Date.now() + (/429/.test(S.azErr) ? 20000 : 90000); try { console.warn("[Kuvi] Azure:", S.azErr); } catch (x) {} }
+  function later(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  // shu qurilmadan oxirgi daqiqadagi Azure so'rovlari (xotiradagi gaplar hisobga kirmaydi)
+  var azLog = [];
+  function azNote() { var t = Date.now(); azLog.push(t); while (azLog.length && t - azLog[0] > 60000) azLog.shift(); S.azMin = azLog.length; }
   function hashS(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = (h * 16777619) >>> 0; } return h.toString(36) + s.length.toString(36); }
-  function azFetch(body) { return fetch(azUrl() + "/tts", { method: "POST", headers: { "Content-Type": "application/json" }, body: body }).then(function (r) { if (!r.ok) throw new Error("azure " + r.status); return r; }); }
+  function azFetch(body, retry) {
+    azNote();
+    return fetch(azUrl() + "/tts", { method: "POST", headers: { "Content-Type": "application/json" }, body: body }).then(function (r) {
+      if (r.status === 429 && !retry) return later(1600 + Math.random() * 900).then(function () { return azFetch(body, 1); });
+      if (!r.ok) throw new Error("azure " + r.status); return r;
+    });
+  }
   function azTTS(text, mood, g, lang) {
     lang = lang || (/[а-яё]/i.test(text) ? "ru" : "uz");
     if (lang === "uz") text = uzOrth(text);
@@ -92,9 +105,14 @@
       });
     }).then(function (ab) { var ac = actx(); return new Promise(function (res, rej) { ac.decodeAudioData(ab, res, rej); }); });
   }
-  function azSTT(wavBytes, lang) {
+  // bir vaqtda faqat 1 ta tanish mumkin — band bo'lsa (429) ikki marta qisqa kutib qayta urinamiz
+  function azSTT(wavBytes, lang, n) {
+    n = n | 0;
     return fetch(azUrl() + "/stt?lang=" + encodeURIComponent(lang || "uz-UZ"), { method: "POST", headers: { "Content-Type": "audio/wav" }, body: wavBytes })
-      .then(function (r) { if (!r.ok) throw new Error("azure stt " + r.status); return r.json(); }).then(function (j) { return j.text || ""; });
+      .then(function (r) {
+        if (r.status === 429 && n < 2) return later(700 + n * 900 + Math.random() * 500).then(function () { return azSTT(wavBytes, lang, n + 1); });
+        if (!r.ok) throw new Error("azure stt " + r.status); return r.json();
+      }).then(function (j) { return typeof j === "string" ? j : j.text || ""; });
   }
   /* ---------- iPhone / iPad: ovoz jim rejim tugmasi yoqiq bo'lsa ham eshitilsin ----------
      iOS Web Audio'ni «jim rejim»da o'chirib qo'yadi. Yangi iOS'da audioSession.type = "playback" yetadi,
@@ -193,7 +211,12 @@
   function speak(text, mood, g) {
     var my = ++gen; stop();
     var parts = String(text || "").match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [String(text || "")], chunks = [], acc = "";
-    for (var i = 0; i < parts.length; i++) { acc += parts[i]; if (acc.trim().length >= 28 || i === parts.length - 1) { if (acc.trim()) chunks.push(acc.trim()); acc = ""; } }
+    // Azure limiti tejamli: birinchi gap alohida (tez eshitiladi), qolganlari 240 belgigacha bitta so'rovga birlashtiriladi
+    for (var i = 0; i < parts.length; i++) {
+      var lim = chunks.length ? 240 : 28, nx = parts[i + 1];
+      acc += parts[i];
+      if (i === parts.length - 1 || (acc.trim().length >= lim) || (chunks.length && nx && (acc + nx).length > 240)) { if (acc.trim()) chunks.push(acc.trim()); acc = ""; }
+    }
     var bufs = chunks.map(function (c) { return tts(c, mood, g); });
     var chain = Promise.resolve();
     bufs.forEach(function (bp) { chain = chain.then(function () { if (my !== gen) return; return bp.then(function (b) { if (my !== gen) return; return play(b); }); }); });
