@@ -1089,5 +1089,15 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki kalitni qidirib vaqtini behuda sarflashdan charchagan edi", "Chunki kalitni boshqa bolaga berib qo'ygan edi", "Chunki eshik endi doim ochiq bo'lishi kerak edi"],
     javob: 0,
     izoh: "Narsalarni doimiy joyiga qo'yish vaqt va asabni tejaydi. Tartib ham ehtiyotkorlikning bir ko'rinishi."
+  },
+  {
+    id: "ez-137",
+    mavzu: "ehtiyotkorlik",
+    sarlavha: "Chumchuq va yo'l bo'yi uyasi",
+    matn: "Bir chumchuq har bahorda uya qurib, bolalarini ko'paytirardi. Lekin u har yili uyasini yo'l bo'yidagi yalang'och tanaga qurardi, chunki u yerda don topish oson ko'rinardi. Har safar bolalari odamlar qadami va shovqini tufayli qo'rqib tarqab ketardi. Bir yili qo'shnisi unga: \"Uyani bog'ning qalin shoxiga ko'chir\", dedi. Chumchuq esa maslahatni eshitmay, yana o'sha yo'l bo'yiga uya qurdi.",
+    savol: "Chumchuq nega har yili bolalarini yo'qotardi?",
+    variantlar: ["Chunki u uyasini xavfli joyga qurardi va maslahatga quloq solmasdi", "Chunki u bahorda uya qurishni umuman bilmasdi", "Chunki bog'dagi shoxlar juda baland edi"],
+    javob: 0,
+    izoh: "Xavfli joy tanlash va ogohlantirishga quloq solmaslik muammoni har yili takrorlaydi. Qaror qabul qilishdan oldin xavfni baholash va tajribali odamlar fikriga e'tibor berish kerak."
   }
 ];
