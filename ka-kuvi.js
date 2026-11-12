@@ -398,9 +398,12 @@
   function say(text, mood, pref, onend) {
     if (!text) { if (onend) onend(); return; }
     var src = vsrc(), sy = window.speechSynthesis, pr0 = pros(mood, pref);
-    if (window.kaAI && kaAI.usable() && src !== "device" && (src === "cloud" || !voice("uz", pr0.g))) {
+    // gap to'liq Kuvi ovoz kutubxonasida bo'lsa — Azure'siz, saytning o'zidan (limit va internet tezligiga bog'liq emas)
+    var clean = String(text).replace(/[«»]/g, ""), libAll = false;
+    try { libAll = !!(window.kaAI && kaAI.libReady && kaAI.libReady()) && kaAI.libSplit(clean, pr0.g).every(function (x) { return !!x.url; }); } catch (e) {}
+    if (window.kaAI && src !== "device" && (libAll || (kaAI.usable() && (src === "cloud" || !voice("uz", pr0.g))))) {
       try { if (sy) sy.cancel(); } catch (e) {}
-      kaAI.speak(String(text).replace(/[«»]/g, ""), mood, pr0.g).then(function () { if (onend) onend(); }, function () { deviceSay(text, mood, pref, onend); });
+      kaAI.speak(clean, mood, pr0.g).then(function () { if (onend) onend(); }, function () { deviceSay(text, mood, pref, onend); });
       return;
     }
     deviceSay(text, mood, pref, onend);

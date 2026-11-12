@@ -350,9 +350,9 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 </div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="ka-kuvi.js?v=20261112c"></script>
+<script src="ka-kuvi.js?v=20261112d"></script>
 <script src="ka-xato.js?v=20261110a"></script>
-<script src="ka-ai.js?v=20261112c"></script>
+<script src="ka-ai.js?v=20261112d"></script>
 <script src="ka-ustoz-bilim.js?v=20261112c"></script>
 <script>
 (function () {
@@ -626,25 +626,40 @@ var TQ = [], tBusy = false, tGen = 0, unlocked = false, speakEnd = null, voiceWa
 function unlockAudio() { actx(); setTimeout(ackWarm, 300); if (unlocked || !SS) { unlocked = true; return; } unlocked = true; try { var u = new SpeechSynthesisUtterance(" "); u.volume = 0; SS.speak(u); } catch (e) {} }
 
 function sayAdd(text) {
+  // Kuvi ovoz kutubxonasi: tez-tez aytiladigan gaplar (maqtov, erkalash, reaksiyalar) saytning o'zidan — Azure'siz
+  var useLib = !!(window.kaAI && kaAI.libReady && kaAI.libReady()) && C.voice && C.vsrc !== "device";
   segs(text).forEach(function (s) {
     s.m = mood;
-    if (cloudOn(s.l) && ttsDayN() < ttsLimit()) {
-      // bulut ovozi: gaplarga bo'lib, hammasini birdaniga tayyorlaymiz — birinchi gap tezroq eshitiladi, orasida uzilish bo'lmaydi
-      // Azure bepul tarifi butun sayt uchun daqiqasiga 20 so'rov beradi — shuning uchun gaplarni birlashtiramiz:
-      // javobning birinchi gapi alohida (tez eshitiladi), qolganlari 240 belgigacha bitta so'rovda
-      var parts = s.t.match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [s.t], cur = "", firstOne = !tBusy && !TQ.length;
-      parts.forEach(function (p, i) {
-        cur += p; var nx = parts[i + 1], lim = firstOne ? 28 : 240;
-        if (i === parts.length - 1 || cur.trim().length >= lim || (!firstOne && nx && (cur + nx).length > 240)) {
-          var it = { t: cur.trim(), l: s.l, m: s.m, c: 1 }; if (it.t) { TQ.push(it); ttsGet(it); ttsDayInc(); } cur = ""; firstOne = false;
-        }
-      });
-      return;
+    var cloud = cloudOn(s.l) && ttsDayN() < ttsLimit();
+    if (useLib && s.l === "uz") {
+      var pcs = kaAI.libSplit(s.t, voiceG(s.m));
+      if (pcs.some(function (x) { return x.url; })) {
+        pcs.forEach(function (x) {
+          if (x.url) { var it = { t: x.t, l: s.l, m: s.m, c: 1, url: x.url }; TQ.push(it); ttsGet(it); }
+          else addPiece({ t: x.t, l: s.l, m: s.m }, cloud);
+        });
+        return;
+      }
     }
-    var last = TQ[TQ.length - 1];
-    if (last && !last.c && last.l === s.l && last.m === s.m) last.t += " " + s.t; else TQ.push(s);
+    addPiece(s, cloud);
   });
   pump();
+}
+function addPiece(s, cloud) {
+  if (cloud) {
+    // bulut ovozi: Azure bepul tarifi butun sayt uchun daqiqasiga 20 so'rov beradi — shuning uchun gaplarni birlashtiramiz:
+    // javobning birinchi gapi alohida (tez eshitiladi), qolganlari 240 belgigacha bitta so'rovda
+    var parts = s.t.match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [s.t], cur = "", firstOne = !tBusy && !TQ.length;
+    parts.forEach(function (p, i) {
+      cur += p; var nx = parts[i + 1], lim = firstOne ? 28 : 240;
+      if (i === parts.length - 1 || cur.trim().length >= lim || (!firstOne && nx && (cur + nx).length > 240)) {
+        var it = { t: cur.trim(), l: s.l, m: s.m, c: 1 }; if (it.t) { TQ.push(it); ttsGet(it); ttsDayInc(); } cur = ""; firstOne = false;
+      }
+    });
+    return;
+  }
+  var last = TQ[TQ.length - 1];
+  if (last && !last.c && last.l === s.l && last.m === s.m) last.t += " " + s.t; else TQ.push(s);
 }
 function ttsDayN() { var d = lsGet("ka.tts.day", {}) || {}; return d.d === today() ? d.n | 0 : 0; }
 function ttsDayInc() { lsSet("ka.tts.day", { d: today(), n: ttsDayN() + 1 }); }
@@ -667,18 +682,23 @@ window.addEventListener("ka-pro", function (e) { if (e.detail && e.detail.pro) p
    (birinchi marta bir martagina yuklanadi), shuning uchun 0,1 soniyada eshitiladi — AI javobi tayyorlanguncha jim turmaydi ---- */
 var ACK = { n: ["Hmm…", "Xo'sh…", "Bir soniya…"], d: ["Keling, chuqurroq o'ylab ko'ray…"], i: ["Rasmni ko'ryapman… hozir yechamiz."] };
 var ackT = null, ackEnd = 0, ackLast = 0, ackSrc = null, ackWarmed = false, pumpT = null, ackReady = {};
-function ackCan() { return !!C.voice && azOn() && C.vsrc !== "device" && (C.vsrc === "cloud" || (!vFor("uz") && C.vAsk === "yes")); }
+function ackLib(t) { return window.kaAI && kaAI.libUrl ? kaAI.libUrl(t, voiceG("think")) : null; }
+function ackCan() { return !!C.voice && C.vsrc !== "device" && ((window.kaAI && kaAI.libReady && kaAI.libReady()) || (azOn() && (C.vsrc === "cloud" || (!vFor("uz") && C.vAsk === "yes")))); }
 function ackWarm() {
   if (ackWarmed || !ackCan()) return; ackWarmed = true;
   // sekin-asta (limitni band qilmaslik uchun), bir marta yuklangach telefon xotirasida qoladi
-  ACK.n.concat(ACK.d, ACK.i).forEach(function (t, i) { setTimeout(function () { if (!ackCan()) return; try { ttsGet({ t: t, m: "think", l: "uz" }).then(function () { ackReady[t] = 1; }, function () {}); } catch (e) {} }, 1500 + i * 7000); });
+  ACK.n.concat(ACK.d, ACK.i).forEach(function (t, i) {
+    var u = ackLib(t);
+    setTimeout(function () { if (!ackCan()) return; try { ttsGet(u ? { t: t, url: u } : { t: t, m: "think", l: "uz" }).then(function () { ackReady[t] = 1; }, function () {}); } catch (e) {} }, u ? 400 + i * 150 : 1500 + i * 7000);
+  });
 }
 function ackStop() { clearTimeout(ackT); ackEnd = 0; try { if (ackSrc) { var a = ackSrc; ackSrc = null; a.stop(); } } catch (e) {} }
 function ackPlay(kind) {
   if (!ackCan() || tBusy || TQ.length || recOn) return;
   var ready = ACK[kind].filter(function (x) { return ackReady[x]; }); if (!ready.length) return; // faqat xotirada borini aytamiz
   var t = ready[Math.floor(Math.random() * ready.length)], t0 = Date.now(), gen = tGen;
-  ttsGet({ t: t, m: "think", l: "uz" }).then(function (buf) {
+  var au = ackLib(t);
+  ttsGet(au ? { t: t, url: au } : { t: t, m: "think", l: "uz" }).then(function (buf) {
     if (Date.now() - t0 > 450 || tBusy || TQ.length || recOn || gen !== tGen) return; // xotirada bo'lmasa — kech qoladi, aytmaymiz
     var ac = actx(); if (!ac) return;
     var src = ac.createBufferSource(); src.buffer = buf; src.connect(anal || ac.destination); ackSrc = src;
@@ -765,7 +785,15 @@ async function ttsFetch(text, mood, g, lang) {
   }
   throw new Error("TTS modeli topilmadi");
 }
-function ttsGet(it) { var g = voiceG(it.m), k = g + "|" + it.m + "|" + it.l + "|" + it.t; if (!tts.cache[k]) { tts.cache[k] = ttsFetch(it.t, it.m, g, it.l); tts.cache[k].catch(function () { delete tts.cache[k]; }); } return tts.cache[k]; }
+function ttsGet(it) {
+  // kutubxonadan (o'zi xotirada saqlaydi); fayl topilmasa — Azure orqali
+  if (it.url) {
+    var lk = "lib|" + it.url;
+    if (!tts.cache[lk]) { tts.cache[lk] = kaAI.libBuf(it.url)["catch"](function (e) { if (C.vsrc !== "device" && azOn()) return ttsFetch(it.t, it.m || "neutral", voiceG(it.m), it.l || "uz"); throw e; }); tts.cache[lk]["catch"](function () { delete tts.cache[lk]; }); }
+    return tts.cache[lk];
+  }
+  var g = voiceG(it.m), k = g + "|" + it.m + "|" + it.l + "|" + it.t; if (!tts.cache[k]) { tts.cache[k] = ttsFetch(it.t, it.m, g, it.l); tts.cache[k].catch(function () { delete tts.cache[k]; }); } return tts.cache[k];
+}
 function retryMs(m) { var r = /retryDelay"\s*:\s*"(\d+)s/.exec(m) || /retry in (?:(\d+)h)?(?:(\d+)m)?/i.exec(m); if (!r) return 0; if (r.length === 2) return +r[1] * 1000; return ((+r[1] || 0) * 3600 + (+r[2] || 0) * 60) * 1000; }
 function ttsFail(e) {
   var m = String((e && ((e.code || "") + " " + (e.message || ""))) || e); tts.err = m;
@@ -780,10 +808,14 @@ function playBuf(buf, done) {
   try { src.start(); } catch (e) { end(); }
 }
 function speakOne(it, done) {
-  var pr = prosOf(it.m);
+  var pr = prosOf(it.m), gen = tGen;
+  if (C.voice && it.url) { // kutubxona gapi — Azure va Gemini limitiga bog'liq emas
+    if (TQ[0] && (TQ[0].url || cloudOn(TQ[0].l))) ttsGet(TQ[0]);
+    ttsGet(it).then(function (buf) { if (gen !== tGen) return; playBuf(buf, done); }, function () { if (gen !== tGen) return; deviceSpeak(it, pr, done); });
+    return;
+  }
   if (C.voice && (it.c || cloudOn(it.l)) && (tts.off <= Date.now() || azOn())) {
-    var gen = tGen;
-    if (TQ[0] && cloudOn(TQ[0].l)) ttsGet(TQ[0]); // keyingi gapni oldindan tayyorlab qo'yamiz
+    if (TQ[0] && (TQ[0].url || cloudOn(TQ[0].l))) ttsGet(TQ[0]); // keyingi gapni oldindan tayyorlab qo'yamiz
     ttsGet(it).then(function (buf) { if (gen !== tGen) return; playBuf(buf, done); }, function (e) { if (gen !== tGen) return; ttsFail(e); deviceSpeak(it, pr, done); });
     return;
   }
@@ -806,7 +838,7 @@ function deviceSpeak(it, pr, done) {
 var lastCancel = 0;
 // keepAck — «Hmm…» kabi tezkor javobni to'xtatmaydi (yangi savol yuborilganda)
 function stopSpeak(keepAck) { tGen++; TQ = []; tBusy = false; speakEnd = null; clearTimeout(pumpT); if (!keepAck) ackStop(); try { if (curSrc) { var cs = curSrc; curSrc = null; cs.stop(); } } catch (e) {} try { if (SS && (SS.speaking || SS.pending)) { SS.cancel(); lastCancel = Date.now(); } } catch (e) {} if (!(keepAck && ackSrc)) mouthOn(false); if (S === "speak") setState("idle"); }
-function say(text, then) { stopSpeak(); speakEnd = then || null; sayAdd(text); }
+function say(text, then) { stopSpeak(); speakEnd = typeof then === "function" ? then : null; sayAdd(text); }
 
 /* ================= Ovozni tanish (STT) ================= */
 var SR = window.SpeechRecognition || window.webkitSpeechRecognition, hasSR = !!SR;

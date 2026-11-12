@@ -70,6 +70,6 @@
     b.onclick = openChat;
     setInterval(function () { if (document.body.contains(b) && !document.hidden) face(); }, 12000);
   }
-  function go() { if (window.kaYuz) setTimeout(boot, 800); else { var s = document.createElement("script"); s.src = base + "ka-kuvi.js?v=20261112c"; s.onload = function () { setTimeout(boot, 800); }; s.onerror = boot; document.head.appendChild(s); } }
+  function go() { if (window.kaYuz) setTimeout(boot, 800); else { var s = document.createElement("script"); s.src = base + "ka-kuvi.js?v=20261112d"; s.onload = function () { setTimeout(boot, 800); }; s.onerror = boot; document.head.appendChild(s); } }
   if (document.body) go(); else document.addEventListener("DOMContentLoaded", go);
 })();

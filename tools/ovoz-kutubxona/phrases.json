@@ -1,0 +1,1412 @@
+[
+ {
+  "t": "Yarmingiz topdi — keyingisida hammangiz topasiz!",
+  "n": 2032,
+  "m": "think"
+ },
+ {
+  "t": "Yomon emas!",
+  "n": 1985,
+  "m": "think"
+ },
+ {
+  "t": "Lekin yarmingiz yana o'ylab ko'ring.",
+  "n": 1985,
+  "m": "think"
+ },
+ {
+  "t": "Hmm, o'rtacha.",
+  "n": 1983,
+  "m": "think"
+ },
+ {
+  "t": "Yechimga diqqat bilan qarang!",
+  "n": 1983,
+  "m": "think"
+ },
+ {
+  "t": "Qoyil!",
+  "n": 1700,
+  "m": "happy"
+ },
+ {
+  "t": "do'stim!",
+  "n": 1618,
+  "m": "wow"
+ },
+ {
+  "t": "Ha-ha-ha!",
+  "n": 1617,
+  "m": "laugh"
+ },
+ {
+  "t": "Vaqt tugadi-ku!",
+  "n": 1570,
+  "m": "wow"
+ },
+ {
+  "t": "Keyingisida tezroq bo'l.",
+  "n": 1570,
+  "m": "wow"
+ },
+ {
+  "t": "Bu sinf — chempionlar sinfi!",
+  "n": 1551,
+  "m": "happy"
+ },
+ {
+  "t": "Barakalla, sinf!",
+  "n": 1498,
+  "m": "love"
+ },
+ {
+  "t": "Deyarli hamma topdi!",
+  "n": 1498,
+  "m": "love"
+ },
+ {
+  "t": "Zo'r sinf!",
+  "n": 1492,
+  "m": "love"
+ },
+ {
+  "t": "Ofarin hammangizga!",
+  "n": 1492,
+  "m": "love"
+ },
+ {
+  "t": "Ha-ha!",
+  "n": 1459,
+  "m": "love"
+ },
+ {
+  "t": "Ajoyib, poponlarim!",
+  "n": 1459,
+  "m": "love"
+ },
+ {
+  "t": "Deyarli hammangiz topdingiz!",
+  "n": 1459,
+  "m": "love"
+ },
+ {
+  "t": "Soatga qara,",
+  "n": 1430,
+  "m": "wow"
+ },
+ {
+  "t": "Ulgurmay qolding.",
+  "n": 1430,
+  "m": "wow"
+ },
+ {
+  "t": "Hmm, unchalik emas.",
+  "n": 1420,
+  "m": "jealous"
+ },
+ {
+  "t": "IELTS'da javob inglizcha bo'lishi kerak.",
+  "n": 1383,
+  "m": "strict"
+ },
+ {
+  "t": "Kulgim to'xtamayapti!",
+  "n": 1315,
+  "m": "laugh"
+ },
+ {
+  "t": "Ko'pchilik topa olmadi.",
+  "n": 1017,
+  "m": "strict"
+ },
+ {
+  "t": "Yechimga diqqat qiling!",
+  "n": 1017,
+  "m": "strict"
+ },
+ {
+  "t": "Uhu-uhu, ko'pchilik topmadi, yig'lab yuboraman-ku!",
+  "n": 1017,
+  "m": "cry"
+ },
+ {
+  "t": "Yechimni birga ko'ramiz.",
+  "n": 1017,
+  "m": "cry"
+ },
+ {
+  "t": "Xato, lekin xatodan o'rganamiz!",
+  "n": 978,
+  "m": "strict"
+ },
+ {
+  "t": "Bu savol qiyin bo'ldi.",
+  "n": 966,
+  "m": "strict"
+ },
+ {
+  "t": "Keling, yechimini birga ko'ramiz.",
+  "n": 966,
+  "m": "strict"
+ },
+ {
+  "t": "Yechimga bir qara-chi.",
+  "n": 935,
+  "m": "jealous"
+ },
+ {
+  "t": "Afsus, bu safar xato.",
+  "n": 934,
+  "m": "sad"
+ },
+ {
+  "t": "Keyingisida albatta topasan!",
+  "n": 934,
+  "m": "sad"
+ },
+ {
+  "t": "Bu safar o'xshamadi.",
+  "n": 927,
+  "m": "sad"
+ },
+ {
+  "t": "Yechimni o'qib ol!",
+  "n": 927,
+  "m": "sad"
+ },
+ {
+  "t": "Hech kim to'xtata olmaydi!",
+  "n": 883,
+  "m": "love"
+ },
+ {
+  "t": "Yonib ketyapsan!",
+  "n": 866,
+  "m": "love"
+ },
+ {
+  "t": "To'ppa-to'g'ri!",
+  "n": 831,
+  "m": "happy"
+ },
+ {
+  "t": "Qovoq kalla, uxlab qoldingmi?",
+  "n": 828,
+  "m": "wow"
+ },
+ {
+  "t": "Barakalla!",
+  "n": 820,
+  "m": "happy"
+ },
+ {
+  "t": "Xumparlar-ey, uyg'oninglar!",
+  "n": 801,
+  "m": "jealous"
+ },
+ {
+  "t": "Yechimga qarang.",
+  "n": 801,
+  "m": "jealous"
+ },
+ {
+  "t": "Poponam, tezroq bo'l-da!",
+  "n": 780,
+  "m": "wow"
+ },
+ {
+  "t": "Voy, butun sinf qovoq kalla bo'lib qoldimi?!",
+  "n": 767,
+  "m": "jealous"
+ },
+ {
+  "t": "Mayli, yechimni birga ko'ramiz.",
+  "n": 767,
+  "m": "jealous"
+ },
+ {
+  "t": "Voy uyquchi-ey, vaqt tugadi-ku!",
+  "n": 738,
+  "m": "wow"
+ },
+ {
+  "t": "Eshakvoylarim-ey, shunga ham-a?",
+  "n": 723,
+  "m": "jealous"
+ },
+ {
+  "t": "Yechimga qaranglar!",
+  "n": 723,
+  "m": "jealous"
+ },
+ {
+  "t": "Xumpar, soatga qara!",
+  "n": 712,
+  "m": "sleepy"
+ },
+ {
+  "t": "Oshqovoqlarim-ey, qani, yechimni o'qiylik!",
+  "n": 709,
+  "m": "jealous"
+ },
+ {
+  "t": "Uhu-uhu...",
+  "n": 708,
+  "m": "cry"
+ },
+ {
+  "t": "Burnim ham oqib ketdi.",
+  "n": 686,
+  "m": "cry"
+ },
+ {
+  "t": "Voy-voy, ko'z yoshlarim to'kildi!",
+  "n": 679,
+  "m": "cry"
+ },
+ {
+  "t": "Zo'r!",
+  "n": 665,
+  "m": "happy"
+ },
+ {
+  "t": "yig'lab yubordim-ku!",
+  "n": 642,
+  "m": "cry"
+ },
+ {
+  "t": "Yechimga qara,",
+  "n": 642,
+  "m": "cry"
+ },
+ {
+  "t": "Mayli, keyingisini birga topamiz,",
+  "n": 622,
+  "m": "cry"
+ },
+ {
+  "t": "Ajoyib!",
+  "n": 601,
+  "m": "happy"
+ },
+ {
+  "t": "Yana bir urinib ko'r.",
+  "n": 485,
+  "m": "strict"
+ },
+ {
+  "t": "To'g'ri, Ali!",
+  "n": 459,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri,",
+  "n": 444,
+  "m": "love"
+ },
+ {
+  "t": "Unday emas.",
+  "n": 432,
+  "m": "strict"
+ },
+ {
+  "t": "Qani, yana bir marta!",
+  "n": 432,
+  "m": "strict"
+ },
+ {
+  "t": "Yaqin, lekin to'g'ri emas.",
+  "n": 425,
+  "m": "strict"
+ },
+ {
+  "t": "O'ylab ko'r-chi.",
+  "n": 425,
+  "m": "strict"
+ },
+ {
+  "t": "Maslahat: Shoshilma, savolni yana bir bor o'qib chiq.",
+  "n": 405,
+  "m": "strict"
+ },
+ {
+  "t": "Takrorlab ko'ring!",
+  "n": 386,
+  "m": "think"
+ },
+ {
+  "t": "Javobni ruscha ayting.",
+  "n": 383,
+  "m": "think"
+ },
+ {
+  "t": "Mikrofon tilini RU ga qo'ying.",
+  "n": 383,
+  "m": "think"
+ },
+ {
+  "t": "do'mbog'im!",
+  "n": 361,
+  "m": "cry"
+ },
+ {
+  "t": "chempionim!",
+  "n": 346,
+  "m": "laugh"
+ },
+ {
+  "t": "poponam!",
+  "n": 330,
+  "m": "cry"
+ },
+ {
+  "t": "Va alaykum assalom!",
+  "n": 328,
+  "m": "happy"
+ },
+ {
+  "t": "Kayfiyatlar qalay?",
+  "n": 328,
+  "m": "happy"
+ },
+ {
+  "t": "Qani, boshladik!",
+  "n": 328,
+  "m": "happy"
+ },
+ {
+  "t": "Ana, ko'rdingmi, uddalading!",
+  "n": 327,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri!",
+  "n": 320,
+  "m": "happy"
+ },
+ {
+  "t": "yulduzim!",
+  "n": 316,
+  "m": "happy"
+ },
+ {
+  "t": "qo'zichog'im!",
+  "n": 304,
+  "m": "cry"
+ },
+ {
+  "t": "jonim!",
+  "n": 297,
+  "m": "laugh"
+ },
+ {
+  "t": "asalim!",
+  "n": 292,
+  "m": "laugh"
+ },
+ {
+  "t": "Qoyil, Ali!",
+  "n": 264,
+  "m": "happy"
+ },
+ {
+  "t": "Aynan shunday,",
+  "n": 263,
+  "m": "happy"
+ },
+ {
+  "t": "Tushunaman, ba'zan qiyin bo'ladi.",
+  "n": 256,
+  "m": "sad"
+ },
+ {
+  "t": "Keling, bitta osonroq savol bilan davom etamiz, keyin dam olasiz!",
+  "n": 256,
+  "m": "sad"
+ },
+ {
+  "t": "Ana, ko'rdingmi, uddalading, Ali!",
+  "n": 251,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, juda yaxshi, Ali!",
+  "n": 233,
+  "m": "happy"
+ },
+ {
+  "t": "Aynan shunday, Ali!",
+  "n": 231,
+  "m": "happy"
+ },
+ {
+  "t": "Voy qovun-ey, shunga ham-a?",
+  "n": 230,
+  "m": "strict"
+ },
+ {
+  "t": "Yordam: Shoshilma, savolni yana bir bor o'qib chiq.",
+  "n": 230,
+  "m": "think"
+ },
+ {
+  "t": "Qoyil,",
+  "n": 230,
+  "m": "happy"
+ },
+ {
+  "t": "Oshqovoqcha, bunisi oson-ku!",
+  "n": 229,
+  "m": "jealous"
+ },
+ {
+  "t": "Ofarin, juda yaxshi,",
+  "n": 227,
+  "m": "love"
+ },
+ {
+  "t": "Hay qovoq kallajonim...",
+  "n": 224,
+  "m": "jealous"
+ },
+ {
+  "t": "Voy, zo'rsan-ku, Ali!",
+  "n": 221,
+  "m": "happy"
+ },
+ {
+  "t": "Ana, ko'rdingmi, uddalading,",
+  "n": 212,
+  "m": "love"
+ },
+ {
+  "t": "Tarvuz kalla, bunisi oson-ku!",
+  "n": 211,
+  "m": "strict"
+ },
+ {
+  "t": "Voy qovoq kalla-ey!",
+  "n": 209,
+  "m": "strict"
+ },
+ {
+  "t": "Voy poponam-ey, shuni ham bilmaysanmi?",
+  "n": 209,
+  "m": "strict"
+ },
+ {
+  "t": "Barakalla,",
+  "n": 208,
+  "m": "happy"
+ },
+ {
+  "t": "Qovunjon, bir o'ylab ko'r-chi!",
+  "n": 206,
+  "m": "jealous"
+ },
+ {
+  "t": "Xumparvoy, miyangni ishlat-chi!",
+  "n": 205,
+  "m": "jealous"
+ },
+ {
+  "t": "Ey oshqovoq, shuni ham bilmaysanmi?",
+  "n": 204,
+  "m": "strict"
+ },
+ {
+  "t": "Tanishganimdan xursandman, Ali!",
+  "n": 201,
+  "m": "love"
+ },
+ {
+  "t": "Endi seni ismingdan chaqiraman.",
+  "n": 201,
+  "m": "love"
+ },
+ {
+  "t": "Voy, zo'rsan-ku,",
+  "n": 197,
+  "m": "love"
+ },
+ {
+  "t": "Voy eshakvoy-ey!",
+  "n": 196,
+  "m": "strict"
+ },
+ {
+  "t": "Keyingi son?",
+  "n": 196,
+  "m": "sad"
+ },
+ {
+  "t": "Ey xumpar, qayoqqa qarayapsan?",
+  "n": 191,
+  "m": "strict"
+ },
+ {
+  "t": "Maslahat: Barmoqlaringda sanab ko'r yoki kattarog'idan boshlab sana.",
+  "n": 191,
+  "m": "strict"
+ },
+ {
+  "t": "Qoyil-e,",
+  "n": 188,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, miyang charxlangan!",
+  "n": 182,
+  "m": "happy"
+ },
+ {
+  "t": "Ajoyib,",
+  "n": 180,
+  "m": "wink"
+ },
+ {
+  "t": "Qoyil, to'ppa-to'g'ri!",
+  "n": 179,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, zo'rsan-ku!",
+  "n": 175,
+  "m": "happy"
+ },
+ {
+  "t": "Zo'r, aynan shunday!",
+  "n": 173,
+  "m": "happy"
+ },
+ {
+  "t": "Aynan shunday!",
+  "n": 171,
+  "m": "happy"
+ },
+ {
+  "t": "Super!",
+  "n": 166,
+  "m": "wink"
+ },
+ {
+  "t": "Shunday davom et!",
+  "n": 166,
+  "m": "wink"
+ },
+ {
+  "t": "Ofarin, juda yaxshi!",
+  "n": 155,
+  "m": "happy"
+ },
+ {
+  "t": "x nechaga teng?",
+  "n": 153,
+  "m": "happy"
+ },
+ {
+  "t": "aqllim!",
+  "n": 142,
+  "m": "happy"
+ },
+ {
+  "t": "kichkina daho!",
+  "n": 136,
+  "m": "cry"
+ },
+ {
+  "t": "Gipotenuzasi nechaga teng?",
+  "n": 130,
+  "m": "happy"
+ },
+ {
+  "t": "ajoyib bolam!",
+  "n": 129,
+  "m": "laugh"
+ },
+ {
+  "t": "Avval tanishib olaylik: isming nima?",
+  "n": 126,
+  "m": "happy"
+ },
+ {
+  "t": "gulim!",
+  "n": 116,
+  "m": "cry"
+ },
+ {
+  "t": "Endi qiyinroq misollar!",
+  "n": 115,
+  "m": "laugh"
+ },
+ {
+  "t": "Yuzi necha kvadrat santimetr?",
+  "n": 110,
+  "m": "happy"
+ },
+ {
+  "t": "aqllivoy!",
+  "n": 108,
+  "m": "cry"
+ },
+ {
+  "t": "Salom!",
+  "n": 108,
+  "m": "happy"
+ },
+ {
+  "t": "professorim!",
+  "n": 102,
+  "m": "laugh"
+ },
+ {
+  "t": "Oilada nechta farzand?",
+  "n": 99,
+  "m": "happy"
+ },
+ {
+  "t": "Bitta g'isht necha kilogramm?",
+  "n": 99,
+  "m": "love"
+ },
+ {
+  "t": "O'ninchi toq son qaysi?",
+  "n": 97,
+  "m": "love"
+ },
+ {
+  "t": "Ular necha kishi?",
+  "n": 96,
+  "m": "happy"
+ },
+ {
+  "t": "Oxirida nechta sham qoladi?",
+  "n": 96,
+  "m": "happy"
+ },
+ {
+  "t": "Yordam: Barmoqlaringda sanab ko'r yoki kattarog'idan boshlab sana.",
+  "n": 96,
+  "m": "think"
+ },
+ {
+  "t": "ukam!",
+  "n": 95,
+  "m": "happy"
+ },
+ {
+  "t": "singlim!",
+  "n": 95,
+  "m": "laugh"
+ },
+ {
+  "t": "Soat va minut millari orasidagi burchak necha gradus?",
+  "n": 94,
+  "m": "cry"
+ },
+ {
+  "t": "Ko'lning yarmi necha kunda to'ladi?",
+  "n": 94,
+  "m": "happy"
+ },
+ {
+  "t": "Takrorlab qo'ying.",
+  "n": 94,
+  "m": "strict"
+ },
+ {
+  "t": "malikam!",
+  "n": 93,
+  "m": "cry"
+ },
+ {
+  "t": "Xonada nechta mushuk bor?",
+  "n": 93,
+  "m": "happy"
+ },
+ {
+  "t": "Senda nechta olma bor?",
+  "n": 91,
+  "m": "neutral"
+ },
+ {
+  "t": "Voy,",
+  "n": 88,
+  "m": "strict"
+ },
+ {
+  "t": "polvonim!",
+  "n": 87,
+  "m": "laugh"
+ },
+ {
+  "t": "toychog'im!",
+  "n": 86,
+  "m": "laugh"
+ },
+ {
+  "t": "shakarim!",
+  "n": 85,
+  "m": "happy"
+ },
+ {
+  "t": "Hay,",
+  "n": 85,
+  "m": "strict"
+ },
+ {
+  "t": "kampirim!",
+  "n": 82,
+  "m": "happy"
+ },
+ {
+  "t": "opajon!",
+  "n": 82,
+  "m": "cry"
+ },
+ {
+  "t": "kichkina olimam!",
+  "n": 82,
+  "m": "laugh"
+ },
+ {
+  "t": "aqlli qizim!",
+  "n": 81,
+  "m": "cry"
+ },
+ {
+  "t": "akam!",
+  "n": 81,
+  "m": "cry"
+ },
+ {
+  "t": "botirim!",
+  "n": 80,
+  "m": "cry"
+ },
+ {
+  "t": "kichkina Al-Xorazmiy!",
+  "n": 80,
+  "m": "wink"
+ },
+ {
+  "t": "Xafa bo'lma, chempionim, keyingisini topasan!",
+  "n": 78,
+  "m": "sad"
+ },
+ {
+  "t": "shunqorim!",
+  "n": 78,
+  "m": "cry"
+ },
+ {
+  "t": "Xafa bo'lma, yulduzim, keyingisini topasan!",
+  "n": 77,
+  "m": "strict"
+ },
+ {
+  "t": "Men Kuvi.",
+  "n": 75,
+  "m": "happy"
+ },
+ {
+  "t": "Xafa bo'lma, jonim, keyingisini topasan!",
+  "n": 74,
+  "m": "strict"
+ },
+ {
+  "t": "Ey,",
+  "n": 73,
+  "m": "strict"
+ },
+ {
+  "t": "Keyingisi: Uchta olma bor edi, ikkitasini sen olding.",
+  "n": 72,
+  "m": "neutral"
+ },
+ {
+  "t": "Xafa bo'lma, do'mbog'im, keyingisini topasan!",
+  "n": 70,
+  "m": "sad"
+ },
+ {
+  "t": "Xafa bo'lma, poponam, keyingisini topasan!",
+  "n": 67,
+  "m": "sad"
+ },
+ {
+  "t": "mayli, yig'lamayman, birga o'rganamiz.",
+  "n": 66,
+  "m": "cry"
+ },
+ {
+  "t": "Xafa bo'lma, asalim, keyingisini topasan!",
+  "n": 61,
+  "m": "strict"
+ },
+ {
+  "t": "Xafa bo'lma, qo'zichog'im, keyingisini topasan!",
+  "n": 61,
+  "m": "jealous"
+ },
+ {
+  "t": "Javobni inglizcha, kamida uch-to'rt gap bilan ayting.",
+  "n": 60,
+  "m": "happy"
+ },
+ {
+  "t": "Hay poponam...",
+  "n": 49,
+  "m": "think"
+ },
+ {
+  "t": "Maslahat: Avval birliklarni qo'sh, o'nliklar o'zgarmaydi.",
+  "n": 45,
+  "m": "strict"
+ },
+ {
+  "t": "Uhu-uhu, yig'lab yubordim-ku!",
+  "n": 44,
+  "m": "cry"
+ },
+ {
+  "t": "Salom, Ali!",
+  "n": 42,
+  "m": "happy"
+ },
+ {
+  "t": "Xafa bo'lma, ajoyib bolam, keyingisini topasan!",
+  "n": 37,
+  "m": "jealous"
+ },
+ {
+  "t": "Eshak-ey, yana o'ylab ko'r!",
+  "n": 33,
+  "m": "think"
+ },
+ {
+  "t": "Maslahat: Avval ko'paytirish, keyin qo'shish.",
+  "n": 32,
+  "m": "strict"
+ },
+ {
+  "t": "Maslahat: Vergulni vergul ostiga qo'yib qo'sh.",
+  "n": 32,
+  "m": "strict"
+ },
+ {
+  "t": "Maslahat: Yuz = bo'yi × eni.",
+  "n": 32,
+  "m": "strict"
+ },
+ {
+  "t": "Xafa bo'lma, opajon, keyingisini topasan!",
+  "n": 29,
+  "m": "sad"
+ },
+ {
+  "t": "Sen ham zo'rsan!",
+  "n": 29,
+  "m": "love"
+ },
+ {
+  "t": "Shunday davom etsang, hammadan o'zib ketasan.",
+  "n": 29,
+  "m": "love"
+ },
+ {
+  "t": "Xafa bo'lma, do'stim, keyingisini topasan!",
+  "n": 28,
+  "m": "sad"
+ },
+ {
+  "t": "Xafa bo'lma, malikam, keyingisini topasan!",
+  "n": 28,
+  "m": "strict"
+ },
+ {
+  "t": "Maslahat: Pifagor: c² = a² + b².",
+  "n": 28,
+  "m": "strict"
+ },
+ {
+  "t": "Rahmat,",
+  "n": 27,
+  "m": "love"
+ },
+ {
+  "t": "Men ham sen bilan o'qishni yaxshi ko'raman.",
+  "n": 27,
+  "m": "love"
+ },
+ {
+  "t": "Xafa bo'lma, toychog'im, keyingisini topasan!",
+  "n": 26,
+  "m": "jealous"
+ },
+ {
+  "t": "Xafa bo'lma, aqllim, keyingisini topasan!",
+  "n": 26,
+  "m": "strict"
+ },
+ {
+  "t": "Xafa bo'lma, shunqorim, keyingisini topasan!",
+  "n": 26,
+  "m": "strict"
+ },
+ {
+  "t": "Xafa bo'lma, kichkina daho, keyingisini topasan!",
+  "n": 26,
+  "m": "sad"
+ },
+ {
+  "t": "Xafa bo'lma, shakarim, keyingisini topasan!",
+  "n": 25,
+  "m": "sad"
+ },
+ {
+  "t": "Men Kuvi, kuvonch.",
+  "n": 25,
+  "m": "happy"
+ },
+ {
+  "t": "uz ning ovozli ustoziman.",
+  "n": 25,
+  "m": "happy"
+ },
+ {
+  "t": "Hozir internetdagi AI ulanmagan, shuning uchun erkin savollarga to'liq javob bera olmayman.",
+  "n": 25,
+  "m": "think"
+ },
+ {
+  "t": "Lekin zerikmaymiz!",
+  "n": 25,
+  "m": "think"
+ },
+ {
+  "t": "Maslahat: Avval bitta daftar narxini top.",
+  "n": 25,
+  "m": "strict"
+ },
+ {
+  "t": "Men Kuvi, matematika ustozingman.",
+  "n": 25,
+  "m": "happy"
+ },
+ {
+  "t": "Og'zaki qo'shish mashqi: men misol aytaman, sen javobni ovoz chiqarib aytasan.",
+  "n": 25,
+  "m": "happy"
+ },
+ {
+  "t": "Tez va to'g'ri topsang, daraja oshadi!",
+  "n": 25,
+  "m": "happy"
+ },
+ {
+  "t": "Yordam: Avval birliklarni qo'sh, o'nliklar o'zgarmaydi.",
+  "n": 25,
+  "m": "think"
+ },
+ {
+  "t": "Men Kuvi, ingliz tili ustozingman.",
+  "n": 25,
+  "m": "happy"
+ },
+ {
+  "t": "Men Kuvi, IELTS Speaking murabbiyingman.",
+  "n": 25,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, rahmat!",
+  "n": 24,
+  "m": "love"
+ },
+ {
+  "t": "Yuragim eriydi.",
+  "n": 24,
+  "m": "love"
+ },
+ {
+  "t": "Davom etamizmi?",
+  "n": 24,
+  "m": "love"
+ },
+ {
+  "t": "Xafa bo'lma, ukam, keyingisini topasan!",
+  "n": 23,
+  "m": "strict"
+ },
+ {
+  "t": "Xafa bo'lma, professorim, keyingisini topasan!",
+  "n": 22,
+  "m": "sad"
+ },
+ {
+  "t": "Xafa bo'lma, singlim, keyingisini topasan!",
+  "n": 21,
+  "m": "strict"
+ },
+ {
+  "t": "Xafa bo'lma, kampirim, keyingisini topasan!",
+  "n": 21,
+  "m": "jealous"
+ },
+ {
+  "t": "Yordam: Pifagor: c² = a² + b².",
+  "n": 21,
+  "m": "think"
+ },
+ {
+  "t": "Xafa bo'lma, kichkina olimam, keyingisini topasan!",
+  "n": 20,
+  "m": "strict"
+ },
+ {
+  "t": "Xafa bo'lma, aqllivoy, keyingisini topasan!",
+  "n": 20,
+  "m": "jealous"
+ },
+ {
+  "t": "Voy, poponam, zo'rsan-ku!",
+  "n": 18,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, asalim, zo'rsan-ku!",
+  "n": 18,
+  "m": "happy"
+ },
+ {
+  "t": "Xafa bo'lma, aqlli qizim, keyingisini topasan!",
+  "n": 18,
+  "m": "strict"
+ },
+ {
+  "t": "Voy, do'mbog'im, zo'rsan-ku!",
+  "n": 18,
+  "m": "happy"
+ },
+ {
+  "t": "Xafa bo'lma, akam, keyingisini topasan!",
+  "n": 18,
+  "m": "sad"
+ },
+ {
+  "t": "Maslahat: Viyet teoremasi: x₁ + x₂ = −b/a.",
+  "n": 18,
+  "m": "strict"
+ },
+ {
+  "t": "Hello!",
+  "n": 18,
+  "m": "happy"
+ },
+ {
+  "t": "Xafa bo'lma, botirim, keyingisini topasan!",
+  "n": 17,
+  "m": "sad"
+ },
+ {
+  "t": "Yordam: Avval ko'paytirish, keyin qo'shish.",
+  "n": 17,
+  "m": "think"
+ },
+ {
+  "t": "Xafa bo'lma, gulim, keyingisini topasan!",
+  "n": 16,
+  "m": "sad"
+ },
+ {
+  "t": "Yordam: Yuz = bo'yi × eni.",
+  "n": 16,
+  "m": "think"
+ },
+ {
+  "t": "Voy, qo'zichog'im, zo'rsan-ku!",
+  "n": 15,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, yulduzim, aqlingga qoyil!",
+  "n": 15,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, poponam, aqlingga qoyil!",
+  "n": 15,
+  "m": "wink"
+ },
+ {
+  "t": "Xafa bo'lma, polvonim, keyingisini topasan!",
+  "n": 14,
+  "m": "sad"
+ },
+ {
+  "t": "Voy, jonim, zo'rsan-ku!",
+  "n": 14,
+  "m": "happy"
+ },
+ {
+  "t": "Xafa bo'lma, kichkina Al-Xorazmiy, keyingisini topasan!",
+  "n": 13,
+  "m": "sad"
+ },
+ {
+  "t": "Ofarin, jonim, aqlingga qoyil!",
+  "n": 13,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri javob: Singil hammasi uchun bitta.",
+  "n": 13,
+  "m": "sad"
+ },
+ {
+  "t": "Yordam: Vergulni vergul ostiga qo'yib qo'sh.",
+  "n": 13,
+  "m": "think"
+ },
+ {
+  "t": "Maslahat: Asosiy burchaklar jadvalini esla.",
+  "n": 13,
+  "m": "strict"
+ },
+ {
+  "t": "Ofarin, asalim, aqlingga qoyil!",
+  "n": 12,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, qo'zichog'im, aqlingga qoyil!",
+  "n": 12,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri javob: Yonayotganlari erib tugaydi, o'chirilganlari qoladi.",
+  "n": 12,
+  "m": "sad"
+ },
+ {
+  "t": "Yordam: Avval bitta daftar narxini top.",
+  "n": 12,
+  "m": "think"
+ },
+ {
+  "t": "Voy, chempionim, zo'rsan-ku!",
+  "n": 11,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, yulduzim, zo'rsan-ku!",
+  "n": 11,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri javob: Bobo, ota va o'g'il: ota ham ota, ham o'g'il.",
+  "n": 11,
+  "m": "cry"
+ },
+ {
+  "t": "To'g'ri javob: Sen olgan ikkitasi senda-da.",
+  "n": 11,
+  "m": "cry"
+ },
+ {
+  "t": "Maslahat: Avval o'nliklarni, keyin birliklarni qo'sh.",
+  "n": 11,
+  "m": "strict"
+ },
+ {
+  "t": "To'g'ri javob: Ertasiga ikki baravar bo'ladi, demak bir kun oldin yarmi edi.",
+  "n": 10,
+  "m": "sad"
+ },
+ {
+  "t": "Yordam: O'nliklarni alohida, birliklarni alohida qo'sh.",
+  "n": 10,
+  "m": "think"
+ },
+ {
+  "t": "Ofarin, chempionim, aqlingga qoyil!",
+  "n": 9,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, aqllim, aqlingga qoyil!",
+  "n": 8,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, kichkina olimam, aqlingga qoyil!",
+  "n": 8,
+  "m": "wink"
+ },
+ {
+  "t": "Voy, aqllim, zo'rsan-ku!",
+  "n": 8,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, toychog'im, aqlingga qoyil!",
+  "n": 8,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri javob: Ular bir-birini ko'ryapti, xolos.",
+  "n": 8,
+  "m": "sad"
+ },
+ {
+  "t": "Maslahat: O'nliklarni alohida, birliklarni alohida qo'sh.",
+  "n": 8,
+  "m": "strict"
+ },
+ {
+  "t": "Masalan, kichigini o'nlikka yaxlitlab ol.",
+  "n": 8,
+  "m": "think"
+ },
+ {
+  "t": "Ofarin, shakarim, aqlingga qoyil!",
+  "n": 7,
+  "m": "wink"
+ },
+ {
+  "t": "Voy, aqllivoy, zo'rsan-ku!",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, do'stim, aqlingga qoyil!",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, ajoyib bolam, zo'rsan-ku!",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Istalgan fandan savol bering yoki yuqoridan rejim tanlang.",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri javob: Har safar ikki baravar.",
+  "n": 7,
+  "m": "cry"
+ },
+ {
+  "t": "Mayli, tushuntiraman: Yonayotganlari erib tugaydi, o'chirilganlari qoladi.",
+  "n": 7,
+  "m": "think"
+ },
+ {
+  "t": "Qani, bitta misol!",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Miyangni charxlaymiz: mantiqiy masala!",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Tarjima mashqidan boshlaymiz.",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Rus tilini birga mashq qilamiz.",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Hello, Ali!",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Savol beraman, siz javob berasiz, men taxminiy band aytaman.",
+  "n": 7,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, do'stim, zo'rsan-ku!",
+  "n": 6,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, ukam, zo'rsan-ku!",
+  "n": 6,
+  "m": "wink"
+ },
+ {
+  "t": "Ofarin, aqlli qizim, aqlingga qoyil!",
+  "n": 6,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, gulim, zo'rsan-ku!",
+  "n": 5,
+  "m": "happy"
+ },
+ {
+  "t": "Ofarin, do'mbog'im, aqlingga qoyil!",
+  "n": 5,
+  "m": "wink"
+ },
+ {
+  "t": "Voy, shunqorim, zo'rsan-ku!",
+  "n": 5,
+  "m": "wink"
+ },
+ {
+  "t": "Voy, kichkina olimam, zo'rsan-ku!",
+  "n": 5,
+  "m": "happy"
+ },
+ {
+  "t": "Keyingi savol: Uchta olma bor edi, ikkitasini sen olding.",
+  "n": 5,
+  "m": "think"
+ },
+ {
+  "t": "Maslahat: O'nliklarni alohida, birliklarni alohida ayir.",
+  "n": 5,
+  "m": "strict"
+ },
+ {
+  "t": "Hmm…",
+  "n": 1,
+  "m": "think"
+ },
+ {
+  "t": "Xo'sh…",
+  "n": 1,
+  "m": "think"
+ },
+ {
+  "t": "Bir soniya…",
+  "n": 1,
+  "m": "think"
+ },
+ {
+  "t": "Keling, chuqurroq o'ylab ko'ray…",
+  "n": 1,
+  "m": "think"
+ },
+ {
+  "t": "Rasmni ko'ryapman…",
+  "n": 1,
+  "m": "think"
+ },
+ {
+  "t": "kichkina al-xorazmiy!",
+  "n": 5,
+  "m": "happy"
+ }
+]

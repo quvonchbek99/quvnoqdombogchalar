@@ -105,6 +105,49 @@
       });
     }).then(function (ab) { var ac = actx(); return new Promise(function (res, rej) { ac.decodeAudioData(ab, res, rej); }); });
   }
+  /* ---------- Kuvi ovoz kutubxonasi (ovoz/k/): tez-tez aytiladigan gaplar oldindan mp3 qilib saqlangan ----------
+     Maqtovlar, erkalash so'zlari, viktorina reaksiyalari, «Hmm…» — bularni Azure'dan so'ramaymiz: saytning o'zidan
+     yuklanadi, limitga kirmaydi, Azure band bo'lsa ham Kuvi o'z ovozida gapiradi. Istalgan faylni o'zingizning
+     ovozingiz bilan almashtirsangiz (xuddi shu nomda), Kuvi o'sha ovozda gapiradi. */
+  var LIB = { map: null, p: null, base: (function () { try { var sc = document.currentScript && document.currentScript.src; if (sc) return sc.replace(/[^\/]*$/, "") + "ovoz/k/"; } catch (e) {} return "/ovoz/k/"; })(), mem: {} };
+  function libNorm(t) { return String(t || "").toLowerCase().replace(/[ʻʼ‘’`´]/g, "'").replace(/\.\.\./g, "…").replace(/\s+/g, " ").trim(); }
+  function libLoad() {
+    if (LIB.p) return LIB.p;
+    LIB.p = fetch(LIB.base + "lib.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { LIB.map = j && j.k ? j.k : null; LIB.v = j && j.v || 0; return LIB.map; }, function () { return null; });
+    return LIB.p;
+  }
+  try { if (window.fetch) setTimeout(libLoad, 0); } catch (e) {}
+  function libUrl(t, g) { var h = LIB.map && LIB.map[libNorm(t)]; return h ? LIB.base + (g === "m" ? "m/" : "f/") + h + ".mp3?v=" + LIB.v : null; }
+  // Matnni kutubxonadagi gaplar va qolgan qismga ajratadi: [{t, url}] — kutubxonadan, [{t}] — Azure / telefon ovozi uchun
+  function libSplit(text, g) {
+    text = String(text || "");
+    if (!LIB.map || /[а-яё]/i.test(text)) return [{ t: text }];
+    var parts = text.match(/[^.!?…]+[.!?…]*["»”]?\s*/g) || [text], out = [], acc = "";
+    function flush() { if (acc.trim()) out.push({ t: acc.trim() }); acc = ""; }
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i], s = p.trim(); if (!s) { acc += p; continue; }
+      var u = libUrl(s, g);
+      if (u) { flush(); out.push({ t: s, url: u }); continue; }
+      // «To'g'ri, poponam!» -> «To'g'ri,» + «poponam!» (ikkalasi ham kutubxonada bo'lsa)
+      var mm = s.match(/^(.+?),\s*([^,]+?)([!.?])$/);
+      if (mm) { var u1 = libUrl(mm[1] + ",", g), u2 = libUrl(mm[2] + "!", g); if (u1 && u2) { flush(); out.push({ t: mm[1] + ",", url: u1 }); out.push({ t: mm[2] + "!", url: u2 }); continue; } }
+      acc += p;
+    }
+    flush(); return out.length ? out : [{ t: text }];
+  }
+  function libBuf(url) {
+    if (LIB.mem[url]) return LIB.mem[url];
+    var open = window.caches && caches.open ? caches.open("kuvi-lib-v1")["catch"](function () { return null; }) : Promise.resolve(null);
+    var pr = open.then(function (c) {
+      return (c ? c.match(url) : Promise.resolve(null)).then(function (hit) {
+        if (hit) return hit.arrayBuffer();
+        return fetch(url).then(function (r) { if (!r.ok) throw new Error("lib " + r.status); if (c) { try { c.put(url, r.clone())["catch"](function () {}); } catch (e) {} } return r.arrayBuffer(); });
+      });
+    }).then(function (ab) { var ac = actx(); return new Promise(function (res, rej) { ac.decodeAudioData(ab, res, rej); }); });
+    pr["catch"](function () { delete LIB.mem[url]; });
+    return (LIB.mem[url] = pr);
+  }
   // bir vaqtda faqat 1 ta tanish mumkin — band bo'lsa (429) ikki marta qisqa kutib qayta urinamiz
   function azSTT(wavBytes, lang, n) {
     n = n | 0;
@@ -217,7 +260,10 @@
       acc += parts[i];
       if (i === parts.length - 1 || (acc.trim().length >= lim) || (chunks.length && nx && (acc + nx).length > 240)) { if (acc.trim()) chunks.push(acc.trim()); acc = ""; }
     }
-    var bufs = chunks.map(function (c) { return tts(c, mood, g); });
+    // kutubxonadagi gaplar saytning o'zidan, qolganlari Azure orqali
+    var items = [];
+    chunks.forEach(function (c) { libSplit(c, g).forEach(function (x) { items.push(x); }); });
+    var bufs = items.map(function (x) { return x.url ? libBuf(x.url)["catch"](function () { return tts(x.t, mood, g); }) : tts(x.t, mood, g); });
     var chain = Promise.resolve();
     bufs.forEach(function (bp) { chain = chain.then(function () { if (my !== gen) return; return bp.then(function (b) { if (my !== gen) return; return play(b); }); }); });
     return chain;
@@ -245,5 +291,5 @@
   setTimeout(function () { refreshPro(); }, 1200);
   // sahifaga qaytganda (masalan, Pro olingach) holatni yangilaymiz
   try { document.addEventListener("visibilitychange", function () { if (!document.hidden) refreshPro(); }); } catch (e) {}
-  window.kaAI = { unmute: unmute, recording: recording, ios: IOS, uzOrth: uzOrth, azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, isAdmin: isAdmin, isOpen: isOpen, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
+  window.kaAI = { libSplit: libSplit, libBuf: libBuf, libUrl: libUrl, libLoad: libLoad, libReady: function () { return !!LIB.map; }, unmute: unmute, recording: recording, ios: IOS, uzOrth: uzOrth, azOn: azOn, azTTS: azTTS, azSTT: azSTT, azFail: azFail, azUrl: azUrl, limits: limits, left: left, isPro: isPro, isAdmin: isAdmin, isOpen: isOpen, refreshPro: refreshPro, trial: trial, LIM: LIM, txtInc: function () { inc("ka.ai.day"); }, waitMs: waitMs, text: text, load: load, tts: tts, speak: speak, stop: cancel, play: play, actx: actx, usable: usable, state: S };
 })();
