@@ -1109,5 +1109,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki dehqon endi qo'shnilarga emas, o'zi ekinni o'rishga kirishgan edi", "Chunki dehqon uyani buzib tashlashga va'da bergan edi", "Chunki qish yaqinlashib, qushlar issiq yurtga uchishi kerak edi"],
     javob: 0,
     izoh: "Dehqonning o'zi o'rishga qaror qilgani xavf yaqinlashganini bildirardi. Qushcha gapdan emas, harakatdan xulosa chiqardi: o'zgarish belgisi ko'ringach, kechiktirmay tayyorgarlik ko'rish kerak."
+  },
+  {
+    id: "ez-139", mavzu: "mehnat", sarlavha: "Ikki dehqon va bahor",
+    matn: "Bahor kelganda ikki qo'shni dehqon dalalarini haydadi. Birinchisi urug'larni vaqtida ekib, ularni har kuni sug'orib, begona o'tlarini tozalab turdi. Ikkinchisi esa \"Ob-havo yaxshi, hali vaqt ko'p\", deb ekishni kechiktirdi va ko'p kunlarini soyada dam olib o'tkazdi. Yoz oxirida birinchi dehqonning dalasi sarig'iga to'lib pishdi, ikkinchisining yeri esa bo'sh qoldi.",
+    savol: "Nega birinchi dehqon yoz oxirida hosil oldi?",
+    variantlar: ["Chunki u urug'larni vaqtida ekib, muntazam parvarish qildi", "Chunki uning yeri ikkinchisinikidan ancha katta edi", "Chunki u omadli edi va ob-havo faqat unga yaxshi keldi"],
+    javob: 0,
+    izoh: "Hosil tasodifga emas, vaqtida qilingan ish va muntazam parvarishga bog'liq. Ishni keyinga qoldirish esa mumkin bo'lgan imkoniyatni yo'qotadi."
   }
 ];
