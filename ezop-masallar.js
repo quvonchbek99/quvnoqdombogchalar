@@ -1157,5 +1157,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki bo'lgan bola teng bo'lmasa, qolgan kichik bo'lak o'ziga qolishini biladi", "Chunki tanlagan bola olmani baribir yemaydi", "Chunki olma juda pishgan edi va tez buzilishi mumkin edi"],
     javob: 0,
     izoh: "Bo'luvchi bola ikki bo'lakni teng qilishga harakat qiladi, chunki qaysi bo'lak tanlanishini bilmaydi. Shunday qilib, adolat ikki tomonning o'zaro nazorati orqali ta'minlanadi."
+  },
+  {
+    id: "ez-145", mavzu: "mantiq", sarlavha: "Sayohatchi va xarita",
+    matn: "Ikki sayohatchi bir shaharga borish uchun yo'lga chiqdi. Birinchisi eski xaritasiga ishonib, qisqa yo'lni, ya'ni tog' daryosini kesib o'tishni rejalashtirdi. Ikkinchisi esa yo'lda uchragan cho'ponga murojaat qilib, bahorgi toshqin tufayli daryo hozir juda xavfli ekanini bildi. U uzoqroq, ammo xavfsiz yo'lni tanladi va kechqurun shaharga sog'-salomat yetib keldi.",
+    savol: "Ikkinchi sayohatchi nima uchun shaharga xavfsiz yetib keldi?",
+    variantlar: ["Chunki u hozirgi sharoitdan xabardor odamning maslahatiga amal qildi", "Chunki u eng qisqa yo'lni tanladi", "Chunki u daryoda suzishni juda yaxshi bilardi"],
+    javob: 0,
+    izoh: "Xarita eski bo'lishi mumkin, lekin daryoning hozirgi holatini eng yaxshi mahalliy odam biladi. Muhim qaror qabul qilishdan oldin yangi va ishonchli ma'lumotni so'rash ko'pincha xavfning oldini oladi."
   }
 ];
