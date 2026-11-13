@@ -1585,7 +1585,7 @@
     [2,"Evklid algoritmi nimani topish uchun ishlatiladi?","Ikki sonning eng katta umumiy bo'luvchisini",["Sonning faktorialini","Sonning kvadrat ildizini","Massivning eng katta elementini"],"Evklid algoritmi qoldiqli bo'lishni takrorlab EKUB ni topadi."],
     [2,"10 ta elementli massivda chiziqli qidiruvda eng ko'pi bilan nechta element tekshiriladi?","10 ta",["1 ta","5 ta","100 ta"],"Eng yomon holda qidirilayotgan element oxirida bo'ladi yoki umuman topilmaydi."],
     [2,"Tanlab saralash usuli qanday ishlaydi?","Eng kichik elementni topib, o'z o'rniga qo'yadi",["Qo'shni elementlarni almashtiradi","Massivni doim ikkiga bo'ladi","Elementlarni tasodifiy joylashtiradi"],"Har qadamda qolgan qismdagi eng kichik element boshiga o'tkaziladi."],
-    [2,"for i in range(3): print(i) buyrug'i ekranga nimani chiqaradi?","0 1 2",["1 2 3","0 1 2 3","1 2"],"range(3) 0 dan boshlab 3 ta son beradi: 0, 1, 2."],
+    [2,"for i in range(3): print(i) buyrug'i ekranga qaysi sonlarni chiqaradi?","0, 1, 2",["1, 2, 3","0, 1, 2, 3","1, 2"],"range(3) 0 dan boshlab 3 ta son beradi: 0, 1, 2."],
     [2,"Pythonda range(1, 5) nechta son hosil qiladi?","4 ta",["5 ta","3 ta","6 ta"],"Sonlar 1, 2, 3, 4; oxirgi chegara kiritilmaydi."],
     [2,"Pythonda if sharti yolg'on bo'lsa, qaysi blok bajariladi?","else bloki",["for bloki","print bloki","def bloki"],"else bloki if sharti bajarilmagan holatda ishlaydi."],
     [2,"Algoritm samaradorligi asosan qaysi ikki resurs bilan o'lchanadi?","Vaqt va xotira",["Rang va shrift","Fayl nomi va kengaytma","Ekran o'lchami va yorqinlik"],"Algoritm qancha vaqt va xotira sarflashi uning samaradorligini belgilaydi."],
