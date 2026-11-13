@@ -1149,5 +1149,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular bir-biriga yo'l berishni istamadi va o'jarlik qildi", "Chunki ko'prik juda baland edi va ular sakrab tushdi", "Chunki kech kirib qorong'i tushgan edi va ko'rinmadi"],
     javob: 0,
     izoh: "Ikkalasi ham o'z ustunligini isbotlamoqchi bo'lib, bir-biriga yo'l bermadi. Ozgina murosa qilinganda ikkalasi ham hayot bilan qolishi mumkin edi."
+  },
+  {
+    id: "ez-144", mavzu: "mantiq", sarlavha: "Ikki bola va olma",
+    matn: "Ikki bola bir dona olmani bo'lishib yemoqchi bo'ldi, ammo qaysi bo'lak kattaroq ekanini bilolmay bahslashib qoldi. Ularning janjalini yonidan o'tayotgan qari dehqon eshitib, olmani ehtiyotkorlik bilan ikkiga bo'ldi. U birinchi bolaga olmani bo'lishni, ikkinchi bolaga esa bo'laklardan birini tanlashni taklif qildi. Bolalar bu shartga rozi bo'lib, janjalsiz olmani teng bo'lishdi.",
+    savol: "Dehqon nima uchun olmani bo'lish vazifasini bir bolaga, tanlash huquqini ikkinchi bolaga berdi?",
+    variantlar: ["Chunki bo'lgan bola teng bo'lmasa, qolgan kichik bo'lak o'ziga qolishini biladi", "Chunki tanlagan bola olmani baribir yemaydi", "Chunki olma juda pishgan edi va tez buzilishi mumkin edi"],
+    javob: 0,
+    izoh: "Bo'luvchi bola ikki bo'lakni teng qilishga harakat qiladi, chunki qaysi bo'lak tanlanishini bilmaydi. Shunday qilib, adolat ikki tomonning o'zaro nazorati orqali ta'minlanadi."
   }
 ];
