@@ -1141,5 +1141,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki hamma odamning fikri bir-biriga zid bo'ladi, shuning uchun o'z aqli bilan qaror qilish kerak", "Chunki eshak juda og'ir edi va hech kim minmasdi", "Chunki bozor allaqachon yopilgan edi"],
     javob: 0,
     izoh: "Hammani birdek mamnun qilish mumkin emas, chunki odamlarning fikri bir-biriga zid bo'ladi. Shu sabab har bir maslahatni tinglab, o'z mulohazasi bilan qaror qilish to'g'riroq."
+  },
+  {
+    id: "ez-143", mavzu: "hamkorlik", sarlavha: "Ikki qo'chqor",
+    matn: "Tog' yo'lining tor ko'prigida ikki qo'chqor bir-biriga duch keldi. Ikkalasi ham o'zi birinchi o'tishi kerak deb turib oldi, hech kim orqaga chekinmadi. Shoxlari bilan urishib, bir-birini itarganicha, ular ko'prikning chetiga kelib qoldi. Oxiri ikkalasi birdan daryoga yiqilib, oqim ularni olib ketdi.",
+    savol: "Qo'chqorlar nima uchun daryoga yiqildi?",
+    variantlar: ["Chunki ular bir-biriga yo'l berishni istamadi va o'jarlik qildi", "Chunki ko'prik juda baland edi va ular sakrab tushdi", "Chunki kech kirib qorong'i tushgan edi va ko'rinmadi"],
+    javob: 0,
+    izoh: "Ikkalasi ham o'z ustunligini isbotlamoqchi bo'lib, bir-biriga yo'l bermadi. Ozgina murosa qilinganda ikkalasi ham hayot bilan qolishi mumkin edi."
   }
 ];
