@@ -1165,5 +1165,19 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u hozirgi sharoitdan xabardor odamning maslahatiga amal qildi", "Chunki u eng qisqa yo'lni tanladi", "Chunki u daryoda suzishni juda yaxshi bilardi"],
     javob: 0,
     izoh: "Xarita eski bo'lishi mumkin, lekin daryoning hozirgi holatini eng yaxshi mahalliy odam biladi. Muhim qaror qabul qilishdan oldin yangi va ishonchli ma'lumotni so'rash ko'pincha xavfning oldini oladi."
+  },
+  {
+    id: "ez-146",
+    mavzu: "mantiq",
+    sarlavha: "Tulki va sichqon",
+    matn: "Tulki bir necha kun davomida sichqonning inini kuzatdi. Sichqon esa har safar chiqishdan oldin atrofni diqqat bilan tekshirar edi. Bir kuni tulki uzoqlashib ketdi, lekin sichqon uning qaytmasligiga ishonch hosil qilguncha inidan chiqmadi.",
+    savol: "Sichqon nima uchun tulki uzoqlashgan paytda ham darhol chiqmadi?",
+    variantlar: [
+      "Chunki u xavf to'liq o'tganiga ishonch hosil qilishni xohladi",
+      "Chunki inidan chiqish uning uchun qiyin edi",
+      "Chunki tulki unga ruxsat bermagan edi"
+    ],
+    javob: 0,
+    izoh: "Xavfning bir marta uzoqlashishi uning butunlay yo'qolganini anglatmaydi. Qaror qabul qilishdan oldin faktlarni tekshirish ko'pincha xavfdan saqlaydi."
   }
 ];
