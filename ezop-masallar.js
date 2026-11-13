@@ -1133,5 +1133,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ko'lmakning suvi faqat yomg'irdan to'plangan edi, doimiy manbai yo'q edi", "Chunki ko'lmak daryodan kattaroq edi va suvini tez sarflab yubordi", "Chunki ko'lmak yoz kelganda sovuq joyda qoldi"],
     javob: 0,
     izoh: "Yomg'ir suvi vaqtincha bo'ladi, doimiy manbaga ega bo'lmagan narsa uzoq yashay olmaydi. Ko'rinishining katta bo'lishi barqarorlikni kafolatlamaydi."
+  },
+  {
+    id: "ez-142", mavzu: "mantiq", sarlavha: "Ota, o'g'il va eshak",
+    matn: "Bir ota o'g'li bilan eshagini bozorda sotmoqchi bo'lib yo'lga chiqdi. Yo'lda odamlar: \"Eshak bo'sh ketyapti, nega bola minmaydi?\" deyishdi, shunda ota o'g'lini eshakka mindirdi. Keyinroq boshqalar: \"Bolaga qarang, qariyani yayov qo'yibdi!\" dedi, ular o'rin almashishdi. Oxiri kimdir: \"Ikkovi ham minmasa, eshak nima uchun?\" deganidan so'ng, ikkalasi ham eshakka minib oldi. Shunda odamlar: \"Bechora hayvonni ezib yuborishyapti!\" deb norozi bo'lishdi.",
+    savol: "Ota nima uchun oxirida hammaning fikriga qarashni to'xtatdi?",
+    variantlar: ["Chunki hamma odamning fikri bir-biriga zid bo'ladi, shuning uchun o'z aqli bilan qaror qilish kerak", "Chunki eshak juda og'ir edi va hech kim minmasdi", "Chunki bozor allaqachon yopilgan edi"],
+    javob: 0,
+    izoh: "Hammani birdek mamnun qilish mumkin emas, chunki odamlarning fikri bir-biriga zid bo'ladi. Shu sabab har bir maslahatni tinglab, o'z mulohazasi bilan qaror qilish to'g'riroq."
   }
 ];
