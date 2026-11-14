@@ -1179,5 +1179,19 @@ window.EZOP_MASALLAR = [
     ],
     javob: 0,
     izoh: "Xavfning bir marta uzoqlashishi uning butunlay yo'qolganini anglatmaydi. Qaror qabul qilishdan oldin faktlarni tekshirish ko'pincha xavfdan saqlaydi."
+  },
+  {
+    id: "ez-147",
+    mavzu: "mantiq",
+    sarlavha: "Bog'bon va olcha",
+    matn: "Bog'bonning olcha daraxtida barglar sarg'ayib qoldi. Qo'shnisi darhol daraxtni kesib tashlashni maslahat berdi. Bog'bon esa avval ildizini tekshirib, tuproqda suv yetarli yoki yo'qligini bilmoqchi bo'ldi.",
+    savol: "Bog'bon nima uchun daraxtni kesishdan oldin ildizini tekshirdi?",
+    variantlar: [
+      "Chunki sarg'ayishning haqiqiy sababini aniq bilmoqchi edi",
+      "Chunki daraxtni boshqa joyga ko'chirib o'tkazmoqchi edi",
+      "Chunki qo'shnisi daraxtni kesishga ruxsat bermagan edi"
+    ],
+    javob: 0,
+    izoh: "Belgisi bir xil ko'rinsa ham, uning sabablari turlicha bo'lishi mumkin. Harakat qilishdan oldin sababni aniqlash noto'g'ri qarorning oldini oladi."
   }
 ];
