@@ -1193,5 +1193,13 @@ window.EZOP_MASALLAR = [
     ],
     javob: 0,
     izoh: "Belgisi bir xil ko'rinsa ham, uning sabablari turlicha bo'lishi mumkin. Harakat qilishdan oldin sababni aniqlash noto'g'ri qarorning oldini oladi."
+  },
+  {
+    id: "ez-148", mavzu: "ehtiyotkorlik", sarlavha: "Kaptar va sichqon",
+    matn: "Kuz kunlarining birida kaptar va sichqon bir dalaga tushib, don terishdi. Kaptar topgan donlarini uyasiga olib borib, qish uchun yig'ib qo'ydi. Sichqon esa topgan donini har kuni shu zahoti yeb tugatdi, hech narsani saqlamadi. Qish kelib, dala qorga ko'milganda, ulardan biri ochlikdan qiynaldi.",
+    savol: "Qish kelganda ochlikdan kim qiynaldi?",
+    variantlar: ["Kaptar, chunki u donni uyasida saqlamagan edi", "Sichqon, chunki u topgan donini darhol yeb tugatgan edi", "Ikkalasi ham, chunki qish juda uzoq davom etgan"],
+    javob: 1,
+    izoh: "Kaptar zaxira qilgani uchun qishda tinch yashadi. Ertangi kunni o'ylagan kishi qiyinchilikka tayyor bo'ladi."
   }
 ];
