@@ -1233,5 +1233,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u hali yashashni xohlar va hayotdan voz kechishga tayyor emas edi", "Chunki u o'limdan qochib, yukni tashlab ketmoqchi edi", "Chunki yuk shu qadar yengil bo'lib qolgan ediki, unga yordam kerak emas edi"],
     javob: 0,
     izoh: "Chol charchagach o'limni chaqirsa ham, haqiqatda hayotni qadrlar edi. Bu hikoya odam og'ir paytda ham hayotning qiymatini unutmasligini ko'rsatadi."
+  },
+  {
+    id: "ez-153", mavzu: "kamtarlik", sarlavha: "Tovus va turna",
+    matn: "Tovus o'zining rang-barang patlari bilan maqtanib yurardi. U turnaga qarab: \"Sening patlaring xira, mening kabi go'zal emas\", dedi. Turna javob berdi: \"Mening patlarim oddiy bo'lsa ham, men ularni osmonga olib chiqa olaman, sen esa hovli devoridan nariga ucholmaysan.\"",
+    savol: "Turnaning javobiga ko'ra, qushning qadri nimada bo'ladi?",
+    variantlar: ["Tashqi go'zalligi qanchalik ko'p bo'lsa, shuncha yuqori qadrlanadi", "Qila olgan ishi va foydasi bilan o'lchanadi", "Patlari xira bo'lgan qush hech qachon qadrlanmaydi"],
+    javob: 1,
+    izoh: "Turna go'zallik emas, uchish va osmonga ko'tarila olish muhimligini aytdi. Haqiqiy qadr insonning, qushning ham, qilgan ishi bilan belgilanadi."
   }
 ];
