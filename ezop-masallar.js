@@ -1249,5 +1249,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki tulkining maqtovi samimiy emasligini va ochligini sezdi", "Chunki u qo'shiq aytishni umuman xohlamasdi", "Chunki shoxda o'tirish unga qulay edi va tulkidan qo'rqmasdi"],
     javob: 0,
     izoh: "Maqtov ortida yashirin niyat bo'lishi mumkin. Bulbul xavfni sezib, o'zini himoya qildi. Ortiqcha xushomadga ehtiyot bo'lish kerak."
+  },
+  {
+    id: "ez-155", mavzu: "idrok", sarlavha: "Maymun va ko'zgu",
+    matn: "Maymun bir kuni uyidan ko'zgu topib qoldi va unga qaradi. Ko'zgudagi aksini ko'rib, bu boshqa maymun ekan deb o'yladi. Qochib ketmasin deb ko'zguga yetib olish uchun shoshilib intildi va ko'zgu yerga tushib sindi.",
+    savol: "Maymun nima uchun ko'zguni sindirdi?",
+    variantlar: ["Chunki ko'zgu uning do'sti edi va u uni o'ynatmoqchi bo'ldi", "Chunki u ko'zguni ko'rmagan va tasodifan urilib ketgan edi", "Chunki u ko'zgudagi aksni boshqa maymun deb o'ylab, uni ushlamoqchi bo'ldi"],
+    javob: 2,
+    izoh: "Maymun aksini boshqa jonzot deb adashtirdi va shoshilib harakat qildi. Tekshirmasdan noto'g'ri xulosaga kelish va shoshqaloqlik ko'pincha zarar keltiradi."
   }
 ];
