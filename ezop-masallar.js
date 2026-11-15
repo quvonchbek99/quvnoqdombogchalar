@@ -1225,5 +1225,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u o'z kuchiga tayanib, hamkorlarining ulushini o'zi uchun tortib oldi", "Chunki bo'ri va tulki ovda qatnashmagan edi", "Chunki bug'u juda katta bo'lib, uni teng bo'lish qiyin edi"],
     javob: 0,
     izoh: "Ov birgalikda qilingan bo'lsa ham, sher kuchini bahona qilib, ulushni o'zgartirdi. Kuch adolat kafolati emas: birgalikdagi ishda mehnat va ulush teng bo'lishi kerak."
+  },
+  {
+    id: "ez-152", mavzu: "qadriyat", sarlavha: "Chol va o'lim",
+    matn: "Bir chol o'tin terib, og'ir yukni yelkasiga ortib yo'lga chiqdi. Yo'l uzoq, yuk esa juda og'ir edi, chol toliqib, yukni yerga qo'ydi va o'limni chaqirdi. O'lim darhol paydo bo'lib, nima kerakligini so'radi. Chol esa qo'rqib ketib, \"Iltimos, faqat shu yukni yelkamga ko'tarishga yordam bering\", dedi.",
+    savol: "Chol o'limni chaqirgach, nima uchun yukni ko'tarishda yordam so'radi?",
+    variantlar: ["Chunki u hali yashashni xohlar va hayotdan voz kechishga tayyor emas edi", "Chunki u o'limdan qochib, yukni tashlab ketmoqchi edi", "Chunki yuk shu qadar yengil bo'lib qolgan ediki, unga yordam kerak emas edi"],
+    javob: 0,
+    izoh: "Chol charchagach o'limni chaqirsa ham, haqiqatda hayotni qadrlar edi. Bu hikoya odam og'ir paytda ham hayotning qiymatini unutmasligini ko'rsatadi."
   }
 ];
