@@ -216,6 +216,7 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 .etp .egrow .nextb{flex:1 1 260px}
 .etp .egrow .sl{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--text-dim)}
 .etp .egrow select{min-height:40px;border-radius:10px;border:1px solid var(--border);background:#0e172b;color:var(--text);padding:6px 10px;font-weight:700}
+.etp .egrow .numin{min-height:40px;width:70px}
 /* o'quvchi telefoni */
 .ps .ov-body{padding:10px}
 .pv{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center}
@@ -405,6 +406,26 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 .mixrow .fans{flex:1 1 100%;margin:0}
 .mixrow select{min-height:40px;border-radius:10px;border:1px solid var(--border);background:#0e172b;color:var(--text);padding:6px 10px;font-weight:700}
 .mixnote{font-size:13px;color:var(--text-dim);margin:6px 0 0}
+/* savollar soni: N ta (o'zi yozadi) va «har mavzudan N ta» */
+.opt.optn{cursor:text}
+.opt.optn .nrow{display:flex;align-items:center;gap:6px;margin-top:4px}
+.numin{width:76px;min-height:38px;border-radius:10px;border:1px solid var(--border);background:#0e172b;color:var(--text);padding:5px 8px;font-size:17px;font-weight:800;text-align:center}
+.numin:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(94,230,199,.18)}
+.perbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.perbar .perq{display:flex;gap:6px;flex-wrap:wrap}
+.perbar .perq button{min-width:46px;min-height:40px;border-radius:10px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);font-weight:800;font-size:15px}
+.perbar .perq button.on{border-color:var(--accent);background:rgba(94,230,199,.16);box-shadow:inset 0 0 0 1px var(--accent)}
+.perbar .nw{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-dim);font-weight:700}
+.perlist{margin-top:10px;max-height:300px;overflow:auto;border:1px solid var(--border);border-radius:14px;background:#0e172b}
+.perlist:empty{display:none}
+.prow{display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
+.prow:last-child{border-bottom:0}
+.prow .pt{flex:1;min-width:0;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prow .pt.chg{color:#ffd479}
+.prow button{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text);font-weight:900;font-size:17px;line-height:1;padding:0}
+.prow .numin{width:58px;min-height:34px;font-size:15px}
+.pernote b{color:var(--text)}
+.pernote .warn{color:#ffd479}
 /* tok o'chsa ham davom: tiklash, mustaqil rejim */
 .card.resume{border:2px solid #ffd479;background:linear-gradient(135deg,rgba(255,212,121,.12),rgba(106,90,249,.10))}
 .card.resume h2{margin:0 0 6px}
@@ -642,7 +663,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 
 <section class="card" id="cJoin">
 <h2>📱 O'quvchi: kod bilan kirish</h2>
-<p class="sub">O'qituvchi ekranidagi 5 belgili kodni yozing.</p>
+<p class="sub">O'qituvchi ekranidagi 5 ta katta lotin harfidan iborat kodni yozing. Boshqa telefondan ham <b>kuvonch.uz/live</b> orqali kirish mumkin.</p>
 <div class="sgrow" id="jSg" role="radiogroup" aria-label="Siz kimsiz?"><span class="sgl">Siz:</span><button type="button" role="radio" data-sg="boy" aria-checked="false">👦 O'g'il bola</button><button type="button" role="radio" data-sg="girl" aria-checked="false">👧 Qiz bola</button><small>Kuvi sizga shunga mos so'zlar bilan murojaat qiladi</small></div>
 <div class="join">
 <label>Kod<input class="field pin" id="jPin" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCDE" inputmode="text"></label>
@@ -665,6 +686,12 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 
 <section class="card">
 <h2><span class="num">2</span>Savollar</h2>
+<span class="lbl">Savollar qanday olinsin</span>
+<div class="opts" id="cmOpts">
+<button type="button" class="opt" data-v="jami"><b>📦 Jami N ta</b><span>Tanlangan mavzulardan teng bo'lib olinadi</span></button>
+<button type="button" class="opt" data-v="har"><b>📚 Har mavzudan N ta</b><span>Har bir mavzudan alohida son — mavzu ko'p bo'lsa ham hammasidan chiqadi</span></button>
+</div>
+<div id="cntJami">
 <span class="lbl">Savollar soni</span>
 <div class="opts" id="cntOpts">
 <button type="button" class="opt" data-v="5"><b>5 ta</b><span>Tezkor — 3–4 daqiqa</span></button>
@@ -673,6 +700,15 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 <button type="button" class="opt" data-v="20"><b>20 ta</b><span>Takrorlash darsi</span></button>
 <button type="button" class="opt" data-v="30"><b>30 ta</b><span>Katta musobaqa</span></button>
 <button type="button" class="opt" data-v="100"><b>100 ta</b><span>Daraja testi: 1–11-sinf</span></button>
+<label class="opt optn" id="cntCust"><b>✍️ O'zingiz yozing</b><span class="nrow"><input type="number" class="numin" id="cntN" min="1" max="300" step="1" inputmode="numeric" placeholder="N" aria-label="Savollar soni (1–300)"> ta <small>(1–300)</small></span></label>
+</div>
+</div>
+<div id="cntHar" hidden>
+<span class="lbl">Har bir mavzudan nechta savol</span>
+<div class="perbar"><div class="perq" id="perQuick" role="group" aria-label="Har mavzudan"></div>
+<label class="nw">yoki <input type="number" class="numin" id="perN" min="1" max="100" step="1" inputmode="numeric" aria-label="Har mavzudan savollar soni (1–100)"> ta — hammasiga</label></div>
+<div class="perlist" id="perList" aria-label="Mavzular bo'yicha savollar soni"></div>
+<p class="mixnote pernote" id="perNote"></p>
 </div>
 <span class="lbl">➕ Qo'shimcha savollar (boshqa fanlardan aralashtirish)</span>
 <div class="mixrow"><div class="fans" id="mixFans" role="group" aria-label="Qo'shimcha fanlar"></div>
@@ -733,7 +769,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 <section class="card how">
 <h2>📖 Qanday o'ynaladi</h2>
 <ul>
-<li><b>O'qituvchi</b> fan va mavzuni tanlab xona ochadi — ekranda 5 belgili <b>kod</b> va QR kod chiqadi. Kompyuterni proyektorga yoki aqlli doskaga ulang.</li>
+<li><b>O'qituvchi</b> fan va mavzuni tanlab xona ochadi — ekranda 5 harfli <b>kod</b> (faqat katta lotin harflari, masalan <b>KVNMT</b>) va QR kod chiqadi. O'quvchilar <b>kuvonch.uz/live</b> sahifasida shu kodni yozib kiradi. Kompyuterni proyektorga yoki aqlli doskaga ulang.</li>
 <li><b>QR kodni bosing</b> — u butun ekranga kattalashadi, orqa partadagilar ham skanerlay oladi. O'yin davomida yuqoridagi <b>«Kod 🔍»</b> tugmasi ham katta QR ni ochadi — kech qolganlar kiraveradi.</li>
 <li><b>O'quvchilar</b> telefonda shu sahifani ochib (yoki QR kodni skanerlab) kodni yozadi va ismini kiritadi — <b>guruh ro'yxati</b> ulangan bo'lsa, ismini ro'yxatdan tanlab, xohlasa nik yozadi. Ismlar ekranda paydo bo'ladi.</li>
 <li><b>Guruh ro'yxati</b>: «Davomat saytidan yuklash» (davomat saytidagi login va parol bilan) yoki «Ro'yxatni o'zim qo'yaman» — matn, Excel, CSV yoki TXT fayl. Ro'yxat shu qurilmada saqlanib qoladi.</li>
@@ -751,6 +787,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 <li><b>👦/👧</b> O'quvchi qo'shilishda o'g'il yoki qiz bola ekanini belgilaydi — Kuvi unga mos mehrli so'zlar va pand-nasihat bilan murojaat qiladi.</li>
 <li><b>✏️ Testni tahrirlash</b> (kutish xonasida, o'yin davomida yuqoridagi ✏️ yoki T tugmasi): o'z savolingizni yozing yoki ko'p savolni birdan qo'ying, qo'shimcha fanlar ulushini oshiring, generator bilan yana savol qo'shing, savolni tahrirlang, almashtiring yoki o'chiring — o'quvchilar xonadan chiqmaydi. Berilgan savollar o'zgarmaydi. Testni <b>💾 saqlab</b>, keyingi darsda «📂 Saqlangan testlarim»dan qayta ochib, yana tahrirlash mumkin.</li>
 <li><b>Kira olmayotgan o'quvchi</b> bo'lsa: telefon internetini (Wi-Fi yoki mobil) almashtirib ko'rsin — sahifa endi uchta server orqali ulanadi va eski telefonlar uchun alohida moslashgan; ulanmasa o'zi yana bir marta urinadi.</li>
+<li><b>🔢 Savollar soni</b>: tayyor variantlardan tanlang yoki <b>✍️ o'zingiz yozing</b> (1–300). <b>📚 Har mavzudan N ta</b> rejimida har bir tanlangan mavzudan alohida son chiqadi — hammasiga bir xil (masalan, 3 tadan) yoki har mavzuga o'zi (−/+). Kutish xonasidagi ✏️ tahrirlashda ham «har bir mavzudan N tadan» qo'shish mumkin.</li>
 <li><b>Savollar har doim osondan qiyinga</b> tartiblanadi: avval daraja, keyin shu daraja ichida sonlar va amallar soni bo'yicha.</li>
 <li><b>🧊 3D rejim</b>: savol kartasi va rangli tugmalar 3D ko'rinishda chiqadi, to'g'ri javob oldinga chiqadi, reyting va shohsupa ham 3D. Yuqoridagi 🧊 tugmasi bilan yoqib-o'chiriladi.</li>
 <li><b>Avtomatik rejim</b>: vaqt tugashi (yoki hamma javob berishi) bilan to'g'ri javob chiqadi, bir necha soniyadan keyin reyting, so'ng keyingi savol o'zi boshlanadi. <b>⏸️ Pauza</b> tugmasi bilan to'xtatib, <b>▶ Davom</b> bilan davom ettirasiz.</li>
@@ -798,7 +835,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="ka-tarmoq.js?v=20261110a"></script>
+<script src="ka-tarmoq.js?v=20261116a"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
 <script src="ka-kuvi.js?v=20261114a"></script>
 <script src="ka-xato.js?v=20261110a"></script>
@@ -875,10 +912,13 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   function vib(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
 
   /* ---------------- sozlamalar ---------------- */
-  var cfg = { topics: [], count: 10, lvl: "prog", time: 20, limit: 0, auto: 8, showQ: true, sound: true, tease: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
+  // cmode: "jami" — jami count ta savol (mavzulardan teng bo'lib); "har" — har mavzudan per ta (perT — mavzu bo'yicha alohida son)
+  var cfg = { topics: [], count: 10, cmode: "jami", per: 5, perT: {}, lvl: "prog", time: 20, limit: 0, auto: 8, showQ: true, sound: true, tease: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
   try { var sv = JSON.parse(localStorage.getItem(LS) || "null"); if (sv) for (var k in sv) if (k in cfg) cfg[k] = sv[k]; } catch (e) {}
   var qp = /[?&]mavzu=([a-z0-9,]+)/i.exec(location.search);
   if (qp) cfg.topics = qp[1].split(",");
+  // havola orqali: ?soni=25 — jami 25 ta; ?har=3 — har mavzudan 3 ta
+  (function () { var m = /[?&]soni=(\d{1,3})/.exec(location.search), h = /[?&]har=(\d{1,3})/.exec(location.search); if (m) { cfg.count = +m[1]; cfg.cmode = "jami"; } if (h) { cfg.per = +h[1]; cfg.perT = {}; cfg.cmode = "har"; } })();
   cfg.topics = cfg.topics.filter(function (id) { return TITLE[id]; });
   if (!fanParam && cfg.fan && FANS.some(function (f) { return f[0] === cfg.fan; })) curFan = cfg.fan;
   if (qp && !fanParam && cfg.topics.length) { // ?mavzu= bilan kelganda — o'sha mavzular fanini ko'rsatamiz
@@ -886,6 +926,71 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     curFan = "all"; FANS.forEach(function (f) { if (f[2] && f[2].indexOf(g0) > -1 && curFan === "all") curFan = f[0]; });
   }
   function saveCfg() { try { localStorage.setItem(LS, JSON.stringify(cfg)); } catch (e) {} }
+
+  /* ---------------- savollar soni: jami N ta yoki har mavzudan N ta ---------------- */
+  var CNT_MAX = 300, PER_MAX = 100, CNT_PRESET = [5, 10, 15, 20, 30, 100], PER_QUICK = [1, 2, 3, 5, 10, 20];
+  function clampN(v, lo, hi, d) { v = Math.round(+v); return isFinite(v) && v >= lo ? Math.min(hi, v) : d; }
+  function fixCnt() {
+    cfg.count = clampN(cfg.count, 1, CNT_MAX, 10);
+    cfg.per = clampN(cfg.per, 1, PER_MAX, 5);
+    if (cfg.cmode !== "har") cfg.cmode = "jami";
+    if (!cfg.perT || typeof cfg.perT !== "object") cfg.perT = {};
+    for (var id in cfg.perT) { var v = clampN(cfg.perT[id], 1, PER_MAX, 0); if (!v || v === cfg.per) delete cfg.perT[id]; else cfg.perT[id] = v; }
+  }
+  function perOf(id) { return (cfg.perT && cfg.perT[id]) || cfg.per; }
+  // har mavzudan rejimi: [[mavzu, soni], …] — jami CNT_MAX dan oshsa, ulushlar mutanosib kamaytiriladi (har biridan kamida 1 ta)
+  function perPlan(ids) {
+    var plan = ids.map(function (id) { return [id, perOf(id)]; }), sum = plan.reduce(function (s, p) { return s + p[1]; }, 0);
+    if (sum > CNT_MAX) plan.forEach(function (p) { p[1] = Math.max(1, Math.floor(p[1] * CNT_MAX / sum)); });
+    return plan;
+  }
+  function harOn() { return cfg.cmode === "har" && cfg.topics.length > 0; }
+  function baseCount() { return harOn() ? perPlan(cfg.topics).reduce(function (s, p) { return s + p[1]; }, 0) : cfg.count; }
+  // har mavzudan rejimida qo'shimcha fanlar savollari ustiga qo'shiladi: ulushi jami savollarning pct foizi bo'ladi
+  function mixExtra(base) {
+    if (!harOn() || !cfg.mix || !cfg.mix.pct || !cfg.mix.fans || !cfg.mix.fans.length || !mixTopics().length) return 0;
+    return Math.round(base * cfg.mix.pct / (100 - Math.min(90, cfg.mix.pct)));
+  }
+  function totalCount() { var b = baseCount(); return b + mixExtra(b); }
+  function cntLabel() {
+    if (!harOn()) return cfg.count + " ta savol";
+    var vs = cfg.topics.map(perOf), mn = Math.min.apply(null, vs), mx = Math.max.apply(null, vs);
+    return "📚 har mavzudan " + (mn === mx ? mn + " ta" : mn + "–" + mx + " ta") + " = " + totalCount() + " ta savol";
+  }
+  // sozlamalar sahifasidagi «Savollar» qismini cfg bo'yicha yangilaydi (tanlov boshqa joydan o'zgarganda ham chaqiriladi)
+  function syncCount(keepList) {
+    fixCnt();
+    var cm = $("#cmOpts"); if (!cm) return;
+    var har = cfg.cmode === "har";
+    $$(".opt", cm).forEach(function (b) { b.classList.toggle("on", b.dataset.v === cfg.cmode); });
+    $("#cntJami").hidden = har; $("#cntHar").hidden = !har;
+    var preset = CNT_PRESET.indexOf(cfg.count) > -1;
+    $$("#cntOpts .opt[data-v]").forEach(function (b) { b.classList.toggle("on", +b.dataset.v === cfg.count); });
+    $("#cntCust").classList.toggle("on", !preset);
+    var ci = $("#cntN"); if (document.activeElement !== ci) ci.value = preset ? "" : String(cfg.count);
+    $$("#perQuick button").forEach(function (b) { b.classList.toggle("on", +b.dataset.p === cfg.per && !Object.keys(cfg.perT).length); });
+    var pn = $("#perN"); if (document.activeElement !== pn) pn.value = String(cfg.per);
+    if (har && !keepList) {
+      $("#perList").innerHTML = cfg.topics.map(function (id) {
+        var v = perOf(id);
+        return '<div class="prow" data-id="' + esc(id) + '"><span class="pt' + (cfg.perT[id] ? " chg" : "") + '" title="' + esc(TITLE[id] || id) + '">' + esc(TITLE[id] || id) + '</span>' +
+          '<button type="button" data-pm="-1" aria-label="Kamaytirish">−</button><input type="number" class="numin" min="1" max="' + PER_MAX + '" inputmode="numeric" value="' + v + '" aria-label="' + esc(TITLE[id] || id) + ' — savollar soni"><button type="button" data-pm="1" aria-label="Ko\'paytirish">+</button></div>';
+      }).join("");
+    }
+    if (har) perNote();
+    if (setupMixSync) setupMixSync(); else summary();
+  }
+  function perNote() {
+    var el = $("#perNote"); if (!el) return;
+    if (!cfg.topics.length) { el.innerHTML = "👆 Avval mavzularni tanlang — har biridan nechta savol chiqishini shu yerda belgilaysiz."; return; }
+    var raw = cfg.topics.reduce(function (s, id) { return s + perOf(id); }, 0), base = baseCount(), x = mixExtra(base);
+    var parts = cfg.topics.length <= 8 ? cfg.topics.map(perOf).join(" + ") + " = " : "";
+    el.innerHTML = "✅ " + cfg.topics.length + " ta mavzu: " + parts + "<b>" + base + " ta savol</b>" +
+      (x ? " + " + x + " ta qo'shimcha fanlardan = <b>" + (base + x) + " ta</b>" : "") +
+      ". Osondan qiyinga tartiblanadi." +
+      (raw > CNT_MAX ? ' <span class="warn">⚠️ Ko\'pi bilan ' + CNT_MAX + " ta savol — har mavzudan soni mutanosib kamaytirildi (" + raw + " → " + base + ").</span>" : "");
+  }
+  fixCnt();
   var kodParam = (/[?&]kod=([A-Za-z0-9]{5})/.exec(location.search) || [])[1];
 
   /* ---------------- ovoz ---------------- */
@@ -1141,16 +1246,16 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
         var c = TOPICS.filter(function (t) { return f[2].indexOf(t[2]) > -1 && t[2] !== 7 && !/^(e[1-6]|r[12])$/.test(t[0]); });
         if (c.length) pickT.push(pick(c)[0]);
       });
-      cfg.topics = shuffle(pickT); cfg.count = 30; cfg.lvl = "prog";
+      cfg.topics = shuffle(pickT); cfg.lvl = "prog";
+      if (cfg.cmode !== "har") cfg.count = 30;
       var allB = $('#tFans button[data-fan="all"]'); if (allB && curFan !== "all") allB.click();
       syncTopics(); saveCfg();
-      $$("#cntOpts .opt").forEach(function (b) { b.classList.toggle("on", +b.dataset.v === 30); }); $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === "prog"); });
-      if (typeof summary === "function") summary();
-      if (!silent) toast("Aralash: " + pickT.length + " ta fan, har biridan 1 mavzu, 30 savol. Yana bossangiz — boshqa mavzular");
+      $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === "prog"); });
+      if (!silent) toast("Aralash: " + pickT.length + " ta fan, har biridan 1 mavzu, " + (cfg.cmode === "har" ? "har mavzudan " + cfg.per + " ta = " + totalCount() : 30) + " savol. Yana bossangiz — boshqa mavzular");
     }
     $("#selAralash").onclick = function () { aralash(false); };
     if (/[?&]aralash=1/.test(location.search) && !aralash.done) { aralash.done = 1; aralash(false); }
-    $("#selDaraja").onclick = function () { cfg.topics = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11"]; cfg.count = 100; cfg.lvl = "prog"; syncTopics(); $$("#cntOpts .opt").forEach(function (b) { b.classList.toggle("on", +b.dataset.v === 100); }); $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === "prog"); }); if (typeof summary === "function") summary(); toast("Daraja testi: 11 sinf, 100 savol, osondan qiyinga"); };
+    $("#selDaraja").onclick = function () { cfg.topics = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11"]; cfg.cmode = "jami"; cfg.count = 100; cfg.lvl = "prog"; syncTopics(); $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === "prog"); }); saveCfg(); toast("Daraja testi: 11 sinf, 100 savol, osondan qiyinga"); };
     $("#selChips").addEventListener("click", function (e) {
       var b = e.target.closest("button[data-id]"); if (!b) return;
       var i = cfg.topics.indexOf(b.dataset.id); if (i > -1) cfg.topics.splice(i, 1); syncTopics();
@@ -1168,25 +1273,65 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     else if (cfg.topics.length > 12) ch.innerHTML = '<span class="chip">✅ ' + cfg.topics.length + ' ta mavzu tanlandi</span>';
     else ch.innerHTML = cfg.topics.map(function (id) { return '<span class="chip">' + esc(TITLE[id]) + '<button type="button" data-id="' + id + '" aria-label="Olib tashlash">×</button></span>'; }).join("");
     $("#selClear").style.visibility = cfg.topics.length ? "" : "hidden";
-    summary();
+    if ($("#cmOpts")) syncCount(); else summary();
   }
   function lvlName(v) { return { prog: "📈 osondan qiyinga", "1": "★ oson", "2": "★★ o'rta", "3": "★★★ murakkab", mix: "🔀 aralash" }[String(v)] || ""; }
   function summary() {
     var el = $("#sum"); if (!el) return;
     var t = cfg.topics.length === 1 ? TITLE[cfg.topics[0]] : cfg.topics.length ? cfg.topics.length + " ta mavzu" : "mavzu tanlanmagan";
     var r = cfg.rmode === "list" && typeof curRoster === "function" ? curRoster() : null;
-    el.innerHTML = "<b>" + esc(t) + "</b> · " + cfg.count + " ta savol" + (cfg.mix && cfg.mix.pct && cfg.mix.fans.length ? " (+" + cfg.mix.pct + "% " + cfg.mix.fans.map(function (k) { return (FANS.filter(function (f) { return f[0] === k; })[0] || [0, ""])[1].replace(/^\S+\s/, ""); }).join(", ") + ")" : "") + " · " + lvlName(cfg.lvl) + " · " + cfg.time + " soniyadan · " + (cfg.limit ? "⏳ " + cfg.limit + " daqiqa · " : "") + (cfg.auto ? "⏭ avtomatik" : "⏭ qo'lda") +
+    el.innerHTML = "<b>" + esc(t) + "</b> · " + cntLabel() + (cfg.mix && cfg.mix.pct && cfg.mix.fans.length ? " (+" + cfg.mix.pct + "% " + cfg.mix.fans.map(function (k) { return (FANS.filter(function (f) { return f[0] === k; })[0] || [0, ""])[1].replace(/^\S+\s/, ""); }).join(", ") + ")" : "") + " · " + lvlName(cfg.lvl) + " · " + cfg.time + " soniyadan · " + (cfg.limit ? "⏳ " + cfg.limit + " daqiqa · " : "") + (cfg.auto ? "⏭ avtomatik" : "⏭ qo'lda") +
       (cfg.rmode === "list" ? " · 📋 " + (r ? esc(r.name) + " (" + r.list.length + ")" : "<span style=\"color:#ffd479\">ro'yxat tanlanmagan</span>") : "");
   }
   var setupMixSync = null;
+  function bindCount() {
+    $("#perQuick").innerHTML = PER_QUICK.map(function (v) { return '<button type="button" data-p="' + v + '">' + v + "</button>"; }).join("");
+    $("#cmOpts").addEventListener("click", function (e) {
+      var b = e.target.closest(".opt[data-v]"); if (!b) return;
+      cfg.cmode = b.dataset.v; saveCfg(); syncCount();
+      if (cfg.cmode === "har" && !cfg.topics.length) toast("Mavzularni tanlang — har biridan " + cfg.per + " tadan savol chiqadi");
+    });
+    $("#cntOpts").addEventListener("click", function (e) {
+      var b = e.target.closest(".opt"); if (!b) return;
+      if (b.dataset.v != null) { cfg.count = +b.dataset.v; saveCfg(); syncCount(); return; }
+      var ci = $("#cntN"); if (e.target !== ci) { ci.focus(); if (!ci.value) { ci.value = String(cfg.count); ci.select(); } }
+    });
+    var ci = $("#cntN");
+    ci.addEventListener("input", function () { var v = clampN(ci.value, 1, CNT_MAX, 0); if (!v) return; cfg.count = v; saveCfg(); syncCount(); });
+    ci.addEventListener("change", function () { ci.value = ""; syncCount(); }); // 0 yoki 500 yozilsa — 1…300 ga keltiramiz
+    ci.addEventListener("blur", function () { if (ci.value && +ci.value !== cfg.count) ci.value = String(cfg.count); });
+    $("#perQuick").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-p]"); if (!b) return;
+      cfg.per = +b.dataset.p; cfg.perT = {}; saveCfg(); syncCount();
+    });
+    var pn = $("#perN");
+    pn.addEventListener("input", function () { var v = clampN(pn.value, 1, PER_MAX, 0); if (!v) return; cfg.per = v; cfg.perT = {}; saveCfg(); syncCount(); });
+    pn.addEventListener("change", function () { pn.value = String(cfg.per); });
+    var pl = $("#perList");
+    function setOne(row, v) {
+      var id = row.dataset.id; v = clampN(v, 1, PER_MAX, perOf(id));
+      if (v === cfg.per) delete cfg.perT[id]; else cfg.perT[id] = v;
+      var inp = $("input", row); if (document.activeElement !== inp || +inp.value !== v) inp.value = String(v);
+      $(".pt", row).classList.toggle("chg", !!cfg.perT[id]);
+      saveCfg(); syncCount(true);
+    }
+    pl.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-pm]"); if (!b) return;
+      var row = b.closest(".prow"); setOne(row, perOf(row.dataset.id) + +b.dataset.pm);
+    });
+    pl.addEventListener("input", function (e) { var row = e.target.closest(".prow"); if (row && e.target.value !== "") setOne(row, e.target.value); });
+    pl.addEventListener("change", function (e) { var row = e.target.closest(".prow"); if (row) setOne(row, e.target.value); });
+    syncCount();
+  }
   function bindSetup() {
     function opts(sel, key, num) {
       var box = $(sel);
       function sync() { $$(".opt", box).forEach(function (b) { b.classList.toggle("on", b.dataset.v === String(cfg[key])); }); summary(); }
-      box.addEventListener("click", function (e) { var b = e.target.closest(".opt"); if (!b) return; cfg[key] = num ? +b.dataset.v : b.dataset.v; sync(); });
+      box.addEventListener("click", function (e) { var b = e.target.closest(".opt"); if (!b || b.dataset.v == null) return; cfg[key] = num ? +b.dataset.v : b.dataset.v; sync(); });
       sync();
     }
-    opts("#cntOpts", "count", true); opts("#lvlOpts", "lvl", false);
+    opts("#lvlOpts", "lvl", false);
+    bindCount();
     // aralashtirish
     if (!cfg.mix || typeof cfg.mix !== "object") cfg.mix = { fans: ["mantiq"], pct: 0 };
     var mf = $("#mixFans"), mp = $("#mixPct");
@@ -1195,7 +1340,11 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       $$("button[data-mf]", mf).forEach(function (b) { b.setAttribute("aria-pressed", cfg.mix.fans.indexOf(b.dataset.mf) > -1 ? "true" : "false"); });
       mp.value = String(cfg.mix.pct || 0);
       var names = cfg.mix.fans.map(function (k) { return (FANS.filter(function (f) { return f[0] === k; })[0] || [0, ""])[1]; }).join(", ");
-      $("#mixNote").textContent = cfg.mix.pct && cfg.mix.fans.length ? "✅ Har " + cfg.count + " ta savoldan taxminan " + Math.round(cfg.count * cfg.mix.pct / 100) + " tasi: " + names + " (shu fanlarning barcha mavzularidan, avtomatik)." : "Masalan: matematika viktorinasiga 20% mantiqiy savollar qo'shiladi — har 5 savoldan biri mantiq. Fanni belgilab, ulushini tanlang.";
+      var on = cfg.mix.pct && cfg.mix.fans.length;
+      $("#mixNote").textContent = !on ? "Masalan: matematika viktorinasiga 20% mantiqiy savollar qo'shiladi — har 5 savoldan biri mantiq. Fanni belgilab, ulushini tanlang."
+        : harOn() ? "✅ Har mavzudan olingan " + baseCount() + " ta savolga yana taxminan " + mixExtra(baseCount()) + " ta qo'shiladi: " + names + " (jami " + totalCount() + " ta)."
+        : "✅ Har " + cfg.count + " ta savoldan taxminan " + Math.round(cfg.count * cfg.mix.pct / 100) + " tasi: " + names + " (shu fanlarning barcha mavzularidan, avtomatik).";
+      if (cfg.cmode === "har") perNote();
       saveCfg(); summary();
     }
     mf.addEventListener("click", function (e) { var b = e.target.closest("button[data-mf]"); if (!b) return; var i = cfg.mix.fans.indexOf(b.dataset.mf); if (i > -1) cfg.mix.fans.splice(i, 1); else { cfg.mix.fans.push(b.dataset.mf); if (!cfg.mix.pct) cfg.mix.pct = 20; } mixSync(); });
@@ -1400,16 +1549,23 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (ks.length > HIST_MAX) { ks.sort(function (a, b) { return h[a] - h[b]; }); ks.slice(0, ks.length - HIST_MAX + 200).forEach(function (x) { delete h[x]; }); }
     lsSet(LS_HIST, h);
   }
-  function buildQs() {
-    var out = [], seen = {}, n = cfg.count, guard = 0, tps = cfg.topics.filter(function (id) { return kaSavol.has(id); });
-    var xt = mixTopics().filter(function (id) { return kaSavol.has(id); }), nX = xt.length && tps.length ? Math.round(n * cfg.mix.pct / 100) : 0, H0 = hist();
-    if (!tps.length && xt.length) { tps = xt; nX = 0; }
-    function lv(i) { return cfg.lvl === "prog" ? 1 + Math.min(2, Math.floor(3 * i / n)) : cfg.lvl === "mix" ? rnd(1, 3) : +cfg.lvl || 2; }
+  // nForce — aniq n ta savol (tahrirlash oynasidan); berilmasa sozlama: jami count ta yoki har mavzudan per ta
+  function buildQs(nForce) {
+    var out = [], seen = {}, guard = 0, tps = cfg.topics.filter(function (id) { return kaSavol.has(id); });
+    var xt = mixTopics().filter(function (id) { return kaSavol.has(id); }), H0 = hist(), fb = false;
+    if (!tps.length && xt.length) { tps = xt; fb = true; }
+    fixCnt();
+    var nF = clampN(nForce, 1, 1000, 0), har = !nF && !fb && cfg.cmode === "har" && tps.length > 0;
+    var plan = har ? perPlan(tps) : null, base = har ? plan.reduce(function (s, p) { return s + p[1]; }, 0) : nF || cfg.count;
+    var nX = fb || !xt.length ? 0 : har ? mixExtra(base) : Math.round(base * ((cfg.mix && cfg.mix.pct) || 0) / 100);
+    var n = har ? base + nX : base;
+    // daraja shu to'plam ichidagi o'rniga qarab: har mavzu (va qo'shimcha fanlar) o'z ichida osondan qiyinga
+    function lv(j, T) { return cfg.lvl === "prog" ? 1 + Math.min(2, Math.floor(3 * j / Math.max(1, T))) : cfg.lvl === "mix" ? rnd(1, 3) : +cfg.lvl || 2; }
     // mavzularni navbat bilan: har mavzudan teng ulush (bir mavzu ko'p, boshqasi kam chiqib qolmasin)
     var bag = [];
     function nextTid(pool) { if (!bag.length || bag.pool !== pool) { bag = shuffle(pool); bag.pool = pool; } return bag.pop(); }
-    function make(pool, pass) {
-      var i = out.length, L = lv(i), best = null, bestT = Infinity, tries = pass === 0 ? 14 : 6, tid0 = nextTid(pool);
+    function make(pool, pass, L) {
+      var best = null, bestT = Infinity, tries = pass === 0 ? 14 : 6, tid0 = nextTid(pool);
       for (var t = 0; t < tries; t++) {
         var tid = t < tries / 2 ? tid0 : pick(pool), p = null;
         try { p = kaSavol.get(tid, L); } catch (e) { p = null; }
@@ -1427,11 +1583,13 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     }
     function fill(pool, target) {
       var start = out.length;
-      for (var pass = 0; pass < 3; pass++) { guard = 0; while (out.length - start < target && guard++ < target * (pass ? 20 : 8)) make(pool, pass); }
+      if (!pool.length || target < 1) return;
+      for (var pass = 0; pass < 3; pass++) { guard = 0; while (out.length - start < target && guard++ < target * (pass ? 20 : 8)) make(pool, pass, lv(out.length - start, target)); }
     }
-    fill(tps, n - nX);
-    if (nX) fill(xt, n - out.length);
-    if (out.length < n) fill(tps.concat(xt), n - out.length);
+    if (har) plan.forEach(function (p) { fill([p[0]], p[1]); }); // har mavzudan o'z soni
+    else fill(tps, n - nX);
+    if (nX) fill(xt, Math.min(nX, n - out.length));
+    if (out.length < n) fill(fb ? tps : tps.concat(xt), n - out.length); // biror mavzu generatori yetmasa — qolganlaridan
     // har doim osondan qiyinga: daraja, keyin shu daraja ichida murakkablik (sonlar kattaligi, amallar soni)
     out.forEach(function (o) { o.cx = kaSavol.cx ? kaSavol.cx({ q: o.q, steps: o.steps }) : 0; });
     out.sort(function (a, b) { return (a.grade - b.grade) || (a.L - b.L) || (a.cx - b.cx); }); // daraja testida sinf bo'yicha, keyin osondan qiyinga
@@ -1674,7 +1832,8 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     else H.api.send(p.id, { type: "hold", score: p.score, i: H.i }, all);
   }
   function joinUrl() { return N.joinUrl("viktorina.html", H.code || ""); }
-  function shortUrl() { return (location.host || "kuvonch.uz") + location.pathname.replace(/[^/]*$/, "") + "viktorina.html"; }
+  // ekranda ko'rsatiladigan qisqa manzil: kuvonch.uz/live — o'quvchi telefonda yozib, kodni kiritadi
+  function shortUrl() { return (location.host || "kuvonch.uz") + location.pathname.replace(/[^/]*$/, "") + "live"; }
   function renderLobby() {
     if (!H || H.phase !== "lobby") return;
     var body = hEl(), ps = allPlayers();
@@ -2109,7 +2268,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       '<div class="fans" id="eFans" role="toolbar" aria-label="Fanlar"></div>' +
       '<input id="eSearch" class="field" type="search" placeholder="🔎 Mavzu qidirish: logarifm, kasr, lug\'at, Om qonuni…" aria-label="Mavzu qidirish" autocomplete="off">' +
       '<div id="eList" class="tlist"></div>' +
-      '<div class="egrow"><label class="sl">Savollar <select id="eCount"><option value="5">5 ta</option><option value="10">10 ta</option><option value="15">15 ta</option><option value="20">20 ta</option><option value="30">30 ta</option></select></label>' +
+      '<div class="egrow"><label class="sl">Savollar <select id="eMode" aria-label="Savollar qanday olinsin"><option value="jami">jami</option><option value="har">har mavzudan</option></select><input type="number" class="numin" id="eCount" min="1" max="300" inputmode="numeric" aria-label="Savollar soni"> ta</label>' +
       '<label class="sl">Daraja <select id="eLvl"><option value="prog">📈 osondan qiyinga</option><option value="1">★ oson</option><option value="2">★★ o\'rta</option><option value="3">★★★ murakkab</option><option value="mix">🔀 aralash</option></select></label>' +
       '<button type="button" class="nextb" id="eGo">▶ Yangi mavzuda boshlash</button></div></section></div>';
     hostAI(qsHtml, order);
@@ -2161,7 +2320,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     clearTimeout(H.saveT); H.saveT = 0;
     var snap = { v: 1, ts: Date.now(), code: H.code, gid: H.gid || "", name: H.testName || "", lim: limLeft() * 1000, st: H.startAt || 0, phase: H.phase === "resume" ? H.resumeFrom : H.phase, i: H.i, revN: H.revN || 0, started: !!H.started,
       qs: H.qs, stats: H.stats, roster: H.roster, nicks: H.nicks,
-      cfg: { topics: cfg.topics, count: cfg.count, lvl: cfg.lvl, time: cfg.time, auto: cfg.auto, showQ: cfg.showQ, d3: cfg.d3, guard: cfg.guard, xtime: cfg.xtime, sound: cfg.sound, mix: cfg.mix },
+      cfg: { topics: cfg.topics, count: cfg.count, cmode: cfg.cmode, per: cfg.per, perT: cfg.perT, lvl: cfg.lvl, time: cfg.time, auto: cfg.auto, showQ: cfg.showQ, d3: cfg.d3, guard: cfg.guard, xtime: cfg.xtime, sound: cfg.sound, mix: cfg.mix },
       players: allPlayers().map(function (p) { return { key: p.key, name: p.name, full: p.full, nick: p.nick, r: p.r, tok: p.tok, sg: p.sg || "", man: !!p.man, score: p.score, correct: p.correct, wrong: p.wrong, none: p.none, streak: p.streak, best: p.best, ans: p.ans, away: p.away || 0, awayMs: p.awayMs || 0 }; }) };
     lsSet(LS_HS, snap);
   }
@@ -2293,13 +2452,18 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       var b = e.target.closest("button[data-id]"); if (!b) return;
       var i = cfg.topics.indexOf(b.dataset.id); if (i > -1) cfg.topics.splice(i, 1); sync();
     });
-    var ec = $("#eCount"), el = $("#eLvl");
-    ec.value = String(cfg.count); if (ec.value !== String(cfg.count)) ec.value = "10";
+    var ec = $("#eCount"), el = $("#eLvl"), em = $("#eMode");
+    fixCnt(); em.value = cfg.cmode;
+    function ecShow() { ec.max = em.value === "har" ? PER_MAX : CNT_MAX; ec.value = String(em.value === "har" ? cfg.per : cfg.count); ec.title = em.value === "har" ? "Har bir tanlangan mavzudan nechta savol (1–" + PER_MAX + ")" : "Jami savollar soni (1–" + CNT_MAX + ")"; }
+    ecShow(); em.onchange = ecShow;
     el.value = String(cfg.lvl); if (el.value !== String(cfg.lvl)) el.value = "prog";
     $("#eGo").onclick = function () {
       if (!cfg.topics.length) { toast("Kamida bitta mavzu tanlang"); return; }
-      cfg.count = +ec.value; cfg.lvl = el.value; saveCfg();
-      if ($("#cntOpts")) $$("#cntOpts .opt, #lvlOpts .opt").forEach(function (b) { var k = b.closest("#cntOpts") ? "count" : "lvl"; b.classList.toggle("on", b.dataset.v === String(cfg[k])); });
+      cfg.cmode = em.value;
+      if (cfg.cmode === "har") { var pv = clampN(ec.value, 1, PER_MAX, cfg.per); if (pv !== cfg.per) { cfg.per = pv; cfg.perT = {}; } }
+      else cfg.count = clampN(ec.value, 1, CNT_MAX, cfg.count);
+      cfg.lvl = el.value; saveCfg();
+      if ($("#cmOpts")) { syncCount(); $$("#lvlOpts .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === String(cfg.lvl)); }); }
       var bt = $("#eGo"); bt.disabled = true; bt.textContent = "⏳ Savollar yaratilmoqda…";
       playAgain();
     };
@@ -2621,9 +2785,9 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   }
   function graphGroup() { var gi = -1; GROUPS.forEach(function (g, i) { if (gi < 0 && /grafik/i.test(g)) gi = i; }); return gi; }
   function genTopicOpts() {
-    return '<option value="">sozlamadagi mavzular (+ qo\'shimcha fanlar ulushi)</option>' + GROUPS.map(function (gn, gi) {
+    return '<option value="">sozlamadagi mavzular (+ qo\'shimcha fanlar ulushi)</option><option value="har">📚 sozlamadagi HAR BIR mavzudan N tadan</option>' + GROUPS.map(function (gn, gi) {
       var rows = TOPICS.filter(function (t) { return t[2] === gi; }); if (!rows.length) return "";
-      return '<optgroup label="' + esc(gn) + '"><option value="g:' + gi + '">' + esc(gn) + " — hammasi aralash</option>" + rows.map(function (t) { return '<option value="' + t[0] + '">' + esc(rowTitle(t)) + "</option>"; }).join("") + "</optgroup>";
+      return '<optgroup label="' + esc(gn) + '"><option value="g:' + gi + '">' + esc(gn) + " — hammasi aralash</option><option value=\"gh:" + gi + "\">" + esc(gn) + " — har bir mavzusidan N tadan</option>" + rows.map(function (t) { return '<option value="' + t[0] + '">' + esc(rowTitle(t)) + "</option>"; }).join("") + "</optgroup>";
     }).join("");
   }
   function edHtml() {
@@ -2642,7 +2806,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
         '<div class="row"><button type="button" class="btn small" data-e="bankAll">☑️ Hammasini belgilash</button><span class="grow"></span><button type="button" class="btn primary" data-e="bankAdd">➕ Tanlanganlarni testga qo\'shish</button></div><div class="msg" id="edBankMsg"></div></div></details>' +
       "<details class=\"sec\" id=\"edGenSec\"><summary>🎲 Generator: 📈 grafikli savollar, istalgan mavzudan savol, qo'shimcha fanlar ulushi</summary><div class=\"sb\">" +
         "<span class=\"lb\">🎲 Yana savol qo'shish — mavzuni tanlang (📈 Grafiklar bo'limida chizmali savollar)</span>" +
-        '<div class="row" style="margin-top:0"><select id="edGenT" class="grow">' + genTopicOpts() + '</select><select id="edGenN"><option value="1">+1 ta</option><option value="3">+3 ta</option><option value="5" selected>+5 ta</option><option value="10">+10 ta</option><option value="15">+15 ta</option><option value="20">+20 ta</option></select><button type="button" class="btn primary" data-e="gen">➕ Qo\'shish</button></div>' +
+        '<div class="row" style="margin-top:0"><select id="edGenT" class="grow">' + genTopicOpts() + '</select><label class="chk" title="Nechta savol qo\'shilsin (1–100)">+<input type="number" class="numin" id="edGenN" min="1" max="100" value="5" inputmode="numeric" style="width:64px;min-height:36px">ta</label><button type="button" class="btn primary" data-e="gen">➕ Qo\'shish</button></div>' +
         '<div class="row"><button type="button" class="btn" data-e="genGraph">📈 Grafikli savollar qo\'shish</button><small class="hint">grafikdan qiymat o\'qish, funksiya turini topish va h.k.</small></div>' +
         "<span class=\"lb\">➕ Qo'shimcha fanlar (boshqa fanlardan aralashtirish)</span><div class=\"fans\" id=\"edMixF\" role=\"group\" aria-label=\"Qo'shimcha fanlar\"></div>" +
         '<div class="row"><label class="chk">Ulushi <select id="edMixP">' + [0, 10, 20, 30, 40, 50, 60, 70, 80].map(function (v) { return '<option value="' + v + '">' + (v ? v + "%" : "qo'shilmasin") + "</option>"; }).join("") + '</select></label><span class="grow sub" id="edMixNote" style="margin:0"></span></div>' +
@@ -2780,8 +2944,8 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     return prepTopics().then(function () {
       if (btn) btn.disabled = false;
       if (!H || !window.kaSavol) { edMsg(msg, "Generator yuklanmadi — internetni tekshiring", 1); return null; }
-      var keep = cfg.count, qs = []; cfg.count = n;
-      try { qs = buildQs(); } catch (e) { qs = []; } cfg.count = keep;
+      var qs = [];
+      try { qs = buildQs(n); } catch (e) { qs = []; }
       var have = {}; H.qs.forEach(function (q, i) { if (q.k && !(skip && skip.indexOf(i) > -1)) have[q.k] = 1; });
       qs = qs.filter(function (q) { return !have[q.k]; });
       if (!qs.length) { edMsg(msg, "Yangi savol topilmadi — boshqa mavzu yoki fan qo'shing", 1); return null; }
@@ -2790,24 +2954,31 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   }
   function mixCount(qs) { var mt = mixTopics(); return qs.filter(function (q) { return mt.indexOf(q.tid) > -1; }).length; }
   // tanlangan mavzu (yoki butun bo'lim) generatoridan n ta savol — osondan qiyinga
+  // sel: mavzu id | "g:N" — bo'lim aralash | "gh:N" — bo'limning har bir mavzusidan n tadan | "har" — sozlamadagi har bir mavzudan n tadan
   function edGenTopic(sel, n, msg, btn) {
-    var tids = /^g:\d+$/.test(sel) ? TOPICS.filter(function (t) { return t[2] === +sel.slice(2); }).map(function (t) { return t[0]; }) : [sel];
+    var per = sel === "har" || /^gh:\d+$/.test(sel);
+    var tids = sel === "har" ? cfg.topics.slice() : /^gh?:\d+$/.test(sel) ? TOPICS.filter(function (t) { return t[2] === +sel.split(":")[1]; }).map(function (t) { return t[0]; }) : [sel];
+    if (!tids.length) { edMsg(msg, "Sozlamalarda mavzu tanlanmagan — ro'yxatdan aniq mavzu yoki bo'lim tanlang", 1); return; }
+    var cut = per && tids.length * n > CNT_MAX ? Math.max(1, Math.floor(CNT_MAX / tids.length)) : n;
     if (btn) btn.disabled = true; edMsg(msg, "⏳ Savollar yaratilmoqda…");
     genPrep(tids).then(function () {
       if (btn) btn.disabled = false;
       if (!H) return;
       var have = haveKeys(-1), out = [], bag = [];
-      for (var k = 0, guard = 0; out.length < n && guard < n * 4; guard++, k++) {
+      if (per) tids.forEach(function (tid) { // har mavzudan o'z ichida osondan qiyinga
+        for (var j = 0, g = 0; j < cut && g < cut * 4; g++) { var q1 = genOne(tid, 1 + Math.min(2, Math.floor(3 * j / cut)), have); if (q1) { out.push(q1); j++; } }
+      });
+      else for (var k = 0, guard = 0; out.length < n && guard < n * 4; guard++, k++) {
         if (!bag.length) bag = shuffle(tids);
         var q = genOne(bag.pop(), 1 + Math.min(2, Math.floor(3 * out.length / n)), have); if (q) out.push(q);
       }
       if (!out.length) { edMsg(msg, "Bu mavzudan savol yaratib bo'lmadi — internetni tekshiring yoki boshqa mavzu tanlang", 1); return; }
       Array.prototype.push.apply(H.qs, out); edChanged();
-      edMsg(msg, "✅ " + out.length + " ta yangi savol testning oxiriga qo'shildi" + (out.some(function (x) { return x.g || x.og; }) ? " (📈 grafikli)" : ""));
+      edMsg(msg, "✅ " + (per ? tids.length + " ta mavzudan " + cut + " tadan — " : "") + out.length + " ta yangi savol testning oxiriga qo'shildi" + (out.some(function (x) { return x.g || x.og; }) ? " (📈 grafikli)" : "") + (cut < n ? " · ko'pi bilan " + CNT_MAX + " ta, shuning uchun har mavzudan " + cut + " tadan" : ""));
     }, function () { if (btn) btn.disabled = false; edMsg(msg, "Generator yuklanmadi — internetni tekshiring", 1); });
   }
   function edGen() {
-    var n = +$("#edGenN").value || 5, msg = $("#edGenMsg"), sel = $("#edGenT").value, btn = $('[data-e="gen"]');
+    var n = clampN($("#edGenN").value, 1, 100, 5), msg = $("#edGenMsg"), sel = $("#edGenT").value, btn = $('[data-e="gen"]');
     if (sel) { edGenTopic(sel, n, msg, btn); return; }
     edBuild(n, msg, btn).then(function (qs) {
       if (!qs || !H) return;
@@ -3174,7 +3345,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (!N) { $("#jErr").textContent = "Tarmoq moduli yuklanmadi — sahifani yangilang"; return; }
     code = N.normCode(code); name = cleanName(name);
     var err = $("#jErr");
-    if (code.length !== 5) { err.textContent = "Kod 5 ta belgidan iborat bo'lishi kerak"; $("#jPin").focus(); return; }
+    if (code.length !== 5) { err.textContent = "Kod 5 ta harfdan iborat bo'lishi kerak"; $("#jPin").focus(); return; }
     var bn = N.badName ? N.badName(name) : ""; // taqiqlangan ism — xonaga ulanmasdanoq aytamiz
     if (bn) { err.textContent = bn; $("#jName").focus(); $("#cJoin").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     var sg = sgGet();

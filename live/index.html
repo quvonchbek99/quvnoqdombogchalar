@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kuvonch Live — kod bilan jonli viktorina va testga kirish | kuvonch.uz/live</title>
+<meta name="description" content="kuvonch.uz/live — o'qituvchi ekranidagi 5 harfli kodni yozing va jonli viktorina, test yoki jamoa o'yiniga darhol qo'shiling. Ro'yxatdan o'tish shart emas, bepul, o'zbek tilida.">
+<link rel="canonical" href="https://kuvonch.uz/live/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Kuvonch Live — kodni kiriting">
+<meta property="og:description" content="O'qituvchi bergan 5 harfli kodni yozing — jonli viktorina yoki testga darhol qo'shilasiz.">
+<meta property="og:url" content="https://kuvonch.uz/live/">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="theme-color" content="#0b1220">
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="stylesheet" href="../ka-nav.css">
+<script src="../ka-fasl.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"WebPage","@id":"https://kuvonch.uz/live/","url":"https://kuvonch.uz/live/","name":"Kuvonch Live — kod bilan jonli viktorina va testga kirish","description":"O'qituvchi ekranidagi 5 harfli kodni yozib, jonli viktorina, test yoki jamoa o'yiniga qo'shilish sahifasi.","inLanguage":"uz","isPartOf":{"@type":"WebSite","name":"Kuvonch Academy","url":"https://kuvonch.uz/"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kuvonch Academy","item":"https://kuvonch.uz/"},{"@type":"ListItem","position":2,"name":"Live","item":"https://kuvonch.uz/live/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Kuvonch Live kodi qayerda bo'ladi?","acceptedAnswer":{"@type":"Answer","text":"Kod o'qituvchining ekranida (proyektor yoki aqlli doskada) chiqadi. U 5 ta katta lotin harfidan iborat, masalan KVNMT."}},
+{"@type":"Question","name":"Kirish uchun ro'yxatdan o'tish kerakmi?","acceptedAnswer":{"@type":"Answer","text":"Yo'q. kuvonch.uz/live sahifasida kodni yozasiz, ismingizni kiritasiz va darhol qo'shilasiz. Hammasi bepul."}},
+{"@type":"Question","name":"O'qituvchi live xonani qanday ochadi?","acceptedAnswer":{"@type":"Answer","text":"kuvonch.uz/viktorina.html sahifasida fan va mavzuni, savollar sonini (jami N ta yoki har mavzudan N ta) tanlab «Xona ochish» tugmasini bosadi — ekranda kod va QR chiqadi."}}
+]}]}</script>
+<style>
+:root{--bg:#0b1220;--bg-soft:#111a2e;--card:#141f38;--border:#243252;--text:#eef2ff;--text-dim:#9fb0d0;--accent:#5ee6c7;--accent-2:#7c9bff;--gold:#ffd479;--red:#ff5e6e}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(circle at 50% -10%,#1d2a52 0%,#0b1220 55%) fixed,#0b1220;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden}
+a{color:var(--accent-2)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 40px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.join{max-width:520px;margin:18px auto 0;text-align:center}
+.live{display:inline-flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.14em;font-size:13px;color:#fff;background:rgba(255,94,110,.16);border:1px solid rgba(255,94,110,.55);padding:6px 14px;border-radius:999px}
+.live i{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,94,110,.7);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,94,110,.7)}70%{box-shadow:0 0 0 12px rgba(255,94,110,0)}100%{box-shadow:0 0 0 0 rgba(255,94,110,0)}}
+h1{font-size:clamp(30px,7vw,46px);line-height:1.1;margin:14px 0 6px;letter-spacing:-.02em}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--text-dim);margin:0 auto 18px;max-width:30em}
+.box{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:20px 16px;box-shadow:0 24px 60px -30px rgba(0,0,0,.8)}
+/* 5 ta katak + ustida ko'rinmas input (telefon klaviaturasi bilan yaxshi ishlaydi) */
+.pin{position:relative;display:block;margin:0 auto;max-width:400px;cursor:text}
+.cells{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cells b{display:flex;align-items:center;justify-content:center;aspect-ratio:1/1.12;border-radius:14px;border:2px solid var(--border);background:#0e172b;font:900 clamp(30px,9vw,44px)/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#fff;transition:border-color .15s,transform .15s}
+.cells b.cur{border-color:var(--accent);box-shadow:0 0 0 3px rgba(94,230,199,.2)}
+.cells b.on{transform:translateY(-2px)}
+.pin input{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;opacity:.01;border:0;background:transparent;color:transparent;caret-color:transparent;font-size:16px;text-transform:uppercase;letter-spacing:2em}
+.pin.bad .cells b{border-color:var(--red);animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.hint{font-size:13px;color:var(--text-dim);margin:10px 0 0}
+.go{display:block;width:100%;max-width:400px;margin:16px auto 0;min-height:58px;font-size:20px;font-weight:900;border:0;border-radius:16px;background:linear-gradient(135deg,#ffd479,#ff9f6b);color:#1d1200}
+.go[disabled]{opacity:.55;cursor:not-allowed}
+.go:active{transform:scale(.98)}
+.st{min-height:24px;margin:12px auto 0;max-width:420px;font-weight:700;font-size:15px}
+.st.err{color:#ff9aa4}.st.ok{color:var(--accent)}
+.st small{display:block;font-weight:500;color:var(--text-dim);margin-top:4px}
+.spin{display:inline-block;width:16px;height:16px;border:3px solid rgba(255,255,255,.2);border-top-color:var(--accent);border-radius:50%;animation:rot .8s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes rot{to{transform:rotate(360deg)}}
+.last{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;border:1px solid var(--border);background:var(--bg-soft);border-radius:999px;padding:6px 12px;color:var(--text)}
+.last b{letter-spacing:.12em}
+h2{font-size:22px;margin:34px 0 10px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 14px 14px 52px;position:relative;color:var(--text-dim);font-size:14.5px}
+.steps li b{color:var(--text)}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081019;font-weight:900;display:flex;align-items:center;justify-content:center}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.tc{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;transition:transform .15s,border-color .15s}
+.tc:hover{transform:translateY(-2px);border-color:var(--accent)}
+.tc b{font-size:17px}
+.tc span{font-size:13.5px;color:var(--text-dim)}
+.faq details{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin:8px 0}
+.faq summary{cursor:pointer;font-weight:700}
+.faq p{margin:8px 0 0;color:var(--text-dim)}
+footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10px}
+@media (prefers-reduced-motion:reduce){.live i,.pin.bad .cells b{animation:none}}
+</style>
+<script async src="../statistika.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="knav-head">
+<a class="brand" href="../index.html" title="Bosh sahifa"><span class="brand-badge">π</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="../index.html">🏠 Bosh sahifa</a>
+<a href="./" aria-current="page">🔴 Live</a>
+<a href="../viktorina.html">⚡ Viktorina ochish</a>
+<a href="../sinf-oyinlari.html">🎯 Sinf o'yinlari</a>
+<a href="../matematika.html">📐 Matematika</a>
+</nav>
+</header>
+
+<main id="asosiy">
+<section class="join" aria-labelledby="sarlavha">
+<span class="live"><i></i>LIVE</span>
+<h1 id="sarlavha">Kodni <span>kiriting</span></h1>
+<p class="lead">O'qituvchi ekranidagi <b>5 harfli kodni</b> yozing — jonli viktorina, test yoki jamoa o'yiniga darhol qo'shilasiz. Ro'yxatdan o'tish shart emas.</p>
+<form class="box" id="f" action="./" method="get" novalidate>
+<label class="pin" id="pin" for="kod">
+<span class="cells" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></span>
+<input id="kod" name="kod" maxlength="5" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" inputmode="text" enterkeyhint="go" aria-label="5 harfli kod (faqat katta lotin harflari)" aria-describedby="h">
+</label>
+<p class="hint" id="h">Faqat katta lotin harflari, masalan <b>KVNMT</b>. Kichik harf yozsangiz ham o'zi kattalashadi.</p>
+<button type="submit" class="go" id="go" disabled>Kirish ▶</button>
+<div class="st" id="st" role="status" aria-live="polite"></div>
+<div id="lastW"></div>
+</form>
+</section>
+
+<h2>Qanday ishlaydi</h2>
+<ol class="steps">
+<li><b>O'qituvchi</b> viktorina yoki o'yin xonasini ochadi — ekranda <b>5 harfli kod</b> va QR chiqadi.</li>
+<li><b>O'quvchi</b> telefonda <b>kuvonch.uz/live</b> ni ochib kodni yozadi (yoki QR ni skanerlaydi) va ismini kiritadi.</li>
+<li>Savol <b>katta ekranda</b>, javob <b>telefonda</b>. Tez va to'g'ri javob — ko'p ochko, oxirida reyting va sertifikat.</li>
+</ol>
+
+<h2>🙋 Kod yo'qmi? O'zingiz mashq qiling</h2>
+<div class="tgrid">
+<a class="tc" href="../daraja-test.html"><b>🎯 Daraja testi</b><span>1–11-sinf: qaysi sinf darajasidasiz — 100 savolda bilib oling.</span></a>
+<a class="tc" href="../mashqlar.html"><b>📘 Mavzular bo'yicha testlar</b><span>Oson, o'rta, qiyin — har safar yangi sonlar bilan.</span></a>
+<a class="tc" href="../oyinlar.html"><b>🎮 O'yinlar</b><span>Matematik o'yinlar va virtual (kamera) o'yinlar.</span></a>
+</div>
+
+<h2>👩‍🏫 O'qituvchi: live xona oching</h2>
+<div class="tgrid">
+<a class="tc" href="../viktorina.html"><b>⚡ Jonli viktorina</b><span>20 fan, 110+ mavzu. Savollar soni: jami N ta yoki har mavzudan N ta.</span></a>
+<a class="tc" href="../viktorina.html?aralash=1"><b>🔀 Hamma fandan aralash</b><span>Har fandan bitta mavzu — bir bosishda tayyor test.</span></a>
+<a class="tc" href="../jamoa.html"><b>👥 Jamoa o'yini</b><span>2–4 jamoa, xona kodi bilan, jonli reyting.</span></a>
+<a class="tc" href="../chempionat.html"><b>🏆 Chempionat</b><span>Olimpiya yoki liga tizimida turnir.</span></a>
+<a class="tc" href="../sinf-oyinlari.html"><b>🎯 Sinf o'yinlari</b><span>Proyektor uchun guruh o'yinlari.</span></a>
+</div>
+
+<h2>Savollar</h2>
+<div class="faq">
+<details><summary>Kod qayerda bo'ladi?</summary><p>Kod o'qituvchining ekranida (proyektor yoki aqlli doskada) chiqadi. U 5 ta katta lotin harfidan iborat — raqam yo'q, shuning uchun 0 va O, 1 va I adashmaydi.</p></details>
+<details><summary>«Xona topilmadi» chiqsa nima qilaman?</summary><p>Kodni qayta tekshiring va o'qituvchi ekrani ochiq turganiga ishonch hosil qiling. Internetni almashtirib ko'ring (Wi-Fi ↔ mobil internet). O'yin tugagan bo'lsa, xona yopiladi.</p></details>
+<details><summary>Ulanish uzilib qolsa?</summary><p>Sahifani qayta oching — telefon o'sha viktorinaga o'zi qaytadi va sinf bilan birga hozirgi savoldan davom etadi, ochkolaringiz saqlanadi.</p></details>
+<details><summary>Ro'yxatdan o'tish kerakmi?</summary><p>Yo'q. Kodni yozasiz, ismingizni kiritasiz — tamom. Hammasi bepul.</p></details>
+</div>
+</main>
+<footer>© <span id="yil">2026</span> Kuvonch Academy · <a href="../index.html">kuvonch.uz</a></footer>
+</div>
+
+<script src="../ka-tarmoq.js?v=20261116a"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (s) { return document.querySelector(s); };
+  var inp = $("#kod"), cells = document.querySelectorAll(".cells b"), go = $("#go"), st = $("#st"), pin = $("#pin");
+  var LS_LAST = "ka.live.last.v1";
+  // qaysi sahifada ochilgan xona — o'sha sahifaga yo'naltiramiz
+  var PAGES = { viktorina: "⚡ Jonli viktorina", jamoa: "👥 Jamoa o'yini", chempionat: "🏆 Chempionat" };
+  var busy = false;
+  document.getElementById("yil").textContent = new Date().getFullYear();
+
+  // faqat lotin harflari; 0 → O, 1 → I emas: kodlarda raqam ham, I va O ham yo'q — shuning uchun raqamni shunchaki tashlab yuboramiz
+  function clean(v) { return String(v || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 5); }
+  function draw() {
+    var v = inp.value, focus = document.activeElement === inp;
+    for (var i = 0; i < 5; i++) {
+      cells[i].textContent = v[i] || "";
+      cells[i].className = (v[i] ? "on" : "") + (focus && i === Math.min(v.length, 4) ? " cur" : "");
+    }
+    go.disabled = v.length !== 5 || busy;
+  }
+  function say(html, cls) { st.className = "st" + (cls ? " " + cls : ""); st.innerHTML = html; }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function bad(msg) {
+    pin.classList.remove("bad"); void pin.offsetWidth; pin.classList.add("bad");
+    say(msg, "err");
+    try { if (navigator.vibrate) navigator.vibrate(120); } catch (e) {}
+  }
+  function goTo(kind, code) {
+    try { localStorage.setItem(LS_LAST, JSON.stringify({ code: code, kind: kind, ts: Date.now() })); } catch (e) {}
+    location.href = "../" + kind + ".html?kod=" + encodeURIComponent(code);
+  }
+
+  inp.addEventListener("input", function () {
+    var v = clean(inp.value); if (inp.value !== v) inp.value = v;
+    if (st.className.indexOf("err") > -1) say("");
+    draw();
+    if (v.length === 5) { inp.blur(); submit(); } // 5-harf yozilishi bilan o'zi qidiradi
+  });
+  ["focus", "blur", "keyup", "click"].forEach(function (ev) { inp.addEventListener(ev, draw); });
+  $("#f").addEventListener("submit", function (e) { e.preventDefault(); submit(); });
+
+  function submit() {
+    var code = clean(inp.value);
+    if (busy) return;
+    if (code.length !== 5) { bad("Kod 5 ta harfdan iborat bo'lishi kerak"); inp.focus(); return; }
+    var N = window.KANet;
+    if (!N || !N.probe) { goTo("viktorina", code); return; } // modul yuklanmasa — viktorina sahifasi o'zi ulanadi
+    busy = true; draw();
+    say('<span class="spin"></span>Xona qidirilmoqda: <b>' + esc(code) + "</b>…");
+    N.probe(code, 9000).then(function (r) {
+      busy = false; draw();
+      if (r && r.ok) {
+        var kind = PAGES[r.kind] ? r.kind : "viktorina";
+        say("✅ " + PAGES[kind] + " topildi — o'tilmoqda…", "ok");
+        goTo(kind, code);
+        return;
+      }
+      if (r && r.net === false) { // internet yoki serverlar bilan muammo — viktorina sahifasi o'zi qayta-qayta urinadi
+        say('<span class="spin"></span>Tarmoq sekin — viktorina sahifasida ulanib ko\'ramiz…');
+        setTimeout(function () { goTo("viktorina", code); }, 900);
+        return;
+      }
+      bad("❌ <b>" + esc(code) + "</b> kodli xona topilmadi<small>Kodni tekshiring va o'qituvchi ekrani ochiq ekanini so'rang. Internetni almashtirib ham ko'ring.</small>");
+      inp.value = ""; draw(); inp.focus();
+    }, function () { busy = false; draw(); goTo("viktorina", code); });
+  }
+
+  // oxirgi kirilgan kod (3 soat ichida) — uzilib qolgan o'quvchi bir bosishda qaytadi
+  try {
+    var last = JSON.parse(localStorage.getItem(LS_LAST) || "null");
+    if (last && last.code && Date.now() - last.ts < 3 * 3600e3) {
+      var m = Math.max(1, Math.round((Date.now() - last.ts) / 60000));
+      $("#lastW").innerHTML = '<button type="button" class="last" id="lastB">↩ Oxirgi kod: <b>' + esc(last.code) + "</b> · " + (m < 60 ? m + " daqiqa" : Math.round(m / 60) + " soat") + " oldin</button>";
+      $("#lastB").onclick = function () { inp.value = clean(last.code); draw(); submit(); };
+    }
+  } catch (e) {}
+
+  // kuvonch.uz/live/?kod=ABCDE (QR, bosh sahifadagi forma yoki kuvonch.uz/ABCDE havolasi) — o'zi qidiradi
+  var q = /[?&]kod=([A-Za-z0-9]{5})\b/.exec(location.search);
+  if (q && clean(q[1]).length === 5) { inp.value = clean(q[1]); draw(); setTimeout(submit, 60); }
+  else { draw(); if (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) inp.focus(); }
+})();
+</script>
+<script src="../akkount.js"></script>
+</body>
+</html>

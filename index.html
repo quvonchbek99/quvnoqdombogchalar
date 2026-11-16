@@ -84,6 +84,15 @@ a{color:inherit}
 .cta-mat:hover{background:#5ff5d2}
 .cta-til{--c:var(--violet)}.cta-ust{--c:var(--amber)}
 .bg-chip.davom{border-color:var(--teal);color:var(--teal)}
+/* LIVE: o'qituvchi bergan kod bilan viktorina/testga kirish */
+.live-join{display:flex;align-items:center;gap:8px;width:100%;max-width:440px;margin:0 0 18px;padding:6px 6px 6px 14px;border-radius:16px;background:rgba(12,19,48,.85);border:1px solid rgba(255,94,110,.55);box-shadow:0 12px 30px -18px rgba(255,94,110,.8)}
+.live-join label{font:800 13px/1 var(--body);letter-spacing:.14em;color:#fff}
+.live-join .lj-dot{width:10px;height:10px;border-radius:50%;background:#ff5e6e;flex:0 0 auto;animation:ljp 1.6s infinite}
+@keyframes ljp{0%{box-shadow:0 0 0 0 rgba(255,94,110,.7)}70%{box-shadow:0 0 0 10px rgba(255,94,110,0)}100%{box-shadow:0 0 0 0 rgba(255,94,110,0)}}
+.live-join input{flex:1 1 0;width:0;min-width:0;min-height:44px;border:0;outline:0;background:transparent;color:var(--chalk);font:800 20px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.3em;text-transform:uppercase}
+.live-join input::placeholder{font:600 13px/1 var(--body);letter-spacing:.08em;color:var(--haze)}
+.live-join button{min-height:44px;padding:0 16px;border:0;border-radius:12px;background:linear-gradient(135deg,#ffd479,#ff9f6b);color:#1d1200;font:800 15px/1 var(--body);cursor:pointer}
+@media (prefers-reduced-motion:reduce){.live-join .lj-dot{animation:none}}
 [hidden]{display:none!important}
 .bg-chip.davom b{font-weight:600;max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* ---------- Kimga: 3 yo'nalish ---------- */
@@ -208,6 +217,7 @@ details.apk-help div{padding:8px 2px 0}
 <header class="knav-head top">
 <a class="brand" href="index.html" aria-current="page"><span class="brand-badge">π</span>Kuvonch Academy</a>
 <nav class="knav" aria-label="Bo'limlar">
+<a href="live/" class="new">🔴 Live</a>
 <a href="matematika.html">📐 Matematika</a>
 <a href="ochiq-dars/" class="new">🎓 Ochiq dars</a>
 <a href="english/">🇬🇧 Ingliz tili</a>
@@ -239,6 +249,11 @@ details.apk-help div{padding:8px 2px 0}
 <a class="cta cta-til" href="english/">🗣 Til o'rganishni boshlash</a>
 <a class="cta cta-ust" href="ustoz.html">🧑‍🏫 O'qituvchi vositalari</a>
 </div>
+<form class="live-join" action="live/" method="get" role="search" aria-label="Live: kod bilan kirish">
+<span class="lj-dot" aria-hidden="true"></span><label for="ljKod">LIVE</label>
+<input id="ljKod" name="kod" maxlength="5" placeholder="KODNI YOZING" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" enterkeyhint="go" pattern="[A-Za-z]{5}" title="5 ta lotin harfi, masalan KVNMT">
+<button type="submit">Kirish ▶</button>
+</form>
 <div class="hero-act">
 <a class="bg-chip davom" id="davom-chip" href="#" hidden>▶ Davom ettirish: <b></b></a>
 <a class="bg-chip" id="bugun-chip" href="#bugun">📅 Bugun</a>
