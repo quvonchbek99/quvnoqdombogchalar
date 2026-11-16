@@ -139,6 +139,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
 
   <!-- ===================== O'QITUVCHI: SOZLASH ===================== -->
   <section id="vSetup">
+    <div class="card" id="resumeBox" hidden style="border-color:var(--gold)"></div>
     <div class="card">
       <h2><b>1</b> Kartalarni chop eting</h2>
       <p class="sub" style="margin:0">40 ta karta, har biri alohida A4 varaqda, oq-qora. Karta raqami — o'quvchining guruh jurnalidagi tartib raqami. Ortgan kartalar zaxira bo'ladi.</p>
@@ -287,7 +288,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   $("#modal").addEventListener("click", function (e) { if (e.target.id === "modal") closeModal(); });
 
   /* ---------------- sozlamalar ---------------- */
-  var cfg = { rkey: "", tab: "dav", qmode: "man", topic: "t51", count: 10, ball: 1, sec: 3 };
+  var cfg = { rkey: "", tab: "dav", qmode: "man", topic: "t51", count: 10, ball: 1, sec: 3, hq: false };
   (function () { var s = lsGet(LS_C, null); if (s) for (var k in s) if (k in cfg) cfg[k] = s[k]; })();
   function saveCfg() { lsSet(LS_C, cfg); }
 
@@ -503,29 +504,34 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     step(0);
   }
   /* natijani o'quvchi akkountiga yozish; bo'lmasa — navbatga (keyin qayta yuboriladi) */
+  // Avval hammasi navbatga yoziladi, yuborilgani navbatdan o'chiriladi — yarim yo'lda tok o'chsa ham hech narsa yo'qolmaydi
+  function qDel(id) { lsSet(LS_Q, lsGet(LS_Q, []).filter(function (x) { return x.id !== id; })); }
   function creditAll(rkey, r, items, onDone) {
-    var res = { ok: 0, q: 0, parol: 0 }, per = {}, Q = lsGet(LS_Q, []);
-    if (!window.kaCloud || !kaCloud.ballOquvchi) { items.forEach(function (it) { Q.push({ rkey: rkey, i: it.i, r: it.r, at: Date.now() }); per[it.i] = "q"; }); lsSet(LS_Q, Q); res.q = items.length; onDone(res, per); return; }
+    var res = { ok: 0, q: 0, parol: 0 }, per = {}, Q = lsGet(LS_Q, []), have = {};
+    Q.forEach(function (x) { if (x.id) have[x.id] = 1; });
+    items.forEach(function (it) { if (!it.id) it.id = rkey + "|" + it.i + "|" + Date.now(); if (!have[it.id]) Q.push({ id: it.id, rkey: rkey, i: it.i, r: it.r, at: Date.now() }); });
+    lsSet(LS_Q, Q);
+    if (!window.kaCloud || !kaCloud.ballOquvchi) { items.forEach(function (it) { per[it.i] = "q"; }); res.q = items.length; onDone(res, per); return; }
     var step = function (k) {
-      if (k >= items.length) { lsSet(LS_Q, Q); onDone(res, per); return; }
+      if (k >= items.length) { onDone(res, per); return; }
       var it = items[k], a = accOf(rkey, r, it.i), m = $("#eCloud");
       if (m && E) { m.className = "msg"; m.textContent = "☁️ Natijalar akkountlarga yozilmoqda: " + (k + 1) + " / " + items.length; }
       var p = a.st === "ok" ? Promise.resolve() : kaCloud.ochOquvchi(a).then(function (res) { accSet(rkey, it.i, a, "ok", res && res.yangiParol); a.st = "ok"; }, function (e) { if (e && e.code === "boshqa-parol") { accSet(rkey, it.i, a, "parol"); a.st = "parol"; } });
       p.then(function () {
-        if (a.st === "parol") { res.parol++; per[it.i] = "parol"; return; }
-        return kaCloud.ballOquvchi(a, it.r).then(function (x) { if (x && x.yangiParol) accSet(rkey, it.i, a, "ok", x.yangiParol); res.ok++; per[it.i] = "ok"; }, function (e) {
-          if (e && e.code === "boshqa-parol") { accSet(rkey, it.i, a, "parol"); res.parol++; per[it.i] = "parol"; return; }
-          Q.push({ rkey: rkey, i: it.i, r: it.r, at: Date.now() }); res.q++; per[it.i] = "q";
+        if (a.st === "parol") { qDel(it.id); res.parol++; per[it.i] = "parol"; return; }
+        return kaCloud.ballOquvchi(a, it.r).then(function (x) { qDel(it.id); if (x && x.yangiParol) accSet(rkey, it.i, a, "ok", x.yangiParol); res.ok++; per[it.i] = "ok"; }, function (e) {
+          if (e && e.code === "boshqa-parol") { qDel(it.id); accSet(rkey, it.i, a, "parol"); res.parol++; per[it.i] = "parol"; return; }
+          res.q++; per[it.i] = "q"; // navbatda qoladi
         });
       }).then(function () { return sleep(250); }).then(function () { step(k + 1); });
     };
     step(0);
   }
   function flushQueue(loud) {
+    var all0 = lsGet(LS_Q, []); all0.forEach(function (x) { if (!x.id) x.id = x.rkey + "|" + x.i + "|" + x.at; }); lsSet(LS_Q, all0);
     var all = lsGet(LS_Q, []), mine = all.filter(function (x) { return x.rkey === cfg.rkey; }), r = curRoster();
     if (!mine.length || !r) return;
-    lsSet(LS_Q, all.filter(function (x) { return x.rkey !== cfg.rkey; }));
-    creditAll(cfg.rkey, r, mine.map(function (x) { return { i: x.i, r: x.r }; }), function (res) {
+    creditAll(cfg.rkey, r, mine.map(function (x) { return { id: x.id || (x.id = cfg.rkey + "|" + x.i + "|" + x.at), i: x.i, r: x.r }; }), function (res) {
       renderAcc(); var m = $("#aMsg");
       if (m && loud) { m.className = res.q ? "msg err" : "msg ok"; m.textContent = "☁️ Yuborildi: " + res.ok + (res.q ? " · yana navbatda: " + res.q : "") + (res.parol ? " · o'z paroli bor: " + res.parol : ""); }
     });
@@ -681,9 +687,41 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       a: E.cur.ans, bc: E.cur.bc, unk: E.cur.unk, corr: E.man ? E.cur.corr : (E.ph === "rev" ? corrNow() : null), qt: q ? plain(q.q).slice(0, 300) : "",
       left: E.autoEnd ? Math.max(0, E.autoEnd - Date.now()) : -1, sec: E.sec };
   }
+  // Har o'zgarishda sessiya qurilmaga yoziladi: tok o'chsa yoki sahifa yopilsa — keyin davom ettiriladi
+  var LS_S = "ka.kartalar.sessiya.v1";
+  function saveSess() {
+    if (!E) return;
+    try { localStorage.setItem(LS_S, JSON.stringify({ v: 1, at: Date.now(), where: E.where, rkey: E.rkey, rname: E.rname, roster: E.roster, n: E.n, man: E.man, qs: E.qs, qi: E.qi, ph: E.ph,
+      cur: E.cur, hist: E.hist, ball: E.ball, ignore: E.ignore, prompted: E.prompted, sec: E.sec, topic: E.topic, t0: E.t0, code: E.api ? E.api.code : (E.code || "") })); } catch (e) {}
+  }
+  function clearSess() { try { localStorage.removeItem(LS_S); } catch (e) {} }
+  function renderResume() {
+    var box = $("#resumeBox"), S = lsGet(LS_S, null);
+    if (!S || !S.roster || Date.now() - S.at > 24 * 3600e3) { box.hidden = true; return; }
+    var nA = Object.keys((S.cur && S.cur.ans) || {}).length, mins = Math.max(1, Math.round((Date.now() - S.at) / 60000));
+    box.hidden = false;
+    box.innerHTML = '<h2>⚠️ Tugallanmagan test bor</h2><p class="sub" style="margin:0">' + esc(S.rname) + " · " + (S.man ? "" : esc(S.topic || "") + " · ") + (S.qi + 1) + "-savol" + (S.qs && S.qs.length ? " / " + S.qs.length : "") +
+      " · yakunlangan savollar: " + (S.hist || []).length + " · joriy savolda " + nA + " ta javob · " + (mins < 60 ? mins + " daqiqa" : Math.round(mins / 60) + " soat") + " oldin" +
+      (S.where === "proj" ? " · proyektor rejimi (kod <b>" + esc(S.code || "") + "</b> — telefon o'zi qayta ulanadi)" : "") + '</p><div class="row" style="margin-top:10px"><button type="button" class="btn primary big" id="rsGo">▶ Davom ettirish</button><button type="button" class="btn" id="rsEnd">🏁 Shu joyida yakunlash</button><button type="button" class="btn small" id="rsDel">O\'chirish</button></div>';
+    $("#rsGo").onclick = function () { resumeSess(S, false); };
+    $("#rsEnd").onclick = function () { resumeSess(S, true); };
+    $("#rsDel").onclick = function () { if (confirm("Tugallanmagan test o'chirilsinmi? Javoblar yo'qoladi.")) { clearSess(); renderResume(); } };
+  }
+  function resumeSess(S, finish) {
+    E = { where: S.where, rkey: S.rkey, rname: S.rname, roster: S.roster, n: S.n, z: zdata(S.rkey), man: S.man, qs: S.qs || [], qi: S.qi | 0, ph: S.ph === "rev" ? "rev" : "q",
+      cur: S.cur || newCur(), hist: S.hist || [], ball: S.ball || 1, ignore: S.ignore || {}, prompted: S.prompted || {}, scan: {}, api: null, t0: S.t0 || Date.now(), topic: S.topic || "",
+      sec: S.sec | 0, autoEnd: 0, autoT: 0, code: S.code || "" };
+    $("#resumeBox").hidden = true;
+    if (finish || (!E.man && E.qi >= E.qs.length)) { if (Object.keys(E.cur.ans).length) finishQ(); return endSession(); }
+    show("vSess"); keepAwake(true);
+    if (E.where === "proj") hostRoom(); else camUI();
+    changed();
+    toast("▶ Test davom etmoqda — javoblar saqlangan");
+  }
   var sendT = 0;
   function changed() {
     if (!E) return;
+    saveSess();
     if (SC.qi !== E.qi) { SC.qi = E.qi; scReset(); }
     render(viewOf(), E.where === "proj" ? "proj" : "solo");
     if (E.where === "solo" && $("#modal").hidden) for (var c in E.cur.unk) if (!E.prompted[c]) { E.prompted[c] = 1; askCard(+c, viewOf(), engCmd); break; }
@@ -713,6 +751,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     if (!N || !N.host) { box.innerHTML = '<p class="msg err">Tarmoq moduli yuklanmadi — sahifani yangilang.</p>'; return; }
     box.innerHTML = "<p>⏳ Xona ochilmoqda…</p>";
     N.host({
+      code: E.code || "", // tok o'chib qayta ochilganda — o'sha kod (telefon o'zi qayta ulanadi)
       onConn: function () { return E && Object.keys(E.scan).length < 4 ? true : "Skanerlar soni to'lgan"; },
       onJoin: function (id) { if (!E) return; E.scan[id] = 1; drawJoin(); try { E.api.send(id, viewOf(), true); } catch (e) {} toast("📱 Telefon skaner ulandi"); },
       onRejoin: function (id) { if (!E || !E.api) return; E.scan[id] = 1; drawJoin(); try { E.api.send(id, viewOf(), true); } catch (e) {} },
@@ -724,7 +763,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       },
       onLeave: function (id) { if (E) { delete E.scan[id]; drawJoin(); } },
       onError: function (e) { box.innerHTML = '<p class="msg err">Xona ochilmadi: ' + esc((e && e.message) || e) + '</p><button type="button" class="btn" id="reHost">Qayta urinish</button>'; $("#reHost").onclick = hostRoom; }
-    }).then(function (api) { if (!E) { try { api.close(); } catch (e) {} return; } E.api = api; drawJoin(); changed(); })
+    }).then(function (api) { if (!E) { try { api.close(); } catch (e) {} return; } E.api = api; E.code = api.code; drawJoin(); changed(); })
       .catch(function (e) { box.innerHTML = '<p class="msg err">Xona ochilmadi: ' + esc((e && e.message) || "internetni tekshiring") + '</p><button type="button" class="btn" id="reHost">Qayta urinish</button>'; $("#reHost").onclick = hostRoom; });
   }
   function drawJoin() {
@@ -908,7 +947,8 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       var AR = window.AR;
       if (!AR.DICTIONARIES.KA_KARTA) AR.DICTIONARIES.KA_KARTA = { nBits: 16, tau: 2, codeList: AR.DICTIONARIES.ARUCO_4X4_1000.codeList.slice(0, MAXK + 1) }; // 1 bitgacha xatoni tuzatadi
       SC.det = new AR.Detector({ dictionaryName: "KA_KARTA" });
-      return navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: "environment" }, width: { ideal: 1920 }, height: { ideal: 1080 } } });
+      if (SC.stream) { SC.stream.getTracks().forEach(function (t) { t.stop(); }); SC.stream = null; }
+      return navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: "environment" }, width: { ideal: cfg.hq ? 3840 : 1920 }, height: { ideal: cfg.hq ? 2160 : 1080 } } });
     }).then(function (st) {
       SC.stream = st; var v = $("#camV"); v.srcObject = st; v.muted = true;
       return v.play();
@@ -924,9 +964,14 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   function zoomUI() {
     var caps = {}, box = $("#camZ"); box.innerHTML = "";
     try { caps = SC.track.getCapabilities ? SC.track.getCapabilities() : {}; } catch (e) {}
+    var st = SC.track.getSettings ? SC.track.getSettings() : {}, hqb = document.createElement("button");
+    hqb.type = "button"; hqb.textContent = cfg.hq ? "4K" : "HD"; hqb.title = "4K — uzoqroqdagi kartalarni ko'radi (kuchli telefonlar uchun)"; if (cfg.hq) hqb.className = "on";
+    hqb.onclick = function () { cfg.hq = !cfg.hq; saveCfg(); SC.on = false; setTimeout(camStart, 120); };
+    box.appendChild(hqb);
+    $("#camSt").title = (st.width || "?") + "×" + (st.height || "?");
     var zc = caps.zoom; if (!zc || !(zc.max > 1)) return;
     var vals = [1, 2, 3].filter(function (x) { return x >= (zc.min || 1) && x <= zc.max; });
-    box.innerHTML = vals.map(function (x) { return '<button type="button" data-z="' + x + '"' + (x === SC.z ? ' class="on"' : "") + ">" + x + "x</button>"; }).join("");
+    box.insertAdjacentHTML("beforeend", vals.map(function (x) { return '<button type="button" data-z="' + x + '"' + (x === SC.z ? ' class="on"' : "") + ">" + x + "x</button>"; }).join(""));
     $$("[data-z]", box).forEach(function (b) {
       b.onclick = function () {
         var z = +b.getAttribute("data-z");
@@ -946,7 +991,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     if (!SC.on) return;
     var v = $("#camV"), ms = [];
     if (v.readyState >= 2 && v.videoWidth) {
-      var w = v.videoWidth, h = v.videoHeight, k = Math.min(1, 1920 / Math.max(w, h)), cw = Math.round(w * k), ch = Math.round(h * k);
+      var w = v.videoWidth, h = v.videoHeight, k = Math.min(1, (cfg.hq ? 3840 : 1920) / Math.max(w, h)), cw = Math.round(w * k), ch = Math.round(h * k);
       var c = SC.work || (SC.work = document.createElement("canvas"));
       if (c.width !== cw || c.height !== ch) { c.width = cw; c.height = ch; }
       var x = c.getContext("2d", { willReadFrequently: true });
@@ -967,7 +1012,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       m.L = L; m.ok = s.n >= 2;
       if (m.ok && SC.acc[id] !== L) { SC.acc[id] = L; vib(15); if (SC.cb) SC.cb(id, L); }
     });
-    $("#camSt").textContent = "🎯 " + Object.keys(SC.acc).length + " ta karta · " + Math.round(SC.dt) + " ms";
+    $("#camSt").textContent = "🎯 " + Object.keys(SC.acc).length + " ta karta · " + Math.round(SC.dt) + " ms" + (SC.work ? " · " + SC.work.width + "×" + SC.work.height : "");
   }
   function drawOv(ms, cw, ch) {
     var v = $("#camV"), o = $("#camO"), W = v.clientWidth, H = v.clientHeight;
@@ -995,6 +1040,33 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && (E || CL)) keepAwake(true); });
 
   /* ===================== YAKUN VA EXCEL ===================== */
+  // Rasch modeli: savollar qiyinligi (b) va o'quvchilar qobiliyati (θ) birga baholanadi (JMLE); Rasch'da to'g'ri javoblar soni yetarli statistika.
+  // Baho: eng yuqori natija(lar) — 5, o'rtagacha (mediana) — 4, qolganlari — 3. Hech javob bermaganlarga baho qo'yilmaydi.
+  function raschGrade(rows) {
+    var Qs = E.hist.filter(function (h) { return h.corr; }), L = Qs.length;
+    var P = rows.filter(function (r) { return r.ans > 0; });
+    rows.forEach(function (r) { r.th = null; r.rb = ""; r.baho = ""; });
+    if (!L || !P.length) return;
+    var X = P.map(function (r) { return Qs.map(function (h) { return h.ans[r.i] === h.corr ? 1 : 0; }); });
+    var sig = function (z) { return 1 / (1 + Math.exp(-z)); }, cl = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+    var rs = X.map(function (x) { return cl(x.reduce(function (a, b) { return a + b; }, 0), 0.3, L - 0.3); });
+    var ss = Qs.map(function (h, j) { return cl(X.reduce(function (a, x) { return a + x[j]; }, 0), 0.3, P.length - 0.3); });
+    var th = rs.map(function (r) { return Math.log(r / (L - r)); }), b = ss.map(function (v) { return -Math.log(v / (P.length - v)); });
+    for (var it = 0; it < 40; it++) {
+      th = th.map(function (t, i) { var e = 0, v = 0; b.forEach(function (bj) { var p = sig(t - bj); e += p; v += p * (1 - p); }); return cl(t + cl((rs[i] - e) / Math.max(v, 1e-6), -1, 1), -6, 6); });
+      if (P.length > 1) {
+        b = b.map(function (bj, j) { var e = 0, v = 0; th.forEach(function (t) { var p = sig(t - bj); e += p; v += p * (1 - p); }); return cl(bj - cl((ss[j] - e) / Math.max(v, 1e-6), -1, 1), -6, 6); });
+        var mb = b.reduce(function (a, c) { return a + c; }, 0) / L; b = b.map(function (bj) { return bj - mb; });
+      }
+    }
+    var sorted = th.slice().sort(function (a, c) { return a - c; }), mx = sorted[sorted.length - 1], mn = sorted[0];
+    var med = sorted.length % 2 ? sorted[(sorted.length - 1) / 2] : (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2;
+    P.forEach(function (r, i) {
+      r.th = th[i];
+      r.rb = mx - mn > 1e-9 ? Math.round(100 * (th[i] - mn) / (mx - mn)) : 100;
+      r.baho = th[i] >= mx - 1e-6 && r.ok > 0 ? 5 : th[i] >= med - 1e-6 ? 4 : 3;
+    });
+  }
   function endSession() {
     if (!E) return;
     camStop(); keepAwake(false);
@@ -1004,7 +1076,9 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       E.hist.forEach(function (h) { if (h.ans[i]) { ans++; if (h.corr && h.ans[i] === h.corr) ok++; } });
       rows.push({ i: i, name: E.roster[i], card: zSpareOfStudent(E.z, i) || i + 1, ok: ok, ans: ans, ball: ok * E.ball, jami: J[E.roster[i]] || 0 });
     }
+    raschGrade(rows);
     E.rows = rows;
+    clearSess();
     var R0 = rosters()[E.rkey] || { name: E.rname, list: E.roster }, items = [], topic = (E.topic ? E.topic : "Kuvonch kartalar") + " · " + E.rname;
     rows.forEach(function (r) { if (r.ans) items.push({ i: r.i, r: { coins: r.ball, correct: r.ok, answered: r.ans, total: total, topic: topic } }); });
     var cl = $("#eCloud"); cl.className = "msg"; cl.textContent = "";
@@ -1019,17 +1093,18 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     } else if (items.length) cl.textContent = "Guruh nomida raqam yo'q — natija akkountlarga yozilmadi (faqat shu qurilmada).";
 
     $("#eSum").innerHTML = esc(E.rname) + " · " + total + " ta savol" + (E.topic ? " · " + esc(E.topic) : "") + " · har to'g'ri javob " + E.ball + " ball. «Jami» — shu qurilmada shu guruh bo'yicha barcha testlardagi ball.";
-    $("#eTab").innerHTML = "<tr><th>№</th><th>O'quvchi</th><th>Karta</th><th>To'g'ri</th><th>Ball</th><th>Jami</th><th>☁️</th></tr>" + rows.map(function (r) {
-      return "<tr><td>" + (r.i + 1) + "</td><td>" + esc(r.name) + "</td><td>" + r.card + '</td><td class="n">' + r.ok + " / " + total + '</td><td class="n"><b>' + r.ball + '</b></td><td class="n">' + r.jami + '</td><td data-cl="' + r.i + '">' + (r.ans ? "…" : "") + "</td></tr>";
+    $("#eTab").innerHTML = "<tr><th>№</th><th>O'quvchi</th><th>Karta</th><th>To'g'ri</th><th>Reyting</th><th>Baho</th><th>Ball</th><th>Jami</th><th>☁️</th></tr>" + rows.map(function (r) {
+      return "<tr><td>" + (r.i + 1) + "</td><td>" + esc(r.name) + "</td><td>" + r.card + '</td><td class="n">' + r.ok + " / " + total + '</td><td class="n">' + (r.rb === "" ? "—" : r.rb) + '</td><td class="n"><b style="font-size:18px">' + (r.baho || "—") + '</b></td><td class="n">' + r.ball + '</td><td class="n">' + r.jami + '</td><td data-cl="' + r.i + '">' + (r.ans ? "…" : "") + "</td></tr>";
     }).join("");
+    $("#eSum").innerHTML += "<br>Baho Rasch modeli bo'yicha: to'g'ri javoblar soni savollarning qiyinligi hisobga olingan qobiliyat shkalasiga o'tkaziladi, keyin eng yuqori natija — <b>5</b>, o'rtagacha — <b>4</b>, qolganlari — <b>3</b>. «Reyting» — guruh ichidagi 0–100 nisbiy o'rin. Hech javob bermaganlarga baho qo'yilmaydi.";
     if (E.api) { try { E.api.broadcast({ type: "st", ph: "end", qi: E.qi, qn: 0, man: true, n: 0, names: [], z: {}, a: {}, bc: {}, unk: {}, corr: null, qt: "Test tugadi" }); } catch (e) {} setTimeout(function () { try { E.api.close(); } catch (e) {} }, 800); }
     show("vEnd");
   }
-  $("#eNew").onclick = function () { E = null; show("vSetup"); $("#sJoin").hidden = true; $("#sCode").hidden = true; $("#sCam").hidden = true; renderRoster(); renderZax(); renderAcc(); };
+  $("#eNew").onclick = function () { E = null; clearSess(); renderResume(); show("vSetup"); $("#sJoin").hidden = true; $("#sCode").hidden = true; $("#sCam").hidden = true; renderRoster(); renderZax(); renderAcc(); };
   $("#eXls").onclick = function () {
     if (!E || !E.rows) return;
-    var head = ["№", "O'quvchi", "Karta", "To'g'ri", "Savollar", "Ball", "Jami ball"];
-    var a1 = [head].concat(E.rows.map(function (r) { return [r.i + 1, r.name, r.card, r.ok, E.hist.length, r.ball, r.jami]; }));
+    var head = ["№", "O'quvchi", "Karta", "To'g'ri", "Savollar", "Reyting (0–100)", "Baho", "Ball", "Jami ball"];
+    var a1 = [head].concat(E.rows.map(function (r) { return [r.i + 1, r.name, r.card, r.ok, E.hist.length, r.rb, r.baho, r.ball, r.jami]; }));
     var a2 = [["№", "O'quvchi"].concat(E.hist.map(function (h, k) { return (k + 1) + "-savol (" + (h.corr || "so'rov") + ")"; }))].concat(
       E.rows.map(function (r) { return [r.i + 1, r.name].concat(E.hist.map(function (h) { return h.ans[r.i] || ""; })); }));
     xlsOut("kartalar_" + E.rname, [["Natija", a1], ["Javoblar", a2]]);
@@ -1050,7 +1125,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   /* ===================== ISHGA TUSHIRISH ===================== */
   var kod = /[?&]kod=([A-Za-z]{5})\b/.exec(location.search);
   if (kod) clientStart(kod[1].toUpperCase());
-  else { renderTabs(); dvRender(); renderRoster(); renderZax(); renderQ(); renderAcc(); teacherCheck(); }
+  else { renderTabs(); dvRender(); renderRoster(); renderZax(); renderQ(); renderAcc(); teacherCheck(); renderResume(); }
 })();
 </script>
 <script src="akkount.js"></script>
