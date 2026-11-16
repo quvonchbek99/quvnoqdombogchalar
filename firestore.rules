@@ -1,4 +1,6 @@
 rules_version = '2';
+// DIQQAT: Firebase konsolidagi qoidalarda texnikum1son saytining «t1_navbat» bloki ham bor (2026-11-17 holatiga),
+// u bu faylda yo'q. Bu faylni konsolga to'liq qo'yishdan oldin o'sha blokni qo'shing — aks holda Kuvi agent navbati buziladi.
 service cloud.firestore {
   match /databases/{database}/documents {
 
