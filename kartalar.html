@@ -191,7 +191,9 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       </div>
       <div class="row" style="margin-top:10px">
         <label>Har to'g'ri javob uchun ball<select id="qBall"><option value="1">1 ball</option><option value="2">2 ball</option><option value="3">3 ball</option><option value="5">5 ball</option></select></label>
+        <label>Skanerlash vaqti<select id="qTime"><option value="3">3 soniya — keyin natija o'zi chiqadi</option><option value="5">5 soniya</option><option value="10">10 soniya</option><option value="0">Qo'lda («Javobni ochish» tugmasi)</option></select></label>
       </div>
+      <p class="sub" style="margin:6px 0 0">Vaqt birinchi karta ko'ringan paytdan boshlanadi. Har bir karta kamerada ~0,3 soniyada tanib olinadi, shuning uchun telefonni sinf bo'ylab 3 soniyada sekin o'tkazish yetadi.</p>
     </div>
 
     <div class="card">
@@ -206,7 +208,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
 
   <!-- ===================== SESSIYA (o'qituvchi, proyektor yoki skaner) ===================== -->
   <section id="vSess" hidden>
-    <div class="sbar"><span class="pill" id="sQn">Savol 1</span><span class="pill" id="sCnt">0 / 0 javob</span><span class="pill code" id="sCode" hidden></span><span class="pill" id="sNet" hidden></span></div>
+    <div class="sbar"><span class="pill" id="sQn">Savol 1</span><span class="pill" id="sCnt">0 / 0 javob</span><span class="pill" id="sTime" hidden></span><span class="pill code" id="sCode" hidden></span><span class="pill" id="sNet" hidden></span></div>
     <div class="card" id="sJoin" hidden></div>
     <div class="card qcard" id="sQ"></div>
     <div class="card" id="sCor" hidden></div>
@@ -285,7 +287,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   $("#modal").addEventListener("click", function (e) { if (e.target.id === "modal") closeModal(); });
 
   /* ---------------- sozlamalar ---------------- */
-  var cfg = { rkey: "", tab: "dav", qmode: "man", topic: "t51", count: 10, ball: 1 };
+  var cfg = { rkey: "", tab: "dav", qmode: "man", topic: "t51", count: 10, ball: 1, sec: 3 };
   (function () { var s = lsGet(LS_C, null); if (s) for (var k in s) if (k in cfg) cfg[k] = s[k]; })();
   function saveCfg() { lsSet(LS_C, cfg); }
 
@@ -564,7 +566,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   function renderQ() {
     $$("#qMode .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === cfg.qmode); });
     $("#qMav").hidden = cfg.qmode !== "mav";
-    $("#qCount").value = String(cfg.count); $("#qBall").value = String(cfg.ball);
+    $("#qCount").value = String(cfg.count); $("#qBall").value = String(cfg.ball); $("#qTime").value = String(cfg.sec);
   }
   (function () {
     var html = "", g = -1;
@@ -579,6 +581,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   $("#qTopic").onchange = function () { cfg.topic = this.value; saveCfg(); };
   $("#qCount").onchange = function () { cfg.count = +this.value || 10; saveCfg(); };
   $("#qBall").onchange = function () { cfg.ball = +this.value || 1; saveCfg(); };
+  $("#qTime").onchange = function () { cfg.sec = +this.value || 0; saveCfg(); };
 
   function buildQs() {
     return loadSeq(GEN_FILES, true).then(function () {
@@ -611,8 +614,17 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   }
   function curQ() { return E.man ? null : E.qs[E.qi]; }
   function corrNow() { return E.man ? E.cur.corr : (curQ() ? L4[curQ().ci] : null); }
-  function engScan(card, L) {
-    if (!E || E.ph !== "q" || E.ignore[card] || L4.indexOf(L) < 0 || !(card >= 1 && card <= MAXK)) return;
+  // Avtomatik natija: birinchi karta ko'ringandan keyin E.sec soniyada javob ochiladi
+  function autoStart() {
+    if (!E || !E.sec || E.ph !== "q" || E.autoEnd) return;
+    E.autoEnd = Date.now() + E.sec * 1000;
+    E.autoT = setTimeout(function () { if (E && E.ph === "q" && E.autoEnd) { autoStop(); engCmd({ c: "rev" }); } }, E.sec * 1000);
+  }
+  function autoStop() { if (E) { clearTimeout(E.autoT); E.autoT = 0; E.autoEnd = 0; } }
+  // force: savol paytida ko'rilgan, keyin egasi biriktirilgan karta (natija ochilgan bo'lsa ham hisoblanadi)
+  function engScan(card, L, force) {
+    if (!E || (E.ph !== "q" && !force) || E.ignore[card] || L4.indexOf(L) < 0 || !(card >= 1 && card <= MAXK)) return;
+    if (!force) autoStart();
     var s = studentOf(card);
     if (s < 0) { if (E.cur.unk[card] !== L) { E.cur.unk[card] = L; changed(); } return; }
     if (E.cur.ans[s] === L && E.cur.bc[s] === card) return;
@@ -636,6 +648,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   function engCmd(m) {
     if (!E || !m) return;
     var c = m.c;
+    if (c !== "cor" && c !== "zax" && c !== "unzax" && c !== "ign" && c !== "clr") autoStop();
     if (c === "rev" && E.ph === "q") E.ph = "rev";
     else if (c === "back" && E.ph === "rev") E.ph = "q";
     else if (c === "cor" && E.man) E.cur.corr = L4.indexOf(m.v) > -1 ? m.v : null;
@@ -651,14 +664,15 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       // shu savolda ko'rilgan javoblar yangi egasiga o'tadi
       var unk = E.cur.unk; E.cur.unk = {};
       for (var s in E.cur.bc) { if (studentOf(E.cur.bc[s]) !== +s) { unk[E.cur.bc[s]] = E.cur.ans[s]; delete E.cur.ans[s]; delete E.cur.bc[s]; } }
-      for (var k in unk) engScan(+k, unk[k]);
+      for (var k in unk) engScan(+k, unk[k], true);
     }
     changed();
   }
   function viewOf() {
     var q = curQ();
     return { type: "st", ph: E.ph, qi: E.qi, qn: E.man ? 0 : E.qs.length, man: E.man, n: E.n, names: E.roster.slice(0, E.n).map(shortName), z: E.z,
-      a: E.cur.ans, bc: E.cur.bc, unk: E.cur.unk, corr: E.man ? E.cur.corr : (E.ph === "rev" ? corrNow() : null), qt: q ? plain(q.q).slice(0, 300) : "" };
+      a: E.cur.ans, bc: E.cur.bc, unk: E.cur.unk, corr: E.man ? E.cur.corr : (E.ph === "rev" ? corrNow() : null), qt: q ? plain(q.q).slice(0, 300) : "",
+      left: E.autoEnd ? Math.max(0, E.autoEnd - Date.now()) : -1, sec: E.sec };
   }
   var sendT = 0;
   function changed() {
@@ -672,7 +686,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     var r = curRoster(), m = $("#goMsg");
     if (!r) { m.className = "msg err"; m.textContent = "Avval 2-bo'limda guruhni ulang"; return; }
     var base = { where: where, rkey: cfg.rkey, rname: r.name, roster: r.list.slice(0, MAXK), n: Math.min(r.list.length, MAXK), z: zdata(cfg.rkey),
-      man: cfg.qmode !== "mav", qs: [], qi: 0, ph: "q", cur: newCur(), hist: [], ball: cfg.ball, ignore: {}, prompted: {}, scan: {}, api: null, t0: Date.now(), topic: "" };
+      man: cfg.qmode !== "mav", qs: [], qi: 0, ph: "q", cur: newCur(), hist: [], ball: cfg.ball, sec: cfg.sec | 0, autoEnd: 0, autoT: 0, ignore: {}, prompted: {}, scan: {}, api: null, t0: Date.now(), topic: "" };
     var go = function () {
       E = base; show("vSess"); keepAwake(true);
       if (where === "proj") hostRoom(); else camUI();
@@ -770,6 +784,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     $("#vSess").classList.toggle("proj", proj);
     $("#sQn").textContent = "Savol " + (v.qi + 1) + (v.qn ? " / " + v.qn : "");
     $("#sCnt").textContent = nAns + " / " + v.n + " javob";
+    timerShow(v);
     // savol
     var qh = "";
     if (role !== "client" && E && !E.man) {
@@ -815,7 +830,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     }
     // tugmalar
     var last = v.qn && v.qi + 1 >= v.qn;
-    $("#sCtl").innerHTML = (rev ? '<button type="button" class="btn" data-c="back">↩ Skanerlashga qaytish</button><button type="button" class="btn primary big" data-c="next">' + (last ? "🏁 Yakunlash" : "Keyingi savol ▶") + "</button>"
+    $("#sCtl").innerHTML = (rev ? '<button type="button" class="btn" data-c="back">↩ Yana skanerlash</button><button type="button" class="btn primary big" data-c="next">' + (last ? "🏁 Yakunlash" : "Keyingi savol ▶") + "</button>"
       : '<button type="button" class="btn primary big" data-c="rev">👁 Javobni ochish</button>') +
       '<button type="button" class="btn" data-c="end">🏁 Testni tugatish</button>';
     $$("#sCtl [data-c]").forEach(function (b) { b.onclick = function () { var c = b.getAttribute("data-c"); if (c === "end" && !confirm("Test tugatilsinmi?")) return; send({ c: c }); }; });
@@ -824,6 +839,18 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     var z = v.z || {}, o = z.zax && z.zax[card] != null ? +z.zax[card] : -1;
     if (o > -1) return o < v.n ? o : -1;
     return card <= v.n && !(z.lost && z.lost[card - 1]) ? card - 1 : -1;
+  }
+  var tEnd = 0, tTick = 0;
+  function timerShow(v) {
+    var p = $("#sTime");
+    tEnd = v && v.ph === "q" && v.left >= 0 ? Date.now() + v.left : 0;
+    if (!tEnd) { p.hidden = !(v && v.ph === "q" && v.sec); p.textContent = v && v.sec ? "⏱ " + v.sec + " s — karta kutilmoqda" : ""; clearInterval(tTick); tTick = 0; return; }
+    p.hidden = false;
+    if (!tTick) tTick = setInterval(function () {
+      var l = tEnd - Date.now();
+      if (l <= 0 || !tEnd) { clearInterval(tTick); tTick = 0; $("#sTime").textContent = "⏱ natija…"; return; }
+      $("#sTime").textContent = "⏱ " + (l / 1000).toFixed(1) + " s";
+    }, 100);
   }
   function spareCard(v, s) { var z = v.z && v.z.zax; if (!z) return 0; for (var c in z) if (+z[c] === s) return +c; return 0; }
   function askCard(card, v, send) {
