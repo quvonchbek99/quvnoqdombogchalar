@@ -1273,6 +1273,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki tishlab yorolmagach, qobiqni toshga urib yorish mumkinligini o'yladi", "Chunki yong'oqni dengizga tashlamoqchi edi", "Chunki toshning ustida o'tirish unga qulay edi"],
     javob: 0,
     izoh: "Qarg'a tishi bilan yorib bo'lmasligini ko'rib, muammoni boshqa usul bilan hal qildi. Bir usul ishlamasa, sababini o'ylab yangi yechim izlash mantiqiy yondashuvdir."
+  },
+{
+    id: "ez-158", mavzu: "ehtiyot", sarlavha: "Ikki baliq va hovuz",
+    matn: "Katta hovuzda ikki baliq yashardi. Yoz kelib, yomg'ir yog'may qoldi va hovuzdagi suv kundan-kunga kamayib bordi. Birinchi baliq, \"Hali juda uzoq emas, yomg'ir albatta yog'adi\", deb hovuzda qolaverdi. Ikkinchi baliq esa suvning qanchalik tez kamayayotganini ko'rib, yonidagi doim oqib turadigan daryoga yo'l oldi.",
+    savol: "Ikkinchi baliq nima uchun hovuzni tark etdi?",
+    variantlar: ["Chunki u hovuzdagi boshqa baliqlar bilan janjallashgan edi", "Chunki suv kamayib borayotganini ko'rib, doimiy oqim bor joyni topishga shoshildi", "Chunki u sayr qilishni yaxshi ko'rar va har kuni yangi joyga borardi"],
+    javob: 1,
+    izoh: "Ikkinchi baliq vaziyatni kuzatib, xavfni oldindan anglab yetdi. Xavf yaqinlashayotganini ko'rganda vaqtida harakat qilish aqlli yo'ldir."
   }
 ];
-
