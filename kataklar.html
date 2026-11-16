@@ -19,7 +19,7 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="ka-nav.css">
-<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117a">
+<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117b">
 <script src="ka-fasl.js"></script>
 <style>
 .kt-grid{flex:1;min-height:0;display:grid;gap:clamp(6px,1vw,12px);grid-template-columns:repeat(var(--cols),1fr);grid-auto-rows:1fr;padding:2px}
@@ -64,8 +64,13 @@
 <div id="teams"></div>
 </section>
 
+<section class="card">
+<h2>3. Javob berish</h2>
+<div id="ans"></div>
+</section>
+
 <section class="card" id="opts">
-<h2>3. Sozlamalar</h2>
+<h2>4. Sozlamalar</h2>
 <div class="ks-grid2">
 <div><div class="ks-lbl">Kataklar soni</div><div class="ks-seg" data-k="cells"><button data-v="12">12</button><button data-v="16">16</button><button data-v="20">20</button><button data-v="24">24</button><button data-v="30">30</button></div></div>
 <div><div class="ks-lbl">Savollar darajasi</div><div class="ks-seg" data-k="lvl"><button data-v="1">★ Oson</button><button data-v="2">★★ O'rta</button><button data-v="3">★★★ Murakkab</button><button data-v="mix">🔀 Aralash</button></div></div>
@@ -83,6 +88,7 @@
 <li>Proyektor yoki aqlli doskada oching. Jamoa navbati kelganda katak raqamini aytadi — o'qituvchi (yoki jamoa vakili) bosadi.</li>
 <li><b>Savol katagi</b>: savol va 4 ta variant chiqadi. To'g'ri javob — katak bahosi (5–25 ball). Xato bo'lsa yechimi ko'rsatiladi.</li>
 <li><b>Syurprizlar</b>: 💣 Bomba (ball yarmiga tushadi), 🎁 Sovg'a (+15), ✖️2 (ball ikki baravar), 🦊 O'g'irla (raqibdan 15 ball), 🔄 Almashtir (ballni almashtirish), ⬇️ Zarba (raqibga −15), 🌟 Hammaga +10, 🔁 Yana bir katak, 🙈 Navbat o'tdi.</li>
+<li><b>📷 Kartalar bilan</b> («Javob berish» bo'limi): butun sinf qog'oz kartani ko'taradi, kamera o'qiydi. Har jamoa o'z a'zolarining to'g'ri javoblari ulushiga qarab ball oladi.</li>
 <li>Klaviatura: savolda <b>1–4</b> yoki <b>A–D</b> — javob, <b>Enter</b> — davom.</li>
 </ul>
 </section>
@@ -102,13 +108,16 @@
 </div>
 
 <script src="ka-savollar.js?v=20261030c"></script>
-<script src="ka-sinf-oyin.js?v=20261117a"></script>
+<script src="ka-mavzular.js?v=20261117b"></script>
+<script src="ka-sinf-oyin.js?v=20261117b"></script>
+<script src="ka-tarmoq.js?v=20261116a"></script>
+<script src="ka-karta.js?v=20261117b"></script>
 <script>
 (function () {
   "use strict";
   var K = window.KSO, $ = K.$, esc = K.esc;
   var LS = "ka.kataklar.v1";
-  var cfg = K.load(LS, { topics: [], n: 2, names: [], cells: 20, lvl: "2", sur: 20, time: 30 });
+  var cfg = K.load(LS, { topics: [], n: 2, names: [], cells: 20, lvl: "2", sur: 20, time: 30, ans: "ekran", kr: "", kn: 30 });
   var ut = K.urlTopics(); if (ut) cfg.topics = ut;
   cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -121,6 +130,7 @@
   K.picker($("#pick"), cfg.topics, summary);
   K.teamsUI($("#teams"), cfg, 2, 8, summary);
   K.opts($("#opts"), cfg, summary);
+  K.cardsUI($("#ans"), cfg, summary);
   summary();
 
   /* ---------------- o'yin ---------------- */
@@ -158,6 +168,7 @@
     for (var i = 0; i < n; i++) tiles.push(i < nSur ? { s: pickSur() } : qValue());
     tiles = K.shuffle(tiles).map(function (t, i) { t.no = i + 1; t.open = false; return t; });
     G = { ids: ids, tiles: tiles, teams: K.makeTeams(cfg), turn: 0, seen: {}, left: n };
+    if (cfg.ans === "kart") { G.cls = K.cardClass(cfg); G.teamOf = K.cardTeams(G.teams, G.cls); K.cardsOpen("Sirli kataklar"); }
     $("#setup").hidden = true; $("#game").hidden = false; window.scrollTo(0, 0);
     K.full(); K.wake(true);
     var cols = n <= 12 ? 4 : n <= 16 ? 4 : n <= 20 ? 5 : n <= 24 ? 6 : 6;
@@ -168,7 +179,7 @@
   }
   function drawTeams(bump) {
     $("#tb").innerHTML = G.teams.map(function (t) {
-      return '<div class="ks-team' + (t.i === G.turn ? " turn" : "") + (bump && bump.indexOf(t.i) > -1 ? " bump" : "") + '" style="--tc:' + t.color + '" data-t="' + t.i + '"><span class="e">' + t.emoji + '</span><span class="n">' + esc(t.name) + '</span><span class="s">' + t.score + "</span></div>";
+      return '<div class="ks-team' + (t.i === G.turn ? " turn" : "") + (bump && bump.indexOf(t.i) > -1 ? " bump" : "") + '" style="--tc:' + t.color + '" data-t="' + t.i + '"><span class="e">' + t.emoji + '</span><span class="n">' + esc(t.name) + (t.range ? '<span class="rg">kartalar ' + t.range + "</span>" : "") + '</span><span class="s">' + t.score + "</span></div>";
     }).join("");
   }
   function turnMsg() { var t = G.teams[G.turn]; $("#turn").innerHTML = '<span style="color:' + t.color + '">' + t.emoji + " " + esc(t.name) + "</span> navbati — katak tanlang"; }
@@ -195,12 +206,24 @@
     if (!q) { K.toast("Savol topilmadi — boshqa katak"); return next(true); }
     K.askModal({
       q: q, title: team.emoji + " " + team.name, color: team.color, value: t.v + " ball", time: cfg.time,
-      onAnswer: function (r) { if (r.ok) { team.score += t.v; team.ok++; } else team.no++; b.innerHTML = (r.ok ? "✅" : "❌") + "<small>" + t.v + " ball</small>"; drawTeams(r.ok ? [team.i] : null); },
+      cards: G.cls ? { teams: G.teams, cls: G.cls, teamOf: G.teamOf } : null, cardsTitle: "Sirli kataklar",
+      onReveal: function (r) { return gainHtml(cardGain(r, t.v)); },
+      onAnswer: function (r) {
+        if (r.cards) { var ok = r.st[team.i].n && r.st[team.i].ok * 2 >= r.st[team.i].n; b.innerHTML = (ok ? "✅" : "❌") + "<small>" + t.v + " ball</small>"; drawTeams(G.teams.map(function (x) { return x.i; })); return; }
+        if (r.ok) { team.score += t.v; team.ok++; } else team.no++; b.innerHTML = (r.ok ? "✅" : "❌") + "<small>" + t.v + " ball</small>"; drawTeams(r.ok ? [team.i] : null);
+      },
       onDone: function () { next(); },
       onCancel: function () { t.open = false; G.left++; b.disabled = false; b.textContent = t.no; }
     });
   });
 
+  // kartalar: har jamoa ulushi bo'yicha ball oladi (to'g'ri javob berganlar / javob berganlar)
+  function cardGain(r, v) {
+    var g = G.teams.map(function (t, i) { var x = r.st[i]; return x.n ? Math.round(v * x.ok / x.n) : 0; });
+    if (!r._applied) { r._applied = 1; G.teams.forEach(function (t, i) { t.score += g[i]; t.ok += r.st[i].ok; t.no += r.st[i].n - r.st[i].ok; }); }
+    return g;
+  }
+  function gainHtml(g) { return '<div class="ks-tstat">' + G.teams.map(function (t, i) { return '<span style="--tc:' + t.color + '">' + t.emoji + " +" + g[i] + "</span>"; }).join("") + "</div>"; }
   function surprise(s, team) {
     var good = { gift: 1, x2: 1, all: 1, again: 1, steal: 1 }[s.k];
     K.snd(s.k === "bomb" ? "boom" : s.k === "steal" ? "steal" : s.k === "swap" ? "swap" : good ? "coin" : "bad");
@@ -225,7 +248,7 @@
       { t: "⚙️ Sozlamalar", fn: back }
     ]);
   }
-  function back() { K.closeModal(); G = null; $("#game").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); }
+  function back() { K.closeModal(); K.cardsClose(); G = null; $("#game").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); }
   $("#bEnd").onclick = function () { if (!G) return; if (G.left < G.tiles.length) finish(); else back(); };
   $("#bFull").onclick = function () { if (document.fullscreenElement) K.full(false); else K.full(); };
   $("#bSnd").onclick = function () { K.setSound(!K.sound()); this.textContent = K.sound() ? "🔊" : "🔇"; };

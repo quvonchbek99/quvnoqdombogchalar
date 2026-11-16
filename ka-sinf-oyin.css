@@ -202,3 +202,13 @@ body.ks-play .kvfab,body.ks-play .kvtip{display:none!important}
 .ks-phone.playing>*{width:100%;max-width:560px;margin-left:auto;margin-right:auto}
 .ks-phone.playing>.mz,.ks-phone.playing>.mr{flex:1;min-height:0}
 .ks-phone #pz{flex:1;min-height:0}
+/* 📷 kartalar rejimi */
+.ks-opt{position:relative}
+.ks-cnt{position:absolute;top:6px;right:10px;font:900 15px/1 ui-monospace,monospace;font-style:normal;background:rgba(0,0,0,.35);border-radius:999px;padding:3px 8px}
+.ks-cnt:empty{display:none}
+.ks-opt.right .ks-cnt{right:46px}
+.ks-live{text-align:center;font-weight:800;font-size:clamp(16px,2.2vw,22px)}
+.ks-live b{color:var(--gold)}
+.ks-tstat{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0}
+.ks-tstat span{padding:4px 12px;border-radius:999px;border:2px solid var(--tc);background:color-mix(in srgb,var(--tc) 15%,transparent);font-weight:800}
+.ks-team .rg{font-size:11px;color:var(--text-dim);display:block}

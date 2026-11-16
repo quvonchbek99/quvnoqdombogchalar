@@ -19,7 +19,7 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="ka-nav.css">
-<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117a">
+<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117b">
 <script src="ka-fasl.js"></script>
 <style>
 .os-chests{display:flex;gap:clamp(6px,3vw,40px);justify-content:center;margin:10px 0}
@@ -85,13 +85,18 @@
 
 <section class="card" id="modeCard">
 <h2>Qanday o'ynaymiz?</h2>
-<div class="ks-seg" data-k="mode"><button data-v="proj">📺 Proyektor — jamoalar navbat bilan</button><button data-v="tel">📱 Telefonlar — har kim o'zi (kod bilan)</button></div>
+<div class="ks-seg" data-k="mode"><button data-v="proj">📺 Proyektor — jamoalar navbat bilan</button><button data-v="tel">📱 Telefonlar — har kim o'zi (kod bilan)</button><button data-v="kart">📷 Kartalar — har kim o'zi, telefonsiz</button></div>
 </section>
 
 <section class="card">
 <h2>1. Mavzular</h2>
 <p class="sub">Savollar shu mavzulardan, har safar yangi chiqadi.</p>
 <div id="pick"></div>
+</section>
+
+<section class="card" id="cKart" hidden>
+<h2>2. Sinf va kartalar</h2>
+<div id="kart"></div>
 </section>
 
 <section class="card" id="cTeams">
@@ -105,6 +110,8 @@
 <div><div class="ks-lbl">Savollar darajasi</div><div class="ks-seg" data-k="lvl"><button data-v="1">★ Oson</button><button data-v="2">★★ O'rta</button><button data-v="3">★★★ Murakkab</button><button data-v="mix">🔀 Aralash</button></div></div>
 <div class="only-proj"><div class="ks-lbl">Har jamoaga savollar</div><div class="ks-seg" data-k="rounds"><button data-v="4">4</button><button data-v="6">6</button><button data-v="8">8</button><button data-v="10">10</button></div></div>
 <div class="only-proj"><div class="ks-lbl">Javob uchun vaqt</div><div class="ks-seg" data-k="time"><button data-v="0">Cheksiz</button><button data-v="20">20 s</button><button data-v="30">30 s</button><button data-v="45">45 s</button></div></div>
+<div class="only-kart"><div class="ks-lbl">Savollar soni</div><div class="ks-seg" data-k="kq"><button data-v="5">5</button><button data-v="8">8</button><button data-v="10">10</button><button data-v="15">15</button></div></div>
+<div class="only-kart"><div class="ks-lbl">Javob uchun vaqt</div><div class="ks-seg" data-k="ktime"><button data-v="20">20 s</button><button data-v="30">30 s</button><button data-v="45">45 s</button><button data-v="60">60 s</button></div></div>
 <div class="only-tel"><div class="ks-lbl">O'yin davomiyligi</div><div class="ks-seg" data-k="min"><button data-v="3">3 daqiqa</button><button data-v="5">5 daqiqa</button><button data-v="7">7 daqiqa</button><button data-v="10">10 daqiqa</button></div></div>
 </div>
 </section>
@@ -117,6 +124,7 @@
 <ul>
 <li><b>📺 Proyektor</b>: jamoalar navbat bilan savolga javob beradi. To'g'ri bo'lsa — 3 ta sandiqdan birini tanlaydi. O'g'irlash va almashtirishda qaysi jamoadan olishni o'zi tanlaydi.</li>
 <li><b>📱 Telefonlar</b>: o'qituvchi xona ochadi, ekranda kod va QR chiqadi. O'quvchilar <b>kuvonch.uz/live</b> sahifasida kodni yozib kiradi va o'z telefonida tinmay savol yechib, sandiq ochadi. Katta ekranda jonli reyting va voqealar.</li>
+<li><b>📷 Kartalar</b>: telefon va internet bo'lmasa — har o'quvchi qog'oz kartani ko'taradi, kamera o'qiydi; to'g'ri javob berganlarning har biriga sandiq o'zi ochiladi. Ekranda jonli reyting.</li>
 <li><b>Sandiqlar</b>: 🪙 +oltin, 💰 +2×, 💎 +4×, ✨ oltin 2 baravar, 🦊 25% o'g'irlash, 🔄 almashtirish, 🛡️ tekin qalqon, 💸 −25%, 🕸️ bo'sh.</li>
 <li><b>Do'kon</b>: 🧲 Magnit — har sandiqdagi oltin +50% (4 darajagacha), 🛡️ Qalqon — bir marta o'g'irlash/almashtirishdan himoya, 🍀 Omad — keyingi sandiqda yomon narsa chiqmaydi.</li>
 </ul>
@@ -149,8 +157,10 @@
 <div id="phone" hidden></div>
 
 <script src="ka-savollar.js?v=20261030c"></script>
-<script src="ka-sinf-oyin.js?v=20261117a"></script>
+<script src="ka-mavzular.js?v=20261117b"></script>
+<script src="ka-sinf-oyin.js?v=20261117b"></script>
 <script src="ka-tarmoq.js?v=20261116a"></script>
+<script src="ka-karta.js?v=20261117b"></script>
 <script>
 (function () {
   "use strict";
@@ -211,21 +221,22 @@
   if (CODE) return phoneMode(CODE);
 
   /* ================= SOZLAMALAR ================= */
-  var cfg = K.load(LS, { mode: "proj", topics: [], n: 3, names: [], lvl: "2", rounds: 6, time: 30, min: 5 });
+  var cfg = K.load(LS, { mode: "proj", topics: [], n: 3, names: [], lvl: "2", rounds: 6, time: 30, min: 5, kr: "", kn: 30, kq: 8, ktime: 30 });
   var ut = K.urlTopics(); if (ut) cfg.topics = ut;
   cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
   function summary() {
-    var tel = cfg.mode === "tel";
-    $("#cTeams").hidden = tel;
-    $$(".only-proj").forEach(function (e) { e.hidden = tel; }); $$(".only-tel").forEach(function (e) { e.hidden = !tel; });
+    var tel = cfg.mode === "tel", kart = cfg.mode === "kart";
+    $("#cTeams").hidden = tel || kart; $("#cKart").hidden = !kart;
+    $$(".only-proj").forEach(function (e) { e.hidden = tel || kart; }); $$(".only-tel").forEach(function (e) { e.hidden = !tel; }); $$(".only-kart").forEach(function (e) { e.hidden = !kart; });
     $("#go").textContent = tel ? "📱 Xona ochish" : "▶ O'yinni boshlash";
-    $("#sum").textContent = !cfg.topics.length ? "Boshlash uchun kamida bitta mavzu tanlang" : tel ? cfg.topics.length + " ta mavzu · " + cfg.min + " daqiqa · o'quvchilar telefondan kod bilan kiradi" : cfg.topics.length + " ta mavzu · " + cfg.n + " ta jamoa · har jamoaga " + cfg.rounds + " savol";
+    $("#sum").textContent = !cfg.topics.length ? "Boshlash uchun kamida bitta mavzu tanlang" : tel ? cfg.topics.length + " ta mavzu · " + cfg.min + " daqiqa · o'quvchilar telefondan kod bilan kiradi" : kart ? cfg.topics.length + " ta mavzu · " + cfg.kq + " savol · kartalar va kamera" : cfg.topics.length + " ta mavzu · " + cfg.n + " ta jamoa · har jamoaga " + cfg.rounds + " savol";
     $("#go").disabled = !cfg.topics.length; K.save(LS, cfg);
   }
   K.opts($("#modeCard"), cfg, summary);
   K.picker($("#pick"), cfg.topics, summary);
   K.teamsUI($("#teams"), cfg, 2, 8, summary);
   K.opts($("#opts"), cfg, summary);
+  K.cardsUI($("#kart"), cfg, summary, true);
   summary();
   var starting = false;
   $("#go").onclick = function () {
@@ -235,7 +246,7 @@
     K.prep(cfg.topics.slice()).then(function (ok) {
       starting = false; b.disabled = false; b.textContent = lbl;
       if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang"); return; }
-      projStart(ok);
+      if (cfg.mode === "kart") kartStart(ok); else projStart(ok);
     });
   };
   $("#bSnd").onclick = function () { K.setSound(!K.sound()); this.textContent = K.sound() ? "🔊" : "🔇"; };
@@ -325,8 +336,62 @@
       { t: "🔁 Yana o'ynash", cls: "primary", fn: function () { projStart(G.ids); } }, { t: "⚙️ Sozlamalar", fn: back }
     ]);
   }
-  function back() { K.closeModal(); G = null; $("#game").hidden = true; $("#live").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); }
-  $("#bEnd").onclick = function () { if (!G) return; if (G.done) projFinish(); else back(); };
+  /* ================= 📷 KARTALAR: har o'quvchi o'zi, telefonsiz ================= */
+  // Savol katta ekranda, hamma kartani ko'taradi. To'g'ri javob bergan har bir o'quvchi uchun sandiq o'zi ochiladi.
+  function kartStart(ids) {
+    var cls = K.cardClass(cfg), P = [];
+    for (var i = 0; i < cls.n; i++) P.push({ s: i, name: cls.name(i), gold: 0, mag: 0, sh: false, lk: false, ok: 0, no: 0, in: false, score: 0 });
+    G = { kart: true, ids: ids, cls: cls, P: P, seen: {}, done: 0, total: cfg.kq, feed: [] };
+    $("#setup").hidden = true; $("#game").hidden = false; window.scrollTo(0, 0); K.full(); K.wake(true);
+    $("#tb").innerHTML = "";
+    K.cardsOpen("Oltin sandiq");
+    kartView();
+  }
+  function kartView() {
+    $("#round").textContent = "Savol " + Math.min(G.done + 1, G.total) + " / " + G.total;
+    var list = G.P.filter(function (p) { return p.in; });
+    list.forEach(function (p) { p.score = p.gold; });
+    $("#stage").innerHTML = '<div style="width:min(1100px,100%);display:grid;grid-template-columns:2fr 1fr;gap:14px;flex:1;min-height:0;text-align:left"><div style="overflow:auto"><div class="ks-board" id="kB"></div>' + (list.length ? "" : '<p class="ks-dim" style="text-align:center">Hali hech kim yo\'q — savol chiqqanda kartalarni ko\'taring. ' + (G.cls.roster ? "«" + esc(G.cls.roster.name) + "»: karta raqami = tartib raqami." : "Ro'yxatsiz: «Karta 1, 2…».") + "</p>") +
+      '</div><div style="overflow:auto"><h3 style="margin:0 0 8px">⚡ Voqealar</h3><div class="os-feed">' + G.feed.map(function (x) { return "<div>" + x + "</div>"; }).join("") + "</div></div></div>" +
+      '<div class="os-turn"><button type="button" class="ks-btn gold big" id="kQ">' + (G.done >= G.total ? "🏆 Natijalar" : "❓ " + (G.done + 1) + "-savolni ochish") + "</button></div>";
+    if (list.length) K.room.board($("#kB"), list, "💰", 15);
+    $("#kQ").onclick = G.done >= G.total ? kartFinish : kartAsk;
+  }
+  function kartAsk() {
+    var q = K.ask(G.ids, cfg.lvl, G.seen); if (!q) { K.toast("Savol topilmadi"); return; }
+    var one = [{ i: 0, emoji: "👥", name: "Sinf", color: "#ffd479" }];
+    K.askModal({
+      q: q, title: "💰 Oltin sandiq", color: "#ffd479", value: (G.done + 1) + "/" + G.total, time: cfg.ktime,
+      cards: { teams: one, cls: G.cls, teamOf: function () { return 0; } }, cardsTitle: "Oltin sandiq",
+      onReveal: function (r) {
+        var ev = [], open = 0;
+        r.people.forEach(function (x) { var p = G.P[x.s]; p.in = true; if (x.ok) p.ok++; else p.no++; });
+        K.shuffle(r.people.filter(function (x) { return x.ok; })).forEach(function (x) {
+          var p = G.P[x.s], c = roll(p); p.lk = false; open++;
+          if (c.k === "steal" || c.k === "swap") {
+            var cand = G.P.filter(function (v) { return v !== p && v.in && v.gold > 0; }).sort(function (a, b) { return b.gold - a.gold; }).slice(0, 5), v = cand.length ? K.pick(cand) : null;
+            if (!v) { var d0 = applySelf(CH[0], p); ev.push("🪙 <b>" + esc(p.name) + "</b> +" + d0); return; }
+            if (c.k === "steal") { var st = steal(p, v); ev.push(st < 0 ? "🛡️ " + esc(v.name) + " qalqoni " + esc(p.name) + "dan himoya qildi" : "🦊 <b>" + esc(p.name) + "</b> " + esc(v.name) + "dan " + st + " oltin oldi"); }
+            else ev.push(swap(p, v) ? "🔄 <b>" + esc(p.name) + "</b> ↔ " + esc(v.name) : "🛡️ " + esc(v.name) + " qalqoni almashtirishdan himoya qildi");
+          } else { var d = applySelf(c, p); ev.push(c.i + " <b>" + esc(p.name) + "</b> " + (c.k === "shield" ? "qalqon oldi" : c.k === "none" ? "bo'sh sandiq" : d > 0 ? "+" + d : d < 0 ? "−" + (-d) : "hech narsa yo'qotmadi")); }
+        });
+        K.snd(open ? "coin" : "bad");
+        G.feed = ev.concat(G.feed).slice(0, 30);
+        return '<div class="ks-dim" style="text-align:center">🎁 ' + open + " ta sandiq ochildi</div>" + (ev.length ? '<div class="os-feed" style="max-height:26vh;overflow:auto;margin-top:6px">' + ev.slice(0, 12).map(function (x) { return "<div>" + x + "</div>"; }).join("") + "</div>" : "");
+      },
+      onDone: function () { G.done++; kartView(); }
+    });
+  }
+  function kartFinish() {
+    K.closeModal();
+    var list = G.P.filter(function (p) { return p.in; }).sort(function (a, b) { return b.gold - a.gold; });
+    K.podium(list.map(function (p) { return { emoji: "", name: p.name, score: p.gold, color: K.COLORS[0] }; }), "💰", "💰 Oltin sandiq — natijalar", [
+      { t: "📥 CSV (Excel)", keep: true, fn: function () { K.csv("oltin-sandiq-kartalar-" + new Date().toISOString().slice(0, 10) + ".csv", [["O'rin", "Ism", "Oltin", "To'g'ri", "Xato"]].concat(list.map(function (p, i) { return [i + 1, p.name, p.gold, p.ok, p.no]; }))); } },
+      { t: "🔁 Yana o'ynash", cls: "primary", fn: function () { kartStart(G.ids); } }, { t: "⚙️ Sozlamalar", fn: back }
+    ]);
+  }
+  function back() { K.closeModal(); K.cardsClose(); G = null; $("#game").hidden = true; $("#live").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); }
+  $("#bEnd").onclick = function () { if (!G) return; if (G.kart) { if (G.done) kartFinish(); else back(); return; } if (G.done) projFinish(); else back(); };
 
   /* ================= TELEFONLAR: o'qituvchi ekrani ================= */
   var L = null;
