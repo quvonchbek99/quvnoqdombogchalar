@@ -204,6 +204,18 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 @keyframes fkp{50%{opacity:.25;transform:scale(.7)}}
 .fk .fkb{white-space:pre-wrap;color:var(--dim);line-height:1.5;max-height:16vh;overflow-y:auto;padding:0 0 8px;border-top:1px dashed color-mix(in srgb,#8b5cf6 30%,transparent);padding-top:6px}
 .fk .fkb:empty:before{content:"Kuvi ichida o'ylab oldi.";font-style:italic}
+.chip.mtc{border-color:#8b5cf6;color:#6d28d9;max-width:62vw;overflow:hidden;text-overflow:ellipsis}
+#mtQ{width:100%;box-sizing:border-box;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px;font:600 15px "Golos Text",sans-serif;margin:0 0 6px}
+.mtl details{border:1px solid var(--line);border-radius:12px;margin:6px 0;padding:0 10px}
+.mtl summary{cursor:pointer;font-weight:800;padding:10px 0;list-style:none}
+.mtl summary::-webkit-details-marker{display:none}
+.mtl summary small{color:var(--dim);font-weight:600}
+.mtl .mti{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);padding:9px 2px;font:600 14px/1.35 "Golos Text",sans-serif;cursor:pointer}
+.mtl > .mti{border:1px solid var(--line);border-radius:12px;padding:9px 10px;margin:6px 0}
+.mtl .mti small{display:block;color:var(--dim);font-weight:500;font-size:12px;margin-top:2px}
+.mtl .mti[aria-current=true]{color:#7c3aed}
+.mtl .mti[aria-current=true]:before{content:"✓ "}
+.mtl .mtauto{background:color-mix(in srgb,#8b5cf6 8%,transparent)}
 #histL .fkh{font-size:12px;color:#7c3aed;margin:2px 0 0}#histL .fkh summary{cursor:pointer;font-weight:700}#histL .fkh div{white-space:pre-wrap;color:var(--dim);padding:2px 0 4px}
 </style>
 </head>
@@ -290,6 +302,8 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
     <button type="button" data-q="Yordam bering, maslahat kerak">💡 Yordam</button>
     <button type="button" data-q="Keyingi savol">⏭ Keyingi</button>
     <button type="button" data-q="Menga mashq bering">🎯 Mashq</button>
+    <button type="button" data-mtopen="1" class="mtqk" hidden>📚 Mavzular</button>
+    <button type="button" data-mtx="1" class="mtqk" hidden>🧠 Tushuntir</button>
     <button type="button" data-rep="1">🔁 Takrorla</button>
     <button type="button" data-sum="1">📊 Natija</button>
   </div>
@@ -363,6 +377,12 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <h2 id="histH">📜 Suhbat tarixi <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
   <div class="hist" id="histL"></div>
   <div class="row"><button class="ib" type="button" id="hClear">🗑 Tozalash</button></div>
+</div></div>
+<div class="sheet" id="sMt" role="dialog" aria-modal="true" aria-labelledby="mtH"><div class="in">
+  <h2 id="mtH">📚 Matematika mavzulari <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
+  <input id="mtQ" type="search" placeholder="Qidiring: foiz, kvadrat tenglama, logarifm, uchburchak, 63…" aria-label="Mavzu qidirish" autocomplete="off">
+  <p class="note">Mavzuni tanlang — Kuvi shu mavzudan savol beradi, javobingizni tekshiradi va tushuntiradi. Ovoz bilan ham bo'ladi: «kvadrat tenglama mavzusidan savol ber».</p>
+  <div id="mtL" class="mtl"></div>
 </div></div>
 <div class="toast" id="toast" role="status"></div>
 
@@ -1208,11 +1228,37 @@ function rng(p, a, b) { var o = []; for (var i = a; i <= b; i++) o.push(p + i); 
 var FAN_T = { fizika: rng("f", 1, 5), kimyo: rng("k", 1, 3), biologiya: rng("b", 1, 3), geografiya: rng("g", 1, 3), tarix: rng("h", 1, 3), informatika: rng("i", 1, 5), ona: rng("o", 1, 3), adabiyot: rng("ad", 1, 3), huquq: rng("hq", 1, 3), iqtisod: rng("iq", 1, 3), astronomiya: rng("as", 1, 3), ekologiya: rng("ek", 1, 3), tarbiya: rng("tb", 1, 3), chqbt: rng("cq", 1, 3), sport: rng("jt", 1, 3) };
 var FAN_F = { f: "ka-fan-tabiiy.js", k: "ka-fan-tabiiy.js", i: "ka-fan-tabiiy.js", b: "ka-fan-ijtimoiy.js", g: "ka-fan-ijtimoiy.js", h: "ka-fan-ijtimoiy.js", o: "ka-fan-ijtimoiy.js" };
 function sinfN() { return C.sinf.charAt(0) === "t" ? 12 : +C.sinf || 7; }
+/* ---- Matematika: saytdagi BARCHA mavzular (A1–A8, 1–102-mavzular, 1–11-sinf modullari) — viktorina bilan bir xil generatorlar ---- */
+var MATH_FILES = ["ka-savollar.js", "ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js", "ka-savollar-6.js", "ka-savollar-7.js", "ka-savollar-8.js", "ka-savollar-9.js", "ka-savollar-10.js", "ka-savollar-11.js", "ka-savollar-12.js", "ka-sinf-modullar.js", "ka-savol-qoshimcha.js"];
+var MT_GROUPS = [["🧮 Asosiy amallar (A1–A8)", rng("a", 1, 8)], ["📘 Algebra va geometriya (1–50)", rng("t", 1, 50)], ["🎓 Algebra · Milliy sertifikat (51–70)", rng("t", 51, 70)], ["📐 Geometriya (71–88)", rng("t", 71, 88)], ["🎲 Kombinatorika va ehtimollik (89–96)", rng("t", 89, 96)], ["⚛️ Fizika uchun matematika (97–98)", rng("t", 97, 98)], ["📊 Statistika va kompleks sonlar (99–102)", rng("t", 99, 102)]];
+var MT_CAT = null;
+// mavzular katalogi: { id, n — nomi, d — qisqacha, ids — savol generatorlari, g — guruh, s — ovozda aytiladigan qisqa nomi }
+function mtCat() {
+  if (MT_CAT) return MT_CAT;
+  var S = window.kaSavol, K = window.kaSinf, L = []; if (!S) return L;
+  if (K && K.MODULLAR) for (var k = 1; k <= 11; k++) (function (k) {
+    var M = K.MODULLAR[k]; if (!M) return;
+    M.mod.forEach(function (m) { var ids = K.modIds(m); if (ids.length) L.push({ id: m.id, n: k + "-sinf · " + m.nom, s: m.nom, d: m.qisqa || "", ids: ids, g: "s" + k }); });
+    if (S.has("s" + k)) L.push({ id: "s" + k, n: k + "-sinf · barcha modullar aralash", s: k + "-sinf mavzulari", d: "", ids: ["s" + k], g: "s" + k });
+  })(k);
+  MT_GROUPS.forEach(function (gr, gi) { gr[1].forEach(function (id) { if (!S.has(id)) return; var nm = S.title(id); L.push({ id: id, n: (id.charAt(0) === "t" ? id.slice(1) : id.toUpperCase()) + ". " + nm, s: nm, d: "", ids: [id], g: "g" + gi }); }); });
+  if (L.length >= 120) MT_CAT = L; // hamma fayl yuklangach saqlab qo'yamiz
+  return L;
+}
+function mtById(id) { var c = mtCat(); for (var i = 0; i < c.length; i++) if (c[i].id === id) return c[i]; return null; }
+// mavzu tanlanmagan bo'lsa: sinfga mos aralash (1–11-sinf modullari, kichik sinflarga asosiy amallar, texnikumga 1–102)
+function mathAutoIds() {
+  var S = window.kaSavol, K = window.kaSinf, k = sinfN(), a = []; if (!S) return a;
+  if (k <= 11 && K && K.gradeIds) a = K.gradeIds(k).slice();
+  if (k === 1) a = a.concat(["a1", "a2"]); else if (k <= 4) a = a.concat(["a1", "a2", "a3", "a4", "a7"]); else if (k <= 6) a = a.concat(["a5", "a6", "a8"]);
+  if (k >= 12) a = rng("t", 1, 102);
+  return a.filter(function (id, i) { return S.has(id) && a.indexOf(id) === i; });
+}
 function bankSpec() {
   var k = sinfN(), m = C.mode, t = [], f = ["ka-savollar.js"];
   if (m === "math") {
-    if (k <= 9) { var n = { 1: 4, 2: 4, 3: 4, 4: 4, 5: 5, 6: 5, 7: 4, 8: 4, 9: 5 }[k] || 4; t = rng("s" + k + "m", 1, n); f.push("ka-sinf-modullar.js"); if (k >= 5 && k <= 6) { t = t.concat(["a5", "a6"]); f.push("ka-savollar-5.js"); } }
-    else { t = rng("t", 1, 70); f.push("ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js"); }
+    f = MATH_FILES.slice();
+    t = function () { var S = window.kaSavol; return C.mt && C.mt.ids && C.mt.ids.length ? C.mt.ids.filter(function (id) { return S && S.has(id); }) : mathAutoIds(); };
   } else if (m === "logic") { t = rng("m", 1, 9); f.push("ka-savollar-fanlar.js"); }
   else if (m === "en") { t = k <= 6 ? ["e1"] : k <= 9 ? ["e1", "e2"] : ["e2", "e3"]; f.push("ka-savollar-fanlar.js"); }
   else if (m === "ru") { t = rng("r", 1, 6); f.push("ka-savollar-fanlar.js"); }
@@ -1227,21 +1273,96 @@ var BANK = { key: "", ids: [], p: null };
 if (Q.get("fan") && (FAN_T[Q.get("fan")] || Q.get("fan") === "mix")) C.fan = Q.get("fan");
 function loadJs(src) { return new Promise(function (res) { var el = document.createElement("script"); el.src = src + "?v=20261110k"; el.async = false; el.onload = res; el.onerror = res; setTimeout(res, 20000); document.head.appendChild(el); }); }
 var LOADED = {};
+function bankKey() { return C.mode + "|" + C.sinf + "|" + C.fan + "|" + (C.mode === "math" && C.mt ? C.mt.id : ""); }
+function loadFiles(list) { return list.reduce(function (pr, file) { return pr.then(function () { if (LOADED[file]) return; LOADED[file] = 1; return loadJs(file); }); }, Promise.resolve()); }
 function ensureBank() {
-  var sp = bankSpec(), key = C.mode + "|" + C.sinf + "|" + C.fan;
+  var sp = bankSpec(), key = bankKey(), fn = typeof sp.t === "function";
   if (BANK.key === key && BANK.p) return BANK.p;
   BANK.key = key; BANK.ids = [];
-  if (!sp.t.length) { BANK.p = Promise.resolve([]); return BANK.p; }
-  BANK.p = sp.f.reduce(function (pr, file) { return pr.then(function () { if (LOADED[file]) return; LOADED[file] = 1; return loadJs(file); }); }, Promise.resolve())
-    .then(function () { return window.kaFan && kaFan.prep ? Promise.race([kaFan.prep(sp.t), new Promise(function (r) { setTimeout(r, 15000); })]).catch(function () {}) : null; })
-    .then(function () { if (BANK.key !== key) return BANK.ids; BANK.ids = window.kaSavol ? sp.t.filter(function (id) { return kaSavol.has(id); }) : []; return BANK.ids; });
+  if (!fn && !sp.t.length) { BANK.p = Promise.resolve([]); return BANK.p; }
+  BANK.p = loadFiles(sp.f)
+    .then(function () { return !fn && window.kaFan && kaFan.prep ? Promise.race([kaFan.prep(sp.t), new Promise(function (r) { setTimeout(r, 15000); })]).catch(function () {}) : null; })
+    .then(function () { if (BANK.key !== key) return BANK.ids; var ids = fn ? sp.t() : sp.t; BANK.ids = window.kaSavol ? ids.filter(function (id) { return kaSavol.has(id); }) : []; return BANK.ids; });
   return BANK.p;
 }
-function bctx(c) { return { mode: C.mode, sg: studentG(), sinf: C.sinf, st: c.st, tease: !!C.tease, bank: BANK.key === C.mode + "|" + C.sinf + "|" + C.fan ? BANK.ids : [], name: C.name || "", aiOn: chain()[0] !== "off", xato: window.kaXato ? kaXato.list() : [] }; }
+function bctx(c) { return { mode: C.mode, sg: studentG(), sinf: C.sinf, st: c.st, tease: !!C.tease, bank: BANK.key === bankKey() ? BANK.ids : [], name: C.name || "", aiOn: chain()[0] !== "off", xato: window.kaXato ? kaXato.list() : [] }; }
+
+/* ---- Mavzu tanlash: ro'yxatdan, qidiruvdan yoki ovoz bilan («kvadrat tenglama mavzusidan savol ber», «63-mavzu») ---- */
+var MT_STOP = {};
+"mavzu mavzus mavzusi mavzusidan mavzuga savol savollar savollari ber bering berchi beringchi menga bo'yicha boyicha misol misollar test testlar mashq mashqlar haqida doir va bilan uchun sodda asosiy yechish qil qilamiz qilaylik o'tamiz o'taylik o'tish kerak dan sinf sinfi sinfning tushuntir tushuntirib endi keling yana bitta ular uning ularning hozir".split(" ").forEach(function (w) { MT_STOP[w] = 1; });
+function mtNorm(x) { return String(x || "").toLowerCase().replace(/[ʻʼ‘’`´]/g, "'").replace(/[^a-z0-9'а-яёўқғҳ\s-]/gi, " ").replace(/\s+/g, " ").trim(); }
+function mtStem(w) {
+  var suf = ["larining", "laridan", "lariga", "larini", "lardan", "larga", "larni", "larda", "lari", "lar", "ning", "dagi", "idan", "dan", "iga", "ini", "ga", "ni", "da", "si"];
+  for (var g = 0; g < 3; g++) { var hit = 0; for (var i = 0; i < suf.length; i++) { var sf = suf[i]; if (w.length - sf.length >= 4 && w.slice(-sf.length) === sf) { w = w.slice(0, -sf.length); hit = 1; break; } } if (!hit) break; }
+  return w;
+}
+function mtToks(x) { return mtNorm(x).replace(/-/g, " ").split(" ").filter(function (w) { return w.length >= 3 && !MT_STOP[w]; }).map(mtStem).filter(function (w) { return w.length >= 3 && !MT_STOP[w]; }); }
+function mtScore(qt, x) {
+  if (!x._t) x._t = mtToks(x.s || x.n);
+  var et = x._t, m = 0; if (!et.length || !qt.length) return 0;
+  et.forEach(function (e) { if (qt.some(function (q) { var n = Math.min(5, e.length, q.length); return n >= 3 && q.slice(0, n) === e.slice(0, n) && Math.abs(q.length - e.length) <= 6 && (n >= 4 || q === e); })) m++; });
+  return m ? m / et.length + m * 0.15 : 0;
+}
+function mtSearch(q, n) {
+  var qt = mtToks(q), nq = mtNorm(q), num = /^(\d{1,3})$/.exec(nq);
+  return mtCat().map(function (x) { var sc = mtScore(qt, x); if (num && (x.id === "t" + num[1])) sc = 9; if (!sc && nq.length >= 3 && mtNorm(x.n).indexOf(nq) >= 0) sc = 0.5; return { x: x, s: sc }; })
+    .filter(function (o) { return o.s > 0; }).sort(function (a, b) { return b.s - a.s; }).slice(0, n || 30).map(function (o) { return o.x; });
+}
+// o'quvchi gapidan mavzu: «… mavzusidan savol ber», «… bo'yicha misol», «63-mavzu», «8-sinf kvadrat tenglama mavzusi»
+function topicIntent(text) {
+  var s = mtNorm(text);
+  if (!/(mavzu|bo'yicha|boyicha|dan (savol|misol|test|mashq)|ga o't|haqida savol)/.test(s) || !mtCat().length) return null;
+  var mn = /(\d{1,3})\s*-?\s*mavzu/.exec(s); if (mn && mtById("t" + mn[1])) return mtById("t" + mn[1]);
+  var g = /(\d{1,2})\s*-?\s*sinf/.exec(s), qt = mtToks(s.replace(/\d{1,2}\s*-?\s*sinf\w*/g, " "));
+  if (!qt.length) return g && mtById("s" + g[1]) ? mtById("s" + g[1]) : null;
+  var best = null, bs = 0;
+  var k = sinfN();
+  mtCat().forEach(function (x) {
+    var sc = mtScore(qt, x); if (!sc) return;
+    if (g && x.g === "s" + g[1]) sc += 0.3;
+    else if (!g && x.g === "s" + k) sc += 0.12; // o'z sinfining moduli birinchi
+    else if (!g && x.g.charAt(0) === "s" && +x.g.slice(1) < k - 2) sc -= 0.1; // ancha quyi sinf — keyinroq
+    if (sc > bs) { bs = sc; best = x; }
+  });
+  return bs >= 0.45 ? best : null;
+}
+function setTopic(id) {
+  var x = id ? mtById(id) : null;
+  C.mt = x ? { id: x.id, n: x.n, s: x.s, d: x.d, ids: x.ids } : null; saveCfg();
+  var c = cur(); c.st.cur = null; c.st.lvl = 1; c.st.seen = []; lastOpts = null; drawOpts(null);
+  return x;
+}
+function mtShort(n, k) { n = String(n || ""); return n.length > k ? n.slice(0, k - 1) + "…" : n; }
+function mtGroupName(g) { return g.charAt(0) === "s" ? "🏫 " + g.slice(1) + "-sinf" : MT_GROUPS[+g.slice(1)][0]; }
+function mtItem(x, inGroup) { return '<button type="button" class="mti" data-mt="' + x.id + '"' + (C.mt && C.mt.id === x.id ? ' aria-current="true"' : "") + ">" + esc(inGroup ? x.n.replace(/^\d+-sinf · /, "") : x.n) + (x.d ? "<small>" + esc(mtShort(x.d, 120)) + "</small>" : "") + "</button>"; }
+function drawMt() {
+  var L = $("#mtL"), q = $("#mtQ").value.trim(), cat = mtCat(), k = sinfN();
+  if (!cat.length) { L.innerHTML = '<p class="note">Mavzular yuklanmoqda…</p>'; return; }
+  var html = '<button type="button" class="mti mtauto" data-mt=""' + (C.mt ? "" : ' aria-current="true"') + ">🎲 Sinfimga mos — aralash<small>" + (k >= 12 ? "Texnikum: 1–102-mavzulardan" : k + "-sinf modullaridan") + ", oson savoldan qiyiniga</small></button>";
+  if (q) { var hits = mtSearch(q, 40); L.innerHTML = html + (hits.length ? hits.map(function (x) { return mtItem(x); }).join("") : '<p class="note">Topilmadi — boshqacha yozib ko\'ring (masalan: foiz, logarifm, uchburchak, 63).</p>'); return; }
+  var order = []; if (k <= 11) order.push("s" + k);
+  MT_GROUPS.forEach(function (_, i) { order.push("g" + i); });
+  for (var g = 1; g <= 11; g++) if (g !== k) order.push("s" + g);
+  order.forEach(function (gk) {
+    var it = cat.filter(function (x) { return x.g === gk; }); if (!it.length) return;
+    var open = (gk === "s" + k) || it.some(function (x) { return C.mt && x.id === C.mt.id; });
+    html += "<details" + (open ? " open" : "") + "><summary>" + esc(mtGroupName(gk)) + " <small>· " + it.length + " ta</small></summary>" + it.map(function (x) { return mtItem(x, 1); }).join("") + "</details>";
+  });
+  L.innerHTML = html;
+}
+function openMt() { openSheet("#sMt"); $("#mtQ").value = ""; drawMt(); if (!mtCat().length) loadFiles(MATH_FILES).then(function () { MT_CAT = null; drawMt(); }); }
+function pickTopic(id) {
+  var x = setTopic(id); closeSheets(); drawModes(); mtAnn = x ? x.s : "";
+  toast(x ? "📚 " + x.n : "🎲 Sinfingizga mos aralash savollar", 2600);
+  unlockAudio(); hideGo();
+  ensureBank().then(function () { cur().st.go = 1; send(x ? "«" + x.s + "» mavzusidan savol ber" : "Sinfimga mos savol ber"); });
+}
 var lastOpts = null;
+var mtAnn = ""; // yangi mavzu tanlanganda birinchi savoldan oldin aytiladi
 function viaOffline(text) {
   var c = cur(), ctx = bctx(c), r = B.reply(text, ctx);
   c.st = ctx.st; lastOpts = r.opts || null;
+  if (mtAnn) { if (/^Qani, mashq qilamiz! /.test(r.t)) r.t = r.t.replace(/^Qani, mashq qilamiz! /, "Zo'r, «" + mtAnn + "» mavzusidan savollar! Birinchisi: "); mtAnn = ""; }
   if (r.name) { C.name = r.name; saveCfg(); }
   if (r.wrong && window.kaXato) { r.wrong.src = "kuvi"; if (!r.wrong.t) r.wrong.t = MODES[C.mode].n; kaXato.add(r.wrong); drawModes(); }
   if (r.xhit && window.kaXato) { kaXato.hit(r.xhit.id, r.xhit.ok); drawModes(); }
@@ -1342,6 +1463,7 @@ function sysPrompt(xo) {
   else if (!xo.img) base.push((c0.st && c0.st.go && !cq ? "O'quvchi darsni boshlashni so'radi — endi darhol darsga o't: " + g + " darajasiga mos, iloji bo'lsa qiziqishlariga bog'langan bitta qisqa mashq yoki savol ber. " : "") + "Suhbat ritmi: darsni o'quvchining qiziqishlariga bog'lab olib bor (misol va savollarni ular haqida tuz). Har 4–5 savoldan keyin qisqa hazil yoki shaxsiy savol bilan dam ber. Qiziqishlarini hali bilmasang, mos paytda so'ra.");
   if (C.likes && C.likes.length) base.push("O'quvchining qiziqishlari (oldingi suhbatlardan): " + C.likes.join(", ") + ". Misol va savollarni ba'zan shularga bog'la, ba'zan ular haqida so'rab qo'y.");
   if (TOPIC) base.push("Hozirgi dars mavzusi: " + TOPIC + ". Suhbatni shu mavzu atrofida olib bor.");
+  if (C.mode === "math" && C.mt) base.push("Tanlangan matematika mavzusi: " + C.mt.n + (C.mt.d ? " — " + C.mt.d : "") + ". Tushuntirish, misol va savollarni shu mavzu bo'yicha ber (o'quvchi boshqa narsa so'ramasa). Saytda shu mavzudan savollar bazasi bor — o'quvchi «savol ber» yoki «keyingi» desa, sayt o'zi savol beradi.");
   return base.concat(M[C.mode]).filter(Boolean).join("\n");
 }
 
@@ -1443,7 +1565,14 @@ async function send(text, o) {
   if (/(dars\w* (qil|boshla|o'ta|o'rga)|darsga o't|darsni boshla|boshlay(miz|lik)|boshladik|mashq qil|o'rganamiz|o'rgat|savol ber|misol ber|test ber|let'?s (start|study|learn|begin)|teach me|начн[её]м|давай учить)/i.test(text.replace(/[ʻʼ‘’`´]/g, "'"))) c.st.go = 1;
   c.h.push({ r: "u", t: ut }); saveChat();
   showYou(ut); showImg(o.img); showAI("");
-  var dressed = dressFrom(text), loc = !o.img && B.local(text, bctx(c));
+  // «kvadrat tenglama mavzusidan savol ber», «logarifm bo'yicha misol», «63-mavzu» — mavzuni almashtiramiz
+  var mtx = C.mode === "math" && !o.img ? topicIntent(text) : null, forceLoc = false;
+  if (mtx && (!C.mt || C.mt.id !== mtx.id)) {
+    setTopic(mtx.id); drawModes(); toast("📚 " + mtx.n, 2600); mtAnn = mtx.s;
+    await ensureBank(); if (gen !== askGen) return;
+    if (!/(tushuntir|o'rgat|nima\b|nima degani|haqida (gapir|ayt|ma'lumot)|ayt(ib)? ber|explain)/i.test(text.replace(/[ʻʼ‘’`´]/g, "'"))) { forceLoc = true; c.st.go = 1; }
+  }
+  var dressed = dressFrom(text), loc = forceLoc || (!o.img && B.local(text, bctx(c)));
   var lvl = loc ? 0 : o.img ? 2 : deepLvl(text);
   deepNow = lvl > 0;
   fkStart(deepNow);
@@ -1546,8 +1675,14 @@ function drawModes() {
   });
   var s = document.createElement("select"); s.setAttribute("aria-label", "Sinf");
   SINF.forEach(function (x) { var o = document.createElement("option"); o.value = x[0]; o.textContent = x[1]; if (x[0] === C.sinf) o.selected = true; s.appendChild(o); });
-  s.addEventListener("change", function () { C.sinf = s.value; saveCfg(); ensureBank(); toast(s.options[s.selectedIndex].text + " darajasiga moslandi"); });
+  s.addEventListener("change", function () { C.sinf = s.value; saveCfg(); ensureBank(); toast(s.options[s.selectedIndex].text + " darajasiga moslandi"); if ($("#sMt").classList.contains("on")) drawMt(); });
   nav.appendChild(s);
+  $$(".mtqk").forEach(function (x) { x.hidden = C.mode !== "math"; });
+  if (C.mode === "math") {
+    var mb = document.createElement("button"); mb.type = "button"; mb.className = "chip mtc";
+    mb.textContent = "📚 " + (C.mt ? mtShort(C.mt.n, 30) : "Mavzu: sinfimga mos"); mb.title = C.mt ? C.mt.n : "Matematika mavzusini tanlash";
+    mb.addEventListener("click", openMt); nav.appendChild(mb);
+  }
   if (C.mode === "free") {
     var f = document.createElement("select"); f.setAttribute("aria-label", "Fan");
     FANLAR.forEach(function (x) { var o = document.createElement("option"); o.value = x[0]; o.textContent = x[1]; if (x[0] === C.fan) o.selected = true; f.appendChild(o); });
@@ -1570,6 +1705,8 @@ $("#vNo").addEventListener("click", function () { C.vAsk = "no"; saveCfg(); clos
 $("#qk").addEventListener("click", function (e) {
   var b = e.target.closest("button"); if (!b) return;
   if (b.hasAttribute("data-sum")) { unlockAudio(); hideGo(); sessionSum(); return; }
+  if (b.hasAttribute("data-mtopen")) { openMt(); return; }
+  if (b.hasAttribute("data-mtx")) { if (!C.mt) { openMt(); return; } unlockAudio(); hideGo(); send("«" + C.mt.s + "» mavzusini tushuntirib ber"); return; }
   if (b.hasAttribute("data-rep")) { var la = cur().h.filter(function (x) { return x.r === "a"; }).pop(); if (la) { unlockAudio(); hideGo(); say(la.t, afterSpeak); } return; }
   send(b.getAttribute("data-q"));
 });
@@ -1683,7 +1820,13 @@ document.addEventListener("paste", function (e) {
   if (C.name) return;
   try { var u = window.kaAccount && kaAccount.me && kaAccount.me(); if (u && u.name) { var w = String(u.name).trim().split(/\s+/), pickW = w.length > 1 && /(ov|ev|ova|eva|iy|yev|yeva)$/i.test(w[0]) ? w[1] : w[0]; var n = B.findName("ismim " + pickW); if (n) { C.name = n; saveCfg(); } } } catch (e) {}
 })();
-drawModes(); drawLang(); dressMode(true); render(); setState("idle"); restore(); ensureBank();
+$("#mtL").addEventListener("click", function (e) { var b = e.target.closest("[data-mt]"); if (b) pickTopic(b.getAttribute("data-mt")); });
+$("#mtQ").addEventListener("input", drawMt);
+drawModes(); drawLang(); dressMode(true); render(); setState("idle"); restore();
+// mavzu sahifasidan ochilgan bo'lsa (?mt=t63) — shu mavzu tanlanadi
+var MT_Q = /^(t\d{1,3}|a\d|s\d{1,2}(m\d{1,2})?)$/.test(Q.get("mt") || "") ? Q.get("mt") : "";
+if (MT_Q && C.mode === "math") loadFiles(MATH_FILES).then(function () { MT_CAT = null; if (mtById(MT_Q) && (!C.mt || C.mt.id !== MT_Q)) { setTopic(MT_Q); drawModes(); } ensureBank(); });
+else ensureBank();
 function drawHint() {
   var h = $("#hint"), md = sttMode();
   if (!md) { showKbd(true); h.textContent = "Brauzeringiz mikrofonni bermaydi — yozib yuboring. Ovoz bilan gaplashish uchun Chrome'da oching."; $("#mic").hidden = true; return; }
