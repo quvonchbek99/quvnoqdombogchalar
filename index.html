@@ -126,6 +126,16 @@ a{color:inherit}
 .search{max-width:760px;margin:22px auto 0}
 
 /* ---------- Mashhur o'yin va vositalar ---------- */
+.nums{padding-top:8px}
+.nm-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.nm{position:relative;display:block;padding:18px 14px;border-radius:18px;text-align:center;text-decoration:none;color:var(--chalk);background:linear-gradient(180deg,rgba(16,26,58,.9),rgba(10,16,40,.9));border:1px solid var(--line);overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.nm::after{content:"";position:absolute;left:12%;right:12%;top:0;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--violet),var(--rose));opacity:.75}
+.nm:hover{transform:translateY(-4px);border-color:var(--violet);box-shadow:0 16px 40px rgba(162,123,255,.18)}
+.nm b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(24px,3.4vw,38px);line-height:1.1;background:linear-gradient(120deg,var(--teal),var(--violet) 60%,var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.nm span{display:block;margin-top:6px;color:var(--haze);font-size:13.5px;line-height:1.35}
+@media (max-width:820px){.nm-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.nm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nm:last-child{grid-column:1/-1}}
+.pick .ic{transition:transform .3s}.pick:hover .ic{transform:scale(1.18) rotate(-6deg)}
 .dtest{padding-top:22px}
 .dt-card{position:relative;display:flex;align-items:center;gap:18px;padding:22px 24px;border-radius:22px;text-decoration:none;color:var(--chalk);background:linear-gradient(120deg,rgba(53,240,196,.14),rgba(162,123,255,.16) 55%,rgba(255,94,142,.14));border:1px solid rgba(162,123,255,.45);overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
 .dt-card::before{content:"";position:absolute;inset:-40% -10%;background:conic-gradient(from 0deg,transparent 0 70%,rgba(53,240,196,.22) 80%,transparent 90%);animation:dtSpin 9s linear infinite;pointer-events:none}
@@ -305,6 +315,16 @@ details.apk-help div{padding:8px 2px 0}
 </div>
 </section>
 
+<section class="band nums" aria-label="Kuvonch Academy raqamlarda">
+<div class="nm-grid">
+<a class="nm" href="matematika.html"><b data-n="149">149</b><span>matematika mavzusi</span></a>
+<a class="nm" href="mashqlar.html"><b data-n="5960">5 960</b><span>tayyor misol va masala</span></a>
+<a class="nm" href="sherlock.html"><b data-n="118">118</b><span>rasmli detektiv ishi</span></a>
+<a class="nm" href="virtual.html"><b data-n="59">59</b><span>virtual o'yin</span></a>
+<a class="nm" href="viktorina.html"><b data-n="21">21</b><span>fan bo'yicha viktorina</span></a>
+</div>
+</section>
+
 <section class="bugun" id="bugun" aria-label="Bugun: sana, yil oxiri, tengkunlik va shu kuni tug'ilgan olimlar"></section>
 
 <section class="band roles" aria-labelledby="kimga">
@@ -441,5 +461,13 @@ document.querySelectorAll('[data-akkaunt]').forEach(function(a){a.addEventListen
 <script src="ka-qidiruv.js?v=20261029"></script>
 <script src="akkount.js"></script>
 <script src="ka-til.js"></script>
+<script>
+/* Raqamlar tasmasi: ko'ringanda 0 dan sanab chiqadi */
+(function(){var els=document.querySelectorAll('.nm b[data-n]');if(!els.length||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0');}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.unobserve(e.target);var el=e.target,N=+el.getAttribute('data-n'),t0=performance.now(),T=1100;
+(function step(t){var k=Math.min(1,(t-t0)/T),v=Math.round(N*(1-Math.pow(1-k,3)));el.textContent=fmt(v);if(k<1)requestAnimationFrame(step);})(t0);});},{threshold:.4});
+els.forEach(function(el){io.observe(el);});})();
+</script>
 </body>
 </html>

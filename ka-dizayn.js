@@ -17,7 +17,7 @@
     /* --- rejim tugmasi --- */
     ".ka-mv{position:absolute;top:8px;right:104px;z-index:955;width:36px;height:36px;border-radius:50%;border:1px solid rgba(147,163,204,.35);background:rgba(12,19,48,.82);color:#ffd479;font-size:17px;line-height:1;cursor:pointer;padding:0;display:grid;place-items:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .2s,border-color .2s}" +
     ".ka-mv:hover{transform:rotate(18deg) scale(1.06);border-color:#ffc23d}.ka-mv:focus-visible{outline:3px solid #35f0c4;outline-offset:2px}" +
-    "@media (max-width:640px){.ka-mv{right:54px}}@media print{.ka-mv{display:none!important}html.ka-yorug{filter:none}html.ka-yorug *{filter:none!important}}" +
+    "@media (max-width:640px){.ka-mv{right:54px}}@media (max-width:640px){.ai-fab{font-size:12px!important;padding:8px 11px!important;opacity:.94}}@media print{.ka-mv{display:none!important}html.ka-yorug{filter:none}html.ka-yorug *{filter:none!important}}" +
     /* --- umumiy sayqal --- */
     "html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}" +
     "::selection{background:rgba(53,240,196,.32)}" +

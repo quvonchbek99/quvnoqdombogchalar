@@ -50,6 +50,18 @@
   .brand-badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#08131f;font-weight:800;}
   nav a{color:var(--text-dim);text-decoration:none;margin-left:20px;font-size:14px;}
   nav a:hover{color:var(--text);}
+  /* bosh sahifa uslubi: yopishqoq shaffof sarlavha, tugmasimon menyu */
+  header{position:sticky;top:0;z-index:50;padding:12px 0;background:rgba(11,18,40,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+  header nav{display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;scrollbar-width:none;max-width:100%;padding:2px 0;}
+  header nav::-webkit-scrollbar{display:none}
+  @media (max-width:640px){header nav{flex-basis:100%}}
+  header nav a{margin-left:0;white-space:nowrap;padding:8px 13px;border-radius:999px;border:1px solid transparent;font-weight:600;transition:background .2s,border-color .2s,color .2s;}
+  header nav a:hover{background:rgba(255,255,255,.06);border-color:var(--border);}
+  .lead{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .lead.open{display:block;}
+  .lead-more{margin-top:10px;background:none;border:1px solid var(--border);color:var(--accent);border-radius:999px;padding:6px 14px;font:600 13.5px inherit;font-family:inherit;cursor:pointer;}
+  .lead-more:hover{border-color:var(--accent);}
+  @media print{header{position:static}.lead{display:block}.lead-more{display:none}}
 
   .hero{padding:48px 0 32px;text-align:center;}
   .kicker{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(94,230,199,.35);background:rgba(94,230,199,.08);padding:5px 12px;border-radius:999px;margin-bottom:18px;}
@@ -281,6 +293,7 @@ font-size:13px;font-weight:600;border-radius:10px;padding:8px 14px;cursor:pointe
     <p class="lead">
       50 ta mavzu bo'yicha asosiy ta'riflar, xossalar, teoremalar va qoidalar, har biri uchun namunaviy yechim va mustaqil ishlash uchun misollar. Bundan tashqari, asosiy arifmetik amallar (qo'shish, ayirish, ko'paytirish, bo'lish, foiz, darajaga ko'tarish, karra jadvali) bo'yicha alohida mashqlar ham qo'shildi. Milliy sertifikat imtihoniga tayyorlanish uchun darslikning barcha 15 bobidan tanlangan 20 ta qo'shimcha mavzu ham alohida «Milliy sertifikat» bo'limida, boblarga ajratilgan holda joylashtirildi.
     </p>
+    <button class="lead-more" type="button" onclick="var l=this.previousElementSibling,o=l.classList.toggle('open');this.textContent=o?'Yopish ↑':'Batafsil ↓'">Batafsil ↓</button>
   </div>
 
   <div class="picker-wrap" id="toc" data-tab="📘 Mavzular (1–50)">

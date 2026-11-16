@@ -51,7 +51,7 @@
     try { if (localStorage.getItem("ka.mavzu") === "yorug") document.documentElement.classList.add("ka-yorug"); } catch (e) {}
     var me = document.currentScript && document.currentScript.src;
     var s = document.createElement("script"); s.async = true;
-    s.src = (me ? me.replace(/statistika\.js(\?.*)?$/, "") : "/") + "ka-dizayn.js?v=20261116c";
+    s.src = (me ? me.replace(/statistika\.js(\?.*)?$/, "") : "/") + "ka-dizayn.js?v=20261116d";
     (document.head || document.documentElement).appendChild(s);
   } catch (e) {}
 })();
