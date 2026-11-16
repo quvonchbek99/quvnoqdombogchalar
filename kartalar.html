@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kuvonch kartalar — telefonsiz test, qog'oz kartalar va kamera bilan | kuvonch.uz</title>
+<meta name="description" content="Plickers uslubidagi o'zbekcha test: o'quvchilar qog'oz kartani aylantirib A, B, C yoki D javobni ko'rsatadi, o'qituvchi telefon kamerasi bilan butun sinfni skanerlaydi. Bepul, 40 ta karta, Davomat ro'yxati bilan.">
+<link rel="canonical" href="https://kuvonch.uz/kartalar.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Kuvonch kartalar — telefonsiz test">
+<meta property="og:description" content="Qog'oz karta + o'qituvchi telefoni = butun sinf javobi bir necha soniyada.">
+<meta property="og:url" content="https://kuvonch.uz/kartalar.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="ka-nav.css">
+<script src="ka-fasl.js"></script>
+<style>
+:root{--bg:#0b1220;--card:#141f38;--border:#243252;--text:#eef2ff;--text-dim:#9fb0d0;--accent:#5ee6c7;--accent-2:#7c9bff;--gold:#ffd479;--ok:#2a9d4b;--no:#e5484d}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(circle at 20% 0%,#16213f 0%,#0b1220 55%) fixed,#0b1220;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden}
+a{color:var(--accent-2)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+[hidden]{display:none!important}
+.wrap{max-width:1040px;margin:0 auto;padding:0 14px 40px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+.hero{padding:26px 0 4px;text-align:center}
+.kicker{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(94,230,199,.35);background:rgba(94,230,199,.08);padding:5px 12px;border-radius:999px}
+h1{font-size:clamp(28px,6vw,44px);margin:10px 0 6px;letter-spacing:-.02em;line-height:1.1}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--text-dim);max-width:680px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin:14px 0}
+.card h2{font-size:19px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.card h2 b{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:rgba(124,155,255,.18);color:var(--accent-2);font-size:15px}
+.sub{color:var(--text-dim);font-size:14px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.row label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--text-dim);flex:1 1 160px}
+.field,select,textarea{width:100%;min-height:44px;padding:9px 11px;border-radius:12px;border:1px solid var(--border);background:#0e172b;color:var(--text)}
+textarea{min-height:120px;resize:vertical}
+.btn{min-height:44px;padding:9px 16px;border-radius:12px;border:1px solid var(--border);background:#1a2747;color:var(--text);font-weight:600}
+.btn:hover{border-color:var(--accent-2)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#08111f;border:0}
+.btn.big{min-height:56px;font-size:18px;padding:12px 20px}
+.btn.small{min-height:36px;padding:5px 12px;font-size:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{flex:1 1 200px;text-align:left;padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:#0e172b}
+.opt b{display:block}
+.opt span{font-size:13px;color:var(--text-dim)}
+.opt.on{border-color:var(--accent);background:rgba(94,230,199,.1)}
+.chipsel{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.rk{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#0e172b;font-size:14px;cursor:pointer}
+.rk.sel{border-color:var(--accent);background:rgba(94,230,199,.12)}
+.rk i{font-style:normal;opacity:.6;padding-left:4px}
+.msg{font-size:14px;margin-top:8px;min-height:1.2em}
+.msg.err{color:#ff8a94}.msg.ok{color:var(--accent)}
+.list{columns:2 220px;column-gap:20px;font-size:14px;margin:8px 0 0;padding:0;list-style:none}
+.list li{padding:3px 0;break-inside:avoid;border-bottom:1px dashed rgba(36,50,82,.7)}
+.list li b{display:inline-block;min-width:28px;color:var(--accent-2)}
+.list li small{color:var(--gold)}
+.ztab{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.ztab td{padding:6px 4px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:6px;margin:6px 0 10px}
+.tabs button{flex:1}
+.tabs .on{border-color:var(--accent);background:rgba(94,230,199,.1)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:8px}
+.how div{background:#0e172b;border:1px solid var(--border);border-radius:14px;padding:10px 12px;font-size:14px}
+.how b{color:var(--accent)}
+/* sessiya */
+.sbar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 0;background:rgba(11,18,32,.92);backdrop-filter:blur(6px)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:#0e172b;border:1px solid var(--border);font-weight:700}
+.pill.code{letter-spacing:.18em;color:var(--gold)}
+.qcard .qt{font-size:clamp(20px,3.6vw,34px);font-weight:700;line-height:1.3}
+.qopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.qopts div{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:#0e172b;border:1px solid var(--border);font-size:clamp(17px,2.8vw,26px)}
+.qopts div i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;border-radius:10px;background:#1a2747;font-weight:800}
+.qopts div.ok{border-color:var(--ok);background:rgba(42,157,75,.18)}
+.corbtns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.corbtns button{min-width:56px}
+.corbtns .on{background:var(--ok);border-color:var(--ok);color:#fff}
+.cam{position:relative;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--border);margin:12px 0}
+.cam video{display:block;width:100%;height:auto;max-height:62vh;object-fit:contain;background:#000}
+.cam canvas{position:absolute;left:0;top:0;pointer-events:none}
+.camtop{position:absolute;left:8px;right:8px;top:8px;display:flex;justify-content:space-between;gap:8px;align-items:flex-start;pointer-events:none}
+.camtop>*{pointer-events:auto}
+.camst{background:rgba(0,0,0,.6);border-radius:10px;padding:4px 10px;font-size:13px}
+.zoom{display:flex;gap:6px}
+.zoom button{min-width:46px;min-height:40px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.55);color:#fff;font-weight:700}
+.zoom button.on{background:var(--accent);color:#08111f;border-color:var(--accent)}
+.cammsg{padding:40px 16px;text-align:center;color:var(--text-dim)}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:6px;margin:12px 0}
+.ch{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:52px;border-radius:12px;border:1px solid var(--border);background:#0e172b;font-weight:800;font-size:17px;padding:2px}
+.ch small{font-size:12px;font-weight:700;opacity:.9}
+.ch.on{background:#24427e;border-color:#3b63b8}
+.ch.ok{background:var(--ok);border-color:var(--ok)}
+.ch.no{background:var(--no);border-color:var(--no)}
+.ch.zx::after{content:"↺";position:absolute;right:4px;top:1px;font-size:11px;color:var(--gold)}
+.proj .ch{font-size:22px;min-height:62px}
+.unk{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
+.unk button{border:1px dashed var(--gold);background:rgba(255,212,121,.08);color:var(--gold);border-radius:10px;padding:6px 10px;font-weight:700}
+.bars{display:grid;gap:8px;margin:10px 0}
+.bar{display:grid;grid-template-columns:34px 1fr 64px;gap:8px;align-items:center;font-weight:700}
+.bar .tr{height:26px;border-radius:8px;background:#0e172b;overflow:hidden}
+.bar .tr i{display:block;height:100%;background:#3b63b8;border-radius:8px;transition:width .3s}
+.bar.ok .tr i{background:var(--ok)}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.ctl .btn{flex:1 1 160px}
+.joininfo{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.joininfo .bigcode{font:900 clamp(40px,8vw,72px)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.15em;color:var(--gold)}
+.joininfo .qr{background:#fff;border-radius:12px;padding:6px;width:150px;height:150px}
+.joininfo .qr svg{width:100%;height:100%}
+.res{width:100%;border-collapse:collapse;font-size:15px}
+.res th,.res td{padding:7px 6px;border-bottom:1px solid var(--border);text-align:left}
+.res th{color:var(--text-dim);font-weight:600;font-size:13px}
+.res td.n{text-align:right;font-variant-numeric:tabular-nums}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.mbox{width:100%;max-width:520px;max-height:86vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px}
+.mbox h3{margin:0 0 6px}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#1a2747;border:1px solid var(--border);padding:10px 16px;border-radius:12px;transition:.25s;z-index:60;max-width:92vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%)}
+@media (min-width:860px){.modal{align-items:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <span class="kicker">🃏 Telefonsiz test</span>
+    <h1>Kuvonch <span>kartalar</span></h1>
+    <p class="lead">O'quvchi qog'oz kartani aylantirib javobini ko'rsatadi, siz esa telefon kamerasi bilan butun sinfni bir necha soniyada skanerlaysiz. O'quvchilarga telefon kerak emas.</p>
+  </header>
+
+  <!-- ===================== O'QITUVCHI: SOZLASH ===================== -->
+  <section id="vSetup">
+    <div class="card">
+      <h2><b>1</b> Kartalarni chop eting</h2>
+      <p class="sub" style="margin:0">40 ta karta, har biri alohida A4 varaqda, oq-qora. Karta raqami — o'quvchining guruh jurnalidagi tartib raqami. Ortgan kartalar zaxira bo'ladi.</p>
+      <div class="row" style="margin-top:10px"><a class="btn primary" href="kartalar/Kuvonch-kartalar-A4-1-40.pdf" download>⬇ Kartalar PDF (1–40)</a></div>
+      <div class="how">
+        <div><b>A</b> tepada — A javob. <b>B</b> tepada — B javob. C va D ham shunday.</div>
+        <div>Kartani chetidan ushlab, qora kvadratni to'smasdan, o'qituvchiga qaratib ko'taradi.</div>
+        <div>Fikrini o'zgartirsa — boshqa harfga burib qayta ko'taradi. Oxirgisi hisoblanadi.</div>
+        <div>Chop etishda masshtab <b>100%</b> bo'lsin («Fit to page» emas).</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><b>2</b> Guruhni ulang</h2>
+      <div class="tabs"><button type="button" class="btn small" data-t="dav">🔗 Davomat saytidan</button><button type="button" class="btn small" data-t="txt">📄 Ro'yxatni o'zim qo'yaman</button></div>
+      <div id="rDav"></div>
+      <div id="rTxt" hidden>
+        <div class="row"><label>Guruh nomi<input class="field" id="tName" placeholder="10-25" maxlength="30"></label></div>
+        <label class="sub" style="display:block;margin-top:8px">Har qatorda bitta o'quvchi, jurnaldagi tartibda (Excel'dan nusxa olsa ham bo'ladi)
+          <textarea id="tList" placeholder="Abdullayev Jasur&#10;Bakirova Malika&#10;…"></textarea></label>
+        <div class="row" style="margin-top:8px"><button type="button" class="btn primary" id="tSave">Saqlash</button></div>
+        <div class="msg" id="tMsg"></div>
+      </div>
+      <div id="rSaved" class="chipsel"></div>
+      <div id="rView"></div>
+    </div>
+
+    <div class="card">
+      <h2><b>3</b> Zaxira kartalar</h2>
+      <p class="sub" style="margin:0">O'quvchi kartasini yo'qotsa yoki karta yirtilsa, unga ortgan kartalardan birini bering va shu yerda biriktiring — ball o'sha o'quvchiga yoziladi. Skaner biriktirilmagan kartani ko'rsa, o'zi so'raydi.</p>
+      <div id="zBox"></div>
+    </div>
+
+    <div class="card">
+      <h2><b>4</b> Savollar</h2>
+      <div class="opts" id="qMode">
+        <button type="button" class="opt" data-v="man"><b>✍️ O'zim beraman</b><span>Savol doskada, slaydda yoki og'zaki. To'g'ri javobni skanerda belgilaysiz.</span></button>
+        <button type="button" class="opt" data-v="mav"><b>🎲 Mavzudan avtomatik</b><span>Sayt tanlangan mavzudan A–D variantli savollar tuzadi (osondan qiyinga).</span></button>
+      </div>
+      <div id="qMav" class="row" style="margin-top:10px">
+        <label style="flex:2 1 280px">Mavzu<select id="qTopic"></select></label>
+        <label>Savollar soni<select id="qCount"><option>5</option><option>10</option><option>15</option><option>20</option><option>30</option></select></label>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <label>Har to'g'ri javob uchun ball<select id="qBall"><option value="1">1 ball</option><option value="2">2 ball</option><option value="3">3 ball</option><option value="5">5 ball</option></select></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><b>5</b> Boshlash</h2>
+      <div class="opts">
+        <button type="button" class="opt" id="goSolo"><b>📱 Shu telefonda</b><span>Savol, skaner va natija — hammasi shu qurilmada. Proyektor shart emas.</span></button>
+        <button type="button" class="opt" id="goProj"><b>🖥 Proyektor + telefon</b><span>Bu kompyuter savol va natijani katta ekranda ko'rsatadi, telefoningiz kod bilan ulanib skaner bo'ladi.</span></button>
+      </div>
+      <div class="msg" id="goMsg"></div>
+    </div>
+  </section>
+
+  <!-- ===================== SESSIYA (o'qituvchi, proyektor yoki skaner) ===================== -->
+  <section id="vSess" hidden>
+    <div class="sbar"><span class="pill" id="sQn">Savol 1</span><span class="pill" id="sCnt">0 / 0 javob</span><span class="pill code" id="sCode" hidden></span><span class="pill" id="sNet" hidden></span></div>
+    <div class="card" id="sJoin" hidden></div>
+    <div class="card qcard" id="sQ"></div>
+    <div class="card" id="sCor" hidden></div>
+    <div class="cam" id="sCam" hidden>
+      <video id="camV" playsinline muted autoplay></video><canvas id="camO"></canvas>
+      <div class="camtop"><span class="camst" id="camSt"></span><span class="zoom" id="camZ"></span></div>
+      <div class="cammsg" id="camMsg">📷 Kamera hali yoqilmagan</div>
+    </div>
+    <div class="unk" id="sUnk"></div>
+    <div class="chips" id="sChips"></div>
+    <div class="bars" id="sBars" hidden></div>
+    <div class="ctl" id="sCtl"></div>
+  </section>
+
+  <!-- ===================== YAKUN ===================== -->
+  <section id="vEnd" hidden>
+    <div class="card">
+      <h2>🏁 Natija</h2>
+      <p class="sub" id="eSum" style="margin-top:0"></p>
+      <div class="row" style="margin:8px 0 12px"><button type="button" class="btn primary" id="eXls">⬇ Excel</button><button type="button" class="btn" id="eNew">🔁 Yangi test</button></div>
+      <div style="overflow-x:auto"><table class="res" id="eTab"></table></div>
+    </div>
+  </section>
+</div>
+<div class="modal" id="modal" hidden><div class="mbox" id="mbox"></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="ka-tarmoq.js"></script>
+<script>
+(function () {
+  "use strict";
+  var MAXK = 40, L4 = ["A", "B", "C", "D"];
+  // Guruh ro'yxatlari va Davomat kirishi viktorina bilan umumiy (bir marta kiritilsa, ikkala sahifada ham bor)
+  var LS_R = "ka.viktorina.rosters.v1", LS_DVT = "ka.viktorina.dvtoken.v1";
+  var LS_C = "ka.kartalar.v1", LS_Z = "ka.kartalar.zaxira.v1", LS_J = "ka.kartalar.jami.v1";
+  var DV_API = "https://script.google.com/macros/s/AKfycbxEa3ESFb2i-PDxujZPGA_wvAoi2TPZ_XWVVrX50rZMfKZmGk2xBrdbQWnSA0o57nL4/exec"; // Davomat sayti
+  var XLSX_SRC = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+  var QR_SRCS = ["vendor/qrcode-1.4.4.min.js", "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"];
+  var AR_SRCS = ["vendor/js-aruco2/cv.js", "vendor/js-aruco2/aruco.js", "vendor/js-aruco2/aruco_4x4_1000.js"];
+  var GEN_FILES = ["ka-savollar.js", "ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js", "ka-savollar-6.js", "ka-savollar-7.js", "ka-savollar-8.js", "ka-savollar-9.js", "ka-savollar-10.js", "ka-savollar-11.js", "ka-savollar-12.js", "ka-sinf-modullar.js"];
+  // viktorina.html dagi matematika mavzulari (guruh raqami bilan)
+  var TOPICS = [["a1","A1. Qo'shish amali",0],["a2","A2. Ayirish amali",0],["a3","A3. Ko'paytirish amali",0],["a4","A4. Bo'lish amali",0],["a5","A5. Foizlar bilan amallar",0],["a6","A6. Darajaga ko'tarish amali",0],["a7","A7. Ko'paytirish (karra) jadvali",0],["a8","A8. Sonlar",0],["t1","1. Kvadrat funksiya va uning grafigi",1],["t2","2. Kvadrat tengsizlik va uning yechimi",1],["t3","3. Trigonometrik ayniyatlar",1],["t4","4. Arifmetik va geometrik progressiya",1],["t5","5. Funksiya tushunchasi",1],["t6","6. Funksiya xossalari",1],["t7","7. Funksiya grafiklarini sodda almashtirish",1],["t8","8. Chiziqli va kvadratik modellashtirish",1],["t9","9. Loyiha ishi. Munosabatlar va funksiyalar",1],["t10","10. Sodda ratsional tenglamalar",1],["t11","11. Sodda ratsional tenglamalar sistemasi",1],["t12","12. Sodda ratsional tengsizliklar",1],["t13","13. Sodda ratsional tengsizliklar sistemasi",1],["t14","14. Ratsional tenglamalarga doir misollar yechish",1],["t15","15. Sodda irratsional tenglamalar",1],["t16","16. Irratsional tenglamalarga doir misollar yechish",1],["t17","17. Sodda irratsional tenglamalar sistemasi",1],["t18","18. Ratsional va irratsional ifodalarga doir misollar",1],["t19","19. Ko'rsatkichli funksiya",1],["t20","20. Logarifmik funksiya",1],["t21","21. Ko'rsatkichli va logarifmik ifodalarni soddalashtirish",1],["t22","22. Sodda ko'rsatkichli tenglamalar",1],["t23","23. Sodda logarifmik tenglamalar",1],["t24","24. Ko'rsatkichli va logarifmik tenglamalar sistemasi",1],["t25","25. Sodda ko'rsatkichli tengsizliklar",1],["t26","26. Sodda logarifmik tengsizliklar",1],["t27","27. Ko'rsatkichli modellashtirish",1],["t28","28. Ko'rsatkichli va logarifmik ifodalarga doir misollar",1],["t29","29. Trigonometrik funksiyalar",1],["t30","30. Teskari trigonometrik funksiyalar",1],["t31","31. Trigonometrik funksiyalarga doir misollar",1],["t32","32. STEM topshiriq",1],["t33","33. sin x = a, cos x = a trigonometrik tenglamalar",1],["t34","34. tg x = a, ctg x = a trigonometrik tenglamalar",1],["t35","35. Trigonometrik tenglamalarni yechish",1],["t36","36. Eng sodda trigonometrik tengsizliklar",1],["t37","37. Tasodifiy hodisalar",1],["t38","38. Ehtimollikni hisoblashda kombinatorika formulalaridan foydalanish",1],["t39","39. Teng ehtimolli hodisalar",1],["t40","40. Planimetriyaning mantiqiy tuzilishi",1],["t41","41. Geometrik masalalar va ularni yechish usullari",1],["t42","42. Stereometriyaning asosiy tushunchalari",1],["t43","43. Fazoda to'g'ri chiziqlar va tekisliklar",1],["t44","44. Fazoviy geometrik shakllar. Ko'pyoqlar",1],["t45","45. Ko'pyoqlarni tasvirlash va modelini yasash",1],["t46","46. Fazoda to'g'ri chiziqlarning o'zaro joylashuvi",1],["t47","47. Ayqash to'g'ri chiziqlar",1],["t48","48. Fazoda to'g'ri chiziqlar va tekisliklarning o'zaro joylashuvi",1],["t49","49. Fazoda tekisliklarning o'zaro joylashuvi",1],["t50","50. Fazoda parallel proyeksiyalash",1],["t51","51. Qisqa ko'paytirish formulalari",2],["t52","52. Ko'phadni ko'paytuvchilarga ajratish",2],["t53","53. Modulli tenglamalar va tengsizliklar",2],["t54","54. Arifmetik progressiya",2],["t55","55. Geometrik progressiya",2],["t56","56. Nisbat, proporsiya va foizli masalalar",2],["t57","57. O'rta qiymatlar (arifmetik, geometrik, garmonik)",2],["t58","58. Determinantlar va Kramer usuli",2],["t59","59. Funksiyaning limiti asoslari",2],["t60","60. Hosila va uning tatbiqlari (asosiy formulalar)",2],["t61","61. Bo'linish belgilari, EKUB va EKUK",2],["t62","62. Kvadrat ildiz va ratsional ko'rsatkichli daraja",2],["t63","63. Vyet teoremasi",2],["t64","64. Irratsional tenglamalar",2],["t65","65. Funksiyaning aniqlanish sohasi",2],["t66","66. Gorner sxemasi va Bezu teoremasi",2],["t67","67. Logarifm xossalari va sodda logarifmik tenglamalar",2],["t68","68. Asosiy trigonometrik ayniyatlar va keltirish formulalari",2],["t69","69. Sodda trigonometrik tenglamalar (sin x = a, cos x = a)",2],["t70","70. Aniqmas integral asoslari",2],["t71","71. Uchburchak va uning xossalari",3],["t72","72. To'rtburchaklar va ularning xossalari",3],["t73","73. Aylana va doira",3],["t74","74. Muntazam ko'pburchaklar",3],["t75","75. Prizma va parallelepiped",3],["t76","76. Piramida",3],["t77","77. Silindr",3],["t78","78. Konus",3],["t79","79. Shar va sfera",3],["t80","80. Ichki va tashqi chizilgan shakllar",3],["t81","81. Jismlar kombinatsiyasi (shar, silindr, konus, prizma)",3],["t82","82. Dekart koordinatalari (tekislikda)",3],["t83","83. Vektorlar (tekislikda)",3],["t84","84. Fazoda koordinatalar va vektorlar",3],["t85","85. Sinuslar va kosinuslar teoremalari",3],["t86","86. Shakllar o'xshashligi",3],["t87","87. Fazoda burchak va masofalar",3],["t88","88. Jismlarning kesimlari",3],["t89","89. Faktorial",4],["t90","90. Kombinatorikaning asosiy qoidalari",4],["t91","91. O'rin almashtirish, o'rinlashtirish va guruhlash",4],["t92","92. Ehtimollik: klassik ta'rif",4],["t93","93. Ehtimollik qoidalari",4],["t94","94. To'plamlar nazariyasi asoslari",4],["t95","95. Eyler–Venn doiralari va kiritish-chiqarish formulasi",4],["t96","96. Nyuton binomi",4],["t97","97. Fizika uchun matematika: formulalar bilan ishlash",5],["t98","98. O'lchov birliklari va shkala",5],["t99","99. O'rtacha kvadratik chetlanish, tanlanma va xatolik chegarasi",6],["t100","100. Diagrammalar: nuqtali, quti diagrammasi, gistogramma",6],["t101","101. Sochilma diagramma va eng yaxshi moslik chizig'i",6],["t102","102. Kompleks sonlar",6],["s1m1","1-sinf · 1 dan 20 gacha sonlar",8],["s1m2","1-sinf · 10 ichida qo'shish va ayirish",8],["s1m3","1-sinf · 20 ichida o'nlikdan o'tib qo'shish va ayirish",8],["s1m4","1-sinf · Shakllar va sodda masalalar",8],["s2m1","2-sinf · 100 ichida qo'shish va ayirish",8],["s2m2","2-sinf · Ko'paytirish va bo'lish jadvali (2–5)",8],["s2m3","2-sinf · Uzunlik, vaqt, massa birliklari",8],["s2m4","2-sinf · Matnli masalalar: narx, «marta ko'p»",8],["s3m1","3-sinf · Ko'paytirish va bo'lish jadvali (to'liq)",8],["s3m2","3-sinf · 1000 ichida qo'shish va ayirish",8],["s3m3","3-sinf · Jadvaldan tashqari ko'paytirish va bo'lish",8],["s3m4","3-sinf · Perimetr va ikki amalli masalalar",8],["s4m1","4-sinf · Ko'p xonali sonlar",8],["s4m2","4-sinf · Ustun ko'paytirish va burchakli bo'lish",8],["s4m3","4-sinf · Tezlik, vaqt, masofa",8],["s4m4","4-sinf · Yuza va ulushlar (kasr tushunchasi)",8],["s5m1","5-sinf · Natural sonlar va bo'linish",8],["s5m2","5-sinf · Oddiy kasrlar",8],["s5m3","5-sinf · O'nli kasrlar",8],["s5m4","5-sinf · Foizlar",8],["s5m5","5-sinf · Burchaklar va uchburchak",8],["s6m1","6-sinf · Nisbat va proporsiya",8],["s6m2","6-sinf · Butun sonlar",8],["s6m3","6-sinf · Ratsional sonlar ustida amallar",8],["s6m4","6-sinf · Chiziqli tenglamalar",8],["s6m5","6-sinf · Koordinata tekisligi",8],["s7m1","7-sinf · Natural ko'rsatkichli daraja",8],["s7m2","7-sinf · Ko'phadlar va qisqa ko'paytirish formulalari",8],["s7m3","7-sinf · Chiziqli tenglamalar sistemasi",8],["s7m4","7-sinf · Uchburchaklar va parallel to'g'ri chiziqlar",8],["s8m1","8-sinf · Kvadrat ildizlar",8],["s8m2","8-sinf · Kvadrat tenglamalar",8],["s8m3","8-sinf · To'rtburchaklar va Pifagor teoremasi",8],["s8m4","8-sinf · Algebraik kasrlar",8],["s9m1","9-sinf · Kvadrat funksiya va kvadrat tengsizliklar",8],["s9m2","9-sinf · Arifmetik va geometrik progressiya",8],["s9m3","9-sinf · Trigonometriya asoslari",8],["s9m4","9-sinf · Aylana, doira va o'xshashlik",8],["s9m5","9-sinf · Ehtimollik elementlari",8]];
+  var GROUPS = ["🧮 Asosiy amallar", "📘 Mavzular (1–50)", "🎓 Algebra (51–70)", "📐 Geometriya (71–88)", "🎲 Kombinatorika va ehtimollik (89–96)", "⚛️ Fizika uchun matematika (97–98)", "📊 Statistika (99–102)", "", "🏫 1–9-sinf modullari"];
+  var N = window.KANet;
+
+  /* ---------------- yordamchilar ---------------- */
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function safe(h) {
+    return String(h == null ? "" : h).replace(/<(?!\/?(b|i|sup|sub|br|span|small|strong|em|u)\b)[^>]*>/gi, "")
+      .replace(/<(b|i|sup|sub|span|small|strong|em|u)\s[^>]*>/gi, "<$1>");
+  }
+  function plain(h) { var d = document.createElement("div"); d.innerHTML = safe(h); return d.textContent; }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function lsGet(k, d) { try { var v = JSON.parse(localStorage.getItem(k) || "null"); return v == null ? d : v; } catch (e) { return d; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function toast(t) { var el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove("on"); }, 2800); }
+  function vib(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
+  function shortName(full) { return String(full || "").trim().split(/\s+/).slice(0, 2).join(" "); }
+  function show(id) { ["vSetup", "vSess", "vEnd"].forEach(function (v) { $("#" + v).hidden = v !== id; }); $(".hero").hidden = id === "vSess"; window.scrollTo(0, 0); }
+  var loaded = {};
+  function loadScript(src, soft) {
+    if (!loaded[src]) loaded[src] = new Promise(function (res, rej) {
+      var s = document.createElement("script"); s.src = src;
+      s.onload = res; s.onerror = function () { delete loaded[src]; rej(new Error("Fayl yuklanmadi: " + src)); };
+      document.head.appendChild(s);
+    });
+    return soft ? Promise.race([loaded[src].catch(function () {}), new Promise(function (r) { setTimeout(r, 15000); })]) : loaded[src];
+  }
+  function loadSeq(list, soft) { return list.reduce(function (p, f) { return p.then(function () { return loadScript(f, soft); }); }, Promise.resolve()); }
+  function loadFirst(list) { var i = 0; function nx() { return i >= list.length ? Promise.reject(new Error("yuklanmadi")) : loadScript(list[i++]).catch(nx); } return nx(); }
+  function modal(html) { $("#mbox").innerHTML = html; $("#modal").hidden = false; }
+  function closeModal() { $("#modal").hidden = true; $("#mbox").innerHTML = ""; }
+  $("#modal").addEventListener("click", function (e) { if (e.target.id === "modal") closeModal(); });
+
+  /* ---------------- sozlamalar ---------------- */
+  var cfg = { rkey: "", tab: "dav", qmode: "man", topic: "t51", count: 10, ball: 1 };
+  (function () { var s = lsGet(LS_C, null); if (s) for (var k in s) if (k in cfg) cfg[k] = s[k]; })();
+  function saveCfg() { lsSet(LS_C, cfg); }
+
+  /* ---------------- guruh ro'yxatlari ---------------- */
+  function rosters() { return lsGet(LS_R, {}); }
+  function curRoster() { var r = rosters()[cfg.rkey]; return r && r.list && r.list.length ? r : null; }
+  function cleanList(arr) {
+    var seen = {}, out = [];
+    arr.forEach(function (x) {
+      var n = String(x == null ? "" : x).replace(/<[^>]*>/g, "").replace(/^\s*\d+\s*[.)\-–]?\s*/, "").replace(/\s+/g, " ").trim().slice(0, 60);
+      if (!n || !/[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]/.test(n) || /^(f\.?\s*i\.?\s*sh|ism|t\/r|№|fio)\b/i.test(n)) return;
+      var k = n.toLowerCase(); if (seen[k]) return; seen[k] = 1; out.push(n);
+    });
+    return out.slice(0, 120);
+  }
+  function nameFromRow(cells) {
+    var best = "";
+    cells.forEach(function (c) { c = String(c == null ? "" : c).trim(); if (/[A-Za-zА-Яа-я]/.test(c) && c.length > best.length && !/^\d/.test(c)) best = c; });
+    return best;
+  }
+  function parseText(t) {
+    return cleanList(String(t || "").split(/\r?\n/).map(function (line) {
+      if (/[\t;]/.test(line) || line.split(",").length > 2) return nameFromRow(line.split(/[\t;,]/));
+      return line;
+    }));
+  }
+  function saveRoster(key, name, list, src) {
+    var all = rosters(); all[key] = { name: name, list: list, src: src, at: Date.now() }; lsSet(LS_R, all);
+    cfg.rkey = key; saveCfg(); renderRoster(); renderZax();
+  }
+  function renderRoster() {
+    var all = rosters(), keys = Object.keys(all).sort(function (a, b) { return (all[b].at || 0) - (all[a].at || 0); });
+    $("#rSaved").innerHTML = keys.length ? keys.map(function (k) {
+      return '<span class="rk' + (k === cfg.rkey ? " sel" : "") + '" data-k="' + esc(k) + '">' + (all[k].src === "davomat" ? "🔗 " : "📄 ") + esc(all[k].name) + " · " + all[k].list.length + '<i data-del="' + esc(k) + '" title="O\'chirish">✕</i></span>';
+    }).join("") : "";
+    var r = curRoster();
+    if (!r) { $("#rView").innerHTML = '<p class="sub">Hali guruh tanlanmagan. Davomat saytidan yuklang yoki ro\'yxatni qo\'ying.</p>'; return; }
+    var z = zdata(cfg.rkey), spareOf = {};
+    for (var c in z.zax) spareOf[z.zax[c]] = c;
+    var warn = r.list.length > MAXK ? '<p class="msg err">Ro\'yxatda ' + r.list.length + " kishi — kartalar 40 ta, shuning uchun faqat birinchi 40 nafari qatnashadi.</p>" : "";
+    $("#rView").innerHTML = '<p class="sub" style="margin:8px 0 0"><b>' + esc(r.name) + "</b> — " + r.list.length + " o'quvchi. Karta raqami = tartib raqami" +
+      (r.list.length < MAXK ? ", " + (Math.min(r.list.length, MAXK) + 1) + "–" + MAXK + " kartalar zaxira" : "") + ".</p>" + warn +
+      '<ol class="list">' + r.list.slice(0, MAXK).map(function (n, i) {
+        return "<li><b>" + (i + 1) + "</b>" + esc(n) + (spareOf[i] != null ? ' <small>→ ' + spareOf[i] + "-karta</small>" : "") + "</li>";
+      }).join("") + "</ol>";
+  }
+  $("#rSaved").addEventListener("click", function (e) {
+    var d = e.target.closest("[data-del]");
+    if (d) { var all = rosters(), k = d.getAttribute("data-del"); if (!confirm("«" + (all[k] && all[k].name) + "» ro'yxati o'chirilsinmi?")) return; delete all[k]; lsSet(LS_R, all); if (cfg.rkey === k) { cfg.rkey = ""; saveCfg(); } renderRoster(); renderZax(); return; }
+    var c = e.target.closest("[data-k]"); if (c) { cfg.rkey = c.getAttribute("data-k"); saveCfg(); renderRoster(); renderZax(); }
+  });
+  function renderTabs() {
+    $$(".tabs button").forEach(function (b) { b.classList.toggle("on", b.dataset.t === cfg.tab); });
+    $("#rDav").hidden = cfg.tab !== "dav"; $("#rTxt").hidden = cfg.tab !== "txt";
+  }
+  $$(".tabs button").forEach(function (b) { b.onclick = function () { cfg.tab = b.dataset.t; saveCfg(); renderTabs(); }; });
+  $("#tSave").onclick = function () {
+    var nm = $("#tName").value.trim(), list = parseText($("#tList").value), m = $("#tMsg");
+    if (!nm) { m.className = "msg err"; m.textContent = "Guruh nomini yozing"; return; }
+    if (!list.length) { m.className = "msg err"; m.textContent = "Ro'yxat bo'sh — har qatorga bitta ism yozing"; return; }
+    saveRoster("q:" + nm.toLowerCase(), nm, list, "qo'lda");
+    m.className = "msg ok"; m.textContent = "✅ " + nm + ": " + list.length + " o'quvchi saqlandi";
+  };
+
+  /* ---- Davomat sayti (Google Apps Script) ---- */
+  function dv(action, data) {
+    var tok = ""; try { tok = localStorage.getItem(LS_DVT) || ""; } catch (e) {}
+    return fetch(DV_API, { method: "POST", body: JSON.stringify(Object.assign({ action: action, token: tok }, data || {})) })
+      .then(function (r) { return r.text(); })
+      .then(function (t) {
+        var j; try { j = JSON.parse(t); } catch (e) { throw new Error("Davomat serveri band — birozdan so'ng qayta urinib ko'ring"); }
+        if (!j.ok) {
+          if (j.error === "AUTH") { try { localStorage.removeItem(LS_DVT); } catch (e) {} var er = new Error("Davomat saytiga qaytadan kiring"); er.auth = true; throw er; }
+          throw new Error(j.error || "Xatolik");
+        }
+        return j;
+      }, function (e) { throw new Error(e && e.message === "Failed to fetch" ? "Ulanib bo'lmadi — internetni tekshiring" : (e && e.message) || "Xatolik"); });
+  }
+  function todayIso() { var d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+  function dvRender(errText) {
+    var box = $("#rDav"), tok = null; try { tok = localStorage.getItem(LS_DVT); } catch (e) {}
+    if (!tok) {
+      box.innerHTML = '<p class="sub" style="margin:0 0 8px">Davomat saytidagi login va parolingiz bilan kiring — guruh ro\'yxati jurnal tartibida olinadi.</p>' +
+        '<div class="row"><label>Login<input class="field" id="dvL" autocomplete="username"></label><label>Parol<input class="field" id="dvP" type="password" autocomplete="current-password"></label>' +
+        '<button type="button" class="btn primary" id="dvGo">Kirish</button></div><div class="msg err" id="dvMsg">' + esc(errText || "") + "</div>";
+      var go = function () {
+        var m = $("#dvMsg"), b = $("#dvGo"); m.className = "msg"; m.textContent = "⏳ Kirilmoqda…"; b.disabled = true;
+        dv("login", { login: $("#dvL").value.trim(), parol: $("#dvP").value }).then(function (j) {
+          try { localStorage.setItem(LS_DVT, j.token); } catch (e) {}
+          dvRender();
+        }).catch(function (e) { b.disabled = false; m.className = "msg err"; m.textContent = e.message; });
+      };
+      $("#dvGo").onclick = go;
+      $("#dvP").addEventListener("keydown", function (e) { if (e.key === "Enter") go(); });
+      return;
+    }
+    box.innerHTML = '<div class="row"><label>Guruh<select id="dvG"><option>⏳ Guruhlar yuklanmoqda…</option></select></label>' +
+      '<button type="button" class="btn primary" id="dvLoad" disabled>⬇ Ro\'yxatni olish</button><button type="button" class="btn small" id="dvOut">Davomatdan chiqish</button></div><div class="msg" id="dvMsg"></div>';
+    $("#dvOut").onclick = function () { try { localStorage.removeItem(LS_DVT); } catch (e) {} dvRender(); };
+    dv("init").then(function (j) {
+      var sel = $("#dvG"); if (!sel) return;
+      var gs = (j.guruhlar || []).filter(function (g) { return g && g.id; });
+      sel.innerHTML = gs.map(function (g) { return '<option value="' + esc(g.id) + '" data-n="' + esc(g.nomi || "") + '">' + esc(g.id + (g.nomi ? " — " + g.nomi : "")) + "</option>"; }).join("");
+      $("#dvLoad").disabled = !gs.length;
+      if (!gs.length) $("#dvMsg").textContent = "Davomat saytida guruh topilmadi";
+    }).catch(function (e) { if (e.auth) return dvRender(e.message); var m = $("#dvMsg"); if (m) { m.className = "msg err"; m.textContent = e.message; } });
+    $("#dvLoad").onclick = function () {
+      var sel = $("#dvG"), g = sel.value, opt = sel.options[sel.selectedIndex], nomi = opt ? opt.getAttribute("data-n") : "", m = $("#dvMsg"), b = this;
+      m.className = "msg"; m.textContent = "⏳ " + g + " ro'yxati yuklanmoqda…"; b.disabled = true;
+      dv("lesson", { group: g, date: todayIso() }).then(function (j) {
+        b.disabled = false;
+        var list = cleanList((j.oquvchilar || []).map(function (o) { return o && o.name; }));
+        if (!list.length) { m.className = "msg err"; m.textContent = "Bu guruhda o'quvchi topilmadi"; return; }
+        saveRoster("dv:" + g, g + (nomi ? " " + nomi : ""), list, "davomat");
+        m.className = "msg ok"; m.textContent = "✅ " + g + ": " + list.length + " o'quvchi yuklandi va tanlandi";
+      }).catch(function (e) { b.disabled = false; if (e.auth) return dvRender(e.message); m.className = "msg err"; m.textContent = e.message; });
+    };
+  }
+
+  /* ---------------- zaxira kartalar (guruh bo'yicha qurilmada saqlanadi) ---------------- */
+  // z.zax: {karta: o'quvchi indeksi}, z.lost: {o'quvchi indeksi: 1} — asl kartasi o'chirilgan
+  function zdata(rkey) { var a = lsGet(LS_Z, {}), z = a[rkey] || {}; return { zax: z.zax || {}, lost: z.lost || {} }; }
+  function zsave(rkey, z) { var a = lsGet(LS_Z, {}); a[rkey] = z; lsSet(LS_Z, a); }
+  function zOwnerOf(z, card) { return z.zax[card] != null ? +z.zax[card] : -1; }
+  function zSpareOfStudent(z, s) { for (var c in z.zax) if (+z.zax[c] === s) return +c; return 0; }
+  // bo'sh zaxira kartalar: ro'yxatdan keyingi raqamlar (ro'yxat uzunligi..40), hali hech kimga berilmagan
+  function zFree(z, n) { var out = []; for (var c = n + 1; c <= MAXK; c++) if (z.zax[c] == null) out.push(c); return out; }
+  function zAssign(z, n, card, s) {
+    card = +card; s = +s;
+    if (!(card >= 1 && card <= MAXK) || !(s >= 0 && s < n)) return "Noto'g'ri karta yoki o'quvchi";
+    if (card <= n) return card + "-karta ro'yxatdagi " + card + "-o'quvchiniki — zaxira kartalar " + (n + 1) + "–" + MAXK;
+    var old = zSpareOfStudent(z, s); if (old) delete z.zax[old];
+    z.zax[card] = s; z.lost[s] = 1;
+    return "";
+  }
+  function zUnassign(z, card) { var s = z.zax[card]; delete z.zax[card]; if (s != null && !zSpareOfStudent(z, +s)) delete z.lost[s]; }
+  function renderZax() {
+    var box = $("#zBox"), r = curRoster();
+    if (!r) { box.innerHTML = '<p class="sub">Avval guruhni ulang.</p>'; return; }
+    var n = Math.min(r.list.length, MAXK), z = zdata(cfg.rkey), free = zFree(z, n), rows = [];
+    for (var c in z.zax) { var s = +z.zax[c]; rows.push('<tr><td><b>' + c + '-karta</b></td><td>' + esc(r.list[s] || "?") + ' <span class="sub">(asl kartasi ' + (s + 1) + ' — o\'chirilgan)</span></td><td style="text-align:right"><button type="button" class="btn small" data-un="' + c + '">Bekor qilish</button></td></tr>'); }
+    if (n >= MAXK) { box.innerHTML = '<p class="msg err">Guruhda 40 nafar — ortiqcha karta yo\'q.</p>'; return; }
+    box.innerHTML = (rows.length ? '<table class="ztab">' + rows.join("") + "</table>" : '<p class="sub" style="margin:8px 0 0">Hozircha zaxira karta berilmagan. Bo\'sh kartalar: ' + (n + 1) + "–" + MAXK + ".</p>") +
+      (free.length ? '<div class="row" style="margin-top:10px"><label>O\'quvchi<select id="zS">' + r.list.slice(0, n).map(function (nm, i) { return '<option value="' + i + '">' + (i + 1) + ". " + esc(nm) + "</option>"; }).join("") + '</select></label>' +
+        '<label style="flex:0 1 140px">Zaxira karta<select id="zC">' + free.map(function (c) { return "<option>" + c + "</option>"; }).join("") + '</select></label><button type="button" class="btn primary" id="zAdd">Biriktirish</button></div>' : "");
+    var add = $("#zAdd");
+    if (add) add.onclick = function () { var er = zAssign(z, n, $("#zC").value, $("#zS").value); if (er) { toast(er); return; } zsave(cfg.rkey, z); toast("✅ Biriktirildi"); renderZax(); renderRoster(); };
+    $$("[data-un]", box).forEach(function (b) { b.onclick = function () { zUnassign(z, b.getAttribute("data-un")); zsave(cfg.rkey, z); renderZax(); renderRoster(); }; });
+  }
+
+  /* ---------------- savollar sozlamasi ---------------- */
+  function renderQ() {
+    $$("#qMode .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === cfg.qmode); });
+    $("#qMav").hidden = cfg.qmode !== "mav";
+    $("#qCount").value = String(cfg.count); $("#qBall").value = String(cfg.ball);
+  }
+  (function () {
+    var html = "", g = -1;
+    TOPICS.forEach(function (t) {
+      if (t[2] !== g) { if (g > -1) html += "</optgroup>"; g = t[2]; html += '<optgroup label="' + esc(GROUPS[g] || "") + '">'; }
+      html += '<option value="' + esc(t[0]) + '">' + esc(t[1]) + "</option>";
+    });
+    $("#qTopic").innerHTML = html + "</optgroup>";
+    if (TOPICS.some(function (t) { return t[0] === cfg.topic; })) $("#qTopic").value = cfg.topic;
+  })();
+  $$("#qMode .opt").forEach(function (b) { b.onclick = function () { cfg.qmode = b.dataset.v; saveCfg(); renderQ(); }; });
+  $("#qTopic").onchange = function () { cfg.topic = this.value; saveCfg(); };
+  $("#qCount").onchange = function () { cfg.count = +this.value || 10; saveCfg(); };
+  $("#qBall").onchange = function () { cfg.ball = +this.value || 1; saveCfg(); };
+
+  function buildQs() {
+    return loadSeq(GEN_FILES, true).then(function () {
+      var S = window.kaSavol;
+      if (!S || !S.has(cfg.topic)) throw new Error("Bu mavzu savollari yuklanmadi — internetni tekshiring");
+      var n = cfg.count, out = [], seen = {}, guard = 0;
+      while (out.length < n && guard++ < n * 25) {
+        var lv = 1 + Math.min(2, Math.floor(3 * out.length / n)), p = null;
+        try { p = S.get(cfg.topic, lv); } catch (e) { p = null; }
+        if (!p || p.q == null || p.a == null) continue;
+        var right = String(p.a), key = plain(p.q) + "|" + right;
+        if (seen[key]) continue;
+        var wr = shuffle((p.w || []).map(String).filter(function (w) { return w !== right; })).filter(function (w, i, a) { return a.indexOf(w) === i; }).slice(0, 3);
+        if (!wr.length) continue;
+        seen[key] = 1;
+        var opts = shuffle([right].concat(wr));
+        out.push({ q: p.q, opts: opts, ci: opts.indexOf(right) });
+      }
+      if (!out.length) throw new Error("Bu mavzudan A–D variantli savol tuzib bo'lmadi — boshqa mavzu tanlang");
+      return out;
+    });
+  }
+
+  /* ===================== SESSIYA DVIGATELI (yakka telefon yoki proyektor kompyuteri) ===================== */
+  var E = null;
+  function newCur() { return { ans: {}, bc: {}, corr: null, unk: {} }; }
+  function studentOf(card) {
+    var o = zOwnerOf(E.z, card); if (o > -1) return o < E.n ? o : -1;
+    return card <= E.n && !E.z.lost[card - 1] ? card - 1 : -1;
+  }
+  function curQ() { return E.man ? null : E.qs[E.qi]; }
+  function corrNow() { return E.man ? E.cur.corr : (curQ() ? L4[curQ().ci] : null); }
+  function engScan(card, L) {
+    if (!E || E.ph !== "q" || E.ignore[card] || L4.indexOf(L) < 0 || !(card >= 1 && card <= MAXK)) return;
+    var s = studentOf(card);
+    if (s < 0) { if (E.cur.unk[card] !== L) { E.cur.unk[card] = L; changed(); } return; }
+    if (E.cur.ans[s] === L && E.cur.bc[s] === card) return;
+    E.cur.ans[s] = L; E.cur.bc[s] = card; changed();
+  }
+  function awardJ(ans, corr) {
+    if (!corr) return;
+    var J = lsGet(LS_J, {}), g = J[E.rkey] || (J[E.rkey] = {});
+    for (var s in ans) if (ans[s] === corr) { var nm = E.roster[s]; g[nm] = (g[nm] || 0) + E.ball; }
+    lsSet(LS_J, J);
+  }
+  function finishQ() {
+    var c = E.cur, corr = corrNow();
+    if (Object.keys(c.ans).length) {
+      var q = curQ();
+      E.hist.push({ q: q ? plain(q.q) : "Savol " + (E.qi + 1), corr: corr, ans: Object.assign({}, c.ans), bc: Object.assign({}, c.bc) });
+      awardJ(c.ans, corr);
+    }
+    E.qi++; E.ph = "q"; E.cur = newCur();
+  }
+  function engCmd(m) {
+    if (!E || !m) return;
+    var c = m.c;
+    if (c === "rev" && E.ph === "q") E.ph = "rev";
+    else if (c === "back" && E.ph === "rev") E.ph = "q";
+    else if (c === "cor" && E.man) E.cur.corr = L4.indexOf(m.v) > -1 ? m.v : null;
+    else if (c === "next") { finishQ(); if (!E.man && E.qi >= E.qs.length) return endSession(); }
+    else if (c === "end") { if (Object.keys(E.cur.ans).length) finishQ(); return endSession(); }
+    else if (c === "clr") { delete E.cur.ans[+m.s]; delete E.cur.bc[+m.s]; }
+    else if (c === "ign") { E.ignore[+m.card] = 1; delete E.cur.unk[+m.card]; }
+    else if (c === "zax" || c === "unzax") {
+      var card = +m.card;
+      if (c === "zax") { var er = zAssign(E.z, E.n, card, +m.s); if (er) { toast(er); return; } }
+      else zUnassign(E.z, card);
+      zsave(E.rkey, E.z);
+      // shu savolda ko'rilgan javoblar yangi egasiga o'tadi
+      var unk = E.cur.unk; E.cur.unk = {};
+      for (var s in E.cur.bc) { if (studentOf(E.cur.bc[s]) !== +s) { unk[E.cur.bc[s]] = E.cur.ans[s]; delete E.cur.ans[s]; delete E.cur.bc[s]; } }
+      for (var k in unk) engScan(+k, unk[k]);
+    }
+    changed();
+  }
+  function viewOf() {
+    var q = curQ();
+    return { type: "st", ph: E.ph, qi: E.qi, qn: E.man ? 0 : E.qs.length, man: E.man, n: E.n, names: E.roster.slice(0, E.n).map(shortName), z: E.z,
+      a: E.cur.ans, bc: E.cur.bc, unk: E.cur.unk, corr: E.man ? E.cur.corr : (E.ph === "rev" ? corrNow() : null), qt: q ? plain(q.q).slice(0, 300) : "" };
+  }
+  var sendT = 0;
+  function changed() {
+    if (!E) return;
+    if (SC.qi !== E.qi) { SC.qi = E.qi; scReset(); }
+    render(viewOf(), E.where === "proj" ? "proj" : "solo");
+    if (E.where === "solo" && $("#modal").hidden) for (var c in E.cur.unk) if (!E.prompted[c]) { E.prompted[c] = 1; askCard(+c, viewOf(), engCmd); break; }
+    if (E.api && !sendT) sendT = setTimeout(function () { sendT = 0; if (E && E.api) try { E.api.broadcast(viewOf()); } catch (e) {} }, 200);
+  }
+  function startSession(where) {
+    var r = curRoster(), m = $("#goMsg");
+    if (!r) { m.className = "msg err"; m.textContent = "Avval 2-bo'limda guruhni ulang"; return; }
+    var base = { where: where, rkey: cfg.rkey, rname: r.name, roster: r.list.slice(0, MAXK), n: Math.min(r.list.length, MAXK), z: zdata(cfg.rkey),
+      man: cfg.qmode !== "mav", qs: [], qi: 0, ph: "q", cur: newCur(), hist: [], ball: cfg.ball, ignore: {}, prompted: {}, scan: {}, api: null, t0: Date.now(), topic: "" };
+    var go = function () {
+      E = base; show("vSess"); keepAwake(true);
+      if (where === "proj") hostRoom(); else camUI();
+      changed();
+    };
+    if (base.man) return go();
+    m.className = "msg"; m.textContent = "⏳ Savollar tayyorlanmoqda…";
+    buildQs().then(function (qs) { base.qs = qs; base.topic = ($("#qTopic").selectedOptions[0] || {}).textContent || ""; m.textContent = ""; go(); })
+      .catch(function (e) { m.className = "msg err"; m.textContent = e.message; });
+  }
+  $("#goSolo").onclick = function () { startSession("solo"); };
+  $("#goProj").onclick = function () { startSession("proj"); };
+
+  /* ---- proyektor: xona ochish, telefon skaner sifatida ulanadi ---- */
+  function hostRoom() {
+    var box = $("#sJoin"); box.hidden = false;
+    if (!N || !N.host) { box.innerHTML = '<p class="msg err">Tarmoq moduli yuklanmadi — sahifani yangilang.</p>'; return; }
+    box.innerHTML = "<p>⏳ Xona ochilmoqda…</p>";
+    N.host({
+      onConn: function () { return E && Object.keys(E.scan).length < 4 ? true : "Skanerlar soni to'lgan"; },
+      onJoin: function (id) { if (!E) return; E.scan[id] = 1; drawJoin(); try { E.api.send(id, viewOf(), true); } catch (e) {} toast("📱 Telefon skaner ulandi"); },
+      onRejoin: function (id) { if (!E || !E.api) return; E.scan[id] = 1; drawJoin(); try { E.api.send(id, viewOf(), true); } catch (e) {} },
+      onMsg: function (id, msg) {
+        if (!E || !msg) return;
+        if (msg.type === "scan" && msg.d) for (var k in msg.d) engScan(+k, String(msg.d[k]));
+        else if (msg.type === "cmd") engCmd(msg);
+        else if (msg.type === "hi") try { E.api.send(id, viewOf(), true); } catch (e) {}
+      },
+      onLeave: function (id) { if (E) { delete E.scan[id]; drawJoin(); } },
+      onError: function (e) { box.innerHTML = '<p class="msg err">Xona ochilmadi: ' + esc((e && e.message) || e) + '</p><button type="button" class="btn" id="reHost">Qayta urinish</button>'; $("#reHost").onclick = hostRoom; }
+    }).then(function (api) { if (!E) { try { api.close(); } catch (e) {} return; } E.api = api; drawJoin(); changed(); })
+      .catch(function (e) { box.innerHTML = '<p class="msg err">Xona ochilmadi: ' + esc((e && e.message) || "internetni tekshiring") + '</p><button type="button" class="btn" id="reHost">Qayta urinish</button>'; $("#reHost").onclick = hostRoom; });
+  }
+  function drawJoin() {
+    var box = $("#sJoin"); if (!E || !E.api) return;
+    var code = E.api.code, url = location.origin + "/live/?kod=" + code, k = Object.keys(E.scan).length;
+    $("#sCode").hidden = false; $("#sCode").textContent = code;
+    box.innerHTML = '<div class="joininfo"><div class="qr" id="jQr"></div><div><div class="sub">Telefonda <b>kuvonch.uz/live</b> oching va kodni yozing (yoki QR\'ni skanerlang):</div><div class="bigcode">' + esc(code) + '</div>' +
+      '<div class="sub">' + (k ? "✅ Skaner ulangan: " + k + " ta telefon" : "⏳ Telefon kutilmoqda…") + '</div></div><button type="button" class="btn small" id="jHide" style="margin-left:auto">Yashirish</button></div>';
+    $("#jHide").onclick = function () { box.hidden = true; };
+    loadFirst(QR_SRCS).then(function () { var q = window.qrcode(0, "M"); q.addData(url); q.make(); var el = $("#jQr"); if (el) el.innerHTML = q.createSvgTag({ cellSize: 4, margin: 1, scalable: true }); }).catch(function () {});
+  }
+
+  /* ===================== TELEFON-SKANER (proyektorga ulanadi) ===================== */
+  var CL = null, V = null;
+  function clientStart(code) {
+    CL = { code: code, conn: null, q: {}, t: 0, tries: 0, prompted: {} };
+    $(".hero").hidden = true; show("vSess");
+    $("#sCode").hidden = false; $("#sCode").textContent = code;
+    $("#sQ").innerHTML = '<p class="sub" style="margin:0">⏳ Proyektor bilan ulanmoqda…</p>';
+    camUI(); clientJoin();
+  }
+  function clientJoin() {
+    if (!N || !N.join) { $("#sQ").innerHTML = '<p class="msg err">Tarmoq moduli yuklanmadi — sahifani yangilang.</p>'; return; }
+    netPill("re");
+    N.join(CL.code, { name: "Skaner" }, {
+      onMsg: function (m) {
+        if (!m || m.type !== "st") return;
+        if (m.ph === "end") { camStop(); keepAwake(false); $("#sQ").innerHTML = '<div class="qt">🏁 Test tugadi</div><p class="sub">Natija proyektordagi kompyuterda. Bu oynani yopishingiz mumkin.</p>'; ["#sCor", "#sCam", "#sBars"].forEach(function (x) { $(x).hidden = true; }); $("#sChips").innerHTML = ""; $("#sCtl").innerHTML = ""; $("#sUnk").innerHTML = ""; return; }
+        var newQ = !V || V.qi !== m.qi; V = m;
+        if (newQ) { scReset(); CL.prompted = {}; }
+        render(V, "client"); clientPrompt();
+      },
+      onClose: function () { netPill("re"); CL.conn = null; setTimeout(clientJoin, 2500); },
+      onStatus: function (up) { netPill(up > 0 ? "on" : "re"); }
+    }).then(function (c) { CL.conn = c; CL.tries = 0; netPill("on"); try { c.send({ type: "hi" }); } catch (e) {} flushScan(); })
+      .catch(function (e) {
+        CL.tries++;
+        var em = (e && e.message) || "Ulanib bo'lmadi";
+        $("#sQ").innerHTML = '<p class="msg err">' + esc(em) + "</p><p class=\"sub\">" + (CL.tries < 20 ? "🔄 Qayta urinilmoqda…" : "") + "</p>";
+        if (CL.tries < 20) setTimeout(clientJoin, Math.min(10, 1 + CL.tries) * 1000);
+      });
+  }
+  function netPill(st) { var p = $("#sNet"); p.hidden = false; p.textContent = st === "on" ? "🟢 Ulangan" : "🟠 Ulanmoqda…"; }
+  function clientScan(card, L) {
+    CL.q[card] = L;
+    if (V && V.ph === "q") { // darhol ko'rsatamiz (proyektor tasdiqlaguncha)
+      var s = ownerIn(V, card);
+      if (s > -1) { V.a[s] = L; V.bc[s] = card; } else V.unk[card] = L;
+      render(V, "client"); clientPrompt();
+    }
+    if (!CL.t) CL.t = setTimeout(flushScan, 250);
+  }
+  function flushScan() { CL.t = 0; if (!CL.conn || !Object.keys(CL.q).length) return; try { CL.conn.send({ type: "scan", d: CL.q }); CL.q = {}; } catch (e) {} }
+  function clientCmd(m) { m.type = "cmd"; if (CL && CL.conn) try { CL.conn.send(m); } catch (e) { toast("Aloqa yo'q"); } else toast("Proyektor bilan aloqa yo'q"); }
+  function clientPrompt() { // biriktirilmagan zaxira karta ko'rinsa — bir marta so'raymiz
+    if (!V || !$("#modal").hidden) return;
+    for (var c in V.unk) if (!CL.prompted[c]) { CL.prompted[c] = 1; askCard(+c, V, clientCmd); return; }
+  }
+
+  /* ===================== CHIZISH (hamma rejim uchun umumiy) ===================== */
+  function cmdFor(role) { return role === "client" ? clientCmd : engCmd; }
+  function render(v, role) {
+    var send = cmdFor(role), proj = role === "proj", nAns = Object.keys(v.a).length, rev = v.ph === "rev";
+    $("#vSess").classList.toggle("proj", proj);
+    $("#sQn").textContent = "Savol " + (v.qi + 1) + (v.qn ? " / " + v.qn : "");
+    $("#sCnt").textContent = nAns + " / " + v.n + " javob";
+    // savol
+    var qh = "";
+    if (role !== "client" && E && !E.man) {
+      var q = curQ();
+      if (q) qh = '<div class="qt">' + safe(q.q) + '</div><div class="qopts">' + q.opts.map(function (o, i) {
+        return '<div class="' + (rev && i === q.ci ? "ok" : "") + '"><i>' + L4[i] + "</i><span>" + safe(o) + "</span></div>";
+      }).join("") + "</div>";
+    } else if (v.qt) qh = '<div class="qt" style="font-size:18px">' + esc(v.qt) + "</div>" + (rev && v.corr ? '<p class="msg ok">To\'g\'ri javob: <b>' + v.corr + "</b></p>" : "");
+    else qh = '<div class="qt">' + (v.qi + 1) + "-savol</div><p class=\"sub\" style=\"margin:6px 0 0\">Savolni doskada, slaydda yoki og'zaki bering. O'quvchilar kartani ko'tarsin, siz skanerlang.</p>";
+    $("#sQ").innerHTML = qh;
+    // to'g'ri javobni belgilash (o'zim beraman rejimi)
+    var cor = $("#sCor");
+    cor.hidden = !v.man || proj;
+    if (v.man && !proj) {
+      cor.innerHTML = '<div class="corbtns"><span class="sub">To\'g\'ri javob:</span>' + L4.map(function (L) { return '<button type="button" class="btn' + (v.corr === L ? " on" : "") + '" data-cor="' + L + '">' + L + "</button>"; }).join("") +
+        '<button type="button" class="btn small' + (!v.corr ? " on" : "") + '" data-cor="">So\'rovnoma (ballsiz)</button></div>';
+      $$("[data-cor]", cor).forEach(function (b) { b.onclick = function () { send({ c: "cor", v: b.getAttribute("data-cor") }); }; });
+    }
+    // biriktirilmagan kartalar
+    var uk = Object.keys(v.unk || {});
+    $("#sUnk").innerHTML = uk.length && !proj ? '<span class="sub">Biriktirilmagan karta:</span>' + uk.map(function (c) { return '<button type="button" data-unk="' + c + '">' + c + "-karta ❓</button>"; }).join("") :
+      (uk.length ? '<span class="sub">Biriktirilmagan kartalar: ' + uk.join(", ") + "</span>" : "");
+    $$("[data-unk]").forEach(function (b) { b.onclick = function () { askCard(+b.getAttribute("data-unk"), v, send); }; });
+    // o'quvchilar kataklari
+    var html = "";
+    for (var i = 0; i < v.n; i++) {
+      var L = v.a[i], card = v.bc[i] || spareCard(v, i) || (i + 1), cls = "ch";
+      if (L) cls += rev && v.corr ? (L === v.corr ? " ok" : " no") : " on";
+      if (spareCard(v, i)) cls += " zx";
+      html += '<button type="button" class="' + cls + '" data-s="' + i + '" title="' + esc(v.names[i]) + '">' + card + (L && (!proj || rev) ? "<small>" + L + "</small>" : "") + "</button>";
+    }
+    $("#sChips").innerHTML = html;
+    for (var ac in SC.acc) { var ow = ownerIn(v, +ac); if (ow > -1 && !v.a[ow]) delete SC.acc[ac]; }
+    if (!proj) $$("#sChips .ch").forEach(function (b) { b.onclick = function () { askStudent(+b.getAttribute("data-s"), v, send); }; });
+    // diagramma
+    var bars = $("#sBars"); bars.hidden = !rev;
+    if (rev) {
+      var cnt = { A: 0, B: 0, C: 0, D: 0 }; for (var s in v.a) cnt[v.a[s]]++;
+      bars.innerHTML = L4.map(function (L) {
+        var p = nAns ? Math.round(100 * cnt[L] / nAns) : 0;
+        return '<div class="bar' + (v.corr === L ? " ok" : "") + '"><span>' + L + (v.corr === L ? " ✓" : "") + '</span><div class="tr"><i style="width:' + p + '%"></i></div><span>' + cnt[L] + " · " + p + "%</span></div>";
+      }).join("") + (v.corr ? '<p class="sub" style="margin:4px 0 0">To\'g\'ri javob berdi: <b>' + cnt[v.corr] + "</b> nafar" + (role !== "client" && E ? " · har biriga +" + E.ball + " ball" : "") + "</p>" : '<p class="sub">So\'rovnoma — ball berilmaydi.</p>');
+    }
+    // tugmalar
+    var last = v.qn && v.qi + 1 >= v.qn;
+    $("#sCtl").innerHTML = (rev ? '<button type="button" class="btn" data-c="back">↩ Skanerlashga qaytish</button><button type="button" class="btn primary big" data-c="next">' + (last ? "🏁 Yakunlash" : "Keyingi savol ▶") + "</button>"
+      : '<button type="button" class="btn primary big" data-c="rev">👁 Javobni ochish</button>') +
+      '<button type="button" class="btn" data-c="end">🏁 Testni tugatish</button>';
+    $$("#sCtl [data-c]").forEach(function (b) { b.onclick = function () { var c = b.getAttribute("data-c"); if (c === "end" && !confirm("Test tugatilsinmi?")) return; send({ c: c }); }; });
+  }
+  function ownerIn(v, card) {
+    var z = v.z || {}, o = z.zax && z.zax[card] != null ? +z.zax[card] : -1;
+    if (o > -1) return o < v.n ? o : -1;
+    return card <= v.n && !(z.lost && z.lost[card - 1]) ? card - 1 : -1;
+  }
+  function spareCard(v, s) { var z = v.z && v.z.zax; if (!z) return 0; for (var c in z) if (+z[c] === s) return +c; return 0; }
+  function askCard(card, v, send) {
+    var lostOwner = card <= v.n && v.z && v.z.lost && v.z.lost[card - 1] ? card - 1 : -1;
+    var opts = v.names.map(function (nm, i) { var sp = spareCard(v, i); return '<option value="' + i + '">' + (i + 1) + ". " + esc(nm) + (sp ? " (hozir " + sp + "-karta)" : "") + "</option>"; }).join("");
+    if (lostOwner > -1) {
+      modal("<h3>" + card + "-karta</h3><p class=\"sub\">Bu " + esc(v.names[lostOwner]) + "ning asl kartasi. Unga " + spareCard(v, lostOwner) + "-zaxira karta berilgan. Asl kartasi topildimi?</p>" +
+        '<div class="row"><button type="button" class="btn primary" id="mBack">Ha — asl kartasini qaytarish</button><button type="button" class="btn" id="mIgn">Yo\'q — bu kartani e\'tiborsiz qoldirish</button></div>');
+      $("#mBack").onclick = function () { send({ c: "unzax", card: spareCard(v, lostOwner) }); closeModal(); };
+    } else if (card > v.n) {
+      modal("<h3>" + card + "-karta kimniki?</h3><p class=\"sub\">Bu zaxira karta hali hech kimga biriktirilmagan. Kimga berdingiz? Ball o'sha o'quvchiga yoziladi va keyingi darslarda ham eslab qolinadi.</p>" +
+        '<label class="sub" style="display:block">O\'quvchi<select id="mS">' + opts + "</select></label>" +
+        '<div class="row" style="margin-top:10px"><button type="button" class="btn primary" id="mOk">Biriktirish</button><button type="button" class="btn" id="mIgn">Begona karta — e\'tiborsiz</button></div>');
+      $("#mOk").onclick = function () { send({ c: "zax", card: card, s: +$("#mS").value }); closeModal(); };
+    } else return;
+    $("#mIgn").onclick = function () { send({ c: "ign", card: card }); closeModal(); };
+  }
+  function askStudent(s, v, send) {
+    var L = v.a[s], sp = spareCard(v, s), free = [];
+    for (var c = v.n + 1; c <= MAXK; c++) if (!(v.z && v.z.zax && v.z.zax[c] != null)) free.push(c);
+    modal("<h3>" + (s + 1) + ". " + esc(v.names[s]) + "</h3><p class=\"sub\">Javob: <b>" + (L || "hali yo'q") + "</b>" + (sp ? " · karta: " + sp + " (zaxira)" : " · karta: " + (s + 1)) + "</p>" +
+      (L ? '<div class="row"><button type="button" class="btn" id="mClr">Javobini o\'chirish</button></div>' : "") +
+      (free.length ? '<p class="sub" style="margin:12px 0 4px">Kartasi yo\'qolgan yoki yirtilganmi? Zaxira karta bering:</p><div class="row"><label style="flex:0 1 140px">Zaxira karta<select id="mC">' + free.map(function (c) { return "<option>" + c + "</option>"; }).join("") + '</select></label><button type="button" class="btn primary" id="mZ">Biriktirish</button></div>' : "") +
+      (sp ? '<div class="row" style="margin-top:8px"><button type="button" class="btn" id="mUn">Asl kartasini qaytarish (' + (s + 1) + ")</button></div>" : "") +
+      '<div class="row" style="margin-top:12px"><button type="button" class="btn small" id="mX">Yopish</button></div>');
+    var b;
+    if ((b = $("#mClr"))) b.onclick = function () { send({ c: "clr", s: s }); closeModal(); };
+    if ((b = $("#mZ"))) b.onclick = function () { send({ c: "zax", card: +$("#mC").value, s: s }); closeModal(); };
+    if ((b = $("#mUn"))) b.onclick = function () { send({ c: "unzax", card: sp }); closeModal(); };
+    $("#mX").onclick = closeModal;
+  }
+
+  /* ===================== KAMERA VA KARTANI TANISH ===================== */
+  var SC = { qi: -1, on: false, acc: {}, seen: {}, stream: null, track: null, det: null, work: null, dt: 0, cb: null, z: 1 };
+  function camUI() {
+    var box = $("#sCam"); box.hidden = false;
+    scReset(); SC.qi = -1; $("#camSt").textContent = ""; $("#camZ").innerHTML = "";
+    var o = $("#camO"); o.getContext("2d").clearRect(0, 0, o.width, o.height);
+    camMsg('<button type="button" class="btn primary big" id="camGo">📷 Skanerni yoqish</button><p class="sub">Brauzer kameraga ruxsat so\'raydi — «Ruxsat berish»ni bosing.</p>');
+    $("#camGo").onclick = camStart;
+  }
+  function camMsg(h) { var m = $("#camMsg"); m.hidden = !h; m.innerHTML = h || ""; }
+  function camStart() {
+    SC.cb = CL ? clientScan : engScan;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { camMsg("Bu brauzer kamerani bermaydi. Sahifani Chrome yoki Safari'da https orqali oching."); return; }
+    camMsg("⏳ Kamera yoqilmoqda…");
+    loadSeq(AR_SRCS).then(function () {
+      var AR = window.AR;
+      if (!AR.DICTIONARIES.KA_KARTA) AR.DICTIONARIES.KA_KARTA = { nBits: 16, tau: 2, codeList: AR.DICTIONARIES.ARUCO_4X4_1000.codeList.slice(0, MAXK + 1) }; // 1 bitgacha xatoni tuzatadi
+      SC.det = new AR.Detector({ dictionaryName: "KA_KARTA" });
+      return navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: "environment" }, width: { ideal: 1920 }, height: { ideal: 1080 } } });
+    }).then(function (st) {
+      SC.stream = st; var v = $("#camV"); v.srcObject = st; v.muted = true;
+      return v.play();
+    }).then(function () {
+      SC.track = SC.stream.getVideoTracks()[0]; SC.on = true; camMsg(""); zoomUI(); keepAwake(true); loop();
+    }).catch(function (e) {
+      var n = e && e.name;
+      camMsg((n === "NotAllowedError" ? "🚫 Kameraga ruxsat berilmadi. Brauzer sozlamalaridan bu sayt uchun kamerani yoqing va sahifani yangilang." :
+        n === "NotFoundError" || n === "OverconstrainedError" ? "Kamera topilmadi." : "Kamera ochilmadi: " + esc((e && e.message) || e)) + '<p><button type="button" class="btn" id="camGo">Qayta urinish</button></p>');
+      $("#camGo").onclick = camStart;
+    });
+  }
+  function zoomUI() {
+    var caps = {}, box = $("#camZ"); box.innerHTML = "";
+    try { caps = SC.track.getCapabilities ? SC.track.getCapabilities() : {}; } catch (e) {}
+    var zc = caps.zoom; if (!zc || !(zc.max > 1)) return;
+    var vals = [1, 2, 3].filter(function (x) { return x >= (zc.min || 1) && x <= zc.max; });
+    box.innerHTML = vals.map(function (x) { return '<button type="button" data-z="' + x + '"' + (x === SC.z ? ' class="on"' : "") + ">" + x + "x</button>"; }).join("");
+    $$("[data-z]", box).forEach(function (b) {
+      b.onclick = function () {
+        var z = +b.getAttribute("data-z");
+        SC.track.applyConstraints({ advanced: [{ zoom: z }] }).then(function () { SC.z = z; $$("[data-z]", box).forEach(function (x) { x.classList.toggle("on", +x.getAttribute("data-z") === z); }); }).catch(function () { toast("Zoom o'rnatilmadi"); });
+      };
+    });
+  }
+  // marker burchaklari (0→1 qirra — kartaning A tomoni) bo'yicha tepadagi harf
+  function topLetter(c) {
+    var cx = (c[0].x + c[1].x + c[2].x + c[3].x) / 4, cy = (c[0].y + c[1].y + c[2].y + c[3].y) / 4;
+    var mx = (c[0].x + c[1].x) / 2 - cx, my = (c[0].y + c[1].y) / 2 - cy;
+    var ang = Math.atan2(-my, mx) * 180 / Math.PI;
+    return L4[Math.round(((((ang - 90) % 360) + 360) % 360) / 90) % 4];
+  }
+  function scReset() { SC.acc = {}; SC.seen = {}; }
+  function loop() {
+    if (!SC.on) return;
+    var v = $("#camV"), ms = [];
+    if (v.readyState >= 2 && v.videoWidth) {
+      var w = v.videoWidth, h = v.videoHeight, k = Math.min(1, 1920 / Math.max(w, h)), cw = Math.round(w * k), ch = Math.round(h * k);
+      var c = SC.work || (SC.work = document.createElement("canvas"));
+      if (c.width !== cw || c.height !== ch) { c.width = cw; c.height = ch; }
+      var x = c.getContext("2d", { willReadFrequently: true });
+      x.drawImage(v, 0, 0, cw, ch);
+      var t = performance.now();
+      try { ms = SC.det.detect(x.getImageData(0, 0, cw, ch)); } catch (e) { ms = []; }
+      SC.dt = performance.now() - t;
+      handle(ms); drawOv(ms, cw, ch);
+    }
+    setTimeout(loop, SC.dt > 120 ? 15 : 45);
+  }
+  function handle(ms) {
+    var now = Date.now();
+    ms.forEach(function (m) {
+      var id = m.id; if (!(id >= 1 && id <= MAXK)) return;
+      var L = topLetter(m.corners), s = SC.seen[id];
+      if (s && s.L === L && now - s.t < 1500) { s.n++; s.t = now; } else s = SC.seen[id] = { L: L, n: 1, t: now };
+      m.L = L; m.ok = s.n >= 2;
+      if (m.ok && SC.acc[id] !== L) { SC.acc[id] = L; vib(15); if (SC.cb) SC.cb(id, L); }
+    });
+    $("#camSt").textContent = "🎯 " + Object.keys(SC.acc).length + " ta karta · " + Math.round(SC.dt) + " ms";
+  }
+  function drawOv(ms, cw, ch) {
+    var v = $("#camV"), o = $("#camO"), W = v.clientWidth, H = v.clientHeight;
+    if (o.width !== W || o.height !== H) { o.width = W; o.height = H; o.style.width = W + "px"; o.style.height = H + "px"; }
+    var g = o.getContext("2d"); g.clearRect(0, 0, W, H);
+    var k = Math.min(W / cw, H / ch), ox = (W - cw * k) / 2, oy = (H - ch * k) / 2;
+    ms.forEach(function (m) {
+      if (!(m.id >= 1 && m.id <= MAXK)) return;
+      var col = m.ok ? "#2fd36b" : "#ffd479";
+      g.beginPath(); m.corners.forEach(function (p, i) { var X = ox + p.x * k, Y = oy + p.y * k; if (i) g.lineTo(X, Y); else g.moveTo(X, Y); }); g.closePath();
+      g.lineWidth = 3; g.strokeStyle = col; g.stroke();
+      var cx = 0, cy = 0; m.corners.forEach(function (p) { cx += p.x; cy += p.y; }); cx = ox + cx / 4 * k; cy = oy + cy / 4 * k;
+      var t = m.id + " " + (m.L || ""); g.font = "bold 18px sans-serif"; var tw = g.measureText(t).width;
+      g.fillStyle = "rgba(0,0,0,.7)"; g.fillRect(cx - tw / 2 - 6, cy - 14, tw + 12, 26); g.fillStyle = col; g.fillText(t, cx - tw / 2, cy + 6);
+    });
+  }
+  function camStop() { SC.on = false; if (SC.stream) SC.stream.getTracks().forEach(function (t) { t.stop(); }); SC.stream = null; }
+  var wake = null;
+  function keepAwake(on) {
+    try {
+      if (on && !wake && navigator.wakeLock) navigator.wakeLock.request("screen").then(function (w) { wake = w; w.addEventListener("release", function () { wake = null; }); }).catch(function () {});
+      if (!on && wake) { wake.release(); wake = null; }
+    } catch (e) {}
+  }
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && (E || CL)) keepAwake(true); });
+
+  /* ===================== YAKUN VA EXCEL ===================== */
+  function endSession() {
+    if (!E) return;
+    camStop(); keepAwake(false);
+    var J = lsGet(LS_J, {})[E.rkey] || {}, total = E.hist.length, rows = [];
+    for (var i = 0; i < E.n; i++) {
+      var ok = 0, ans = 0;
+      E.hist.forEach(function (h) { if (h.ans[i]) { ans++; if (h.corr && h.ans[i] === h.corr) ok++; } });
+      rows.push({ i: i, name: E.roster[i], card: zSpareOfStudent(E.z, i) || i + 1, ok: ok, ans: ans, ball: ok * E.ball, jami: J[E.roster[i]] || 0 });
+    }
+    E.rows = rows;
+    $("#eSum").innerHTML = esc(E.rname) + " · " + total + " ta savol" + (E.topic ? " · " + esc(E.topic) : "") + " · har to'g'ri javob " + E.ball + " ball. «Jami» — shu qurilmada shu guruh bo'yicha barcha testlardagi ball.";
+    $("#eTab").innerHTML = "<tr><th>№</th><th>O'quvchi</th><th>Karta</th><th>To'g'ri</th><th>Ball</th><th>Jami</th></tr>" + rows.map(function (r) {
+      return "<tr><td>" + (r.i + 1) + "</td><td>" + esc(r.name) + "</td><td>" + r.card + '</td><td class="n">' + r.ok + " / " + total + '</td><td class="n"><b>' + r.ball + '</b></td><td class="n">' + r.jami + "</td></tr>";
+    }).join("");
+    if (E.api) { try { E.api.broadcast({ type: "st", ph: "end", qi: E.qi, qn: 0, man: true, n: 0, names: [], z: {}, a: {}, bc: {}, unk: {}, corr: null, qt: "Test tugadi" }); } catch (e) {} setTimeout(function () { try { E.api.close(); } catch (e) {} }, 800); }
+    show("vEnd");
+  }
+  $("#eNew").onclick = function () { E = null; show("vSetup"); $("#sJoin").hidden = true; $("#sCode").hidden = true; $("#sCam").hidden = true; renderRoster(); renderZax(); };
+  $("#eXls").onclick = function () {
+    if (!E || !E.rows) return;
+    var head = ["№", "O'quvchi", "Karta", "To'g'ri", "Savollar", "Ball", "Jami ball"];
+    var a1 = [head].concat(E.rows.map(function (r) { return [r.i + 1, r.name, r.card, r.ok, E.hist.length, r.ball, r.jami]; }));
+    var a2 = [["№", "O'quvchi"].concat(E.hist.map(function (h, k) { return (k + 1) + "-savol (" + (h.corr || "so'rov") + ")"; }))].concat(
+      E.rows.map(function (r) { return [r.i + 1, r.name].concat(E.hist.map(function (h) { return h.ans[r.i] || ""; })); }));
+    var fname = "kartalar_" + String(E.rname).replace(/[^\w\-]+/g, "_") + "_" + todayIso();
+    loadScript(XLSX_SRC).then(function () {
+      var X = window.XLSX, wb = X.utils.book_new();
+      X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(a1), "Natija");
+      X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(a2), "Javoblar");
+      X.writeFile(wb, fname + ".xlsx");
+    }).catch(function () { // Excel kutubxonasi yuklanmasa — CSV (Excel ochadi)
+      var csv = "﻿" + a1.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(";"); }).join("\r\n");
+      var u = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" })), l = document.createElement("a");
+      l.href = u; l.download = fname + ".csv"; document.body.appendChild(l); l.click(); setTimeout(function () { URL.revokeObjectURL(u); l.remove(); }, 1000);
+    });
+  };
+
+  /* ===================== ISHGA TUSHIRISH ===================== */
+  var kod = /[?&]kod=([A-Za-z]{5})\b/.exec(location.search);
+  if (kod) clientStart(kod[1].toUpperCase());
+  else { renderTabs(); dvRender(); renderRoster(); renderZax(); renderQ(); }
+})();
+</script>
+<script src="akkount.js"></script>
+</body>
+</html>
