@@ -254,7 +254,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   var AR_SRCS = ["vendor/js-aruco2/cv.js", "vendor/js-aruco2/aruco.js", "vendor/js-aruco2/aruco_4x4_1000.js"];
   // savollar katalogi barcha sinf o'yinlari bilan umumiy (ka-mavzular.js) — 20 fan, 1–9-sinf, Zakovat va o'qituvchi savollari
 
-  var MV = window.KA_MAVZU, TOPICS = MV.TOPICS;
+  var MV = window.KA_MAVZU, TOPICS = MV.TOPICS.filter(function (t) { return !MV.isOpen(t[0]); }); // 📗 test bazasi (variantsiz) kartalarga mos emas
   var GROUPS = MV.GROUPS;
   var N = window.KANet;
 

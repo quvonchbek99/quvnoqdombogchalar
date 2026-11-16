@@ -345,7 +345,8 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
   "use strict";
   // Mavzular katalogi barcha sinf o'yinlari bilan umumiy (ka-mavzular.js): 258 mavzu, 20 fan + o'qituvchining o'z savollari
   var MV = window.KA_MAVZU;
-  var TOPICS = MV.TOPICS, GROUPS = MV.GROUPS;
+  // 📗 test bazasi savollarida javob varianti yo'q — Arqon tortishda (variantli o'yin) ko'rsatilmaydi
+  var TOPICS = MV.TOPICS.filter(function (t) { return !MV.isOpen(t[0]); }), GROUPS = MV.GROUPS;
   function needGen(id) { return !(window.kaSavol && window.kaSavol.has(id)); }
   function prepTopics(ids) { return MV.prep(ids); }
   // savol matni (+ avtotestda yo'l belgisi, o'qituvchi savolida rasm)

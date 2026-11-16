@@ -104,6 +104,19 @@
   // Bitta savol. lvl: 1 | 2 | 3 | "mix"; seen — takrorlanmasin; o.maxQ / o.maxA — qisqa savol kerak bo'lsa (Moslashtir, Mol ur)
   function ask(ids, lvl, seen, o) {
     o = o || {}; seen = seen || {};
+    // 📗 test bazasi savollari ochiq (javob varianti yo'q) — variant kerak bo'lgan o'yinlarda (kartalar, mol ur, moslashtir, telefon) o'tkazib yuboriladi
+    var open = ids.filter(M.isOpen);
+    if (open.length && (o.needOpts || o.maxA || o.maxQ)) { ids = ids.filter(function (id) { return !M.isOpen(id); }); open = []; }
+    if (!ids.length) return null;
+    if (open.length && Math.random() < open.length / ids.length) {
+      for (var t = 0; t < 12; t++) {
+        var oid = pick(open), b = M.bankQ(oid, lvl === "mix" || !lvl ? 0 : +lvl);
+        if (!b) continue;
+        var ok2 = oid + "|" + b.tx; if (seen[ok2] && t < 10) continue; seen[ok2] = 1;
+        return { q: esc(b.tx), open: true, opts: [], ci: -1, a: "", steps: [], tid: oid, L: b.L, lvl: b.lvl, r: null, wrong: [] };
+      }
+      ids = ids.filter(function (id) { return !M.isOpen(id); }); if (!ids.length) return null;
+    }
     var best = null, tries = o.maxQ || o.maxA ? 40 : 18;
     for (var i = 0; i < tries; i++) {
       var tid = pick(ids), L = lvl === "mix" || !lvl ? rnd(1, 3) : +lvl, p = null;
@@ -125,20 +138,21 @@
     var steps = Array.isArray(p2.steps) ? p2.steps.map(String) : p2.steps ? [String(p2.steps)] : [];
     return { q: p2.q, a: right, opts: opts, ci: opts.indexOf(right), steps: steps, tid: best.tid, L: best.L, r: p2.r || null, wrong: wr };
   }
-  function qHtml(q) { return (q && q.r ? M.img(q.r) : "") + safe(q ? q.q : ""); }
+  function qHtml(q) { if (q && q.open) return q.q; return (q && q.r ? M.img(q.r) : "") + safe(q ? q.q : ""); }
 
   /* ---------------- mavzu tanlash paneli ---------------- */
   // sel — tanlangan id lar massivi (joyida o'zgaradi); onChange(sel)
-  function picker(el, sel, onChange) {
+  function picker(el, sel, onChange, po) {
+    po = po || {};
     var fan = "all";
     var fq = (/[?&]fan=([a-z]+)/i.exec(location.search) || [])[1];
     if (fq && FANS.some(function (f) { return f[0] === fq; })) fan = fq;
     el.innerHTML =
-      '<div class="ks-fans" role="toolbar" aria-label="Fanlar">' + FANS.map(function (f) { return '<button type="button" data-f="' + f[0] + '">' + esc(f[1]) + "</button>"; }).join("") + "</div>" +
+      '<div class="ks-fans" role="toolbar" aria-label="Fanlar">' + FANS.filter(function (f) { return !(po.noOpen && f[0] === "bz"); }).map(function (f) { return '<button type="button" data-f="' + f[0] + '">' + esc(f[1]) + "</button>"; }).join("") + "</div>" +
       '<input class="ks-field ks-tsearch" type="search" placeholder="🔎 Mavzu qidirish: kasr, logarifm, lug\'at, poytaxt, Om qonuni…" aria-label="Mavzu qidirish" autocomplete="off">' +
       '<div class="ks-chips" aria-live="polite"></div>' +
       '<div class="ks-tlist">' + GROUPS.map(function (gn, gi) {
-        var rows = TOPICS.filter(function (t) { return t[2] === gi; });
+        var rows = TOPICS.filter(function (t) { return t[2] === gi && !(po.noOpen && M.isOpen(t[0])); });
         if (!rows.length) return "";
         return '<details class="ks-tg" data-g="' + gi + '"><summary><span>' + esc(gn) + '</span><span class="cnt"></span><button type="button" class="all">Hammasi</button></summary><div class="ks-trows">' +
           rows.map(function (t) { return '<label class="ks-trow" data-id="' + t[0] + '" data-s="' + esc(t[1].toLowerCase()) + '"><input type="checkbox" value="' + t[0] + '"><span>' + esc(t[1]) + "</span></label>"; }).join("") + "</div></details>";
@@ -292,8 +306,9 @@
     el.innerHTML = '<div class="ks-qbox" style="--tc:' + (o.color || "#7c9bff") + '">' +
       '<div class="ks-qhead">' + (o.title ? '<span class="ks-qteam">' + esc(o.title) + "</span>" : "") + (o.value != null ? '<span class="ks-qval">' + esc(o.value) + "</span>" : "") +
       '<span class="ks-qtime" hidden></span><button type="button" class="ks-x" aria-label="Yopish">✕</button></div>' +
-      (o.topic !== false ? '<div class="ks-qtopic">' + esc((TITLE[q.tid] || "") + "  ·  " + "★★★".slice(0, q.L || 2)) + "</div>" : "") +
-      '<div class="ks-qtext"><div>' + qHtml(q) + "</div></div>" +
+      (o.topic !== false ? '<div class="ks-qtopic">' + esc((TITLE[q.tid] || "") + "  ·  " + (q.open ? q.lvl + " daraja · ochiq savol" : "★★★".slice(0, q.L || 2))) + "</div>" : "") +
+      '<div class="ks-qtext' + (q.open ? " open" : "") + '"><div>' + qHtml(q) + "</div></div>" +
+      (q.open ? '<div class="ks-judge"><p class="ks-dim">📗 Javob varianti yo\'q: o\'quvchi javobni aytadi yoki doskaga yozadi — o\'qituvchi tekshiradi.</p><div class="ks-qbtns"><button type="button" class="ks-btn big jy" data-ok="1">✅ To\'g\'ri javob berdi</button><button type="button" class="ks-btn big jn" data-ok="0">❌ Noto\'g\'ri</button></div></div>' : "") +
       '<div class="ks-opts n' + q.opts.length + '">' + q.opts.map(function (t, i) {
         return '<button type="button" class="ks-opt c' + i + '" data-i="' + i + '"' + (o.disabled && o.disabled.indexOf(i) > -1 ? " disabled" : "") + '><b>' + LET[i] + "</b><span>" + safe(t) + "</span></button>";
       }).join("") + "</div>" +
@@ -302,6 +317,24 @@
     var m = modal = { el: el, done: false, timer: 0, cards: !!o.cards };
     var tEl = $(".ks-qtime", el), foot = $(".ks-qfoot", el), left = o.time || 0;
     requestAnimationFrame(function () { fit($(".ks-qtext", el), 46, 15); $$(".ks-opt span", el).forEach(function (s) { s.style.fontSize = ""; }); });
+    if (q.open) M.math($(".ks-qtext", el)).then(function () { fit($(".ks-qtext", el), 46, 15); });
+    // 📗 ochiq savol: o'qituvchi ✅ / ❌ bosadi
+    function finishOpen(ok) {
+      if (m.done) return; m.done = true; clearInterval(m.timer);
+      var jd = $(".ks-judge", el); if (jd) jd.remove();
+      snd(ok ? "ok" : "bad"); vib(ok ? 30 : [60, 40, 60]);
+      var res = { ok: ok, idx: ok ? 0 : 1, open: true };
+      var h = '<div class="ks-verdict ' + (ok ? "ok" : "no") + '">' + (ok ? "✅ To'g'ri!" : "❌ Noto'g'ri") + '</div><div class="ks-qbtns">';
+      (o.extra || []).forEach(function (x, i) { if (!x.when || x.when === (ok ? "ok" : "no")) h += '<button type="button" class="ks-btn ' + (x.cls || "") + '" data-x="' + i + '">' + esc(x.t) + "</button>"; });
+      foot.innerHTML = h + '<button type="button" class="ks-btn primary" data-go="1">Davom ▶</button></div>';
+      foot.onclick = function (e) {
+        var b = e.target.closest && e.target.closest("button"); if (!b) return;
+        if (b.dataset.go) { closeModal(); if (o.onDone) o.onDone(res); }
+        else if (b.dataset.x != null) { var x = o.extra[+b.dataset.x]; closeModal(); if (x.fn) x.fn(res); }
+      };
+      if (o.onAnswer) o.onAnswer(res);
+    }
+    if (q.open) { $(".ks-judge", el).onclick = function (e) { var b = e.target.closest && e.target.closest("[data-ok]"); if (b) finishOpen(b.dataset.ok === "1"); }; m.open = finishOpen; }
     function finish(idx, timeout) {
       if (m.done) return; m.done = true; clearInterval(m.timer);
       var ok = idx === q.ci;
@@ -363,6 +396,7 @@
     $(".ks-opts", el).addEventListener("click", function (e) { if (o.cards) return; var b = e.target.closest && e.target.closest(".ks-opt"); if (b && !b.disabled) finish(+b.dataset.i); });
     $(".ks-x", el).onclick = function () { if (m.done) { var g = $("[data-go]", foot); if (g) g.click(); return; } closeModal(); if (o.onCancel) o.onCancel(); };
     m.key = function (e) {
+      if (q.open && !m.done) { var kk = String(e.key).toUpperCase(); if (kk === "T" || kk === "1") { e.preventDefault(); finishOpen(true); } else if (kk === "N" || kk === "0" || kk === "2") { e.preventDefault(); finishOpen(false); } return; }
       if (o.cards) { if (e.key === "Enter") { e.preventDefault(); if (!m.done) m.reveal(); else { var g0 = $("[data-go]", foot); if (g0) g0.click(); } } return; }
       if (m.done) { if (e.key === "Enter" || e.key === " ") { var g = $("[data-go]", foot); if (g && document.activeElement !== g) { e.preventDefault(); g.click(); } } return; }
       var k = String(e.key).toUpperCase(), i = LET.indexOf(k); if (i < 0) i = ["1", "2", "3", "4", "5", "6"].indexOf(k);
@@ -377,7 +411,7 @@
         var s = (end - Date.now()) / 1000; tEl.textContent = mmss(s);
         tEl.classList.toggle("low", s <= 5);
         if (s <= 5 && s > 0 && Math.abs(s - Math.round(s)) < .13) snd("tick");
-        if (s <= 0) { if (m.reveal) m.reveal(); else finish(-1, true); }
+        if (s <= 0) { if (q.open) { clearInterval(m.timer); tEl.textContent = "⏰ 0:00"; snd("tick"); return; } if (m.reveal) m.reveal(); else finish(-1, true); }
       }, 250);
     }
     return { close: closeModal, el: el };

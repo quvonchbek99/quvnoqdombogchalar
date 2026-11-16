@@ -236,7 +236,7 @@
   /* ---------------- sozlamalar ---------------- */
   var cfg = K.load(LS, { kind: "juft", mode: "proj", topics: [], n: 1, names: [], pairs: 6, lvl: "1", sets: 2, min: 3 });
   var ut = K.urlTopics(); if (ut) cfg.topics = ut;
-  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
+  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id] && !window.KA_MAVZU.isOpen(id); });
   function summary() {
     var tel = cfg.mode === "tel";
     if (tel && cfg.kind === "mem") cfg.kind = "juft";
@@ -247,7 +247,7 @@
     $("#go").disabled = !cfg.topics.length; K.save(LS, cfg);
   }
   K.opts($("#modeCard"), cfg, summary);
-  K.picker($("#pick"), cfg.topics, summary);
+  K.picker($("#pick"), cfg.topics, summary, { noOpen: true });
   K.teamsUI($("#teams"), cfg, 1, 6, summary);
   K.opts($("#opts"), cfg, summary);
   summary();

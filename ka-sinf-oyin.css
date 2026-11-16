@@ -212,3 +212,11 @@ body.ks-play .kvfab,body.ks-play .kvtip{display:none!important}
 .ks-tstat{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0}
 .ks-tstat span{padding:4px 12px;border-radius:999px;border:2px solid var(--tc);background:color-mix(in srgb,var(--tc) 15%,transparent);font-weight:800}
 .ks-team .rg{font-size:11px;color:var(--text-dim);display:block}
+/* 📗 ochiq savollar (test bazasi): o'qituvchi tekshiradi */
+.ks-qtext.open{height:min(42vh,380px)}
+.ks-qtext .katex{font-size:1em}
+.ks-judge{text-align:center}
+.ks-judge p{margin:0 0 4px}
+.ks-btn.jy{background:linear-gradient(135deg,#36d399,#1f9d6b);color:#04140b;border-color:transparent}
+.ks-btn.jn{background:linear-gradient(135deg,#ff8585,#e5484d);color:#2a0606;border-color:transparent}
+.ks-opts.n0{display:none}

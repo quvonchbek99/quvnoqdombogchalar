@@ -160,6 +160,7 @@
     K.prep(cfg.topics.slice()).then(function (ok) {
       starting = false; b.disabled = false; b.textContent = lbl;
       if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang"); return; }
+      if (cfg.ans === "kart" && ok.every(window.KA_MAVZU.isOpen)) { K.toast("📗 Test bazasi savollarida javob varianti yo'q — kartalar uchun variantli mavzu ham tanlang", 5000); return; }
       start(ok);
     });
   };
@@ -202,7 +203,7 @@
     var team = G.teams[G.turn];
     if (t.s) { b.innerHTML = t.s.i; return surprise(t.s, team); }
     b.innerHTML = "❓<small>" + t.v + " ball</small>";
-    var q = K.ask(G.ids, t.L, G.seen);
+    var q = K.ask(G.ids, t.L, G.seen, G.cls ? { needOpts: true } : null);
     if (!q) { K.toast("Savol topilmadi — boshqa katak"); return next(true); }
     K.askModal({
       q: q, title: team.emoji + " " + team.name, color: team.color, value: t.v + " ball", time: cfg.time,
