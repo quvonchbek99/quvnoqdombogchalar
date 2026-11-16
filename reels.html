@@ -111,7 +111,8 @@ button,a{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
   function toast(t) { var el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove("on"); }, 1300); }
 
   // Ezop masallari — ezop-masallar.js dan (eng yangisi birinchi)
-  var ezop = (window.EZOP_MASALLAR || []).slice().reverse().map(function (m) {
+  // Faqat videosi tayyor (ka-video.js ro'yxatida bor) masallar ko'rsatiladi — videosiz masallar bo'sh reel bo'lib turmasin
+  var ezop = (window.EZOP_MASALLAR || []).filter(function (m) { return V.id("media/ezop/" + m.id + ".mp4"); }).reverse().map(function (m) {
     return { id: m.id, cat: "ezop", src: "media/ezop/" + m.id + ".mp4", poster: "media/poster/ezop/" + m.id + ".jpg", title: m.sarlavha, desc: "Ezop masali · " + (m.mavzu || ""), link: "ezop-oyin.html", linkText: "🦊 Masal bo'yicha savollar" };
   });
   var ALL = (window.KA_REELS || []).concat(ezop);

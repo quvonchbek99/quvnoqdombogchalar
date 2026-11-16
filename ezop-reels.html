@@ -50,7 +50,9 @@
 <script>
 (function () {
   var list = document.getElementById('list');
-  var items = (window.EZOP_MASALLAR || []).slice().reverse();
+  // Faqat videosi tayyor (ka-video.js ro'yxatida bor) masallar ko'rsatiladi
+  var Vk = window.kaVideo;
+  var items = (window.EZOP_MASALLAR || []).filter(function (m) { return Vk && Vk.id('media/ezop/' + m.id + '.mp4'); }).reverse();
   if (!items.length) {
     list.innerHTML = '<p class="empty">Hozircha masal yo\'q.</p>';
     return;

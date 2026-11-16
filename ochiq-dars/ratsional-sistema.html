@@ -76,6 +76,7 @@ section.blk{margin:26px 0;background:var(--card);border:1px solid var(--border);
 .task details p{margin:8px 0 0;color:var(--text)}
 .dl{display:flex;flex-wrap:wrap;gap:10px}
 .dl a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:12px;padding:12px 16px;font-weight:600;background:linear-gradient(135deg,#35f0c4,#7c9bff);color:#07101e}
+[hidden]{display:none!important}
 .dl a.alt{background:var(--bg-soft);color:var(--text);border:1px solid var(--border)}
 .src-list{color:var(--text-dim);font-size:14px;padding-left:18px;margin:0}
 .src-list li{margin:4px 0}
@@ -102,18 +103,18 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:24px 0 40p
 <main id="asosiy">
 <p class="crumbs"><a href="../index.html">Bosh sahifa</a> / <a href="./">Ochiq darslar</a> / Ratsional tenglamalar sistemasi</p>
 <h1>Sodda ratsional tenglamalar sistemasi</h1>
-<p class="lead">Ochiq dars ishlanmasi: tushuncha, xossalar, yechish usullari, algebra olimlarining fikrlari va hayotiy masala. Slaydlar, qisqa video va mustaqil ish javoblari bilan.</p>
+<p class="lead">Ochiq dars ishlanmasi: tushuncha, xossalar, yechish usullari, algebra olimlarining fikrlari va hayotiy masala. Slaydlar<span class="vid-only">, qisqa video</span> va mustaqil ish javoblari bilan.</p>
 <div class="chips">
 <span class="chip"><b>Fan:</b> Matematika — algebra</span>
 <span class="chip"><b>Kimlar uchun:</b> texnikum 1-kurs, 9–10-sinf</span>
-<span class="chip"><b>Material:</b> 20 slayd + 1 daqiqalik video</span>
+<span class="chip"><b>Material:</b> 20 slayd<span class="vid-only"> + 1 daqiqalik video</span></span>
 <span class="chip"><b>Muallif:</b> Mashrapov Q., Toshkent tuman 1-son texnikumi</span>
 </div>
 
-<section class="blk" id="video" aria-labelledby="h-video">
+<section class="blk vid-only" id="video" aria-labelledby="h-video">
 <h2 id="h-video">🎬 Video: olimlar va ratsional tenglamalar</h2>
 <div class="video">
-<video controls playsinline preload="metadata" poster="ratsional-sistema/poster.jpg" title="Olimlar va ratsional tenglamalar — video"><source src="ratsional-sistema/video.mp4" type="video/mp4">Brauzeringiz videoni qo‘llab-quvvatlamaydi.</video>
+<video controls playsinline preload="none" poster="ratsional-sistema/poster.jpg" title="Olimlar va ratsional tenglamalar — video"><source src="ratsional-sistema/video.mp4" type="video/mp4">Brauzeringiz videoni qo‘llab-quvvatlamaydi.</video>
 </div>
 <p class="note">Rasmlar Gemini (Higgsfield) yordamida yaratilgan badiiy tasvirlar — olimlarning haqiqiy portretlari emas.</p>
 </section>
@@ -181,9 +182,9 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:24px 0 40p
 <h2 id="h-dl">⬇️ Yuklab olish</h2>
 <div class="dl">
 <a href="ratsional-sistema/taqdimot.pptx" download="Sodda_ratsional_tenglamalar_sistemasi.pptx">📊 Taqdimot (PowerPoint, 20 slayd)</a>
-<a class="alt" href="ratsional-sistema/video.mp4" download="Olimlar_va_ratsional_tenglamalar.mp4">🎬 Video (MP4, 1 daqiqa)</a>
+<a class="alt vid-only" id="video-dl" href="ratsional-sistema/video.mp4" download="Olimlar_va_ratsional_tenglamalar.mp4">🎬 Video (MP4, 1 daqiqa)</a>
 </div>
-<p class="note">Taqdimotda o‘qituvchi uchun izohlar (speaker notes) va mustaqil ish javoblari bor. 16-slayddagi video kuvonch.uz sahifasida ochiladi; internetsiz ko‘rsatish uchun videoni alohida yuklab oling.</p>
+<p class="note">Taqdimotda o‘qituvchi uchun izohlar (speaker notes) va mustaqil ish javoblari bor.<span class="vid-only"> 16-slayddagi video kuvonch.uz sahifasida ochiladi; internetsiz ko‘rsatish uchun videoni alohida yuklab oling.</span></p>
 </section>
 
 <section class="blk" aria-labelledby="h-src">
@@ -216,6 +217,22 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:24px 0 40p
   document.getElementById('fs').onclick=function(){try{if(document.fullscreenElement)document.exitFullscreen();else if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitRequestFullscreen)v.webkitRequestFullscreen();}catch(e){}};
   go(0);
   document.getElementById('yil').textContent=new Date().getFullYear();
+})();
+</script>
+<script src="../ka-video.js"></script>
+<script>
+/* Video Google Drive'da bo'lsa (ka-video.js ro'yxatida) — Drive pleyeri; yo'q bo'lsa video qismlari yashiriladi.
+   Videoni qo'shish: Drive'ga yuklang va ka-video.js ga "ochiq-dars/ratsional-sistema/video.mp4": "FAYL_ID" qatorini yozing. */
+(function () {
+  var K = "ochiq-dars/ratsional-sistema/video.mp4", V = window.kaVideo, v = document.querySelector("#video video");
+  if (V && V.id(K)) {
+    if (v) V.swap(v, K);
+    var a = document.getElementById("video-dl"); if (a) a.href = V.download(K);
+    return;
+  }
+  var el = document.querySelectorAll(".vid-only");
+  for (var i = 0; i < el.length; i++) el[i].hidden = true;
+  if (v) { v.removeAttribute("src"); v.preload = "none"; var s = v.querySelector("source"); if (s) s.remove(); }
 })();
 </script>
 <script src="../akkount.js"></script>
