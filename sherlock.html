@@ -117,6 +117,9 @@ h1 .grad{background:linear-gradient(100deg,var(--teal),var(--violet) 60%,var(--r
 .tag.src{color:var(--haze);background:transparent;border-color:var(--line)}
 .case-top h2{font-family:var(--display);font-size:clamp(19px,3vw,24px);margin:0;flex:1 1 100%}
 .story{font-size:16px;color:#dfe6ff;margin:0 0 8px}
+.ish-rasm{margin:0 0 14px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0e1738}
+.ish-rasm img{display:block;width:100%;height:auto;aspect-ratio:800/447;object-fit:cover}
+.ish-rasm figcaption{font-size:11px;color:var(--haze);padding:5px 10px;text-align:right}
 .story em{color:var(--chalk);font-style:normal;background:#1a2450;padding:0 5px;border-radius:5px}
 .question{font-size:17px;font-weight:600;margin:10px 0 14px;color:var(--amber)}
 .opts{display:grid;gap:10px}
@@ -230,6 +233,7 @@ footer a{color:var(--haze)}
 </main>
 
 <script src="sherlock-ishlar.js?v=20261113a"></script>
+<script src="sherlock-rasmlar.js?v=20261116a"></script>
 <script>
 /* ============ ISHLAR: sherlock-ishlar.js dan (viktorina ham shu fayldan oladi) ============ */
 const DETS = window.SHERLOCK_DETEKTIVLAR || [];
@@ -243,6 +247,8 @@ const ALL = (window.SHERLOCK_ISHLAR || []).map((c, i) => ({
 }));
 const qCount = list => list.reduce((s, c) => s + c.qs.length, 0);
 const TOTAL_Q = qCount(ALL);
+const RASM = window.SHERLOCK_RASM || {};
+const rasm = c => RASM[c.id] ? `<figure class="ish-rasm"><img src="${RASM[c.id]}" alt="${esc(c.title)} — rasm" loading="lazy" decoding="async" width="800" height="447"><figcaption>Rasm: Gemini</figcaption></figure>` : '';
 const esc = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 
 /* ---- yechilgan savollar (shu qurilmada): { ish: [1|0, ...] } ---- */
@@ -361,7 +367,7 @@ function renderCase(){
         <span class="tag src">${esc(c.source)}</span>${c.muallif ? `<span class="tag mu">${esc(c.muallif)}</span>` : ''}${c.yil ? `<span class="tag yil">${c.yil}</span>` : ''}${caseState(c) === 'ok' ? '<span class="solved">✓ yechilgan</span>' : ''}
         <h2>${c.title}</h2>
       </div>
-      <p class="story">${c.story}</p>
+      ${rasm(c)}<p class="story">${c.story}</p>
       <div id="qbox"></div>
     </article>`;
   renderQ(true);
