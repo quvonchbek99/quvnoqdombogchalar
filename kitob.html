@@ -141,6 +141,7 @@ footer a{color:var(--accent);text-decoration:none}
 <script src="ka-savollar-10.js"></script>
 <script src="ka-savollar-11.js"></script>
 <script src="ka-savollar-12.js"></script>
+<script src="ka-misollar.js?v=20261116m"></script>
 <script src="ka-sinf-modullar.js"></script>
 <script>
 (function(){
@@ -176,6 +177,9 @@ function render(){
    if(t.qoida&&t.qoida.length)mh+='<div class="sec qoida"><h4>Qoida</h4>'+t.qoida.map(function(q){return '<p>'+q+'</p>'}).join('')+'</div>';
    if(t.misol&&t.misol.length)mh+='<div class="sec"><h4>Yechilgan misollar</h4>'+t.misol.map(function(x,i){return '<div class="misol"><div class="mq">'+(i+1)+') '+esc(x[0])+'</div><button type="button" data-toggle>Yechimni ko\'rsatish</button><div class="ma">'+esc(x[1])+'</div></div>'}).join('')+'</div>';
    if(t.mashq&&t.mashq.length)mh+='<div class="sec mashq"><h4>Mashqlar</h4><ol>'+t.mashq.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol></div>';
+   // ✍️ 40 ta tayyor misol va masala (ka-misollar.js): saytdagi to'liq mavzu yoki shu mavzuning moduli bo'yicha
+   var msId=window.kaMisollar?[t.mavzu].concat(t.test||[]).filter(function(x){return x&&kaMisollar.has(x)})[0]:null;
+   if(msId)mh+='<div class="ka-ms-slot" data-t="'+msId+'" data-label="'+esc((S&&S.title?S.title(msId):msId)+' — javobi va yechimi bilan')+'"></div>';
    mh+='<div class="acts">'+(ids.length?'<button type="button" class="btn btn-primary sm" data-test="'+t.id+'">🧪 Test — 10 savol</button>':'')+'<button type="button" class="btn btn-ghost sm done-btn'+(st[t.id]&&st[t.id].done?' on':'')+'" data-done="'+t.id+'">'+(st[t.id]&&st[t.id].done?'✓ O\'qildi':'O\'qildi deb belgilash')+'</button>'+(st[t.id]&&st[t.id].best!=null?'<span style="font-size:12.5px;color:var(--text-dim)">Eng yaxshi natija: '+st[t.id].best+'/10</span>':'')+'</div><div class="quiz" id="qz-'+t.id+'"></div></article>';
   });
   mh+='</section>';
