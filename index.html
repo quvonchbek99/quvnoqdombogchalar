@@ -126,6 +126,17 @@ a{color:inherit}
 .search{max-width:760px;margin:22px auto 0}
 
 /* ---------- Mashhur o'yin va vositalar ---------- */
+.dtest{padding-top:22px}
+.dt-card{position:relative;display:flex;align-items:center;gap:18px;padding:22px 24px;border-radius:22px;text-decoration:none;color:var(--chalk);background:linear-gradient(120deg,rgba(53,240,196,.14),rgba(162,123,255,.16) 55%,rgba(255,94,142,.14));border:1px solid rgba(162,123,255,.45);overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+.dt-card::before{content:"";position:absolute;inset:-40% -10%;background:conic-gradient(from 0deg,transparent 0 70%,rgba(53,240,196,.22) 80%,transparent 90%);animation:dtSpin 9s linear infinite;pointer-events:none}
+.dt-card>*{position:relative}
+.dt-card:hover{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 18px 50px rgba(53,240,196,.18)}
+.dt-ic{font-size:40px;line-height:1;flex:none}
+.dt-tx{flex:1;min-width:0}.dt-tx b{display:block;font-family:var(--display);font-size:clamp(18px,2.6vw,24px);line-height:1.2}.dt-tx small{display:block;margin-top:6px;color:var(--haze);font-size:14.5px;line-height:1.45}
+.dt-go{flex:none;padding:12px 18px;border-radius:999px;background:var(--teal);color:#04121a;font-weight:700;font-size:15px;white-space:nowrap}
+@keyframes dtSpin{to{transform:rotate(360deg)}}
+@media (max-width:640px){.dt-card{flex-wrap:wrap;padding:18px}.dt-go{width:100%;text-align:center}}
+@media (prefers-reduced-motion:reduce){.dt-card::before{animation:none}}
 .band{padding:46px 20px 10px}
 .band h2,.give h2{font:700 clamp(22px,2.6vw,30px)/1.15 var(--display);letter-spacing:-.02em;margin:0 0 6px}
 .band .sub,.give .sub{color:var(--haze);margin:0 0 20px}
@@ -294,6 +305,8 @@ details.apk-help div{padding:8px 2px 0}
 </div>
 </section>
 
+<section class="bugun" id="bugun" aria-label="Bugun: sana, yil oxiri, tengkunlik va shu kuni tug'ilgan olimlar"></section>
+
 <section class="band roles" aria-labelledby="kimga">
 <h2 id="kimga">Siz kimsiz? Shunga qarab boshlang</h2>
 <p class="sub">Har bir yo'nalishda faqat sizga kerakli bo'limlar.</p>
@@ -339,7 +352,13 @@ details.apk-help div{padding:8px 2px 0}
 </div>
 </section>
 
-<section class="bugun" id="bugun" aria-label="Bugun: sana, yil oxiri, tengkunlik va shu kuni tug'ilgan olimlar"></section>
+<section class="band dtest" aria-labelledby="dtestH">
+<a class="dt-card" href="daraja-test.html">
+<span class="dt-ic" aria-hidden="true">🎯</span>
+<span class="dt-tx"><b id="dtestH">Darajangizni aniqlang</b><small>Qisqa test — qaysi sinf darajasida ekaningizni ko'rsatadi va qayerdan boshlashni aytadi.</small></span>
+<span class="dt-go">Testni boshlash <span aria-hidden="true">→</span></span>
+</a>
+</section>
 
 <section class="band" aria-labelledby="mashhur">
 <h2 id="mashhur">Ko'pchilik shu yerdan boshlaydi</h2>
