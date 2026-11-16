@@ -122,6 +122,8 @@ textarea{min-height:120px;resize:vertical}
 .modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;padding:12px}
 .mbox{width:100%;max-width:520px;max-height:86vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px}
 .mbox h3{margin:0 0 6px}
+details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
+.st-ok{color:var(--accent)}.st-no{color:#ff8a94}.st-w{color:var(--gold)}
 #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#1a2747;border:1px solid var(--border);padding:10px 16px;border-radius:12px;transition:.25s;z-index:60;max-width:92vw;text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%)}
 @media (min-width:860px){.modal{align-items:center}}
@@ -165,13 +167,20 @@ textarea{min-height:120px;resize:vertical}
     </div>
 
     <div class="card">
-      <h2><b>3</b> Zaxira kartalar</h2>
+      <h2><b>3</b> O'quvchi akkountlari</h2>
+      <p class="sub" style="margin:0">Guruh ulanganda har bir o'quvchiga kuvonch.uz akkounti o'zi ochiladi. Login — ism + tartib raqami + guruh raqamlari (masalan, <b>Saidalo10126</b>), parol — guruh raqamlari + 2026 (masalan, <b>01262026</b>). Ismida «o'g'li» bo'lsa — o'g'il, «qizi» bo'lsa — qiz bola deb yoziladi. Test tugagach ball va natija o'quvchi akkountiga o'zi qo'shiladi.</p>
+      <div id="tSt" class="msg"></div>
+      <div id="aBox"></div>
+    </div>
+
+    <div class="card">
+      <h2><b>4</b> Zaxira kartalar</h2>
       <p class="sub" style="margin:0">O'quvchi kartasini yo'qotsa yoki karta yirtilsa, unga ortgan kartalardan birini bering va shu yerda biriktiring — ball o'sha o'quvchiga yoziladi. Skaner biriktirilmagan kartani ko'rsa, o'zi so'raydi.</p>
       <div id="zBox"></div>
     </div>
 
     <div class="card">
-      <h2><b>4</b> Savollar</h2>
+      <h2><b>5</b> Savollar</h2>
       <div class="opts" id="qMode">
         <button type="button" class="opt" data-v="man"><b>✍️ O'zim beraman</b><span>Savol doskada, slaydda yoki og'zaki. To'g'ri javobni skanerda belgilaysiz.</span></button>
         <button type="button" class="opt" data-v="mav"><b>🎲 Mavzudan avtomatik</b><span>Sayt tanlangan mavzudan A–D variantli savollar tuzadi (osondan qiyinga).</span></button>
@@ -186,7 +195,7 @@ textarea{min-height:120px;resize:vertical}
     </div>
 
     <div class="card">
-      <h2><b>5</b> Boshlash</h2>
+      <h2><b>6</b> Boshlash</h2>
       <div class="opts">
         <button type="button" class="opt" id="goSolo"><b>📱 Shu telefonda</b><span>Savol, skaner va natija — hammasi shu qurilmada. Proyektor shart emas.</span></button>
         <button type="button" class="opt" id="goProj"><b>🖥 Proyektor + telefon</b><span>Bu kompyuter savol va natijani katta ekranda ko'rsatadi, telefoningiz kod bilan ulanib skaner bo'ladi.</span></button>
@@ -217,6 +226,7 @@ textarea{min-height:120px;resize:vertical}
     <div class="card">
       <h2>🏁 Natija</h2>
       <p class="sub" id="eSum" style="margin-top:0"></p>
+      <div class="msg" id="eCloud"></div>
       <div class="row" style="margin:8px 0 12px"><button type="button" class="btn primary" id="eXls">⬇ Excel</button><button type="button" class="btn" id="eNew">🔁 Yangi test</button></div>
       <div style="overflow-x:auto"><table class="res" id="eTab"></table></div>
     </div>
@@ -225,6 +235,7 @@ textarea{min-height:120px;resize:vertical}
 <div class="modal" id="modal" hidden><div class="mbox" id="mbox"></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="ka-tarmoq.js"></script>
+<script src="ka-bulut.js"></script>
 <script>
 (function () {
   "use strict";
@@ -303,7 +314,7 @@ textarea{min-height:120px;resize:vertical}
   }
   function saveRoster(key, name, list, src) {
     var all = rosters(); all[key] = { name: name, list: list, src: src, at: Date.now() }; lsSet(LS_R, all);
-    cfg.rkey = key; saveCfg(); renderRoster(); renderZax();
+    cfg.rkey = key; saveCfg(); renderRoster(); renderZax(); renderAcc();
   }
   function renderRoster() {
     var all = rosters(), keys = Object.keys(all).sort(function (a, b) { return (all[b].at || 0) - (all[a].at || 0); });
@@ -324,7 +335,7 @@ textarea{min-height:120px;resize:vertical}
   $("#rSaved").addEventListener("click", function (e) {
     var d = e.target.closest("[data-del]");
     if (d) { var all = rosters(), k = d.getAttribute("data-del"); if (!confirm("«" + (all[k] && all[k].name) + "» ro'yxati o'chirilsinmi?")) return; delete all[k]; lsSet(LS_R, all); if (cfg.rkey === k) { cfg.rkey = ""; saveCfg(); } renderRoster(); renderZax(); return; }
-    var c = e.target.closest("[data-k]"); if (c) { cfg.rkey = c.getAttribute("data-k"); saveCfg(); renderRoster(); renderZax(); }
+    var c = e.target.closest("[data-k]"); if (c) { cfg.rkey = c.getAttribute("data-k"); saveCfg(); renderRoster(); renderZax(); renderAcc(); }
   });
   function renderTabs() {
     $$(".tabs button").forEach(function (b) { b.classList.toggle("on", b.dataset.t === cfg.tab); });
@@ -390,8 +401,128 @@ textarea{min-height:120px;resize:vertical}
         if (!list.length) { m.className = "msg err"; m.textContent = "Bu guruhda o'quvchi topilmadi"; return; }
         saveRoster("dv:" + g, g + (nomi ? " " + nomi : ""), list, "davomat");
         m.className = "msg ok"; m.textContent = "✅ " + g + ": " + list.length + " o'quvchi yuklandi va tanlandi";
+        if (isTeacher(T.st)) openAccounts();
       }).catch(function (e) { b.disabled = false; if (e.auth) return dvRender(e.message); m.className = "msg err"; m.textContent = e.message; });
     };
+  }
+
+  /* ---------------- o'quvchi akkountlari (kuvonch.uz) ---------------- */
+  var LS_A = "ka.kartalar.akk.v1", LS_Q = "ka.kartalar.navbat.v1", PW_YIL = "2026";
+  var CYR = { "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "j", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "x", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sh", "ъ": "'", "ь": "", "ы": "i", "э": "e", "ю": "yu", "я": "ya", "ў": "o'", "қ": "q", "ғ": "g'", "ҳ": "h" };
+  function lat(t) { return String(t || "").replace(/[А-Яа-яЁёЎўҚқҒғҲҳ]/g, function (ch) { var lo = ch.toLowerCase(), r = CYR[lo] != null ? CYR[lo] : ch; return ch !== lo && r ? r.charAt(0).toUpperCase() + r.slice(1) : r; }); }
+  function groupOf(rkey, r) { return String(rkey.indexOf("dv:") === 0 ? rkey.slice(3) : (r && r.name) || "").trim().slice(0, 20); }
+  function gDigits(g) { return String(g || "").replace(/\D/g, ""); }
+  // Jurnalda: Familiya Ism Otasining ismi o'g'li/qizi -> login: Ism + tartib raqami + guruh raqamlari (Saidalo10126)
+  function loginOf(full, i, g) {
+    var w = lat(full).replace(/[`ʻʼ‘’']/g, "").split(/\s+/).filter(Boolean);
+    var ism = String((w.length > 1 ? w[1] : w[0]) || "").replace(/[^A-Za-z]/g, "");
+    ism = ism ? ism.charAt(0).toUpperCase() + ism.slice(1).toLowerCase() : "Oquvchi";
+    return (ism + (i + 1) + gDigits(g)).slice(0, 40);
+  }
+  function jinsOf(full) {
+    var t = " " + lat(full).toLowerCase().replace(/[`ʻʼ‘’]/g, "'") + " ";
+    if (/\s(o'?g'?l[iy]|ugli|ogli)\s/.test(t)) return "o";
+    if (/\s(qizi|kizi)\s/.test(t)) return "q";
+    return "";
+  }
+  function accOf(rkey, r, i) {
+    var g = groupOf(rkey, r), a = (lsGet(LS_A, {})[rkey] || {})[i] || {};
+    return { name: a.l || loginOf(r.list[i], i, g), group: a.g || g, pw: a.pw || gDigits(g) + PW_YIL, jins: jinsOf(r.list[i]), st: a.st || "", av: i % 12 };
+  }
+  function accSet(rkey, i, acc, st) { var A = lsGet(LS_A, {}), g = A[rkey] || (A[rkey] = {}); g[i] = { l: acc.name, g: acc.group, pw: acc.pw, st: st, t: Date.now() }; lsSet(LS_A, A); }
+  var T = { st: null, busy: false };
+  function isTeacher(st) { return !!(st && st.signed && (st.teacher || st.admin || st.rol === "oqituvchi")); }
+  function teacherCheck() {
+    if (!window.kaCloud) { T.st = { signed: false }; renderAcc(); return Promise.resolve(null); }
+    return kaCloud.session().then(function (uid) { return uid ? kaCloud.premiumStatus() : { signed: false }; })
+      .then(function (st) { T.st = st || { signed: false }; renderAcc(); return st; }, function () { T.st = { signed: false }; renderAcc(); return null; });
+  }
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && !E && !CL) teacherCheck(); });
+  function renderAcc() {
+    var t = $("#tSt"), box = $("#aBox"), r = curRoster();
+    if (!t) return;
+    if (!T.st) t.innerHTML = '<span class="st-w">⏳ Ustoz profili tekshirilmoqda…</span>';
+    else if (!T.st.signed) t.innerHTML = '<span class="st-no">🔒 Avval ustoz profilingiz bilan kiring (yuqori chap burchakdagi «Kirish»), keyin <a href="#" id="tRe">qayta tekshiring</a>.</span>';
+    else if (!isTeacher(T.st)) t.innerHTML = '<span class="st-no">Bu akkount ustoz emas — akkount ochish faqat ustoz profili bilan ishlaydi. <a href="#" id="tRe">Qayta tekshirish</a></span>';
+    else t.innerHTML = '<span class="st-ok">🎓 Ustoz profili bilan kirgansiz ✅</span>';
+    var re = $("#tRe"); if (re) re.onclick = function (e) { e.preventDefault(); teacherCheck(); };
+    if (!r) { box.innerHTML = ""; return; }
+    var g = groupOf(cfg.rkey, r), n = Math.min(r.list.length, MAXK);
+    if (!gDigits(g)) { box.innerHTML = '<p class="msg err">Guruh nomida raqam yo\'q («' + esc(g) + '») — login va parol tuzib bo\'lmaydi. Ro\'yxatni guruh nomi bilan (masalan, 10-25) saqlang.</p>'; return; }
+    var cnt = { ok: 0, parol: 0, xato: 0, yoq: 0 }, rows = "";
+    for (var i = 0; i < n; i++) {
+      var a = accOf(cfg.rkey, r, i), stx = a.st === "ok" ? '<span class="st-ok">✅ ochilgan</span>' : a.st === "parol" ? '<span class="st-w">⚠ o\'z paroli bor</span>' : a.st === "xato" ? '<span class="st-no">✖ xato</span>' : '<span class="sub">— hali yo\'q</span>';
+      cnt[a.st === "ok" ? "ok" : a.st === "parol" ? "parol" : a.st === "xato" ? "xato" : "yoq"]++;
+      rows += "<tr><td>" + (i + 1) + "</td><td>" + esc(r.list[i]) + "</td><td><b>" + esc(a.name) + "</b></td><td>" + (a.jins === "o" ? "o'g'il" : a.jins === "q" ? "qiz" : "—") + "</td><td>" + stx + "</td></tr>";
+    }
+    var q = lsGet(LS_Q, []).filter(function (x) { return x.rkey === cfg.rkey; }).length;
+    box.innerHTML = '<p class="sub" style="margin:8px 0 4px">Guruh: <b>' + esc(g) + "</b> · parol: <b>" + esc(gDigits(g) + PW_YIL) + "</b> · ochilgan: " + cnt.ok + " / " + n +
+      (cnt.parol ? " · o'z paroli bor: " + cnt.parol : "") + (cnt.xato ? " · xato: " + cnt.xato : "") + "</p>" +
+      '<div class="row">' + (isTeacher(T.st) && cnt.ok < n ? '<button type="button" class="btn primary" id="aGo"' + (T.busy ? " disabled" : "") + ">👥 Akkountlarni ochish (" + (n - cnt.ok) + " ta)</button>" : "") +
+      '<button type="button" class="btn" id="aXls">⬇ Login va parollar (Excel)</button>' + (q ? '<button type="button" class="btn" id="aQ">☁️ Navbatdagi natijalarni yuborish (' + q + ")</button>" : "") + "</div>" +
+      '<div class="msg" id="aMsg"></div><details><summary>Loginlar ro\'yxati</summary><div style="overflow-x:auto"><table class="res"><tr><th>№</th><th>Jurnalda</th><th>Login</th><th>Jinsi</th><th>Holat</th></tr>' + rows + "</table></div></details>";
+    var b;
+    if ((b = $("#aGo"))) b.onclick = function () { openAccounts(); };
+    if ((b = $("#aQ"))) b.onclick = function () { flushQueue(true); };
+    $("#aXls").onclick = function () {
+      var aoa = [["№", "Jurnalda", "Login (ism)", "Guruh", "Parol", "Jinsi", "Holat"]];
+      for (var k = 0; k < n; k++) { var a = accOf(cfg.rkey, r, k); aoa.push([k + 1, r.list[k], a.name, a.group, a.st === "parol" ? "(o'zi o'zgartirgan)" : a.pw, a.jins === "o" ? "o'g'il" : a.jins === "q" ? "qiz" : "", a.st === "ok" ? "ochilgan" : a.st === "parol" ? "o'z paroli" : "yo'q"]); }
+      xlsOut("loginlar_" + g, [["Loginlar", aoa]]);
+    };
+  }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function openAccounts() {
+    var r = curRoster(), rkey = cfg.rkey;
+    if (!r || T.busy) return;
+    if (!window.kaCloud || !kaCloud.ochOquvchi) { toast("Bulut moduli yuklanmadi — sahifani yangilang"); return; }
+    if (!isTeacher(T.st)) { toast("Avval ustoz profili bilan kiring"); return; }
+    if (!gDigits(groupOf(rkey, r))) { toast("Guruh nomida raqam yo'q"); return; }
+    T.busy = true; renderAcc();
+    var n = Math.min(r.list.length, MAXK), done = 0, bad = 0, idx = [];
+    for (var i = 0; i < n; i++) if (accOf(rkey, r, i).st !== "ok") idx.push(i);
+    var step = function (k) {
+      var m = $("#aMsg");
+      if (k >= idx.length) { T.busy = false; renderAcc(); m = $("#aMsg"); if (m) { m.className = bad ? "msg err" : "msg ok"; m.textContent = "✅ Tayyor: " + done + " ta akkount" + (bad ? ", " + bad + " tasida muammo (ro'yxatda ko'ring)" : ""); } return; }
+      var i = idx[k], a = accOf(rkey, r, i);
+      if (m) { m.className = "msg"; m.textContent = "⏳ Akkount ochilmoqda: " + (k + 1) + " / " + idx.length + " — " + a.name; }
+      var once = function (retry) {
+        return kaCloud.ochOquvchi(a).then(function () { accSet(rkey, i, a, "ok"); done++; }, function (e) {
+          if (e && e.code === "auth/too-many-requests" && !retry) return sleep(6000).then(function () { return once(true); });
+          if (e && e.code === "boshqa-parol") { accSet(rkey, i, a, "parol"); bad++; return; }
+          accSet(rkey, i, a, "xato"); bad++;
+        });
+      };
+      once(false).then(function () { return sleep(350); }).then(function () { if (cfg.rkey === rkey) renderAcc(); step(k + 1); });
+    };
+    step(0);
+  }
+  /* natijani o'quvchi akkountiga yozish; bo'lmasa — navbatga (keyin qayta yuboriladi) */
+  function creditAll(rkey, r, items, onDone) {
+    var res = { ok: 0, q: 0, parol: 0 }, per = {}, Q = lsGet(LS_Q, []);
+    if (!window.kaCloud || !kaCloud.ballOquvchi) { items.forEach(function (it) { Q.push({ rkey: rkey, i: it.i, r: it.r, at: Date.now() }); per[it.i] = "q"; }); lsSet(LS_Q, Q); res.q = items.length; onDone(res, per); return; }
+    var step = function (k) {
+      if (k >= items.length) { lsSet(LS_Q, Q); onDone(res, per); return; }
+      var it = items[k], a = accOf(rkey, r, it.i), m = $("#eCloud");
+      if (m && E) { m.className = "msg"; m.textContent = "☁️ Natijalar akkountlarga yozilmoqda: " + (k + 1) + " / " + items.length; }
+      var p = a.st === "ok" ? Promise.resolve() : kaCloud.ochOquvchi(a).then(function () { accSet(rkey, it.i, a, "ok"); a.st = "ok"; }, function (e) { if (e && e.code === "boshqa-parol") { accSet(rkey, it.i, a, "parol"); a.st = "parol"; } });
+      p.then(function () {
+        if (a.st === "parol") { res.parol++; per[it.i] = "parol"; return; }
+        return kaCloud.ballOquvchi(a, it.r).then(function () { res.ok++; per[it.i] = "ok"; }, function (e) {
+          if (e && e.code === "boshqa-parol") { accSet(rkey, it.i, a, "parol"); res.parol++; per[it.i] = "parol"; return; }
+          Q.push({ rkey: rkey, i: it.i, r: it.r, at: Date.now() }); res.q++; per[it.i] = "q";
+        });
+      }).then(function () { return sleep(250); }).then(function () { step(k + 1); });
+    };
+    step(0);
+  }
+  function flushQueue(loud) {
+    var all = lsGet(LS_Q, []), mine = all.filter(function (x) { return x.rkey === cfg.rkey; }), r = curRoster();
+    if (!mine.length || !r) return;
+    lsSet(LS_Q, all.filter(function (x) { return x.rkey !== cfg.rkey; }));
+    creditAll(cfg.rkey, r, mine.map(function (x) { return { i: x.i, r: x.r }; }), function (res) {
+      renderAcc(); var m = $("#aMsg");
+      if (m && loud) { m.className = res.q ? "msg err" : "msg ok"; m.textContent = "☁️ Yuborildi: " + res.ok + (res.q ? " · yana navbatda: " + res.q : "") + (res.parol ? " · o'z paroli bor: " + res.parol : ""); }
+    });
   }
 
   /* ---------------- zaxira kartalar (guruh bo'yicha qurilmada saqlanadi) ---------------- */
@@ -836,37 +967,52 @@ textarea{min-height:120px;resize:vertical}
       rows.push({ i: i, name: E.roster[i], card: zSpareOfStudent(E.z, i) || i + 1, ok: ok, ans: ans, ball: ok * E.ball, jami: J[E.roster[i]] || 0 });
     }
     E.rows = rows;
+    var R0 = rosters()[E.rkey] || { name: E.rname, list: E.roster }, items = [], topic = (E.topic ? E.topic : "Kuvonch kartalar") + " · " + E.rname;
+    rows.forEach(function (r) { if (r.ans) items.push({ i: r.i, r: { coins: r.ball, correct: r.ok, answered: r.ans, total: total, topic: topic } }); });
+    var cl = $("#eCloud"); cl.className = "msg"; cl.textContent = "";
+    if (items.length && gDigits(groupOf(E.rkey, R0))) {
+      cl.textContent = "☁️ Natijalar akkountlarga yozilmoqda…";
+      creditAll(E.rkey, R0, items, function (res, per) {
+        cl.className = res.q || res.parol ? "msg err" : "msg ok";
+        cl.textContent = "☁️ " + res.ok + " ta o'quvchi akkountiga ball va natija yozildi" + (res.q ? " · " + res.q + " tasi navbatda (internet yoki server) — keyin 3-bo'limdagi «Navbatdagi natijalarni yuborish»" : "") +
+          (res.parol ? " · " + res.parol + " tasi parolini o'zgartirgan, ularga yozilmadi" : "");
+        $$("#eTab [data-cl]").forEach(function (td) { var v = per[td.getAttribute("data-cl")]; td.innerHTML = v === "ok" ? "✅" : v === "parol" ? "⚠" : v === "q" ? "⏳" : ""; });
+      });
+    } else if (items.length) cl.textContent = "Guruh nomida raqam yo'q — natija akkountlarga yozilmadi (faqat shu qurilmada).";
+
     $("#eSum").innerHTML = esc(E.rname) + " · " + total + " ta savol" + (E.topic ? " · " + esc(E.topic) : "") + " · har to'g'ri javob " + E.ball + " ball. «Jami» — shu qurilmada shu guruh bo'yicha barcha testlardagi ball.";
-    $("#eTab").innerHTML = "<tr><th>№</th><th>O'quvchi</th><th>Karta</th><th>To'g'ri</th><th>Ball</th><th>Jami</th></tr>" + rows.map(function (r) {
-      return "<tr><td>" + (r.i + 1) + "</td><td>" + esc(r.name) + "</td><td>" + r.card + '</td><td class="n">' + r.ok + " / " + total + '</td><td class="n"><b>' + r.ball + '</b></td><td class="n">' + r.jami + "</td></tr>";
+    $("#eTab").innerHTML = "<tr><th>№</th><th>O'quvchi</th><th>Karta</th><th>To'g'ri</th><th>Ball</th><th>Jami</th><th>☁️</th></tr>" + rows.map(function (r) {
+      return "<tr><td>" + (r.i + 1) + "</td><td>" + esc(r.name) + "</td><td>" + r.card + '</td><td class="n">' + r.ok + " / " + total + '</td><td class="n"><b>' + r.ball + '</b></td><td class="n">' + r.jami + '</td><td data-cl="' + r.i + '">' + (r.ans ? "…" : "") + "</td></tr>";
     }).join("");
     if (E.api) { try { E.api.broadcast({ type: "st", ph: "end", qi: E.qi, qn: 0, man: true, n: 0, names: [], z: {}, a: {}, bc: {}, unk: {}, corr: null, qt: "Test tugadi" }); } catch (e) {} setTimeout(function () { try { E.api.close(); } catch (e) {} }, 800); }
     show("vEnd");
   }
-  $("#eNew").onclick = function () { E = null; show("vSetup"); $("#sJoin").hidden = true; $("#sCode").hidden = true; $("#sCam").hidden = true; renderRoster(); renderZax(); };
+  $("#eNew").onclick = function () { E = null; show("vSetup"); $("#sJoin").hidden = true; $("#sCode").hidden = true; $("#sCam").hidden = true; renderRoster(); renderZax(); renderAcc(); };
   $("#eXls").onclick = function () {
     if (!E || !E.rows) return;
     var head = ["№", "O'quvchi", "Karta", "To'g'ri", "Savollar", "Ball", "Jami ball"];
     var a1 = [head].concat(E.rows.map(function (r) { return [r.i + 1, r.name, r.card, r.ok, E.hist.length, r.ball, r.jami]; }));
     var a2 = [["№", "O'quvchi"].concat(E.hist.map(function (h, k) { return (k + 1) + "-savol (" + (h.corr || "so'rov") + ")"; }))].concat(
       E.rows.map(function (r) { return [r.i + 1, r.name].concat(E.hist.map(function (h) { return h.ans[r.i] || ""; })); }));
-    var fname = "kartalar_" + String(E.rname).replace(/[^\w\-]+/g, "_") + "_" + todayIso();
+    xlsOut("kartalar_" + E.rname, [["Natija", a1], ["Javoblar", a2]]);
+  };
+  function xlsOut(name, sheets) {
+    var fname = String(name).replace(/[^\w\-]+/g, "_") + "_" + todayIso();
     loadScript(XLSX_SRC).then(function () {
       var X = window.XLSX, wb = X.utils.book_new();
-      X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(a1), "Natija");
-      X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(a2), "Javoblar");
+      sheets.forEach(function (sh) { X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(sh[1]), sh[0]); });
       X.writeFile(wb, fname + ".xlsx");
     }).catch(function () { // Excel kutubxonasi yuklanmasa — CSV (Excel ochadi)
-      var csv = "﻿" + a1.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(";"); }).join("\r\n");
+      var csv = "\ufeff" + sheets[0][1].map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(";"); }).join("\r\n");
       var u = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" })), l = document.createElement("a");
       l.href = u; l.download = fname + ".csv"; document.body.appendChild(l); l.click(); setTimeout(function () { URL.revokeObjectURL(u); l.remove(); }, 1000);
     });
-  };
+  }
 
   /* ===================== ISHGA TUSHIRISH ===================== */
   var kod = /[?&]kod=([A-Za-z]{5})\b/.exec(location.search);
   if (kod) clientStart(kod[1].toUpperCase());
-  else { renderTabs(); dvRender(); renderRoster(); renderZax(); renderQ(); }
+  else { renderTabs(); dvRender(); renderRoster(); renderZax(); renderQ(); renderAcc(); teacherCheck(); }
 })();
 </script>
 <script src="akkount.js"></script>

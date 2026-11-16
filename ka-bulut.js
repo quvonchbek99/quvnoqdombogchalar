@@ -133,8 +133,66 @@
     } finally { pushing = false; }
   }
 
+  // ---- Kuvonch kartalar: o'qituvchi o'quvchilar akkountini ochadi va ballini yozadi ----
+  // Alohida Firebase ilovasi (xotirada) — o'qituvchining o'z kirishi o'zgarmaydi.
+  var P2 = null;
+  function load2() {
+    if (!P2) {
+      P2 = load().then(function (c) {
+        return import(BASE + "firebase-app.js").then(function (A) {
+          var app2; try { app2 = A.getApp("ka-oquvchi"); } catch (e) { app2 = A.initializeApp(CFG, "ka-oquvchi"); }
+          var auth2; try { auth2 = c.A.initializeAuth(app2, { persistence: c.A.inMemoryPersistence }); } catch (e) { auth2 = c.A.getAuth(app2); }
+          return { A: c.A, F: c.F, auth: auth2, db: c.F.getFirestore(app2) };
+        });
+      });
+      P2.catch(function () { P2 = null; });
+    }
+    return P2;
+  }
+  // jins: "o" — o'g'il, "q" — qiz (qoidalar yangilanmagan bo'lsa — maydonsiz yoziladi)
+  async function ochOquvchi(s) {
+    var c = await load2(), email = await emailFor(s.name, s.group), cr = null, holat = "yangi";
+    try { cr = await c.A.createUserWithEmailAndPassword(c.auth, email, s.pw); }
+    catch (e) {
+      if (!e || e.code !== "auth/email-already-in-use") throw e;
+      try { cr = await c.A.signInWithEmailAndPassword(c.auth, email, s.pw); holat = "bor"; }
+      catch (e2) { var x = new Error("parol"); x.code = "boshqa-parol"; throw x; }
+    }
+    try {
+      var ref = c.F.doc(c.db, "users", cr.user.uid), snap = await c.F.getDoc(ref);
+      if (!snap.exists()) {
+        var d = clean({ name: s.name, group: s.group, av: s.av | 0 }, c.F); d.rol = "oquvchi";
+        if (s.jins === "o" || s.jins === "q") d.jins = s.jins;
+        await setCompat(c.F, ref, d, ["jins"]);
+      }
+      return { uid: cr.user.uid, holat: holat };
+    } finally { try { await c.A.signOut(c.auth); } catch (e) {} }
+  }
+  async function ballOquvchi(s, r) {
+    var c = await load2(), email = await emailFor(s.name, s.group), cr;
+    try { cr = await c.A.signInWithEmailAndPassword(c.auth, email, s.pw); }
+    catch (e) { var x = new Error("parol"); x.code = (e && e.code) === "auth/too-many-requests" ? e.code : "boshqa-parol"; throw x; }
+    try {
+      var uid = cr.user.uid, ref = c.F.doc(c.db, "users", uid), snap = await c.F.getDoc(ref);
+      if (!snap.exists()) { var y = new Error("profil"); y.code = "profil-yoq"; throw y; }
+      var d = snap.data(), add = Math.max(0, Math.min(200, r.coins | 0));
+      var upd = { coins: Math.min(100000, (d.coins | 0) + add), correct: (d.correct | 0) + (r.correct | 0), answered: (d.answered | 0) + (r.answered | 0), tests: (d.tests | 0) + 1, updated: c.F.serverTimestamp() };
+      try { await c.F.updateDoc(ref, upd); }
+      catch (e) { if (!denied(e)) throw e; await new Promise(function (ok) { setTimeout(ok, 2600); }); await c.F.updateDoc(ref, upd); } // 2 soniyalik cheklov
+      if (r.total) {
+        try {
+          await c.F.addDoc(c.F.collection(c.db, "results"), { uid: uid, name: String(d.name || s.name).slice(0, 40), group: String(d.group || s.group).slice(0, 20),
+            topic: String(r.topic || "Kuvonch kartalar").slice(0, 120), correct: Math.min(r.correct | 0, Math.min(200, r.total | 0)), total: Math.min(200, r.total | 0), at: c.F.serverTimestamp() });
+        } catch (e) {}
+      }
+      return { coins: upd.coins };
+    } finally { try { await c.A.signOut(c.auth); } catch (e) {} }
+  }
+
   window.kaCloud = {
     ready: function () { return load().then(function () { return true; }, function () { return false; }); },
+    ochOquvchi: ochOquvchi,   // {name, group, pw, av, jins} -> {uid, holat: "yangi"|"bor"}
+    ballOquvchi: ballOquvchi, // ({name, group, pw}, {coins, correct, answered, total, topic})
     uzError: uzError,
     uid: function () { return P && window.__kaCloudAuth && window.__kaCloudAuth.currentUser ? window.__kaCloudAuth.currentUser.uid : null; },
     // Sahifa ochilganda oldingi sessiya tiklanishini kutish; kirgan bo'lsa uid qaytaradi

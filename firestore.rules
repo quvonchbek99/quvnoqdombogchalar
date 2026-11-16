@@ -27,8 +27,9 @@ service cloud.firestore {
     function cost(days) { return days == 7 ? 15 : (days == 30 ? 50 : 1000000); }
     function tday(t) { return (t + duration.value(5, 'h')).date(); }
     function validProfile(d) {
-      return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated','bc','suv','streak','dailyAt','rol'])
+      return d.keys().hasOnly(['name','group','av','coins','correct','answered','tests','updated','bc','suv','streak','dailyAt','rol','jins'])
         && d.get('rol', 'oquvchi') in ['oquvchi', 'oqituvchi']
+        && d.get('jins', '') in ['', 'o', 'q'] // o — o'g'il, q — qiz (Kuvonch kartalar jurnal ro'yxatidan)
         && d.get('bc', 0) is int && d.get('bc', 0) >= 0
         && d.get('suv', 0) is int && d.get('suv', 0) >= 0
         && d.get('streak', 0) is int && d.get('streak', 0) >= 0
