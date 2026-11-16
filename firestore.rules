@@ -104,6 +104,17 @@ service cloud.firestore {
       allow delete: if signedIn() && request.auth.uid == uid;
     }
 
+    // Parol o'zgarsa ham asl (eski) parol bilan kirish: faqat shifrlangan matn (ochish uchun asl parol kerak)
+    match /kalit/{id} {
+      allow read: if true;
+      allow create, update: if signedIn() && request.auth.token.email == id + '@kuvonch.academy'
+        && request.resource.data.keys().hasOnly(['cn','cb','at'])
+        && request.resource.data.cn is string && request.resource.data.cn.size() <= 400
+        && request.resource.data.cb is string && request.resource.data.cb.size() <= 400
+        && request.resource.data.at == request.time;
+      allow delete: if signedIn() && request.auth.token.email == id + '@kuvonch.academy';
+    }
+
     // Test natijalari: o'quvchi faqat qo'sha oladi, o'qish va o'chirish faqat o'qituvchiga
     match /results/{id} {
       allow create: if signedIn()

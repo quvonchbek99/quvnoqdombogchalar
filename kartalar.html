@@ -168,7 +168,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
 
     <div class="card">
       <h2><b>3</b> O'quvchi akkountlari</h2>
-      <p class="sub" style="margin:0">Guruh ulanganda har bir o'quvchiga kuvonch.uz akkounti o'zi ochiladi. Login — ism + tartib raqami + guruh raqamlari (masalan, <b>Saidalo10126</b>), parol — guruh raqamlari + 2026 (masalan, <b>01262026</b>). Ismida «o'g'li» bo'lsa — o'g'il, «qizi» bo'lsa — qiz bola deb yoziladi. Test tugagach ball va natija o'quvchi akkountiga o'zi qo'shiladi.</p>
+      <p class="sub" style="margin:0">Guruh ulanganda har bir o'quvchiga kuvonch.uz akkounti o'zi ochiladi. Login — ism + tartib raqami + guruh raqamlari (masalan, <b>Saidalo10126</b>), parol — guruh raqamlari + 2026 (masalan, <b>01262026</b>). O'quvchi parolini o'zgartirsa ham bu asl parol bilan kirish ishlayveradi, yangi paroli esa shu yerda saqlanadi. Ismida «o'g'li» bo'lsa — o'g'il, «qizi» bo'lsa — qiz bola deb yoziladi. Test tugagach ball va natija o'quvchi akkountiga o'zi qo'shiladi.</p>
       <div id="tSt" class="msg"></div>
       <div id="aBox"></div>
     </div>
@@ -427,9 +427,13 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   }
   function accOf(rkey, r, i) {
     var g = groupOf(rkey, r), a = (lsGet(LS_A, {})[rkey] || {})[i] || {};
-    return { name: a.l || loginOf(r.list[i], i, g), group: a.g || g, pw: a.pw || gDigits(g) + PW_YIL, jins: jinsOf(r.list[i]), st: a.st || "", av: i % 12 };
+    return { name: a.l || loginOf(r.list[i], i, g), group: a.g || g, pw: a.pw || gDigits(g) + PW_YIL, pw2: a.pw2 || "", jins: jinsOf(r.list[i]), st: a.st || "", av: i % 12 };
   }
-  function accSet(rkey, i, acc, st) { var A = lsGet(LS_A, {}), g = A[rkey] || (A[rkey] = {}); g[i] = { l: acc.name, g: acc.group, pw: acc.pw, st: st, t: Date.now() }; lsSet(LS_A, A); }
+  // pw — asl parol (u bilan kirish doim ishlaydi), pw2 — o'quvchi o'zi qo'ygan yangi parol (bilinsa saqlanadi)
+  function accSet(rkey, i, acc, st, pw2) {
+    var A = lsGet(LS_A, {}), g = A[rkey] || (A[rkey] = {}), old = g[i] || {};
+    g[i] = { l: acc.name, g: acc.group, pw: acc.pw, pw2: pw2 || old.pw2 || "", st: st, t: Date.now() }; lsSet(LS_A, A);
+  }
   var T = { st: null, busy: false };
   function isTeacher(st) { return !!(st && st.signed && (st.teacher || st.admin || st.rol === "oqituvchi")); }
   function teacherCheck() {
@@ -451,7 +455,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     if (!gDigits(g)) { box.innerHTML = '<p class="msg err">Guruh nomida raqam yo\'q («' + esc(g) + '») — login va parol tuzib bo\'lmaydi. Ro\'yxatni guruh nomi bilan (masalan, 10-25) saqlang.</p>'; return; }
     var cnt = { ok: 0, parol: 0, xato: 0, yoq: 0 }, rows = "";
     for (var i = 0; i < n; i++) {
-      var a = accOf(cfg.rkey, r, i), stx = a.st === "ok" ? '<span class="st-ok">✅ ochilgan</span>' : a.st === "parol" ? '<span class="st-w">⚠ o\'z paroli bor</span>' : a.st === "xato" ? '<span class="st-no">✖ xato</span>' : '<span class="sub">— hali yo\'q</span>';
+      var a = accOf(cfg.rkey, r, i), stx = a.st === "ok" ? '<span class="st-ok">✅ ochilgan' + (a.pw2 ? " · 🔑 parolini o\'zgartirgan" : "") + "</span>" : a.st === "parol" ? '<span class="st-w">⚠ o\'z paroli bor</span>' : a.st === "xato" ? '<span class="st-no">✖ xato</span>' : '<span class="sub">— hali yo\'q</span>';
       cnt[a.st === "ok" ? "ok" : a.st === "parol" ? "parol" : a.st === "xato" ? "xato" : "yoq"]++;
       rows += "<tr><td>" + (i + 1) + "</td><td>" + esc(r.list[i]) + "</td><td><b>" + esc(a.name) + "</b></td><td>" + (a.jins === "o" ? "o'g'il" : a.jins === "q" ? "qiz" : "—") + "</td><td>" + stx + "</td></tr>";
     }
@@ -465,8 +469,8 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     if ((b = $("#aGo"))) b.onclick = function () { openAccounts(); };
     if ((b = $("#aQ"))) b.onclick = function () { flushQueue(true); };
     $("#aXls").onclick = function () {
-      var aoa = [["№", "Jurnalda", "Login (ism)", "Guruh", "Parol", "Jinsi", "Holat"]];
-      for (var k = 0; k < n; k++) { var a = accOf(cfg.rkey, r, k); aoa.push([k + 1, r.list[k], a.name, a.group, a.st === "parol" ? "(o'zi o'zgartirgan)" : a.pw, a.jins === "o" ? "o'g'il" : a.jins === "q" ? "qiz" : "", a.st === "ok" ? "ochilgan" : a.st === "parol" ? "o'z paroli" : "yo'q"]); }
+      var aoa = [["№", "Jurnalda", "Login (ism)", "Guruh", "Parol (asl)", "Yangi parol (o'zi qo'ygan)", "Jinsi", "Holat"]];
+      for (var k = 0; k < n; k++) { var a = accOf(cfg.rkey, r, k); aoa.push([k + 1, r.list[k], a.name, a.group, a.st === "parol" ? "(oldin o'zi ochgan)" : a.pw, a.pw2, a.jins === "o" ? "o'g'il" : a.jins === "q" ? "qiz" : "", a.st === "ok" ? "ochilgan" : a.st === "parol" ? "o'z paroli" : "yo'q"]); }
       xlsOut("loginlar_" + g, [["Loginlar", aoa]]);
     };
   }
@@ -486,7 +490,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       var i = idx[k], a = accOf(rkey, r, i);
       if (m) { m.className = "msg"; m.textContent = "⏳ Akkount ochilmoqda: " + (k + 1) + " / " + idx.length + " — " + a.name; }
       var once = function (retry) {
-        return kaCloud.ochOquvchi(a).then(function () { accSet(rkey, i, a, "ok"); done++; }, function (e) {
+        return kaCloud.ochOquvchi(a).then(function (res) { accSet(rkey, i, a, "ok", res && res.yangiParol); done++; }, function (e) {
           if (e && e.code === "auth/too-many-requests" && !retry) return sleep(6000).then(function () { return once(true); });
           if (e && e.code === "boshqa-parol") { accSet(rkey, i, a, "parol"); bad++; return; }
           accSet(rkey, i, a, "xato"); bad++;
@@ -504,10 +508,10 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       if (k >= items.length) { lsSet(LS_Q, Q); onDone(res, per); return; }
       var it = items[k], a = accOf(rkey, r, it.i), m = $("#eCloud");
       if (m && E) { m.className = "msg"; m.textContent = "☁️ Natijalar akkountlarga yozilmoqda: " + (k + 1) + " / " + items.length; }
-      var p = a.st === "ok" ? Promise.resolve() : kaCloud.ochOquvchi(a).then(function () { accSet(rkey, it.i, a, "ok"); a.st = "ok"; }, function (e) { if (e && e.code === "boshqa-parol") { accSet(rkey, it.i, a, "parol"); a.st = "parol"; } });
+      var p = a.st === "ok" ? Promise.resolve() : kaCloud.ochOquvchi(a).then(function (res) { accSet(rkey, it.i, a, "ok", res && res.yangiParol); a.st = "ok"; }, function (e) { if (e && e.code === "boshqa-parol") { accSet(rkey, it.i, a, "parol"); a.st = "parol"; } });
       p.then(function () {
         if (a.st === "parol") { res.parol++; per[it.i] = "parol"; return; }
-        return kaCloud.ballOquvchi(a, it.r).then(function () { res.ok++; per[it.i] = "ok"; }, function (e) {
+        return kaCloud.ballOquvchi(a, it.r).then(function (x) { if (x && x.yangiParol) accSet(rkey, it.i, a, "ok", x.yangiParol); res.ok++; per[it.i] = "ok"; }, function (e) {
           if (e && e.code === "boshqa-parol") { accSet(rkey, it.i, a, "parol"); res.parol++; per[it.i] = "parol"; return; }
           Q.push({ rkey: rkey, i: it.i, r: it.r, at: Date.now() }); res.q++; per[it.i] = "q";
         });
