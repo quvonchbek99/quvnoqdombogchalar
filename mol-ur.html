@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mol ur — to'g'ri javobni urib ol! (Wordwall uslubidagi o'yin) | Kuvonch Academy</title>
+<meta name="description" content="Savol ekranda, inlardan javob yozilgan mollar chiqadi — faqat to'g'ri javobni ur! Aqlli doskada jamoalar navbat bilan yoki telefonlarda butun sinf musobaqasi. Matematika va 20 fan.">
+<link rel="canonical" href="https://kuvonch.uz/mol-ur.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Mol ur — sinf o'yini">
+<meta property="og:description" content="To'g'ri javobli molni ur! Aqlli doska yoki telefonlar bilan.">
+<meta property="og:url" content="https://kuvonch.uz/mol-ur.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117a">
+<script src="ka-fasl.js"></script>
+<style>
+.mr{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+.mr-hud{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:900}
+.mr-hud span{padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+.mr-hud .sc{color:var(--gold);font-family:ui-monospace,monospace;font-size:22px}
+.mr-hud .tm{font-family:ui-monospace,monospace;font-size:22px}
+.mr-hud .tm.low{color:#ff6b6b}
+.mr-q{min-height:70px;height:16vh;max-height:150px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;line-height:1.2;padding:6px 10px;border-radius:18px;background:#101a33;border:2px solid #2b3d6b;overflow:hidden}
+.mr-q.flash{animation:mrFlash .5s}
+@keyframes mrFlash{0%{background:#1d6b47}100%{background:#101a33}}
+.mr-field{flex:1;min-height:0;width:100%;max-width:125vh;margin:0 auto;display:grid;grid-template-columns:repeat(var(--c),1fr);grid-auto-rows:1fr;gap:clamp(6px,2vw,24px);padding:6px;border-radius:22px;background:linear-gradient(180deg,#2f6b3a,#1f4d29);box-shadow:inset 0 0 0 4px #3f8a4c}
+.mr-hole{position:relative;overflow:hidden;border-radius:16px;min-height:0;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.mr-hole::after{content:"";position:absolute;left:8%;right:8%;bottom:6%;height:24%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#140c06 0%,#2b1a0c 60%,#4a3015 100%);z-index:1}
+.mr-mole{position:absolute;left:50%;bottom:10%;width:min(76%,190px);height:86%;transform:translate(-50%,105%);transition:transform .16s ease-out;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;pointer-events:none}
+.mr-hole.up .mr-mole{transform:translate(-50%,0)}
+.mr-sign{background:#fffaf0;color:#1d1200;font-weight:900;border-radius:10px;padding:4px 8px;font-size:clamp(14px,2.6vh,30px);line-height:1.15;text-align:center;max-width:100%;overflow:hidden;box-shadow:0 3px 0 #c9b28a;margin-bottom:4px;overflow-wrap:anywhere}
+.mr-body{width:72%;flex:1;max-height:60%;min-height:30px;border-radius:50% 50% 12% 12%;background:radial-gradient(circle at 50% 30%,#a8714a,#7a4a2a);position:relative}
+.mr-body::before{content:"• •";position:absolute;top:26%;left:0;right:0;text-align:center;color:#111;font-size:clamp(14px,3vh,30px);letter-spacing:.3em;font-weight:900}
+.mr-body::after{content:"";position:absolute;top:46%;left:50%;width:20%;height:14%;transform:translateX(-50%);border-radius:50%;background:#ff9ab0}
+.mr-hole.hit .mr-mole{transform:translate(-50%,40%) scale(.9);transition:transform .25s}
+.mr-hole.good .mr-sign{background:#36d399;color:#04140b}
+.mr-hole.bad .mr-sign{background:#ff6b6b;color:#2a0606}
+.mr-hole.bad{animation:mrShake .3s}
+@keyframes mrShake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mr-ready{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+.mr-count{font:900 clamp(80px,18vw,180px)/1 ui-monospace,monospace;color:var(--gold);animation:ksPop .5s}
+.mr-log{max-height:40vh;overflow:auto;text-align:left;font-size:15px;margin:8px 0;padding:0;list-style:none}
+.mr-log li{padding:4px 8px;border-bottom:1px solid var(--border)}
+
+</style>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap" id="setup">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="sinf-oyinlari.html" aria-current="page">🎯 Sinf o'yinlari</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="mashqlar.html">📘 Mavzular</a>
+</nav>
+</header>
+
+<div class="hero">
+<span class="kicker">🧱 Wordwall to'plami · aqlli doska yoki telefonlar</span>
+<h1>🔨 Mol <span>ur</span></h1>
+<p class="lead">Tepada savol, pastda inlar. Mollar javob ko'tarib chiqadi — faqat <b>to'g'ri javobli</b> molni ur! To'g'ri — ball va yangi savol, xato — ball kamayadi. Ketma-ket to'g'ri urish — kombo bonus.</p>
+</div>
+
+<section class="card" id="modeCard">
+<h2>Qanday o'ynaymiz?</h2>
+<div class="ks-seg" data-k="mode"><button data-v="proj">📺 Aqlli doska — jamoalar navbat bilan</button><button data-v="tel">📱 Telefonlar — butun sinf musobaqasi</button></div>
+</section>
+
+<section class="card">
+<h2>1. Mavzular</h2>
+<p class="sub">Qisqa javobli savollar tanlanadi (javob mol ustidagi taxtachaga sig'adi).</p>
+<div id="pick"></div>
+</section>
+
+<section class="card" id="cTeams">
+<h2>2. Jamoalar</h2>
+<p class="sub">1 — yakka yoki butun sinf bitta jamoa. Har jamoa bittadan raund o'ynaydi.</p>
+<div id="teams"></div>
+</section>
+
+<section class="card" id="opts">
+<h2>3. Sozlamalar</h2>
+<div class="ks-grid2">
+<div><div class="ks-lbl">Savollar darajasi</div><div class="ks-seg" data-k="lvl"><button data-v="1">★ Oson</button><button data-v="2">★★ O'rta</button><button data-v="3">★★★ Murakkab</button><button data-v="mix">🔀 Aralash</button></div></div>
+<div><div class="ks-lbl">Mollar tezligi</div><div class="ks-seg" data-k="spd"><button data-v="1">🐢 Sekin</button><button data-v="2">🐇 O'rta</button><button data-v="3">⚡ Tez</button></div></div>
+<div><div class="ks-lbl">Inlar soni</div><div class="ks-seg" data-k="holes"><button data-v="6">6</button><button data-v="9">9</button></div></div>
+<div class="only-proj"><div class="ks-lbl">Raund vaqti</div><div class="ks-seg" data-k="sec"><button data-v="45">45 s</button><button data-v="60">60 s</button><button data-v="90">90 s</button><button data-v="120">2 daqiqa</button></div></div>
+<div class="only-tel"><div class="ks-lbl">O'yin davomiyligi</div><div class="ks-seg" data-k="min"><button data-v="2">2 daqiqa</button><button data-v="3">3 daqiqa</button><button data-v="5">5 daqiqa</button></div></div>
+</div>
+</section>
+
+<div class="ks-go"><button type="button" class="ks-btn gold big" id="go">▶ O'yinni boshlash</button></div>
+<p class="ks-summary" id="sum"></p>
+
+<section class="card ks-how">
+<h2>👩‍🏫 Qanday o'ynaladi</h2>
+<ul>
+<li><b>Aqlli doskada</b>: jamoadan bir o'quvchi chiqib, doskadagi mollarni barmog'i bilan uradi; sinf yordam beradi. Raund tugagach — keyingi jamoa.</li>
+<li><b>Telefonlarda</b>: o'qituvchi xona ochadi, o'quvchilar <b>kuvonch.uz/live</b> orqali kod bilan kiradi va har kim o'z telefonida o'ynaydi. Katta ekranda jonli reyting.</li>
+<li>To'g'ri mol: <b>+10</b> (+kombo), noto'g'ri: <b>−5</b>. Raund oxirida savollar va to'g'ri javoblar ro'yxati ko'rsatiladi.</li>
+</ul>
+</section>
+
+<footer>
+<div>&copy; <span id="year"></span> Kuvonch Academy</div>
+<div><a href="sinf-oyinlari.html">🎯 Barcha sinf o'yinlari</a> · <a href="moslashtir.html">🧩 Moslashtir</a> · <a href="omad-gildiragi.html">🎡 Omad g'ildiragi</a></div>
+</footer>
+</div>
+
+<div class="ks-game" id="game" hidden>
+<div class="ks-top"><span class="ks-title">🔨 Mol ur</span><button type="button" class="ks-btn" id="bSnd" aria-label="Ovoz">🔊</button><button type="button" class="ks-btn" id="bFull" aria-label="To'liq ekran">⛶</button><button type="button" class="ks-btn" id="bEnd">⏹ Tugatish</button></div>
+<div class="ks-teams" id="tb"></div>
+<div class="mr" id="stage"></div>
+</div>
+
+<script src="ka-savollar.js?v=20261030c"></script>
+<script src="ka-sinf-oyin.js?v=20261117a"></script>
+<script src="ka-tarmoq.js?v=20261116a"></script>
+<script>
+(function () {
+  "use strict";
+  var K = window.KSO, $ = K.$, $$ = K.$$, esc = K.esc;
+  var LS = "ka.molur.v1";
+  var SPD = { 1: [1150, 2100], 2: [900, 1650], 3: [700, 1300] }; // [chiqish oralig'i, ko'rinib turish] ms
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------------- mol o'yini (aqlli doska ham, telefon ham) ---------------- */
+  // o: {ids, lvl, spd, holes, sec (yoki left()), onScore(s, ok, no), onEnd(res)}
+  function Mole(root, o) {
+    var S = { score: 0, ok: 0, no: 0, combo: 0, q: null, seen: {}, log: [], run: true, since: 0, spawnT: 0, endT: 0, tickT: 0 };
+    var cols = o.holes === 9 ? 3 : 3, rows = o.holes / cols;
+    if (root.clientWidth < 520 && o.holes === 6) cols = 2;
+    root.innerHTML = '<div class="mr-hud"><span>⭐ <b class="sc">0</b></span><span class="cb"></span><span>⏱ <b class="tm">0:00</b></span></div><div class="mr-q"><div></div></div><div class="mr-field" style="--c:' + cols + '">' +
+      Array.apply(null, Array(o.holes)).map(function (_, i) { return '<div class="mr-hole" data-i="' + i + '"><div class="mr-mole"><div class="mr-sign"></div><div class="mr-body"></div></div></div>'; }).join("") + "</div>";
+    var holes = $$(".mr-hole", root).map(function (el) { return { el: el, up: false, right: false, t: 0 }; });
+    var qEl = $(".mr-q", root), qIn = $(".mr-q div", root), scEl = $(".sc", root), tmEl = $(".tm", root), cbEl = $(".cb", root);
+    var sp = SPD[o.spd] || SPD[2];
+    function hud() { scEl.textContent = S.score; cbEl.textContent = S.combo >= 2 ? "🔥 ×" + S.combo : ""; cbEl.style.display = S.combo >= 2 ? "" : "none"; }
+    function newQ() {
+      holes.forEach(hide);
+      var q = K.ask(o.ids, o.lvl, S.seen, { maxA: 24, maxQ: 140, noImg: true });
+      if (!q || q.opts.length < 2) q = K.ask(o.ids, o.lvl, S.seen, { maxA: 40 });
+      S.q = q; S.since = 0;
+      qIn.innerHTML = q ? K.qHtml(q) : "Savol topilmadi";
+      requestAnimationFrame(function () { K.fit(qEl, 44, 14); });
+    }
+    function hide(h) { h.up = false; h.right = false; clearTimeout(h.t); h.el.classList.remove("up", "hit", "good", "bad"); }
+    function spawn() {
+      if (!S.run || !S.q) return;
+      var free = holes.filter(function (h) { return !h.up; }); if (!free.length) return;
+      var h = K.pick(free), q = S.q, rightUp = holes.some(function (x) { return x.up && x.right; });
+      var right = !rightUp && (S.since >= 2 || Math.random() < .42);
+      var wrongUp = holes.filter(function (x) { return x.up && !x.right; }).map(function (x) { return x.txt; });
+      var wr = q.wrong.filter(function (w) { return wrongUp.indexOf(w) < 0; });
+      if (!right && !wr.length) { if (rightUp) return; right = true; }
+      var txt = right ? q.a : K.pick(wr);
+      S.since = right ? 0 : S.since + 1;
+      h.right = right; h.txt = txt; h.up = true;
+      $(".mr-sign", h.el).innerHTML = K.safe(txt);
+      h.el.classList.remove("hit", "good", "bad"); h.el.classList.add("up");
+      h.t = setTimeout(function () { hide(h); }, sp[1] + (right ? 250 : 0));
+    }
+    function hit(h) {
+      if (!S.run || !h.up || h.el.classList.contains("hit")) return;
+      clearTimeout(h.t); h.el.classList.add("hit");
+      if (h.right) {
+        S.combo++; var add = 10 + Math.min(10, (S.combo - 1) * 2); S.score += add; S.ok++;
+        h.el.classList.add("good"); K.snd("ok"); K.vib(25);
+        S.log.push({ q: S.q, ok: true });
+        qEl.classList.remove("flash"); void qEl.offsetWidth; qEl.classList.add("flash");
+        setTimeout(newQ, 280);
+      } else {
+        S.combo = 0; S.score = Math.max(0, S.score - 5); S.no++;
+        h.el.classList.add("bad"); K.snd("whack"); K.vib([50, 30, 50]);
+        S.log.push({ q: S.q, ok: false, t: h.txt });
+        setTimeout(function () { hide(h); }, 350);
+      }
+      hud(); if (o.onScore) o.onScore(S.score, S.ok, S.no);
+    }
+    root.addEventListener("pointerdown", function (e) { var el = e.target.closest && e.target.closest(".mr-hole"); if (el) { e.preventDefault(); hit(holes[+el.dataset.i]); } });
+    function left() { return o.left ? o.left() : Math.max(0, (S.endT - Date.now()) / 1000); }
+    function stop() {
+      if (!S.run) return; S.run = false; clearInterval(S.spawnT); clearInterval(S.tickT); holes.forEach(hide);
+      if (o.onEnd) o.onEnd(S);
+    }
+    S.endT = Date.now() + (o.sec || 60) * 1000;
+    newQ(); hud();
+    S.spawnT = setInterval(spawn, sp[0]); setTimeout(spawn, 200);
+    S.tickT = setInterval(function () { var s = left(); tmEl.textContent = K.mmss(s); tmEl.classList.toggle("low", s <= 10); if (s <= 0) stop(); }, 250);
+    return { stop: stop, state: S };
+  }
+  function logHtml(S) {
+    return '<ul class="mr-log">' + S.log.slice(-30).map(function (x) {
+      return "<li>" + (x.ok ? "✅ " : "❌ ") + K.safe(x.q.q).replace(/<br>/g, " ") + " → <b>" + K.safe(x.q.a) + "</b>" + (x.ok ? "" : ' <span class="ks-dim">(urildi: ' + K.safe(x.t) + ")</span>") + "</li>";
+    }).join("") + "</ul>";
+  }
+
+  /* ---------------- telefon (o'quvchi) ---------------- */
+  var CODE = K.room.code();
+  if (CODE) {
+    $("#setup").hidden = true;
+    K.room.livePhone({ code: CODE, title: "🔨 Mol ur", onPlay: function (c, api) {
+      api.box.innerHTML = '<div class="ks-join" style="font-size:20px;font-weight:800">📚 Savollar yuklanmoqda…</div>';
+      K.prep(c.topics || []).then(function (ids) {
+        if (!ids.length) { api.box.innerHTML = '<div class="ks-join">Savollar yuklanmadi — sahifani yangilang</div>'; return; }
+        api.box.innerHTML = '<div class="mr"></div>';
+        Mole($(".mr", api.box), { ids: ids, lvl: c.lvl, spd: c.spd, holes: c.holes, left: api.left, onScore: api.report, onEnd: function (S) {
+          if (api.done()) return;
+          api.report(S.score, S.ok, S.no);
+          api.box.innerHTML = '<div class="ks-join"><div style="font-size:60px">⌛</div><h2>Vaqt tugadi!</h2><p>⭐ ' + S.score + " ball · ✅ " + S.ok + " · ❌ " + S.no + '</p><p class="ks-dim">Natijalarni kuting…</p>' + logHtml(S) + "</div>";
+        } });
+      });
+    } });
+    return;
+  }
+
+  /* ---------------- sozlamalar ---------------- */
+  var cfg = K.load(LS, { mode: "proj", topics: [], n: 2, names: [], lvl: "1", spd: 2, holes: 6, sec: 60, min: 3 });
+  var ut = K.urlTopics(); if (ut) cfg.topics = ut;
+  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
+  function summary() {
+    var tel = cfg.mode === "tel";
+    $("#cTeams").hidden = tel; $$(".only-proj").forEach(function (e) { e.hidden = tel; }); $$(".only-tel").forEach(function (e) { e.hidden = !tel; });
+    $("#go").textContent = tel ? "📱 Xona ochish" : "▶ O'yinni boshlash";
+    $("#sum").textContent = !cfg.topics.length ? "Boshlash uchun kamida bitta mavzu tanlang" : tel ? cfg.topics.length + " ta mavzu · " + cfg.min + " daqiqa · telefonlar" : cfg.topics.length + " ta mavzu · " + (cfg.n === 1 ? "yakka" : cfg.n + " ta jamoa") + " · raund " + cfg.sec + " s";
+    $("#go").disabled = !cfg.topics.length; K.save(LS, cfg);
+  }
+  K.opts($("#modeCard"), cfg, summary);
+  K.picker($("#pick"), cfg.topics, summary);
+  K.teamsUI($("#teams"), cfg, 1, 6, summary);
+  K.opts($("#opts"), cfg, summary);
+  summary();
+
+  var starting = false, G = null, M = null;
+  $("#go").onclick = function () {
+    if (starting || !cfg.topics.length) return;
+    if (cfg.mode === "tel") {
+      $("#setup").hidden = true;
+      K.room.liveHost({ kind: "mol-ur", page: "mol-ur.html", title: "🔨 Mol ur", unit: "ball", min: cfg.min, payload: { topics: cfg.topics, lvl: cfg.lvl, spd: cfg.spd, holes: cfg.holes }, onExit: function () { $("#setup").hidden = false; } });
+      return;
+    }
+    starting = true; var b = this, lbl = b.textContent; b.disabled = true; b.textContent = "⏳ Savollar yuklanmoqda…";
+    K.prep(cfg.topics.slice()).then(function (ok) {
+      starting = false; b.disabled = false; b.textContent = lbl;
+      if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang"); return; }
+      G = { ids: ok, teams: K.makeTeams(cfg), turn: 0 };
+      $("#setup").hidden = true; $("#game").hidden = false; window.scrollTo(0, 0); K.full(); K.wake(true);
+      drawTeams(); ready();
+    });
+  };
+  function drawTeams() {
+    $("#tb").hidden = G.teams.length < 2;
+    $("#tb").innerHTML = G.teams.map(function (t) { return '<div class="ks-team' + (t.i === G.turn ? " turn" : "") + '" style="--tc:' + t.color + '"><span class="e">' + t.emoji + '</span><span class="n">' + esc(t.name) + '</span><span class="s">' + t.score + "</span></div>"; }).join("");
+  }
+  function ready() {
+    var t = G.teams[G.turn];
+    $("#stage").innerHTML = '<div class="mr-ready">' + (G.teams.length > 1 ? '<div style="font-size:80px;line-height:1">' + t.emoji + '</div><h2 style="margin:0;font-size:clamp(26px,4vw,44px);color:' + t.color + '">' + esc(t.name) + " navbati</h2>" : '<h2 style="margin:0;font-size:clamp(26px,4vw,44px)">Tayyormisiz?</h2>') +
+      '<p class="ks-dim">' + cfg.sec + ' soniya · faqat to\'g\'ri javobli molni uring!</p><button type="button" class="ks-btn gold big" id="rGo">▶ Boshlash</button></div>';
+    $("#rGo").onclick = countdown;
+  }
+  function countdown() {
+    var n = 3;
+    (function step() {
+      if (!G) return;
+      if (n === 0) return play();
+      $("#stage").innerHTML = '<div class="mr-ready"><div class="mr-count">' + n + "</div></div>"; K.snd("tick"); n--; setTimeout(step, 750);
+    })();
+  }
+  function play() {
+    var t = G.teams[G.turn];
+    M = Mole($("#stage"), { ids: G.ids, lvl: cfg.lvl, spd: cfg.spd, holes: cfg.holes, sec: cfg.sec, onEnd: function (S) {
+      t.score = S.score; t.ok = S.ok; t.no = S.no; M = null; drawTeams(); K.snd("win");
+      var last = G.turn === G.teams.length - 1;
+      $("#stage").innerHTML = '<div class="mr-ready"><h2 style="margin:0">' + (G.teams.length > 1 ? t.emoji + " " + esc(t.name) + ": " : "") + "⭐ " + S.score + ' ball</h2><p class="ks-dim">✅ ' + S.ok + " to'g'ri · ❌ " + S.no + ' xato</p>' + logHtml(S) +
+        '<div class="ks-qbtns"><button type="button" class="ks-btn gold big" id="rNext">' + (last ? (G.teams.length > 1 ? "🏆 G'oliblar" : "🔁 Yana o'ynash") : "▶ Keyingi jamoa") + "</button></div></div>";
+      $("#rNext").onclick = function () {
+        if (!last) { G.turn++; drawTeams(); ready(); return; }
+        if (G.teams.length > 1) return finish();
+        G.teams[0].score = 0; drawTeams(); ready();
+      };
+    } });
+  }
+  function finish() {
+    K.podium(G.teams.map(function (t) { return { emoji: t.emoji, name: t.name, score: t.score, color: t.color }; }), "ball", "🔨 Mol ur — g'oliblar", [
+      { t: "🔁 Yana o'ynash", cls: "primary", fn: function () { G.teams.forEach(function (t) { t.score = 0; }); G.turn = 0; drawTeams(); ready(); } }, { t: "⚙️ Sozlamalar", fn: back }
+    ]);
+  }
+  function back() { if (M) M.stop(); M = null; G = null; K.closeModal(); $("#game").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); }
+  $("#bEnd").onclick = function () { if (!G) return; if (M) { var m = M; M = null; m.stop(); return; } if (G.teams.some(function (t) { return t.score; }) && G.teams.length > 1) finish(); else back(); };
+  $("#bFull").onclick = function () { if (document.fullscreenElement) K.full(false); else K.full(); };
+  $("#bSnd").onclick = function () { K.setSound(!K.sound()); this.textContent = K.sound() ? "🔊" : "🔇"; };
+  $("#bSnd").textContent = K.sound() ? "🔊" : "🔇";
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

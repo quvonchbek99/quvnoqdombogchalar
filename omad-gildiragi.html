@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Omad g'ildiragi — o'quvchini tasodifiy tanlash va savol berish | Kuvonch Academy</title>
+<meta name="description" content="Sinf ro'yxatini yozing va g'ildirakni aylantiring — kim doskaga chiqadi? Xohlasangiz, tanlangan o'quvchiga darhol savol beriladi va ball yoziladi. Wordwall Spin the wheel uslubida, o'zbek tilida.">
+<link rel="canonical" href="https://kuvonch.uz/omad-gildiragi.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Omad g'ildiragi — kim javob beradi?">
+<meta property="og:description" content="O'quvchini tasodifiy tanlash g'ildiragi + savol va ballar.">
+<meta property="og:url" content="https://kuvonch.uz/omad-gildiragi.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117a">
+<script src="ka-fasl.js"></script>
+<style>
+.og{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,320px);gap:14px}
+@media (max-width:820px){.og{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}}
+.og-wheel{position:relative;min-height:0;display:flex;align-items:center;justify-content:center}
+.og-wheel canvas{width:min(100%,calc(100vh - 150px));height:auto;aspect-ratio:1/1;cursor:pointer;touch-action:manipulation}
+.og-ptr{position:absolute;top:50%;right:calc(50% - min(50%,calc((100vh - 150px)/2)) - 6px);transform:translateY(-50%);width:0;height:0;border-top:22px solid transparent;border-bottom:22px solid transparent;border-right:46px solid #ffd479;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6));z-index:2}
+.og-side{min-height:0;overflow:auto;background:#101a33;border:1px solid var(--border);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.og-side h3{margin:0;font-size:16px}
+.og-list{display:flex;flex-direction:column;gap:3px;font-size:15px}
+.og-list div{display:flex;gap:6px;padding:4px 8px;border-radius:8px;background:rgba(255,255,255,.03)}
+.og-list div.out{opacity:.35;text-decoration:line-through}
+.og-list b{margin-left:auto;color:var(--gold)}
+.og-who{font-size:clamp(40px,8vw,90px)!important;font-weight:900;color:var(--gold);line-height:1.1;margin:6px 0 0}
+#names{min-height:220px}
+</style>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap" id="setup">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="sinf-oyinlari.html" aria-current="page">🎯 Sinf o'yinlari</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="mashqlar.html">📘 Mavzular</a>
+</nav>
+</header>
+
+<div class="hero">
+<span class="kicker">🧱 Wordwall to'plami · aqlli doska</span>
+<h1>🎡 Omad <span>g'ildiragi</span></h1>
+<p class="lead">Kim doskaga chiqadi? Sinf ro'yxatini yozing va g'ildirakni aylantiring. Xohlasangiz, tanlangan o'quvchiga darhol savol chiqadi — to'g'ri javob uchun ball yoziladi.</p>
+</div>
+
+<section class="card">
+<h2>1. Ro'yxat</h2>
+<p class="sub">Har qatorga bitta ism (yoki jamoa, vazifa, mavzu). Ro'yxat shu kompyuterda saqlanib qoladi.</p>
+<textarea class="ks-field" id="names" placeholder="Abdullayev Aziz&#10;Karimova Madina&#10;…" spellcheck="false"></textarea>
+<div class="ks-qbtns" style="justify-content:flex-start"><label class="ks-dim" style="display:flex;align-items:center;gap:6px">Raqamlar 1 dan <input class="ks-field" id="numN" type="number" min="2" max="60" value="30" style="width:80px;min-height:38px"> gacha</label><button type="button" class="ks-btn" id="numGo">🔢 Raqamlar bilan to'ldirish</button><button type="button" class="ks-btn" id="mixGo">🔀 Aralashtirish</button><button type="button" class="ks-btn" id="clr">🗑 Tozalash</button></div>
+<p class="ks-dim" id="cnt"></p>
+</section>
+
+<section class="card" id="opts">
+<h2>2. Sozlamalar</h2>
+<div class="ks-grid2">
+<div><div class="ks-lbl">Tanlangan ism</div><div class="ks-seg" data-k="rm"><button data-v="1">G'ildirakdan olinsin</button><button data-v="0">Qolaversin</button></div></div>
+<div><div class="ks-lbl">Tanlangandan keyin</div><div class="ks-seg" data-k="ask"><button data-v="0">Faqat ism</button><button data-v="1">❓ Savol berilsin</button></div></div>
+<div class="only-ask"><div class="ks-lbl">Savollar darajasi</div><div class="ks-seg" data-k="lvl"><button data-v="1">★ Oson</button><button data-v="2">★★ O'rta</button><button data-v="3">★★★ Murakkab</button><button data-v="mix">🔀 Aralash</button></div></div>
+<div class="only-ask"><div class="ks-lbl">Javob uchun vaqt</div><div class="ks-seg" data-k="time"><button data-v="0">Cheksiz</button><button data-v="20">20 s</button><button data-v="30">30 s</button><button data-v="60">60 s</button></div></div>
+</div>
+</section>
+
+<section class="card only-ask">
+<h2>3. Savollar mavzusi</h2>
+<div id="pick"></div>
+</section>
+
+<div class="ks-go"><button type="button" class="ks-btn gold big" id="go">🎡 G'ildirakni ochish</button></div>
+<p class="ks-summary" id="sum"></p>
+
+<section class="card ks-how">
+<h2>👩‍🏫 Qanday ishlatiladi</h2>
+<ul>
+<li>G'ildirakni bosing yoki <b>Probel (Space)</b> tugmasini bosing — aylanadi va bitta ism tanlanadi.</li>
+<li>«Savol berilsin» yoqilgan bo'lsa, tanlangan o'quvchiga tanlangan mavzudan savol chiqadi; to'g'ri javob — <b>+1 ball</b>. O'ng tomonda ballar jadvali.</li>
+<li>Darsdan keyin ballarni <b>CSV (Excel)</b> qilib yuklab olish mumkin — jurnalga baho qo'yish uchun.</li>
+</ul>
+</section>
+
+<footer>
+<div>&copy; <span id="year"></span> Kuvonch Academy</div>
+<div><a href="sinf-oyinlari.html">🎯 Barcha sinf o'yinlari</a> · <a href="moslashtir.html">🧩 Moslashtir</a> · <a href="mol-ur.html">🔨 Mol ur</a></div>
+</footer>
+</div>
+
+<div class="ks-game" id="game" hidden>
+<div class="ks-top"><span class="ks-title">🎡 Omad g'ildiragi</span><button type="button" class="ks-btn" id="bSnd" aria-label="Ovoz">🔊</button><button type="button" class="ks-btn" id="bFull" aria-label="To'liq ekran">⛶</button><button type="button" class="ks-btn" id="bBack">⚙️ Ro'yxat</button></div>
+<div class="og">
+<div class="og-wheel"><canvas id="wh" width="900" height="900" aria-label="G'ildirak — bosing"></canvas><div class="og-ptr"></div></div>
+<div class="og-side">
+<button type="button" class="ks-btn gold big" id="spin">🎡 Aylantirish</button>
+<div class="ks-qbtns" style="margin:0"><button type="button" class="ks-btn" id="restore">♻️ Hammasini qaytarish</button><button type="button" class="ks-btn" id="csv">📥 CSV</button></div>
+<h3>Ballar</h3>
+<div class="og-list" id="list"></div>
+</div>
+</div>
+</div>
+
+<script src="ka-savollar.js?v=20261030c"></script>
+<script src="ka-sinf-oyin.js?v=20261117a"></script>
+<script>
+(function () {
+  "use strict";
+  var K = window.KSO, $ = K.$, $$ = K.$$, esc = K.esc;
+  var LS = "ka.gildirak.v1";
+  var cfg = K.load(LS, { names: "", rm: 1, ask: 0, lvl: "2", time: 30, topics: [] });
+  var ut = K.urlTopics(); if (ut) { cfg.topics = ut; cfg.ask = 1; }
+  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
+  document.getElementById("year").textContent = new Date().getFullYear();
+  var ta = $("#names"); ta.value = cfg.names;
+  function names() { var seen = {}; return ta.value.split(/\n/).map(function (s) { return s.trim().replace(/\s+/g, " ").slice(0, 40); }).filter(function (s) { if (!s || seen[s.toLowerCase()]) return false; seen[s.toLowerCase()] = 1; return true; }).slice(0, 80); }
+  function summary() {
+    cfg.names = ta.value;
+    var n = names().length;
+    $("#cnt").textContent = n ? n + " ta ism" + (n > 60 ? " (g'ildirakda ko'pi bilan 60 tasi ko'rinadi)" : "") : "";
+    $$(".only-ask").forEach(function (e) { e.hidden = !+cfg.ask; });
+    var okT = !+cfg.ask || cfg.topics.length;
+    $("#go").disabled = n < 2 || !okT;
+    $("#sum").textContent = n < 2 ? "Kamida 2 ta ism yozing" : !okT ? "Savol uchun kamida bitta mavzu tanlang" : n + " ta ism" + (+cfg.ask ? " · savollar: " + cfg.topics.length + " ta mavzu" : "");
+    K.save(LS, cfg);
+  }
+  ta.addEventListener("input", summary);
+  $("#numGo").onclick = function () { var n = Math.max(2, Math.min(60, +$("#numN").value || 30)), a = []; for (var i = 1; i <= n; i++) a.push(String(i)); ta.value = a.join("\n"); summary(); };
+  $("#mixGo").onclick = function () { ta.value = K.shuffle(names()).join("\n"); summary(); };
+  $("#clr").onclick = function () { ta.value = ""; summary(); ta.focus(); };
+  K.picker($("#pick"), cfg.topics, summary);
+  K.opts($("#opts"), cfg, summary);
+  summary();
+
+  /* ---------------- g'ildirak ---------------- */
+  var G = null, cv = $("#wh"), cx = cv.getContext("2d");
+  var PAL = ["#ff6b6b", "#5b8cff", "#ffb347", "#36d399", "#c18bff", "#ff7ac8", "#4cc9f0", "#f9c74f", "#90be6d", "#f3722c"];
+  $("#go").onclick = function () {
+    var list = names(); if (list.length < 2) return;
+    var b = this;
+    function go(ids) {
+      G = { all: list, pool: list.slice(), pts: {}, ang: Math.random() * Math.PI * 2, spinning: false, ids: ids, seen: {} };
+      list.forEach(function (n) { G.pts[n] = 0; });
+      $("#setup").hidden = true; $("#game").hidden = false; window.scrollTo(0, 0); K.full(); K.wake(true);
+      draw(); side();
+    }
+    if (!+cfg.ask) return go(null);
+    var lbl = b.textContent; b.disabled = true; b.textContent = "⏳ Savollar yuklanmoqda…";
+    K.prep(cfg.topics.slice()).then(function (ok) {
+      b.disabled = false; b.textContent = lbl;
+      if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshiring"); return; }
+      go(ok);
+    });
+  };
+  function segs() { return G.pool.slice(0, 60); }
+  function draw() {
+    var W = cv.width, R = W / 2 - 10, c = W / 2, s = segs(), n = s.length, a0 = G.ang;
+    cx.clearRect(0, 0, W, W);
+    cx.beginPath(); cx.arc(c, c, R + 6, 0, Math.PI * 2); cx.fillStyle = "#ffd479"; cx.fill();
+    if (!n) { cx.beginPath(); cx.arc(c, c, R, 0, Math.PI * 2); cx.fillStyle = "#1b2747"; cx.fill(); cx.fillStyle = "#fff"; cx.font = "bold 40px system-ui"; cx.textAlign = "center"; cx.fillText("Ro'yxat tugadi ♻️", c, c); return; }
+    var step = Math.PI * 2 / n, fs = Math.max(14, Math.min(46, 900 / n + 8, 520 / Math.max(6, Math.max.apply(null, s.map(function (x) { return x.length; })))));
+    for (var i = 0; i < n; i++) {
+      var a = a0 + i * step;
+      cx.beginPath(); cx.moveTo(c, c); cx.arc(c, c, R, a, a + step); cx.closePath();
+      cx.fillStyle = PAL[i % PAL.length]; if (n % PAL.length === 1 && i === n - 1) cx.fillStyle = PAL[5]; cx.fill();
+      cx.strokeStyle = "rgba(0,0,0,.25)"; cx.lineWidth = 2; cx.stroke();
+      cx.save(); cx.translate(c, c); cx.rotate(a + step / 2);
+      cx.textAlign = "right"; cx.textBaseline = "middle"; cx.fillStyle = "#fff"; cx.font = "800 " + fs + "px system-ui,-apple-system,Segoe UI,sans-serif";
+      cx.shadowColor = "rgba(0,0,0,.45)"; cx.shadowBlur = 4;
+      var t = s[i]; while (cx.measureText(t).width > R - 70 && t.length > 3) t = t.slice(0, -2) + "…";
+      cx.fillText(t, R - 18, 0); cx.restore();
+    }
+    cx.beginPath(); cx.arc(c, c, 58, 0, Math.PI * 2); cx.fillStyle = "#0b1220"; cx.fill(); cx.lineWidth = 6; cx.strokeStyle = "#ffd479"; cx.stroke();
+    cx.fillStyle = "#ffd479"; cx.font = "900 44px system-ui"; cx.textAlign = "center"; cx.textBaseline = "middle"; cx.fillText("K", c, c + 2);
+  }
+  // ko'rsatkich o'ng tomonda (burchak 0) — qaysi bo'lak ostida
+  function current() { var s = segs(), n = s.length, step = Math.PI * 2 / n, a = ((-G.ang) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2); return Math.floor(a / step) % n; }
+  function spin() {
+    if (!G || G.spinning || !segs().length) return;
+    G.spinning = true; $("#spin").disabled = true;
+    var start = G.ang, total = Math.PI * 2 * (5 + Math.random() * 3) + Math.random() * Math.PI * 2, dur = 4200 + Math.random() * 1200, t0 = performance.now(), last = current();
+    (function f(now) {
+      var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+      G.ang = start + total * e; draw();
+      var cur = current(); if (cur !== last) { last = cur; K.snd("tick"); }
+      if (p < 1) requestAnimationFrame(f); else done();
+    })(t0);
+  }
+  function done() {
+    G.spinning = false; $("#spin").disabled = false;
+    var who = segs()[current()];
+    K.snd("win"); K.confetti(1800);
+    var el = K.notice("🎉", "", '<div class="og-who">' + esc(who) + "</div>", function () {
+      if (G.ids) {
+        var q = K.ask(G.ids, cfg.lvl, G.seen);
+        if (q) return K.askModal({ q: q, title: "🎯 " + who, color: "#ffd479", time: cfg.time, onAnswer: function (r) { if (r.ok) G.pts[who]++; }, onDone: function () { after(who); }, onCancel: function () { after(who); } });
+      }
+      after(who);
+    }, "good");
+    if (G.ids) $(".ks-btn", el).textContent = "❓ Savolni ochish";
+  }
+  function after(who) {
+    if (+cfg.rm) { var i = G.pool.indexOf(who); if (i > -1) G.pool.splice(i, 1); }
+    draw(); side();
+  }
+  function side() {
+    var L = G.all.slice().sort(function (a, b) { return G.pts[b] - G.pts[a] || G.all.indexOf(a) - G.all.indexOf(b); });
+    $("#list").innerHTML = L.map(function (n) { return '<div class="' + (G.pool.indexOf(n) < 0 ? "out" : "") + '"><span>' + esc(n) + "</span><b>" + (G.pts[n] ? "⭐ " + G.pts[n] : "") + "</b></div>"; }).join("");
+  }
+  cv.addEventListener("click", spin);
+  $("#spin").onclick = spin;
+  document.addEventListener("keydown", function (e) { if (G && !$("#game").hidden && e.code === "Space" && !document.querySelector(".ks-ov") && document.activeElement.tagName !== "TEXTAREA") { e.preventDefault(); spin(); } });
+  $("#restore").onclick = function () { if (!G || G.spinning) return; G.pool = G.all.slice(); draw(); side(); };
+  $("#csv").onclick = function () { if (!G) return; K.csv("gildirak-ballar-" + new Date().toISOString().slice(0, 10) + ".csv", [["Ism", "Ball"]].concat(G.all.map(function (n) { return [n, G.pts[n]]; }))); };
+  $("#bBack").onclick = function () { G = null; K.closeModal(); $("#game").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); };
+  $("#bFull").onclick = function () { if (document.fullscreenElement) K.full(false); else K.full(); };
+  $("#bSnd").onclick = function () { K.setSound(!K.sound()); this.textContent = K.sound() ? "🔊" : "🔇"; };
+  $("#bSnd").textContent = K.sound() ? "🔊" : "🔇";
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
