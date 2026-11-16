@@ -426,6 +426,13 @@ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;animation:
 .prow .numin{width:58px;min-height:34px;font-size:15px}
 .pernote b{color:var(--text)}
 .pernote .warn{color:#ffd479}
+/* 🧃 Juice */
+.juice .tog{align-items:flex-start;line-height:1.4}
+.juice .tog input{margin-top:1px;flex:0 0 auto}
+.fans.wrap{flex-wrap:wrap;overflow:visible;margin:8px 0 0}
+.fans.wrap button[disabled]{opacity:.45;cursor:not-allowed}
+.juice.off .fans{opacity:.45;pointer-events:none}
+.jcb{display:inline-block;margin-right:4px;padding:1px 8px;border-radius:999px;background:rgba(255,212,121,.16);border:1px solid rgba(255,212,121,.5);color:#ffd479;font-size:.85em}
 /* tok o'chsa ham davom: tiklash, mustaqil rejim */
 .card.resume{border:2px solid #ffd479;background:linear-gradient(135deg,rgba(255,212,121,.12),rgba(106,90,249,.10))}
 .card.resume h2{margin:0 0 6px}
@@ -714,6 +721,12 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 <div class="mixrow"><div class="fans" id="mixFans" role="group" aria-label="Qo'shimcha fanlar"></div>
 <label class="sl">Ulushi <select id="mixPct"><option value="0">qo'shilmasin</option><option value="10">10%</option><option value="20">20%</option><option value="30">30%</option><option value="40">40%</option><option value="50">50%</option><option value="60">60%</option><option value="70">70%</option><option value="80">80%</option></select></label></div>
 <p class="mixnote" id="mixNote">Masalan: matematika viktorinasiga 20% mantiqiy savollar qo'shiladi — har 5 savoldan biri mantiq.</p>
+<span class="lbl">🧃 Juice — boshqa fanlardan «sharbat»</span>
+<div class="juice" id="jcBox">
+<label class="tog"><input type="checkbox" id="jcOn"><span><b>Har 10 savoldan 2 tasi — 2 xil boshqa fandan</b> (test qisqa bo'lsa ham kamida 1 ta). Matematika tanlansa — fizika, tarix, ingliz tili, kimyo… navbat bilan, har safar boshqa fanlar.</span></label>
+<div class="fans wrap" id="jcFans" role="group" aria-label="Juice uchun fanlar"></div>
+<p class="mixnote" id="jcNote"></p>
+</div>
 <span class="lbl">Daraja</span>
 <div class="opts" id="lvlOpts">
 <button type="button" class="opt" data-v="prog"><b>📈 Osondan qiyinga</b><span>Boshida oson, oxirida murakkab</span></button>
@@ -788,6 +801,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 <li><b>✏️ Testni tahrirlash</b> (kutish xonasida, o'yin davomida yuqoridagi ✏️ yoki T tugmasi): o'z savolingizni yozing yoki ko'p savolni birdan qo'ying, qo'shimcha fanlar ulushini oshiring, generator bilan yana savol qo'shing, savolni tahrirlang, almashtiring yoki o'chiring — o'quvchilar xonadan chiqmaydi. Berilgan savollar o'zgarmaydi. Testni <b>💾 saqlab</b>, keyingi darsda «📂 Saqlangan testlarim»dan qayta ochib, yana tahrirlash mumkin.</li>
 <li><b>Kira olmayotgan o'quvchi</b> bo'lsa: telefon internetini (Wi-Fi yoki mobil) almashtirib ko'rsin — sahifa endi uchta server orqali ulanadi va eski telefonlar uchun alohida moslashgan; ulanmasa o'zi yana bir marta urinadi.</li>
 <li><b>🔢 Savollar soni</b>: tayyor variantlardan tanlang yoki <b>✍️ o'zingiz yozing</b> (1–300). <b>📚 Har mavzudan N ta</b> rejimida har bir tanlangan mavzudan alohida son chiqadi — hammasiga bir xil (masalan, 3 tadan) yoki har mavzuga o'zi (−/+). Kutish xonasidagi ✏️ tahrirlashda ham «har bir mavzudan N tadan» qo'shish mumkin.</li>
+<li><b>🧃 Juice</b>: matematika (yoki boshqa fan) tanlansa, har 10 savoldan 2 tasi — 4- va 8-savol — boshqa 2 xil fandan chiqadi (fizika, tarix, ingliz tili…), navbat bilan, test qisqa bo'lsa ham kamida 1 ta. Qaysi fanlar qo'shilishini o'zingiz belgilaysiz yoki o'chirib qo'yasiz. Savol ekranida «🧃 Juice» belgisi turadi.</li>
 <li><b>Savollar har doim osondan qiyinga</b> tartiblanadi: avval daraja, keyin shu daraja ichida sonlar va amallar soni bo'yicha.</li>
 <li><b>🧊 3D rejim</b>: savol kartasi va rangli tugmalar 3D ko'rinishda chiqadi, to'g'ri javob oldinga chiqadi, reyting va shohsupa ham 3D. Yuqoridagi 🧊 tugmasi bilan yoqib-o'chiriladi.</li>
 <li><b>Avtomatik rejim</b>: vaqt tugashi (yoki hamma javob berishi) bilan to'g'ri javob chiqadi, bir necha soniyadan keyin reyting, so'ng keyingi savol o'zi boshlanadi. <b>⏸️ Pauza</b> tugmasi bilan to'xtatib, <b>▶ Davom</b> bilan davom ettirasiz.</li>
@@ -913,7 +927,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 
   /* ---------------- sozlamalar ---------------- */
   // cmode: "jami" — jami count ta savol (mavzulardan teng bo'lib); "har" — har mavzudan per ta (perT — mavzu bo'yicha alohida son)
-  var cfg = { topics: [], count: 10, cmode: "jami", per: 5, perT: {}, lvl: "prog", time: 20, limit: 0, auto: 8, showQ: true, sound: true, tease: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
+  var cfg = { topics: [], count: 10, cmode: "jami", per: 5, perT: {}, juice: { on: true, off: [] }, lvl: "prog", time: 20, limit: 0, auto: 8, showQ: true, sound: true, tease: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
   try { var sv = JSON.parse(localStorage.getItem(LS) || "null"); if (sv) for (var k in sv) if (k in cfg) cfg[k] = sv[k]; } catch (e) {}
   var qp = /[?&]mavzu=([a-z0-9,]+)/i.exec(location.search);
   if (qp) cfg.topics = qp[1].split(",");
@@ -935,6 +949,8 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     cfg.per = clampN(cfg.per, 1, PER_MAX, 5);
     if (cfg.cmode !== "har") cfg.cmode = "jami";
     if (!cfg.perT || typeof cfg.perT !== "object") cfg.perT = {};
+    if (!cfg.juice || typeof cfg.juice !== "object") cfg.juice = { on: true, off: [] };
+    if (!Array.isArray(cfg.juice.off)) cfg.juice.off = [];
     for (var id in cfg.perT) { var v = clampN(cfg.perT[id], 1, PER_MAX, 0); if (!v || v === cfg.per) delete cfg.perT[id]; else cfg.perT[id] = v; }
   }
   function perOf(id) { return (cfg.perT && cfg.perT[id]) || cfg.per; }
@@ -951,11 +967,74 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (!harOn() || !cfg.mix || !cfg.mix.pct || !cfg.mix.fans || !cfg.mix.fans.length || !mixTopics().length) return 0;
     return Math.round(base * cfg.mix.pct / (100 - Math.min(90, cfg.mix.pct)));
   }
-  function totalCount() { var b = baseCount(); return b + mixExtra(b); }
+  function totalCount() { if (!harOn()) return cfg.count; var b = baseCount(); return withJuice(b + mixExtra(b)); }
+  function juiceN() { if (!juiceOn()) return 0; var T = totalCount(); return harOn() ? T - baseCount() - mixExtra(baseCount()) : juiceSlots(T).length; }
   function cntLabel() {
-    if (!harOn()) return cfg.count + " ta savol";
+    var J = juiceN(), jt = J ? " (🧃 " + J + " tasi boshqa fanlardan)" : "";
+    if (!harOn()) return cfg.count + " ta savol" + jt;
     var vs = cfg.topics.map(perOf), mn = Math.min.apply(null, vs), mx = Math.max.apply(null, vs);
-    return "📚 har mavzudan " + (mn === mx ? mn + " ta" : mn + "–" + mx + " ta") + " = " + totalCount() + " ta savol";
+    return "📚 har mavzudan " + (mn === mx ? mn + " ta" : mn + "–" + mx + " ta") + " = " + totalCount() + " ta savol" + jt;
+  }
+
+  /* ---------------- 🧃 Juice: har 10 savoldan 2 tasi — 2 xil boshqa fandan (navbat bilan) ----------------
+   * Tanlangan mavzular fanidan boshqa fanlardan; 4- va 8-o'rinlarga (14-, 18-, …) qo'yiladi; qisqa testda ham kamida 1 ta.
+   * Daraja testi va avtotestga qo'shilmaydi. 100 ta savolda (20 juice) deyarli hamma fandan kamida bittadan chiqadi. */
+  var TGRP = null, JUICE = null, JN = 0, JUICE_SKIP = { all: 1, avto: 1 };
+  function tGrp(id) { if (!TGRP) { TGRP = {}; TOPICS.forEach(function (t) { TGRP[t[0]] = t[2]; }); } return id in TGRP ? TGRP[id] : -1; }
+  function fanOf(k) { return FANS.filter(function (f) { return f[0] === k; })[0]; }
+  function fanShort(k) { var f = fanOf(k); return f ? f[1].replace(/^\S+\s/, "") : k; }
+  function selFans() { // tanlangan mavzular qaysi fanlarniki
+    var gs = {}; cfg.topics.forEach(function (id) { gs[tGrp(id)] = 1; });
+    return FANS.filter(function (f) { return f[2] && f[2].some(function (g) { return gs[g]; }); }).map(function (f) { return f[0]; });
+  }
+  function juiceBlocked() { return cfg.topics.length > 0 && cfg.topics.every(function (id) { var g = tGrp(id); return g === 7 || g === 20; }); }
+  function juiceFans() {
+    if (!cfg.juice || !cfg.juice.on || !cfg.topics.length || juiceBlocked()) return [];
+    var mine = selFans();
+    return FANS.filter(function (f) { return f[2] && !JUICE_SKIP[f[0]] && mine.indexOf(f[0]) < 0 && cfg.juice.off.indexOf(f[0]) < 0; }).map(function (f) { return f[0]; });
+  }
+  function juiceOn() { return juiceFans().length > 0; }
+  // juice o'rinlari: har 10 talikda 4- va 8-savol; birorta ham tushmasa (2–3 savollik test) — oxirgisi
+  function juiceSlots(T) { var s = []; for (var p = 0; p < T; p++) if (p % 10 === 3 || p % 10 === 7) s.push(p); if (!s.length && T >= 2) s.push(T - 1); return s; }
+  // har mavzudan rejimi: asosiy savollar M ta bo'lsa — juice bilan jami T (T = M + juice o'rinlari)
+  function withJuice(M) {
+    if (!M || !juiceOn()) return M;
+    var T = M;
+    for (var i = 0; i < 30; i++) { var t2 = M + juiceSlots(T).length; if (t2 === T) break; T = t2; }
+    if (T === M) T = M + 1; // kamida 1 ta
+    return T;
+  }
+  // har fandan 4 tagacha tasodifiy mavzu (oldindan tayyorlanadi: ingliz/rus lug'atlari yuklanib qolsin)
+  function juicePlan() {
+    var fans = juiceFans(), pick = {}, sel = {};
+    cfg.topics.forEach(function (id) { sel[id] = 1; });
+    fans.forEach(function (fk) {
+      var f = fanOf(fk), c = TOPICS.filter(function (t) { return f[2].indexOf(t[2]) > -1 && t[2] !== 7 && t[2] !== 20 && !sel[t[0]] && !/^e[4-6]$/.test(t[0]); });
+      if (c.length) pick[fk] = shuffle(c).slice(0, 4).map(function (t) { return t[0]; });
+    });
+    JUICE = { fans: shuffle(Object.keys(pick)), pick: pick, key: fans.join(",") };
+    return JUICE;
+  }
+  function juiceIds() { if (!juiceOn()) return []; var J = juicePlan(), a = []; for (var k in J.pick) a = a.concat(J.pick[k]); return a; }
+  function juiceSync() {
+    var box = $("#jcBox"); if (!box) return;
+    fixCnt();
+    var on = !!cfg.juice.on, mine = selFans(), jf = juiceFans();
+    $("#jcOn").checked = on; box.classList.toggle("off", !on);
+    $("#jcFans").innerHTML = FANS.filter(function (f) { return f[2] && !JUICE_SKIP[f[0]]; }).map(function (f) {
+      var self = mine.indexOf(f[0]) > -1;
+      return '<button type="button" data-jf="' + f[0] + '" aria-pressed="' + (!self && cfg.juice.off.indexOf(f[0]) < 0) + '"' + (self ? ' disabled title="Tanlangan mavzular fani — undan savollar asosiy qismda"' : "") + ">" + f[1] + "</button>";
+    }).join("");
+    var el = $("#jcNote");
+    if (!on) el.innerHTML = "O'chirilgan — savollar faqat tanlangan mavzulardan.";
+    else if (!cfg.topics.length) el.innerHTML = "👆 Mavzu tanlang — har 10 savoldan 2 tasi boshqa 2 xil fandan qo'shiladi.";
+    else if (juiceBlocked()) el.innerHTML = "Daraja testi va avtotestga juice qo'shilmaydi.";
+    else if (!jf.length) el.innerHTML = "Boshqa fan qolmadi (hammasi tanlangan yoki o'chirilgan) — juice qo'shilmaydi.";
+    else {
+      var T = totalCount(), J = juiceN(), pos = juiceSlots(T).slice(0, 4).map(function (p) { return p + 1; }).join("-, ") + "-" + (J > 4 ? " …" : "");
+      var nm = jf.slice(0, 6).map(fanShort).join(", ") + (jf.length > 6 ? " va yana " + (jf.length - 6) + " ta fan" : "");
+      el.innerHTML = "✅ " + T + " ta savoldan <b>" + J + " tasi juice</b> (" + pos + " savollar): har 10 talikda 2 xil fan, navbat bilan — " + esc(nm) + ".";
+    }
   }
   // sozlamalar sahifasidagi «Savollar» qismini cfg bo'yicha yangilaydi (tanlov boshqa joydan o'zgarganda ham chaqiriladi)
   function syncCount(keepList) {
@@ -978,15 +1057,16 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       }).join("");
     }
     if (har) perNote();
+    juiceSync();
     if (setupMixSync) setupMixSync(); else summary();
   }
   function perNote() {
     var el = $("#perNote"); if (!el) return;
     if (!cfg.topics.length) { el.innerHTML = "👆 Avval mavzularni tanlang — har biridan nechta savol chiqishini shu yerda belgilaysiz."; return; }
-    var raw = cfg.topics.reduce(function (s, id) { return s + perOf(id); }, 0), base = baseCount(), x = mixExtra(base);
+    var raw = cfg.topics.reduce(function (s, id) { return s + perOf(id); }, 0), base = baseCount(), x = mixExtra(base), jn = juiceN();
     var parts = cfg.topics.length <= 8 ? cfg.topics.map(perOf).join(" + ") + " = " : "";
     el.innerHTML = "✅ " + cfg.topics.length + " ta mavzu: " + parts + "<b>" + base + " ta savol</b>" +
-      (x ? " + " + x + " ta qo'shimcha fanlardan = <b>" + (base + x) + " ta</b>" : "") +
+      (x ? " + " + x + " ta qo'shimcha fanlardan" : "") + (jn ? " + 🧃 " + jn + " ta juice" : "") + (x || jn ? " = <b>" + (base + x + jn) + " ta</b>" : "") +
       ". Osondan qiyinga tartiblanadi." +
       (raw > CNT_MAX ? ' <span class="warn">⚠️ Ko\'pi bilan ' + CNT_MAX + " ta savol — har mavzudan soni mutanosib kamaytirildi (" + raw + " → " + base + ").</span>" : "");
   }
@@ -1321,6 +1401,13 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     });
     pl.addEventListener("input", function (e) { var row = e.target.closest(".prow"); if (row && e.target.value !== "") setOne(row, e.target.value); });
     pl.addEventListener("change", function (e) { var row = e.target.closest(".prow"); if (row) setOne(row, e.target.value); });
+    $("#jcOn").addEventListener("change", function () { cfg.juice.on = this.checked; saveCfg(); syncCount(true); });
+    $("#jcFans").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-jf]"); if (!b || b.disabled) return;
+      var k = b.dataset.jf, i = cfg.juice.off.indexOf(k);
+      if (i > -1) cfg.juice.off.splice(i, 1); else cfg.juice.off.push(k);
+      saveCfg(); syncCount(true);
+    });
     syncCount();
   }
   function bindSetup() {
@@ -1524,7 +1611,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   // generatorlar + tanlangan fanlarning lug'at fayllari (ingliz/rus tili) — faqat kerak bo'lganda
   // "⏳ Tayyorlanmoqda…" tugmasi qotib qolmasin: 30 soniyadan keyin (yoki xato bo'lsa) bor savollar bilan davom etamiz
   function prepTopics() {
-    var work = loadGens().then(function () { return window.kaFan && window.kaFan.prep ? window.kaFan.prep(cfg.topics.concat(mixTopics())) : null; });
+    var work = loadGens().then(function () { return window.kaFan && window.kaFan.prep ? window.kaFan.prep(cfg.topics.concat(mixTopics(), juiceIds())) : null; });
     return Promise.race([work, new Promise(function (res) { setTimeout(res, 30000); })]).catch(function () {});
   }
   /* ---- aralashtirish: boshqa fanlardan qo'shimcha savollar ---- */
@@ -1556,9 +1643,13 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (!tps.length && xt.length) { tps = xt; fb = true; }
     fixCnt();
     var nF = clampN(nForce, 1, 1000, 0), har = !nF && !fb && cfg.cmode === "har" && tps.length > 0;
+    var jf = nF || fb ? [] : juiceFans(), slots = [], T; // 🧃 juice — boshqa fanlardan, 4- va 8-o'rinlarga
     var plan = har ? perPlan(tps) : null, base = har ? plan.reduce(function (s, p) { return s + p[1]; }, 0) : nF || cfg.count;
+    if (!har && jf.length) { slots = juiceSlots(base); base -= slots.length; } // jami N ta ichida: 10 tadan 8 tasi mavzudan, 2 tasi juice
     var nX = fb || !xt.length ? 0 : har ? mixExtra(base) : Math.round(base * ((cfg.mix && cfg.mix.pct) || 0) / 100);
     var n = har ? base + nX : base;
+    if (har && jf.length) { T = withJuice(n); slots = juiceSlots(T).slice(0, T - n); } // har mavzudan rejimida — ustiga
+    T = n + slots.length;
     // daraja shu to'plam ichidagi o'rniga qarab: har mavzu (va qo'shimcha fanlar) o'z ichida osondan qiyinga
     function lv(j, T) { return cfg.lvl === "prog" ? 1 + Math.min(2, Math.floor(3 * j / Math.max(1, T))) : cfg.lvl === "mix" ? rnd(1, 3) : +cfg.lvl || 2; }
     // mavzularni navbat bilan: har mavzudan teng ulush (bir mavzu ko'p, boshqasi kam chiqib qolmasin)
@@ -1593,7 +1684,43 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     // har doim osondan qiyinga: daraja, keyin shu daraja ichida murakkablik (sonlar kattaligi, amallar soni)
     out.forEach(function (o) { o.cx = kaSavol.cx ? kaSavol.cx({ q: o.q, steps: o.steps }) : 0; });
     out.sort(function (a, b) { return (a.grade - b.grade) || (a.L - b.L) || (a.cx - b.cx); }); // daraja testida sinf bo'yicha, keyin osondan qiyinga
+    if (slots.length) out = addJuice(out);
     return out;
+    // har juice o'rniga navbatdagi fandan bitta savol (qiyinligi shu o'ringa mos); ketma-ket ikki juice — 2 xil fan
+    function addJuice(main) {
+      if (!JUICE || JUICE.key !== jf.join(",")) juicePlan();
+      var order = JUICE.fans.filter(function (k) { return jf.indexOf(k) > -1; });
+      if (!order.length) return main;
+      var genJ = function (fk, L) {
+        var ts = shuffle(JUICE.pick[fk] || []), best = null, bestT = Infinity;
+        for (var a = 0; a < 12 && ts.length; a++) {
+          var tid = ts[a % ts.length], p = null;
+          if (!kaSavol.has(tid)) continue;
+          try { p = kaSavol.get(tid, L); } catch (e) { p = null; }
+          if (!p || p.q == null || p.a == null) continue;
+          var k = qKey(p, tid); if (seen[k]) continue;
+          var ht = H0[k] || 0;
+          if (!ht) { best = { p: p, tid: tid, k: k }; break; }
+          if (ht < bestT) { best = { p: p, tid: tid, k: k }; bestT = ht; }
+        }
+        if (!best) return null;
+        seen[best.k] = 1;
+        var q = mkGen(best.p, best.tid, L, best.k); q.jc = fk; return q;
+      };
+      var jqs = slots.map(function (p, k) {
+        for (var t = 0; t < order.length; t++) { var q = genJ(order[(JN + k + t) % order.length], lv(p, T)); if (q) return q; }
+        return null;
+      });
+      JN += slots.length; // keyingi testda navbat davom etadi — boshqa fanlar chiqadi
+      var at = {}, res = [], mi = 0;
+      slots.forEach(function (p, k) { at[p] = k + 1; });
+      for (var p = 0; p < T; p++) {
+        if (at[p]) { if (jqs[at[p] - 1]) res.push(jqs[at[p] - 1]); }
+        else if (mi < main.length) res.push(main[mi++]);
+      }
+      while (mi < main.length) res.push(main[mi++]);
+      return res;
+    }
   }
 
   /* ================= O'QITUVCHI (XONA EGASI) ================= */
@@ -1997,7 +2124,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   }
   function renderQuestion() {
     var q = H.qs[H.i], body = hEl();
-    body.innerHTML = '<div class="hq' + (q.g ? " g" : q.og ? " og" : "") + '" id="hq"><div class="hq-bar"><span class="num" id="hNum">' + (H.i + 1) + "/" + H.qs.length + '</span><span class="tp">' + esc(TITLE[q.tid] || "") + (q.own ? "" : " · " + "★★★".slice(0, q.L)) + '</span><span class="ans" id="hAns"></span>' +
+    body.innerHTML = '<div class="hq' + (q.g ? " g" : q.og ? " og" : "") + '" id="hq"><div class="hq-bar"><span class="num" id="hNum">' + (H.i + 1) + "/" + H.qs.length + '</span><span class="tp">' + (q.jc ? '<span class="jcb">🧃 Juice</span>' : "") + esc(TITLE[q.tid] || "") + (q.own ? "" : " · " + "★★★".slice(0, q.L)) + '</span><span class="ans" id="hAns"></span>' +
       '<div class="ring" id="hRing"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" fill="none" stroke="#243252" stroke-width="5"/><circle id="hArc" cx="22" cy="22" r="19" fill="none" stroke="#5ee6c7" stroke-width="5" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="0"/></svg><b>' + qSec() + "</b></div></div>" +
       qBox(q.q, q.g, "hQ", "hq-q", q.r) +
       (q.t === "in" ? '<div class="tiles intile" id="hTiles"><div class="inbox"><span class="in-ic">✍️</span><b>Javobni telefoningizga yozing</b><small>' + (q.num ? "son bilan" : "so'z yoki son bilan") + "</small></div></div>"
@@ -2320,7 +2447,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     clearTimeout(H.saveT); H.saveT = 0;
     var snap = { v: 1, ts: Date.now(), code: H.code, gid: H.gid || "", name: H.testName || "", lim: limLeft() * 1000, st: H.startAt || 0, phase: H.phase === "resume" ? H.resumeFrom : H.phase, i: H.i, revN: H.revN || 0, started: !!H.started,
       qs: H.qs, stats: H.stats, roster: H.roster, nicks: H.nicks,
-      cfg: { topics: cfg.topics, count: cfg.count, cmode: cfg.cmode, per: cfg.per, perT: cfg.perT, lvl: cfg.lvl, time: cfg.time, auto: cfg.auto, showQ: cfg.showQ, d3: cfg.d3, guard: cfg.guard, xtime: cfg.xtime, sound: cfg.sound, mix: cfg.mix },
+      cfg: { topics: cfg.topics, count: cfg.count, cmode: cfg.cmode, per: cfg.per, perT: cfg.perT, juice: cfg.juice, lvl: cfg.lvl, time: cfg.time, auto: cfg.auto, showQ: cfg.showQ, d3: cfg.d3, guard: cfg.guard, xtime: cfg.xtime, sound: cfg.sound, mix: cfg.mix },
       players: allPlayers().map(function (p) { return { key: p.key, name: p.name, full: p.full, nick: p.nick, r: p.r, tok: p.tok, sg: p.sg || "", man: !!p.man, score: p.score, correct: p.correct, wrong: p.wrong, none: p.none, streak: p.streak, best: p.best, ans: p.ans, away: p.away || 0, awayMs: p.awayMs || 0 }; }) };
     lsSet(LS_HS, snap);
   }
