@@ -104,6 +104,16 @@
   .kt-fb{margin-top:14px;font-weight:700;font-size:15px;line-height:1.5;font-family:inherit;min-height:1.4em}
   .kt-fb.ok{color:#5ee6c7}.kt-fb.bad{color:#ff8585}
   .kt-steps{margin:10px 0 0;padding-left:20px;color:#c9d4ff;font-weight:500;font-size:14.5px;line-height:1.6;font-family:inherit}
+  .kt-all{margin:14px 0;border:1px solid #2c3b63;border-radius:14px;padding:4px 14px;background:rgba(124,155,255,.06)}
+  .kt-all>summary{cursor:pointer;font-weight:800;padding:10px 0;color:#c9d4ff}
+  .kt-all>ol{padding-left:22px;margin:4px 0 10px}
+  .kt-all>ol>li{margin:0 0 14px;padding:10px 0 0;border-top:1px dashed #2c3b63}
+  .kt-all>ol>li:first-child{border-top:0;padding-top:0}
+  .kt-all .kt-aq{font-weight:600;margin-bottom:4px}
+  .kt-all .kt-aa{font-size:14.5px}
+  .kt-all .kt-mark{display:inline-block;min-width:18px;font-weight:900}
+  .kt-all li.ok .kt-mark{color:#5ee6c7}.kt-all li.bad .kt-mark{color:#ff8585}.kt-all li.skip .kt-mark{color:#9fb0d0}
+  .kt-all .kt-ah{margin-top:6px;color:#c9d4ff;font-size:14px}
   .kt-bot{position:fixed;left:0;right:0;bottom:0;padding:12px 14px;background:#0b1220;border-top:1px solid #1b2a46;display:flex;gap:8px;justify-content:center}
   .kt-res{text-align:center;padding:10px 0 20px}
   .kt-big{font-weight:900;font-size:64px;line-height:1;font-family:inherit;color:#5ee6c7;margin:6px 0}
@@ -141,7 +151,7 @@
 
   /* inglizcha (SAT) — faqat shu faylda qo'shilgan yangi matnlar uchun; qolganini ka-til.js tarjima qiladi */
   var EN = { "Keyingi savol →": "Next question →", "Natijani ko'rish →": "See results →", "⏸️ To'xtat": "⏸️ Stop", "▶ Davom": "▶ Continue",
-    "❓ Nima uchun xato?": "❓ Why is it wrong?", "Siz tanladingiz": "You chose", "Yechim:": "Solution:", "3D rejim": "3D mode",
+    "❓ Nima uchun xato?": "❓ Why is it wrong?", "Siz tanladingiz": "You chose", "Yechim:": "Solution:", "3D rejim": "3D mode", "Barcha savollar va yechimlar": "All questions and solutions", "Sizning javobingiz": "Your answer", "To'g'ri javob": "Correct answer",
     "✔ To'g'ri!": "✔ Correct!", "✘ Noto'g'ri. To'g'ri javob: ": "✘ Incorrect. Correct answer: ", "avtomatik…": "auto…" };
   function enMode(id) {
     try { if (document.documentElement.getAttribute("data-til-force") === "en") return true; if (/^sat/.test(id || "")) return true; return !!(window.kaTil && kaTil.get() === "en"); } catch (e) { return false; }
@@ -235,12 +245,12 @@
     var count0 = opts.count0 || count || 20;
     var perQ = opts.perQ == null ? 4 : +opts.perQ;            // daqiqa / 1 savol (0 = vaqtsiz)
     var limit = perQ > 0 ? Math.round(perQ * 60 * count) : 0;  // umumiy soniya
-    var i = 0, ok = 0, wrong = [], t0 = Date.now(), timer, autoT = null, cdT = 0, answered = false;
+    var i = 0, ok = 0, wrong = [], gots = [], t0 = Date.now(), timer, autoT = null, cdT = 0, answered = false;
     var WRONG_WAIT = 9; // xato javobdan keyin tushuntirishni o'qish uchun soniya
-    if (rs) { i = rs.i; ok = rs.ok; wrong = rs.wrong || []; t0 = Date.now() - (rs.elapsed || 0) * 1000; perQ = rs.perQ; limit = perQ > 0 ? Math.round(perQ * 60 * count) : 0; }
+    if (rs) { i = rs.i; ok = rs.ok; wrong = rs.wrong || []; gots = rs.gots || []; t0 = Date.now() - (rs.elapsed || 0) * 1000; perQ = rs.perQ; limit = perQ > 0 ? Math.round(perQ * 60 * count) : 0; }
     function persist() {
       if (opts.diag) return;
-      saveState({ topicId: topicId, title: title, level: level, count: count, mode: mode, perQ: perQ, qs: qs, i: i, ok: ok, wrong: wrong, elapsed: Math.round((Date.now() - t0) / 1000), d: Date.now() });
+      saveState({ topicId: topicId, title: title, level: level, count: count, mode: mode, perQ: perQ, qs: qs, i: i, ok: ok, wrong: wrong, gots: gots, elapsed: Math.round((Date.now() - t0) / 1000), d: Date.now() });
     }
     Snd.unlock();
 
@@ -322,7 +332,7 @@
 
       function answer(val, btn) {
         if (answered) return; answered = true;
-        var good = same(val, p.a);
+        var good = same(val, p.a); gots[i] = { v: val, ok: good };
         if (good) { ok++; pOk.textContent = "✔ " + ok; Snd.ok(); } else { wrong.push({ p: p, got: val }); Snd.bad(); }
         persist();
         if (opts) {
@@ -404,6 +414,20 @@
       });
       return html + (items.length ? "" : '<div class="ok">🎉 Hech qaysi bo\'limda xato yo\'q.</div>') + "</div>";
     }
+    // 📘 Test oxirida HAR BIR savol: javobingiz (✔/✘), to'g'ri javob va yechim qadamlari
+    // Milliy sertifikat testlarida ochiq turadi, boshqa testlarda bosib ochiladi
+    function allSolutions() {
+      if (!qs || !qs.length) return "";
+      var openIt = /^(sertifikat|ms-)/.test(topicId) || opts.solutions;
+      return '<details class="kt-all"' + (openIt ? " open" : "") + '><summary>📘 ' + T("Barcha savollar va yechimlar") + " (" + qs.length + ")</summary><ol>" +
+        qs.map(function (p, k) {
+          var g = gots[k], st = g ? (g.ok ? "ok" : "bad") : "skip";
+          var mine = g ? fmt(esc(String(g.v))) : "—";
+          return '<li class="' + st + '"><div class="kt-aq">' + p.q + "</div>" +
+            '<div class="kt-aa"><span class="kt-mark">' + (st === "ok" ? "✔" : st === "bad" ? "✘" : "—") + "</span> " + T("Sizning javobingiz") + ": <i>" + mine + "</i> · " + T("To'g'ri javob") + ": <b>" + fmt(esc(String(p.a))) + "</b></div>" +
+            (p.steps && p.steps.length ? '<div class="kt-ah">' + T("Yechim:") + '</div><ol class="kt-steps">' + p.steps.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ol>" : "") + "</li>";
+        }).join("") + "</ol></details>";
+    }
     function finish(timedOut) {
       clearInterval(timer); clearTimeout(autoT);
       clearState();
@@ -438,7 +462,8 @@
           wrong.map(function (w) {
             return "<li>" + w.p.q + "<br>Sizning javobingiz: <i>" + fmt(esc(String(w.got))) + "</i> · To'g'ri: <b>" + fmt(esc(String(w.p.a))) + "</b>" +
               (w.p.steps ? '<ol class="kt-steps">' + w.p.steps.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ol>" : "") + "</li>";
-          }).join("") + "</ul></div>" : '<div class="kt-res kt-sub">🎉 Birorta ham xato yo\'q — ajoyib!</div>');
+          }).join("") + "</ul></div>" : '<div class="kt-res kt-sub">🎉 Birorta ham xato yo\'q — ajoyib!</div>') +
+        allSolutions();
       $$('[data-a="goto"]', main).forEach(function (a) { a.onclick = function () { quit(); }; });
       $$('[data-a="easy"]', main).forEach(function (b) { b.onclick = function () { var t = b.dataset.t; quit(); run(t, topicTitle(t), 1, 10, mode, { perQ: perQ }); }; });
       bot.innerHTML = '<button class="kt-b go" data-a="again" type="button">🔄 Yangi variant</button><button class="kt-b" data-a="close" type="button">Yopish</button>';
