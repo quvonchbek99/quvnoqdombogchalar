@@ -172,6 +172,11 @@
   function openTopic(id, scroll) {
     var sec = byId[id];
     if (!sec) return false;
+    // Har bir mavzu alohida sahifada ochiladi (mashqlar.html?mavzu=tN) — ro'yxat ostiga tushib ketmaydi
+    try {
+      var cur = new URLSearchParams(location.search).get("mavzu");
+      if (cur !== id) { store("ka-last", id); location.href = "mashqlar.html?mavzu=" + encodeURIComponent(id); return true; }
+    } catch (e) {}
     sections.forEach(function (s) {
       var h = $("h2", s);
       if (s === sec) { s.classList.remove("collapsed"); if (h) h.setAttribute("aria-expanded", "true"); }
