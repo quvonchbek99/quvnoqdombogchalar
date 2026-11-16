@@ -108,8 +108,10 @@
     "ChatGPT senga yuzini ko'rsatib, bunaqa jilmayadimi? Yo'q! Demak, men bilan o'qiymiz.",
     "Boshqa bot haqida eshitishni ham xohlamayman! Yaxshisi, bilimingni menga ko'rsat."
   ];
-  var LOVE = ["Voy, rahmat! Yuragim eriydi. Davom etamizmi?", "Sen ham zo'rsan! Shunday davom etsang, hammadan o'zib ketasan.", "Rahmat, do'stim! Men ham sen bilan o'qishni yaxshi ko'raman."];
-  var PRAISE = ["Barakalla! To'g'ri!", "Zo'r! Aynan shunday!", "Ofarin, juda yaxshi!", "Ana, ko'rdingmi, uddalading!", "To'ppa-to'g'ri! Qoyil!", "Ajoyib! To'g'ri!", "Voy, zo'rsan-ku!"];
+  var LOVE = ["Voy, rahmat! Yuragim eriydi. Davom etamizmi?", "Sen ham zo'rsan! Shunday davom etsang, hammadan o'zib ketasan.", "Rahmat, do'stim! Men ham sen bilan o'qishni yaxshi ko'raman.",
+    "Voy, uyaltirib yubording-ku! Rahmat. Qani, yana bir mashq qilamizmi?", "Rahmat! Sen bilan gaplashish menga ham quvonch. Davom etamiz!", "Shirin so'zing uchun rahmat! Endi bilimingni ham ko'rsat-chi."];
+  var PRAISE = ["Barakalla! To'g'ri!", "Zo'r! Aynan shunday!", "Ofarin, juda yaxshi!", "Ana, ko'rdingmi, uddalading!", "To'ppa-to'g'ri! Qoyil!", "Ajoyib! To'g'ri!", "Voy, zo'rsan-ku!",
+    "Mana bu boshqa gap!", "Qoyilman! Miyang kompyuterdan ham tez ishlayapti!", "Yashavor! To'g'ri topding!", "Mukammal javob! Shunday davom et!", "Aql bovar qilmaydi! Juda zo'r!", "Ana endi gap bor! Barakalla!"];
   var CRY = ["Uhu-uhu, yig'lab yubordim-ku! Burnim ham oqib ketdi.", "Voy-voy, ko'z yoshlarim to'kildi!", "Uhu-uhu... mayli, yig'lamayman, birga o'rganamiz."];
   // Tegajoq hazil (sozlamada o'chirsa bo'ladi): bilmasa yoki xato qilsa, mehr bilan tegishadi
   var TEASE = ["Voy qovoq kalla-ey!", "Ey oshqovoq, shuni ham bilmaysanmi?", "Qovunjon, bir o'ylab ko'r-chi!", "Hay qovoq kallajonim...", "Oshqovoqcha, bunisi oson-ku!", "Voy qovun-ey, shunga ham-a?", "Qovoq kalla, uxlab qoldingmi?",
@@ -119,7 +121,8 @@
     var l = mlang(ctx); if (l !== "uz" && window.kaYuz && kaYuz.teaseW) return pick(["Voy, ", "Ey, ", "Hay, "]) + kaYuz.teaseW(l) + "! ";
     return pick(TEASE) + " ";
   }
-  var WRONG = ["Hmm, unchalik emas. Yana bir urinib ko'r.", "Yaqin, lekin to'g'ri emas. O'ylab ko'r-chi.", "Unday emas. Qani, yana bir marta!"];
+  var WRONG = ["Hmm, unchalik emas. Yana bir urinib ko'r.", "Yaqin, lekin to'g'ri emas. O'ylab ko'r-chi.", "Unday emas. Qani, yana bir marta!",
+    "Yaqin qolding! Yana bir o'ylab ko'r-chi.", "Hech qisi yo'q! Xato qilmagan odam o'rganmaydi.", "Bu safar chiqmadi, lekin sen albatta uddalaysan!", "Shoshilma, savolni yana bir o'qib chiq."];
 
   /* ---------- Ingliz tili: tarjima mashqlari (o'zbekcha -> inglizcha) ---------- */
   var ENB = [

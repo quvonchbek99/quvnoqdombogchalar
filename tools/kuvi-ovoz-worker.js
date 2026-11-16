@@ -103,11 +103,15 @@ async function chat(req, env, cors) {
     .filter(m => m.content);
   if (!msgs.some(m => m.role === "user")) return json({ error: "xabar yo'q" }, 400, cors);
   const deep = !!b.deep, stream = b.stream !== false;
+  // effort: low | medium | high — sayt so'ragan fikrlash kuchi; max — javob (o'ylash bilan birga) uchun token chegarasi
+  const effort = ["low", "medium", "high"].includes(b.effort) ? b.effort : deep ? "medium" : "low";
+  const maxT = Math.max(300, Math.min(8000, +b.max || (deep ? 4000 : 1000)));
   let last = "";
   for (const model of G_CHAT) {
-    const body = { model, messages: msgs, temperature: deep ? 0.6 : 0.85, max_completion_tokens: deep ? 2000 : 700, stream };
+    const body = { model, messages: msgs, temperature: deep ? 0.6 : 0.85, max_completion_tokens: maxT, stream };
     // gpt-oss o'ylab javob beradi: oddiy suhbatda qisqa o'ylaydi (tez), «tushuntir»da chuqurroq; o'ylash matni javobga qo'shilmaydi
-    if (model.startsWith("openai/gpt-oss")) { body.reasoning_effort = deep ? "medium" : "low"; body.include_reasoning = false; }
+    if (model.startsWith("openai/gpt-oss")) { body.reasoning_effort = effort; body.include_reasoning = false; }
+    else body.max_completion_tokens = Math.min(maxT, 2500); // Llama o'ylamaydi — ortiqcha token so'ramaymiz
     const r = await fetch(GROQ + "/chat/completions", { method: "POST", headers: { "Authorization": "Bearer " + env.GROQ_KEY, "Content-Type": "application/json" }, body: JSON.stringify(body) });
     if (r.ok) {
       const h = Object.assign({ "X-Kuvi-Model": model, "Access-Control-Expose-Headers": "X-Kuvi-Model" }, cors);

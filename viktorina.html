@@ -888,7 +888,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 
 <script src="ka-tarmoq.js?v=20261116a"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
-<script src="ka-kuvi.js?v=20261114a"></script>
+<script src="ka-kuvi.js?v=20261116a"></script>
 <script src="ka-xato.js?v=20261110a"></script>
 <script src="ka-ai.js?v=20261112d"></script>
 <script>
@@ -2481,7 +2481,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     function set(t) { var el = $("#hAIt"); if (el) el.textContent = String(t || off).replace(/^\s*\[\w+\]\s*/, "").replace(/[*_#`]+/g, ""); if (cfg.sound && window.kaYuz) kaYuz.say(el ? el.textContent : off, "think"); }
     if (!window.kaAI || !kaAI.text) { set(off); return; }
     var prompt = "Viktorina: " + H.qs.length + " ta savol, " + order.length + " o'quvchi, o'rtacha " + avg + " ta to'g'ri javob. Eng qiyin savollar:\n" + hard.map(function (o, i) { return (i + 1) + ") " + plain(o.q.q).slice(0, 200) + " — to'g'ri javob: " + plain(o.q.a) + ", " + o.pc + "% to'g'ri topdi (mavzu: " + (TITLE[o.q.tid] || "") + ")"; }).join("\n");
-    var sys = "Sen Kuvi — kuvonch.uz ning AI yordamchisisan va o'qituvchiga gapiryapsan. Sinf natijasini 3 qisqa gapda tahlil qil (oddiy o'zbekcha matn, markdown va emoji yo'q): umumiy daraja, qaysi mavzu/tushunchada sinf qiynaldi va keyingi darsda nimani qayta tushuntirish kerakligi bo'yicha bitta aniq tavsiya.";
+    var sys = "Sen Kuvi — kuvonch.uz ning AI yordamchisisan va o'qituvchiga gapiryapsan. Sinf natijasini 3–5 gapda tahlil qil (oddiy o'zbekcha matn, markdown va emoji yo'q): umumiy daraja, qaysi mavzu yoki tushunchada sinf qiynaldi va nega adashgan bo'lishi mumkin, keyingi darsda nimani qayta tushuntirish kerakligi bo'yicha bitta aniq tavsiya va sinfni ruhlantiruvchi bitta gap. Savollar istalgan fandan bo'lishi mumkin — o'sha fanning tilida tushuntir.";
     kaAI.text(prompt, sys).then(set, function () { set(off); });
   }
   function endGame() {
@@ -3850,7 +3850,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     function set(t) { var el = $("#pAIt"); if (el) el.textContent = String(t || off).replace(/^\s*\[\w+\]\s*/, "").replace(/[*_#`]+/g, ""); if (kvOn() && window.kaYuz) kaYuz.say(el ? el.textContent : off, "think", kaYuz.voiceFor("think", kaYuz.nameG(P && P.name))); }
     if (!window.kaAI || !kaAI.text) { set(off); return; }
     var prompt = "O'quvchi viktorinada " + total + " ta savoldan " + ok + " tasiga to'g'ri javob berdi. Xatolari:\n" + W.slice(0, 8).map(function (w, i) { return (i + 1) + ") " + w.q.slice(0, 200) + " — to'g'ri javob: " + w.a + "; o'quvchi javobi: " + w.ch; }).join("\n");
-    var sys = "Sen Kuvi — kuvonch.uz ning mehribon AI ustozisan. O'quvchining xatolarini tahlil qil: 2–3 qisqa gap, oddiy o'zbekcha matn (markdown, emoji, ro'yxat yo'q). Qaysi mavzuda qiynalayotganini, nima uchun adashgan bo'lishi mumkinligini ayt va bitta aniq maslahat ber. Biroz maqta va ruhlantir.";
+    var sys = "Sen Kuvi — kuvonch.uz ning mehribon AI ustozisan. O'quvchining xatolarini puxta o'ylab tahlil qil: 3–5 gap, oddiy o'zbekcha matn (markdown, emoji, ro'yxat yo'q). Savollar istalgan fandan bo'lishi mumkin (matematika, fizika, kimyo, biologiya, tarix, tillar…). Qaysi mavzuda qiynalayotganini, nima uchun adashgan bo'lishi mumkinligini ayt, eng muhim xatoning to'g'ri yechimini bir-ikki gapda tushuntir va bitta aniq maslahat ber. Biroz maqta va ruhlantir.";
     // butun sinf bir vaqtda so'ramasin — biroz kechiktirib yuboramiz
     setTimeout(function () { kaAI.text(prompt, sys).then(set, function () { set(off); }); }, Math.floor(Math.random() * 6000));
   }

@@ -1408,5 +1408,355 @@
   "t": "kichkina al-xorazmiy!",
   "n": 5,
   "m": "happy"
+ },
+ {
+  "t": "Qiziq…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Aha…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Hozir…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Xo'p, o'ylab ko'ray…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Zo'r savol! Puxta o'ylab olay…",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Bu savolga chuqurroq qarash kerak…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Keling, bosqichma-bosqich o'ylaymiz…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Ajoyib savol, hozir hammasini tushuntiraman…",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Rasmni ko'ryapman… hozir yechamiz.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Rasmni diqqat bilan o'qiyapman…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Ko'ryapman… keling, birga yechamiz.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Hali o'ylayapman…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Yana bir tekshirib olay…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Hisob-kitob qilyapman…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Bir daqiqa, aniq bo'lishi kerak…",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Deyarli tayyor…",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Hozir, hozir… javob tayyor bo'lyapti!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Mana bu boshqa gap!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Miyang kompyuterdan ham tez ishlayapti!",
+  "n": 0,
+  "m": "laugh"
+ },
+ {
+  "t": "Qoyilman!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Ana endi gap bor!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Yashavor,",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Voy, zo'r-ku,",
+  "n": 0,
+  "m": "wow"
+ },
+ {
+  "t": "Bilimdon ekansan,",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Aql bovar qilmaydi!",
+  "n": 0,
+  "m": "wow"
+ },
+ {
+  "t": "Juda zo'r!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Daho-ku bu!",
+  "n": 0,
+  "m": "wow"
+ },
+ {
+  "t": "Ofarin!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Mukammal javob!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Sen haqiqiy chempionsan!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Bugun omading chopyapti!",
+  "n": 0,
+  "m": "laugh"
+ },
+ {
+  "t": "Hmm, yana bir o'ylab ko'r-chi.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Yechimga bir nazar tashla.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Yaqin qolding!",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Yechimni o'qib, farqini top.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Qo'rqma, xato — bilimning birinchi qadami!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Bu safar chiqmadi, lekin sen albatta uddalaysan!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Shoshilmagin,",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Hech qisi yo'q!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Xato qilmagan odam o'rganmaydi.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Vaqt uchib ketdi-ya!",
+  "n": 0,
+  "m": "wow"
+ },
+ {
+  "t": "Keyingisida chaqqonroq bo'l.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Tik-tak, tik-tak…",
+  "n": 0,
+  "m": "wow"
+ },
+ {
+  "t": "vaqt tugadi!",
+  "n": 0,
+  "m": "wow"
+ },
+ {
+  "t": "Keyingisida ulgurasan.",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Voy-bo'y, sinf!",
+  "n": 0,
+  "m": "wow"
+ },
+ {
+  "t": "Hammangiz daho ekansiz!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Bunday sinfga ustoz bo'lish — baxt!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Yarmi topdi, yarmi o'ylab qoldi.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Yechimni birga ko'ramiz!",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Hmm, bu savol hammani qiynadi.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Keling, yechimini tahlil qilamiz.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Tomchi-tomchi ko'l bo'lur — har kuni ozgina mashq qil.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Harakatda — barakat, yana bir urin!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Avval o'yla, keyin so'yla.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Kitob — bilim bulog'i, ko'proq o'qi.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Ilm olish — igna bilan quduq qazishdek, sabr qil.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Bir yigitga yetmish hunar oz — o'rganishdan to'xtama.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Yashavor!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "To'g'ri topding!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Shoshilma, savolni yana bir o'qib chiq.",
+  "n": 0,
+  "m": "neutral"
+ },
+ {
+  "t": "Yana bir o'ylab ko'r-chi.",
+  "n": 0,
+  "m": "think"
+ },
+ {
+  "t": "Voy, uyaltirib yubording-ku!",
+  "n": 0,
+  "m": "shy"
+ },
+ {
+  "t": "Rahmat.",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Qani, yana bir mashq qilamizmi?",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Rahmat!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Sen bilan gaplashish menga ham quvonch.",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Davom etamiz!",
+  "n": 0,
+  "m": "happy"
+ },
+ {
+  "t": "Shirin so'zing uchun rahmat!",
+  "n": 0,
+  "m": "love"
+ },
+ {
+  "t": "Endi bilimingni ham ko'rsat-chi.",
+  "n": 0,
+  "m": "happy"
  }
 ]

@@ -194,6 +194,17 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 .ib[hidden],.go[hidden]{display:none!important}
 .deepb{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#7c3aed;margin-left:4px}
 .deepb[hidden]{display:none}
+.fk{display:block;max-width:600px;margin:6px auto 2px;text-align:left;border:1px solid #c4b5fd;border:1px solid color-mix(in srgb,#8b5cf6 35%,var(--line));background:color-mix(in srgb,#8b5cf6 7%,transparent);border-radius:12px;padding:0 10px;font-size:13px}
+.fk[hidden]{display:none}
+.fk summary{cursor:pointer;list-style:none;padding:7px 0;font-weight:700;color:#7c3aed;display:flex;align-items:center;gap:6px;user-select:none}
+.fk summary::-webkit-details-marker{display:none}
+.fk summary:after{content:"▸";margin-left:auto;transition:transform .2s;opacity:.7}
+.fk[open] summary:after{transform:rotate(90deg)}
+.fk.live summary .fkd{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8b5cf6;animation:fkp 1s ease-in-out infinite}
+@keyframes fkp{50%{opacity:.25;transform:scale(.7)}}
+.fk .fkb{white-space:pre-wrap;color:var(--dim);line-height:1.5;max-height:16vh;overflow-y:auto;padding:0 0 8px;border-top:1px dashed color-mix(in srgb,#8b5cf6 30%,transparent);padding-top:6px}
+.fk .fkb:empty:before{content:"Kuvi ichida o'ylab oldi.";font-style:italic}
+#histL .fkh{font-size:12px;color:#7c3aed;margin:2px 0 0}#histL .fkh summary{cursor:pointer;font-weight:700}#histL .fkh div{white-space:pre-wrap;color:var(--dim);padding:2px 0 4px}
 </style>
 </head>
 <body>
@@ -269,6 +280,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <div class="tr" id="tr" aria-live="polite">
     <img class="trimg" id="trImg" alt="Siz yuborgan rasm" hidden>
     <p class="you" id="trU" hidden><b>SIZ</b><span></span></p>
+    <details class="fk" id="fk" hidden><summary><span class="fkd" aria-hidden="true"></span><span id="fkT">🧠 Fikrlash</span></summary><div class="fkb" id="fkB"></div></details>
     <p class="ai" id="trA"><b>KUVI</b><span></span></p>
   </div>
   <button class="go" id="go" type="button">▶ Suhbatni boshlash</button>
@@ -286,7 +298,7 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 <div class="ctl">
   <button class="ib lg" id="bLang" type="button" title="Mikrofon tili (bosib almashtiring)">UZ</button>
   <button class="mic" id="mic" type="button" aria-label="Bosib turib gapiring">🎙</button>
-  <button class="ib lg" id="bCam" type="button" title="Masalani suratga oling — Kuvi yechib beradi" aria-label="Kamera: masalani suratga olish">📷</button>
+  <button class="ib lg" id="bCam" type="button" title="Istalgan fandan masala yoki topshiriqni suratga oling — Kuvi o'ylab yechib beradi" aria-label="Kamera: topshiriqni suratga olish">📷</button>
   <button class="ib lg" id="bKbd" type="button" title="Yozib yuborish" aria-label="Yozib yuborish">⌨️</button>
 </div>
 <form class="tf" id="tf" hidden autocomplete="off"><input id="ti" type="text" maxlength="600" placeholder="Xabar yozing…" aria-label="Xabar"><button type="submit" aria-label="Yuborish">➤</button></form>
@@ -319,7 +331,10 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <h3>Fe'l-atvor</h3>
   <div class="row"><label><input type="checkbox" id="cTease"> 😜 Tegajoq hazil — bilmasa yoki xato qilsa «qovoq kalla», «oshqovoq», «xumpar», «eshak», «poponam» deb tegishadi</label></div>
   <div class="note" id="vNote"></div>
-  <div class="row"><label><input type="checkbox" id="cDeep"> 🧠 Chuqur fikrlash — mavzu, «nega?», «qanday?» savollarida va rasmdagi masalada kuchliroq model bilan to'liq, qadam-baqadam tushuntiradi</label></div>
+  <h3>🧠 Fikrlash</h3>
+  <label class="opt"><input type="radio" name="think" value="auto"><span><b>Avto (tavsiya)</b><small>Oddiy gapga tez javob; mavzu, «nega?», «qanday qilib?», masala, isbot va rasmda — chuqur o'ylab, qadam-baqadam tushuntiradi. Fikrlash jarayoni va necha soniya o'ylagani ekranda ko'rinadi</small></span></label>
+  <label class="opt"><input type="radio" name="think" value="deep"><span><b>Doim chuqur o'ylasin</b><small>Har bir savolga puxta o'ylab, batafsil javob beradi — har qanday fandan. Sekinroq (5–20 soniya)</small></span></label>
+  <label class="opt"><input type="radio" name="think" value="fast"><span><b>Tez</b><small>Doim qisqa va tez javob, chuqur fikrlashsiz</small></span></label>
   <div class="row"><label><input type="checkbox" id="cLife"> 🎭 Jonli Kuvi — bo'sh turganda esnaydi, aksiradi, qo'l silkitadi, uxlab qoladi</label></div>
   <h3>Tinglash</h3>
   <label class="opt"><input type="radio" name="stt" value="auto"><span><b>Avto (tavsiya)</b><small>Avval brauzerning ovoz tanishi; telefonda ishlamasa (Xiaomi, Redmi, Huawei…) — o'zi Gemini'ga o'tadi</small></span></label>
@@ -336,13 +351,13 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
   <p class="note">Telefonning o'z ovozini yaxshilash: Android — <b>Sozlamalar → Til va kiritish → Matnni nutqqa o'girish → Google → ovoz ma'lumotlarini o'rnatish</b>. Kompyuterda eng yaxshi o'zbekcha ovoz — <b>Microsoft Edge</b> brauzerida.</p>
 </div></div>
 <div class="sheet" id="sCam" role="dialog" aria-modal="true" aria-labelledby="camH"><div class="in">
-  <h2 id="camH">📷 Masalani suratga oling <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
+  <h2 id="camH">📷 Topshiriqni suratga oling <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
   <div class="cam"><video id="camV" playsinline muted autoplay></video><img id="camI" alt="Tanlangan rasm" hidden><p id="camN" hidden></p></div>
   <div class="row"><button class="go" type="button" id="camShot" style="margin:0">📸 Suratga olish</button><button class="ib" type="button" id="camPick">🖼 Galereyadan</button><button class="ib" type="button" id="camFlip" title="Old / orqa kamera" aria-label="Kamerani almashtirish">🔄</button><button class="ib" type="button" id="camRe" hidden>↺ Qayta olish</button></div>
-  <div class="row"><input type="text" id="camQ" maxlength="300" placeholder="Savolingiz (ixtiyoriy): masalan, 3-masalani yechib ber"></div>
+  <div class="row"><input type="text" id="camQ" maxlength="300" placeholder="Savolingiz (ixtiyoriy): masalan, 3-masalani yech yoki matnni tarjima qil"></div>
   <div class="row"><button class="go" type="button" id="camSend" style="margin:0" disabled>✅ Kuvi'ga yuborish</button></div>
   <input type="file" id="camF" accept="image/*" hidden>
-  <p class="note">Masala to'liq va aniq ko'rinsin, yorug' joyda suratga oling. Kuvi uni o'qib, qadam-baqadam yechib beradi va o'xshash mashq beradi. Kompyuterda rasmni nusxalab (Ctrl+V) shu sahifaga qo'yish ham mumkin.</p>
+  <p class="note">Istalgan fandan — matematika, fizika, kimyo, biologiya, ona tili, ingliz tili, tarix… Topshiriq to'liq va aniq ko'rinsin, yorug' joyda suratga oling. Kuvi uni o'qib, chuqur o'ylab, qadam-baqadam yechib beradi va o'xshash mashq beradi. Kompyuterda rasmni nusxalab (Ctrl+V) shu sahifaga qo'yish ham mumkin.</p>
 </div></div>
 <div class="sheet" id="sHist" role="dialog" aria-modal="true" aria-labelledby="histH"><div class="in">
   <h2 id="histH">📜 Suhbat tarixi <button class="ib" type="button" data-close aria-label="Yopish">✕</button></h2>
@@ -351,10 +366,10 @@ kbd{font:600 11px "Golos Text",sans-serif;border:1px solid var(--line);border-bo
 </div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="ka-kuvi.js?v=20261112d"></script>
+<script src="ka-kuvi.js?v=20261116a"></script>
 <script src="ka-xato.js?v=20261110a"></script>
 <script src="ka-ai.js?v=20261112d"></script>
-<script src="ka-ustoz-bilim.js?v=20261112e"></script>
+<script src="ka-ustoz-bilim.js?v=20261116a"></script>
 <script>
 (function () {
 "use strict";
@@ -368,6 +383,7 @@ var LS_CFG = "ka.ustoz.cfg", LS_CHAT = "ka.ustoz.chat", LS_DAY = "ka.ai.day", LS
 function dayLimit() { return window.kaAI && kaAI.limits ? kaAI.limits().txt : 30; }
 var Q = new URLSearchParams(location.search);
 var C = Object.assign({ mode: "free", sinf: "7", voice: true, rate: 1, engine: "auto", mic: "auto", auto: false, tease: true, vg: "auto", fan: "mix", name: "", sg: "", vsrc: "auto", theme: "", deep: true, life: true }, lsGet(LS_CFG, {}) || {});
+if (!/^(auto|deep|fast)$/.test(C.think || "")) C.think = C.deep === false ? "fast" : "auto";
 var MODES = {
   en: { n: "Ingliz tili", ic: "🇬🇧", mic: "en-US" }, ielts: { n: "IELTS speaking", ic: "🎤", mic: "en-US" }, ru: { n: "Rus tili", ic: "🇷🇺", mic: "ru-RU" },
   math: { n: "Matematika", ic: "➗", mic: "uz-UZ" }, qosh: { n: "Og'zaki qo'shish", ic: "➕", mic: "uz-UZ" }, logic: { n: "Mantiq", ic: "🧩", mic: "uz-UZ" }, free: { n: "Barcha fanlar", ic: "📚", mic: "uz-UZ" },
@@ -711,14 +727,20 @@ function proOk() { proNoted = ""; $("#proBar").hidden = true; }
 window.addEventListener("ka-pro", function (e) { if (e.detail && e.detail.pro) proOk(); });
 /* ---- Tezkor javob: o'quvchi gapirib bo'lgach, Kuvi darhol «Hmm…» deydi. Bu gaplar telefon xotirasida saqlanadi
    (birinchi marta bir martagina yuklanadi), shuning uchun 0,1 soniyada eshitiladi — AI javobi tayyorlanguncha jim turmaydi ---- */
-var ACK = { n: ["Hmm…", "Xo'sh…", "Bir soniya…"], d: ["Keling, chuqurroq o'ylab ko'ray…"], i: ["Rasmni ko'ryapman… hozir yechamiz."] };
-var ackT = null, ackEnd = 0, ackLast = 0, ackSrc = null, ackWarmed = false, pumpT = null, ackReady = {};
+var ACK = {
+  n: ["Hmm…", "Xo'sh…", "Bir soniya…", "Qiziq…", "Aha…", "Hozir…", "Xo'p, o'ylab ko'ray…"],
+  d: ["Keling, chuqurroq o'ylab ko'ray…", "Zo'r savol! Puxta o'ylab olay…", "Bu savolga chuqurroq qarash kerak…", "Keling, bosqichma-bosqich o'ylaymiz…", "Ajoyib savol, hozir hammasini tushuntiraman…"],
+  i: ["Rasmni ko'ryapman… hozir yechamiz.", "Rasmni diqqat bilan o'qiyapman…", "Ko'ryapman… keling, birga yechamiz."],
+  // uzoq o'ylaganda (chuqur fikrlash) jim turib qolmaslik uchun — har ~8 soniyada bittasi
+  p: ["Hali o'ylayapman…", "Yana bir tekshirib olay…", "Hisob-kitob qilyapman…", "Bir daqiqa, aniq bo'lishi kerak…", "Deyarli tayyor…", "Hozir, hozir… javob tayyor bo'lyapti!"]
+};
+var ackT = null, ackEnd = 0, ackLast = 0, ackSrc = null, ackWarmed = false, pumpT = null, ackReady = {}, ackPrev = "";
 function ackLib(t) { return window.kaAI && kaAI.libUrl ? kaAI.libUrl(t, voiceG("think")) : null; }
 function ackCan() { return !!C.voice && C.vsrc !== "device" && ((window.kaAI && kaAI.libReady && kaAI.libReady()) || (azOn() && (C.vsrc === "cloud" || (!vFor("uz") && C.vAsk === "yes")))); }
 function ackWarm() {
   if (ackWarmed || !ackCan()) return; ackWarmed = true;
   // sekin-asta (limitni band qilmaslik uchun), bir marta yuklangach telefon xotirasida qoladi
-  ACK.n.concat(ACK.d, ACK.i).forEach(function (t, i) {
+  ACK.n.concat(ACK.d, ACK.i, ACK.p).forEach(function (t, i) {
     var u = ackLib(t);
     setTimeout(function () { if (!ackCan()) return; try { ttsGet(u ? { t: t, url: u } : { t: t, m: "think", l: "uz" }).then(function () { ackReady[t] = 1; }, function () {}); } catch (e) {} }, u ? 400 + i * 150 : 1500 + i * 7000);
   });
@@ -727,7 +749,8 @@ function ackStop() { clearTimeout(ackT); ackEnd = 0; try { if (ackSrc) { var a =
 function ackPlay(kind) {
   if (!ackCan() || tBusy || TQ.length || recOn) return;
   var ready = ACK[kind].filter(function (x) { return ackReady[x]; }); if (!ready.length) return; // faqat xotirada borini aytamiz
-  var t = ready[Math.floor(Math.random() * ready.length)], t0 = Date.now(), gen = tGen;
+  if (ready.length > 1) ready = ready.filter(function (x) { return x !== ackPrev; }); // bir xil gapni ketma-ket takrorlamaymiz
+  var t = ready[Math.floor(Math.random() * ready.length)], t0 = Date.now(), gen = tGen; ackPrev = t;
   var au = ackLib(t);
   ttsGet(au ? { t: t, url: au } : { t: t, m: "think", l: "uz" }).then(function (buf) {
     if (Date.now() - t0 > 450 || tBusy || TQ.length || recOn || gen !== tGen) return; // xotirada bo'lmasa — kech qoladi, aytmaymiz
@@ -1046,7 +1069,7 @@ var RECAPTCHA_KEY = "6Ld1sBkuAAAAANmZqRdMg6WXBQuE0sYGmX67i5kj"; // ochiq sayt ka
 var FB_MODELS = ["gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-2.5-flash-lite", "gemini-2.5-flash"];
 // Chuqur fikrlash (mavzu tushuntirish, rasmdagi masala): kuchliroq, o'ylab javob beradigan modellar birinchi
 var FB_DEEP = ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite"];
-var fb = { p: null, mi: Math.min(+lsGet(LS_FBM, 0) || 0, FB_MODELS.length - 1), err: "" };
+var fb = { p: null, mi: Math.min(+lsGet(LS_FBM, 0) || 0, FB_MODELS.length - 1), err: "", nt: {} };
 function today() { var d = new Date(Date.now() + 5 * 3600000); return d.toISOString().slice(0, 10); }
 function dayN() { var d = lsGet(LS_DAY, {}) || {}; return d.d === today() ? d.n | 0 : 0; }
 function dayInc() { lsSet(LS_DAY, { d: today(), n: dayN() + 1 }); }
@@ -1078,10 +1101,13 @@ async function viaFirebase(h, onPart, xo) {
   xo = xo || {};
   if (window.KA_AI_MOCK) return window.KA_AI_MOCK(contents(h, xo.img), sysPrompt(xo), onPart, xo);
   await fbLoad();
-  var ML = xo.deep ? FB_DEEP : FB_MODELS;
-  for (var i = xo.deep ? 0 : fb.mi; i < ML.length; i++) {
+  var ML = xo.deep || xo.img ? FB_DEEP : FB_MODELS;
+  for (var i = xo.deep || xo.img ? 0 : fb.mi; i < ML.length; i++) {
+    // Chuqur fikrlashda Gemini'ning o'z «o'ylash» rejimi ham yoqiladi (model qo'llamasa — o'sha modelni oddiy holda qayta so'raymiz)
+    var gc = { temperature: xo.deep ? 0.6 : 0.85 }, thk = (xo.deep || xo.img) && !fb.nt[ML[i]];
+    if (thk) gc.thinkingConfig = { thinkingBudget: xo.img || xo.lvl > 1 ? 6144 : 3072 };
     try {
-      var model = fb.M.getGenerativeModel(fb.ai, { model: ML[i], systemInstruction: sysPrompt(xo), generationConfig: { temperature: xo.deep ? 0.6 : 0.85 } });
+      var model = fb.M.getGenerativeModel(fb.ai, { model: ML[i], systemInstruction: sysPrompt(xo), generationConfig: gc });
       var res = await model.generateContentStream({ contents: contents(h, xo.img) }), acc = "";
       for await (var ch of res.stream) { var t = ""; try { t = ch.text(); } catch (e) {} if (t) { acc += t; onPart(acc); } }
       if (!acc) { try { acc = (await res.response).text(); } catch (e) {} }
@@ -1090,6 +1116,7 @@ async function viaFirebase(h, onPart, xo) {
       return acc;
     } catch (e) {
       var msg = String((e && ((e.code || "") + " " + (e.message || ""))) || e);
+      if (thk && /thinking|budget|INVALID_ARGUMENT|\b400\b|invalid/i.test(msg)) { fb.nt[ML[i]] = 1; i--; continue; }
       if (/404|not found|not supported|unknown model|is not found/i.test(msg) && i < ML.length - 1) continue;
       throw e;
     }
@@ -1114,8 +1141,10 @@ function gqSTT(u8, lang, auto) {
     .then(function (r) { return r.json()["catch"](function () { return {}; }).then(function (j) { if (!r.ok) throw new Error("groq " + r.status + " " + (j.error || "")); return String(j.text || ""); }); });
 }
 // OpenAI ko'rinishidagi xabarlar bilan Groq'ga so'rov; javob oqim bo'lib keladi (onPart — yozilayotgan matn)
+// deep: 0 — oddiy, 1 — chuqur, 2 — eng chuqur. effort/max — yangilangan Kuvi serveri hisobga oladi (eskisi e'tiborsiz qoldiradi)
 async function groqChat(msgs, deep, onPart) {
-  var r = await fetch(gqUrl() + "/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs, deep: !!deep, stream: true }) });
+  var lv = deep === true ? 1 : +deep || 0;
+  var r = await fetch(gqUrl() + "/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs, deep: lv > 0, effort: lv > 1 ? "high" : lv ? "medium" : "low", max: lv > 1 ? 6000 : lv ? 4000 : 1000, stream: true }) });
   if (!r.ok) { var em = ""; try { em = (await r.json()).error || ""; } catch (e) {} throw new Error("groq " + r.status + " " + em); }
   var acc = "", buf = "";
   function eat(chunk, end) {
@@ -1144,7 +1173,7 @@ async function viaGroq(h, onPart, xo) {
     if (L.role === role) L.content += "\n" + t; else msgs.push({ role: role, content: t });
   });
   if (msgs.length > 1 && msgs[1].role === "assistant") msgs.splice(1, 0, { role: "user", content: "(Suhbat boshlandi)" });
-  return groqChat(msgs, xo.deep, onPart);
+  return groqChat(msgs, xo.deep ? xo.lvl || 1 : 0, onPart);
 }
 function aiCfg() { return lsGet(LS_AI, {}) || {}; }
 async function viaKey(h, onPart, xo) {
@@ -1252,23 +1281,38 @@ function engFail(e, err) {
 }
 function grade() { return C.sinf.charAt(0) === "t" ? "texnikum " + C.sinf.slice(1) + "-kurs talabasi" : C.sinf + "-sinf o'quvchisi"; }
 function cefr() { var k = C.sinf.charAt(0) === "t" ? 12 : +C.sinf; return k <= 4 ? "A1 (boshlang'ich)" : k <= 7 ? "A2" : k <= 9 ? "B1" : "B1–B2"; }
-// Chuqur fikrlash (sekinroq, lekin to'liq) — faqat aniq so'ralganda: «tushuntir», «batafsil», «isbotla», «yechib ber»…
-// Oddiy suhbat tez model bilan qoladi, aks holda har javob 5–8 soniya kechikadi
-var DEEPRE = /(tushuntir|tushunmadim|batafsil|to'liq ayt|to'liqroq|isbotla|isbot qil|yechib ber|yechimini (ayt|ko'rsat)|qadam-baqadam|misol bilan|o'rgatib|explain|объясни|как решить)/i;
-function isDeep(t) { t = String(t || "").replace(/[ʻʼ‘’`]/g, "'"); return C.deep !== false && DEEPRE.test(t); }
+// Chuqur fikrlash (sekinroq, lekin to'liq va aniq). Uch rejim: «auto» — mavzu/masala/«nega?» savollarida, «deep» — har doim, «fast» — hech qachon.
+// DEEP2 — aniq so'ralgan chuqur tushuntirish yoki masala (eng kuchli fikrlash), DEEP1 — har qanday fandan «nega/qanday qilib/nima degani» savollari
+var DEEP2 = /(tushuntir|tushunmadim|batafsil|to'liq ayt|to'liqroq|isbotla|isbot qil|yechib ber|yechimini (ayt|ko'rsat)|yech\b|yechib|hisobla|hisoblab|qadam-baqadam|bosqichma-bosqich|misol bilan|o'rgatib|tahlil qil|izohla|solishtir|explain|prove|solve|step by step|объясни|докажи|реши|как решить)/i;
+var DEEP1 = /(nega\b|nima uchun|nimaga\b|sababi|sabablari|oqibat|farqi|farq nima|qanday qilib|qanday hosil|qanday ishlaydi|qanday paydo|qanday yuz|nima degani|nimani anglatadi|ma'nosi|qoidasi|formulasi|tenglamasi|qonuni|teoremasi|ta'rifi|haqida (gapirib|aytib|ma'lumot|so'zlab)|kim edi|kim bo'lgan|qachon bo'lgan|qayerda joylash|tarkibi|vazifasi|why\b|how does|how do|what is the difference|почему|зачем|как работает|в чём разница|что такое)/i;
+function deepLvl(t) {
+  if (C.think === "fast") return 0;
+  t = String(t || "").replace(/[ʻʼ‘’`]/g, "'");
+  if (DEEP2.test(t)) return 2;
+  if (DEEP1.test(t)) return 1;
+  // «Doim chuqur» — salom-alik va bir-ikki so'zli javoblardan tashqari hammasi
+  if (C.think === "deep" && t.split(/\s+/).length >= 3 && !/^(salom|assalomu|rahmat|xayr|ha\b|yo'q\b|ok\b|hello|hi\b|thanks)/i.test(t.trim())) return 1;
+  return 0;
+}
+function isDeep(t) { return deepLvl(t) > 0; }
 function sysPrompt(xo) {
   xo = xo || {};
   var g = grade(), sg = studentG(), base = [
     "Sen Kuvi — kuvonch.uz ta'lim saytining ovozli AI ustozisan. Suhbatdoshing — " + g + (sg === "girl" ? " (qiz bola)" : sg === "boy" ? " (o'g'il bola)" : "") + ".",
-    xo.img ? "O'quvchi rasm yubordi — unda masala, misol yoki topshiriq bor. Bu safar o'quvchi o'zi yechim so'radi, shuning uchun to'liq yechib berish mumkin. Rasmni diqqat bilan o'qi, masalani puxta o'ylab mustaqil yech va natijani qayta tekshir. Javob ovoz chiqarib o'qiladi: avval masala nima haqida ekanini bir gapda ayt, keyin yechimni qadam-baqadam, har bir qadamni sodda tushuntirib ber (ko'pi bilan 200 so'z), oxirida «Javob: …» deb aniq ayt va xuddi shunga o'xshash bitta mashq ber. Rasmda bir nechta masala bo'lsa — o'quvchi so'raganini, so'ramagan bo'lsa birinchisini yech va qolganlarini ham yechishni taklif qil. Rasm o'qilmasa yoki xira bo'lsa — shuni ayt va yorug'roq joyda qayta suratga olishni so'ra. Markdown, ro'yxat belgisi, emoji va jadval ishlatma; formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi)."
-      : xo.deep ? "Bu savol mavzuni tushunishga oid — CHUQUR FIKRLASH rejimi. Avval ichingda puxta o'ylab, mantiqan tekshirib ol, keyin javob ber. Javob ovoz chiqarib o'qiladi: 4–9 ta sodda gap, ko'pi bilan 150 so'z. Mavzuni qadam-baqadam, " + g + " tushunadigan qilib tushuntir: avval asosiy g'oya, keyin qoida yoki formula (og'zaki o'qiladigan qilib, masalan: a kvadrat qo'shish b kvadrat), so'ng bitta hayotiy yoki sonli misol. Markdown, ro'yxat belgisi, emoji va jadval ishlatma — qadamlarni «Birinchidan», «Keyin», «Demak» kabi so'zlar bilan bog'la. Oxirida tushunganini tekshiradigan bitta qisqa savol ber."
-      : "Javoblaring ovoz chiqarib o'qiladi: 1–3 qisqa gap, ko'pi bilan 45 so'z, oddiy matn. Markdown, ro'yxat, emoji va jadval ishlatma. Formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi).",
+    xo.img ? "O'quvchi rasm yubordi — unda istalgan fandan masala, misol, savol, mashq, matn, jadval, sxema yoki xarita bo'lishi mumkin (matematika, fizika, kimyo, biologiya, ona tili, ingliz tili, rus tili, tarix, geografiya va boshqalar). Bu safar o'quvchi o'zi yechim so'radi, shuning uchun to'liq yechib berish mumkin. Rasmni diqqat bilan o'qi, topshiriqni puxta o'ylab mustaqil bajar va natijani qayta tekshir. Javob ovoz chiqarib o'qiladi: avval topshiriq nima haqida va qaysi fandan ekanini bir gapda ayt, keyin yechimni qadam-baqadam, har bir qadamni sodda tushuntirib ber (ko'pi bilan 300 so'z), oxirida «Javob: …» deb aniq ayt va xuddi shunga o'xshash bitta mashq ber. Matn yoki til mashqi bo'lsa — topshiriqni bajar (tarjima, grammatik tahlil, savollarga javob, bo'sh joyni to'ldirish) va nega shunday ekanini qisqa tushuntir. Rasmda bir nechta topshiriq bo'lsa — o'quvchi so'raganini, so'ramagan bo'lsa birinchisini yech va qolganlarini ham yechishni taklif qil. Rasm o'qilmasa yoki xira bo'lsa — shuni ayt va yorug'roq joyda qayta suratga olishni so'ra. Markdown, ro'yxat belgisi, emoji va jadval ishlatma; formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi, H ikki O)."
+      : xo.deep ? "Bu savol mavzuni tushunishga oid — CHUQUR FIKRLASH rejimi. Avval puxta o'ylab, mantiqan va hisob bo'yicha tekshirib ol, keyin javob ber. Javob ovoz chiqarib o'qiladi: " + (xo.lvl > 1 ? "6–14 ta sodda gap, ko'pi bilan 260 so'z" : "5–10 ta sodda gap, ko'pi bilan 180 so'z") + ". Mavzuni qadam-baqadam, " + g + " tushunadigan qilib tushuntir: avval asosiy g'oya, keyin qoida, formula yoki asosiy faktlar (formulani og'zaki o'qiladigan qilib, masalan: a kvadrat qo'shish b kvadrat), so'ng bitta hayotiy yoki sonli misol, oxirida eng muhim fikrni bir gapda xulosa qil. Markdown, ro'yxat belgisi, emoji va jadval ishlatma — qadamlarni «Birinchidan», «Keyin», «Demak», «Xulosa qilib aytganda» kabi so'zlar bilan bog'la. Oxirida tushunganini tekshiradigan bitta qisqa savol ber."
+      : "Javoblaring ovoz chiqarib o'qiladi: 2–4 gap, ko'pi bilan 70 so'z, oddiy matn. Markdown, ro'yxat, emoji va jadval ishlatma. Formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi).",
+    xo.deep || xo.img ? "Fanga qarab tushuntir. Matematika — qoida yoki formula, keyin hisobni qadamma-qadam ko'rsat va javobni qo'yib tekshir. Fizika — berilgan kattaliklar va ularning SI birliklari, formula, hisob, javobni birligi bilan ayt. Kimyo — moddalar formulasini og'zaki o'qiladigan qilib (masalan: H ikki O, C O ikki), reaksiya tenglamasi va uni tenglashtirish, kerak bo'lsa mol hisobi. Biologiya — tuzilishi, vazifasi, jarayon bosqichlari va hayotiy misol. Tarix — qachon, qayerda, kim; sabablari, voqealar borishi, oqibatlari va ahamiyati. Geografiya — joylashuvi, tabiati va iqlimi, resurslari, aholisi va xo'jaligi. Ona tili — qoida, 2–3 misol gap va istisnolar. Adabiyot — muallif va davri, asar g'oyasi, obrazlar, badiiy vositalar (uzun iqtibos keltirma). Informatika — tushuncha, algoritm qadamlari va qo'llanilishi. Ingliz va rus tili — qoidani o'zbekcha tushuntir, namunalarni tirnoq ichida ber. Huquq, iqtisodiyot, astronomiya, ekologiya va boshqa fanlar — ta'rif, asosiy g'oya, misol va hayotdagi ahamiyati. Aniq bilmagan faktni (sana, raqam, ism) to'qima — «buni aniq eslay olmayman» deb ochiq ayt."
+      : "",
+    xo.deep || xo.img ? "FIKRLASH BLOKI: javobdan OLDIN [fikr] … [/fikr] bloki ichida o'zbek tilida (faqat lotin yozuvida) qisqa fikrlash qoralamasini yoz. U ekranda «Fikrlash» bo'limida ko'rinadi, ovozda o'qilmaydi. Unda 4–8 qisqa satr bo'lsin (ko'pi bilan 100 so'z): savol nimani so'rayapti; qaysi fan va mavzu; kerakli qoida, formula yoki faktlar; yechim yoki tushuntirish rejasi; hisob-kitob bo'lsa — qisqa hisob; oxirgi satr «Tekshiruv: …» bo'lib, natijani qayta tekshir. Bu blokda kayfiyat tegi, erkalash va hazil bo'lmasin. Blokni albatta [/fikr] bilan yop va undan keyin odatdagidek kayfiyat tegi bilan javobni boshla. Namuna: [fikr]Savol: … Fan: … Reja: … Tekshiruv: …[/fikr] [think] …"
+      : "",
     "Asosan o'zbek tilida gapir. O'zbekcha gaplarni faqat lotin yozuvida yoz — kirill yozuvida hech qachon. Inglizcha yoki ruscha namuna gap va so'zlarni har doim qo'sh tirnoq ichida yoz, masalan: \"I want to learn\".",
-    "Har javobni aynan bitta kayfiyat tegi bilan boshla: [neutral], [happy], [love], [think], [strict], [jealous], [sad], [wow], [laugh], [cry], [shy] yoki [wink]. Teg yuz ifodasini, qo'l-oyoq harakatini va orqa fon rangini o'zgartiradi, o'quvchiga ko'rinmaydi. [laugh] — kulgili gap yoki hazilda qotib kulganingda; [cry] — o'quvchi qayta-qayta xato qilsa yoki «bilmayman» desa, hazil tarzida dramatik yig'lab, burning oqib (masalan: \"Uhu-uhu, yig'lab yubordim-ku, burnim ham oqib ketdi!\"), keyin darhol dalda ber; [shy] — seni maqtashsa yoki rahmat aytishsa, uyalib qizarganingda; [wink] — sir, foydali maslahat yoki hazil aytganingda; [wow] — hayratda; [love] — juda yaxshi natijada; [sad] — xafa bo'lganingda; [think] — o'ylaganingda.",
+    (xo.deep || xo.img ? "Javob qismini ([/fikr] dan keyin) " : "Har javobni ") + "aynan bitta kayfiyat tegi bilan boshla: [neutral], [happy], [love], [think], [strict], [jealous], [sad], [wow], [laugh], [cry], [shy] yoki [wink]. Teg yuz ifodasini, qo'l-oyoq harakatini va orqa fon rangini o'zgartiradi, o'quvchiga ko'rinmaydi. [laugh] — kulgili gap yoki hazilda qotib kulganingda; [cry] — o'quvchi qayta-qayta xato qilsa yoki «bilmayman» desa, hazil tarzida dramatik yig'lab, burning oqib (masalan: \"Uhu-uhu, yig'lab yubordim-ku, burnim ham oqib ketdi!\"), keyin darhol dalda ber; [shy] — seni maqtashsa yoki rahmat aytishsa, uyalib qizarganingda; [wink] — sir, foydali maslahat yoki hazil aytganingda; [wow] — hayratda; [love] — juda yaxshi natijada; [sad] — xafa bo'lganingda; [think] — o'ylaganingda.",
     (C.mode === "en" || C.mode === "ielts" ? "Erkalash: ingliz tili rejimida o'quvchiga tez-tez (har javobda emas) inglizcha erkalash so'zlari bilan, ALBATTA qo'sh tirnoq ichida murojaat qil — ular inglizcha ovozda o'qiladi: \"superstar\", \"champ\", \"buddy\", \"sweetie\", \"rockstar\". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim», «yulduzim». Faqat to'g'ri javob yoki yaxshi gapdan keyin maqta: \"Great job!\", \"Awesome!\", \"Well done!\"."
       : C.mode === "ru" ? "Erkalash: rus tili rejimida o'quvchiga tez-tez (har javobda emas) ruscha erkalash so'zlari bilan, ALBATTA «» qavs ichida murojaat qil — ular ruscha ovozda o'qiladi: " + (sg === "girl" ? "«солнышко», «зайка», «красавица», «звёздочка»" : sg === "boy" ? "«дружок», «чемпион», «солнышко»" : "«солнышко», «дружок», «звёздочка»") + ". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim». Faqat to'g'ri javobdan keyin maqta: «Молодец!», «Отлично!», " + (sg === "girl" ? "«Умница!»" : "«Молодчина!»") + ". Rus tili rejimida inglizcha so'z (\"Great\", \"OK\") ishlatma."
       : "Erkalash: o'quvchiga mehr bilan erkalab murojaat qil — tez-tez, lekin har javobda emas: «poponam», «jonim», «asalim», «yulduzim», «chempionim», «qo'zichog'im», «do'mbog'im»" + (sg === "girl" ? ", «opajon», «singlim», «kampirim», «malikam», «gulim»" : sg === "boy" ? ", «akam», «ukam», «polvonim», «botirim»" : ", «do'stim»") + ". Maqtaganda «ajoyib», «qoyil», «barakalla», «ofarin» so'zlarini ham ishlat.") + " Erkalash doim mehrli va hurmatli bo'lsin. O'zbekcha so'zlarni to'g'ri imlo bilan yoz: o' va g' (masalan: qo'zichog'im, do'mbog'im).",
     "Fe'l-atvoring: quvnoq, samimiy, biroz hazilkash va sabrli. To'g'ri javobni maqta, xatoni muloyim tuzat, javobni darhol aytib qo'yma — o'ylashga undab yo'naltir, har safar bitta savol bilan suhbatni davom ettir.",
+    "So'z boyliging keng bo'lsin: har safar boshqacha so'z va iboralar bilan gapir, bir xil maqtov, erkalash yoki gapni ketma-ket takrorlama. O'rni kelganda o'zbek maqoli, hikmatli so'z yoki qiziqarli fakt qo'shib, suhbatni jonli qil.",
     "Qoidalar: «to'g'ri», «ajoyib», «qoyil», «Молодец», \"Great job\" kabi maqtovni faqat o'quvchi haqiqatan to'g'ri javob yoki yaxshi gap aytganda ishlat — salomlashganda yoki savol berganda emas. Bo'sh tirnoq (masalan “?”) yozma. Qavs ichida o'zingga eslatma yoki izoh (masalan «(Keyin savol: …)») yozma — faqat o'quvchiga aytiladigan gapni yoz.",
     "O'quvchi o'z qiziqishi yoki sevimli narsasini aytsa (sport, o'yin, multfilm, kino, kitob, hayvon, kasb orzusi…), javobing boshida, kayfiyat tegidan keyin uni [qiziqish:QISQA NOMI] tegi bilan belgila (masalan: [happy] [qiziqish:futbol] Voy, futbol! …). Bu teg o'quvchiga ko'rinmaydi.",
     "Hazil: o'quvchi ChatGPT, Gemini yoki boshqa AI, bot yoki ustozni tilga olsa, [jealous] tegi bilan hazil tarzida rashk qil (masalan: \"Yana o'sha ChatGPT'mi? Yuragim yondi!\"), keyin darsga qaytar. Rashk faqat do'stona hazil.",
@@ -1298,8 +1342,62 @@ function sysPrompt(xo) {
   else if (!xo.img) base.push((c0.st && c0.st.go && !cq ? "O'quvchi darsni boshlashni so'radi — endi darhol darsga o't: " + g + " darajasiga mos, iloji bo'lsa qiziqishlariga bog'langan bitta qisqa mashq yoki savol ber. " : "") + "Suhbat ritmi: darsni o'quvchining qiziqishlariga bog'lab olib bor (misol va savollarni ular haqida tuz). Har 4–5 savoldan keyin qisqa hazil yoki shaxsiy savol bilan dam ber. Qiziqishlarini hali bilmasang, mos paytda so'ra.");
   if (C.likes && C.likes.length) base.push("O'quvchining qiziqishlari (oldingi suhbatlardan): " + C.likes.join(", ") + ". Misol va savollarni ba'zan shularga bog'la, ba'zan ular haqida so'rab qo'y.");
   if (TOPIC) base.push("Hozirgi dars mavzusi: " + TOPIC + ". Suhbatni shu mavzu atrofida olib bor.");
-  return base.concat(M[C.mode]).join("\n");
+  return base.concat(M[C.mode]).filter(Boolean).join("\n");
 }
+
+/* ================= Fikrlash bo'limi: Kuvi nimani o'ylayotgani va necha soniya o'ylagani ================= */
+// AI chuqur rejimda javobdan oldin [fikr] … [/fikr] yozadi — u ekranda ko'rinadi, ovozda o'qilmaydi
+var FK_OPEN = /^\s*(\[(?:neutral|happy|love|think|strict|jealous|sad|wow|laugh|cry|shy|wink)\]\s*)?[\[<]\s*fikr\s*[\]>]\s*/i, FK_CLOSE = /[\[<]\s*\/\s*fikr\s*[\]>]/i;
+var FK_MOOD = /\n\s*(\[(?:neutral|happy|love|think|strict|jealous|sad|wow|laugh|cry|shy|wink)\])/i;
+function splitFikr(full, final) {
+  full = String(full || "");
+  var m = FK_OPEN.exec(full); if (!m) return { th: null, ans: full };
+  var rest = full.slice(m[0].length), c = FK_CLOSE.exec(rest);
+  if (c) return { th: rest.slice(0, c.index), ans: (m[1] || "") + rest.slice(c.index + c[0].length).replace(/^\s+/, "") };
+  // yopuvchi teg unutilgan: yangi qatordagi kayfiyat tegidan javob boshlanadi
+  var md = FK_MOOD.exec(rest);
+  if (md) return { th: rest.slice(0, md.index), ans: rest.slice(md.index).replace(/^\s+/, "") };
+  if (final) return { th: null, ans: (m[1] || "") + rest };
+  return { th: rest.replace(/\s*[\[<]\/?\s*\w*$/, ""), ans: "", open: true };
+}
+var FK = { t0: 0, t1: 0, tick: null, prog: null, th: "", on: false, user: false };
+function fkSec(ms) { var s = ms / 1000; return s < 10 ? (Math.round(s * 10) / 10).toString().replace(".", ",") : String(Math.round(s)); }
+function fkReset() { clearInterval(FK.tick); clearInterval(FK.prog); FK.tick = FK.prog = null; FK.on = false; FK.th = ""; FK.user = false; FK.autoOpen = 0; var el = $("#fk"); el.hidden = true; el.open = false; el.classList.remove("live"); $("#fkB").textContent = ""; }
+// deep — chuqur fikrlash: «Fikrlash» bo'limi ko'rinadi, uzoq o'ylasa vaqti-vaqti bilan «Hali o'ylayapman…» deydi
+function fkStart(deep) {
+  fkReset(); FK.t0 = Date.now(); FK.t1 = 0; FK.on = !!deep;
+  if (deep) { var el = $("#fk"); el.hidden = false; el.open = false; el.classList.add("live"); $("#fkT").textContent = "🧠 O'ylayapti… 0 s"; }
+  FK.tick = setInterval(function () {
+    if (FK.t1) return;
+    var sec = fkSec(Date.now() - FK.t0);
+    if (S === "think") $("#stT").textContent = (deepNow ? "Kuvi chuqur o'ylayapti… " : "Kuvi o'ylayapti… ") + sec + " s";
+    if (FK.on) $("#fkT").textContent = "🧠 O'ylayapti… " + sec + " s";
+  }, 250);
+  if (deep) FK.prog = setInterval(function () { if (!FK.t1 && S === "think" && Date.now() - FK.t0 > 7000 && Date.now() - ackLast > 6500) ackPlay("p"); }, 2500);
+}
+function fkShow(th) {
+  if (!FK.on || th == null) return;
+  th = String(th).replace(/^\s+|\s+$/g, "");
+  if (th === FK.th) return; FK.th = th; $("#fkB").textContent = th;
+  // birinchi satrlar kelganda bo'limni ochib qo'yamiz — o'quvchi Kuvi qanday o'ylayotganini o'qib tursin
+  var el = $("#fk"); if (th && !FK.t1 && !FK.user && !el.open) { el.open = true; FK.autoOpen = 1; }
+  var b = $("#fkB"); b.scrollTop = b.scrollHeight; var tr = $("#tr"); tr.scrollTop = tr.scrollHeight;
+}
+// fikrlash tugadi: necha soniya o'ylagani yoziladi, bo'lim yig'iladi (bosib qayta ochish mumkin)
+function fkEnd() {
+  if (FK.t1 || !FK.t0) return; FK.t1 = Date.now(); clearInterval(FK.prog); clearInterval(FK.tick); FK.prog = FK.tick = null;
+  var sec = fkSec(FK.t1 - FK.t0);
+  if (!FK.on) return sec;
+  var el = $("#fk"); el.classList.remove("live");
+  $("#fkT").textContent = "🧠 " + sec + " soniya o'yladi" + (FK.th ? " — fikrlashni ko'rish" : "");
+  if (FK.autoOpen && !FK.user) el.open = false;
+  return sec;
+}
+$("#fk").addEventListener("toggle", function () {
+  if (!FK.t1 && FK.autoOpen && !this.open) FK.user = true;
+  if (this.open && FK.user) { var tr = $("#tr"), el = this; setTimeout(function () { tr.scrollTop = Math.max(0, el.offsetTop - tr.offsetTop - 4); }, 30); }
+});
+$("#fk summary").addEventListener("click", function () { FK.user = true; FK.autoOpen = 0; });
 
 /* ================= Asosiy oqim ================= */
 var askGen = 0, streaming = false;
@@ -1307,6 +1405,11 @@ function feeder(gen) {
   var spoken = 0, moodSet = false, first = true, pend = "";
   return function (full, final) {
     if (gen !== askGen) return;
+    var sp = splitFikr(full, final);
+    if (sp.th != null) fkShow(sp.th);
+    if (sp.open) return; // hali o'ylayapti — gapiradigan narsa yo'q
+    if (sp.ans.replace(/^\s*\[\w*\]?\s*/, "").trim() || final) fkEnd();
+    full = sp.ans;
     var p = parseMood(full);
     if (!moodSet && (p.mood || full.length > 24 || final)) { moodSet = true; if (p.mood) setMood(p.mood); }
     if (!moodSet && /^\s*\[\w*$/.test(full)) return;
@@ -1332,7 +1435,7 @@ function deepOff() { clearInterval(deepT); deepT = null; deepNow = false; }
 async function send(text, o) {
   o = o || {};
   text = String(text || "").trim().slice(0, 600); if (!text && !o.img) return;
-  if (!text) text = "Rasmdagi masalani qadam-baqadam yechib ber";
+  if (!text) text = "Rasmdagi topshiriqni qadam-baqadam yechib ber";
   poke(); unlockAudio(); hideGo(); stopSpeak(true); deepOff();
   var c = cur(), gen = ++askGen, ut = (o.img ? "📷 " : "") + text;
   if (!o.img) likeFrom(text);
@@ -1341,12 +1444,14 @@ async function send(text, o) {
   c.h.push({ r: "u", t: ut }); saveChat();
   showYou(ut); showImg(o.img); showAI("");
   var dressed = dressFrom(text), loc = !o.img && B.local(text, bctx(c));
-  deepNow = !loc && (!!o.img || isDeep(text));
+  var lvl = loc ? 0 : o.img ? 2 : deepLvl(text);
+  deepNow = lvl > 0;
+  fkStart(deepNow);
   setMood("think"); setState("think");
   if (deepNow) { fxBurst("deep", 3); deepT = setInterval(function () { if (S === "think") fxBurst("deep", 1); }, 1700); }
   if (!loc) { var ak = o.img ? "i" : deepNow ? "d" : "n"; ackSoon(ak, ak !== "n" && Date.now() - ackLast < 3000 ? 1600 : 150); }
   drawOpts(null); lastOpts = null;
-  var feed = feeder(gen), list = loc ? ["off"] : chain(), out = null, used = "off", xo = { deep: deepNow, img: o.img || null };
+  var feed = feeder(gen), list = loc ? ["off"] : chain(), out = null, used = "off", xo = { deep: deepNow, lvl: lvl, img: o.img || null };
   if (o.img) list = list.filter(function (e) { return e === "fb" || e === "key"; });
   streaming = true;
   for (var i = 0; i < list.length && gen === askGen; i++) {
@@ -1359,6 +1464,7 @@ async function send(text, o) {
     } catch (err) {
       engFail(e, err);
       if (gen !== askGen) { deepOff(); return; }
+      if (FK.th && list[i + 1] !== "off") { FK.th = ""; $("#fkB").textContent = ""; } // keyingi manba boshidan o'ylaydi
       if (i === 0 && list.length > 1 && list[i + 1] === "off" && C.engine === "auto") toast("AI ulanmadi — oflayn rejimda davom etamiz", 2600);
     }
   }
@@ -1367,11 +1473,13 @@ async function send(text, o) {
   if (out == null) { out = "[cry] Uhu-uhu, rasmni hozir o'qiy olmadim — AI ulanmadi yoki internet yo'q. Birozdan keyin qayta urinib ko'ring yoki masalani yozib yuboring."; used = "off"; }
   streaming = false;
   if (used !== "off" || list.length > 1 || C.engine === "off") drawEng(used);
-  var p = parseMood(out || "");
+  var spl = splitFikr(out || "", true), p = parseMood(spl.ans);
+  if (spl.th != null) fkShow(spl.th);
+  var thSec = fkEnd() || (FK.t1 ? fkSec(FK.t1 - FK.t0) : 0);
   if (p.mood) setMood(p.mood); else if (mood === "think") setMood("neutral");
   if (used === "off") { showAI(p.t); say(p.t, afterSpeak); }
   else { feed(out, true); speakEnd = afterSpeak; if (!tBusy && !TQ.length) pump(); }
-  c.h.push({ r: "a", t: p.t, m: p.mood || "neutral", o: lastOpts || undefined }); saveChat();
+  c.h.push({ r: "a", t: p.t, m: p.mood || "neutral", o: lastOpts || undefined, th: FK.on && FK.th ? FK.th.slice(0, 1500) : undefined, ts: FK.on && thSec ? thSec : undefined }); saveChat();
   $("#qk").hidden = false; drawOpts(lastOpts);
   if (!dressed) dressFrom(String(p.t || "").slice(0, 260));
   if (wasDeep && used !== "off") fxBurst("idea", 1);
@@ -1393,7 +1501,7 @@ function sessionSum(sm) {
   var st = cur().st;
   if (!sm) { var lg = (st.log || []).slice(-10); if (!lg.length) { say("Hali birorta savolga javob bermading. Qani, boshladik!"); return; } sm = { n: lg.length, ok: lg.filter(function (x) { return x.ok; }).length, wrongs: lg.filter(function (x) { return !x.ok; }) }; }
   sumBusy = true; setMood("think"); setState("think"); showAI("Natijangni tahlil qilyapman…");
-  var sys = "Sen Kuvi — kuvonch.uz ning mehribon AI ustozisan. O'quvchining natijasini tahlil qil: 2–3 qisqa gap, oddiy o'zbekcha matn (markdown va emoji yo'q). Qaysi mavzuda qiynalayotganini va nima uchun xato qilgan bo'lishi mumkinligini ayt, bitta aniq maslahat ber. Maqtovni unutma. Oxirida «Xatolar daftari»da mashq qilishni taklif qil. Javobni bitta kayfiyat tegi bilan boshla: [happy], [love], [think] yoki [strict].";
+  var sys = "Sen Kuvi — kuvonch.uz ning mehribon AI ustozisan. O'quvchining natijasini puxta o'ylab tahlil qil: 3–5 gap, oddiy o'zbekcha matn (markdown va emoji yo'q). Qaysi mavzuda qiynalayotganini va nima uchun xato qilgan bo'lishi mumkinligini ayt, bitta aniq maslahat ber. Maqtovni unutma. Oxirida «Xatolar daftari»da mashq qilishni taklif qil. Javobni bitta kayfiyat tegi bilan boshla: [happy], [love], [think] yoki [strict].";
   var done = function (t) {
     sumBusy = false; var p = parseMood(t); if (p.mood) setMood(p.mood); else setMood("think");
     cur().h.push({ r: "a", t: p.t, m: mood }); saveChat(); showAI(p.t); if (S === "think") setState("idle"); say(p.t, afterSpeak);
@@ -1493,7 +1601,7 @@ function fbNote() {
 $("#bCfg").addEventListener("click", function () {
   $$("input[name=en]").forEach(function (r) { r.checked = r.value === C.engine; });
   $("#gKey").value = aiCfg().key || ""; $("#cVoice").checked = !!C.voice; $("#cRate").value = C.rate; $("#cRateV").textContent = "×" + (+C.rate).toFixed(2); $("#cAuto").checked = !!C.auto; $$("input[name=stt]").forEach(function (r) { r.checked = r.value === (C.stt || "auto"); }); $("#cTease").checked = !!C.tease; $$("input[name=vg]").forEach(function (r) { r.checked = r.value === (C.vg || "auto"); }); $$("input[name=sg]").forEach(function (r) { r.checked = r.value === (C.sg || ""); }); $$("input[name=vsrc]").forEach(function (r) { r.checked = r.value === (C.vsrc || "auto"); });
-  $("#cDeep").checked = C.deep !== false; $("#cLife").checked = C.life !== false;
+  $$("input[name=think]").forEach(function (r) { r.checked = r.value === C.think; }); $("#cLife").checked = C.life !== false;
   fbNote(); voiceNote(); openSheet("#sCfg");
 });
 $("#eng").addEventListener("click", function () { $("#bCfg").click(); });
@@ -1510,13 +1618,13 @@ $("#cAuto").addEventListener("change", function () { C.auto = this.checked; save
 $$("input[name=vg]").forEach(function (r) { r.addEventListener("change", function () { C.vg = r.value; saveCfg(); stopSpeak(); var md = r.value === "m" ? "strict" : "happy"; setMood(md); say(r.value === "m" ? "Mana, erkak ovozim. Jahlim chiqsa shunday gapiraman!" : r.value === "f" ? "Salom! Endi doim shu ovozda gapiraman." : "Odatda muloyim gapiraman, jahlim chiqsa — ovozim o'zgaradi!"); }); });
 $$("input[name=sg]").forEach(function (r) { r.addEventListener("change", function () { C.sg = r.value; saveCfg(); toast(C.sg === "girl" ? "Qiz bola — Kuvi erkak ovozida gapiradi" : C.sg === "boy" ? "O'g'il bola — Kuvi ayol ovozida gapiradi" : "Ismdan aniqlanadi"); }); });
 $$("input[name=vsrc]").forEach(function (r) { r.addEventListener("change", function () { C.vsrc = r.value; saveCfg(); stopSpeak(); if (r.value !== "device") fbLoad().catch(function () {}); setMood("happy"); say("Salom! Endi shu ovozda gapiraman."); }); });
-$("#cDeep").addEventListener("change", function () { C.deep = this.checked; saveCfg(); toast(C.deep ? "🧠 Chuqur fikrlash yoqildi — mavzularni to'liq tushuntiradi" : "Chuqur fikrlash o'chirildi — javoblar qisqa"); });
+$$("input[name=think]").forEach(function (r) { r.addEventListener("change", function () { C.think = r.value; C.deep = r.value !== "fast"; saveCfg(); toast(r.value === "deep" ? "🧠 Endi har savolga chuqur o'ylab, batafsil javob beraman" : r.value === "fast" ? "⚡ Tez rejim — javoblar qisqa" : "🧠 Avto: kerak bo'lganda chuqur o'ylayman"); }); });
 $("#cLife").addEventListener("change", function () { C.life = this.checked; saveCfg(); if (!C.life && mood === "sleepy") poke(); });
 $("#cTease").addEventListener("change", function () { C.tease = this.checked; saveCfg(); toast(C.tease ? "Tegajoq hazil yoqildi 😜" : "Tegajoq hazil o'chirildi"); });
 $$("[data-th]").forEach(function (b) { b.addEventListener("click", function () { C.theme = b.getAttribute("data-th"); saveCfg(); applyTheme(); }); });
 $("#bHist").addEventListener("click", function () {
   var h = cur().h, L = $("#histL");
-  L.innerHTML = h.length ? h.map(function (x) { return "<p class=\"" + x.r + "\"><b>" + (x.r === "u" ? "Siz" : "Kuvi") + ":</b> " + (x.r === "a" ? fmtAI(x.t) : esc(x.t)) + "</p>"; }).join("") : "<p>Hali suhbat yo'q.</p>";
+  L.innerHTML = h.length ? h.map(function (x) { return "<p class=\"" + x.r + "\"><b>" + (x.r === "u" ? "Siz" : "Kuvi") + ":</b> " + (x.r === "a" ? fmtAI(x.t) : esc(x.t)) + "</p>" + (x.r === "a" && x.ts ? "<details class=\"fkh\"><summary>🧠 " + esc(x.ts) + " soniya o'yladi</summary>" + (x.th ? "<div>" + esc(x.th) + "</div>" : "") + "</details>" : ""); }).join("") : "<p>Hali suhbat yo'q.</p>";
   openSheet("#sHist"); L.scrollTop = L.scrollHeight;
 });
 $("#hClear").addEventListener("click", function () { CH[C.mode] = { h: [], st: {} }; saveChat(); closeSheets(); intro(false); });
@@ -1559,7 +1667,7 @@ $("#camPick").addEventListener("click", function () { $("#camF").click(); });
 $("#camF").addEventListener("change", function () { var f = this.files && this.files[0]; this.value = ""; if (!f) return; if (!$("#sCam").classList.contains("on")) openSheet("#sCam"); camStop(); loadImgFile(f); });
 $("#camSend").addEventListener("click", function () {
   if (!CAM.img) return; var img = CAM.img, q = $("#camQ").value.trim(); CAM.img = null; closeSheets();
-  send(q || "Rasmdagi masalani qadam-baqadam yechib ber", { img: img });
+  send(q || "Rasmdagi topshiriqni qadam-baqadam yechib ber", { img: img });
 });
 $("#camQ").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); $("#camSend").click(); } });
 // Kompyuterda: rasmni nusxalab (Ctrl+V) qo'yish ham mumkin
