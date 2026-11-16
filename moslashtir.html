@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Moslashtir — juftlash va xotira kartalari (Wordwall uslubida) | Kuvonch Academy</title>
+<meta name="description" content="Savolni javobi bilan juftla yoki yopiq kartalardan juftini top. Aqlli doskada jamoalar navbat bilan yoki telefonlarda butun sinf musobaqasi. Misol = javob, so'z = tarjima, davlat = poytaxt.">
+<link rel="canonical" href="https://kuvonch.uz/moslashtir.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Moslashtir — juftlash va xotira o'yini">
+<meta property="og:description" content="Savol va javobni juftla! Aqlli doska yoki telefonlar bilan.">
+<meta property="og:url" content="https://kuvonch.uz/moslashtir.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117a">
+<script src="ka-fasl.js"></script>
+<style>
+.mz{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+.mz-hud{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:900}
+.mz-hud span{padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+.mz-hud b{color:var(--gold);font-family:ui-monospace,monospace}
+.mz-cols{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,3vw,40px)}
+.mz-col{display:grid;grid-auto-rows:1fr;gap:8px;min-height:0}
+.mz-card{display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 10px;border-radius:14px;border:2px solid #2b3d6b;background:#121d3a;font-weight:800;font-size:clamp(14px,2.6vh,28px);line-height:1.2;cursor:pointer;min-height:0;overflow:hidden;transition:transform .12s,background .2s,border-color .2s;color:var(--text);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.mz-card:hover:not(.done){border-color:#5b7bd6}
+.mz-col.q .mz-card{border-left:6px solid #7c9bff}
+.mz-col.a .mz-card{border-right:6px solid #ffd479}
+.mz-card.sel{background:#2b3d7a;border-color:var(--gold);transform:scale(1.03)}
+.mz-card.done{background:color-mix(in srgb,var(--mc,#36d399) 25%,#0e172b);border-color:var(--mc,#36d399);cursor:default;opacity:.75}
+.mz-card.bad{animation:mzBad .45s;border-color:#ff6b6b}
+@keyframes mzBad{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.mz-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(var(--c),1fr);grid-auto-rows:1fr;gap:clamp(6px,1.2vw,14px);perspective:900px}
+.mz-mem{position:relative;border:0;padding:0;background:none;cursor:pointer;min-height:0;transform-style:preserve-3d;transition:transform .35s;touch-action:manipulation}
+.mz-mem.open{transform:rotateY(180deg)}
+.mz-mem>span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:6px;overflow:hidden;font-weight:800;line-height:1.2}
+.mz-mem .bk{background:linear-gradient(150deg,#5b8cff,#2f4fd6);font:900 clamp(22px,5vh,48px)/1 ui-rounded,system-ui,sans-serif;color:#fff;box-shadow:inset 0 -5px 0 rgba(0,0,0,.25)}
+.mz-mem .fr{transform:rotateY(180deg);background:#fffaf0;color:#1d1200;font-size:clamp(13px,2.4vh,26px);border:3px solid #e6d3a8}
+.mz-mem .fr.q{border-color:#7c9bff}
+.mz-mem.done .fr{background:color-mix(in srgb,var(--mc,#36d399) 35%,#fffaf0);border-color:var(--mc,#36d399)}
+.mz-ready{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+
+@media (max-width:560px){.mz-card{font-size:clamp(13px,2.2vh,20px);padding:4px 6px}}
+</style>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap" id="setup">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="sinf-oyinlari.html" aria-current="page">🎯 Sinf o'yinlari</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="mashqlar.html">📘 Mavzular</a>
+</nav>
+</header>
+
+<div class="hero">
+<span class="kicker">🧱 Wordwall to'plami · aqlli doska yoki telefonlar</span>
+<h1>🧩 <span>Moslashtir</span></h1>
+<p class="lead">Har savolni o'z javobi bilan juftlang: misol = javob, so'z = tarjima, davlat = poytaxt. Ikki rejim: <b>🔗 Juftlash</b> (ikki ustun) va <b>🃏 Xotira</b> (yopiq kartalardan juftini topish).</p>
+</div>
+
+<section class="card" id="modeCard">
+<h2>Qanday o'ynaymiz?</h2>
+<div class="ks-lbl">O'yin turi</div>
+<div class="ks-seg" data-k="kind"><button data-v="juft">🔗 Juftlash — ikki ustun</button><button data-v="mem">🃏 Xotira — yopiq kartalar</button></div>
+<div class="ks-lbl">Qurilma</div>
+<div class="ks-seg" data-k="mode"><button data-v="proj">📺 Aqlli doska — jamoalar navbat bilan</button><button data-v="tel">📱 Telefonlar — butun sinf musobaqasi</button></div>
+</section>
+
+<section class="card">
+<h2>1. Mavzular</h2>
+<p class="sub">Qisqa savol-javoblar tanlanadi. Eng mos mavzular: ko'paytirish jadvali, lug'atlar, poytaxtlar, kimyoviy belgilar, birliklar.</p>
+<div id="pick"></div>
+</section>
+
+<section class="card" id="cTeams">
+<h2>2. Jamoalar</h2>
+<p class="sub">1 — yakka yoki butun sinf. Jamoalarda: to'g'ri juft — +1 va navbat o'sha jamoada qoladi, xato — navbat keyingisiga o'tadi.</p>
+<div id="teams"></div>
+</section>
+
+<section class="card" id="opts">
+<h2>3. Sozlamalar</h2>
+<div class="ks-grid2">
+<div><div class="ks-lbl">Juftliklar soni</div><div class="ks-seg" data-k="pairs"><button data-v="4">4</button><button data-v="6">6</button><button data-v="8">8</button><button data-v="10">10</button></div></div>
+<div><div class="ks-lbl">Savollar darajasi</div><div class="ks-seg" data-k="lvl"><button data-v="1">★ Oson</button><button data-v="2">★★ O'rta</button><button data-v="3">★★★ Murakkab</button><button data-v="mix">🔀 Aralash</button></div></div>
+<div class="only-proj"><div class="ks-lbl">To'plamlar (raundlar)</div><div class="ks-seg" data-k="sets"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="5">5</button></div></div>
+<div class="only-tel"><div class="ks-lbl">O'yin davomiyligi</div><div class="ks-seg" data-k="min"><button data-v="2">2 daqiqa</button><button data-v="3">3 daqiqa</button><button data-v="5">5 daqiqa</button></div></div>
+</div>
+</section>
+
+<div class="ks-go"><button type="button" class="ks-btn gold big" id="go">▶ O'yinni boshlash</button></div>
+<p class="ks-summary" id="sum"></p>
+
+<section class="card ks-how">
+<h2>👩‍🏫 Qanday o'ynaladi</h2>
+<ul>
+<li><b>🔗 Juftlash</b>: chap ustundan savolni, o'ng ustundan javobini bosing. To'g'ri juft yashil bo'lib qoladi.</li>
+<li><b>🃏 Xotira</b>: ikkita kartani oching — savol va uning javobi chiqsa, juft topildi. Bo'lmasa kartalar qayta yopiladi — joyini eslab qoling!</li>
+<li><b>📱 Telefonlarda</b>: har o'quvchi o'z telefonida juftlaydi, har to'g'ri juft +10, xato −3, to'plam tugasa +10 bonus. Katta ekranda jonli reyting.</li>
+</ul>
+</section>
+
+<footer>
+<div>&copy; <span id="year"></span> Kuvonch Academy</div>
+<div><a href="sinf-oyinlari.html">🎯 Barcha sinf o'yinlari</a> · <a href="mol-ur.html">🔨 Mol ur</a> · <a href="omad-gildiragi.html">🎡 Omad g'ildiragi</a></div>
+</footer>
+</div>
+
+<div class="ks-game" id="game" hidden>
+<div class="ks-top"><span class="ks-title" id="gTitle">🧩 Moslashtir</span><button type="button" class="ks-btn" id="bSnd" aria-label="Ovoz">🔊</button><button type="button" class="ks-btn" id="bFull" aria-label="To'liq ekran">⛶</button><button type="button" class="ks-btn" id="bEnd">⏹ Tugatish</button></div>
+<div class="ks-teams" id="tb"></div>
+<div class="ks-turnmsg" id="turn"></div>
+<div class="mz" id="stage"></div>
+</div>
+
+<script src="ka-savollar.js?v=20261030c"></script>
+<script src="ka-sinf-oyin.js?v=20261117a"></script>
+<script src="ka-tarmoq.js?v=20261116a"></script>
+<script>
+(function () {
+  "use strict";
+  var K = window.KSO, $ = K.$, $$ = K.$$, esc = K.esc;
+  var LS = "ka.moslashtir.v1";
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // takrorlanmas juftliklar to'plami: [{q, a, k}] — javoblar va savollar bir-biridan farq qiladi
+  function makeSet(ids, lvl, n, seen) {
+    var out = [], usedA = {}, usedQ = {}, tries = 0;
+    while (out.length < n && tries++ < n * 14) {
+      var q = K.ask(ids, lvl, seen, { maxQ: 70, maxA: 30, noImg: true });
+      if (!q) break;
+      var a = K.plain(q.a).toLowerCase(), qq = K.plain(q.q).toLowerCase();
+      if (!a || usedA[a] || usedQ[qq] || K.plain(q.q).length > 90) continue;
+      usedA[a] = usedQ[qq] = 1; out.push({ q: q.q, a: q.a, k: out.length });
+    }
+    return out;
+  }
+  function qShort(h) { return K.safe(h).replace(/<br\s*\/?>/gi, " "); }
+
+  /* ---------------- 🔗 Juftlash ---------------- */
+  // o: {set, teams (ixtiyoriy), onPair(ok, k), onDone(), color()}
+  function Juft(root, o) {
+    var set = o.set, left = K.shuffle(set), right = K.shuffle(set), sel = null, done = 0, alive = true;
+    root.innerHTML = '<div class="mz-cols"><div class="mz-col q">' + left.map(function (p) { return '<button type="button" class="mz-card" data-s="q" data-k="' + p.k + '"><span>' + qShort(p.q) + "</span></button>"; }).join("") +
+      '</div><div class="mz-col a">' + right.map(function (p) { return '<button type="button" class="mz-card" data-s="a" data-k="' + p.k + '"><span>' + qShort(p.a) + "</span></button>"; }).join("") + "</div></div>";
+    requestAnimationFrame(function () { $$(".mz-card", root).forEach(function (c) { K.fit(c, 30, 11); }); });
+    root.onclick = function (e) {
+      var c = e.target.closest && e.target.closest(".mz-card"); if (!c || !alive || c.classList.contains("done")) return;
+      if (!sel || sel.dataset.s === c.dataset.s) { if (sel) sel.classList.remove("sel"); sel = c === sel ? null : c; if (sel) { sel.classList.add("sel"); K.snd("click"); } return; }
+      var a = sel, b = c; sel = null; a.classList.remove("sel");
+      if (a.dataset.k === b.dataset.k) {
+        var col = o.color ? o.color() : "#36d399";
+        [a, b].forEach(function (x) { x.classList.add("done"); x.style.setProperty("--mc", col); });
+        done++; K.snd("ok"); K.vib(25);
+        if (o.onPair) o.onPair(true);
+        if (done === set.length) { alive = false; setTimeout(o.onDone, 500); }
+      } else {
+        [a, b].forEach(function (x) { x.classList.remove("bad"); void x.offsetWidth; x.classList.add("bad"); });
+        K.snd("bad"); K.vib([50, 30, 50]);
+        if (o.onPair) o.onPair(false);
+      }
+    };
+    return { stop: function () { alive = false; } };
+  }
+
+  /* ---------------- 🃏 Xotira ---------------- */
+  function Mem(root, o) {
+    var set = o.set, cards = [];
+    set.forEach(function (p) { cards.push({ k: p.k, s: "q", h: qShort(p.q) }); cards.push({ k: p.k, s: "a", h: qShort(p.a) }); });
+    cards = K.shuffle(cards);
+    var n = cards.length, cols = n <= 8 ? 4 : n <= 12 ? 4 : n <= 16 ? 4 : 5;
+    if (root.clientWidth > 900) cols = n <= 8 ? 4 : n <= 12 ? 6 : n <= 16 ? 8 : 5;
+    var open = [], lock = false, done = 0, alive = true;
+    root.innerHTML = '<div class="mz-grid" style="--c:' + cols + '">' + cards.map(function (c, i) { return '<button type="button" class="mz-mem" data-i="' + i + '"><span class="bk">' + (i + 1) + '</span><span class="fr ' + c.s + '"><span>' + c.h + "</span></span></button>"; }).join("") + "</div>";
+    requestAnimationFrame(function () { $$(".mz-mem .fr", root).forEach(function (c) { K.fit(c, 28, 10); }); });
+    root.onclick = function (e) {
+      var b = e.target.closest && e.target.closest(".mz-mem"); if (!b || lock || !alive) return;
+      var i = +b.dataset.i; if (b.classList.contains("open")) return;
+      b.classList.add("open"); open.push(i); K.snd("pop");
+      if (open.length < 2) return;
+      var x = cards[open[0]], y = cards[open[1]], bx = $$(".mz-mem", root)[open[0]], by = b;
+      open = [];
+      if (x.k === y.k && x.s !== y.s) {
+        var col = o.color ? o.color() : "#36d399";
+        setTimeout(function () { [bx, by].forEach(function (z) { z.classList.add("done"); z.style.setProperty("--mc", col); }); K.snd("ok"); }, 250);
+        done++; if (o.onPair) o.onPair(true);
+        if (done === set.length) { alive = false; setTimeout(o.onDone, 900); }
+      } else {
+        lock = true;
+        setTimeout(function () { bx.classList.remove("open"); by.classList.remove("open"); lock = false; K.snd("bad"); if (o.onPair) o.onPair(false); }, 1300);
+      }
+    };
+    return { stop: function () { alive = false; } };
+  }
+
+  /* ---------------- telefon (o'quvchi): juftlash musobaqasi ---------------- */
+  var CODE = K.room.code();
+  if (CODE) {
+    $("#setup").hidden = true;
+    K.room.livePhone({ code: CODE, title: "🧩 Moslashtir", onPlay: function (c, api) {
+      api.box.innerHTML = '<div class="ks-join" style="font-size:20px;font-weight:800">📚 Savollar yuklanmoqda…</div>';
+      K.prep(c.topics || []).then(function (ids) {
+        if (!ids.length) { api.box.innerHTML = '<div class="ks-join">Savollar yuklanmadi — sahifani yangilang</div>'; return; }
+        var S = { score: 0, ok: 0, no: 0, seen: {} };
+        api.box.innerHTML = '<div class="mz"><div class="mz-hud"><span>⭐ <b class="sc">0</b></span><span>⏱ <b class="tm"></b></span></div><div class="mz" id="pz"></div></div>';
+        var tm = setInterval(function () { var s = api.left(), el = $(".tm", api.box); if (!el) { clearInterval(tm); return; } el.textContent = K.mmss(s); if (s <= 0) { clearInterval(tm); end(); } }, 300);
+        var cur = null;
+        function round() {
+          var set = makeSet(ids, c.lvl, Math.min(c.pairs || 6, 6), S.seen);
+          if (set.length < 2) { S.seen = {}; set = makeSet(ids, c.lvl, Math.min(c.pairs || 6, 6), S.seen); }
+          cur = Juft($("#pz", api.box), { set: set, onPair: function (ok) {
+            if (!api.playing()) return;
+            if (ok) { S.score += 10; S.ok++; } else { S.score = Math.max(0, S.score - 3); S.no++; }
+            $(".sc", api.box).textContent = S.score; api.report(S.score, S.ok, S.no);
+          }, onDone: function () { if (!api.playing()) return; S.score += 10; $(".sc", api.box).textContent = S.score; api.report(S.score, S.ok, S.no); K.toast("🎉 To'plam tayyor! +10"); round(); } });
+        }
+        function end() { if (cur) cur.stop(); if (api.done()) return; api.report(S.score, S.ok, S.no); api.box.innerHTML = '<div class="ks-join"><div style="font-size:60px">⌛</div><h2>Vaqt tugadi!</h2><p>⭐ ' + S.score + " ball · ✅ " + S.ok + " · ❌ " + S.no + '</p><p class="ks-dim">Natijalarni kuting…</p></div>'; }
+        round();
+      });
+    } });
+    return;
+  }
+
+  /* ---------------- sozlamalar ---------------- */
+  var cfg = K.load(LS, { kind: "juft", mode: "proj", topics: [], n: 1, names: [], pairs: 6, lvl: "1", sets: 2, min: 3 });
+  var ut = K.urlTopics(); if (ut) cfg.topics = ut;
+  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
+  function summary() {
+    var tel = cfg.mode === "tel";
+    if (tel && cfg.kind === "mem") cfg.kind = "juft";
+    $$('#modeCard [data-k="kind"] button').forEach(function (b) { b.classList.toggle("on", b.dataset.v === cfg.kind); b.disabled = tel && b.dataset.v === "mem"; });
+    $("#cTeams").hidden = tel; $$(".only-proj").forEach(function (e) { e.hidden = tel; }); $$(".only-tel").forEach(function (e) { e.hidden = !tel; });
+    $("#go").textContent = tel ? "📱 Xona ochish" : "▶ O'yinni boshlash";
+    $("#sum").textContent = !cfg.topics.length ? "Boshlash uchun kamida bitta mavzu tanlang" : (cfg.kind === "mem" ? "🃏 Xotira" : "🔗 Juftlash") + " · " + cfg.pairs + " juft · " + (tel ? cfg.min + " daqiqa · telefonlar" : (cfg.n === 1 ? "yakka" : cfg.n + " ta jamoa") + " · " + cfg.sets + " to'plam");
+    $("#go").disabled = !cfg.topics.length; K.save(LS, cfg);
+  }
+  K.opts($("#modeCard"), cfg, summary);
+  K.picker($("#pick"), cfg.topics, summary);
+  K.teamsUI($("#teams"), cfg, 1, 6, summary);
+  K.opts($("#opts"), cfg, summary);
+  summary();
+
+  var starting = false, G = null;
+  $("#go").onclick = function () {
+    if (starting || !cfg.topics.length) return;
+    if (cfg.mode === "tel") {
+      $("#setup").hidden = true;
+      K.room.liveHost({ kind: "moslashtir", page: "moslashtir.html", title: "🧩 Moslashtir", unit: "ball", min: cfg.min, payload: { topics: cfg.topics, lvl: cfg.lvl, pairs: cfg.pairs }, onExit: function () { $("#setup").hidden = false; } });
+      return;
+    }
+    starting = true; var b = this, lbl = b.textContent; b.disabled = true; b.textContent = "⏳ Savollar yuklanmoqda…";
+    K.prep(cfg.topics.slice()).then(function (ok) {
+      starting = false; b.disabled = false; b.textContent = lbl;
+      if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang"); return; }
+      G = { ids: ok, teams: K.makeTeams(cfg), turn: 0, set: 0, seen: {}, t0: Date.now(), ok: 0, no: 0, game: null, tick: 0 };
+      $("#setup").hidden = true; $("#game").hidden = false; window.scrollTo(0, 0); K.full(); K.wake(true);
+      $("#gTitle").textContent = cfg.kind === "mem" ? "🃏 Xotira kartalari" : "🔗 Juftlash";
+      round();
+    });
+  };
+  function drawTeams(bump) {
+    var solo = G.teams.length < 2;
+    $("#tb").hidden = solo;
+    $("#tb").innerHTML = G.teams.map(function (t) { return '<div class="ks-team' + (t.i === G.turn ? " turn" : "") + (bump === t.i ? " bump" : "") + '" style="--tc:' + t.color + '"><span class="e">' + t.emoji + '</span><span class="n">' + esc(t.name) + '</span><span class="s">' + t.score + "</span></div>"; }).join("");
+    var t = G.teams[G.turn];
+    $("#turn").innerHTML = (solo ? "" : '<span style="color:' + t.color + '">' + t.emoji + " " + esc(t.name) + "</span> navbati · ") + "To'plam " + (G.set + 1) + " / " + cfg.sets +
+      ' · <span class="ks-dim">✅ ' + G.ok + " · ❌ " + G.no + (solo ? " · ⏱ " + K.mmss((Date.now() - G.t0) / 1000) : "") + "</span>";
+  }
+  function round() {
+    var set = makeSet(G.ids, cfg.lvl, cfg.pairs, G.seen);
+    if (set.length < 2) { G.seen = {}; set = makeSet(G.ids, cfg.lvl, cfg.pairs, G.seen); }
+    if (set.length < 2) { K.toast("Bu mavzularda juftlash uchun qisqa savollar yetmaydi — boshqa mavzu tanlang", 4000); return back(); }
+    drawTeams();
+    clearInterval(G.tick); G.tick = setInterval(function () { if (G) drawTeams(); }, 1000);
+    var o = {
+      set: set, color: function () { return G.teams.length > 1 ? G.teams[G.turn].color : "#36d399"; },
+      onPair: function (ok) {
+        var t = G.teams[G.turn];
+        if (ok) { G.ok++; t.score++; drawTeams(t.i); }
+        else { G.no++; if (G.teams.length > 1) G.turn = (G.turn + 1) % G.teams.length; drawTeams(); }
+      },
+      onDone: function () {
+        G.set++;
+        if (G.set < cfg.sets) { K.notice("🎉", "To'plam tayyor!", "Keyingi to'plam: " + (G.set + 1) + " / " + cfg.sets, round, "good"); return; }
+        finish();
+      }
+    };
+    G.game = cfg.kind === "mem" ? Mem($("#stage"), o) : Juft($("#stage"), o);
+  }
+  function finish() {
+    clearInterval(G.tick);
+    var sec = Math.round((Date.now() - G.t0) / 1000);
+    if (G.teams.length < 2) {
+      K.snd("win"); K.confetti();
+      K.notice("🏆", "Barakalla!", "⏱ " + K.mmss(sec) + " · ✅ " + G.ok + " to'g'ri juft · ❌ " + G.no + " xato", function () {
+        K.choose("Yana o'ynaymizmi?", [{ label: "🔁 Yana o'ynash", color: "#5ee6c7" }, { label: "⚙️ Sozlamalar", color: "#7c9bff" }], function (i) { if (i === 0) restart(); else back(); });
+      }, "good");
+      return;
+    }
+    K.podium(G.teams.map(function (t) { return { emoji: t.emoji, name: t.name, score: t.score, color: t.color }; }), "juft", "🧩 Moslashtir — g'oliblar", [
+      { t: "🔁 Yana o'ynash", cls: "primary", fn: restart }, { t: "⚙️ Sozlamalar", fn: back }
+    ]);
+  }
+  function restart() { G.teams.forEach(function (t) { t.score = 0; }); G.turn = 0; G.set = 0; G.ok = 0; G.no = 0; G.t0 = Date.now(); round(); }
+  function back() { if (G) { clearInterval(G.tick); if (G.game) G.game.stop(); } G = null; K.closeModal(); $("#game").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); }
+  $("#bEnd").onclick = function () { if (!G) return; if (G.ok && G.teams.length > 1) { if (G.game) G.game.stop(); finish(); } else back(); };
+  $("#bFull").onclick = function () { if (document.fullscreenElement) K.full(false); else K.full(); };
+  $("#bSnd").onclick = function () { K.setSound(!K.sound()); this.textContent = K.sound() ? "🔊" : "🔇"; };
+  $("#bSnd").textContent = K.sound() ? "🔊" : "🔇";
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>

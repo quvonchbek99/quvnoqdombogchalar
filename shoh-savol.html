@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shoh savol doskasi — Jeopardy uslubidagi sinf o'yini | Kuvonch Academy</title>
+<meta name="description" content="Televizion viktorina uslubida: mavzular × 100–500 ball jadvali, ⚡ ikki karra katak, javobni boshqa jamoa o'g'irlashi va final savolda tikish. Proyektor uchun, telefon shart emas.">
+<link rel="canonical" href="https://kuvonch.uz/shoh-savol.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Shoh savol doskasi — sinf o'yini">
+<meta property="og:description" content="Mavzular × 100–500 ball. Jamoalar katak tanlaydi, final savolda tikadi.">
+<meta property="og:url" content="https://kuvonch.uz/shoh-savol.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="ka-nav.css">
+<link rel="stylesheet" href="ka-sinf-oyin.css?v=20261117a">
+<script src="ka-fasl.js"></script>
+<style>
+.ss-board{flex:1;min-height:0;display:grid;gap:clamp(5px,.8vw,10px);grid-template-columns:repeat(var(--cols),1fr);grid-template-rows:auto repeat(var(--rows),1fr)}
+.ss-cat{display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 6px;border-radius:12px;background:linear-gradient(180deg,#22357a,#16244f);font-weight:900;font-size:clamp(12px,1.5vw,18px);line-height:1.15;min-height:54px;text-transform:uppercase;letter-spacing:.02em}
+.ss-cell{border:0;border-radius:12px;background:linear-gradient(180deg,#1d3fa8,#142c7a);color:var(--gold);font:900 clamp(22px,4.6vh,52px)/1 ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer;text-shadow:0 3px 0 rgba(0,0,0,.4);box-shadow:inset 0 0 0 2px rgba(255,255,255,.08);transition:transform .15s,filter .15s;min-height:0;touch-action:manipulation}
+.ss-cell:hover:not(:disabled){transform:scale(1.04);filter:brightness(1.2)}
+.ss-cell:disabled{background:#0f1830;color:rgba(255,255,255,.18);cursor:default;text-shadow:none;font-size:clamp(14px,2.6vh,26px)}
+.ss-final{display:flex;flex-direction:column;gap:10px;width:min(980px,100%)}
+.ss-wager{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.ss-wager label{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:14px;border:2px solid var(--tc);background:color-mix(in srgb,var(--tc) 12%,#0e172b);font-weight:900}
+.ss-wager input[type=range]{width:100%;accent-color:var(--gold)}
+.ss-wager output{font:900 22px/1 ui-monospace,monospace;color:var(--gold)}
+.ss-mark{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.ss-mark .row{padding:10px;border-radius:14px;border:2px solid var(--tc);background:#0e172b}
+.ss-mark .row b{display:block;margin-bottom:6px}
+.ss-mark .lets{display:flex;gap:6px}
+.ss-mark .lets button{flex:1;min-height:46px;border-radius:10px;border:1px solid var(--border);background:#14203a;font-weight:900;font-size:20px;cursor:pointer}
+.ss-mark .lets button.on{background:var(--tc);color:#081019;border-color:transparent}
+.ss-mark .lets button.ok{background:var(--ok);color:#06210f}
+.ss-mark .lets button.no{background:var(--no);color:#2a0606}
+</style>
+<script async src="statistika.js"></script>
+</head>
+<body>
+<div class="wrap" id="setup">
+<header class="knav-head">
+<a class="brand" href="index.html" title="Bosh sahifa"><span class="brand-badge">K</span>Kuvonch Academy</a>
+<nav class="knav" aria-label="Bo'limlar">
+<a href="index.html">🏠 Bosh sahifa</a>
+<a href="matematika.html">📐 Matematika</a>
+<a href="sinf-oyinlari.html" aria-current="page">🎯 Sinf o'yinlari</a>
+<a href="oyinlar.html">🎮 O'yinlar</a>
+<a href="mashqlar.html">📘 Mavzular</a>
+</nav>
+</header>
+
+<div class="hero">
+<span class="kicker">🎯 Sinf o'yini · televizion viktorina</span>
+<h1>👑 Shoh savol <span>doskasi</span></h1>
+<p class="lead">Ekranda jadval: ustunlar — mavzular, kataklar — 100 dan 500 gacha ball. Jamoa katakni tanlaydi va javob beradi. Ichida yashirin ⚡ ikki karra kataklar, oxirida esa tikish bilan 🏁 final savol.</p>
+</div>
+
+<section class="card">
+<h2>1. Mavzular (ustunlar)</h2>
+<p class="sub">3–6 ta mavzu tanlasangiz — har biri alohida ustun bo'ladi. 1–2 ta tanlasangiz, ustunlar shu mavzular savollaridan to'ldiriladi.</p>
+<div id="pick"></div>
+</section>
+
+<section class="card">
+<h2>2. Jamoalar</h2>
+<div id="teams"></div>
+</section>
+
+<section class="card" id="opts">
+<h2>3. Sozlamalar</h2>
+<div class="ks-grid2">
+<div><div class="ks-lbl">Ustunlar soni</div><div class="ks-seg" data-k="cols"><button data-v="3">3</button><button data-v="4">4</button><button data-v="5">5</button><button data-v="6">6</button></div></div>
+<div><div class="ks-lbl">Qatorlar (narxlar)</div><div class="ks-seg" data-k="rows"><button data-v="3">100–300</button><button data-v="4">100–400</button><button data-v="5">100–500</button></div></div>
+<div><div class="ks-lbl">Javob uchun vaqt</div><div class="ks-seg" data-k="time"><button data-v="0">Cheksiz</button><button data-v="30">30 s</button><button data-v="45">45 s</button><button data-v="60">60 s</button></div></div>
+<div><div class="ks-lbl">Xato javobda</div><div class="ks-seg" data-k="neg"><button data-v="0">Ball ayirilmaydi</button><button data-v="1">Narxi ayiriladi</button></div></div>
+<div><div class="ks-lbl">⚡ Ikki karra kataklar</div><div class="ks-seg" data-k="dd"><button data-v="0">Yo'q</button><button data-v="1">1 ta</button><button data-v="2">2 ta</button></div></div>
+<div><div class="ks-lbl">🏁 Final savol (tikish bilan)</div><div class="ks-seg" data-k="fin"><button data-v="1">Bor</button><button data-v="0">Yo'q</button></div></div>
+</div>
+</section>
+
+<div class="ks-go"><button type="button" class="ks-btn gold big" id="go">▶ O'yinni boshlash</button></div>
+<p class="ks-summary" id="sum"></p>
+
+<section class="card ks-how">
+<h2>👩‍🏫 Qanday o'ynaladi</h2>
+<ul>
+<li>Jamoalar navbat bilan katak tanlaydi: masalan, «Foizlar — 300». Narx qancha katta bo'lsa, savol shuncha qiyin (100–200 oson, 300 o'rta, 400–500 murakkab).</li>
+<li>Xato javobdan keyin <b>🔁 O'g'irlash</b> tugmasi: boshqa jamoa o'sha savolga javob berib, ballni olib ketishi mumkin (noto'g'ri variant o'chirib qo'yiladi).</li>
+<li><b>⚡ Ikki karra</b> katak — ball 2 baravar. <b>🏁 Final</b>: har jamoa ballining bir qismini tikadi, javobni qog'ozga yozadi; o'qituvchi har jamoa variantini belgilaydi.</li>
+<li>Klaviatura: <b>1–4 / A–D</b> — javob, <b>Enter</b> — davom.</li>
+</ul>
+</section>
+
+<footer>
+<div>&copy; <span id="year"></span> Kuvonch Academy</div>
+<div><a href="sinf-oyinlari.html">🎯 Barcha sinf o'yinlari</a> · <a href="oyinlar.html">O'yinlar</a> · <a href="donat.html">💛 Qo'llab-quvvatlash</a></div>
+</footer>
+</div>
+
+<div class="ks-game" id="game" hidden>
+<div class="ks-top"><span class="ks-title">👑 Shoh savol doskasi</span><button type="button" class="ks-btn" id="bSnd" aria-label="Ovoz">🔊</button><button type="button" class="ks-btn" id="bFull" aria-label="To'liq ekran">⛶</button><button type="button" class="ks-btn" id="bFin">🏁 Finalga o'tish</button><button type="button" class="ks-btn" id="bEnd">⏹ Tugatish</button></div>
+<div class="ks-teams" id="tb"></div>
+<div class="ks-turnmsg" id="turn"></div>
+<div class="ss-board" id="board"></div>
+</div>
+
+<script src="ka-savollar.js?v=20261030c"></script>
+<script src="ka-sinf-oyin.js?v=20261117a"></script>
+<script>
+(function () {
+  "use strict";
+  var K = window.KSO, $ = K.$, $$ = K.$$, esc = K.esc;
+  var LS = "ka.shohsavol.v1";
+  var cfg = K.load(LS, { topics: [], n: 3, names: [], cols: 5, rows: 5, time: 45, neg: 0, dd: 1, fin: 1 });
+  var ut = K.urlTopics(); if (ut) cfg.topics = ut;
+  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
+  document.getElementById("year").textContent = new Date().getFullYear();
+  function summary() {
+    $("#sum").textContent = cfg.topics.length ? cfg.topics.length + " ta mavzu · " + cfg.n + " ta jamoa · " + cfg.cols + "×" + cfg.rows + " jadval" : "Boshlash uchun kamida bitta mavzu tanlang";
+    $("#go").disabled = !cfg.topics.length; K.save(LS, cfg);
+  }
+  K.picker($("#pick"), cfg.topics, summary);
+  K.teamsUI($("#teams"), cfg, 2, 6, summary);
+  K.opts($("#opts"), cfg, summary);
+  summary();
+
+  var G = null;
+  var LV = { 100: 1, 200: 1, 300: 2, 400: 3, 500: 3 };
+  function shortT(id) { var t = K.TITLE[id] || id; t = t.replace(/^\d+\.\s*/, "").replace(/^[A-Z]\d+\.\s*/, ""); return t.length > 42 ? t.slice(0, 40) + "…" : t; }
+  var starting = false;
+  $("#go").onclick = function () {
+    if (starting || !cfg.topics.length) return;
+    starting = true; var b = this, lbl = b.textContent; b.disabled = true; b.textContent = "⏳ Savollar yuklanmoqda…";
+    K.prep(cfg.topics.slice()).then(function (ok) {
+      starting = false; b.disabled = false; b.textContent = lbl;
+      if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang"); return; }
+      start(ok);
+    });
+  };
+  function start(ids) {
+    var nc = cfg.cols, nr = cfg.rows, cols = [];
+    if (ids.length >= 3) { var sh = K.shuffle(ids); for (var c = 0; c < Math.min(nc, ids.length); c++) cols.push({ ids: [sh[c]], name: shortT(sh[c]) }); }
+    else {
+      for (var c2 = 0; c2 < nc; c2++) { var id = ids[c2 % ids.length]; cols.push({ ids: [id], name: shortT(id) + " " + ["I", "II", "III", "IV", "V", "VI"][Math.floor(c2 / ids.length)] }); }
+    }
+    var cells = [];
+    cols.forEach(function (col, ci) { for (var r = 0; r < nr; r++) cells.push({ c: ci, r: r, v: (r + 1) * 100, open: false, dd: false }); });
+    // ikki karra — pastki qatorlardan (300+)
+    var pool = K.shuffle(cells.filter(function (x) { return x.r >= Math.min(2, nr - 1); }));
+    for (var d = 0; d < cfg.dd && d < pool.length; d++) pool[d].dd = true;
+    G = { ids: ids, cols: cols, cells: cells, teams: K.makeTeams(cfg), turn: 0, seen: {}, left: cells.length, final: false };
+    $("#setup").hidden = true; $("#game").hidden = false; window.scrollTo(0, 0); K.full(); K.wake(true);
+    $("#bFin").hidden = !cfg.fin;
+    drawBoard(); drawTeams(); turnMsg();
+  }
+  function drawBoard() {
+    var b = $("#board"); b.style.setProperty("--cols", G.cols.length); b.style.setProperty("--rows", cfg.rows);
+    var h = G.cols.map(function (c) { return '<div class="ss-cat">' + esc(c.name) + "</div>"; }).join("");
+    for (var r = 0; r < cfg.rows; r++) G.cols.forEach(function (c, ci) {
+      var x = G.cells.filter(function (y) { return y.c === ci && y.r === r; })[0], k = G.cells.indexOf(x);
+      h += '<button type="button" class="ss-cell" data-k="' + k + '"' + (x.open ? " disabled" : "") + ">" + (x.open ? x.mark || "" : x.v) + "</button>";
+    });
+    b.innerHTML = h;
+  }
+  function drawTeams(bump) {
+    $("#tb").innerHTML = G.teams.map(function (t) {
+      return '<div class="ks-team' + (t.i === G.turn ? " turn" : "") + (bump && bump.indexOf(t.i) > -1 ? " bump" : "") + '" style="--tc:' + t.color + '"><span class="e">' + t.emoji + '</span><span class="n">' + esc(t.name) + '</span><span class="s">' + t.score + "</span></div>";
+    }).join("");
+  }
+  function turnMsg() { var t = G.teams[G.turn]; $("#turn").innerHTML = '<span style="color:' + t.color + '">' + t.emoji + " " + esc(t.name) + "</span> navbati — mavzu va narxni tanlang"; }
+  function next() {
+    G.turn = (G.turn + 1) % G.teams.length; drawTeams(); turnMsg();
+    if (G.left <= 0) setTimeout(function () { if (cfg.fin) finalRound(); else finish(); }, 500);
+  }
+
+  $("#board").addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest(".ss-cell"); if (!b || b.disabled || !G) return;
+    var x = G.cells[+b.dataset.k]; if (x.open) return;
+    var col = G.cols[x.c], team = G.teams[G.turn];
+    var q = K.ask(col.ids, LV[x.v] || 2, G.seen);
+    if (!q) { K.toast("Savol topilmadi"); return; }
+    var val = x.dd ? x.v * 2 : x.v;
+    function open() {
+      x.open = true; G.left--; b.disabled = true;
+      ask(q, team, val, x, b, []);
+    }
+    if (x.dd) { K.snd("coin"); K.notice("⚡", "Ikki karra!", esc(team.emoji + " " + team.name) + ": bu savol <b>" + val + "</b> ball turadi", open, "good"); }
+    else open();
+  });
+  function ask(q, team, val, x, b, dis) {
+    var others = G.teams.filter(function (t) { return t.i !== team.i && !(x.tried || []).some(function (j) { return j === t.i; }); });
+    x.tried = (x.tried || []).concat([team.i]);
+    K.askModal({
+      q: q, title: team.emoji + " " + team.name, color: team.color, value: val + " ball" + (x.dd ? " ⚡" : ""), time: cfg.time, disabled: dis,
+      onAnswer: function (r) {
+        if (r.ok) { team.score += val; team.ok++; x.mark = "✅ " + team.emoji; }
+        else { team.no++; if (cfg.neg && !dis.length) team.score -= val; x.mark = "❌"; }
+        b.textContent = x.mark; drawTeams(r.ok ? [team.i] : null);
+      },
+      extra: dis.length < 2 && others.length ? [{ t: "🔁 O'g'irlash: boshqa jamoa javob bersin", when: "no", fn: function (r) {
+        K.choose("🔁 Qaysi jamoa javob beradi?", others.map(function (t) { return { label: t.emoji + " " + t.name, color: t.color, sub: t.score }; }), function (i) {
+          ask(q, others[i], val, x, b, dis.concat(r.idx > -1 ? [r.idx] : []));
+        }, { cancel: "Hech kim — davom", onCancel: next, text: "Noto'g'ri variant o'chiriladi. To'g'ri javob — " + val + " ball" });
+      } }] : null,
+      onDone: next
+    });
+  }
+
+  /* ---------------- final ---------------- */
+  function finalRound() {
+    if (!G || G.final) return; G.final = true; K.closeModal();
+    var q = K.ask(G.ids, 3, G.seen); if (!q) return finish();
+    var el = document.createElement("div"); el.className = "ks-ov";
+    el.innerHTML = '<div class="ks-cbox ss-final"><h2>🏁 Final savol</h2><p class="ks-dim">Mavzu: <b>' + esc(K.TITLE[q.tid] || "") + '</b>. Har jamoa ballining qancha qismini tikishini tanlang (ball 0 dan kam bo\'lsa — 100 gacha tikish mumkin).</p><div class="ss-wager">' +
+      G.teams.map(function (t) { var mx = Math.max(100, t.score); return '<label style="--tc:' + t.color + '">' + t.emoji + " " + esc(t.name) + ' <span class="ks-dim">(' + t.score + ' ball)</span><input type="range" min="0" max="' + mx + '" step="' + (mx >= 500 ? 50 : 10) + '" value="' + Math.min(mx, Math.round(mx / 2 / 10) * 10) + '" data-t="' + t.i + '"><output>' + Math.min(mx, Math.round(mx / 2 / 10) * 10) + "</output></label>"; }).join("") +
+      '</div><div class="ks-qbtns"><button type="button" class="ks-btn gold big" id="fGo">Savolni ochish ▶</button></div></div>';
+    document.body.appendChild(el);
+    el.addEventListener("input", function (e) { if (e.target.type === "range") e.target.nextElementSibling.textContent = e.target.value; });
+    $("#fGo", el).onclick = function () {
+      $$("input[type=range]", el).forEach(function (r) { G.teams[+r.dataset.t].wager = +r.value; });
+      el.remove(); showFinal(q);
+    };
+  }
+  function showFinal(q) {
+    var marks = {};
+    var m = K.askModal({ q: q, title: "🏁 Final", color: "#ffd479", time: 0, value: "javobni qog'ozga yozing — 60 soniya" });
+    // o'qituvchi har jamoaning variantini belgilaydi
+    var foot = $(".ks-qfoot", m.el), opts = $$(".ks-opt", m.el);
+    opts.forEach(function (o) { o.disabled = true; o.style.opacity = 1; });
+    foot.innerHTML = '<div class="ss-mark">' + G.teams.map(function (t) {
+      return '<div class="row" style="--tc:' + t.color + '"><b>' + t.emoji + " " + esc(t.name) + ' · tikdi: ' + t.wager + '</b><div class="lets" data-t="' + t.i + '">' + q.opts.map(function (_, i) { return '<button type="button" data-i="' + i + '">' + "ABCD"[i] + "</button>"; }).join("") + "</div></div>";
+    }).join("") + '</div><div class="ks-qbtns"><button type="button" class="ks-btn gold big" id="fRev">✅ Javobni ochish</button></div>';
+    foot.onclick = function (e) {
+      var b = e.target.closest && e.target.closest(".lets button");
+      if (b && !m.rev) { var t = +b.parentNode.dataset.t; marks[t] = +b.dataset.i; $$("button", b.parentNode).forEach(function (x) { x.classList.toggle("on", x === b); }); return; }
+      if (e.target.id === "fRev" && !m.rev) {
+        m.rev = true; K.closeModal();
+        var res = G.teams.map(function (t) {
+          var ok = marks[t.i] === q.ci, d = ok ? t.wager : -t.wager; t.score += d;
+          return '<li style="color:' + t.color + '"><b>' + t.emoji + " " + esc(t.name) + "</b>: " + (marks[t.i] == null ? "javob yo'q" : "ABCD"[marks[t.i]]) + " — " + (ok ? "✅ +" : "❌ ") + d + "</li>";
+        }).join("");
+        K.snd("win");
+        K.notice("🏁", "To'g'ri javob: " + "ABCD"[q.ci] + ") " + K.plain(q.a), '<ul style="text-align:left;display:inline-block;margin:6px 0">' + res + "</ul>", finish, "good");
+      }
+    };
+  }
+  function finish() {
+    if (!G) return; K.closeModal();
+    K.podium(G.teams.map(function (t) { return { emoji: t.emoji, name: t.name, score: t.score, color: t.color }; }), "ball", "👑 Shoh savol — g'oliblar", [
+      { t: "🔁 Yana o'ynash", cls: "primary", fn: function () { start(G.ids); } },
+      { t: "⚙️ Sozlamalar", fn: back }
+    ]);
+  }
+  function back() { K.closeModal(); G = null; $("#game").hidden = true; $("#setup").hidden = false; K.full(false); K.wake(false); }
+  $("#bFin").onclick = function () { if (G && !G.final) finalRound(); };
+  $("#bEnd").onclick = function () { if (!G) return; if (G.left < G.cells.length) finish(); else back(); };
+  $("#bFull").onclick = function () { if (document.fullscreenElement) K.full(false); else K.full(); };
+  $("#bSnd").onclick = function () { K.setSound(!K.sound()); this.textContent = K.sound() ? "🔊" : "🔇"; };
+  $("#bSnd").textContent = K.sound() ? "🔊" : "🔇";
+})();
+</script>
+<script src="akkount.js"></script>
+<script src="ka-til.js"></script>
+</body>
+</html>
