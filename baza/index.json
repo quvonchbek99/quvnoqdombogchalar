@@ -1,0 +1,552 @@
+[
+{
+"id": "t1",
+"title": "1. Kvadrat funksiya va uning grafigi",
+"pdf": "1-mavzu_60_variant.pdf"
+},
+{
+"id": "t2",
+"title": "2. Kvadrat tengsizlik va uning yechimi",
+"pdf": "2-mavzu_60_variant.pdf"
+},
+{
+"id": "t3",
+"title": "3. Trigonometrik ayniyatlar",
+"pdf": "3-mavzu_60_variant.pdf"
+},
+{
+"id": "t4",
+"title": "4. Arifmetik va geometrik progressiya",
+"pdf": "4-mavzu_60_variant.pdf"
+},
+{
+"id": "t5",
+"title": "5. Funksiya tushunchasi",
+"pdf": "5-mavzu_60_variant.pdf"
+},
+{
+"id": "t6",
+"title": "6. Funksiya xossalari",
+"pdf": "6-mavzu_60_variant.pdf"
+},
+{
+"id": "t7",
+"title": "7. Funksiya grafiklarini sodda almashtirish",
+"pdf": "7-mavzu_60_variant.pdf"
+},
+{
+"id": "t8",
+"title": "8. Chiziqli va kvadratik modellashtirish",
+"pdf": "8-mavzu_60_variant.pdf"
+},
+{
+"id": "t9",
+"title": "9. Loyiha ishi. Munosabatlar va funksiyalar",
+"pdf": "9-mavzu_60_variant.pdf"
+},
+{
+"id": "t10",
+"title": "10. Sodda ratsional tenglamalar",
+"pdf": "10-mavzu_60_variant.pdf"
+},
+{
+"id": "t11",
+"title": "11. Sodda ratsional tenglamalar sistemasi",
+"pdf": "11-mavzu_60_variant.pdf"
+},
+{
+"id": "t12",
+"title": "12. Sodda ratsional tengsizliklar",
+"pdf": "12-mavzu_60_variant.pdf"
+},
+{
+"id": "t13",
+"title": "13. Sodda ratsional tengsizliklar sistemasi",
+"pdf": "13-mavzu_60_variant.pdf"
+},
+{
+"id": "t14",
+"title": "14. Ratsional tenglamalarga doir misollar yechish",
+"pdf": "14-mavzu_60_variant.pdf"
+},
+{
+"id": "t15",
+"title": "15. Sodda irratsional tenglamalar",
+"pdf": "15-mavzu_60_variant.pdf"
+},
+{
+"id": "t16",
+"title": "16. Irratsional tenglamalarga doir misollar yechish",
+"pdf": "16-mavzu_60_variant.pdf"
+},
+{
+"id": "t17",
+"title": "17. Sodda irratsional tenglamalar sistemasi",
+"pdf": "17-mavzu_60_variant.pdf"
+},
+{
+"id": "t18",
+"title": "18. Ratsional va irratsional ifodalarga doir misollar",
+"pdf": "18-mavzu_60_variant.pdf"
+},
+{
+"id": "t19",
+"title": "19. Ko'rsatkichli funksiya",
+"pdf": "19-mavzu_60_variant.pdf"
+},
+{
+"id": "t20",
+"title": "20. Logarifmik funksiya",
+"pdf": "20-mavzu_60_variant.pdf"
+},
+{
+"id": "t21",
+"title": "21. Ko'rsatkichli va logarifmik ifodalarni soddalashtirish",
+"pdf": "21-mavzu_60_variant.pdf"
+},
+{
+"id": "t22",
+"title": "22. Sodda ko'rsatkichli tenglamalar",
+"pdf": "22-mavzu_60_variant.pdf"
+},
+{
+"id": "t23",
+"title": "23. Sodda logarifmik tenglamalar",
+"pdf": "23-mavzu_60_variant.pdf"
+},
+{
+"id": "t24",
+"title": "24. Ko'rsatkichli va logarifmik tenglamalar sistemasi",
+"pdf": "24-mavzu_60_variant.pdf"
+},
+{
+"id": "t25",
+"title": "25. Sodda ko'rsatkichli tengsizliklar",
+"pdf": "25-mavzu_60_variant.pdf"
+},
+{
+"id": "t26",
+"title": "26. Sodda logarifmik tengsizliklar",
+"pdf": "26-mavzu_60_variant.pdf"
+},
+{
+"id": "t27",
+"title": "27. Ko'rsatkichli modellashtirish",
+"pdf": "27-mavzu_60_variant.pdf"
+},
+{
+"id": "t28",
+"title": "28. Ko'rsatkichli va logarifmik ifodalarga doir misollar",
+"pdf": "28-mavzu_60_variant.pdf"
+},
+{
+"id": "t29",
+"title": "29. Trigonometrik funksiyalar",
+"pdf": "29-mavzu_60_variant.pdf"
+},
+{
+"id": "t30",
+"title": "30. Teskari trigonometrik funksiyalar",
+"pdf": "30-mavzu_60_variant.pdf"
+},
+{
+"id": "t31",
+"title": "31. Trigonometrik funksiyalarga doir misollar",
+"pdf": "31-mavzu_60_variant.pdf"
+},
+{
+"id": "t32",
+"title": "32. STEM topshiriq",
+"pdf": "32-mavzu_60_variant.pdf"
+},
+{
+"id": "t33",
+"title": "33. sin x = a, cos x = a trigonometrik tenglamalar",
+"pdf": "33-mavzu_60_variant.pdf"
+},
+{
+"id": "t34",
+"title": "34. tg x = a, ctg x = a trigonometrik tenglamalar",
+"pdf": "34-mavzu_60_variant.pdf"
+},
+{
+"id": "t35",
+"title": "35. Trigonometrik tenglamalarni yechish",
+"pdf": "35-mavzu_60_variant.pdf"
+},
+{
+"id": "t36",
+"title": "36. Eng sodda trigonometrik tengsizliklar",
+"pdf": "36-mavzu_60_variant.pdf"
+},
+{
+"id": "t37",
+"title": "37. Tasodifiy hodisalar",
+"pdf": "37-mavzu_60_variant.pdf"
+},
+{
+"id": "t38",
+"title": "38. Ehtimollikni hisoblashda kombinatorika formulalaridan foydalanish",
+"pdf": "38-mavzu_60_variant.pdf"
+},
+{
+"id": "t39",
+"title": "39. Teng ehtimolli hodisalar",
+"pdf": "39-mavzu_60_variant.pdf"
+},
+{
+"id": "t40",
+"title": "40. Planimetriyaning mantiqiy tuzilishi",
+"pdf": "40-mavzu_60_variant.pdf"
+},
+{
+"id": "t41",
+"title": "41. Geometrik masalalar va ularni yechish usullari",
+"pdf": "41-mavzu_60_variant.pdf"
+},
+{
+"id": "t42",
+"title": "42. Stereometriyaning asosiy tushunchalari",
+"pdf": "42-mavzu_60_variant.pdf"
+},
+{
+"id": "t43",
+"title": "43. Fazoda to'g'ri chiziqlar va tekisliklar",
+"pdf": "43-mavzu_60_variant.pdf"
+},
+{
+"id": "t44",
+"title": "44. Fazoviy geometrik shakllar. Ko'pyoqlar",
+"pdf": "44-mavzu_60_variant.pdf"
+},
+{
+"id": "t45",
+"title": "45. Ko'pyoqlarni tasvirlash va modelini yasash",
+"pdf": "45-mavzu_60_variant.pdf"
+},
+{
+"id": "t46",
+"title": "46. Fazoda to'g'ri chiziqlarning o'zaro joylashuvi",
+"pdf": "46-mavzu_60_variant.pdf"
+},
+{
+"id": "t47",
+"title": "47. Ayqash to'g'ri chiziqlar",
+"pdf": "47-mavzu_60_variant.pdf"
+},
+{
+"id": "t48",
+"title": "48. Fazoda to'g'ri chiziqlar va tekisliklarning o'zaro joylashuvi",
+"pdf": "48-mavzu_60_variant.pdf"
+},
+{
+"id": "t49",
+"title": "49. Fazoda tekisliklarning o'zaro joylashuvi",
+"pdf": "49-mavzu_60_variant.pdf"
+},
+{
+"id": "t50",
+"title": "50. Fazoda parallel proyeksiyalash",
+"pdf": "50-mavzu_60_variant.pdf"
+},
+{
+"id": "a1",
+"title": "A1. Qo'shish amali",
+"pdf": "A1-mavzu_60_variant.pdf"
+},
+{
+"id": "a2",
+"title": "A2. Ayirish amali",
+"pdf": "A2-mavzu_60_variant.pdf"
+},
+{
+"id": "a3",
+"title": "A3. Ko'paytirish amali",
+"pdf": "A3-mavzu_60_variant.pdf"
+},
+{
+"id": "a4",
+"title": "A4. Bo'lish amali",
+"pdf": "A4-mavzu_60_variant.pdf"
+},
+{
+"id": "a5",
+"title": "A5. Foizlar bilan amallar",
+"pdf": "A5-mavzu_60_variant.pdf"
+},
+{
+"id": "a6",
+"title": "A6. Darajaga ko'tarish amali",
+"pdf": "A6-mavzu_60_variant.pdf"
+},
+{
+"id": "a7",
+"title": "A7. Ko'paytirish (karra) jadvali",
+"pdf": "A7-mavzu_60_variant.pdf"
+},
+{
+"id": "a8",
+"title": "A8. Sonlar",
+"pdf": "A8-mavzu_60_variant.pdf"
+},
+{
+"id": "t51",
+"title": "51. Qisqa ko'paytirish formulalari",
+"pdf": "51-mavzu_60_variant.pdf"
+},
+{
+"id": "t52",
+"title": "52. Ko'phadni ko'paytuvchilarga ajratish",
+"pdf": "52-mavzu_60_variant.pdf"
+},
+{
+"id": "t53",
+"title": "53. Modulli tenglamalar va tengsizliklar",
+"pdf": "53-mavzu_60_variant.pdf"
+},
+{
+"id": "t54",
+"title": "54. Arifmetik progressiya",
+"pdf": "54-mavzu_60_variant.pdf"
+},
+{
+"id": "t55",
+"title": "55. Geometrik progressiya",
+"pdf": "55-mavzu_60_variant.pdf"
+},
+{
+"id": "t56",
+"title": "56. Nisbat, proporsiya va foizli masalalar",
+"pdf": "56-mavzu_60_variant.pdf"
+},
+{
+"id": "t57",
+"title": "57. O'rta qiymatlar (arifmetik, geometrik, garmonik)",
+"pdf": "57-mavzu_60_variant.pdf"
+},
+{
+"id": "t58",
+"title": "58. Determinantlar va Kramer usuli",
+"pdf": "58-mavzu_60_variant.pdf"
+},
+{
+"id": "t59",
+"title": "59. Funksiyaning limiti asoslari",
+"pdf": "59-mavzu_60_variant.pdf"
+},
+{
+"id": "t60",
+"title": "60. Hosila va uning tatbiqlari (asosiy formulalar)",
+"pdf": "60-mavzu_60_variant.pdf"
+},
+{
+"id": "t61",
+"title": "61. Bo'linish belgilari, EKUB va EKUK",
+"pdf": "61-mavzu_60_variant.pdf"
+},
+{
+"id": "t62",
+"title": "62. Kvadrat ildiz va ratsional ko'rsatkichli daraja",
+"pdf": "62-mavzu_60_variant.pdf"
+},
+{
+"id": "t63",
+"title": "63. Vyet teoremasi",
+"pdf": "63-mavzu_60_variant.pdf"
+},
+{
+"id": "t64",
+"title": "64. Irratsional tenglamalar",
+"pdf": "64-mavzu_60_variant.pdf"
+},
+{
+"id": "t65",
+"title": "65. Funksiyaning aniqlanish sohasi",
+"pdf": "65-mavzu_60_variant.pdf"
+},
+{
+"id": "t66",
+"title": "66. Gorner sxemasi va Bezu teoremasi",
+"pdf": "66-mavzu_60_variant.pdf"
+},
+{
+"id": "t67",
+"title": "67. Logarifm xossalari va sodda logarifmik tenglamalar",
+"pdf": "67-mavzu_60_variant.pdf"
+},
+{
+"id": "t68",
+"title": "68. Asosiy trigonometrik ayniyatlar va keltirish formulalari",
+"pdf": "68-mavzu_60_variant.pdf"
+},
+{
+"id": "t69",
+"title": "69. Sodda trigonometrik tenglamalar (sin x = a, cos x = a)",
+"pdf": "69-mavzu_60_variant.pdf"
+},
+{
+"id": "t70",
+"title": "70. Aniqmas integral asoslari",
+"pdf": "70-mavzu_60_variant.pdf"
+},
+{
+"id": "t71",
+"title": "71. Uchburchak va uning xossalari",
+"pdf": "71-mavzu_60_variant.pdf"
+},
+{
+"id": "t72",
+"title": "72. To'rtburchaklar va ularning xossalari",
+"pdf": "72-mavzu_60_variant.pdf"
+},
+{
+"id": "t73",
+"title": "73. Aylana va doira",
+"pdf": "73-mavzu_60_variant.pdf"
+},
+{
+"id": "t74",
+"title": "74. Muntazam ko'pburchaklar",
+"pdf": "74-mavzu_60_variant.pdf"
+},
+{
+"id": "t75",
+"title": "75. Prizma va parallelepiped",
+"pdf": "75-mavzu_60_variant.pdf"
+},
+{
+"id": "t76",
+"title": "76. Piramida",
+"pdf": "76-mavzu_60_variant.pdf"
+},
+{
+"id": "t77",
+"title": "77. Silindr",
+"pdf": "77-mavzu_60_variant.pdf"
+},
+{
+"id": "t78",
+"title": "78. Konus",
+"pdf": "78-mavzu_60_variant.pdf"
+},
+{
+"id": "t79",
+"title": "79. Shar va sfera",
+"pdf": "79-mavzu_60_variant.pdf"
+},
+{
+"id": "t80",
+"title": "80. Ichki va tashqi chizilgan shakllar",
+"pdf": "80-mavzu_60_variant.pdf"
+},
+{
+"id": "t81",
+"title": "81. Jismlar kombinatsiyasi (shar, silindr, konus, prizma)",
+"pdf": "81-mavzu_60_variant.pdf"
+},
+{
+"id": "t82",
+"title": "82. Dekart koordinatalari (tekislikda)",
+"pdf": "82-mavzu_60_variant.pdf"
+},
+{
+"id": "t83",
+"title": "83. Vektorlar (tekislikda)",
+"pdf": "83-mavzu_60_variant.pdf"
+},
+{
+"id": "t84",
+"title": "84. Fazoda koordinatalar va vektorlar",
+"pdf": "84-mavzu_60_variant.pdf"
+},
+{
+"id": "t85",
+"title": "85. Sinuslar va kosinuslar teoremalari",
+"pdf": "85-mavzu_60_variant.pdf"
+},
+{
+"id": "t86",
+"title": "86. Shakllar o'xshashligi",
+"pdf": "86-mavzu_60_variant.pdf"
+},
+{
+"id": "t87",
+"title": "87. Fazoda burchak va masofalar",
+"pdf": "87-mavzu_60_variant.pdf"
+},
+{
+"id": "t88",
+"title": "88. Jismlarning kesimlari",
+"pdf": "88-mavzu_60_variant.pdf"
+},
+{
+"id": "t89",
+"title": "89. Faktorial",
+"pdf": "89-mavzu_60_variant.pdf"
+},
+{
+"id": "t90",
+"title": "90. Kombinatorikaning asosiy qoidalari",
+"pdf": "90-mavzu_60_variant.pdf"
+},
+{
+"id": "t91",
+"title": "91. O'rin almashtirish, o'rinlashtirish va guruhlash",
+"pdf": "91-mavzu_60_variant.pdf"
+},
+{
+"id": "t92",
+"title": "92. Ehtimollik: klassik ta'rif",
+"pdf": "92-mavzu_60_variant.pdf"
+},
+{
+"id": "t93",
+"title": "93. Ehtimollik qoidalari",
+"pdf": "93-mavzu_60_variant.pdf"
+},
+{
+"id": "t94",
+"title": "94. To'plamlar nazariyasi asoslari",
+"pdf": "94-mavzu_60_variant.pdf"
+},
+{
+"id": "t95",
+"title": "95. Eyler–Venn doiralari va kiritish-chiqarish formulasi",
+"pdf": "95-mavzu_60_variant.pdf"
+},
+{
+"id": "t96",
+"title": "96. Nyuton binomi",
+"pdf": "96-mavzu_60_variant.pdf"
+},
+{
+"id": "t97",
+"title": "97. Fizika uchun matematika: formulalar bilan ishlash",
+"pdf": "97-mavzu_60_variant.pdf"
+},
+{
+"id": "t98",
+"title": "98. O'lchov birliklari va shkala",
+"pdf": "98-mavzu_60_variant.pdf"
+},
+{
+"id": "t99",
+"title": "99. O'rtacha kvadratik chetlanish, tanlanma va xatolik chegarasi",
+"pdf": "99-mavzu_60_variant.pdf"
+},
+{
+"id": "t100",
+"title": "100. Diagrammalar: nuqtali, quti diagrammasi, gistogramma",
+"pdf": "100-mavzu_60_variant.pdf"
+},
+{
+"id": "t101",
+"title": "101. Sochilma diagramma va eng yaxshi moslik chizig'i",
+"pdf": "101-mavzu_60_variant.pdf"
+},
+{
+"id": "t102",
+"title": "102. Kompleks sonlar",
+"pdf": "102-mavzu_60_variant.pdf"
+}
+]

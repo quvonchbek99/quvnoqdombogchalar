@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tayyor test bazasi — 110 mavzu × 60 variant | Kuvonch Academy</title>
+<meta name="description" content="110 ta matematika mavzusi bo'yicha 60 variantdan, har variantda 40 ta yozma savol (oson → eng qiyin). Variantni tanlang, tasodifiy test tuzing, chop eting.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--ink:#1d2433;--mut:#667085;--acc:#16a34a;--line:#e4e7ec}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(135deg,#16a34a,#0ea5e9);color:#fff;padding:18px 16px}
+header a{color:#fff;text-decoration:none;font-weight:600}
+header h1{margin:6px 0 4px;font-size:1.5rem}
+header p{margin:0;opacity:.9}
+main{max-width:1000px;margin:0 auto;padding:16px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+input,select,button{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+button{cursor:pointer;background:var(--acc);color:#fff;border:0;font-weight:600}
+button.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
+#search{flex:1;min-width:200px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.tp{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;transition:.15s}
+.tp:hover{border-color:var(--acc);transform:translateY(-2px)}
+.tp b{display:block;margin-bottom:4px}
+.tp small{color:var(--mut)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.lvl{margin:18px 0 8px;font-weight:700;border-bottom:2px solid var(--ink);padding-bottom:3px}
+ol.q{columns:2;column-gap:28px;padding-left:24px;margin:0}
+ol.q li{break-inside:avoid;margin:0 0 10px;line-height:1.5}
+ol.q.one{columns:1}
+.nam{border:1.5px solid var(--ink);border-radius:8px;padding:10px 12px;margin:10px 0}
+.nam i{color:var(--mut)}
+.head{display:flex;justify-content:space-between;font-weight:700}
+.fio{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0;color:var(--mut)}
+.hidden{display:none}
+.note{color:var(--mut);font-size:.92rem;margin:8px 0}
+@media(max-width:700px){ol.q{columns:1}}
+@media print{
+  header,.bar,.noprint{display:none!important}
+  body{background:#fff}
+  main{padding:0;max-width:none}
+  .panel{border:0;padding:0}
+  .lvl{break-after:avoid}
+  .pg2{break-before:page}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html">← kuvonch.uz</a>
+  <h1>📚 Tayyor test bazasi</h1>
+  <p>110 mavzu × 60 variant × 40 savol — jami 264 000 ta yozma savol (I–IV daraja: osondan eng qiyingacha)</p>
+</header>
+<main>
+  <section id="list">
+    <div class="bar">
+      <input id="search" placeholder="Mavzuni qidiring (masalan: logarifm, piramida, ehtimollik)…">
+    </div>
+    <div id="topics" class="grid"></div>
+  </section>
+
+  <section id="view" class="hidden">
+    <div class="bar noprint">
+      <button class="sec" onclick="back()">← Mavzular</button>
+      <select id="mode" onchange="render()">
+        <option value="var">Variant bo'yicha</option>
+        <option value="rnd">Tasodifiy test tuzish</option>
+      </select>
+      <select id="vsel" onchange="render()"></select>
+      <span id="rndopts" class="hidden">
+        <select id="rn" onchange="render()">
+          <option>8</option><option>12</option><option selected>20</option><option>30</option><option>40</option>
+        </select>
+        <button class="sec" onclick="render()">🔀 Yangi aralashtirish</button>
+      </span>
+      <button onclick="window.print()">🖨 Chop etish</button>
+    </div>
+    <p class="note noprint">Savollar yozma ish uchun — javoblari berilmagan. Har variantda namuna yechim bor. Chop etish oq-qora printerga moslangan.</p>
+    <div id="sheet" class="panel"></div>
+  </section>
+</main>
+
+<script>
+const MAC = {"\\tg":"\\operatorname{tg}","\\ctg":"\\operatorname{ctg}","\\arctg":"\\operatorname{arctg}","\\arcctg":"\\operatorname{arcctg}"};
+const LV = ["I daraja — oson","II daraja — o'rta","III daraja — qiyin","IV daraja — eng qiyin (Milliy sertifikat, Skanavi, olimpiada va Kenguru uslubida)"];
+let IDX = [], CUR = null;
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function math(el){ if(window.renderMathInElement) renderMathInElement(el,{delimiters:[{left:'$',right:'$',display:false}],macros:MAC,throwOnError:false,strict:false}); }
+
+fetch('baza/index.json').then(r=>r.json()).then(d=>{IDX=d; list(); const h=location.hash.slice(1); if(h) open_(h.split('/')[0], h.split('/')[1]);});
+function list(){
+  const q=document.getElementById('search').value.toLowerCase();
+  document.getElementById('topics').innerHTML = IDX.filter(t=>t.title.toLowerCase().includes(q)).map(t=>
+    `<div class="tp" onclick="open_('${t.id}')"><b>${esc(t.title)}</b><small>60 variant · 2400 savol</small></div>`).join('');
+}
+document.getElementById('search').oninput = list;
+
+async function open_(id, v){
+  const t = IDX.find(x=>x.id===id); if(!t) return;
+  document.getElementById('sheet').innerHTML = '<p>Yuklanmoqda…</p>';
+  document.getElementById('list').classList.add('hidden');
+  document.getElementById('view').classList.remove('hidden');
+  CUR = await (await fetch('baza/'+id+'.json')).json();
+  document.getElementById('vsel').innerHTML = CUR.v.map((_,i)=>`<option value="${i}">Variant ${i+1}</option>`).join('');
+  if(v) document.getElementById('vsel').value = (+v-1);
+  render(); scrollTo(0,0);
+}
+function back(){ document.getElementById('view').classList.add('hidden'); document.getElementById('list').classList.remove('hidden'); history.replaceState(null,'',location.pathname); }
+
+function sheet(title, label, nam, groups){
+  let h = `<div class="head"><span>Toshkent tuman 1-son texnikumi · Kuvonch Academy</span><span>${label}</span></div>
+  <div><b>Mavzu:</b> ${esc(title)}</div>
+  <div class="fio"><span>F.I.Sh.: ____________________</span><span>Guruh: ________</span><span>Sana: ________</span></div>`;
+  if(nam) h += `<div class="nam"><b>Namuna.</b> ${nam[0]}<br><i>Yechish.</i> ${nam[1]}</div>`;
+  let n = 1;
+  groups.forEach((g,i)=>{ if(!g.length) return;
+    h += `<div class="lvl ${i==2?'pg2':''}">${LV[i]}</div><ol class="q ${i==3?'one':''}" start="${n}">` + g.map(q=>`<li>${q}</li>`).join('') + '</ol>'; n += g.length; });
+  return h;
+}
+function render(){
+  if(!CUR) return;
+  const mode = document.getElementById('mode').value, el = document.getElementById('sheet');
+  document.getElementById('vsel').classList.toggle('hidden', mode!=='var');
+  document.getElementById('rndopts').classList.toggle('hidden', mode!=='rnd');
+  if(mode==='var'){
+    const i = +document.getElementById('vsel').value, [nam, qs] = CUR.v[i];
+    el.innerHTML = sheet(CUR.title, 'Variant '+(i+1), nam, [qs.slice(0,10),qs.slice(10,20),qs.slice(20,30),qs.slice(30,40)]);
+    history.replaceState(null,'','#'+CUR.id+'/'+(i+1));
+  } else {
+    const N = +document.getElementById('rn').value, per = N/4, groups = [[],[],[],[]];
+    for(let L=0; L<4; L++){ const used = new Set();
+      while(groups[L].length < per){ const v = Math.floor(Math.random()*60), s = L*10 + Math.floor(Math.random()*10), k = v+'_'+s;
+        if(used.has(k)) continue; used.add(k); groups[L].push(CUR.v[v][1][s]); } }
+    el.innerHTML = sheet(CUR.title, 'Tasodifiy test · '+N+' savol', null, groups);
+  }
+  math(el);
+}
+</script>
+</body>
+</html>
