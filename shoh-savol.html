@@ -151,6 +151,7 @@
     K.prep(cfg.topics.slice()).then(function (ok) {
       starting = false; b.disabled = false; b.textContent = lbl;
       if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang"); return; }
+      if (cfg.ans === "kart" && ok.every(window.KA_MAVZU.isOpen)) { K.toast("📗 Test bazasi savollarida javob varianti yo'q — kartalar uchun variantli mavzu ham tanlang", 5000); return; }
       start(ok);
     });
   };
@@ -195,7 +196,7 @@
     var b = e.target.closest && e.target.closest(".ss-cell"); if (!b || b.disabled || !G) return;
     var x = G.cells[+b.dataset.k]; if (x.open) return;
     var col = G.cols[x.c], team = G.teams[G.turn];
-    var q = K.ask(col.ids, LV[x.v] || 2, G.seen);
+    var q = K.ask(col.ids, LV[x.v] || 2, G.seen, G.cls ? { needOpts: true } : null);
     if (!q) { K.toast("Savol topilmadi"); return; }
     var val = x.dd ? x.v * 2 : x.v;
     function open() {
@@ -242,7 +243,7 @@
   /* ---------------- final ---------------- */
   function finalRound() {
     if (!G || G.final) return; G.final = true; K.closeModal();
-    var q = K.ask(G.ids, 3, G.seen); if (!q) return finish();
+    var q = K.ask(G.ids, 3, G.seen, { needOpts: true }) || (G.cls ? null : K.ask(G.ids, 3, G.seen)); if (!q) return finish();
     var el = document.createElement("div"); el.className = "ks-ov";
     el.innerHTML = '<div class="ks-cbox ss-final"><h2>🏁 Final savol</h2><p class="ks-dim">Mavzu: <b>' + esc(K.TITLE[q.tid] || "") + '</b>. Har jamoa ballining qancha qismini tikishini tanlang (ball 0 dan kam bo\'lsa — 100 gacha tikish mumkin).</p><div class="ss-wager">' +
       G.teams.map(function (t) { var mx = Math.max(100, t.score); return '<label style="--tc:' + t.color + '">' + t.emoji + " " + esc(t.name) + ' <span class="ks-dim">(' + t.score + ' ball)</span><input type="range" min="0" max="' + mx + '" step="' + (mx >= 500 ? 50 : 10) + '" value="' + Math.min(mx, Math.round(mx / 2 / 10) * 10) + '" data-t="' + t.i + '"><output>' + Math.min(mx, Math.round(mx / 2 / 10) * 10) + "</output></label>"; }).join("") +
@@ -268,9 +269,12 @@
     var m = K.askModal({ q: q, title: "🏁 Final", color: "#ffd479", time: 0, value: "javobni qog'ozga yozing — 60 soniya" });
     // o'qituvchi har jamoaning variantini belgilaydi
     var foot = $(".ks-qfoot", m.el), opts = $$(".ks-opt", m.el);
+    // 📗 ochiq savol: har jamoa uchun ✅ / ❌ belgilanadi
+    var LB = q.open ? ["✅", "❌"] : "ABCD".slice(0, q.opts.length).split(""), CI = q.open ? 0 : q.ci;
+    var jd = $(".ks-judge", m.el); if (jd) jd.remove();
     opts.forEach(function (o) { o.disabled = true; o.style.opacity = 1; });
     foot.innerHTML = '<div class="ss-mark">' + G.teams.map(function (t) {
-      return '<div class="row" style="--tc:' + t.color + '"><b>' + t.emoji + " " + esc(t.name) + ' · tikdi: ' + t.wager + '</b><div class="lets" data-t="' + t.i + '">' + q.opts.map(function (_, i) { return '<button type="button" data-i="' + i + '">' + "ABCD"[i] + "</button>"; }).join("") + "</div></div>";
+      return '<div class="row" style="--tc:' + t.color + '"><b>' + t.emoji + " " + esc(t.name) + ' · tikdi: ' + t.wager + '</b><div class="lets" data-t="' + t.i + '">' + LB.map(function (l, i) { return '<button type="button" data-i="' + i + '">' + l + "</button>"; }).join("") + "</div></div>";
     }).join("") + '</div><div class="ks-qbtns"><button type="button" class="ks-btn gold big" id="fRev">✅ Javobni ochish</button></div>';
     foot.onclick = function (e) {
       var b = e.target.closest && e.target.closest(".lets button");
@@ -278,11 +282,11 @@
       if (e.target.id === "fRev" && !m.rev) {
         m.rev = true; K.closeModal();
         var res = G.teams.map(function (t) {
-          var ok = marks[t.i] === q.ci, d = ok ? t.wager : -t.wager; t.score += d;
-          return '<li style="color:' + t.color + '"><b>' + t.emoji + " " + esc(t.name) + "</b>: " + (marks[t.i] == null ? "javob yo'q" : "ABCD"[marks[t.i]]) + " — " + (ok ? "✅ +" : "❌ ") + d + "</li>";
+          var ok = marks[t.i] === CI, d = ok ? t.wager : -t.wager; t.score += d;
+          return '<li style="color:' + t.color + '"><b>' + t.emoji + " " + esc(t.name) + "</b>: " + (marks[t.i] == null ? "javob yo'q" : LB[marks[t.i]]) + " — " + (ok ? "✅ +" : "❌ ") + d + "</li>";
         }).join("");
         K.snd("win");
-        K.notice("🏁", "To'g'ri javob: " + "ABCD"[q.ci] + ") " + K.plain(q.a), '<ul style="text-align:left;display:inline-block;margin:6px 0">' + res + "</ul>", finish, "good");
+        K.notice("🏁", q.open ? "Final natijalari" : "To'g'ri javob: " + "ABCD"[q.ci] + ") " + K.plain(q.a), '<ul style="text-align:left;display:inline-block;margin:6px 0">' + res + "</ul>", finish, "good");
       }
     };
   }

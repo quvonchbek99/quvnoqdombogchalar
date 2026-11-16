@@ -241,11 +241,12 @@
   var starting = false;
   $("#go").onclick = function () {
     if (starting || !cfg.topics.length) return;
-    if (cfg.mode === "tel") return liveHost();
+    if (cfg.mode === "tel") { if (cfg.topics.every(window.KA_MAVZU.isOpen)) { K.toast("📗 Test bazasi savollarida javob varianti yo'q — telefon rejimi uchun variantli mavzu ham tanlang", 5000); return; } return liveHost(); }
     starting = true; var b = this, lbl = b.textContent; b.disabled = true; b.textContent = "⏳ Savollar yuklanmoqda…";
     K.prep(cfg.topics.slice()).then(function (ok) {
       starting = false; b.disabled = false; b.textContent = lbl;
       if (!ok.length) { K.toast("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang"); return; }
+      if (cfg.mode === "kart" && ok.every(window.KA_MAVZU.isOpen)) { K.toast("📗 Test bazasi savollarida javob varianti yo'q — kartalar uchun variantli mavzu ham tanlang", 5000); return; }
       if (cfg.mode === "kart") kartStart(ok); else projStart(ok);
     });
   };
@@ -358,7 +359,7 @@
     $("#kQ").onclick = G.done >= G.total ? kartFinish : kartAsk;
   }
   function kartAsk() {
-    var q = K.ask(G.ids, cfg.lvl, G.seen); if (!q) { K.toast("Savol topilmadi"); return; }
+    var q = K.ask(G.ids, cfg.lvl, G.seen, { needOpts: true }); if (!q) { K.toast("Kartalar uchun variantli savol kerak — 📗 test bazasidan boshqa mavzu ham tanlang", 4000); return; }
     var one = [{ i: 0, emoji: "👥", name: "Sinf", color: "#ffd479" }];
     K.askModal({
       q: q, title: "💰 Oltin sandiq", color: "#ffd479", value: (G.done + 1) + "/" + G.total, time: cfg.ktime,
@@ -530,7 +531,7 @@
       if (P.ph !== "play") return;
       if (P.end && Date.now() > P.end) { box.innerHTML = head() + '<div class="os-wait"><div class="big">⌛</div>Vaqt tugadi — natijalarni kuting…</div>'; bindHead(); return; }
       P.busy = false;
-      var q = K.ask(P.ids, P.lvl, P.seen); if (!q) return;
+      var q = K.ask(P.ids, P.lvl, P.seen, { needOpts: true }); if (!q) { box.innerHTML = head() + '<div class="os-wait">Bu mavzularda variantli savol yo\'q</div>'; bindHead(); return; }
       box.innerHTML = head() + '<div class="os-pq"><div class="q"><div>' + K.qHtml(q) + '</div></div><div class="ks-opts">' + q.opts.map(function (t, i) { return '<button type="button" class="ks-opt c' + i + '" data-i="' + i + '"><b>' + "ABCD"[i] + "</b><span>" + K.safe(t) + "</span></button>"; }).join("") + '</div><div class="ks-qfoot"></div></div>';
       bindHead();
       $(".ks-opts", box).onclick = function (e) {

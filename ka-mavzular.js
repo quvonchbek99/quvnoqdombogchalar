@@ -74,6 +74,51 @@
     OWN.tests.forEach(function (t) { S.register("oz" + t.id, function () { return fromTest(t.qs[Math.floor(Math.random() * t.qs.length)]); }, TITLE["oz" + t.id]); });
   }
 
+  /* ---------------- 📗 Tayyor test bazasi (baza/*.json): ochiq savollar — javob kaliti yo'q, o'qituvchi tekshiradi ---------------- */
+  // Har mavzu: 60 variant × 40 savol (I–IV daraja, har biri 10 tadan). Javob varianti yo'q — faqat o'qituvchi
+  // to'g'ri/noto'g'ri deb belgilaydigan o'yinlarda chiqadi (Sirli kataklar, Shoh savol, Oltin sandiq — proyektor, Omad g'ildiragi).
+  var BZ = [["t1", "1. Kvadrat funksiya va uning grafigi"], ["t2", "2. Kvadrat tengsizlik va uning yechimi"], ["t3", "3. Trigonometrik ayniyatlar"], ["t4", "4. Arifmetik va geometrik progressiya"], ["t5", "5. Funksiya tushunchasi"], ["t6", "6. Funksiya xossalari"], ["t7", "7. Funksiya grafiklarini sodda almashtirish"], ["t8", "8. Chiziqli va kvadratik modellashtirish"], ["t9", "9. Loyiha ishi. Munosabatlar va funksiyalar"], ["t10", "10. Sodda ratsional tenglamalar"], ["t11", "11. Sodda ratsional tenglamalar sistemasi"], ["t12", "12. Sodda ratsional tengsizliklar"], ["t13", "13. Sodda ratsional tengsizliklar sistemasi"], ["t14", "14. Ratsional tenglamalarga doir misollar yechish"], ["t15", "15. Sodda irratsional tenglamalar"], ["t16", "16. Irratsional tenglamalarga doir misollar yechish"], ["t17", "17. Sodda irratsional tenglamalar sistemasi"], ["t18", "18. Ratsional va irratsional ifodalarga doir misollar"], ["t19", "19. Ko'rsatkichli funksiya"], ["t20", "20. Logarifmik funksiya"], ["t21", "21. Ko'rsatkichli va logarifmik ifodalarni soddalashtirish"], ["t22", "22. Sodda ko'rsatkichli tenglamalar"], ["t23", "23. Sodda logarifmik tenglamalar"], ["t24", "24. Ko'rsatkichli va logarifmik tenglamalar sistemasi"], ["t25", "25. Sodda ko'rsatkichli tengsizliklar"], ["t26", "26. Sodda logarifmik tengsizliklar"], ["t27", "27. Ko'rsatkichli modellashtirish"], ["t28", "28. Ko'rsatkichli va logarifmik ifodalarga doir misollar"], ["t29", "29. Trigonometrik funksiyalar"], ["t30", "30. Teskari trigonometrik funksiyalar"], ["t31", "31. Trigonometrik funksiyalarga doir misollar"], ["t32", "32. STEM topshiriq"], ["t33", "33. sin x = a, cos x = a trigonometrik tenglamalar"], ["t34", "34. tg x = a, ctg x = a trigonometrik tenglamalar"], ["t35", "35. Trigonometrik tenglamalarni yechish"], ["t36", "36. Eng sodda trigonometrik tengsizliklar"], ["t37", "37. Tasodifiy hodisalar"], ["t38", "38. Ehtimollikni hisoblashda kombinatorika formulalaridan foydalanish"], ["t39", "39. Teng ehtimolli hodisalar"], ["t40", "40. Planimetriyaning mantiqiy tuzilishi"], ["t41", "41. Geometrik masalalar va ularni yechish usullari"], ["t42", "42. Stereometriyaning asosiy tushunchalari"], ["t43", "43. Fazoda to'g'ri chiziqlar va tekisliklar"], ["t44", "44. Fazoviy geometrik shakllar. Ko'pyoqlar"], ["t45", "45. Ko'pyoqlarni tasvirlash va modelini yasash"], ["t46", "46. Fazoda to'g'ri chiziqlarning o'zaro joylashuvi"], ["t47", "47. Ayqash to'g'ri chiziqlar"], ["t48", "48. Fazoda to'g'ri chiziqlar va tekisliklarning o'zaro joylashuvi"], ["t49", "49. Fazoda tekisliklarning o'zaro joylashuvi"], ["t50", "50. Fazoda parallel proyeksiyalash"], ["a1", "A1. Qo'shish amali"], ["a2", "A2. Ayirish amali"], ["a3", "A3. Ko'paytirish amali"], ["a4", "A4. Bo'lish amali"], ["a5", "A5. Foizlar bilan amallar"], ["a6", "A6. Darajaga ko'tarish amali"], ["a7", "A7. Ko'paytirish (karra) jadvali"], ["a8", "A8. Sonlar"], ["t51", "51. Qisqa ko'paytirish formulalari"], ["t52", "52. Ko'phadni ko'paytuvchilarga ajratish"], ["t53", "53. Modulli tenglamalar va tengsizliklar"], ["t54", "54. Arifmetik progressiya"], ["t55", "55. Geometrik progressiya"], ["t56", "56. Nisbat, proporsiya va foizli masalalar"], ["t57", "57. O'rta qiymatlar (arifmetik, geometrik, garmonik)"], ["t58", "58. Determinantlar va Kramer usuli"], ["t59", "59. Funksiyaning limiti asoslari"], ["t60", "60. Hosila va uning tatbiqlari (asosiy formulalar)"], ["t61", "61. Bo'linish belgilari, EKUB va EKUK"], ["t62", "62. Kvadrat ildiz va ratsional ko'rsatkichli daraja"], ["t63", "63. Vyet teoremasi"], ["t64", "64. Irratsional tenglamalar"], ["t65", "65. Funksiyaning aniqlanish sohasi"], ["t66", "66. Gorner sxemasi va Bezu teoremasi"], ["t67", "67. Logarifm xossalari va sodda logarifmik tenglamalar"], ["t68", "68. Asosiy trigonometrik ayniyatlar va keltirish formulalari"], ["t69", "69. Sodda trigonometrik tenglamalar (sin x = a, cos x = a)"], ["t70", "70. Aniqmas integral asoslari"], ["t71", "71. Uchburchak va uning xossalari"], ["t72", "72. To'rtburchaklar va ularning xossalari"], ["t73", "73. Aylana va doira"], ["t74", "74. Muntazam ko'pburchaklar"], ["t75", "75. Prizma va parallelepiped"], ["t76", "76. Piramida"], ["t77", "77. Silindr"], ["t78", "78. Konus"], ["t79", "79. Shar va sfera"], ["t80", "80. Ichki va tashqi chizilgan shakllar"], ["t81", "81. Jismlar kombinatsiyasi (shar, silindr, konus, prizma)"], ["t82", "82. Dekart koordinatalari (tekislikda)"], ["t83", "83. Vektorlar (tekislikda)"], ["t84", "84. Fazoda koordinatalar va vektorlar"], ["t85", "85. Sinuslar va kosinuslar teoremalari"], ["t86", "86. Shakllar o'xshashligi"], ["t87", "87. Fazoda burchak va masofalar"], ["t88", "88. Jismlarning kesimlari"], ["t89", "89. Faktorial"], ["t90", "90. Kombinatorikaning asosiy qoidalari"], ["t91", "91. O'rin almashtirish, o'rinlashtirish va guruhlash"], ["t92", "92. Ehtimollik: klassik ta'rif"], ["t93", "93. Ehtimollik qoidalari"], ["t94", "94. To'plamlar nazariyasi asoslari"], ["t95", "95. Eyler–Venn doiralari va kiritish-chiqarish formulasi"], ["t96", "96. Nyuton binomi"], ["t97", "97. Fizika uchun matematika: formulalar bilan ishlash"], ["t98", "98. O'lchov birliklari va shkala"], ["t99", "99. O'rtacha kvadratik chetlanish, tanlanma va xatolik chegarasi"], ["t100", "100. Diagrammalar: nuqtali, quti diagrammasi, gistogramma"], ["t101", "101. Sochilma diagramma va eng yaxshi moslik chizig'i"], ["t102", "102. Kompleks sonlar"]];
+  var BZ_G = GROUPS.length; GROUPS.push("📗 Tayyor test bazasi — ochiq savollar (o'qituvchi tekshiradi)");
+  FANS.splice(2, 0, ["bz", "📗 Test bazasi", [BZ_G]]);
+  BZ.forEach(function (b) { TOPICS.push(["bz" + b[0], "📗 " + b[1], BZ_G]); });
+  var bank = {}, bankP = {};
+  function isOpen(id) { return /^bz/.test(id); }
+  function bankLoad(id) {
+    var k = id.slice(2);
+    if (bankP[k]) return bankP[k];
+    return (bankP[k] = fetch(BASE + "baza/" + k + ".json" + V).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) { if (d && d.v && d.v.length) bank[k] = d; }).catch(function () { delete bankP[k]; }));
+  }
+  // L: 1 — I daraja, 2 — II, 3 — III–IV, "mix"/0 — istalgani
+  function bankQ(id, L) {
+    var d = bank[id.slice(2)]; if (!d) return null;
+    var v = d.v[Math.floor(Math.random() * d.v.length)], qs = v[1], lo = 0, hi = qs.length - 1;
+    if (L == 1) { lo = 0; hi = 9; } else if (L == 2) { lo = 10; hi = 19; } else if (L == 3) { lo = 20; hi = 39; }
+    hi = Math.min(hi, qs.length - 1); if (lo > hi) lo = 0;
+    var i = lo + Math.floor(Math.random() * (hi - lo + 1)), tx = qs[i];
+    return tx ? { tx: String(tx), L: i < 10 ? 1 : i < 20 ? 2 : 3, lvl: ["I", "II", "III", "IV"][Math.floor(i / 10)] || "" } : null;
+  }
+  // formulalar: KaTeX ($...$) — faqat kerak bo'lganda yuklanadi
+  var KX = null, MAC = { "\\tg": "\\operatorname{tg}", "\\ctg": "\\operatorname{ctg}", "\\arctg": "\\operatorname{arctg}", "\\arcctg": "\\operatorname{arcctg}" };
+  function loadKatex() {
+    if (window.renderMathInElement) return Promise.resolve();
+    if (KX) return KX;
+    var CDN = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/";
+    return (KX = new Promise(function (ok) {
+      var l = document.createElement("link"); l.rel = "stylesheet"; l.href = CDN + "katex.min.css"; document.head.appendChild(l);
+      var s1 = document.createElement("script"); s1.src = CDN + "katex.min.js";
+      s1.onload = function () { var s2 = document.createElement("script"); s2.src = CDN + "contrib/auto-render.min.js"; s2.onload = ok; s2.onerror = ok; document.head.appendChild(s2); };
+      s1.onerror = function () { KX = null; ok(); };
+      document.head.appendChild(s1);
+    }));
+  }
+  function math(el) {
+    if (!el || String(el.textContent).indexOf("$") < 0) return Promise.resolve();
+    return loadKatex().then(function () {
+      if (!window.renderMathInElement) return;
+      try { window.renderMathInElement(el, { delimiters: [{ left: "$", right: "$", display: false }], macros: MAC, throwOnError: false, strict: false }); } catch (e) {}
+    });
+  }
+
   /* ---------------- generator fayllari ---------------- */
   var MATH = ["ka-savollar-2.js", "ka-savollar-3.js", "ka-savollar-4.js", "ka-savollar-5.js", "ka-savollar-6.js", "ka-savollar-7.js", "ka-savollar-8.js", "ka-savollar-9.js", "ka-savollar-10.js", "ka-savollar-11.js", "ka-savollar-12.js", "ka-savol-qoshimcha.js"];
   var GEN = [
@@ -106,7 +151,8 @@
   // tanlangan mavzular generatorlari (ketma-ket) + lug'at/savol banklari. Natija: ishlaydigan mavzular ro'yxati
   function prep(ids) {
     var p = window.kaSavol ? Promise.resolve() : addJs("ka-savollar.js");
-    return p.then(function () {
+    var open = ids.filter(isOpen);
+    return Promise.all(open.map(bankLoad)).then(function () { return p; }).then(function () {
       register();
       return files(ids).reduce(function (q, f) { return q.then(function () { return addJs(f); }); }, Promise.resolve());
     }).then(function () {
@@ -115,7 +161,7 @@
       if (window.kaAvto && ids.some(window.kaAvto.isAt)) ps.push(window.kaAvto.load());
       return Promise.race([Promise.all(ps), new Promise(function (ok) { setTimeout(ok, 20000); })]);
     }).catch(function () {}).then(function () {
-      return ids.filter(function (id) { return window.kaSavol && window.kaSavol.has(id); });
+      return ids.filter(function (id) { return isOpen(id) ? !!bank[id.slice(2)] : window.kaSavol && window.kaSavol.has(id); });
     });
   }
   // savol rasmi: avtotest belgisi/chorraha yoki o'qituvchi yuklagan rasm
@@ -125,7 +171,8 @@
     return window.kaAvto ? window.kaAvto.img(r) : "";
   }
 
-  window.KA_MAVZU = { TOPICS: TOPICS, GROUPS: GROUPS, FANS: FANS, TITLE: TITLE, OZ_G: OZ_G, files: files, prep: prep, img: img, refreshOwn: refreshOwn, register: register };
+  window.KA_MAVZU = { TOPICS: TOPICS, GROUPS: GROUPS, FANS: FANS, TITLE: TITLE, OZ_G: OZ_G, BZ_G: BZ_G, files: files, prep: prep, img: img, refreshOwn: refreshOwn, register: register,
+    isOpen: isOpen, bankQ: bankQ, math: math };
   refreshOwn();
   // boshqa varaqda (viktorinada) savol qo'shilsa — darhol shu yerda ham
   window.addEventListener("storage", function (e) { if (e.key === LS_OWN || e.key === LS_TESTS) refreshOwn(); });

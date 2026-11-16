@@ -229,7 +229,7 @@
   /* ---------------- sozlamalar ---------------- */
   var cfg = K.load(LS, { mode: "proj", topics: [], n: 2, names: [], lvl: "1", spd: 2, holes: 6, sec: 60, min: 3 });
   var ut = K.urlTopics(); if (ut) cfg.topics = ut;
-  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id]; });
+  cfg.topics = cfg.topics.filter(function (id) { return K.TITLE[id] && !window.KA_MAVZU.isOpen(id); });
   function summary() {
     var tel = cfg.mode === "tel";
     $("#cTeams").hidden = tel; $$(".only-proj").forEach(function (e) { e.hidden = tel; }); $$(".only-tel").forEach(function (e) { e.hidden = !tel; });
@@ -238,7 +238,7 @@
     $("#go").disabled = !cfg.topics.length; K.save(LS, cfg);
   }
   K.opts($("#modeCard"), cfg, summary);
-  K.picker($("#pick"), cfg.topics, summary);
+  K.picker($("#pick"), cfg.topics, summary, { noOpen: true });
   K.teamsUI($("#teams"), cfg, 1, 6, summary);
   K.opts($("#opts"), cfg, summary);
   summary();
