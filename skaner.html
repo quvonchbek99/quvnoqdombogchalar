@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>📷 Karta skaneri — o'qituvchi telefoni | Kuvonch Academy</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="icon-192.png">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;color:#eef2ff;font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.top{position:fixed;left:0;right:0;top:0;z-index:3;display:flex;align-items:center;gap:8px;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));background:linear-gradient(180deg,rgba(0,0,0,.85),rgba(0,0,0,0))}
+.top .n{font:900 30px/1 ui-monospace,monospace;color:#ffd479}
+.top .t{flex:1;min-width:0;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st{font-size:12px;padding:3px 8px;border-radius:999px;background:#14203a}
+.st.on{background:#1d6b47}.st.off{background:#7a2b2b}
+.v{position:fixed;inset:0}
+.v video,.v canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.bot{position:fixed;left:0;right:0;bottom:0;z-index:3;display:flex;gap:8px;justify-content:center;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(0,0,0,.85),rgba(0,0,0,0))}
+.bot button{min-height:46px;padding:8px 16px;border-radius:12px;border:1px solid #243252;background:#14203a;color:#eef2ff;font-weight:800;font-size:16px}
+.bot button.on{background:#5ee6c7;color:#081019}
+.msg{position:fixed;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;background:#0b1220}
+.msg[hidden]{display:none}
+.msg .big{font-size:64px}
+.msg button,.msg a{min-height:52px;padding:10px 22px;border-radius:14px;border:0;background:linear-gradient(135deg,#5ee6c7,#7c9bff);color:#081019;font-weight:900;font-size:18px;text-decoration:none}
+.msg p{color:#9fb0d0;max-width:420px}
+</style>
+</head>
+<body>
+<div class="v"><video playsinline muted></video><canvas></canvas></div>
+<div class="top"><span class="n" id="n">0</span><span class="t" id="t">📷 Karta skaneri</span><span class="st" id="st">…</span></div>
+<div class="bot" id="zoom"></div>
+<div class="msg" id="msg"><div class="big">📷</div><h2 style="margin:0">Karta skaneri</h2><p>Telefoningiz kamerasi o'quvchilar ko'targan kartalarni o'qiydi va javoblarni katta ekrandagi o'yinga yuboradi.</p><button type="button" id="go">📷 Skanerni yoqish</button></div>
+<script src="ka-tarmoq.js?v=20261116a"></script>
+<script src="ka-karta.js?v=20261117b"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (s) { return document.querySelector(s); };
+  var code = ((/[?&]kod=([A-Za-z0-9]{5})/.exec(location.search) || [])[1] || "").toUpperCase();
+  var N = window.KANet, K = window.KKarta, conn = null, cam = null, q = {}, t = 0, n = 0, wl = null;
+  function msg(icon, h, btn) { var m = $("#msg"); m.hidden = false; m.innerHTML = '<div class="big">' + icon + "</div>" + h + (btn || ""); }
+  function st(cls, tx) { var e = $("#st"); e.className = "st " + cls; e.textContent = tx; }
+  if (!code) { msg("🔑", "<h2>Kod kerak</h2><p>Katta ekrandagi skaner oynasida «📱 Telefon bilan» bosing va ko'rsatilgan kodni kiriting.</p>", '<a href="live/">Kodni kiritish</a>'); return; }
+  function flush() { t = 0; if (!conn || !Object.keys(q).length) return; try { conn.send({ type: "scan", d: q }); q = {}; } catch (e) {} }
+  function join() {
+    st("", "ulanmoqda…");
+    N.join(code, { name: "📷 Skaner" }, {
+      onMsg: function (m) {
+        if (m.type === "rst") { if (cam) cam.reset(); n = 0; $("#n").textContent = "0"; if (m.t) $("#t").textContent = "📷 " + m.t; try { navigator.vibrate && navigator.vibrate(40); } catch (e) {} }
+        if (m.type === "reject" || m.type === "kick") { st("off", "rad etildi"); msg("🚫", "<h2>" + (m.why || "Ulanib bo'lmadi") + "</h2>"); }
+      },
+      onClose: function (why) { st("off", why === "gone" ? "yopildi" : "uzildi"); conn = null; if (why === "gone") msg("👋", "<h2>O'yin yopildi</h2><p>Katta ekrandagi skaner oynasi yopildi.</p>"); else setTimeout(join, 2500); }
+    }).then(function (c) { conn = c; st("on", "ulandi"); flush(); }).catch(function (e) { st("off", "xato"); setTimeout(join, 4000); });
+  }
+  $("#go").onclick = function () {
+    msg("⏳", "<h2>Kamera yoqilmoqda…</h2>");
+    K.cam($("video"), $("canvas"), function (card, L) {
+      q[card] = L; n++; $("#n").textContent = Object.keys(cam ? cam.acc : q).length;
+      if (!t) t = setTimeout(flush, 250);
+    }, function (k) { $("#n").textContent = k; }).then(function (c) {
+      cam = c; $("#msg").hidden = true;
+      try { if (navigator.wakeLock) navigator.wakeLock.request("screen").then(function (w) { wl = w; }).catch(function () {}); } catch (e) {}
+      var z = c.zoomCaps();
+      if (z) $("#zoom").innerHTML = [1, 2, 3].filter(function (x) { return x >= (z.min || 1) && x <= z.max; }).map(function (x) { return '<button type="button" data-z="' + x + '"' + (x === 1 ? ' class="on"' : "") + ">" + x + "x</button>"; }).join("");
+    }).catch(function (e) { msg("⚠️", "<h2>" + e.message + "</h2>", '<button type="button" onclick="location.reload()">Qayta urinish</button>'); });
+  };
+  $("#zoom").onclick = function (e) {
+    var b = e.target.closest("[data-z]"); if (!b || !cam) return; var z = +b.dataset.z;
+    cam.zoom(z).then(function () { Array.prototype.forEach.call(document.querySelectorAll("[data-z]"), function (x) { x.classList.toggle("on", +x.dataset.z === z); }); }).catch(function () {});
+  };
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && cam && !wl) try { navigator.wakeLock.request("screen").then(function (w) { wl = w; }); } catch (e) {} });
+  join();
+})();
+</script>
+</body>
+</html>
