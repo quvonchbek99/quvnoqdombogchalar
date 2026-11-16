@@ -1281,5 +1281,14 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u hovuzdagi boshqa baliqlar bilan janjallashgan edi", "Chunki suv kamayib borayotganini ko'rib, doimiy oqim bor joyni topishga shoshildi", "Chunki u sayr qilishni yaxshi ko'rar va har kuni yangi joyga borardi"],
     javob: 1,
     izoh: "Ikkinchi baliq vaziyatni kuzatib, xavfni oldindan anglab yetdi. Xavf yaqinlashayotganini ko'rganda vaqtida harakat qilish aqlli yo'ldir."
+  },
+{
+    id: "ez-159", mavzu: "ehtiyot", sarlavha: "Ikki qush va dehqon",
+    matn: "Qamishzor ichida ikki qush uya qurib yashardi. Bir kuni dehqon ariq bo'yiga kelib, qamishni kesish uchun arqon va bolta olib keldi. Birinchi qush: \"U shunchaki o'tib ketar, biz hech narsa qilmaymiz\", deb uyasida qolaverdi. Ikkinchi qush esa dehqonning ishini ko'rib, uyasini ko'chirib, boshqa daraxtga o'tib oldi.",
+    savol: "Ikkinchi qush nima uchun uyasini ko'chirdi?",
+    variantlar: ["Chunki qamishzor juda chiroyli va yangi uyga ehtiyoj yo'q edi", "Chunki dehqonning arqon va bolta bilan kelganini ko'rib, uyasiga xavf borligini angladi", "Chunki u daraxtda yashashni shunchaki yoqtirar edi"],
+    javob: 1,
+    izoh: "Ikkinchi qush dehqonning niyatini asbob-anjomlaridan bilib oldi va xavfni oldindan his qildi. Xavf kelishini kutmasdan tayyorgarlik ko'rish aqlli ish."
   }
 ];
+
