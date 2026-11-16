@@ -193,7 +193,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
         <label>Har to'g'ri javob uchun ball<select id="qBall"><option value="1">1 ball</option><option value="2">2 ball</option><option value="3">3 ball</option><option value="5">5 ball</option></select></label>
         <label>Skanerlash vaqti<select id="qTime"><option value="3">3 soniya — keyin natija o'zi chiqadi</option><option value="5">5 soniya</option><option value="10">10 soniya</option><option value="0">Qo'lda («Javobni ochish» tugmasi)</option></select></label>
       </div>
-      <p class="sub" style="margin:6px 0 0">Vaqt birinchi karta ko'ringan paytdan boshlanadi. Har bir karta kamerada ~0,3 soniyada tanib olinadi, shuning uchun telefonni sinf bo'ylab 3 soniyada sekin o'tkazish yetadi.</p>
+      <p class="sub" style="margin:6px 0 0">Sanoq har bir o'quvchining kartasi ko'ringanda qaytadan boshlanadi: oxirgi yangi kartadan keyin 3 soniya ichida hech kim qo'shilmasa yoki guruhdagi hamma javob bersa — natija o'zi chiqadi. Bitta karta ~0,3 soniyada taniladi.</p>
     </div>
 
     <div class="card">
@@ -615,20 +615,27 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   function curQ() { return E.man ? null : E.qs[E.qi]; }
   function corrNow() { return E.man ? E.cur.corr : (curQ() ? L4[curQ().ci] : null); }
   // Avtomatik natija: birinchi karta ko'ringandan keyin E.sec soniyada javob ochiladi
-  function autoStart() {
-    if (!E || !E.sec || E.ph !== "q" || E.autoEnd) return;
-    E.autoEnd = Date.now() + E.sec * 1000;
-    E.autoT = setTimeout(function () { if (E && E.ph === "q" && E.autoEnd) { autoStop(); engCmd({ c: "rev" }); } }, E.sec * 1000);
+  // Har bir yangi o'quvchi kartasi ko'ringanda sanoq qaytadan boshlanadi: oxirgi yangi kartadan keyin E.sec soniya
+  // hech kim qo'shilmasa — natija ochiladi; guruhdagi hamma javob bersa — darhol (0,8 s dan keyin)
+  function autoKick(isNew) {
+    if (!E || !E.sec || E.ph !== "q") return;
+    var all = Object.keys(E.cur.ans).length >= E.n, ms = all ? 800 : E.sec * 1000;
+    if (E.autoEnd && !isNew && !all) return;
+    clearTimeout(E.autoT);
+    E.autoEnd = Date.now() + ms;
+    E.autoT = setTimeout(function () { if (E && E.ph === "q" && E.autoEnd) { autoStop(); engCmd({ c: "rev" }); } }, ms);
   }
   function autoStop() { if (E) { clearTimeout(E.autoT); E.autoT = 0; E.autoEnd = 0; } }
   // force: savol paytida ko'rilgan, keyin egasi biriktirilgan karta (natija ochilgan bo'lsa ham hisoblanadi)
   function engScan(card, L, force) {
     if (!E || (E.ph !== "q" && !force) || E.ignore[card] || L4.indexOf(L) < 0 || !(card >= 1 && card <= MAXK)) return;
-    if (!force) autoStart();
     var s = studentOf(card);
-    if (s < 0) { if (E.cur.unk[card] !== L) { E.cur.unk[card] = L; changed(); } return; }
+    if (s < 0) { if (E.cur.unk[card] !== L) { var nu = !(card in E.cur.unk); E.cur.unk[card] = L; if (!force) autoKick(nu); changed(); } return; }
     if (E.cur.ans[s] === L && E.cur.bc[s] === card) return;
-    E.cur.ans[s] = L; E.cur.bc[s] = card; changed();
+    var isNew = !E.cur.ans[s];
+    E.cur.ans[s] = L; E.cur.bc[s] = card;
+    if (!force) autoKick(isNew);
+    changed();
   }
   function awardJ(ans, corr) {
     if (!corr) return;
