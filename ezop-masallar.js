@@ -1265,6 +1265,14 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ovchidan oldin daraxtdan tushib ketdi", "Chunki chumoli ovchining oyog'ini chaqib, uning e'tiborini chalg'itdi", "Chunki ovchi to'rni o'zi yirtib tashladi"],
     javob: 1,
     izoh: "Chumoli ovchiga yaxshilik qaytardi: uni chaqib, e'tiborini chalg'itdi. Kaptar esa oldin qilgan yaxshiligi tufayli qutulib qoldi. Yaxshilik ko'pincha o'z o'rnida qaytib keladi."
+  },
+  {
+    id: "ez-157", mavzu: "mantiq", sarlavha: "Qarg'a va yong'oq",
+    matn: "Bir kuni qarg'a yo'lda katta, qattiq qobiqli yong'oq topdi. Uni tishlab ko'rdi, ammo qobig'i zarracha ham yorilmadi. Shunda u yong'oqni tumshug'ida ko'tarib, baland daraxt tepasiga uchdi va uni pastdagi toshga tashladi. Yong'oq toshga urilib yorildi, qarg'a esa ichidagi mazali mag'zni yeb to'ydi.",
+    savol: "Qarg'a yong'oqni nima uchun baland joydan toshga tashladi?",
+    variantlar: ["Chunki tishlab yorolmagach, qobiqni toshga urib yorish mumkinligini o'yladi", "Chunki yong'oqni dengizga tashlamoqchi edi", "Chunki toshning ustida o'tirish unga qulay edi"],
+    javob: 0,
+    izoh: "Qarg'a tishi bilan yorib bo'lmasligini ko'rib, muammoni boshqa usul bilan hal qildi. Bir usul ishlamasa, sababini o'ylab yangi yechim izlash mantiqiy yondashuvdir."
   }
 ];
 
