@@ -1327,7 +1327,16 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki xo'jayin xachirni yukdan ozod qilishni buyurgan edi", "Chunki eshak yo'l o'rtasida yiqilib, uning yuki xachirga ortilgan edi", "Chunki xachir o'zi xohlagan yukni tanlab olgan edi"],
     javob: 1,
     izoh: "Xachir yordam berishdan bosh tortgani uchun eshak yiqildi va yuk to'liq unga o'tdi. Yordamni vaqtida berish ko'pincha o'zimiz uchun ham qulay bo'ladi."
+  },
+  {
+    id: "ez-164", mavzu: "ishonch", sarlavha: "Maymun va delfin",
+    matn: "Bo'ron paytida kemadan dengizga tushib ketgan maymunni delfin ko'rib qoldi va uni qirg'oqqa olib bordi. Maymun o'zini Afina shahrining olijanob fuqarosi deb aytib, delfinning mehrini qozondi. Delfin unga yana yordam berib, do'st bo'lmoqchi bo'ldi. Ammo oxirida u maymunning hech qanday olijanob nasabi yo'qligini bilib qoldi.",
+    savol: "Delfin maymunni nima uchun qirg'oqda qoldirib ketdi?",
+    variantlar: ["Chunki maymun o'zini aldab, yolg'on gapirgan edi", "Chunki maymun juda kichik va ojiz edi", "Chunki delfin o'zi xohlagan joyga ketishi kerak edi"],
+    javob: 0,
+    izoh: "Maymun o'zini aldab yordam olgani uchun delfin unga ishonmay qoldi. Ishonch yolg'on bilan emas, rostgo'ylik bilan qozoniladi."
   }
+
 ];
 
 
