@@ -1335,8 +1335,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki maymun o'zini aldab, yolg'on gapirgan edi", "Chunki maymun juda kichik va ojiz edi", "Chunki delfin o'zi xohlagan joyga ketishi kerak edi"],
     javob: 0,
     izoh: "Maymun o'zini aldab yordam olgani uchun delfin unga ishonmay qoldi. Ishonch yolg'on bilan emas, rostgo'ylik bilan qozoniladi."
+  },
+  {
+    id: "ez-165", mavzu: "ehtiyotkorlik", sarlavha: "Ikki tovuq va don",
+    matn: "Ikki tovuq omborda bir uyum don topdi. Birinchisi donni asta-sekin yedi va bir qismini ertaga uchun qoldirdi. Ikkinchisi esa \"Ertaga ham shu yerda bo'ladi\" deb, bor donni bir kunda yeb tugatdi. Ertasi kuni ombor eshigi qulflanib, tovuqlar ichkariga kira olmadi.",
+    savol: "Ikkinchi tovuq nima uchun ochlikdan azob chekdi?",
+    variantlar: ["Chunki u donni bir kunda yeb tugatib, kelgusi uchun zaxira qoldirmagan edi", "Chunki don juda sho'r va yeb bo'lmaydigan edi", "Chunki birinchi tovuq uning ulushini olib ketgan edi"],
+    javob: 0,
+    izoh: "Ikkinchi tovuq kelgusini o'ylamay, bor donni bir kunda yedi va zaxira qoldirmadi. Ehtiyotkorlik ehtiyojning kelajakda ham qondirilishini ta'minlaydi."
   }
-
 ];
-
-
