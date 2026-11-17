@@ -1307,6 +1307,17 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u pishloqni yoqtirmas edi", "Chunki u tuzoqning xavfini oldindan payqagan edi", "Chunki maymun unga ruxsat bermagan edi"],
     javob: 1,
     izoh: "Tulki xavfni oldindan sezgani uchun ehtiyot bo'ldi. Maqtanish o'rniga atrofga e'tibor berish kishini xatodan saqlaydi."
+  },
+  {
+    id: "ez-162",
+    mavzu: "ehtiyot",
+    sarlavha: "Ot va ovchi",
+    matn: "Dasht ko'lida ot erkin o'tlab yurardi, ammo bir kiyik yaylov uchun unga raqib bo'lib chiqdi. Ot ojiz qolib, yordam so'rab ovchiga murojaat qildi. Ovchi shunday shart qo'ydi: \"Menga egar va dizgin bersang, kiyikni yengishga yordam beraman.\" Ot rozi bo'lib, kiyikni yengdi, ammo shu kundan boshlab ovchining xizmatida qoldi.",
+    savol: "Ot dushmanni yengganidan keyin nima uchun erkinligini yo'qotdi?",
+    variantlar: ["Chunki u yordam uchun egar va dizginni qabul qilib, ovchiga bo'ysunishga rozi bo'lgan edi", "Chunki kiyik uni o'ldirib, boshqa yaylovga olib ketgan edi", "Chunki u dasht bo'ylab yugurishni yoqtirmas edi"],
+    javob: 0,
+    izoh: "Ot dushmanni yengish uchun begonadan yordam so'radi va buning narxini oldindan o'ylamadi. Qiyin paytda yordam olishdan oldin, uning oqibatini ham hisobga olish kerak."
   }
 ];
+
 
