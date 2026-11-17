@@ -109,6 +109,11 @@ textarea{min-height:120px;resize:vertical}
 .bar .tr{height:26px;border-radius:8px;background:#0e172b;overflow:hidden}
 .bar .tr i{display:block;height:100%;background:#3b63b8;border-radius:8px;transition:width .3s}
 .bar.ok .tr i{background:var(--ok)}
+.lb{width:100%;border-collapse:collapse;font-size:15px}
+.lb td{padding:6px 6px;border-bottom:1px solid var(--border)}
+.lb td.n{text-align:right;font-variant-numeric:tabular-nums}
+.lb tr.t1 td{color:var(--gold);font-weight:700}
+.proj .lb{font-size:20px}
 .ctl{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .ctl .btn{flex:1 1 160px}
 .joininfo{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
@@ -221,6 +226,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     <div class="unk" id="sUnk"></div>
     <div class="chips" id="sChips"></div>
     <div class="bars" id="sBars" hidden></div>
+    <div class="card" id="sLb" hidden></div>
     <div class="ctl" id="sCtl"></div>
   </section>
 
@@ -683,10 +689,23 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     }
     changed();
   }
+  function leaderboard() {
+    var hist = E.hist.slice(), corr = corrNow(), rows = [];
+    if (Object.keys(E.cur.ans).length) hist.push({ corr: corr, ans: E.cur.ans });
+    for (var i = 0; i < E.n; i++) {
+      var ok = 0, ans = 0;
+      hist.forEach(function (h) { if (h.ans[i]) { ans++; if (h.corr && h.ans[i] === h.corr) ok++; } });
+      rows.push({ i: i, ok: ok, ans: ans });
+    }
+    raschGrade(rows, hist);
+    var P = rows.filter(function (r) { return r.ans > 0; }).sort(function (a, b) { return ((b.th == null ? -99 : b.th) - (a.th == null ? -99 : a.th)) || (b.ok - a.ok) || (a.i - b.i); });
+    return { total: hist.filter(function (h) { return h.corr; }).length, rows: P.map(function (r) { return [r.i, r.ok, r.rb, r.baho]; }) };
+  }
   function viewOf() {
     var q = curQ();
     return { type: "st", ph: E.ph, qi: E.qi, qn: E.man ? 0 : E.qs.length, man: E.man, n: E.n, names: E.roster.slice(0, E.n).map(shortName), z: E.z,
       a: E.cur.ans, bc: E.cur.bc, unk: E.cur.unk, corr: E.man ? E.cur.corr : (E.ph === "rev" ? corrNow() : null), qt: q ? plain(q.q).slice(0, 300) : "",
+      lb: E.ph === "rev" ? leaderboard() : null,
       left: E.autoEnd ? Math.max(0, E.autoEnd - Date.now()) : -1, sec: E.sec };
   }
   // Har o'zgarishda sessiya qurilmaga yoziladi: tok o'chsa yoki sahifa yopilsa — keyin davom ettiriladi
@@ -876,6 +895,17 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
         return '<div class="bar' + (v.corr === L ? " ok" : "") + '"><span>' + L + (v.corr === L ? " ✓" : "") + '</span><div class="tr"><i style="width:' + p + '%"></i></div><span>' + cnt[L] + " · " + p + "%</span></div>";
       }).join("") + (v.corr ? '<p class="sub" style="margin:4px 0 0">To\'g\'ri javob berdi: <b>' + cnt[v.corr] + "</b> nafar" + (role !== "client" && E ? " · har biriga +" + E.ball + " ball" : "") + "</p>" : '<p class="sub">So\'rovnoma — ball berilmaydi.</p>');
     }
+    // reyting (har savol ochilganda): proyektorda — eng yaxshi 10 ta, o'qituvchi qurilmasida — hammasi
+    var lb = $("#sLb"), L0 = v.lb;
+    lb.hidden = !(rev && L0 && L0.rows.length && L0.total);
+    if (!lb.hidden) {
+      var list = proj ? L0.rows.slice(0, 10) : L0.rows, place = 0, prev = null;
+      lb.innerHTML = '<h2>🏆 Reyting — ' + (v.qi + 1) + "-savoldan keyin</h2>" + '<table class="lb">' + list.map(function (r, k) {
+        if (prev === null || r[2] !== prev) place = k + 1; prev = r[2];
+        return '<tr class="' + (place === 1 ? "t1" : "") + '"><td>' + place + ".</td><td>" + esc(v.names[r[0]] || "") + '</td><td class="n">' + r[1] + " / " + L0.total + '</td><td class="n">' + (r[2] === "" ? "—" : r[2]) + '</td><td class="n"><b>' + (r[3] || "—") + "</b></td></tr>";
+      }).join("") + "</table>" + (proj && L0.rows.length > 10 ? '<p class="sub" style="margin:6px 0 0">… yana ' + (L0.rows.length - 10) + " nafar</p>" : "") +
+        '<p class="sub" style="margin:6px 0 0">To\'g\'ri / savollar · reyting (0–100) · hozirgi baho (5 — eng yuqori, 4 — o\'rtagacha, 3 — qolganlari)</p>';
+    }
     // tugmalar
     var last = v.qn && v.qi + 1 >= v.qn;
     $("#sCtl").innerHTML = (rev ? '<button type="button" class="btn" data-c="back">↩ Yana skanerlash</button><button type="button" class="btn primary big" data-c="next">' + (last ? "🏁 Yakunlash" : "Keyingi savol ▶") + "</button>"
@@ -1044,8 +1074,8 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   /* ===================== YAKUN VA EXCEL ===================== */
   // Rasch modeli: savollar qiyinligi (b) va o'quvchilar qobiliyati (θ) birga baholanadi (JMLE); Rasch'da to'g'ri javoblar soni yetarli statistika.
   // Baho: eng yuqori natija(lar) — 5, o'rtagacha (mediana) — 4, qolganlari — 3. Hech javob bermaganlarga baho qo'yilmaydi.
-  function raschGrade(rows) {
-    var Qs = E.hist.filter(function (h) { return h.corr; }), L = Qs.length;
+  function raschGrade(rows, hist) {
+    var Qs = (hist || E.hist).filter(function (h) { return h.corr; }), L = Qs.length;
     var P = rows.filter(function (r) { return r.ans > 0; });
     rows.forEach(function (r) { r.th = null; r.rb = ""; r.baho = ""; });
     if (!L || !P.length) return;
