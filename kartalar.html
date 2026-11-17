@@ -102,6 +102,7 @@ textarea{min-height:120px;resize:vertical}
 .ch.no{background:var(--no);border-color:var(--no)}
 .ch.zx::after{content:"↺";position:absolute;right:4px;top:1px;font-size:11px;color:var(--gold)}
 .proj .ch{font-size:22px;min-height:62px}
+.proj #sTime{font-size:26px;padding:8px 18px}
 .unk{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
 .unk button{border:1px dashed var(--gold);background:rgba(255,212,121,.08);color:var(--gold);border-radius:10px;padding:6px 10px;font-weight:700}
 .bars{display:grid;gap:8px;margin:10px 0}
@@ -197,9 +198,10 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       </div>
       <div class="row" style="margin-top:10px">
         <label>Har to'g'ri javob uchun ball<select id="qBall"><option value="1">1 ball</option><option value="2">2 ball</option><option value="3">3 ball</option><option value="5">5 ball</option></select></label>
+        <label>O'ylash vaqti (har savolga)<select id="qThink"><option value="30">30 soniya</option><option value="60">1 daqiqa</option><option value="90">1,5 daqiqa</option><option value="120">2 daqiqa</option><option value="180">3 daqiqa</option><option value="300">5 daqiqa</option><option value="0">Cheklanmagan — «Skanerlash»ni o'zim bosaman</option></select></label>
         <label>Skanerlash vaqti<select id="qTime"><option value="3">3 soniya — keyin natija o'zi chiqadi</option><option value="5">5 soniya</option><option value="10">10 soniya</option><option value="0">Qo'lda («Javobni ochish» tugmasi)</option></select></label>
       </div>
-      <p class="sub" style="margin:6px 0 0">Sanoq har bir o'quvchining kartasi ko'ringanda qaytadan boshlanadi: oxirgi yangi kartadan keyin 3 soniya ichida hech kim qo'shilmasa yoki guruhdagi hamma javob bersa — natija o'zi chiqadi. Bitta karta ~0,3 soniyada taniladi.</p>
+      <p class="sub" style="margin:6px 0 0">Avval o'ylash vaqti: o'quvchilar masalani yechadi (erta ko'targanlar ham yoziladi, lekin natija ochilmaydi). Vaqt tugagach — «Kartalarni ko'taring!» va skanerlash: sanoq har bir o'quvchining kartasi ko'ringanda qaytadan boshlanadi: oxirgi yangi kartadan keyin 3 soniya ichida hech kim qo'shilmasa yoki guruhdagi hamma javob bersa — natija o'zi chiqadi. Bitta karta ~0,3 soniyada taniladi.</p>
     </div>
 
     <div class="card">
@@ -296,7 +298,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   $("#modal").addEventListener("click", function (e) { if (e.target.id === "modal") closeModal(); });
 
   /* ---------------- sozlamalar ---------------- */
-  var cfg = { rkey: "", tab: "dav", qmode: "man", topic: "t51", count: 10, ball: 1, sec: 3, hq: false };
+  var cfg = { rkey: "", tab: "dav", qmode: "man", topic: "t51", count: 10, ball: 1, sec: 3, think: 60, hq: false };
   (function () { var s = lsGet(LS_C, null); if (s) for (var k in s) if (k in cfg) cfg[k] = s[k]; })();
   function saveCfg() { lsSet(LS_C, cfg); }
 
@@ -580,7 +582,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   function renderQ() {
     $$("#qMode .opt").forEach(function (b) { b.classList.toggle("on", b.dataset.v === cfg.qmode); });
     $("#qMav").hidden = cfg.qmode !== "mav";
-    $("#qCount").value = String(cfg.count); $("#qBall").value = String(cfg.ball); $("#qTime").value = String(cfg.sec);
+    $("#qCount").value = String(cfg.count); $("#qBall").value = String(cfg.ball); $("#qTime").value = String(cfg.sec); $("#qThink").value = String(cfg.think);
   }
   (function () {
     var html = "", g = -1;
@@ -596,6 +598,7 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   $("#qCount").onchange = function () { cfg.count = +this.value || 10; saveCfg(); };
   $("#qBall").onchange = function () { cfg.ball = +this.value || 1; saveCfg(); };
   $("#qTime").onchange = function () { cfg.sec = +this.value || 0; saveCfg(); };
+  $("#qThink").onchange = function () { cfg.think = +this.value || 0; saveCfg(); };
 
   function buildQs() {
     return MV.prep([cfg.topic]).then(function () {
@@ -631,9 +634,31 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   // Avtomatik natija: birinchi karta ko'ringandan keyin E.sec soniyada javob ochiladi
   // Har bir yangi o'quvchi kartasi ko'ringanda sanoq qaytadan boshlanadi: oxirgi yangi kartadan keyin E.sec soniya
   // hech kim qo'shilmasa — natija ochiladi; guruhdagi hamma javob bersa — darhol (0,8 s dan keyin)
+  // O'ylash bosqichi: har savol boshida E.think soniya; bu vaqtda ko'rilgan kartalar yoziladi, lekin natija ochilmaydi
+  function thinkStart() {
+    if (!E) return;
+    clearTimeout(E.thinkT); E.thinkT = 0;
+    if (E.cur.scan) return;
+    if (!E.think && !E.cur.thinkEnd) return; // cheklanmagan — o'qituvchi «Skanerlash»ni bosadi
+    if (!E.cur.thinkEnd) E.cur.thinkEnd = Date.now() + E.think * 1000;
+    var ms = E.cur.thinkEnd - Date.now();
+    if (ms <= 0) return thinkEnd();
+    E.thinkT = setTimeout(thinkEnd, ms);
+  }
+  function thinkEnd() {
+    if (!E || E.ph !== "q" || E.cur.scan) return;
+    clearTimeout(E.thinkT); E.thinkT = 0;
+    E.cur.scan = true; E.cur.thinkEnd = 0; vib([60, 40, 60]);
+    toast("📷 Kartalarni ko'taring!");
+    if (Object.keys(E.cur.ans).length) autoKick(true);
+    changed();
+  }
   function autoKick(isNew) {
-    if (!E || !E.sec || E.ph !== "q") return;
-    var all = Object.keys(E.cur.ans).length >= E.n, ms = all ? 800 : E.sec * 1000;
+    if (!E || E.ph !== "q") return;
+    var all = Object.keys(E.cur.ans).length >= E.n;
+    if (!E.cur.scan) { if (all) { E.cur.scan = true; E.cur.thinkEnd = 0; clearTimeout(E.thinkT); } else return; } // hamma javob bersa — o'ylash tugaydi
+    if (!E.sec) return;
+    var ms = all ? 800 : E.sec * 1000;
     if (E.autoEnd && !isNew && !all) return;
     clearTimeout(E.autoT);
     E.autoEnd = Date.now() + ms;
@@ -664,11 +689,13 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
       E.hist.push({ q: q ? plain(q.q) : "Savol " + (E.qi + 1), corr: corr, ans: Object.assign({}, c.ans), bc: Object.assign({}, c.bc) });
       awardJ(c.ans, corr);
     }
-    E.qi++; E.ph = "q"; E.cur = newCur();
+    E.qi++; E.ph = "q"; E.cur = newCur(); thinkStart();
   }
   function engCmd(m) {
     if (!E || !m) return;
     var c = m.c;
+    if (c === "scan") return thinkEnd();
+    if (c === "more") { if (E.ph === "q" && !E.cur.scan) { E.cur.thinkEnd = Math.max(E.cur.thinkEnd || Date.now(), Date.now()) + 30000; thinkStart(); changed(); } return; }
     if (c !== "cor" && c !== "zax" && c !== "unzax" && c !== "ign" && c !== "clr") autoStop();
     if (c === "rev" && E.ph === "q") E.ph = "rev";
     else if (c === "back" && E.ph === "rev") E.ph = "q";
@@ -706,14 +733,15 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     return { type: "st", ph: E.ph, qi: E.qi, qn: E.man ? 0 : E.qs.length, man: E.man, n: E.n, names: E.roster.slice(0, E.n).map(shortName), z: E.z,
       a: E.cur.ans, bc: E.cur.bc, unk: E.cur.unk, corr: E.man ? E.cur.corr : (E.ph === "rev" ? corrNow() : null), qt: q ? plain(q.q).slice(0, 300) : "",
       lb: E.ph === "rev" ? leaderboard() : null,
-      left: E.autoEnd ? Math.max(0, E.autoEnd - Date.now()) : -1, sec: E.sec };
+      left: E.autoEnd ? Math.max(0, E.autoEnd - Date.now()) : -1, sec: E.sec,
+      scan: !!E.cur.scan, think: E.cur.scan ? -1 : (E.cur.thinkEnd ? Math.max(0, E.cur.thinkEnd - Date.now()) : 0) };
   }
   // Har o'zgarishda sessiya qurilmaga yoziladi: tok o'chsa yoki sahifa yopilsa — keyin davom ettiriladi
   var LS_S = "ka.kartalar.sessiya.v1";
   function saveSess() {
     if (!E) return;
     try { localStorage.setItem(LS_S, JSON.stringify({ v: 1, at: Date.now(), where: E.where, rkey: E.rkey, rname: E.rname, roster: E.roster, n: E.n, man: E.man, qs: E.qs, qi: E.qi, ph: E.ph,
-      cur: E.cur, hist: E.hist, ball: E.ball, ignore: E.ignore, prompted: E.prompted, sec: E.sec, topic: E.topic, t0: E.t0, code: E.api ? E.api.code : (E.code || "") })); } catch (e) {}
+      cur: E.cur, hist: E.hist, ball: E.ball, ignore: E.ignore, prompted: E.prompted, sec: E.sec, think: E.think, topic: E.topic, t0: E.t0, code: E.api ? E.api.code : (E.code || "") })); } catch (e) {}
   }
   function clearSess() { try { localStorage.removeItem(LS_S); } catch (e) {} }
   function renderResume() {
@@ -731,10 +759,11 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
   function resumeSess(S, finish) {
     E = { where: S.where, rkey: S.rkey, rname: S.rname, roster: S.roster, n: S.n, z: zdata(S.rkey), man: S.man, qs: S.qs || [], qi: S.qi | 0, ph: S.ph === "rev" ? "rev" : "q",
       cur: S.cur || newCur(), hist: S.hist || [], ball: S.ball || 1, ignore: S.ignore || {}, prompted: S.prompted || {}, scan: {}, api: null, t0: S.t0 || Date.now(), topic: S.topic || "",
-      sec: S.sec | 0, autoEnd: 0, autoT: 0, code: S.code || "" };
+      sec: S.sec | 0, think: S.think == null ? 60 : S.think | 0, thinkT: 0, autoEnd: 0, autoT: 0, code: S.code || "" };
     $("#resumeBox").hidden = true;
     if (finish || (!E.man && E.qi >= E.qs.length)) { if (Object.keys(E.cur.ans).length) finishQ(); return endSession(); }
     show("vSess"); keepAwake(true);
+    if (E.ph === "q") thinkStart();
     if (E.where === "proj") hostRoom(); else camUI();
     changed();
     toast("▶ Test davom etmoqda — javoblar saqlangan");
@@ -752,9 +781,9 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     var r = curRoster(), m = $("#goMsg");
     if (!r) { m.className = "msg err"; m.textContent = "Avval 2-bo'limda guruhni ulang"; return; }
     var base = { where: where, rkey: cfg.rkey, rname: r.name, roster: r.list.slice(0, MAXK), n: Math.min(r.list.length, MAXK), z: zdata(cfg.rkey),
-      man: cfg.qmode !== "mav", qs: [], qi: 0, ph: "q", cur: newCur(), hist: [], ball: cfg.ball, sec: cfg.sec | 0, autoEnd: 0, autoT: 0, ignore: {}, prompted: {}, scan: {}, api: null, t0: Date.now(), topic: "" };
+      man: cfg.qmode !== "mav", qs: [], qi: 0, ph: "q", cur: newCur(), hist: [], ball: cfg.ball, sec: cfg.sec | 0, think: cfg.think | 0, thinkT: 0, autoEnd: 0, autoT: 0, ignore: {}, prompted: {}, scan: {}, api: null, t0: Date.now(), topic: "" };
     var go = function () {
-      E = base; show("vSess"); keepAwake(true);
+      E = base; show("vSess"); keepAwake(true); thinkStart();
       if (where === "proj") hostRoom(); else camUI();
       changed();
     };
@@ -909,7 +938,8 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     // tugmalar
     var last = v.qn && v.qi + 1 >= v.qn;
     $("#sCtl").innerHTML = (rev ? '<button type="button" class="btn" data-c="back">↩ Yana skanerlash</button><button type="button" class="btn primary big" data-c="next">' + (last ? "🏁 Yakunlash" : "Keyingi savol ▶") + "</button>"
-      : '<button type="button" class="btn primary big" data-c="rev">👁 Javobni ochish</button>') +
+      : (v.scan === false ? '<button type="button" class="btn primary big" data-c="scan">📷 Skanerlash (vaqtni tugatish)</button>' + (v.think > 0 ? '<button type="button" class="btn" data-c="more">+30 s</button>' : "") : "") +
+        '<button type="button" class="btn' + (v.scan === false ? "" : " primary big") + '" data-c="rev">👁 Javobni ochish</button>') +
       '<button type="button" class="btn" data-c="end">🏁 Testni tugatish</button>';
     $$("#sCtl [data-c]").forEach(function (b) { b.onclick = function () { var c = b.getAttribute("data-c"); if (c === "end" && !confirm("Test tugatilsinmi?")) return; send({ c: c }); }; });
   }
@@ -919,8 +949,18 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
     return card <= v.n && !(z.lost && z.lost[card - 1]) ? card - 1 : -1;
   }
   var tEnd = 0, tTick = 0;
+  function mmss(ms) { var t = Math.ceil(ms / 1000); return Math.floor(t / 60) + ":" + ("0" + t % 60).slice(-2); }
   function timerShow(v) {
     var p = $("#sTime");
+    if (v && v.ph === "q" && v.scan === false) { // o'ylash bosqichi
+      clearInterval(tTick); tTick = 0; p.hidden = false;
+      if (!(v.think > 0)) { p.textContent = "🧠 O'ylash vaqti — tayyor bo'lsa «Skanerlash»"; return; }
+      tEnd = Date.now() + v.think;
+      p.textContent = "🧠 " + mmss(v.think);
+      tTick = setInterval(function () { var l = tEnd - Date.now(); if (l <= 0) { clearInterval(tTick); tTick = 0; $("#sTime").textContent = "📷 Kartalarni ko'taring!"; return; } $("#sTime").textContent = "🧠 " + mmss(l); }, 250);
+      return;
+    }
+    if (v && v.ph === "q" && tTick && !(v.left >= 0)) { clearInterval(tTick); tTick = 0; }
     tEnd = v && v.ph === "q" && v.left >= 0 ? Date.now() + v.left : 0;
     if (!tEnd) { p.hidden = !(v && v.ph === "q" && v.sec); p.textContent = v && v.sec ? "⏱ " + v.sec + " s — karta kutilmoqda" : ""; clearInterval(tTick); tTick = 0; return; }
     p.hidden = false;
