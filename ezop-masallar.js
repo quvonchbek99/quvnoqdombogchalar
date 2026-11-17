@@ -1343,5 +1343,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u donni bir kunda yeb tugatib, kelgusi uchun zaxira qoldirmagan edi", "Chunki don juda sho'r va yeb bo'lmaydigan edi", "Chunki birinchi tovuq uning ulushini olib ketgan edi"],
     javob: 0,
     izoh: "Ikkinchi tovuq kelgusini o'ylamay, bor donni bir kunda yedi va zaxira qoldirmadi. Ehtiyotkorlik ehtiyojning kelajakda ham qondirilishini ta'minlaydi."
+  },
+  {
+    id: "ez-166", mavzu: "mas'uliyat", sarlavha: "Kalxat va ertaga",
+    matn: "Kalxat yomg'ir yog'ishidan oldin uya qurishi kerakligini bilar edi. Ammo u har kuni: \"Ertaga boshlayman, bugun charchadim\", deb dam olaverdi. Bir kuni tong otganda osmon qorong'ilashib, qattiq yomg'ir quyib yubordi.",
+    savol: "Kalxat nima uchun yomg'irda uyasiz qoldi?",
+    variantlar: ["Chunki yomg'ir uni topishga qaror qilgan edi", "Chunki u uyani kechiktirib, yomg'irdan oldin qurmagan edi", "Chunki boshqa qushlar uning uyasini buzib ketgan edi"],
+    javob: 1,
+    izoh: "Kalxat muhim ishni ertaga qoldirdi va yomg'ir kelguncha tayyor bo'lmadi. Ishni o'z vaqtida bajarish imkoniyatni saqlab qoladi."
   }
 ];
