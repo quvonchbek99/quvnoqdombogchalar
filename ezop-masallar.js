@@ -1317,6 +1317,16 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yordam uchun egar va dizginni qabul qilib, ovchiga bo'ysunishga rozi bo'lgan edi", "Chunki kiyik uni o'ldirib, boshqa yaylovga olib ketgan edi", "Chunki u dasht bo'ylab yugurishni yoqtirmas edi"],
     javob: 0,
     izoh: "Ot dushmanni yengish uchun begonadan yordam so'radi va buning narxini oldindan o'ylamadi. Qiyin paytda yordam olishdan oldin, uning oqibatini ham hisobga olish kerak."
+  },
+  {
+    id: "ez-163",
+    mavzu: "hamkorlik",
+    sarlavha: "Xachir va eshak",
+    matn: "Bir yo'lda eshak va xachir birga yuk ortilgan holda ketishardi. Eshak og'irlikdan charchab, xachirdan yukining bir qismini olib qo'yishni so'radi. Xachir esa \"Mening yukim o'zimga o'zi yetadi\" deb rad etdi va yo'lida davom etaverdi. Oxiri eshak yo'l o'rtasida holsizlanib yiqildi, egasi esa uning butun yukini xachirga ortdi.",
+    savol: "Xachir nima uchun oxir-oqibat eshakning yukini ham ko'tarishga majbur bo'ldi?",
+    variantlar: ["Chunki xo'jayin xachirni yukdan ozod qilishni buyurgan edi", "Chunki eshak yo'l o'rtasida yiqilib, uning yuki xachirga ortilgan edi", "Chunki xachir o'zi xohlagan yukni tanlab olgan edi"],
+    javob: 1,
+    izoh: "Xachir yordam berishdan bosh tortgani uchun eshak yiqildi va yuk to'liq unga o'tdi. Yordamni vaqtida berish ko'pincha o'zimiz uchun ham qulay bo'ladi."
   }
 ];
 
