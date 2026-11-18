@@ -1367,5 +1367,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u asalarilar uchib ketguncha kutib, ehtiyotkorlik bilan ish qildi", "Chunki u asalarilardan qo'rqmas edi", "Chunki uya ichida asal yo'q edi"],
     javob: 0,
     izoh: "Ikkinchi bola vaziyatni kuzatib, eng xavfsiz vaqtni tanladi. Shoshmay sabr bilan ish qilish ko'p hollarda maqsadga tezroq va xavfsizroq olib boradi."
+  },
+  {
+    id: "ez-169", mavzu: "himoya", sarlavha: "Kirpi va ilon",
+    matn: "Yo'lda kirpi o'z ishi bilan ketayotgan edi. Shu payt ilon uning yoniga sudralib kelib, tishlamoqchi bo'ldi. Kirpi qochib qutulishga ulgurmasligini sezib, darhol tanasini tugib, tikanlarini hammasini tashqariga qaratdi va yumaloq shar bo'lib qoldi. Ilon tishlamoqchi bo'lib yaqinlashganda, o'tkir tikanlar uning og'ziga va yuziga sanchildi. Og'riqdan chetga tortilgan ilon, boshqa yo'lni izlab, sudralib ketdi.",
+    savol: "Kirpi ilonning hujumidan nima uchun omon qoldi?",
+    variantlar: ["Chunki u tikanli sharga aylanib, ilonning tishlashi uchun xavfli bo'lib qoldi", "Chunki ilon juda kuchsiz va ochko'z edi", "Chunki kirpi tez yugurib, ilondan uzoqlashib ketdi"],
+    javob: 0,
+    izoh: "Kirpi o'zini himoya qilish uchun eng kuchli qurolini ishga soldi. Kuchsiz ko'rinsa ham, vaziyatga mos to'g'ri usul bilan o'zini himoya qilish mumkin."
   }
 ];
