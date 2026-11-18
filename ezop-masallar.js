@@ -1359,5 +1359,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki mushukning so'zi bilan ko'zlari ko'rsatayotgan niyat bir-biriga mos kelmadi", "Chunki chumchuq uchishni bilmas edi", "Chunki mushuk unga ovqat olib kelmoqchi edi"],
     javob: 0,
     izoh: "Mushuk tishlari qarib qolganini aytsa-da, uning ko'zlari hali ham ovchilik niyatini bildirardi. So'z bilan xulq mos kelmasa, ehtiyotkorlik bilan ehtiyot bo'lish to'g'ri."
+  },
+  {
+    id: "ez-168", mavzu: "sabr", sarlavha: "Ikki bola va asalari uyasi",
+    matn: "Ikki bola daraxt shoxida osilgan asalari uyasini ko'rib qoldi. Birinchisi shoxni yulqib silkitdi va tezda qo'lini hamda yuzini chaqib oldi. Ikkinchisi esa uyaga yaqinlashmay, asalarilar ertalab gulzorga uchib ketguncha kutdi. Ular uchib ketgach, u ehtiyotkorlik bilan uyadan bir parcha asal olib, tezda orqaga qaytdi.",
+    savol: "Nima uchun ikkinchi bola asal olib, chaqilmadi?",
+    variantlar: ["Chunki u asalarilar uchib ketguncha kutib, ehtiyotkorlik bilan ish qildi", "Chunki u asalarilardan qo'rqmas edi", "Chunki uya ichida asal yo'q edi"],
+    javob: 0,
+    izoh: "Ikkinchi bola vaziyatni kuzatib, eng xavfsiz vaqtni tanladi. Shoshmay sabr bilan ish qilish ko'p hollarda maqsadga tezroq va xavfsizroq olib boradi."
   }
 ];
