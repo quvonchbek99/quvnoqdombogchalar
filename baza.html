@@ -27,6 +27,13 @@ button.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .tp:hover{border-color:var(--acc);transform:translateY(-2px)}
 .tp b{display:block;margin-bottom:4px}
 .tp small{color:var(--mut)}
+.tp img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:8px;margin-bottom:6px}
+.info{display:flex;gap:16px;align-items:flex-start;margin-bottom:14px}
+.info img{width:220px;max-width:40%;border:1px solid var(--line);border-radius:10px;background:#fff}
+.info ul{margin:0;padding-left:20px;line-height:1.55}
+.info li{margin-bottom:8px}
+.info h2{margin:0 0 8px;font-size:1.15rem}
+@media(max-width:700px){.info{flex-direction:column}.info img{max-width:100%;width:260px;align-self:center}}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
 .lvl{margin:18px 0 8px;font-weight:700;border-bottom:2px solid var(--ink);padding-bottom:3px}
 ol.q{columns:2;column-gap:28px;padding-left:24px;margin:0}
@@ -41,6 +48,9 @@ ol.q.one{columns:1}
 @media(max-width:700px){ol.q{columns:1}}
 @media print{
   header,.bar,.noprint{display:none!important}
+  body:not(.pinfo) #info{display:none!important}
+  #info{break-after:page}
+  .info img{width:200px}
   body{background:#fff}
   main{padding:0;max-width:none}
   .panel{border:0;padding:0}
@@ -77,9 +87,11 @@ ol.q.one{columns:1}
         </select>
         <button class="sec" onclick="render()">🔀 Yangi aralashtirish</button>
       </span>
+      <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="pinf" onchange="document.body.classList.toggle('pinfo',this.checked)"> Ma'lumotni ham chop etish</label>
       <button onclick="window.print()">🖨 Chop etish</button>
     </div>
-    <p class="note noprint">Savollar yozma ish uchun — javoblari berilmagan. Har variantda namuna yechim bor. Chop etish oq-qora printerga moslangan.</p>
+    <p class="note noprint">Avval mavzu bo'yicha qisqacha ma'lumot va rasm, keyin savollar. Savollar yozma ish uchun — javoblari berilmagan. Har variantda namuna yechim bor. Chop etish oq-qora printerga moslangan.</p>
+    <div id="info" class="panel info"></div>
     <div id="sheet" class="panel"></div>
   </section>
 </main>
@@ -94,8 +106,8 @@ function math(el){ if(window.renderMathInElement) renderMathInElement(el,{delimi
 fetch('baza/index.json').then(r=>r.json()).then(d=>{IDX=d; list(); const h=location.hash.slice(1); if(h) open_(h.split('/')[0], h.split('/')[1]);});
 function list(){
   const q=document.getElementById('search').value.toLowerCase();
-  document.getElementById('topics').innerHTML = IDX.filter(t=>t.title.toLowerCase().includes(q)).map(t=>
-    `<div class="tp" onclick="open_('${t.id}')"><b>${esc(t.title)}</b><small>60 variant · 2400 savol</small></div>`).join('');
+  document.getElementById('topics').innerHTML = IDX.filter(t=>(t.title+' '+(t.info||[]).join(' ')).toLowerCase().includes(q)).map(t=>
+    `<div class="tp" onclick="open_('${t.id}')"><img loading="lazy" src="${t.img}" alt=""><b>${esc(t.title)}</b><small>60 variant · 2400 savol</small></div>`).join('');
 }
 document.getElementById('search').oninput = list;
 
@@ -104,6 +116,7 @@ async function open_(id, v){
   document.getElementById('sheet').innerHTML = '<p>Yuklanmoqda…</p>';
   document.getElementById('list').classList.add('hidden');
   document.getElementById('view').classList.remove('hidden');
+  document.getElementById('info').innerHTML = `<img src="${t.img}" alt="${esc(t.title)} rasmi"><div><h2>📌 ${esc(t.title)} — qisqacha ma'lumot</h2><ul>${(t.info||[]).map(x=>'<li>'+x+'</li>').join('')}</ul></div>`;
   CUR = await (await fetch('baza/'+id+'.json')).json();
   document.getElementById('vsel').innerHTML = CUR.v.map((_,i)=>`<option value="${i}">Variant ${i+1}</option>`).join('');
   if(v) document.getElementById('vsel').value = (+v-1);
