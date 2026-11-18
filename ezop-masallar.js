@@ -1351,5 +1351,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki yomg'ir uni topishga qaror qilgan edi", "Chunki u uyani kechiktirib, yomg'irdan oldin qurmagan edi", "Chunki boshqa qushlar uning uyasini buzib ketgan edi"],
     javob: 1,
     izoh: "Kalxat muhim ishni ertaga qoldirdi va yomg'ir kelguncha tayyor bo'lmadi. Ishni o'z vaqtida bajarish imkoniyatni saqlab qoladi."
+  },
+  {
+    id: "ez-167", mavzu: "ishonch", sarlavha: "Mushuk va chumchuq",
+    matn: "Mushuk ko'p yillar davomida sichqonlarni tutib yurgan, endi esa tishlari qariganini bahona qilardi. Bir kuni u shoxda o'tirgan chumchuqqa mehribonlik bilan dedi: \"Men endi ovchilik qilmayman, tishlarimni tashlaganman. Yaqinroq kel, do'st bo'lib suhbatlashaylik.\" Chumchuq uning so'zlariga quloq solmadi va uzoqroq shoxga o'tib oldi. Mushukning ko'zlari esa hali ham o'tkir va ochko'z edi.",
+    savol: "Chumchuq nima uchun mushukka yaqinlashmadi?",
+    variantlar: ["Chunki mushukning so'zi bilan ko'zlari ko'rsatayotgan niyat bir-biriga mos kelmadi", "Chunki chumchuq uchishni bilmas edi", "Chunki mushuk unga ovqat olib kelmoqchi edi"],
+    javob: 0,
+    izoh: "Mushuk tishlari qarib qolganini aytsa-da, uning ko'zlari hali ham ovchilik niyatini bildirardi. So'z bilan xulq mos kelmasa, ehtiyotkorlik bilan ehtiyot bo'lish to'g'ri."
   }
 ];
