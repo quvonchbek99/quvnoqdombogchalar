@@ -1399,5 +1399,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yerni ekmasdan, faqat yomg'ir yog'ishini kutdi", "Chunki yomg'ir juda ko'p yog'di", "Chunki qo'shnilari unga urug' bermadi"],
     javob: 0,
     izoh: "Yomg'ir ekin o'sishiga yordam beradi, lekin urug'ni o'zi ekib bermaydi. Natijaga erishish uchun kerakli ishni o'zimiz boshlashimiz shart."
+  },
+  {
+    id: "ez-173", mavzu: "ehtiyotkorlik", sarlavha: "Echki va bo'ri",
+    matn: "Ochko'z bo'ri bir kuni echkining izidan kelib, uni tutmoqchi bo'ldi. Echki esa tezda baland tom ustiga chiqib olgan edi. Bo'ri pastda turib: \"Tushsang, seni yeyman\", dedi. Echki esa tom ustidan javob berdi: \"Men bu yerda xavfsizman, sen esa tomga chiqa olmaysan.\"",
+    savol: "Echki nima uchun bo'ridan qutulib qoldi?",
+    variantlar: ["Chunki u bo'ri bilan do'st bo'lib qolgan edi", "Chunki u bo'riga yetib bo'lmaydigan balandlikda turardi", "Chunki bo'ri ochlikdan kasal bo'lib qolgan edi"],
+    javob: 1,
+    izoh: "Echki bo'ri yetib bora olmaydigan joyga chiqib, o'zini xavfdan uzoqda saqladi. Ba'zan xavfdan tezda uzoqlashish eng oddiy va eng ishonchli himoya bo'ladi."
   }
 ];
