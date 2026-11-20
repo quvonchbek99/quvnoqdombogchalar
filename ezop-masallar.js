@@ -1455,5 +1455,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["U o'zini o'likka solib, nafasini tutdi", "U daraxtga chiqib yashirindi", "U ayiq bilan do'stlashib oldi"],
     javob: 0,
     izoh: "Ikkinchi do'st qochishga ulgurmagach, o'zini o'likka solib, nafasini tutdi va ayiq uni o'lik deb o'yladi. Bu hikoya ibrat uchun aytilgan; haqiqatda ayiqqa duch kelganda tavsiya etilgan xatti-harakatlar boshqacha."
+  },
+  {
+    id: "ez-180", mavzu: "ahloq", sarlavha: "Burgut va tulki",
+    matn: "Burgut va tulki bir daraxtda qo'shni bo'lib yashardi, bir-biriga qasam ichib, bolalarini tinch yashashga o'rgatdi. Bir kuni burgut ovga chiqib, bolalariga ovqat topa olmadi. Ochlikka chiday olmagan burgut tulkining bolalari yotgan uyaga bostirib kirib, ularni olib ketdi. Tulki qaytib kelib, qasamni eslatganda, burgut ochlikni bahona qilib, uzr so'ramadi.",
+    savol: "Burgut tulkining bolalarini nega olib ketdi?",
+    variantlar: ["Chunki u ochligini bahona qilib, qasamini buzdi", "Chunki tulki unga qarzini qaytarmagan edi", "Chunki u tulkining bolalarini o'z bolalaridek sevardi"],
+    javob: 0,
+    izoh: "Burgut ochlikni bahona qilib, qasamini buzdi. Masal shuni ko'rsatadiki, qiyin paytda ham va'daga sodiq qolish kerak; bahona topish yomonlikni oqlamaydi."
   }
 ];
