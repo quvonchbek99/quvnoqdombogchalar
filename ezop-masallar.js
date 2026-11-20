@@ -1463,5 +1463,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ochligini bahona qilib, qasamini buzdi", "Chunki tulki unga qarzini qaytarmagan edi", "Chunki u tulkining bolalarini o'z bolalaridek sevardi"],
     javob: 0,
     izoh: "Burgut ochlikni bahona qilib, qasamini buzdi. Masal shuni ko'rsatadiki, qiyin paytda ham va'daga sodiq qolish kerak; bahona topish yomonlikni oqlamaydi."
+  },
+  {
+    id: "ez-181", mavzu: "ehtiyotkorlik", sarlavha: "Kaptarning saboqi",
+    matn: "Bir kaptar har kuni don izlab, bog'ning bir xil yo'lidan uchib o'tardi. Bir kuni u yo'lda yerga yashirilgan to'r va uning ustiga sochilgan donni ko'rdi. Yaqinroq borganda to'rning chetida bir kaptar qanotlari ilinib qolib, qiynalib turganini ko'rdi. Kaptar uzoqdan turib, o'sha yo'ldan emas, boshqa, uzunroq yo'ldan uchishga qaror qildi. Ertasi kuni u shu yo'l bilan don topib, xavfdan omon qoldi.",
+    savol: "Kaptar nega ertasi kuni boshqa yo'ldan uchdi?",
+    variantlar: ["Chunki boshqa yo'l donga boyroq edi", "Chunki u ko'rgan xavfdan saboq olib, yo'lini o'zgartirdi", "Chunki u o'sha yo'lda uchishdan charchagan edi"],
+    javob: 1,
+    izoh: "Kaptar o'z ko'zi bilan ko'rgan xavfdan saboq oldi va xavfli joydan uzoqroq yurishni tanladi. Masal shuni o'rgatadiki, boshqalarning boshiga tushgan xavfdan ham ibrat olib, ehtiyot bo'lish kerak."
   }
 ];
