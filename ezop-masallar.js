@@ -1439,5 +1439,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u suruvdan ajralib, himoyasiz qolgan edi", "Chunki u juda semiz va sekin yurardi", "Chunki cho'pon uni chaqirmagan edi"],
     javob: 0,
     izoh: "Qo'y suruvdan ajralgach, cho'pon va boshqa qo'ylarning himoyasidan chiqib qoldi. Jamoadan uzoqlashish xavfli bo'lishi mumkin; birga yurish ko'pincha xavfsizroq."
+  },
+  {
+    id: "ez-178", mavzu: "idrok", sarlavha: "Quyon va qurbaqalar",
+    matn: "Quyon doim qo'rqardi va hech kimdan xotirjam bo'lmasdi. Bir kuni u ko'l bo'yida o'tirganda, qirg'oqdagi qurbaqalar uni ko'rib, sakrab suvga sho'ng'ib ketishdi. Quyon hayron bo'lib, \"Demak, mendan ham qo'rqadigan mavjudotlar bor ekan\" deb o'yladi.",
+    savol: "Qurbaqalar qochgach, quyon nimani tushundi?",
+    variantlar: ["O'zini eng qo'rqoq deb o'ylashi noto'g'ri ekanini", "Qurbaqalar bilan do'st bo'lish kerakligini", "Ko'lda suzishni o'rganishi kerakligini"],
+    javob: 0,
+    izoh: "Quyon o'zini hammadan qo'rqoq deb bilar edi, lekin qurbaqalar undan qochdi. Shundan u har bir mavjudot kimdir uchun xavfli, kimdir uchun esa qo'rqinchli bo'lishi mumkinligini tushundi."
   }
 ];
