@@ -1,0 +1,64 @@
+# Kuvi serveri — Cloudflare Worker «kuvi-ovoz» (Kuvi'ning miyasi /chat, ovoz /tts /stt /gstt).
+# tools/kuvi-ovoz-worker.js o'zgarganda o'zi Cloudflare'ga joylanadi.
+#
+# Bir marta sozlash (repo → Settings → Secrets and variables → Actions → New repository secret):
+#   CLOUDFLARE_API_TOKEN  — dash.cloudflare.com → My Profile → API Tokens → Create Token → «Edit Cloudflare Workers» shabloni
+#   CLOUDFLARE_ACCOUNT_ID — dash.cloudflare.com → Workers & Pages bosh sahifasi, o'ng tomondagi «Account ID»
+# AI kalitlari (GROQ_KEY, DEEPSEEK_KEY, AZ_KEY …) GitHub'ga QO'YILMAYDI: ular Cloudflare'da Worker'ning o'zida (Secret)
+# turadi va joylashda o'chmaydi; --keep-vars dashboard'dagi oddiy o'zgaruvchilarni (AZ_REGION) ham saqlaydi.
+# Secrets qo'yilmagan bo'lsa — faqat sintaksis tekshiriladi, Worker'ga tegilmaydi.
+name: Kuvi serveri
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/kuvi-ovoz-worker.js"
+      - ".github/workflows/kuvi-server.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kuvi-server
+  cancel-in-progress: false
+
+jobs:
+  joyla:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sintaksis tekshiruvi
+        run: cp tools/kuvi-ovoz-worker.js /tmp/kuvi.mjs && node --check /tmp/kuvi.mjs
+
+      - name: Cloudflare kalitlari bormi?
+        id: k
+        env:
+          T: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          A: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$T" ] && [ -n "$A" ]; then
+            echo "bor=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::CLOUDFLARE_API_TOKEN yoki CLOUDFLARE_ACCOUNT_ID qo'yilmagan — Worker'ni qo'lda yangilang (kuvi-ai/README.md, 3-bo'lim)."
+          fi
+
+      - name: Cloudflare'ga joylash
+        if: steps.k.outputs.bor == '1'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy tools/kuvi-ovoz-worker.js --name kuvi-ovoz --compatibility-date 2026-11-01 --keep-vars
+
+      - name: Server javob beryaptimi (/ping)
+        if: steps.k.outputs.bor == '1'
+        run: |
+          for i in 1 2 3 4 5; do
+            if curl -fsS https://kuvi-ovoz.quvonchmash12.workers.dev/ping -o /tmp/p.json && grep -q '"fikr":true' /tmp/p.json; then cat /tmp/p.json; exit 0; fi
+            sleep 6
+          done
+          echo "::warning::Worker joylandi, lekin /ping yangi versiyani ko'rsatmadi"; cat /tmp/p.json || true

@@ -6,6 +6,9 @@
  *   POST /stt  — o'quvchi ovozini (WAV, 16 kHz) matnga aylantiradi (o'zbek/ingliz/rus)
  *   POST /chat — Kuvi'ning «miyasi»: bir nechta provayder (pastda «Miyalar»). Kaliti qo'shilganlari ishlaydi,
  *                biri band yoki limiti tugasa — keyingisiga o'tadi. Chuqur fikrlash eng kuchlisidan boshlanadi.
+ *                {"fikr": true} — «Fikrlash» qismi: model qanday o'ylagani ham oqimda keladi (delta.reasoning yoki
+ *                delta.reasoning_content) — Kuvi AI sahifasi uni «Kuvi qanday fikrladi» bo'limida ko'rsatadi.
+ *                Ikkala sayt ishlatadi: kuvonch.uz (Kuvi AI, AI ustoz) va texnikum1son.uz (Kuvi AI yordamchisi).
  *   POST /gstt — o'quvchi ovozini Groq Whisper bilan matnga aylantiradi (bepul: kuniga ~8 soat ovoz);
  *                &auto=1 — tilni o'zi aniqlaydi (ingliz/rus rejimida o'quvchi o'zbekcha ham gapiradi)
  *   GET  /ping — server ishlayaptimi
@@ -26,8 +29,13 @@
  *        Model nomini almashtirish (ixtiyoriy, vergul bilan): CLAUDE_MODEL, OPENAI_MODEL, DEEPSEEK_MODEL, GEMINI_MODEL, OR_MODELS
  *   3) Worker manzilini (https://kuvi-ovoz.<...>.workers.dev) sayt sozlamasiga yozamiz.
  * Azure'da «Free F0» tarifini tanlang: oyiga 500 000 belgi bepul, limitdan oshsa pul yechilmaydi — shunchaki to'xtaydi.
+ *
+ * Avtomatik joylash: .github/workflows/kuvi-server.yml — repo Secrets'da CLOUDFLARE_API_TOKEN va CLOUDFLARE_ACCOUNT_ID
+ * bo'lsa, shu fayl o'zgarganda Worker o'zi yangilanadi (kalitlar va AZ_REGION o'chmaydi: --keep-vars).
  */
-const ORIGINS = ["https://kuvonch.uz", "https://www.kuvonch.uz", "https://quvonchbek99.github.io", "http://localhost:8765"];
+const VER = "2026-11-21"; // /ping da ko'rinadi — sayt server yangilanganini shundan biladi
+const ORIGINS = ["https://kuvonch.uz", "https://www.kuvonch.uz", "https://quvonchbek99.github.io", "http://localhost:8765",
+  "https://texnikum1son.uz", "https://www.texnikum1son.uz"];
 const VOICES = {
   "uz-f": "uz-UZ-MadinaNeural", "uz-m": "uz-UZ-SardorNeural",
   "en-f": "en-US-JennyNeural", "en-m": "en-US-GuyNeural",
@@ -55,7 +63,7 @@ const ROUTES = {
   deep: [
     ["claude", "CLAUDE_MODEL", ["claude-sonnet-5-5"]],
     ["openai", "OPENAI_MODEL", ["gpt-5-mini"]],
-    ["deepseek", "DEEPSEEK_MODEL", ["deepseek-v4-pro", "deepseek-reasoner", "deepseek-chat"]],
+    ["deepseek", "DEEPSEEK_MODEL", ["deepseek-v4-pro", "deepseek-flash"]], // 2026-noyabr: V4 Pro va V4.1 Flash (eski nomlar o'chirilgan)
     ["gemini", "GEMINI_MODEL", ["gemini-2.5-flash"]],
     ["orouter", "OR_MODELS", ["deepseek/deepseek-v4-flash:free", "deepseek/deepseek-r1-0528:free", "deepseek/deepseek-chat-v3.1:free"]],
     ["groq", "", G_DEEP]
@@ -77,7 +85,7 @@ export default {
     const cors = { "Access-Control-Allow-Origin": ok ? origin : ORIGINS[0], "Access-Control-Allow-Methods": "POST, GET, OPTIONS", "Access-Control-Allow-Headers": "Content-Type", "Access-Control-Max-Age": "86400", "Vary": "Origin" };
     if (req.method === "OPTIONS") return new Response(null, { headers: cors });
     const url = new URL(req.url);
-    if (url.pathname === "/ping") return json({ ok: true, region: env.AZ_REGION || "", key: !!env.AZ_KEY, groq: !!env.GROQ_KEY, brains: provs(env) }, 200, cors);
+    if (url.pathname === "/ping") return json({ ok: true, v: VER, fikr: true, region: env.AZ_REGION || "", key: !!env.AZ_KEY, groq: !!env.GROQ_KEY, brains: provs(env) }, 200, cors);
     if (!ok) return json({ error: "ruxsat yo'q" }, 403, cors);
     const ip = req.headers.get("CF-Connecting-IP") || "?", now = Date.now(), h = hits.get(ip) || { t: now, n: 0 };
     if (now - h.t > WINDOW) { h.t = now; h.n = 0; }
@@ -139,7 +147,8 @@ async function chat(req, env, cors) {
   if (!msgs.some(m => m.role === "user")) return json({ error: "xabar yo'q" }, 400, cors);
   const deep = !!b.deep, stream = b.stream !== false;
   // effort: low | medium | high — sayt so'ragan fikrlash kuchi; max — javob (o'ylash bilan birga) uchun token chegarasi
-  const o = { deep, stream, effort: ["low", "medium", "high"].includes(b.effort) ? b.effort : deep ? "medium" : "low", maxT: Math.max(300, Math.min(8000, +b.max || (deep ? 4000 : 1000))) };
+  // fikr: true — model qanday o'ylagani ham qaytadi («Fikrlash» qismi); bo'lmasa o'ylash matni yashirin qoladi
+  const o = { deep, stream, fikr: !!b.fikr, effort: ["low", "medium", "high"].includes(b.effort) ? b.effort : deep ? "medium" : "low", maxT: Math.max(300, Math.min(8000, +b.max || (deep ? 4000 : 1000))) };
   let route = deep ? ROUTES.deep : ROUTES.fast;
   // sinov uchun: faqat ro'yxatdagi modelni tanlash mumkin (masalan {"model":"groq/moonshotai/kimi-k2-instruct-0905"})
   if (b.model && typeof b.model === "string") {
@@ -152,23 +161,28 @@ async function chat(req, env, cors) {
   const h = Object.assign({ "X-Kuvi-Model": res.tag, "Access-Control-Expose-Headers": "X-Kuvi-Model" }, cors);
   if (stream) return new Response(res.r.body, { headers: Object.assign({ "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-store" }, h) });
   const j = await res.r.json().catch(() => ({}));
-  return json({ text: ((((j.choices || [])[0] || {}).message || {}).content || "").trim(), model: res.tag }, 200, h);
+  const msg = (((j.choices || [])[0] || {}).message || {});
+  const out = { text: String(msg.content || "").trim(), model: res.tag };
+  if (o.fikr) out.fikr = String(msg.reasoning || msg.reasoning_content || "").trim();
+  return json(out, 200, h);
 }
 // har bir miyaning o'z sozlamalari (parametr nomlari biroz farq qiladi)
 function bodyFor(p, model, msgs, o) {
   const b = { model, messages: msgs, stream: o.stream }, mx = o.maxT;
   if (p === "groq") {
     b.temperature = o.deep ? 0.6 : 0.85; b.max_completion_tokens = mx;
-    // gpt-oss o'ylab javob beradi: oddiy suhbatda qisqa o'ylaydi (tez), «tushuntir»da chuqurroq; o'ylash matni javobga qo'shilmaydi
-    if (model.startsWith("openai/gpt-oss")) { b.reasoning_effort = o.effort; b.include_reasoning = false; }
-    else if (model.startsWith("qwen/qwen3")) { b.reasoning_format = "hidden"; b.reasoning_effort = o.deep ? "default" : "none"; b.max_completion_tokens = Math.min(mx, 4000); }
+    // gpt-oss o'ylab javob beradi: oddiy suhbatda qisqa o'ylaydi (tez), «tushuntir»da chuqurroq.
+    // O'ylash matni javobga qo'shilmaydi; fikr=true bo'lsa alohida maydonda (delta.reasoning) keladi
+    if (model.startsWith("openai/gpt-oss")) { b.reasoning_effort = o.effort; b.include_reasoning = o.fikr; }
+    else if (model.startsWith("qwen/qwen3")) { b.reasoning_format = o.fikr && o.deep ? "parsed" : "hidden"; b.reasoning_effort = o.deep ? "default" : "none"; b.max_completion_tokens = Math.min(mx, 4000); }
     else b.max_completion_tokens = Math.min(mx, 2500); // Llama/Kimi o'ylash tokenini sarflamaydi
   } else if (p === "orouter") {
-    b.max_tokens = mx; b.temperature = 0.6; b.reasoning = { effort: o.effort === "high" ? "high" : "medium", exclude: true };
+    b.max_tokens = mx; b.temperature = 0.6; b.reasoning = { effort: o.effort === "high" ? "high" : "medium", exclude: !o.fikr };
   } else if (p === "gemini") {
     b.max_tokens = mx; b.temperature = o.deep ? 0.6 : 0.85; b.reasoning_effort = o.deep ? (o.effort === "high" ? "high" : "medium") : "low";
   } else if (p === "deepseek") {
-    b.max_tokens = Math.min(mx, 8000); if (!/reasoner|pro/.test(model)) b.temperature = 0.6;
+    // V4 doim o'ylaydi (o'ylash matni delta.reasoning_content da keladi); kuchi: low | high | max
+    b.max_tokens = Math.min(mx, 8000); b.reasoning_effort = o.effort === "high" ? "max" : o.effort === "low" ? "low" : "high";
   } else if (p === "claude") {
     b.max_tokens = Math.min(mx, 4000); b.temperature = 0.6;
   } else if (p === "openai") {

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self' https://www.overleaf.com; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Kuvi AI — to'liq matematik AI: formulalar va chuqur fikrlash | Kuvonch Academy</title>
+<meta name="description" content="Kuvi AI — o'zbekcha matematik sun'iy intellekt: misol va masalalarni qadamlab yechadi, formulalarni Overleaf/MathType sifatida yozadi, «Fikrlash» rejimida qanday o'ylaganini ko'rsatadi. LaTeX, Overleaf va Word'ga eksport.">
+<link rel="canonical" href="https://kuvonch.uz/kuvi-ai.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:title" content="Kuvi AI — to'liq matematik AI">
+<meta property="og:description" content="Formulalar bilan qadamlab yechim, chuqur fikrlash va LaTeX/Overleaf/Word eksport.">
+<meta property="og:url" content="https://kuvonch.uz/kuvi-ai.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f4f2ee">
+<link rel="preconnect" href="https://kuvi-ovoz.quvonchmash12.workers.dev" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@600;800&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{--bg:#f4f2ee;--card:#fff;--ink:#1d2230;--mut:#6b7280;--line:#e5e1d8;--g:#16a34a;--g2:#22c55e;--v:#7c3aed;--r:16px}
+@media (prefers-color-scheme:dark){:root{--bg:#12141a;--card:#1b1e27;--ink:#e8e8ea;--mut:#9ca3af;--line:#2b2f3a}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--g)}
+.wrap{max-width:880px;margin:0 auto;padding:12px 14px 0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+header.top{display:flex;align-items:center;gap:12px;padding:6px 0 10px}
+.top .back{font-size:14px;text-decoration:none;color:var(--mut);white-space:nowrap}
+.top .face{width:54px;height:54px;flex:none}
+.top .face svg{width:100%;height:100%}
+.top h1{font:800 22px/1.15 Unbounded,"Golos Text",sans-serif;margin:0;letter-spacing:-.01em}
+.top h1 small{display:block;font:600 13px/1.3 "Golos Text",sans-serif;color:var(--mut);letter-spacing:0;margin-top:3px}
+.agents{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:5px}
+.agents button{font:inherit;border:0;background:transparent;color:var(--ink);border-radius:10px;padding:7px 6px;cursor:pointer;text-align:center;line-height:1.2}
+.agents button b{display:block;font-size:14px}.agents button small{display:block;font-size:11.5px;color:var(--mut)}
+.agents button[aria-selected=true]{background:var(--g2);color:#06240f}.agents button[aria-selected=true] small{color:#0b3a1c}
+.log{flex:1;padding:14px 0 8px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:100%;padding:11px 14px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+.msg.u{align-self:flex-end;max-width:88%;background:#dcfce7;border-color:#bbf7d0;color:#0f2a17}
+@media (prefers-color-scheme:dark){.msg.u{background:#14361f;border-color:#1f4d2c;color:#dcfce7}}
+.msg.k{align-self:stretch}
+.msg.k .who{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--g);margin-bottom:4px}
+.msg.err{border-color:#fca5a5;background:#fff1f2;color:#7f1d1d}
+@media (prefers-color-scheme:dark){.msg.err{background:#3b1418;color:#fecaca;border-color:#7f1d1d}}
+.typing{display:inline-flex;gap:4px;padding:4px 0}.typing i{width:7px;height:7px;border-radius:50%;background:var(--mut);animation:tp 1.1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}@keyframes tp{50%{opacity:.25;transform:translateY(-2px)}}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 2px}
+.chips button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chips button:hover{border-color:var(--g2)}.chips .kv-md p{margin:0;display:inline}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.intro p{margin:.2em 0}.intro .tip{font-size:13px;color:var(--mut)}
+form.in{position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 18%);padding:14px 0 calc(10px + env(safe-area-inset-bottom))}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:8px;box-shadow:0 6px 24px rgba(0,0,0,.06)}
+.box textarea{width:100%;border:0;outline:0;resize:none;background:transparent;color:var(--ink);font:inherit;font-size:16px;padding:6px 8px;min-height:44px;max-height:180px}
+.bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.think{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.think button{font:inherit;font-size:12.5px;border:0;background:transparent;color:var(--ink);padding:6px 9px;cursor:pointer;white-space:nowrap}
+.think button[aria-pressed=true]{background:var(--v);color:#fff}
+.bar .sp{flex:1}
+.send{font:inherit;font-size:18px;font-weight:700;border:0;border-radius:12px;background:var(--g2);color:#06240f;min-width:46px;height:40px;padding:0 12px;cursor:pointer}
+.send[disabled]{opacity:.5;cursor:default}.stop{background:#f87171;color:#3b0a0a}
+.note{font-size:12px;color:var(--mut);text-align:center;margin:6px 0 0}
+.hint{font-size:12px;color:var(--mut);margin:4px 2px 0}
+.tools{display:flex;gap:10px;justify-content:center;font-size:12.5px;margin-top:4px}
+.tools button{font:inherit;border:0;background:none;color:var(--mut);cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="./">← kuvonch.uz</a>
+    <div class="face" id="face" aria-hidden="true"></div>
+    <h1>Kuvi AI <small>To‘liq matematik · formulalar · chuqur fikrlash</small></h1>
+  </header>
+
+  <div class="agents" role="tablist" aria-label="Kuvi rejimi" id="agents"></div>
+
+  <main class="log" id="log" role="log" aria-live="polite"></main>
+
+  <form class="in" id="f" autocomplete="off">
+    <div class="box">
+      <label class="sr" for="ta" style="position:absolute;left:-9999px">Savol</label>
+      <textarea id="ta" rows="1" maxlength="6000" placeholder="Misol, masala yoki formula yozing…"></textarea>
+      <div class="bar">
+        <div class="think" role="group" aria-label="Fikrlash darajasi" id="think">
+          <button type="button" data-l="0" title="Tez javob">⚡ Tez</button>
+          <button type="button" data-l="1" title="Chuqur o'ylaydi va qanday o'ylaganini ko'rsatadi">🧠 Fikrlash</button>
+          <button type="button" data-l="2" title="Eng chuqur: qiyin va olimpiada masalalari uchun">🧠🧠 Chuqur</button>
+        </div>
+        <span class="sp"></span>
+        <button class="send" id="send" type="submit" aria-label="Yuborish" title="Yuborish">➤</button>
+      </div>
+    </div>
+    <p class="hint" id="hint" hidden></p>
+    <div class="tools"><button type="button" id="clear">Suhbatni tozalash</button><a href="ai-ustoz.html">🗣 Ovozli Kuvi</a></div>
+    <p class="note">Formulani bosing — LaTeX nusxalanadi. Kuvi ham xato qilishi mumkin: muhim hisob-kitobni tekshiring.</p>
+  </form>
+</div>
+
+<script src="ka-kuvi.js?v=20261116a"></script>
+<script src="ka-ai.js?v=20261112d"></script>
+<script src="kuvi-ai/agentlar.js?v=20261121a"></script>
+<script src="kuvi-ai/kuvi-ai.js?v=20261121a"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (s) { return document.querySelector(s); };
+  var B = window.KUVI_BILIM, K = window.KuviAI;
+  var log = $("#log"), ta = $("#ta"), send = $("#send"), face = $("#face"), hint = $("#hint");
+  function ls(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || "null"); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+  function esc(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var qs = new URLSearchParams(location.search);
+  var agent = qs.get("rejim") || ls("kuvi-ai.agent") || "javob"; if (!B.agent[agent]) agent = "javob";
+  var level = qs.get("fikr") != null ? +qs.get("fikr") : (ls("kuvi-ai.fikr") == null ? 1 : +ls("kuvi-ai.fikr"));
+  if (!(level >= 0 && level <= 2)) level = 1;
+  var busy = false, ctrl = null, serverFikr = true;
+  function key() { return "kuvi-ai.h." + agent; }
+  function hist() { return ls(key()) || []; }
+  function setFace(m) { if (window.kaYuz) { try { face.innerHTML = kaYuz.svg(m || "neutral", "kuvi"); return; } catch (e) {} } face.innerHTML = '<svg viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="38" rx="19" fill="#22c55e"/><circle cx="24" cy="31" r="4.5" fill="#fff"/><circle cx="40" cy="31" r="4.5" fill="#fff"/><circle cx="25" cy="32" r="2.2" fill="#1d2230"/><circle cx="41" cy="32" r="2.2" fill="#1d2230"/><path d="M25 41q7 5 14 0" stroke="#1d2230" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>'; }
+
+  /* ---- Rejimlar (agentlar) ---- */
+  var ag = $("#agents");
+  ag.innerHTML = Object.keys(B.agent).map(function (k) { var a = B.agent[k]; return '<button type="button" role="tab" data-a="' + k + '"><b>' + a.belgi + " " + esc(a.nom) + "</b><small>" + esc(a.kim) + "</small></button>"; }).join("");
+  ag.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b || busy) return; agent = b.getAttribute("data-a"); ls("kuvi-ai.agent", agent); chiz(); ta.focus(); });
+  /* ---- Fikrlash darajasi ---- */
+  var th = $("#think");
+  function thSet() { Array.prototype.forEach.call(th.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", +b.getAttribute("data-l") === level ? "true" : "false"); }); }
+  th.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; level = +b.getAttribute("data-l"); ls("kuvi-ai.fikr", level); thSet(); hintSet(); });
+  function hintSet() {
+    if (level > 0 && !serverFikr) { hint.hidden = false; hint.textContent = "Kuvi chuqur o‘ylaydi, lekin fikrlash jarayoni server yangilangach ko‘rinadi."; }
+    else hint.hidden = true;
+  }
+
+  /* ---- Suhbatni chizish ---- */
+  function kuviBubble(extra) {
+    var d = document.createElement("div"); d.className = "msg k" + (extra ? " " + extra : "");
+    d.innerHTML = '<div class="who">Kuvi</div><div class="fk"></div><div class="ans"></div>';
+    log.appendChild(d); return d;
+  }
+  function chiz() {
+    Array.prototype.forEach.call(ag.querySelectorAll("button"), function (b) { b.setAttribute("aria-selected", b.getAttribute("data-a") === agent ? "true" : "false"); });
+    var a = B.agent[agent], H = hist();
+    log.innerHTML = "";
+    var intro = document.createElement("div"); intro.className = "intro";
+    intro.innerHTML = '<p class="hi"></p><div class="chips"></div><p class="tip">🧠 «Fikrlash» yoqilsa Kuvi qiyin masalani puxta o‘ylaydi va qanday fikrlaganini ko‘rsatadi. Javobni Word, .tex yoki Overleaf’ga o‘tkazish mumkin.</p>';
+    K.chiz(intro.querySelector(".hi"), a.salom);
+    var ch = intro.querySelector(".chips");
+    a.tez.forEach(function (t) { var b = document.createElement("button"); b.type = "button"; var sp = document.createElement("span"); b.appendChild(sp); K.chiz(sp, t); b.addEventListener("click", function () { yubor(t); }); ch.appendChild(b); });
+    log.appendChild(intro);
+    H.forEach(function (x) {
+      if (x.r === "u") { userBubble(x.t); return; }
+      var d = kuviBubble();
+      if (x.fikr) { var p = K.fikrPanel(d.querySelector(".fk")); p.tugadi(x.fikr); p.el.querySelector("summary").textContent = "Kuvi qanday fikrladi"; }
+      K.chiz(d.querySelector(".ans"), x.t); K.amallar(d, x.t, { sarlavha: "" }); modelTeg(d, x.model, x.ms);
+    });
+    setFace(H.length ? (H[H.length - 1].m || "neutral") : "happy");
+    scrollEnd();
+  }
+  function userBubble(t) { var u = document.createElement("div"); u.className = "msg u"; log.appendChild(u); K.chiz(u, t); return u; }
+  function modelTeg(d, m, ms) { if (!m && !ms) return; var s = document.createElement("div"); s.className = "kv-model"; s.textContent = (m ? "miya: " + m : "") + (ms ? " · " + Math.round(ms / 1000) + " s" : ""); d.appendChild(s); }
+  function scrollEnd() { window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }
+
+  /* ---- Yuborish ---- */
+  function yubor(t) {
+    t = String(t || "").trim();
+    if (!t || busy) return;
+    var H = hist(); H.push({ r: "u", t: t }); ls(key(), H.slice(-30));
+    userBubble(t);
+    ta.value = ""; ta.style.height = "auto";
+    var d = kuviBubble(), ans = d.querySelector(".ans"), lv = level;
+    ans.innerHTML = '<span class="typing"><i></i><i></i><i></i></span>';
+    var panel = lv > 0 ? K.fikrPanel(d.querySelector(".fk")) : null;
+    setFace("think"); busy = true; send.textContent = "■"; send.setAttribute("aria-label", "To‘xtatish"); send.classList.add("stop"); scrollEnd();
+    ctrl = window.AbortController ? new AbortController() : null;
+    var tizim = K.tizim(B, { agent: agent, fikrlash: lv > 0, teg: true });
+    var xabarlar = H.slice(-13, -1).map(function (x) { return { role: x.r === "u" ? "user" : "assistant", content: x.t }; });
+    xabarlar.push({ role: "user", content: t });
+    var oxirgi = "", mood = "";
+    K.sora({
+      tizim: tizim, xabarlar: xabarlar, fikrlash: lv, signal: ctrl && ctrl.signal,
+      onFikr: function (f) { if (panel) panel.yangila(f); },
+      onJavob: function (j) { var x = K.teg(j); if (x.mood && x.mood !== mood) { mood = x.mood; setFace(mood); } oxirgi = x.t; if (panel && x.t) panel.yigil(); K.chiz(ans, x.t || " "); }
+    }).then(function (r) {
+      var x = K.teg(r.javob); if (!x.t.trim()) throw new Error("bo‘sh javob keldi");
+      return { t: x.t.trim(), m: x.mood || mood, fikr: r.fikr, model: r.model, ms: r.ms };
+    })["catch"](function (e) {
+      if (e && e.name === "AbortError") return { t: (oxirgi || "") + "\n\n_(to‘xtatildi)_", m: "neutral", stop: 1 };
+      // zaxira: Gemini (Firebase, App Check) — server band yoki ochiq bo'lmasa
+      if (window.kaAI && kaAI.text) {
+        var tarix = xabarlar.slice(0, -1).map(function (x) { return (x.role === "user" ? "Foydalanuvchi" : "Kuvi") + ": " + x.content; }).join("\n\n");
+        var t0 = Date.now();
+        return kaAI.text((tarix ? "Oldingi suhbat:\n" + tarix + "\n\n" : "") + "Yangi xabar: " + t, tizim).then(function (j) {
+          var x = K.teg(j); return { t: x.t.trim(), m: x.mood, model: "gemini (zaxira)", ms: Date.now() - t0 };
+        }, function () { throw e; });
+      }
+      throw e;
+    }).then(function (r) {
+      if (panel) panel.tugadi(r.fikr || "");
+      K.chiz(ans, r.t); K.amallar(d, r.t, { sarlavha: "" }); modelTeg(d, r.model, r.ms);
+      var H2 = hist(); H2.push({ r: "k", t: r.t, m: r.m, fikr: r.fikr || "", model: r.model || "", ms: r.ms || 0 }); ls(key(), H2.slice(-30));
+      setFace(r.m || "happy");
+    }, function (e) {
+      if (panel) panel.tugadi(""); d.classList.add("err");
+      ans.textContent = "Kuvi hozir javob bera olmadi: " + ((e && e.message) || e) + ". Birozdan keyin qayta urinib ko‘ring.";
+      setFace("sad"); try { console.warn("[Kuvi AI]", e); } catch (x) {}
+    }).then(function () { busy = false; ctrl = null; send.textContent = "➤"; send.setAttribute("aria-label", "Yuborish"); send.classList.remove("stop"); scrollEnd(); });
+  }
+  $("#f").addEventListener("submit", function (e) { e.preventDefault(); if (busy) { if (ctrl) ctrl.abort(); return; } yubor(ta.value); });
+  ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey && !e.isComposing && window.matchMedia("(pointer:fine)").matches) { e.preventDefault(); $("#f").requestSubmit ? $("#f").requestSubmit() : yubor(ta.value); } });
+  ta.addEventListener("input", function () { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 180) + "px"; });
+  $("#clear").addEventListener("click", function () { if (busy) return; ls(key(), []); chiz(); });
+
+  thSet(); chiz(); K.katex()["catch"](function () {});
+  if (qs.get("q")) yubor(qs.get("q"));
+  // server yangilanganmi (fikrlash jarayoni ko'rinadimi) — bilib qo'yamiz
+  K.ping().then(function (p) { serverFikr = !!(p && p.fikr); hintSet(); }, function () {});
+})();
+</script>
+<script async src="statistika.js"></script>
+<script src="akkount.js"></script>
+</body>
+</html>
