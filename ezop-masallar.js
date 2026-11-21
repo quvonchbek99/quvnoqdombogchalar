@@ -1479,5 +1479,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki chivin uni katta kuch bilan urdi", "Chunki u chivinni e'tiborsiz qoldirib, g'azabida o'zini urdi", "Chunki u uzoq yo'l yurgan edi"],
     javob: 1,
     izoh: "Sher kichik dushmanni hisobga olmadi va g'azabiga berilib, kuchini behuda sarfladi. Masal shuni o'rgatadiki, hech qanday dushmanni, hatto eng kichigini ham, e'tiborsiz qoldirmaslik va o'zini nazorat qilish kerak."
+  },
+  {
+    id: "ez-183", mavzu: "qanoat", sarlavha: "Lochin va bulbul",
+    matn: "Lochin tutib olgan bulbul uning changalida titrab, yalinib dedi: \"Meni qo'yib yubor, men sen uchun atigi bir necha tishlamgina go'shtman. Uzoqdagi daraxtlarda yanada katta o'ljalar bor, ularni tutgin.\" Lochin kulib javob berdi: \"Qo'limda turgan narsani qo'yib, sen aytgan noma'lum o'ljalar ortidan ketsam, ikkisini ham yo'qotaman.\" Shunday deb u bulbulni mahkam ushlab qoldi.",
+    savol: "Lochin nega bulbulni qo'yib yubormadi?",
+    variantlar: ["Chunki bulbul juda katta qush edi", "Chunki qo'lidagi aniq o'ljani qo'yib, noaniq foyda ortidan ketmaslikni tanladi", "Chunki u qo'shiq eshitishni yaxshi ko'rardi"],
+    javob: 1,
+    izoh: "Lochin qo'lidagi aniq o'ljadan voz kechmadi, chunki noaniq va'dalar uchun haqiqiy foydani qo'ldan chiqarish oqilona emas. Masal shuni o'rgatadiki, qo'lingdagi narsani qadrlash va uni noaniq umidlarga almashtirmaslik kerak."
   }
 ];
