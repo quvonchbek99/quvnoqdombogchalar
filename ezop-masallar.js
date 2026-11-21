@@ -1487,5 +1487,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki bulbul juda katta qush edi", "Chunki qo'lidagi aniq o'ljani qo'yib, noaniq foyda ortidan ketmaslikni tanladi", "Chunki u qo'shiq eshitishni yaxshi ko'rardi"],
     javob: 1,
     izoh: "Lochin qo'lidagi aniq o'ljadan voz kechmadi, chunki noaniq va'dalar uchun haqiqiy foydani qo'ldan chiqarish oqilona emas. Masal shuni o'rgatadiki, qo'lingdagi narsani qadrlash va uni noaniq umidlarga almashtirmaslik kerak."
+  },
+  {
+    id: "ez-184", mavzu: "ahloq", sarlavha: "Bo'ri va chol",
+    matn: "Ochlikdan qiynalgan bo'ri qo'ylar podasiga yaqinlashib, cho'ponga do'stona gapirdi. U qo'ylarni qo'riqlashda yordam berishni va hech kimga zarar yetkazmaslikka va'da berdi. Cho'pon bo'rining ko'zidagi ochlikni va uning avvalgi qilmishlarini eslab, taklifni rad etdi. Shunda bo'ri xafa bo'lib, o'z yo'lidan ketdi.",
+    savol: "Cho'pon nega bo'rining taklifini rad etdi?",
+    variantlar: ["Chunki bo'rining tabiati o'zgarmasligini u yaxshi bilardi", "Chunki bo'ri qo'ylarni qo'riqlashni juda yaxshi bilardi", "Chunki qo'ylar allaqachon uyga qaytib bo'lgan edi"],
+    javob: 0,
+    izoh: "Cho'pon bo'rining so'zlariga emas, uning avvalgi xatti-harakatlari va tabiatiga qaradi. Masal shuni o'rgatadiki, odamni so'zidan emas, amalidan va o'tmishidan baholash kerak."
   }
 ];
