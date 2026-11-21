@@ -1503,5 +1503,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki sayyoh unga oldin zarar yetkazgan edi", "Chunki ilon o'zining zaharli tabiatiga sodiq qoldi", "Chunki sayyoh uni ovqatlantirmagan edi"],
     javob: 1,
     izoh: "Ilon zaharli tabiatini o'zgartira olmagan. Masal shuni o'rgatadiki, yaxshilik qilganda ham xavfli tabiatli kishidan ehtiyot bo'lish kerak."
+  },
+  {
+    id: "ez-186", mavzu: "kamtarlik", sarlavha: "Eshak va haykal",
+    matn: "Bir dehqon eshakka muqaddas haykalni yuklab, ibodatxonaga olib bordi. Yo'lda odamlar haykal oldida tiz cho'kib, ta'zim qilishardi. Eshak buni o'ziga qaratilgan hurmat deb o'ylab, mag'rurlanib bosh ko'tardi. Shunda xo'jayini uni kaltaklab: \"Sen emas, sen ko'tarib borayotgan haykal hurmatga loyiq\", dedi.",
+    savol: "Eshak nimani tushunmadi?",
+    variantlar: ["Hurmat uning ustidagi haykalga qaratilganini", "Odamlar uning go'zalligini yaxshi ko'rishini", "Yo'l uzoq bo'lib, charchab ketishini"],
+    javob: 0,
+    izoh: "Eshak hurmatni o'ziga tegishli deb xato tushundi. Masal shuni o'rgatadiki, boshqalarning obro'si ularning o'z vazifasi yoki martabasi uchun beriladi, bizga tegishli emas."
   }
 ];
