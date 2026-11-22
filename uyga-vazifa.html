@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Uyga vazifalar va mustaqil ishlar — topshirish | Kuvonch Academy</title>
+<meta name="description" content="Uyga vazifalarni ko'rish va topshirish, mustaqil ishlarni yuborish: istalgan fayl (rasm, PDF, Word, video). O'qituvchi topshiriqlarni ko'radi, qabul qiladi va baholaydi.">
+<link rel="canonical" href="https://kuvonch.uz/uyga-vazifa.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kuvonch Academy">
+<meta property="og:title" content="Uyga vazifalar va mustaqil ishlar — Kuvonch Academy">
+<meta property="og:description" content="Vazifani ko'ring, faylni yuboring — o'qituvchi tekshirib, baho qo'yadi.">
+<meta property="og:url" content="https://kuvonch.uz/uyga-vazifa.html">
+<meta property="og:image" content="https://kuvonch.uz/og-image.jpg">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f4f2ee">
+<link rel="preconnect" href="https://script.google.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@600;800&display=swap">
+<style>
+:root{--bg:#f4f2ee;--card:#fff;--ink:#1d2230;--mut:#6b7280;--line:#e5e1d8;--g:#15803d;--g2:#22c55e;--b:#2563eb;--r:#dc2626;--y:#b45309;--rad:16px}
+@media (prefers-color-scheme:dark){:root{--bg:#12141a;--card:#1b1e27;--ink:#e8e8ea;--mut:#9ca3af;--line:#2b2f3a}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--b)}
+.wrap{max-width:880px;margin:0 auto;padding:12px 14px 40px}
+header.top{display:flex;align-items:center;gap:12px;padding:6px 0 12px}
+.top .back{font-size:14px;text-decoration:none;color:var(--mut);white-space:nowrap}
+.top h1{font:800 21px/1.2 Unbounded,"Golos Text",sans-serif;margin:0}
+.top h1 small{display:block;font:600 13px/1.35 "Golos Text",sans-serif;color:var(--mut);margin-top:3px}
+.tabs{display:flex;gap:6px;overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:5px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{font:inherit;font-size:14px;font-weight:600;border:0;background:transparent;color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected=true]{background:var(--g2);color:#06240f}
+section{margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px;margin:0 0 12px}
+.card h2,.card h3{margin:0 0 8px;font-size:17px}
+label.f{display:block;font-size:14px;font-weight:600;margin:10px 0 4px}
+.inp,select,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+textarea{min-height:88px;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}.row>*{flex:1 1 160px}
+.btn{font:inherit;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 16px;cursor:pointer;min-height:44px}
+a.btn{text-decoration:none;display:inline-flex;align-items:center}
+.btn.p{background:var(--g2);border-color:var(--g2);color:#06240f}.btn.k{font-size:13px;padding:6px 10px;min-height:34px}
+.btn[disabled]{opacity:.55;cursor:default}
+.mut{color:var(--mut);font-size:14px}.err{color:var(--r);font-weight:600;font-size:14px;min-height:1.2em}.okm{color:var(--g);font-weight:700}
+.vz{border-left:4px solid var(--g2)}
+.vz .meta{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:13px;color:var(--mut);margin:2px 0 8px}
+.chip{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;background:#e5e7eb;color:#374151}
+.chip.yangi{background:#dbeafe;color:#1e40af}.chip.qabul{background:#dcfce7;color:#166534}.chip.qaytarildi{background:#fee2e2;color:#991b1b}.chip.kech{background:#fef3c7;color:#92400e}.chip.muddat{background:#ede9fe;color:#5b21b6}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:14px;text-align:center;background:var(--bg);transition:.15s}
+.drop.on{border-color:var(--g2);background:rgba(34,197,94,.08)}
+.drop .bb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.fl{list-style:none;margin:10px 0 0;padding:0;text-align:left}
+.fl li{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);border-radius:10px;margin:5px 0;background:var(--card);font-size:14px}
+.fl li .n{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fl li .bar{height:4px;border-radius:2px;background:var(--g2);width:0;transition:width .2s}
+.fl li .bw{flex:0 0 70px;background:var(--line);border-radius:2px;overflow:hidden}
+.fl li button{border:0;background:none;cursor:pointer;font-size:16px;color:var(--mut)}
+.ts{border-left:4px solid #93c5fd}.ts.qabul{border-left-color:var(--g2)}.ts.qaytarildi{border-left-color:#f87171}
+.ts .fz a{display:inline-block;margin:3px 8px 3px 0;font-size:14px}
+.acts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.acts select{width:auto;padding:6px 8px;font-size:14px}.acts .inp{flex:1 1 180px;padding:7px 10px;font-size:14px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.kpw{position:relative}.kpw .inp{padding-right:46px}.kpw button{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:20px;cursor:pointer;padding:8px}
+.empty{text-align:center;color:var(--mut);padding:22px 10px}
+.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f;border-radius:14px;padding:12px 14px;font-size:14px}
+@media (prefers-color-scheme:dark){.note{background:#2a2310;border-color:#4d3d10;color:#fde68a}}
+.matn{margin:6px 0}.matn p{margin:.3em 0}
+.sr{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="./">← kuvonch.uz</a>
+    <h1>📚 Uyga vazifalar <small>Vazifani ko‘ring, faylni yuboring — o‘qituvchi tekshirib baho qo‘yadi</small></h1>
+  </header>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button type="button" role="tab" data-t="vazifa">📚 Vazifalar</button>
+    <button type="button" role="tab" data-t="mustaqil">📤 Mustaqil ish</button>
+    <button type="button" role="tab" data-t="mening">🗂 Mening topshiriqlarim</button>
+    <button type="button" role="tab" data-t="oqituvchi">👩‍🏫 O‘qituvchi</button>
+  </nav>
+
+  <div class="note" id="sozNote" hidden style="margin-top:14px"></div>
+
+  <section data-s="vazifa" hidden>
+    <div class="card">
+      <label class="f" for="gSel" style="margin-top:0">Guruhingiz</label>
+      <div class="row"><select id="gSel"><option value="">⏳ Yuklanmoqda…</option></select></div>
+    </div>
+    <div id="vList"></div>
+  </section>
+
+  <section data-s="mustaqil" hidden>
+    <form class="card" id="mForm" autocomplete="off">
+      <h2>📤 Mustaqil ish yuborish</h2>
+      <p class="mut" style="margin:0 0 6px">Istalgan fayl: rasm, PDF, Word, Excel, PowerPoint, video, arxiv… Bir nechta fayl ham bo‘ladi.</p>
+      <div class="row">
+        <div><label class="f" for="mGuruh">Guruh</label><input class="inp" id="mGuruh" list="gList" maxlength="30" placeholder="masalan, 05-25" required></div>
+        <div><label class="f" for="mIsm">Ism va familiya</label><input class="inp" id="mIsm" maxlength="60" autocomplete="name" placeholder="Ism Familiya" required></div>
+      </div>
+      <div class="row">
+        <div><label class="f" for="mFan">Fan</label><input class="inp" id="mFan" maxlength="80" placeholder="Matematika"></div>
+        <div><label class="f" for="mMavzu">Mavzu</label><input class="inp" id="mMavzu" maxlength="140" placeholder="Mustaqil ish mavzusi" required></div>
+      </div>
+      <label class="f">Fayllar</label>
+      <div id="mDrop"></div>
+      <label class="f" for="mIzoh">Izoh (ixtiyoriy)</label>
+      <textarea id="mIzoh" maxlength="2000" placeholder="O‘qituvchiga xabar…"></textarea>
+      <div class="err" id="mErr"></div>
+      <button class="btn p" type="submit" id="mGo">📤 Yuborish</button>
+    </form>
+  </section>
+
+  <section data-s="mening" hidden>
+    <div class="tools"><button type="button" class="btn k" id="meYangila">🔄 Holatni yangilash</button></div>
+    <div id="meList"></div>
+  </section>
+
+  <section data-s="oqituvchi" hidden>
+    <div id="oqKirish"></div>
+    <div id="oqPanel" hidden>
+      <div class="tools">
+        <a class="btn k" id="oqJadval" target="_blank" rel="noopener">📊 Jadval (Sheets)</a>
+        <a class="btn k" id="oqPapka" target="_blank" rel="noopener">📁 Drive papkasi</a>
+        <button type="button" class="btn k" id="oqYangila">🔄 Yangilash</button>
+        <button type="button" class="btn k" id="oqChiq">Chiqish</button>
+      </div>
+      <details class="card" id="vzBox">
+        <summary style="cursor:pointer;font-weight:700">➕ Yangi uyga vazifa berish</summary>
+        <form id="vzForm" autocomplete="off">
+          <input type="hidden" id="vzId">
+          <div class="row">
+            <div><label class="f" for="vzGuruh">Guruh(lar)</label><input class="inp" id="vzGuruh" list="gList" maxlength="120" placeholder="05-25, 06-25" required></div>
+            <div><label class="f" for="vzFan">Fan</label><input class="inp" id="vzFan" maxlength="80" placeholder="Matematika"></div>
+          </div>
+          <label class="f" for="vzSar">Vazifa nomi</label>
+          <input class="inp" id="vzSar" maxlength="140" placeholder="Kvadrat tenglamalar: 12–20-misollar" required>
+          <label class="f" for="vzMatn">Vazifa matni <span class="mut">(formulalar: $x^2-5x+6=0$)</span></label>
+          <textarea id="vzMatn" maxlength="8000" placeholder="Nima qilish kerak, qanday topshirish…"></textarea>
+          <div class="row">
+            <div><label class="f" for="vzMuddat">Muddat</label><input class="inp" id="vzMuddat" type="datetime-local"></div>
+            <div><label class="f" for="vzOq">O‘qituvchi</label><input class="inp" id="vzOq" maxlength="80" placeholder="Ism Familiya"></div>
+          </div>
+          <label class="f">Ilova (ixtiyoriy: topshiriq fayli, rasm, PDF)</label>
+          <div id="vzDrop"></div>
+          <div class="err" id="vzErr"></div>
+          <div class="row" style="margin-top:6px"><button class="btn p" type="submit" id="vzGo">💾 Vazifani saqlash</button><button class="btn" type="button" id="vzBekor" hidden>Bekor qilish</button></div>
+        </form>
+      </details>
+      <div class="card">
+        <h3>Topshiriqlar <span class="chip yangi" id="oqYangi"></span></h3>
+        <div class="row">
+          <select id="fGuruh" aria-label="Guruh"></select>
+          <select id="fVazifa" aria-label="Vazifa"></select>
+          <select id="fHolat" aria-label="Holat"><option value="">Hammasi</option><option value="yuborildi">🆕 Tekshirilmagan</option><option value="qabul">✅ Qabul qilingan</option><option value="qaytarildi">↩ Qaytarilgan</option></select>
+          <input class="inp" id="fQidir" type="search" placeholder="🔎 Ism bo‘yicha" aria-label="Ism bo'yicha qidirish">
+        </div>
+      </div>
+      <div id="tsList"></div>
+      <div class="card"><h3>Vazifalar</h3><div id="vzList"></div></div>
+    </div>
+  </section>
+
+  <datalist id="gList"></datalist>
+  <p class="mut" style="text-align:center;margin-top:22px">Fayllar o‘qituvchining Google Drive’iga yuklanadi va faqat u ko‘ra oladi.</p>
+</div>
+
+<script src="kuvi-ai/kuvi-ai.js?v=20261121a"></script>
+<script>
+(function () {
+  "use strict";
+  /* Apps Script «Web app URL» (…/exec) — apps-script/uyga-vazifa.gs joylangach shu yerga yoziladi */
+  var VZ_API = "";
+  var KICHIK = 20 * 1024 * 1024, MAX = 500 * 1024 * 1024, MAX_SONI = 20;
+  var LS = { api: "ka.vz.api", tok: "ka.vz.tok", ism: "ka.vz.ism", guruh: "ka.vz.guruh", mening: "ka.vz.mening", oq: "ka.vz.oq" };
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  function ls(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || "null"); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+  function esc(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function hajm(n) { n = +n || 0; return n > 1048576 ? (n / 1048576).toFixed(1).replace(".", ",") + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
+  function sana(s) { if (!s) return ""; var d = new Date(s); if (isNaN(d)) return String(s); return d.toLocaleDateString("uz-UZ", { day: "2-digit", month: "2-digit", year: "numeric" }) + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2); }
+  function chizMatn(el, t) { if (window.KuviAI) KuviAI.chiz(el, t || ""); else el.textContent = t || ""; }
+
+  // server manzili: kod ichidagi, yoki ?api=… / o'qituvchi shu qurilmada kiritgan
+  (function () { var q = new URLSearchParams(location.search).get("api"); if (q && /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(q)) ls(LS.api, q); })();
+  function apiUrl() { return VZ_API || ls(LS.api) || ""; }
+  function api(amal, data) {
+    var u = apiUrl();
+    if (!u) return Promise.reject(new Error("Server hali ulanmagan"));
+    return fetch(u, { method: "POST", body: JSON.stringify(Object.assign({ amal: amal }, data || {})) })
+      .then(function (r) { return r.text(); }, function () { throw new Error("Internetga ulanib bo‘lmadi — qayta urinib ko‘ring"); })
+      .then(function (t) {
+        var j; try { j = JSON.parse(t); } catch (e) { throw new Error("Server javobi tushunarsiz — birozdan keyin urinib ko‘ring"); }
+        if (!j.ok) { var er = new Error(j.xato === "KIRISH" ? "O‘qituvchi paneliga qaytadan kiring" : j.xato || "Xatolik"); er.kirish = j.xato === "KIRISH"; throw er; }
+        return j;
+      });
+  }
+
+  /* ---------- Fayl tanlash va yuklash ---------- */
+  function b64(blob) {
+    return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(String(r.result).split(",")[1] || ""); }; r.onerror = function () { rej(new Error("Faylni o‘qib bo‘lmadi")); }; r.readAsDataURL(blob); });
+  }
+  // meta: {tur, guruh, ism, vazifa, token}
+  function yuklaFayl(f, meta, prog) {
+    var asos = Object.assign({}, meta, { nom: f.name || "fayl", mime: f.type || "application/octet-stream" });
+    if (f.size <= KICHIK) return b64(f).then(function (b) { prog(0.5); return api("yukla", Object.assign({}, asos, { b64: b })); }).then(function (j) { prog(1); return j; });
+    return api("boshla", Object.assign({}, asos, { hajm: f.size })).then(function (s) {
+      var bo = s.bolak || 8388608;
+      function navbat(bosh) {
+        return b64(f.slice(bosh, Math.min(f.size, bosh + bo))).then(function (b) { return api("bolak", { sessiya: s.sessiya, bosh: bosh, b64: b }); }).then(function (j) {
+          if (j.tugadi) { prog(1); return j; }
+          prog(j.keyingi / f.size); return navbat(j.keyingi);
+        });
+      }
+      return navbat(0);
+    });
+  }
+  function tanlagich(joy) {
+    var tanlangan = [];
+    joy.innerHTML = '<div class="drop"><div>Faylni shu yerga tashlang yoki tanlang</div><div class="bb">' +
+      '<label class="btn k">📎 Fayl tanlash<input type="file" multiple class="sr"></label>' +
+      '<label class="btn k">📷 Rasmga olish<input type="file" accept="image/*" capture="environment" class="sr"></label></div><ul class="fl"></ul></div>';
+    var d = $(".drop", joy), ul = $(".fl", joy);
+    function chiz() {
+      ul.innerHTML = tanlangan.map(function (x, i) {
+        return '<li><span aria-hidden="true">📄</span><span class="n" title="' + esc(x.f.name) + '">' + esc(x.f.name) + '</span><span class="mut">' + hajm(x.f.size) + '</span><span class="bw"><span class="bar" style="width:' + Math.round((x.p || 0) * 100) + '%"></span></span>' +
+          (x.p ? "" : '<button type="button" data-i="' + i + '" aria-label="Olib tashlash">✕</button>') + "</li>";
+      }).join("");
+    }
+    function qosh(files) {
+      Array.prototype.forEach.call(files || [], function (f) {
+        if (tanlangan.length >= MAX_SONI) return alert("Bir martada " + MAX_SONI + " tagacha fayl yuborish mumkin");
+        if (f.size > MAX) return alert("«" + f.name + "» juda katta (500 MB gacha bo‘lishi kerak)");
+        if (!f.size) return;
+        tanlangan.push({ f: f, p: 0 });
+      });
+      chiz();
+    }
+    Array.prototype.forEach.call(joy.querySelectorAll("input[type=file]"), function (inp) { inp.addEventListener("change", function () { qosh(inp.files); inp.value = ""; }); });
+    ul.addEventListener("click", function (e) { var b = e.target.closest("button[data-i]"); if (b) { tanlangan.splice(+b.getAttribute("data-i"), 1); chiz(); } });
+    ["dragenter", "dragover"].forEach(function (ev) { d.addEventListener(ev, function (e) { e.preventDefault(); d.classList.add("on"); }); });
+    ["dragleave", "drop"].forEach(function (ev) { d.addEventListener(ev, function (e) { e.preventDefault(); d.classList.remove("on"); }); });
+    d.addEventListener("drop", function (e) { qosh(e.dataTransfer && e.dataTransfer.files); });
+    return {
+      soni: function () { return tanlangan.length; },
+      tozala: function () { tanlangan = []; chiz(); },
+      // hammasini navbat bilan yuklaydi -> [{id, nom, hajm}]
+      yukla: function (meta) {
+        var natija = [], i = 0;
+        function keyingi() {
+          if (i >= tanlangan.length) return Promise.resolve(natija);
+          var x = tanlangan[i++];
+          return yuklaFayl(x.f, meta, function (p) { x.p = Math.max(0.03, p); chiz(); }).then(function (j) { natija.push({ id: j.id, nom: j.nom, hajm: j.hajm }); return keyingi(); });
+        }
+        return keyingi();
+      }
+    };
+  }
+
+  /* ---------- Tablar ---------- */
+  var tabs = $("#tabs");
+  function tab(t) {
+    Array.prototype.forEach.call(tabs.querySelectorAll("button"), function (b) { b.setAttribute("aria-selected", b.getAttribute("data-t") === t ? "true" : "false"); });
+    Array.prototype.forEach.call(document.querySelectorAll("section[data-s]"), function (s) { s.hidden = s.getAttribute("data-s") !== t; });
+    if (history.replaceState) history.replaceState(null, "", location.pathname + location.search.replace(/([?&])api=[^&]*/, "$1").replace(/[?&]$/, "") + "#" + t);
+    if (t === "mening") meningChiz(true);
+    if (t === "oqituvchi") oqChiz();
+    if (t === "mustaqil") { if (!$("#mIsm").value) $("#mIsm").value = ls(LS.ism) || akkIsm(); if (!$("#mGuruh").value) $("#mGuruh").value = ls(LS.guruh) || ""; }
+  }
+  tabs.addEventListener("click", function (e) { var b = e.target.closest("button[data-t]"); if (b) tab(b.getAttribute("data-t")); });
+
+  /* ---------- Sozlanmagan bo'lsa ---------- */
+  function sozNote() {
+    var n = $("#sozNote");
+    if (apiUrl()) { n.hidden = true; return; }
+    n.hidden = false;
+    n.innerHTML = "⏳ Bu bo‘lim o‘qituvchi serverni ulagach ishga tushadi. <b>O‘qituvchi</b> bo‘limida ulash yo‘riqnomasi bor.";
+  }
+
+  /* ---------- O'quvchi: vazifalar ---------- */
+  var guruhlar = [];
+  function guruhlarYukla() {
+    var sel = $("#gSel");
+    if (!apiUrl()) { sel.innerHTML = '<option value="">— server ulanmagan —</option>'; $("#vList").innerHTML = ""; return; }
+    api("guruhlar").then(function (j) {
+      guruhlar = j.guruhlar || [];
+      $("#gList").innerHTML = guruhlar.map(function (g) { return '<option value="' + esc(g) + '">'; }).join("");
+      var saq = ls(LS.guruh) || "";
+      sel.innerHTML = '<option value="">— guruhni tanlang —</option>' + guruhlar.map(function (g) { return '<option' + (g === saq ? " selected" : "") + ">" + esc(g) + "</option>"; }).join("");
+      if (saq && guruhlar.indexOf(saq) > -1) vazifalarYukla(saq);
+      else $("#vList").innerHTML = '<div class="empty">Guruhingizni tanlang — o‘sha guruhga berilgan uyga vazifalar chiqadi.</div>';
+    }, function (e) { sel.innerHTML = '<option value="">— xato —</option>'; $("#vList").innerHTML = '<div class="card err">' + esc(e.message) + "</div>"; });
+  }
+  $("#gSel").addEventListener("change", function () { var g = this.value; ls(LS.guruh, g || null); if (g) vazifalarYukla(g); });
+  function meningRoyxat() { return ls(LS.mening) || []; }
+  function vazifalarYukla(g) {
+    var box = $("#vList"); box.innerHTML = '<div class="empty">⏳ Vazifalar yuklanmoqda…</div>';
+    api("vazifalar", { guruh: g }).then(function (j) {
+      var V = j.vazifalar || [], M = meningRoyxat();
+      if (!V.length) { box.innerHTML = '<div class="empty">Hozircha bu guruhga uyga vazifa berilmagan 🎉<br>Mustaqil ishingizni «📤 Mustaqil ish» bo‘limidan yuborishingiz mumkin.</div>'; return; }
+      box.innerHTML = "";
+      V.forEach(function (v) {
+        var c = document.createElement("article"); c.className = "card vz";
+        var muddat = v.muddat ? new Date(v.muddat) : null, otdi = muddat && !isNaN(muddat) && muddat < new Date();
+        var men = M.filter(function (x) { return x.vazifaId === v.id; });
+        c.innerHTML = "<h3>" + esc(v.sarlavha) + '</h3><div class="meta">' + (v.fan ? "<span>📘 " + esc(v.fan) + "</span>" : "") +
+          (muddat ? '<span class="chip ' + (otdi ? "kech" : "muddat") + '">⏰ ' + (otdi ? "muddati o‘tgan: " : "muddat: ") + esc(sana(v.muddat)) + "</span>" : "") +
+          (v.oqituvchi ? "<span>👩‍🏫 " + esc(v.oqituvchi) + "</span>" : "") + (men.length ? '<span class="chip qabul">✅ siz topshirgansiz</span>' : "") + "</div>" +
+          '<div class="matn"></div>' + ((v.ilova || []).length ? '<div class="mut">📎 Ilova: ' + v.ilova.map(function (f) { return '<a href="' + esc(f.url) + '" target="_blank" rel="noopener">' + esc(f.nom) + "</a>"; }).join(", ") + "</div>" : "") +
+          '<div class="acts"><button type="button" class="btn p" data-a="top">📤 ' + (men.length ? "Yana topshirish" : "Topshirish") + '</button></div><div class="tf"></div>';
+        chizMatn($(".matn", c), v.matn);
+        $("[data-a=top]", c).addEventListener("click", function () { this.hidden = true; topshirishForma($(".tf", c), { tur: "uyga", v: v, guruh: g }); });
+        box.appendChild(c);
+      });
+    }, function (e) { box.innerHTML = '<div class="card err">' + esc(e.message) + "</div>"; });
+  }
+  function topshirishForma(joy, o) {
+    joy.innerHTML = '<form autocomplete="off"><label class="f">Ism va familiya</label><input class="inp" maxlength="60" autocomplete="name" placeholder="Ism Familiya" required>' +
+      '<label class="f">Fayllar</label><div class="fz"></div><label class="f">Izoh (ixtiyoriy)</label><textarea maxlength="2000" placeholder="O‘qituvchiga xabar…"></textarea>' +
+      '<div class="err"></div><button class="btn p" type="submit">📤 Yuborish</button></form>';
+    var f = $("form", joy), ism = $("input", f), izoh = $("textarea", f), err = $(".err", f), btn = $("button[type=submit]", f), tl = tanlagich($(".fz", f));
+    ism.value = ls(LS.ism) || akkIsm();
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      yuborish({ tur: o.tur, guruh: o.guruh, ism: ism.value, izoh: izoh.value, vazifaId: o.v.id, vazifa: o.v.sarlavha, tl: tl, err: err, btn: btn }).then(function (r) {
+        if (!r) return;
+        joy.innerHTML = '<p class="okm">✅ Topshirildi! O‘qituvchi tekshirgach natija «🗂 Mening topshiriqlarim»da ko‘rinadi.</p>';
+      });
+    });
+  }
+  function akkIsm() { try { var a = window.kaAccount && kaAccount.me && kaAccount.me(); return (a && a.name) || ""; } catch (e) { return ""; } }
+  // o: {tur, guruh, ism, izoh, vazifaId, vazifa, mavzu, fan, tl, err, btn}
+  function yuborish(o) {
+    var ism = String(o.ism || "").trim().replace(/\s+/g, " ");
+    o.err.textContent = "";
+    if (ism.split(" ").length < 2 || ism.length < 5) { o.err.textContent = "Ism va familiyangizni to‘liq yozing"; return Promise.resolve(null); }
+    if (!o.tl.soni() && !String(o.izoh || "").trim()) { o.err.textContent = "Kamida bitta fayl biriktiring"; return Promise.resolve(null); }
+    o.btn.disabled = true; var eski = o.btn.textContent; o.btn.textContent = "⏳ Yuborilmoqda…";
+    ls(LS.ism, ism);
+    var meta = { tur: o.tur, guruh: o.guruh, ism: ism, vazifa: o.vazifa || o.mavzu || "" };
+    return o.tl.yukla(meta).then(function (fayllar) {
+      return api("topshir", { tur: o.tur, guruh: o.guruh, ism: ism, izoh: o.izoh || "", vazifaId: o.vazifaId || "", mavzu: o.mavzu || "", fan: o.fan || "", fayllar: fayllar });
+    }).then(function (j) {
+      var M = meningRoyxat();
+      M.unshift({ id: j.id, kalit: j.kalit, tur: o.tur, vazifaId: o.vazifaId || "", nom: o.vazifa || o.mavzu || "Mustaqil ish", guruh: o.guruh, vaqt: new Date().toISOString(), holat: "yuborildi" });
+      ls(LS.mening, M.slice(0, 200));
+      return j;
+    })["catch"](function (e) { o.err.textContent = e.message; o.btn.disabled = false; o.btn.textContent = eski; return null; });
+  }
+
+  /* ---------- O'quvchi: mustaqil ish ---------- */
+  var mTl = tanlagich($("#mDrop"));
+  $("#mIsm").value = ls(LS.ism) || akkIsm(); $("#mGuruh").value = ls(LS.guruh) || "";
+  $("#mForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var g = $("#mGuruh").value.trim();
+    if (!g) { $("#mErr").textContent = "Guruhingizni yozing"; return; }
+    if (!$("#mMavzu").value.trim()) { $("#mErr").textContent = "Mavzuni yozing"; return; }
+    ls(LS.guruh, g);
+    yuborish({ tur: "mustaqil", guruh: g, ism: $("#mIsm").value, izoh: $("#mIzoh").value, mavzu: $("#mMavzu").value.trim(), fan: $("#mFan").value.trim(), tl: mTl, err: $("#mErr"), btn: $("#mGo") }).then(function (r) {
+      if (!r) return;
+      mTl.tozala(); $("#mIzoh").value = ""; $("#mMavzu").value = ""; $("#mGo").disabled = false; $("#mGo").textContent = "📤 Yuborish";
+      $("#mErr").innerHTML = '<span class="okm">✅ Yuborildi! Holatini «🗂 Mening topshiriqlarim»da kuzating.</span>';
+    });
+  });
+
+  /* ---------- O'quvchi: mening topshiriqlarim ---------- */
+  var HOLAT = { yuborildi: ["yangi", "⏳ Tekshirilmoqda"], qabul: ["qabul", "✅ Qabul qilindi"], qaytarildi: ["qaytarildi", "↩ Qaytarildi — qayta topshiring"] };
+  function meningChiz(yangila) {
+    var M = meningRoyxat(), box = $("#meList");
+    if (!M.length) { box.innerHTML = '<div class="empty">Siz hali hech narsa topshirmagansiz (shu qurilmadan).</div>'; return; }
+    box.innerHTML = M.map(function (x) {
+      var h = HOLAT[x.holat] || HOLAT.yuborildi;
+      return '<div class="card ts ' + esc(x.holat || "") + '"><b>' + esc(x.nom) + '</b><div class="vz meta mut" style="border:0">' + (x.tur === "mustaqil" ? "📤 Mustaqil ish · " : "📚 Uyga vazifa · ") + esc(x.guruh) + " · " + esc(sana(x.vaqt)) + "</div>" +
+        '<span class="chip ' + h[0] + '">' + h[1] + "</span>" + (x.baho ? ' <span class="chip qabul">Baho: ' + esc(x.baho) + "</span>" : "") + (x.izoh ? '<p style="margin:8px 0 0">💬 ' + esc(x.izoh) + "</p>" : "") + "</div>";
+    }).join("");
+    if (yangila && apiUrl()) {
+      api("holat", { ids: M.map(function (x) { return { id: x.id, kalit: x.kalit }; }) }).then(function (j) {
+        var by = {}; (j.holatlar || []).forEach(function (h) { by[h.id] = h; });
+        var o = false; M.forEach(function (x) { var h = by[x.id]; if (h) { if (x.holat !== h.holat || x.baho !== h.baho || x.izoh !== h.izoh) o = true; x.holat = h.holat; x.baho = h.baho; x.izoh = h.izoh; } });
+        ls(LS.mening, M); if (o) meningChiz(false);
+      }, function () {});
+    }
+  }
+  $("#meYangila").addEventListener("click", function () { meningChiz(true); });
+
+  /* ---------- O'qituvchi ---------- */
+  var vzTl = null, OQ = { T: [], V: [] };
+  function oqChiz() {
+    var tok = ls(LS.tok), k = $("#oqKirish");
+    if (!apiUrl()) {
+      $("#oqPanel").hidden = true;
+      k.innerHTML = '<div class="card"><h2>⚙️ Serverni ulash (bir marta)</h2><ol style="padding-left:20px;margin:6px 0">' +
+        "<li>script.google.com → <b>New project</b> → GitHub’dagi <code>apps-script/uyga-vazifa.gs</code> ni to‘liq joylang → saqlang.</li>" +
+        "<li>⚙ <b>Project Settings → Script Properties</b>: <code>OQITUVCHI_PAROL</code> = o‘zingiz o‘ylagan parol.</li>" +
+        "<li><b>Deploy → New deployment → Web app</b>: Execute as <b>Me</b>, Who has access <b>Anyone</b> → Deploy → ruxsat bering.</li>" +
+        "<li>Chiqqan <b>Web app URL</b> ni shu yerga qo‘ying (shu qurilmada darhol ishlaydi) va hamma uchun yoqish uchun Claude’ga yuboring.</li></ol>" +
+        '<label class="f" for="apiIn">Web app URL</label><div class="row"><input class="inp" id="apiIn" placeholder="https://script.google.com/macros/s/…/exec"><button class="btn p" type="button" id="apiGo">Ulash</button></div><div class="err" id="apiErr"></div></div>';
+      $("#apiGo").onclick = function () {
+        var u = $("#apiIn").value.trim();
+        if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(u)) { $("#apiErr").textContent = "URL …/exec bilan tugashi kerak"; return; }
+        ls(LS.api, u); sozNote(); guruhlarYukla(); oqChiz();
+      };
+      return;
+    }
+    if (!tok) {
+      $("#oqPanel").hidden = true;
+      k.innerHTML = '<form class="card" id="oqF" autocomplete="on"><h2>👩‍🏫 O‘qituvchi paneli</h2><p class="mut" style="margin:0">Topshiriqlarni ko‘rish, qabul qilish va vazifa berish uchun parol bilan kiring.</p>' +
+        '<input type="text" name="username" value="kuvonch-uyga-vazifa" autocomplete="username" hidden>' +
+        '<label class="f" for="oqP">Parol</label><div class="kpw"><input class="inp" id="oqP" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go" required><button type="button" aria-label="Parolni ko‘rsatish">👁</button></div>' +
+        '<div class="err" id="oqErr"></div><button class="btn p" type="submit" id="oqGo">Kirish</button></form>';
+      $(".kpw button", k).onclick = function () { var p = $("#oqP"); p.type = p.type === "password" ? "text" : "password"; this.textContent = p.type === "password" ? "👁" : "🙈"; };
+      $("#oqF").addEventListener("submit", function (e) {
+        e.preventDefault(); var b = $("#oqGo"); b.disabled = true; $("#oqErr").textContent = "";
+        api("kirish", { parol: $("#oqP").value }).then(function (j) { ls(LS.tok, j.token); ls(LS.oq, { jadval: j.jadval, papka: j.papka }); oqChiz(); }, function (er) { $("#oqErr").textContent = er.message; b.disabled = false; });
+      });
+      return;
+    }
+    k.innerHTML = ""; $("#oqPanel").hidden = false;
+    var o = ls(LS.oq) || {}; $("#oqJadval").href = o.jadval || "#"; $("#oqPapka").href = o.papka || "#";
+    if (!vzTl) vzTl = tanlagich($("#vzDrop"));
+    if (!$("#vzOq").value) $("#vzOq").value = ls("ka.vz.oqism") || "";
+    oqYukla();
+  }
+  function oqXato(e) { if (e.kirish) { ls(LS.tok, null); oqChiz(); } else $("#tsList").innerHTML = '<div class="card err">' + esc(e.message) + "</div>"; }
+  function oqYukla() {
+    $("#tsList").innerHTML = '<div class="empty">⏳ Yuklanmoqda…</div>';
+    api("topshiriqlar", { token: ls(LS.tok) }).then(function (j) {
+      OQ.T = j.topshiriqlar || []; OQ.V = j.vazifalar || [];
+      if (j.jadval) { var o = ls(LS.oq) || {}; o.jadval = j.jadval; ls(LS.oq, o); $("#oqJadval").href = j.jadval; }
+      var gs = {}; OQ.T.forEach(function (t) { gs[t.guruh] = 1; }); OQ.V.forEach(function (v) { String(v.guruh).split(/[,;]+/).forEach(function (g) { g = g.trim(); if (g) gs[g] = 1; }); });
+      var fg = $("#fGuruh"), fv = $("#fVazifa"), sg = fg.value, sv = fv.value;
+      fg.innerHTML = '<option value="">Barcha guruhlar</option>' + Object.keys(gs).sort().map(function (g) { return "<option" + (g === sg ? " selected" : "") + ">" + esc(g) + "</option>"; }).join("");
+      fv.innerHTML = '<option value="">Barcha topshiriqlar</option><option value="__mustaqil"' + (sv === "__mustaqil" ? " selected" : "") + '>📤 Mustaqil ishlar</option>' +
+        OQ.V.map(function (v) { return '<option value="' + esc(v.id) + '"' + (v.id === sv ? " selected" : "") + ">📚 " + esc(v.sarlavha) + "</option>"; }).join("");
+      $("#gList").innerHTML = Object.keys(gs).sort().map(function (g) { return '<option value="' + esc(g) + '">'; }).join("");
+      tsChiz(); vzChiz();
+    }, oqXato);
+  }
+  ["#fGuruh", "#fVazifa", "#fHolat"].forEach(function (s) { $(s).addEventListener("change", tsChiz); });
+  $("#fQidir").addEventListener("input", tsChiz);
+  function tsChiz() {
+    var g = $("#fGuruh").value, v = $("#fVazifa").value, h = $("#fHolat").value, q = $("#fQidir").value.trim().toLowerCase();
+    var L = OQ.T.filter(function (t) {
+      return (!g || t.guruh === g) && (!v || (v === "__mustaqil" ? t.tur === "mustaqil" : t.vazifaId === v)) && (!h || t.holat === h) && (!q || String(t.ism).toLowerCase().indexOf(q) > -1);
+    });
+    var yangi = OQ.T.filter(function (t) { return t.holat === "yuborildi"; }).length;
+    $("#oqYangi").textContent = yangi ? yangi + " ta yangi" : "";
+    var box = $("#tsList");
+    if (!L.length) { box.innerHTML = '<div class="empty">Topshiriq yo‘q' + (OQ.T.length ? " (filtrni o‘zgartiring)" : " — o‘quvchilar yuborgach shu yerda chiqadi") + ".</div>"; return; }
+    box.innerHTML = L.map(function (t) {
+      var hh = HOLAT[t.holat] || HOLAT.yuborildi;
+      return '<div class="card ts ' + esc(t.holat) + '" data-id="' + esc(t.id) + '"><b>' + esc(t.ism) + '</b> <span class="mut">· ' + esc(t.guruh) + " · " + esc(sana(t.vaqt)) + "</span>" + (t.kechikdi ? ' <span class="chip kech">kechikkan</span>' : "") +
+        '<div class="mut">' + (t.tur === "mustaqil" ? "📤 Mustaqil ish: " : "📚 ") + esc(t.vazifa) + (t.fan ? " · " + esc(t.fan) : "") + "</div>" +
+        (t.izoh ? '<p style="margin:6px 0">💬 ' + esc(t.izoh) + "</p>" : "") +
+        '<div class="fz">' + (t.fayllar || []).map(function (f) { return '<a href="' + esc(f.url) + '" target="_blank" rel="noopener">📎 ' + esc(f.nom) + " (" + hajm(f.hajm) + ')</a><a href="' + esc(f.yukla) + '" target="_blank" rel="noopener" title="Yuklab olish">⬇</a>'; }).join("") + "</div>" +
+        '<span class="chip ' + hh[0] + '">' + hh[1] + "</span>" + (t.baho ? ' <span class="chip qabul">Baho: ' + esc(t.baho) + "</span>" : "") + (t.oqituvchiIzohi ? ' <span class="mut">💬 ' + esc(t.oqituvchiIzohi) + "</span>" : "") +
+        '<div class="acts"><select aria-label="Baho"><option value="">baho —</option>' + ["5", "4", "3", "2"].map(function (b) { return "<option" + (String(t.baho) === b ? " selected" : "") + ">" + b + "</option>"; }).join("") + "</select>" +
+        '<input class="inp" maxlength="1000" placeholder="Izoh (ixtiyoriy)" value="' + esc(t.oqituvchiIzohi || "") + '">' +
+        '<button type="button" class="btn k p" data-h="qabul">✅ Qabul</button><button type="button" class="btn k" data-h="qaytarildi">↩ Qaytarish</button></div></div>';
+    }).join("");
+  }
+  $("#tsList").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-h]"); if (!b) return;
+    var c = b.closest("[data-id]"), id = c.getAttribute("data-id"), bh = $("select", c).value, iz = $(".acts .inp", c).value, h = b.getAttribute("data-h");
+    if (h === "qaytarildi" && !iz.trim()) { $(".acts .inp", c).focus(); $(".acts .inp", c).placeholder = "Nima uchun qaytaryapsiz? (izoh yozing)"; return; }
+    b.disabled = true;
+    api("baho", { token: ls(LS.tok), id: id, holat: h, baho: bh, izoh: iz }).then(function () {
+      OQ.T.forEach(function (t) { if (t.id === id) { t.holat = h; t.baho = bh; t.oqituvchiIzohi = iz; } }); tsChiz();
+      if (window.KuviAI) KuviAI.toast(h === "qabul" ? "✅ Qabul qilindi" : "↩ Qaytarildi");
+    }, function (er) { b.disabled = false; if (er.kirish) oqXato(er); else alert(er.message); });
+  });
+  function vzChiz() {
+    var box = $("#vzList");
+    if (!OQ.V.length) { box.innerHTML = '<p class="mut">Hali vazifa berilmagan — yuqoridagi «➕ Yangi uyga vazifa berish»ni oching.</p>'; return; }
+    box.innerHTML = OQ.V.map(function (v) {
+      return '<div class="ts card" style="margin:8px 0" data-v="' + esc(v.id) + '"><b>' + esc(v.sarlavha) + '</b> <span class="mut">· ' + esc(v.guruh) + (v.muddat ? " · ⏰ " + esc(sana(v.muddat)) : "") + "</span>" +
+        ' <span class="chip ' + (v.holat === "yopiq" ? "" : "muddat") + '">' + (v.holat === "yopiq" ? "yopiq" : "faol") + '</span> <span class="chip yangi">' + v.soni + " ta topshirdi</span>" +
+        '<div class="acts"><button type="button" class="btn k" data-va="tahrir">✏️ Tahrirlash</button><button type="button" class="btn k" data-va="' + (v.holat === "yopiq" ? "och" : "yop") + '">' + (v.holat === "yopiq" ? "🔓 Qayta ochish" : "🔒 Yopish") + "</button></div></div>";
+    }).join("");
+  }
+  $("#vzList").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-va]"); if (!b) return;
+    var id = b.closest("[data-v]").getAttribute("data-v"), v = OQ.V.filter(function (x) { return x.id === id; })[0], a = b.getAttribute("data-va");
+    if (a === "tahrir") {
+      $("#vzId").value = v.id; $("#vzGuruh").value = v.guruh; $("#vzFan").value = v.fan || ""; $("#vzSar").value = v.sarlavha; $("#vzMatn").value = v.matn || "";
+      $("#vzMuddat").value = mahalliy(v.muddat); $("#vzOq").value = v.oqituvchi || ""; $("#vzBekor").hidden = false; $("#vzGo").textContent = "💾 O‘zgarishni saqlash";
+      $("#vzBox").open = true; $("#vzBox").scrollIntoView({ behavior: "smooth" }); return;
+    }
+    b.disabled = true;
+    api("vazifa_yop", { token: ls(LS.tok), id: id, ochiq: a === "och" }).then(oqYukla, function (er) { b.disabled = false; oqXato(er); });
+  });
+  // datetime-local <-> ISO (soat mintaqasi bilan, masalan 2026-11-25T18:00:00+05:00)
+  function isoTZ(v) { if (!v) return ""; var d = new Date(v); if (isNaN(d)) return ""; var o = -d.getTimezoneOffset(), s = o >= 0 ? "+" : "-"; o = Math.abs(o); return v + (v.length === 16 ? ":00" : "") + s + ("0" + Math.floor(o / 60)).slice(-2) + ":" + ("0" + (o % 60)).slice(-2); }
+  function mahalliy(s) { if (!s) return ""; var d = new Date(s); if (isNaN(d)) return ""; var p = function (n) { return ("0" + n).slice(-2); }; return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + "T" + p(d.getHours()) + ":" + p(d.getMinutes()); }
+  function vzTozala() { $("#vzForm").reset(); $("#vzId").value = ""; $("#vzBekor").hidden = true; $("#vzGo").textContent = "💾 Vazifani saqlash"; if (vzTl) vzTl.tozala(); $("#vzOq").value = ls("ka.vz.oqism") || ""; }
+  $("#vzBekor").addEventListener("click", vzTozala);
+  $("#vzForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var b = $("#vzGo"), err = $("#vzErr"), tok = ls(LS.tok); err.textContent = ""; b.disabled = true;
+    var guruh = $("#vzGuruh").value, eskiV = OQ.V.filter(function (x) { return x.id === $("#vzId").value; })[0];
+    ls("ka.vz.oqism", $("#vzOq").value.trim());
+    vzTl.yukla({ tur: "ilova", guruh: guruh, token: tok }).then(function (ilova) {
+      return api("vazifa_saqla", { token: tok, id: $("#vzId").value, guruh: guruh, fan: $("#vzFan").value, sarlavha: $("#vzSar").value, matn: $("#vzMatn").value,
+        muddat: isoTZ($("#vzMuddat").value), oqituvchi: $("#vzOq").value, ilova: (eskiV ? eskiV.ilova || [] : []).concat(ilova) });
+    }).then(function () {
+      b.disabled = false; vzTozala(); $("#vzBox").open = false; if (window.KuviAI) KuviAI.toast("💾 Vazifa saqlandi — o‘quvchilar ko‘ra oladi"); oqYukla(); guruhlarYukla();
+    }, function (er) { b.disabled = false; if (er.kirish) return oqXato(er); err.textContent = er.message; });
+  });
+  $("#oqYangila").addEventListener("click", oqYukla);
+  $("#oqChiq").addEventListener("click", function () { ls(LS.tok, null); oqChiz(); });
+
+  /* ---------- Boshlash ---------- */
+  sozNote(); guruhlarYukla();
+  var bosh = (location.hash || "").slice(1);
+  tab(["vazifa", "mustaqil", "mening", "oqituvchi"].indexOf(bosh) > -1 ? bosh : "vazifa");
+})();
+</script>
+<script async src="statistika.js"></script>
+<script src="akkount.js"></script>
+</body>
+</html>
