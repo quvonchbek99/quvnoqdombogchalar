@@ -1543,5 +1543,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki pichan juda ko'p yig'ilgan edi", "Chunki ombor tomidagi teshiklardan suv kirgan edi", "Chunki yomg'ir hech qachon yog'madi"],
     javob: 1,
     izoh: "Tomdagi teshiklardan kirgan yomg'ir suvi pichanni namlab, chiritdi. Dehqon kichik nuqsonni vaqtida tuzatmagani uchun katta zarar ko'rdi. Masal shuni o'rgatadiki, kichik kamchilikni kechiktirmay bartaraf etish katta muammolarning oldini oladi."
+  },
+  {
+    id: "ez-191", mavzu: "hamkorlik", sarlavha: "Ikki tegirmon va ariq",
+    matn: "Tog' etagidagi qishloqdan oqib o'tgan ariq ikki tegirmonni suv bilan ta'minlardi. Yuqoridagi tegirmonchi suvni o'ziga ko'proq olish uchun ariqqa katta to'g'on qurdi. Pastdagi tegirmon to'xtab qolgach, u yuqoriga chiqib to'g'onni ko'rdi va ikkala tegirmonchi bu ishning zarari ikkalasiga ham tegishini tushunib yetdi.",
+    savol: "Ikkala tegirmon yana suv bilan ishlashi uchun nima qilish kerak edi?",
+    variantlar: ["Yuqoridagi to'g'onni birgalikda ochish kerak edi", "Pastdagi tegirmonni butunlay yopib qo'yish kerak edi", "Ariqdagi suvni kuniga bir marta olish kerak edi"],
+    javob: 0,
+    izoh: "Suv ikkala tegirmon uchun umumiy edi. Bittasi faqat o'z foydasi uchun to'g'on qurgani sababli, ikkalasi ham zarar ko'rdi. Umumiy resursni birgalikda asrash hammaga foyda keltiradi."
   }
 ];
