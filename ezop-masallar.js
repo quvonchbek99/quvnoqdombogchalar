@@ -1511,5 +1511,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Hurmat uning ustidagi haykalga qaratilganini", "Odamlar uning go'zalligini yaxshi ko'rishini", "Yo'l uzoq bo'lib, charchab ketishini"],
     javob: 0,
     izoh: "Eshak hurmatni o'ziga tegishli deb xato tushundi. Masal shuni o'rgatadiki, boshqalarning obro'si ularning o'z vazifasi yoki martabasi uchun beriladi, bizga tegishli emas."
+  },
+  {
+    id: "ez-187", mavzu: "ehtiyotkorlik", sarlavha: "Ikki sayohatchi va suv",
+    matn: "Ikki sayohatchi quruq cho'l orqali uzoq yo'lga chiqdi, ikkalasi ham bittadan suv mashkini olgan edi. Birinchisi suvni tejab, kuniga faqat ozgina ichdi. Ikkinchisi esa yo'lning birinchi kunidayoq mashkdagi suvni bir zumda ichib tugatdi.",
+    savol: "Ikkinchi sayohatchi nega yo'lda suvsiz qoldi?",
+    variantlar: ["Chunki u yo'lda hech kimni uchratmadi", "Chunki u suvni birdan sarflab, zaxirasini tejamadi", "Chunki u mashkni noto'g'ri ko'tarib ketdi"],
+    javob: 1,
+    izoh: "Zaxirani bir zumda sarflagan sayohatchi yo'l oxirida suvsiz qoldi. Masal shuni o'rgatadiki, cheklangan narsani rejali ishlatish kerak."
   }
 ];
