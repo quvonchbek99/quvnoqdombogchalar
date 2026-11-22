@@ -18,7 +18,7 @@
  */
 
 const KUVI_SERVER = 'https://kuvi-ovoz.quvonchmash12.workers.dev';
-const KUVI_MIGRATSIYA = 'kuvi-1';
+const KUVI_MIGRATSIYA = 'kuvi-2';
 
 /* ================= Har daqiqada (trigger) ================= */
 
@@ -153,7 +153,8 @@ function biznesXabar_(token, s, props, cache, m, ctx) {
 
   if (!holatKesh) {
     // 1-xabar: agent salomlashadi (savol bo'lsa — Kuvi ham javob beradi)
-    yubor_(token, m, toldir_(s.AGENT_MATNI, { holat: h.holat }), tugmalar_(s));
+    // kurs tugmalari faqat KURS_TUGMALAR = HA bo'lsa (standart — reklamasiz)
+    yubor_(token, m, toldir_(s.AGENT_MATNI, { holat: h.holat }), ha_(s.KURS_TUGMALAR) ? tugmalar_(s) : null);
     cache.put(kalit, 'agent', ttl);
     jurnal_(ism, 'Agent javob berdi', h.izoh + ' | ' + qisqa_(matn, 80));
     if (h.tur === 'Dars') {
@@ -227,8 +228,7 @@ function kuviXabar_(token, s, props, cache, m, majburDaraja) {
         'Istalgan savolingizni yozing: matematika, fizika, kimyo, informatika, tillar va boshqa fanlar. Masala yuborsangiz — qadam-baqadam yechib, javobni tekshirib beraman.\n\n' +
         '🧠 Qiyin masala bo\'lsa, boshiga <b>/chuqur</b> deb yozing: avval yechaman, keyin mustaqil tekshiraman, xato bo\'lsa tuzataman.\n' +
         '📊 Kunlik limit: ' + lim.kun + ' ta savol (shundan ' + lim.chuqur + ' tasi chuqur o\'ylash).\n\n' +
-        'Masalan: <i>2x² − 5x + 2 = 0 ni yech</i> yoki <i>Integral nima? Sodda tushuntir</i>.',
-      reply_markup: { inline_keyboard: [[{ text: '🌐 kuvonch.uz', url: 'https://kuvonch.uz' }, { text: '🤖 Kuvi AI saytda', url: 'https://kuvonch.uz/kuvi-ai.html' }]] }
+        'Masalan: <i>2x² − 5x + 2 = 0 ni yech</i> yoki <i>Integral nima? Sodda tushuntir</i>.'
     });
     return;
   }
@@ -329,9 +329,11 @@ function kuviJavob_(token, s, props, cache, m, o) {
 // Kuvi serveriga so'rov (oqimsiz, Telegram formatida)
 function kuviSora_(xabarlar, o) {
   const d = o.daraja || 0;
+  // chat uslubi: qisqa, sarlavha va chiziqlarsiz — xuddi odam yozgandek
+  const chat = 'CHAT USLUBI: bu Telegram suhbati. Javobni xuddi tirik ustoz chatda yozgandek ber: qisqa va aniq (odatda 3–10 qator), sarlavha, «———» chiziq va ortiqcha qalin matnsiz. Masala yechganda qadamlarni raqamlab yoz, oxirida «Javob: …». Foydalanuvchiga «siz» deb murojaat qil.';
   const body = {
-    messages: xabarlar, preset: 'tg', tg: true, stream: false, qosh: o.qosh || '',
-    deep: d >= 1, chuqur: d === 2, fikr: d === 2, tgFikr: d === 2,
+    messages: xabarlar, preset: 'tg', tg: true, stream: false, qosh: chat + (o.qosh ? '\n' + o.qosh : ''),
+    deep: d >= 1, chuqur: d === 2, fikr: d >= 1, tgFikr: d >= 1,
     effort: d === 2 ? 'high' : d === 1 ? 'medium' : 'low', max: d === 2 ? 5000 : d === 1 ? 3500 : 1500, vaqt: 50000
   };
   if (o.rasm) body.rasm = o.rasm;
@@ -566,6 +568,7 @@ function migratsiyaKuvi_() {
   qosh('KUVI_CHUQUR', '5', "Shundan nechtasi «to'liq chuqur o'ylash» (yechim → tekshiruv)");
   qosh('KUVI_ADMINLAR', '', 'Cheksiz foydalanadigan Telegram ID lar (vergul bilan)');
   qosh('KUVI_QOSHIMCHA', '', "Kuvi'ga qo'shimcha ko'rsatma (ixtiyoriy)");
+  qosh('KURS_TUGMALAR', "YO'Q", "HA — agent salomida kurs/guruh tugmalari ham chiqadi (reklama). YO'Q — chiqmaydi, faqat so'rasa");
   p.setProperty('KUVI_MIGRATSIYA', KUVI_MIGRATSIYA);
   jurnal_('', 'Kuvi AI qo\'shildi', 'Sozlamalar: KUVI_* qatorlari');
 }
