@@ -572,3 +572,17 @@ function migratsiyaKuvi_() {
   p.setProperty('KUVI_MIGRATSIYA', KUVI_MIGRATSIYA);
   jurnal_('', 'Kuvi AI qo\'shildi', 'Sozlamalar: KUVI_* qatorlari');
 }
+
+// Tashxis: webhook va Business ulanish holati (token ko'rsatilmaydi)
+function tashxis() {
+  const s = sozlamalar_(), t = s.BOT_TOKEN, p = PropertiesService.getScriptProperties();
+  const w = tg_(t, 'getWebhookInfo', {});
+  Logger.log('WEBHOOK: ' + JSON.stringify({ url: (w.url || '').replace(/\/\/.*?\//, '//…/'), pending: w.pending_update_count, allowed: w.allowed_updates, xato: w.last_error_message || '', xatoVaqt: w.last_error_date ? new Date(w.last_error_date * 1000) : '' }));
+  const keys = Object.keys(p.getProperties()).filter(function (k) { return k.indexOf('OWNER_') === 0; });
+  keys.forEach(function (k) {
+    try { const bc = tg_(t, 'getBusinessConnection', { business_connection_id: k.slice(6) }); Logger.log(k.slice(0, 14) + '… yoqilgan=' + bc.is_enabled + ' rights=' + JSON.stringify(bc.rights || { can_reply: bc.can_reply })); }
+    catch (e) { Logger.log(k.slice(0, 14) + '… XATO ' + e.message); }
+  });
+  const h = holat_(new Date(), s);
+  Logger.log('HOLAT: ' + JSON.stringify(h) + ' | BOT_YOQILGAN=' + s.BOT_YOQILGAN + ' KUVI_BIZNES=' + s.KUVI_BIZNES + ' WEBHOOK=' + p.getProperty('WEBHOOK'));
+}
