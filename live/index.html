@@ -147,7 +147,8 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10p
 <footer>© <span id="yil">2026</span> Kuvonch Academy · <a href="../index.html">kuvonch.uz</a></footer>
 </div>
 
-<script src="../ka-tarmoq.js?v=20261116a"></script>
+<script src="../ka-tarmoq.js?v=20261122a"></script>
+<script src="../ka-kirish.js?v=20261122a"></script>
 <script>
 (function () {
   "use strict";
@@ -160,7 +161,8 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10p
   document.getElementById("yil").textContent = new Date().getFullYear();
 
   // faqat lotin harflari; 0 → O, 1 → I emas: kodlarda raqam ham, I va O ham yo'q — shuning uchun raqamni shunchaki tashlab yuboramiz
-  function clean(v) { return String(v || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 5); }
+  // kirillcha klaviaturada yozilsa ham (А→A, Р→P, Н→H …) lotin harfiga o'giriladi (ka-kirish.js)
+  function clean(v) { return window.kaKirish ? kaKirish.kod(v, { harf: true }) : String(v || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 5); }
   function draw() {
     var v = inp.value, focus = document.activeElement === inp;
     for (var i = 0; i < 5; i++) {
@@ -181,12 +183,14 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10p
     location.href = "../" + kind + ".html?kod=" + encodeURIComponent(code);
   }
 
-  inp.addEventListener("input", function () {
-    var v = clean(inp.value); if (inp.value !== v) inp.value = v;
+  function ozgardi(v, sabab) {
     if (st.className.indexOf("err") > -1) say("");
     draw();
-    if (v.length === 5) { inp.blur(); submit(); } // 5-harf yozilishi bilan o'zi qidiradi
-  });
+    if (v.length === 5 && sabab === "input") { inp.blur(); submit(); } // 5-harf yozilishi bilan o'zi qidiradi
+  }
+  // telefon klaviaturasi so'z tuzayotganda (composition) maydonga tegmaymiz — harflar ikki marta chiqmaydi
+  if (window.kaKirish) kaKirish.kodMaydon(inp, { harf: true, ozgardi: ozgardi });
+  else inp.addEventListener("input", function () { var v = clean(inp.value); if (inp.value !== v) inp.value = v; ozgardi(v, "input"); });
   ["focus", "blur", "keyup", "click"].forEach(function (ev) { inp.addEventListener(ev, draw); });
   $("#f").addEventListener("submit", function (e) { e.preventDefault(); submit(); });
 

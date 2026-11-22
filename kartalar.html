@@ -247,7 +247,8 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="ka-savollar.js?v=20261030c"></script>
 <script src="ka-mavzular.js?v=20261117b"></script>
-<script src="ka-tarmoq.js"></script>
+<script src="ka-tarmoq.js?v=20261122a"></script>
+<script src="ka-kirish.js?v=20261122a"></script>
 <script src="ka-bulut.js"></script>
 <script>
 (function () {
@@ -386,13 +387,14 @@ details summary{cursor:pointer;color:var(--accent-2);margin:8px 0}
         '<button type="button" class="btn primary" id="dvGo">Kirish</button></div><div class="msg err" id="dvMsg">' + esc(errText || "") + "</div>";
       var go = function () {
         var m = $("#dvMsg"), b = $("#dvGo"); m.className = "msg"; m.textContent = "⏳ Kirilmoqda…"; b.disabled = true;
-        dv("login", { login: $("#dvL").value.trim(), parol: $("#dvP").value }).then(function (j) {
+        (window.kaKirish ? kaKirish.davomat(dv, $("#dvL").value, $("#dvP").value) : dv("login", { login: $("#dvL").value.trim(), parol: $("#dvP").value })).then(function (j) {
           try { localStorage.setItem(LS_DVT, j.token); } catch (e) {}
           dvRender();
         }).catch(function (e) { b.disabled = false; m.className = "msg err"; m.textContent = e.message; });
       };
       $("#dvGo").onclick = go;
-      $("#dvP").addEventListener("keydown", function (e) { if (e.key === "Enter") go(); });
+      if (window.kaKirish) kaKirish.maydonlar($("#dvL"), $("#dvP"), go, $("#dvMsg"));
+      else $("#dvP").addEventListener("keydown", function (e) { if (e.key === "Enter") go(); });
       return;
     }
     box.innerHTML = '<div class="row"><label>Guruh<select id="dvG"><option>⏳ Guruhlar yuklanmoqda…</option></select></label>' +
