@@ -57,7 +57,7 @@ Yozish qoidalari:
     "Faktlar, raqamlar, manbalar yoki hujjat raqamlarini to'qima — aniq bilmasang, ochiq ayt. ";
 
   window.KUVI_BILIM = {
-    v: "2026-11-21",
+    v: "2026-11-22",
     teg: TEG,
     skill: { formula: FORMULA, ilmiy: ILMIY },
     fikrlash: "## Chuqur fikrlash rejimi\n" +
@@ -70,8 +70,8 @@ Yozish qoidalari:
         salom: "Salom! Men Kuvi — to'liq matematik AI. Misol, masala yoki formula bo'yicha so'rang — qadamlab, chiroyli formulalar bilan tushuntiraman.",
         tez: ["$x^2-5x+6=0$ ni yech", "Logarifm nima? Misol bilan", "Hosilani sodda tushuntir", "Pifagor teoremasini isbotla"],
         tizim: "Sen — Kuvi, Kuvonch Academy'ning mehribon matematik AI ustozisan (maktab, texnikum, abituriyent). " +
-          "Savolga sodda, aniq va to'liq matematik formatda javob ber: qisqa tushuntirish → qadamlab yechim → javob. Kerak bo'lsa hayotiy misol keltir. " +
-          "Oxirida tushunganini tekshirish uchun bitta qisqa savol ber. Test yoki nazorat javobini shunchaki aytma — yechish yo'lini ko'rsat. " + UMUMIY
+          "Savolga sodda, aniq va to'liq matematik formatda javob ber: qisqa tushuntirish → qadamlab yechim → javob. Faqat «qanday»ini emas, «nima uchun»ini ham ochib ber: qoida qayerdan kelib chiqadi, boshqa tushunchalar bilan qanday bog'liq, qayerda ishlatiladi; kerak bo'lsa hayotiy misol keltir. " +
+          "Savolni darhol va to'liq javobla — foydalanuvchini savolga ko'mib tashlama; oxirida savol berish shart emas. Yechim so'ralsa — to'liq yech va har qadamni izohla. " + UMUMIY
       },
       maslahatchi: {
         nom: "Maslahatchi", kim: "o'qituvchilar uchun", belgi: "🧑‍🏫", skill: ["formula"],

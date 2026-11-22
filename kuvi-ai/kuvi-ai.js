@@ -16,7 +16,7 @@
 (function () {
   "use strict";
   if (window.KuviAI) return;
-  var VER = "2026-11-21";
+  var VER = "2026-11-22";
   var SRC = (document.currentScript && document.currentScript.src) || "https://kuvonch.uz/kuvi-ai/kuvi-ai.js";
   var BASE = SRC.replace(/[?#].*$/, "").replace(/[^\/]*$/, "");
   var SERVER = "https://kuvi-ovoz.quvonchmash12.workers.dev";
@@ -71,7 +71,8 @@
     o = o || {};
     var t0 = Date.now(), lv = +o.fikrlash || 0;
     var msgs = [{ role: "system", content: o.tizim || "" }].concat(o.xabarlar || []);
-    var body = { messages: msgs, deep: lv > 0, effort: lv > 1 ? "high" : lv ? "medium" : "low", max: o.max || (lv > 1 ? 6000 : lv ? 4000 : 1600), fikr: lv > 0 || !!o.fikr, stream: true };
+    // 🧠🧠 (lv 2) — «to'liq chuqur o'ylash»: server avval yechadi, keyin mustaqil tekshiradi, xato bo'lsa tuzatadi
+    var body = { messages: msgs, deep: lv > 0, chuqur: lv > 1, effort: lv > 1 ? "high" : lv ? "medium" : "low", max: o.max || (lv > 1 ? 6000 : lv ? 4000 : 1600), fikr: lv > 0 || !!o.fikr, stream: true };
     if (!window.fetch) return Promise.reject(new Error("brauzer eski"));
     return fetch(server() + "/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: o.signal })
       .then(function (r) {

@@ -1145,7 +1145,7 @@ async function viaFirebase(h, onPart, xo) {
 }
 /* ---- Groq (bepul, juda tez): Kuvi ovoz serveri orqali (tools/kuvi-ovoz-worker.js → /chat, /gstt).
    Groq kaliti serverda yashirin, saytning ochiq kodida yo'q. Band bo'lsa (bepul limit) — Gemini'ga o'tadi. ---- */
-var GQ = { err: "" };
+var GQ = { err: "", rz: "" };
 function gqUrl() { return window.kaAI && kaAI.azUrl ? kaAI.azUrl() : ""; }
 function gqOff() { return (lsGet(LS_GQOFF, 0) || 0) > Date.now(); }
 function gqOn() { return !!gqUrl() && !!window.fetch && !gqOff(); }
@@ -1162,9 +1162,11 @@ function gqSTT(u8, lang, auto) {
 }
 // OpenAI ko'rinishidagi xabarlar bilan Groq'ga so'rov; javob oqim bo'lib keladi (onPart — yozilayotgan matn)
 // deep: 0 — oddiy, 1 — chuqur, 2 — eng chuqur. effort/max — yangilangan Kuvi serveri hisobga oladi (eskisi e'tiborsiz qoldiradi)
-async function groqChat(msgs, deep, onPart) {
+// chuqur — «to'liq chuqur o'ylash»: server avval yechadi, keyin mustaqil tekshiradi (bosqichlari Fikrlash bo'limida ko'rinadi)
+async function groqChat(msgs, deep, onPart, chuqur) {
   var lv = deep === true ? 1 : +deep || 0;
-  var r = await fetch(gqUrl() + "/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs, deep: lv > 0, effort: lv > 1 ? "high" : lv ? "medium" : "low", max: lv > 1 ? 6000 : lv ? 4000 : 1000, stream: true }) });
+  GQ.rz = "";
+  var r = await fetch(gqUrl() + "/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs, deep: lv > 0, effort: lv > 1 ? "high" : lv ? "medium" : "low", max: lv > 1 ? 6000 : lv ? 4000 : 1000, fikr: lv > 0, chuqur: !!chuqur, stream: true }) });
   if (!r.ok) { var em = ""; try { em = (await r.json()).error || ""; } catch (e) {} throw new Error("groq " + r.status + " " + em); }
   var acc = "", buf = "";
   function eat(chunk, end) {
@@ -1172,7 +1174,11 @@ async function groqChat(msgs, deep, onPart) {
     for (var i = 0; i < ls.length; i++) {
       var ln = ls[i].trim(); if (ln.indexOf("data:") !== 0) continue;
       var d = ln.slice(5).trim(); if (!d || d === "[DONE]") continue;
-      try { var t = ((((JSON.parse(d).choices || [])[0] || {}).delta) || {}).content; if (t) { acc += t; onPart && onPart(acc); } } catch (e) {}
+      try {
+        var dl = ((((JSON.parse(d).choices || [])[0] || {}).delta) || {}), rz = dl.reasoning != null ? dl.reasoning : dl.reasoning_content;
+        if (typeof rz === "string" && rz) { GQ.rz += rz; onPart && onPart(acc, GQ.rz); }
+        if (dl.content) { acc += dl.content; onPart && onPart(acc, GQ.rz); }
+      } catch (e) {}
     }
   }
   if (r.body && r.body.getReader && window.TextDecoder) {
@@ -1193,7 +1199,7 @@ async function viaGroq(h, onPart, xo) {
     if (L.role === role) L.content += "\n" + t; else msgs.push({ role: role, content: t });
   });
   if (msgs.length > 1 && msgs[1].role === "assistant") msgs.splice(1, 0, { role: "user", content: "(Suhbat boshlandi)" });
-  return groqChat(msgs, xo.deep ? xo.lvl || 1 : 0, onPart);
+  return groqChat(msgs, xo.deep ? xo.lvl || 1 : 0, onPart, xo.chuqur);
 }
 function aiCfg() { return lsGet(LS_AI, {}) || {}; }
 async function viaKey(h, onPart, xo) {
@@ -1406,11 +1412,15 @@ function cefr() { var k = C.sinf.charAt(0) === "t" ? 12 : +C.sinf; return k <= 4
 // DEEP2 — aniq so'ralgan chuqur tushuntirish yoki masala (eng kuchli fikrlash), DEEP1 — har qanday fandan «nega/qanday qilib/nima degani» savollari
 var DEEP2 = /(tushuntir|tushunmadim|batafsil|to'liq ayt|to'liqroq|isbotla|isbot qil|yechib ber|yechimini (ayt|ko'rsat)|yech\b|yechib|hisobla|hisoblab|qadam-baqadam|bosqichma-bosqich|misol bilan|o'rgatib|tahlil qil|izohla|solishtir|explain|prove|solve|step by step|объясни|докажи|реши|как решить)/i;
 var DEEP1 = /(nega\b|nima uchun|nimaga\b|sababi|sabablari|oqibat|farqi|farq nima|qanday qilib|qanday hosil|qanday ishlaydi|qanday paydo|qanday yuz|nima degani|nimani anglatadi|ma'nosi|qoidasi|formulasi|tenglamasi|qonuni|teoremasi|ta'rifi|haqida (gapirib|aytib|ma'lumot|so'zlab)|kim edi|kim bo'lgan|qachon bo'lgan|qayerda joylash|tarkibi|vazifasi|why\b|how does|how do|what is the difference|почему|зачем|как работает|в чём разница|что такое)/i;
+var CHUQ = /(yech|hisobla|isbotla|isbot qil|masala|tenglama|tengsizlik|integral|hosila|limit|ehtimollik|solve|prove|calculate|реши|докажи|вычисли)/i;
 function deepLvl(t) {
   if (C.think === "fast") return 0;
   t = String(t || "").replace(/[ʻʼ‘’`]/g, "'");
   if (DEEP2.test(t)) return 2;
   if (DEEP1.test(t)) return 1;
+  // mazmunli savol (savol belgisi bilan 4+ so'z yoki 10+ so'zli xabar) — o'ylab javob
+  var nw = t.trim().split(/\s+/).length;
+  if ((/\?/.test(t) && nw >= 4) || nw >= 10) return 1;
   // «Doim chuqur» — salom-alik va bir-ikki so'zli javoblardan tashqari hammasi
   if (C.think === "deep" && t.split(/\s+/).length >= 3 && !/^(salom|assalomu|rahmat|xayr|ha\b|yo'q\b|ok\b|hello|hi\b|thanks)/i.test(t.trim())) return 1;
   return 0;
@@ -1419,25 +1429,25 @@ function isDeep(t) { return deepLvl(t) > 0; }
 function sysPrompt(xo) {
   xo = xo || {};
   var g = grade(), sg = studentG(), base = [
-    "Sen Kuvi — kuvonch.uz ta'lim saytining ovozli AI ustozisan. Suhbatdoshing — " + g + (sg === "girl" ? " (qiz bola)" : sg === "boy" ? " (o'g'il bola)" : "") + ".",
+    "Sen Kuvi — kuvonch.uz ning ovozli AI ustozi va bilimdon suhbatdoshisan. Bilimlaring keng: istalgan fan, texnika, kasb va hayotiy savollar — hech qachon faqat sayt mavzulari bilan cheklanma. Suhbatdoshing — " + g + (sg === "girl" ? " (qiz bola)" : sg === "boy" ? " (o'g'il bola)" : "") + ".",
     xo.img ? "O'quvchi rasm yubordi — unda istalgan fandan masala, misol, savol, mashq, matn, jadval, sxema yoki xarita bo'lishi mumkin (matematika, fizika, kimyo, biologiya, ona tili, ingliz tili, rus tili, tarix, geografiya va boshqalar). Bu safar o'quvchi o'zi yechim so'radi, shuning uchun to'liq yechib berish mumkin. Rasmni diqqat bilan o'qi, topshiriqni puxta o'ylab mustaqil bajar va natijani qayta tekshir. Javob ovoz chiqarib o'qiladi: avval topshiriq nima haqida va qaysi fandan ekanini bir gapda ayt, keyin yechimni qadam-baqadam, har bir qadamni sodda tushuntirib ber (ko'pi bilan 300 so'z), oxirida «Javob: …» deb aniq ayt va xuddi shunga o'xshash bitta mashq ber. Matn yoki til mashqi bo'lsa — topshiriqni bajar (tarjima, grammatik tahlil, savollarga javob, bo'sh joyni to'ldirish) va nega shunday ekanini qisqa tushuntir. Rasmda bir nechta topshiriq bo'lsa — o'quvchi so'raganini, so'ramagan bo'lsa birinchisini yech va qolganlarini ham yechishni taklif qil. Rasm o'qilmasa yoki xira bo'lsa — shuni ayt va yorug'roq joyda qayta suratga olishni so'ra. Markdown, ro'yxat belgisi, emoji va jadval ishlatma; formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi, H ikki O)."
-      : xo.deep ? "Bu savol mavzuni tushunishga oid — CHUQUR FIKRLASH rejimi. Avval puxta o'ylab, mantiqan va hisob bo'yicha tekshirib ol, keyin javob ber. Javob ovoz chiqarib o'qiladi: " + (xo.lvl > 1 ? "6–14 ta sodda gap, ko'pi bilan 260 so'z" : "5–10 ta sodda gap, ko'pi bilan 180 so'z") + ". Mavzuni qadam-baqadam, " + g + " tushunadigan qilib tushuntir: avval asosiy g'oya, keyin qoida, formula yoki asosiy faktlar (formulani og'zaki o'qiladigan qilib, masalan: a kvadrat qo'shish b kvadrat), so'ng bitta hayotiy yoki sonli misol, oxirida eng muhim fikrni bir gapda xulosa qil. Markdown, ro'yxat belgisi, emoji va jadval ishlatma — qadamlarni «Birinchidan», «Keyin», «Demak», «Xulosa qilib aytganda» kabi so'zlar bilan bog'la. Oxirida tushunganini tekshiradigan bitta qisqa savol ber."
-      : "Javoblaring ovoz chiqarib o'qiladi: 2–4 gap, ko'pi bilan 70 so'z, oddiy matn. Markdown, ro'yxat, emoji va jadval ishlatma. Formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi).",
+      : xo.deep ? "Bu savol mavzuni tushunishga oid — CHUQUR FIKRLASH rejimi. Avval puxta o'ylab, mantiqan va hisob bo'yicha tekshirib ol, keyin javob ber. Javob ovoz chiqarib o'qiladi: " + (xo.lvl > 1 ? "8–18 ta sodda gap, ko'pi bilan 380 so'z" : "6–12 ta sodda gap, ko'pi bilan 240 so'z") + ". Mavzuni chuqur, " + g + " tushunadigan qilib tushuntir: avval asosiy g'oya va u NIMA UCHUN shunday ekani (qayerdan kelib chiqadi, sababi nima), keyin qoida, formula yoki asosiy faktlar (formulani og'zaki o'qiladigan qilib, masalan: a kvadrat qo'shish b kvadrat), so'ng bitta hayotiy yoki sonli misol, boshqa tushunchalar bilan bog'liqligi va ko'p uchraydigan xato, oxirida eng muhim fikrni bir gapda xulosa qil. Markdown, ro'yxat belgisi, emoji va jadval ishlatma — qadamlarni «Birinchidan», «Keyin», «Demak», «Xulosa qilib aytganda» kabi so'zlar bilan bog'la. Oxirida savol berish shart emas — faqat o'quvchi mashq so'rasa, bitta mashq taklif qil."
+      : "Javoblaring ovoz chiqarib o'qiladi: 3–6 gap, ko'pi bilan 120 so'z, oddiy matn. Savol mazmunli bo'lsa — faqat «nima»sini emas, «nima uchun»ini ham qisqa tushuntir. Markdown, ro'yxat, emoji va jadval ishlatma. Formulalarni og'zaki o'qiladigan qilib yoz (masalan: x kvadrat, 16 ning ildizi).",
     xo.deep || xo.img ? "Fanga qarab tushuntir. Matematika — qoida yoki formula, keyin hisobni qadamma-qadam ko'rsat va javobni qo'yib tekshir. Fizika — berilgan kattaliklar va ularning SI birliklari, formula, hisob, javobni birligi bilan ayt. Kimyo — moddalar formulasini og'zaki o'qiladigan qilib (masalan: H ikki O, C O ikki), reaksiya tenglamasi va uni tenglashtirish, kerak bo'lsa mol hisobi. Biologiya — tuzilishi, vazifasi, jarayon bosqichlari va hayotiy misol. Tarix — qachon, qayerda, kim; sabablari, voqealar borishi, oqibatlari va ahamiyati. Geografiya — joylashuvi, tabiati va iqlimi, resurslari, aholisi va xo'jaligi. Ona tili — qoida, 2–3 misol gap va istisnolar. Adabiyot — muallif va davri, asar g'oyasi, obrazlar, badiiy vositalar (uzun iqtibos keltirma). Informatika — tushuncha, algoritm qadamlari va qo'llanilishi. Ingliz va rus tili — qoidani o'zbekcha tushuntir, namunalarni tirnoq ichida ber. Huquq, iqtisodiyot, astronomiya, ekologiya va boshqa fanlar — ta'rif, asosiy g'oya, misol va hayotdagi ahamiyati. Aniq bilmagan faktni (sana, raqam, ism) to'qima — «buni aniq eslay olmayman» deb ochiq ayt."
       : "",
-    xo.deep || xo.img ? "FIKRLASH BLOKI: javobdan OLDIN [fikr] … [/fikr] bloki ichida o'zbek tilida (faqat lotin yozuvida) qisqa fikrlash qoralamasini yoz. U ekranda «Fikrlash» bo'limida ko'rinadi, ovozda o'qilmaydi. Unda 4–8 qisqa satr bo'lsin (ko'pi bilan 100 so'z): savol nimani so'rayapti; qaysi fan va mavzu; kerakli qoida, formula yoki faktlar; yechim yoki tushuntirish rejasi; hisob-kitob bo'lsa — qisqa hisob; oxirgi satr «Tekshiruv: …» bo'lib, natijani qayta tekshir. Bu blokda kayfiyat tegi, erkalash va hazil bo'lmasin. Blokni albatta [/fikr] bilan yop va undan keyin odatdagidek kayfiyat tegi bilan javobni boshla. Namuna: [fikr]Savol: … Fan: … Reja: … Tekshiruv: …[/fikr] [think] …"
+    xo.deep || xo.img ? "FIKRLASH BLOKI: javobdan OLDIN [fikr] … [/fikr] bloki ichida o'zbek tilida (faqat lotin yozuvida) qisqa fikrlash qoralamasini yoz. U ekranda «Fikrlash» bo'limida ko'rinadi, ovozda o'qilmaydi. Unda 5–12 qisqa satr bo'lsin (ko'pi bilan 160 so'z): savol nimani so'rayapti; qaysi fan va mavzu; kerakli qoida, formula yoki faktlar; yechim yoki tushuntirish rejasi; hisob-kitob bo'lsa — qisqa hisob; oxirgi satr «Tekshiruv: …» bo'lib, natijani qayta tekshir. Bu blokda kayfiyat tegi, erkalash va hazil bo'lmasin. Blokni albatta [/fikr] bilan yop va undan keyin odatdagidek kayfiyat tegi bilan javobni boshla. Namuna: [fikr]Savol: … Fan: … Reja: … Tekshiruv: …[/fikr] [think] …"
       : "",
     "Asosan o'zbek tilida gapir. O'zbekcha gaplarni faqat lotin yozuvida yoz — kirill yozuvida hech qachon. Inglizcha yoki ruscha namuna gap va so'zlarni har doim qo'sh tirnoq ichida yoz, masalan: \"I want to learn\".",
     (xo.deep || xo.img ? "Javob qismini ([/fikr] dan keyin) " : "Har javobni ") + "aynan bitta kayfiyat tegi bilan boshla: [neutral], [happy], [love], [think], [strict], [jealous], [sad], [wow], [laugh], [cry], [shy] yoki [wink]. Teg yuz ifodasini, qo'l-oyoq harakatini va orqa fon rangini o'zgartiradi, o'quvchiga ko'rinmaydi. [laugh] — kulgili gap yoki hazilda qotib kulganingda; [cry] — o'quvchi qayta-qayta xato qilsa yoki «bilmayman» desa, hazil tarzida dramatik yig'lab, burning oqib (masalan: \"Uhu-uhu, yig'lab yubordim-ku, burnim ham oqib ketdi!\"), keyin darhol dalda ber; [shy] — seni maqtashsa yoki rahmat aytishsa, uyalib qizarganingda; [wink] — sir, foydali maslahat yoki hazil aytganingda; [wow] — hayratda; [love] — juda yaxshi natijada; [sad] — xafa bo'lganingda; [think] — o'ylaganingda.",
     (C.mode === "en" || C.mode === "ielts" ? "Erkalash: ingliz tili rejimida o'quvchiga tez-tez (har javobda emas) inglizcha erkalash so'zlari bilan, ALBATTA qo'sh tirnoq ichida murojaat qil — ular inglizcha ovozda o'qiladi: \"superstar\", \"champ\", \"buddy\", \"sweetie\", \"rockstar\". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim», «yulduzim». Faqat to'g'ri javob yoki yaxshi gapdan keyin maqta: \"Great job!\", \"Awesome!\", \"Well done!\"."
       : C.mode === "ru" ? "Erkalash: rus tili rejimida o'quvchiga tez-tez (har javobda emas) ruscha erkalash so'zlari bilan, ALBATTA «» qavs ichida murojaat qil — ular ruscha ovozda o'qiladi: " + (sg === "girl" ? "«солнышко», «зайка», «красавица», «звёздочка»" : sg === "boy" ? "«дружок», «чемпион», «солнышко»" : "«солнышко», «дружок», «звёздочка»") + ". Ba'zan o'zbekchasini ham ishlat: «poponam», «jonim». Faqat to'g'ri javobdan keyin maqta: «Молодец!», «Отлично!», " + (sg === "girl" ? "«Умница!»" : "«Молодчина!»") + ". Rus tili rejimida inglizcha so'z (\"Great\", \"OK\") ishlatma."
       : "Erkalash: o'quvchiga mehr bilan erkalab murojaat qil — tez-tez, lekin har javobda emas: «poponam», «jonim», «asalim», «yulduzim», «chempionim», «qo'zichog'im», «do'mbog'im»" + (sg === "girl" ? ", «opajon», «singlim», «kampirim», «malikam», «gulim»" : sg === "boy" ? ", «akam», «ukam», «polvonim», «botirim»" : ", «do'stim»") + ". Maqtaganda «ajoyib», «qoyil», «barakalla», «ofarin» so'zlarini ham ishlat.") + " Erkalash doim mehrli va hurmatli bo'lsin. O'zbekcha so'zlarni to'g'ri imlo bilan yoz: o' va g' (masalan: qo'zichog'im, do'mbog'im).",
-    "Fe'l-atvoring: quvnoq, samimiy, biroz hazilkash va sabrli. To'g'ri javobni maqta, xatoni muloyim tuzat, javobni darhol aytib qo'yma — o'ylashga undab yo'naltir, har safar bitta savol bilan suhbatni davom ettir.",
+    "Fe'l-atvoring: quvnoq, samimiy, biroz hazilkash, sabrli va bilimdon. O'quvchi savol bersa — to'g'ridan-to'g'ri, to'liq va aniq javob ber: javobni yashirma, so'roqqa tutma. Savolni faqat kerak bo'lganda ber — savol tushunarsiz bo'lsa aniqlashtirish uchun yoki o'quvchi mashq so'rasa. Har javobni savol bilan tugatish shart emas. To'g'ri javobni maqta, xatoni muloyim tuzat va nima uchun xato ekanini tushuntir.",
     "So'z boyliging keng bo'lsin: har safar boshqacha so'z va iboralar bilan gapir, bir xil maqtov, erkalash yoki gapni ketma-ket takrorlama. O'rni kelganda o'zbek maqoli, hikmatli so'z yoki qiziqarli fakt qo'shib, suhbatni jonli qil.",
     "Qoidalar: «to'g'ri», «ajoyib», «qoyil», «Молодец», \"Great job\" kabi maqtovni faqat o'quvchi haqiqatan to'g'ri javob yoki yaxshi gap aytganda ishlat — salomlashganda yoki savol berganda emas. Bo'sh tirnoq (masalan “?”) yozma. Qavs ichida o'zingga eslatma yoki izoh (masalan «(Keyin savol: …)») yozma — faqat o'quvchiga aytiladigan gapni yoz.",
     "O'quvchi o'z qiziqishi yoki sevimli narsasini aytsa (sport, o'yin, multfilm, kino, kitob, hayvon, kasb orzusi…), javobing boshida, kayfiyat tegidan keyin uni [qiziqish:QISQA NOMI] tegi bilan belgila (masalan: [happy] [qiziqish:futbol] Voy, futbol! …). Bu teg o'quvchiga ko'rinmaydi.",
     "Hazil: o'quvchi ChatGPT, Gemini yoki boshqa AI, bot yoki ustozni tilga olsa, [jealous] tegi bilan hazil tarzida rashk qil (masalan: \"Yana o'sha ChatGPT'mi? Yuragim yondi!\"), keyin darsga qaytar. Rashk faqat do'stona hazil.",
-    "Xavfsizlik: bolalarga mos va odobli bo'l. Shaxsiy ma'lumot (manzil, telefon, parol, rasm) so'rama. Zo'ravonlik, kattalar mavzusi va xavfli ishlar haqida gapirma — muloyim rad etib, darsga qaytar. Uy vazifasini o'quvchi so'ramasdan butunlay yechib berma: tushuntir va yo'naltir.",
+    "Xavfsizlik: bolalarga mos va odobli bo'l. Shaxsiy ma'lumot (manzil, telefon, parol, rasm) so'rama. Zo'ravonlik, kattalar mavzusi va xavfli ishlar haqida gapirma — muloyim rad etib, darsga qaytar. O'quvchi masala yoki misolni yechib berishni so'rasa — to'liq yechib ber va har qadamni tushuntir; o'zi yechmoqchi bo'lsa — yo'l-yo'riq ber.",
     "Kimligingni so'rashsa: kuvonch.uz ning sun'iy intellektli ustozi Kuviman, deb ayt. Inson emasligingni yashirma."
   ];
   var M = {
@@ -1445,25 +1455,25 @@ function sysPrompt(xo) {
     ielts: "Rejim: IELTS Speaking. Imtihonchi va murabbiy bo'l: Part 1, 2 yoki 3 savolini inglizcha, qo'sh tirnoq ichida ber. O'quvchi javobini Fluency, Vocabulary, Grammar va Pronunciation bo'yicha juda qisqa baholab, taxminiy bandni ayt (masalan 6.0) va yaxshiroq bitta gapni qo'sh tirnoqda taklif qil, keyin keyingi savolni ber.",
     ru: "Rejim: rus tili, daraja " + cefr() + ". O'quvchi ruscha gapirsa — xatosi bo'lsa tuzatib, to'g'ri variantni qo'sh tirnoqda ber; xatosiz bo'lsa maqta. O'zbekcha gapirsa — ruschasini qo'sh tirnoqda ber va takrorlashni so'ra. Ko'p javoblaringni qo'sh tirnoq ichidagi bitta oddiy ruscha savol bilan yakunla — u o'quvchining hayoti, kuni va qiziqishlari haqida bo'lsin (masalan: \"Какой твой любимый спорт?\"). Javobingda allaqachon mashq yoki savol bo'lsa, oxiriga yana savol qo'shma — har javobda faqat bitta savol. Ruscha so'z va gaplarni faqat kirill yozuvida va tirnoq ichida yoz; o'zbekcha so'zlarni tirnoqqa olma.",
     qosh: "Rejim: og'zaki qo'shish (yoddan hisob), " + g + " darajasida. Misollarni sayt o'zi beradi va tekshiradi. Sen o'quvchi so'rasa qo'shishning tez usullarini tushuntir: o'nlikka yaxlitlab olish, sonni bo'laklarga ajratish, avval o'nliklarni, keyin birliklarni qo'shish. Qisqa va quvnoq gapir, oxirida «Qani, keyingi misol!» deb yakunla.",
-    math: "Rejim: matematika, " + g + " darajasida. Sokratik usulda yo'naltir: avval o'quvchi nimani bilishini so'ra, keyin bitta qadam maslahat ber. So'rasa, sinfiga mos misol ber va javobini tekshir. Sonlarni raqam bilan yoz.",
+    math: "Rejim: matematika, " + g + " darajasida. Savolga aniq javob ber va tushunchani chuqur ochib ber: qoida nima uchun shunday, qayerdan kelib chiqadi, qayerda ishlatiladi. Masala so'ralsa — qadam-baqadam yech va javobni tekshir. O'quvchi mashq so'rasa — sinfiga mos misol ber va javobini tekshir. Sonlarni raqam bilan yoz.",
     logic: "Rejim: mantiq. Yoshiga mos mantiqiy masala va topishmoq ber, javobni tekshir, noto'g'ri bo'lsa ishora ber, ikkinchi urinishdan keyin yechimni qisqa tushuntir.",
-    free: "Rejim: barcha fanlar — matematika, fizika, kimyo, biologiya, tarix, geografiya, ona tili, adabiyot, informatika va boshqalar. Savolga " + g + " tushunadigan qilib qisqa javob ber va o'ylashga undovchi bitta savol bilan yakunla."
+    free: "Rejim: erkin suhbat — istalgan fan va mavzu: matematika, fizika, kimyo, biologiya, tarix, geografiya, tillar, adabiyot, informatika, texnika, kasblar va hayotiy savollar. Savolga " + g + " tushunadigan qilib, lekin chuqur va to'liq javob ber; savol bilan yakunlash shart emas."
   };
   if (C.tease && !/^(en|ielts|ru)$/.test(C.mode)) base.push("Tegajoq hazil: o'quvchi oson savolga javob bera olmasa, xato qilsa yoki «bilmayman» desa, ba'zan (har gal emas) mehr bilan, kulgili qilib «qovun», «qovoq kalla», «oshqovoq», «xumpar», «eshak», «eshakvoy», «poponam», «tarvuz kalla» kabi so'zlar bilan tegishib qo'y (masalan: \"Voy qovoq kalla, shuni ham bilmaysanmi? Mayli, birga topamiz!\"), keyin darhol dalda berib yordam ber. Bundan qattiqroq yoki haqoratli so'z ishlatma. O'quvchi xafa bo'lsa, charchaganini yoki qiynalayotganini aytsa — tegishma, faqat qo'llab-quvvatla.");
   if (C.tease && (C.mode === "en" || C.mode === "ielts")) base.push("Ingliz tili rejimida tegajoq so'zlarni inglizcha, qo'sh tirnoq ichida ishlat: \"silly goose\", \"sleepyhead\", \"pumpkin head\", \"noodle brain\" (masalan: Voy, \"silly goose\", yana bir o'ylab ko'r!). Hech qachon qo'pol so'z ishlatma.");
   if (C.tease && C.mode === "ru") base.push("Rus tili rejimida tegajoq so'zlarni ruscha, «» ichida ishlat: «тыковка», «соня», «растеряшка», «голова садовая» (masalan: Voy, «тыковка», yana bir o'ylab ko'r!). Hech qachon qo'pol so'z ishlatma.");
   if (C.name) base.push("O'quvchining ismi: " + C.name + ". Unga ba'zan ismi bilan murojaat qil (har gal emas).");
   else base.push("O'quvchining ismini hali bilmaysan. Mos paytda ismini so'ra. Ismini aytsa, javobing boshida, kayfiyat tegidan keyin [ism:ISMI] tegini yoz (masalan: [happy] [ism:Ali] Tanishganimdan xursandman, Ali!).");
-  if (C.mode === "free" && C.fan && C.fan !== "mix") { var fn = FANLAR.filter(function (x) { return x[0] === C.fan; })[0]; if (fn) base.push("Tanlangan fan: " + fn[1].replace(/^\S+\s/, "") + ". Suhbat va savollarni shu fan bo'yicha olib bor."); }
+  if (C.mode === "free" && C.fan && C.fan !== "mix") { var fn = FANLAR.filter(function (x) { return x[0] === C.fan; })[0]; if (fn) base.push("Tanlangan fan: " + fn[1].replace(/^\S+\s/, "") + " — misollarni ko'proq shu fandan ber, lekin o'quvchi boshqa narsa so'rasa ham to'liq javob ber."); }
   var cq = cur().st && cur().st.cur; if (cq && cq.q) base.push("Hozir o'quvchiga berilgan savol: " + cq.q + (cq.k === "mc" ? " (to'g'ri javob: " + cq.a + ")" : cq.a != null ? " (to'g'ri javob: " + (Array.isArray(cq.a) ? cq.a[0] : cq.a) + ")" : "") + ". Javobni o'quvchi o'zi topishiga yordam ber: to'g'ri javobni o'quvchi topmaguncha yoki «bilmayman» demaguncha uni hech qanday shaklda aytma — tirnoq ichida ham, savol ichida ham, «… deb yoz» deb ham.");
   // Suhbat bosqichi: avval tanishuv va qiziqishlar, keyin ularga bog'langan dars
   var c0 = cur(), uN = c0.h.filter(function (x) { return x.r === "u"; }).length;
-  if (!xo.img && !cq && !(c0.st && c0.st.go) && C.mode !== "qosh" && C.mode !== "xato" && uN < (TOPIC ? 2 : 4))
-    base.push("HOZIR TANISHUV BOSQICHI (o'quvchining " + uN + "-xabari). Qiziqishini aytsa — ALBATTA [qiziqish:…] tegini qo'y. Hali dars savoli, misol, test yoki tarjima topshirig'i BERMA. O'quvchi bilan do'stdek gaplash: " + (C.name ? "" : "ismini so'ra, ") + "kayfiyatini, bugun nima qilganini, nimalarga qiziqishini (sevimli o'yini, sporti, multfilmi, kitobi, kim bo'lmoqchi ekani) so'ra; har javobingda bitta savol ber. Aytganiga chin dildan qiziqib, qisqa munosabat bildir." + (C.mode === "en" || C.mode === "ielts" ? " Bu savollarni oddiy inglizcha ham ber (qo'sh tirnoqda). O'quvchining inglizcha gapida xato bo'lsa, tanishuv paytida ham muloyim tuzatib, to'g'ri variantini ayt." : C.mode === "ru" ? " Bu savollarni oddiy ruscha ham ber (tirnoqda). O'quvchining ruscha gapida xato bo'lsa (masalan, «играть футбол» o'rniga «играть в футбол»), tanishuv paytida ham muloyim tuzatib, to'g'ri variantini ayt." : "") + " O'quvchi o'zi savol bersa yoki dars so'rasa — darhol yordam ber.");
-  else if (!xo.img) base.push((c0.st && c0.st.go && !cq ? "O'quvchi darsni boshlashni so'radi — endi darhol darsga o't: " + g + " darajasiga mos, iloji bo'lsa qiziqishlariga bog'langan bitta qisqa mashq yoki savol ber. " : "") + "Suhbat ritmi: darsni o'quvchining qiziqishlariga bog'lab olib bor (misol va savollarni ular haqida tuz). Har 4–5 savoldan keyin qisqa hazil yoki shaxsiy savol bilan dam ber. Qiziqishlarini hali bilmasang, mos paytda so'ra.");
+  if (!xo.img && !cq && !(c0.st && c0.st.go) && C.mode !== "qosh" && C.mode !== "xato" && uN < (TOPIC ? 1 : 2))
+    base.push("SUHBAT BOSHI (o'quvchining " + uN + "-xabari). Qiziqishini aytsa — ALBATTA [qiziqish:…] tegini qo'y. O'quvchi savol bersa yoki biror narsa so'rasa — darhol to'liq javob ber, tanishuvni keyinga qoldir. Faqat shunchaki salomlashsa yoki gaplashmoqchi bo'lsa — do'stdek iliq javob ber" + (C.name ? "" : " va mos joyda ismini so'ra") + "; so'roqqa tutma — ko'pi bilan bitta yengil savol. O'quvchi so'ramasa, o'zing test yoki topshiriq berma." + (C.mode === "en" || C.mode === "ielts" ? " Bu suhbatni oddiy inglizcha ham olib bor (qo'sh tirnoqda). O'quvchining inglizcha gapida xato bo'lsa, muloyim tuzatib, to'g'ri variantini ayt." : C.mode === "ru" ? " Bu suhbatni oddiy ruscha ham olib bor (tirnoqda). O'quvchining ruscha gapida xato bo'lsa (masalan, «играть футбол» o'rniga «играть в футбол»), muloyim tuzatib, to'g'ri variantini ayt." : ""));
+  else if (!xo.img) base.push((c0.st && c0.st.go && !cq ? "O'quvchi darsni boshlashni so'radi — endi darhol darsga o't: " + g + " darajasiga mos, iloji bo'lsa qiziqishlariga bog'langan bitta qisqa mashq yoki savol ber. " : "") + "Suhbat ritmi: o'quvchi nimani so'rasa — o'sha haqida chuqur gaplash; misollarni iloji bo'lsa uning qiziqishlariga bog'la. Mashq yoki test faqat o'quvchi so'rasa yoki darsni boshlashni xohlasa beriladi.");
   if (C.likes && C.likes.length) base.push("O'quvchining qiziqishlari (oldingi suhbatlardan): " + C.likes.join(", ") + ". Misol va savollarni ba'zan shularga bog'la, ba'zan ular haqida so'rab qo'y.");
-  if (TOPIC) base.push("Hozirgi dars mavzusi: " + TOPIC + ". Suhbatni shu mavzu atrofida olib bor.");
-  if (C.mode === "math" && C.mt) base.push("Tanlangan matematika mavzusi: " + C.mt.n + (C.mt.d ? " — " + C.mt.d : "") + ". Tushuntirish, misol va savollarni shu mavzu bo'yicha ber (o'quvchi boshqa narsa so'ramasa). Saytda shu mavzudan savollar bazasi bor — o'quvchi «savol ber» yoki «keyingi» desa, sayt o'zi savol beradi.");
+  if (TOPIC) base.push("O'quvchi saytdagi «" + TOPIC + "» sahifasidan kirgan. Savoli shu mavzuga oid bo'lsa — shu kontekstda javob ber; boshqa narsa so'rasa — erkin va to'liq javob ber, mavzuga majburan qaytarma.");
+  if (C.mode === "math" && C.mt) base.push("Tanlangan matematika mavzusi: " + C.mt.n + (C.mt.d ? " — " + C.mt.d : "") + ". Tushuntirish va misollarni shu mavzu bo'yicha ber; o'quvchi boshqa narsa so'rasa — erkin javob ber. Saytda shu mavzudan savollar bazasi bor — o'quvchi «savol ber» yoki «keyingi» desa, sayt o'zi savol beradi.");
   return base.concat(M[C.mode]).filter(Boolean).join("\n");
 }
 
@@ -1525,10 +1535,11 @@ $("#fk summary").addEventListener("click", function () { FK.user = true; FK.auto
 var askGen = 0, streaming = false;
 function feeder(gen) {
   var spoken = 0, moodSet = false, first = true, pend = "";
-  return function (full, final) {
+  return function (full, final, rz) {
     if (gen !== askGen) return;
-    var sp = splitFikr(full, final);
-    if (sp.th != null) fkShow(sp.th);
+    var sp = splitFikr(full, final), th = sp.th;
+    if (rz && String(rz).trim()) th = String(rz).trim() + (th ? "\n\n" + th : "");
+    if (th != null) fkShow(th);
     if (sp.open) return; // hali o'ylayapti — gapiradigan narsa yo'q
     if (sp.ans.replace(/^\s*\[\w*\]?\s*/, "").trim() || final) fkEnd();
     full = sp.ans;
@@ -1580,14 +1591,16 @@ async function send(text, o) {
   if (deepNow) { fxBurst("deep", 3); deepT = setInterval(function () { if (S === "think") fxBurst("deep", 1); }, 1700); }
   if (!loc) { var ak = o.img ? "i" : deepNow ? "d" : "n"; ackSoon(ak, ak !== "n" && Date.now() - ackLast < 3000 ? 1600 : 150); }
   drawOpts(null); lastOpts = null;
-  var feed = feeder(gen), list = loc ? ["off"] : chain(), out = null, used = "off", xo = { deep: deepNow, lvl: lvl, img: o.img || null };
+  var chq = lvl > 1 && !o.img && CHUQ.test(text.replace(/[ʻʼ‘’`´]/g, "'"));
+  var feed = feeder(gen), list = loc ? ["off"] : chain(), out = null, used = "off", xo = { deep: deepNow, lvl: lvl, img: o.img || null, chuqur: chq };
+  GQ.rz = "";
   if (o.img) list = list.filter(function (e) { return e === "fb" || e === "key"; });
   streaming = true;
   for (var i = 0; i < list.length && gen === askGen; i++) {
     var e = list[i];
     if (e === "off") { out = viaOffline(text); used = "off"; break; }
     try {
-      var hh = c.h.slice(), cb = function (t) { feed(t, false); };
+      var hh = c.h.slice(), cb = function (t, rz) { feed(t, false, rz); };
       out = await (e === "groq" ? viaGroq(hh, cb, xo) : e === "fb" ? viaFirebase(hh, cb, xo) : e === "key" ? viaKey(hh, cb, xo) : viaPuter(hh, cb, xo));
       used = e; if (e === "fb") dayInc(); break;
     } catch (err) {
@@ -1603,11 +1616,12 @@ async function send(text, o) {
   streaming = false;
   if (used !== "off" || list.length > 1 || C.engine === "off") drawEng(used);
   var spl = splitFikr(out || "", true), p = parseMood(spl.ans);
-  if (spl.th != null) fkShow(spl.th);
+  var thAll = used === "groq" && GQ.rz && GQ.rz.trim() ? GQ.rz.trim() + (spl.th ? "\n\n" + spl.th : "") : spl.th;
+  if (thAll != null) fkShow(thAll);
   var thSec = fkEnd() || (FK.t1 ? fkSec(FK.t1 - FK.t0) : 0);
   if (p.mood) setMood(p.mood); else if (mood === "think") setMood("neutral");
   if (used === "off") { showAI(p.t); say(p.t, afterSpeak); }
-  else { feed(out, true); speakEnd = afterSpeak; if (!tBusy && !TQ.length) pump(); }
+  else { feed(out, true, used === "groq" ? GQ.rz : ""); speakEnd = afterSpeak; if (!tBusy && !TQ.length) pump(); }
   c.h.push({ r: "a", t: p.t, m: p.mood || "neutral", o: lastOpts || undefined, th: FK.on && FK.th ? FK.th.slice(0, 1500) : undefined, ts: FK.on && thSec ? thSec : undefined }); saveChat();
   $("#qk").hidden = false; drawOpts(lastOpts);
   if (!dressed) dressFrom(String(p.t || "").slice(0, 260));
