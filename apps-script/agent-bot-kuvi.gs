@@ -148,7 +148,8 @@ function biznesXabar_(token, s, props, cache, m, ctx) {
     jurnal_(ism, 'Spam - javob berilmadi', qisqa_(matn, 80));
     return;
   }
-  const kuvi = ha_(s.KUVI_YOQILGAN) && ha_(s.KUVI_BIZNES) && savolMi_(m.text || m.caption || '');
+  // shaxsiy chatda Kuvi faqat fanga oid savolga javob beradi («Ustoz, dars bormi?» kabi savollarga — yo'q)
+  const kuvi = ha_(s.KUVI_YOQILGAN) && ha_(s.KUVI_BIZNES) && fanSavolMi_(m.text || m.caption || '');
 
   if (!holatKesh) {
     // 1-xabar: agent salomlashadi (savol bo'lsa — Kuvi ham javob beradi)
@@ -365,7 +366,20 @@ function savolMi_(t) {
   if (/^(salom|assalom|va alaykum|vaalaykum|hayrli|xayrli|rahmat|raxmat|ok\b|xop\b|ha\b|yoq\b|ustoz|domla|qalaysiz|yaxshimisiz)[\s\S]{0,25}$/.test(n) && !/\?/.test(t)) return false;
   if (/\?/.test(t)) return true;
   if (/(qanday|qanaqa|nega\b|nima uchun|nimaga|nima\b|qancha|nechta|necha\b|qaysi|qachon|qayer|kim\b|tushuntir|yech|hisobla|isbotla|toping|topish|aytib ber|misol|masala|formula|tenglama|integral|hosila|logarifm|teorema|tarif|farqi|how\b|what\b|why\b|explain|solve|calculate|как\b|почему|что такое|реши|объясни)/.test(n)) return true;
-  if (/\d\s*[-+*/×÷^=<>]\s*[\dx(]|[a-z]\s*[\^²³]|√|∫/i.test(t)) return true;
+  if (telefonMi_(t)) return false;
+  if (/\d\s*[+*/×÷^=<>]\s*[\dx(]|[a-z]\s*[\^²³]|√|∫/i.test(t)) return true;
+  return false;
+}
+function telefonMi_(t) { return /^\+?\(?\d[\d\s()\-]{6,}$/.test(String(t || '').trim()); }
+
+// Fanga oid savol (matematika, fizika va h.k.) — shaxsiy chatda Kuvi faqat shunga javob beradi
+function fanSavolMi_(t) {
+  t = String(t || '').trim();
+  if (t.length < 6 || telefonMi_(t)) return false;
+  const n = norm_(t);
+  if (/(^|\s)kuvi\b/.test(n)) return true; // «Kuvi, …» deb murojaat qilsa
+  if (/(matematik|algebra|geometri|fizika|kimyo|biolog|informatika|grammatika|tenglama|tengsizlik|misol|masala|formula|hosila|integral|logarifm|trigonometri|sinus|kosinus|tangens|teorema|isbot|funksiya|grafigi|kasr|foiz|daraja|ildiz|kvadrat|vektor|matritsa|ehtimollik|progressiya|yechib|yechish|yechimi|yeching|hisobla|tushuntirib|nima degani|qanday topiladi|qanday yechiladi|solve|equation|derivative|integral|уравнен|задач|формул)/.test(n)) return true;
+  if (/[a-z]\s*[\^²³]|√|∫|\d\s*[+*/×÷^=<>]\s*[\dx(]/i.test(t)) return true;
   return false;
 }
 
