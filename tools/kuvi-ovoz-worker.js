@@ -47,7 +47,7 @@ const VER = "2026-11-22"; // /ping da ko'rinadi — sayt server yangilanganini s
 const ORIGINS = ["https://kuvonch.uz", "https://www.kuvonch.uz", "https://quvonchbek99.github.io", "http://localhost:8765",
   "https://texnikum1son.uz", "https://www.texnikum1son.uz"];
 // Telegram agent bot (@kuvonch_agent_bot) — Apps Script «Avto-javob agent (bot kodi)» web app manzili
-const AGENT_URL = "";
+const AGENT_URL = "https://script.google.com/macros/s/AKfycbxakXimtoWjmpwV96g-3T8PQ4Orv7BTFVrcHAThC4Ys3GuIsYsF4o25_X6oK15SSvTp/exec";
 const VOICES = {
   "uz-f": "uz-UZ-MadinaNeural", "uz-m": "uz-UZ-SardorNeural",
   "en-f": "en-US-JennyNeural", "en-m": "en-US-GuyNeural",
