@@ -1567,5 +1567,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u suvni o'zi loyqalatib yuborgan edi", "Chunki ariqda suv umuman yo'q edi", "Chunki u suvdan qo'rqardi va ichishni xohlamadi"],
     javob: 0,
     izoh: "Suv loyqalanishiga ikkinchi bolaning o'zi sabab bo'lgan. Natijani keltirib chiqargan harakatni ko'rish mantiqiy fikrlashning asosiy qismidir."
+  },
+  {
+    id: "ez-194", mavzu: "ehtiyotkorlik", sarlavha: "Qurt va olma",
+    matn: "Bog'dagi katta olma daraxtida pishgan bir olma bor edi. Uning ichida kichkina qurt yashab, shirin go'shtini yeb, ichini asta-sekin kovlab borardi. U bu uy abadiy turadi deb o'ylar va undan hech qachon ayrilmasligini hisoblardi. Ammo ichi kovak bo'lib qolgan olma kuzda yerga tushib, chirib ketdi va qurt ham u bilan birga yo'q bo'lib ketdi.",
+    savol: "Qurt nega o'zi yashagan olmaning yo'qolishiga sabab bo'ldi?",
+    variantlar: ["Chunki kuz kelishi bilan barcha olmalar chirib ketadi", "Chunki olma daraxti uni o'zi tashlab yubordi", "Chunki u olmani asta-sekin o'zi yeb, uni ichidan bo'shatib qo'ydi"],
+    javob: 2,
+    izoh: "Qurt o'z uyining ichini yeb, uni mustahkam emas qilib qo'ydi. Masal shuni ko'rsatadiki, o'z foydasini ko'zlab, o'zi yashayotgan joyga zarar yetkazish oxirida o'ziga ham zarar keltiradi."
   }
 ];
