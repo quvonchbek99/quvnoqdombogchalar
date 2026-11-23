@@ -1559,5 +1559,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u oldindan arqon va langarni tekshirib, mustahkamlab qo'ygan edi", "Chunki bo'ron faqat ikkinchi kemaga urilgan edi", "Chunki dengiz o'sha kuni juda sokin edi"],
     javob: 0,
     izoh: "Birinchi kemachi xavfni oldindan o'ylab, arqon va langarni tekshirgan edi, shuning uchun bo'ron uni yengolmadi. Masal shuni o'rgatadiki, xavf kelishidan oldin tayyorgarlik ko'rish omon qolishni ta'minlaydi."
+  },
+  {
+    id: "ez-193", mavzu: "mantiq", sarlavha: "Ariq boshidagi bolalar",
+    matn: "Ikki bola issiqda charchab, ariq bo'yiga suv ichgani kelishdi. Birinchisi tiz cho'kib, suvni qo'li bilan olib, toza suvdan ichdi. Ikkinchisi esa oyog'ini ariqqa tiqib, suvni loyqalatib yubordi va endi icholmayotganidan norozi bo'ldi.",
+    savol: "Ikkinchi bola nega suvni icholmadi?",
+    variantlar: ["Chunki u suvni o'zi loyqalatib yuborgan edi", "Chunki ariqda suv umuman yo'q edi", "Chunki u suvdan qo'rqardi va ichishni xohlamadi"],
+    javob: 0,
+    izoh: "Suv loyqalanishiga ikkinchi bolaning o'zi sabab bo'lgan. Natijani keltirib chiqargan harakatni ko'rish mantiqiy fikrlashning asosiy qismidir."
   }
 ];
