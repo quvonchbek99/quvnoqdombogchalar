@@ -1575,5 +1575,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki kuz kelishi bilan barcha olmalar chirib ketadi", "Chunki olma daraxti uni o'zi tashlab yubordi", "Chunki u olmani asta-sekin o'zi yeb, uni ichidan bo'shatib qo'ydi"],
     javob: 2,
     izoh: "Qurt o'z uyining ichini yeb, uni mustahkam emas qilib qo'ydi. Masal shuni ko'rsatadiki, o'z foydasini ko'zlab, o'zi yashayotgan joyga zarar yetkazish oxirida o'ziga ham zarar keltiradi."
+  },
+  {
+    id: "ez-195", mavzu: "ehtiyotkorlik", sarlavha: "Maqtanchoq ot",
+    matn: "Ot har kuni o'zini eng tez jonzot deb maqtardi va sekin yuradigan eshakni masxara qilardi. Bir kuni u yo'lda tor ko'prikka shoshilib yugurdi. Tezlikni hech kim unga yetkazmasligini o'ylab, qadamlarini ehtiyot qilmadi. Ko'prikning silliq taxtasida oyog'i sirg'anib, ot daryoga tushib ketdi. Shu payt orqadan kelayotgan eshak esa bosiq qadam tashlab, xavfsiz o'tib ketdi.",
+    savol: "Eshak nega ko'prikdan xavfsiz o'tdi?",
+    variantlar: ["Chunki u ehtiyotkor va vazmin yurdi", "Chunki ko'prik faqat eshak uchun qurilgan edi", "Chunki ot uni daryoga itarib yubordi"],
+    javob: 0,
+    izoh: "Eshak shoshilmasdan, ehtiyotkorlik bilan yurgani uchun sirg'anmadi. Tezlik har doim ustunlik bermaydi; ehtiyotkorlik ko'pincha xavfdan saqlaydi."
   }
 ];
