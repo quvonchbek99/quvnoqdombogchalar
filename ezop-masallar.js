@@ -1583,5 +1583,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ehtiyotkor va vazmin yurdi", "Chunki ko'prik faqat eshak uchun qurilgan edi", "Chunki ot uni daryoga itarib yubordi"],
     javob: 0,
     izoh: "Eshak shoshilmasdan, ehtiyotkorlik bilan yurgani uchun sirg'anmadi. Tezlik har doim ustunlik bermaydi; ehtiyotkorlik ko'pincha xavfdan saqlaydi."
+  },
+  {
+    id: "ez-196", mavzu: "o'zlik", sarlavha: "Qarg'a va kaptarlar",
+    matn: "Qarg'a kaptarlarning oppoq patlarini ko'rib, o'zi ham ularga o'xshashni xohladi. U oq bo'yoq topib, qora patlarini bo'yadi va kaptarlar suruviga qo'shildi. Kaptarlar uni o'z qatorida ko'rib, bir muddat do'st sifatida qabul qilishdi. Lekin qarg'a ovqat yeyayotganda ovozi va odatlari uni fosh qildi, kaptarlar esa uni haydab yuborishdi.",
+    savol: "Qarg'a nega na kaptarlar, na qarg'alar orasida o'z o'rnini topa olmadi?",
+    variantlar: ["Chunki u o'z haqiqiy tabiatini yashirib, boshqaga o'xshashga urindi", "Chunki kaptarlar oq rangdan qo'rqardi", "Chunki u juda sekin uchardi va suruvga yetolmasdi"],
+    javob: 0,
+    izoh: "Qarg'a o'zligini inkor qilib, boshqalarga o'xshashga urindi. Bu bilan u na eski guruhida, na yangi guruhda ishonch topdi. Masal shuni o'rgatadiki, o'zligini yashirish bilan hech kimning chin ishonchini qozonib bo'lmaydi."
   }
 ];
