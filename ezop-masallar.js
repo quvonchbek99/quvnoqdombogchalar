@@ -1591,5 +1591,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u o'z haqiqiy tabiatini yashirib, boshqaga o'xshashga urindi", "Chunki kaptarlar oq rangdan qo'rqardi", "Chunki u juda sekin uchardi va suruvga yetolmasdi"],
     javob: 0,
     izoh: "Qarg'a o'zligini inkor qilib, boshqalarga o'xshashga urindi. Bu bilan u na eski guruhida, na yangi guruhda ishonch topdi. Masal shuni o'rgatadiki, o'zligini yashirish bilan hech kimning chin ishonchini qozonib bo'lmaydi."
+  },
+  {
+    id: "ez-197", mavzu: "himoya", sarlavha: "Tovuq va burgut",
+    matn: "Burgut bir tovuqning cho'jalarini ko'rib, ulardan birini olib ketish uchun osmonda aylana boshladi. Tovuq esa cho'jalarini tezda yig'ib, qanotlari ostiga oldi va sokin turdi. Burgut bir necha marta hujum qilmoqchi bo'ldi, lekin hech bir cho'jani topa olmadi.",
+    savol: "Burgut nega cho'jalarni ola olmadi?",
+    variantlar: ["Chunki tovuq cho'jalarini birlashtirib, qanotlari ostida himoya qildi", "Chunki burgut ochlikdan juda kuchsiz edi", "Chunki cho'jalar allaqachon uchib ketgan edi"],
+    javob: 0,
+    izoh: "Tovuq cho'jalarini bir joyga yig'ib himoya qildi, shu sababli burgut hujum qila olmadi. Birlashish va ehtiyotkorlik ko'pincha katta xavfdan saqlaydi."
   }
 ];
