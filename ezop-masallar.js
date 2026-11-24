@@ -1623,5 +1623,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ko'prikning holatini tekshirmasdan ustiga chiqdi", "Chunki daryo juda tez oqardi va u suzolmadi", "Chunki boshqa hayvonlar uni ko'prikdan itarib yubordi"],
     javob: 0,
     izoh: "Tulki ko'prikning eski ekanini ko'rsa-da, uni tekshirmadi. Xavfni oldindan baholash va ehtiyotkorlik ko'p xatolardan saqlaydi."
+  },
+  {
+    id: "ez-201", mavzu: "sabr", sarlavha: "Bola va urug'",
+    matn: "Bir bola bog'iga urug' ekdi va har kuni kelib, u unib chiqdimi yo'qmi deb tekshirardi. Birinchi kuni hech narsa ko'rinmadi, shuning uchun u urug'ni qo'li bilan ochib, tuproqni qazib ko'rdi. Ertasi kuni ham xuddi shunday qildi, ammo urug' hali unib chiqishga ulgurmagan edi. Oxiri bola sabrsizlanib, har kuni urug'ni qazishda davom etdi va u nozik ildizi uzilib, nobud bo'ldi.",
+    savol: "Nima uchun urug' unib chiqmadi?",
+    variantlar: ["Chunki bola uni har kuni qazib, ildizini uzib qo'ydi", "Chunki bog'da suv umuman yo'q edi", "Chunki urug'ni ekish uchun juda kech edi"],
+    javob: 0,
+    izoh: "Urug' unib chiqishi uchun vaqt va tinchlik kerak. Bola sabr qilmay, har kuni qazib tekshirgani uchun o'simlikni o'zi nobud qildi. Ba'zi natijalar vaqt talab qiladi."
   }
 ];
