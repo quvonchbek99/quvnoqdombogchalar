@@ -1615,5 +1615,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki chinor juda baland edi va soya bermasdi", "Chunki ular chinor soyasidan olgan foydani unutib, faqat mevasiga qaradi", "Chunki chinor qurib qolgan edi"],
     javob: 1,
     izoh: "Yo'lovchilar chinor soyasida dam olib, undan foyda ko'rdi, lekin faqat meva yo'qligini ko'rib, foydani unutdi. Masal shuni eslatadiki, olgan yaxshiligimizni ko'rmaslik va minnatdor bo'lmaslik noinsoflikdir."
+  },
+  {
+    id: "ez-200", mavzu: "ehtiyotkorlik", sarlavha: "Tulki va chirigan ko'prik",
+    matn: "Bir tulki daryo ustidagi yog'och ko'prikka yetib keldi. Ko'prikning taxtalari eski va chirigan edi, lekin tulki ikkilanmasdan, boshqa hayvonlar ham o'tgandir deb o'yladi. U tekshirmasdan ko'prikka qadam qo'ydi va taxtalar sinib, suvga tushib ketdi.",
+    savol: "Tulki nima uchun suvga tushib ketdi?",
+    variantlar: ["Chunki u ko'prikning holatini tekshirmasdan ustiga chiqdi", "Chunki daryo juda tez oqardi va u suzolmadi", "Chunki boshqa hayvonlar uni ko'prikdan itarib yubordi"],
+    javob: 0,
+    izoh: "Tulki ko'prikning eski ekanini ko'rsa-da, uni tekshirmadi. Xavfni oldindan baholash va ehtiyotkorlik ko'p xatolardan saqlaydi."
   }
 ];
