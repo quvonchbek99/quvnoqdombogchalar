@@ -1607,5 +1607,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yomg'ir boshlanishidan oldin boshpana tayyorlagan edi", "Chunki yomg'ir faqat boshqa hayvonlarga yog'ardi", "Chunki u suvda suzishni yaxshi bilardi"],
     javob: 0,
     izoh: "Quyoncha xavfni oldindan o'ylab, boshpana tayyorladi. Oldindan rejalashtirish kutilmagan vaziyatlarda ham sizni himoya qiladi."
+  },
+  {
+    id: "ez-199", mavzu: "minnatdorlik", sarlavha: "Yo'lovchilar va chinor",
+    matn: "Issiq yoz kunida bir necha yo'lovchi yo'l bo'yidagi katta chinor soyasida dam olishga to'xtadi. Ular salqin soyada rohatlanib, tanaffusdan so'ng yana yo'lga tushishdi. Yo'lda ketayotib, ulardan biri: \"Bu chinor nima foydasiz ekan, na meva beradi, na ishga yaraydi!\" dedi, boshqalar ham unga qo'shilib daraxtni mazax qilishdi.",
+    savol: "Yo'lovchilar chinorni nima uchun foydasiz deb hisobladi?",
+    variantlar: ["Chunki chinor juda baland edi va soya bermasdi", "Chunki ular chinor soyasidan olgan foydani unutib, faqat mevasiga qaradi", "Chunki chinor qurib qolgan edi"],
+    javob: 1,
+    izoh: "Yo'lovchilar chinor soyasida dam olib, undan foyda ko'rdi, lekin faqat meva yo'qligini ko'rib, foydani unutdi. Masal shuni eslatadiki, olgan yaxshiligimizni ko'rmaslik va minnatdor bo'lmaslik noinsoflikdir."
   }
 ];
