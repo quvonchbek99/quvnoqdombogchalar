@@ -1599,5 +1599,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki tovuq cho'jalarini birlashtirib, qanotlari ostida himoya qildi", "Chunki burgut ochlikdan juda kuchsiz edi", "Chunki cho'jalar allaqachon uchib ketgan edi"],
     javob: 0,
     izoh: "Tovuq cho'jalarini bir joyga yig'ib himoya qildi, shu sababli burgut hujum qila olmadi. Birlashish va ehtiyotkorlik ko'pincha katta xavfdan saqlaydi."
+  },
+  {
+    id: "ez-198", mavzu: "tayyorgarlik", sarlavha: "Quyoncha va yomg'ir",
+    matn: "Kuzning salqin kunlarida bulutlar to'planib, kutilmaganda yomg'ir quya boshladi. Dala hayvonlari bir zumda qayerga yashirinishni bilmay, qo'rqib yugurishdi. Quyoncha esa yomg'ir boshlanmasdan oldin o'zi uchun chuqur uya kovlab, ichiga quruq somon yig'ib qo'ygan edi.",
+    savol: "Quyoncha nima uchun yomg'irda ho'l bo'lmadi?",
+    variantlar: ["Chunki u yomg'ir boshlanishidan oldin boshpana tayyorlagan edi", "Chunki yomg'ir faqat boshqa hayvonlarga yog'ardi", "Chunki u suvda suzishni yaxshi bilardi"],
+    javob: 0,
+    izoh: "Quyoncha xavfni oldindan o'ylab, boshpana tayyorladi. Oldindan rejalashtirish kutilmagan vaziyatlarda ham sizni himoya qiladi."
   }
 ];
