@@ -1631,5 +1631,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki bola uni har kuni qazib, ildizini uzib qo'ydi", "Chunki bog'da suv umuman yo'q edi", "Chunki urug'ni ekish uchun juda kech edi"],
     javob: 0,
     izoh: "Urug' unib chiqishi uchun vaqt va tinchlik kerak. Bola sabr qilmay, har kuni qazib tekshirgani uchun o'simlikni o'zi nobud qildi. Ba'zi natijalar vaqt talab qiladi."
+  },
+  {
+    id: "ez-202", mavzu: "mantiq", sarlavha: "Kiyik va butazor",
+    matn: "Bir o'rmonda kiyik o'z katta, shoxdor boshiga qarab maqtanar, ammo ingichka oyoqlarini xunuk deb hisoblardi. Bir kuni ovchilar uni quvib kelishdi. Kiyik tekis dalaga emas, zich butazorga qochib kirdi, chunki shoxlari bilan kengroq joyni tanlagan edi. Lekin shoxlari shoxlarga ilinib qoldi va u qochib keta olmay, ovchilarga yo'lda tutildi.",
+    savol: "Kiyik nima uchun ovchilar qo'liga tushib qoldi?",
+    variantlar: ["Chunki u ovchilardan ko'ra tezroq yugurolmadi", "Chunki u shoxlarini yashirishni unutdi", "Chunki u tez qochadigan ochiq joy o'rniga shoxlari ilinadigan butazorni tanladi"],
+    javob: 2,
+    izoh: "Kiyik o'z go'zal shoxlariga ishonib, oyoqlarining qochishdagi foydasini unutdi. Har bir a'zoning o'z vazifasi bor; faqat ko'rinishga qarab qaror qilish xavfli bo'lishi mumkin."
   }
 ];
