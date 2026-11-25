@@ -1655,5 +1655,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki dalada hech qanday don qolmagan edi", "Chunki u donni ko'p terib, uchishga kuchi qolmadi", "Chunki u kun botishi va ob-havoning o'zgarishini hisobga olmay, uyasiga qaytishni kechiktirdi"],
     javob: 2,
     izoh: "Chumchuq ishga shunchalik berilib ketdiki, vaqtni va ob-havo belgilarini e'tibordan chetda qoldirdi. Ishni rejalashtirish va xavfni oldindan hisobga olish muhim."
+  },
+  {
+    id: "ez-205", mavzu: "mehnat", sarlavha: "Ari va qish",
+    matn: "Yoz bo'yi bir ari gul bog'lari atrofida uchib yurdi, lekin asal yig'ishni keyinga qoldirdi. Kuz kelib sovuq tushganda, uning uyasida tayyor ozuqa yo'q edi. Qo'shni ari esa yozda har kuni asal yig'ib, uyasini to'ldirib qo'ygan edi. Qish kelganda birinchi ari ochlikdan holsizlanib, qo'shnisidan yordam so'radi.",
+    savol: "Ari nega qishda ochlikka duchor bo'ldi?",
+    variantlar: ["Chunki u yoz bo'yi gul bog'larini kezib, zarur ishni vaqtida bajarmadi", "Chunki uning uyasi kuchli shamolda buzilgan edi", "Chunki qo'shnisi unga asal berishni rad etgan edi"],
+    javob: 0,
+    izoh: "Qulay paytda tayyorgarlik ko'rilmasa, qiyin kunlarda oqibati o'ziga qaytadi. Kelajakka tayyorgarlik yozda, ya'ni vaqt bor paytda boshlanadi."
   }
 ];
