@@ -1,0 +1,40 @@
+# Bo'limlar → viktorina: fan bo'limlarining data fayllari (ibrohim-tarix-*.js, tarbiya-10-*.js …) yoki
+# ka-bolimlar.js MANIFEST o'zgarsa, viktorina va sinf o'yinlari mavzular ro'yxatini (INDEX) o'zi yangilaydi.
+# Yangi fan qo'shish: ka-bolimlar.js MANIFEST ga bitta qator yozib push qilish kifoya.
+name: Bo'limlar → viktorina
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.js"
+      - "tools/bolimlar.js"
+      - ".github/workflows/bolimlar.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bolimlar
+  cancel-in-progress: false
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: INDEX ni yangilash
+        run: node tools/bolimlar.js
+      - name: O'zgargan bo'lsa saqlash
+        run: |
+          if git diff --quiet -- ka-bolimlar.js; then echo "O'zgarish yo'q"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add ka-bolimlar.js
+          git commit -m "Bo'limlar → viktorina: INDEX avtomatik yangilandi"
+          git push
