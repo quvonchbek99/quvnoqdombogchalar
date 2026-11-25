@@ -1639,5 +1639,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u ovchilardan ko'ra tezroq yugurolmadi", "Chunki u shoxlarini yashirishni unutdi", "Chunki u tez qochadigan ochiq joy o'rniga shoxlari ilinadigan butazorni tanladi"],
     javob: 2,
     izoh: "Kiyik o'z go'zal shoxlariga ishonib, oyoqlarining qochishdagi foydasini unutdi. Har bir a'zoning o'z vazifasi bor; faqat ko'rinishga qarab qaror qilish xavfli bo'lishi mumkin."
+  },
+  {
+    id: "ez-203", mavzu: "mantiq", sarlavha: "Qo'ng'iz va bulbul",
+    matn: "Bog'da bulbul har kuni ertalab sayrab, hamma uning ovoziga qoyil qolardi. Bir qo'ng'iz bunga hasad qilib, o'zi ham shunday maqtov olmoqchi bo'ldi. U bulbulga taqlid qilib, gul ustida baland ovozda sayray boshladi, ammo o'z ovozi xirillab, hech kimga yoqmadi. Shunda chumoli unga: \"Har kimning ovozi tabiatiga qarab yaraydi, sen esa birovning kuyini aytding\", dedi.",
+    savol: "Qo'ng'iz nima uchun maqtovga sazovor bo'lmadi?",
+    variantlar: ["Chunki bog'da hamma uxlab yotgan edi", "Chunki u o'z tabiiy ovozini hisobga olmay, boshqaning kuyini taqlid qildi", "Chunki bulbul uni bog'dan haydab yubordi"],
+    javob: 1,
+    izoh: "Qo'ng'iz bulbulga taqlid qilishga urindi, lekin o'z tabiatiga mos ovozni ishlatmadi. Har kim o'z kuchini bilib ish qilganda natija yaxshi bo'ladi."
   }
 ];
