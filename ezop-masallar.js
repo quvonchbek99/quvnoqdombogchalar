@@ -1663,5 +1663,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yoz bo'yi gul bog'larini kezib, zarur ishni vaqtida bajarmadi", "Chunki uning uyasi kuchli shamolda buzilgan edi", "Chunki qo'shnisi unga asal berishni rad etgan edi"],
     javob: 0,
     izoh: "Qulay paytda tayyorgarlik ko'rilmasa, qiyin kunlarda oqibati o'ziga qaytadi. Kelajakka tayyorgarlik yozda, ya'ni vaqt bor paytda boshlanadi."
+  },
+  {
+    id: "ez-206", mavzu: "hamkorlik", sarlavha: "Ikki dehqon va ariq",
+    matn: "Ikki qo'shni dehqonning dalasi bitta ariq bo'yida edi. Quruqchilik kelib, ariq loyga to'lib qoldi va suv o'tmay qoldi. Birinchi dehqon \"Bu ariq mening emas\" deb qarab turdi, ikkinchisi esa qo'shnisi bilan bir kun birga ariqni tozaladi. Oqib kelgan suv ikkinchi dehqonning ekinini sug'ordi, birinchisining dalasi esa qurib qoldi.",
+    savol: "Ikkinchi dehqonning ekini nega sug'orildi?",
+    variantlar: ["Chunki u qo'shnisi bilan birga ariqni tozalab, suvning oqishini ta'minladi", "Chunki birinchi dehqon unga o'z suvini bergan edi", "Chunki quruqchilik faqat uning dalasiga tegmagan edi"],
+    javob: 0,
+    izoh: "Umumiy muammoni birgalikda hal qilish hammaning foydasiga xizmat qiladi. Birinchi dehqon esa \"bu mening ishim emas\" deb, o'zi ham suvsiz qoldi."
   }
 ];
