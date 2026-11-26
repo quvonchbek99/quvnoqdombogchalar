@@ -101,6 +101,7 @@ kbd{background:#263442;border-radius:4px;padding:1px 5px;font-size:12px}
 <div class="ov" id="settings"><div class="panel">
   <h2>Sozlamalar</h2>
   <div id="setList"></div>
+  <div class="row"><button id="sUpd">Yangilash (versiya: <span id="verTxt"></span>)</button></div>
   <div class="row"><button id="sCal">Pultni kalibrovka qilish</button><button class="pri" id="sBack">Tayyor</button></div>
 </div></div>
 
@@ -1422,6 +1423,20 @@ window.__t={info:function(){return JSON.stringify(renderer.info.render)+' tex'+r
 
 scene.traverse(function(o){if(o.isMesh&&!o.userData.noShadow&&!(o.material&&o.material.isMeshBasicMaterial)){o.castShadow=true;o.receiveShadow=true;}});
 applyGfx();paintCps();buildMenu();requestAnimationFrame(frame);
+})();
+</script>
+<div id="updBar" style="display:none;position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:99;background:#ffc400;color:#111;padding:8px 14px;border-radius:10px;font:600 14px system-ui;box-shadow:0 4px 18px #0006">Yangi versiya bor <button id="updGo" style="margin-left:8px;padding:4px 10px;border-radius:7px;border:0;background:#111;color:#fff;font-weight:600">Yangilash</button></div>
+<script>
+(function(){
+var VER='2026.11.26-3';
+document.getElementById('verTxt').textContent=VER;
+function hard(){try{if(window.caches){caches.keys().then(function(k){k.forEach(function(x){caches.delete(x);});});}}catch(e){}
+  location.replace(location.pathname+'?v='+Date.now());}
+document.getElementById('sUpd').onclick=hard;document.getElementById('updGo').onclick=hard;
+function chk(){if(location.protocol==='file:')return;
+  fetch('fpv-version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
+    if(j&&j.v&&j.v!==VER){document.getElementById('updBar').style.display='block';}}).catch(function(){});}
+chk();setInterval(chk,300000);
 })();
 </script>
 </body>
