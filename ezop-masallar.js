@@ -1695,5 +1695,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki laylakning qulog'i yo'q edi", "Chunki qurillash laylakka qurbaqalarning joyini ko'rsatib berdi", "Chunki qurbaqalar juda kichik edi"],
     javob: 1,
     izoh: "Shovqin laylakka qurbaqalarning qayerdaligini oshkor qilib qo'ydi. Xavf paytida o'zingni oshkor qiladigan harakat foydasiz bo'ladi."
+  },
+  {
+    id: "ez-210", mavzu: "mantiq", sarlavha: "Yelkanli kema va shamol",
+    matn: "Ikki dengizchi bir xil kemada qarshi shamolga qarab yo'lga chiqdi. Birinchisi kuch bilan eshkak eshib, kemani zo'rlab oldinga itarishga urindi, ammo charchab, kema deyarli o'rnidan siljimadi. Ikkinchisi esa yelkanni shamol yo'nalishiga qarab sozladi va kemani zigzag yo'l bilan sekin-sekin manzil tomon yetaklab bordi.",
+    savol: "Ikkinchi dengizchi nega manzilga yetib bordi?",
+    variantlar: ["Chunki u ko'proq kuch sarflab, eshkakni tezroq urdi", "Chunki u yelkanni vaziyatga mos sozlab, kuchni to'g'ri yo'nalishda ishlatdi", "Chunki u shamol to'xtaguncha kemada kutib o'tirdi"],
+    javob: 1,
+    izoh: "Natijaga olib boradigan narsa ko'p kuch emas, vaziyatga mos to'g'ri usul. Kuchni noto'g'ri yo'nalishda sarflash foyda bermaydi."
   }
 ];
