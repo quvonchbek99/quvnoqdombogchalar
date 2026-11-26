@@ -1679,5 +1679,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki ular tezda suv tubiga yashirinib, tulkining ko'zidan g'oyib bo'lishdi", "Chunki tulki qurbaqalarga achinib, ularni ovlamadi", "Chunki tulki uyquga ketib qolgan edi"],
     javob: 0,
     izoh: "Xavf tug'ilganda qurbaqalar tezda o'zlarini yashirishdi va tulki ularni ko'ra olmadi. Ba'zan qochish va yashirinish eng oqilona yechim bo'ladi."
+  },
+  {
+    id: "ez-208", mavzu: "mehnat", sarlavha: "Bog'bonning ikki shogirdi",
+    matn: "Bog'bon ikki shogirdiga bir xil ko'chat berib, uni bog'ning ikki chetiga ekishni buyurdi. Birinchi shogird ko'chatni tezda ekib qo'ydi-yu, keyin uni butunlay unutdi, chunki ish tugadi deb o'yladi. Ikkinchi shogird esa har kuni ko'chat yoniga borib, suv quyib, quyosh tig'idan soya qildi. Bir yil o'tgach, birinchi ko'chat qurib qoldi, ikkinchisi esa baquvvat, mevali daraxtga aylandi.",
+    savol: "Ikkinchi ko'chat nima uchun baquvvat daraxtga aylandi?",
+    variantlar: ["Chunki uni har kuni parvarish qilib, suv va soya berib turishdi", "Chunki u boshqa ko'chatdan balandroq joyga ekilgan edi", "Chunki bog'bon uni faqat qishda sug'orishni buyurgan edi"],
+    javob: 0,
+    izoh: "Doimiy parvarish va e'tibor ko'chat omon qolishi va o'sishi uchun zarur. Ish bir marta bajarilgani bilan tugamaydi, uni davom ettirish kerak."
   }
 ];
