@@ -1671,5 +1671,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u qo'shnisi bilan birga ariqni tozalab, suvning oqishini ta'minladi", "Chunki birinchi dehqon unga o'z suvini bergan edi", "Chunki quruqchilik faqat uning dalasiga tegmagan edi"],
     javob: 0,
     izoh: "Umumiy muammoni birgalikda hal qilish hammaning foydasiga xizmat qiladi. Birinchi dehqon esa \"bu mening ishim emas\" deb, o'zi ham suvsiz qoldi."
+  },
+  {
+    id: "ez-207", mavzu: "ehtiyotkorlik", sarlavha: "Qurbaqalar va tulki",
+    matn: "Ko'l bo'yida yashaydigan qurbaqalar har kuni quyoshda cho'milib o'tirardi. Bir kuni tulki ko'l yoniga kelib, ularni ovlamoqchi bo'ldi. Qurbaqalar uni ko'rishi bilanoq tezda suvga sakrab tushib, ko'l tubidagi loyga yashirinishdi. Tulki suvga uzoq qarab turdi, lekin hech kimni ko'rmadi va bo'sh qo'l bilan ketib qoldi.",
+    savol: "Qurbaqalar tulkidan nima uchun omon qolishdi?",
+    variantlar: ["Chunki ular tezda suv tubiga yashirinib, tulkining ko'zidan g'oyib bo'lishdi", "Chunki tulki qurbaqalarga achinib, ularni ovlamadi", "Chunki tulki uyquga ketib qolgan edi"],
+    javob: 0,
+    izoh: "Xavf tug'ilganda qurbaqalar tezda o'zlarini yashirishdi va tulki ularni ko'ra olmadi. Ba'zan qochish va yashirinish eng oqilona yechim bo'ladi."
   }
 ];
