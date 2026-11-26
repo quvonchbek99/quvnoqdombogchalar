@@ -1687,5 +1687,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki uni har kuni parvarish qilib, suv va soya berib turishdi", "Chunki u boshqa ko'chatdan balandroq joyga ekilgan edi", "Chunki bog'bon uni faqat qishda sug'orishni buyurgan edi"],
     javob: 0,
     izoh: "Doimiy parvarish va e'tibor ko'chat omon qolishi va o'sishi uchun zarur. Ish bir marta bajarilgani bilan tugamaydi, uni davom ettirish kerak."
+  },
+  {
+    id: "ez-209", mavzu: "mantiq", sarlavha: "Laylak va qurbaqa",
+    matn: "Laylak ko'l bo'yida qurbaqalarni ovlab yurardi. Qurbaqalar uni qo'rqitish uchun bir ovozdan qattiq qurillay boshladi. Laylak esa shovqinga quloq solib, eng baland ovoz qayerdan kelayotganini darhol topdi. U to'g'ri o'sha tomonga borib, qurillayotgan qurbaqani tutib oldi.",
+    savol: "Qurbaqalar qurillab laylakni nega qo'rqita olmadi?",
+    variantlar: ["Chunki laylakning qulog'i yo'q edi", "Chunki qurillash laylakka qurbaqalarning joyini ko'rsatib berdi", "Chunki qurbaqalar juda kichik edi"],
+    javob: 1,
+    izoh: "Shovqin laylakka qurbaqalarning qayerdaligini oshkor qilib qo'ydi. Xavf paytida o'zingni oshkor qiladigan harakat foydasiz bo'ladi."
   }
 ];
