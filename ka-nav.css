@@ -44,3 +44,17 @@ html[lang=ru] .knav a.new::after{content:"новое"}
 html[lang=en] .knav a.new::after{content:"new"}
 html[lang=kk] .knav a.new::after{content:"жаңа"}
 html[lang=ky] .knav a.new::after{content:"жаңы"}
+
+/* ===== Menyu dizayni (yengil, shisha uslubida) ===== */
+.knav-head{padding:20px 0 14px;gap:16px}
+.knav-head .brand{letter-spacing:.2px}
+.knav-head .brand-badge{box-shadow:0 6px 18px -8px rgba(162,123,255,.8)}
+.knav{gap:4px;padding:4px;border-radius:999px;background:rgba(124,155,255,.06);border:1px solid rgba(124,155,255,.14);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.knav a{font-size:14px;padding:8px 14px;border-radius:999px}
+.knav a:hover{transform:translateY(-1px)}
+.knav a[aria-current="page"]{font-weight:800}
+/* "yangi" belgisi — katta yozuv o'rniga kichik nuqta */
+.knav a.new::after{content:"";margin-left:6px;width:7px;height:7px;padding:0;border-radius:50%;display:inline-block;vertical-align:middle;background:#ffd479;box-shadow:0 0 0 3px rgba(255,212,121,.18)}
+html[lang=ru] .knav a.new::after,html[lang=en] .knav a.new::after,html[lang=kk] .knav a.new::after,html[lang=ky] .knav a.new::after{content:""}
+@media (max-width:760px){.knav{border-radius:16px}.knav a{padding:8px 12px}}
+@media (prefers-reduced-motion:reduce){.knav a:hover{transform:none}}
