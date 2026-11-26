@@ -79,6 +79,15 @@ h2{font-size:22px;margin:34px 0 10px}
 .faq summary{cursor:pointer;font-weight:700}
 .faq p{margin:8px 0 0;color:var(--text-dim)}
 footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0 14px}
+.chips span{font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg-soft);color:var(--text)}
+.qk{margin:0 0 14px;padding:16px}
+.qk-t{margin:0 0 12px;color:var(--text-dim)}
+.qk-t b{color:var(--gold)}
+.qk-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.qk-g label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--text-dim);font-weight:600}
+.qk-g select,.qk-g input{min-height:46px;border-radius:12px;border:1px solid var(--border);background:#0e172b;color:var(--text);padding:8px 10px;font-size:16px}
+.qk-b{max-width:none;min-height:50px;font-size:17px}
 @media (prefers-reduced-motion:reduce){.live i,.pin.bad .cells b{animation:none}}
 </style>
 <script async src="../statistika.js"></script>
@@ -101,6 +110,7 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10p
 <section class="join" aria-labelledby="sarlavha">
 <span class="live"><i></i>LIVE</span>
 <h1 id="sarlavha">Kodni <span>kiriting</span></h1>
+<div class="chips"><span>👥 500 kishigacha</span><span>🆓 Bepul</span><span>🚫 Ro'yxatsiz</span><span>📱 Telefon + QR</span></div>
 <p class="lead">O'qituvchi ekranidagi <b>5 harfli kodni</b> yozing — jonli viktorina, test yoki jamoa o'yiniga darhol qo'shilasiz. Ro'yxatdan o'tish shart emas.</p>
 <form class="box" id="f" action="./" method="get" novalidate>
 <label class="pin" id="pin" for="kod">
@@ -129,6 +139,16 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10p
 </div>
 
 <h2>👩‍🏫 O'qituvchi: live xona oching</h2>
+<form class="box qk" id="qk" action="../viktorina.html" method="get">
+<p class="qk-t">⚡ Tezkor boshlash — <b>500 kishigacha</b> bitta xonada</p>
+<div class="qk-g">
+<label>Fan<select id="qFan"><option value="mat">📐 Matematika</option><option value="ingliz">🇬🇧 Ingliz tili</option><option value="rus">🇷🇺 Rus tili</option><option value="fizika">⚛️ Fizika</option><option value="kimyo">🧪 Kimyo</option><option value="biologiya">🧬 Biologiya</option><option value="geografiya">🌍 Geografiya</option><option value="tarix">📜 Tarix</option><option value="informatika">💻 Informatika</option><option value="ona">📝 Ona tili</option><option value="adabiyot">📖 Adabiyot</option><option value="zakovat">🦉 Zakovat</option><option value="mantiq">🧠 Mantiq</option><option value="all">🌐 Hammasi</option></select></label>
+<label>Savollar soni<input id="qN" type="number" min="1" max="300" value="20" inputmode="numeric"></label>
+<label>Hisoblash<select id="qM"><option value="soni">Jami N ta savol</option><option value="har">Har mavzudan N ta</option></select></label>
+</div>
+<button type="submit" class="go qk-b">Xonani ochish ▶</button>
+<p class="hint">Har bir mavzu uchun savollar sonini alohida belgilash — «Har mavzudan N ta» ni tanlab, viktorina sozlamalarida har mavzu yonidagi sonni o'zgartiring.</p>
+</form>
 <div class="tgrid">
 <a class="tc" href="../viktorina.html"><b>⚡ Jonli viktorina</b><span>21 fan (🦉 Zakovat ham), 120+ mavzu. Savollar soni: jami N ta yoki har mavzudan N ta.</span></a>
 <a class="tc" href="../viktorina.html?aralash=1"><b>🔀 Hamma fandan aralash</b><span>Har fandan bitta mavzu — bir bosishda tayyor test.</span></a>
@@ -148,6 +168,9 @@ footer{color:var(--text-dim);font-size:13px;text-align:center;padding:30px 0 10p
 <footer>© <span id="yil">2026</span> Kuvonch Academy · <a href="../index.html">kuvonch.uz</a></footer>
 </div>
 
+<script>
+(function(){var f=document.getElementById("qk");if(!f)return;f.addEventListener("submit",function(e){e.preventDefault();var n=Math.max(1,Math.min(300,parseInt(document.getElementById("qN").value,10)||20));var m=document.getElementById("qM").value;location.href="../viktorina.html?fan="+encodeURIComponent(document.getElementById("qFan").value)+"&"+m+"="+n;});})();
+</script>
 <script src="../ka-tarmoq.js?v=20261122a"></script>
 <script src="../ka-kirish.js?v=20261122a"></script>
 <script>
