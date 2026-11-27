@@ -39,6 +39,7 @@
     {"k": "onatilia", "nom": "📖 1-sinf ona tili", "guruh": "📖 1-sinf Ona tili", "p": "ona", "g": "OT1", "f": ["ona-tili-1-1.js", "ona-tili-1-2.js"], "sahifa": "ona-tili-1.html"},
     {"k": "oqisha", "nom": "📚 1-sinf o‘qish", "guruh": "📚 1-sinf O‘qish savodxonligi", "p": "oqi", "g": "OQ1", "f": ["oqish-1-1.js", "oqish-1-2.js"], "sahifa": "oqish-1.html"},
     {"k": "matematikaa", "nom": "🔢 1-sinf matematika", "guruh": "🔢 1-sinf Matematika", "p": "mta", "g": "M1", "f": ["matematika-1-1.js", "matematika-1-2.js"], "sahifa": "matematika-1.html"},
+    {"k": "tabiiya", "nom": "🌿 1-sinf tabiiy fanlar", "guruh": "🌿 1-sinf Tabiiy fanlar", "p": "tfa", "g": "TF1", "f": ["tabiiy-fanlar-1-1.js", "tabiiy-fanlar-1-2.js"], "sahifa": "tabiiy-fanlar-1.html"},
     {"k": "tarbiyaa", "nom": "🤝 1-sinf tarbiya", "guruh": "🤝 1-sinf Tarbiya", "p": "tra", "g": "T1", "f": ["tarbiya-1-1.js"], "sahifa": "tarbiya-1.html"},
     {"k": "tarbiyac", "nom": "🤝 3-sinf tarbiya", "guruh": "🤝 3-sinf Tarbiya", "p": "trc", "g": "T3", "f": ["tarbiya-3-1.js"], "sahifa": "tarbiya-3.html"},
     {"k": "tarbiyae", "nom": "🤝 5-sinf tarbiya", "guruh": "🤝 5-sinf Tarbiya", "p": "tre", "g": "T5", "f": ["tarbiya-5-1.js"], "sahifa": "tarbiya-5.html"},
