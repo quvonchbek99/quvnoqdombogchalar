@@ -71,7 +71,7 @@ for (const m of API.MANIFEST) {
   // bitta buzilgan fan boshqalarini to'xtatmaydi: uning eski ro'yxati saqlanadi
   if (broken) { index[m.k] = API.INDEX[m.k] || []; continue; }
   const list = [];
-  for (const it of API.norm ? API.norm(m, ctx[m.g]) : ctx[m.g] || []) {
+  for (const it of API.norm ? API.norm(m, ctx[m.g], ctx) : ctx[m.g] || []) {
     const id = m.p + it.id, n = API.count(m, it);
     if (!/^[a-z0-9]+$/i.test(id)) { console.error(`✖ ${m.k}: «${id}» — ID da faqat harf va raqam bo'lsin`); bad++; continue; }
     if (!n) continue;
