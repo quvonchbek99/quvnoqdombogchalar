@@ -36,6 +36,7 @@
     {"k": "tarbiyaf", "nom": "🤝 6-sinf tarbiya", "guruh": "🤝 6-sinf Tarbiya", "p": "trf", "g": "T6", "f": ["tarbiya-6-1.js"], "sahifa": "tarbiya-6.html"},
     {"k": "tarbiyag", "nom": "🤝 7-sinf tarbiya", "guruh": "🤝 7-sinf Tarbiya", "p": "trg", "g": "T7", "f": ["tarbiya-7-1.js"], "sahifa": "tarbiya-7.html"},
     {"k": "tarbiyah", "nom": "🤝 8-sinf tarbiya", "guruh": "🤝 8-sinf Tarbiya", "p": "trh", "g": "T8", "f": ["tarbiya-8-1.js"], "sahifa": "tarbiya-8.html"},
+    {"k": "tarbiyai", "nom": "🤝 9-sinf tarbiya", "guruh": "🤝 9-sinf Tarbiya — «Baxt va muvaffaqiyat sirlari»", "p": "tri", "g": "T9", "f": ["tarbiya-9-1.js", "tarbiya-9-2.js", "tarbiya-9-3.js"], "img": "t9-img/", "sahifa": "tarbiya-9.html"},
     {"k": "tarbiyak", "nom": "🤝 11-sinf tarbiya", "guruh": "🤝 11-sinf Tarbiya", "p": "trk", "g": "T11", "f": ["tarbiya-11-1.js"], "sahifa": "tarbiya-11.html"},
     {"k": "umidahuquq", "nom": "⚖️ Umida huquq", "guruh": "⚖️ Umida huquq — 8-sinf «Davlat va huquq asoslari»", "p": "uh", "g": "T10", "f": ["umida-huquq-1.js", "umida-huquq-2.js"], "img": "uh-img/", "sahifa": "umida-huquq.html"}
   ]/*MANIFEST-END*/;
@@ -251,6 +252,32 @@
       ["trhm16","8-sinf tarbiya · 16-mavzu Tabiat va inson",11],
       ["trhm17","8-sinf tarbiya · 17-mavzu Tejamkorlik – farovonlik garovi",11],
       ["trhm18","8-sinf tarbiya · 18-mavzu Xotira va qadriyat",11]
+    ],
+    "tarbiyai": [
+      ["trim1","9-sinf tarbiya · 1-mavzu Ulug‘imsan, Vatanim!",11],
+      ["trim2","9-sinf tarbiya · 2-mavzu Yashamoq – o‘zidan yaxshi nom qoldirmoq",11],
+      ["trim3","9-sinf tarbiya · 3–4-mavzu Yuksalish – o‘zingni anglashdan boshlanadi",11],
+      ["trim5","9-sinf tarbiya · 5-mavzu Faol o‘quvchidan faol fuqarolikkacha",11],
+      ["trim6","9-sinf tarbiya · 6–7-mavzu Kelajakka sarmoya – vaqtni mazmunli o‘tkazish",11],
+      ["trim8","9-sinf tarbiya · 8-mavzu Baxt – oilada",11],
+      ["trim9","9-sinf tarbiya · 9-mavzu Baxtiyorlik – umrning bosh maqsadi",11],
+      ["trim10","9-sinf tarbiya · 10-mavzu Buyuklarni aziz qilgan – bilim",11],
+      ["trim11","9-sinf tarbiya · 11–12-mavzu Tafakkur – kelajakka yetaklovchi vosita",11],
+      ["trim13","9-sinf tarbiya · 13-mavzu Bilimga asoslangan jamiyatda muvaffaqiyat qozonish",11],
+      ["trim14","9-sinf tarbiya · 14-mavzu Innovatsiya va ilg‘or fikrlash – taraqqiyot g‘ildiragi",11],
+      ["trim15","9-sinf tarbiya · 15–16-mavzu Tanqidiy fikrlash",11],
+      ["trim17","9-sinf tarbiya · 17–18-mavzu Liderlikka xos xususiyatlar",11],
+      ["trim19","9-sinf tarbiya · 19-mavzu Bizning kuchli va kuchsiz tomonlarimiz",11],
+      ["trim20","9-sinf tarbiya · 20-mavzu Maqsadga qanday erishiladi?",11],
+      ["trim21","9-sinf tarbiya · 21-mavzu Muvaffaqiyat – qimmatli tajriba mevasi",11],
+      ["trim22","9-sinf tarbiya · 22–23-mavzu O‘ziga ishonch – mo‘jizakor kuch",11],
+      ["trim24","9-sinf tarbiya · 24-mavzu Muloqot va ijtimoiy ko‘nikmalar",11],
+      ["trim25","9-sinf tarbiya · 25-mavzu Kelajak kasblari",11],
+      ["trim26","9-sinf tarbiya · 26-mavzu Tadbirkorlik mezonlari",11],
+      ["trim27","9-sinf tarbiya · 27–28-mavzu Biznesni boshlash uchun zamonaviy g‘oyalar",11],
+      ["trim29","9-sinf tarbiya · 29-mavzu Frilanserlik – qo‘shimcha daromad manbai",11],
+      ["trim30","9-sinf tarbiya · 30–31-mavzu Insonni boy va qashshoq qiluvchi omillar",11],
+      ["trim32","9-sinf tarbiya · 32-mavzu Boylikdan foydalanish mezonlari",11]
     ],
     "tarbiyak": [
       ["trkm1","11-sinf tarbiya · 1-mavzu Vatan taraqqiyotiga men ham mas’ulman",11],
