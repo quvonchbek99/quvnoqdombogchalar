@@ -37,6 +37,7 @@
     {"k": "ibrohim", "nom": "📜 Ibrohim tarix", "guruh": "📜 Ibrohim tarix — 6-sinf «Qadimgi dunyo tarixi» + umumiy bilim", "p": "it", "g": "IT_DATA", "f": ["ibrohim-tarix-1.js", "ibrohim-tarix-2.js", "ibrohim-tarix-3.js", "ibrohim-tarix-4.js", "ibrohim-tarix-bilim.js"], "img": "it-img/", "sahifa": "ibrohim-tarix.html"},
     {"k": "sinftarbiya", "nom": "🤝 10-sinf tarbiya", "guruh": "🤝 10-sinf Tarbiya — «Baxt va muvaffaqiyat sirlari»", "p": "tv", "g": "T10", "f": ["tarbiya-10-1.js", "tarbiya-10-2.js"], "img": "t10-img/", "sahifa": "tarbiya-10.html"},
     {"k": "onatilia", "nom": "📖 1-sinf ona tili", "guruh": "📖 1-sinf Ona tili", "p": "ona", "g": "OT1", "f": ["ona-tili-1-1.js", "ona-tili-1-2.js"], "sahifa": "ona-tili-1.html"},
+    {"k": "oqisha", "nom": "📚 1-sinf o‘qish", "guruh": "📚 1-sinf O‘qish savodxonligi", "p": "oqi", "g": "OQ1", "f": ["oqish-1-1.js", "oqish-1-2.js"], "sahifa": "oqish-1.html"},
     {"k": "tarbiyaa", "nom": "🤝 1-sinf tarbiya", "guruh": "🤝 1-sinf Tarbiya", "p": "tra", "g": "T1", "f": ["tarbiya-1-1.js"], "sahifa": "tarbiya-1.html"},
     {"k": "tarbiyac", "nom": "🤝 3-sinf tarbiya", "guruh": "🤝 3-sinf Tarbiya", "p": "trc", "g": "T3", "f": ["tarbiya-3-1.js"], "sahifa": "tarbiya-3.html"},
     {"k": "tarbiyae", "nom": "🤝 5-sinf tarbiya", "guruh": "🤝 5-sinf Tarbiya", "p": "tre", "g": "T5", "f": ["tarbiya-5-1.js"], "sahifa": "tarbiya-5.html"},
