@@ -357,6 +357,35 @@
       ["itam19","1-sinf informatika · 30–31-dars Tasdiq-inkor, rost-yolg‘on",8],
       ["itam20","1-sinf informatika · 32–33-dars Keraklisini tanlash va natija",8]
     ],
+    "musiqaa": [
+      ["muam1","1-sinf musiqa · 1–2-dars Musiqa nima?",8],
+      ["muam2","1-sinf musiqa · 3-dars Davlat madhiyasi",8],
+      ["muam3","1-sinf musiqa · 5-dars Qo‘shiq tuzilishi",8],
+      ["muam4","1-sinf musiqa · 4, 6-dars Maktabim va Jo‘jalarim",8],
+      ["muam5","1-sinf musiqa · 7–8-dars Baland va past tovushlar",8],
+      ["muam6","1-sinf musiqa · 9–10-dars Musiqachi va xonanda",8],
+      ["muam7","1-sinf musiqa · 12, 23-dars Klavishli cholg‘ular",8],
+      ["muam8","1-sinf musiqa · 14-dars Yog‘ochli puflama cholg‘ular",8],
+      ["muam9","1-sinf musiqa · 16-dars Misli puflama cholg‘ular",8],
+      ["muam10","1-sinf musiqa · 18, 21-dars Torli cholg‘ular",8],
+      ["muam11","1-sinf musiqa · 22-dars Zarbli cholg‘ular",8],
+      ["muam12","1-sinf musiqa · 27–28-dars Shovqinli cholg‘ular",8],
+      ["muam13","1-sinf musiqa · 24–25-dars Notalar",8],
+      ["muam14","1-sinf musiqa · 11, 15, 29-dars Vatan va bilim qo‘shiqlari",8],
+      ["muam15","1-sinf musiqa · 17–20, 30-dars Oila qo‘shiqlari va alla",8]
+    ],
+    "texnoa": [
+      ["txam1","1-sinf texnologiya · 1-dars Tabiat va inson mehnati",8],
+      ["txam2","1-sinf texnologiya · 2-dars Ish qoidalari va jihozlar",8],
+      ["txam3","1-sinf texnologiya · 3–4-darslar Rangli qog‘oz: qurtcha va kamalak",8],
+      ["txam4","1-sinf texnologiya · 5–7, 12-darslar Applikatsiya: olma va quyoncha",8],
+      ["txam5","1-sinf texnologiya · 8, 13–16-darslar Buklash va yelimlash ishlari",8],
+      ["txam6","1-sinf texnologiya · 18–20-darslar Jo‘ja, oqqush va kemacha",8],
+      ["txam7","1-sinf texnologiya · 9–11-darslar Tabiiy materiallar",8],
+      ["txam8","1-sinf texnologiya · 17, 21–22-darslar Plastilin bilan ishlash",8],
+      ["txam9","1-sinf texnologiya · 23, 25-darslar Sovg‘a va domino",8],
+      ["txam10","1-sinf texnologiya · 24, 26–30-darslar Gullar, naqsh va ijod",8]
+    ],
     "tarbiyaa": [
       ["tram1","1-sinf tarbiya · 1-mavzu Men yashaydigan O‘zbekiston",8],
       ["tram2","1-sinf tarbiya · 2-mavzu Men kimman?",8],
