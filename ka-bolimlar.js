@@ -47,6 +47,7 @@
     {"k": "alifbea", "nom": "🔤 1-sinf alifbe", "guruh": "🔤 1-sinf Alifbe", "p": "ala", "g": "AL1", "f": ["alifbe-1-1.js"], "sahifa": "alifbe-1.html"},
     {"k": "odoba", "nom": "🤝 1-sinf odobnoma", "guruh": "🤝 1-sinf Odobnoma", "p": "oda", "g": "OD1", "f": ["odobnoma-1-1.js"], "sahifa": "odobnoma-1.html"},
     {"k": "tasviriya", "nom": "🎨 1-sinf tasviriy san’at", "guruh": "🎨 1-sinf Tasviriy san’at", "p": "tsa", "g": "TS1", "f": ["tasviriy-1-1.js"], "sahifa": "tasviriy-1.html"},
+    {"k": "onatilib", "nom": "📗 2-sinf ona tili", "guruh": "📗 2-sinf Ona tili", "p": "onb", "g": "OT2", "f": ["ona-tili-2-1.js"], "sahifa": "ona-tili-2.html"},
     {"k": "tarbiyaa", "nom": "🤝 1-sinf tarbiya", "guruh": "🤝 1-sinf Tarbiya", "p": "tra", "g": "T1", "f": ["tarbiya-1-1.js"], "sahifa": "tarbiya-1.html"},
     {"k": "tarbiyac", "nom": "🤝 3-sinf tarbiya", "guruh": "🤝 3-sinf Tarbiya", "p": "trc", "g": "T3", "f": ["tarbiya-3-1.js"], "sahifa": "tarbiya-3.html"},
     {"k": "tarbiyae", "nom": "🤝 5-sinf tarbiya", "guruh": "🤝 5-sinf Tarbiya", "p": "tre", "g": "T5", "f": ["tarbiya-5-1.js"], "sahifa": "tarbiya-5.html"},
