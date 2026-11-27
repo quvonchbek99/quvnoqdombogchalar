@@ -1727,5 +1727,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki mushuk qo'ng'iroqdan qo'rqmasdi", "Chunki g'oya yaxshi bo'lsa ham, uni amalga oshiradigan aniq kishi topilmagan edi", "Chunki qo'ng'iroq juda og'ir edi va sichqonlar uni ko'tara olmasdi"],
     javob: 1,
     izoh: "G'oya qanchalik ajoyib bo'lmasin, kim va qanday bajarishi aniq belgilanmasa, u amalga oshmaydi. Reja tuzishda uni bajaradigan aniq mas'ulni ham ko'rsatish kerak."
+  },
+  {
+    id: "ez-214", mavzu: "mantiq", sarlavha: "Maymun va yong'oq",
+    matn: "Bir maymun daraxt ostida katta yong'oq topdi. U yong'oqni tishlab chaqmoqchi bo'ldi, ammo qattiq po'choq tishlarini og'ritdi. G'azablangan maymun yong'oqni yerga bir necha marta urdi, lekin u sinmadi. Shu payt yonidan o'tayotgan dehqon unga qarab dedi: \"Yong'oqni tishing bilan emas, tosh bilan ur, shunda sinadi.\"",
+    savol: "Maymun yong'oqni nima uchun ochishga muvaffaq bo'ldi?",
+    variantlar: ["Chunki u yong'oqni tishlab, kuch bilan chaqdi", "Chunki u yong'oqni ochish uchun to'g'ri vositani tanladi", "Chunki yong'oq o'zi yerga tushib sinib ketdi"],
+    javob: 1,
+    izoh: "Maymun kuchini oshirish o'rniga muammoga mos vositani tanladi. Biror ishni hal qilishda avval qanday vosita kerakligini o'ylash ko'pincha samaraliroq bo'ladi."
   }
 ];
