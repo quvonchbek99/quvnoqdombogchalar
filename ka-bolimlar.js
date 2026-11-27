@@ -42,6 +42,8 @@
     {"k": "tabiiya", "nom": "🌿 1-sinf tabiiy fanlar", "guruh": "🌿 1-sinf Tabiiy fanlar", "p": "tfa", "g": "TF1", "f": ["tabiiy-fanlar-1-1.js", "tabiiy-fanlar-1-2.js"], "sahifa": "tabiiy-fanlar-1.html"},
     {"k": "inglizb", "nom": "🇬🇧 1-sinf ingliz tili", "guruh": "🇬🇧 1-sinf Ingliz tili", "p": "eng", "g": "EN1", "f": ["ingliz-tili-1-1.js", "ingliz-tili-1-2.js"], "sahifa": "ingliz-tili-1.html"},
     {"k": "informatikaa", "nom": "💻 1-sinf informatika", "guruh": "💻 1-sinf Informatika", "p": "ita", "g": "IT1", "f": ["informatika-1-1.js", "informatika-1-2.js"], "sahifa": "informatika-1.html"},
+    {"k": "musiqaa", "nom": "🎵 1-sinf musiqa", "guruh": "🎵 1-sinf Musiqa", "p": "mua", "g": "MU1", "f": ["musiqa-1-1.js"], "sahifa": "musiqa-1.html"},
+    {"k": "texnoa", "nom": "✂️ 1-sinf texnologiya", "guruh": "✂️ 1-sinf Texnologiya", "p": "txa", "g": "TX1", "f": ["texnologiya-1-1.js"], "sahifa": "texnologiya-1.html"},
     {"k": "tarbiyaa", "nom": "🤝 1-sinf tarbiya", "guruh": "🤝 1-sinf Tarbiya", "p": "tra", "g": "T1", "f": ["tarbiya-1-1.js"], "sahifa": "tarbiya-1.html"},
     {"k": "tarbiyac", "nom": "🤝 3-sinf tarbiya", "guruh": "🤝 3-sinf Tarbiya", "p": "trc", "g": "T3", "f": ["tarbiya-3-1.js"], "sahifa": "tarbiya-3.html"},
     {"k": "tarbiyae", "nom": "🤝 5-sinf tarbiya", "guruh": "🤝 5-sinf Tarbiya", "p": "tre", "g": "T5", "f": ["tarbiya-5-1.js"], "sahifa": "tarbiya-5.html"},
