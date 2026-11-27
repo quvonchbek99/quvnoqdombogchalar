@@ -1735,5 +1735,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki u yong'oqni tishlab, kuch bilan chaqdi", "Chunki u yong'oqni ochish uchun to'g'ri vositani tanladi", "Chunki yong'oq o'zi yerga tushib sinib ketdi"],
     javob: 1,
     izoh: "Maymun kuchini oshirish o'rniga muammoga mos vositani tanladi. Biror ishni hal qilishda avval qanday vosita kerakligini o'ylash ko'pincha samaraliroq bo'ladi."
+  },
+  {
+    id: "ez-215", mavzu: "mantiq", sarlavha: "Dehqon va tosh yer",
+    matn: "Bir dehqon yangi yerga bug'doy ekmoqchi bo'ldi. U urug'ni ko'p sepdi, ammo yer toshlarga to'la edi va ko'chatlarning ildizi chuqur kira olmadi. Hosil sarg'ayib qurib qoldi. Qo'shnisi kelib, avval toshlarni terib tashlashni, keyin yerni haydab ekishni maslahat berdi.",
+    savol: "Dehqonning birinchi ekini nima uchun hosil bermadi?",
+    variantlar: ["Chunki urug' yetarli emas edi", "Chunki yer toshlar bilan to'lib, ildizlar chuqur kira olmasdi", "Chunki bug'doy bu yerda umuman o'smaydi"],
+    javob: 1,
+    izoh: "Natija yomon bo'lganda avval sababni topish kerak. Muammo ildizida tursa, ko'proq urug' sepish yordam bermaydi."
   }
 ];
