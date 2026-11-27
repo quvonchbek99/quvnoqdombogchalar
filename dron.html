@@ -402,7 +402,7 @@ footer a:hover{text-decoration:underline}
 <div><span>⬆ Balandlik</span><b id="t-alt">0,0 m</b></div>
 <div><span>➜ Tezlik</span><b id="t-spd">0,0 m/s</b></div>
 <div><span>⚡ Tok</span><b id="t-cur">0 A</b></div>
-<div><span>🔋 <i id="t-v">0 V</i></span><b id="t-bat">100%</b></div>
+<div><span>🔋 <i id="t-v">0 V</i></span><b id="t-batp">100%</b></div>
 <div class="bat"><i id="t-batbar"></i></div>
 <div><span>🌬 Shamol</span><b id="t-wind">0 m/s</b></div>
 </div>
@@ -2474,7 +2474,7 @@ function miniDraw() {
 function hudUpdate(force) {
   var s = F.sim; if (!s) return; var b = F.build, id = F.missionId;
   $("t-alt").textContent = fx(Math.max(0, s.alt()), 1) + " m"; $("t-spd").textContent = fx(s.speed(), 1) + " m/s"; $("t-cur").textContent = fx(s.Itot, 1) + " A";
-  $("t-v").textContent = fx(s.Vb, 1) + " V"; $("t-bat").textContent = Math.round(s.soc * 100) + "%"; var bb = $("t-batbar"); bb.style.width = (s.soc * 100).toFixed(0) + "%"; bb.style.background = s.soc < 0.25 ? "#ff5e8e" : s.soc < 0.5 ? "#ffc23d" : "#35f0c4";
+  $("t-v").textContent = fx(s.Vb, 1) + " V"; $("t-batp").textContent = Math.round(s.soc * 100) + "%"; var bb = $("t-batbar"); bb.style.width = (s.soc * 100).toFixed(0) + "%"; bb.style.background = s.soc < 0.25 ? "#ff5e8e" : s.soc < 0.5 ? "#ffc23d" : "#35f0c4";
   var wv = ENVW.windV; $("t-wind").textContent = fx(Math.hypot(wv.x, wv.z), 1) + " m/s";
   $("thr-fill").style.height = (clamp(s.uThr || 0, 0, 1) * 100).toFixed(0) + "%"; $("thr-hover").style.bottom = (clamp(b.hoverFrac, 0, 1) * 100).toFixed(0) + "%";
   var tt = "Erkin uchish", ob = !s.armed ? "▶ ni bosing — motorlar ishga tushadi." : FM.assist ? "W / chap joystik ↑ — ko'tarilish; strelkalar / o'ng joystik — harakat." : "Sport: gazni o'zingiz ushlang (osilish ≈ " + fx(b.hoverFrac * 100, 0) + " %).", tm = s.armed || F.t > 0 ? fx(F.t, 1) + " s" : "";

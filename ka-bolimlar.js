@@ -14,6 +14,10 @@
  *   f     — data fayllari (tartib bilan)
  *   img   — qisqa rasm nomi uchun papka ("t10-img/" → img:"p9a" = t10-img/p9a.jpg); to'liq yo'l bo'lsa o'zi ishlatiladi
  *   sahifa — bo'lim sahifasi
+ *   fmt   — boshqa formatli data: "quiz" (ingliz grammatikasi), "tasks" (rus tili darslari): {q, o:[variantlar], a:to'g'ri indeks, e}
+ *
+ * 🤖 AVTOMATIK: saytning bosh papkasidagi yangi sahifa yuqoridagi formatdagi data faylni ulasa, tools/bolimlar.js uni
+ *    MANIFEST ga o'zi qo'shadi (qo'lda yozish shart emas). Qo'shilmasin desangiz sahifaga <!-- ka-bolim: yoq --> yozing.
  * Keyin `node tools/bolimlar.js` (yoki GitHub Actions «Bo'limlar → viktorina» o'zi) INDEX ni yangilaydi.
  *
  * Data formati (har bo'lim): {id, n:"1-§", t:"Mavzu nomi", q:[ savollar ]}
@@ -38,7 +42,9 @@
     {"k": "tarbiyah", "nom": "🤝 8-sinf tarbiya", "guruh": "🤝 8-sinf Tarbiya", "p": "trh", "g": "T8", "f": ["tarbiya-8-1.js"], "sahifa": "tarbiya-8.html"},
     {"k": "tarbiyai", "nom": "🤝 9-sinf tarbiya", "guruh": "🤝 9-sinf Tarbiya — «Baxt va muvaffaqiyat sirlari»", "p": "tri", "g": "T9", "f": ["tarbiya-9-1.js", "tarbiya-9-2.js", "tarbiya-9-3.js"], "img": "t9-img/", "sahifa": "tarbiya-9.html"},
     {"k": "tarbiyak", "nom": "🤝 11-sinf tarbiya", "guruh": "🤝 11-sinf Tarbiya", "p": "trk", "g": "T11", "f": ["tarbiya-11-1.js"], "sahifa": "tarbiya-11.html"},
-    {"k": "umidahuquq", "nom": "⚖️ Umida huquq", "guruh": "⚖️ Umida huquq — 8-sinf «Davlat va huquq asoslari»", "p": "uh", "g": "T10", "f": ["umida-huquq-1.js", "umida-huquq-2.js"], "img": "uh-img/", "sahifa": "umida-huquq.html"}
+    {"k": "umidahuquq", "nom": "⚖️ Umida huquq", "guruh": "⚖️ Umida huquq — 8-sinf «Davlat va huquq asoslari»", "p": "uh", "g": "T10", "f": ["umida-huquq-1.js", "umida-huquq-2.js"], "img": "uh-img/", "sahifa": "umida-huquq.html"},
+    {"k": "grammatika", "nom": "📘 Ingliz grammatikasi", "guruh": "📘 Ingliz grammatikasi — 100 ta modul", "p": "eg", "g": "EN_GRAMMAR", "f": ["english/assets/grammar-data.js"], "sahifa": "english/grammatika.html", "fmt": "quiz"},
+    {"k": "rusdars", "nom": "📗 Rus tili darslari", "guruh": "📗 Rus tili darslari (A0–C1)", "p": "rd", "g": "TETRAD_LESSONS", "f": ["rus-tili/assets/darslar-data.js", "rus-tili/assets/darslar-yuqori.js"], "sahifa": "rus-tili/darslar.html", "fmt": "tasks"}
   ]/*MANIFEST-END*/;
 
   // AVTOMATIK — tools/bolimlar.js yozadi (qo'lda tahrirlamang): {k: [[mavzuId, nom, savollarSoni], …]}
@@ -320,6 +326,142 @@
       ["uhd17","Umida huquq · 29–30-dars Voyaga yetmaganlarning javobgarligi",10],
       ["uhd18","Umida huquq · 31–32-dars Oila qonunchiligida voyaga yetmaganlar",10],
       ["uhd19","Umida huquq · 33-dars Mehnat qonunchiligida voyaga yetmaganlar",11]
+    ],
+    "grammatika": [
+      ["egp101","Ingliz grammatikasi · Sodda gap tuzilishi",10],
+      ["egp102","Ingliz grammatikasi · Ot turlari va jins",10],
+      ["egp103","Ingliz grammatikasi · Otlarning ko'plik shakli: asosiy qoidalar",10],
+      ["egp104","Ingliz grammatikasi · Otlarning ko'plik shakli: noqonuniy va maxsus shakllar",10],
+      ["egp105","Ingliz grammatikasi · Sanaladigan va sanalmaydigan otlar",10],
+      ["egp106","Ingliz grammatikasi · Egalik shakli",10],
+      ["egp107","Ingliz grammatikasi · Jamlovchi otlar",8],
+      ["egp108","Ingliz grammatikasi · Qo'shma otlar va sifat vazifasidagi otlar",10],
+      ["egp109","Ingliz grammatikasi · Noaniq artikl: a / an",10],
+      ["egp110","Ingliz grammatikasi · Aniq artikl: the",10],
+      ["egp201","Ingliz grammatikasi · Sanoq (miqdor) sonlar",10],
+      ["egp202","Ingliz grammatikasi · Tartib sonlar va kasr sonlar",10],
+      ["egp203","Ingliz grammatikasi · Kishilik olmoshlari: ega va to'ldiruvchi shakli",10],
+      ["egp204","Ingliz grammatikasi · O'zlik va o'zaro (birgalik) olmoshlari",10],
+      ["egp205","Ingliz grammatikasi · Noaniq olmosh: one / ones",9],
+      ["egp206","Ingliz grammatikasi · Sifatlar: o'rni va tartibi",10],
+      ["egp207","Ingliz grammatikasi · Sifat darajalari",10],
+      ["egp208","Ingliz grammatikasi · Noto'g'ri sifatlar; little/few; many/much/a lot of",10],
+      ["egp209","Ingliz grammatikasi · Egalik sifatlari va egalik olmoshlari",10],
+      ["egp210","Ingliz grammatikasi · Ravishlar va ularning yasalishi",10],
+      ["egp211","Ingliz grammatikasi · Sifat bilan bir xil shakldagi ravishlar va -ly li ma'nodoshlari",10],
+      ["egp212","Ingliz grammatikasi · Ravish darajalari",9],
+      ["egp301","Ingliz grammatikasi · Fe'l: asosiy va yordamchi fe'llar",8],
+      ["egp302","Ingliz grammatikasi · To be fe'li",9],
+      ["egp303","Ingliz grammatikasi · There is / There are qurilmasi",8],
+      ["egp304","Ingliz grammatikasi · It olmoshi; It va There farqi",9],
+      ["egp305","Ingliz grammatikasi · Shaxsli va shaxssiz fe'llar; infinitiv, gerund va o'tgan zamon sifatdoshi",10],
+      ["egp306","Ingliz grammatikasi · Hozirgi davomiy zamon",10],
+      ["egp307","Ingliz grammatikasi · Hozirgi oddiy zamon",10],
+      ["egp308","Ingliz grammatikasi · O'tgan oddiy zamon; to'g'ri va noto'g'ri fe'llar",10],
+      ["egp309","Ingliz grammatikasi · O'tgan davomiy zamon",8],
+      ["egp310","Ingliz grammatikasi · Have/has got va have",8],
+      ["egp311","Ingliz grammatikasi · Kelasi oddiy zamon",9],
+      ["egp312","Ingliz grammatikasi · Kelasi davomiy zamon",8],
+      ["egp313","Ingliz grammatikasi · Davomiy zamonda ishlatilmaydigan fe'llar",9],
+      ["egp314","Ingliz grammatikasi · Ikki xil ishlatiladigan fe'llar: feel, look, smell, taste, see, hear, think, expect",10],
+      ["egp401","Ingliz grammatikasi · Imlo qoidalari: oxirgi undoshning ikkilanishi",10],
+      ["egp402","Ingliz grammatikasi · Imlo qoidalari: oxirgi \"e\" va \"y\" harflari",10],
+      ["egp403","Ingliz grammatikasi · Hozirgi tugallangan zamon: tuzilishi va asosiy qo'llanishi",10],
+      ["egp404","Ingliz grammatikasi · Present Perfect: for, since va Past Simple bilan farqi",10],
+      ["egp405","Ingliz grammatikasi · Hozirgi tugallangan davomli zamon",9],
+      ["egp406","Ingliz grammatikasi · O'tgan tugallangan zamon va vaqt ergash gaplari",10],
+      ["egp407","Ingliz grammatikasi · O'tgan tugallangan davomli zamon",9],
+      ["egp408","Ingliz grammatikasi · To be going to tuzilmasi",8],
+      ["egp409","Ingliz grammatikasi · Kelasi tugallangan va kelasi tugallangan davomli zamon",9],
+      ["egp410","Ingliz grammatikasi · Majhul nisbat (Passive Voice)",10],
+      ["egp501","Ingliz grammatikasi · Modal fe'llar: can, could, may, might",10],
+      ["egp502","Ingliz grammatikasi · Modal fe'llar: must, have to, should, ought to, had better",10],
+      ["egp503","Ingliz grammatikasi · Buyruq, maslahat va iltimos gaplar",9],
+      ["egp504","Ingliz grammatikasi · Fikrga qo'shimcha: so, neither, too, either",10],
+      ["egp505","Ingliz grammatikasi · So'roq gaplar: umumiy, maxsus va egaga beriladigan savollar",10],
+      ["egp506","Ingliz grammatikasi · Tag (dumli) savollar va qisqa javob-savollar",10],
+      ["egp507","Ingliz grammatikasi · Gap ichidagi so'roq gap (embedded question)",9],
+      ["egp508","Ingliz grammatikasi · Noaniq artikl a / an va one",10],
+      ["egp509","Ingliz grammatikasi · Other / another va little / few",10],
+      ["egp510","Ingliz grammatikasi · Aniq artikl the: umumiy qoidalar va geografik nomlar",10],
+      ["egp511","Ingliz grammatikasi · Aniq artikl the: muassasalar, joylar va maxsus holatlar",10],
+      ["egp601","Ingliz grammatikasi · Vaqt predloglari: at, on, in, by, before",10],
+      ["egp602","Ingliz grammatikasi · Vaqt predloglari: boshi/oxiri, from…to, since, during, for, after, while",10],
+      ["egp603","Ingliz grammatikasi · O'rin predloglari: at, in, into, on, onto",10],
+      ["egp604","Ingliz grammatikasi · Above, over, below, under, between, among va boshqa o'rin predloglari",10],
+      ["egp605","Ingliz grammatikasi · But/except, by, arrive, home, transport, corner, front/back",10],
+      ["egp606","Ingliz grammatikasi · Predlog va ravish; like, as, as if",10],
+      ["egp607","Ingliz grammatikasi · Some, any, no va none",10],
+      ["egp608","Ingliz grammatikasi · Someone, anyone, no one, something... va else",10],
+      ["egp609","Ingliz grammatikasi · Every, each, all va whole",10],
+      ["egp610","Ingliz grammatikasi · Each of, both, neither va either",10],
+      ["egp611","Ingliz grammatikasi · Sifatlar: -ing / -ed, bog'lovchi fe'llar va and qo'yilishi",10],
+      ["egp612","Ingliz grammatikasi · Sifatlarni qiyoslash: as…as, than, the…the",10],
+      ["egp701","Ingliz grammatikasi · Ravishlarning o'rni: holat, xarakter va o'rin ravishlari",9],
+      ["egp702","Ingliz grammatikasi · Payt va takror ravishlari; ravishlar tartibi",10],
+      ["egp703","Ingliz grammatikasi · Butun gapga oid ravishlar (Sentence adverbs)",9],
+      ["egp704","Ingliz grammatikasi · Daraja ravishlari; quite va rather",9],
+      ["egp705","Ingliz grammatikasi · Inversiya (ta'kid uchun so'z tartibining o'zgarishi)",8],
+      ["egp706","Ingliz grammatikasi · Gap, sodda gap (clause), bog'lovchilar va linkerlar",9],
+      ["egp707","Ingliz grammatikasi · O'zlashtirma gap: darak gaplar va zamonlar moslashuvi",10],
+      ["egp708","Ingliz grammatikasi · Say va tell; o'zlashtirma gap fe'llari",8],
+      ["egp709","Ingliz grammatikasi · O'zlashtirma gapda so'roq gaplar",9],
+      ["egp710","Ingliz grammatikasi · O'zlashtirma gapda buyruq, iltimos, maslahat va taklif",10],
+      ["egp711","Ingliz grammatikasi · Vositasiz va vositali to'ldiruvchilar",9],
+      ["egp712","Ingliz grammatikasi · O'timli va o'timsiz fe'llar: rise/raise, lie/lay, sit/set",10],
+      ["egp713","Ingliz grammatikasi · Majhul nisbat: alohida holatlar",10],
+      ["egp801","Ingliz grammatikasi · See somebody do va see somebody doing",9],
+      ["egp802","Ingliz grammatikasi · Infinitiv: shakllari va fe'l + infinitiv",10],
+      ["egp803","Ingliz grammatikasi · Fe'l + obyekt + infinitiv va «to»siz infinitiv",10],
+      ["egp804","Ingliz grammatikasi · Otdan keyingi infinitiv, too / enough va perfect infinitiv",9],
+      ["egp805","Ingliz grammatikasi · Gerund (-ing shakl)",10],
+      ["egp806","Ingliz grammatikasi · Gerund yoki infinitiv oladigan fe'llar",10],
+      ["egp807","Ingliz grammatikasi · Sababiy fe'llar va afzal ko'rish fe'llari",9],
+      ["egp808","Ingliz grammatikasi · Modal fe'llar: ruxsat va ehtimollik",10],
+      ["egp809","Ingliz grammatikasi · Modal fe'llar: qobiliyat va majburiyat",10],
+      ["egp810","Ingliz grammatikasi · Modal fe'llar: xulosa va taxmin",9],
+      ["egp811","Ingliz grammatikasi · Ot ergash gaplar (noun clauses)",9],
+      ["egp812","Ingliz grammatikasi · Sifat (nisbiy) ergash gaplar",10],
+      ["egp813","Ingliz grammatikasi · Hol ergash gaplar va izohlovchi (appositive)",8],
+      ["egp814","Ingliz grammatikasi · Shart gaplar: 1-, 2- va 3-tur",9],
+      ["egp815","Ingliz grammatikasi · Shart gaplar: variantlar, inversiya va maxsus qo'llanishlar",10],
+      ["egp816","Ingliz grammatikasi · Subjunktiv (istak) mayli",9],
+      ["egp817","Ingliz grammatikasi · So va such",9],
+      ["egp818","Ingliz grammatikasi · Parallel tuzilma, olmosh antetsedenti va ortiqchalik",10]
+    ],
+    "rusdars": [
+      ["rdalifbo","Rus tili darslari · Alifbo va talaffuz",7],
+      ["rdtanishuv","Rus tili darslari · Salomlashish va tanishuv",6],
+      ["rdjins","Rus tili darslari · Otning jinsi",8],
+      ["rdkoplik","Rus tili darslari · Otlarning ko'pligi",4],
+      ["rdegalik","Rus tili darslari · Egalik olmoshlari",7],
+      ["rdsifat","Rus tili darslari · Sifatlar",6],
+      ["rdfel","Rus tili darslari · Fe'l: hozirgi zamon",4],
+      ["rdpredlojniy","Rus tili darslari · Joy kelishigi (Predlojniy)",5],
+      ["rdvinitelniy","Rus tili darslari · Tushum kelishigi (Vinitelniy)",5],
+      ["rdotgan","Rus tili darslari · O'tgan zamon",5],
+      ["rdsonlar","Rus tili darslari · Sonlar, vaqt va narx",7],
+      ["rdroditelniy","Rus tili darslari · Qaratqich kelishigi (Roditelniy)",5],
+      ["rddatelniy","Rus tili darslari · Jo'nalish kelishigi (Datelniy)",6],
+      ["rdtvoritelniy","Rus tili darslari · Vosita kelishigi (Tvoritelniy)",5],
+      ["rdkelasi","Rus tili darslari · Fe'l turi va kelasi zamon",6],
+      ["rdharakat","Rus tili darslari · Harakat fe'llari",7],
+      ["rdbuyruq","Rus tili darslari · Buyruq mayli va odob",6],
+      ["rdmurakkab","Rus tili darslari · Qo'shma gaplar",10],
+      ["rdkopkel","Rus tili darslari · Ko'plikdagi kelishiklar",4],
+      ["rdqiyos","Rus tili darslari · Qiyosiy va orttirma daraja",5],
+      ["rdshart","Rus tili darslari · Shart mayli (бы)",5],
+      ["rdsvoy","Rus tili darslari · Свой, себя, сам, весь",7],
+      ["rdsifatdosh","Rus tili darslari · Sifatdoshlar",7],
+      ["rdravishdosh","Rus tili darslari · Ravishdoshlar",6],
+      ["rdmajhul","Rus tili darslari · Majhul nisbat",6],
+      ["rdozlashtirma","Rus tili darslari · Ko'chirma va o'zlashtirma gap",8],
+      ["rdboshqaruv","Rus tili darslari · Fe'l boshqaruvi va murakkab ko'makchilar",7],
+      ["rdvidnozik","Rus tili darslari · Fe'l turining nozikliklari",10],
+      ["rdrasmiy","Rus tili darslari · Rasmiy-ish uslubi",9],
+      ["rddiskurs","Rus tili darslari · Kirish so'zlari va matn bog'lovchilari",10],
+      ["rdfrazeologiya","Rus tili darslari · Frazeologizmlar",10],
+      ["rdsozyasash","Rus tili darslari · So'z yasalishi",6]
     ]
   }/*INDEX-END*/;
 
@@ -368,6 +510,17 @@
   // savollar soni (tools/bolimlar.js ham shuni ishlatadi)
   function count(m, it) { return (it.q || []).filter(function (x) { return !!conv(m, x); }).length; }
 
+  // boshqa formatli data -> umumiy bo'lim formati {id, t, q:[{t:"m", q, a:[to'g'ri, xato…], e}]}
+  function norm(m, list) {
+    var key = m.fmt; if (key !== "quiz" && key !== "tasks") return list || [];
+    return (list || []).map(function (it) {
+      var qs = (it[key] || []).filter(function (x) { return x && x.o && x.o.length > 1 && x.o[x.a] !== undefined; }).map(function (x) {
+        return { t: "m", q: x.q, a: [x.o[x.a]].concat(x.o.filter(function (_, i) { return i !== x.a; })), e: x.e };
+      });
+      return { id: String(it.id).replace(/[^a-z0-9]/gi, ""), t: it.uz || it.title || it.t, q: qs };
+    });
+  }
+
   /* ---- yuklash va kaSavol ga ro'yxatdan o'tkazish ---- */
   var DATA = {}, loading = {}, regd = {}, chain = Promise.resolve();
   function addJs(src) {
@@ -384,7 +537,7 @@
     return (loading[k] = chain = chain.then(function () {
       var prev = window[m.g]; window[m.g] = [];
       return m.f.reduce(function (p, f) { return p.then(function () { return addJs(f); }); }, Promise.resolve()).then(function () {
-        DATA[k] = window[m.g] || [];
+        DATA[k] = norm(m, window[m.g]);
         if (prev === undefined) { try { delete window[m.g]; } catch (e) { window[m.g] = undefined; } } else window[m.g] = prev;
       });
     }));
@@ -424,5 +577,19 @@
   function okImg(r) { return typeof r === "string" && /^(https:\/\/flagcdn\.com\/|[a-z0-9-]+-img\/)[\w\/.-]+\.(png|jpe?g|webp|svg)$/i.test(r); }
   function img(r, cls) { return okImg(r) ? '<img class="' + (cls || "qimg") + '" src="' + (/^https:/.test(r) ? r : BASE + r) + '" alt="Savol rasmi" loading="lazy">' : ""; }
 
-  window.KA_BOLIM = { MANIFEST: MANIFEST, INDEX: INDEX, apply: apply, prep: prep, done: done, has: has, img: img, okImg: okImg, conv: conv, count: count };
+  // <div data-bolim-fanlar> ichiga hali tugmasi yo'q bo'lim fanlari o'zi qo'shiladi
+  function tugmalar() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-bolim-fanlar]"), function (box) {
+      MANIFEST.forEach(function (m) {
+        var href = "viktorina.html?fan=" + m.k;
+        if (!(INDEX[m.k] || []).length || box.querySelector('a[href="' + href + '"]')) return;
+        var a = document.createElement("a"); a.className = "btn vk"; a.href = href; a.textContent = m.nom; box.appendChild(a);
+      });
+    });
+  }
+  if (document.querySelectorAll) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", tugmalar); else tugmalar();
+  }
+
+  window.KA_BOLIM = { norm: norm, MANIFEST: MANIFEST, INDEX: INDEX, apply: apply, prep: prep, done: done, has: has, img: img, okImg: okImg, conv: conv, count: count };
 })();
