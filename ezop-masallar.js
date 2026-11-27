@@ -1711,5 +1711,13 @@ window.EZOP_MASALLAR = [
     variantlar: ["Chunki sovigan temirni urish umuman mumkin emas", "Chunki temir shunchaki sayqallanishi uchun o'choqda kerak edi", "Chunki qizigan temir osonlik bilan shaklga kiradi, sovigan temir esa qattiq bo'ladi"],
     javob: 2,
     izoh: "Temir faqat qizigan holatida oson egiladi; sovigan temirga qancha urilmasin, natija bo'lmaydi. Ishni boshlashdan oldin eng qulay vaqtni tanlash muhim."
+  },
+  {
+    id: "ez-212", mavzu: "ehtiyotkorlik", sarlavha: "Ikki sichqon va pishloq",
+    matn: "Ikki sichqon omborxona burchagida bir parcha pishloqni topdi. Oq sichqon darhol unga yugurdi, lekin kulrang sichqon sekin yaqinlashib, pishloq atrofini diqqat bilan kuzatdi. U pishloq ostida ingichka ipni va yashirin qopqoqni ko'rdi, shuning uchun shoshilmadi. Oq sichqon pishloqni tishlagan zahoti qopqoq yopilib, tuzoqqa tushib qoldi. Kulrang sichqon esa tuzoqqa tegmasdan, pishloqni chetdan sekin surib, omon qoldi.",
+    savol: "Kulrang sichqon nima uchun darhol pishloqqa yugurmadi?",
+    variantlar: ["Chunki u pishloqni yoqtirmasdi", "Chunki u pishloq atrofidagi xavfni oldindan ko'rib, ehtiyot bo'ldi", "Chunki pishloq juda uzoqda edi va u charchagan edi"],
+    javob: 1,
+    izoh: "Kulrang sichqon xavfli belgilarni payqab, atrofni avval tekshirdi. Ba'zan tezkor harakat emas, avval vaziyatni kuzatish omon qolishga yordam beradi."
   }
 ];
