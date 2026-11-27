@@ -333,6 +333,28 @@
       ["engm26","1-sinf ingliz tili · 8-bo‘lim Big and small, long and short",8],
       ["engm27","1-sinf ingliz tili · 8-bo‘lim How do animals move?",8]
     ],
+    "informatikaa": [
+      ["itam1","1-sinf informatika · 1-dars Sezgi a’zolarimiz",8],
+      ["itam2","1-sinf informatika · 2–3-dars Ko‘ramiz: rang va shakl",8],
+      ["itam3","1-sinf informatika · 4–5-dars Tovush va hid",8],
+      ["itam4","1-sinf informatika · 6–7-dars Ta’m va his-tuyg‘u",8],
+      ["itam5","1-sinf informatika · 8–9-dars Buyumga ta’rif",8],
+      ["itam6","1-sinf informatika · 10–11-dars Ketma-ketlik: oldin va keyin",8],
+      ["itam7","1-sinf informatika · 12-dars Edi — bo‘ldi",8],
+      ["itam8","1-sinf informatika · 13-dars O‘sish va kamayish tartibi",8],
+      ["itam9","1-sinf informatika · 14-dars Amallar ketma-ketligi",8],
+      ["itam10","1-sinf informatika · 15-dars Takrorlanish",8],
+      ["itam11","1-sinf informatika · 16-dars Sog‘lom turmush tarzi",8],
+      ["itam12","1-sinf informatika · 17-dars Tepa va past",8],
+      ["itam13","1-sinf informatika · 18–19-dars Old-orqa, chap-o‘ng",8],
+      ["itam14","1-sinf informatika · 20, 22-dars Uzoq-yaqin, uzun-qisqa",8],
+      ["itam15","1-sinf informatika · 21, 24-dars Yo‘nalish va labirint",8],
+      ["itam16","1-sinf informatika · 23, 25-dars Xavfsiz hudud va yo‘l",8],
+      ["itam17","1-sinf informatika · 26–27-dars Qismlar va butun",8],
+      ["itam18","1-sinf informatika · 28–29-dars Taqqoslash va qarama-qarshilik",8],
+      ["itam19","1-sinf informatika · 30–31-dars Tasdiq-inkor, rost-yolg‘on",8],
+      ["itam20","1-sinf informatika · 32–33-dars Keraklisini tanlash va natija",8]
+    ],
     "tarbiyaa": [
       ["tram1","1-sinf tarbiya · 1-mavzu Men yashaydigan O‘zbekiston",8],
       ["tram2","1-sinf tarbiya · 2-mavzu Men kimman?",8],
