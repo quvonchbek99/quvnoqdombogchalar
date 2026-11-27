@@ -111,6 +111,8 @@ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-
 .ov-body{flex:1;min-height:0;position:relative;display:flex;flex-direction:column;padding:10px}
 .fitq{min-height:0;min-width:0;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;line-height:1.2;padding:2px 6px;word-break:normal;overflow-wrap:normal}
 .fitq>div{max-width:100%}
+/* uzun matnli savol eng kichik shriftda ham sig'masa — qirqilmaydi, suriladi */
+.hq-q.fitq,.pq-q.fitq{overflow-y:auto;align-items:safe center}
 /* rangli tugmalar */
 .tiles{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px}
 .tiles.n2{grid-template-rows:1fr}

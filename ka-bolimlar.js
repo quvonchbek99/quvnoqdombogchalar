@@ -15,6 +15,8 @@
  *   img   — qisqa rasm nomi uchun papka ("t10-img/" → img:"p9a" = t10-img/p9a.jpg); to'liq yo'l bo'lsa o'zi ishlatiladi
  *   sahifa — bo'lim sahifasi
  *   fmt   — boshqa formatli data: "quiz" (ingliz grammatikasi), "tasks" (rus tili darslari): {q, o:[variantlar], a:to'g'ri indeks, e}
+ *           "sat", "sherlok", "ezop" — matnli savollar (avval matn, keyin savol)
+ *   uzun  — 1 bo'lsa uzun matnli fan: faqat jonli viktorinada chiqadi (o'yin kataklariga matn sig'maydi)
  *
  * 🤖 AVTOMATIK: saytning bosh papkasidagi yangi sahifa yuqoridagi formatdagi data faylni ulasa, tools/bolimlar.js uni
  *    MANIFEST ga o'zi qo'shadi (qo'lda yozish shart emas). Qo'shilmasin desangiz sahifaga <!-- ka-bolim: yoq --> yozing.
@@ -44,7 +46,10 @@
     {"k": "tarbiyak", "nom": "🤝 11-sinf tarbiya", "guruh": "🤝 11-sinf Tarbiya", "p": "trk", "g": "T11", "f": ["tarbiya-11-1.js"], "sahifa": "tarbiya-11.html"},
     {"k": "umidahuquq", "nom": "⚖️ Umida huquq", "guruh": "⚖️ Umida huquq — 8-sinf «Davlat va huquq asoslari»", "p": "uh", "g": "T10", "f": ["umida-huquq-1.js", "umida-huquq-2.js"], "img": "uh-img/", "sahifa": "umida-huquq.html"},
     {"k": "grammatika", "nom": "📘 Ingliz grammatikasi", "guruh": "📘 Ingliz grammatikasi — 100 ta modul", "p": "eg", "g": "EN_GRAMMAR", "f": ["english/assets/grammar-data.js"], "sahifa": "english/grammatika.html", "fmt": "quiz"},
-    {"k": "rusdars", "nom": "📗 Rus tili darslari", "guruh": "📗 Rus tili darslari (A0–C1)", "p": "rd", "g": "TETRAD_LESSONS", "f": ["rus-tili/assets/darslar-data.js", "rus-tili/assets/darslar-yuqori.js"], "sahifa": "rus-tili/darslar.html", "fmt": "tasks"}
+    {"k": "rusdars", "nom": "📗 Rus tili darslari", "guruh": "📗 Rus tili darslari (A0–C1)", "p": "rd", "g": "TETRAD_LESSONS", "f": ["rus-tili/assets/darslar-data.js", "rus-tili/assets/darslar-yuqori.js"], "sahifa": "rus-tili/darslar.html", "fmt": "tasks"},
+    {"k": "satrw", "nom": "📖 SAT Reading & Writing", "guruh": "📖 SAT Reading & Writing — matnli savollar", "p": "satrw", "g": "SAT_RW", "f": ["sat-rw-data.js"], "sahifa": "sat-english.html", "fmt": "sat", "uzun": 1},
+    {"k": "sherlok", "nom": "🔍 Sherlok ishlari", "guruh": "🔍 Sherlok ishlari — detektiv mantiq", "p": "shlk", "g": "SHERLOCK_ISHLAR", "f": ["sherlock-ishlar.js"], "sahifa": "sherlock.html", "fmt": "sherlok", "uzun": 1},
+    {"k": "ezop", "nom": "🦊 Ezop masallari", "guruh": "🦊 Ezop masallari — mantiqiy savollar", "p": "ezp", "g": "EZOP_MASALLAR", "f": ["ezop-masallar.js"], "sahifa": "ezop-oyin.html", "fmt": "ezop", "uzun": 1}
   ]/*MANIFEST-END*/;
 
   // AVTOMATIK — tools/bolimlar.js yozadi (qo'lda tahrirlamang): {k: [[mavzuId, nom, savollarSoni], …]}
@@ -462,6 +467,45 @@
       ["rddiskurs","Rus tili darslari · Kirish so'zlari va matn bog'lovchilari",10],
       ["rdfrazeologiya","Rus tili darslari · Frazeologizmlar",10],
       ["rdsozyasash","Rus tili darslari · So'z yasalishi",6]
+    ],
+    "satrw": [
+      ["satrwwic","SAT Reading & Writing · Words in Context — Kontekstdagi so'z",31],
+      ["satrwtsp","SAT Reading & Writing · Text Structure and Purpose — Matn tuzilishi va maqsadi",20],
+      ["satrwctc","SAT Reading & Writing · Cross-Text Connections — Ikki matnni bog'lash",13],
+      ["satrwcid","SAT Reading & Writing · Central Ideas and Details — Asosiy g'oya va tafsilotlar",17],
+      ["satrwcoe","SAT Reading & Writing · Command of Evidence (Textual & Quantitative) — Dalil bilan ishlash (matn va jadval)",28],
+      ["satrwinf","SAT Reading & Writing · Inferences — Xulosa chiqarish",15],
+      ["satrwbnd","SAT Reading & Writing · Boundaries — Gap chegaralari va tinish belgilari",29],
+      ["satrwfss","SAT Reading & Writing · Form, Structure, and Sense — Shakl, tuzilish va mantiq (grammatika)",33],
+      ["satrwtr","SAT Reading & Writing · Transitions — Bog'lovchi so'zlar (o'tishlar)",23],
+      ["satrwrs","SAT Reading & Writing · Rhetorical Synthesis — Qaydlardan gap tuzish",21]
+    ],
+    "sherlok": [
+      ["shlkroman","Sherlok ishlari · Romanlar",4],
+      ["shlksarguzasht","Sherlok ishlari · Sherlok Xolmsning sarguzashtlari",12],
+      ["shlkxotira","Sherlok ishlari · Sherlok Xolms haqida xotiralar",11],
+      ["shlkqaytish","Sherlok ishlari · Sherlok Xolmsning qaytishi",13],
+      ["shlktazim","Sherlok ishlari · Uning so‘nggi ta’zimi",8],
+      ["shlkarxiv","Sherlok ishlari · Sherlok Xolms arxivi",12],
+      ["shlkpuaro","Sherlok ishlari · Herkul Puaro ishlari",27],
+      ["shlkmarpl","Sherlok ishlari · Miss Marpl ishlari",10],
+      ["shlkdyupen","Sherlok ishlari · Edgar Po hikoyalari",3],
+      ["shlkbraun","Sherlok ishlari · Ota Braun hikoyalari",7],
+      ["shlkklassika","Sherlok ishlari · Boshqa klassik detektivlar",2],
+      ["shlkmantiq","Sherlok ishlari · Holmes uslubidagi mantiq ishlari",9]
+    ],
+    "ezop": [
+      ["ezpb1","Ezop masallari · 1–20-masallar",20],
+      ["ezpb2","Ezop masallari · 21–40-masallar",20],
+      ["ezpb3","Ezop masallari · 41–60-masallar",20],
+      ["ezpb4","Ezop masallari · 61–80-masallar",20],
+      ["ezpb5","Ezop masallari · 81–100-masallar",20],
+      ["ezpb6","Ezop masallari · 101–120-masallar",20],
+      ["ezpb7","Ezop masallari · 121–140-masallar",20],
+      ["ezpb8","Ezop masallari · 141–160-masallar",20],
+      ["ezpb9","Ezop masallari · 161–180-masallar",20],
+      ["ezpb10","Ezop masallari · 181–200-masallar",20],
+      ["ezpb11","Ezop masallari · 201–220-masallar",12]
     ]
   }/*INDEX-END*/;
 
@@ -479,6 +523,7 @@
     TOPICS.__kaBolim = 1;
     MANIFEST.forEach(function (m) {
       var list = INDEX[m.k]; if (!list || !list.length) return;
+      if (m.uzun && !/viktorina/.test(location.pathname)) return; // uzun matn faqat jonli viktorinada
       var gi = GROUPS.length; GROUPS.push(m.guruh || m.nom);
       FANS.push([m.k, m.nom, [gi]]);
       list.forEach(function (t) { TOPICS.push([t[0], t[1], gi]); });
@@ -501,7 +546,8 @@
   }
   function conv(m, x) {
     if (!x || !x.q) return null;
-    var r = imgOf(m, x.img), st = x.e ? [esc(x.e)] : [];
+    var r = imgOf(m, x.img), st = x.e ? [x.h ? x.e : esc(x.e)] : [];
+    if (x.h) return { q: x.q, a: x.a[0], w: x.a.slice(1), steps: st, r: r };
     if (x.t === "m" && x.a && x.a.length >= 2) return { q: esc(x.q), a: esc(x.a[0]), w: x.a.slice(1).map(esc), steps: st, r: r };
     if (x.t === "tf" && typeof x.a === "boolean") { var o = ["✅ To'g'ri", "❌ Noto'g'ri"]; return { q: esc(x.q), a: x.a ? o[0] : o[1], w: [x.a ? o[1] : o[0]], steps: st, r: r }; }
     if (x.t === "o" && x.a && x.a.length >= 3) return { q: esc(x.q) + "<br><small>To'g'ri tartibni tanlang</small>", a: x.a.map(esc).join(" → "), w: perms(x.a).map(function (b) { return b.map(esc).join(" → "); }), steps: st, r: r };
@@ -511,8 +557,41 @@
   function count(m, it) { return (it.q || []).filter(function (x) { return !!conv(m, x); }).length; }
 
   // boshqa formatli data -> umumiy bo'lim formati {id, t, q:[{t:"m", q, a:[to'g'ri, xato…], e}]}
-  function norm(m, list) {
-    var key = m.fmt; if (key !== "quiz" && key !== "tasks") return list || [];
+  // matnli savol: avval matn, keyin qalin harflarda savol (h:1 — saytning o'z HTML matni, qayta kodlanmaydi)
+  function html(s) {
+    return String(s == null ? "" : s)
+      .replace(/<caption[^>]*>([\s\S]*?)<\/caption>/g, "<b>$1</b><br>")
+      .replace(/<\/t[hd]>\s*(?=<t[hd])/g, " | ").replace(/<\/tr>/g, "<br>")
+      .replace(/<\/?(table|thead|tbody|tr|th|td)\b[^>]*>/g, "")
+      .replace(/\n/g, "<br>");
+  }
+  function story(text, ask, opts, right, why) {
+    if (!text || !ask || !opts || opts[right] === undefined) return null;
+    return { t: "m", h: 1, q: html(text) + "<br><br><b>" + html(ask) + "</b>", e: why ? html(why) : "",
+      a: [opts[right]].concat(opts.filter(function (_, i) { return i !== right; })).map(html) };
+  }
+  function group(items, keyOf, idOf, titleOf, qOf) {
+    var by = {}, out = [];
+    items.forEach(function (x, i) {
+      var k = keyOf(x, i), q = qOf(x); if (!q) return;
+      if (!by[k]) out.push(by[k] = { id: String(idOf(k)).replace(/[^a-z0-9]/gi, ""), t: titleOf(k), q: [] });
+      by[k].q.push(q);
+    });
+    return out;
+  }
+  function norm(m, list, ctx) {
+    var key = m.fmt; ctx = ctx || {};
+    function named(arr, k, f) { var r = (arr || []).filter(function (x) { return x.id === k; })[0]; return r ? r[f] : k; }
+    if (key === "sat") return group((list && list.questions) || [], function (x) { return x.skill; }, function (k) { return k; },
+      function (k) { return named(list.skills, k, "en") + " — " + named(list.skills, k, "uz"); },
+      function (x) { return story(x.passage, x.question, x.options, x.answer, x.explain_uz); });
+    if (key === "sherlok") return group(list || [], function (x) { return x.kitob; }, function (k) { return k; },
+      function (k) { return named(ctx.SHERLOCK_KITOBLAR, k, "nom"); },
+      function (x) { return story(x.hikoya, x.savol, x.variantlar, x.javob, x.izoh); });
+    if (key === "ezop") return group(list || [], function (x, i) { return Math.floor(i / 20); }, function (k) { return "b" + (+k + 1); },
+      function (k) { return (k * 20 + 1) + "–" + (k * 20 + 20) + "-masallar"; },
+      function (x) { return story(x.sarlavha && x.matn ? "<b>" + x.sarlavha + "</b><br>" + x.matn : x.matn, x.savol, x.variantlar, x.javob, x.izoh); });
+    if (key !== "quiz" && key !== "tasks") return list || [];
     return (list || []).map(function (it) {
       var qs = (it[key] || []).filter(function (x) { return x && x.o && x.o.length > 1 && x.o[x.a] !== undefined; }).map(function (x) {
         return { t: "m", q: x.q, a: [x.o[x.a]].concat(x.o.filter(function (_, i) { return i !== x.a; })), e: x.e };
@@ -537,7 +616,7 @@
     return (loading[k] = chain = chain.then(function () {
       var prev = window[m.g]; window[m.g] = [];
       return m.f.reduce(function (p, f) { return p.then(function () { return addJs(f); }); }, Promise.resolve()).then(function () {
-        DATA[k] = norm(m, window[m.g]);
+        DATA[k] = norm(m, window[m.g], window);
         if (prev === undefined) { try { delete window[m.g]; } catch (e) { window[m.g] = undefined; } } else window[m.g] = prev;
       });
     }));
