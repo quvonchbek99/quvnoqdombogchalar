@@ -926,6 +926,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 <script src="ka-xato.js?v=20261110a"></script>
 <script src="ka-ai.js?v=20261112d"></script>
 <script src="ka-bolimlar.js?v=20261125a"></script>
+<script src="ka-doska.js?v=20261127a"></script>
 <script>
 /*! Kuvonch Academy — Jonli viktorina (Kahoot uslubida): o'qituvchi ekrani + o'quvchi telefoni, PeerJS xona kodi orqali */
 (function () {
@@ -2385,6 +2386,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     }
     snd("start"); H.i = -1;
     // savollar telefonlarga OLDINDAN yuborilmaydi: har bir savol faqat o'z vaqtida, javobi esa natija chiqqanda keladi
+    if (window.kaDoska) window.kaDoska.on("Viktorina");
     H.gid = rid8(); H.started = true; H.revN = 0; H.startAt = Date.now();
     H.endAt = cfg.limit ? Date.now() + cfg.limit * 60000 : 0; limStart();
     nextQuestion();
@@ -2739,6 +2741,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   }
   function endGame() {
     if (!H) return;
+    if (window.kaDoska) window.kaDoska.off();
     if (KC) KC.close();
     clearInterval(H.timer); autoClear();
     H.phase = "end"; hBeat(); H.revN = H.qs.length;
@@ -3103,6 +3106,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       else closeHost(true);
       return;
     }
+    if (window.kaDoska) window.kaDoska.off();
     clearInterval(H.timer); clearInterval(H.netT); clearInterval(H.askT); clearInterval(H.limT); clearTimeout(H.saveT); autoClear(); var ha = $("#hAsk"); if (ha) ha.innerHTML = "";
     var hl = $("#hLim"); if (hl) hl.hidden = true; manClose();
     var te = $("#tEd"); if (te) { te.hidden = true; te.innerHTML = ""; } ED.pausedByEd = false;
@@ -3991,6 +3995,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     code = N.normCode(code); name = cleanName(name);
     var err = $("#jErr");
     if (code.length !== 5) { err.textContent = "Kod 5 ta harfdan iborat bo'lishi kerak"; $("#jPin").focus(); return; }
+    if (window.kaDoska) window.kaDoska.on("Viktorina " + code);
     var bn = N.badName ? N.badName(name) : ""; // taqiqlangan ism — xonaga ulanmasdanoq aytamiz
     if (bn) { err.textContent = bn; $("#jName").focus(); $("#cJoin").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     var sg = sgGet();
@@ -4439,6 +4444,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   try { localStorage.removeItem("ka.viktorina.pack.v1"); localStorage.removeItem("ka.viktorina.solo.v1"); } catch (e) {} // eski versiyadan qolgan savollar to'plami
 
   function closePlayer(silent) {
+    if (window.kaDoska) window.kaDoska.off();
     if (P) { clearInterval(P.timer); clearInterval(P.nxT); clearTimeout(P.reT); stopResend(); try { if (P.conn) P.conn.close(); } catch (e) {} }
     var pw = $("#pWait"); if (pw) pw.hidden = true;
     guardStop(); P = null; refitFn = null; wakeOff();

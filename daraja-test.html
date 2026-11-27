@@ -263,6 +263,7 @@ footer a{color:var(--accent);text-decoration:none}
 </footer>
 </div>
 
+<script src="ka-doska.js?v=20261127a"></script>
 <script src="ka-savollar.js"></script>
 <script src="ka-savollar-2.js"></script>
 <script src="ka-savollar-3.js"></script>
@@ -347,6 +348,7 @@ var backTo="#intro";
 function startClock(){t0=Date.now();clearInterval(clockT);clockT=setInterval(function(){$("#clock").textContent=mmss(Date.now()-t0)},1000);$("#clock").textContent="0:00"}
 
 function begin(m,opt){
+ if(window.kaDoska)window.kaDoska.on("Daraja testi");
  if(!S||!K){alert("Savollar yuklanmadi — internetni tekshirib, sahifani yangilang.");return}
  mode=m;plan=[];i=0;answers=[];seen={};tz=null;pm=null;$("#warn").classList.add("hidden");
  var ready=S.ready?S.ready():Promise.resolve();
@@ -459,6 +461,7 @@ function levelFull(by){
 }
 
 function finish(){
+ if(window.kaDoska)window.kaDoska.off();
  clearInterval(clockT);
  var time=Date.now()-t0;
  if(mode==="mashq")return finishMashq(time);
@@ -626,6 +629,7 @@ document.addEventListener("change",function(e){var c=e.target.closest("input[dat
 
 /* ---------- mashq (bitta mavzu, 10 savol) ---------- */
 function finishMashq(time){
+ if(window.kaDoska)window.kaDoska.off();
  var ok=answers.filter(function(a){return a.ok}).length,n=answers.length,x=MOD[pm.mid];
  $("#pScore").textContent=ok+" / "+n;
  $("#pSub").textContent=(x?x.g+"-sinf · "+x.m.nom+" — ":"")+(ok>=8?"Zo'r! Mavzu o'zlashtirildi ✅":ok>=6?"Yaxshi — qoidani yana bir ko'rib chiqing va qayta urining.":"Avval kitobdan qoida va misollarni o'qing, so'ng qayta yeching.")+" Vaqt: "+mmss(time)+".";

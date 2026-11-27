@@ -267,6 +267,7 @@
     var main = $(".kt-main", ov), bot = $(".kt-bot", ov), bar = $(".kt-bar i", ov);
     var pN = $(".kt-pill.n", ov), pOk = $$(".kt-pill", ov)[1], pT = $(".kt-pill.t", ov);
     document.body.appendChild(ov);
+    if (window.kaDoska) window.kaDoska.on(title);
     document.documentElement.style.overflow = "hidden";
     timer = setInterval(function () {
       var sec = Math.round((Date.now() - t0) / 1000);
@@ -286,7 +287,7 @@
     paint3d();
     enWatch(ov);
 
-    function quit() { clearInterval(timer); clearTimeout(autoT); clearInterval(cdT); if (window.kaDesmos) window.kaDesmos.destroy(); ov.remove(); document.documentElement.style.overflow = ""; }
+    function quit() { if (window.kaDoska) window.kaDoska.off(); clearInterval(timer); clearTimeout(autoT); clearInterval(cdT); if (window.kaDesmos) window.kaDesmos.destroy(); ov.remove(); document.documentElement.style.overflow = ""; }
     var dBtn = $('[data-a="desmos"]', ov);
     if (dBtn) dBtn.onclick = function () {
       var go = function () { window.kaDesmos.toggle(ov).then(function () { ov.classList.toggle("kd-on", window.kaDesmos.isOpen()); }); };
@@ -429,6 +430,7 @@
         }).join("") + "</ol></details>";
     }
     function finish(timedOut) {
+      if (window.kaDoska) window.kaDoska.off();
       clearInterval(timer); clearTimeout(autoT);
       clearState();
       bar.style.width = "100%";
