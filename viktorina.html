@@ -697,6 +697,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 .kvx{margin:10px auto 0;max-width:900px;background:rgba(94,230,199,.1);border:1px solid rgba(94,230,199,.45);border-radius:14px;padding:10px 14px;text-align:left;font-size:clamp(15px,1.6vw,22px);line-height:1.45}
 .kvx b{color:#5ee6c7}
 .kvb{margin-right:8px}
+.pheir{position:fixed;left:10px;bottom:10px;z-index:9200;background:#13324a;color:#9fe3ff;border:1px solid #2f86b8;border-radius:999px;padding:5px 11px;font-size:13px;font-weight:800;pointer-events:none}
 </style>
 <script async src="statistika.js"></script>
 <style>@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}</style>
@@ -915,7 +916,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 </div>
 <div class="toast" id="toast"></div>
 
-<script src="ka-tarmoq.js?v=20261122a"></script>
+<script src="ka-tarmoq.js?v=20261127a"></script>
 <script src="ka-kirish.js?v=20261122a"></script>
 <script src="ka-karta.js?v=20261117b"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
@@ -1044,6 +1045,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       w.className = "kask"; w.setAttribute("role", "dialog"); w.setAttribute("aria-modal", "true");
       w.innerHTML = '<div class="kbox"><p></p>' + (hasIn ? '<input class="field" maxlength="80"' + (opt.num ? ' inputmode="decimal"' : "") + ">" : "") +
         '<div class="kbt">' + (opt.one ? "" : '<button type="button" class="btn" data-k="0">' + esc(opt.no || "Bekor qilish") + "</button>") +
+        (opt.alt ? '<button type="button" class="btn" data-k="2">' + esc(opt.alt) + "</button>" : "") +
         '<button type="button" class="btn primary" data-k="1">' + esc(opt.yes || "Ha") + "</button></div></div>";
       $("p", w).textContent = msg;
       var inp = $("input", w); if (inp) inp.value = String(opt.input);
@@ -1051,7 +1053,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       function done(k) {
         if (fin) return; fin = true;
         document.removeEventListener("keydown", key, true); w.remove();
-        res(hasIn ? (k ? inp.value : null) : !!k);
+        res(hasIn ? (k ? inp.value : null) : k === 2 ? "alt" : !!k);
       }
       function key(e) {
         if (!w.isConnected) return;
@@ -2057,6 +2059,9 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     $("#hPin").innerHTML = "📱 QR · <b>…</b>";
     N.host({
       code: H.resumeCode || "", // tiklanganda — o'sha kod
+      ep: H.ep || 0, // 📲 navbatchi telefonida davom etganda — kattaroq navbat
+      onYield: function () { hYield(); },
+      onHide: function () { return heirHandoff(); }, // sahifa yopilyapti — navbatchiga topshiramiz
       onConn: function (id, hello) {
         if (!H) return "Xona yopilgan";
         if (H.replaced[id]) return "Siz boshqa qurilmadan qayta kirdingiz — bu oynani yopishingiz mumkin";
@@ -2100,7 +2105,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     }).then(function (api) {
       if (!H) { api.close(); return; }
       H.api = api; H.code = api.code;
-      clearInterval(H.netT); H.netT = setInterval(hNet, 3000); hNet();
+      clearInterval(H.netT); H.netT = setInterval(function () { hNet(); heirPick(); }, 3000); hNet();
       clearInterval(H.askT); H.askT = setInterval(checkAsks, 3000);
       setPin();
       if (H.phase === "resume") { renderResume(); hBeat(); } else renderLobby();
@@ -2138,7 +2143,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (!p && allPlayers().length >= MAX_PL) { try { H.api.kick(id, "Xona to'ldi — eng ko'pi bilan " + MAX_PL + " kishi qatnasha oladi"); } catch (e) {} hLive("Xona to'ldi: " + MAX_PL + " kishi"); return; }
     var sg = hello && (hello.sg === "boy" || hello.sg === "girl") ? hello.sg : "";
     if (p) { replaceOld(p.id, id); p.online = true; p.id = id; p.isAway = false; p.man = false; if (tok) p.tok = tok; if (sg) p.sg = sg; }
-    else p = H.players[key] = { key: key, name: name, sg: sg, id: id, tok: tok, online: true, score: 0, correct: 0, wrong: 0, none: 0, streak: 0, best: 0, ans: {}, last: null, gain: 0 };
+    else p = H.players[key] = { key: key, joinAt: Date.now(), name: name, sg: sg, id: id, tok: tok, online: true, score: 0, correct: 0, wrong: 0, none: 0, streak: 0, best: 0, ans: {}, last: null, gain: 0 };
     H.byId[id] = key;
     H.api.send(id, welcomeMsg(p), force);
     syncPlayer(p, force); hSave();
@@ -2807,11 +2812,60 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (!H || !H.code) return;
     if (!now) { if (!H.saveT) H.saveT = setTimeout(function () { if (H) { H.saveT = 0; hSave(true); } }, 1500); return; }
     clearTimeout(H.saveT); H.saveT = 0;
-    var snap = { v: 1, ts: Date.now(), code: H.code, gid: H.gid || "", name: H.testName || "", lim: limLeft() * 1000, st: H.startAt || 0, phase: H.phase === "resume" ? H.resumeFrom : H.phase, i: H.i, revN: H.revN || 0, started: !!H.started,
+    var snap = { v: 1, ep: H.ep || 0, ts: Date.now(), code: H.code, gid: H.gid || "", name: H.testName || "", lim: limLeft() * 1000, st: H.startAt || 0, phase: H.phase === "resume" ? H.resumeFrom : H.phase, i: H.i, revN: H.revN || 0, started: !!H.started,
       qs: H.qs, stats: H.stats, roster: H.roster, nicks: H.nicks,
       cfg: { topics: cfg.topics, count: cfg.count, cmode: cfg.cmode, per: cfg.per, perT: cfg.perT, juice: cfg.juice, box: cfg.box, lvl: cfg.lvl, time: cfg.time, auto: cfg.auto, showQ: cfg.showQ, d3: cfg.d3, guard: cfg.guard, xtime: cfg.xtime, sound: cfg.sound, mix: cfg.mix },
       players: allPlayers().map(function (p) { return { key: p.key, name: p.name, full: p.full, nick: p.nick, r: p.r, tok: p.tok, sg: p.sg || "", man: !!p.man, score: p.score, correct: p.correct, wrong: p.wrong, none: p.none, streak: p.streak, best: p.best, ans: p.ans, x2: !!p.x2, shield: !!p.shield, away: p.away || 0, awayMs: p.awayMs || 0 }; }) };
     lsSet(LS_HS, snap);
+    heirSend(snap);
+  }
+  /* ================= 📲 NAVBATCHI O'QUVCHI: o'qituvchi chiqib ketsa ham jonli efir uzilmaydi =================
+     O'qituvchi doim bitta faol o'quvchini «navbatchi» qilib turadi va unga o'yin holatini (savollar, ochkolar) yuborib boradi.
+     O'qituvchi ekrani yopilsa, internetdan uzilsa yoki ✕ bilan «O'quvchiga topshirish»ni tanlasa — viktorina navbatchi telefonida
+     o'sha kod bilan davom etadi: boshqalarning telefoni o'zi ulanadi, ochkolar saqlanadi, navbatchi QR/kodni boshqalarga ko'rsata oladi.
+     O'qituvchi «Butunlay yopish»ni tanlasa yoki test tugagan bo'lsa — topshirilmaydi. */
+  var HX_PART = 30000;
+  function heirPick() {
+    if (!H || !H.api || H.phase === "end") return null;
+    var cur = H.heir && H.players[H.heir];
+    if (cur && cur.online && cur.id && !cur.man && !cur.isAway) {
+      if (Date.now() - (H.heirPing || 0) > 30000) { H.heirPing = Date.now(); H.api.send(cur.id, { type: "heir", on: 1 }); } // yetib bormagan bo'lsa ham
+      return cur;
+    }
+    var nx = allPlayers().filter(function (p) { return p.online && p.id && !p.man && !p.isAway; })
+      .sort(function (a, b) { return (a.away || 0) - (b.away || 0) || (a.joinAt || 0) - (b.joinAt || 0); })[0] || null;
+    if (cur && cur.id && cur.online) H.api.send(cur.id, { type: "heir", on: 0 });
+    H.heir = nx ? nx.key : ""; H.hxKey = "";
+    if (nx) { H.heirPing = Date.now(); H.api.send(nx.id, { type: "heir", on: 1 }, true); setTimeout(function () { hSave(true); }, 50); }
+    return nx;
+  }
+  function heirSend(snap, force) {
+    if (!H || !H.api || H.phase === "end") return;
+    force = force || H.hxForce; H.hxForce = false;
+    var p = heirPick(); if (!p) return;
+    var t = Date.now();
+    if (!force && t - (H.hxAt || 0) < 5000) { clearTimeout(H.hxT); H.hxT = setTimeout(function () { if (H) hSave(true); }, 5000 - (t - (H.hxAt || 0))); return; }
+    var str = JSON.stringify(snap), key = str.length + ":" + (H.i | 0) + ":" + H.phase + ":" + str.slice(-400);
+    if (!force && key === H.hxKey) return;
+    H.hxKey = key; H.hxAt = t;
+    var sid = rid8(), n = Math.ceil(str.length / HX_PART);
+    for (var k = 0; k < n; k++) H.api.send(p.id, { type: "hx", sid: sid, k: k, n: n, d: str.slice(k * HX_PART, (k + 1) * HX_PART) }, force);
+  }
+  // boshqaruvni navbatchiga topshirish — true: topshirildi
+  function heirHandoff() {
+    if (!H || !H.api || H.phase === "end" || H.handed) return false;
+    var p = heirPick(); if (!p) return false;
+    H.hxForce = true; hSave(true); // oxirgi holat — barcha serverlar orqali
+    H.api.send(p.id, { type: "take" }, true);
+    H.handed = p.name;
+    return true;
+  }
+  // shu kodda kattaroq navbatli boshqaruvchi paydo bo'ldi (navbatchi o'quvchi davom ettiryapti) — o'qituvchi ekrani jimgina yopiladi
+  function hYield() {
+    if (!H) return;
+    var hp = H.heir && H.players[H.heir], nm = H.handed || (hp ? hp.name : "");
+    H.api = null; closeHost(true, true);
+    kDlg("📲 Viktorina endi navbatchi o'quvchi" + (nm ? " — " + nm + " —" : "") + " telefonida davom etyapti.\nJonli efir uzilmadi: o'quvchilar o'yinda, ochkolar saqlangan.", { one: 1, yes: "Tushunarli" });
   }
   function hDrop() { try { localStorage.removeItem(LS_HS); } catch (e) {} }
   // 🏁 testni hozir yakunlash — natijalar shu paytgacha berilgan savollar bo'yicha (faqat o'qituvchi yakunlaydi)
@@ -2851,14 +2905,14 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     $("#rsResume").onclick = function () { this.disabled = true; this.textContent = "⏳ Tiklanmoqda…"; resumeHost(s); };
     $("#rsDrop").onclick = function () { kAsk("Saqlangan viktorina o'chirilsinmi? Natijalari ham o'chadi.", "O'chirish").then(function (ok) { if (!ok) return; hDrop(); box.remove(); }); };
   }
-  function resumeHost(s) {
+  function resumeHost(s, heir) {
     if (!N) { toast("Tarmoq moduli yuklanmadi — sahifani yangilang"); return; }
     if (H) return;
     for (var k in s.cfg) if (s.cfg[k] !== undefined) cfg[k] = s.cfg[k];
     var go = function () {
       if (H) return;
       H = { players: {}, byId: {}, qs: s.qs, i: s.i, phase: "resume", resumeFrom: s.phase, api: null, code: "", resumeCode: s.code, gid: s.gid, testName: s.name || "", revN: s.revN || 0, started: !!s.started, resumed: true,
-        timer: 0, stats: s.stats || [], pending: {}, asks: {}, replaced: {}, auto: null, paused: false, roster: s.roster || null, nicks: s.nicks || {} };
+        timer: 0, stats: s.stats || [], pending: {}, asks: {}, replaced: {}, auto: null, paused: false, roster: s.roster || null, nicks: s.nicks || {}, ep: s.ep || 0, heirOf: heir || "" };
       if (s.phase === "lobby") H.phase = "lobby";
       (s.players || []).forEach(function (o) { var p = {}; for (var k2 in o) p[k2] = o[k2]; p.online = false; p.id = null; p.last = null; p.gain = 0; p.isAway = false; p.ans = p.ans || {}; H.players[p.key] = p; });
       $("#hs").classList.add("on"); document.documentElement.style.overflow = "hidden"; document.body.style.overflow = "hidden";
@@ -2872,14 +2926,23 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       if (s.lim && s.phase !== "end") { H.endAt = Date.now() + s.lim; } H.startAt = s.st || 0; limStart();
       hostConnect();
       var b = $("#cResume"); if (b) b.remove();
+      if (heir) { // 📲 navbatchi telefoni: o'quvchilar qaytishini biroz kutib, test o'zi davom etadi
+        var t0 = Date.now(), auto = setInterval(function () {
+          if (!H || H.phase !== "resume") { clearInterval(auto); return; }
+          var ps = allPlayers().filter(function (p) { return !p.man; }), on = ps.filter(function (p) { return p.online; }).length;
+          if (Date.now() - t0 > 15000 || (ps.length > 1 && on >= ps.length - 1 && Date.now() - t0 > 4000)) { clearInterval(auto); var g = $("#rsGo"); if (g) g.click(); }
+        }, 1000);
+      }
     };
+    if (heir) { go(); loadGens(); return; } // navbatchi: kutmasdan — generatorlar fonda yuklanadi
     loadGens().then(go, go); // generatorlar «nima uchun xato» izohi uchun kerak; internet bo'lmasa ham davom etamiz
   }
   function renderResume() {
     if (!H || H.phase !== "resume") return;
     var from = H.resumeFrom, last = H.i >= H.qs.length - 1;
     var what = from === "end" ? "Natijalar ekrani tiklanadi" : from === "q" ? (H.i + 1) + "-savol qaytadan beriladi (to'liq vaqt bilan)" : last ? "Barcha savollar berilgan — yakuniy natijalar" : "Navbatdagi: " + (H.i + 2) + "/" + H.qs.length + "-savol";
-    hEl().innerHTML = '<div class="resm"><div class="big">⚡</div><h2>Viktorina to\'xtagan joyidan davom etadi</h2><p>' + esc(what) + '</p><p class="cnt" id="rsCnt"></p>' +
+    hEl().innerHTML = '<div class="resm"><div class="big">' + (H.heirOf ? "📲" : "⚡") + '</div><h2>' + (H.heirOf ? "O'qituvchi chiqib ketdi — viktorina " + esc(H.heirOf) + " telefonida davom etadi" : "Viktorina to\'xtagan joyidan davom etadi") + '</h2><p>' + esc(what) + '</p><p class="cnt" id="rsCnt"></p>' +
+      (H.heirOf ? "<p>Siz navbatchisiz: yuqoridagi <b>📱 QR</b> tugmasini bosib, kodni boshqalarga ko'rsatishingiz mumkin. Test bir necha soniyada o'zi davom etadi.</p>" : "") +
       '<div class="rsrow"><button type="button" class="nextb" id="rsGo">▶ Davom ettirish</button><button type="button" class="btn" id="rsEnd">🏁 Testni yakunlash</button></div>' +
       "<p>O'quvchilar telefoni o'zi qayta ulanadi — QR yoki kod orqali yana kirsa ham ochkolari saqlanadi.</p><div class=\"lob-err\" id=\"lobErr\"></div></div>";
     $("#rsGo").onclick = function () {
@@ -2991,14 +3054,29 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       }, i * 60);
     })(i);
   }
-  function closeHost(force) {
+  function closeHost(force, quiet) {
     if (!H) return;
-    if (!force && H.phase !== "end" && H.phase !== "lobby") { kAsk("Viktorina hali tugamagan. Yopasizmi?", "Yopish").then(function (ok) { if (ok && H) closeHost(true); }); return; }
+    if (!force && H.phase !== "end" && (H.phase !== "lobby" || online().length)) {
+      var hp = heirPick();
+      if (hp) {
+        kDlg("Viktorina hali tugamagan.\n\n📲 «" + hp.name + "» telefoniga topshirsangiz — jonli efir uzilmaydi: test o'sha telefonda shu joyidan davom etadi, u QR/kodni boshqalarga ham ko'rsata oladi.", { yes: "📲 " + hp.name + "ga topshirish", alt: "Butunlay yopish", no: "Bekor qilish" }).then(function (r) {
+          if (!H) return;
+          if (r === "alt") closeHost(true);
+          else if (r === true) { if (heirHandoff()) { var nm = H.handed; closeHost(true, true); toast("📲 Viktorina «" + nm + "» telefoniga topshirildi"); } else closeHost(true); }
+        });
+      } else if (H.phase !== "lobby") kAsk("Viktorina hali tugamagan. Yopasizmi?", "Yopish").then(function (ok) { if (ok && H) closeHost(true); });
+      else closeHost(true);
+      return;
+    }
     clearInterval(H.timer); clearInterval(H.netT); clearInterval(H.askT); clearInterval(H.limT); clearTimeout(H.saveT); autoClear(); var ha = $("#hAsk"); if (ha) ha.innerHTML = "";
     var hl = $("#hLim"); if (hl) hl.hidden = true; manClose();
     var te = $("#tEd"); if (te) { te.hidden = true; te.innerHTML = ""; } ED.pausedByEd = false;
     hDrop();
-    try { if (H.api) { online().forEach(function (p) { H.api.send(p.id, { type: "kick", why: "O'qituvchi xonani yopdi" }); }); var api = H.api; setTimeout(function () { api.close(); }, 400); } } catch (e) {}
+    clearTimeout(H.hxT);
+    try {
+      if (H.api && quiet) { var qa = H.api; setTimeout(function () { qa.close(true); }, 1500); } // navbatchiga topshirildi: hech kimni chiqarmaymiz
+      else if (H.api) { online().forEach(function (p) { H.api.send(p.id, { type: "kick", why: "O'qituvchi xonani yopdi" }); }); var api = H.api; setTimeout(function () { api.close(); }, 400); }
+    } catch (e) {}
     wakeOff();
     H = null; refitFn = null; hAway(); hNet();
     $("#hs").classList.remove("on"); document.documentElement.style.overflow = ""; document.body.style.overflow = ""; $("#hBody").innerHTML = "";
@@ -3963,6 +4041,23 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (m._b == null && /^(welcome|wait|q|hold|reveal|got|end)$/.test(m.type)) { P.inGame = true; P.claiming = false; }
     sessTouch();
     if (m.type === "nx") return pNext(m);
+    if (m.type === "heir") { // 📲 o'qituvchi meni navbatchi qildi
+      P.heir = !!m.on; if (!P.heir) P.hsnap = null;
+      if (P.conn && P.conn.fast) P.conn.fast(P.heir ? 25000 : 45000);
+      heirBadge(); return;
+    }
+    if (m.type === "hx") { // o'yin holati bo'laklab keladi
+      if (!P.heir || typeof m.d !== "string" || !(m.n > 0 && m.n < 60)) return;
+      var X = P.hxs = P.hxs || {}, x = X[m.sid];
+      if (!x) { x = X[m.sid] = { n: m.n, parts: [], got: 0, at: Date.now() }; Object.keys(X).forEach(function (k) { if (Date.now() - X[k].at > 60000) delete X[k]; }); }
+      if (x.parts[m.k] == null) { x.parts[m.k] = m.d; x.got++; }
+      if (x.got === x.n) {
+        delete X[m.sid];
+        try { var hs = JSON.parse(x.parts.join("")); if (hs && hs.code && hs.qs && (!P.hsnap || (hs.ts || 0) >= (P.hsnap.ts || 0))) { P.hsnap = hs; P.hsnapAt = Date.now(); } } catch (e) {}
+      }
+      return;
+    }
+    if (m.type === "take") { if (P.heir) setTimeout(function () { pTakeover(); }, 900); return; } // oxirgi holat bo'laklari yetib kelsin
     if (m.type === "aix") { // 🤖 Kuvi o'qituvchi ekranida savolni tushuntirdi — telefonda ham ko'rsatamiz
       var pv = $(".pv", pBody()); if (pv && !$(".kvx", pv)) { pv.insertAdjacentHTML("beforeend", '<div class="kvx"><b>🤖 Kuvi:</b> ' + esc(m.t) + "</div>"); }
       return;
@@ -4206,8 +4301,25 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     }).catch(function () { var box = $("#pCert"); if (box) box.innerHTML = '<p class="note">Sertifikatni yuklab bo\'lmadi — internetni tekshiring.</p>'; });
   }
   // Aloqa uzildi — jonli rejim: ulanguncha o'zi qayta urinadi (ochkolar o'qituvchida saqlanadi, maxsus kalit bilan o'z ismiga qaytadi)
+  function heirBadge() {
+    var b = $("#pHeir");
+    if (!b) { b = document.createElement("div"); b.id = "pHeir"; b.className = "pheir"; b.textContent = "📲 Navbatchi"; b.title = "O'qituvchi chiqib ketsa, viktorina shu telefonda davom etadi"; $("#ps").appendChild(b); }
+    b.hidden = !(P && P.heir);
+  }
+  // 📲 o'qituvchi chiqib ketdi — boshqaruvni shu telefon oladi (o'sha kod, o'sha savollar va ochkolar)
+  function pTakeover() {
+    if (!P || P.ended || !P.heir || !P.hsnap || H) return false;
+    if (Date.now() - (P.hsnapAt || 0) > 20 * 60000) return false;
+    var s = P.hsnap, nm = P.name || "Navbatchi";
+    P.ended = true; sessEnd(); closePlayer(true); heirBadge();
+    s.ep = (s.ep || 0) + 1; s.ts = Date.now(); if (s.cfg) s.cfg.full = false;
+    toast("📲 O'qituvchi chiqib ketdi — viktorina endi sizning telefoningizda davom etadi");
+    resumeHost(s, nm);
+    return true;
+  }
   function pLost(why) {
     if (!P || P.ended) return;
+    if (why !== "gone" && P.heir && P.hsnap && pTakeover()) return; // o'qituvchi sado bermayapti — navbatchi davom ettiradi
     pWaitOff();
     clearInterval(P.timer); clearInterval(P.nxT); clearTimeout(P.reT); stopResend();
     try { if (P.conn) P.conn.close(); } catch (e) {}
