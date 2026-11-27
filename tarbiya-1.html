@@ -288,7 +288,7 @@ function segV(){var el=$("segV");el.innerHTML="";[["Qisqa",false],["To‘liq",tr
 /* ---------- DARS ---------- */
 function openLes(id){var d=D.find(function(x){return x.id===id});if(!d)return;LS.d=d;LS.k=-1;LS.hide=false;LS.open={};LS.full=true;segV();$("bHide").textContent="🙈 Kalit so‘zlarni yashirish";
  $("lN").textContent=BOL[d.b]+" · "+d.n;$("lT").textContent=d.t;drawMap(d,$("map"));
- var imgs=(d.img||[]).slice();d.q.forEach(function(q){if(q.img&&imgs.indexOf(q.img)<0)imgs.push(q.img)});
+ var imgs=["g-"+d.id].concat(d.img||[]);d.q.forEach(function(q){if(q.img&&imgs.indexOf(q.img)<0)imgs.push(q.img)});
  $("lPic").innerHTML=imgs.map(function(i){return '<img src="'+IMG+i+'.jpg" alt="'+esc(d.t)+' — mavzu xaritasi" loading="lazy" onclick="zoomI(this.src)" onerror="this.remove()">'}).join("");$("lPic").style.display=imgs.length?"":"none";
  $("lSteps").innerHTML=(d.s?'<div class="st op" style="cursor:default;flex-direction:column;align-items:flex-start"><h4>📝 Qisqacha</h4><p style="display:block">'+esc(d.s)+'</p></div>':'')+d.map.br.map(function(b,i){return '<div class="st" id="st'+i+'" style="border-left:8px solid '+PAL[i%6]+'" onclick="lesGo('+i+')"><h4>'+b.e+' '+esc(b.t)+'</h4><p><b style="color:var(--gold)">🔑 '+b.k.map(esc).join(" · ")+'</b><br>'+esc(b.x)+'</p></div>'}).join("")+'<div class="st op" style="cursor:default;background:#0e2f44;border-color:#2e6b8f"><h4>🗣️ Sinfga savol</h4><p style="display:block">Xaritadagi qaysi kalit so‘z sizning hayotingizga eng yaqin? Bitta misol bilan tushuntiring.</p></div>';
  show("sLes")}
