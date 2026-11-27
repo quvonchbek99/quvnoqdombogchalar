@@ -920,7 +920,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 <script src="ka-kirish.js?v=20261122a"></script>
 <script src="ka-karta.js?v=20261117b"></script>
 <script src="ka-sertifikat.js?v=20261110a"></script>
-<script src="ka-kuvi.js?v=20261116a"></script>
+<script src="ka-kuvi.js?v=20261127a"></script>
 <script src="ka-xato.js?v=20261110a"></script>
 <script src="ka-ai.js?v=20261112d"></script>
 <script src="ka-bolimlar.js?v=20261125a"></script>
@@ -2350,7 +2350,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   function hBeat() { if (H && H.api && H.api.beat) H.api.beat(H.phase === "end" ? "-1 end" : H.i + " " + H.phase); }
   function qMsg(left) {
     var q = H.qs[H.i];
-    return { type: "q", i: H.i, total: H.qs.length, bxq: boxDue(H.i) ? 1 : 0, tl: limLeft(), t: q.t || "", num: q.num ? 1 : 0, n: q.t === "in" ? 0 : q.opts.length, time: Math.round(left || qSec()), q: cfg.showQ ? q.q : null, opts: cfg.showQ && q.t !== "in" ? q.opts : null, g: cfg.showQ && q.g ? q.g : null, og: cfg.showQ && q.og ? q.og : null, r: cfg.showQ && q.r ? q.r : null };
+    return { type: "q", frz: H.frz ? 1 : 0, i: H.i, total: H.qs.length, bxq: boxDue(H.i) ? 1 : 0, tl: limLeft(), t: q.t || "", num: q.num ? 1 : 0, n: q.t === "in" ? 0 : q.opts.length, time: Math.round(left || qSec()), q: cfg.showQ ? q.q : null, opts: cfg.showQ && q.t !== "in" ? q.opts : null, g: cfg.showQ && q.g ? q.g : null, og: cfg.showQ && q.og ? q.og : null, r: cfg.showQ && q.r ? q.r : null };
   }
   /* ⏳ test davomiyligi: vaqt tugasa test o'zi yakunlanadi (kutish xonasida va tiklashda vaqt to'xtab turadi) */
   function limStart() { if (!H) return; clearInterval(H.limT); H.limLast = Date.now(); H.limT = setInterval(limTick, 500); limTick(); }
@@ -2358,7 +2358,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (!H) return;
     var el = $("#hLim"), now = Date.now(), dt = now - (H.limLast || now); H.limLast = now;
     if (!H.endAt || H.phase === "end") { if (el) el.hidden = true; return; }
-    if (H.phase === "lobby" || H.phase === "resume") H.endAt += dt; // hali boshlanmagan / tiklanmoqda — vaqt ketmaydi
+    if (H.phase === "lobby" || H.phase === "resume" || H.frz) H.endAt += dt; // hali boshlanmagan / tiklanmoqda / doska ochiq — vaqt ketmaydi
     var left = Math.max(0, H.endAt - now), s = Math.ceil(left / 1000), mm = Math.floor(s / 60), ss = s % 60;
     if (el) { el.hidden = false; el.textContent = "⏳ " + mm + ":" + ("0" + ss).slice(-2); el.classList.toggle("warn", s <= 60); }
     if (s === 60 && !H.limWarned) { H.limWarned = true; toast("⏳ Test tugashiga 1 daqiqa qoldi"); }
@@ -2392,7 +2392,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     clearInterval(H.timer); autoClear();
     H.i++;
     if (H.i >= H.qs.length) return endGame();
-    H.phase = "q"; H.qStart = Date.now();
+    H.phase = "q"; H.qStart = Date.now(); if (H.frz) H.frz = H.qStart;
     if (H.qs[H.i].k) histMark(H.qs[H.i].k);
     hSave(true);
     allPlayers().forEach(function (p) { p.gain = 0; });
@@ -2403,7 +2403,8 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     camSync();
     var lastSec = qSec();
     H.timer = setInterval(function () {
-      var left = qSec() - (Date.now() - H.qStart) / 1000;
+      var left = qSec() - ((H.frz || Date.now()) - H.qStart) / 1000;
+      if (H.frz) { renderRing(left); return; } // ⏸ doska ochiq — vaqt muzlagan
       renderRing(left);
       var s = Math.ceil(left); if (s !== lastSec) { lastSec = s; if (s <= 5 && s > 0) snd("tick"); }
       if (left <= 0) reveal();
@@ -2446,7 +2447,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   }
   // Hamma javob berdimi? Internet bir zum uzilgan o'quvchini 6 soniya kutamiz (qayta ulanib javobini yuborishi mumkin)
   function checkAllAnswered() {
-    if (!H || H.phase !== "q") return;
+    if (!H || H.phase !== "q" || H.frz) return; // doska ochiq — hamma javob bersa ham natija o'zi chiqmaydi
     clearTimeout(H.chkT);
     var now = Date.now(), ps = allPlayers(), i = H.i;
     if (H.cards) return; // kartalar rejimi: kim karta ko'tarishi oldindan noma'lum — vaqt tugashini (yoki ⏭ tugmasini) kutamiz
@@ -2845,18 +2846,50 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     var p = heirPick(); if (!p) return;
     var t = Date.now();
     if (!force && t - (H.hxAt || 0) < 5000) { clearTimeout(H.hxT); H.hxT = setTimeout(function () { if (H) hSave(true); }, 5000 - (t - (H.hxAt || 0))); return; }
-    var str = JSON.stringify(snap), key = str.length + ":" + (H.i | 0) + ":" + H.phase + ":" + str.slice(-400);
+    // 🔒 Navbatchi ham o'quvchi: unga hali berilmagan savollar va ularning javoblari OCHIQ yuborilmaydi.
+    // Berilgan savollar (cut gacha) ochiq; qolganlari AES bilan shifrlanadi — kalit faqat o'qituvchi boshqaruvni topshirganda («take») beriladi.
+    // O'qituvchi to'satdan yo'qolsa (kalit kelmasa) — navbatchi qolgan savollarni o'sha mavzular generatoridan YANGIDAN tuzadi.
+    var cut = H.phase === "lobby" ? 0 : H.phase === "q" ? H.i : H.i + 1; cut = Math.max(0, Math.min(cut, snap.qs.length));
+    var rest = snap.qs.slice(cut), s2 = {};
+    for (var k0 in snap) s2[k0] = snap[k0];
+    s2.qs = snap.qs.slice(0, cut); s2.stats = (snap.stats || []).slice(0, cut); s2.cut = cut;
+    s2.qm = rest.map(function (q) { return q.own || q.ai || !q.tid ? 0 : [q.tid, q.L || 2]; }); // faqat mavzu va daraja — savol emas
+    s2.players = (snap.players || []).map(function (o) { var c = {}; for (var k1 in o) c[k1] = o[k1]; var a = {}; for (var j in o.ans || {}) if ((j | 0) < cut) a[j] = o.ans[j]; c.ans = a; return c; });
+    var rs = JSON.stringify(rest), key = cut + ":" + H.phase + ":" + rs.length + ":" + JSON.stringify(s2.players).length;
     if (!force && key === H.hxKey) return;
     H.hxKey = key; H.hxAt = t;
-    var sid = rid8(), n = Math.ceil(str.length / HX_PART);
-    for (var k = 0; k < n; k++) H.api.send(p.id, { type: "hx", sid: sid, k: k, n: n, d: str.slice(k * HX_PART, (k + 1) * HX_PART) }, force);
+    var pid = p.id;
+    return H.hxP = hxSeal(rs).then(function (qx) {
+      if (!H || !H.api) return;
+      s2.qx = qx;
+      var str = JSON.stringify(s2), sid = rid8(), n = Math.ceil(str.length / HX_PART);
+      for (var k = 0; k < n; k++) H.api.send(pid, { type: "hx", sid: sid, k: k, n: n, d: str.slice(k * HX_PART, (k + 1) * HX_PART) }, force);
+    });
+  }
+  function b64e(u) { var s = ""; for (var i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
+  function b64d(t) { var b = atob(t), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+  function hxKey() { if (!H.hk) H.hk = b64e(crypto.getRandomValues(new Uint8Array(16))); return H.hk; }
+  function aesKey(k) { return crypto.subtle.importKey("raw", b64d(k), { name: "AES-GCM" }, false, ["encrypt", "decrypt"]); }
+  function hxSeal(str) {
+    if (H.hxC && H.hxC.s === str) return Promise.resolve(H.hxC.x); // o'zgarmagan bo'lsa — qayta shifrlamaymiz
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return aesKey(hxKey()).then(function (key) { return crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, new TextEncoder().encode(str)); })
+      .then(function (ct) { var u = new Uint8Array(12 + ct.byteLength); u.set(iv, 0); u.set(new Uint8Array(ct), 12); var x = b64e(u); if (H) H.hxC = { s: str, x: x }; return x; })
+      ["catch"](function () { return ""; });
+  }
+  function hxOpen(k, x) {
+    var u = b64d(x);
+    return aesKey(k).then(function (key) { return crypto.subtle.decrypt({ name: "AES-GCM", iv: u.subarray(0, 12) }, key, u.subarray(12)); })
+      .then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
   }
   // boshqaruvni navbatchiga topshirish — true: topshirildi
   function heirHandoff() {
     if (!H || !H.api || H.phase === "end" || H.handed) return false;
     var p = heirPick(); if (!p) return false;
-    H.hxForce = true; hSave(true); // oxirgi holat — barcha serverlar orqali
-    H.api.send(p.id, { type: "take" }, true);
+    H.hxForce = true; H.hxP = null; hSave(true); // oxirgi holat — barcha serverlar orqali
+    var api = H.api, id = p.id, take = { type: "take", hk: hxKey() }; // qolgan savollar kaliti — faqat endi
+    api.send(id, take, true); // sahifa yopilayotgan bo'lsa — darhol
+    if (H.hxP) H.hxP.then(function () { api.send(id, take, true); }); // oxirgi holat yetib borgach — yana bir bor
     H.handed = p.name;
     return true;
   }
@@ -4041,6 +4074,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (m._b == null && /^(welcome|wait|q|hold|reveal|got|end)$/.test(m.type)) { P.inGame = true; P.claiming = false; }
     sessTouch();
     if (m.type === "nx") return pNext(m);
+    if (m.type === "frz") { pFrz(m.on, m.i, m.left); return; }
     if (m.type === "heir") { // 📲 o'qituvchi meni navbatchi qildi
       P.heir = !!m.on; if (!P.heir) P.hsnap = null;
       if (P.conn && P.conn.fast) P.conn.fast(P.heir ? 25000 : 45000);
@@ -4057,7 +4091,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       }
       return;
     }
-    if (m.type === "take") { if (P.heir) setTimeout(function () { pTakeover(); }, 900); return; } // oxirgi holat bo'laklari yetib kelsin
+    if (m.type === "take") { if (P.heir) { P.hk = typeof m.hk === "string" ? m.hk : ""; setTimeout(function () { pTakeover(); }, 1800); } return; } // oxirgi holat bo'laklari yetib kelsin
     if (m.type === "aix") { // 🤖 Kuvi o'qituvchi ekranida savolni tushuntirdi — telefonda ham ko'rsatamiz
       var pv = $(".pv", pBody()); if (pv && !$(".kvx", pv)) { pv.insertAdjacentHTML("beforeend", '<div class="kvx"><b>🤖 Kuvi:</b> ' + esc(m.t) + "</div>"); }
       return;
@@ -4173,13 +4207,25 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     });
     refitFn = function () { var pq = $("#pq"); if (!pq) return; var h = pq.clientHeight; if ($("#pQ")) fit($("#pQ"), Math.min(h * (m.g ? .05 : .09), m.g ? 26 : 44), 10); if (showQ) fitGroup($$("#pTiles .tx"), Math.min(h * .07, 38), 10); };
     refitFn();
-    var end = Date.now() + m.time * 1000;
+    pTimer(m.time, m.i);
+    if (m.frz) pFrz(1, m.i);
+  }
+  function pTimer(sec, qi) {
+    clearInterval(P.timer); P.tIdx = qi;
+    var end = Date.now() + sec * 1000;
     P.timer = setInterval(function () {
       var left = Math.max(0, Math.ceil((end - Date.now()) / 1000)), t = $("#pT"), tl = $("#pTl");
       if (t) { t.textContent = left; t.style.color = left <= 5 ? "#ff8585" : ""; }
       if (tl) tl.textContent = tlFmt();
       if (left <= 0) { clearInterval(P.timer); if (!P.answered) { P.answered = true; pView('<div class="big">⏰</div><h2>Vaqt tugadi</h2><p>Natijani kutamiz…</p>'); } }
     }, 250);
+  }
+  // ⏸ o'qituvchi doskani ochdi — telefondagi vaqt ham to'xtaydi (javob berish mumkin)
+  function pFrz(on, qi, left) {
+    if (!P || !P.cur || P.cur.i !== qi) return;
+    var t = $("#pT");
+    if (on) { clearInterval(P.timer); if (t) { t.textContent = "⏸"; t.style.color = ""; t.title = "O'qituvchi doskada tushuntiryapti — vaqt to'xtatilgan"; } }
+    else if (!P.answered && left > 0) { if (t) t.title = ""; pTimer(left, qi); }
   }
   function pReveal(m) {
     P.revI = m.i; stopResend(); clearInterval(P.timer);
@@ -4310,12 +4356,35 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
   function pTakeover() {
     if (!P || P.ended || !P.heir || !P.hsnap || H) return false;
     if (Date.now() - (P.hsnapAt || 0) > 20 * 60000) return false;
-    var s = P.hsnap, nm = P.name || "Navbatchi";
-    P.ended = true; sessEnd(); closePlayer(true); heirBadge();
+    var s = P.hsnap, nm = P.name || "Navbatchi", hk = P.hk || "";
+    P.ended = true;
+    pView('<div class="spin"></div><h2>📲 Viktorina sizga o\'tmoqda…</h2><p>O\'qituvchi chiqib ketdi. Bir necha soniyada test shu telefonda davom etadi.</p>');
     s.ep = (s.ep || 0) + 1; s.ts = Date.now(); if (s.cfg) s.cfg.full = false;
-    toast("📲 O'qituvchi chiqib ketdi — viktorina endi sizning telefoningizda davom etadi");
-    resumeHost(s, nm);
+    heirRest(s, hk).then(function (rest) {
+      s.qs = (s.qs || []).concat(rest || []);
+      var cut = s.cut | 0;
+      if (s.phase !== "lobby") { s.i = cut - 1; if (s.phase === "q") s.phase = "board"; } // turgan savol (javobi hali ochilmagan) boshidan, to'liq vaqt bilan qayta beriladi
+      if (s.phase !== "lobby" && s.i >= s.qs.length - 1) s.phase = "board";
+      sessEnd(); closePlayer(true); heirBadge();
+      toast("📲 O'qituvchi chiqib ketdi — viktorina endi sizning telefoningizda davom etadi");
+      resumeHost(s, nm);
+    });
     return true;
+  }
+  // qolgan savollar: kalit bo'lsa — o'qituvchining o'sha savollari; bo'lmasa — o'sha mavzulardan yangi savollar
+  function heirRest(s, hk) {
+    var regen = function () {
+      var qm = s.qm || [], tids = []; qm.forEach(function (x) { if (x && tids.indexOf(x[0]) < 0) tids.push(x[0]); });
+      if (!tids.length) return Promise.resolve([]);
+      var wait = new Promise(function (r) { setTimeout(r, 15000); });
+      return Promise.race([loadGens().then(function () { return genPrep(tids); }), wait]).then(function () {
+        var have = {}; (s.qs || []).forEach(function (q) { if (q.k) have[q.k] = 1; });
+        var out = []; qm.forEach(function (x) { if (!x) return; var q = genOne(x[0], x[1], have); if (q) out.push(q); });
+        return out;
+      }, function () { return []; });
+    };
+    if (hk && s.qx) return hxOpen(hk, s.qx).then(function (r) { return Array.isArray(r) ? r : regen(); }, regen);
+    return regen();
   }
   function pLost(why) {
     if (!P || P.ended) return;
@@ -4544,7 +4613,33 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
       var s = document.createElement("script"); s.src = "ka-grafik-taxta.js?v=20261105a";
       s.onload = function () { window.kaGraph ? res() : rej(); }; s.onerror = function () { boardLoad = null; rej(); }; document.head.appendChild(s);
     });
-    boardLoad.then(function () { if (H && cfg.auto && !H.paused && H.auto) togglePause(); window.kaGraph.open(); }).catch(function () { toast("Grafik taxtasi yuklanmadi — internetni tekshiring"); });
+    boardLoad.then(function () {
+      window.kaGraph.open();
+      if (!H) return;
+      hFreeze(true);
+      clearInterval(H.brdT); // taxta yopilishi bilan vaqt yana yuradi
+      H.brdT = setInterval(function () { if (!H) return; if (!document.querySelector(".ka-g.on")) { clearInterval(H.brdT); H.brdT = 0; hFreeze(false); } }, 400);
+    }).catch(function () { toast("Grafik taxtasi yuklanmadi — internetni tekshiring"); });
+  }
+  /* ⏸ Muzlatish (doska ochiq): savol vaqti, test davomiyligi va avtomatik o'tish to'xtaydi; telefonlarda ham vaqt to'xtaydi.
+     Taxta yopilganda hammasi to'xtagan joyidan davom etadi. */
+  function hFreeze(on) {
+    if (!H) return;
+    if (on) {
+      if (H.frz) return;
+      H.frz = Date.now();
+      if (cfg.auto && !H.paused) { togglePause(); H.frzP = true; } // natija → reyting → keyingi savolga o'zi o'tmaydi
+      if (H.api && H.phase === "q") online().forEach(function (p) { H.api.send(p.id, { type: "frz", on: 1, i: H.i }); });
+      toast("⏸ Doska ochiq — vaqt to'xtatildi");
+      return;
+    }
+    if (!H.frz) return;
+    var d = Date.now() - H.frz; H.frz = 0;
+    if (H.phase === "q") H.qStart += d;
+    if (H.frzP && H.paused) togglePause(); H.frzP = false;
+    if (H.api && H.phase === "q") { var left = Math.max(1, Math.round(qSec() - (Date.now() - H.qStart) / 1000)); online().forEach(function (p) { H.api.send(p.id, { type: "frz", on: 0, i: H.i, left: left }); }); }
+    if (H.phase === "q") checkAllAnswered();
+    toast("▶ Vaqt davom etyapti");
   }
 
   /* ---------------- klaviatura (o'qituvchi) ---------------- */
