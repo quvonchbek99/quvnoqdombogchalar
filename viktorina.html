@@ -1078,8 +1078,10 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
 
   /* ---------------- sozlamalar ---------------- */
   // cmode: "jami" — jami count ta savol (mavzulardan teng bo'lib); "har" — har mavzudan per ta (perT — mavzu bo'yicha alohida son)
-  var cfg = { topics: [], count: 10, cmode: "jami", per: 5, perT: {}, juice: { on: true, off: [] }, box: true, lvl: "prog", time: 20, limit: 0, auto: 8, showQ: true, sound: true, tease: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 } };
+  var cfg = { topics: [], count: 10, cmode: "jami", per: 5, perT: {}, juice: { on: false, off: [] }, box: true, lvl: "prog", time: 20, limit: 0, auto: 8, showQ: true, sound: true, tease: true, xtime: true, guard: true, full: true, d3: true, rmode: "free", rkey: "", fan: "all", mix: { fans: ["mantiq"], pct: 0 }, mixV: 0 };
   try { var sv = JSON.parse(localStorage.getItem(LS) || "null"); if (sv) for (var k in sv) if (k in cfg) cfg[k] = sv[k]; } catch (e) {}
+  // 2026-11-28: tanlangan mavzu aralashmasin — «boshqa fandan» (Juice) va «+% mantiq» standart o'chiq; eski saqlangan sozlamalar bir marta o'chiriladi
+  if (cfg.mixV !== 2) { cfg.mixV = 2; if (cfg.juice && typeof cfg.juice === "object") cfg.juice.on = false; if (cfg.mix) cfg.mix.pct = 0; }
   var qp = /[?&]mavzu=([a-z0-9,]+)/i.exec(location.search);
   if (qp) cfg.topics = qp[1].split(",");
   // havola orqali: ?soni=25 — jami 25 ta; ?har=3 — har mavzudan 3 ta
@@ -1100,7 +1102,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     cfg.per = clampN(cfg.per, 1, PER_MAX, 5);
     if (cfg.cmode !== "har") cfg.cmode = "jami";
     if (!cfg.perT || typeof cfg.perT !== "object") cfg.perT = {};
-    if (!cfg.juice || typeof cfg.juice !== "object") cfg.juice = { on: true, off: [] };
+    if (!cfg.juice || typeof cfg.juice !== "object") cfg.juice = { on: false, off: [] };
     if (!Array.isArray(cfg.juice.off)) cfg.juice.off = [];
     for (var id in cfg.perT) { var v = clampN(cfg.perT[id], 1, PER_MAX, 0); if (!v || v === cfg.per) delete cfg.perT[id]; else cfg.perT[id] = v; }
   }
@@ -1888,7 +1890,7 @@ body{background:radial-gradient(1100px 620px at 8% -12%,rgba(124,155,255,.24),tr
     if (har) plan.forEach(function (p) { fill([p[0]], p[1]); }); // har mavzudan o'z soni
     else fill(tps, n - nX);
     if (nX) fill(xt, Math.min(nX, n - out.length));
-    if (out.length < n) fill(fb ? tps : tps.concat(xt), n - out.length); // biror mavzu generatori yetmasa — qolganlaridan
+    if (out.length < n) fill(fb || !nX ? tps : tps.concat(xt), n - out.length); // qo'shimcha fan tanlanmagan bo'lsa — faqat tanlangan mavzulardan (savol takrorlansa ham) // biror mavzu generatori yetmasa — qolganlaridan
     // har doim osondan qiyinga: daraja, keyin shu daraja ichida murakkablik (sonlar kattaligi, amallar soni)
     out.forEach(function (o) { o.cx = kaSavol.cx ? kaSavol.cx({ q: o.q, steps: o.steps }) : 0; });
     out.sort(function (a, b) { return (a.grade - b.grade) || (a.L - b.L) || (a.cx - b.cx); }); // daraja testida sinf bo'yicha, keyin osondan qiyinga
