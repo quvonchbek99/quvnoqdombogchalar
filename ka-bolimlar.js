@@ -1672,7 +1672,7 @@
       ["ezpb8","Ezop masallari · 141–160-masallar",20],
       ["ezpb9","Ezop masallari · 161–180-masallar",20],
       ["ezpb10","Ezop masallari · 181–200-masallar",20],
-      ["ezpb11","Ezop masallari · 201–220-masallar",16]
+      ["ezpb11","Ezop masallari · 201–220-masallar",17]
     ]
   }/*INDEX-END*/;
 
