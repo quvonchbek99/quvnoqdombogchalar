@@ -1771,5 +1771,19 @@ window.EZOP_MASALLAR = [
     ],
     javob: 1,
     izoh: "Ichki janjal kuchni yeydi, uchinchi tomon esa bunga kutib yuradi. Kelishib olish o'rniga urushish dushmanga yo'l ochib beradi."
+  },
+  {
+    id: "ez-218",
+    mavzu: "o'zlik",
+    sarlavha: "Dumsiz tulki",
+    matn: "Bir tulki tuzoqqa tushib, qochib chiqqanida dumidan ajralib qoldi. Dumsiz yurishdan uyalgan tulki o'rtoqlariga duch kelganda ko'zini yerdan olmasdi. Bir kun u tulkilarni yig'ib, dum faqat ortiqcha yuk va xunuk narsa ekanini aytdi hamda hammasini kesib tashlashni maslahat berdi.",
+    savol: "Dumsiz tulki nega boshqa tulkilarni ham dumini kesishga undadi?",
+    variantlar: [
+      "Chunki dum haqiqatan ham foydasiz va zararli ekanini aniq bilgani uchun",
+      "Chunki o'zining kamchiligi boshqalar orasida sezilmasin, u yolg'iz qolmasin deb",
+      "Chunki tuzoqdan qutulish uchun dumlarni kesish shart ekanini o'rgatmoqchi bo'lgani uchun"
+    ],
+    javob: 1,
+    izoh: "Ba'zan o'z kamchiligini boshqalarga ham taqib, yengil his qilishga urinamiz. Haqiqiy foyda bo'lmasa, bunday maslahat ko'pincha o'zini oqlash uchun aytiladi."
   }
 ];
