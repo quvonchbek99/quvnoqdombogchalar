@@ -1757,5 +1757,19 @@ window.EZOP_MASALLAR = [
     ],
     javob: 1,
     izoh: "Ovoz bo'sh joyda kuchayishi mumkin. Lekin baland ovoz har doim ichki mazmun katta degani emas."
+  },
+  {
+    id: "ez-217",
+    mavzu: "hamkorlik",
+    sarlavha: "Sher va to'ng'iz",
+    matn: "Bir sher va bir to'ng'iz quduq yoniga suv ichgani kelishdi. Kim avval ichishi kerakligi haqida bahslashib, ikkalasi ham bir-biriga tashlanib jang qilishdi. Jang uzoq davom etib, ikkisi ham charchadi va jarohat oldi. Shu payt yaqin atrofda pistirmada yotgan ovchi chiqib, ikkovini ham qo'lga oldi.",
+    savol: "Sher va to'ng'iz nega ovchining qo'liga tushib qoldi?",
+    variantlar: [
+      "Chunki ular suvni ko'p ichib, uxlab qolishgan edi",
+      "Chunki ular o'zaro janjallashib, charchab va jarohat olishgan edi",
+      "Chunki ular ovchidan yordam so'ragan edi"
+    ],
+    javob: 1,
+    izoh: "Ichki janjal kuchni yeydi, uchinchi tomon esa bunga kutib yuradi. Kelishib olish o'rniga urushish dushmanga yo'l ochib beradi."
   }
 ];
