@@ -103,7 +103,8 @@
     {"k": "rusdars", "nom": "📗 Rus tili darslari", "guruh": "📗 Rus tili darslari (A0–C1)", "p": "rd", "g": "TETRAD_LESSONS", "f": ["rus-tili/assets/darslar-data.js", "rus-tili/assets/darslar-yuqori.js"], "sahifa": "rus-tili/darslar.html", "fmt": "tasks"},
     {"k": "satrw", "nom": "📖 SAT Reading & Writing", "guruh": "📖 SAT Reading & Writing — matnli savollar", "p": "satrw", "g": "SAT_RW", "f": ["sat-rw-data.js"], "sahifa": "sat-english.html", "fmt": "sat", "uzun": 1},
     {"k": "sherlok", "nom": "🔍 Sherlok ishlari", "guruh": "🔍 Sherlok ishlari — detektiv mantiq", "p": "shlk", "g": "SHERLOCK_ISHLAR", "f": ["sherlock-ishlar.js"], "sahifa": "sherlock.html", "fmt": "sherlok", "uzun": 1},
-    {"k": "ezop", "nom": "🦊 Ezop masallari", "guruh": "🦊 Ezop masallari — mantiqiy savollar", "p": "ezp", "g": "EZOP_MASALLAR", "f": ["ezop-masallar.js"], "sahifa": "ezop-oyin.html", "fmt": "ezop", "uzun": 1}
+    {"k": "ezop", "nom": "🦊 Ezop masallari", "guruh": "🦊 Ezop masallari — mantiqiy savollar", "p": "ezp", "g": "EZOP_MASALLAR", "f": ["ezop-masallar.js"], "sahifa": "ezop-oyin.html", "fmt": "ezop", "uzun": 1},
+    {"k": "iq", "nom": "🧠 IQ va mantiq", "guruh": "🧠 IQ va mantiq — IQ markazi, Army Alpha (1917), Dyudeni jumboqlari", "p": "iq", "g": "IQ_DATA", "f": ["iq-savollar.js"], "sahifa": "iq.html"}
   ]/*MANIFEST-END*/;
 
   // AVTOMATIK — tools/bolimlar.js yozadi (qo'lda tahrirlamang): {k: [[mavzuId, nom, savollarSoni], …]}
@@ -1882,6 +1883,20 @@
       ["ezpb9","Ezop masallari · 161–180-masallar",20],
       ["ezpb10","Ezop masallari · 181–200-masallar",20],
       ["ezpb11","Ezop masallari · 201–220-masallar",17]
+    ],
+    "iq": [
+      ["iqv","IQ va mantiq · 1 IQ va miya haqida viktorina",50],
+      ["iqs","IQ va mantiq · 2 So'z munosabatlari (analogiyalar)",15],
+      ["iqq","IQ va mantiq · 3 Sonli qatorlar",15],
+      ["iqmm","IQ va mantiq · 4 Matematik mulohaza",15],
+      ["iql","IQ va mantiq · 5 Mantiqiy fikrlash",15],
+      ["iqk","IQ va mantiq · 6 Mashhur IQ kitoblari uslubida",15],
+      ["iqap","IQ va mantiq · 7 Mashhur IQ ilovalari uslubida",15],
+      ["iqas","IQ va mantiq · 8 Army Alpha (1917) · sonlar qatori",19],
+      ["iqan","IQ va mantiq · 9 Army Alpha (1917) · analogiyalar",38],
+      ["iqsy","IQ va mantiq · 10 Army Alpha (1917) · ma'nodosh va zid so'zlar",39],
+      ["iqar","IQ va mantiq · 11 Army Alpha (1917) · arifmetik masalalar",17],
+      ["iqdu","IQ va mantiq · 12 Dyudeni jumboqlari (1917)",37]
     ]
   }/*INDEX-END*/;
 

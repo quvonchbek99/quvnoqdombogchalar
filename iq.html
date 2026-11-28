@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IQ markazi — Kuvonch Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: imtihon xonasi — jiddiy, toza, ishonchli
+   IDEA: psixologning test bukleti va javob varaqasi
+   PICTURE: Raven uslubidagi 3×3 matritsa va katta IQ natija shkalasi
+   COLOUR+TYPE: oq qog'oz, siyoh-ko'k, bitta to'q sariq urg'u; Golos Text
+   LAYOUT: yuqorida menyu (5 bo'lim), bitta ustunli test oqimi */
+:root{color-scheme:light dark;--bg:light-dark(#f7f8fb,#0e1322);--card:light-dark(#fff,#161d31);--ink:light-dark(#121a2e,#e9edf7);--mut:light-dark(#5b6479,#9aa5bd);--line:light-dark(#d9deea,#2a3350);--acc:light-dark(#1f3fbf,#7f9bff);--hot:#e8590c;--ok:light-dark(#1d7a3a,#5fd08a);--bad:light-dark(#b3261e,#ff8a80)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Golos Text",system-ui,sans-serif;overflow-x:clip}
+header{background:var(--acc);color:#fff;padding:18px max(5vw,16px) 0}
+header h1{margin:0;font-size:clamp(24px,4vw,36px);line-height:1.1}
+header p{margin:4px 0 14px;opacity:.85}
+nav{display:flex;gap:6px;overflow-x:auto}
+nav a{flex:none;color:#fff;text-decoration:none;padding:12px 16px;border-radius:12px 12px 0 0;font-weight:600;min-height:44px}
+nav a.on{background:var(--bg);color:var(--ink)}
+main{max-width:980px;margin:0 auto;padding:24px max(4vw,14px) 60px}
+section.view{display:none}section.view.on{display:block}
+h2{font-size:clamp(24px,3.4vw,32px);line-height:1.1;margin:8px 0 10px;text-wrap:balance}
+h3{margin:22px 0 8px;font-size:19px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0}
+.note{font-size:14px;color:var(--mut)}
+.warn{border-left:4px solid var(--hot);padding:10px 14px;background:color-mix(in srgb,var(--hot) 8%,transparent);border-radius:8px;font-size:15px}
+button,.btn{font:inherit;font-weight:600;min-height:44px;padding:10px 18px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+input[type=text],input[type=number]{font:inherit;font-size:18px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);width:220px;max-width:100%}
+.grid6{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.stat{border:1px solid var(--line);border-radius:12px;padding:12px}.stat b{display:block;font-size:26px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
+.opts button{text-align:left}
+.opts.fig6{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.fig6 button{display:grid;place-items:center;padding:6px}
+.opts button.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc) inset}
+.opts button.right{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok) inset}
+.opts button.wrong{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad) inset}
+.mx{display:grid;grid-template-columns:repeat(3,minmax(0,96px));gap:6px;justify-content:center;margin:10px auto}
+.mx div{aspect-ratio:1;border:1.5px solid var(--ink);border-radius:6px;display:grid;place-items:center;background:var(--card)}
+.mx div.q{font-size:40px;font-weight:800;color:var(--hot)}
+svg.sh{width:100%;height:100%;max-width:88px;color:var(--ink)}
+.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.prog{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:10px 0}.prog i{display:block;height:100%;background:var(--acc);width:0}
+.qtext{font-size:20px;font-weight:600;margin:6px 0}
+.digit{font-size:clamp(64px,14vw,110px);font-weight:800;text-align:center;letter-spacing:.05em;min-height:1.3em;color:var(--acc)}
+.big{font-size:clamp(64px,13vw,120px);font-weight:800;line-height:1;color:var(--acc)}
+.scale{position:relative;height:40px;margin:16px 0 30px;background:linear-gradient(90deg,var(--line),var(--acc));border-radius:10px}
+.scale span{position:absolute;top:44px;font-size:13px;transform:translateX(-50%);color:var(--mut)}
+.scale b{position:absolute;top:-8px;width:6px;height:56px;background:var(--hot);border-radius:3px;transform:translateX(-50%)}
+.bar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 60px;gap:10px;align-items:center;margin:6px 0;font-size:15px}
+.bar div{height:12px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.bar span{text-align:right;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:13px;color:var(--mut);font-weight:600}
+td.n{text-align:right;white-space:nowrap;font-weight:700}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:20px;border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+.tag.t1{border-color:var(--ok);color:var(--ok)}.tag.t3{border-color:var(--hot);color:var(--hot)}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.people .card{margin:0}.people h3{margin:0 0 4px}
+.scroll{overflow-x:auto}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;color:var(--mut);font-weight:400}.stack td:empty{display:none}.bar{grid-template-columns:minmax(0,1fr) 50px}.bar div{grid-column:1/-1;grid-row:2}}
+@media(prefers-reduced-motion:no-preference){.prog i{transition:width .3s}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header>
+  <h1>🧠 IQ markazi</h1>
+  <p><a href="index.html" style="color:#fff">← kuvonch.uz</a> · Kuvonch Academy · qobiliyatni aniqlash bo'limi</p>
+  <nav id="nav">
+    <a href="#test" data-v="test">🧠 IQ test</a>
+    <a href="#reyting" data-v="reyting">🏆 Top reyting</a>
+    <a href="#kitoblar" data-v="kitoblar">📚 Top 10 kitob</a>
+    <a href="#klassik" data-v="klassik">📘 Klassik to'plam</a>
+    <a href="#ajdodlar" data-v="ajdodlar">🏛 Ajdodlar va olimlar</a>
+    <a href="#sportchilar" data-v="sportchilar">♟ Yosh sportchilar</a>
+    <a href="#viktorina" data-v="viktorina">🎯 IQ viktorina</a>
+  </nav>
+</header>
+<main>
+
+<!-- ========== IQ TEST ========== -->
+<section class="view" id="v-test">
+  <div id="t-start">
+    <h2 id="t-h">To'liq IQ test</h2>
+    <p>Test WISC-V va WAIS-5 o'lchaydigan 5 ta indeks (verbal tushunish, fazoviy tasavvur, suyuq tafakkur, ishchi xotira, tezlik) asosida tuzilgan. Savollarning hammasi yangi, Kuvonch Academy uchun yozilgan. 15 yosh va undan kattalar uchun. Vaqt: <b id="t-min"></b>.</p>
+    <div class="grid6" id="t-secs"></div>
+    <div class="warn">Bu test standartlashtirilmagan. Natija <b>taxminiy</b> va o'quv maqsadlari uchun. Rasmiy IQ'ni faqat psixolog WAIS-5 yoki WISC-V kabi testlar bilan aniqlay oladi.</div>
+    <div class="row"><button class="pri" id="t-go">Testni boshlash</button></div>
+    <p class="note" id="t-best"></p>
+  </div>
+  <div id="t-run" hidden>
+    <div class="top"><b id="t-sec"></b><span>⏱ <b id="t-time">45:00</b> · <span id="t-num"></span></span></div>
+    <div class="prog"><i id="t-bar"></i></div>
+    <div class="card" id="t-q"></div>
+  </div>
+  <div id="t-res" hidden></div>
+</section>
+
+<!-- ========== REYTING ========== -->
+<section class="view" id="v-reyting">
+  <h2>Dunyoda eng yuqori IQ bilan tanilgan insonlar</h2>
+  <div class="warn">Ishonchli va tekshirilgan "top-100 IQ" ro'yxati dunyoda mavjud emas. Ko'p mashhur insonlar IQ testini umuman topshirmagan. Shuning uchun ro'yxatda faqat keng tarqalgan raqamlar berilgan va har birining turi ko'rsatilgan.</div>
+  <p class="note"><span class="tag t1">Test natijasi</span> rasmiy testda olingan (lekin ko'pi mustaqil tekshirilmagan) · <span class="tag">Tarixiy taxmin</span> olimlar biografiyaga qarab baholagan (Ketrin Koks, 1926 va boshqalar) · <span class="tag t3">Afsona</span> internetda tarqalgan, ilmiy asosi yo'q</p>
+  <div class="card"><table class="stack" id="r-tab"><thead><tr><th>№</th><th>Ism</th><th>Soha</th><th>IQ</th><th>Turi</th><th>Izoh</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<!-- ========== KLASSIK ========== -->
+<section class="view" id="v-klassik">
+  <h2 id="c-h">Klassik IQ to'plami</h2>
+  <p>Mualliflik muddati tugagan (jamoat mulki) manbalardan o'zbekchaga tarjima qilingan savollar: dunyodagi birinchi ommaviy IQ testi <b>Army Alpha</b> (AQSh, 1917–1918) va jumboqlar ustasi <b>Genri Dyudeni</b>ning «Amusements in Mathematics» (1917) kitobi. Har bir savol ostida manbasi ko'rsatilgan. Bu mashq rejimi: IQ ball hisoblanmaydi, har javobdan keyin to'g'ri javob va yechim chiqadi.</p>
+  <div class="row"><a class="btn" href="viktorina.html?fan=iq">⚡ Shu savollar bilan jonli viktorina (Live)</a></div>
+  <div class="row" id="c-groups"></div>
+  <div class="top" style="margin-top:12px"><b id="c-num"></b><b id="c-score"></b></div>
+  <div class="prog"><i id="c-bar"></i></div>
+  <div class="card" id="c-q"></div>
+</section>
+
+<!-- ========== KITOBLAR ========== -->
+<section class="view" id="v-kitoblar">
+  <h2>IQ bo'yicha eng mashhur 10 ta kitob</h2>
+  <p>Bu kitoblar o'quvchilar o'zi mustaqil IQ testini yechishi uchun yozilgan va dunyoda eng ko'p o'qilganlar qatoriga kiradi. Kitoblarning aniq sotuv raqamlari e'lon qilinmaydi, shuning uchun tartib mashhurlik va qayta nashrlar soniga qarab tuzildi.</p>
+  <div class="card"><table class="stack"><thead><tr><th>№</th><th>Kitob</th><th>Muallif</th><th>Yil</th><th>Nimasi bilan mashhur</th></tr></thead><tbody id="b-tab"></tbody></table></div>
+  <div class="warn">IQ testidagi «📚 Mashhur kitoblar uslubida» bo'limidagi 15 ta savol shu kitoblardagi savol turlari asosida yangidan yozildi: ortiqcha so'z, harflar qatori, sonli jadval, anagramma, ikki so'zni bog'lash. Kitoblardagi savollar mualliflik huquqi bilan himoyalangani uchun ko'chirilmadi.</div>
+  <h3>Play Market'dagi mashhur IQ ilovalari</h3>
+  <p>Testdagi «📱 Mashhur ilovalar uslubida» bo'limi shu ilovalardagi savol turlari asosida yozildi: tarozi, belgili tenglamalar, sehrli kvadrat, sanash jumboqlari. Ilovalarning yuklab olishlar soni ochiq emas, shuning uchun faqat Play Market'da ko'rinadigan raqam yozildi.</p>
+  <div class="card"><table class="stack"><thead><tr><th>Ilova</th><th>Ishlab chiquvchi</th><th>Yuklab olishlar</th><th>Savol turi</th></tr></thead><tbody id="ap-tab"></tbody></table></div>
+  <div class="warn">Bizning testda shakl matritsalari, fazoviy savollar va tezlik topshiriqlari <b>har safar yangidan yaratiladi</b>. Shuning uchun javoblarni yodlab olib, yolg'on yuqori ball olib bo'lmaydi.</div>
+  <div class="row"><a class="btn" href="#test">🧠 IQ testga o'tish</a></div>
+</section>
+
+<!-- ========== AJDODLAR ========== -->
+<section class="view" id="v-ajdodlar">
+  <h2>Buyuk ajdodlarimiz va o'zbek olimlari</h2>
+  <div class="warn">Ajdodlarimiz yashagan davrda IQ testi bo'lmagan (birinchi test 1905-yilda chiqqan). Internetdagi "Ibn Sinoning IQ'si 200" kabi raqamlar to'qima. Ularning aql darajasini asarlari va kashfiyotlari ko'rsatadi.</div>
+  <h3>O'rta asr allomalari</h3>
+  <div class="people" id="a-old"></div>
+  <h3>XX–XXI asr o'zbek olimlari</h3>
+  <div class="people" id="a-new"></div>
+</section>
+
+<!-- ========== SPORTCHILAR ========== -->
+<section class="view" id="v-sportchilar">
+  <h2>Yosh o'zbek sportchilarining "aql reytingi"</h2>
+  <div class="warn">Sportchilarning IQ natijalari e'lon qilinmaydi. Aql sporti bo'lgan shaxmatda esa har bir o'yinchining kuchi rasmiy FIDE Elo reytingi bilan o'lchanadi. Quyida FIDE'ning 2026-yil noyabr ro'yxati keltirilgan.</div>
+  <div class="card"><table class="stack"><thead><tr><th>Dunyoda</th><th>Shaxmatchi</th><th>Tug'ilgan</th><th>Elo</th><th>Izoh</th></tr></thead><tbody id="s-tab"></tbody></table>
+  <p class="note">Manbalar: FIDE noyabr 2026 ro'yxati (chess.com, daryo.uz); Yakubboyev uchun oktabr 2026 ro'yxati (uzdaily.uz).</p></div>
+  <div class="card"><h3 style="margin-top:0">Elo va IQ farqi</h3><p>IQ umumiy fikrlash qobiliyatini o'lchaydi. Elo esa faqat shaxmatdagi natijalarni o'lchaydi. Tadqiqotlarga ko'ra kuchli shaxmatchilarning IQ'si odatda o'rtachadan yuqori, lekin shaxmat mahorati asosan mashg'ulot soatlariga bog'liq.</p></div>
+</section>
+
+<!-- ========== VIKTORINA ========== -->
+<section class="view" id="v-viktorina">
+  <h2>IQ viktorinasi: 50 ta savol</h2>
+  <p>IQ tarixi, buyuk ajdodlarimiz va mantiqiy jumboqlar.</p>
+  <div class="row" style="margin-bottom:12px"><a class="btn" href="viktorina.html?fan=iq">⚡ Sinf bilan jonli o'ynash (Live, kod bilan)</a><a class="btn" href="sinf-oyinlari.html">🎯 Sinf o'yinlari</a></div>
+  <div class="top"><b id="k-num"></b><b id="k-score"></b></div>
+  <div class="prog"><i id="k-bar"></i></div>
+  <div class="card" id="k-q"></div>
+</section>
+</main>
+
+<script>
+{
+/* ---------- yordamchi ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const sshuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ---------- menyu ---------- */
+const views=['test','klassik','reyting','kitoblar','ajdodlar','sportchilar','viktorina'];
+function route(){const v=views.includes(location.hash.slice(1))?location.hash.slice(1):'test';
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));const on=document.querySelector('#nav a.on');if(on)on.parentNode.scrollLeft=on.offsetLeft-20;}
+addEventListener('hashchange',route);route();
+
+/* ---------- 1-bo'lim: so'z munosabatlari ---------- */
+const verbal=[
+['Qush : qanot = baliq : ?',['suzgich','suv','dum','tangacha'],0],
+['Shifokor : kasalxona = o\'qituvchi : ?',['maktab','dars','kitob','o\'quvchi'],0],
+['Qalam : yozmoq = pichoq : ?',['kesmoq','o\'tkir','oshxona','temir'],0],
+['Daqiqa : soat = oy : ?',['yil','hafta','kun','fasl'],0],
+['G\'isht : devor = so\'z : ?',['gap','harf','kitob','til'],0],
+['Urug\' : daraxt = tuxum : ?',['qush','uya','sariqlik','po\'choq'],0],
+['Ko\'z : ko\'rmoq = quloq : ?',['eshitmoq','gapirmoq','bosh','tovush'],0],
+['Kitob : kutubxona = rasm : ?',['galereya','rassom','ramka','bo\'yoq'],0],
+['Ko\'p : oz = doim : ?',['hech qachon','ba\'zan','tez-tez','hozir'],0],
+['Termometr : harorat = barometr : ?',['bosim','namlik','shamol','balandlik'],0],
+['Rassom : mo\'yqalam = duradgor : ?',['arra','yog\'och','uy','stol'],0],
+['Tong : kech = bahor : ?',['kuz','yoz','qish','fasl'],0],
+['Ari : asal = sigir : ?',['sut','o\'t','ferma','buzoq'],0],
+['Kapitan : kema = uchuvchi : ?',['samolyot','aeroport','osmon','qanot'],0],
+['Sekin : toshbaqa = tez : ?',['gepard','sichqon','ilon','qurbaqa'],0]
+].map(([q,o,a])=>({t:'mc',q,o,a:o[a]}));
+
+/* ---------- 2-bo'lim: sonli qatorlar ---------- */
+const series=[['2, 4, 6, 8, ?',10],['3, 6, 12, 24, ?',48],['1, 4, 9, 16, 25, ?',36],['2, 3, 5, 8, 12, ?',17],['1, 1, 2, 3, 5, 8, ?',13],['81, 27, 9, 3, ?',1],['2, 6, 12, 20, 30, ?',42],['5, 7, 11, 19, 35, ?',67],['10, 9, 7, 4, 0, ?',-5],['1, 2, 6, 24, 120, ?',720],['1, 8, 27, 64, ?',125],['2, 5, 11, 23, 47, ?',95],['100, 95, 85, 70, 50, ?',25],['1, 3, 7, 15, 31, ?',63],['3, 4, 7, 11, 18, 29, ?',47]]
+ .map(([q,a])=>({t:'num',q:'Qatorni davom ettiring: '+q,a}));
+
+/* ---------- 3-bo'lim: matematik mulohaza ---------- */
+const math=[
+['Bitta daftar 3 000 so\'m. 5 ta daftar necha so\'m?',15000],
+['Poyezd soatiga 80 km tezlikda 3,5 soat yurdi. Necha km yo\'l bosdi?',280],
+['Sinfda 30 o\'quvchi bor, ularning 40 foizi qizlar. O\'g\'il bolalar nechta?',18],
+['5 ishchi devorni 12 kunda quradi. 6 ishchi shu devorni necha kunda quradi?',10],
+['Narx 1 000 so\'m edi. Avval 20% oshdi, keyin 20% kamaydi. Yangi narx necha so\'m?',960],
+['Ota o\'g\'lidan 3 marta katta. 10 yildan keyin 2 marta katta bo\'ladi. O\'g\'il hozir necha yoshda?',10],
+['Hovuzni 1-quvur 6 soatda, 2-quvur 3 soatda to\'ldiradi. Ikkalasi birga necha soatda to\'ldiradi?',2],
+['Bir son 4 ga ko\'paytirildi va 6 qo\'shildi. Natija 50. Son nechaga teng?',11],
+['Soat 3:30 da soat va minut millari orasidagi burchak necha gradus?',75],
+['Qutida 4 ta qizil va 6 ta ko\'k shar bor. Tasodifan olingan shar qizil bo\'lish ehtimoli necha foiz?',40],
+['2 ta kitob va 3 ta daftar birga 21 000 so\'m. Bitta kitob 6 000 so\'m. Bitta daftar necha so\'m?',3000],
+['To\'g\'ri to\'rtburchakning perimetri 30 sm, bo\'yi 9 sm. Uning yuzi necha sm²?',54],
+['Avtomobil 240 km ni 3 soatda bosib o\'tdi. Shu tezlikda 5 soatda necha km yuradi?',400],
+['Uchta sonning o\'rta arifmetigi 20 ga teng. Ulardan ikkitasi 15 va 25. Uchinchi son nechaga teng?',20],
+['2 ning 10-darajasi nechaga teng?',1024]
+].map(([q,a])=>({t:'num',q,a}));
+
+/* ---------- 4-bo'lim: mantiq ---------- */
+const logic=[
+['Barcha atirgullar gul. Ba\'zi gullar tez so\'ladi. Qaysi xulosa to\'g\'ri?',['Atirgullar haqida aniq xulosa chiqarib bo\'lmaydi','Barcha atirgullar tez so\'ladi','Ba\'zi atirgullar albatta tez so\'ladi','Hech bir atirgul so\'lmaydi']],
+['Ali Validan baland, Vali Hasandan baland. Eng past kim?',['Hasan','Ali','Vali','Aniqlab bo\'lmaydi']],
+['Agar yomg\'ir yog\'sa, yo\'l ho\'l bo\'ladi. Yo\'l quruq. Demak:',['Yomg\'ir yog\'magan','Yomg\'ir yog\'gan','Ertaga yomg\'ir yog\'adi','Hech narsa deb bo\'lmaydi']],
+['Ortiqchasini toping:',['sabzi','olma','nok','o\'rik']],
+['Ortiqchasini toping:',['kub','kvadrat','uchburchak','doira']],
+['Bugun chorshanba. 100 kundan keyin haftaning qaysi kuni bo\'ladi?',['juma','payshanba','shanba','chorshanba']],
+['5 kishi bir-biri bilan bir martadan qo\'l berib ko\'rishdi. Jami necha marta qo\'l berishdi?',['10','20','25','5']],
+['Malika navbatda oldindan 7-, orqadan 5-o\'rinda turibdi. Navbatda necha kishi bor?',['11','12','13','10']],
+['KITOB so\'zi LJUPC deb shifrlangan. DAFTAR qanday shifrlanadi?',['EBGUBS','EBGUBR','CZESZQ','EAGUBS']],
+['Uch qutining hammasiga noto\'g\'ri yorliq yopishtirilgan: "Olma", "Nok", "Aralash". "Aralash" yorlig\'li qutidan olma chiqdi. Unda aslida nima bor?',['Faqat olma','Faqat nok','Aralash meva','Bo\'sh']],
+['Barcha ustozlar kitob o\'qiydi. Zarina ustoz. Demak:',['Zarina kitob o\'qiydi','Zarina kitob o\'qimaydi','Kitob o\'qiganlarning hammasi ustoz','Aniqlab bo\'lmaydi']],
+['Ortiqchasini toping:',['O\'zbekiston','Toshkent','Samarqand','Xiva']],
+['Kecha juma edi. Ertaga haftaning qaysi kuni?',['yakshanba','shanba','dushanba','payshanba']],
+['6 ta jamoa har biri bilan bir martadan o\'ynaydi. Jami necha o\'yin bo\'ladi?',['15','30','36','12']],
+['Bir sutkada soat va minut millari necha marta ustma-ust tushadi?',['22','24','12','23']]
+].map(([q,o])=>({t:'mc',q,o,a:o[0]}));
+
+/* ---------- 5-bo'lim: shakl matritsalari (Raven uslubi) ---------- */
+const R={c:()=>0,r:(r,c)=>r,k:(r,c)=>c,l1:(r,c)=>(r+c)%3,l2:(r,c)=>(r+2*c)%3};
+const rules=[['r','c','c'],['c','k','c'],['r','k','c'],['k','r','r'],['r','k','k'],['l1','k','c'],['r','l1','k'],['l1','l2','c'],['l1','k','l2'],['l2','l1','r'],['l2','l2','c'],['l1','r','l2'],['k','l2','l1'],['l2','k','l1'],['l1','l1','l2']];
+const SH=['circle','square','tri'],FL=['white','black','stripe'];
+function shapeSVG([s,n,f]){
+  const pos=[[[45,45]],[[25,45],[65,45]],[[45,24],[25,64],[65,64]]][n];
+  const fill=f===1?'currentColor':f===2?'url(#st)':'none';
+  const one=([x,y])=>s===0?`<circle cx="${x}" cy="${y}" r="13"/>`:s===1?`<rect x="${x-12}" y="${y-12}" width="24" height="24"/>`:`<polygon points="${x},${y-14} ${x-14},${y+11} ${x+14},${y+11}"/>`;
+  return `<svg class="sh" viewBox="0 0 90 90"><defs><pattern id="st" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="currentColor" stroke-width="2"/></pattern></defs><g fill="${fill}" stroke="currentColor" stroke-width="2.5">${pos.map(one).join('')}</g></svg>`;
+}
+const genMatrices=B=>rules.map((ru,i)=>{
+  seed=B+101+i*37;
+  const perm=[sshuf([0,1,2]),sshuf([0,1,2]),sshuf([0,1,2])];
+  const at=(r,c)=>ru.map((k,j)=>perm[j][R[k](r,c)]);
+  const cells=[];for(let r=0;r<3;r++)for(let c=0;c<3;c++)cells.push(at(r,c));
+  const ans=cells[8];const d=[];
+  for(let j=0;j<3;j++)for(let v=0;v<3;v++)if(v!==ans[j]){const x=ans.slice();x[j]=v;d.push(x)}
+  const opts=sshuf([ans,...sshuf(d).slice(0,5)]).map(shapeSVG);
+  return{t:'fig',q:'Bo\'sh katakka qaysi shakl mos keladi?',cells:cells.slice(0,8).map(shapeSVG),o:opts,a:shapeSVG(ans)};
+});
+
+/* ---------- 6-bo'lim: xotira ---------- */
+const memory=[[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[3,1],[4,1],[5,1],[6,1],[7,1],[8,1]].map(([n,b])=>({t:'mem',n,back:!!b}));
+
+/* ---------- 7-bo'lim: fazoviy tasavvur (shaklni aylantirish) ---------- */
+const PENT=[[[1,0],[2,0],[0,1],[1,1],[1,2]],[[0,0],[0,1],[0,2],[0,3],[1,3]],[[1,0],[1,1],[0,2],[1,2],[0,3]],[[0,0],[1,0],[0,1],[1,1],[0,2]],[[1,0],[0,1],[1,1],[1,2],[1,3]]];
+const rot=(p,k)=>{let q=p;for(let i=0;i<k;i++)q=q.map(([x,y])=>[-y,x]);return q};
+const mir=p=>p.map(([x,y])=>[-x,y]);
+const norm=p=>{const mx=Math.min(...p.map(a=>a[0])),my=Math.min(...p.map(a=>a[1]));return p.map(([x,y])=>[x-mx,y-my]).sort((a,b)=>a[0]-b[0]||a[1]-b[1])};
+const polySVG=p=>{p=norm(p);const s=16,w=Math.max(...p.map(a=>a[0]))+1,h=Math.max(...p.map(a=>a[1]))+1,ox=(90-w*s)/2,oy=(90-h*s)/2;
+  return `<svg class="sh" viewBox="0 0 90 90"><g fill="currentColor" fill-opacity=".85" stroke="var(--card)" stroke-width="2">${p.map(([x,y])=>`<rect x="${ox+x*s}" y="${oy+y*s}" width="${s}" height="${s}"/>`).join('')}</g></svg>`};
+const genSpatial=B=>Array.from({length:15},(_,i)=>{seed=B+500+i*29;const base=PENT[i%5],r0=Math.floor(rnd()*4),r1=(r0+1+Math.floor(rnd()*3))%4;
+  const mr=sshuf([0,1,2,3]).slice(0,3);const right=polySVG(rot(base,r1));
+  return{t:'pick',q:'Chapdagi shaklni tekislikda aylantirsak, qaysi shakl hosil bo\'ladi? (Ko\'zgudagi aksi hisoblanmaydi)',show:polySVG(rot(base,r0)),o:sshuf([right,...mr.map(k=>polySVG(rot(mir(base),k)))]),a:right}});
+
+/* ---------- 8-bo'lim: qayta ishlash tezligi ---------- */
+const SYM=['◆','▲','●','■','★','✚','♣','♠','♥','♦','☀','☂'];
+const genSpeed=B=>Array.from({length:20},(_,i)=>{seed=B+900+i*13;const s=sshuf(SYM),tg=s.slice(0,2),yes=rnd()<0.5;
+  const row=s.slice(2,7);if(yes)row[Math.floor(rnd()*5)]=tg[Math.floor(rnd()*2)];return{t:'spd',tg,row,a:yes}});
+const SPD_SEC=120;
+const matrices=genMatrices(0),spatial=genSpatial(0),speed=genSpeed(0);
+
+/* ---------- 9-bo'lim: mashhur kitoblar uslubida (Ayzenk, Mensa, Karter) — savollar yangi, ko'chirilmagan ---------- */
+const books=[
+{t:'mc',q:'Ortiqcha so\'zni toping:',o:['choy','non','somsa','palov']},
+{t:'mc',q:'Harflar qatorini davom ettiring: A, C, F, J, O, ?',o:['U','T','V','S']},
+{t:'mc',q:'Harflar qatorini davom ettiring: Z, X, U, Q, L, ?',o:['F','G','E','H']},
+{t:'num',q:'Jadvalda qonuniyat bor: 2 3 6 · 4 5 20 · 3 7 ? — so\'roq o\'rnidagi son?',a:21},
+{t:'num',q:'3 [12] 9 · 4 [20] 16 · 5 [?] 7 — qavs ichidagi son?',a:12},
+{t:'mc',q:'"LOMA" harflaridan qaysi meva nomi tuziladi?',o:['OLMA','ANOR','OLXO\'RI','NOK']},
+{t:'mc',q:'"BOKIT" harflarini to\'g\'ri tartibga qo\'ying:',o:['KITOB','BOTIK','TOBIK','KOBIT']},
+{t:'mc',q:'Ikkala so\'z birikmasiga mos so\'zni toping: qo\'l ___ · ___ mili',o:['soat','ish','barmoq','qalam']},
+{t:'mc',q:'"Mohir" so\'zining ma\'nodoshi:',o:['usta','dangasa','yosh','baland']},
+{t:'mc',q:'"Saxiy" so\'zining zid ma\'nolisi:',o:['baxil','boy','mehribon','kambag\'al']},
+{t:'num',q:'Qatorni davom ettiring: 1, 4, 13, 40, ?',a:121},
+{t:'mc',q:'Vaqtlar qatori: 2:00, 3:15, 4:30, 5:45, ?',o:['7:00','6:00','6:45','7:15']},
+{t:'num',q:'Ota va o\'g\'ilning yoshlari yig\'indisi 36. Ota o\'g\'lidan 30 yosh katta. O\'g\'il necha yoshda?',a:3},
+{t:'mc',q:'Kabisa bo\'lmagan yilda 1-yanvar dushanba bo\'lsa, 1-mart haftaning qaysi kuni?',o:['payshanba','chorshanba','juma','dushanba']},
+{t:'num',q:'3×3×3 o\'lchamli kubning sirti bo\'yalib, 27 ta kichik kubga bo\'lindi. Nechta kichik kubning faqat bitta yog\'i bo\'yalgan?',a:6}
+].map(x=>x.t==='mc'?{...x,a:x.o[0]}:x);
+
+/* ---------- 10-bo'lim: mashhur IQ ilovalari uslubida — savollar yangi ---------- */
+const apps=[
+['Tarozida 2 ta olma 1 ta nokka, 3 ta nok 1 ta qovunga teng. 1 ta qovun necha olmaga teng?',6],
+['1 dan 9 gacha sonlar bilan to\'ldirilgan 3×3 sehrli kvadratda har bir qator yig\'indisi nechaga teng?',15],
+['Piramidaning pastki qatori: 2, 3, 4. Har bir yuqoridagi son ostidagi ikki son yig\'indisiga teng. Eng tepadagi son?',12],
+['★ + ★ = 10 va ★ + ▲ = 8. ▲ nechaga teng?',3],
+['● × 3 = 18 va ■ = ● + 4. ■ nechaga teng?',10],
+['4×4 katakli kvadratda jami nechta kvadrat bor (barcha o\'lchamdagilarni sanang)?',30],
+['Bitta g\'isht 1 kg va yana yarim g\'isht og\'irligiga teng. Bitta g\'isht necha kg?',2],
+['Shaxmat taxtasida nechta katak bor?',64],
+['Bir sutkada soat millari necha marta to\'g\'ri burchak hosil qiladi?',44],
+['7 ta velosipedning jami 17 ta g\'ildiragi bor. Ular ikki va uch g\'ildirakli. Uch g\'ildiraklilar nechta?',3],
+['1-qavatdan 3-qavatga 2 daqiqada chiqiladi. Shu tezlikda 1-qavatdan 6-qavatga necha daqiqada chiqiladi?',5],
+['Kitob sahifalari 1 dan 100 gacha raqamlangan. 9 raqami jami necha marta yozilgan?',20]
+].map(([q,a])=>({t:'num',q,a})).concat([
+{t:'mc',q:'Ko\'zgudagi soat 3:00 ni ko\'rsatmoqda. Haqiqiy vaqt qancha?',o:['9:00','3:00','6:00','12:00']},
+{t:'mc',q:'Qaysi son qatorga mos emas: 2, 4, 8, 15, 32?',o:['15','8','32','4']},
+{t:'mc',q:'6 raqamini teskari (180°) aylantirsak qaysi raqam hosil bo\'ladi?',o:['9','6','0','8']}
+].map(x=>({...x,a:x.o[0]})));
+
+const SECTIONS=[
+ {name:'So\'z munosabatlari',ic:'🔤',ix:'VCI',qs:verbal},{name:'Sonli qatorlar',ic:'🔢',ix:'FRI',qs:series},
+ {name:'Matematik mulohaza',ic:'➗',ix:'FRI',qs:math},{name:'Mantiqiy fikrlash',ic:'🧩',ix:'FRI',qs:logic},
+ {name:'Shakl matritsalari',ic:'🔷',ix:'FRI',qs:matrices},{name:'Fazoviy tasavvur',ic:'📦',ix:'VSI',qs:spatial},
+ {name:'Ishchi xotira',ic:'🧠',ix:'WMI',qs:memory},{name:'Tezlik (2 daqiqa)',ic:'⚡',ix:'PSI',qs:speed},{name:'Mashhur kitoblar uslubida',ic:'📚',ix:'FRI',qs:books},{name:'Mashhur ilovalar uslubida',ic:'📱',ix:'FRI',qs:apps}];
+const INDEX={VCI:'Verbal tushunish',VSI:'Ko\'rgazmali-fazoviy',FRI:'Suyuq tafakkur',WMI:'Ishchi xotira',PSI:'Qayta ishlash tezligi'};
+const TOTAL=SECTIONS.reduce((s,x)=>s+x.qs.length,0),MIN=95;
+$('#t-h').textContent=`To'liq IQ test: ${SECTIONS.length} bo'lim, ${TOTAL} ta savol`;$('#t-min').textContent=MIN+' daqiqa';
+$('#t-secs').innerHTML=SECTIONS.map(s=>`<div class="stat">${s.ic} ${esc(s.name)}<b>${s.qs.length}</b></div>`).join('')+`<div class="stat">Jami savol<b>${TOTAL}</b></div>`;
+try{const b=JSON.parse(localStorage.getItem('ka-iq-best')||'null');if(b)$('#t-best').textContent=`Oldingi eng yaxshi natijangiz: ${b.iq} (${b.date})`}catch(e){}
+
+/* ---------- KLASSIK TO'PLAM: jamoat mulki manbalaridan o'zbekchaga tarjima ---------- */
+const SRC={alpha:'Army Alpha testi (AQSh armiyasi, 1917–1918)',dud:'H. E. Dyudeni, «Amusements in Mathematics» (1917)'};
+const AS=[['3, 4, 5, 6, 7, 8',9],['8, 7, 6, 5, 4, 3',2],['10, 15, 20, 25, 30, 35',40],['9, 9, 7, 7, 5, 5',3],['3, 6, 9, 12, 15, 18',21],['5, 9, 13, 17, 21, 25',29],['8, 9, 12, 13, 16, 17',20],['27, 27, 23, 23, 19, 19',15],['1, 2, 4, 8, 16, 32',64],['19, 16, 14, 11, 9, 6',4],['11, 13, 12, 14, 13, 15',14],['2, 3, 5, 8, 12, 17',23],['18, 14, 17, 13, 16, 12',15],['29, 28, 26, 23, 19, 14',8],['20, 17, 15, 14, 11, 9',8],['1, 4, 9, 16, 25, 36',49],['16, 17, 15, 18, 14, 19',13],['3, 6, 8, 16, 18, 36',38]]
+ .map(([s,a],i)=>({g:'as',t:'num',q:'Qatorni davom ettiring: '+s+', ?',a,src:SRC.alpha+', 6-test, '+(i+1)+'-savol'}));
+AS.push({g:'as',t:'mc',q:'Qatorni davom ettiring: 81, 27, 9, 3, 1, 1/3, ?',o:['1/9','0','1/6','1/27'],src:SRC.alpha+', 6-test'});
+const AN=[
+['poyabzal — oyoq','shlyapa',['bosh','mushukcha','pichoq','tanga']],['kuchukcha — it','qo\'zichoq',['qo\'y','qizil','eshik','kitob']],
+['bahor — yoz','kuz',['qish','iliq','hosil','ko\'tarilmoq']],['shayton — farishta','yomon',['yaxshi','badjahl','itoatsiz','tuhmatchi']],
+['qo\'l barmog\'i — qo\'l','oyoq barmog\'i',['oyoq','tana','teri','tirnoq']],['oyoqlar — qurbaqa','qanotlar',['qush','yemoq','suzmoq','uya']],
+['chaynamoq — tishlar','hidlamoq',['burun','shirin','sassiq','hid']],['sher — na\'ra tortmoq','it',['vovullamoq','haydamoq','toycha','jabduq']],
+['mushuk — yo\'lbars','it',['bo\'ri','vovullamoq','tishlamoq','g\'ajimoq']],['yaxshi — yomon','uzun',['qisqa','baland','katta','ilon']],
+['bahodir — katta','pakana',['kichik','changalzor','soqol','xunuk']],['qish — fasl','yanvar',['oy','fevral','kun','yangi yil']],
+['konkida uchish — qish','suzish',['yoz','sho\'ng\'ish','qalqish','chuqur']],['malla soch — och','qora soch',['to\'q','soch','yorqin','malla']],
+['sevgi — do\'st','nafrat',['dushman','g\'araz','avliyo','yoqtirmaslik']],['tuxum — qush','urug\'',['o\'simlik','o\'smoq','yorilmoq','unmoq']],
+['qazimoq — xandaq','qurmoq',['uy','yugurmoq','belkurak','o\'q']],['kelishmoq — janjallashmoq','do\'st',['dushman','o\'rtoq','ehtiyoj','ona']],
+['saroy — podshoh','kulba',['dehqon','kottej','ferma','shahar']],['jala — yomg\'ir','bo\'ron',['shabada','cho\'milish','vayron qilmoq','g\'arb']],
+['ota-ona — buyurmoq','bolalar',['bo\'ysunmoq','erkaklar','kerak','ayollar']],['olmos — noyob','temir',['keng tarqalgan','kumush','ruda','po\'lat']],
+['ha — tasdiq','yo\'q',['inkor','o\'ylamoq','bilim','ha']],['soat — kun','kun',['hafta','tun','soat','tush']],
+['ko\'z — bosh','deraza',['xona','kalit','pol','eshik']],['kiyim — odam','yung',['ot','taroq','soqol','shlyapa']],
+['chizmoq — rasm','yasamoq',['stol','buzmoq','sindirmoq','qattiq']],['avtomobil — arava','mototsikl',['velosiped','minmoq','tezlik','mashina']],
+['ombor — bug\'doy','kutubxona',['kitoblar','o\'qimoq','qog\'oz','stullar']],['Samarqand — O\'zbekiston','qism',['butun','soch','Xitoy','Buxoro']],
+['hurmat qilmoq — nafratlanmoq','do\'stlar',['dushmanlar','mehmonlar','oshiqlar','odamlar']],['qolmoq — turmoq','jo\'nab ketmoq',['ketmoq','kelmoq','bu yerdan','kech']],
+['mo\'l — kam','arzon',['qimmat','sotib olmoq','chegirma','yoqimsiz']],['kit — katta','momaqaldiroq',['baland ovozli','yomg\'ir','chaqmoq','o\'ldirmoq']],
+['mukofot — qahramon','jazo',['xoin','osmon','abadiy','og\'riq']],['musiqa — tinchlantiruvchi','shovqin',['chalg\'ituvchi','eshitmoq','tovush','xabar']],
+['kitob — yozuvchi','haykal',['haykaltarosh','ozodlik','rasm','davlat']],['yara — og\'riq','sog\'liq',['tetiklik','kasallik','xastalik','shifokor']]
+].map(([a,b,o],i)=>({g:'an',t:'mc',q:`${a} = ${b} — ?`,o,src:SRC.alpha+', 7-test (analogiyalar)'}));
+const SY=[['yo\'q — ha',0],['kun — tun',0],['ketmoq — jo\'namoq',1],['boshlamoq — kirishmoq',1],['achchiq — shirin',0],['taxmin qilmoq — faraz qilmoq',1],['buyurmoq — bo\'ysunmoq',0],['jig\'iga tegmoq — xira qilmoq',1],['tirishqoq — mehnatkash',1],['poraxo\'r — halol',0],['-ga tomon — -dan',0],['erkak — ayol',0],['murakkab — oddiy',0],['muqaddas — tabarruk',1],['tez-tez — kamdan-kam',0],['qadimiy — zamonaviy',0],['ulkan — bahaybat',1],['in\'om etmoq — hadya qilmoq',1],['qo\'lga kiritmoq — yo\'qotmoq',0],['hisoblamoq — sanab chiqmoq',1],['bulg\'amoq — poklamoq',0],['xavotirli — qo\'rquvli',1],['bepusht — serhosil',0],['jar — tubsizlik',1],['g\'amgin — ma\'yus',1],['iz — asorat',1],['qoralamoq — maqtamoq',0],['cheklangan — chegaralangan',1],['rad etmoq — tasdiqlamoq',0],['chidamli — beriluvchan',0],['kirim — chiqim',0],['o\'tkinchi — doimiy',0],['yumshatmoq — yengillatmoq',1],['la\'natlamoq — so\'kmoq',1],['yo\'qolib ketgan — hozir mavjud',0],['o\'rinli — tegishli',1],['bir vaqtdagi — bir paytdagi',1],['takabbur — manman',1],['tushunarsiz — mavhum',1]]
+ .map(([p,s])=>({g:'sy',t:'mc',q:`Bu so'zlar ma'nodoshmi yoki zid ma'nolimi? «${p}»`,o:s?['Ma\'nodosh','Zid ma\'noli']:['Zid ma\'noli','Ma\'nodosh'],src:SRC.alpha+', 4-test (ma\'nodosh–zid)'}));
+const AR=[
+['48 kishi 8 kishilik guruhlarga bo\'lindi. Nechta guruh bo\'ldi?',6],['Alida 11 ta olma bor edi. U yana 2 ta oldi, keyin 7 tasini yedi. Nechta olma qoldi?',6],
+['Qism 8 km oldinga yurib, keyin 2 km orqaga chekindi. U boshlang\'ich joyidan qancha uzoqda?',6],['Yuk mashinasi soatiga 3 km tezlikda 42 km ni necha soatda o\'tadi?',14],
+['2 ta qalam 5 so\'m tursa, 60 so\'mga nechta qalam olish mumkin?',24],['Polk 5 kunda 40 km yurdi: 1-kuni 9, 2-kuni 6, 3-kuni 10, 4-kuni 6 km. 5-kuni necha km yurdi?',9],
+['Har biri 8 ming so\'mdan 2 ta daftar va 65 ming so\'mlik ruchka oldingiz. 200 ming so\'mdan qancha qaytim olasiz (ming so\'m)?',119],['4 kishi ariqni 3 kunda qazidi. Uni yarim kunda qazish uchun necha kishi kerak?',24],
+['Savdogar bir necha otni 2 000 ming so\'mga olib, 2 400 ming so\'mga sotdi va har bir otdan 50 ming so\'m foyda ko\'rdi. Nechta ot bo\'lgan?',8],['Pulining 1/8 qismiga otkritka, ikki barobariga xat qog\'ozi oldi va unda 10 ming so\'m qoldi. Avval necha ming so\'m bo\'lgan?',16],
+['3,5 tonna beda 14 mln so\'m tursa, 6,5 tonna beda necha mln so\'m turadi?',26],['Kemadagi oziq-ovqat 700 kishiga 2 oyga yetadi. 400 kishiga necha oyga yetadi?',3.5],
+['Samolyot 10 soniyada 250 m uchadi. Soniyaning beshdan birida necha metr uchadi?',5],['Suv osti kemasi suv ostida soatiga 8 km, yuzada 20 km suzadi. 100 km yo\'lning 2/5 qismini suv ostida o\'tsa, butun yo\'lga necha soat ketadi?',8],
+['134 ta guruh 3 618 m xandaq qazishi kerak. Har bir guruh necha metr qazishi kerak?',27],['Diviziyada 5 000 artilleriyachi, 15 000 piyoda va 1 000 otliq bor. Har bir qism teng nisbatda ko\'payib, jami 23 100 kishi bo\'lsa, artilleriyaga necha kishi qo\'shiladi?',500],
+['Ombor 1 897 bochka olmani jo\'natdi, qolganini 37 ta oshxonaga 54 tadan berdi. Jami necha bochka olma bo\'lgan?',3895]
+].map(([q,a],i)=>({g:'ar',t:'num',q,a,src:SRC.alpha+', 2-test (arifmetika)'}));
+const DU=[
+[3,'Uch dehqon bozorda uchrashdi. Hasan Jamshidga: «Bitta otingga 6 ta cho\'chqamni beraman, shunda senda mendagidan 2 barobar ko\'p hayvon bo\'ladi», dedi. Davron Hasanga: «Bitta otingga 14 ta qo\'yimni beraman, shunda senda mendagidan 3 barobar ko\'p bo\'ladi», dedi. Jamshid Davronga: «Bitta otingga 4 ta sigirimni beraman, shunda senda mendagidan 6 barobar ko\'p bo\'ladi», dedi. Uchalasi bozorga jami nechta hayvon olib kelgan?',39,'Jamshidda 7, Hasanda 11, Davronda 21 ta hayvon bo\'lgan.'],
+[9,'Bir kishi ikkita mashinani har birini 600 mln so\'mdan sotdi. Biridan 20% zarar, ikkinchisidan 20% foyda ko\'rdi. U umuman necha mln so\'m zarar ko\'rdi?',50,'Mashinalar 750 va 500 mln, jami 1 250 mlnga olingan, 1 200 mlnga sotilgan.'],
+[11,'Velosipedchilar choyxonada umumiy hisob uchun 80 ming so\'m to\'lashi kerak edi. Ikki kishi to\'lamay qochib qoldi, shuning uchun qolganlarning har biri 2 ming so\'mdan ko\'p to\'ladi. Dastlab nechta velosipedchi bo\'lgan?',10,'10 kishi 8 ming so\'mdan to\'lashi kerak edi, 8 kishi 10 ming so\'mdan to\'ladi.'],
+[8,'Bir kishi uyga ketayotib uch kishiga yordam berdi. Birinchisiga cho\'ntagidagi pulning yarmidan 1 ming so\'m ko\'p, ikkinchisiga qolganning yarmidan 2 ming ko\'p, uchinchisiga yana qolganning yarmidan 3 ming ko\'p berdi. Uyga 1 ming so\'m bilan keldi. Avval necha ming so\'mi bo\'lgan?',42,'Oxiridan boshlab hisoblaymiz: 1 → 8 → 20 → 42.'],
+[43,'Jahongir 18 yil oldin uylanganda xotinidan 3 barobar katta edi. Hozir esa undan 2 barobar katta. Xotini to\'y kuni necha yoshda bo\'lgan?',18,'Xotini 18 yoshda, eri 54 yoshda edi. Hozir 36 va 72 yoshda.'],
+[50,'Uch bolaga 770 ta yong\'oq yoshlariga mos ravishda bo\'lib berildi. Hamid 4 ta olganda Rustam 3 ta, Hamid 6 ta olganda Shavkat 7 ta oladi. Hamid nechta yong\'oq oldi?',264,'Nisbat 12 : 9 : 14 (jami 35). 770 : 35 = 22, demak 264, 198 va 308.'],
+[58,'Soat oltiga necha daqiqa qoldi, agar 50 daqiqa oldin soat uchdan to\'rt barobar shuncha daqiqa o\'tgan bo\'lsa?',26,'x daqiqa qolgan bo\'lsa: 130 − x = 4x, x = 26.'],
+[67,'Mashina bir tomonga soatiga 10 km, qaytishda shu yo\'ldan soatiga 15 km tezlikda yurdi. O\'rtacha tezlik soatiga necha km?',12,'60 km yo\'lga borishda 6 soat, qaytishda 4 soat ketadi: 120 km / 10 soat = 12. Javob 12,5 emas!'],
+[68,'Ikki poyezd bir vaqtda qarama-qarshi shaharlardan yo\'lga chiqdi. Uchrashgandan keyin biri 1 soatda, ikkinchisi 4 soatda manziliga yetdi. Biri ikkinchisidan necha barobar tez?',2,'Tezliklar nisbati vaqtlar nisbatidan olingan kvadrat ildizga teng: √(4/1) = 2.'],
+[69,'A dan B ga to\'g\'ri yo\'l o\'rniga C qishloq orqali bordim. C to\'g\'ri yo\'ldan 12 km chetda va A ga B dan yaqinroq. Jami 35 km yurdim. Barcha masofalar butun son bo\'lsa, A dan B gacha to\'g\'ri yo\'l necha km?',25,'AC = 15, CB = 20, AB = 9 + 16 = 25 (Pifagor teoremasi).'],
+[73,'Eshaklar 1 km lik poygani choraklarga bo\'lib yugurdi. Dastlabki 3 chorak 6¾ daqiqada o\'tildi, birinchi yarim ikkinchi yarim bilan teng vaqtda, 3-chorak esa 4-chorak bilan teng vaqtda o\'tildi. Butun poygaga necha daqiqa ketgan?',9,'3- va 4-choraklar 2¼ daqiqadan, demak ikkinchi yarim 4½, birinchi yarim ham 4½: jami 9.'],
+[74,'50 ta kartoshka to\'g\'ri chiziqqa terildi: 1- va 2-kartoshka orasi 1 m, 2- va 3- orasi 3 m, keyin 5 m, 7 m va hokazo. Bola savatni birinchi kartoshka yonidan boshlab, kartoshkalarni bittadan savatga olib keladi. U jami necha metr yuradi?',80850,'Formula: n·(n−1)·(2n−1)/3 = 50·49·99/3 = 80 850 m.'],
+[98,'Maktabda qizlar o\'g\'il bolalardan 2 barobar ko\'p. Har bir qiz har bir boshqa qizga, har bir o\'g\'il bolaga va ustozga ta\'zim qiladi. O\'g\'il bolalar ham shunday qiladi. Har kuni jami 900 ta ta\'zim bo\'ladi. Nechta o\'g\'il bola bor?',10,'10 o\'g\'il, 20 qiz: 380 + 90 + 400 + 30 = 900.'],
+[100,'Bo\'yi 175 sm bo\'lgan ishchi chuqur qazimoqda. «Hozirgidan yana 2 barobar chuqur qazisam, boshim yer ostida hozir yer ustidagidan 2 barobar pastda bo\'ladi», dedi. Tayyor chuqur necha sm bo\'ladi?',315,'Hozir 105 sm, boshi 70 sm yuqorida. Tayyor chuqur 3 × 105 = 315 sm, boshi 140 sm pastda.'],
+[103,'Ikki bo\'yoqchi ko\'chaning ikki tomonidagi chiroq ustunlarini bo\'yadi (har tomonda teng). Tohir janubiy tomonda 3 tasini bo\'yagach, uning ishi shimolda ekani ma\'lum bo\'ldi. Pavel janubiy tomonni tugatib, keyin shimolda Tohirga 6 ta bo\'yab berdi. Pavel Tohirdan nechta ko\'p bo\'yagan?',6,'Ustunlar soni qancha bo\'lishidan qat\'i nazar: Pavel n + 3, Tohir n − 3.'],
+[106,'Saylovda 5 473 ta ovoz berildi. G\'olib nomzod ikkinchisidan 18, uchinchisidan 146, to\'rtinchisidan 575 ovoz ko\'p oldi. G\'olib necha ovoz olgan?',1553,'(5 473 + 18 + 146 + 575) : 4 = 1 553.'],
+[107,'Yig\'ilishdan bir necha kishi chiqib ketdi. Rais: «Men ham ketsam, 2/3 qismimiz ketgan bo\'lardi», dedi. Boshqasi: «Ikki dugonamni qoldirganimda, yarmimiz ketgan bo\'lardik», dedi. Boshida necha kishi bo\'lgan?',18,'18 kishidan 11 tasi ketgan. 12 ketsa 2/3, 9 ketsa yarmi bo\'ladi.'],
+[125,'7 kishi dam olishga chiqdi. 6 tasi 10 ming so\'mdan sarfladi, Bobur esa o\'rtachadan 3 ming so\'m ko\'p sarfladi. Bobur necha so\'m sarflagan?',13500,'O\'rtacha x: 60 + (x + 3) = 7x, x = 10,5 ming. Bobur 13,5 ming = 13 500 so\'m.'],
+[127,'701, 1 059, 1 417 va 2 312 sonlarini bo\'lganda bir xil qoldiq qoladigan eng katta bo\'luvchi qaysi?',179,'Ayirmalar 358, 716, 895... hammasi 179 ga bo\'linadi. Qoldiq 164.'],
+[178,'To\'g\'ri burchakli qutining ustki yuzi 120 sm², yon yuzi 96 sm², old yuzi 80 sm². Qutining hajmi necha sm³?',960,'O\'lchamlar 12 × 10 × 8. Hajm = √(120 · 96 · 80) = 960.'],
+[389,'«Tanishlarimdan 4 tasining chap qo\'li, 5 tasining o\'ng qo\'li singan, 2 tasining o\'ng qo\'li butun, 3 tasining chap qo\'li butun.» Gapiruvchining eng kamida nechta tanishi bor?',7,'Masalan: 2 tasining chap qo\'li, 3 tasining o\'ng qo\'li, 2 tasining ikkala qo\'li singan.'],
+[105,'23 nomzoddan 9 tasi saylanadi. Saylovchi 9 tagacha (istalgancha) nomzodga ovoz bera oladi. U necha xil usulda ovoz berishi mumkin?',1698159,'C(23,1) + C(23,2) + … + C(23,9) = 1 698 159.']
+].map(([n,q,a,e])=>({g:'du',t:'num',q,a,e,src:SRC.dud+', '+n+'-jumboq'}));
+const DUM=[
+[40,'Ota-ona va o\'g\'ilning yoshlari yig\'indisi 70. Ota o\'g\'lidan 6 barobar katta. O\'g\'il otasining yarmicha yoshga yetganda, uchalasining yoshi yig\'indisi bugungidan 2 barobar ko\'p bo\'ladi. Ona necha yoshda?',['29 yosh 2 oy','30 yosh','28 yosh','35 yosh'],'Ota 35, o\'g\'il 5 yosh 10 oy, ona 29 yosh 2 oy.'],
+[45,'12 yoshli qiz velosiped so\'radi. 45 yoshli onasi: «Men sendan atigi 3 barobar katta bo\'lganimda olib beraman», dedi. Qiz necha yildan keyin velosiped oladi?',['4,5 yildan keyin','3 yildan keyin','6 yildan keyin','Hech qachon']],
+[53,'«Anavi kishining onasi mening onamning qaynonasi», dedi qiz. U kishi qizga kim bo\'ladi?',['Amakisi','Tog\'asi','Bobosi','Akasi']],
+[57,'Professordan vaqtni so\'rashdi. U: «Tushdan hozirgacha o\'tgan vaqtning choragini hozirdan ertangi tushgacha bo\'lgan vaqtning yarmiga qo\'shsangiz, hozirgi vaqt chiqadi», dedi. Soat necha?',['21:36','20:00','18:24','22:12'],'Tushdan t soat o\'tgan: t/4 + (24 − t)/2 = t, t = 9,6 soat.'],
+[42,'Bilol Gulnoradan 2 barobar katta. Hamida va Gulnora yoshlari yig\'indisi Bilolnikidan 2 barobar ko\'p. Chori va Bilol yoshlari yig\'indisi ikki qiznikidan 2 barobar ko\'p. Janna 21 yoshga to\'ldi va endi uch qizning yoshi ikki o\'g\'il bolanikidan 2 barobar ko\'p. Chori necha yoshda?',['10,5 yosh','7 yosh','12 yosh','14 yosh'],'Bilol 3,5, Gulnora 1,75, Hamida 5,25, Chori 10,5, Janna 21.'],
+[51,'Mariya va Annaning yoshlari yig\'indisi 44. Mariya hozir Annaning bir paytdagi yoshidan 2 barobar katta. O\'sha paytda Mariya Annaning kelajakdagi bir yoshining yarmicha edi. O\'sha kelajakda Anna Mariyaning qachondir bo\'lgan yoshidan 3 barobar katta bo\'ladi. O\'sha qachondir esa Mariya Annadan 3 barobar katta edi. Mariya necha yoshda? (Sem Loyd jumbog\'i)',['27,5','24','22','30'],'Mariya va Anna yoshlari nisbati 5 : 3, demak 27,5 va 16,5.'],
+[102,'Bir xil uzunlikdagi ikki sham bor: biri 4 soatda, ikkinchisi 5 soatda yonib tugaydi. Ular birga yoqildi va o\'chirilganda biri ikkinchisidan 4 barobar uzun qoldi. Shamlar qancha yongan?',['3 soat 45 daqiqa','3 soat','2 soat 30 daqiqa','4 soat']],
+[112,'Ota 100 gektar yerni uch o\'g\'liga 1/3, 1/4 va 1/5 nisbatda qoldirdi. Kenja o\'g\'il vafot etdi. Yerni qolgan ikkisiga qanday adolatli bo\'lish kerak?',['4/7 va 3/7','1/2 va 1/2','2/3 va 1/3','3/5 va 2/5']],
+[121,'O\'yinchi har safar cho\'ntagidagi pulning yarmiga tanga tashlab garov o\'ynadi. U yutgan va yutqazgan marta soni teng bo\'ldi. Natijada u:',['Zarar ko\'rdi','Foyda ko\'rdi','Pulini saqlab qoldi','Aniqlab bo\'lmaydi'],'Ikki tashlashda pulning 3/4 qismi qoladi: 1,5 × 0,5 = 0,75.'],
+[123,'Vasiyatga ko\'ra o\'g\'il tug\'ilsa, mulkning 2/3 qismi o\'g\'ilga, 1/3 qismi onaga; qiz tug\'ilsa, 2/3 qismi onaga, 1/3 qismi qizga beriladi. Egizaklar (o\'g\'il va qiz) tug\'ildi. Ona qancha oladi?',['2/7','1/3','1/2','4/7'],'O\'g\'il onadan 2 barobar, qiz onadan 2 barobar kam: 4 : 2 : 1.'],
+[186,'Ikki ustun bor: biri 7 m, ikkinchisi 5 m. Har birining tepasidan ikkinchisining tubiga arqon tortildi. Arqonlar yerdan qancha balandlikda kesishadi?',['≈ 2,92 m','3 m','6 m','2,5 m'],'a·b/(a+b) = 35/12 ≈ 2,92 m. Ustunlar orasidagi masofa javobga ta\'sir qilmaydi.'],
+[363,'Bir idishda 10 litr spirt, ikkinchisida 10 litr suv bor. Spirtdan bir qoshiq suvga quyib aralashtirildi, keyin aralashmadan bir qoshiq qaytarildi. Spirt idishidagi suv miqdori suv idishidagi spirt miqdoridan:',['Teng','Ko\'p','Kam','Aniqlab bo\'lmaydi']],
+[368,'10 litrli bochkadagi sharobdan bir ko\'za olinib, o\'rniga suv quyildi. Aralashgandan keyin yana bir ko\'za olinib, suv quyildi. Endi sharob va suv teng. Ko\'za taxminan necha litr?',['≈ 2,93 litr','2,5 litr','5 litr','3,33 litr'],'(1 − x/10)² = 1/2, x = 10(1 − 1/√2) ≈ 2,93.'],
+[414,'Qayiqda dengizda 1 km uzoqlikda turgan uch kishi tomon qirg\'oqdan miltiq otildi. Biri faqat ovozni eshitdi, ikkinchisi faqat tutunni ko\'rdi, uchinchisi o\'qning suvga tushganini ko\'rdi. Kim birinchi bilgan?',['Tutunni ko\'rgan','Ovozni eshitgan','O\'qni ko\'rgan','Hammasi bir vaqtda'],'Yorug\'lik eng tez keladi, keyin o\'q, eng oxiri tovush.'],
+[416,'Asrning birinchi kuni (masalan, 2101-yil 1-yanvar) yakshanbaga to\'g\'ri kelish ehtimoli qancha?',['0 — hech qachon','1/7','1/2','1/4'],'Grigorian taqvimida asrning birinchi kuni hech qachon yakshanba, chorshanba yoki juma bo\'lmaydi.']
+].map(([n,q,o,e])=>({g:'du',t:'mc',q,o,e,src:SRC.dud+', '+n+'-jumboq'}));
+const CLASSIC=[...AS,...AN,...SY,...AR,...DU,...DUM].map(x=>x.t==='mc'&&x.a===undefined?{...x,a:x.o[0]}:x);
+const CGROUPS={all:'Hammasi',as:'Army Alpha · sonlar qatori',an:'Army Alpha · analogiyalar',sy:'Army Alpha · ma\'nodosh–zid',ar:'Army Alpha · arifmetika',du:'Dyudeni jumboqlari'};
+
+/* ---------- test oqimi ---------- */
+let si=0,qi=0,done=0,score=[],left=MIN*60,timer=null,memTimer=null,spdEnd=0;
+const flat=()=>SECTIONS[si].qs[qi];
+$('#t-go').onclick=()=>{const B=Date.now()%99991;SECTIONS.forEach(x=>{if(x.qs===matrices||x.gen==='m')x.qs=genMatrices(B),x.gen='m';else if(x.qs===spatial||x.gen==='s')x.qs=genSpatial(B),x.gen='s';else if(x.qs===speed||x.gen==='p')x.qs=genSpeed(B),x.gen='p'});si=0;qi=0;done=0;spdEnd=0;score=SECTIONS.map(()=>0);left=MIN*60;$('#t-start').hidden=true;$('#t-res').hidden=true;$('#t-run').hidden=false;
+  clearInterval(timer);timer=setInterval(()=>{left--;$('#t-time').textContent=`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`;if(left<=0)return finish();
+    if(spdEnd&&flat()&&flat().t==='spd'){const r=Math.ceil((spdEnd-Date.now())/1000);const el=$('#spd-t');if(el)el.textContent=Math.max(0,r);if(r<=0)skipSection()}},1000);show()};
+function skipSection(){done+=SECTIONS[si].qs.length-qi;si++;qi=0;if(si>=SECTIONS.length)return finish();show()}
+function next(ok){if(ok)score[si]++;done++;qi++;if(qi>=SECTIONS[si].qs.length){si++;qi=0}if(si>=SECTIONS.length)return finish();show()}
+function show(){
+  const s=SECTIONS[si],q=flat();clearTimeout(memTimer);
+  $('#t-sec').textContent=`${s.ic} ${si+1}-bo'lim: ${s.name}`;$('#t-num').textContent=`${done+1} / ${TOTAL}`;$('#t-bar').style.width=(done/TOTAL*100)+'%';
+  const box=$('#t-q');
+  if(q.t==='mc'){const o=shuf(q.o);box.innerHTML=`<div class="qtext">${esc(q.q)}</div><div class="opts">${o.map((x,i)=>`<button data-i="${i}">${String.fromCharCode(65+i)}) ${esc(x)}</button>`).join('')}</div>`;
+    box.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>next(o[b.dataset.i]===q.a));}
+  else if(q.t==='num'){box.innerHTML=`<div class="qtext">${esc(q.q)}</div><form class="row" id="nf"><input type="text" inputmode="decimal" id="na" autocomplete="off" aria-label="Javob"><button class="pri">Keyingi</button></form>`;
+    const i=$('#na');i.focus();$('#nf').onsubmit=e=>{e.preventDefault();const v=parseFloat(i.value.replace(',','.').replace(/\s/g,''));next(v===q.a)};}
+  else if(q.t==='fig'){box.innerHTML=`<div class="qtext">${esc(q.q)}</div><div class="mx">${q.cells.map(c=>`<div>${c}</div>`).join('')}<div class="q">?</div></div><div class="opts fig6">${q.o.map((x,i)=>`<button data-i="${i}" aria-label="Variant ${i+1}">${x}</button>`).join('')}</div>`;
+    box.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>next(q.o[b.dataset.i]===q.a));}
+  else if(q.t==='pick'){box.innerHTML=`<div class="qtext">${esc(q.q)}</div><div class="mx" style="grid-template-columns:minmax(0,120px)"><div>${q.show}</div></div><div class="opts fig6" style="grid-template-columns:repeat(4,minmax(0,1fr))">${q.o.map((x,i)=>`<button data-i="${i}" aria-label="Variant ${i+1}">${x}</button>`).join('')}</div>`;
+    box.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>next(q.o[b.dataset.i]===q.a));}
+  else if(q.t==='spd'){if(!spdEnd)spdEnd=Date.now()+SPD_SEC*1000;
+    box.innerHTML=`<div class="top"><div class="qtext">Chapdagi ikki belgidan biri o'ngdagi qatorda bormi?</div><b>⚡ <span id="spd-t">${Math.max(0,Math.ceil((spdEnd-Date.now())/1000))}</span> s</b></div>
+    <div class="row" style="font-size:clamp(30px,7vw,46px);align-items:center"><span style="border:2px solid var(--ink);border-radius:10px;padding:2px 12px">${q.tg.join(' ')}</span><span>→</span><span>${q.row.join(' ')}</span></div>
+    <div class="opts" style="grid-template-columns:1fr 1fr"><button data-v="1">✅ Ha, bor</button><button data-v="0">❌ Yo'q</button></div><p class="note">Iloji boricha tez javob bering: 2 daqiqada nechta to'g'ri topsangiz, shuncha ball.</p>`;
+    box.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>next((b.dataset.v==='1')===q.a));}
+  else{const ds=Array.from({length:q.n},()=>Math.floor(Math.random()*10));
+    box.innerHTML=`<div class="qtext">${q.n} ta raqam birma-bir chiqadi. Ularni eslab qoling va ${q.back?'<u>teskari tartibda</u>':'xuddi shu tartibda'} yozing.</div><div class="digit" id="dg">Tayyor…</div><div id="mi"></div>`;
+    let k=-1;const tick=()=>{k++;if(k<ds.length){$('#dg').textContent=ds[k];memTimer=setTimeout(()=>{$('#dg').textContent='';memTimer=setTimeout(tick,250)},900)}else{
+      $('#dg').textContent='?';$('#mi').innerHTML=`<form class="row" id="mf"><input type="text" inputmode="numeric" id="ma" autocomplete="off" aria-label="Raqamlar"><button class="pri">Tekshirish</button></form>`;
+      const i=$('#ma');i.focus();$('#mf').onsubmit=e=>{e.preventDefault();const want=(q.back?ds.slice().reverse():ds).join('');next(i.value.replace(/\D/g,'')===want)}}};
+    memTimer=setTimeout(tick,1200);}
+}
+const band=iq=>iq>=130?'Juda yuqori':iq>=120?'Yuqori':iq>=110?'O\'rtachadan yuqori':iq>=90?'O\'rtacha':iq>=80?'O\'rtachadan past':'Past';
+function finish(){
+  clearInterval(timer);clearTimeout(memTimer);
+  const raw=score.reduce((a,b)=>a+b,0),toIQ=p=>Math.max(55,Math.min(145,Math.round(100+15*(p-0.5)/0.18)));
+  const ix=Object.keys(INDEX).map(k=>{let g=0,n=0;SECTIONS.forEach((s,i)=>{if(s.ix===k){g+=score[i];n+=s.qs.length}});return[k,toIQ(g/n)]});
+  const iq=Math.round(ix.reduce((a,b)=>a+b[1],0)/ix.length);
+  try{const b=JSON.parse(localStorage.getItem('ka-iq-best')||'null');if(!b||iq>b.iq)localStorage.setItem('ka-iq-best',JSON.stringify({iq,date:new Date().toLocaleDateString('uz')}))}catch(e){}
+  let acc='';try{const A=window.kaAccount;if(A&&A.me()){A.addCoins(Math.min(200,raw),'IQ test');A.sendResult('IQ test (taxminiy IQ '+iq+')',raw,TOTAL);acc=`<p class="note">🪙 Akkauntingizga +${Math.min(200,raw)} coin yozildi, natija o'qituvchi jadvaliga yuborildi.</p>`}else if(A)acc=`<p class="note">Natija va coinlar saqlanishi uchun <a href="#akkount" onclick="kaAccount.open();return false">akkauntga kiring</a>.</p>`}catch(e){}
+  $('#t-run').hidden=true;const r=$('#t-res');r.hidden=false;
+  const pos=v=>((v-55)/90*100)+'%';
+  r.innerHTML=`<h2>Taxminiy natijangiz</h2><div class="card"><div class="top"><div><div class="big">${iq}</div><b>${band(iq)}</b></div><div class="stat">To'g'ri javoblar<b>${raw} / ${TOTAL}</b></div></div>
+  <div class="scale"><b style="left:${pos(iq)}"></b>${[55,70,85,100,115,130,145].map(v=>`<span style="left:${pos(v)}">${v}</span>`).join('')}</div>
+  <h3>5 ta indeks (WISC-V / WAIS-5 tuzilishi bo'yicha)</h3>${ix.map(([k,v])=>`<div class="bar">${k} · ${esc(INDEX[k])}<div><i style="width:${(v-55)/90*100}%"></i></div><span>${v}</span></div>`).join('')}
+  <p class="note">Eng kuchli tomoningiz: <b>${esc(INDEX[ix.slice().sort((a,b)=>b[1]-a[1])[0][0]])}</b> · Rivojlantirish kerak: <b>${esc(INDEX[ix.slice().sort((a,b)=>a[1]-b[1])[0][0]])}</b></p>
+  <h3>Bo'limlar bo'yicha</h3>${SECTIONS.map((s,i)=>`<div class="bar">${s.ic} ${esc(s.name)}<div><i style="width:${score[i]/s.qs.length*100}%"></i></div><span>${score[i]}/${s.qs.length}</span></div>`).join('')}
+  ${acc}<p class="warn" style="margin-top:16px">Bu natija taxminiy: test rasmiy normaga solinmagan. Aniq IQ uchun psixologga murojaat qiling.</p>
+  <div class="row"><button class="pri" id="t-again">Qaytadan topshirish</button><a class="btn" href="#viktorina">🎯 Viktorinaga o'tish</a></div></div>`;
+  $('#t-again').onclick=()=>{r.hidden=true;$('#t-start').hidden=false};
+}
+
+/* ---------- reyting ---------- */
+const top=[
+['Merilin vos Savant','Yozuvchi, AQSh',228,1,'1985–1989 yillarda Ginnes rekordlar kitobida qayd etilgan. Ginnes keyin bu toifani yopgan'],
+['Terens Tao','Matematik, Avstraliya/AQSh','225–230',1,'Bolaligida o\'lchangan deb aytiladi, tasdiqlanmagan. 2006-yil Filds mukofoti'],
+['Kristofer Xirata','Astrofizik, AQSh',225,1,'Bolaligida o\'lchangan deb xabar qilingan. 13 yoshda Xalqaro fizika olimpiadasi oltini'],
+['Kim Un Yon','Muhandis, Janubiy Koreya',210,1,'Ginnes kitobiga kiritilgan. 4 yoshida 4 tilda o\'qigan'],
+['Kristofer Langan','Mustaqil tadqiqotchi, AQSh','195–210',1,'Teleko\'rsatuv uchun neyropsixolog baholagan'],
+['Evangelos Katsulis','Shifokor, Gretsiya',198,1,'Yuqori IQ jamiyatlari testlari natijasi'],
+['Iogann Volfgang Gyote','Shoir, Germaniya',210,2,'Koks (1926) ro\'yxatida eng yuqori taxminlardan biri'],
+['Gotfrid Leybnits','Matematik, Germaniya',205,2,'Differensial hisob asoschilaridan biri'],
+['Blez Paskal','Matematik, Fransiya',195,2,'19 yoshida hisoblash mashinasini yasagan'],
+['Isaak Nyuton','Fizik, Angliya',190,2,'Tortishish qonuni, differensial hisob'],
+['Leonardo da Vinchi','Rassom va ixtirochi, Italiya','180–190',2,'Taxminlar mualliflarga qarab farq qiladi'],
+['Galileo Galiley','Astronom, Italiya',185,2,'Teleskop bilan osmonni kuzatgan'],
+['Rene Dekart','Faylasuf, Fransiya',180,2,'Koordinatalar tekisligi muallifi'],
+['Albert Eynshteyn','Fizik, Germaniya/AQSh',160,2,'Hech qachon IQ testi topshirmagan. 160 — keng tarqalgan taxmin'],
+['Stiven Xoking','Fizik, Angliya',160,2,'O\'zi IQ\'sini bilmasligini aytgan'],
+['Bobbi Fisher','Shaxmatchi, AQSh','180–187',1,'Maktabda o\'lchangan deb aytiladi, tasdiqlanmagan'],
+['Yudit Polgar','Shaxmatchi, Vengriya',170,1,'Matbuotda keltirilgan, tasdiqlanmagan'],
+['Garri Kasparov','Shaxmatchi, Rossiya',135,1,'1987-yilda jurnal uchun maxsus test topshirgan'],
+['Karl Fridrix Gauss','Matematik, Germaniya',250,3,'Internetdagi raqam, ilmiy manbasi yo\'q'],
+['Nikola Tesla','Ixtirochi, Serbiya/AQSh','160–310',3,'Turli saytlarda turlicha, ilmiy asosi yo\'q'],
+['Uilyam Jeyms Sidis','Vunderkind, AQSh','250–300',3,'Ko\'pincha keltiriladi, hech qanday hujjat yo\'q']
+];
+const tg=['','<span class="tag t1">Test natijasi</span>','<span class="tag">Tarixiy taxmin</span>','<span class="tag t3">Afsona</span>'];
+$('#r-tab tbody').innerHTML=top.map((x,i)=>`<tr><td>${i+1}</td><td><b>${esc(x[0])}</b></td><td>${esc(x[1])}</td><td class="n">${esc(x[2])}</td><td>${tg[x[3]]}</td><td>${esc(x[4])}</td></tr>`).join('');
+
+/* ---------- kitoblar ---------- */
+const BK=[
+['Know Your Own IQ («O\'z IQ\'ingni bil»)','Hans Ayzenk','1962','O\'quvchiga o\'z IQ\'sini mustaqil aniqlash imkonini bergan birinchi kitob. Hozir ham qayta nashr etiladi'],
+['Check Your Own IQ («IQ\'ingni tekshir»)','Hans Ayzenk','1960-yillar','Birinchi kitobning davomi: 5 ta yangi test, verbal, sonli va fazoviy IQ alohida'],
+['Test Your IQ («IQ\'ingni sina»)','Hans Ayzenk, Darrin Evans','1995','8 ta test to\'plami va IQ nima ekanini tushuntiruvchi qism'],
+['Test Your IQ: 400 New Tests','Ken Rassel, Filip Karter','2000','Mensa UK jumboq muharrirlari tuzgan 400 ta savol'],
+['Book of IQ Tests (1- va 2-kitob)','Ken Rassel, Filip Karter','2001–2002','Ish joyiga kirish testlariga tayyorlanish uchun ommabop'],
+['Mensa Challenge Your IQ','Filip Karter va boshqalar','2002','Mensa nomi bilan chiqqan mashhur jumboqlar to\'plami'],
+['The Complete Book of Intelligence Tests','Filip Karter','2005','500 ta mashq: mantiq, ijodkorlik, xotira, maxsus qobiliyatlar'],
+['The Times Book of IQ Tests (seriya)','Ken Rassel, Filip Karter','—','The Times gazetasi bilan birga chiqqan kitoblar seriyasi'],
+['The Ultimate IQ Test Book','Filip Karter, Ken Rassel','—','Ko\'p sonli mashq savollari, javoblari va izohlari bilan'],
+['The Mensa Genius Quiz-a-Day Book','Ebbi Salni','—','Har kun uchun bitta savol: bilim va mantiq aralash']
+];
+$('#b-tab').innerHTML=BK.map((x,i)=>`<tr><td>${i+1}</td><td><b>${esc(x[0])}</b></td><td>${esc(x[1])}</td><td>${esc(x[2])}</td><td>${esc(x[3])}</td></tr>`).join('');
+
+const AP=[['IQ Masters – Brain Games','Deep Flow Apps','10 mln+','Mantiq, xotira, diqqat o\'yinlari'],['Brain Test: Tricky Puzzles','Unico Studio','—','Hiyla-nayrangli jumboqlar'],['Brain Test All-Star: IQ Boost','Unico Studio','—','Qiyin jumboqlar'],['NeuroNation – Brain Training','NeuroNation','—','Xotira va diqqat mashqlari'],['IQ Test: Logic Brain Training','—','—','Mantiqiy savollar'],['Brain Games Offline – IQ Test','Fun Offline Games','—','Mantiqiy jumboqlar'],['IQ Test & Brain Training LEVO','Pawel Kieczko','—','IQ test va mashqlar'],['Matrix IQ – Adaptive IQ Test','—','—','Moslashuvchan matritsa testi'],['BrainIQ','—','—','Har safar yangi savollar'],['Logica – Math Logic & IQ Test','Invometa','—','Matematik mantiq']];
+$('#ap-tab').innerHTML=AP.map(x=>`<tr><td><b>${esc(x[0])}</b></td><td>${esc(x[1])}</td><td class="n">${esc(x[2])}</td><td>${esc(x[3])}</td></tr>`).join('');
+
+/* ---------- ajdodlar ---------- */
+const old=[
+['Muhammad al-Xorazmiy','783–850, Xiva','Algebra fanining asoschisi. "Algoritm" so\'zi uning nomidan, "algebra" esa kitobining nomidan olingan'],
+['Ahmad al-Farg\'oniy','797–865, Farg\'ona','Astronom. Yer o\'lchamlarini hisoblagan, Nil daryosida suv o\'lchagich (Miqyos) qurdirgan'],
+['Abu Nasr Forobiy','873–950, Forob','"Ikkinchi muallim" (Aristoteldan keyin). Falsafa, mantiq va musiqa nazariyasi'],
+['Abu Rayhon Beruniy','973–1048, Kat (Xorazm)','Yer radiusini tog\' cho\'qqisidan ufq burchagi orqali o\'lchagan. 150 dan ortiq asar yozgan'],
+['Abu Ali ibn Sino','980–1037, Buxoro yaqini (Afshona)','"Tib qonunlari" bir necha asr davomida Yevropa universitetlarida asosiy darslik bo\'lgan'],
+['Imom al-Buxoriy','810–870, Buxoro','600 mingga yaqin hadisni tekshirib, eng ishonchlilarini "Sahih al-Buxoriy" ga jamlagan'],
+['Mirzo Ulug\'bek','1394–1449, Samarqand','Rasadxona qurgan, 1018 yulduz jadvali "Zij-i Ko\'ragoniy" ni tuzgan'],
+['G\'iyosiddin Jamshid Koshiy','1380–1429, Samarqandda ishlagan','π sonini 16 xona aniqlikda hisoblagan, o\'nli kasrlarni tizimlagan'],
+['Ali Qushchi','1403–1474, Samarqand','Ulug\'bek rasadxonasida ishlagan astronom va matematik'],
+['Alisher Navoiy','1441–1501, Hirot','O\'zbek adabiy tilining asoschisi. "Xamsa" va 3000 dan ortiq g\'azal muallifi'],
+['Zahiriddin Muhammad Bobur','1483–1530, Andijon','"Boburnoma" muallifi, Boburiylar saltanati asoschisi']
+];
+const nw=[
+['Toshmuhammad Qori-Niyoziy','1897–1970','Matematik, O\'zbekiston Fanlar akademiyasining birinchi prezidenti'],
+['Tashmuhammad Sarimsoqov','1915–1995','Ehtimollar nazariyasi va topologiya bo\'yicha olim, akademik'],
+['Sirojiddin Sirojiddinov','1920–1988','Ehtimollar nazariyasi bo\'yicha taniqli matematik, akademik'],
+['Vosil Qobulov','1921–2010','O\'zbekistonda kibernetika va informatika maktabining asoschisi'],
+['Shavkat Ayupov','1952-yilda tug\'ilgan','Funksional analiz bo\'yicha akademik, Matematika instituti rahbari bo\'lgan']
+];
+const pc=a=>a.map(([n,d,t])=>`<div class="card"><h3>${esc(n)}</h3><div class="note">${esc(d)}</div><p>${esc(t)}</p><span class="tag">IQ: o'lchanmagan</span></div>`).join('');
+$('#a-old').innerHTML=pc(old);$('#a-new').innerHTML=pc(nw);
+
+/* ---------- sportchilar ---------- */
+const sp=[['4','Javohir Sindarov','2005','2782','2026-yil Nomzodlar turniri g\'olibi; jahon chempionligi uchun Gukesh bilan o\'ynaydi'],['5','Nodirbek Abdusattorov','2004','2772','Samarqand Olimpiadasida 1-doskada oltin medal'],['26','Nodirbek Yakubboyev','2002','2712','Oktabr 2026: birinchi marta 2700 dan oshgan'],['1','Magnus Karlsen (taqqoslash uchun)','1990','2823','Dunyo reytingi yetakchisi']];
+$('#s-tab').innerHTML=sp.map(x=>`<tr><td class="n">${x[0]}</td><td><b>${esc(x[1])}</b></td><td>${x[2]}</td><td class="n">${x[3]}</td><td>${esc(x[4])}</td></tr>`).join('');
+
+/* ---------- klassik mashq ---------- */
+$('#c-h').textContent=`Klassik IQ to'plami: ${CLASSIC.length} ta savol`;
+let cg='all',cl=[],ci=0,cs=0;
+$('#c-groups').innerHTML=Object.entries(CGROUPS).map(([k,v])=>`<button data-g="${k}">${esc(v)} (${k==='all'?CLASSIC.length:CLASSIC.filter(x=>x.g===k).length})</button>`).join('');
+document.querySelectorAll('#c-groups button').forEach(b=>b.onclick=()=>cstart(b.dataset.g));
+function cstart(g){cg=g;cl=(g==='all'?CLASSIC:CLASSIC.filter(x=>x.g===g)).slice();ci=0;cs=0;
+  document.querySelectorAll('#c-groups button').forEach(b=>b.classList.toggle('pri',b.dataset.g===g));cshow()}
+function cfb(ok,q){const fb=$('#c-fb');fb.innerHTML=`<p><b>${ok?'✅ To\'g\'ri!':'❌ To\'g\'ri javob: '+esc(String(q.a).replace('.',','))}</b>${q.e?'<br>'+esc(q.e):''}</p><button class="pri" id="c-next">Keyingi</button>`;if(ok)cs++;$('#c-score').textContent=`Ball: ${cs}`;$('#c-next').onclick=()=>{ci++;cshow()};$('#c-next').focus()}
+function cshow(){
+  $('#c-bar').style.width=(ci/cl.length*100)+'%';
+  if(ci>=cl.length){$('#c-q').innerHTML=`<h2>Natija: ${cs} / ${cl.length}</h2><div class="row"><button class="pri" id="c-again">Qaytadan</button></div>`;$('#c-again').onclick=()=>cstart(cg);return}
+  const q=cl[ci];$('#c-num').textContent=`Savol ${ci+1} / ${cl.length}`;$('#c-score').textContent=`Ball: ${cs}`;
+  const src=`<p class="note">📖 Manba: ${esc(q.src)}</p>`;
+  if(q.t==='mc'){const o=shuf(q.o);$('#c-q').innerHTML=`<div class="qtext">${esc(q.q)}</div><div class="opts">${o.map((x,i)=>`<button data-i="${i}">${String.fromCharCode(65+i)}) ${esc(x)}</button>`).join('')}</div>${src}<div id="c-fb"></div>`;
+    const bs=$('#c-q').querySelectorAll('.opts button');bs.forEach(b=>b.onclick=()=>{const ok=o[b.dataset.i]===q.a;bs.forEach(x=>{x.disabled=true;if(o[x.dataset.i]===q.a)x.classList.add('right')});if(!ok)b.classList.add('wrong');cfb(ok,q)});}
+  else{$('#c-q').innerHTML=`<div class="qtext">${esc(q.q)}</div><form class="row" id="cf"><input type="text" inputmode="decimal" id="ca" autocomplete="off" aria-label="Javob"><button class="pri">Tekshirish</button></form>${src}<div id="c-fb"></div>`;
+    $('#cf').onsubmit=e=>{e.preventDefault();if($('#c-fb').innerHTML)return;const v=parseFloat($('#ca').value.replace(',','.').replace(/\s/g,''));cfb(v===q.a,q)};}
+}
+cstart('all');
+
+/* ---------- viktorina ---------- */
+const VK=[
+['IQ qisqartmasi nimani anglatadi?',['Intellekt koeffitsiyenti','Ichki quvvat','Ilmiy daraja','Individual qobiliyat']],
+['Birinchi zamonaviy aql testini kim yaratgan (1905)?',['Alfred Bine','Devid Veksler','Jon Raven','Zigmund Freyd']],
+['IQ shkalasida o\'rtacha ball nechaga teng?',['100','50','120','150']],
+['Veksler shkalasida standart og\'ish necha ball?',['15','10','20','5']],
+['Odamlarning taxminan qancha qismi 85–115 oralig\'ida?',['68%','50%','95%','30%']],
+['"Flinn effekti" nima?',['IQ ballarining avloddan avlodga o\'sishi','Xotiraning yoshga qarab pasayishi','Testni ikki marta topshirish','Ko\'rish xotirasi']],
+['WAIS testi muallifi kim?',['Devid Veksler','Alfred Bine','Lyuis Termen','Jan Piaje']],
+['Raven testi qanday test?',['Neverbal matritsa testi','So\'z boyligi testi','Matematik test','Xotira testi']],
+['Mensa klubiga kirish uchun qaysi guruhga kirish kerak?',['Eng yuqori 2%','Eng yuqori 10%','Eng yuqori 25%','O\'rtacha 50%']],
+['Qaysi atama al-Xorazmiy nomidan kelib chiqqan?',['Algoritm','Arifmetika','Geometriya','Statistika']],
+['"Zij-i Ko\'ragoniy" asarining muallifi kim?',['Mirzo Ulug\'bek','Ibn Sino','Beruniy','Navoiy']],
+['"Tib qonunlari" kimning asari?',['Ibn Sino','Forobiy','Al-Farg\'oniy','Bobur']],
+['3 ta mushuk 3 daqiqada 3 ta sichqon tutadi. 100 ta mushuk 100 ta sichqonni necha daqiqada tutadi?',['3','100','33','1']],
+['Kitob va ruchka birga 1 100 so\'m. Kitob ruchkadan 1 000 so\'m qimmat. Ruchka necha so\'m?',['50','100','10','550']],
+['Ko\'ldagi nilufar har kuni 2 baravar kattalashadi va 48 kunda ko\'lni to\'liq qoplaydi. Yarmini necha kunda qoplaydi?',['47','24','46','12']],
+['5 ta dastgoh 5 daqiqada 5 ta detal yasaydi. 100 ta dastgoh 100 ta detalni necha daqiqada yasaydi?',['5','100','20','1']],
+['Qaysi son ortiqcha: 2, 3, 5, 9, 11?',['9','2','11','5']],
+['Ba\'zi A lar B. Barcha B lar C. Qaysi xulosa to\'g\'ri?',['Ba\'zi A lar C','Barcha A lar C','Hech bir A C emas','Barcha C lar A']],
+['Beruniy Yer radiusini qanday o\'lchagan?',['Tog\' cho\'qqisidan ufq burchagini o\'lchab','Quduqqa tushgan soya orqali','Kema bilan aylanib','Oy tutilishini kuzatib']],
+['Javohir Sindarov 2026-yil jahon chempionligi uchun kim bilan o\'ynaydi?',['Gukesh Dommaraju','Magnus Karlsen','Hikaru Nakamura','Fabiano Karuana']],
+['Lyuis Termen Stanford–Binet testini qaysi yili nashr etgan?',['1916','1905','1939','1950']],
+['IQ\'si 130 dan yuqori odamlar aholining taxminan necha foizini tashkil qiladi?',['2%','10%','25%','0,1%']],
+['"Suyuq intellekt" nima?',['Yangi muammolarni yechish qobiliyati','To\'plangan bilimlar','So\'z boyligi','Jismoniy chaqqonlik']],
+['"Kristallangan intellekt" nima?',['To\'plangan bilim va tajriba','Tez fikrlash','Ko\'rish xotirasi','Hissiy intellekt']],
+['Charlz Spirmen taklif qilgan umumiy aql omili qaysi harf bilan belgilanadi?',['g','s','q','i']],
+['Govard Gardnerning nazariyasi qanday ataladi?',['Ko\'p intellekt nazariyasi','Ikki omil nazariyasi','Uch qatlam nazariyasi','Bosqichlar nazariyasi']],
+['WISC-V testi qaysi yoshdagilar uchun?',['6–16 yosh','2–7 yosh','16–90 yosh','Faqat kattalar']],
+['Inson miyasida taxminan nechta neyron bor?',['86 milliard','1 milliard','860 million','10 trillion']],
+['Miya organizm energiyasining taxminan qancha qismini sarflaydi?',['20%','2%','50%','5%']],
+['π sonini 16 xona aniqlikda hisoblagan samarqandlik olim kim?',['Jamshid Koshiy','Ali Qushchi','Qozizoda Rumiy','Forobiy']],
+['Ahmad al-Farg\'oniy Yevropada qanday nom bilan mashhur?',['Alfraganus','Avitsenna','Algoritmi','Alfarabius']],
+['Ibn Sino Yevropada qanday nom bilan tanilgan?',['Avitsenna','Averroes','Alfraganus','Alxazen']],
+['"Hindiston" asarining muallifi kim?',['Beruniy','Bobur','Navoiy','Xorazmiy']],
+['Forobiyga qanday faxriy nom berilgan?',['Ikkinchi muallim','Shayx ur-rais','Sohibqiron','Mirzo']],
+['"Boburnoma" kimning asari?',['Zahiriddin Muhammad Bobur','Alisher Navoiy','Mirzo Ulug\'bek','Husayn Boyqaro']],
+['Ali Qushchi qayerda ishlagan?',['Ulug\'bek rasadxonasida','Bag\'doddagi Bayt ul-hikmada','Buxoro madrasasida','Hirot saroyida']],
+['1 dan 100 gacha bo\'lgan barcha sonlar yig\'indisi nechaga teng?',['5050','5000','10100','4950']],
+['Soat 6 marta 5 soniyada zang uradi. 12 marta necha soniyada uradi?',['11','10','12','14']],
+['Oilada 4 aka-uka bor, ularning har birining bitta singlisi bor. Oilada nechta farzand bor?',['5','8','4','6']],
+['Nechta oyda 28 kun bor?',['Hamma 12 oyda','Faqat fevralda','2 ta oyda','6 ta oyda']],
+['Qatorni davom ettiring: 1, 3, 6, 10, 15, ?',['21','20','25','18']],
+['3 ta tuxum bitta qozonda birga pishiriladi. Bitta tuxum 4 daqiqada pishsa, 3 tasi necha daqiqada pishadi?',['4','12','8','6']],
+['Qaysi biri ortiqcha: uchburchak, kvadrat, beshburchak, doira, oltiburchak?',['Doira','Kvadrat','Beshburchak','Uchburchak']],
+['O\'ng qo\'l qo\'lqopini ko\'zguga tutsak, ko\'zguda qanday qo\'lqop ko\'rinadi?',['Chap qo\'l qo\'lqopi','O\'ng qo\'l qo\'lqopi','Ikkalasi','Teskari o\'ng']],
+['Yugurishda 2-o\'rindagini quvib o\'tdingiz. Endi nechanchi o\'rindasiz?',['2-o\'rinda','1-o\'rinda','3-o\'rinda','Oxirgi o\'rinda']],
+['Stolda 3 ta olma bor edi. Siz 2 tasini oldingiz. Sizda nechta olma bor?',['2','1','3','5']],
+['Agar barcha Q lar R bo\'lsa va hech bir R S bo\'lmasa, unda:',['Hech bir Q S emas','Ba\'zi Q lar S','Barcha S lar Q','Barcha R lar Q']],
+['Javohir Sindarov qaysi yili tug\'ilgan?',['2005','2004','2002','2007']],
+['46-Butunjahon shaxmat olimpiadasi 2026-yilda qaysi shaharda bo\'lib o\'tdi?',['Samarqand','Toshkent','Buxoro','Budapesht']],
+['2026-yil noyabr FIDE ro\'yxatida Magnus Karlsen nechanchi o\'rinda?',['1-o\'rinda','2-o\'rinda','4-o\'rinda','5-o\'rinda']]
+].map(([q,o])=>({q,o,a:o[0]}));
+let ki=0,ks=0;
+function vk(){
+  if(ki>=VK.length){$('#k-bar').style.width='100%';try{const A=window.kaAccount;if(A&&A.me()){A.addCoins(ks,'IQ viktorina');A.sendResult('IQ viktorina',ks,VK.length)}}catch(e){}$('#k-q').innerHTML=`<h2>Natija: ${ks} / ${VK.length}</h2><p>${ks>=VK.length*0.85?'Ajoyib! Siz haqiqiy bilimdonsiz.':ks>=VK.length*0.6?'Yaxshi natija!':'Yana bir urinib ko\'ring.'}</p><div class="row"><button class="pri" id="k-again">Qaytadan</button><a class="btn" href="#test">🧠 IQ testga o'tish</a></div>`;$('#k-again').onclick=()=>{ki=0;ks=0;vk()};return}
+  const q=VK[ki],o=shuf(q.o);$('#k-num').textContent=`Savol ${ki+1} / ${VK.length}`;$('#k-score').textContent=`Ball: ${ks}`;$('#k-bar').style.width=(ki/VK.length*100)+'%';
+  $('#k-q').innerHTML=`<div class="qtext">${esc(q.q)}</div><div class="opts">${o.map((x,i)=>`<button data-i="${i}">${String.fromCharCode(65+i)}) ${esc(x)}</button>`).join('')}</div><div id="k-fb" class="row"></div>`;
+  const bs=$('#k-q').querySelectorAll('.opts button');
+  bs.forEach(b=>b.onclick=()=>{const ok=o[b.dataset.i]===q.a;if(ok)ks++;bs.forEach(x=>{x.disabled=true;if(o[x.dataset.i]===q.a)x.classList.add('right')});if(!ok)b.classList.add('wrong');
+    $('#k-fb').innerHTML=`<b>${ok?'✅ To\'g\'ri!':'❌ To\'g\'ri javob: '+esc(q.a)}</b><button class="pri" id="k-next">Keyingi</button>`;$('#k-next').onclick=()=>{ki++;vk()};$('#k-next').focus()});
+}
+vk();
+}
+</script>
+<script src="akkount.js"></script>
+</body>
+</html>
